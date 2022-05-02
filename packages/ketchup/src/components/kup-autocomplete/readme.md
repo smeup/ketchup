@@ -114,6 +114,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-autocomplete --> kup-list
+  kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-badge
   kup-badge --> kup-badge

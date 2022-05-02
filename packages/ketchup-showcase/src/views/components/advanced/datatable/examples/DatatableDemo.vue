@@ -56,10 +56,6 @@ export default {
           type: 'CustomEvent',
         },
         {
-          name: 'kup-datatable-autorowselect',
-          type: 'CustomEvent',
-        },
-        {
           name: 'kup-datatable-rowselected',
           type: 'CustomEvent',
         },
@@ -117,6 +113,10 @@ export default {
           name: 'getProps',
           description:
             "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'getSelectedRows',
+          description: 'Returns the selected rows of the component.',
         },
         {
           name: 'hideColumn',
@@ -422,20 +422,6 @@ export default {
           description: 'Set the type of the rows selection.',
           type: 'SelectionMode',
           default: 'single',
-          try: 'field',
-        },
-        {
-          prop: 'selectRow',
-          description: 'Selects the specified row.',
-          type: 'number',
-          default: 'undefined',
-          try: 'field',
-        },
-        {
-          prop: 'selectRowsById',
-          description: 'Semicolon separated rows id to select.',
-          type: 'string',
-          default: 'undefined',
           try: 'field',
         },
         {

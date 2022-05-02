@@ -38,7 +38,6 @@ import {
     iconColumn,
     keyColumn,
     SelectionMode,
-    KupDatatableAutoRowSelectEventPayload,
     KupDatatableRowSelectedEventPayload,
     KupDatatableClickEventPayload,
     KupDatatableColumnMenuEventPayload,
@@ -68,12 +67,11 @@ import {
 import {
     numberToFormattedStringNumber,
     identify,
-    deepEqual,
     getProps,
     setProps,
 } from '../../utils/utils';
 import {
-    KupListData,
+    KupListNode,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
 import {
@@ -211,8 +209,6 @@ export class KupDataTable {
                 this.pageSelected = state.pageSelected;
                 this.sortableColumnsMutateData =
                     state.sortableColumnsMutateData;
-                this.selectRow = state.selectRow;
-                this.selectRowsById = state.selectRowsById;
                 this.dragEnabled = state.dragEnabled;
                 this.dropEnabled = state.dropEnabled;
                 this.showFooter = state.showFooter;
@@ -224,34 +220,59 @@ export class KupDataTable {
     persistState(): void {
         if (this.store && this.stateId) {
             let somethingChanged = false;
-            if (!deepEqual(this.state.filters, this.filters)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.filters,
+                    this.filters
+                )
+            ) {
                 this.state.filters = { ...this.filters };
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.groups, this.groups)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.groups,
+                    this.groups
+                )
+            ) {
                 this.state.groups = [...this.groups];
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.sort, this.sort)) {
+            if (
+                !this.kupManager.objects.deepEqual(this.state.sort, this.sort)
+            ) {
                 this.state.sort = [...this.sort];
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.expandGroups, this.expandGroups)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.expandGroups,
+                    this.expandGroups
+                )
+            ) {
                 this.state.expandGroups = this.expandGroups;
                 somethingChanged = true;
             }
             if (
-                !deepEqual(this.state.groupLabelDisplay, this.groupLabelDisplay)
+                !this.kupManager.objects.deepEqual(
+                    this.state.groupLabelDisplay,
+                    this.groupLabelDisplay
+                )
             ) {
                 this.state.groupLabelDisplay = this.groupLabelDisplay;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.density, this.density)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.density,
+                    this.density
+                )
+            ) {
                 this.state.density = this.density;
                 somethingChanged = true;
             }
             if (
-                !deepEqual(
+                !this.kupManager.objects.deepEqual(
                     this.state.enableExtraColumns,
                     this.enableExtraColumns
                 )
@@ -260,7 +281,7 @@ export class KupDataTable {
                 somethingChanged = true;
             }
             if (
-                !deepEqual(
+                !this.kupManager.objects.deepEqual(
                     this.state.enableSortableColumns,
                     this.enableSortableColumns
                 )
@@ -268,22 +289,35 @@ export class KupDataTable {
                 this.state.enableSortableColumns = this.enableSortableColumns;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.forceOneLine, this.forceOneLine)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.forceOneLine,
+                    this.forceOneLine
+                )
+            ) {
                 this.state.forceOneLine = this.forceOneLine;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.globalFilter, this.globalFilter)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.globalFilter,
+                    this.globalFilter
+                )
+            ) {
                 this.state.globalFilter = this.globalFilter;
                 somethingChanged = true;
             }
             if (
-                !deepEqual(this.state.globalFilterValue, this.globalFilterValue)
+                !this.kupManager.objects.deepEqual(
+                    this.state.globalFilterValue,
+                    this.globalFilterValue
+                )
             ) {
                 this.state.globalFilterValue = this.globalFilterValue;
                 somethingChanged = true;
             }
             if (
-                !deepEqual(
+                !this.kupManager.objects.deepEqual(
                     this.state.headerIsPersistent,
                     this.headerIsPersistent
                 )
@@ -291,44 +325,89 @@ export class KupDataTable {
                 this.state.headerIsPersistent = this.headerIsPersistent;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.lazyLoadRows, this.lazyLoadRows)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.lazyLoadRows,
+                    this.lazyLoadRows
+                )
+            ) {
                 this.state.lazyLoadRows = this.lazyLoadRows;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.loadMoreLimit, this.loadMoreLimit)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.loadMoreLimit,
+                    this.loadMoreLimit
+                )
+            ) {
                 this.state.loadMoreLimit = this.loadMoreLimit;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.selection, this.selection)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.selection,
+                    this.selection
+                )
+            ) {
                 this.state.selection = this.selection;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.rowsPerPage, this.currentRowsPerPage)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.rowsPerPage,
+                    this.currentRowsPerPage
+                )
+            ) {
                 this.state.rowsPerPage = this.currentRowsPerPage;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.showFilters, this.showFilters)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.showFilters,
+                    this.showFilters
+                )
+            ) {
                 this.state.showFilters = this.showFilters;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.showGroups, this.showGroups)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.showGroups,
+                    this.showGroups
+                )
+            ) {
                 this.state.showGroups = this.showGroups;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.showHeader, this.showHeader)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.showHeader,
+                    this.showHeader
+                )
+            ) {
                 this.state.showHeader = this.showHeader;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.showLoadMore, this.showLoadMore)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.showLoadMore,
+                    this.showLoadMore
+                )
+            ) {
                 this.state.showLoadMore = this.showLoadMore;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.sortEnabled, this.sortEnabled)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.sortEnabled,
+                    this.sortEnabled
+                )
+            ) {
                 this.state.sortEnabled = this.sortEnabled;
                 somethingChanged = true;
             }
             if (
-                !deepEqual(
+                !this.kupManager.objects.deepEqual(
                     this.state.sortableColumnsMutateData,
                     this.sortableColumnsMutateData
                 )
@@ -337,28 +416,53 @@ export class KupDataTable {
                     this.sortableColumnsMutateData;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.pageSelected, this.currentPage)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.pageSelected,
+                    this.currentPage
+                )
+            ) {
                 this.state.pageSelected = this.currentPage;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.dragEnabled, this.dragEnabled)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.dragEnabled,
+                    this.dragEnabled
+                )
+            ) {
                 this.state.dragEnabled = this.dragEnabled;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.dropEnabled, this.dropEnabled)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.dropEnabled,
+                    this.dropEnabled
+                )
+            ) {
                 this.state.dropEnabled = this.dropEnabled;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.showFooter, this.showFooter)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.showFooter,
+                    this.showFooter
+                )
+            ) {
                 this.state.showFooter = this.showFooter;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.totals, this.totals)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.totals,
+                    this.totals
+                )
+            ) {
                 this.state.totals = { ...this.totals };
                 somethingChanged = true;
             }
             if (
-                !deepEqual(
+                !this.kupManager.objects.deepEqual(
                     this.state.selectRowsById,
                     this.selectedRows.reduce(
                         (accumulator, row, currentIndex) => {
@@ -566,14 +670,6 @@ export class KupDataTable {
      * Set the type of the rows selection.
      */
     @Prop() selection: SelectionMode = SelectionMode.SINGLE;
-    /**
-     * Selects the row at the specified rendered rows prosition (base 1).
-     */
-    @Prop() selectRow: number;
-    /**
-     * Semicolon separated rows id to select.
-     */
-    @Prop() selectRowsById: string;
     /**
      * If set to true, displays the button to open the customization panel.
      */
@@ -871,17 +967,6 @@ export class KupDataTable {
     kupResetSelectedRows: EventEmitter<KupEventPayload>;
 
     /**
-     * When a row is auto selected via selectRow prop
-     */
-    @Event({
-        eventName: 'kup-datatable-autorowselect',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupAutoRowSelect: EventEmitter<KupDatatableAutoRowSelectEventPayload>;
-
-    /**
      * When a row is selected
      */
     @Event({
@@ -1011,14 +1096,19 @@ export class KupDataTable {
         return getProps(this, KupDataTableProps, descriptions);
     }
     /**
+     * This method will get the selected rows of the component.
+     */
+    @Method()
+    async getSelectedRows(): Promise<Array<KupDataTableRow>> {
+        return this.selectedRows;
+    }
+    /**
      * Hides the given column.
      * @param {KupDataColumn} column - Column to hide.
      */
     @Method()
     async hideColumn(column: KupDataColumn): Promise<void> {
-        this.kupManager.data.datasetOperations.column.hide(this.data, [
-            column.name,
-        ]);
+        this.kupManager.data.column.hide(this.data, [column.name]);
         this.kupColumnRemove.emit({
             comp: this,
             id: this.rootElement.id,
@@ -1037,7 +1127,7 @@ export class KupDataTable {
         type: KupDataNewColumnTypes,
         options: KupDataNewColumnOptions
     ): Promise<string | KupDataColumn> {
-        const result = this.kupManager.data.datasetOperations.column.new(
+        const result = this.kupManager.data.column.new(
             this.data,
             type,
             options
@@ -1159,21 +1249,26 @@ export class KupDataTable {
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupDataTableProps, props);
     }
+
     /**
      * This method will set the selected rows of the component.
-     * @param {string} rowsById - String containing the ids separated by ";".
+     * @param {string|number[]} rowsIdentifiers - Array of ids (dataset) or indexes (rendered rows).
      * @param {boolean} emitEvent - The event will always be emitted unless emitEvent is set to false.
      */
     @Method()
     async setSelectedRows(
-        rowsById: string,
+        rowsIdentifiers: string[] | number[],
         emitEvent?: boolean
     ): Promise<void> {
         this.selectedRows = [];
-        if (rowsById) {
-            this.selectedRows = this.renderedRows.filter((r) => {
-                return rowsById.split(';').indexOf(r.id) >= 0;
-            });
+        for (let index = 0; index < rowsIdentifiers.length; index++) {
+            const id = rowsIdentifiers[index];
+            if (typeof id === 'number') {
+                this.selectedRows.push(this.renderedRows[id]);
+            } else {
+                const row = this.renderedRows.find((row) => row.id === id);
+                this.selectedRows.push(row);
+            }
         }
 
         if (emitEvent !== false) {
@@ -1412,10 +1507,7 @@ export class KupDataTable {
         if (column) {
             this.filters = {};
         }
-        return this.kupManager.data.datasetOperations.transpose(
-            this.data,
-            column
-        );
+        return this.kupManager.data.transpose(this.data, column);
     }
 
     private stickyHeaderPosition = () => {
@@ -1820,9 +1912,18 @@ export class KupDataTable {
         }
         if (this.dropEnabled) {
             const dataCb: KupDropDataTransferCallback = () => {
-                const receivingDetails = this.getEventDetails([
-                    this.rootElement.shadowRoot.querySelector('td:hover'),
-                ]);
+                const cell =
+                    this.rootElement.shadowRoot.querySelector('td:hover');
+                if (!cell) {
+                    this.kupManager.debug.logMessage(
+                        this,
+                        "Couldn't find cell hovered to retrieve dropzone informations!",
+                        KupDebugCategory.WARNING
+                    );
+                    return;
+                }
+                const path = this.getEventPath(cell);
+                const receivingDetails = this.getEventDetails(path);
                 return {
                     cell: receivingDetails.cell,
                     column: receivingDetails.column,
@@ -2052,19 +2153,6 @@ export class KupDataTable {
         this.didLoadObservers();
         this.didLoadEventHandling();
         this.didLoadInteractables();
-        if (this.selectRowsById) {
-            this.setSelectedRows(this.selectRowsById);
-        } else if (this.selectRow && this.selectRow > 0) {
-            if (this.selectRow <= this.renderedRows.length) {
-                this.selectedRows = [];
-                this.selectedRows.push(this.renderedRows[this.selectRow - 1]);
-                this.kupAutoRowSelect.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    selectedRow: this.selectedRows[0],
-                });
-            }
-        }
         this.lazyLoadCells = true;
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
         this.kupManager.resize.observe(this.rootElement);
@@ -2073,10 +2161,8 @@ export class KupDataTable {
 
     //======== Utility methods ========
 
-    private getEventPath(e: PointerEvent): HTMLElement[] {
+    private getEventPath(currentEl: unknown): HTMLElement[] {
         let path: HTMLElement[] = [];
-
-        let currentEl: unknown = e.target as HTMLElement;
         while (
             currentEl &&
             currentEl !== this.rootElement &&
@@ -2418,7 +2504,7 @@ export class KupDataTable {
 
     private clickHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.getEventDetails(
-            this.getEventPath(e)
+            this.getEventPath(e.target)
         );
         if (details.area === 'header') {
             if (details.th && details.column) {
@@ -2463,7 +2549,7 @@ export class KupDataTable {
         e: PointerEvent
     ): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.getEventDetails(
-            this.getEventPath(e)
+            this.getEventPath(e.target)
         );
         if (details.area === 'header') {
             if (details.th && details.column) {
@@ -2502,7 +2588,7 @@ export class KupDataTable {
 
     private dblClickHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.getEventDetails(
-            this.getEventPath(e)
+            this.getEventPath(e.target)
         );
         if (details.area === 'body') {
             if (this.selection == SelectionMode.MULTIPLE) {
@@ -3861,69 +3947,60 @@ export class KupDataTable {
                 }
 
                 if (this.isOpenedTotalMenuForColumn(column.name)) {
-                    const listData: KupListData[] = [
+                    const listData: KupListNode[] = [
                         {
-                            text: translation[TotalLabel.COUNT],
-                            value: TotalMode.COUNT,
-                            selected: false,
+                            id: TotalMode.COUNT,
+                            value: translation[TotalLabel.COUNT],
                         },
                         {
-                            text: translation[TotalLabel.DISTINCT],
-                            value: TotalMode.DISTINCT,
-                            selected: false,
+                            id: TotalMode.DISTINCT,
+                            value: translation[TotalLabel.DISTINCT],
                         },
                     ];
                     if (this.kupManager.objects.isNumber(column.obj)) {
                         // TODO Move these objects in declarations
                         listData.push(
                             {
-                                text: translation[TotalLabel.SUM],
-                                value: TotalMode.SUM,
-                                selected: false,
+                                id: TotalMode.SUM,
                                 separator: true,
+                                value: translation[TotalLabel.SUM],
                             },
                             {
-                                text: translation[TotalLabel.AVERAGE],
-                                value: TotalMode.AVERAGE,
-                                selected: false,
+                                id: TotalMode.AVERAGE,
+                                value: translation[TotalLabel.AVERAGE],
                             },
                             {
-                                text: translation[TotalLabel.MIN],
-                                value: TotalMode.MIN,
-                                selected: false,
+                                id: TotalMode.MIN,
+                                value: translation[TotalLabel.MIN],
                             },
                             {
-                                text: translation[TotalLabel.MAX],
-                                value: TotalMode.MAX,
-                                selected: false,
+                                id: TotalMode.MAX,
+                                value: translation[TotalLabel.MAX],
                             }
                         );
                     } else if (this.kupManager.objects.isDate(column.obj)) {
                         listData.push(
                             {
-                                text: translation[TotalLabel.MIN],
-                                value: TotalMode.MIN,
-                                selected: false,
+                                id: TotalMode.MIN,
                                 separator: true,
+                                value: translation[TotalLabel.MIN],
                             },
                             {
-                                text: translation[TotalLabel.MAX],
-                                value: TotalMode.MAX,
-                                selected: false,
+                                id: TotalMode.MAX,
+                                value: translation[TotalLabel.MAX],
                             }
                         );
                     }
                     if (this.totals) {
-                        const selectedItem: KupListData = listData.find(
+                        const selectedItem: KupListNode = listData.find(
                             (item) => item.value === this.totals[column.name]
                         );
                         if (selectedItem) {
                             selectedItem.selected = true;
                             listData.push({
-                                text: translation[TotalLabel.CANC],
-                                value: TotalLabel.CANC,
-                                selected: false,
+                                id: TotalLabel.CANC,
                                 separator: true,
+                                value: translation[TotalLabel.CANC],
                             });
                         }
                     }
@@ -4431,6 +4508,7 @@ export class KupDataTable {
             const rowClass = {
                 selected: this.selectedRows.includes(row),
             };
+
             if (row.cssClass) {
                 rowClass[row.cssClass] = true;
             }
@@ -4737,45 +4815,45 @@ export class KupDataTable {
         codes: Array<string>,
         icons: Array<string>,
         selectedCode: string
-    ): KupListData[] {
-        const listItems: KupListData[] = [];
+    ): KupListNode[] {
+        const listItems: KupListNode[] = [];
         for (let i = 0; i < codes.length; i++) {
-            let text: KupLanguageKey = null;
+            let value: KupLanguageKey = null;
             switch (codes[i]) {
                 //This whole customization panel thingy must be purged, for now -- it's ugly
                 case 'big':
-                    text = KupLanguageFontsize.BIG;
+                    value = KupLanguageFontsize.BIG;
                     break;
                 case 'Col':
-                    text = KupLanguageGrid.COLUMN;
+                    value = KupLanguageGrid.COLUMN;
                     break;
                 case 'Complete':
-                    text = KupLanguageGrid.COMPLETE;
+                    value = KupLanguageGrid.COMPLETE;
                     break;
                 case 'dense':
-                    text = KupLanguageDensity.DENSE;
+                    value = KupLanguageDensity.DENSE;
                     break;
                 case 'medium':
-                    text = KupLanguageDensity.MEDIUM;
+                    value = KupLanguageDensity.MEDIUM;
                     break;
                 case 'None':
-                    text = KupLanguageGrid.NONE;
+                    value = KupLanguageGrid.NONE;
                     break;
                 case 'small':
-                    text = KupLanguageFontsize.SMALL;
+                    value = KupLanguageFontsize.SMALL;
                     break;
                 case 'Row':
-                    text = KupLanguageGrid.ROW;
+                    value = KupLanguageGrid.ROW;
                     break;
                 case 'wide':
-                    text = KupLanguageDensity.WIDE;
+                    value = KupLanguageDensity.WIDE;
                     break;
             }
             listItems[i] = {
-                text: this.kupManager.language.translate(text),
-                value: codes[i],
-                selected: selectedCode == codes[i],
                 icon: icons[i],
+                id: codes[i],
+                selected: selectedCode == codes[i],
+                value: this.kupManager.language.translate(value),
             };
         }
         return listItems;
@@ -4798,7 +4876,7 @@ export class KupDataTable {
     }
 
     private renderFontSizePanel() {
-        const listItems: KupListData[] = this.createListData(
+        const listItems: KupListNode[] = this.createListData(
             this.FONTSIZE_CODES,
             this.FONTSIZE_ICONS,
             this.fontsize
@@ -4860,7 +4938,7 @@ export class KupDataTable {
     }
 
     private renderDensityPanel() {
-        const listItems: KupListData[] = this.createListData(
+        const listItems: KupListNode[] = this.createListData(
             Object.values(FCellPadding),
             this.DENSITY_ICONS,
             this.density
@@ -4971,7 +5049,7 @@ export class KupDataTable {
     }
 
     private renderGridPanel() {
-        const listItems: KupListData[] = this.createListData(
+        const listItems: KupListNode[] = this.createListData(
             this.GRID_CODES,
             this.GRID_ICONS,
             this.showGrid

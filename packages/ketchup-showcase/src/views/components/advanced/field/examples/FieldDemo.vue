@@ -131,17 +131,17 @@ function createComp() {
     listData: {
       data: [
         {
-          text: 'First choice',
-          value: '1',
+          value: 'First choice',
+          id: '1',
           selected: true,
         },
         {
-          text: 'Selected choice',
-          value: '2',
+          value: 'Selected choice',
+          id: '2',
         },
         {
-          text: 'Third choice',
-          value: '3',
+          value: 'Third choice',
+          id: '3',
         },
       ],
       selectable: true,

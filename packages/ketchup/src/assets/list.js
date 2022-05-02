@@ -4,23 +4,23 @@ for (let index = 0; index < lists.length; index++) {
     const list = lists[index];
     list.data = [
         {
-            text: 'First item',
+            value: 'First item',
             secondaryText: 'I am a description',
-            value: '1',
+            id: '1',
             icon: 'filter_1',
             selected: false,
         },
         {
-            text: 'Second item',
+            value: 'Second item',
             secondaryText: 'I am a description',
-            value: '2',
+            id: '2',
             icon: 'filter_2',
             selected: false,
         },
         {
-            text: 'Third item',
+            value: 'Third item',
             secondaryText: 'I am a description',
-            value: '3',
+            id: '3',
             icon: 'filter_3',
             selected: false,
         },

@@ -12,7 +12,11 @@ import {
 } from '@stencil/core';
 import * as echarts from 'echarts';
 import { GeoJSON, FeatureCollection } from 'geojson';
-import { XAXisComponentOption, YAXisComponentOption } from 'echarts';
+import {
+    VisualMapComponentOption,
+    XAXisComponentOption,
+    YAXisComponentOption,
+} from 'echarts';
 import {
     KupEchartClickEventPayload,
     KupEchartLegendPlacement,
@@ -35,6 +39,7 @@ import {
     KupDataColumn,
     KupDataDataset,
     KupDataFindCellFilters,
+    KupDataNewColumnTypes,
     KupDataRow,
     KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -59,7 +64,18 @@ export class KupEchart {
      * Sets the axis of the chart.
      * @default ""
      */
-    @Prop() axis: string = '';
+    @Prop({ mutable: true }) axis: string = '';
+    /**
+     * Overrides theme's colors.
+     * @default []
+     */
+    @Prop() colors: string[] = [];
+    /**
+     * When true, performs checks in order to properly initialize props which could be missing (i.e.: axis).
+     * For performances purposes, this prop will run only once when the component is initially created.
+     * @default false
+     */
+    @Prop() consistencyCheck: boolean = false;
     /**
      * Title of the graph.
      * @default null
@@ -77,7 +93,7 @@ export class KupEchart {
      */
     @Prop() data: KupDataDataset = null;
     /**
-     * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+     * Sets the position of the legend. Supported values: bottom, left, right, top, hidden. Keep in mind that legend types are tied to chart types, some combinations might not work.
      * @default KupEchartLegendPlacement.RIGHT
      */
     @Prop() legend: KupEchartLegendPlacement = KupEchartLegendPlacement.RIGHT;
@@ -121,20 +137,20 @@ export class KupEchart {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    #kupManager: KupManager = kupManagerInstance();
-    #resizeTimeout: number;
     #chartContainer?: HTMLDivElement;
     #chartEl: echarts.ECharts;
     #gaussianDatasets: { [index: string]: KupDataDataset };
+    #kupManager: KupManager = kupManagerInstance();
+    #mapObj: GenericObject = {};
+    #resizeTimeout: number;
     #sortedDataset: KupDataDataset = null;
     #themeBorder: string = null;
     #themeBackground: string = null;
-    #themeColors: string[] = null;
-    #themeColorBrighter: string = null;
-    #themeColorDarker: string = null;
+    #computedColors: string[] = null;
+    #minColorHeatMap: string = null;
+    #maxColorHeatMap: string = null;
     #themeFont: string = null;
     #themeText: string = null;
-    #mapObj: GenericObject = {};
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -174,7 +190,19 @@ export class KupEchart {
     @Method()
     async resizeCallback(): Promise<void> {
         window.clearTimeout(this.#resizeTimeout);
-        this.#resizeTimeout = window.setTimeout(() => this.refresh(), 300);
+        this.#resizeTimeout = window.setTimeout(() => {
+            if (this.#chartEl) {
+                const xMin = this.rootElement.clientWidth - 5;
+                const xMax = this.rootElement.clientWidth + 5;
+                const yMin = this.rootElement.clientHeight - 5;
+                const yMax = this.rootElement.clientHeight + 5;
+                const x = this.#chartEl.getWidth();
+                const y = this.#chartEl.getHeight();
+                if (x < xMin || x > xMax || y < yMin || y > yMax) {
+                    this.#chartEl.resize();
+                }
+            }
+        }, 300);
     }
     /**
      * Sets the props to the component.
@@ -204,29 +232,9 @@ export class KupEchart {
             );
         }
     }
+
     async #createChart() {
         this.#sortedDataset = null;
-        if (
-            !this.types.includes(KupEchartTypes.GAUSSIAN) &&
-            (!this.axis ||
-                !this.#kupManager.data.datasetOperations.column.find(
-                    this.data,
-                    { name: this.axis }
-                ).length)
-        ) {
-            for (let index = 0; index < this.data.columns.length; index++) {
-                const column = this.data.columns[index];
-                if (!this.#kupManager.objects.isNumber(column.obj)) {
-                    this.axis = column.name;
-                    this.#kupManager.debug.logMessage(
-                        this,
-                        'Axis overridden. (' + this.axis + ')',
-                        KupDebugCategory.WARNING
-                    );
-                    break;
-                }
-            }
-        }
         let options: echarts.EChartsOption = null;
         const firstType = this.types[0];
         switch (firstType) {
@@ -275,18 +283,14 @@ export class KupEchart {
         }
         this.#chartEl.setOption(options, true);
         this.#chartEl.on('click', (e) => {
-            const column = this.#kupManager.data.datasetOperations.column.find(
-                this.data,
-                {
-                    title: e.seriesName,
-                }
-            )[0];
+            const column = this.#kupManager.data.column.find(this.data, {
+                title: e.seriesName,
+            })[0];
             let row: KupDataRow = null;
             if (e.seriesType === 'map') {
-                row = this.#kupManager.data.datasetOperations.row.find(
-                    this.data,
-                    { value: this.#mapObj[e.name] }
-                )[0];
+                row = this.#kupManager.data.row.find(this.data, {
+                    value: this.#mapObj[e.name],
+                })[0];
             } else if (this.#sortedDataset && e.seriesType === 'bar') {
                 row = this.#sortedDataset.rows[e.dataIndex];
             } else if (!Array.isArray(e.data)) {
@@ -389,6 +393,9 @@ export class KupEchart {
     }
 
     #setLegend(y: {}) {
+        if (this.legend === KupEchartLegendPlacement.HIDDEN) {
+            return null;
+        }
         const data: string[] = [];
         for (let key in y) {
             data.push(key);
@@ -447,21 +454,27 @@ export class KupEchart {
         const colorRange = !hasNumericValues
             ? undefined
             : colors.length > 0
-            ? { inRange: { color: colors }, min: min, max: max }
-            : {
+            ? ({
+                  inRange: { color: colors },
+                  min: min,
+                  max: max,
+                  textStyle: { color: this.#themeText },
+              } as VisualMapComponentOption)
+            : ({
                   inRange: {
-                      color: [this.#themeColorBrighter, this.#themeColorDarker],
+                      color: [this.#minColorHeatMap, this.#maxColorHeatMap],
                   },
                   min: min,
                   max: max,
-              };
+                  textStyle: { color: this.#themeText },
+              } as VisualMapComponentOption);
         if (colorRange) {
             opts.visualMap = {
                 ...opts.visualMap,
                 ...colorRange,
                 calculable: true,
                 formatter: (value) => {
-                    return this.#kupManager.data.format(value as string);
+                    return this.#kupManager.math.format(value as string);
                 },
                 min: min,
                 max: max,
@@ -515,7 +528,7 @@ export class KupEchart {
                 if (hexColor) {
                     color = hexColor;
                 } else {
-                    n = this.#kupManager.data.numberify(value);
+                    n = this.#kupManager.math.numberify(value);
                     if (n > max) {
                         max = n;
                     }
@@ -557,14 +570,10 @@ export class KupEchart {
             ) {
                 return null;
             } else {
-                //TODO: handle locale properly inside KupData [KupDataLocale]
-                this.#kupManager.data.numeral.locale(
-                    this.#kupManager.dates.locale
-                );
                 return (
-                    params.name +
-                    ': ' +
-                    this.#kupManager.data.format(value as string)
+                    "<div style='min-width: 60px; text-align: center'>" +
+                    this.#kupManager.math.format(value as string) +
+                    '</div>'
                 );
             }
         };
@@ -586,16 +595,44 @@ export class KupEchart {
                 {
                     data: data,
                     emphasis: {
+                        itemStyle: {
+                            areaColor: null,
+                            borderWidth: 1.5,
+                        },
                         label: {
+                            color: this.#themeText,
+                            fontFamily: this.#themeFont,
                             show: true,
                         },
                     },
+                    itemStyle: {
+                        areaColor: this.#themeBackground,
+                        borderColor: this.#themeText,
+                    },
+                    label: {
+                        backgroundColor: this.#themeBackground,
+                        borderColor: this.#themeBorder,
+                        borderRadius: 4,
+                        borderWidth: 1,
+                        color: this.#themeText,
+                        fontFamily: this.#themeFont,
+                        padding: 4,
+                    },
                     map: this.rootElement.id ? this.rootElement.id : '',
-                    name: this.#kupManager.data.datasetOperations.column.find(
-                        this.data,
-                        { name: this.axis }
-                    )[0].title,
+                    name: this.#kupManager.data.column.find(this.data, {
+                        name: this.axis,
+                    })[0].title,
                     roam: true,
+                    select: {
+                        itemStyle: {
+                            areaColor: this.#computedColors[0],
+                        },
+                        label: {
+                            color: this.#themeText,
+                            fontFamily: this.#themeFont,
+                            show: true,
+                        },
+                    },
                     type: 'map',
                 } as echarts.MapSeriesOption,
             ],
@@ -619,7 +656,7 @@ export class KupEchart {
             });
         }
         return {
-            color: this.#themeColors,
+            color: this.#computedColors,
             legend: this.#setLegend(y),
             title: this.#setTitle(),
             tooltip: {
@@ -629,10 +666,9 @@ export class KupEchart {
             },
             series: [
                 {
-                    name: this.#kupManager.data.datasetOperations.column.find(
-                        this.data,
-                        { name: this.axis }
-                    )[0].title,
+                    name: this.#kupManager.data.column.find(this.data, {
+                        name: this.axis,
+                    })[0].title,
                     type: 'pie',
                     data: data,
                     emphasis: {
@@ -670,16 +706,13 @@ export class KupEchart {
             );
             if (type == KupEchartTypes.GAUSSIAN) {
                 if (!this.#kupManager.objects.isNumber(column.obj)) {
-                    const newDataset =
-                        this.#kupManager.data.datasetOperations.distinct(
-                            this.data,
-                            [column.name]
-                        );
-                    values =
-                        this.#kupManager.data.datasetOperations.cell.getValue(
-                            newDataset,
-                            [column.name]
-                        );
+                    const newDataset = this.#kupManager.data.distinct(
+                        this.data,
+                        [column.name]
+                    );
+                    values = this.#kupManager.data.cell.getValue(newDataset, [
+                        column.name,
+                    ]);
                     this.#gaussianDatasets[column.name] = newDataset;
                 } else {
                     values = y[key];
@@ -687,24 +720,20 @@ export class KupEchart {
             } else {
                 if (needSortDataset) {
                     // if there is only one series other than the Gaussian then I apply the sorting algorithm that arranges the data in "mountain"
-                    this.#sortedDataset =
-                        this.#kupManager.data.datasetOperations.sort(
-                            this.data,
-                            'normalDistribution',
-                            column.name
-                        );
-                    values =
-                        this.#kupManager.data.datasetOperations.cell.getValue(
-                            this.#sortedDataset,
-                            [column.name]
-                        );
+                    this.#sortedDataset = this.#kupManager.data.sort(
+                        this.data,
+                        'normalDistribution',
+                        column.name
+                    );
+                    values = this.#kupManager.data.cell.getValue(
+                        this.#sortedDataset,
+                        [column.name]
+                    );
                     x = this.#createX(this.#sortedDataset);
                 } else {
-                    values =
-                        this.#kupManager.data.datasetOperations.cell.getValue(
-                            this.data,
-                            [column.name]
-                        );
+                    values = this.#kupManager.data.cell.getValue(this.data, [
+                        column.name,
+                    ]);
                 }
             }
             this.#addSeries(
@@ -747,13 +776,12 @@ export class KupEchart {
                             min: value - (value / 100) * 50,
                         },
                     };
-                    const rows =
-                        this.#kupManager.data.datasetOperations.row.find(
-                            this.#gaussianDatasets[column]
-                                ? this.#gaussianDatasets[column]
-                                : this.data,
-                            filters
-                        );
+                    const rows = this.#kupManager.data.row.find(
+                        this.#gaussianDatasets[column]
+                            ? this.#gaussianDatasets[column]
+                            : this.data,
+                        filters
+                    );
                     for (let index = 0; index < rows.length; index++) {
                         const row = rows[index];
                         const cells = row.cells;
@@ -823,7 +851,7 @@ export class KupEchart {
             yAxisTmp.splice(0, 1);
         }
         return {
-            color: this.#themeColors,
+            color: this.#computedColors,
             legend: this.#setLegend(y),
             series: series,
             title: this.#setTitle(),
@@ -848,7 +876,7 @@ export class KupEchart {
         switch (type) {
             case KupEchartTypes.GAUSSIAN:
                 series.push({
-                    data: this.#kupManager.data.normalDistribution(values),
+                    data: this.#kupManager.math.normalDistribution(values),
                     name: key,
                     showSymbol: false,
                     smooth: true,
@@ -900,7 +928,7 @@ export class KupEchart {
             i++;
         }
         return {
-            color: this.#themeColors,
+            color: this.#computedColors,
             legend: this.#setLegend(y),
             series: series,
             title: this.#setTitle(),
@@ -922,8 +950,9 @@ export class KupEchart {
         } as echarts.EChartsOption;
     }
 
-    #fetchThemeColors() {
-        let colorArray: string[] = [];
+    #fetchcomputedColors() {
+        let colorArray: string[] =
+            this.colors && this.colors.length > 0 ? [...this.colors] : [];
         let key: string = '--kup-chart-color-';
         for (
             let index = 1;
@@ -939,14 +968,151 @@ export class KupEchart {
         this.#themeFont = this.#kupManager.theme.cssVars['--kup-font-family'];
         this.#themeText =
             this.#kupManager.theme.cssVars[KupThemeColorValues.TEXT];
-        this.#themeColors = colorArray;
-        const colorCheck = this.#kupManager.theme.colorCheck(colorArray[0]);
-        this.#themeColorDarker = `hsl(${colorCheck.hue}, ${
-            colorCheck.saturation
-        },  ${(parseFloat(colorCheck.lightness) - 30).toString()}%)`;
-        this.#themeColorBrighter = `hsl(${colorCheck.hue}, ${
-            colorCheck.saturation
-        }, ${(parseFloat(colorCheck.lightness) + 30).toString()}%)`;
+        this.#computedColors = colorArray;
+        if (this.colors && this.colors[0]) {
+            this.#maxColorHeatMap = this.colors[0];
+        } else {
+            const colorCheckDark = this.#kupManager.theme.colorCheck(
+                colorArray[0]
+            );
+            this.#maxColorHeatMap = `hsl(${colorCheckDark.hue}, ${
+                colorCheckDark.saturation
+            },  ${(parseFloat(colorCheckDark.lightness) - 30).toString()}%)`;
+        }
+        if (this.colors && this.colors[1]) {
+            this.#minColorHeatMap = this.colors[1];
+        } else {
+            const colorCheckBright = this.#kupManager.theme.colorCheck(
+                colorArray[0]
+            );
+            this.#minColorHeatMap = `hsl(${colorCheckBright.hue}, ${
+                colorCheckBright.saturation
+            }, ${(parseFloat(colorCheckBright.lightness) + 30).toString()}%)`;
+        }
+    }
+
+    #checks() {
+        const gaussianCount = this.types.filter(
+            (type) => type === KupEchartTypes.GAUSSIAN
+        ).length;
+        const nonGaussianCount = this.types.filter(
+            (type) => type === KupEchartTypes.GAUSSIAN
+        ).length;
+        // Automatically sets axis when there is no Gaussian chart and when axis is invalid.
+        // The first visible and non-numerical column will be used as axis.
+        if (
+            !gaussianCount &&
+            (!this.axis ||
+                !this.#kupManager.data.column.find(this.data, {
+                    name: this.axis,
+                }).length)
+        ) {
+            for (let index = 0; index < this.data.columns.length; index++) {
+                const column = this.data.columns[index];
+                if (
+                    column.visible &&
+                    !this.#kupManager.objects.isNumber(column.obj)
+                ) {
+                    this.axis = column.name;
+                    this.#kupManager.debug.logMessage(
+                        this,
+                        'Axis overridden. (' + this.axis + ')',
+                        KupDebugCategory.WARNING
+                    );
+                    break;
+                }
+            }
+        }
+        // Automatically copies columns when there are multiple types and no specified series.
+        // Also 1 types must be GAUSSIAN.
+        if (
+            (!this.series || !this.series.length) &&
+            gaussianCount === 1 &&
+            nonGaussianCount > 0 &&
+            this.data.columns &&
+            ((this.data.columns.length === 1 && !this.axis) ||
+                (this.data.columns.length === 2 && this.axis))
+        ) {
+            const series = !this.axis
+                ? this.data.columns[0]
+                : this.data.columns.filter((col) => col.name !== this.axis)[0];
+            for (let index = 0; index < this.types.length; index++) {
+                const type = this.types[index];
+                if (type !== KupEchartTypes.GAUSSIAN) {
+                    this.#kupManager.data.column.new(
+                        this.data,
+                        KupDataNewColumnTypes.DUPLICATE,
+                        {
+                            columns: [series.name],
+                            newColumn: {
+                                ...series,
+                                name: series.name + '_' + index,
+                                title: series.title + ` (${type})`,
+                            },
+                        }
+                    );
+                }
+            }
+        }
+        // Checks for multiple series with the same column name, creating duplicate columns in case they are present.
+        // When there are more types than series, new series will be automatically added to match chart types.
+        if (
+            this.series &&
+            this.types &&
+            this.series.length &&
+            this.types.length &&
+            this.data.columns
+        ) {
+            if (this.types.length > this.series.length) {
+                const lastSerie = this.series[this.series.length - 1];
+                for (
+                    let index = this.series.length;
+                    index < this.types.length;
+                    index++
+                ) {
+                    this.series.push(lastSerie);
+                }
+            }
+            const occurrences: { [index: string]: number[] } = {};
+            for (let index = 0; index < this.series.length; index++) {
+                const serie = this.series[index];
+                if (Object.keys(occurrences).includes(serie)) {
+                    occurrences[serie].push(index);
+                } else {
+                    occurrences[serie] = [index];
+                }
+            }
+            for (const key in occurrences) {
+                const indexes = occurrences[key];
+                for (
+                    let index = 1;
+                    indexes.length > 1 && index < indexes.length;
+                    index++
+                ) {
+                    const seriesIndex = indexes[index];
+                    const column = this.#kupManager.data.column.find(
+                        this.data,
+                        { name: this.series[seriesIndex] }
+                    )[0];
+                    const newName = column.name + '_' + index;
+                    this.#kupManager.data.column.new(
+                        this.data,
+                        KupDataNewColumnTypes.DUPLICATE,
+                        {
+                            columns: [column.name],
+                            newColumn: {
+                                ...column,
+                                name: newName,
+                                title:
+                                    column.title +
+                                    ` (${this.types[seriesIndex]})`,
+                            },
+                        }
+                    );
+                    this.series[seriesIndex] = newName;
+                }
+            }
+        }
     }
 
     /*-------------------------------------------------*/
@@ -956,6 +1122,9 @@ export class KupEchart {
     componentWillLoad() {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.theme.register(this);
+        if (this.consistencyCheck) {
+            this.#checks();
+        }
     }
 
     componentDidLoad() {
@@ -965,7 +1134,7 @@ export class KupEchart {
 
     componentWillRender() {
         this.#kupManager.debug.logRender(this, false);
-        this.#fetchThemeColors();
+        this.#fetchcomputedColors();
     }
 
     componentDidRender() {

@@ -56,156 +56,156 @@ export default {
         'kup-list': {
           data: [
             {
-              text: 'kup-autocomplete',
               value: 'kup-autocomplete',
+              id: 'kup-autocomplete',
             },
             {
-              text: 'kup-badge',
               value: 'kup-badge',
+              id: 'kup-badge',
             },
             {
-              text: 'kup-box',
               value: 'kup-box',
+              id: 'kup-box',
             },
             {
-              text: 'kup-button-list',
               value: 'kup-button-list',
+              id: 'kup-button-list',
             },
             {
-              text: 'kup-button',
               value: 'kup-button',
+              id: 'kup-button',
             },
             {
-              text: 'kup-box',
               value: 'kup-box',
+              id: 'kup-box',
             },
             {
-              text: 'kup-card',
               value: 'kup-card',
+              id: 'kup-card',
             },
             {
-              text: 'kup-chart',
               value: 'kup-chart',
+              id: 'kup-chart',
             },
             {
-              text: 'kup-checkbox',
               value: 'kup-checkbox',
+              id: 'kup-checkbox',
             },
             {
-              text: 'kup-chip',
               value: 'kup-chip',
+              id: 'kup-chip',
             },
             {
-              text: 'kup-color-picker',
               value: 'kup-color-picker',
+              id: 'kup-color-picker',
             },
             {
-              text: 'kup-combobox',
               value: 'kup-combobox',
+              id: 'kup-combobox',
             },
             {
-              text: 'kup-dash',
               value: 'kup-dash',
+              id: 'kup-dash',
             },
             {
-              text: 'kup-dash-list',
               value: 'kup-dash-list',
+              id: 'kup-dash-list',
             },
             {
-              text: 'kup-data-table',
               value: 'kup-data-table',
+              id: 'kup-data-table',
             },
             {
-              text: 'kup-date-picker',
               value: 'kup-date-picker',
+              id: 'kup-date-picker',
             },
             {
-              text: 'kup-drawer',
               value: 'kup-drawer',
+              id: 'kup-drawer',
             },
             {
-              text: 'kup-dropdown-button',
               value: 'kup-dropdown-button',
+              id: 'kup-dropdown-button',
             },
             {
-              text: 'kup-echart',
               value: 'kup-echart',
+              id: 'kup-echart',
             },
             {
-              text: 'kup-field',
               value: 'kup-field',
+              id: 'kup-field',
             },
             {
-              text: 'kup-gauge',
               value: 'kup-gauge',
+              id: 'kup-gauge',
             },
             {
-              text: 'kup-grid',
               value: 'kup-grid',
+              id: 'kup-grid',
             },
             {
-              text: 'kup-iframe',
               value: 'kup-iframe',
+              id: 'kup-iframe',
             },
             {
-              text: 'kup-image',
               value: 'kup-image',
+              id: 'kup-image',
             },
             {
-              text: 'kup-lazy',
               value: 'kup-lazy',
+              id: 'kup-lazy',
             },
             {
-              text: 'kup-list',
               value: 'kup-list',
+              id: 'kup-list',
             },
             {
-              text: 'kup-magic-box',
               value: 'kup-magic-box',
+              id: 'kup-magic-box',
             },
             {
-              text: 'kup-nav-bar',
               value: 'kup-nav-bar',
+              id: 'kup-nav-bar',
             },
             {
-              text: 'kup-paginator',
               value: 'kup-paginator',
+              id: 'kup-paginator',
             },
             {
-              text: 'kup-progress-bar',
               value: 'kup-progress-bar',
+              id: 'kup-progress-bar',
             },
             {
-              text: 'kup-radio',
               value: 'kup-radio',
+              id: 'kup-radio',
             },
             {
-              text: 'kup-rating',
               value: 'kup-rating',
+              id: 'kup-rating',
             },
             {
-              text: 'kup-spinner',
               value: 'kup-spinner',
+              id: 'kup-spinner',
             },
             {
-              text: 'kup-switch',
               value: 'kup-switch',
+              id: 'kup-switch',
             },
             {
-              text: 'kup-tab-bar',
               value: 'kup-tab-bar',
+              id: 'kup-tab-bar',
             },
             {
-              text: 'kup-text-field',
               value: 'kup-text-field',
+              id: 'kup-text-field',
             },
             {
-              text: 'kup-time-picker',
               value: 'kup-time-picker',
+              id: 'kup-time-picker',
             },
             {
-              text: 'kup-tree',
               value: 'kup-tree',
+              id: 'kup-tree',
             },
           ],
         },

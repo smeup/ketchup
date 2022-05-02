@@ -1,4 +1,3 @@
-import numeral from 'numeral';
 import { SortMode } from '../components/kup-data-table/kup-data-table-declarations';
 import {
     stringToNumber,
@@ -55,10 +54,10 @@ export function getValueForDisplay2(
 
 export function formatToNumber(cell: KupDataCell): number {
     if (cell.obj) {
-        return numeral(cell.obj.k).value();
+        return dom.ketchup.math.numberify(cell.obj.k);
     }
 
-    return numeral(cell.value).value();
+    return dom.ketchup.math.numberify(cell.value);
 }
 
 function _getCellValueForDisplay(

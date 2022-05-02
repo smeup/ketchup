@@ -16,7 +16,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import { KupListData } from '../kup-list/kup-list-declarations';
+import { KupListNode } from '../kup-list/kup-list-declarations';
 import {
     isValidFormattedStringTime,
     formattedStringToCustomUnformattedStringTime,
@@ -619,7 +619,10 @@ export class KupTimePicker {
     }
 
     private createTimeListData(value: string) {
-        let listData: KupListData[] = [];
+        const date: Date = new Date();
+        const listData: KupListNode[] = [];
+        const totalDayMinutes: number = 24 * 60;
+        const itemsCount = totalDayMinutes / this.timeMinutesStep;
 
         let selectedTime: Date;
         if (value == null || value.trim() == '') {
@@ -633,10 +636,6 @@ export class KupTimePicker {
             );
         }
 
-        let totalDayMinutes: number = 24 * 60;
-        let itemsCount = totalDayMinutes / this.timeMinutesStep;
-
-        let date: Date = new Date();
         date.setHours(0, 0, 0);
         for (let i = 0; i < itemsCount; i++) {
             let selected: boolean = false;
@@ -646,18 +645,18 @@ export class KupTimePicker {
             ) {
                 selected = true;
             }
-            let text: string = formatTime(date, this.manageSeconds);
-            let value = formattedStringToCustomUnformattedStringTime(
-                text,
+            const value: string = formatTime(date, this.manageSeconds);
+            const id = formattedStringToCustomUnformattedStringTime(
+                value,
                 this.manageSeconds
                     ? KupDatesFormats.ISO_TIME
                     : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS,
                 this.manageSeconds
             );
-            let item: KupListData = {
-                text: text,
-                value: value,
+            let item: KupListNode = {
+                id: id,
                 selected: selected,
+                value: value,
             };
             listData[listData.length] = item;
             date.setMinutes(date.getMinutes() + this.timeMinutesStep);

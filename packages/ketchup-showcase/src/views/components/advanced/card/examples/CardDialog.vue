@@ -563,25 +563,22 @@ export default {
           {
             data: [
               {
-                text: 'list[0]',
-                value: '1',
+                value: 'list[0]',
+                id: '1',
                 icon: 'filter_1',
                 trailingIcon: true,
-                selected: false,
               },
               {
-                text: 'list[0]',
-                value: '2',
+                value: 'list[0]',
+                id: '2',
                 icon: 'filter_2',
                 trailingIcon: true,
-                selected: false,
               },
               {
-                text: 'list[0]',
-                value: '3',
+                value: 'list[0]',
+                id: '3',
                 icon: 'filter_3',
                 trailingIcon: true,
-                selected: false,
               },
             ],
             title: 'list[0]',

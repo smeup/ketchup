@@ -102,6 +102,7 @@ Type: `Promise<void>`
 graph TD;
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
+  kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-badge
   kup-badge --> kup-badge

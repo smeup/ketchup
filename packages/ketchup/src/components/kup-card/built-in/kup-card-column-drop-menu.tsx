@@ -4,7 +4,7 @@ import {
     KupChipNode,
 } from '../../kup-chip/kup-chip-declarations';
 import {
-    KupListData,
+    KupListNode,
     KupListEventPayload,
 } from '../../kup-list/kup-list-declarations';
 import { FButtonStyling } from '../../../f-components/f-button/f-button-declarations';
@@ -79,20 +79,20 @@ export function prepareColumnDropMenu(component: KupCard) {
 }
 
 function prepareList(options: KupCardColumnDropMenuOptions): VNode {
-    const listData: KupListData[] = [];
+    const listData: KupListNode[] = [];
 
     if (options.enableMerge) {
         listData.push({
-            text: dom.ketchup.language.translate(KupLanguageGeneric.MERGE),
-            value: KupLanguageGeneric.MERGE,
             icon: 'library_add',
+            id: KupLanguageGeneric.MERGE,
+            value: dom.ketchup.language.translate(KupLanguageGeneric.MERGE),
         });
     }
     if (options.enableMove) {
         listData.push({
-            text: dom.ketchup.language.translate(KupLanguageGeneric.MOVE),
-            value: KupLanguageGeneric.MOVE,
             icon: 'swap_horiz',
+            id: KupLanguageGeneric.MOVE,
+            value: dom.ketchup.language.translate(KupLanguageGeneric.MOVE),
         });
     }
 
@@ -111,43 +111,47 @@ function prepareCombobox(
     options: KupCardColumnDropMenuOptions,
     numericalColumnsExist: boolean
 ): VNode {
-    const comboListData: KupListData[] = [];
+    const comboListData: KupListNode[] = [];
     const numeric: boolean =
         dom.ketchup.objects.isNumber(options.receivingColumn.obj) &&
         dom.ketchup.objects.isNumber(options.starterColumn.obj);
     if (numeric) {
         comboListData.push(
             {
-                text: dom.ketchup.language.translate(KupLanguageTotals.AVERAGE),
-                value: KupLanguageTotals.AVERAGE,
+                id: KupLanguageTotals.AVERAGE,
+                value: dom.ketchup.language.translate(
+                    KupLanguageTotals.AVERAGE
+                ),
             },
             {
-                text: dom.ketchup.language.translate(
+                id: KupLanguageTotals.DIFFERENCE,
+                value: dom.ketchup.language.translate(
                     KupLanguageTotals.DIFFERENCE
                 ),
-                value: KupLanguageTotals.DIFFERENCE,
             },
             {
-                text: dom.ketchup.language.translate(KupLanguageTotals.PRODUCT),
-                value: KupLanguageTotals.PRODUCT,
+                id: KupLanguageTotals.PRODUCT,
+                value: dom.ketchup.language.translate(
+                    KupLanguageTotals.PRODUCT
+                ),
             },
             {
-                text: dom.ketchup.language.translate(KupLanguageTotals.SUM),
-                value: KupLanguageTotals.SUM,
+                id: KupLanguageTotals.SUM,
+                value: dom.ketchup.language.translate(KupLanguageTotals.SUM),
             },
             {
-                text: `[${options.starterColumn.name}] / [${options.receivingColumn.name}] * 100`,
-                value: `([${options.starterColumn.name}]/[${options.receivingColumn.name}])*100`,
+                id: `([${options.starterColumn.name}]/[${options.receivingColumn.name}])*100`,
+                value: `[${options.starterColumn.name}] / [${options.receivingColumn.name}] * 100`,
             },
             {
-                text: `[${options.receivingColumn.name}] / [${options.starterColumn.name}] * 100`,
-                value: `([${options.receivingColumn.name}]/[${options.starterColumn.name}])*100`,
+                id: `([${options.receivingColumn.name}]/[${options.starterColumn.name}])*100`,
+                value: `[${options.receivingColumn.name}] / [${options.starterColumn.name}] * 100`,
             }
         );
     } else {
         comboListData.push({
-            text: dom.ketchup.language.translate(KupLanguageColumn.NO_FORMULA),
-            value: KupLanguageColumn.NO_FORMULA,
+            id: KupLanguageColumn.NO_FORMULA,
+            value: dom.ketchup.language.translate(KupLanguageColumn.NO_FORMULA),
         });
     }
     const comboData = {
@@ -195,8 +199,7 @@ function listClick(
     e: CustomEvent<KupListEventPayload>,
     options: KupCardColumnDropMenuOptions
 ) {
-    const value = e.detail.selected.value;
-    switch (value) {
+    switch (e.detail.selected.id) {
         case KupLanguageGeneric.MERGE:
             if (options.mergeCb) {
                 options.mergeCb();
@@ -216,7 +219,7 @@ async function applyFormula(component: KupCard) {
     if (combobox) {
         const value = (await combobox.getValue()) as KupLanguageTotals;
         if (premadeFormulas.includes(value)) {
-            dom.ketchup.data.datasetOperations.column.new(
+            dom.ketchup.data.column.new(
                 options.data,
                 KupDataNewColumnTypes.MATH,
                 {
@@ -231,7 +234,7 @@ async function applyFormula(component: KupCard) {
                 options.formulaCb();
             }
         } else {
-            const result = dom.ketchup.data.datasetOperations.column.new(
+            const result = dom.ketchup.data.column.new(
                 options.data,
                 KupDataNewColumnTypes.MATH,
                 {

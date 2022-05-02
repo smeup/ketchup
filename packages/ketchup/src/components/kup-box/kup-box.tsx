@@ -48,7 +48,7 @@ import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
-import { deepEqual, getProps, identify, setProps } from '../../utils/utils';
+import { getProps, identify, setProps } from '../../utils/utils';
 import {
     GenericObject,
     KupComponent,
@@ -147,24 +147,42 @@ export class KupBox {
     persistState(): void {
         if (this.store && this.stateId) {
             let somethingChanged = false;
-            if (!deepEqual(this.state.sortBy, this.sortBy)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.sortBy,
+                    this.sortBy
+                )
+            ) {
                 this.state.sortBy = this.sortBy;
                 somethingChanged = true;
             }
 
             if (
-                !deepEqual(this.state.globalFilterValue, this.globalFilterValue)
+                !this.kupManager.objects.deepEqual(
+                    this.state.globalFilterValue,
+                    this.globalFilterValue
+                )
             ) {
                 this.state.globalFilterValue = this.globalFilterValue;
                 somethingChanged = true;
             }
 
-            if (!deepEqual(this.state.pageSelected, this.currentPage)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.pageSelected,
+                    this.currentPage
+                )
+            ) {
                 this.state.pageSelected = this.currentPage;
                 somethingChanged = true;
             }
 
-            if (!deepEqual(this.state.rowsPerPage, this.currentRowsPerPage)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.rowsPerPage,
+                    this.currentRowsPerPage
+                )
+            ) {
                 this.state.rowsPerPage = this.currentRowsPerPage;
                 somethingChanged = true;
             }
@@ -177,7 +195,12 @@ export class KupBox {
                 ''
             );
 
-            if (!deepEqual(this.state.selectedRowsState, selectedRowsState)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.selectedRowsState,
+                    selectedRowsState
+                )
+            ) {
                 this.state.selectedRowsState = selectedRowsState;
                 somethingChanged = true;
             }
@@ -1808,13 +1831,13 @@ export class KupBox {
             // creating items
             const visibleColumnsItems = this.visibleColumns.map((column) => {
                 const item = {
-                    text: column.title,
-                    value: column.name,
+                    value: column.title,
+                    id: column.name,
                     selected: column.name === this.sortBy,
                 };
                 return item;
             });
-            const items = [{ text: '', value: '' }, ...visibleColumnsItems];
+            const items = [{ value: '', id: '' }, ...visibleColumnsItems];
             let textfieldData = {
                 label: this.kupManager.language.translate(
                     KupLanguageGeneric.SORT_BY

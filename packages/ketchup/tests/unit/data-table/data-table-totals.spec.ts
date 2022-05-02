@@ -403,7 +403,7 @@ describe('it calc totals', () => {
         });
         expect(totals).toEqual({
             FLD2: 8,
-            FLD3: 96.15333333333334,
+            FLD3: 96.15,
         });
     });
 

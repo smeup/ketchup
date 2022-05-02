@@ -819,7 +819,7 @@ gaussianButtons.forEach((but, index) => {
 function newEvent(index) {
     outputTable.data = null;
     const dataset = { ...inputTable.data };
-    outputTable.data = kupManager.data.datasetOperations.new(
+    outputTable.data = kupManager.data.new(
         dataset,
         index === 0
             ? newColumns
@@ -833,49 +833,37 @@ function replaceEvent(index) {
     newEvent(index);
     const newDataset = { ...outputTable.data };
     if (index === 0) {
-        kupManager.data.datasetOperations.cell.replace(
-            newDataset,
-            { value: 'From 20 to 39' },
-            ['2039']
-        );
-        kupManager.data.datasetOperations.cell.replace(
-            newDataset,
-            { value: 'From 40 to 59' },
-            ['4059']
-        );
-        kupManager.data.datasetOperations.cell.replace(
-            newDataset,
-            { value: 'From 60 to 99' },
-            ['6099']
-        );
+        kupManager.data.cell.replace(newDataset, { value: 'From 20 to 39' }, [
+            '2039',
+        ]);
+        kupManager.data.cell.replace(newDataset, { value: 'From 40 to 59' }, [
+            '4059',
+        ]);
+        kupManager.data.cell.replace(newDataset, { value: 'From 60 to 99' }, [
+            '6099',
+        ]);
     } else if (index === 1) {
-        kupManager.data.datasetOperations.cell.replace(
-            newDataset,
-            { value: 'From A to C' },
-            ['AC']
-        );
-        kupManager.data.datasetOperations.cell.replace(
-            newDataset,
-            { value: 'From D to P' },
-            ['DP']
-        );
-        kupManager.data.datasetOperations.cell.replace(
-            newDataset,
-            { value: 'From Q to Z' },
-            ['QZ']
-        );
+        kupManager.data.cell.replace(newDataset, { value: 'From A to C' }, [
+            'AC',
+        ]);
+        kupManager.data.cell.replace(newDataset, { value: 'From D to P' }, [
+            'DP',
+        ]);
+        kupManager.data.cell.replace(newDataset, { value: 'From Q to Z' }, [
+            'QZ',
+        ]);
     } else if (index === 2) {
-        kupManager.data.datasetOperations.cell.replace(
+        kupManager.data.cell.replace(
             newDataset,
             { value: 'From 1700 to 1900' },
             ['17001900']
         );
-        kupManager.data.datasetOperations.cell.replace(
+        kupManager.data.cell.replace(
             newDataset,
             { value: 'From 1901 to 1950' },
             ['19011950']
         );
-        kupManager.data.datasetOperations.cell.replace(
+        kupManager.data.cell.replace(
             newDataset,
             { value: 'From 1951 to 2022' },
             ['19512022']
@@ -888,17 +876,17 @@ function mergeEvent(index) {
     replaceEvent(index);
     const newDataset = { ...outputTable.data };
     if (index === 0) {
-        kupManager.data.datasetOperations.column.new(newDataset, 'merge', {
+        kupManager.data.column.new(newDataset, 'merge', {
             columns: ['2039', '4059', '6099'],
             newColumn: resultingColumn,
         });
     } else if (index === 1) {
-        kupManager.data.datasetOperations.column.new(newDataset, 'merge', {
+        kupManager.data.column.new(newDataset, 'merge', {
             columns: ['AC', 'DP', 'QZ'],
             newColumn: resultingColumnString,
         });
     } else if (index === 2) {
-        kupManager.data.datasetOperations.column.new(newDataset, 'merge', {
+        kupManager.data.column.new(newDataset, 'merge', {
             columns: ['17001900', '19011950', '19512022'],
             newColumn: resultingColumnDate,
         });
@@ -908,7 +896,7 @@ function mergeEvent(index) {
 
 function distinctEvent(index) {
     mergeEvent(index);
-    const newDataset = kupManager.data.datasetOperations.distinct({
+    const newDataset = kupManager.data.distinct({
         ...outputTable.data,
     });
     outputTable.data = newDataset;
@@ -919,21 +907,21 @@ function allInOneEvent(index, titleColumn) {
     const dataset = { ...inputTable.data };
     let newDataset;
     if (index === 0) {
-        newDataset = kupManager.data.datasetOperations.rangedDistinct(
+        newDataset = kupManager.data.rangedDistinct(
             dataset,
             newColumns,
             resultingColumn,
             titleColumn
         );
     } else if (index === 1) {
-        newDataset = kupManager.data.datasetOperations.rangedDistinct(
+        newDataset = kupManager.data.rangedDistinct(
             dataset,
             newColumnsString,
             resultingColumnString,
             titleColumn
         );
     } else if (index === 2) {
-        newDataset = kupManager.data.datasetOperations.rangedDistinct(
+        newDataset = kupManager.data.rangedDistinct(
             dataset,
             newColumnsDate,
             resultingColumnDate,

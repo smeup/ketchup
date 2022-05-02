@@ -189,16 +189,16 @@ function createComp() {
     'kup-list': {
       data: [
         {
-          text: 'First item',
-          value: 'CODE_1',
+          value: 'First item',
+          id: 'CODE_1',
         },
         {
-          text: 'Second item',
-          value: 'CODE_2',
+          value: 'Second item',
+          id: 'CODE_2',
         },
         {
-          text: 'Third item',
-          value: 'CODE_3',
+          value: 'Third item',
+          id: 'CODE_3',
         },
       ],
       displayMode: 'both',

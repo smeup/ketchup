@@ -51,14 +51,16 @@
       box-shadow: none;
     }
 
-    &.button--outlined {
-      border-left: none;
-    }
-
     &.toggled {
       .button__icon {
         transform: rotate(180deg);
       }
+    }
+  }
+
+  &:not(.dropdown-only) {
+    .button--outlined:not(.dropdown-only) {
+      border-left: none;
     }
   }
 }

@@ -50,7 +50,6 @@ import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
-    deepEqual,
     getProps,
     numberToFormattedStringNumber,
     setProps,
@@ -63,7 +62,7 @@ import {
     ValueDisplayedValue,
 } from '../../utils/filters/filters-declarations';
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
-import { KupListData } from '../kup-list/kup-list-declarations';
+import { KupListNode } from '../kup-list/kup-list-declarations';
 import {
     GenericObject,
     KupComponent,
@@ -146,32 +145,65 @@ export class KupTree {
         if (this.store && this.stateId) {
             let somethingChanged = false;
 
-            if (!deepEqual(this.state.filters, this.filters)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.filters,
+                    this.filters
+                )
+            ) {
                 this.state.filters = { ...this.filters };
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.density, this.density)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.density,
+                    this.density
+                )
+            ) {
                 this.state.density = this.density;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.showFilters, this.showFilters)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.showFilters,
+                    this.showFilters
+                )
+            ) {
                 this.state.showFilters = this.showFilters;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.showFooter, this.showFooter)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.showFooter,
+                    this.showFooter
+                )
+            ) {
                 this.state.showFooter = this.showFooter;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.totals, this.totals)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.totals,
+                    this.totals
+                )
+            ) {
                 this.state.totals = { ...this.totals };
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.globalFilter, this.globalFilter)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.globalFilter,
+                    this.globalFilter
+                )
+            ) {
                 this.state.globalFilter = this.globalFilter;
                 somethingChanged = true;
             }
             if (
-                !deepEqual(this.state.globalFilterValue, this.globalFilterValue)
+                !this.kupManager.objects.deepEqual(
+                    this.state.globalFilterValue,
+                    this.globalFilterValue
+                )
             ) {
                 this.state.globalFilterValue = this.globalFilterValue;
                 somethingChanged = true;
@@ -363,7 +395,6 @@ export class KupTree {
      */
     private columnMenuCard: HTMLKupCardElement = null;
     private treeWrapperRef: KupScrollOnHoverElement;
-    private selectedColumn: string = '';
     private clickTimeout: any[] = [];
     private globalFilterTimeout: number;
     private footer: { [index: string]: number };
@@ -622,9 +653,7 @@ export class KupTree {
      */
     @Method()
     async hideColumn(column: KupDataColumn): Promise<void> {
-        this.kupManager.data.datasetOperations.column.hide(this.columns, [
-            column.name,
-        ]);
+        this.kupManager.data.column.hide(this.columns, [column.name]);
         this.kupColumnRemove.emit({
             comp: this,
             id: this.rootElement.id,
@@ -964,6 +993,11 @@ export class KupTree {
             (this.expansionMode.toLowerCase() === KupTreeExpansionMode.NODE &&
                 !treeNodeData.expandable)
         ) {
+            const td = e
+                ? this.getEventPath(e).find((el) => {
+                      if (el.tagName === 'TD') return el;
+                  })
+                : null;
             // If this TreeNode is not disabled, then it can be selected and an event is emitted
             if (treeNodeData && !treeNodeData.disabled) {
                 if (this.autoSelectionNodeMode)
@@ -978,11 +1012,10 @@ export class KupTree {
                         .split(',')
                         .map((treeNodeIndex) => parseInt(treeNodeIndex)),
                     treeNode: treeNodeData,
-                    columnName: this.selectedColumn,
+                    columnName: td ? td.dataset.column : null,
                     auto: auto,
                 });
             }
-            this.selectedColumn = '';
         }
 
         // If KupTreeExpansionMode.NODE then click is a collapse/expand click
@@ -1094,6 +1127,24 @@ export class KupTree {
         }
     }
 
+    private getEventPath(e: MouseEvent): HTMLElement[] {
+        let path: HTMLElement[] = [];
+
+        let currentEl: unknown = e.target as HTMLElement;
+        while (
+            currentEl &&
+            currentEl !== this.rootElement &&
+            currentEl !== document.body
+        ) {
+            path.push(currentEl as HTMLElement);
+            currentEl = (currentEl as HTMLElement).parentNode
+                ? (currentEl as HTMLElement).parentNode
+                : (currentEl as ShadowRoot).host;
+        }
+
+        return path;
+    }
+
     private hasTotals() {
         return this.totals && Object.keys(this.totals).length > 0;
     }
@@ -1194,8 +1245,7 @@ export class KupTree {
                 );
                 const data = this.data as KupDataDataset;
                 this.columns = data.columns;
-                this.data =
-                    this.kupManager.data.datasetOperations.row.toNode(data);
+                this.data = this.kupManager.data.row.toNode(data);
                 this.showColumns = true;
                 this.showHeader = true;
             }
@@ -1548,12 +1598,18 @@ export class KupTree {
 
         // When can be expanded OR selected
         if (!treeNodeData.disabled) {
-            treeNodeOptions['onClick'] = () => {
+            treeNodeOptions['onClick'] = (e: MouseEvent) => {
+                // Note: event must be cloned
+                // otherwise inside setTimeout will be exiting the Shadow DOM scope(causing loss of information, including target).
+                const clone: GenericObject = {};
+                for (const key in e) {
+                    clone[key] = e[key];
+                }
                 this.clickTimeout.push(
                     setTimeout(
-                        (e: MouseEvent) =>
+                        () =>
                             this.hdlTreeNodeClick(
-                                e,
+                                clone as MouseEvent,
                                 treeNodeData,
                                 treeNodePath,
                                 false
@@ -1587,7 +1643,7 @@ export class KupTree {
                         setSizes: true,
                     };
                     treeNodeCells.push(
-                        <td class={`grid-cell`}>
+                        <td class={`grid-cell`} data-column={column.name}>
                             <FCell {...cellProps}></FCell>
                         </td>
                     );
@@ -1786,55 +1842,45 @@ export class KupTree {
                 }
 
                 if (this.isOpenedTotalMenuForColumn(column.name)) {
-                    let listData: KupListData[] = [
+                    let listData: KupListNode[] = [
                         {
-                            text: translation[TotalLabel.COUNT],
-                            value: TotalMode.COUNT,
-                            selected: false,
+                            id: TotalMode.COUNT,
+                            value: translation[TotalLabel.COUNT],
                         },
                         {
-                            text: translation[TotalLabel.DISTINCT],
-                            value: TotalMode.DISTINCT,
-                            selected: false,
+                            id: TotalMode.DISTINCT,
+                            value: translation[TotalLabel.DISTINCT],
                         },
                     ];
                     if (this.kupManager.objects.isNumber(column.obj)) {
-                        // TODO Move these objects in declarations
                         listData.push(
                             {
-                                text: translation[TotalLabel.SUM],
-                                value: TotalMode.SUM,
-                                selected: false,
+                                id: TotalMode.SUM,
+                                value: translation[TotalLabel.SUM],
                             },
                             {
-                                text: translation[TotalLabel.AVERAGE],
-                                value: TotalMode.AVERAGE,
-                                selected: false,
+                                id: TotalMode.AVERAGE,
+                                value: translation[TotalLabel.AVERAGE],
                             },
                             {
-                                text: translation[TotalLabel.MIN],
-                                value: TotalMode.MIN,
-                                selected: false,
+                                id: TotalMode.MIN,
+                                value: translation[TotalLabel.MIN],
                             },
                             {
-                                text: translation[TotalLabel.MAX],
-                                value: TotalMode.MAX,
-                                selected: false,
+                                id: TotalMode.MAX,
+                                value: translation[TotalLabel.MAX],
                             }
                         );
                     }
-                    // TODO replace this with find which is a better approach
-                    // Note that this is not supported in older IE
                     let selectedItem = listData.find(
-                        (item) => item.text === menuLabel
+                        (item) => item.value === menuLabel
                     );
                     if (selectedItem) {
                         selectedItem.selected = true;
                         listData.push({
-                            text: translation[TotalLabel.CANC],
-                            value: TotalLabel.CANC,
-                            selected: false,
+                            id: TotalLabel.CANC,
                             separator: true,
+                            value: translation[TotalLabel.CANC],
                         });
                     }
 

@@ -16,33 +16,33 @@ for (let index = 0; index < cards.length; index++) {
                     'kup-list': {
                         data: [
                             {
-                                text: 'Cliente',
-                                value: 'CN;CLI;',
+                                value: 'Cliente',
+                                id: 'CN;CLI;',
                                 selected: false,
                             },
                             {
-                                text: 'Collaboratore',
-                                value: 'CN;COL;',
+                                value: 'Collaboratore',
+                                id: 'CN;COL;',
                                 selected: false,
                             },
                             {
-                                text: 'Fornitore',
-                                value: 'CN;FOR;',
+                                value: 'Fornitore',
+                                id: 'CN;FOR;',
                                 selected: false,
                             },
                             {
-                                text: 'Oggetto V2 JAGRA',
-                                value: 'OG;V2;JAGRA',
+                                value: 'Oggetto V2 JAGRA',
+                                id: 'OG;V2;JAGRA',
                                 selected: false,
                             },
                             {
-                                text: 'Oggetto number',
-                                value: 'NR;;',
+                                value: 'Oggetto number',
+                                id: 'NR;;',
                                 selected: false,
                             },
                             {
-                                text: 'Oggetto date',
-                                value: 'D8;;',
+                                value: 'Oggetto date',
+                                id: 'D8;;',
                                 selected: false,
                             },
                         ],
@@ -60,33 +60,33 @@ for (let index = 0; index < cards.length; index++) {
                     'kup-list': {
                         data: [
                             {
-                                text: 'Cliente',
-                                value: 'CN;CLI;',
+                                value: 'Cliente',
+                                id: 'CN;CLI;',
                                 selected: false,
                             },
                             {
-                                text: 'Collaboratore',
-                                value: 'CN;COL;',
+                                value: 'Collaboratore',
+                                id: 'CN;COL;',
                                 selected: false,
                             },
                             {
-                                text: 'Fornitore',
-                                value: 'CN;FOR;',
+                                value: 'Fornitore',
+                                id: 'CN;FOR;',
                                 selected: false,
                             },
                             {
-                                text: 'Oggetto V2 JAGRA',
-                                value: 'OG;V2;JAGRA',
+                                value: 'Oggetto V2 JAGRA',
+                                id: 'OG;V2;JAGRA',
                                 selected: false,
                             },
                             {
-                                text: 'Oggetto number',
-                                value: 'NR;;',
+                                value: 'Oggetto number',
+                                id: 'NR;;',
                                 selected: false,
                             },
                             {
-                                text: 'Oggetto date',
-                                value: 'D8;;',
+                                value: 'Oggetto date',
+                                id: 'D8;;',
                                 selected: false,
                             },
                         ],
@@ -351,21 +351,21 @@ for (let index = 0; index < cards.length; index++) {
             {
                 data: [
                     {
-                        text: 'First choice',
-                        value: '1',
+                        value: 'First choice',
+                        id: '1',
                         icon: 'add_alert',
                         trailingIcon: true,
                         selected: false,
                     },
                     {
-                        text: 'Selected choice',
-                        value: '2',
+                        value: 'Selected choice',
+                        id: '2',
                         selected: true,
                         icon: 'ac_unit',
                     },
                     {
-                        text: 'Third choice (below a separator)',
-                        value: '3',
+                        value: 'Third choice (below a separator)',
+                        id: '3',
                         icon: '3d_rotation',
                         selected: false,
                         separator: true,
