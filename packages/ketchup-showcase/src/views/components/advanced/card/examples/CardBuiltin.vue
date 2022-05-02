@@ -146,6 +146,38 @@
         </div>
       </div>
     </div>
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 5</span> is a numeric calculator:
+        <br />
+        <br />
+        <span class="code-word">options</span> <br />
+        <span class="code-word">- decimals (boolean)</span>: Enable to use
+        decimal numerbers.<br />
+        <span class="code-word">- initialValue (string | KupObj)</span>: The
+        starting number.<br />
+        <span class="code-word">- maxDecimals (number)</span>: Sets the maximun
+        decimal numbers.<br />
+        <span class="code-word">- maxIntegers (number)</span>: Sets the maximun
+        integer numbers.<br />
+        <span class="code-word">- maxLength (number)</span>: Sets the maximun
+        length of number (integer + decimal).<br />
+        <span class="code-word">- negative (boolean)</span>: Enable to use
+        negative numbers.<br />
+        <span class="code-word">- resetStatus (boolean)</span>: Flag used to
+        reset the view.<br />
+      </p>
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            layout-family="built-in"
+            layout-number="5"
+            size-x="300px"
+            :data.prop="dataNumeric"
+          ></kup-card>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -181,6 +213,14 @@ export default {
           enableMove: true,
           receivingColumn: defaultDataTable.columns[1],
           starterColumn: defaultDataTable.columns[2],
+        },
+      },
+      dataNumeric: {
+        options: {
+          initialValue: (3.14).toString(),
+          decimals: true,
+          negative: true,
+          resetStatus: true,
         },
       },
     };

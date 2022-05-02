@@ -131,21 +131,64 @@ Type: `Promise<void>`
 
 - [kup-list](.)
 - [kup-radio](../kup-radio)
+- [kup-card](../kup-card)
 - [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-list --> kup-list
-  kup-badge --> kup-badge
-  kup-autocomplete --> kup-list
+  kup-radio --> kup-card
   kup-card --> kup-list
+  kup-badge --> kup-badge
+  kup-badge --> kup-card
+  kup-button --> kup-card
+  kup-button --> kup-badge
+  kup-chip --> kup-card
+  kup-chip --> kup-badge
   kup-combobox --> kup-list
-  kup-data-table --> kup-list
-  kup-dropdown-button --> kup-list
+  kup-autocomplete --> kup-list
+  kup-checkbox --> kup-card
+  kup-date-picker --> kup-card
+  kup-text-field --> kup-card
   kup-time-picker --> kup-list
+  kup-data-table --> kup-list
   kup-tooltip --> kup-list
+  kup-box --> kup-card
+  kup-box --> kup-checkbox
+  kup-box --> kup-badge
+  kup-box --> kup-tooltip
+  kup-box --> kup-combobox
+  kup-box --> kup-text-field
+  kup-box --> kup-autocomplete
+  kup-box --> kup-color-picker
+  kup-box --> kup-date-picker
+  kup-box --> kup-rating
+  kup-box --> kup-time-picker
+  kup-box --> kup-image
+  kup-box --> kup-button
+  kup-box --> kup-button-list
+  kup-box --> kup-chart
+  kup-box --> kup-gauge
+  kup-box --> kup-progress-bar
+  kup-box --> kup-radio
+  kup-color-picker --> kup-card
+  kup-rating --> kup-card
+  kup-image --> kup-spinner
+  kup-image --> kup-card
+  kup-image --> kup-badge
+  kup-spinner --> kup-card
+  kup-button-list --> kup-dropdown-button
+  kup-button-list --> kup-card
+  kup-button-list --> kup-badge
+  kup-dropdown-button --> kup-list
+  kup-chart --> kup-card
+  kup-gauge --> kup-card
+  kup-progress-bar --> kup-card
   kup-tree --> kup-list
+  kup-switch --> kup-card
+  kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-badge
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -2225,6 +2225,7 @@ export class KupTree {
                     )}
                 </style>
                 <div id={componentWrapperId} class={wrapperClass}>
+                    {filterField}
                     <div
                         class="wrapper"
                         ref={(el: HTMLElement) =>
@@ -2232,7 +2233,6 @@ export class KupTree {
                                 el as KupScrollOnHoverElement)
                         }
                     >
-                        {filterField}
                         <table
                             class="kup-tree"
                             data-show-columns={this.showColumns}

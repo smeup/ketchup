@@ -54,6 +54,34 @@
         ></div>
       </div>
       <p>
+        <span class="code-word">Rasterize HTMLElement</span><br />
+        Disclaimer: this API (<a href="https://html2canvas.hertzen.com/"
+          >html2canvas</a
+        >) is wrapped inside KupManager but all credits go to its creator.<br />
+        It's possible to transform an HTMLElement into an image by invoking the
+        method
+        <span class="code-word"
+          >rasterize(element: HTMLElement, options? Partial&lt;Options&gt;) :
+          HTMLCanvasElement</span
+        ><br />
+        First argument: element to transform.<br />
+        Second argument: set of options, listed
+        <a href="https://html2canvas.hertzen.com/configuration">here</a
+        >.<br /><br />
+        You can try it yourself! By clicking on the button below, a small window
+        will be displayed on the right of the screen.<br />
+        When you double click on a KupComponent, its rasterized image will be
+        shown in this window.
+      </p>
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-button
+            label="Toggle"
+            @kup-button-click="toggleRasterize()"
+          ></kup-button>
+        </div>
+      </div>
+      <p>
         <span class="code-word">String Finder</span><br />
         When a pointer event occurs,
         <span class="code-word">KupManager</span> analyzes whether the element
@@ -80,6 +108,23 @@ import {
 } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 import { KupListNode } from '@sme.up/ketchup/dist/types/components/kup-list/kup-list-declarations';
 import { KupComboboxEventPayload } from '@sme.up/ketchup/dist/types/components/kup-combobox/kup-combobox-declarations';
+
+const rasterizeCb = async (e: MouseEvent) => {
+  const paths = e.composedPath() as HTMLElement[];
+  for (let index = 0; index < paths.length; index++) {
+    const element = paths[index];
+    if (element.tagName && element.tagName.indexOf('KUP-') === 0) {
+      const canvas = await dom.ketchup.rasterize(element, {
+        backgroundColor: null,
+      });
+      const wrapper = document.querySelector('#rasterize-viewer');
+      if (canvas && wrapper) {
+        wrapper.appendChild(canvas);
+      }
+      break;
+    }
+  }
+};
 
 var card: HTMLKupCardElement = null;
 var combobox: HTMLKupComboboxElement = null;
@@ -168,6 +213,24 @@ export default {
      */
     toggleMagicBox() {
       dom.ketchup.toggleMagicBox();
+    },
+    /**
+     * Toggles the kup-manager rasterize.
+     */
+    toggleRasterize() {
+      let wrapper = document.querySelector('#rasterize-viewer');
+      if (wrapper) {
+        wrapper.remove();
+        document.removeEventListener('dblclick', rasterizeCb);
+      } else {
+        wrapper = document.createElement('div');
+        wrapper.id = 'rasterize-viewer';
+        document.body.appendChild(wrapper);
+        setTimeout(
+          () => document.addEventListener('dblclick', rasterizeCb),
+          10
+        );
+      }
     },
   },
   mounted() {

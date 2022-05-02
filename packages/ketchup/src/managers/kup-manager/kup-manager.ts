@@ -13,6 +13,7 @@ import type {
     KupManagerScrollOnHoverSettings,
     KupManagerStringFinderPayload,
     KupManagerThemeSettings,
+    KupManagerTooltipSettings,
     KupManagerUtilities,
 } from './kup-manager-declarations';
 import type { ResizableKupComponent } from '../../types/GenericTypes';
@@ -40,6 +41,9 @@ import { KupSearch } from '../kup-search/kup-search';
 import { KupDynamicPositionElement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupMathLocales } from '../kup-math/kup-math-declarations';
 import { KupMath } from '../kup-math/kup-math';
+import { KupTooltip } from '../kup-tooltip/kup-tooltip';
+import { setAssetPath } from '@stencil/core';
+import html2canvas, { Options } from 'html2canvas';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -64,6 +68,7 @@ export class KupManager {
     utilities: KupManagerUtilities;
     theme: KupTheme;
     toolbar: KupToolbar;
+    tooltip: KupTooltip;
     /**
      * Initializes KupManager.
      */
@@ -82,16 +87,21 @@ export class KupManager {
             scrollOnHoverDelay: number = null,
             scrollOnHoverStep: number = null,
             themeList: KupThemeJSON = null,
-            themeName: string = null;
+            themeName: string = null,
+            tooltipDelay: number = null;
         if (overrides) {
-            const dates: KupManagerDatesSettings = overrides.dates;
-            const debug: KupManagerDebugSettings = overrides.debug;
-            const interact: KupManagerInteractSettings = overrides.interact;
-            const language: KupManagerLanguageSettings = overrides.language;
-            const objects: KupManagerObjectsSettings = overrides.objects;
-            const scrollOnHover: KupManagerScrollOnHoverSettings =
-                overrides.scrollOnHover;
-            const theme: KupManagerThemeSettings = overrides.theme;
+            const assetsPath = overrides.assetsPath;
+            const dates = overrides.dates;
+            const debug = overrides.debug;
+            const interact = overrides.interact;
+            const language = overrides.language;
+            const objects = overrides.objects;
+            const scrollOnHover = overrides.scrollOnHover;
+            const theme = overrides.theme;
+            const tooltip = overrides.tooltip;
+            if (assetsPath) {
+                setAssetPath(assetsPath);
+            }
             if (dates) {
                 datesLocale = dates.locale ? dates.locale : null;
             }
@@ -124,6 +134,9 @@ export class KupManager {
             if (theme) {
                 themeList = theme.list ? theme.list : null;
                 themeName = theme.name ? theme.name : null;
+            }
+            if (tooltip) {
+                tooltipDelay = tooltip.delay ? tooltip.delay : null;
             }
         }
         this.data = new KupData();
@@ -166,6 +179,7 @@ export class KupManager {
         };
         this.theme = new KupTheme(themeList, themeName);
         this.toolbar = new KupToolbar();
+        this.tooltip = new KupTooltip(tooltipDelay);
         document.addEventListener('pointerdown', (e) => {
             const paths = e.composedPath() as HTMLElement[];
             const lastString =
@@ -298,6 +312,24 @@ export class KupManager {
         } else {
             this.utilities.clickCallbacks.add(cb);
         }
+    }
+    /**
+     * Rasterizes an HTMLElement, transforming into a canvas.
+     * @param {HTMLElement} el - Element to rasterize.
+     * @returns {HTMLCanvasElement} - Canvas created from the HTMLElement.
+     *
+     * CSS Mask is not supported:
+     * @see https://github.com/niklasvh/html2canvas/issues/2814
+     * Warning in console about sourcemap, claimed to be solved here but...:
+     * @see https://github.com/niklasvh/html2canvas/pull/2787/files
+     */
+    async rasterize(
+        el: HTMLElement,
+        options?: Partial<Options>
+    ): Promise<HTMLCanvasElement> {
+        return html2canvas(el, options).then((canvas) => {
+            return canvas;
+        });
     }
     /**
      * Removes the given click callback.

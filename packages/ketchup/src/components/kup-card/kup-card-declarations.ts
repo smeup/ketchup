@@ -106,6 +106,32 @@ export interface KupCardBuiltInClock extends HTMLElement {
     kupData: KupCardBuiltInClockData;
 }
 /**
+ * Options of the built-in numeric.
+ */
+export interface KupCardBuiltInNumericOptions {
+    decimals?: boolean;
+    initialValue?: string | KupObj;
+    maxDecimals?: number;
+    maxIntegers?: number;
+    maxLength?: number;
+    negative?: boolean;
+    resetStatus: boolean;
+}
+/**
+ * Data prop of the built-in numeric.
+ */
+export interface KupCardBuiltInNumericData {
+    localeValue?: string;
+    value: string;
+}
+
+/**
+ * Html element of the built-in numeric
+ */
+export interface KupCardBuiltInNumeric extends HTMLElement {
+    kupData: KupCardBuiltInNumericData;
+}
+/**
  * Data prop of the kup-card component.
  */
 export interface KupCardData {
@@ -126,7 +152,8 @@ export interface KupCardData {
         | KupCardBuiltInCalendarOptions
         | KupCardBuiltInClockOptions
         | KupCardColumnDropMenuOptions
-        | KupCardColorPickerOptions;
+        | KupCardColorPickerOptions
+        | KupCardBuiltInNumericOptions;
     progressbar?: GenericObject[];
     switch?: GenericObject[];
     tabbar?: GenericObject[];

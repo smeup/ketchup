@@ -70,18 +70,77 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-spinner](../kup-spinner)
+- [kup-card](../kup-card)
 - [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-image --> kup-spinner
+  kup-image --> kup-card
   kup-image --> kup-badge
+  kup-spinner --> kup-card
+  kup-card --> kup-badge
+  kup-card --> kup-button
+  kup-card --> kup-chip
+  kup-card --> kup-list
+  kup-card --> kup-combobox
+  kup-card --> kup-autocomplete
+  kup-card --> kup-checkbox
+  kup-card --> kup-date-picker
+  kup-card --> kup-text-field
+  kup-card --> kup-time-picker
+  kup-card --> kup-data-table
+  kup-card --> kup-spinner
+  kup-card --> kup-progress-bar
+  kup-card --> kup-chart
+  kup-card --> kup-tab-bar
+  kup-card --> kup-tree
+  kup-card --> kup-switch
+  kup-card --> kup-card
   kup-badge --> kup-badge
-  kup-box --> kup-image
-  kup-cell --> kup-image
+  kup-badge --> kup-card
+  kup-button --> kup-card
+  kup-button --> kup-badge
+  kup-chip --> kup-card
+  kup-chip --> kup-badge
+  kup-list --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-card
+  kup-list --> kup-badge
+  kup-radio --> kup-card
+  kup-combobox --> kup-list
+  kup-combobox --> kup-card
+  kup-autocomplete --> kup-list
+  kup-autocomplete --> kup-card
+  kup-checkbox --> kup-card
+  kup-date-picker --> kup-card
+  kup-text-field --> kup-card
+  kup-time-picker --> kup-card
+  kup-time-picker --> kup-list
   kup-data-table --> kup-image
+  kup-tooltip --> kup-button
+  kup-tooltip --> kup-card
+  kup-tooltip --> kup-box
+  kup-tooltip --> kup-list
+  kup-tooltip --> kup-tree
+  kup-box --> kup-image
+  kup-color-picker --> kup-card
+  kup-rating --> kup-card
+  kup-button-list --> kup-dropdown-button
+  kup-button-list --> kup-card
+  kup-button-list --> kup-badge
+  kup-dropdown-button --> kup-list
+  kup-dropdown-button --> kup-card
+  kup-dropdown-button --> kup-badge
+  kup-chart --> kup-card
+  kup-gauge --> kup-card
+  kup-progress-bar --> kup-card
   kup-tree --> kup-image
+  kup-switch --> kup-card
+  kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-badge
+  kup-cell --> kup-image
   style kup-image fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

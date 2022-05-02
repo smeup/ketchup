@@ -1,5 +1,6 @@
 import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
+import type { PointerEvent } from '@interactjs/types/index';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import {
     KupDataCell,
@@ -215,6 +216,7 @@ export interface KupDatatableEventHandlerDetails {
     column: KupDataColumn;
     filterRemove: HTMLElement;
     isGroupRow: boolean;
+    originalEvent: PointerEvent;
     row: KupDataRow;
     td: HTMLElement;
     textfield: HTMLElement;

@@ -90,27 +90,50 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-badge](.)
+- [kup-card](../kup-card)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-badge --> kup-badge
-  kup-accordion --> kup-badge
-  kup-box --> kup-badge
-  kup-button --> kup-badge
-  kup-button-list --> kup-badge
-  kup-calendar --> kup-badge
   kup-card --> kup-badge
-  kup-cell --> kup-badge
+  kup-button --> kup-badge
   kup-chip --> kup-badge
-  kup-data-table --> kup-badge
-  kup-dropdown-button --> kup-badge
-  kup-image --> kup-badge
   kup-list --> kup-badge
+  kup-radio --> kup-card
+  kup-combobox --> kup-list
+  kup-combobox --> kup-card
+  kup-autocomplete --> kup-list
+  kup-autocomplete --> kup-card
+  kup-checkbox --> kup-card
+  kup-date-picker --> kup-card
+  kup-text-field --> kup-card
+  kup-time-picker --> kup-card
+  kup-time-picker --> kup-list
+  kup-data-table --> kup-badge
+  kup-tooltip --> kup-button
+  kup-tooltip --> kup-card
+  kup-tooltip --> kup-box
+  kup-tooltip --> kup-list
+  kup-tooltip --> kup-tree
+  kup-box --> kup-badge
+  kup-color-picker --> kup-card
+  kup-rating --> kup-card
+  kup-image --> kup-badge
+  kup-spinner --> kup-card
+  kup-button-list --> kup-badge
+  kup-dropdown-button --> kup-badge
+  kup-chart --> kup-card
+  kup-gauge --> kup-card
+  kup-progress-bar --> kup-card
+  kup-tree --> kup-badge
+  kup-switch --> kup-card
+  kup-tab-bar --> kup-badge
+  kup-accordion --> kup-badge
+  kup-calendar --> kup-badge
+  kup-cell --> kup-badge
   kup-magic-box --> kup-badge
   kup-snackbar --> kup-badge
-  kup-tab-bar --> kup-badge
-  kup-tree --> kup-badge
   style kup-badge fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
