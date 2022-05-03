@@ -8,7 +8,7 @@
 | Property      | Attribute      | Description                                                     | Type              | Default |
 | ------------- | -------------- | --------------------------------------------------------------- | ----------------- | ------- |
 | `customStyle` | `custom-style` | Custom style of the component.                                  | `string`          | `''`    |
-| `data`        | --             | List of elements.                                               | `KupTabBarData[]` | `null`  |
+| `data`        | --             | List of elements.                                               | `KupTabBarNode[]` | `null`  |
 | `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`         | `true`  |
 
 

@@ -31,7 +31,7 @@ import {
     KupLanguageRow,
     KupLanguageTotals,
 } from '../../managers/kup-language/kup-language-declarations';
-import { KupTabBarData } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
+import { KupTabBarNode } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupColumnMenuIds } from './kup-column-menu-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
@@ -407,13 +407,13 @@ export class KupColumnMenu {
         column: KupDataColumn
     ): GenericObject[] {
         const props: GenericObject[] = [{ data: [] }];
-        const data: KupTabBarData[] = props[0].data;
+        const data: KupTabBarNode[] = props[0].data;
         if (comp.showFilters) {
             data.push({
-                text: dom.ketchup.language.translate(
+                id: KupLanguageGeneric.FILTERS,
+                value: dom.ketchup.language.translate(
                     KupLanguageGeneric.FILTERS
                 ),
-                value: KupLanguageGeneric.FILTERS,
             });
         }
         if (
@@ -425,14 +425,17 @@ export class KupColumnMenu {
             comp.removableColumns
         ) {
             data.push({
-                text: dom.ketchup.language.translate(KupLanguageColumn.COLUMNS),
-                value: KupLanguageColumn.COLUMNS,
+                id: KupLanguageColumn.COLUMNS,
+                value: dom.ketchup.language.translate(
+                    KupLanguageColumn.COLUMNS
+                ),
             });
         }
         if (!FiltersColumnMenu.isTree(comp)) {
             data.push({
                 icon: 'settings',
-                value: KupLanguageGeneric.SETTINGS,
+                id: KupLanguageGeneric.SETTINGS,
+                value: '',
             });
         }
 

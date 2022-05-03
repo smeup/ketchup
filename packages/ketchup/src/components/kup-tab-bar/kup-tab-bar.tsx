@@ -15,7 +15,7 @@ import {
 import { MDCRipple } from '@material/ripple';
 import {
     KupTabBarClickEventPayload,
-    KupTabBarData,
+    KupTabBarNode,
     KupTabBarEventPayload,
     KupTabBarProps,
 } from './kup-tab-bar-declarations';
@@ -62,7 +62,7 @@ export class KupTabBar {
      * List of elements.
      * @default null
      */
-    @Prop() data: KupTabBarData[] = null;
+    @Prop() data: KupTabBarNode[] = null;
     /**
      * When enabled displays Material's ripple effect on item headers.
      * @default true
@@ -267,7 +267,7 @@ export class KupTabBar {
         const tabBar: Array<VNode> = [];
 
         for (let i = 0; i < this.data.length; i++) {
-            const data: KupTabBarData = this.data[i];
+            const data: KupTabBarNode = this.data[i];
             const tabClass: Record<string, boolean> = {
                 tab: true,
                 'tab--active': data.active ? true : false,
@@ -295,7 +295,11 @@ export class KupTabBar {
                                 wrapperClass="tab__icon"
                             />
                         ) : null}
-                        <span class="tab__text-label">{this.data[i].text}</span>
+                        {data.value ? (
+                            <span class="tab__text-label">
+                                {this.data[i].value}
+                            </span>
+                        ) : null}
                     </span>
                     <span
                         class={`tab-indicator ${

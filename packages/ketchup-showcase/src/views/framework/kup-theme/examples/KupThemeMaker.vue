@@ -1349,28 +1349,28 @@ export default {
       colorPickerData: { 'kup-text-field': { fullWidth: true } },
       tabs: [
         {
-          value: ThemeMakerTabs.VARIABLES,
-          text: ThemeMakerTabs.VARIABLES,
           icon: 'color_lens',
+          id: ThemeMakerTabs.VARIABLES,
           title: "List of the current theme's variables",
+          value: ThemeMakerTabs.VARIABLES,
         },
         {
-          value: ThemeMakerTabs.CUSTOM_STYLES,
-          text: ThemeMakerTabs.CUSTOM_STYLES,
           icon: 'style',
+          id: ThemeMakerTabs.CUSTOM_STYLES,
           title: "List of the current theme's customStyles",
+          value: ThemeMakerTabs.CUSTOM_STYLES,
         },
         {
-          value: ThemeMakerTabs.ICONS,
-          text: ThemeMakerTabs.ICONS,
           icon: 'photo',
+          id: ThemeMakerTabs.ICONS,
           title: "List of the current theme's icons",
+          value: ThemeMakerTabs.ICONS,
         },
         {
-          value: ThemeMakerTabs.JSON,
-          text: ThemeMakerTabs.JSON,
           icon: 'json',
+          id: ThemeMakerTabs.JSON,
           title: 'The JSON of your theme',
+          value: ThemeMakerTabs.JSON,
         },
       ],
     };
@@ -1524,7 +1524,7 @@ export default {
       iconsView.classList.remove(visibleClass);
       jsonView.classList.remove(visibleClass);
 
-      switch (tabBar.data[i].text) {
+      switch (tabBar.data[i].value) {
         case ThemeMakerTabs.VARIABLES:
           variablesView.classList.add(visibleClass);
           break;
