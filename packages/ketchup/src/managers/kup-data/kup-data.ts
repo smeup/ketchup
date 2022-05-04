@@ -15,6 +15,7 @@ import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
 import { findColumns, hideColumns, newColumn } from './kup-data-column-helper';
 import { findRow, toNode } from './kup-data-row-helper';
 import {
+    getParentNode,
     removeNode,
     setPropertiesNode,
     toStreamNode,
@@ -70,6 +71,9 @@ export class KupData {
         },
     };
     node = {
+        getParent(nodes: KupDataNode[], child: KupDataNode): KupDataNode {
+            return getParentNode(nodes, child);
+        },
         remove(nodes: KupDataNode[], node2remove: KupDataNode): KupDataNode {
             return removeNode(nodes, node2remove);
         },
