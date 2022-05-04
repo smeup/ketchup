@@ -1,4 +1,4 @@
-# kup-form-editor
+# kup-image-list
 
 
 
@@ -7,17 +7,18 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                    | Type      | Default |
-| ------------- | -------------- | ------------------------------ | --------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string`  | `''`    |
-| `data`        | --             | The data of the component.     | `KupForm` | `null`  |
+| Property      | Attribute      | Description                                                      | Type            | Default |
+| ------------- | -------------- | ---------------------------------------------------------------- | --------------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component.                                   | `string`        | `''`    |
+| `data`        | --             | List of images.                                                  | `KupDataNode[]` | `[]`    |
+| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on clicked items. | `boolean`       | `true`  |
 
 
 ## Events
 
-| Event                 | Description | Type                                     |
-| --------------------- | ----------- | ---------------------------------------- |
-| `kup-formeditor-save` |             | `CustomEvent<KupFormEditorEventPayload>` |
+| Event                 | Description | Type                                    |
+| --------------------- | ----------- | --------------------------------------- |
+| `kup-imagelist-click` |             | `CustomEvent<KupImageListEventPayload>` |
 
 
 ## Methods
@@ -53,25 +54,34 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                                 | Description                                               |
+| ------------------------------------ | --------------------------------------------------------- |
+| `--kup-imagelist-background-color`   | Sets the background color of the component.               |
+| `--kup-imagelist-columns`            | Sets the number of columns of the grid.                   |
+| `--kup-imagelist-grid-gap`           | Sets the gap of the grid.                                 |
+| `--kup-imagelist-image-margin`       | Sets the margin of the images.                            |
+| `--kup-imagelist-image-min-height`   | Sets the minimun height of the images (useful for icons). |
+| `--kup-imagelist-item-border-radius` | Sets the border radius of items.                          |
+| `--kup-imagelist-label-margin`       | Sets the margin of the labels.                            |
+| `--kup-imagelist-primary-color`      | Sets the primary color of the component (ripple effect).  |
+| `--kup-imagelist-primary-color-rgb`  | Sets the RGB values of the primary color.                 |
+| `--kup-imagelist-text-color`         | Sets the text color of the labels.                        |
+
+
 ## Dependencies
 
 ### Depends on
 
-- [kup-radio](../kup-radio)
-- [kup-switch](../kup-switch)
-- [kup-image](../kup-image)
-- [kup-badge](../kup-badge)
 - [kup-card](../kup-card)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-form-editor --> kup-radio
-  kup-form-editor --> kup-switch
-  kup-form-editor --> kup-image
-  kup-form-editor --> kup-badge
-  kup-form-editor --> kup-card
-  kup-radio --> kup-card
+  kup-image-list --> kup-card
+  kup-image-list --> kup-badge
   kup-card --> kup-badge
   kup-card --> kup-button
   kup-card --> kup-chip
@@ -100,6 +110,7 @@ graph TD;
   kup-list --> kup-radio
   kup-list --> kup-card
   kup-list --> kup-badge
+  kup-radio --> kup-card
   kup-combobox --> kup-list
   kup-combobox --> kup-card
   kup-autocomplete --> kup-list
@@ -187,7 +198,7 @@ graph TD;
   kup-switch --> kup-card
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
-  style kup-form-editor fill:#f9f,stroke:#333,stroke-width:4px
+  style kup-image-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

@@ -31,6 +31,7 @@ import {
     FButtonProps,
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
+import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-image-list',
@@ -77,11 +78,24 @@ export class KupImageList {
     #kupManager: KupManager = kupManagerInstance();
     #backProps: FButtonProps = {
         icon: 'arrow_back',
-        label: 'Back',
+        label: this.#kupManager.language.translate(KupLanguageGeneric.BACK),
+        onClick: () => {
+            this.currentNode = this.#kupManager.data.node.getParent(
+                this.data,
+                this.currentNode
+            );
+        },
+        styling: FButtonStyling.FLAT,
+        wrapperClass: 'navigation-bar__back',
+    };
+    #topProps: FButtonProps = {
+        icon: 'arrow_upward',
+        label: this.#kupManager.language.translate(KupLanguageGeneric.TOP),
         onClick: () => {
             this.currentNode = null;
         },
         styling: FButtonStyling.FLAT,
+        wrapperClass: 'navigation-bar__top',
     };
 
     /*-------------------------------------------------*/
@@ -182,6 +196,7 @@ export class KupImageList {
 
     componentWillLoad() {
         this.#kupManager.debug.logLoad(this, false);
+        this.#kupManager.language.register(this);
         this.#kupManager.theme.register(this);
     }
 
@@ -218,11 +233,17 @@ export class KupImageList {
                     )}
                 </style>
                 <div id={componentWrapperId}>
-                    {hasNavigation ? (
-                        <div class="navigation-bar">
-                            <FButton {...this.#backProps}></FButton>
-                        </div>
-                    ) : null}
+                    <div class="navigation-bar">
+                        {hasNavigation ? (
+                            <div class="navigation-bar__wrapper">
+                                <FButton {...this.#backProps}></FButton>
+                                <div class="navigation-bar__title">
+                                    {this.currentNode.value}
+                                </div>
+                                <FButton {...this.#topProps}></FButton>
+                            </div>
+                        ) : null}
+                    </div>
                     <div class="image-list">{...this.#createList()}</div>
                 </div>
             </Host>
@@ -230,6 +251,7 @@ export class KupImageList {
     }
 
     disconnectedCallback() {
+        this.#kupManager.language.unregister(this);
         this.#kupManager.theme.unregister(this);
     }
 }

@@ -80,7 +80,9 @@ Type: `Promise<void>`
  - [kup-chip](../kup-chip)
  - [kup-data-table](../kup-data-table)
  - [kup-dropdown-button](../kup-dropdown-button)
+ - [kup-form-editor](../kup-form-editor)
  - [kup-image](../kup-image)
+ - [kup-image-list](../kup-image-list)
  - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
  - [kup-snackbar](../kup-snackbar)
@@ -132,6 +134,8 @@ graph TD;
   kup-accordion --> kup-badge
   kup-calendar --> kup-badge
   kup-cell --> kup-badge
+  kup-form-editor --> kup-badge
+  kup-image-list --> kup-badge
   kup-magic-box --> kup-badge
   kup-snackbar --> kup-badge
   style kup-badge fill:#f9f,stroke:#333,stroke-width:4px
