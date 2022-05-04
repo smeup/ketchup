@@ -85,6 +85,7 @@ export enum KupTagNames {
     GRID = 'KUP-GRID',
     IFRAME = 'KUP-IFRAME',
     IMAGE = 'KUP-IMAGE',
+    IMAGE_LIST = 'KUP-IMAGE-LIST',
     LAZY = 'KUP-LAZY',
     LIST = 'KUP-LIST',
     MAGIC_BOX = 'KUP-MAGIC-BOX',

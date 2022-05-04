@@ -66,6 +66,7 @@ export const fImageUsers = [
     KupTagNames.DROPDOWN_BUTTON,
     KupTagNames.FORM_EDITOR,
     KupTagNames.IMAGE,
+    KupTagNames.IMAGE_LIST,
     KupTagNames.LIST,
     KupTagNames.MAGIC_BOX,
     KupTagNames.SNACKBAR,
@@ -102,6 +103,7 @@ export const fTextFieldUsers = [
 export const rippleUsers = [
     KupTagNames.ACCORDION,
     KupTagNames.CARD,
+    KupTagNames.IMAGE_LIST,
     KupTagNames.TAB_BAR,
     KupTagNames.TREE,
 ];
