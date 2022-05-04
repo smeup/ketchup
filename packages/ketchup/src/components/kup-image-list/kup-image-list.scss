@@ -4,20 +4,37 @@
 * @prop --kup-imagelist-grid-gap: Sets the gap of the grid.
 * @prop --kup-imagelist-image-margin: Sets the margin of the images.
 * @prop --kup-imagelist-image-min-height: Sets the minimun height of the images (useful for icons).
+* @prop --kup-imagelist-item-border-radius: Sets the border radius of items.
 * @prop --kup-imagelist-label-margin: Sets the margin of the labels.
 * @prop --kup-imagelist-primary-color: Sets the primary color of the component (ripple effect).
 * @prop --kup-imagelist-text-color: Sets the text color of the labels.
 */
 
 :host {
-  --kup_imagelist_background_color: var(--kup-imagelist-background-color, transparent);
+  --kup_imagelist_background_color: var(
+    --kup-imagelist-background-color,
+    transparent
+  );
   --kup_imagelist_columns: var(--kup-imagelist-columns, 4);
-  --kup_imagelist_grid_gap: var(--kup-imagelist-grid-gap, .5em);
+  --kup_imagelist_grid_gap: var(--kup-imagelist-grid-gap, 0.5em);
   --kup_imagelist_image_margin: var(--kup-imagelist-image-margin, 1em auto);
   --kup_imagelist_image_min_height: var(--kup-imagelist-image-min-height, 64px);
-  --kup_imagelist_label_margin: var(--kup-imagelist-label-margin, 0 auto 1em auto);
-  --kup_imagelist_primary_color: var(--kup-imagelist-primary-color, var(--kup-primary-color));
-  --kup_imagelist_text_color: var(--kup-imagelist-text-color, var(--kup-text-color));
+  --kup_imagelist_item_border_radius: var(
+    --kup-imagelist-item-border-radius,
+    8px
+  );
+  --kup_imagelist_label_margin: var(
+    --kup-imagelist-label-margin,
+    0 auto 1em auto
+  );
+  --kup_imagelist_primary_color: var(
+    --kup-imagelist-primary-color,
+    var(--kup-primary-color)
+  );
+  --kup_imagelist_text_color: var(
+    --kup-imagelist-text-color,
+    var(--kup-text-color)
+  );
 
   display: block;
 }
@@ -33,20 +50,21 @@
   width: 100%;
 
   &__item {
+    border-radius: var(--kup_imagelist_item_border_radius);
     cursor: pointer;
   }
 
   &__image.f-image {
     margin: var(--kup_imagelist_image_margin);
-   
-   .f-image__icon {
+
+    .f-image__icon {
       min-height: var(--kup_imagelist_image_min_height);
-   }
+    }
   }
 
   &__label {
     color: var(--kup_imagelist_text_color);
-    letter-spacing: .12em; 
+    letter-spacing: 0.12em;
     margin: var(--kup_imagelist_label_margin);
     overflow: hidden;
     text-align: center;
@@ -55,11 +73,10 @@
 
   .mdc-ripple-surface {
     --mdc-ripple-fg-opacity: 0.24;
-  
+
     &:before,
     &:after {
       background-color: var(--kup_imagelist_primary_color);
     }
   }
-  
 }
