@@ -16,6 +16,7 @@ export const fButtonUsers = [
     KupTagNames.DATA_TABLE,
     KupTagNames.DROPDOWN_BUTTON,
     KupTagNames.FORM_EDITOR,
+    KupTagNames.IMAGE_LIST,
     KupTagNames.SNACKBAR,
 ];
 /**

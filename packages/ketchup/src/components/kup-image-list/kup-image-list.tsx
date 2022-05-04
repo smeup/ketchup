@@ -26,6 +26,11 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FImageProps } from '../../f-components/f-image/f-image-declarations';
+import { FButton } from '../../f-components/f-button/f-button';
+import {
+    FButtonProps,
+    FButtonStyling,
+} from '../../f-components/f-button/f-button-declarations';
 
 @Component({
     tag: 'kup-image-list',
@@ -69,7 +74,15 @@ export class KupImageList {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    private kupManager: KupManager = kupManagerInstance();
+    #kupManager: KupManager = kupManagerInstance();
+    #backProps: FButtonProps = {
+        icon: 'arrow_back',
+        label: 'Back',
+        onClick: () => {
+            this.currentNode = null;
+        },
+        styling: FButtonStyling.FLAT,
+    };
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -168,16 +181,16 @@ export class KupImageList {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.register(this);
+        this.#kupManager.debug.logLoad(this, false);
+        this.#kupManager.theme.register(this);
     }
 
     componentDidLoad() {
-        this.kupManager.debug.logLoad(this, true);
+        this.#kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupManager.debug.logRender(this, false);
+        this.#kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -192,18 +205,24 @@ export class KupImageList {
                 }
             }
         }
-        this.kupManager.debug.logRender(this, true);
+        this.#kupManager.debug.logRender(this, true);
     }
 
     render() {
+        const hasNavigation = !!this.currentNode;
         return (
             <Host>
                 <style>
-                    {this.kupManager.theme.setKupStyle(
+                    {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
                     )}
                 </style>
                 <div id={componentWrapperId}>
+                    {hasNavigation ? (
+                        <div class="navigation-bar">
+                            <FButton {...this.#backProps}></FButton>
+                        </div>
+                    ) : null}
                     <div class="image-list">{...this.#createList()}</div>
                 </div>
             </Host>
@@ -211,6 +230,6 @@ export class KupImageList {
     }
 
     disconnectedCallback() {
-        this.kupManager.theme.unregister(this);
+        this.#kupManager.theme.unregister(this);
     }
 }

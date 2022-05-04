@@ -27,6 +27,10 @@
     --kup-imagelist-label-margin,
     0 auto 1em auto
   );
+  --kup_imagelist_navbar_background_color: var(
+    --kup-imagelist-navbar-background-color,
+    transparent
+  );
   --kup_imagelist_primary_color: var(
     --kup-imagelist-primary-color,
     var(--kup-primary-color)
@@ -37,6 +41,13 @@
   );
 
   display: block;
+}
+
+.navigation-bar {
+  background-color: var(--kup_imagelist_navbar_background_color);
+  display: flex;
+  height: 32px;
+  justify-content: center;
 }
 
 .image-list {
