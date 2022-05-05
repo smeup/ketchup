@@ -14,7 +14,6 @@ import {
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
 import {
-    KupTabBarClickEventPayload,
     KupTabBarNode,
     KupTabBarEventPayload,
     KupTabBarProps,
@@ -85,7 +84,6 @@ export class KupTabBar {
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
-
     /**
      * Triggered when the tab loses focus.
      */
@@ -96,6 +94,7 @@ export class KupTabBar {
         bubbles: true,
     })
     kupBlur: EventEmitter<KupTabBarEventPayload>;
+
     /**
      * Triggered when the tab is clicked.
      */
@@ -105,7 +104,8 @@ export class KupTabBar {
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<KupTabBarClickEventPayload>;
+    kupClick: EventEmitter<KupTabBarEventPayload>;
+
     /**
      * Triggered when the tab is focused.
      */
@@ -117,16 +117,16 @@ export class KupTabBar {
     })
     kupFocus: EventEmitter<KupTabBarEventPayload>;
 
-    onKupBlur(i: number, e: Event) {
+    onKupBlur(i: number, node: KupTabBarNode) {
         this.kupBlur.emit({
             comp: this,
             id: this.rootElement.id,
             index: i,
-            el: e.target,
+            node: node,
         });
     }
 
-    onKupClick(i: number, e: Event) {
+    onKupClick(i: number, node: KupTabBarNode) {
         for (let i = 0; i < this.data.length; i++) {
             this.data[i].active = false;
         }
@@ -137,17 +137,16 @@ export class KupTabBar {
             comp: this,
             id: this.rootElement.id,
             index: i,
-            el: e.target,
-            value: this.data[i].value,
+            node: node,
         });
     }
 
-    onKupFocus(i: number, e: Event) {
+    onKupFocus(i: number, node: KupTabBarNode) {
         this.kupFocus.emit({
             comp: this,
             id: this.rootElement.id,
             index: i,
-            el: e.target,
+            node: node,
         });
     }
 
@@ -267,10 +266,10 @@ export class KupTabBar {
         const tabBar: Array<VNode> = [];
 
         for (let i = 0; i < this.data.length; i++) {
-            const data: KupTabBarNode = this.data[i];
+            const node: KupTabBarNode = this.data[i];
             const tabClass: Record<string, boolean> = {
                 tab: true,
-                'tab--active': data.active ? true : false,
+                'tab--active': node.active ? true : false,
                 'mdc-ripple-surface': this.ripple ? true : false,
             };
 
@@ -280,22 +279,22 @@ export class KupTabBar {
                     role="tab"
                     aria-selected={this.data[i].active ? true : false}
                     tabIndex={i}
-                    title={data.title ? data.title : null}
-                    onBlur={(e) => this.onKupBlur(i, e)}
-                    onClick={(e) => this.onKupClick(i, e)}
-                    onFocus={(e) => this.onKupFocus(i, e)}
+                    title={node.title ? node.title : null}
+                    onBlur={() => this.onKupBlur(i, node)}
+                    onClick={() => this.onKupClick(i, node)}
+                    onFocus={() => this.onKupFocus(i, node)}
                 >
                     <span class="tab__content">
-                        {data.icon ? (
+                        {node.icon ? (
                             <FImage
                                 color={`var(${KupThemeColorValues.PRIMARY})`}
-                                resource={data.icon}
+                                resource={node.icon}
                                 sizeX="24px"
                                 sizeY="24px"
                                 wrapperClass="tab__icon"
                             />
                         ) : null}
-                        {data.value ? (
+                        {node.value ? (
                             <span class="tab__text-label">
                                 {this.data[i].value}
                             </span>
@@ -303,7 +302,7 @@ export class KupTabBar {
                     </span>
                     <span
                         class={`tab-indicator ${
-                            data.active ? ' tab-indicator--active' : ''
+                            node.active ? ' tab-indicator--active' : ''
                         }`}
                     >
                         <span class="tab-indicator__content tab-indicator__content--underline"></span>

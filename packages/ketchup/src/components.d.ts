@@ -43,7 +43,7 @@ import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarat
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
-import { KupTabBarClickEventPayload, KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
@@ -5244,7 +5244,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the tab is clicked.
          */
-        "onKup-tabbar-click"?: (event: CustomEvent<KupTabBarClickEventPayload>) => void;
+        "onKup-tabbar-click"?: (event: CustomEvent<KupTabBarEventPayload>) => void;
         /**
           * Triggered when the tab is focused.
          */

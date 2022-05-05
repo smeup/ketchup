@@ -18,10 +18,6 @@ export interface KupTabBarNode extends KupDataNode {
 }
 
 export interface KupTabBarEventPayload extends KupEventPayload {
+    node: KupTabBarNode;
     index: number;
-    el: EventTarget;
-}
-
-export interface KupTabBarClickEventPayload extends KupTabBarEventPayload {
-    value: string;
 }

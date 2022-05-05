@@ -205,7 +205,6 @@
 </template>
 
 <script lang="ts">
-import type { Components } from '@sme.up/ketchup/dist/types/components';
 import type { KupButtonClickEventPayload } from '@sme.up/ketchup/dist/types/components/kup-button/kup-button-declarations';
 import type { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 import type { KupDynamicPositionElement } from '@sme.up/ketchup/dist/types/managers/kup-dynamic-position/kup-dynamic-position-declarations';
@@ -215,7 +214,7 @@ import type {
   KupEventPayload,
 } from '@sme.up/ketchup/dist/types/types/GenericTypes';
 import type { KupSwitchEventPayload } from '@sme.up/ketchup/dist/types/components/kup-switch/kup-switch-declarations';
-import type { KupTabBarClickEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
+import type { KupTabBarEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
 import type { KupTabBarNode } from '@sme.up/ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
 import type { KupTextFieldEventPayload } from '@sme.up/ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
 import type { KupDynamicPosition } from '@sme.up/ketchup/dist/types/managers/kup-dynamic-position/kup-dynamic-position';
@@ -1098,7 +1097,7 @@ export default {
      * Swaps between different tabs on click.
      * @param {CustomEvent<KupTextFieldEventPayload>} e - kup-tab-bar click event.
      */
-    tabSelection(e: CustomEvent<KupTabBarClickEventPayload>): void {
+    tabSelection(e: CustomEvent<KupTabBarEventPayload>): void {
       this.handleTab(e.detail.index);
     },
     /**

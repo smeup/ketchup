@@ -1301,10 +1301,9 @@
 </template>
 
 <script lang="ts">
-import type { Components } from '@sme.up/ketchup/dist/types/components';
 import type { KupColorPickerEventPayload } from '@sme.up/ketchup/dist/types/components/kup-color-picker/kup-color-picker-declarations';
 import type { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
-import type { KupTabBarClickEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
+import type { KupTabBarEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
 import type { KupTextFieldEventPayload } from '@sme.up/ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
 import type {
   KupThemeCSSVariables,
@@ -1511,7 +1510,7 @@ export default {
      * Swaps between different tabs on click.
      * @param {CustomEvent<KupTextFieldEventPayload>} e - kup-tab-bar click event.
      */
-    tabSelection(e: CustomEvent<KupTabBarClickEventPayload>): void {
+    tabSelection(e: CustomEvent<KupTabBarEventPayload>): void {
       this.handleTab(e.detail.index);
     },
     /**

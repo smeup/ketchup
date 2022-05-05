@@ -1000,7 +1000,7 @@ export function create14(component: KupCard): VNode {
     if (tabbarArray[0] && tabbarArray[0].data) {
         for (let index = 0; index < tabbarArray[0].data.length; index++) {
             const tab: KupTabBarNode = tabbarArray[0].data[index];
-            tabsValues.push(tab.value);
+            tabsValues.push(tab.id);
             if (tab.active) {
                 visibleView = index + 1;
             }
