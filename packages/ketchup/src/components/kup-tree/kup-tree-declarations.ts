@@ -78,7 +78,7 @@ export interface KupTreeEventHandlerDetails {
     row: KupDataRow;
     td: HTMLElement;
     th: HTMLElement;
-    tr: HTMLTableRowElement;
+    tr: HTMLElement;
 }
 
 export enum KupTreeExpansionMode {
