@@ -5,6 +5,9 @@
 * @prop --kup-imagelist-image-margin: Sets the margin of the images.
 * @prop --kup-imagelist-image-min-height: Sets the minimun height of the images (useful for icons).
 * @prop --kup-imagelist-item-border-radius: Sets the border radius of items.
+* @prop --kup-imagelist-item-height: Sets the height of an item.
+* @prop --kup-imagelist-item-padding: Sets the padding of an item.
+* @prop --kup-imagelist-item-width: Sets the width of an item.
 * @prop --kup-imagelist-label-margin: Sets the margin of the labels.
 * @prop --kup-imagelist-primary-color: Sets the primary color of the component (ripple effect).
 * @prop --kup-imagelist-primary-color-rgb: Sets the RGB values of the primary color.
@@ -24,6 +27,9 @@
     --kup-imagelist-item-border-radius,
     8px
   );
+  --kup_imagelist_item_height: var(--kup-imagelist-item-height, auto);
+  --kup_imagelist_item_padding: var(--kup-imagelist-item-padding, 0);
+  --kup_imagelist_item_width: var(--kup-imagelist-item-width, auto);
   --kup_imagelist_label_margin: var(
     --kup-imagelist-label-margin,
     0 auto 1em auto
@@ -120,6 +126,9 @@
   &__item {
     border-radius: var(--kup_imagelist_item_border_radius);
     cursor: pointer;
+    height: var(--kup_imagelist_item_height);
+    padding: var(--kup_imagelist_item_padding);
+    width: var(--kup_imagelist_item_width);
   }
 
   &__image.f-image {
