@@ -79,7 +79,6 @@ export class KupImageList {
     #kupManager: KupManager = kupManagerInstance();
     #backProps: FButtonProps = {
         icon: 'arrow_back',
-        label: this.#kupManager.language.translate(KupLanguageGeneric.BACK),
         onClick: () => {
             this.currentNode = this.#kupManager.data.node.getParent(
                 this.data,
@@ -94,7 +93,6 @@ export class KupImageList {
     };
     #topProps: FButtonProps = {
         icon: 'arrow_upward',
-        label: this.#kupManager.language.translate(KupLanguageGeneric.TOP),
         onClick: () => {
             this.currentNode = null;
             this.navigationBarToggled = false;
@@ -247,7 +245,12 @@ export class KupImageList {
                                         : ''
                                 }`}
                             >
-                                <FButton {...this.#backProps}></FButton>
+                                <FButton
+                                    {...this.#backProps}
+                                    label={this.#kupManager.language.translate(
+                                        KupLanguageGeneric.BACK
+                                    )}
+                                ></FButton>
                                 <div
                                     class={`navigation-bar__title`}
                                     onClick={() => {
@@ -266,7 +269,12 @@ export class KupImageList {
                                         {this.currentNode.value}
                                     </div>
                                 </div>
-                                <FButton {...this.#topProps}></FButton>
+                                <FButton
+                                    {...this.#topProps}
+                                    label={this.#kupManager.language.translate(
+                                        KupLanguageGeneric.TOP
+                                    )}
+                                ></FButton>
                             </div>
                         ) : null}
                     </div>
