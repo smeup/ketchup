@@ -11,7 +11,7 @@ import { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from 
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+import { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
@@ -36,6 +36,7 @@ import { KupForm, KupFormEditorEventPayload } from "./components/kup-form-editor
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
+import { KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -1883,6 +1884,39 @@ export namespace Components {
          */
         "sizeY": string;
     }
+    interface KupImageList {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Actual data of the component.
+          * @default []
+         */
+        "data": KupDataNode[];
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * When enabled displays Material's ripple effect on clicked items.
+          * @default true
+         */
+        "ripple": boolean;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
     interface KupLazy {
         /**
           * Sets the tag name of the component to be lazy loaded.
@@ -3191,6 +3225,12 @@ declare global {
         prototype: HTMLKupImageElement;
         new (): HTMLKupImageElement;
     };
+    interface HTMLKupImageListElement extends Components.KupImageList, HTMLStencilElement {
+    }
+    var HTMLKupImageListElement: {
+        prototype: HTMLKupImageListElement;
+        new (): HTMLKupImageListElement;
+    };
     interface HTMLKupLazyElement extends Components.KupLazy, HTMLStencilElement {
     }
     var HTMLKupLazyElement: {
@@ -3333,6 +3373,7 @@ declare global {
         "kup-grid": HTMLKupGridElement;
         "kup-iframe": HTMLKupIframeElement;
         "kup-image": HTMLKupImageElement;
+        "kup-image-list": HTMLKupImageListElement;
         "kup-lazy": HTMLKupLazyElement;
         "kup-list": HTMLKupListElement;
         "kup-magic-box": HTMLKupMagicBoxElement;
@@ -4877,6 +4918,25 @@ declare namespace LocalJSX {
          */
         "sizeY"?: string;
     }
+    interface KupImageList {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Actual data of the component.
+          * @default []
+         */
+        "data"?: KupDataNode[];
+        "onKup-imagelist-click"?: (event: CustomEvent<KupImageListEventPayload>) => void;
+        /**
+          * When enabled displays Material's ripple effect on clicked items.
+          * @default true
+         */
+        "ripple"?: boolean;
+    }
     interface KupLazy {
         /**
           * Sets the tag name of the component to be lazy loaded.
@@ -5865,6 +5925,7 @@ declare namespace LocalJSX {
         "kup-grid": KupGrid;
         "kup-iframe": KupIframe;
         "kup-image": KupImage;
+        "kup-image-list": KupImageList;
         "kup-lazy": KupLazy;
         "kup-list": KupList;
         "kup-magic-box": KupMagicBox;
@@ -5917,6 +5978,7 @@ declare module "@stencil/core" {
             "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;
             "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
+            "kup-image-list": LocalJSX.KupImageList & JSXBase.HTMLAttributes<HTMLKupImageListElement>;
             "kup-lazy": LocalJSX.KupLazy & JSXBase.HTMLAttributes<HTMLKupLazyElement>;
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;

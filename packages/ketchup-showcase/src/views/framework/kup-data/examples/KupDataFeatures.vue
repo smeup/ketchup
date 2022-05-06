@@ -190,13 +190,21 @@
         ><div class="accordion-slot" slot="11">
           <p>
             <span class="code-word"
+              >node.getParent(nodes, child): KupDataNode</span
+            ><br />
+            Returns the parent of the given node.<br /><br />
+            - <strong>nodes (KupDataNode[])</strong> - Input array of nodes.<br />
+            - <strong>child (KupDataNode)</strong> - Child node.<br /><br /> </p></div
+        ><div class="accordion-slot" slot="12">
+          <p>
+            <span class="code-word"
               >node.remove(nodes, node2remove): KupDataNode</span
             ><br />
             Removes the given node from the input array, by searching even
             children.<br /><br />
             - <strong>nodes (KupDataNode[])</strong> - Input array of nodes.<br />
             - <strong>node2remove (KupDataNode)</strong> - Node to remove.<br /><br /> </p></div
-        ><div class="accordion-slot" slot="12">
+        ><div class="accordion-slot" slot="13">
           <p>
             <span class="code-word"
               >node.setProperties(nodes, properties, recursively?, exclude?):
@@ -211,7 +219,7 @@
             child node.<br />
             - <strong>exclude (KupDataNode[])</strong> - Nodes to exclude (they
             won't be updated).<br /><br /> </p></div
-        ><div class="accordion-slot" slot="13">
+        ><div class="accordion-slot" slot="14">
           <p>
             <span class="code-word">node.toStream(nodes): KupDataNode[]</span
             ><br />
@@ -219,7 +227,7 @@
             node.<br /><br />
             - <strong>nodes (KupDataNode[])</strong> - Input array of nodes.<br /><br /> </p
         ></div>
-        <div class="accordion-slot" slot="14">
+        <div class="accordion-slot" slot="15">
           <p>
             <span class="code-word">row.find(dataset, filters): Column[]</span
             ><br />
@@ -228,7 +236,7 @@
             - <strong>dataset (KupDataDataset)</strong> - Input dataset.<br />
             - <strong>filters (KupDataFindCellFilters)</strong> - Filters of the
             research.<br /><br /> </p></div
-        ><div class="accordion-slot" slot="15">
+        ><div class="accordion-slot" slot="16">
           <p>
             <span class="code-word">row.toNode(dataset): KupDataNode[]</span
             ><br />
@@ -405,22 +413,26 @@ export default {
           },
           {
             name: '11',
-            title: 'node.remove',
+            title: 'node.getParent',
           },
           {
             name: '12',
-            title: 'node.setProperties',
+            title: 'node.remove',
           },
           {
             name: '13',
-            title: 'node.toStream',
+            title: 'node.setProperties',
           },
           {
             name: '14',
-            title: 'row.find',
+            title: 'node.toStream',
           },
           {
             name: '15',
+            title: 'row.find',
+          },
+          {
+            name: '16',
             title: 'row.toNode',
           },
         ],

@@ -75,6 +75,7 @@ Type: `Promise<void>`
 
  - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
+ - [kup-form-editor](../kup-form-editor)
 
 ### Depends on
 
@@ -164,6 +165,7 @@ graph TD;
   kup-tree --> kup-badge
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
+  kup-form-editor --> kup-switch
   style kup-switch fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
