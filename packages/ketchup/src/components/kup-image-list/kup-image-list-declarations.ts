@@ -7,7 +7,7 @@ import { KupEventPayload } from '../../types/GenericTypes';
  */
 export enum KupImageListProps {
     customStyle = 'Custom style of the component.',
-    data = 'List of images.',
+    data = 'Actual data of the component',
     ripple = "When enabled displays Material's ripple effect on clicked items.",
 }
 

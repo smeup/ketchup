@@ -1892,7 +1892,7 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * List of images.
+          * Actual data of the component.
           * @default []
          */
         "data": KupDataNode[];
@@ -4926,7 +4926,7 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * List of images.
+          * Actual data of the component.
           * @default []
          */
         "data"?: KupDataNode[];

@@ -62,7 +62,7 @@ export class KupImageList {
      */
     @Prop() customStyle: string = '';
     /**
-     * List of images.
+     * Actual data of the component.
      * @default []
      */
     @Prop() data: KupDataNode[] = [];

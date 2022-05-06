@@ -10,7 +10,7 @@
 | Property      | Attribute      | Description                                                      | Type            | Default |
 | ------------- | -------------- | ---------------------------------------------------------------- | --------------- | ------- |
 | `customStyle` | `custom-style` | Custom style of the component.                                   | `string`        | `''`    |
-| `data`        | --             | List of images.                                                  | `KupDataNode[]` | `[]`    |
+| `data`        | --             | Actual data of the component.                                    | `KupDataNode[]` | `[]`    |
 | `ripple`      | `ripple`       | When enabled displays Material's ripple effect on clicked items. | `boolean`       | `true`  |
 
 
