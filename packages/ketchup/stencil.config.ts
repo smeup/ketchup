@@ -37,6 +37,7 @@ export const config: Config = {
                 { src: 'form-editor.html' },
                 { src: 'gauge.html' },
                 { src: 'image.html' },
+                { src: 'image-list.html' },
                 { src: 'kupdata.html' },
                 { src: 'kuptooltip.html' },
                 { src: 'list.html' },

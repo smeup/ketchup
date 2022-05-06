@@ -376,6 +376,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'imagelist',
+                  },
+                },
+                icon: 'photo_library',
+                value: 'Image list',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'tree',
                   },
                 },

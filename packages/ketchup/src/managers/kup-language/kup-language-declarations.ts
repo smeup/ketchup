@@ -116,6 +116,7 @@ export enum KupLanguageFontsize {
 export enum KupLanguageGeneric {
     ADD_NEW = 'genericAddNew',
     APPLY = 'genericApply',
+    BACK = 'genericBack',
     COLLAPSE = 'genericCollapse',
     DAY = 'genericDay',
     DRAG_AND_DROP = 'genericDragAndDrop',
@@ -150,6 +151,7 @@ export enum KupLanguageGeneric {
     SWAP = 'genericSwap',
     TOGGLE = 'genericToggle',
     TODAY = 'genericToday',
+    TOP = 'genericTop',
     TOTALS_TABLE = 'genericTotalsTable',
     TRANSPOSE_DATA = 'genericTransposeData',
     VIEW_AS = 'genericViewAs',
