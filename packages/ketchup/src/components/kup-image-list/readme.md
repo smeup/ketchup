@@ -64,6 +64,9 @@ Type: `Promise<void>`
 | `--kup-imagelist-image-margin`       | Sets the margin of the images.                            |
 | `--kup-imagelist-image-min-height`   | Sets the minimun height of the images (useful for icons). |
 | `--kup-imagelist-item-border-radius` | Sets the border radius of items.                          |
+| `--kup-imagelist-item-height`        | Sets the height of an item.                               |
+| `--kup-imagelist-item-padding`       | Sets the padding of an item.                              |
+| `--kup-imagelist-item-width`         | Sets the width of an item.                                |
 | `--kup-imagelist-label-margin`       | Sets the margin of the labels.                            |
 | `--kup-imagelist-primary-color`      | Sets the primary color of the component (ripple effect).  |
 | `--kup-imagelist-primary-color-rgb`  | Sets the RGB values of the primary color.                 |
