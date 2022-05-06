@@ -58,11 +58,10 @@
     align-items: center;
     border-radius: 16px;
     display: flex;
-    padding: 0.75em 1em;
     position: relative;
-    transition: background-color 125ms;
+    transition: background-color 125ms, color 125ms;
 
-    &:hover {
+    &--active {
       background-color: rgba(var(--kup_imagelist_primary_color_rgb), 0.15);
       color: var(--kup_imagelist_primary_color);
 
@@ -91,7 +90,10 @@
   }
 
   &__title {
+    cursor: pointer;
     display: flex;
+    padding: 0.75em 1em;
+    user-select: none;
 
     &__label {
       font-size: 1.2em;

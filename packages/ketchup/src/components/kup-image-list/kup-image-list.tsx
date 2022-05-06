@@ -49,6 +49,7 @@ export class KupImageList {
     /*-------------------------------------------------*/
 
     @State() currentNode: KupDataNode = null;
+    @State() navigationBarToggled: boolean = false;
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -84,6 +85,9 @@ export class KupImageList {
                 this.data,
                 this.currentNode
             );
+            if (!this.currentNode) {
+                this.navigationBarToggled = false;
+            }
         },
         styling: FButtonStyling.FLAT,
         wrapperClass: 'navigation-bar__back',
@@ -93,6 +97,7 @@ export class KupImageList {
         label: this.#kupManager.language.translate(KupLanguageGeneric.TOP),
         onClick: () => {
             this.currentNode = null;
+            this.navigationBarToggled = false;
         },
         styling: FButtonStyling.FLAT,
         wrapperClass: 'navigation-bar__top',
@@ -235,9 +240,21 @@ export class KupImageList {
                 <div id={componentWrapperId}>
                     <div class="navigation-bar">
                         {hasNavigation ? (
-                            <div class="navigation-bar__wrapper">
+                            <div
+                                class={`navigation-bar__wrapper ${
+                                    this.navigationBarToggled
+                                        ? 'navigation-bar__wrapper--active'
+                                        : ''
+                                }`}
+                            >
                                 <FButton {...this.#backProps}></FButton>
-                                <div class="navigation-bar__title">
+                                <div
+                                    class={`navigation-bar__title`}
+                                    onClick={() => {
+                                        this.navigationBarToggled =
+                                            !this.navigationBarToggled;
+                                    }}
+                                >
                                     <FImage
                                         fit={true}
                                         resource={this.currentNode.icon}
