@@ -91,12 +91,16 @@
   }
 
   &__title {
-    font-size: 1.2em;
-    letter-spacing: 0.12em;
-    overflow: hidden;
-    padding: 0 0.5em;
-    text-overflow: ellipsis;
-    text-transform: uppercase;
+    display: flex;
+
+    &__label {
+      font-size: 1.2em;
+      letter-spacing: 0.12em;
+      overflow: hidden;
+      padding: 0 0.5em;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+    }
   }
 }
 

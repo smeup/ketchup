@@ -154,7 +154,7 @@ export class KupImageList {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    #createImage(node: KupDataNode): VNode {
+    #createItem(node: KupDataNode): VNode {
         const props: FImageProps = {
             fit: true,
             resource: node.icon,
@@ -182,7 +182,7 @@ export class KupImageList {
             };
             const item: VNode = (
                 <div onClick={() => this.onKupClick(node)} class={classObj}>
-                    {this.#createImage(node)}
+                    {this.#createItem(node)}
                 </div>
             );
             nodes.push(item);
@@ -238,7 +238,16 @@ export class KupImageList {
                             <div class="navigation-bar__wrapper">
                                 <FButton {...this.#backProps}></FButton>
                                 <div class="navigation-bar__title">
-                                    {this.currentNode.value}
+                                    <FImage
+                                        fit={true}
+                                        resource={this.currentNode.icon}
+                                        sizeX="1.25em"
+                                        sizeY="1.25em"
+                                        wrapperClass='class="navigation-bar__title__image'
+                                    ></FImage>
+                                    <div class="navigation-bar__title__label">
+                                        {this.currentNode.value}
+                                    </div>
                                 </div>
                                 <FButton {...this.#topProps}></FButton>
                             </div>
