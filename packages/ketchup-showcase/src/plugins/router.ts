@@ -223,6 +223,12 @@ const advancedRoutes = [
     component: () => import(`@/views/components/advanced/field/Field.vue`),
   },
   {
+    path: `/imagelist`,
+    name: 'imagelist',
+    component: () =>
+      import(`@/views/components/advanced/imagelist/ImageList.vue`),
+  },
+  {
     path: `/tooltip`,
     name: 'tooltip',
     component: () => import(`@/views/components/advanced/tooltip/Tooltip.vue`),
