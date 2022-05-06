@@ -3725,7 +3725,7 @@ export class KupDataTable {
             // must do this
             // otherwise does not fire the watcher
             const totalsCopy = { ...this.totals };
-            const value = event.detail.selected.value;
+            const value = event.detail.selected.id;
             if (value === TotalLabel.CANC) {
                 if (this.totals && this.totals[column.name]) {
                     delete totalsCopy[column.name];
