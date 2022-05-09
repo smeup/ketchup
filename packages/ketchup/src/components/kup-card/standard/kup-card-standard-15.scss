@@ -1,11 +1,10 @@
 .standard-layout-15 {
-  outline: none;
+  background: var(--kup-background-color);
+  border-radius: 3px;
+  color: var(--kup-text-color);
   display: block;
   font-size: var(--kup-font-size);
-  background: var(--kup-background-color);
-  color: var(--kup-text-color);
-  box-shadow: var(--kup-box-shadow);
-  border-radius: 3px;
+  outline: none;
 
   .section-1 {
     --kup-button-font-size: 0.75em;
