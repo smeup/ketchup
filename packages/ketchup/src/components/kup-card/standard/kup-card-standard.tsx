@@ -1358,12 +1358,23 @@ export function create15(component: KupCard): VNode {
 
     // Setting up buttons.
     const buttonsIds: string[] = [];
+    const genericButtons: GenericObject[] = [];
+    const isReservedID = (id: string) => {
+        return (
+            id === KupColumnMenuIds.BUTTON_OPEN_IN_NEW ||
+            id === KupColumnMenuIds.BUTTON_SEARCH
+        );
+    };
     for (let index = 0; index < buttonArray.length; index++) {
         const button: GenericObject = buttonArray[index];
         if (button['id']) {
             buttonsIds.push(button['id']);
         }
+        if (!isReservedID(button['id'])) {
+            genericButtons.push(button);
+        }
     }
+    console.log('Here');
     return (
         <div class={`standard-layout-${component.layoutNumber}`}>
             <div class="section-1">
@@ -1445,13 +1456,17 @@ export function create15(component: KupCard): VNode {
                         KupCardCSSClasses.VIEW_PREFIX
                     }${viewIndex + 1}`}
                 >
-                    <kup-tree class="kup-full-width" {...treeArray[0]} />
+                    {treeArray[0] ? (
+                        <kup-tree class="kup-full-width" {...treeArray[0]} />
+                    ) : null}
                 </div>
             </div>
-            {buttonArray.length > 0 ? (
+            {genericButtons.length > 0 ? (
                 <div class="section-3">
-                    {compList(buttonArray.slice(0, 4), 'button')}
-                    <kup-button id="view-selector" icon="menu"></kup-button>
+                    {compList(genericButtons.slice(0, 4), 'button')}
+                    {treeArray[0] ? (
+                        <kup-button id="view-selector" icon="menu"></kup-button>
+                    ) : null}
                 </div>
             ) : null}
         </div>

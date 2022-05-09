@@ -22,9 +22,12 @@
       margin: 0 0.5em 0 0;
     }
     .title {
+      --kup-button-font-size: 0.75em;
+
       font-size: 1.25em;
       margin-top: -0.5em;
       padding: 0 0.25em 0.25em;
+
       .label {
         cursor: pointer;
         padding-right: 0.25em;
