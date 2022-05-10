@@ -1026,6 +1026,23 @@ export class KupTree {
         return details;
     }
 
+    private getEventPath(currentEl: unknown): HTMLElement[] {
+        const path: HTMLElement[] = [];
+
+        while (
+            currentEl &&
+            currentEl !== this.rootElement &&
+            currentEl !== document.body
+        ) {
+            path.push(currentEl as HTMLElement);
+            currentEl = (currentEl as HTMLElement).parentNode
+                ? (currentEl as HTMLElement).parentNode
+                : (currentEl as ShadowRoot).host;
+        }
+
+        return path;
+    }
+
     // When a TreeNode can be selected
     hdlTreeNodeClick(
         e: MouseEvent,
@@ -1172,23 +1189,6 @@ export class KupTree {
                 }
             }
         }
-    }
-
-    private getEventPath(currentEl: unknown): HTMLElement[] {
-        const path: HTMLElement[] = [];
-
-        while (
-            currentEl &&
-            currentEl !== this.rootElement &&
-            currentEl !== document.body
-        ) {
-            path.push(currentEl as HTMLElement);
-            currentEl = (currentEl as HTMLElement).parentNode
-                ? (currentEl as HTMLElement).parentNode
-                : (currentEl as ShadowRoot).host;
-        }
-
-        return path;
     }
 
     private hasTotals() {
@@ -1793,6 +1793,7 @@ export class KupTree {
                         !treeNodeData.disabled &&
                         treeNodePath === this.selectedNodeString,
                 }}
+                data-row={treeNodeData}
                 data-tree-path={treeNodePath}
                 {...treeNodeOptions}
             >
