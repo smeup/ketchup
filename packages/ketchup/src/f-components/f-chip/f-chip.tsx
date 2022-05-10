@@ -131,7 +131,10 @@ function createChipList(
         }
 
         function createChip(chip: KupChipNode): VNode {
-            let componentClass: string = `chip `;
+            const onlyIcon = !!(chip.icon && !chip.value);
+            let componentClass: string = `chip ${
+                onlyIcon ? 'chip--only-icon' : ''
+            }`;
             let iconEl = [];
             let iconClass = 'chip__icon chip__icon--leading';
 
