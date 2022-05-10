@@ -1058,7 +1058,7 @@ export class KupTree {
                 !treeNodeData.expandable)
         ) {
             const td = e
-                ? this.getEventPath(e).find((el) => {
+                ? this.getEventPath(e.target).find((el) => {
                       if (el.tagName === 'TD') return el;
                   })
                 : null;
@@ -1669,6 +1669,10 @@ export class KupTree {
         // When a tree node is displayed as a table
         let treeNodeCells: JSX.Element[] | null = null;
         let visibleCols = this.getVisibleColumns();
+
+        const _hasTooltip: boolean = !this.kupManager.objects.isEmptyKupObj(
+            treeNodeData.obj
+        );
         if (this.showColumns && visibleCols && visibleCols.length) {
             treeNodeCells = [];
             // Renders all the cells
@@ -1691,8 +1695,13 @@ export class KupTree {
                     treeNodeCells.push(
                         <td
                             class={`grid-cell`}
-                            data-cell={cell}
                             data-column={column.name}
+                            {...this.getToolTipEventHandlers(
+                                treeNodeData,
+                                cell,
+                                _hasTooltip
+                            )}
+                            data-cell={cell}
                         >
                             <FCell {...cellProps}></FCell>
                         </td>
@@ -1702,10 +1711,6 @@ export class KupTree {
                 }
             }
         }
-
-        const _hasTooltip: boolean = !this.kupManager.objects.isEmptyKupObj(
-            treeNodeData.obj
-        );
         let title: string = undefined;
         if (_hasTooltip && this.kupManager.debug.isDebug()) {
             title =
@@ -1764,6 +1769,7 @@ export class KupTree {
                         cell,
                         _hasTooltip
                     )}
+                    data-row={treeNodeData}
                 >
                     {this.asAccordion && !treeNodeDepth
                         ? [
