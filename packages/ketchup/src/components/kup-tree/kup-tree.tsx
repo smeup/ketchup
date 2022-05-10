@@ -912,15 +912,61 @@ export class KupTree {
         this.closeTotalMenu();
         this.openTotalMenu(column);
     }
-
-    private getEventDetails(el: HTMLElement): KupTreeEventHandlerDetails {
-        const isHeader: boolean = !!el.closest('thead'),
-            isBody: boolean = !!el.closest('tbody'),
-            isFooter: boolean = !!el.closest('tfoot'),
-            td = el.closest('td'),
-            th = el.closest('th'),
-            tr = el.closest('tr'),
-            filterRemove: HTMLElement = el.closest('th .filter-remove');
+    private getEventDetails(path: HTMLElement[]): KupTreeEventHandlerDetails {
+        let isHeader: boolean,
+            isBody: boolean,
+            isFooter: boolean,
+            td: HTMLElement,
+            th: HTMLElement,
+            tr: HTMLElement,
+            filterRemove: HTMLSpanElement;
+        if (path) {
+            for (let i = path.length - 1; i >= 0; i--) {
+                let p = path[i];
+                if (!p.tagName) {
+                    continue;
+                }
+                switch (p.tagName.toUpperCase()) {
+                    case 'THEAD': {
+                        isHeader = true;
+                        break;
+                    }
+                    case 'TBODY': {
+                        isBody = true;
+                        break;
+                    }
+                    case 'TFOOT': {
+                        isFooter = true;
+                        break;
+                    }
+                    case 'TD': {
+                        td = p;
+                        break;
+                    }
+                    case 'TH': {
+                        th = p;
+                        break;
+                    }
+                    case 'TR': {
+                        tr = p;
+                        break;
+                    }
+                    default: {
+                        if (
+                            p.classList.contains(
+                                KupThemeIconValues.FILTER_REMOVE.replace(
+                                    '--',
+                                    ''
+                                )
+                            )
+                        ) {
+                            filterRemove = p;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
         let cell: KupDataCell = null,
             column: KupDataColumn = null,
             row: KupDataRow = null;
@@ -963,7 +1009,7 @@ export class KupTree {
 
     private contextMenuHandler(e: PointerEvent): KupTreeEventHandlerDetails {
         e.preventDefault();
-        const details = this.getEventDetails(e.target as HTMLElement);
+        const details = this.getEventDetails(this.getEventPath(e.target));
         if (details.area === 'header') {
             if (details.th && details.column) {
                 this.openColumnMenu(details.column.name);
@@ -994,7 +1040,7 @@ export class KupTree {
                 !treeNodeData.expandable)
         ) {
             const td = e
-                ? this.getEventPath(e).find((el) => {
+                ? this.getEventPath(e.target).find((el) => {
                       if (el.tagName === 'TD') return el;
                   })
                 : null;
@@ -1127,10 +1173,9 @@ export class KupTree {
         }
     }
 
-    private getEventPath(e: MouseEvent): HTMLElement[] {
-        let path: HTMLElement[] = [];
+    private getEventPath(currentEl: unknown): HTMLElement[] {
+        const path: HTMLElement[] = [];
 
-        let currentEl: unknown = e.target as HTMLElement;
         while (
             currentEl &&
             currentEl !== this.rootElement &&
@@ -1623,6 +1668,10 @@ export class KupTree {
         // When a tree node is displayed as a table
         let treeNodeCells: JSX.Element[] | null = null;
         let visibleCols = this.getVisibleColumns();
+
+        const _hasTooltip: boolean = !this.kupManager.objects.isEmptyKupObj(
+            treeNodeData.obj
+        );
         if (this.showColumns && visibleCols && visibleCols.length) {
             treeNodeCells = [];
             // Renders all the cells
@@ -1643,7 +1692,16 @@ export class KupTree {
                         setSizes: true,
                     };
                     treeNodeCells.push(
-                        <td class={`grid-cell`} data-column={column.name}>
+                        <td
+                            class={`grid-cell`}
+                            data-column={column.name}
+                            data-cell={cell}
+                            {...this.getToolTipEventHandlers(
+                                treeNodeData,
+                                cell,
+                                _hasTooltip
+                            )}
+                        >
                             <FCell {...cellProps}></FCell>
                         </td>
                     );
@@ -1653,9 +1711,6 @@ export class KupTree {
             }
         }
 
-        const _hasTooltip: boolean = !this.kupManager.objects.isEmptyKupObj(
-            treeNodeData.obj
-        );
         let title: string = undefined;
         if (_hasTooltip && this.kupManager.debug.isDebug()) {
             title =
@@ -1714,6 +1769,7 @@ export class KupTree {
                         cell,
                         _hasTooltip
                     )}
+                    data-row={treeNodeData}
                 >
                     {this.asAccordion && !treeNodeDepth
                         ? [
@@ -1739,6 +1795,7 @@ export class KupTree {
                 }}
                 data-tree-path={treeNodePath}
                 {...treeNodeOptions}
+                data-row={treeNodeData}
             >
                 {treeNodeCell}
                 {treeNodeCells}
