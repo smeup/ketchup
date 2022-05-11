@@ -32,6 +32,8 @@ import {
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import { FCell } from '../../f-components/f-cell/f-cell';
+import { FCellPadding } from '../../f-components/f-cell/f-cell-declarations';
 
 @Component({
     tag: 'kup-image-list',
@@ -167,10 +169,17 @@ export class KupImageList {
         const image = <FImage {...props}></FImage>;
         const label = <div class="image-list__label">{node.value}</div>;
         return (
-            <div class="image-list__wrapper">
-                {image}
-                {label}
-            </div>
+            <FCell
+                cell={{ value: node.value, icon: node.icon, obj: node.obj }}
+                column={{ name: 'IMAGE', title: 'Image' }}
+                density={FCellPadding.NONE}
+                row={{ ...node }}
+            >
+                <div class="image-list__wrapper">
+                    {image}
+                    {label}
+                </div>
+            </FCell>
         );
     }
 

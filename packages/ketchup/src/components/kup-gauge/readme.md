@@ -148,6 +148,7 @@ Type: `Promise<void>`
  - [kup-box](../kup-box)
  - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
+ - [kup-image-list](../kup-image-list)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -217,6 +218,7 @@ graph TD;
   kup-tree --> kup-gauge
   kup-box --> kup-gauge
   kup-cell --> kup-gauge
+  kup-image-list --> kup-gauge
   style kup-gauge fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

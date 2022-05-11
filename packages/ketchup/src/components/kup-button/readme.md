@@ -90,6 +90,7 @@ Type: `Promise<void>`
  - [kup-data-table](../kup-data-table)
  - [kup-field](../kup-field)
  - [kup-iframe](../kup-iframe)
+ - [kup-image-list](../kup-image-list)
  - [kup-magic-box](../kup-magic-box)
  - [kup-tree](../kup-tree)
 
@@ -146,6 +147,7 @@ graph TD;
   kup-cell --> kup-button
   kup-field --> kup-button
   kup-iframe --> kup-button
+  kup-image-list --> kup-button
   kup-magic-box --> kup-button
   style kup-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
