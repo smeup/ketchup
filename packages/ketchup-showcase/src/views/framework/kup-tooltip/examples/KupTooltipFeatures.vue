@@ -93,6 +93,18 @@
             <kup-data-table id="fcell-data-table"></kup-data-table></div></div
         ><div class="accordion-slot" slot="6">
           <p>
+            <span class="code-word">destroy(): void</span><br />
+            Destroys the tooltip.<br /><br
+          /></p>
+          <div class="demo-container">
+            <div class="kup-container">
+              <kup-button
+                id="destroy-button"
+                label="Destroy"
+                @kup-button-click="destroy()"
+              ></kup-button> </div></div></div
+        ><div class="accordion-slot" slot="7">
+          <p>
             <span class="code-word">unregister(element): void</span><br />
             Unregisters an HTMLElement, preventing its attached callback from
             being invoked.<br /><br />
@@ -160,6 +172,10 @@ export default {
           },
           {
             name: '6',
+            title: 'destroy',
+          },
+          {
+            name: '7',
             title: 'unregister',
           },
         ],
@@ -177,6 +193,12 @@ export default {
         ],
       };
       accordion.expandAll();
+    },
+    /**
+     * Invokes the destroy method.
+     */
+    destroy() {
+      dom.ketchup.tooltip.destroy();
     },
     /**
      * Registers the anchor point in the KupTooltip class.
