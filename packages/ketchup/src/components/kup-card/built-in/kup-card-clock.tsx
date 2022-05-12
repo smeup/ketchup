@@ -109,7 +109,7 @@ function onKupClockItemClick(
 ) {
     if (e != null) {
         if (value == null) {
-            value = e.detail.selected.value;
+            value = e.detail.selected.id;
         }
     }
     setClockValueSelected(component, value);
