@@ -1462,10 +1462,8 @@ export function create15(component: KupCard): VNode {
             </div>
             {genericButtons.length > 0 ? (
                 <div class="section-3">
-                    {compList(genericButtons.slice(0, 4), 'button')}
-                    {treeArray[0] ? (
-                        <kup-button id="view-selector" icon="menu"></kup-button>
-                    ) : null}
+                    {compList(genericButtons.slice(0, 5), 'button')}
+                    <kup-button id="view-selector" icon="menu"></kup-button>
                 </div>
             ) : null}
         </div>

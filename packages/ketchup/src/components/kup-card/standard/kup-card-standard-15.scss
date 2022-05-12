@@ -86,12 +86,18 @@
         color: rgba(var(--kup-text-color-rgb), 0.5);
         margin-top: 0.175em;
         max-width: 320px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       &__value {
         color: var(--kup-text-color);
         font-size: 120%;
         max-width: 320px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
 
