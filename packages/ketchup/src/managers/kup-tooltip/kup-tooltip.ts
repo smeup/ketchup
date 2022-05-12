@@ -163,6 +163,15 @@ export class KupTooltip {
         }
     }
     /**
+     * Destroys the tooltip.
+     */
+    destroy() {
+        if (this.element) {
+            this.element.remove();
+            this.element = null;
+        }
+    }
+    /**
      * Hides the tooltip.
      */
     hide() {

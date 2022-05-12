@@ -1374,7 +1374,6 @@ export function create15(component: KupCard): VNode {
             genericButtons.push(button);
         }
     }
-    console.log('Here');
     return (
         <div class={`standard-layout-${component.layoutNumber}`}>
             <div class="section-1">
