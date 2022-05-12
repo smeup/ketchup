@@ -85,15 +85,15 @@
 
             list.addEventListener('kup-list-click', (e) => {
                 console.log('Event Received', e);
-                if (e.detail.selected.value == '1') {
+                if (e.detail.selected.id == '1') {
                     console.log('first-choice');
                 }
 
-                if (e.detail.selected.value == '2') {
+                if (e.detail.selected.id == '2') {
                     console.log('second-choice');
                 }
 
-                if (e.detail.selected.value == '3') {
+                if (e.detail.selected.id == '3') {
                     console.log('third-choice');
                 }
             });

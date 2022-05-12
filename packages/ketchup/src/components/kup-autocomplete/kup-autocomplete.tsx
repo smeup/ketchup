@@ -264,7 +264,7 @@ export class KupAutocomplete {
     }
 
     onKupItemClick(e: CustomEvent<KupListEventPayload>) {
-        this.onKupChange(e.detail.selected.value);
+        this.onKupChange(e.detail.selected.id);
         this.closeList();
         if (this.textfieldEl) {
             this.textfieldEl.focus();
