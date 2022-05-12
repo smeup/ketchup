@@ -206,7 +206,7 @@ export class KupTimePicker {
     onKupTimePickerItemClick(e: CustomEvent, value?: string) {
         if (e != null) {
             if (value == null) {
-                value = e.detail.selected.value;
+                value = e.detail.selected.id;
             }
         }
         this.setPickerValueSelected(value);
@@ -607,10 +607,7 @@ export class KupTimePicker {
                     data={this.createTimeListData(this.value)}
                     is-menu
                     onkup-list-click={(e) =>
-                        this.onKupTimePickerItemClick(
-                            e,
-                            e.detail.selected.value
-                        )
+                        this.onKupTimePickerItemClick(e, e.detail.selected.id)
                     }
                     id={this.rootElement.id + '_list'}
                 ></kup-list>
