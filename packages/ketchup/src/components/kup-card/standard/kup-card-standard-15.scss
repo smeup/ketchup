@@ -80,6 +80,7 @@
     }
 
     .detail-row {
+      align-items: center;
       display: flex;
       justify-content: space-between;
 
@@ -91,6 +92,7 @@
         color: rgba(var(--kup-text-color-rgb), 0.5);
         margin-top: 0.175em;
         max-width: 320px;
+        padding-right: 1.25em;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
