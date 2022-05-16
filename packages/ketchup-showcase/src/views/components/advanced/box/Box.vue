@@ -39,9 +39,6 @@
     <template v-slot:12>
       <box-dnd></box-dnd>
     </template>
-    <template v-slot:13>
-      <box-with-tooltip></box-with-tooltip>
-    </template>
   </comp>
 </template>
 
@@ -59,7 +56,6 @@ import BoxSel from '@/views/components/advanced/box/examples/BoxSel';
 import BoxShapes from '@/views/components/advanced/box/examples/BoxShapes';
 import BoxSort from '@/views/components/advanced/box/examples/BoxSort';
 import BoxDnd from '@/views/components/advanced/box/examples/BoxDnd';
-import BoxWithTooltip from '@/views/components/advanced/box/examples/BoxWithToolTip';
 import Comp from '@/views/templates/Comp';
 
 export default {
@@ -77,7 +73,6 @@ export default {
     BoxShapes,
     BoxSort,
     BoxDnd,
-    BoxWithTooltip,
     Comp,
   },
   data() {
@@ -99,7 +94,6 @@ export default {
         'Shapes',
         'Sortable',
         'Drag and drop',
-        'With tooltip',
       ],
     };
   },

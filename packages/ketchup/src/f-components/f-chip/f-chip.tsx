@@ -6,7 +6,6 @@ import {
     KupThemeColorValues,
     KupThemeIconValues,
 } from '../../managers/kup-theme/kup-theme-declarations';
-import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 import { KupChipNode } from '../../components/kup-chip/kup-chip-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
@@ -132,7 +131,10 @@ function createChipList(
         }
 
         function createChip(chip: KupChipNode): VNode {
-            let componentClass: string = `chip `;
+            const onlyIcon = !!(chip.icon && !chip.value);
+            let componentClass: string = `chip ${
+                onlyIcon ? 'chip--only-icon' : ''
+            }`;
             let iconEl = [];
             let iconClass = 'chip__icon chip__icon--leading';
 

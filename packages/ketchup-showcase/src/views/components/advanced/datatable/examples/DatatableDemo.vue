@@ -477,14 +477,6 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'showTooltipOnRightClick',
-          description:
-            'If set to true, displays tooltip on right click event; if set to false, displays tooltip on mouseOver event.',
-          type: 'boolean',
-          default: 'true',
-          try: 'switch',
-        },
-        {
           prop: 'sort',
           description: 'Defines the current sorting options.',
           type: 'SortObject',
@@ -525,27 +517,6 @@ export default {
           try: 'field',
         },
         {
-          prop: 'tooltipDetailTimeout',
-          description: 'Defines the timeout for tooltip detail.',
-          type: 'number',
-          default: 'undefined',
-          try: 'field',
-        },
-        {
-          prop: 'tooltipEnabled',
-          description: 'Enable tooltip.',
-          type: 'boolean',
-          default: 'true',
-          try: 'switch',
-        },
-        {
-          prop: 'tooltipLoadTimeout',
-          description: 'Defines the timeout for tooltip load.',
-          type: 'number',
-          default: 'undefined',
-          try: 'field',
-        },
-        {
           prop: 'totals',
           description: 'Defines the current sorting options.',
           type: 'TotalsMap',
@@ -582,8 +553,6 @@ function createComp() {
   comp.showHeader = true;
   comp.sortableColumnsMutateData = true;
   comp.sortEnabled = true;
-  comp.showTooltipOnRightClick = true;
-  comp.tooltipEnabled = true;
   return comp;
 }
 </script>

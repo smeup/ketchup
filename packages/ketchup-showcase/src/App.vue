@@ -55,7 +55,7 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup">v5.3.0-SNAPSHOT</a></div
+          ><a href="https://github.com/smeup/ketchup">v6.0.0-SNAPSHOT</a></div
         ></div
       >
     </kup-drawer>
@@ -381,16 +381,6 @@ export default {
                 },
                 icon: 'photo_library',
                 value: 'Image list',
-                visible: true,
-              },
-              {
-                cells: {
-                  ROUTE: {
-                    value: 'tooltip',
-                  },
-                },
-                icon: 'insert_comment',
-                value: 'Tooltip',
                 visible: true,
               },
               {
@@ -855,6 +845,16 @@ export default {
             },
             icon: 'wrench',
             value: 'KupToolbar',
+            visible: false,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-tooltip',
+              },
+            },
+            icon: 'insert_comment',
+            value: 'KupTooltip',
             visible: false,
           },
         ],

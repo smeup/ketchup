@@ -8,17 +8,17 @@
 | Property      | Attribute      | Description                                                     | Type              | Default |
 | ------------- | -------------- | --------------------------------------------------------------- | ----------------- | ------- |
 | `customStyle` | `custom-style` | Custom style of the component.                                  | `string`          | `''`    |
-| `data`        | --             | List of elements.                                               | `KupTabBarData[]` | `null`  |
+| `data`        | --             | List of elements.                                               | `KupTabBarNode[]` | `null`  |
 | `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`         | `true`  |
 
 
 ## Events
 
-| Event              | Description                         | Type                                      |
-| ------------------ | ----------------------------------- | ----------------------------------------- |
-| `kup-tabbar-blur`  | Triggered when the tab loses focus. | `CustomEvent<KupTabBarEventPayload>`      |
-| `kup-tabbar-click` | Triggered when the tab is clicked.  | `CustomEvent<KupTabBarClickEventPayload>` |
-| `kup-tabbar-focus` | Triggered when the tab is focused.  | `CustomEvent<KupTabBarEventPayload>`      |
+| Event              | Description                         | Type                                 |
+| ------------------ | ----------------------------------- | ------------------------------------ |
+| `kup-tabbar-blur`  | Triggered when the tab loses focus. | `CustomEvent<KupTabBarEventPayload>` |
+| `kup-tabbar-click` | Triggered when the tab is clicked.  | `CustomEvent<KupTabBarEventPayload>` |
+| `kup-tabbar-focus` | Triggered when the tab is focused.  | `CustomEvent<KupTabBarEventPayload>` |
 
 
 ## Methods
@@ -106,7 +106,6 @@ graph TD;
   kup-time-picker --> kup-list
   kup-data-table --> kup-card
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-tooltip
   kup-data-table --> kup-list
   kup-data-table --> kup-switch
   kup-data-table --> kup-button
@@ -123,29 +122,7 @@ graph TD;
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-radio
-  kup-tooltip --> kup-button
-  kup-tooltip --> kup-card
-  kup-tooltip --> kup-box
-  kup-tooltip --> kup-list
-  kup-tooltip --> kup-tree
-  kup-box --> kup-card
-  kup-box --> kup-checkbox
-  kup-box --> kup-badge
-  kup-box --> kup-tooltip
-  kup-box --> kup-combobox
-  kup-box --> kup-text-field
-  kup-box --> kup-autocomplete
-  kup-box --> kup-color-picker
-  kup-box --> kup-date-picker
-  kup-box --> kup-rating
-  kup-box --> kup-time-picker
-  kup-box --> kup-image
-  kup-box --> kup-button
-  kup-box --> kup-button-list
-  kup-box --> kup-chart
-  kup-box --> kup-gauge
-  kup-box --> kup-progress-bar
-  kup-box --> kup-radio
+  kup-switch --> kup-card
   kup-color-picker --> kup-card
   kup-rating --> kup-card
   kup-image --> kup-spinner
@@ -162,7 +139,6 @@ graph TD;
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
   kup-tree --> kup-card
-  kup-tree --> kup-tooltip
   kup-tree --> kup-list
   kup-tree --> kup-text-field
   kup-tree --> kup-autocomplete
@@ -179,7 +155,6 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-badge
-  kup-switch --> kup-card
   style kup-tab-bar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

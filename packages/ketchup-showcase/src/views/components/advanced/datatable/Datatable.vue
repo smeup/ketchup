@@ -58,39 +58,36 @@
       <datatable-sortable-columns></datatable-sortable-columns>
     </template>
     <template v-slot:19>
-      <datatable-tooltip></datatable-tooltip>
-    </template>
-    <template v-slot:20>
       <datatable-total></datatable-total>
     </template>
-    <template v-slot:21>
+    <template v-slot:20>
       <datatable-j4ico></datatable-j4ico>
     </template>
-    <template v-slot:22>
+    <template v-slot:21>
       <datatable-images-and-badges />
     </template>
-    <template v-slot:23>
+    <template v-slot:22>
       <datatable-shapes></datatable-shapes>
     </template>
-    <template v-slot:24>
+    <template v-slot:23>
       <datatable-cell-classes></datatable-cell-classes>
     </template>
-    <template v-slot:25>
+    <template v-slot:24>
       <datatable-j1col></datatable-j1col>
     </template>
-    <template v-slot:26>
+    <template v-slot:25>
       <datatable-jl></datatable-jl>
     </template>
-    <template v-slot:27>
+    <template v-slot:26>
       <datatable-report-like></datatable-report-like>
     </template>
-    <template v-slot:28>
+    <template v-slot:27>
       <datatable-document-like></datatable-document-like>
     </template>
-    <template v-slot:29>
+    <template v-slot:28>
       <datatable-merge></datatable-merge>
     </template>
-    <template v-slot:30>
+    <template v-slot:29>
       <datatable-formula></datatable-formula>
     </template>
   </comp>
@@ -127,7 +124,6 @@ import DatatableWithoutRowSelection from '@/views/components/advanced/datatable/
 import DatatableRowsRepetition from '@/views/components/advanced/datatable/examples/DatatableRowsRepetition';
 import DatatableSort from '@/views/components/advanced/datatable/examples/DatatableSort';
 import DatatableSortableColumns from '@/views/components/advanced/datatable/examples/DatatableSortableColumns';
-import DatatableTooltip from '@/views/components/advanced/datatable/examples/DatatableTooltip';
 import DatatableTotal from '@/views/components/advanced/datatable/examples/DatatableTotal';
 import DatatableShapes from '@/views/components/advanced/datatable/examples/DatatableShapes';
 import DatatableCellClasses from '@/views/components/advanced/datatable/examples/DatatableCellClasses';
@@ -160,7 +156,6 @@ export default {
     DatatableRowsRepetition,
     DatatableSort,
     DatatableSortableColumns,
-    DatatableTooltip,
     DatatableTotal,
     DatatableJ4ico,
     DatatableShapes,
@@ -198,7 +193,6 @@ export default {
         'With row repetition',
         'Sorting',
         'Sortable columns',
-        'With tooltip',
         'With totals',
         'With J4Ico',
         'Images and badges',

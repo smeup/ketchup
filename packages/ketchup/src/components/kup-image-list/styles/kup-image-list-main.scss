@@ -103,6 +103,7 @@
 
     &__label {
       font-size: 1.2em;
+      font-weight: bold;
       letter-spacing: 0.12em;
       overflow: hidden;
       padding: 0 0.5em;
@@ -122,6 +123,11 @@
   );
   margin-top: 1em;
   width: 100%;
+
+  .f-cell {
+    height: 100%;
+    width: 100%;
+  }
 
   &__item {
     border-radius: var(--kup_imagelist_item_border_radius);

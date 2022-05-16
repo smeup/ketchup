@@ -32,6 +32,8 @@ import {
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import { FCell } from '../../f-components/f-cell/f-cell';
+import { FCellPadding } from '../../f-components/f-cell/f-cell-declarations';
 
 @Component({
     tag: 'kup-image-list',
@@ -79,7 +81,6 @@ export class KupImageList {
     #kupManager: KupManager = kupManagerInstance();
     #backProps: FButtonProps = {
         icon: 'arrow_back',
-        label: this.#kupManager.language.translate(KupLanguageGeneric.BACK),
         onClick: () => {
             this.currentNode = this.#kupManager.data.node.getParent(
                 this.data,
@@ -94,7 +95,6 @@ export class KupImageList {
     };
     #topProps: FButtonProps = {
         icon: 'arrow_upward',
-        label: this.#kupManager.language.translate(KupLanguageGeneric.TOP),
         onClick: () => {
             this.currentNode = null;
             this.navigationBarToggled = false;
@@ -169,10 +169,17 @@ export class KupImageList {
         const image = <FImage {...props}></FImage>;
         const label = <div class="image-list__label">{node.value}</div>;
         return (
-            <div class="image-list__wrapper">
-                {image}
-                {label}
-            </div>
+            <FCell
+                cell={{ value: node.value, icon: node.icon, obj: node.obj }}
+                column={{ name: 'IMAGE', title: 'Image' }}
+                density={FCellPadding.NONE}
+                row={{ ...node }}
+            >
+                <div class="image-list__wrapper">
+                    {image}
+                    {label}
+                </div>
+            </FCell>
         );
     }
 
@@ -247,7 +254,12 @@ export class KupImageList {
                                         : ''
                                 }`}
                             >
-                                <FButton {...this.#backProps}></FButton>
+                                <FButton
+                                    {...this.#backProps}
+                                    label={this.#kupManager.language.translate(
+                                        KupLanguageGeneric.BACK
+                                    )}
+                                ></FButton>
                                 <div
                                     class={`navigation-bar__title`}
                                     onClick={() => {
@@ -266,7 +278,12 @@ export class KupImageList {
                                         {this.currentNode.value}
                                     </div>
                                 </div>
-                                <FButton {...this.#topProps}></FButton>
+                                <FButton
+                                    {...this.#topProps}
+                                    label={this.#kupManager.language.translate(
+                                        KupLanguageGeneric.TOP
+                                    )}
+                                ></FButton>
                             </div>
                         ) : null}
                     </div>

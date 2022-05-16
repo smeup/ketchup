@@ -205,7 +205,6 @@
 </template>
 
 <script lang="ts">
-import type { Components } from '@sme.up/ketchup/dist/types/components';
 import type { KupButtonClickEventPayload } from '@sme.up/ketchup/dist/types/components/kup-button/kup-button-declarations';
 import type { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 import type { KupDynamicPositionElement } from '@sme.up/ketchup/dist/types/managers/kup-dynamic-position/kup-dynamic-position-declarations';
@@ -215,8 +214,8 @@ import type {
   KupEventPayload,
 } from '@sme.up/ketchup/dist/types/types/GenericTypes';
 import type { KupSwitchEventPayload } from '@sme.up/ketchup/dist/types/components/kup-switch/kup-switch-declarations';
-import type { KupTabBarClickEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
-import type { KupTabBarData } from '@sme.up/ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
+import type { KupTabBarEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
+import type { KupTabBarNode } from '@sme.up/ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
 import type { KupTextFieldEventPayload } from '@sme.up/ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
 import type { KupDynamicPosition } from '@sme.up/ketchup/dist/types/managers/kup-dynamic-position/kup-dynamic-position';
 
@@ -687,12 +686,12 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
-  KupTabBarData: {
+  KupTabBarNode: {
     keys: {
+      id: 'string',
       value: 'string',
       'active?': 'boolean',
       'icon?': 'string',
-      'text?': 'string',
       'title?': 'string',
     },
     type: DemoTypeFeature.INTERFACE,
@@ -912,49 +911,49 @@ export default {
     /**
      * Initializes kup-tab-bar tabs.
      */ initTabs(): void {
-      const data: KupTabBarData[] = [];
+      const data: KupTabBarNode[] = [];
       if (demoClasses) {
         data.push({
-          value: DemoTabs.CLASSES,
-          text: DemoTabs.CLASSES,
+          id: DemoTabs.CLASSES,
           title: 'List of classes available to the component.',
+          value: DemoTabs.CLASSES,
         });
       }
       if (demoMethods) {
         data.push({
-          value: DemoTabs.METHODS,
-          text: DemoTabs.METHODS,
+          id: DemoTabs.METHODS,
           title: 'List of public methods available to the component.',
+          value: DemoTabs.METHODS,
         });
       }
       if (demoEvents) {
         data.push({
-          value: DemoTabs.EVENTS,
-          text: DemoTabs.EVENTS,
+          id: DemoTabs.EVENTS,
           title: 'List of events available to the component.',
+          value: DemoTabs.EVENTS,
         });
       }
       data.push({
-        value: DemoTabs.JSON,
-        text: DemoTabs.JSON,
+        id: DemoTabs.JSON,
         icon: 'json',
         title: 'Here you can change props values manually.',
+        value: DemoTabs.JSON,
       });
       if (demoProps) {
         data.unshift({
-          value: DemoTabs.PROPS,
-          text: DemoTabs.PROPS,
+          id: DemoTabs.PROPS,
           title: 'List of props available to the component.',
+          value: DemoTabs.PROPS,
         });
         const hasCustomStyle: DemoProps = demoProps.find(
           (x: DemoProps) => x.prop === 'customStyle'
         );
         if (hasCustomStyle) {
           data.push({
-            value: DemoTabs.CSS,
-            text: DemoTabs.CSS,
+            id: DemoTabs.CSS,
             icon: 'style',
             title: 'Here you can write CSS code used by the customStyle prop.',
+            value: DemoTabs.CSS,
           });
         }
       }
@@ -1098,7 +1097,7 @@ export default {
      * Swaps between different tabs on click.
      * @param {CustomEvent<KupTextFieldEventPayload>} e - kup-tab-bar click event.
      */
-    tabSelection(e: CustomEvent<KupTabBarClickEventPayload>): void {
+    tabSelection(e: CustomEvent<KupTabBarEventPayload>): void {
       this.handleTab(e.detail.index);
     },
     /**
@@ -1113,7 +1112,7 @@ export default {
       jsonView.classList.remove(visibleClass);
       cssView.classList.remove(visibleClass);
 
-      switch (tabBar.data[i].text) {
+      switch (tabBar.data[i].value) {
         case DemoTabs.PROPS:
           propsView.classList.add(visibleClass);
           break;

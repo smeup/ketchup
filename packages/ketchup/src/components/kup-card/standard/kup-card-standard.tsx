@@ -3,7 +3,7 @@ import type { KupCard } from '../kup-card';
 import type { GenericObject } from '../../../types/GenericTypes';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { compList } from '../kup-card-helper';
-import { KupTabBarData } from '../../kup-tab-bar/kup-tab-bar-declarations';
+import { KupTabBarNode } from '../../kup-tab-bar/kup-tab-bar-declarations';
 import {
     KupLanguageColumn,
     KupLanguageGeneric,
@@ -999,8 +999,8 @@ export function create14(component: KupCard): VNode {
     let visibleView: number = 1;
     if (tabbarArray[0] && tabbarArray[0].data) {
         for (let index = 0; index < tabbarArray[0].data.length; index++) {
-            const tab: KupTabBarData = tabbarArray[0].data[index];
-            tabsValues.push(tab.value);
+            const tab: KupTabBarNode = tabbarArray[0].data[index];
+            tabsValues.push(tab.id);
             if (tab.active) {
                 visibleView = index + 1;
             }
@@ -1358,10 +1358,20 @@ export function create15(component: KupCard): VNode {
 
     // Setting up buttons.
     const buttonsIds: string[] = [];
+    const genericButtons: GenericObject[] = [];
+    const isReservedID = (id: string) => {
+        return (
+            id === KupColumnMenuIds.BUTTON_OPEN_IN_NEW ||
+            id === KupColumnMenuIds.BUTTON_SEARCH
+        );
+    };
     for (let index = 0; index < buttonArray.length; index++) {
         const button: GenericObject = buttonArray[index];
         if (button['id']) {
             buttonsIds.push(button['id']);
+        }
+        if (!isReservedID(button['id'])) {
+            genericButtons.push(button);
         }
     }
     return (
@@ -1445,12 +1455,14 @@ export function create15(component: KupCard): VNode {
                         KupCardCSSClasses.VIEW_PREFIX
                     }${viewIndex + 1}`}
                 >
-                    <kup-tree class="kup-full-width" {...treeArray[0]} />
+                    {treeArray[0] ? (
+                        <kup-tree class="kup-full-width" {...treeArray[0]} />
+                    ) : null}
                 </div>
             </div>
-            {buttonArray.length > 0 ? (
+            {genericButtons.length > 0 ? (
                 <div class="section-3">
-                    {compList(buttonArray.slice(0, 4), 'button')}
+                    {compList(genericButtons.slice(0, 5), 'button')}
                     <kup-button id="view-selector" icon="menu"></kup-button>
                 </div>
             ) : null}

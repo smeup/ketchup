@@ -4,16 +4,8 @@ import type { RectResolvable } from '@interactjs/types/index';
 import type {
     KupDom,
     KupManagerClickCb,
-    KupManagerDatesSettings,
-    KupManagerDebugSettings,
     KupManagerInitialization,
-    KupManagerInteractSettings,
-    KupManagerLanguageSettings,
-    KupManagerObjectsSettings,
-    KupManagerScrollOnHoverSettings,
     KupManagerStringFinderPayload,
-    KupManagerThemeSettings,
-    KupManagerTooltipSettings,
     KupManagerUtilities,
 } from './kup-manager-declarations';
 import type { ResizableKupComponent } from '../../types/GenericTypes';
@@ -43,6 +35,7 @@ import { KupMathLocales } from '../kup-math/kup-math-declarations';
 import { KupMath } from '../kup-math/kup-math';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { setAssetPath } from '@stencil/core';
+import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
 import html2canvas, { Options } from 'html2canvas';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -88,7 +81,8 @@ export class KupManager {
             scrollOnHoverStep: number = null,
             themeList: KupThemeJSON = null,
             themeName: string = null,
-            tooltipDelay: number = null;
+            tooltipDelay: number = null,
+            tooltipFCellCallbacks: KupTooltipCallbacks = null;
         if (overrides) {
             const assetsPath = overrides.assetsPath;
             const dates = overrides.dates;
@@ -137,6 +131,9 @@ export class KupManager {
             }
             if (tooltip) {
                 tooltipDelay = tooltip.delay ? tooltip.delay : null;
+                tooltipFCellCallbacks = tooltip.fCellCallbacks
+                    ? tooltip.fCellCallbacks
+                    : null;
             }
         }
         this.data = new KupData();
@@ -179,7 +176,7 @@ export class KupManager {
         };
         this.theme = new KupTheme(themeList, themeName);
         this.toolbar = new KupToolbar();
-        this.tooltip = new KupTooltip(tooltipDelay);
+        this.tooltip = new KupTooltip(tooltipDelay, tooltipFCellCallbacks);
         document.addEventListener('pointerdown', (e) => {
             const paths = e.composedPath() as HTMLElement[];
             const lastString =

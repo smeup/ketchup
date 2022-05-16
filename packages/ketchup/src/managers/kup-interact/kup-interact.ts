@@ -164,7 +164,6 @@ export class KupInteract {
                         break;
                     case KupDragEffect.CLONE:
                         ghostImage = draggable.cloneNode(true) as HTMLElement;
-                        setComputedStyle(draggable, ghostImage);
                         ghostImage.style.cursor = 'grabbing';
                         ghostImage.style.height = draggable.clientHeight + 'px';
                         ghostImage.style.left =
@@ -178,7 +177,7 @@ export class KupInteract {
                         ghostImage.style.width = draggable.clientWidth + 'px';
                         ghostImage.style.zIndex =
                             'calc(var(--kup-navbar-zindex) + 1)';
-                        dom.ketchup.interact.container.appendChild(ghostImage);
+                        draggable.parentElement.appendChild(ghostImage);
                         draggable.kupDragDrop.ghostImage = ghostImage;
                         break;
                 }
@@ -203,30 +202,6 @@ export class KupInteract {
         };
         interact(el).draggable(options);
         this.managedElements.add(el);
-
-        function setComputedStyle(
-            draggable: HTMLElement,
-            ghostImage: HTMLElement
-        ) {
-            recursive(draggable, ghostImage);
-
-            function recursive(source: HTMLElement, target: HTMLElement) {
-                const styles = getComputedStyle(source);
-                for (const key in styles) {
-                    if (Object.prototype.hasOwnProperty.call(styles, key)) {
-                        const s = styles[key];
-                        try {
-                            target.style[s] = styles[s];
-                        } catch (error) {}
-                    }
-                }
-                for (let index = 0; index < source.children.length; index++) {
-                    const sourceChild = source.children[index] as HTMLElement;
-                    const targetChild = target.children[index] as HTMLElement;
-                    recursive(sourceChild, targetChild);
-                }
-            }
-        }
     }
     /**
      * Sets up a new dropzone.
