@@ -226,7 +226,10 @@ export class KupDynamicPosition {
         ) {
             el.style.top = `${bottom + el.kupDynamicPosition.margin}px`;
         } else {
-            if (window.innerHeight - rect.bottom < offsetH) {
+            if (
+                offsetH < rect.top &&
+                window.innerHeight - rect.bottom < offsetH
+            ) {
                 el.style.bottom = `${
                     window.innerHeight - top + el.kupDynamicPosition.margin
                 }px`;
@@ -259,7 +262,10 @@ export class KupDynamicPosition {
             }
             el.style.right = `${window.innerWidth - scrollbarWidth - right}px`;
         } else {
-            if (window.innerWidth - rect.left < offsetW) {
+            if (
+                offsetW < rect.right &&
+                window.innerWidth - rect.left < offsetW
+            ) {
                 let scrollbarWidth: number =
                     window.innerWidth - document.documentElement.offsetWidth;
                 if (scrollbarWidth > 30) {
