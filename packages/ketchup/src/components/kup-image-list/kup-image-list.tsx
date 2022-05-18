@@ -117,7 +117,7 @@ export class KupImageList {
     kupClick: EventEmitter<KupImageListEventPayload>;
 
     onKupClick(node: KupDataNode) {
-        if (node.children) {
+        if (node.children && node.children.length > 0) {
             this.currentNode = node;
         }
         this.kupClick.emit({
