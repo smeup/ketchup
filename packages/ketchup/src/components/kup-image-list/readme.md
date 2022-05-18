@@ -16,9 +16,11 @@
 
 ## Events
 
-| Event                 | Description | Type                                    |
-| --------------------- | ----------- | --------------------------------------- |
-| `kup-imagelist-click` |             | `CustomEvent<KupImageListEventPayload>` |
+| Event                       | Description | Type                                    |
+| --------------------------- | ----------- | --------------------------------------- |
+| `kup-imagelist-click`       |             | `CustomEvent<KupImageListEventPayload>` |
+| `kup-imagelist-contextmenu` |             | `CustomEvent<KupImageListEventPayload>` |
+| `kup-imagelist-dblclick`    |             | `CustomEvent<KupImageListEventPayload>` |
 
 
 ## Methods
