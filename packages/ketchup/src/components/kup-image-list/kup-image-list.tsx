@@ -78,6 +78,7 @@ export class KupImageList {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
+    #clickTimeout: ReturnType<typeof setTimeout>[] = [];
     #kupManager: KupManager = kupManagerInstance();
     #backProps: FButtonProps = {
         icon: 'arrow_back',
@@ -120,6 +121,43 @@ export class KupImageList {
             this.currentNode = node;
         }
         this.kupClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            node: node,
+        });
+    }
+
+    @Event({
+        eventName: 'kup-imagelist-contextmenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupContextMenu: EventEmitter<KupImageListEventPayload>;
+
+    onKupContextMenu(e: MouseEvent, node: KupDataNode) {
+        e.preventDefault();
+        this.kupContextMenu.emit({
+            comp: this,
+            id: this.rootElement.id,
+            node: node,
+        });
+    }
+
+    @Event({
+        eventName: 'kup-imagelist-dblclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDblClick: EventEmitter<KupImageListEventPayload>;
+
+    onKupDblClick(node: KupDataNode) {
+        for (let index = 0; index < this.#clickTimeout.length; index++) {
+            clearTimeout(this.#clickTimeout[index]);
+        }
+        this.#clickTimeout = [];
+        this.kupDblClick.emit({
             comp: this,
             id: this.rootElement.id,
             node: node,
@@ -193,7 +231,16 @@ export class KupImageList {
                 'mdc-ripple-surface': this.ripple ? true : false,
             };
             const item: VNode = (
-                <div onClick={() => this.onKupClick(node)} class={classObj}>
+                <div
+                    onClick={() => {
+                        this.#clickTimeout.push(
+                            setTimeout(() => this.onKupClick(node), 300)
+                        );
+                    }}
+                    onContextMenu={(e) => this.onKupContextMenu(e, node)}
+                    onDblClick={() => this.onKupDblClick(node)}
+                    class={classObj}
+                >
                     {this.#createItem(node)}
                 </div>
             );

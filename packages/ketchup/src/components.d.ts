@@ -4778,6 +4778,8 @@ declare namespace LocalJSX {
          */
         "data"?: KupDataNode[];
         "onKup-imagelist-click"?: (event: CustomEvent<KupImageListEventPayload>) => void;
+        "onKup-imagelist-contextmenu"?: (event: CustomEvent<KupImageListEventPayload>) => void;
+        "onKup-imagelist-dblclick"?: (event: CustomEvent<KupImageListEventPayload>) => void;
         /**
           * When enabled displays Material's ripple effect on clicked items.
           * @default true

@@ -46,7 +46,15 @@ export default {
       demoEvents: [
         {
           name: 'kup-imagelist-click',
-          type: 'click',
+          type: 'mouse',
+        },
+        {
+          name: 'kup-imagelist-contextmenu',
+          type: 'mouse',
+        },
+        {
+          name: 'kup-imagelist-dblclick',
+          type: 'mouse',
         },
       ],
       demoProps: [
