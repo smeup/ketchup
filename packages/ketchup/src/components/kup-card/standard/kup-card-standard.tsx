@@ -12,6 +12,9 @@ import { FChipType } from '../../../f-components/f-chip/f-chip-declarations';
 import { KupCardCSSClasses, KupCardIds } from '../kup-card-declarations';
 import { KupColumnMenuIds } from '../../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupThemeColorValues } from '../../../managers/kup-theme/kup-theme-declarations';
+import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
 
 /**
  * 1st standard card layout, inspired by Material Design.
@@ -1463,7 +1466,13 @@ export function create15(component: KupCard): VNode {
             {genericButtons.length > 0 ? (
                 <div class="section-3">
                     {compList(genericButtons.slice(0, 5), 'button')}
-                    <kup-button id="view-selector" icon="menu"></kup-button>
+                    <kup-button
+                        title={dom.ketchup.language.translate(
+                            KupLanguageGeneric.SHOW_ROW_OPTIONS
+                        )}
+                        id="view-selector"
+                        icon="menu"
+                    ></kup-button>
                 </div>
             ) : null}
         </div>
