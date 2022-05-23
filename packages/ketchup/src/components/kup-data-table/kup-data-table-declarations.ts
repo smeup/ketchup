@@ -65,6 +65,7 @@ export enum KupDataTableProps {
     tableHeight = 'Sets the height of the table.',
     tableWidth = 'Sets the width of the table.',
     totals = 'Defines the current totals options.',
+    transpose = 'Transposes the data of the data table.',
 }
 export interface KupDataTableDataset {
     columns?: KupDataColumn[];
