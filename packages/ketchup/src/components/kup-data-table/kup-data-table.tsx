@@ -836,9 +836,12 @@ export class KupDataTable {
 
     @Watch('transpose')
     recalculateData() {
-        this.calculateData();
+        if (this.initialized) {
+            this.calculateData();
+        }
     }
 
+    private initialized = false;
     private rows: Array<KupDataTableRow>;
     private rowsLength: number = 0;
 
@@ -2085,6 +2088,7 @@ export class KupDataTable {
             !!(window && (window as Window & { safari?: object }).safari);
 
         this.calculateData();
+        this.initialized = true;
     }
 
     componentWillRender() {
