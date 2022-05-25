@@ -223,9 +223,10 @@ const advancedRoutes = [
     component: () => import(`@/views/components/advanced/field/Field.vue`),
   },
   {
-    path: `/tooltip`,
-    name: 'tooltip',
-    component: () => import(`@/views/components/advanced/tooltip/Tooltip.vue`),
+    path: `/imagelist`,
+    name: 'imagelist',
+    component: () =>
+      import(`@/views/components/advanced/imagelist/ImageList.vue`),
   },
   {
     path: `/tree`,
@@ -317,6 +318,11 @@ const frameworkRoutes = [
     path: `/kup-toolbar`,
     name: 'kup-toolbar',
     component: () => import(`@/views/framework/kup-toolbar/KupToolbar.vue`),
+  },
+  {
+    path: `/kup-tooltip`,
+    name: 'kup-tooltip',
+    component: () => import(`@/views/framework/kup-tooltip/KupTooltip.vue`),
   },
 ];
 

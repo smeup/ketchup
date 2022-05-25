@@ -96,6 +96,7 @@
 
       .chip__icon--leading {
         color: var(--kup_chip_text_color);
+
         &:not(.chip__icon--leading-hidden) {
           margin-left: -4px;
           margin-right: 6px;
@@ -103,6 +104,12 @@
 
         .chip__icon--trailing {
           position: relative;
+        }
+      }
+
+      &--only-icon {
+        .chip__icon.f-image {
+          margin: 0;
         }
       }
 

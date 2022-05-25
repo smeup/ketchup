@@ -89,3 +89,36 @@ export function toStreamNode(nodes: KupDataNode[]): KupDataNode[] {
     }
     return streamlined;
 }
+/**
+ * Returns the parent of the given node.
+ * @param {KupDataNode[]} nodes - Input array of nodes.
+ * @param {KupDataNode} child - Child node.
+ * @returns {KupDataNode} Parent node.
+ */
+export function getParentNode(
+    nodes: KupDataNode[],
+    child: KupDataNode
+): KupDataNode {
+    let parent: KupDataNode = null;
+    for (let index = 0; index < nodes.length; index++) {
+        const node = nodes[index];
+        recursive(node);
+
+        function recursive(node: KupDataNode) {
+            const hasChildren = !!node.children;
+
+            if (hasChildren && node.children.includes(child)) {
+                parent = node;
+                return;
+            }
+            for (
+                let index = 0;
+                !parent && hasChildren && index < node.children.length;
+                index++
+            ) {
+                recursive(node.children[index]);
+            }
+        }
+    }
+    return parent;
+}

@@ -1,0 +1,25 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+
+:host(.#{$kup-class-full-height}) {
+  height: 100%;
+}
+
+:host(.#{$kup-class-full-width}) {
+  width: 100%;
+}
+
+:host(.#{$kup-class-horizontal}) {
+  .image-list {
+    display: flex;
+  }
+}
+
+:host(.#{$kup-class-auto-grid}) {
+  .image-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

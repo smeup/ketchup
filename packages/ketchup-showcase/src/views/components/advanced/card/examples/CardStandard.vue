@@ -1020,19 +1020,18 @@ export default {
           {
             data: [
               {
-                text: 'Filters',
-                value: 'genericFilters',
                 active: true,
+                id: 'genericFilters',
+                value: 'Filters',
               },
               {
-                text: 'Columns',
-                value: 'columnColumns',
-                active: false,
+                id: 'columnColumns',
+                value: 'Columns',
               },
               {
                 icon: 'settings',
-                value: 'genericSettings',
-                active: false,
+                id: 'genericSettings',
+                value: '',
               },
             ],
           },
@@ -1207,13 +1206,12 @@ export default {
             data: [
               {
                 active: true,
-                text: 'tab-bar[0]',
-                value: '1',
+                id: '1',
+                value: 'tab-bar[0]',
               },
               {
-                text: 'tab-bar[0]',
-                value: '2',
-                active: false,
+                id: '2',
+                value: 'tab-bar[0]',
               },
             ],
             title: 'tab-bar[0]',

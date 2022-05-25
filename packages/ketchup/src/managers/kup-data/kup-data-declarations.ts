@@ -126,6 +126,7 @@ export interface KupDataColumnOperations {
  * Interface related to nodes operations.
  */
 export interface KupDataNodeOperations {
+    getParent: (nodes: KupDataNode[], child: KupDataNode) => KupDataNode;
     remove: (nodes: KupDataNode[], node2remove: KupDataNode) => KupDataNode;
     setProperties: (
         nodes: KupDataNode[],

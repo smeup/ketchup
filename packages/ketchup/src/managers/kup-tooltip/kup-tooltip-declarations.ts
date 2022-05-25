@@ -3,7 +3,7 @@ export interface KupTooltipAnchor extends HTMLElement {
 }
 
 export interface KupTooltipCallbacks {
-    enter: (e?: PointerEvent) => void;
-    over: (e?: PointerEvent) => void;
-    leave: (e?: PointerEvent) => void;
+    enter?: (e?: PointerEvent, anchor?: HTMLElement) => void;
+    over?: (e?: PointerEvent, anchor?: HTMLElement) => void;
+    leave?: (e?: PointerEvent, anchor?: HTMLElement) => void;
 }

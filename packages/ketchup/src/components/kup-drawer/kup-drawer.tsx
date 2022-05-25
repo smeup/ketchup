@@ -219,9 +219,18 @@ export class KupDrawer {
                 </style>
                 <div
                     class="backdrop"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }}
                     onPointerDown={(e) => {
+                        e.preventDefault();
                         e.stopPropagation();
                         this.close();
+                    }}
+                    onTouchStart={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
                     }}
                 />
                 <div id={componentWrapperId}>

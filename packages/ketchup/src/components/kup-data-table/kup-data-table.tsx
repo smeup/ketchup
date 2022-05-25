@@ -80,8 +80,6 @@ import {
 } from '../../managers/kup-manager/kup-manager';
 import { KupDataTableState } from './kup-data-table-state';
 import { KupStore } from '../kup-state/kup-store';
-import { KupTooltip } from '../kup-tooltip/kup-tooltip';
-import { setTooltip, unsetTooltip } from '../../utils/helpers';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FChip } from '../../f-components/f-chip/f-chip';
@@ -700,10 +698,6 @@ export class KupDataTable {
      */
     @Prop() showLoadMore: boolean = false;
     /**
-     * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
-     */
-    @Prop() showTooltipOnRightClick: boolean = true;
-    /**
      * Defines the current sorting options.
      */
     @Prop({ mutable: true }) sort: Array<SortObject> = [];
@@ -724,18 +718,6 @@ export class KupDataTable {
      * Sets the width of the table.
      */
     @Prop() tableWidth: string = undefined;
-    /**
-     * Defines the timeout for tooltip detail
-     */
-    @Prop() tooltipDetailTimeout: number;
-    /**
-     * Enable show tooltip
-     */
-    @Prop() tooltipEnabled: boolean = true;
-    /**
-     * Defines the timeout for tooltip load
-     */
-    @Prop() tooltipLoadTimeout: number;
     /**
      * Defines the current totals options
      */
@@ -854,9 +836,12 @@ export class KupDataTable {
 
     @Watch('transpose')
     recalculateData() {
-        this.calculateData();
+        if (this.initialized) {
+            this.calculateData();
+        }
     }
 
+    private initialized = false;
     private rows: Array<KupDataTableRow>;
     private rowsLength: number = 0;
 
@@ -880,8 +865,6 @@ export class KupDataTable {
      */
     private theadRef: any;
     private tableRef: HTMLTableElement;
-
-    private tooltip: KupTooltip;
 
     /**
      * contains the original data, used in transposed function
@@ -1184,7 +1167,7 @@ export class KupDataTable {
             this,
             getColumnByName(this.getVisibleColumns(), column)
         );
-        this.columnMenuInstance.open(this, column, this.tooltip);
+        this.columnMenuInstance.open(this, column);
         this.columnMenuInstance.reposition(this, this.columnMenuCard);
         this.kupDataTableColumnMenu.emit({
             comp: this,
@@ -2105,6 +2088,7 @@ export class KupDataTable {
             !!(window && (window as Window & { safari?: object }).safari);
 
         this.calculateData();
+        this.initialized = true;
     }
 
     componentWillRender() {
@@ -2557,26 +2541,6 @@ export class KupDataTable {
         if (details.area === 'header') {
             if (details.th && details.column) {
                 this.openColumnMenu(details.column.name);
-                return details;
-            }
-        } else if (details.area === 'body') {
-            const _hasTooltip: boolean = details.cell.obj
-                ? !this.kupManager.objects.isEmptyKupObj(details.cell.obj)
-                : false;
-            if (
-                _hasTooltip &&
-                this.showTooltipOnRightClick &&
-                details.td &&
-                details.cell
-            ) {
-                const columnName = details.column ? details.column.name : null;
-                setTooltip(
-                    e as any,
-                    details.row.id,
-                    columnName,
-                    details.cell,
-                    this.tooltip
-                );
                 return details;
             }
         } else if (details.area === 'footer') {
@@ -3170,10 +3134,6 @@ export class KupDataTable {
         this.kupManager.removeClickCallback(this.clickCb);
     }
 
-    private closeMenuAndTooltip() {
-        unsetTooltip(this.tooltip);
-    }
-
     private isOpenedTotalMenuForColumn(column: string): boolean {
         return this.openedTotalMenu === column;
     }
@@ -3757,25 +3717,6 @@ export class KupDataTable {
         return [multiSelectColumn, actionsColumn, ...dataColumns];
     }
 
-    renderTooltip() {
-        if (this.tooltipEnabled == false) {
-            return null;
-        }
-        return (
-            <kup-tooltip
-                class="datatable-tooltip"
-                owner={this.rootElement.tagName}
-                loadTimeout={
-                    this.showTooltipOnRightClick == true
-                        ? 0
-                        : this.tooltipLoadTimeout
-                }
-                detailTimeout={this.tooltipDetailTimeout}
-                ref={(el: any) => (this.tooltip = el as KupTooltip)}
-            ></kup-tooltip>
-        );
-    }
-
     areTotalsSelected(column: KupDataColumn): boolean {
         return this.totals && this.totals[column.name] ? true : false;
     }
@@ -3824,7 +3765,6 @@ export class KupDataTable {
     }
 
     private onTotalMenuOpen(column: KupDataColumn) {
-        this.closeMenuAndTooltip();
         this.closeTotalMenu();
         this.openTotalMenu(column);
     }
@@ -4453,33 +4393,8 @@ export class KupDataTable {
                         cellStyle['width'] = colWidth;
                     }
                 }
-
-                /**
-                 * Controls if current cell needs a tooltip and eventually adds it.
-                 * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
-                 */
-                const _hasTooltip: boolean =
-                    !this.kupManager.objects.isEmptyKupObj(cell.obj);
                 let eventHandlers = undefined;
                 let title: string = undefined;
-                if (_hasTooltip) {
-                    if (!this.showTooltipOnRightClick) {
-                        eventHandlers = {
-                            onMouseEnter: (ev) => {
-                                setTooltip(
-                                    ev,
-                                    row.id,
-                                    currentColumn.name,
-                                    cell,
-                                    this.tooltip
-                                );
-                            },
-                            onMouseLeave: () => {
-                                unsetTooltip(this.tooltip);
-                            },
-                        };
-                    }
-                }
 
                 cellClass = {
                     ...cellClass,
@@ -5144,8 +5059,6 @@ export class KupDataTable {
         const header = this.renderHeader();
         const stickyHeader = this.renderStickyHeader();
 
-        const tooltip = this.renderTooltip();
-
         let paginatorTop = undefined;
         let paginatorBottom = undefined;
         if (
@@ -5340,7 +5253,6 @@ export class KupDataTable {
                             ref={(el: HTMLTableElement) => (this.tableRef = el)}
                             onMouseLeave={(ev) => {
                                 ev.stopPropagation();
-                                unsetTooltip(this.tooltip);
                             }}
                             onContextMenu={(e: MouseEvent) => {
                                 e.preventDefault();
@@ -5359,7 +5271,6 @@ export class KupDataTable {
                         </table>
                         {stickyEl}
                     </div>
-                    {tooltip}
                     {paginatorBottom}
                 </div>
             </Host>

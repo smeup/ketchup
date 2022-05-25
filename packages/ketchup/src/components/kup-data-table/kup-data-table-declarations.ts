@@ -57,7 +57,6 @@ export enum KupDataTableProps {
     showGroups = 'When set to true enables the column grouping.',
     showHeader = 'Enables rendering of the table header.',
     showLoadMore = 'If set to true, displays the button to load more records.',
-    showTooltipOnRightClick = 'If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.',
     sort = 'Defines the current sorting options.',
     stateId = '',
     store = '',
@@ -65,9 +64,8 @@ export enum KupDataTableProps {
     sortEnabled = 'When set to true enables the sorting of the columns by clicking on the column header.',
     tableHeight = 'Sets the height of the table.',
     tableWidth = 'Sets the width of the table.',
-    tooltipDetailTimeout = 'Defines the timeout for tooltip detail',
-    tooltipEnabled = 'Enable show tooltip',
     totals = 'Defines the current totals options.',
+    transpose = 'Transposes the data of the data table.',
 }
 export interface KupDataTableDataset {
     columns?: KupDataColumn[];

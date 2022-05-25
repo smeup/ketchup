@@ -70,6 +70,7 @@ Type: `Promise<void>`
  - [kup-box](../kup-box)
  - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
+ - [kup-image-list](../kup-image-list)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -119,12 +120,7 @@ graph TD;
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-data-table --> kup-rating
-  kup-tooltip --> kup-button
-  kup-tooltip --> kup-card
-  kup-tooltip --> kup-box
-  kup-tooltip --> kup-list
-  kup-tooltip --> kup-tree
-  kup-box --> kup-rating
+  kup-switch --> kup-card
   kup-color-picker --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-card
@@ -139,11 +135,12 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
-  kup-tree --> kup-rating
-  kup-switch --> kup-card
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
+  kup-tree --> kup-rating
+  kup-box --> kup-rating
   kup-cell --> kup-rating
+  kup-image-list --> kup-rating
   style kup-rating fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

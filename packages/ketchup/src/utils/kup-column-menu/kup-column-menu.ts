@@ -5,7 +5,6 @@ import type {
     KupDom,
     KupManagerClickCb,
 } from '../../managers/kup-manager/kup-manager-declarations';
-import type { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
 import type { KupTree } from '../../components/kup-tree/kup-tree';
 import {
     KupDynamicPositionElement,
@@ -14,7 +13,6 @@ import {
 import type { GroupObject } from '../../components/kup-data-table/kup-data-table-declarations';
 import type { KupTextFieldEventPayload } from '../../components/kup-text-field/kup-text-field-declarations';
 import type { KupTextField } from '../../components/kup-text-field/kup-text-field';
-import { unsetTooltip } from '../helpers';
 import { FiltersColumnMenu } from '../filters/filters-column-menu';
 import {
     FilterInterval,
@@ -33,7 +31,7 @@ import {
     KupLanguageRow,
     KupLanguageTotals,
 } from '../../managers/kup-language/kup-language-declarations';
-import { KupTabBarData } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
+import { KupTabBarNode } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupColumnMenuIds } from './kup-column-menu-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
@@ -61,16 +59,8 @@ export class KupColumnMenu {
      * Function called by the component when the column menu must be opened.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {string} column - Name of the column.
-     * @param {KupTooltip} tooltip - Tooltip of the component, when present.
      */
-    open(
-        comp: KupDataTable | KupTree,
-        column: string,
-        tooltip?: KupTooltip
-    ): void {
-        if (tooltip) {
-            unsetTooltip(tooltip);
-        }
+    open(comp: KupDataTable | KupTree, column: string): void {
         this.filtersColumnMenuInstance.resetTextualFilters(
             comp.filters,
             column
@@ -417,13 +407,13 @@ export class KupColumnMenu {
         column: KupDataColumn
     ): GenericObject[] {
         const props: GenericObject[] = [{ data: [] }];
-        const data: KupTabBarData[] = props[0].data;
+        const data: KupTabBarNode[] = props[0].data;
         if (comp.showFilters) {
             data.push({
-                text: dom.ketchup.language.translate(
+                id: KupLanguageGeneric.FILTERS,
+                value: dom.ketchup.language.translate(
                     KupLanguageGeneric.FILTERS
                 ),
-                value: KupLanguageGeneric.FILTERS,
             });
         }
         if (
@@ -435,14 +425,17 @@ export class KupColumnMenu {
             comp.removableColumns
         ) {
             data.push({
-                text: dom.ketchup.language.translate(KupLanguageColumn.COLUMNS),
-                value: KupLanguageColumn.COLUMNS,
+                id: KupLanguageColumn.COLUMNS,
+                value: dom.ketchup.language.translate(
+                    KupLanguageColumn.COLUMNS
+                ),
             });
         }
         if (!FiltersColumnMenu.isTree(comp)) {
             data.push({
                 icon: 'settings',
-                value: KupLanguageGeneric.SETTINGS,
+                id: KupLanguageGeneric.SETTINGS,
+                value: '',
             });
         }
 

@@ -39,21 +39,18 @@ export default {
     return {
       data: [
         {
-          text: 'Favorites',
-          value: 'Favorites',
-          icon: '',
           active: true,
+          id: 'Favorites',
+          value: 'Favorites',
         },
         {
-          text: 'Settings',
+          id: 'Settings',
           value: 'Settings',
-          icon: '',
-          active: false,
         },
       ],
       markupBasic: '<kup-tab-bar></kup-tab-bar>',
       markupObject:
-        "{ value: 'Favorites', text: 'Favorites', icon: '', active: true }, { value: 'Settings',text: 'Settings', icon: '', active: false}",
+        "{ active: true, id: 'Favorites', value: 'Favorites' }, { id: 'Settings', value: 'Settings' }",
     };
   },
 };
