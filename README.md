@@ -102,6 +102,7 @@ List of open source library/resources we used and which we'd like to thank:
 -   [ECharts](https://echarts.apache.org/en/index.html)
 -   [FullCalendar](https://fullcalendar.io/)
 -   [Google Charts](https://developers.google.com/chart)
+-   [html2canvas](https://html2canvas.hertzen.com/)
 -   [jQuery and jQuery Sparlines](https://omnipotent.net/jquery.sparkline/#s-about)
 -   [Interact.js](https://interactjs.io/)
 -   [Numeral.js](http://numeraljs.com/)

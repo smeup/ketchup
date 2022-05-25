@@ -1446,7 +1446,6 @@ export class KupDataTable {
         this.groups = [];
         // update data
         this.data = { ...totalsMatrixData };
-        // console.log(this.data);
         // calc totals
         // distinct becomes count
         // count becomes sum
@@ -2162,7 +2161,7 @@ export class KupDataTable {
     //======== Utility methods ========
 
     private getEventPath(currentEl: unknown): HTMLElement[] {
-        let path: HTMLElement[] = [];
+        const path: HTMLElement[] = [];
         while (
             currentEl &&
             currentEl !== this.rootElement &&
@@ -2391,7 +2390,8 @@ export class KupDataTable {
     }
 
     private getEventDetails(
-        path: HTMLElement[]
+        path: HTMLElement[],
+        e?: PointerEvent
     ): KupDatatableEventHandlerDetails {
         let isHeader: boolean,
             isBody: boolean,
@@ -2494,6 +2494,7 @@ export class KupDataTable {
             column: column ? column : null,
             filterRemove: filterRemove ? filterRemove : null,
             isGroupRow: isGroupRow,
+            originalEvent: e,
             row: row ? row : null,
             td: td ? td : null,
             textfield: textfield ? textfield : null,
@@ -2504,7 +2505,8 @@ export class KupDataTable {
 
     private clickHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.getEventDetails(
-            this.getEventPath(e.target)
+            this.getEventPath(e.target),
+            e
         );
         if (details.area === 'header') {
             if (details.th && details.column) {
@@ -2549,7 +2551,8 @@ export class KupDataTable {
         e: PointerEvent
     ): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.getEventDetails(
-            this.getEventPath(e.target)
+            this.getEventPath(e.target),
+            e
         );
         if (details.area === 'header') {
             if (details.th && details.column) {
@@ -2588,7 +2591,8 @@ export class KupDataTable {
 
     private dblClickHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.getEventDetails(
-            this.getEventPath(e.target)
+            this.getEventPath(e.target),
+            e
         );
         if (details.area === 'body') {
             if (this.selection == SelectionMode.MULTIPLE) {
@@ -3783,7 +3787,7 @@ export class KupDataTable {
             // must do this
             // otherwise does not fire the watcher
             const totalsCopy = { ...this.totals };
-            const value = event.detail.selected.value;
+            const value = event.detail.selected.id;
             if (value === TotalLabel.CANC) {
                 if (this.totals && this.totals[column.name]) {
                     delete totalsCopy[column.name];

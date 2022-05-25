@@ -55,8 +55,8 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup/releases/tag/v5.1.0"
-            >v5.1.0</a
+          ><a href="https://github.com/smeup/ketchup/releases/tag/v5.2.0"
+            >v5.2.0</a
           ></div
         ></div
       >
@@ -582,6 +582,16 @@ export default {
                 },
                 icon: 'web_asset',
                 value: 'Nav bar',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'numericpicker',
+                  },
+                },
+                icon: 'calculator',
+                value: 'Numeric picker',
                 visible: true,
               },
               {
@@ -1122,5 +1132,17 @@ a.footer__icon--trailing {
   #app__footer {
     display: none;
   }
+}
+
+#rasterize-viewer {
+  background: var(--kup-background-color);
+  bottom: 0;
+  border: 1px solid var(--kup-border-color);
+  height: 30vh;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  width: 30vw;
+  z-index: calc(var(--kup-navbar-zindex) + 1);
 }
 </style>

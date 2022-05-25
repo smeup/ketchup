@@ -17,8 +17,10 @@ import type { KupSearch } from '../kup-search/kup-search';
 import type { KupTheme } from '../kup-theme/kup-theme';
 import type { KupThemeJSON } from '../kup-theme/kup-theme-declarations';
 import type { KupToolbar } from '../kup-toolbar/kup-toolbar';
+import type { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import type { ResizeObserver } from 'resize-observer';
 import { KupMathLocales } from '../kup-math/kup-math-declarations';
+import { Options } from 'html2canvas';
 /**
  * Interface used to define the HTML element with Ketchup specific properties.
  */
@@ -45,6 +47,7 @@ export interface KupManager {
     search: KupSearch;
     theme: KupTheme;
     toolbar: KupToolbar;
+    tooltip: KupTooltip;
     utilities: KupManagerUtilities;
     showMagicBox: () => void;
     hideMagicBox: () => void;
@@ -52,6 +55,10 @@ export interface KupManager {
     setLibraryLocalization: (locale: KupDatesLocales) => void;
     addClickCallback: (cb: KupManagerClickCb, async?: boolean) => void;
     removeClickCallback: (cb: KupManagerClickCb) => void;
+    rasterize: (
+        el: HTMLElement,
+        options?: Partial<Options>
+    ) => Promise<HTMLCanvasElement>;
 }
 /**
  * Interface for the KupManager utilities.
@@ -71,6 +78,7 @@ export interface KupManagerClickCb {
  * Interface for the KupManager override settings.
  */
 export interface KupManagerInitialization {
+    assetsPath?: string;
     autoSetLocalization?: boolean;
     dates?: KupManagerDatesSettings;
     debug?: KupManagerDebugSettings;
@@ -80,6 +88,7 @@ export interface KupManagerInitialization {
     objects?: KupManagerObjectsSettings;
     scrollOnHover?: KupManagerScrollOnHoverSettings;
     theme?: KupManagerThemeSettings;
+    tooltip?: KupManagerTooltipSettings;
 }
 /**
  * KupDates initialization settings.
@@ -136,6 +145,12 @@ export interface KupManagerScrollOnHoverSettings {
 export interface KupManagerThemeSettings {
     list?: KupThemeJSON;
     name?: string;
+}
+/**
+ * KupDates initialization settings.
+ */
+export interface KupManagerTooltipSettings {
+    delay?: number;
 }
 /**
  * KupTheme initialization settings.

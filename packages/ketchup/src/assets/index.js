@@ -95,6 +95,10 @@ components.data = [
         id: 'echart.html',
     },
     {
+        value: 'Form editor',
+        id: 'form-editor.html',
+    },
+    {
         value: 'Gauge',
         id: 'gauge.html',
     },
@@ -105,6 +109,10 @@ components.data = [
     {
         value: 'KupData',
         id: 'kupdata.html',
+    },
+    {
+        value: 'KupTooltip',
+        id: 'kuptooltip.html',
     },
     {
         value: 'Layout',
@@ -121,6 +129,10 @@ components.data = [
     {
         value: 'Nav bar',
         id: 'nav-bar.html',
+    },
+    {
+        value: 'Numeric picker',
+        id: 'numeric-picker.html',
     },
     {
         value: 'Radio',
