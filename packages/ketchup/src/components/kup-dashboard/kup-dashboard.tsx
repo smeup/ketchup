@@ -334,7 +334,7 @@ export class KupDashboard {
                     (!section.sections || section.sections.length == 0) ? (
                         <slot name={section.id}></slot>
                     ) : undefined}
-                    {section.sections && section.loaded
+                    {section.sections && (section.loaded || this.enableDesign)
                         ? section.sections.map((childSection) =>
                               this.buildSection(childSection, section)
                           )
@@ -403,20 +403,18 @@ export class KupDashboard {
         );
         child.kupData.parent.sections.splice(idx, 1);
         if (parent.kupData.form) {
-            // il nuovo target è la form.
+            // form is the target of drop.
             if (!parent.kupData.form.sections)
                 parent.kupData.form.sections = [];
             parent.kupData.form.sections.push(child.kupData.section);
             child.kupData.parent = parent.kupData.form;
         } else if (parent.kupData.section) {
-            // il nuovo target è la section.
+            // section is the target of drop.
             if (
                 !parent.kupData.section.sections ||
                 parent.kupData.section.sections.length == 0
             ) {
-                // trascino una section in una section...
-                // se la section non contiene altre section, creo una section contenitore dove ci metto sia quella di destinazione che quella che sto spostando...
-
+                // if the section target of drop doesn't contains other sections, i create a wrapper that will contain target section and dragged section.
                 const newSec: KupSection = JSON.parse(
                     JSON.stringify(parent.kupData.section)
                 );
