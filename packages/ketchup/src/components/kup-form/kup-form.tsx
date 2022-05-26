@@ -17,13 +17,13 @@ import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
-    tag: 'kup-image-list',
-    styleUrl: 'kup-image-list.scss',
+    tag: 'kup-form',
+    styleUrl: 'kup-form.scss',
     shadow: true,
 })
-export class KupImageList {
+export class KupForm {
     /**
-     * References the root HTML element of the component (<kup-image-list>).
+     * References the root HTML element of the component (<kup-form>).
      */
     @Element() rootElement: HTMLElement;
 

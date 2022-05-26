@@ -34,6 +34,7 @@ export const config: Config = {
                 { src: 'drawer.html' },
                 { src: 'dropdown-button.html' },
                 { src: 'echart.html' },
+                { src: 'form.html' },
                 { src: 'form-editor.html' },
                 { src: 'gauge.html' },
                 { src: 'image.html' },
