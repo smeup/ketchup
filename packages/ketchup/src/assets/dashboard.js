@@ -1,5 +1,7 @@
 const dashboard1 = document.getElementById('dashboard1');
 const dashboard2 = document.getElementById('dashboard2');
+const enableDashboard1 = document.getElementById('enableDashboard1');
+const enableDashboard2 = document.getElementById('enableDashboard2');
 
 dashboard1.addEventListener('kup-dashboard-save', function (ev) {
     console.log(ev);
@@ -8,6 +10,12 @@ dashboard1.addEventListener('kup-dashboard-save', function (ev) {
 dashboard2.addEventListener('kup-dashboard-save', function (ev) {
     console.log(ev);
     alert('Saved!');
+});
+enableDashboard1.addEventListener('kup-switch-change', function (ev) {
+    dashboard1.enableDesign = ev.detail.value == 'on';
+});
+enableDashboard2.addEventListener('kup-switch-change', function (ev) {
+    dashboard2.enableDesign = ev.detail.value == 'on';
 });
 
 const data1 = {

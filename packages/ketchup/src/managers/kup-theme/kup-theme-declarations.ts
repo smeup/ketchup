@@ -35,6 +35,7 @@ export const fCheckboxUsers = [
     KupTagNames.BOX,
     KupTagNames.CELL,
     KupTagNames.CHECKBOX,
+    KupTagNames.DASHBOARD,
     KupTagNames.DATA_TABLE,
     KupTagNames.LIST,
     KupTagNames.TREE,

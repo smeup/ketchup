@@ -17,10 +17,8 @@ export enum KupDashboardLabels {
     Loaded = 'Loaded',
     Reset = 'Reset',
     Save = 'Save',
-    Components = 'Components',
     Sections = 'Sections',
-    Column = 'Column',
-    Design = 'Design',
+    Column = 'Vertical',
 }
 
 /**

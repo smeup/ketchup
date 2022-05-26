@@ -998,9 +998,14 @@ export namespace Components {
         "customStyle": string;
         /**
           * The data of the component.
-          * @default false
+          * @default null
          */
         "data": KupForm;
+        /**
+          * Enable drag & drop of the section.
+          * @default false
+         */
+        "enableDesign": boolean;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -4072,9 +4077,14 @@ declare namespace LocalJSX {
         "customStyle"?: string;
         /**
           * The data of the component.
-          * @default false
+          * @default null
          */
         "data"?: KupForm;
+        /**
+          * Enable drag & drop of the section.
+          * @default false
+         */
+        "enableDesign"?: boolean;
         "onKup-dashboard-save"?: (event: CustomEvent<KupDashboardEventPayload>) => void;
     }
     interface KupDataTable {

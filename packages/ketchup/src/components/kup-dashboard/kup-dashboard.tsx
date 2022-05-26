@@ -13,6 +13,8 @@ import {
 } from '@stencil/core';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonProps } from '../../f-components/f-button/f-button-declarations';
+import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
+import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupDragEffect } from '../../managers/kup-interact/kup-interact-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
@@ -49,11 +51,6 @@ export class KupDashboard {
     /*-------------------------------------------------*/
 
     /**
-     * Activate a drag & drog of sections.
-     */
-    @State() enableDragDropSections: boolean = false;
-
-    /**
      * Force render component by internal event.
      */
     @State() resetInternalData: boolean = false;
@@ -70,9 +67,14 @@ export class KupDashboard {
     @Prop() customStyle: string = '';
     /**
      * The data of the component.
-     * @default false
+     * @default null
      */
     @Prop() data: KupForm = null;
+    /**
+     * Enable drag & drop of the section.
+     * @default false
+     */
+    @Prop() enableDesign: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -167,14 +169,6 @@ export class KupDashboard {
     }
 
     buildHeader() {
-        const designButtonProp: FButtonProps = {
-            icon: 'view-dashboard',
-            label: KupDashboardLabels.Design,
-            secondary: true,
-            onClick: () => {
-                this.enableDragDropSections = !this.enableDragDropSections;
-            },
-        };
         const clearButtonProp: FButtonProps = {
             icon: 'cancel',
             label: KupDashboardLabels.Reset,
@@ -191,11 +185,10 @@ export class KupDashboard {
 
         return (
             <div class="header">
-                <FButton {...designButtonProp} />
-                {this.enableDragDropSections ? (
+                {this.enableDesign ? (
                     <FButton {...clearButtonProp} />
                 ) : undefined}
-                {this.enableDragDropSections ? (
+                {this.enableDesign ? (
                     <FButton {...saveButtonProp} />
                 ) : undefined}
             </div>
@@ -208,7 +201,7 @@ export class KupDashboard {
             'layout-column': form && form.layout == 'column',
             'layout-row': form && form.layout == 'row',
             'form-dropzone':
-                this.enableDragDropSections &&
+                this.enableDesign &&
                 form &&
                 form.sections != null &&
                 form.sections.length > 0,
@@ -264,7 +257,22 @@ export class KupDashboard {
                 this.resetData(this.internalData);
             },
         };
-
+        const loadedCheckBoxProp: FCheckboxProps = {
+            checked: section.loaded,
+            label: KupDashboardLabels.Loaded,
+            onChange: () => {
+                section.loaded = !section.loaded;
+                this.refresh();
+            },
+        };
+        const columnCheckBoxProp: FCheckboxProps = {
+            checked: section.layout == 'column',
+            label: KupDashboardLabels.Column,
+            onChange: () => {
+                section.layout = section.layout == 'column' ? 'row' : 'column';
+                this.refresh();
+            },
+        };
         return (
             <div class="section-header">
                 <div>
@@ -274,22 +282,8 @@ export class KupDashboard {
                 </div>
                 <div>
                     <div class="section-header-actions">
-                        <kup-switch
-                            checked={section.loaded}
-                            label={KupDashboardLabels.Loaded}
-                            onKup-switch-change={(ev) => {
-                                section.loaded = ev.detail.value == 'on';
-                            }}
-                        ></kup-switch>
-                        <kup-switch
-                            checked={section.layout == 'column'}
-                            label={KupDashboardLabels.Column}
-                            onKup-switch-change={(ev) => {
-                                section.layout =
-                                    ev.detail.value == 'on' ? 'column' : 'row';
-                                this.resetData(this.internalData);
-                            }}
-                        ></kup-switch>
+                        <FCheckbox {...loadedCheckBoxProp} />
+                        <FCheckbox {...columnCheckBoxProp} />
                         <FButton {...addButtonProp} />
                         <FButton {...removeButtonProp} />
                     </div>
@@ -301,8 +295,8 @@ export class KupDashboard {
     buildSection(section: KupSection, parent: KupForm | KupSection) {
         const classes = {
             section: true,
-            'section-draggable': this.enableDragDropSections,
-            'section-dropzone': this.enableDragDropSections,
+            'section-draggable': this.enableDesign,
+            'section-dropzone': this.enableDesign,
         };
 
         const bodyClasses = {
@@ -322,11 +316,11 @@ export class KupDashboard {
                     kel.kupData = { parent: parent, section: section };
                 }}
             >
-                {this.enableDragDropSections
+                {this.enableDesign
                     ? this.buildSectionHeader(section, parent)
                     : undefined}
                 <div class={bodyClasses} style={this.getGridStyle(section)}>
-                    {!this.enableDragDropSections &&
+                    {!this.enableDesign &&
                     section.loaded &&
                     (!section.sections || section.sections.length == 0) ? (
                         <slot name={section.id}></slot>
@@ -377,7 +371,6 @@ export class KupDashboard {
                     null,
                     {
                         drop: (ev) => {
-                            ev.currentTarget.appendChild(ev.relatedTarget);
                             this.dropped(
                                 ev.currentTarget as KupDashboardElement,
                                 ev.relatedTarget as KupDashboardElement
@@ -418,6 +411,8 @@ export class KupDashboard {
                 const newSec: KupSection = JSON.parse(
                     JSON.stringify(parent.kupData.section)
                 );
+                newSec.dim = null;
+                child.kupData.section.dim = null;
                 parent.kupData.section.id = this.buildGuid();
                 parent.kupData.section.sections = [];
                 parent.kupData.section.sections.push(newSec);
@@ -430,7 +425,7 @@ export class KupDashboard {
 
     getGridStyle(entity: KupForm | KupSection) {
         let bodyStyles = {};
-        if (!this.enableDragDropSections && entity.sections) {
+        if (!this.enableDesign && entity.sections) {
             let gridTemplate = '';
             entity.sections.forEach((childSection) => {
                 if (!childSection.dim) gridTemplate += ' 1fr';
