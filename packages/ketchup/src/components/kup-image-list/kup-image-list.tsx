@@ -301,12 +301,6 @@ export class KupImageList {
                                         : ''
                                 }`}
                             >
-                                <FButton
-                                    {...this.#backProps}
-                                    label={this.#kupManager.language.translate(
-                                        KupLanguageGeneric.BACK
-                                    )}
-                                ></FButton>
                                 <div
                                     class={`navigation-bar__title`}
                                     onClick={() => {
@@ -319,12 +313,18 @@ export class KupImageList {
                                         resource={this.currentNode.icon}
                                         sizeX="1.25em"
                                         sizeY="1.25em"
-                                        wrapperClass='class="navigation-bar__title__image'
+                                        wrapperClass="navigation-bar__title__image"
                                     ></FImage>
                                     <div class="navigation-bar__title__label">
                                         {this.currentNode.value}
                                     </div>
                                 </div>
+                                <FButton
+                                    {...this.#backProps}
+                                    label={this.#kupManager.language.translate(
+                                        KupLanguageGeneric.BACK
+                                    )}
+                                ></FButton>
                                 <FButton
                                     {...this.#topProps}
                                     label={this.#kupManager.language.translate(
