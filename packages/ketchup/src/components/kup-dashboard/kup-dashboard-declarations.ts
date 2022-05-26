@@ -19,6 +19,7 @@ export enum KupDashboardLabels {
     Save = 'Save',
     Sections = 'Sections',
     Column = 'Vertical',
+    Dim = 'Dimension',
 }
 
 /**

@@ -15,6 +15,9 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonProps } from '../../f-components/f-button/f-button-declarations';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
+import { FTextField } from '../../f-components/f-text-field/f-text-field';
+import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupDragEffect } from '../../managers/kup-interact/kup-interact-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
@@ -25,7 +28,6 @@ import {
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupRadioData } from '../kup-radio/kup-radio-declarations';
 import {
     KupForm,
     KupDashboardElement,
@@ -231,6 +233,14 @@ export class KupDashboard {
     }
 
     buildSectionHeader(section: KupSection, parent: KupForm | KupSection) {
+        const dimTextFieldProp: FTextFieldProps = {
+            value: section.dim,
+            label: KupDashboardLabels.Dim,
+            onChange: (e: UIEvent & { target: HTMLInputElement }) => {
+                const { target } = e;
+                section.dim = target.value;
+            },
+        };
         const addButtonProp: FButtonProps = {
             icon: 'add',
             slim: true,
@@ -276,12 +286,11 @@ export class KupDashboard {
         return (
             <div class="section-header">
                 <div>
-                    {section.id}{' '}
-                    {section.dim ? '(' + section.dim + ')' : undefined} -{' '}
-                    {section.layout}
+                    {section.id} - {section.layout}
                 </div>
                 <div>
                     <div class="section-header-actions">
+                        <FTextField {...dimTextFieldProp} />
                         <FCheckbox {...loadedCheckBoxProp} />
                         <FCheckbox {...columnCheckBoxProp} />
                         <FButton {...addButtonProp} />
@@ -503,6 +512,14 @@ export class KupDashboard {
 
     componentDidRender() {
         this.kupManager.debug.logRender(this, true);
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const fields = root.querySelectorAll('.f-text-field');
+            if (fields)
+                fields.forEach((f) => {
+                    FTextFieldMDC(f as HTMLElement);
+                });
+        }
         this.didRenderInteractables();
     }
 

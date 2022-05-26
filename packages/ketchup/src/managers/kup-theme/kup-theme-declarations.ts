@@ -92,6 +92,7 @@ export const fTextFieldUsers = [
     KupTagNames.CELL,
     KupTagNames.COLOR_PICKER,
     KupTagNames.COMBOBOX,
+    KupTagNames.DASHBOARD,
     KupTagNames.DATA_TABLE,
     KupTagNames.DATE_PICKER,
     KupTagNames.NUMERIC_PICKER,
