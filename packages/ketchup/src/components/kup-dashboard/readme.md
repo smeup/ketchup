@@ -1,24 +1,19 @@
-# kup-form-editor
-
-
+# kup-dashboard
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
-| Property      | Attribute      | Description                    | Type      | Default |
-| ------------- | -------------- | ------------------------------ | --------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string`  | `''`    |
-| `data`        | --             | The data of the component.     | `KupForm` | `null`  |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
+| `data` | -- | The data of the component. | `KupForm` | `null` |
 
 ## Events
 
-| Event                 | Description | Type                                     |
-| --------------------- | ----------- | ---------------------------------------- |
-| `kup-formeditor-save` |             | `CustomEvent<KupFormEditorEventPayload>` |
-
+| Event | Description | Type |
+| --- | --- | --- |
+| `kup-formeditor-save` |  | `CustomEvent<KupFormEditorEventPayload>` |
 
 ## Methods
 
@@ -40,8 +35,6 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
@@ -50,20 +43,18 @@ Sets the props to the component.
 
 Type: `Promise<void>`
 
-
-
-
 ## Dependencies
 
 ### Depends on
 
-- [kup-radio](../kup-radio)
-- [kup-switch](../kup-switch)
-- [kup-image](../kup-image)
-- [kup-badge](../kup-badge)
-- [kup-card](../kup-card)
+-   [kup-radio](../kup-radio)
+-   [kup-switch](../kup-switch)
+-   [kup-image](../kup-image)
+-   [kup-badge](../kup-badge)
+-   [kup-card](../kup-card)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-form-editor --> kup-radio
@@ -165,6 +156,6 @@ graph TD;
   style kup-form-editor fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

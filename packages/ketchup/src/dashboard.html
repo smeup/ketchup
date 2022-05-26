@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dashboard</title>
+
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+
+        <link
+            href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
+            rel="stylesheet"
+            type="text/css"
+        />
+
+        <link
+            href="https://fonts.googleapis.com/css?family=Lato"
+            rel="stylesheet"
+        />
+
+        <script
+            type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"
+        ></script>
+
+        <style>
+            html {
+                background-color: var(--kup-background-color);
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
+                padding: 1rem;
+            }
+
+            .group {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .group > * {
+                width: 100%;
+                padding: 4px;
+            }
+
+            .dashboard-container {
+                height: 80vh;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true },
+                theme: { name: 'dark' },
+            };
+        </script>
+        <h1>DASHBOARD</h1>
+        <div class="dashboard-container">
+            <div class="group">
+                <div>
+                    <h2>Sample 1</h2>
+                    <kup-dashboard id="dashboard1">
+                        <h2 slot="SA">Component 1 in section 'SA'</h2>
+                        <h2 slot="SB">Component 2 in section 'SB'</h2>
+                        <h2 slot="SC">Component 3 in section 'SC'</h2>
+                        <h2 slot="SC">Component 4 in section 'SC'</h2>
+                        <h2 slot="SD">Component 5 in section 'SD'</h2>
+                    </kup-dashboard>
+                </div>
+                <div>
+                    <h2>Sample 2</h2>
+                    <kup-dashboard id="dashboard2">
+                        <h2 slot="SA1">Component 1 in section 'SA1'</h2>
+                        <h2 slot="SA2">Component 2 in section 'SA2'</h2>
+                        <h2 slot="SB">Component 3 in section 'SB'</h2>
+                        <h2 slot="SC">Component 4 in section 'SC'</h2>
+                        <h2 slot="SD">Component 5 in section 'SD'</h2>
+                    </kup-dashboard>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="/assets/dashboard.js"></script>
+    </body>
+</html>

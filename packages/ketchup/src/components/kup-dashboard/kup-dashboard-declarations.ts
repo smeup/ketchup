@@ -1,47 +1,42 @@
 import { KupEventPayload } from '../../types/GenericTypes';
 
 /**
- * Props of the kup-form-editor component.
+ * Props of the kup-dashboard component.
  * Used to export every prop in an object.
  */
-export enum KupFormEditorProps {
+export enum KupDashboardProps {
     customStyle = 'Custom style of the component.',
     data = 'The data of the component.',
 }
 
-export interface KupFormEditorEventPayload extends KupEventPayload {
+export interface KupDashboardEventPayload extends KupEventPayload {
     data: KupForm;
 }
 
-export enum KupFormEditorDragTypes {
-    Components = '1',
-    Sections = '2',
-}
-
-export enum KupFormEditorLabels {
+export enum KupDashboardLabels {
     Loaded = 'Loaded',
     Reset = 'Reset',
     Save = 'Save',
     Components = 'Components',
     Sections = 'Sections',
     Column = 'Column',
+    Design = 'Design',
 }
 
 /**
  * Extend html element properties for Form Editor
  */
-export interface KupFormEditorElement extends HTMLDivElement {
-    kupData: KupFormEditorData;
+export interface KupDashboardElement extends HTMLDivElement {
+    kupData: KupDashboardData;
 }
 
 /**
  * Additional kupData for html element.
  */
-export interface KupFormEditorData {
+export interface KupDashboardData {
     parent?: KupForm | KupSection;
     form?: KupForm;
     section?: KupSection;
-    componnent?: KupComponent;
 }
 
 export interface KupVariableEntity {
@@ -72,15 +67,8 @@ export interface KupForm extends KupComponentEntity {
     layout: string;
     sections: KupSection[];
 }
-export interface KupWidget extends KupComponentEntity {
-    config?: any;
-    data?: any;
-    dynamisms?: KupDynamismEntity[];
-    options?: any;
-}
-export type KupComponent = KupForm | KupWidget;
+
 export interface KupSection extends KupEntity {
-    components?: KupComponent[];
     dim?: string;
     layout?: string;
     sections?: KupSection[];

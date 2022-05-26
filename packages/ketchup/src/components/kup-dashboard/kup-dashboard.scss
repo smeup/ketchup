@@ -3,6 +3,10 @@
     height: 100%;
 }
 
+#kup-component {
+    height: 100%;
+}
+
 .header {
     display: flex;
     flex-direction: row;
@@ -16,6 +20,7 @@
 .form {
     display: grid;
     grid-gap: 0.5em;   
+    height: 100%;
 }
 
 .form-dropzone {
@@ -53,9 +58,13 @@
     display: grid;
 }
 
+.section-body-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .section-dropzone {
     border: 1px solid var(--kup-primary-color);
-    min-height: 100px;
 }
 
 .section-draggable {
@@ -67,10 +76,6 @@
     height: fit-content;
     padding: 1em;
     margin: 0.5em;
-}
-
-.component-draggable {
-    border: 1px solid var(--kup-secondary-color);
 }
 
 .layout-row {
