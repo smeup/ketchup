@@ -70,7 +70,6 @@ export class KupPhotoFrame {
     #intObserver: IntersectionObserver = null;
     #kupManager = kupManagerInstance();
     #placeholderEl: HTMLImageElement = null;
-    #resourceEl: HTMLImageElement = null;
     #renderResource = false;
     #wrapperEl: HTMLElement = null;
 
@@ -215,11 +214,7 @@ export class KupPhotoFrame {
                         <img
                             {...this.resourceAttrs}
                             class="resource"
-                            ref={(el) => (this.#resourceEl = el)}
                             onLoad={() => {
-                                this.#resourceEl.classList.add(
-                                    'resource--fade-in'
-                                );
                                 this.#placeholderEl.classList.add(
                                     'placeholder--fade-out'
                                 );

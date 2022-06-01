@@ -94,6 +94,7 @@ import {
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
@@ -2078,6 +2079,13 @@ export class KupTree {
                 for (let i = 0; i < rippleCells.length; i++) {
                     MDCRipple.attachTo(rippleCells[i]);
                 }
+            }
+        }
+        if (root) {
+            const fs: NodeListOf<HTMLElement> =
+                root.querySelectorAll('.f-text-field');
+            for (let index = 0; index < fs.length; index++) {
+                FTextFieldMDC(fs[index]);
             }
         }
         if (this.preventXScroll) {

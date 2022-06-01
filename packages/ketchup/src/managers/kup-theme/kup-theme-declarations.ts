@@ -81,7 +81,13 @@ export const fPaginatorUsers = [KupTagNames.BOX, KupTagNames.DATA_TABLE];
 /**
  * Components using the FSwitch functional component.
  */
-export const fSwitchUsers = [KupTagNames.SWITCH];
+export const fSwitchUsers = [
+    KupTagNames.BOX,
+    KupTagNames.DATA_TABLE,
+    KupTagNames.CELL,
+    KupTagNames.SWITCH,
+    KupTagNames.TREE,
+];
 /**
  * Components using the FTextField functional component.
  */
