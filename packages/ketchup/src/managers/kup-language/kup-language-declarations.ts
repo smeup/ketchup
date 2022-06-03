@@ -7,6 +7,7 @@ import type { GenericObject } from '../../types/GenericTypes';
 export type KupLanguageKey =
     | KupLanguageCheckbox
     | KupLanguageColumn
+    | KupLanguageDashboard
     | KupLanguageDebug
     | KupLanguageDensity
     | KupLanguageFontsize
@@ -73,6 +74,16 @@ export enum KupLanguageColumn {
     NON_NUMERICAL = 'columnNonNumerical',
     NON_NUMERICAL_IN_TABLE = 'columnNonNumericalInTable',
     SWAP = 'columnSwap',
+}
+/**
+ * Dashboard related decodes.
+ */
+export enum KupLanguageDashboard {
+    DIMENSION = 'dashboardDimension',
+    LOADED = 'dashboardLoaded',
+    RESET = 'dashboardReset',
+    SAVE = 'dashboardSave',
+    VERTICAL = 'dashboardVertical',
 }
 /**
  * Debug widget decodes.

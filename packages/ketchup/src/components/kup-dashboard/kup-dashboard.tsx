@@ -20,7 +20,10 @@ import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-de
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupDragEffect } from '../../managers/kup-interact/kup-interact-declarations';
-import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import {
+    KupLanguageDashboard,
+    KupLanguageGeneric,
+} from '../../managers/kup-language/kup-language-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -32,7 +35,6 @@ import {
     KupForm,
     KupDashboardElement,
     KupDashboardEventPayload,
-    KupDashboardLabels,
     KupDashboardProps,
     KupSection,
 } from './kup-dashboard-declarations';
@@ -173,7 +175,9 @@ export class KupDashboard {
     buildHeader() {
         const clearButtonProp: FButtonProps = {
             icon: 'cancel',
-            label: KupDashboardLabels.Reset,
+            label: this.kupManager.language.translate(
+                KupLanguageDashboard.RESET
+            ),
             secondary: true,
             onClick: () => {
                 this.resetData();
@@ -181,7 +185,9 @@ export class KupDashboard {
         };
         const saveButtonProp: FButtonProps = {
             icon: 'save',
-            label: KupDashboardLabels.Save,
+            label: this.kupManager.language.translate(
+                KupLanguageDashboard.SAVE
+            ),
             onClick: () => this.onKupSave(),
         };
 
@@ -235,7 +241,9 @@ export class KupDashboard {
     buildSectionHeader(section: KupSection, parent: KupForm | KupSection) {
         const dimTextFieldProp: FTextFieldProps = {
             value: section.dim,
-            label: KupDashboardLabels.Dim,
+            label: this.kupManager.language.translate(
+                KupLanguageDashboard.DIMENSION
+            ),
             onChange: (e: UIEvent & { target: HTMLInputElement }) => {
                 const { target } = e;
                 section.dim = target.value;
@@ -269,7 +277,9 @@ export class KupDashboard {
         };
         const loadedCheckBoxProp: FCheckboxProps = {
             checked: section.loaded,
-            label: KupDashboardLabels.Loaded,
+            label: this.kupManager.language.translate(
+                KupLanguageDashboard.LOADED
+            ),
             onChange: () => {
                 section.loaded = !section.loaded;
                 this.refresh();
@@ -277,7 +287,9 @@ export class KupDashboard {
         };
         const columnCheckBoxProp: FCheckboxProps = {
             checked: section.layout == 'column',
-            label: KupDashboardLabels.Column,
+            label: this.kupManager.language.translate(
+                KupLanguageDashboard.VERTICAL
+            ),
             onChange: () => {
                 section.layout = section.layout == 'column' ? 'row' : 'column';
                 this.refresh();

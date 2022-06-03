@@ -13,15 +13,6 @@ export interface KupDashboardEventPayload extends KupEventPayload {
     data: KupForm;
 }
 
-export enum KupDashboardLabels {
-    Loaded = 'Loaded',
-    Reset = 'Reset',
-    Save = 'Save',
-    Sections = 'Sections',
-    Column = 'Vertical',
-    Dim = 'Dimension',
-}
-
 /**
  * Extend html element properties for Form Editor
  */
