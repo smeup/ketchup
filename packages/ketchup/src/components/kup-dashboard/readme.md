@@ -1,23 +1,22 @@
-# kup-form-editor
-
-
+# kup-dashboard
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property      | Attribute      | Description                    | Type      | Default |
-| ------------- | -------------- | ------------------------------ | --------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string`  | `''`    |
-| `data`        | --             | The data of the component.     | `KupForm` | `null`  |
+| Property       | Attribute       | Description                        | Type               | Default |
+| -------------- | --------------- | ---------------------------------- | ------------------ | ------- |
+| `customStyle`  | `custom-style`  | Custom style of the component.     | `string`           | `''`    |
+| `data`         | --              | The data of the component.         | `KupDataDashboard` | `null`  |
+| `enableDesign` | `enable-design` | Enable drag & drop of the section. | `boolean`          | `false` |
 
 
 ## Events
 
-| Event                 | Description | Type                                     |
-| --------------------- | ----------- | ---------------------------------------- |
-| `kup-formeditor-save` |             | `CustomEvent<KupFormEditorEventPayload>` |
+| Event                | Description | Type                                    |
+| -------------------- | ----------- | --------------------------------------- |
+| `kup-dashboard-save` |             | `CustomEvent<KupDashboardEventPayload>` |
 
 
 ## Methods
@@ -57,21 +56,16 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kup-radio](../kup-radio)
-- [kup-switch](../kup-switch)
-- [kup-image](../kup-image)
 - [kup-badge](../kup-badge)
 - [kup-card](../kup-card)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-form-editor --> kup-radio
-  kup-form-editor --> kup-switch
-  kup-form-editor --> kup-image
-  kup-form-editor --> kup-badge
-  kup-form-editor --> kup-card
-  kup-radio --> kup-card
+  kup-dashboard --> kup-badge
+  kup-dashboard --> kup-card
+  kup-badge --> kup-badge
+  kup-badge --> kup-card
   kup-card --> kup-badge
   kup-card --> kup-button
   kup-card --> kup-chip
@@ -90,8 +84,6 @@ graph TD;
   kup-card --> kup-tree
   kup-card --> kup-switch
   kup-card --> kup-card
-  kup-badge --> kup-badge
-  kup-badge --> kup-card
   kup-button --> kup-card
   kup-button --> kup-badge
   kup-chip --> kup-card
@@ -100,6 +92,7 @@ graph TD;
   kup-list --> kup-radio
   kup-list --> kup-card
   kup-list --> kup-badge
+  kup-radio --> kup-card
   kup-combobox --> kup-list
   kup-combobox --> kup-card
   kup-autocomplete --> kup-list
@@ -162,7 +155,7 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-badge
-  style kup-form-editor fill:#f9f,stroke:#333,stroke-width:4px
+  style kup-dashboard fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

@@ -75,6 +75,10 @@ components.data = [
         id: 'dash-list.html',
     },
     {
+        value: 'Dashboard',
+        id: 'dashboard.html',
+    },
+    {
         value: 'Data table',
         id: 'data-table.html',
     },
@@ -93,10 +97,6 @@ components.data = [
     {
         value: 'Echart',
         id: 'echart.html',
-    },
-    {
-        value: 'Form editor',
-        id: 'form-editor.html',
     },
     {
         value: 'Gauge',
