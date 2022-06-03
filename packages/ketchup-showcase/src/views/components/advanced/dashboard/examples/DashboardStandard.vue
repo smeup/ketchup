@@ -6,13 +6,8 @@
       label="Enable design"
       @kup-switch-change="onEnableDesignChange"
     ></kup-switch>
-    <div style="height: 600px"
+    <div
       ><kup-dashboard id="dashboardStandard1" :data.prop="dashboardData">
-        <kup-lazy
-          component-name="kup-box"
-          :data.prop="boxData"
-          slot="SC"
-        ></kup-lazy>
         <kup-lazy
           component-name="kup-echart"
           :data.prop="chartData"
@@ -23,6 +18,11 @@
           component-name="kup-data-table"
           :data.prop="tableData"
           slot="SA2"
+        ></kup-lazy>
+        <kup-lazy
+          component-name="kup-box"
+          :data.prop="boxData"
+          slot="SC"
         ></kup-lazy>
         <kup-card
           layout-family="built-in"

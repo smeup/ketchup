@@ -19,18 +19,19 @@
 
 .form {
     display: grid;
-    grid-gap: 0.5em;   
     height: 100%;
 }
 
 .form-dropzone {
     padding: 1em;
+    grid-gap: 0.5em;
     border: 1px solid var(--kup-primary-color);
 }
 
 .section {
     display: flex;
     flex-direction: column;
+    overflow: auto;
 }
 
 .section-header {

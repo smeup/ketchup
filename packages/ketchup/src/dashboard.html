@@ -134,6 +134,38 @@
                     </kup-dashboard>
                 </div>
             </div>
+            <div class="group">
+                <div style="height: 600px">
+                    <b>Sample 3</b>
+                    <kup-switch
+                        id="enableDashboard3"
+                        checked="false"
+                        label="Enable design"
+                    ></kup-switch>
+                    <kup-dashboard id="dashboard3">
+                        <div
+                            slot="SA"
+                            style="background-color: red; height: 100px"
+                        ></div>
+                        <div
+                            slot="SB"
+                            style="background-color: yellow; height: 100px"
+                        ></div>
+                        <div
+                            slot="SC"
+                            style="
+                                background-color: blue;
+                                height: 5000px;
+                                width: 5000px;
+                            "
+                        ></div>
+                        <div
+                            slot="SD"
+                            style="background-color: green; height: 100px"
+                        ></div>
+                    </kup-dashboard>
+                </div>
+            </div>
         </div>
 
         <script type="text/javascript" src="/assets/dashboard.js"></script>
