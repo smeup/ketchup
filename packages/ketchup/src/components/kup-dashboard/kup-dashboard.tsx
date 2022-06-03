@@ -13,9 +13,17 @@ import {
 } from '@stencil/core';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonProps } from '../../f-components/f-button/f-button-declarations';
+import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
+import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
+import { FTextField } from '../../f-components/f-text-field/f-text-field';
+import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupDragEffect } from '../../managers/kup-interact/kup-interact-declarations';
-import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import {
+    KupLanguageDashboard,
+    KupLanguageGeneric,
+} from '../../managers/kup-language/kup-language-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -23,23 +31,21 @@ import {
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupRadioData } from '../kup-radio/kup-radio-declarations';
 import {
     KupForm,
-    KupFormEditorDragTypes,
-    KupFormEditorElement,
-    KupFormEditorEventPayload,
-    KupFormEditorLabels,
-    KupFormEditorProps,
+    KupDashboardElement,
+    KupDashboardEventPayload,
+    KupDashboardProps,
     KupSection,
-} from './kup-form-editor-declarations';
+    KupDataDashboard,
+} from './kup-dashboard-declarations';
 
 @Component({
-    tag: 'kup-form-editor',
-    styleUrl: 'kup-form-editor.scss',
+    tag: 'kup-dashboard',
+    styleUrl: 'kup-dashboard.scss',
     shadow: true,
 })
-export class KupFormEditor {
+export class KupDashboard {
     /**
      * References the root HTML element of the component (<kup-text-field>).
      */
@@ -66,9 +72,14 @@ export class KupFormEditor {
     @Prop() customStyle: string = '';
     /**
      * The data of the component.
+     * @default null
+     */
+    @Prop() data: KupDataDashboard = null;
+    /**
+     * Enable drag & drop of the section.
      * @default false
      */
-    @Prop() data: KupForm = null;
+    @Prop() enableDesign: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -80,32 +91,26 @@ export class KupFormEditor {
     private kupManager: KupManager = kupManagerInstance();
 
     /**
-     * Draggable type of Form (Components or Sections).
-     */
-    private dragType: KupFormEditorDragTypes =
-        KupFormEditorDragTypes.Components;
-
-    /**
      * Internal data of the component.
      */
-    private internalData: KupForm = null;
+    private internalData: KupDataDashboard = null;
 
     /**
      * Internal data backup of the component for refresh when changed content by drag&drop.
      */
-    private internalDataBackup: KupForm = null;
+    private internalDataBackup: KupDataDashboard = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
 
     @Event({
-        eventName: 'kup-formeditor-save',
+        eventName: 'kup-dashboard-save',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupSave: EventEmitter<KupFormEditorEventPayload>;
+    kupSave: EventEmitter<KupDashboardEventPayload>;
 
     onKupSave() {
         this.kupSave.emit({
@@ -135,7 +140,7 @@ export class KupFormEditor {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        return getProps(this, KupFormEditorProps, descriptions);
+        return getProps(this, KupDashboardProps, descriptions);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -150,17 +155,30 @@ export class KupFormEditor {
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupFormEditorProps, props);
+        setProps(this, KupDashboardProps, props);
     }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
+    buildGuid() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+            /[xy]/g,
+            function (c) {
+                var r = (Math.random() * 16) | 0,
+                    v = c === 'x' ? r : (r & 0x3) | 0x8;
+                return v.toString(16);
+            }
+        );
+    }
+
     buildHeader() {
         const clearButtonProp: FButtonProps = {
             icon: 'cancel',
-            label: KupFormEditorLabels.Reset,
+            label: this.kupManager.language.translate(
+                KupLanguageDashboard.RESET
+            ),
             secondary: true,
             onClick: () => {
                 this.resetData();
@@ -168,34 +186,20 @@ export class KupFormEditor {
         };
         const saveButtonProp: FButtonProps = {
             icon: 'save',
-            label: KupFormEditorLabels.Save,
+            label: this.kupManager.language.translate(
+                KupLanguageDashboard.SAVE
+            ),
             onClick: () => this.onKupSave(),
         };
-        const selRadioProp: KupRadioData[] = [
-            {
-                label: KupFormEditorLabels.Components,
-                value: KupFormEditorDragTypes.Components,
-                checked: this.dragType == KupFormEditorDragTypes.Components,
-            },
-            {
-                label: KupFormEditorLabels.Sections,
-                value: KupFormEditorDragTypes.Sections,
-                checked: this.dragType == KupFormEditorDragTypes.Sections,
-            },
-        ];
 
         return (
             <div class="header">
-                <kup-radio
-                    data={selRadioProp}
-                    onKup-radio-change={(ev) => {
-                        this.dragType = ev.detail
-                            .value as KupFormEditorDragTypes;
-                        this.resetData(this.internalData);
-                    }}
-                ></kup-radio>
-                <FButton {...clearButtonProp} />
-                <FButton {...saveButtonProp} />
+                {this.enableDesign ? (
+                    <FButton {...clearButtonProp} />
+                ) : undefined}
+                {this.enableDesign ? (
+                    <FButton {...saveButtonProp} />
+                ) : undefined}
             </div>
         );
     }
@@ -206,17 +210,19 @@ export class KupFormEditor {
             'layout-column': form && form.layout == 'column',
             'layout-row': form && form.layout == 'row',
             'form-dropzone':
+                this.enableDesign &&
                 form &&
-                this.dragType == KupFormEditorDragTypes.Sections &&
                 form.sections != null &&
                 form.sections.length > 0,
         };
+
         return form ? (
             <div
                 class={classes}
+                style={this.getGridStyle(form)}
                 ref={(el) => {
                     if (!el) return;
-                    const kel = el as KupFormEditorElement;
+                    const kel = el as KupDashboardElement;
                     kel.kupData = { parent: parent, form: form };
                 }}
             >
@@ -234,6 +240,16 @@ export class KupFormEditor {
     }
 
     buildSectionHeader(section: KupSection, parent: KupForm | KupSection) {
+        const dimTextFieldProp: FTextFieldProps = {
+            value: section.dim,
+            label: this.kupManager.language.translate(
+                KupLanguageDashboard.DIMENSION
+            ),
+            onChange: (e: UIEvent & { target: HTMLInputElement }) => {
+                const { target } = e;
+                section.dim = target.value;
+            },
+        };
         const addButtonProp: FButtonProps = {
             icon: 'add',
             slim: true,
@@ -245,14 +261,7 @@ export class KupFormEditor {
                     id: section.id + (section.sections.length + 1),
                     loaded: section.loaded,
                     layout: section.layout,
-                    components: [],
                 };
-                if (section.components) {
-                    section.components.forEach((x) =>
-                        newSec.components.push(x)
-                    );
-                    section.components.splice(0);
-                }
                 section.sections.push(newSec);
                 this.resetData(this.internalData);
             },
@@ -267,41 +276,38 @@ export class KupFormEditor {
                 this.resetData(this.internalData);
             },
         };
-
+        const loadedCheckBoxProp: FCheckboxProps = {
+            checked: section.loaded,
+            label: this.kupManager.language.translate(
+                KupLanguageDashboard.LOADED
+            ),
+            onChange: () => {
+                section.loaded = !section.loaded;
+                this.refresh();
+            },
+        };
+        const columnCheckBoxProp: FCheckboxProps = {
+            checked: section.layout == 'column',
+            label: this.kupManager.language.translate(
+                KupLanguageDashboard.VERTICAL
+            ),
+            onChange: () => {
+                section.layout = section.layout == 'column' ? 'row' : 'column';
+                this.refresh();
+            },
+        };
         return (
             <div class="section-header">
                 <div>
-                    {section.id}{' '}
-                    {section.dim ? '(' + section.dim + ')' : undefined} -{' '}
-                    {section.layout}
+                    {section.id} - {section.layout}
                 </div>
                 <div>
                     <div class="section-header-actions">
-                        <kup-switch
-                            checked={section.loaded}
-                            label={KupFormEditorLabels.Loaded}
-                            onKup-switch-change={(ev) => {
-                                section.loaded = ev.detail.value == 'on';
-                            }}
-                        ></kup-switch>
-                        <kup-switch
-                            checked={section.layout == 'column'}
-                            label={KupFormEditorLabels.Column}
-                            onKup-switch-change={(ev) => {
-                                section.layout =
-                                    ev.detail.value == 'on' ? 'column' : 'row';
-                                this.resetData(this.internalData);
-                            }}
-                        ></kup-switch>
+                        <FTextField {...dimTextFieldProp} />
+                        <FCheckbox {...loadedCheckBoxProp} />
+                        <FCheckbox {...columnCheckBoxProp} />
                         <FButton {...addButtonProp} />
                         <FButton {...removeButtonProp} />
-                        {section.components && section.components.length > 0 ? (
-                            <kup-image
-                                resource="widgets"
-                                sizeX="24px"
-                                sizeY="24px"
-                            />
-                        ) : undefined}
                     </div>
                 </div>
             </div>
@@ -311,12 +317,8 @@ export class KupFormEditor {
     buildSection(section: KupSection, parent: KupForm | KupSection) {
         const classes = {
             section: true,
-            'section-draggable':
-                this.dragType == KupFormEditorDragTypes.Sections,
-            'section-dropzone':
-                !section.sections ||
-                section.sections.length == 0 ||
-                this.dragType == KupFormEditorDragTypes.Sections,
+            'section-draggable': this.enableDesign,
+            'section-dropzone': this.enableDesign,
         };
 
         const bodyClasses = {
@@ -325,68 +327,25 @@ export class KupFormEditor {
             'layout-row': section && section.layout == 'row',
         };
 
-        let bodyStyles = {};
-        if (section.sections) {
-            let gridTemplate = '';
-            section.sections.forEach((childSection) => {
-                if (!childSection.dim) gridTemplate += ' 1fr';
-                else
-                    gridTemplate +=
-                        childSection.dim.indexOf('%') < 0
-                            ? ' ' + childSection.dim + 'px'
-                            : ' ' + childSection.dim;
-            });
-            if (section.layout == 'column')
-                bodyStyles['gridTemplateRows'] = gridTemplate;
-            if (section.layout == 'row')
-                bodyStyles['gridTemplateColumns'] = gridTemplate;
-        }
-
         return (
             <div
                 class={classes}
                 ref={(el) => {
                     if (!el) return;
-                    const kel = el as KupFormEditorElement;
+                    const kel = el as KupDashboardElement;
                     kel.kupData = { parent: parent, section: section };
                 }}
             >
-                {this.dragType == KupFormEditorDragTypes.Sections
+                {this.enableDesign
                     ? this.buildSectionHeader(section, parent)
                     : undefined}
-                <div class={bodyClasses} style={bodyStyles}>
-                    {this.dragType == KupFormEditorDragTypes.Components &&
-                    section.components
-                        ? section.components.map((component) =>
-                              component.type == 'SCH' ? (
-                                  this.buildForm(component as KupForm, section)
-                              ) : (
-                                  <div
-                                      class="component component-draggable"
-                                      ref={(el) => {
-                                          if (!el) return;
-                                          const kel =
-                                              el as KupFormEditorElement;
-                                          kel.kupData = {
-                                              section: section,
-                                              componnent: component,
-                                          };
-                                      }}
-                                  >
-                                      {component.id} - {component.type}
-                                      <kup-switch
-                                          checked={component.loaded}
-                                          label={KupFormEditorLabels.Loaded}
-                                          onKup-switch-change={(ev) => {
-                                              component.loaded =
-                                                  ev.detail.value == 'on';
-                                          }}
-                                      ></kup-switch>
-                                  </div>
-                              )
-                          )
-                        : undefined}
-                    {section.sections
+                <div class={bodyClasses} style={this.getGridStyle(section)}>
+                    {!this.enableDesign &&
+                    section.loaded &&
+                    (!section.sections || section.sections.length == 0) ? (
+                        <slot name={section.id}></slot>
+                    ) : undefined}
+                    {section.sections && (section.loaded || this.enableDesign)
                         ? section.sections.map((childSection) =>
                               this.buildSection(childSection, section)
                           )
@@ -399,9 +358,6 @@ export class KupFormEditor {
     didRenderInteractables() {
         try {
             const items: Element[] = [];
-            this.rootElement.shadowRoot
-                .querySelectorAll('.component-draggable')
-                .forEach((x) => items.push(x));
             this.rootElement.shadowRoot
                 .querySelectorAll('.section-draggable')
                 .forEach((x) => items.push(x));
@@ -435,10 +391,9 @@ export class KupFormEditor {
                     null,
                     {
                         drop: (ev) => {
-                            ev.currentTarget.appendChild(ev.relatedTarget);
                             this.dropped(
-                                ev.currentTarget as KupFormEditorElement,
-                                ev.relatedTarget as KupFormEditorElement
+                                ev.currentTarget as KupDashboardElement,
+                                ev.relatedTarget as KupDashboardElement
                             );
                         },
                     }
@@ -453,54 +408,57 @@ export class KupFormEditor {
         }
     }
 
-    dropped(parent: KupFormEditorElement, child: KupFormEditorElement) {
-        if (this.dragType == KupFormEditorDragTypes.Components) {
-            const idx = child.kupData.section.components.indexOf(
-                child.kupData.componnent
-            );
-
-            child.kupData.section.components.splice(idx, 1);
-            parent.kupData.section.components.push(child.kupData.componnent);
-            child.kupData.section = parent.kupData.section;
-        } else if (this.dragType == KupFormEditorDragTypes.Sections) {
-            const idx = child.kupData.parent.sections.indexOf(
-                child.kupData.section
-            );
-
-            child.kupData.parent.sections.splice(idx, 1);
-            if (parent.kupData.form) {
-                // il nuovo target è la form.
-                if (!parent.kupData.form.sections)
-                    parent.kupData.form.sections = [];
-                parent.kupData.form.sections.push(child.kupData.section);
-                child.kupData.parent = parent.kupData.form;
-            } else if (parent.kupData.section) {
-                // il nuovo target è la section.
-                if (!parent.kupData.section.sections)
-                    parent.kupData.section.sections = [];
-
-                if (
-                    parent.kupData.section.components &&
-                    parent.kupData.section.components.length > 0
-                ) {
-                    // devo creare una section contenitore e sposare i components
-                    const newSec: KupSection = {
-                        id: parent.kupData.section.id + '1',
-                        loaded: parent.kupData.section.loaded,
-                        layout: parent.kupData.section.layout,
-                        components: [],
-                    };
-                    parent.kupData.section.components.forEach((x) =>
-                        newSec.components.push(x)
-                    );
-                    parent.kupData.section.components.splice(0);
-                    parent.kupData.section.sections.push(newSec);
-                }
-                parent.kupData.section.sections.push(child.kupData.section);
-                child.kupData.parent = parent.kupData.section;
+    dropped(parent: KupDashboardElement, child: KupDashboardElement) {
+        const idx = child.kupData.parent.sections.indexOf(
+            child.kupData.section
+        );
+        child.kupData.parent.sections.splice(idx, 1);
+        if (parent.kupData.form) {
+            // form is the target of drop.
+            if (!parent.kupData.form.sections)
+                parent.kupData.form.sections = [];
+            parent.kupData.form.sections.push(child.kupData.section);
+            child.kupData.parent = parent.kupData.form;
+        } else if (parent.kupData.section) {
+            // section is the target of drop.
+            if (
+                !parent.kupData.section.sections ||
+                parent.kupData.section.sections.length == 0
+            ) {
+                // if the section target of drop doesn't contains other sections, i create a wrapper that will contain target section and dragged section.
+                const newSec: KupSection = JSON.parse(
+                    JSON.stringify(parent.kupData.section)
+                );
+                newSec.dim = null;
+                child.kupData.section.dim = null;
+                parent.kupData.section.id = this.buildGuid();
+                parent.kupData.section.sections = [];
+                parent.kupData.section.sections.push(newSec);
             }
-            this.resetData(this.internalData);
+            parent.kupData.section.sections.push(child.kupData.section);
+            child.kupData.parent = parent.kupData.section;
         }
+        this.resetData(this.internalData);
+    }
+
+    getGridStyle(entity: KupForm | KupSection) {
+        let bodyStyles = {};
+        if (!this.enableDesign && entity.sections) {
+            let gridTemplate = '';
+            entity.sections.forEach((childSection) => {
+                if (!childSection.dim) gridTemplate += ' 1fr';
+                else
+                    gridTemplate +=
+                        childSection.dim.indexOf('%') < 0
+                            ? ' ' + childSection.dim + 'px'
+                            : ' ' + childSection.dim;
+            });
+            if (entity.layout == 'column')
+                bodyStyles['gridTemplateRows'] = gridTemplate;
+            if (entity.layout == 'row')
+                bodyStyles['gridTemplateColumns'] = gridTemplate;
+        }
+        return bodyStyles;
     }
 
     resetData(form: KupForm = null) {
@@ -516,13 +474,6 @@ export class KupFormEditor {
     }
 
     unregisterInteractables() {
-        this.kupManager.interact.unregister(
-            Array.from(
-                this.rootElement.shadowRoot.querySelectorAll(
-                    '.component-draggable'
-                )
-            )
-        );
         this.kupManager.interact.unregister(
             Array.from(
                 this.rootElement.shadowRoot.querySelectorAll(
@@ -570,6 +521,14 @@ export class KupFormEditor {
 
     componentDidRender() {
         this.kupManager.debug.logRender(this, true);
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const fields = root.querySelectorAll('.f-text-field');
+            if (fields)
+                fields.forEach((f) => {
+                    FTextFieldMDC(f as HTMLElement);
+                });
+        }
         this.didRenderInteractables();
     }
 
