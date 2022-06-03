@@ -24,7 +24,7 @@ import { KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip
 import { FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
-import { KupDashboardEventPayload, KupForm } from "./components/kup-dashboard/kup-dashboard-declarations";
+import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
 import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
@@ -1000,7 +1000,7 @@ export namespace Components {
           * The data of the component.
           * @default null
          */
-        "data": KupForm;
+        "data": KupDataDashboard;
         /**
           * Enable drag & drop of the section.
           * @default false
@@ -4079,7 +4079,7 @@ declare namespace LocalJSX {
           * The data of the component.
           * @default null
          */
-        "data"?: KupForm;
+        "data"?: KupDataDashboard;
         /**
           * Enable drag & drop of the section.
           * @default false

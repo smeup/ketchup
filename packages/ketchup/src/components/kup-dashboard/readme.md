@@ -5,11 +5,11 @@
 
 ## Properties
 
-| Property       | Attribute       | Description                        | Type      | Default |
-| -------------- | --------------- | ---------------------------------- | --------- | ------- |
-| `customStyle`  | `custom-style`  | Custom style of the component.     | `string`  | `''`    |
-| `data`         | --              | The data of the component.         | `KupForm` | `null`  |
-| `enableDesign` | `enable-design` | Enable drag & drop of the section. | `boolean` | `false` |
+| Property       | Attribute       | Description                        | Type               | Default |
+| -------------- | --------------- | ---------------------------------- | ------------------ | ------- |
+| `customStyle`  | `custom-style`  | Custom style of the component.     | `string`           | `''`    |
+| `data`         | --              | The data of the component.         | `KupDataDashboard` | `null`  |
+| `enableDesign` | `enable-design` | Enable drag & drop of the section. | `boolean`          | `false` |
 
 
 ## Events

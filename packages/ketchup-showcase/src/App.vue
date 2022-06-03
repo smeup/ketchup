@@ -346,6 +346,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'dashboard',
+                  },
+                },
+                icon: 'dashboard',
+                value: 'Dashboard',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'datatable',
                   },
                 },

@@ -7,11 +7,14 @@ import { KupEventPayload } from '../../types/GenericTypes';
 export enum KupDashboardProps {
     customStyle = 'Custom style of the component.',
     data = 'The data of the component.',
+    enableDesign = 'When set to true, the component is in design mode and it is draggable.',
 }
 
 export interface KupDashboardEventPayload extends KupEventPayload {
     data: KupForm;
 }
+
+export interface KupDataDashboard extends KupForm {}
 
 /**
  * Extend html element properties for Form Editor

@@ -37,6 +37,7 @@ import {
     KupDashboardEventPayload,
     KupDashboardProps,
     KupSection,
+    KupDataDashboard,
 } from './kup-dashboard-declarations';
 
 @Component({
@@ -73,7 +74,7 @@ export class KupDashboard {
      * The data of the component.
      * @default null
      */
-    @Prop() data: KupForm = null;
+    @Prop() data: KupDataDashboard = null;
     /**
      * Enable drag & drop of the section.
      * @default false
@@ -92,12 +93,12 @@ export class KupDashboard {
     /**
      * Internal data of the component.
      */
-    private internalData: KupForm = null;
+    private internalData: KupDataDashboard = null;
 
     /**
      * Internal data backup of the component for refresh when changed content by drag&drop.
      */
-    private internalDataBackup: KupForm = null;
+    private internalDataBackup: KupDataDashboard = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -322,8 +323,6 @@ export class KupDashboard {
 
         const bodyClasses = {
             'section-body': true,
-            'section-body-auto':
-                !section.sections || section.sections.length == 0,
             'layout-column': section && section.layout == 'column',
             'layout-row': section && section.layout == 'row',
         };

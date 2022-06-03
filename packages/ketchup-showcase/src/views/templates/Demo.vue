@@ -578,6 +578,21 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  KupDataDashboard: {
+    keys: {
+      id: 'number',
+      loaded: 'boolean',
+      title: 'string',
+      'fun?': 'KupObj',
+      'evaluatedFun?': 'string',
+      type: 'string',
+      'variables?': 'KupVariableEntity[]',
+      'timer?': 'setTimeout',
+      layout: 'string',
+      'sections?': 'KupSection[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   KupDataNode: {
     keys: {
       value: 'string',
