@@ -891,7 +891,10 @@ export class KupTree {
         this.openTotalMenu(column);
     }
 
-    private getEventDetails(path: HTMLElement[]): KupTreeEventHandlerDetails {
+    private getEventDetails(
+        path: HTMLElement[],
+        e?: PointerEvent
+    ): KupTreeEventHandlerDetails {
         let isHeader: boolean,
             isBody: boolean,
             isFooter: boolean,
@@ -979,6 +982,7 @@ export class KupTree {
             cell: cell ? cell : null,
             column: column ? column : null,
             filterRemove: filterRemove ? filterRemove : null,
+            originalEvent: e,
             row: row ? row : null,
             td: td ? td : null,
             th: th ? th : null,
@@ -988,7 +992,7 @@ export class KupTree {
 
     private contextMenuHandler(e: PointerEvent): KupTreeEventHandlerDetails {
         e.preventDefault();
-        const details = this.getEventDetails(this.getEventPath(e.target));
+        const details = this.getEventDetails(this.getEventPath(e.target), e);
         if (details.area === 'header') {
             if (details.th && details.column) {
                 this.openColumnMenu(details.column.name);
