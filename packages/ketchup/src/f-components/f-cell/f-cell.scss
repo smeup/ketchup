@@ -76,11 +76,16 @@
   &.number-cell {
     .f-cell__content {
       --kup-textfield-font-family: var(--kup_cell_font_family_monospace);
+
       font-family: var(--kup_cell_font_family_monospace);
     }
   }
 
-  .mdc-text-field {
+  &.switch-cell {
+    min-height: 48px;
+  }
+
+  .mdc-text-field.mdc-text-field--fullwidth {
     padding: 0px;
   }
 

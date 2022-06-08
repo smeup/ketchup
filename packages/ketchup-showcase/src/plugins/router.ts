@@ -207,6 +207,12 @@ const advancedRoutes = [
       import(`@/views/components/advanced/dashlist/DashList.vue`),
   },
   {
+    path: `/dashboard`,
+    name: 'dashboard',
+    component: () =>
+      import(`@/views/components/advanced/dashboard/Dashboard.vue`),
+  },
+  {
     path: `/datatable`,
     name: 'datatable',
     component: () =>

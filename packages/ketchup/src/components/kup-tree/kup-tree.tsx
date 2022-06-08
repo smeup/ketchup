@@ -94,6 +94,7 @@ import {
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
@@ -890,7 +891,10 @@ export class KupTree {
         this.openTotalMenu(column);
     }
 
-    private getEventDetails(path: HTMLElement[]): KupTreeEventHandlerDetails {
+    private getEventDetails(
+        path: HTMLElement[],
+        e?: PointerEvent
+    ): KupTreeEventHandlerDetails {
         let isHeader: boolean,
             isBody: boolean,
             isFooter: boolean,
@@ -978,6 +982,7 @@ export class KupTree {
             cell: cell ? cell : null,
             column: column ? column : null,
             filterRemove: filterRemove ? filterRemove : null,
+            originalEvent: e,
             row: row ? row : null,
             td: td ? td : null,
             th: th ? th : null,
@@ -987,7 +992,7 @@ export class KupTree {
 
     private contextMenuHandler(e: PointerEvent): KupTreeEventHandlerDetails {
         e.preventDefault();
-        const details = this.getEventDetails(this.getEventPath(e.target));
+        const details = this.getEventDetails(this.getEventPath(e.target), e);
         if (details.area === 'header') {
             if (details.th && details.column) {
                 this.openColumnMenu(details.column.name);
@@ -2078,6 +2083,13 @@ export class KupTree {
                 for (let i = 0; i < rippleCells.length; i++) {
                     MDCRipple.attachTo(rippleCells[i]);
                 }
+            }
+        }
+        if (root) {
+            const fs: NodeListOf<HTMLElement> =
+                root.querySelectorAll('.f-text-field');
+            for (let index = 0; index < fs.length; index++) {
+                FTextFieldMDC(fs[index]);
             }
         }
         if (this.preventXScroll) {

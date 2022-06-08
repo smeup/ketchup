@@ -13,9 +13,9 @@ export const fButtonUsers = [
     KupTagNames.BOX,
     KupTagNames.CALENDAR,
     KupTagNames.CARD,
+    KupTagNames.DASHBOARD,
     KupTagNames.DATA_TABLE,
     KupTagNames.DROPDOWN_BUTTON,
-    KupTagNames.FORM_EDITOR,
     KupTagNames.IMAGE_LIST,
     KupTagNames.SNACKBAR,
 ];
@@ -35,6 +35,7 @@ export const fCheckboxUsers = [
     KupTagNames.BOX,
     KupTagNames.CELL,
     KupTagNames.CHECKBOX,
+    KupTagNames.DASHBOARD,
     KupTagNames.DATA_TABLE,
     KupTagNames.LIST,
     KupTagNames.TREE,
@@ -63,9 +64,9 @@ export const fImageUsers = [
     KupTagNames.CARD,
     KupTagNames.CELL,
     KupTagNames.CHIP,
+    KupTagNames.DASHBOARD,
     KupTagNames.DATA_TABLE,
     KupTagNames.DROPDOWN_BUTTON,
-    KupTagNames.FORM_EDITOR,
     KupTagNames.IMAGE,
     KupTagNames.IMAGE_LIST,
     KupTagNames.LIST,
@@ -81,7 +82,13 @@ export const fPaginatorUsers = [KupTagNames.BOX, KupTagNames.DATA_TABLE];
 /**
  * Components using the FSwitch functional component.
  */
-export const fSwitchUsers = [KupTagNames.SWITCH];
+export const fSwitchUsers = [
+    KupTagNames.BOX,
+    KupTagNames.DATA_TABLE,
+    KupTagNames.CELL,
+    KupTagNames.SWITCH,
+    KupTagNames.TREE,
+];
 /**
  * Components using the FTextField functional component.
  */
@@ -91,6 +98,7 @@ export const fTextFieldUsers = [
     KupTagNames.CELL,
     KupTagNames.COLOR_PICKER,
     KupTagNames.COMBOBOX,
+    KupTagNames.DASHBOARD,
     KupTagNames.DATA_TABLE,
     KupTagNames.DATE_PICKER,
     KupTagNames.NUMERIC_PICKER,
