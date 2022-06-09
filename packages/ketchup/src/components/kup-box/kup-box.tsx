@@ -85,6 +85,7 @@ import {
     KupDataColumn,
     KupDataRowAction,
 } from '../../managers/kup-data/kup-data-declarations';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 
 @Component({
     tag: 'kup-box',
@@ -1743,6 +1744,14 @@ export class KupBox {
     }
 
     componentDidRender() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const fs: NodeListOf<HTMLElement> =
+                root.querySelectorAll('.f-text-field');
+            for (let index = 0; index < fs.length; index++) {
+                FTextFieldMDC(fs[index]);
+            }
+        }
         this.checkScrollOnHover();
         this.persistState();
         this.didRenderInteractables();

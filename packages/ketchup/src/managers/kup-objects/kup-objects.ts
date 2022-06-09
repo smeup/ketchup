@@ -230,6 +230,15 @@ export class KupObjects {
         );
     }
     /**
+     * Checks whether the object represents a switch or not.
+     * @param {KupObj} obj - Object to check.
+     * @returns {boolean} True when the object is a switch.
+     */
+    isSwitch(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'V2' === obj.t && 'ONOFF' === obj.p;
+    }
+    /**
      * Checks whether the object represents a text field or not.
      * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is a text field.
