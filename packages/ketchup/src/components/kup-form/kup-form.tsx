@@ -353,11 +353,22 @@ export class KupForm {
         }
         const cell = row.cells[formField.column];
         let title: string = undefined;
-        if (cell && !this.kupManager.objects.isEmptyKupObj(cell.obj)) {
-            if (this.kupManager.debug.isDebug()) {
-                title =
-                    cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
+        // TODO: Force editable cell?
+        if (cell) {
+            cell.isEditable = true;
+            if (!this.kupManager.objects.isEmptyKupObj(cell.obj)) {
+                if (this.kupManager.debug.isDebug()) {
+                    title =
+                        cell.obj.t +
+                        '; ' +
+                        cell.obj.p +
+                        '; ' +
+                        cell.obj.k +
+                        ';';
+                }
             }
+        } else {
+            return null;
         }
         const cellProps: FCellProps = {
             cell: cell,
@@ -369,11 +380,9 @@ export class KupForm {
             setSizes: true,
             shape: formField.shape,
         };
-        // TODO: Handle label properly
-        const label = column?.title;
         const labelCell: VNode = (
             <td class="form__label">
-                <span>{label}</span>
+                <span>{column.title}</span>
             </td>
         );
         const fieldCell: VNode = (

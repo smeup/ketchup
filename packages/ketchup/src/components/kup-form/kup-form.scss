@@ -100,4 +100,8 @@
       height: auto;
     }
   }
+
+  .f-cell.c-right-aligned:not(.c-centered) .f-cell__content {
+    justify-content: flex-start;
+  }
 }
