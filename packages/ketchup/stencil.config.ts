@@ -2,6 +2,7 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 
 export const config: Config = {
+    sourceMap: true,
     namespace: 'ketchup',
     outputTargets: [
         { type: 'dist' },
@@ -35,6 +36,7 @@ export const config: Config = {
                 { src: 'drawer.html' },
                 { src: 'dropdown-button.html' },
                 { src: 'echart.html' },
+                { src: 'form.html' },
                 { src: 'gauge.html' },
                 { src: 'image.html' },
                 { src: 'image-list.html' },

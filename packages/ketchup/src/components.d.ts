@@ -33,7 +33,7 @@ import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, Ku
 import { GeoJSON } from "geojson";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
-import { KupFormData, KupFormSection } from "./components/kup-form/kup-form-declarations";
+import { KupFormData, KupFormLayout } from "./components/kup-form/kup-form-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
@@ -1637,7 +1637,7 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * Actual data of the component.
+          * Actual data of the form.
           * @default null
          */
         "data": KupFormData;
@@ -1648,10 +1648,10 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * How the input panel will be displayed.
+          * How the form will arrange its content.
           * @default null
          */
-        "layout": KupFormSection;
+        "layout": KupFormLayout;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -4813,15 +4813,15 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Actual data of the component.
+          * Actual data of the form.
           * @default null
          */
         "data"?: KupFormData;
         /**
-          * How the input panel will be displayed.
+          * How the form will arrange its content.
           * @default null
          */
-        "layout"?: KupFormSection;
+        "layout"?: KupFormLayout;
     }
     interface KupGauge {
         /**

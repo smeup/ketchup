@@ -7,30 +7,28 @@ import {
     Method,
     Prop,
     VNode,
+    Watch,
 } from '@stencil/core';
+import {
+    KupFormRow,
+    KupFormLayout,
+    KupFormSection,
+    KupFormField,
+    KupFormProps,
+    KupFormData,
+} from './kup-form-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import {
-    GenericMap,
-    GenericObject,
-    KupComponent,
-} from '../../types/GenericTypes';
-import {
-    KupFormColumn,
-    KupFormData,
-    KupFormProps,
-    KupFormSection,
-} from './kup-form-declarations';
-import { getProps, setProps } from '../../utils/utils';
-import { componentWrapperId } from '../../variables/GenericVariables';
+import { getProps, identify, setProps } from '../../utils/utils';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
 import { FCell } from '../../f-components/f-cell/f-cell';
-import {
-    FCellPadding,
-    FCellProps,
-} from '../../f-components/f-cell/f-cell-declarations';
+import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 
 @Component({
     tag: 'kup-form',
@@ -54,22 +52,39 @@ export class KupForm {
      */
     @Prop() customStyle: string = '';
     /**
-     * Actual data of the component.
+     * Actual data of the form.
      * @default null
      */
     @Prop() data: KupFormData = null;
     /**
-     * How the input panel will be displayed.
+     * How the form will arrange its content.
      * @default null
      */
-    @Prop() layout: KupFormSection = null;
+    @Prop() layout: KupFormLayout = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    #kupManager: KupManager = kupManagerInstance();
-    #missingColumns: KupFormColumn[] = null;
+    private kupManager: KupManager = kupManagerInstance();
+    private formLayout: KupFormLayout;
+    private visibleColumns: KupDataColumn[] = [];
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
+
+    @Watch('data')
+    onDataChanged() {
+        identify(this.getRows());
+        this.initVisibleColumns();
+        this.checkLayout();
+    }
+
+    @Watch('layout')
+    onLayoutChanged() {
+        this.checkLayout();
+    }
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -104,96 +119,261 @@ export class KupForm {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    #createForm() {
-        this.#missingColumns = JSON.parse(JSON.stringify(this.data.columns));
-        const layout = this.data.rows[0].layout || this.layout || {};
+    private getColumns(): Array<KupDataColumn> {
+        return this.data && this.data.columns
+            ? this.data.columns
+            : [{ title: '', name: '', size: undefined }];
+    }
+
+    private initVisibleColumns(): void {
+        this.visibleColumns = this.getColumns().filter((column) => {
+            if (column.hasOwnProperty('visible')) {
+                return column.visible;
+            }
+
+            return true;
+        });
+    }
+
+    private getRows(): KupFormRow[] {
+        return this.data && this.data.rows ? this.data.rows : [];
+    }
+
+    private checkLayout() {
+        if (this.layout) {
+            this.formLayout = this.layout;
+            return;
+        }
+
+        const section: KupFormSection = {
+            horizontal: false,
+            sections: [],
+        };
+
+        const visibleColumns = this.visibleColumns;
+        let size = visibleColumns.length;
+        const content = [];
+
+        let cnt = 0;
+
+        while (size-- > 0) {
+            content.push({
+                column: visibleColumns[cnt++].name,
+            });
+        }
+
+        section.content = content;
+
+        this.formLayout = {
+            sections: [section],
+        };
+    }
+
+    private renderRow(row: KupFormRow) {
+        const visibleColumns = [...this.visibleColumns];
+
+        let formContent = null;
+
+        let rowLayout = row.layout;
+        if (!rowLayout) {
+            rowLayout = this.formLayout;
+        }
+
+        let horizontal = false;
+        if (rowLayout) {
+            if (rowLayout.horizontal) {
+                horizontal = true;
+            }
+
+            const sections = rowLayout.sections;
+            let size = sections.length;
+
+            let cnt = 0;
+            if (size > 0) {
+                formContent = [];
+            }
+
+            const parent: KupFormSection = {
+                horizontal: horizontal,
+            };
+
+            while (size-- > 0) {
+                formContent.push(
+                    this.renderSection(
+                        sections[cnt++],
+                        parent,
+                        row,
+                        visibleColumns
+                    )
+                );
+            }
+        }
+
         const classObj = {
             form: true,
-            'form--column': layout.horizontal ? false : true,
-            'form--row': layout.horizontal ? true : false,
+            'form--column': !horizontal,
         };
-        const styleObj = layout.style || {};
-        if (layout.dim) {
-            styleObj['--kup_form_section_size'] = layout.dim;
+
+        return <div class={classObj}>{formContent}</div>;
+    }
+
+    private renderSection(
+        section: KupFormSection,
+        parent: KupFormSection,
+        row: KupFormRow,
+        visibleColumns: KupDataColumn[]
+    ) {
+        let sectionContent = null;
+
+        if (section.sections && section.sections.length > 0) {
+            const sections = section.sections;
+            let size = sections.length;
+
+            let cnt = 0;
+            if (size > 0) {
+                sectionContent = [];
+            }
+
+            while (size-- > 0) {
+                sectionContent.push(
+                    this.renderSection(
+                        sections[cnt++],
+                        section,
+                        row,
+                        visibleColumns
+                    )
+                );
+            }
+        } else if (section.content) {
+            const content = section.content;
+            let size = content.length;
+
+            let cnt = 0;
+            if (size > 0) {
+                sectionContent = [];
+            }
+
+            while (size-- > 0) {
+                sectionContent.push(
+                    this.renderFormField(
+                        {
+                            formField: content[cnt++],
+                            row,
+                            visibleColumns,
+                        },
+                        true
+                    )
+                );
+            }
+        } else if (visibleColumns.length > 0) {
+            const column = visibleColumns[0];
+            sectionContent = this.renderFormField({
+                formField: { column: column.name },
+                row,
+                visibleColumns,
+            });
+        }
+
+        const isGrid = !!section.columns;
+
+        const sectionClass: { [index: string]: boolean } = {
+            form__section: true,
+            'form__section--column': !isGrid && !section.horizontal,
+            'form__section--grid': isGrid,
+            'form__section--titled': !!section.title,
+            'form__section--last':
+                !section.sections || section.sections.length === 0,
+        };
+
+        const sectionStyle: GenericObject = section.style || {};
+        if (section.dim && parent) {
+            sectionStyle.flex = `0 0 ${section.dim}`;
+
+            if (parent.horizontal) {
+                sectionStyle.maxWidth = section.dim;
+            } else {
+                sectionStyle.maxHeight = section.dim;
+            }
+        }
+
+        if (isGrid) {
+            sectionStyle[
+                'grid-template-columns'
+            ] = `repeat(${section.columns}, 1fr)`;
         }
 
         return (
-            <div class={classObj} style={styleObj}>
-                {layout.sections.map((section) =>
-                    this.#createSection(section, layout.horizontal)
-                )}
+            <div class={sectionClass} style={sectionStyle}>
+                {section.title ? <h3>{section.title}</h3> : null}
+                {sectionContent}
             </div>
         );
     }
 
-    #createSection(section: KupFormSection, horizontal?: boolean) {
-        const classObj = {
-            form__section: true,
-            'form__section--column': horizontal ? false : true,
-            'form__section--row': horizontal ? true : false,
+    private renderFormField(
+        {
+            formField,
+            row,
+            visibleColumns,
+        }: {
+            formField: KupFormField;
+            row: KupFormRow;
+            visibleColumns: KupDataColumn[];
+        },
+        fromSection?: boolean
+    ) {
+        const classObj: Record<string, boolean> = {
+            form__field: true,
         };
-        const styleObj = section.style || {};
-        if (section.dim) {
-            styleObj['--kup_form_section_size'] = section.dim;
-        }
-        const contentNodes: VNode[] = [];
-        if (section.content) {
-            for (let index = 0; index < section.content.length; index++) {
-                const content = section.content[index];
-                if (content.column) {
-                    const cell = this.data.rows[0].cells[content.column];
-                    const column = this.#kupManager.data.column.find(
-                        this.data,
-                        {
-                            name: content.column,
-                        }
-                    )[0];
-                    if (cell && column) {
-                        const props: FCellProps = {
-                            cell: cell,
-                            column: column,
-                            component: this,
-                            density: FCellPadding.NONE,
-                            editable: true,
-                            renderKup: true,
-                            row: this.data.rows[0],
-                        };
-                        contentNodes.push(<FCell {...props}></FCell>);
-                    }
-                }
-            }
-        } else {
-            const firstMissingCol = this.#missingColumns.shift();
-            if (firstMissingCol) {
-                const cell = this.data.rows[0].cells[firstMissingCol.name];
-                const column = this.#kupManager.data.column.find(this.data, {
-                    name: firstMissingCol.name,
-                })[0];
-                if (cell && column) {
-                    const props: FCellProps = {
-                        cell: cell,
-                        column: column,
-                        component: this,
-                        density: FCellPadding.NONE,
-                        editable: true,
-                        renderKup: true,
-                        row: this.data.rows[0],
-                    };
-                    contentNodes.push(<FCell {...props}></FCell>);
-                }
-            }
-        }
+        const styleObj = {};
+        let column: KupDataColumn = null;
+        let index = -1;
+        for (let i = 0; i < visibleColumns.length; i++) {
+            const c = visibleColumns[i];
 
+            if (c.name === formField.column) {
+                index = i;
+                break;
+            }
+        }
+        if (index >= 0) {
+            column = visibleColumns[index];
+            visibleColumns.splice(index, 1);
+        } else if (fromSection) {
+            column = this.data.columns.find((x) => x.name === formField.column);
+        }
+        const cell = row.cells[formField.column];
+        let title: string = undefined;
+        if (cell && !this.kupManager.objects.isEmptyKupObj(cell.obj)) {
+            if (this.kupManager.debug.isDebug()) {
+                title =
+                    cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
+            }
+        }
+        const cellProps: FCellProps = {
+            cell: cell,
+            column: column,
+            component: this,
+            editable: true,
+            renderKup: true,
+            row: row,
+            setSizes: true,
+            shape: formField.shape,
+        };
         return (
-            <div class={classObj} style={styleObj}>
-                {!section.sections || section.sections.length == 0
-                    ? contentNodes
-                    : section.sections.map((childSection) =>
-                          this.#createSection(
-                              childSection,
-                              childSection.horizontal
-                          )
-                      )}
+            <div
+                data-cell={cell}
+                data-row={row}
+                data-column={formField.column}
+                class={classObj}
+                style={styleObj}
+                title={title}
+            >
+                {cell && column ? (
+                    <FCell {...cellProps} />
+                ) : (
+                    <span>{formField.value}</span>
+                )}
             </div>
         );
     }
@@ -203,48 +383,69 @@ export class KupForm {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        this.#kupManager.debug.logLoad(this, false);
-        this.#kupManager.language.register(this);
-        this.#kupManager.theme.register(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.language.register(this);
+        this.kupManager.theme.register(this);
+        this.onDataChanged();
     }
 
     componentDidLoad() {
-        this.#kupManager.debug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.#kupManager.debug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        this.#kupManager.debug.logRender(this, true);
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const fs: NodeListOf<HTMLElement> =
+                root.querySelectorAll('.f-text-field');
+            for (let index = 0; index < fs.length; index++) {
+                FTextFieldMDC(fs[index]);
+            }
+        }
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
+        let formContent: VNode[] = null;
+
+        if (this.data.rows.length === 0) {
+            formContent = (
+                <p>
+                    {this.kupManager.language.translate(
+                        KupLanguageGeneric.EMPTY_DATA
+                    )}
+                </p>
+            );
+        } else {
+            const rows = this.data.rows;
+            let size = rows.length;
+
+            let cnt = 0;
+            formContent = [];
+
+            while (size-- > 0) {
+                formContent.push(this.renderRow(rows[cnt++]));
+            }
+        }
+
         return (
             <Host>
                 <style>
-                    {this.#kupManager.theme.setKupStyle(
+                    {this.kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}>
-                    {this.data ? (
-                        this.#createForm()
-                    ) : (
-                        <div>
-                            {this.#kupManager.language.translate(
-                                KupLanguageGeneric.EMPTY_DATA
-                            )}
-                        </div>
-                    )}
-                </div>
+                <div id={componentWrapperId}>{formContent}</div>
             </Host>
         );
     }
 
     disconnectedCallback() {
-        this.#kupManager.language.unregister(this);
-        this.#kupManager.theme.unregister(this);
+        this.kupManager.language.unregister(this);
+        this.kupManager.theme.unregister(this);
     }
 }

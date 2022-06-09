@@ -1,3 +1,80 @@
+/**
+* @prop --kup-form-background-color: Sets background of the component.
+* @prop --kup-form-color: Sets text color of the component.
+* @prop --kup-form-font-family: Sets font family of the component.
+* @prop --kup-form-font-size: Sets font size of the component.
+*/
+
 :host {
+  --kup_form_background_color: var(
+    --kup-form-background-color,
+    var(--kup-background-color)
+  );
+  --kup_form_color: var(--kup-form-color, var(--kup-text-color));
+  --kup_form_font_family: var(--kup-form-font-family, var(--kup-font-family));
+  --kup_form_font_size: var(--kup-form-font-size, var(--kup-font-size));
+
   display: block;
+  font-family: var(--kup_form_font_family);
+  font-size: var(--kup_form_font_size);
+}
+
+.form {
+  background: var(--kup_form_background_color);
+  color: var(--kup_form_color);
+  cursor: pointer;
+  display: flex;
+  flex-grow: 1;
+  overflow: auto;
+  position: relative;
+
+  &--column {
+    flex-direction: column;
+  }
+
+  &__section {
+    display: flex;
+    flex: 1 1 1%;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &--column {
+      flex-direction: column;
+      flex-wrap: unset;
+
+      > .form__section {
+        flex: 0 0 auto;
+      }
+    }
+
+    &--grid {
+      display: grid;
+    }
+
+    &--titled {
+      border: 1px solid var(--kup-border-color);
+      padding-top: 5px;
+      position: relative;
+      margin: 10px;
+
+      > h3 {
+        background: var(--kup-background-color);
+        font-size: calc(var(--kup-font-size) * 1.15);
+        position: absolute;
+        margin: 0px;
+        padding: 0 8px;
+        top: -11px;
+        left: 5px;
+        transition: background-color 0.25s ease;
+      }
+    }
+  }
+
+  &__field {
+    min-height: 16px;
+
+    img {
+      height: auto;
+    }
+  }
 }

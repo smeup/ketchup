@@ -1,44 +1,44 @@
-import {
-    FCellProps,
-    FCellShapes,
-} from '../../f-components/f-cell/f-cell-declarations';
+import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
 import {
     KupDataColumn,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
-
 /**
  * Props of the kup-form component.
  * Used to export every prop in an object.
  */
 export enum KupFormProps {
     customStyle = 'Custom style of the component.',
-    data = 'Actual data of the component',
+    data = 'Actual data of the form.',
+    layout = 'How the form will arrange its content.',
 }
-
 export interface KupFormData {
-    columns?: KupFormColumn[];
+    columns?: KupDataColumn[];
     rows?: KupFormRow[];
 }
-
-export interface KupFormColumn extends KupDataColumn {
-    label?: string;
+export interface KupFormRow extends KupDataRow {
+    layout?: KupFormLayout;
 }
 
-export interface KupFormRow extends KupDataRow {
-    layout?: KupFormSection;
+export interface KupFormLayout {
+    horizontal?: boolean;
+    sections?: KupFormSection[];
 }
 
 export interface KupFormSection {
-    content?: KupFormContent[];
-    dim?: string;
-    horizontal?: boolean;
     id?: string;
+    horizontal?: boolean;
+    dim?: string;
     sections?: KupFormSection[];
+    content?: KupFormField[];
     style?: { [index: string]: string };
+    columns?: number;
     title?: string;
 }
-export interface KupFormContent {
+
+export interface KupFormField {
     column?: string;
+    value?: string;
     shape?: FCellShapes;
+    config?: any;
 }
