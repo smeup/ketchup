@@ -16,6 +16,7 @@ import {
     KupFormField,
     KupFormProps,
     KupFormData,
+    KupFormLabelPlacement,
 } from './kup-form-declarations';
 import {
     KupManager,
@@ -56,6 +57,12 @@ export class KupForm {
      * @default null
      */
     @Prop() data: KupFormData = null;
+    /**
+     * Placement of fields' labels.
+     * @default KupFormLabelPlacement.LEFT
+     */
+    @Prop({ reflect: true }) labelPlacement: KupFormLabelPlacement =
+        KupFormLabelPlacement.LEFT;
     /**
      * How the form will arrange its content.
      * @default null
@@ -214,7 +221,7 @@ export class KupForm {
             'form--column': !horizontal,
         };
 
-        return <div class={classObj}>{formContent}</div>;
+        return <form class={classObj}>{formContent}</form>;
     }
 
     private renderSection(
@@ -305,7 +312,9 @@ export class KupForm {
         return (
             <div class={sectionClass} style={sectionStyle}>
                 {section.title ? <h3>{section.title}</h3> : null}
-                {sectionContent}
+                <table>
+                    <tbody>{sectionContent}</tbody>
+                </table>
             </div>
         );
     }
@@ -321,7 +330,7 @@ export class KupForm {
             visibleColumns: KupDataColumn[];
         },
         fromSection?: boolean
-    ) {
+    ): VNode[] {
         const classObj: Record<string, boolean> = {
             form__field: true,
         };
@@ -360,8 +369,15 @@ export class KupForm {
             setSizes: true,
             shape: formField.shape,
         };
-        return (
-            <div
+        // TODO: Handle label properly
+        const label = column?.title;
+        const labelCell: VNode = (
+            <td class="form__label">
+                <span>{label}</span>
+            </td>
+        );
+        const fieldCell: VNode = (
+            <td
                 data-cell={cell}
                 data-row={row}
                 data-column={formField.column}
@@ -374,8 +390,30 @@ export class KupForm {
                 ) : (
                     <span>{formField.value}</span>
                 )}
-            </div>
+            </td>
         );
+        switch (this.labelPlacement) {
+            case KupFormLabelPlacement.BOTTOM:
+                return [<tr>{fieldCell}</tr>, <tr>{labelCell}</tr>];
+            case KupFormLabelPlacement.HIDDEN:
+                return [<tr>{fieldCell}</tr>];
+            case KupFormLabelPlacement.RIGHT:
+                return [
+                    <tr>
+                        {fieldCell}
+                        {labelCell}
+                    </tr>,
+                ];
+            case KupFormLabelPlacement.TOP:
+                return [<tr>{labelCell}</tr>, <tr>{fieldCell}</tr>];
+            default:
+                return [
+                    <tr>
+                        {labelCell}
+                        {fieldCell}
+                    </tr>,
+                ];
+        }
     }
 
     /*-------------------------------------------------*/

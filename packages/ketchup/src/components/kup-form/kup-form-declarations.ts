@@ -42,3 +42,11 @@ export interface KupFormField {
     shape?: FCellShapes;
     config?: any;
 }
+
+export enum KupFormLabelPlacement {
+    BOTTOM = 'bottom',
+    LEFT = 'left',
+    HIDDEN = 'hidden',
+    RIGHT = 'right',
+    TOP = 'top',
+}

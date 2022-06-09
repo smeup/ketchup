@@ -19,10 +19,26 @@
   font-size: var(--kup_form_font_size);
 }
 
+:host([label-placement='left']) {
+  .form {
+    &__label {
+      width: 0;
+    }
+  }
+}
+
+:host([label-placement='right']) {
+  .form {
+    &__field {
+      min-width: 200px;
+      width: 0;
+    }
+  }
+}
+
 .form {
   background: var(--kup_form_background_color);
   color: var(--kup_form_color);
-  cursor: pointer;
   display: flex;
   flex-grow: 1;
   overflow: auto;
@@ -68,6 +84,13 @@
         transition: background-color 0.25s ease;
       }
     }
+  }
+
+  &__label {
+    -webkit-font-smoothing: antialiased;
+    font-size: 0.875em;
+    letter-spacing: 0.0178571429em;
+    white-space: nowrap;
   }
 
   &__field {
