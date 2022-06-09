@@ -73,6 +73,7 @@ Type: `Promise<void>`
  - [kup-card](../kup-card)
  - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
+ - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
  - [kup-tree](../kup-tree)
 
@@ -126,6 +127,7 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-box --> kup-progress-bar
   kup-cell --> kup-progress-bar
+  kup-form --> kup-progress-bar
   kup-image-list --> kup-progress-bar
   style kup-progress-bar fill:#f9f,stroke:#333,stroke-width:4px
 ```
