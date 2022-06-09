@@ -139,6 +139,11 @@ export class KupTextField {
      */
     @Prop() min: number = null;
     /**
+     * The HTML name attribute used for form autocomplete.
+     * @default null
+     */
+    @Prop() name: string = null;
+    /**
      * When set to true, the component will be rendered as an outlined field.
      * @default false
      */
@@ -460,6 +465,7 @@ export class KupTextField {
             max: this.max,
             maxLength: this.maxLength,
             min: this.min,
+            name: this.name,
             outlined: this.outlined,
             readOnly: this.readOnly,
             secondary: this.rootElement.classList.contains('kup-secondary')

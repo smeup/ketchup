@@ -247,6 +247,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'name',
+          description: 'The HTML name attribute used for form autocomplete.',
+          type: 'string',
+          default: 'null',
+          try: 'field',
+        },
+        {
           prop: 'outlined',
           description: 'Renders an outlined text field.',
           type: 'boolean',
