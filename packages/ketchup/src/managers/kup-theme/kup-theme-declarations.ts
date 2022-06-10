@@ -16,6 +16,7 @@ export const fButtonUsers = [
     KupTagNames.DASHBOARD,
     KupTagNames.DATA_TABLE,
     KupTagNames.DROPDOWN_BUTTON,
+    KupTagNames.FORM,
     KupTagNames.IMAGE_LIST,
     KupTagNames.SNACKBAR,
 ];
@@ -26,6 +27,7 @@ export const fCellUsers = [
     KupTagNames.BOX,
     KupTagNames.CELL,
     KupTagNames.DATA_TABLE,
+    KupTagNames.FORM,
     KupTagNames.TREE,
 ];
 /**
@@ -37,6 +39,7 @@ export const fCheckboxUsers = [
     KupTagNames.CHECKBOX,
     KupTagNames.DASHBOARD,
     KupTagNames.DATA_TABLE,
+    KupTagNames.FORM,
     KupTagNames.LIST,
     KupTagNames.TREE,
 ];
@@ -49,6 +52,7 @@ export const fChipUsers = [
     KupTagNames.CELL,
     KupTagNames.CHIP,
     KupTagNames.DATA_TABLE,
+    KupTagNames.FORM,
     KupTagNames.TREE,
 ];
 /**
@@ -67,6 +71,7 @@ export const fImageUsers = [
     KupTagNames.DASHBOARD,
     KupTagNames.DATA_TABLE,
     KupTagNames.DROPDOWN_BUTTON,
+    KupTagNames.FORM,
     KupTagNames.IMAGE,
     KupTagNames.IMAGE_LIST,
     KupTagNames.LIST,
@@ -84,8 +89,9 @@ export const fPaginatorUsers = [KupTagNames.BOX, KupTagNames.DATA_TABLE];
  */
 export const fSwitchUsers = [
     KupTagNames.BOX,
-    KupTagNames.DATA_TABLE,
     KupTagNames.CELL,
+    KupTagNames.DATA_TABLE,
+    KupTagNames.FORM,
     KupTagNames.SWITCH,
     KupTagNames.TREE,
 ];
@@ -101,6 +107,7 @@ export const fTextFieldUsers = [
     KupTagNames.DASHBOARD,
     KupTagNames.DATA_TABLE,
     KupTagNames.DATE_PICKER,
+    KupTagNames.FORM,
     KupTagNames.NUMERIC_PICKER,
     KupTagNames.TEXT_FIELD,
     KupTagNames.TIME_PICKER,

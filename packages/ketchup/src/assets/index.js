@@ -99,6 +99,10 @@ components.data = [
         id: 'echart.html',
     },
     {
+        value: 'Form',
+        id: 'form.html',
+    },
+    {
         value: 'Gauge',
         id: 'gauge.html',
     },
@@ -117,10 +121,6 @@ components.data = [
     {
         value: 'KupTooltip',
         id: 'kuptooltip.html',
-    },
-    {
-        value: 'Layout',
-        id: 'layout.html',
     },
     {
         value: 'List',

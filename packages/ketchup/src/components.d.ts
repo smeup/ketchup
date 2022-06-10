@@ -33,6 +33,7 @@ import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, Ku
 import { GeoJSON } from "geojson";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
+import { KupFormData, KupFormLabelPlacement, KupFormLayout } from "./components/kup-form/kup-form-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
@@ -1628,6 +1629,44 @@ export namespace Components {
          */
         "type": string;
     }
+    interface KupForm {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Actual data of the form.
+          * @default null
+         */
+        "data": KupFormData;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Placement of fields' labels.
+          * @default KupFormLabelPlacement.LEFT
+         */
+        "labelPlacement": KupFormLabelPlacement;
+        /**
+          * How the form will arrange its content.
+          * @default null
+         */
+        "layout": KupFormLayout;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
     interface KupGauge {
         /**
           * Sets how much the arc of the gauge should be thick.
@@ -2674,6 +2713,11 @@ export namespace Components {
          */
         "min": number;
         /**
+          * The HTML name attribute used for form autocomplete.
+          * @default null
+         */
+        "name": string;
+        /**
           * When set to true, the component will be rendered as an outlined field.
           * @default false
          */
@@ -3096,6 +3140,12 @@ declare global {
         prototype: HTMLKupFieldElement;
         new (): HTMLKupFieldElement;
     };
+    interface HTMLKupFormElement extends Components.KupForm, HTMLStencilElement {
+    }
+    var HTMLKupFormElement: {
+        prototype: HTMLKupFormElement;
+        new (): HTMLKupFormElement;
+    };
     interface HTMLKupGaugeElement extends Components.KupGauge, HTMLStencilElement {
     }
     var HTMLKupGaugeElement: {
@@ -3258,6 +3308,7 @@ declare global {
         "kup-dropdown-button": HTMLKupDropdownButtonElement;
         "kup-echart": HTMLKupEchartElement;
         "kup-field": HTMLKupFieldElement;
+        "kup-form": HTMLKupFormElement;
         "kup-gauge": HTMLKupGaugeElement;
         "kup-grid": HTMLKupGridElement;
         "kup-iframe": HTMLKupIframeElement;
@@ -4608,6 +4659,29 @@ declare namespace LocalJSX {
          */
         "type"?: string;
     }
+    interface KupForm {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Actual data of the form.
+          * @default null
+         */
+        "data"?: KupFormData;
+        /**
+          * Placement of fields' labels.
+          * @default KupFormLabelPlacement.LEFT
+         */
+        "labelPlacement"?: KupFormLabelPlacement;
+        /**
+          * How the form will arrange its content.
+          * @default null
+         */
+        "layout"?: KupFormLayout;
+    }
     interface KupGauge {
         /**
           * Sets how much the arc of the gauge should be thick.
@@ -5410,6 +5484,11 @@ declare namespace LocalJSX {
          */
         "min"?: number;
         /**
+          * The HTML name attribute used for form autocomplete.
+          * @default null
+         */
+        "name"?: string;
+        /**
           * Triggered when the input element loses focus.
          */
         "onKup-textfield-blur"?: (event: CustomEvent<KupTextFieldEventPayload>) => void;
@@ -5709,6 +5788,7 @@ declare namespace LocalJSX {
         "kup-dropdown-button": KupDropdownButton;
         "kup-echart": KupEchart;
         "kup-field": KupField;
+        "kup-form": KupForm;
         "kup-gauge": KupGauge;
         "kup-grid": KupGrid;
         "kup-iframe": KupIframe;
@@ -5761,6 +5841,7 @@ declare module "@stencil/core" {
             "kup-dropdown-button": LocalJSX.KupDropdownButton & JSXBase.HTMLAttributes<HTMLKupDropdownButtonElement>;
             "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
+            "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
             "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;
             "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;

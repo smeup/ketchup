@@ -104,6 +104,7 @@ Type: `Promise<void>`
  - [kup-card](../kup-card)
  - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
+ - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
  - [kup-tree](../kup-tree)
 
@@ -158,6 +159,7 @@ graph TD;
   kup-tree --> kup-autocomplete
   kup-box --> kup-autocomplete
   kup-cell --> kup-autocomplete
+  kup-form --> kup-autocomplete
   kup-image-list --> kup-autocomplete
   style kup-autocomplete fill:#f9f,stroke:#333,stroke-width:4px
 ```

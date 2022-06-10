@@ -104,6 +104,7 @@ Type: `Promise<void>`
  - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-echart](../kup-echart)
  - [kup-field](../kup-field)
+ - [kup-form](../kup-form)
  - [kup-gauge](../kup-gauge)
  - [kup-grid](../kup-grid)
  - [kup-iframe](../kup-iframe)
@@ -187,6 +188,7 @@ graph TD;
   kup-drawer --> kup-card
   kup-echart --> kup-card
   kup-field --> kup-card
+  kup-form --> kup-card
   kup-grid --> kup-card
   kup-iframe --> kup-card
   kup-image-list --> kup-card

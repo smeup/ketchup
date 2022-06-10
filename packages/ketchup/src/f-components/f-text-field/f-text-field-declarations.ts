@@ -17,6 +17,7 @@ export interface FTextFieldProps extends FComponent {
     isClearable?: boolean;
     label?: string;
     leadingLabel?: boolean;
+    name?: string;
     outlined?: boolean;
     readOnly?: boolean;
     shaped?: boolean;

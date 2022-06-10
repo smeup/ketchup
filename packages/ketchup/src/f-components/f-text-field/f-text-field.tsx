@@ -134,6 +134,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                     step={props.step}
                     min={props.min}
                     max={props.max}
+                    name={props.name}
                     class="mdc-text-field__input"
                     disabled={props.disabled}
                     readOnly={props.readOnly}
