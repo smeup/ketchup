@@ -287,6 +287,7 @@ function setEditableCell(
         case FCellTypes.AUTOCOMPLETE:
             return (
                 <kup-autocomplete
+                    initialValue={cell.value}
                     {...cell.data}
                     class={isFullWidth(props) ? 'kup-full-width' : ''}
                     onkup-autocomplete-change={(
@@ -315,6 +316,7 @@ function setEditableCell(
         case FCellTypes.COLOR_PICKER:
             return (
                 <kup-color-picker
+                    initialValue={cell.value}
                     {...cell.data}
                     class={isFullWidth(props) ? 'kup-full-width' : ''}
                     disabled={false}
@@ -326,6 +328,7 @@ function setEditableCell(
         case FCellTypes.COMBOBOX:
             return (
                 <kup-combobox
+                    initialValue={cell.value}
                     {...cell.data}
                     class={isFullWidth(props) ? 'kup-full-width' : ''}
                     onkup-combobox-change={(
@@ -576,7 +579,81 @@ function setKupCell(
     }
 }
 
-function getCellType(cell: KupDataCell, shape?: FCellShapes) {
+function cellEvent(
+    e: InputEvent | CustomEvent | MouseEvent,
+    props: FCellProps,
+    cellType: FCellTypes,
+    cellEventName: FCellEvents
+): void {
+    const cell = props.cell;
+    const column = props.column;
+    const comp = props.component;
+    const row = props.row;
+    const isInputEvent = !!((e.target as HTMLElement).tagName === 'INPUT');
+    let value = isInputEvent
+        ? (e.target as HTMLInputElement).value
+        : e.detail.value;
+    if (cellEventName === FCellEvents.UPDATE) {
+        switch (cellType) {
+            case FCellTypes.AUTOCOMPLETE:
+            case FCellTypes.COMBOBOX:
+            case FCellTypes.DATE:
+            case FCellTypes.TIME:
+                if (cell.data) {
+                    cell.data['initialValue'] = value;
+                }
+                break;
+            case FCellTypes.CHECKBOX:
+            case FCellTypes.SWITCH:
+                value = value === 'on' ? '0' : '1';
+                if (cell.data) {
+                    (cell.data as FCheckboxProps).checked =
+                        value === '0' ? false : true;
+                }
+                break;
+        }
+        if (cell.obj) {
+            cell.obj.k = value.toString();
+        }
+        cell.value = value.toString();
+        cell.displayedValue = null;
+        cell.displayedValue = getCellValueForDisplay(column, cell);
+    }
+    if (comp && (comp as KupComponent).rootElement) {
+        const cellEvent = new CustomEvent<FCellEventPayload>(cellEventName, {
+            bubbles: true,
+            cancelable: true,
+            composed: true,
+            detail: {
+                comp: comp,
+                id: (comp as KupComponent).rootElement.id,
+                cell: cell,
+                column: column,
+                event: e,
+                row: row,
+                type: cellType,
+            },
+        });
+        (comp as KupComponent).rootElement.dispatchEvent(cellEvent);
+        try {
+            (comp as KupComponent).refresh();
+        } catch (error) {}
+    }
+}
+
+function isAutoCentered(props: FCellProps) {
+    return autoCenterComps.includes(
+        (props.component as KupComponent).rootElement.tagName as KupTagNames
+    );
+}
+
+function isFullWidth(props: FCellProps) {
+    return fullWidthFieldsComps.includes(
+        (props.component as KupComponent).rootElement.tagName as KupTagNames
+    );
+}
+
+export function getCellType(cell: KupDataCell, shape?: FCellShapes) {
     const obj = cell.obj;
     if (shape) {
         switch (shape.toUpperCase()) {
@@ -652,78 +729,4 @@ function getCellType(cell: KupDataCell, shape?: FCellShapes) {
     } else {
         return FCellTypes.STRING;
     }
-}
-
-function cellEvent(
-    e: InputEvent | CustomEvent | MouseEvent,
-    props: FCellProps,
-    cellType: FCellTypes,
-    cellEventName: FCellEvents
-): void {
-    const cell = props.cell;
-    const column = props.column;
-    const comp = props.component;
-    const row = props.row;
-    const isInputEvent = !!((e.target as HTMLElement).tagName === 'INPUT');
-    let value = isInputEvent
-        ? (e.target as HTMLInputElement).value
-        : e.detail.value;
-    if (cellEventName === FCellEvents.UPDATE) {
-        switch (cellType) {
-            case FCellTypes.AUTOCOMPLETE:
-            case FCellTypes.COMBOBOX:
-            case FCellTypes.DATE:
-            case FCellTypes.TIME:
-                if (cell.data) {
-                    cell.data['initialValue'] = value;
-                }
-                break;
-            case FCellTypes.CHECKBOX:
-            case FCellTypes.SWITCH:
-                value = value === 'on' ? '0' : '1';
-                if (cell.data) {
-                    (cell.data as FCheckboxProps).checked =
-                        value === '0' ? false : true;
-                }
-                break;
-        }
-        if (cell.obj) {
-            cell.obj.k = value.toString();
-        }
-        cell.value = value.toString();
-        cell.displayedValue = null;
-        cell.displayedValue = getCellValueForDisplay(column, cell);
-    }
-    if (comp && (comp as KupComponent).rootElement) {
-        const cellEvent = new CustomEvent<FCellEventPayload>(cellEventName, {
-            bubbles: true,
-            cancelable: true,
-            composed: true,
-            detail: {
-                comp: comp,
-                id: (comp as KupComponent).rootElement.id,
-                cell: cell,
-                column: column,
-                event: e,
-                row: row,
-                type: cellType,
-            },
-        });
-        (comp as KupComponent).rootElement.dispatchEvent(cellEvent);
-        try {
-            (comp as KupComponent).refresh();
-        } catch (error) {}
-    }
-}
-
-function isAutoCentered(props: FCellProps) {
-    return autoCenterComps.includes(
-        (props.component as KupComponent).rootElement.tagName as KupTagNames
-    );
-}
-
-function isFullWidth(props: FCellProps) {
-    return fullWidthFieldsComps.includes(
-        (props.component as KupComponent).rootElement.tagName as KupTagNames
-    );
 }
