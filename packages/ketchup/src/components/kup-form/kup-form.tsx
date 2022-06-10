@@ -26,8 +26,11 @@ import { getProps, identify, setProps } from '../../utils/utils';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { FCell } from '../../f-components/f-cell/f-cell';
-import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
+import { FCell, getCellType } from '../../f-components/f-cell/f-cell';
+import {
+    FCellProps,
+    FCellTypes,
+} from '../../f-components/f-cell/f-cell-declarations';
 import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 
@@ -353,7 +356,6 @@ export class KupForm {
         }
         const cell = row.cells[formField.column];
         let title: string = undefined;
-        // TODO: Force editable cell?
         if (cell) {
             cell.isEditable = true;
             if (!this.kupManager.objects.isEmptyKupObj(cell.obj)) {
@@ -380,48 +382,104 @@ export class KupForm {
             setSizes: true,
             shape: formField.shape,
         };
-        const labelCell: VNode = (
-            <td class="form__label">
-                <span>{column.title}</span>
-            </td>
-        );
-        const fieldCell: VNode = (
-            <td
-                data-cell={cell}
-                data-row={row}
-                data-column={formField.column}
-                class={classObj}
-                style={styleObj}
-                title={title}
-            >
-                {cell && column ? (
-                    <FCell {...cellProps} />
-                ) : (
-                    <span>{formField.value}</span>
-                )}
-            </td>
-        );
+        resetLabel();
         switch (this.labelPlacement) {
             case KupFormLabelPlacement.BOTTOM:
-                return [<tr>{fieldCell}</tr>, <tr>{labelCell}</tr>];
+                return [<tr>{fieldCell()}</tr>, <tr>{labelCell()}</tr>];
+            case KupFormLabelPlacement.PLACEHOLDER:
+                setPlaceholderLabel();
             case KupFormLabelPlacement.HIDDEN:
-                return [<tr>{fieldCell}</tr>];
+                return [<tr>{fieldCell()}</tr>];
             case KupFormLabelPlacement.RIGHT:
                 return [
                     <tr>
-                        {fieldCell}
-                        {labelCell}
+                        {fieldCell()}
+                        {labelCell()}
                     </tr>,
                 ];
             case KupFormLabelPlacement.TOP:
-                return [<tr>{labelCell}</tr>, <tr>{fieldCell}</tr>];
+                return [<tr>{labelCell()}</tr>, <tr>{fieldCell()}</tr>];
             default:
                 return [
                     <tr>
-                        {labelCell}
-                        {fieldCell}
+                        {labelCell()}
+                        {fieldCell()}
                     </tr>,
                 ];
+        }
+
+        function fieldCell(): VNode {
+            return (
+                <td
+                    data-cell={cell}
+                    data-row={row}
+                    data-column={formField.column}
+                    class={classObj}
+                    style={styleObj}
+                    title={title}
+                >
+                    {cell && column ? (
+                        <FCell {...cellProps} />
+                    ) : (
+                        <span>{formField.value}</span>
+                    )}
+                </td>
+            );
+        }
+
+        function labelCell(): VNode {
+            return (
+                <td class="form__label">
+                    <span>{column.title}</span>
+                </td>
+            );
+        }
+
+        function resetLabel() {
+            if (!cell.data) {
+                cell.data = {};
+            }
+            try {
+                delete cell.data.label;
+            } catch {}
+            try {
+                delete cell.data.data['kup-text-field'].label;
+            } catch {}
+        }
+
+        function setPlaceholderLabel() {
+            switch (getCellType(cell, cell.shape || column.shape || null)) {
+                case FCellTypes.AUTOCOMPLETE:
+                case FCellTypes.COLOR_PICKER:
+                case FCellTypes.COMBOBOX:
+                case FCellTypes.DATE:
+                case FCellTypes.DATETIME:
+                case FCellTypes.TIME:
+                    if (cell.data.data) {
+                        if (cell.data.data['kup-text-field']) {
+                            cell.data.data['kup-text-field'].label =
+                                column.title;
+                        } else {
+                            cell.data.data = {
+                                'kup-text-field': {
+                                    label: column.title,
+                                },
+                            };
+                        }
+                    } else {
+                        cell.data.data = {
+                            'kup-text-field': {
+                                label: column.title,
+                            },
+                        };
+                    }
+                    break;
+                case FCellTypes.CHECKBOX:
+                case FCellTypes.NUMBER:
+                case FCellTypes.STRING:
+                case FCellTypes.SWITCH:
+                    cell.data.label = column.title;
+            }
         }
     }
 
