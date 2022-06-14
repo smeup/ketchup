@@ -38,6 +38,7 @@ export const config: Config = {
                 { src: 'echart.html' },
                 { src: 'form.html' },
                 { src: 'gauge.html' },
+                { src: 'grid.html' },
                 { src: 'image.html' },
                 { src: 'image-list.html' },
                 { src: 'kupdata.html' },

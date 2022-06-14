@@ -128,10 +128,8 @@ export class KupGrid {
             if (this.singleLine) {
                 el = <slot name={`${i}`}></slot>;
             } else {
-                let span: number = 1;
-                if (slots[i]['span']) {
-                    span = slots[i]['span'];
-                }
+                const span: number =
+                    slots[i]['span'] || slots[i].getAttribute('span') || 1;
                 el = (
                     <div
                         class={`layout-grid__cell layout-grid__cell--span-${span}`}
