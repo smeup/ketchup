@@ -107,6 +107,10 @@ components.data = [
         id: 'gauge.html',
     },
     {
+        value: 'Grid',
+        id: 'grid.html',
+    },
+    {
         value: 'Image',
         id: 'image.html',
     },
