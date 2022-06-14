@@ -14,9 +14,11 @@
 :host(.#{$kup-class-permanent}) {
   box-shadow: unset;
   transition: all 250ms;
+
   .backdrop {
     display: none;
   }
+
   .drawer {
     position: relative;
     &__content {
