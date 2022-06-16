@@ -113,12 +113,6 @@ export class KupTimePicker {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
-    private hoursEl: HTMLElement = undefined;
-    private minutesEl: HTMLElement = undefined;
-    private secondsEl: HTMLElement = undefined;
-    private hoursCircleEl: HTMLElement = undefined;
-    private minutesCircleEl: HTMLElement = undefined;
-    private secondsCircleEl: HTMLElement = undefined;
     private hoursActive: boolean = true;
     private minutesActive: boolean = false;
     private secondsActive: boolean = false;

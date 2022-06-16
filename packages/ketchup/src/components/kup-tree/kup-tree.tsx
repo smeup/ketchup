@@ -125,10 +125,6 @@ export class KupTree {
         if (this.store && this.stateId) {
             const state = this.store.getState(this.stateId);
             if (state != null) {
-                console.log(
-                    'Initialize with state for stateId ' + this.stateId,
-                    state
-                );
                 this.density = state.density;
                 this.showFilters = state.showFilters;
                 this.showFooter = state.showFooter;
@@ -212,10 +208,6 @@ export class KupTree {
                 return;
             }
             if (somethingChanged) {
-                console.log(
-                    'Persisting state for stateId ' + this.stateId + ': ',
-                    this.state
-                );
                 this.store.persistState(this.stateId, this.state);
             }
         }
