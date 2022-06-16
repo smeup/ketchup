@@ -2,7 +2,7 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 
 export const config: Config = {
-    sourceMap: true,
+    sourceMap: false,
     namespace: 'ketchup',
     outputTargets: [
         { type: 'dist' },

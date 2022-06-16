@@ -26,14 +26,16 @@ import { getProps, identify, setProps } from '../../utils/utils';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { FCell, getCellType } from '../../f-components/f-cell/f-cell';
+import { FCell } from '../../f-components/f-cell/f-cell';
 import {
     FCellProps,
     FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 
+const dom: KupDom = document.documentElement as KupDom;
 @Component({
     tag: 'kup-form',
     styleUrl: 'kup-form.scss',
@@ -115,6 +117,33 @@ export class KupForm {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
+    }
+    /**
+     * Sets the focus on an editable table cell.
+     * @param {string} column - Name of the column.
+     * @param {string} rowId - Id of the row.
+     */
+    @Method()
+    async setFocus(column: string, rowId: string): Promise<void> {
+        const cells = this.rootElement.shadowRoot.querySelectorAll(
+            'td[data-column="' + column + '"]'
+        );
+        for (let index = 0; cells && index < cells.length; index++) {
+            const cell = cells[index];
+            if (cell['data-row'] && cell['data-row'].id == rowId) {
+                const input = cell.querySelector('input');
+                if (input) {
+                    input.focus();
+                } else {
+                    const kupInput = cell.querySelector('.hydrated');
+                    if (kupInput) {
+                        try {
+                            (kupInput as any).setFocus();
+                        } catch (error) {}
+                    }
+                }
+            }
+        }
     }
     /**
      * Sets the props to the component.
@@ -448,7 +477,12 @@ export class KupForm {
         }
 
         function setPlaceholderLabel() {
-            switch (getCellType(cell, cell.shape || column.shape || null)) {
+            switch (
+                dom.ketchup.data.cell.getType(
+                    cell,
+                    cell.shape || column.shape || null
+                )
+            ) {
                 case FCellTypes.AUTOCOMPLETE:
                 case FCellTypes.COLOR_PICKER:
                 case FCellTypes.COMBOBOX:

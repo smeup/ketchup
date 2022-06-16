@@ -37,6 +37,16 @@ Type: `Promise<void>`
 
 
 
+### `setFocus(column: string, rowId: string) => Promise<void>`
+
+Sets the focus on an editable table cell.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.

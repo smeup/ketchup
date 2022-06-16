@@ -9,7 +9,11 @@ import type { KupDatePickerEventPayload } from '../../components/kup-date-picker
 import type { KupTimePickerEventPayload } from '../../components/kup-time-picker/kup-time-picker-declarations';
 import type { KupRatingClickEventPayload } from '../../components/kup-rating/kup-rating-declarations';
 import type { KupColorPickerEventPayload } from '../../components/kup-color-picker/kup-color-picker-declarations';
-import { KupComponent, KupTagNames } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupTagNames,
+} from '../../types/GenericTypes';
 import {
     autoCenterComps,
     editableTypes,
@@ -62,7 +66,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
     const hasObj = !dom.ketchup.objects.isEmptyKupObj(cell.obj);
     const isEditable = cell.isEditable && props.editable ? true : false;
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
-    const cellType = getCellType(cell, shape);
+    const cellType = dom.ketchup.data.cell.getType(cell, shape);
     const subcomponentProps: unknown = { ...cell.data };
     let cssClasses = cell.cssClass
         ? cell.cssClass
@@ -422,7 +426,7 @@ function setEditableCell(
 
 function setCell(
     cellType: string,
-    subcomponentProps: unknown,
+    subcomponentProps: GenericObject,
     content: unknown,
     classObj: Record<string, boolean>,
     cell: KupDataCell,
@@ -499,7 +503,7 @@ function setCell(
 function setKupCell(
     cellType: string,
     classObj: Record<string, boolean>,
-    subcomponentProps: unknown,
+    subcomponentProps: GenericObject,
     cell: KupDataCell,
     row: KupDataRow,
     column: KupDataColumn,
@@ -651,82 +655,4 @@ function isFullWidth(props: FCellProps) {
     return fullWidthFieldsComps.includes(
         (props.component as KupComponent).rootElement.tagName as KupTagNames
     );
-}
-
-export function getCellType(cell: KupDataCell, shape?: FCellShapes) {
-    const obj = cell.obj;
-    if (shape) {
-        switch (shape.toUpperCase()) {
-            case FCellShapes.AUTOCOMPLETE:
-                return FCellTypes.AUTOCOMPLETE;
-            case FCellShapes.BUTTON_LIST:
-                return FCellTypes.BUTTON_LIST;
-            case FCellShapes.CHART:
-                return FCellTypes.CHART;
-            case FCellShapes.CHECKBOX:
-                return FCellTypes.CHECKBOX;
-            case FCellShapes.CHIP:
-                return FCellTypes.CHIP;
-            case FCellShapes.COLOR_PICKER:
-                return FCellTypes.COLOR_PICKER;
-            case FCellShapes.COMBOBOX:
-                return FCellTypes.COMBOBOX;
-            case FCellShapes.EDITOR:
-                return FCellTypes.EDITOR;
-            case FCellShapes.GAUGE:
-                return FCellTypes.GAUGE;
-            case FCellShapes.IMAGE:
-                return FCellTypes.IMAGE;
-            case FCellShapes.KNOB:
-                return FCellTypes.KNOB;
-            case FCellShapes.PROGRESS_BAR:
-                return FCellTypes.PROGRESS_BAR;
-            case FCellShapes.RADIO:
-                return FCellTypes.RADIO;
-            case FCellShapes.RATING:
-                return FCellTypes.RATING;
-            case FCellShapes.SWITCH:
-                return FCellTypes.SWITCH;
-            case FCellShapes.TEXT_FIELD:
-                return FCellTypes.STRING;
-        }
-    }
-
-    if (dom.ketchup.objects.isBar(obj)) {
-        return FCellTypes.BAR;
-    } else if (dom.ketchup.objects.isButton(obj)) {
-        return FCellTypes.BUTTON;
-    } else if (dom.ketchup.objects.isChart(obj)) {
-        return FCellTypes.CHART;
-    } else if (dom.ketchup.objects.isCheckbox(obj)) {
-        return FCellTypes.CHECKBOX;
-    } else if (dom.ketchup.objects.isColor(obj)) {
-        return FCellTypes.COLOR_PICKER;
-    } else if (dom.ketchup.objects.isIcon(obj)) {
-        return FCellTypes.ICON;
-    } else if (dom.ketchup.objects.isImage(obj)) {
-        return FCellTypes.IMAGE;
-    } else if (dom.ketchup.objects.isLink(obj)) {
-        return FCellTypes.LINK;
-    } else if (dom.ketchup.objects.isProgressBar(obj)) {
-        return FCellTypes.PROGRESS_BAR;
-    } else if (dom.ketchup.objects.isRadio(obj)) {
-        return FCellTypes.RADIO;
-    } else if (dom.ketchup.objects.isSwitch(obj)) {
-        return FCellTypes.SWITCH;
-    } else if (dom.ketchup.objects.isKupObjList(obj)) {
-        return FCellTypes.CHIP;
-    } else if (dom.ketchup.objects.isNumber(obj)) {
-        return FCellTypes.NUMBER;
-    } else if (dom.ketchup.objects.isDate(obj)) {
-        return FCellTypes.DATE;
-    } else if (dom.ketchup.objects.isTimestamp(obj)) {
-        return FCellTypes.DATETIME;
-    } else if (dom.ketchup.objects.isTime(obj)) {
-        return FCellTypes.TIME;
-    } else if (dom.ketchup.objects.isVoCodver(obj)) {
-        return FCellTypes.ICON;
-    } else {
-        return FCellTypes.STRING;
-    }
 }

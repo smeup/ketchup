@@ -118,17 +118,17 @@ export class KupAutocomplete {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    private doConsistencyCheck: boolean = true;
-    private elStyle: any = undefined;
-    private listEl: HTMLKupListElement = null;
+    #doConsistencyCheck: boolean = true;
+    #elStyle: any = undefined;
+    #listEl: HTMLKupListElement = null;
     /**
      * Instance of the KupManager class.
      */
-    private kupManager: KupManager = kupManagerInstance();
-    private textfieldWrapper: HTMLElement = undefined;
-    private textfieldEl: HTMLInputElement | HTMLTextAreaElement = undefined;
-    private clickCb: KupManagerClickCb = null;
-    private inputTimeout: number;
+    #kupManager: KupManager = kupManagerInstance();
+    #textfieldWrapper: HTMLElement = undefined;
+    #textfieldEl: HTMLInputElement | HTMLTextAreaElement = undefined;
+    #clickCb: KupManagerClickCb = null;
+    #inputTimeout: number;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -195,19 +195,19 @@ export class KupAutocomplete {
             comp: this,
             id: this.rootElement.id,
             value: this.value,
-            inputValue: this.textfieldEl.value,
+            inputValue: this.#textfieldEl.value,
         });
     }
 
     onKupChange(value: string) {
-        this.doConsistencyCheck = true;
-        const ret = this.consistencyCheck(undefined, value);
+        this.#doConsistencyCheck = true;
+        const ret = this.#consistencyCheck(value, true);
         if (ret.exists || this.allowInconsistentValues) {
             this.kupChange.emit({
                 comp: this,
                 id: this.rootElement.id,
                 value: this.value,
-                inputValue: this.textfieldEl.value,
+                inputValue: this.#textfieldEl.value,
             });
         }
     }
@@ -217,7 +217,7 @@ export class KupAutocomplete {
             comp: this,
             id: this.rootElement.id,
             value: this.value,
-            inputValue: this.textfieldEl.value,
+            inputValue: this.#textfieldEl.value,
         });
     }
 
@@ -226,54 +226,50 @@ export class KupAutocomplete {
             comp: this,
             id: this.rootElement.id,
             value: this.value,
-            inputValue: this.textfieldEl.value,
+            inputValue: this.#textfieldEl.value,
         });
     }
 
     onKupInput() {
-        this.doConsistencyCheck = true;
-        this.consistencyCheck(undefined, this.textfieldEl.value);
-        if (this.openList(false)) {
-            if (this.listEl != null && !this.serverHandledFilter) {
-                this.listEl.filter = this.displayedValue;
-            }
-        }
-        if (this.textfieldEl.value.length >= this.minimumChars) {
+        this.#doConsistencyCheck = true;
+        this.#consistencyCheck(this.#textfieldEl.value, false);
+        this.#openList(false);
+        if (this.#textfieldEl.value.length >= this.minimumChars) {
             this.kupInput.emit({
                 comp: this,
                 id: this.rootElement.id,
                 value: this.value,
-                inputValue: this.textfieldEl.value,
+                inputValue: this.#textfieldEl.value,
             });
         }
     }
 
     onKupIconClick() {
-        if (this.textfieldWrapper.classList.contains('toggled')) {
-            this.closeList();
+        if (this.#textfieldWrapper.classList.contains('toggled')) {
+            this.#closeList();
         } else {
-            this.openList(true);
+            this.#openList(true);
         }
         this.kupIconClick.emit({
             comp: this,
             id: this.rootElement.id,
             value: this.value,
-            inputValue: this.textfieldEl.value,
-            open: this.textfieldWrapper.classList.contains('toggled'),
+            inputValue: this.#textfieldEl.value,
+            open: this.#textfieldWrapper.classList.contains('toggled'),
         });
     }
 
     onKupItemClick(e: CustomEvent<KupListEventPayload>) {
         this.onKupChange(e.detail.selected.id);
-        this.closeList();
-        if (this.textfieldEl) {
-            this.textfieldEl.focus();
+        this.#closeList();
+        if (this.#textfieldEl) {
+            this.#textfieldEl.focus();
         }
         this.kupItemClick.emit({
             comp: this,
             id: this.rootElement.id,
             value: this.value,
-            inputValue: this.textfieldEl.value,
+            inputValue: this.#textfieldEl.value,
         });
     }
 
@@ -283,30 +279,30 @@ export class KupAutocomplete {
 
     @Listen('keydown')
     listenKeydown(e: KeyboardEvent) {
-        if (this.isListOpened()) {
+        if (this.#isListOpened()) {
             switch (e.key) {
                 case 'ArrowDown':
                     e.preventDefault();
                     e.stopPropagation();
-                    this.listEl.focusNext();
+                    this.#listEl.focusNext();
                     break;
                 case 'ArrowUp':
                     e.preventDefault();
                     e.stopPropagation();
-                    this.listEl.focusPrevious();
+                    this.#listEl.focusPrevious();
                     break;
                 case 'Enter':
                     e.preventDefault();
                     e.stopPropagation();
-                    this.listEl.select().then(() => {
-                        this.closeList();
-                        this.textfieldEl.focus();
+                    this.#listEl.select().then(() => {
+                        this.#closeList();
+                        this.#textfieldEl.focus();
                     });
                     break;
                 case 'Escape':
                     e.preventDefault();
                     e.stopPropagation();
-                    this.closeList();
+                    this.#closeList();
                     break;
             }
         } else {
@@ -314,14 +310,14 @@ export class KupAutocomplete {
                 case 'ArrowDown':
                     e.preventDefault();
                     e.stopPropagation();
-                    this.openList(false);
-                    this.listEl.focusNext();
+                    this.#openList(false);
+                    this.#listEl.focusNext();
                     break;
                 case 'ArrowUp':
                     e.preventDefault();
                     e.stopPropagation();
-                    this.openList(false);
-                    this.listEl.focusPrevious();
+                    this.#openList(false);
+                    this.#listEl.focusPrevious();
                     break;
             }
         }
@@ -360,7 +356,7 @@ export class KupAutocomplete {
      */
     @Method()
     async setFocus() {
-        this.textfieldEl.focus();
+        this.#textfieldEl.focus();
     }
     /**
      * Sets the props to the component.
@@ -376,98 +372,96 @@ export class KupAutocomplete {
      */
     @Method()
     async setValue(value: string) {
-        this.doConsistencyCheck = true;
-        this.consistencyCheck(undefined, value);
+        this.#doConsistencyCheck = true;
+        this.#consistencyCheck(value, true);
     }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    private openList(forceOpen: boolean): boolean {
+    #openList(forceOpen: boolean): boolean {
         if (
             forceOpen != true &&
-            this.textfieldEl.value.length < this.minimumChars
+            this.#textfieldEl.value.length < this.minimumChars
         ) {
-            this.closeList();
+            this.#closeList();
             return false;
         }
-        this.textfieldWrapper.classList.add('toggled');
-        this.listEl.menuVisible = true;
-        const elStyle = this.listEl.style;
+        this.#textfieldWrapper.classList.add('toggled');
+        this.#listEl.menuVisible = true;
+        const elStyle = this.#listEl.style;
         elStyle.height = 'auto';
-        elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
-        if (this.kupManager.dynamicPosition.isRegistered(this.listEl)) {
-            this.kupManager.dynamicPosition.changeAnchor(
-                this.listEl,
-                this.textfieldWrapper
+        elStyle.minWidth = this.#textfieldWrapper.clientWidth + 'px';
+        if (this.#kupManager.dynamicPosition.isRegistered(this.#listEl)) {
+            this.#kupManager.dynamicPosition.changeAnchor(
+                this.#listEl,
+                this.#textfieldWrapper
             );
         } else {
-            this.kupManager.dynamicPosition.register(
-                this.listEl,
-                this.textfieldWrapper,
+            this.#kupManager.dynamicPosition.register(
+                this.#listEl,
+                this.#textfieldWrapper,
                 0,
                 KupDynamicPositionPlacement.AUTO,
                 true
             );
         }
-        this.kupManager.dynamicPosition.start(this.listEl);
-        if (!this.clickCb) {
-            this.clickCb = {
+        this.#kupManager.dynamicPosition.start(this.#listEl);
+        if (!this.#clickCb) {
+            this.#clickCb = {
                 cb: () => {
-                    this.closeList();
+                    this.#closeList();
                 },
-                el: this.listEl,
+                el: this.#listEl,
             };
         }
-        this.kupManager.addClickCallback(this.clickCb, true);
+        this.#kupManager.addClickCallback(this.#clickCb, true);
         return true;
     }
 
-    private closeList() {
-        this.textfieldWrapper.classList.remove('toggled');
-        this.listEl.menuVisible = false;
-        this.kupManager.dynamicPosition.stop(this.listEl);
-        this.kupManager.removeClickCallback(this.clickCb);
+    #closeList() {
+        this.#textfieldWrapper.classList.remove('toggled');
+        this.#listEl.menuVisible = false;
+        this.#kupManager.dynamicPosition.stop(this.#listEl);
+        this.#kupManager.removeClickCallback(this.#clickCb);
     }
 
-    private isListOpened(): boolean {
-        return this.listEl.menuVisible == true;
+    #isListOpened(): boolean {
+        return this.#listEl.menuVisible == true;
     }
 
-    private consistencyCheck(
-        e?: CustomEvent,
-        idIn?: string
-    ): ValueDisplayedValue {
-        if (!this.doConsistencyCheck) {
+    #consistencyCheck(idIn: string, setValue: boolean): ValueDisplayedValue {
+        if (!this.#doConsistencyCheck) {
             return;
         }
-        this.doConsistencyCheck = false;
+        this.#doConsistencyCheck = false;
         const ret = consistencyCheck(
             idIn,
             this.data['kup-list'],
-            this.listEl,
+            this.#listEl,
             this.selectMode,
-            this.displayMode,
-            e
+            this.displayMode
         );
         if (ret.exists || this.allowInconsistentValues) {
-            this.value = ret.value;
-            this.displayedValue = ret.displayedValue;
-            if (this.listEl != null && !this.serverHandledFilter) {
-                this.listEl.filter = this.displayedValue;
+            if (setValue) {
+                this.value = ret.value;
+                this.displayedValue = ret.displayedValue;
+            }
+            if (this.#listEl != null && !this.serverHandledFilter) {
+                this.#listEl.filter = ret.value;
             }
         } else {
             this.displayedValue = idIn;
-            if (this.listEl != null && !this.serverHandledFilter) {
-                this.listEl.filter = idIn;
+            if (this.#listEl != null && !this.serverHandledFilter) {
+                this.#listEl.filter = ret.value;
             }
         }
 
         return ret;
     }
 
-    private prepList() {
+    #prepList() {
         return (
             <kup-list
                 displayMode={this.displayMode}
@@ -476,7 +470,7 @@ export class KupAutocomplete {
                 onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
                     this.onKupItemClick(e)
                 }
-                ref={(el) => (this.listEl = el as any)}
+                ref={(el) => (this.#listEl = el as any)}
             ></kup-list>
         );
     }
@@ -486,9 +480,9 @@ export class KupAutocomplete {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.register(this);
-        this.doConsistencyCheck = true;
+        this.#kupManager.debug.logLoad(this, false);
+        this.#kupManager.theme.register(this);
+        this.#doConsistencyCheck = true;
         this.value = this.initialValue;
         if (!this.data) {
             this.data = {
@@ -499,12 +493,12 @@ export class KupAutocomplete {
     }
 
     componentDidLoad() {
-        this.consistencyCheck(undefined, this.value);
-        this.kupManager.debug.logLoad(this, true);
+        this.#consistencyCheck(this.value, true);
+        this.#kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupManager.debug.logRender(this, false);
+        this.#kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -512,12 +506,12 @@ export class KupAutocomplete {
         if (root) {
             const f: HTMLElement = root.querySelector('.f-text-field');
             if (f) {
-                this.textfieldWrapper = f;
-                this.textfieldEl = f.querySelector('input');
+                this.#textfieldWrapper = f;
+                this.#textfieldEl = f.querySelector('input');
                 FTextFieldMDC(f);
             }
         }
-        this.kupManager.debug.logRender(this, true);
+        this.#kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -530,14 +524,14 @@ export class KupAutocomplete {
                 class={`${fullHeight ? 'kup-full-height' : ''} ${
                     fullWidth ? 'kup-full-width' : ''
                 }`}
-                style={this.elStyle}
+                style={this.#elStyle}
             >
                 <style>
-                    {this.kupManager.theme.setKupStyle(
+                    {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId} style={this.elStyle}>
+                <div id={componentWrapperId} style={this.#elStyle}>
                     <FTextField
                         {...this.data['kup-text-field']}
                         disabled={this.disabled}
@@ -557,26 +551,25 @@ export class KupAutocomplete {
                         }
                         onFocus={() => this.onKupFocus()}
                         onInput={() => {
-                            window.clearTimeout(this.inputTimeout);
-                            this.inputTimeout = window.setTimeout(
+                            window.clearTimeout(this.#inputTimeout);
+                            this.#inputTimeout = window.setTimeout(
                                 () => this.onKupInput(),
                                 this.inputDelay
                             );
                         }}
                         onIconClick={() => this.onKupIconClick()}
-                    >
-                        {this.prepList()}
-                    </FTextField>
+                    ></FTextField>
                 </div>
+                {this.#prepList()}
             </Host>
         );
     }
 
     disconnectedCallback() {
-        if (this.listEl) {
-            this.kupManager.dynamicPosition.unregister([this.listEl]);
-            this.listEl.remove();
+        if (this.#listEl) {
+            this.#kupManager.dynamicPosition.unregister([this.#listEl]);
+            this.#listEl.remove();
         }
-        this.kupManager.theme.unregister(this);
+        this.#kupManager.theme.unregister(this);
     }
 }
