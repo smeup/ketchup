@@ -174,7 +174,7 @@ export class KupCombobox {
     }
 
     onKupChange(value: string) {
-        this.#consistencyCheck(undefined, value, true);
+        this.#consistencyCheck(value, true);
         this.kupChange.emit({
             comp: this,
             id: this.rootElement.id,
@@ -210,14 +210,14 @@ export class KupCombobox {
     }
 
     onKupInput() {
-        this.#consistencyCheck(undefined, this.#textfieldEl.value, false);
+        this.#consistencyCheck(this.#textfieldEl.value, false);
+        this.#openList();
         this.kupInput.emit({
             comp: this,
             id: this.rootElement.id,
             value: this.value,
             inputValue: this.#textfieldEl.value,
         });
-        this.#openList();
     }
 
     onKupIconClick() {
@@ -357,7 +357,7 @@ export class KupCombobox {
      */
     @Method()
     async setValue(value: string) {
-        this.#consistencyCheck(undefined, value, true);
+        this.#consistencyCheck(value, true);
     }
 
     /*-------------------------------------------------*/
@@ -411,31 +411,28 @@ export class KupCombobox {
         return this.#listEl.menuVisible == true;
     }
 
-    #consistencyCheck(
-        e: CustomEvent,
-        idIn: string,
-        setValue: boolean
-    ): ValueDisplayedValue {
+    #consistencyCheck(idIn: string, setValue: boolean): ValueDisplayedValue {
         let ret = consistencyCheck(
             idIn,
             this.data['kup-list'],
             this.#listEl,
             this.selectMode,
-            this.displayMode,
-            e
+            this.displayMode
         );
 
-        if (ret.exists && setValue) {
-            this.value = ret.value;
-            this.displayedValue = ret.displayedValue;
+        if (ret.exists) {
+            if (setValue) {
+                this.value = ret.value;
+                this.displayedValue = ret.displayedValue;
+            }
             if (this.#listEl != null) {
-                this.#listEl.filter = this.displayedValue;
+                this.#listEl.filter = ret.value;
             }
         } else {
             this.value = idIn;
             this.displayedValue = idIn;
             if (this.#listEl != null) {
-                this.#listEl.filter = idIn;
+                this.#listEl.filter = ret.value;
             }
         }
 
@@ -473,7 +470,7 @@ export class KupCombobox {
     }
 
     componentDidLoad() {
-        this.#consistencyCheck(undefined, this.value, true);
+        this.#consistencyCheck(this.value, true);
         this.#kupManager.debug.logLoad(this, true);
     }
 
@@ -534,10 +531,9 @@ export class KupCombobox {
                         onFocus={() => this.onKupFocus()}
                         onInput={() => this.onKupInput()}
                         onIconClick={() => this.onKupIconClick()}
-                    >
-                        {this.#prepList()}
-                    </FTextField>
+                    ></FTextField>
                 </div>
+                {this.#prepList()}
             </Host>
         );
     }

@@ -43,19 +43,25 @@ export function consistencyCheck(
     if (selected == null && idIn == null && listData) {
         selected = getFirstItemSelected(listData);
     }
+    let trueValue = null;
     if (selected == null) {
         selected = {
             id: idIn == null ? '' : idIn,
             value: idIn == null ? '' : idIn,
         };
+        id = selected.id;
+        displayedValue = selected.id;
+        trueValue = selected.id;
+    } else {
+        id = getIdOfItemByDisplayMode(selected, selectMode, ' - ');
+        displayedValue = getIdOfItemByDisplayMode(selected, displayMode, ' - ');
+        trueValue = getIdOfItemByDisplayMode(
+            selected,
+            ItemsDisplayMode.CODE,
+            ' - '
+        );
     }
-    id = getIdOfItemByDisplayMode(selected, selectMode, ' - ');
-    displayedValue = getIdOfItemByDisplayMode(selected, displayMode, ' - ');
-    const trueValue = getIdOfItemByDisplayMode(
-        selected,
-        ItemsDisplayMode.CODE,
-        ' - '
-    );
+
     return {
         value: id,
         displayedValue: displayedValue,
