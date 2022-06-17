@@ -1473,11 +1473,14 @@ export class KupBox {
             );
             return {
                 jsx: (
-                    <p id="empty-data-message">
+                    <div id="empty-data-message" class="box-wrapper">
+                        <div
+                            ref={(el: HTMLElement) => this.rowsRefs.push(el)}
+                        ></div>
                         {this.kupManager.language.translate(
                             KupLanguageGeneric.EMPTY_DATA
                         )}
-                    </p>
+                    </div>
                 ),
                 style: { 'grid-template-columns': `repeat(1, 1fr)` },
             };
