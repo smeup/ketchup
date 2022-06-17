@@ -1859,7 +1859,11 @@ export class KupBox {
                     <div
                         class="box"
                         ref={(el: HTMLElement) => this.rowsRefs.push(el)}
-                    ></div>
+                    >
+                        {this.kupManager.language.translate(
+                            KupLanguageGeneric.EMPTY_DATA
+                        )}
+                    </div>
                 </div>
             );
             containerStyle = { 'grid-template-columns': `repeat(1, 1fr)` };
