@@ -1855,11 +1855,12 @@ export class KupBox {
 
         if (this.rows.length === 0) {
             boxContent = (
-                <p id="empty-data-message">
-                    {this.kupManager.language.translate(
-                        KupLanguageGeneric.EMPTY_DATA
-                    )}
-                </p>
+                <div id="empty-data-message" class="box-wrapper">
+                    <div
+                        class="box"
+                        ref={(el: HTMLElement) => this.rowsRefs.push(el)}
+                    ></div>
+                </div>
             );
             containerStyle = { 'grid-template-columns': `repeat(1, 1fr)` };
         } else if (isKanban) {
