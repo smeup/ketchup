@@ -43,7 +43,10 @@ const dom: KupDom = document.documentElement as KupDom;
 /*                C o m p o n e n t                */
 /*-------------------------------------------------*/
 
-export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
+export const FCell: FunctionalComponent<FCellProps> = (
+    props: FCellProps,
+    children?: VNode[]
+) => {
     const cell = props.cell;
     const column = props.column;
     const row = props.row;
@@ -150,16 +153,21 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     }
 
     return (
-        <div class={classObj} style={cell.style}>
+        <div
+            class={classObj}
+            kup-get-cell-props={() => {
+                return props;
+            }}
+            style={cell.style}
+        >
             <div
                 class="f-cell__content"
                 style={cell.styleContent}
                 title={cellTitle}
             >
-                {props.indents}
-                {infoEl}
-                {icon}
-                {content}
+                {children && children.length > 0
+                    ? children
+                    : [props.indents, infoEl, icon, content]}
             </div>
         </div>
     );

@@ -623,13 +623,10 @@ const props = {
     showGroups: true,
     showHeader: true,
     showLoadMore: false,
-    showTooltipOnRightClick: true,
     sort: [],
     store: {},
     sortableColumnsMutateData: true,
     sortEnabled: true,
-    tooltipDetailTimeout: 1,
-    tooltipEnabled: true,
 };
 for (const key in props) {
     inputTable[key] = props[key];

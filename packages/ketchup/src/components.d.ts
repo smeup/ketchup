@@ -11,7 +11,7 @@ import { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from 
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+import { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
@@ -36,6 +36,7 @@ import { KupForm, KupFormEditorEventPayload } from "./components/kup-form-editor
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
+import { KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -43,10 +44,9 @@ import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarat
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
-import { KupTabBarClickEventPayload, KupTabBarData, KupTabBarEventPayload } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
-import { KupTooltipActionCommandClickEventPayload, KupTooltipDefaultEventPayload, KupTooltipLoadEventPayload, KupTooltipTreeDynamicMassExpansionEventPayload, KupTooltipTreeNodeButtonClickEventPayload, KupTooltipTreeNodeDblClickEventPayload, KupTooltipTreeNodeExpandEventPayload, KupTooltipTreeNodeSelectedEventPayload, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 export namespace Components {
     interface KupAccordion {
@@ -344,11 +344,6 @@ export namespace Components {
          */
         "showSelection": boolean;
         /**
-          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
-          * @default true
-         */
-        "showTooltipOnRightClick": boolean;
-        /**
           * If sorting is enabled, specifies which column to sort
           * @default undefined
          */
@@ -365,21 +360,6 @@ export namespace Components {
           * @default false
          */
         "swipeDisabled": boolean;
-        /**
-          * Defines the timeout for tooltip detail
-          * @default undefined
-         */
-        "tooltipDetailTimeout": number;
-        /**
-          * Enable show tooltip
-          * @default true
-         */
-        "tooltipEnabled": boolean;
-        /**
-          * Defines the timeout for tooltip load
-          * @default undefined
-         */
-        "tooltipLoadTimeout": number;
     }
     interface KupButton {
         /**
@@ -1261,10 +1241,6 @@ export namespace Components {
          */
         "showLoadMore": boolean;
         /**
-          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
-         */
-        "showTooltipOnRightClick": boolean;
-        /**
           * Defines the current sorting options.
          */
         "sort": Array<SortObject>;
@@ -1286,18 +1262,6 @@ export namespace Components {
           * Sets the width of the table.
          */
         "tableWidth": string;
-        /**
-          * Defines the timeout for tooltip detail
-         */
-        "tooltipDetailTimeout": number;
-        /**
-          * Enable show tooltip
-         */
-        "tooltipEnabled": boolean;
-        /**
-          * Defines the timeout for tooltip load
-         */
-        "tooltipLoadTimeout": number;
         /**
           * Defines the current totals options
          */
@@ -1882,6 +1846,39 @@ export namespace Components {
           * @default '100%'
          */
         "sizeY": string;
+    }
+    interface KupImageList {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Actual data of the component.
+          * @default []
+         */
+        "data": KupDataNode[];
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * When enabled displays Material's ripple effect on clicked items.
+          * @default true
+         */
+        "ripple": boolean;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupLazy {
         /**
@@ -2557,7 +2554,7 @@ export namespace Components {
           * List of elements.
           * @default null
          */
-        "data": KupTabBarData[];
+        "data": KupTabBarNode[];
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -2784,63 +2781,6 @@ export namespace Components {
          */
         "timeMinutesStep": number;
     }
-    interface KupTooltip {
-        /**
-          * Data for cell options
-         */
-        "cellOptions": TooltipCellOptions;
-        /**
-          * Custom style of the component.
-          * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle": string;
-        /**
-          * Data for top section
-         */
-        "data": TooltipData;
-        /**
-          * Data for the detail
-         */
-        "detailData": TooltipDetailData;
-        /**
-          * Timeout for loadDetail
-         */
-        "detailTimeout": number;
-        /**
-          * Used to retrieve component's props values.
-          * @param descriptions - When provided and true, the result will be the list of props with their description.
-          * @returns List of props as object, each key will be a prop.
-         */
-        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
-        /**
-          * Layout used to display the items
-         */
-        "layout": string;
-        /**
-          * Timeout for tooltip
-         */
-        "loadTimeout": number;
-        /**
-          * Owner of this tooltip
-         */
-        "owner": string;
-        /**
-          * This method is used to trigger a new render of the component.
-         */
-        "refresh": () => Promise<void>;
-        /**
-          * Container element for tooltip
-         */
-        "relatedObject": TooltipRelatedObject;
-        /**
-          * Sets the props to the component.
-          * @param props - Object containing props that will be set to the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
-        "setTooltipInfo": (relatedObject: TooltipRelatedObject) => Promise<void>;
-        "unsetTooltipInfo": () => Promise<void>;
-    }
     interface KupTree {
         /**
           * When enabled, the first level of depth will give an accordion look to nodes.
@@ -2999,24 +2939,8 @@ export namespace Components {
           * Shows the icons of the nodes.
          */
         "showIcons": boolean;
-        /**
-          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
-         */
-        "showTooltipOnRightClick": boolean;
         "stateId": string;
         "store": KupStore;
-        /**
-          * Defines the timeout for tooltip detail
-         */
-        "tooltipDetailTimeout": number;
-        /**
-          * Enable show tooltip
-         */
-        "tooltipEnabled": boolean;
-        /**
-          * Defines the timeout for tooltip load
-         */
-        "tooltipLoadTimeout": number;
         /**
           * Defines the current totals options.
          */
@@ -3191,6 +3115,12 @@ declare global {
         prototype: HTMLKupImageElement;
         new (): HTMLKupImageElement;
     };
+    interface HTMLKupImageListElement extends Components.KupImageList, HTMLStencilElement {
+    }
+    var HTMLKupImageListElement: {
+        prototype: HTMLKupImageListElement;
+        new (): HTMLKupImageListElement;
+    };
     interface HTMLKupLazyElement extends Components.KupLazy, HTMLStencilElement {
     }
     var HTMLKupLazyElement: {
@@ -3293,12 +3223,6 @@ declare global {
         prototype: HTMLKupTimePickerElement;
         new (): HTMLKupTimePickerElement;
     };
-    interface HTMLKupTooltipElement extends Components.KupTooltip, HTMLStencilElement {
-    }
-    var HTMLKupTooltipElement: {
-        prototype: HTMLKupTooltipElement;
-        new (): HTMLKupTooltipElement;
-    };
     interface HTMLKupTreeElement extends Components.KupTree, HTMLStencilElement {
     }
     var HTMLKupTreeElement: {
@@ -3333,6 +3257,7 @@ declare global {
         "kup-grid": HTMLKupGridElement;
         "kup-iframe": HTMLKupIframeElement;
         "kup-image": HTMLKupImageElement;
+        "kup-image-list": HTMLKupImageListElement;
         "kup-lazy": HTMLKupLazyElement;
         "kup-list": HTMLKupListElement;
         "kup-magic-box": HTMLKupMagicBoxElement;
@@ -3350,7 +3275,6 @@ declare global {
         "kup-tab-bar": HTMLKupTabBarElement;
         "kup-text-field": HTMLKupTextFieldElement;
         "kup-time-picker": HTMLKupTimePickerElement;
-        "kup-tooltip": HTMLKupTooltipElement;
         "kup-tree": HTMLKupTreeElement;
     }
 }
@@ -3603,11 +3527,6 @@ declare namespace LocalJSX {
          */
         "showSelection"?: boolean;
         /**
-          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
-          * @default true
-         */
-        "showTooltipOnRightClick"?: boolean;
-        /**
           * If sorting is enabled, specifies which column to sort
           * @default undefined
          */
@@ -3624,21 +3543,6 @@ declare namespace LocalJSX {
           * @default false
          */
         "swipeDisabled"?: boolean;
-        /**
-          * Defines the timeout for tooltip detail
-          * @default undefined
-         */
-        "tooltipDetailTimeout"?: number;
-        /**
-          * Enable show tooltip
-          * @default true
-         */
-        "tooltipEnabled"?: boolean;
-        /**
-          * Defines the timeout for tooltip load
-          * @default undefined
-         */
-        "tooltipLoadTimeout"?: number;
     }
     interface KupButton {
         /**
@@ -4390,10 +4294,6 @@ declare namespace LocalJSX {
          */
         "showLoadMore"?: boolean;
         /**
-          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
-         */
-        "showTooltipOnRightClick"?: boolean;
-        /**
           * Defines the current sorting options.
          */
         "sort"?: Array<SortObject>;
@@ -4415,18 +4315,6 @@ declare namespace LocalJSX {
           * Sets the width of the table.
          */
         "tableWidth"?: string;
-        /**
-          * Defines the timeout for tooltip detail
-         */
-        "tooltipDetailTimeout"?: number;
-        /**
-          * Enable show tooltip
-         */
-        "tooltipEnabled"?: boolean;
-        /**
-          * Defines the timeout for tooltip load
-         */
-        "tooltipLoadTimeout"?: number;
         /**
           * Defines the current totals options
          */
@@ -4876,6 +4764,27 @@ declare namespace LocalJSX {
           * @default '100%'
          */
         "sizeY"?: string;
+    }
+    interface KupImageList {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Actual data of the component.
+          * @default []
+         */
+        "data"?: KupDataNode[];
+        "onKup-imagelist-click"?: (event: CustomEvent<KupImageListEventPayload>) => void;
+        "onKup-imagelist-contextmenu"?: (event: CustomEvent<KupImageListEventPayload>) => void;
+        "onKup-imagelist-dblclick"?: (event: CustomEvent<KupImageListEventPayload>) => void;
+        /**
+          * When enabled displays Material's ripple effect on clicked items.
+          * @default true
+         */
+        "ripple"?: boolean;
     }
     interface KupLazy {
         /**
@@ -5389,7 +5298,7 @@ declare namespace LocalJSX {
           * List of elements.
           * @default null
          */
-        "data"?: KupTabBarData[];
+        "data"?: KupTabBarNode[];
         /**
           * Triggered when the tab loses focus.
          */
@@ -5397,7 +5306,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the tab is clicked.
          */
-        "onKup-tabbar-click"?: (event: CustomEvent<KupTabBarClickEventPayload>) => void;
+        "onKup-tabbar-click"?: (event: CustomEvent<KupTabBarEventPayload>) => void;
         /**
           * Triggered when the tab is focused.
          */
@@ -5600,61 +5509,6 @@ declare namespace LocalJSX {
          */
         "timeMinutesStep"?: number;
     }
-    interface KupTooltip {
-        /**
-          * Data for cell options
-         */
-        "cellOptions"?: TooltipCellOptions;
-        /**
-          * Custom style of the component.
-          * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle"?: string;
-        /**
-          * Data for top section
-         */
-        "data"?: TooltipData;
-        /**
-          * Data for the detail
-         */
-        "detailData"?: TooltipDetailData;
-        /**
-          * Timeout for loadDetail
-         */
-        "detailTimeout"?: number;
-        /**
-          * Layout used to display the items
-         */
-        "layout"?: string;
-        /**
-          * Timeout for tooltip
-         */
-        "loadTimeout"?: number;
-        "onKup-tooltip-actioncommandclick"?: (event: CustomEvent<KupTooltipActionCommandClickEventPayload>) => void;
-        "onKup-tooltip-defaultactionclick"?: (event: CustomEvent<KupTooltipDefaultEventPayload>) => void;
-        "onKup-tooltip-defaultoptionclick"?: (event: CustomEvent<KupTooltipDefaultEventPayload>) => void;
-        "onKup-tooltip-defaultpreviewclick"?: (event: CustomEvent<KupTooltipDefaultEventPayload>) => void;
-        "onKup-tooltip-loadcelloptions"?: (event: CustomEvent<KupTooltipLoadEventPayload>) => void;
-        "onKup-tooltip-loaddata"?: (event: CustomEvent<KupTooltipLoadEventPayload>) => void;
-        "onKup-tooltip-loaddetail"?: (event: CustomEvent<KupTooltipLoadEventPayload>) => void;
-        "onKup-tooltip-treedynamicmassexpansion"?: (event: CustomEvent<KupTooltipTreeDynamicMassExpansionEventPayload>) => void;
-        "onKup-tooltip-treenodebuttonclick"?: (event: CustomEvent<KupTooltipTreeNodeButtonClickEventPayload>) => void;
-        "onKup-tooltip-treenodedblclick"?: (event: CustomEvent<KupTooltipTreeNodeDblClickEventPayload>) => void;
-        "onKup-tooltip-treenodeexpand"?: (event: CustomEvent<KupTooltipTreeNodeExpandEventPayload>) => void;
-        /**
-          * Fired when a node of the tree has been selected
-         */
-        "onKup-tooltip-treenodeselected"?: (event: CustomEvent<KupTooltipTreeNodeSelectedEventPayload>) => void;
-        /**
-          * Owner of this tooltip
-         */
-        "owner"?: string;
-        /**
-          * Container element for tooltip
-         */
-        "relatedObject"?: TooltipRelatedObject;
-    }
     interface KupTree {
         /**
           * When enabled, the first level of depth will give an accordion look to nodes.
@@ -5809,24 +5663,8 @@ declare namespace LocalJSX {
           * Shows the icons of the nodes.
          */
         "showIcons"?: boolean;
-        /**
-          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
-         */
-        "showTooltipOnRightClick"?: boolean;
         "stateId"?: string;
         "store"?: KupStore;
-        /**
-          * Defines the timeout for tooltip detail
-         */
-        "tooltipDetailTimeout"?: number;
-        /**
-          * Enable show tooltip
-         */
-        "tooltipEnabled"?: boolean;
-        /**
-          * Defines the timeout for tooltip load
-         */
-        "tooltipLoadTimeout"?: number;
         /**
           * Defines the current totals options.
          */
@@ -5865,6 +5703,7 @@ declare namespace LocalJSX {
         "kup-grid": KupGrid;
         "kup-iframe": KupIframe;
         "kup-image": KupImage;
+        "kup-image-list": KupImageList;
         "kup-lazy": KupLazy;
         "kup-list": KupList;
         "kup-magic-box": KupMagicBox;
@@ -5882,7 +5721,6 @@ declare namespace LocalJSX {
         "kup-tab-bar": KupTabBar;
         "kup-text-field": KupTextField;
         "kup-time-picker": KupTimePicker;
-        "kup-tooltip": KupTooltip;
         "kup-tree": KupTree;
     }
 }
@@ -5917,6 +5755,7 @@ declare module "@stencil/core" {
             "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;
             "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
+            "kup-image-list": LocalJSX.KupImageList & JSXBase.HTMLAttributes<HTMLKupImageListElement>;
             "kup-lazy": LocalJSX.KupLazy & JSXBase.HTMLAttributes<HTMLKupLazyElement>;
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;
@@ -5934,7 +5773,6 @@ declare module "@stencil/core" {
             "kup-tab-bar": LocalJSX.KupTabBar & JSXBase.HTMLAttributes<HTMLKupTabBarElement>;
             "kup-text-field": LocalJSX.KupTextField & JSXBase.HTMLAttributes<HTMLKupTextFieldElement>;
             "kup-time-picker": LocalJSX.KupTimePicker & JSXBase.HTMLAttributes<HTMLKupTimePickerElement>;
-            "kup-tooltip": LocalJSX.KupTooltip & JSXBase.HTMLAttributes<HTMLKupTooltipElement>;
             "kup-tree": LocalJSX.KupTree & JSXBase.HTMLAttributes<HTMLKupTreeElement>;
         }
     }

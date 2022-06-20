@@ -1301,10 +1301,9 @@
 </template>
 
 <script lang="ts">
-import type { Components } from '@sme.up/ketchup/dist/types/components';
 import type { KupColorPickerEventPayload } from '@sme.up/ketchup/dist/types/components/kup-color-picker/kup-color-picker-declarations';
 import type { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
-import type { KupTabBarClickEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
+import type { KupTabBarEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
 import type { KupTextFieldEventPayload } from '@sme.up/ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
 import type {
   KupThemeCSSVariables,
@@ -1349,28 +1348,28 @@ export default {
       colorPickerData: { 'kup-text-field': { fullWidth: true } },
       tabs: [
         {
-          value: ThemeMakerTabs.VARIABLES,
-          text: ThemeMakerTabs.VARIABLES,
           icon: 'color_lens',
+          id: ThemeMakerTabs.VARIABLES,
           title: "List of the current theme's variables",
+          value: ThemeMakerTabs.VARIABLES,
         },
         {
-          value: ThemeMakerTabs.CUSTOM_STYLES,
-          text: ThemeMakerTabs.CUSTOM_STYLES,
           icon: 'style',
+          id: ThemeMakerTabs.CUSTOM_STYLES,
           title: "List of the current theme's customStyles",
+          value: ThemeMakerTabs.CUSTOM_STYLES,
         },
         {
-          value: ThemeMakerTabs.ICONS,
-          text: ThemeMakerTabs.ICONS,
           icon: 'photo',
+          id: ThemeMakerTabs.ICONS,
           title: "List of the current theme's icons",
+          value: ThemeMakerTabs.ICONS,
         },
         {
-          value: ThemeMakerTabs.JSON,
-          text: ThemeMakerTabs.JSON,
           icon: 'json',
+          id: ThemeMakerTabs.JSON,
           title: 'The JSON of your theme',
+          value: ThemeMakerTabs.JSON,
         },
       ],
     };
@@ -1511,7 +1510,7 @@ export default {
      * Swaps between different tabs on click.
      * @param {CustomEvent<KupTextFieldEventPayload>} e - kup-tab-bar click event.
      */
-    tabSelection(e: CustomEvent<KupTabBarClickEventPayload>): void {
+    tabSelection(e: CustomEvent<KupTabBarEventPayload>): void {
       this.handleTab(e.detail.index);
     },
     /**
@@ -1524,7 +1523,7 @@ export default {
       iconsView.classList.remove(visibleClass);
       jsonView.classList.remove(visibleClass);
 
-      switch (tabBar.data[i].text) {
+      switch (tabBar.data[i].value) {
         case ThemeMakerTabs.VARIABLES:
           variablesView.classList.add(visibleClass);
           break;

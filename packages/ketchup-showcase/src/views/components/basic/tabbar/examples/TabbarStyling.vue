@@ -28,26 +28,23 @@ export default {
     return {
       data: [
         {
-          value: 'Favorites',
-          text: 'Favorites',
-          icon: 'favorite',
           active: true,
+          icon: 'favorite',
+          id: 'Favorites',
+          value: 'Favorites',
         },
         {
-          value: 'Settings',
-          text: 'Settings',
           icon: 'build',
-          active: false,
+          id: 'Settings',
+          value: 'Settings',
         },
         {
+          id: 'Iconless',
           value: 'Iconless',
-          text: 'Iconless',
-          icon: '',
-          active: false,
         },
       ],
       markupObject:
-        "{ value: 'Favorites', text: 'Favorites', icon: 'favorite', active: true }, { value: 'Settings', text: 'Settings', icon: 'build', active: false}",
+        "{ active: true, icon: 'favorite', id: 'Favorites', value: 'Favorites' }, {  icon: 'build', id: 'Settings', value: 'Settings' }, { id: 'Iconless', value: 'Iconless' }",
     };
   },
 };

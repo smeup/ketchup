@@ -103,10 +103,12 @@ Type: `Promise<void>`
  - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-echart](../kup-echart)
  - [kup-field](../kup-field)
+ - [kup-form-editor](../kup-form-editor)
  - [kup-gauge](../kup-gauge)
  - [kup-grid](../kup-grid)
  - [kup-iframe](../kup-iframe)
  - [kup-image](../kup-image)
+ - [kup-image-list](../kup-image-list)
  - [kup-lazy](../kup-lazy)
  - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
@@ -124,7 +126,6 @@ Type: `Promise<void>`
  - [kup-tab-bar](../kup-tab-bar)
  - [kup-text-field](../kup-text-field)
  - [kup-time-picker](../kup-time-picker)
- - [kup-tooltip](../kup-tooltip)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -164,8 +165,7 @@ graph TD;
   kup-text-field --> kup-card
   kup-time-picker --> kup-card
   kup-data-table --> kup-card
-  kup-tooltip --> kup-card
-  kup-box --> kup-card
+  kup-switch --> kup-card
   kup-color-picker --> kup-card
   kup-rating --> kup-card
   kup-image --> kup-card
@@ -175,10 +175,10 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
-  kup-tree --> kup-card
-  kup-switch --> kup-card
   kup-tab-bar --> kup-card
+  kup-tree --> kup-card
   kup-accordion --> kup-card
+  kup-box --> kup-card
   kup-calendar --> kup-card
   kup-cell --> kup-card
   kup-dash --> kup-card
@@ -186,8 +186,10 @@ graph TD;
   kup-drawer --> kup-card
   kup-echart --> kup-card
   kup-field --> kup-card
+  kup-form-editor --> kup-card
   kup-grid --> kup-card
   kup-iframe --> kup-card
+  kup-image-list --> kup-card
   kup-lazy --> kup-card
   kup-magic-box --> kup-card
   kup-nav-bar --> kup-card

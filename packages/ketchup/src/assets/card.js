@@ -398,18 +398,17 @@ for (let index = 0; index < cards.length; index++) {
                 data: [
                     {
                         active: true,
-                        text: 'genericFilters',
+                        id: 'genericFilters',
                         value: 'genericFilters',
                     },
                     {
-                        text: 'columnColumns',
+                        id: 'columnColumns',
                         value: 'columnColumns',
-                        active: false,
                     },
                     {
                         icon: 'settings',
-                        value: 'genericSettings',
-                        active: false,
+                        id: 'genericSettings',
+                        value: '',
                     },
                 ],
             },

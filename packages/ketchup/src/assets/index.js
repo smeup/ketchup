@@ -107,6 +107,10 @@ components.data = [
         id: 'image.html',
     },
     {
+        value: 'Image list',
+        id: 'image-list.html',
+    },
+    {
         value: 'KupData',
         id: 'kupdata.html',
     },

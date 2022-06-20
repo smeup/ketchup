@@ -50,11 +50,9 @@ export default {
         showGroups: false,
         showHeader: false,
         showLoadMore: false,
-        showTooltipOnRightClick: true,
         sort: [],
         sortableColumnsMutateData: true,
         sortEnabled: true,
-        tooltipEnabled: true,
       },
     };
   },

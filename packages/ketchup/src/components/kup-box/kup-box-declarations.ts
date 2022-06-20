@@ -7,6 +7,7 @@ import {
     KupDataRow,
     KupDataRowAction,
 } from '../../managers/kup-data/kup-data-declarations';
+import type { PointerEvent } from '@interactjs/types/index';
 /**
  * Props of the kup-box component.
  * Used to export every prop in an object.
@@ -33,15 +34,11 @@ export enum KupBoxProps {
     selectBox = 'Automatically selects the box at the specified index.',
     selectedRowsState = 'Multiple selection.',
     showSelection = 'If enabled, highlights the selected box/boxes.',
-    showTooltipOnRightClick = 'If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.',
     sortBy = 'If sorting is enabled, specifies which column to sort.',
     sortEnabled = 'Enable sorting.',
     stateId = '',
     store = '',
     swipeDisabled = 'Disable swipe.',
-    tooltipDetailTimeout = 'Defines the timeout for tooltip detail.',
-    tooltipEnabled = 'Enable show tooltip.',
-    tooltipLoadTimeout = 'Defines the timeout for tooltip load.',
 }
 export interface KupBoxData {
     columns?: KupDataColumn[];
@@ -96,6 +93,7 @@ export interface KupBoxEventHandlerDetails {
     boxObject: HTMLElement;
     cell: KupDataCell;
     column: KupDataColumn;
+    originalEvent: PointerEvent;
     row: KupBoxRow;
 }
 

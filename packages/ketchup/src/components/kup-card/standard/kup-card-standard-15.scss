@@ -1,13 +1,16 @@
 .standard-layout-15 {
-  outline: none;
+  background: var(--kup-background-color);
+  border-radius: 3px;
+  box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%),
+    0 1px 3px 0 rgb(0 0 0 / 12%);
+  color: var(--kup-text-color);
   display: block;
   font-size: var(--kup-font-size);
-  background: var(--kup-background-color);
-  color: var(--kup-text-color);
-  box-shadow: var(--kup-box-shadow);
-  border-radius: 3px;
+  outline: none;
 
   .section-1 {
+    --kup-button-font-size: 0.75em;
+
     box-sizing: border-box;
     display: flex;
     padding: 1em;
@@ -27,13 +30,19 @@
     }
 
     .title {
+      align-items: center;
+      display: flex;
       font-size: 1.25em;
+      font-weight: 600;
       padding: 0 0.25em 0.25em;
       text-align: left;
 
       .label {
         cursor: pointer;
         padding-right: 0.25em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
         &:hover {
           text-decoration: underline;
@@ -54,6 +63,7 @@
       }
 
       .value {
+        font-weight: 600;
         width: 100%;
       }
     }
@@ -70,10 +80,12 @@
     .info {
       box-sizing: border-box;
       height: 100%;
+      overflow: auto;
       padding: 1.25em;
     }
 
     .detail-row {
+      align-items: center;
       display: flex;
       justify-content: space-between;
 
@@ -85,12 +97,20 @@
         color: rgba(var(--kup-text-color-rgb), 0.5);
         margin-top: 0.175em;
         max-width: 320px;
+        padding-right: 1.25em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       &__value {
         color: var(--kup-text-color);
-        font-size: 120%;
+        font-size: 105%;
+        font-weight: 600;
         max-width: 320px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
 
@@ -116,7 +136,6 @@
   #open-in-new,
   #search,
   #new {
-    margin: 0;
-    display: inline-flex;
+    margin: 0 0 0.5em 0;
   }
 }

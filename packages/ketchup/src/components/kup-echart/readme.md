@@ -129,7 +129,6 @@ graph TD;
   kup-time-picker --> kup-list
   kup-data-table --> kup-card
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-tooltip
   kup-data-table --> kup-list
   kup-data-table --> kup-switch
   kup-data-table --> kup-button
@@ -146,29 +145,7 @@ graph TD;
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-radio
-  kup-tooltip --> kup-button
-  kup-tooltip --> kup-card
-  kup-tooltip --> kup-box
-  kup-tooltip --> kup-list
-  kup-tooltip --> kup-tree
-  kup-box --> kup-card
-  kup-box --> kup-checkbox
-  kup-box --> kup-badge
-  kup-box --> kup-tooltip
-  kup-box --> kup-combobox
-  kup-box --> kup-text-field
-  kup-box --> kup-autocomplete
-  kup-box --> kup-color-picker
-  kup-box --> kup-date-picker
-  kup-box --> kup-rating
-  kup-box --> kup-time-picker
-  kup-box --> kup-image
-  kup-box --> kup-button
-  kup-box --> kup-button-list
-  kup-box --> kup-chart
-  kup-box --> kup-gauge
-  kup-box --> kup-progress-bar
-  kup-box --> kup-radio
+  kup-switch --> kup-card
   kup-color-picker --> kup-card
   kup-rating --> kup-card
   kup-image --> kup-spinner
@@ -184,8 +161,9 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
+  kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-badge
   kup-tree --> kup-card
-  kup-tree --> kup-tooltip
   kup-tree --> kup-list
   kup-tree --> kup-text-field
   kup-tree --> kup-autocomplete
@@ -202,9 +180,6 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-badge
-  kup-switch --> kup-card
-  kup-tab-bar --> kup-card
-  kup-tab-bar --> kup-badge
   kup-magic-box --> kup-echart
   style kup-echart fill:#f9f,stroke:#333,stroke-width:4px
 ```

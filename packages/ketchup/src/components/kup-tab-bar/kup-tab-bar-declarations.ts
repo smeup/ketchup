@@ -1,3 +1,4 @@
+import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
 import { KupEventPayload } from '../../types/GenericTypes';
 
 /**
@@ -12,19 +13,11 @@ export enum KupTabBarProps {
 /**
  * The object of a single radio.
  */
-export interface KupTabBarData {
-    value: string;
+export interface KupTabBarNode extends KupDataNode {
     active?: boolean;
-    icon?: string;
-    text?: string;
-    title?: string;
 }
 
 export interface KupTabBarEventPayload extends KupEventPayload {
+    node: KupTabBarNode;
     index: number;
-    el: EventTarget;
-}
-
-export interface KupTabBarClickEventPayload extends KupTabBarEventPayload {
-    value: string;
 }
