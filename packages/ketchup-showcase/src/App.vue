@@ -386,6 +386,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'form',
+                  },
+                },
+                icon: 'mode_edit',
+                value: 'Form',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'imagelist',
                   },
                 },

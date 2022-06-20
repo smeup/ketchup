@@ -282,6 +282,7 @@ export class KupButton {
                 : false,
             styling: this.styling,
             showSpinner: this.showSpinner,
+            title: this.rootElement.title,
             toggable: this.toggable,
             trailingIcon: this.trailingIcon,
             warning: this.rootElement.classList.contains('kup-warning')
