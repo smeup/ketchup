@@ -293,16 +293,19 @@ export class KupForm {
             }
 
             while (size-- > 0) {
-                sectionContent.push(
-                    this.renderFormField(
-                        {
-                            formField: content[cnt++],
-                            row,
-                            visibleColumns,
-                        },
-                        true
-                    )
+                const formField = this.renderFormField(
+                    {
+                        formField: content[cnt++],
+                        row,
+                        visibleColumns,
+                    },
+                    true
                 );
+                let field = formField;
+                if (!section.horizontal) {
+                    field = <tr>{formField}</tr>;
+                }
+                sectionContent.push(field);
             }
         } else if (visibleColumns.length > 0) {
             const column = visibleColumns[0];
@@ -345,7 +348,13 @@ export class KupForm {
             <div class={sectionClass} style={sectionStyle}>
                 {section.title ? <h3>{section.title}</h3> : null}
                 <table>
-                    <tbody>{sectionContent}</tbody>
+                    <tbody>
+                        {section.horizontal ? (
+                            <tr>{sectionContent}</tr>
+                        ) : (
+                            sectionContent
+                        )}
+                    </tbody>
                 </table>
             </div>
         );
@@ -417,24 +426,39 @@ export class KupForm {
                 return [<tr>{fieldCell()}</tr>, <tr>{labelCell()}</tr>];
             case KupFormLabelPlacement.PLACEHOLDER:
                 setPlaceholderLabel();
-            case KupFormLabelPlacement.HIDDEN:
-                return [<tr>{fieldCell()}</tr>];
-            case KupFormLabelPlacement.RIGHT:
-                return [
-                    <tr>
-                        {fieldCell()}
-                        {labelCell()}
-                    </tr>,
-                ];
+            case KupFormLabelPlacement.HIDDEN: {
+                if (fromSection) {
+                    return [fieldCell()];
+                } else {
+                    return [<tr>{fieldCell()}</tr>];
+                }
+            }
+            case KupFormLabelPlacement.RIGHT: {
+                if (fromSection) {
+                    return [fieldCell(), labelCell()];
+                } else {
+                    return [
+                        <tr>
+                            {fieldCell()}
+                            {labelCell()}
+                        </tr>,
+                    ];
+                }
+            }
             case KupFormLabelPlacement.TOP:
                 return [<tr>{labelCell()}</tr>, <tr>{fieldCell()}</tr>];
-            default:
-                return [
-                    <tr>
-                        {labelCell()}
-                        {fieldCell()}
-                    </tr>,
-                ];
+            default: {
+                if (fromSection) {
+                    return [labelCell(), fieldCell()];
+                } else {
+                    return [
+                        <tr>
+                            {labelCell()}
+                            {fieldCell()}
+                        </tr>,
+                    ];
+                }
+            }
         }
 
         function fieldCell(): VNode {
