@@ -44,19 +44,27 @@ img {
   display: none;
   transition: opacity var(--kup_photoframe_fade_out_time) ease-out;
   will-change: opacity;
+  z-index: 1;
 
   &--loaded {
     display: block;
   }
 
   &--fade-out {
-    left: 0;
     opacity: 0;
     position: absolute;
-    top: 0;
   }
 }
 
 .resource {
-  display: block;
+  display: none;
+  left: 0;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+
+  &--fade-in {
+    display: block;
+    position: relative;
+  }
 }
