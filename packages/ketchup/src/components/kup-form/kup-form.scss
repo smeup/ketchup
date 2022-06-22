@@ -23,23 +23,6 @@
   font-size: var(--kup_form_font_size);
 }
 
-:host([label-placement='left']) {
-  .form {
-    &__label {
-      width: var(--kup_form_label_width, 0);
-    }
-  }
-}
-
-:host([label-placement='right']) {
-  .form {
-    &__field {
-      min-width: 200px;
-      width: 0;
-    }
-  }
-}
-
 .form {
   background: var(--kup_form_background_color);
   color: var(--kup_form_color);
@@ -86,6 +69,19 @@
         top: -11px;
         left: 5px;
         transition: background-color 0.25s ease;
+      }
+    }
+
+    &--left {
+      .form__label {
+        width: var(--kup_form_label_width, 0);
+      }
+    }
+
+    &--right {
+      .form__field {
+        min-width: 200px;
+        width: 0;
       }
     }
   }

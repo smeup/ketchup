@@ -675,17 +675,6 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
-  KupFormLabelPlacement: {
-    keys: {
-      BOTTOM: 'bottom',
-      LEFT: 'left',
-      HIDDEN: 'hidden',
-      PLACEHOLDER: 'placeholder',
-      RIGHT: 'right',
-      TOP: 'top',
-    },
-    type: DemoTypeFeature.ENUM,
-  },
   KupFormLayout: {
     keys: {
       'horizontal?': 'boolean',
