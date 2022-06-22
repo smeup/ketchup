@@ -345,7 +345,10 @@ const layoutData = {
                 horizontal: false,
                 sections: [
                     {
-                        labelPlacement: 'right',
+                        label: {
+                            alignment: 'center',
+                            width: '250px',
+                        },
                         content: [
                             {
                                 column: 'DES',
@@ -355,7 +358,10 @@ const layoutData = {
                         style: {},
                     },
                     {
-                        labelPlacement: 'top',
+                        label: {
+                            alignment: 'left',
+                            placement: 'top',
+                        },
                         content: [
                             {
                                 column: 'COL',
@@ -368,7 +374,10 @@ const layoutData = {
                         style: {},
                     },
                     {
-                        labelPlacement: 'bottom',
+                        label: {
+                            alignment: 'right',
+                            placement: 'bottom',
+                        },
                         content: [
                             {
                                 column: 'DAT',
@@ -378,7 +387,10 @@ const layoutData = {
                         style: {},
                     },
                     {
-                        labelPlacement: 'hidden',
+                        label: {
+                            placement: 'hidden',
+                            width: '300px',
+                        },
                         content: [
                             {
                                 column: 'SFE',

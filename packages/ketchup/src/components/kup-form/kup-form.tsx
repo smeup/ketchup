@@ -17,6 +17,7 @@ import {
     KupFormProps,
     KupFormData,
     KupFormLabelPlacement,
+    KupFormLabelAlignment,
 } from './kup-form-declarations';
 import {
     KupManager,
@@ -312,7 +313,7 @@ export class KupForm {
 
         const isGrid = !!section.columns;
         const labelPlacement =
-            section.labelPlacement || KupFormLabelPlacement.LEFT;
+            section?.label?.placement || KupFormLabelPlacement.LEFT;
 
         const sectionClass: { [index: string]: boolean } = {
             form__section: true,
@@ -418,7 +419,7 @@ export class KupForm {
             shape: formField.shape,
         };
         resetLabel();
-        switch (section.labelPlacement) {
+        switch (section.label?.placement) {
             case KupFormLabelPlacement.BOTTOM:
                 return [<tr>{fieldCell()}</tr>, <tr>{labelCell()}</tr>];
             case KupFormLabelPlacement.PLACEHOLDER:
@@ -478,8 +479,16 @@ export class KupForm {
         }
 
         function labelCell(): VNode {
+            const alignment =
+                section?.label?.alignment || KupFormLabelAlignment.LEFT;
+            const style = {
+                width: section?.label?.width ? section?.label?.width : '',
+            };
             return (
-                <td class="form__label">
+                <td
+                    class={`form__label form__label--${alignment}`}
+                    style={style}
+                >
                     <span>{column.title}</span>
                 </td>
             );

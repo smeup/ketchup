@@ -91,9 +91,20 @@
     box-sizing: border-box;
     font-size: 0.875em;
     letter-spacing: 0.0178571429em;
-    text-align: var(--kup_form_label_alignment);
     white-space: nowrap;
     width: var(--kup_form_label_width);
+
+    &--center {
+      text-align: var(--kup_form_label_alignment, center);
+    }
+
+    &--left {
+      text-align: var(--kup_form_label_alignment, left);
+    }
+
+    &--right {
+      text-align: var(--kup_form_label_alignment, right);
+    }
   }
 
   &__field {

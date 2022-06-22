@@ -31,7 +31,7 @@ export interface KupFormSection {
     dim?: string;
     horizontal?: boolean;
     id?: string;
-    labelPlacement?: KupFormLabelPlacement;
+    label?: KupFormLabel;
     sections?: KupFormSection[];
     style?: { [index: string]: string };
     title?: string;
@@ -42,6 +42,18 @@ export interface KupFormField {
     data?: any;
     shape?: FCellShapes;
     value?: string;
+}
+
+export interface KupFormLabel {
+    alignment?: KupFormLabelAlignment;
+    placement?: KupFormLabelPlacement;
+    width?: string;
+}
+
+export enum KupFormLabelAlignment {
+    CENTER = 'center',
+    LEFT = 'left',
+    RIGHT = 'right',
 }
 
 export enum KupFormLabelPlacement {
