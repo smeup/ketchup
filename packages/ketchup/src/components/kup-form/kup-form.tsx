@@ -411,7 +411,7 @@ export class KupForm {
             return null;
         }
         const cellProps: FCellProps = {
-            cell: cell,
+            cell: formField.data ? { ...cell, data: formField.data } : cell,
             column: column,
             component: this,
             editable: true,

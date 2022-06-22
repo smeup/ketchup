@@ -40,7 +40,7 @@ export interface KupFormField {
     column?: string;
     value?: string;
     shape?: FCellShapes;
-    config?: any;
+    data?: any;
 }
 
 export enum KupFormLabelPlacement {
