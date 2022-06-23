@@ -5084,20 +5084,24 @@ export class KupDataTable {
 
         let groupChips = null;
         if (this.isGrouping()) {
-            const chipsData = this.groups.map((group) => {
+            const chipsData = [];
+            for (let index = 0; index < this.groups.length; index++) {
+                const group = this.groups[index];
                 const column = getColumnByName(this.getColumns(), group.column);
-
                 if (column) {
-                    const a: KupChipNode = {
+                    chipsData.push({
                         value: column.title,
                         id: column.name,
                         checked: true,
-                    };
-                    return a;
+                    });
                 } else {
-                    return null;
+                    this.kupManager.debug.logMessage(
+                        this,
+                        "Grouped for a non-existent column! ("+group.column+")",
+                        KupDebugCategory.WARNING
+                    );
                 }
-            });
+            }
             if (chipsData.length > 0) {
                 const props: FChipsProps = {
                     data: chipsData,
