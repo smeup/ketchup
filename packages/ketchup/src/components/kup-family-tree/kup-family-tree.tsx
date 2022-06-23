@@ -6,7 +6,10 @@ import {
     Host,
     Method,
     Prop,
+    VNode,
 } from '@stencil/core';
+import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
+import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -14,8 +17,10 @@ import {
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
-import { KupFamilyTreeProps } from './kup-family-tree-declarations';
+import {
+    KupFamilyTreeData,
+    KupFamilyTreeProps,
+} from './kup-family-tree-declarations';
 
 @Component({
     tag: 'kup-family-tree',
@@ -40,9 +45,9 @@ export class KupFamilyTree {
     @Prop() customStyle: string = '';
     /**
      * Actual data of the component.
-     * @default []
+     * @default null
      */
-    @Prop() data: KupDataNode[] = [];
+    @Prop() data: KupFamilyTreeData = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -80,6 +85,29 @@ export class KupFamilyTree {
     }
 
     /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    #createTree(): VNode {
+        const content: VNode[] = [];
+        if (!this.data || !this.data.rows || !this.data.rows.length) {
+            content.push(
+                <div>
+                    {this.#kupManager.language.translate(
+                        KupLanguageGeneric.EMPTY_DATA
+                    )}
+                </div>
+            );
+        } else {
+            for (let index = 0; index < this.data.rows.length; index++) {
+                const row = this.data.rows[index];
+            }
+        }
+        console.log(this.#kupManager.data.node.getMaxChildren(this.data.rows));
+        return <div class="family-tree">{content}</div>;
+    }
+
+    /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
@@ -109,7 +137,7 @@ export class KupFamilyTree {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}></div>
+                <div id={componentWrapperId}>{this.#createTree()}</div>
             </Host>
         );
     }

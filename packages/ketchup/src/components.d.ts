@@ -32,6 +32,7 @@ import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/
 import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 import { GeoJSON } from "geojson";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
+import { KupFamilyTreeData } from "./components/kup-family-tree/kup-family-tree-declarations";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupFormData, KupFormLabelPlacement, KupFormLayout } from "./components/kup-form/kup-form-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
@@ -1579,9 +1580,9 @@ export namespace Components {
         "customStyle": string;
         /**
           * Actual data of the component.
-          * @default []
+          * @default null
          */
-        "data": KupDataNode[];
+        "data": KupFamilyTreeData;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -4814,9 +4815,9 @@ declare namespace LocalJSX {
         "customStyle"?: string;
         /**
           * Actual data of the component.
-          * @default []
+          * @default null
          */
-        "data"?: KupDataNode[];
+        "data"?: KupFamilyTreeData;
     }
     interface KupField {
         /**
