@@ -90,6 +90,25 @@ export function toStreamNode(nodes: KupDataNode[]): KupDataNode[] {
     return streamlined;
 }
 /**
+ * Returns the highest children count.
+ * @param {KupDataNode[]} nodes - Input array of nodes.
+ * @returns {number} Highest children count.
+ */
+export function getMaxChildrenNode(nodes: KupDataNode[]) {
+    let count = 0;
+    const recursive = (n: KupDataNode[]) => {
+        for (let index = 0; index < n.length; index++) {
+            const node = n[index];
+            if (Array.isArray(node.children) && count < node.children.length) {
+                count = node.children.length;
+                recursive(node.children);
+            }
+        }
+    };
+    recursive(nodes);
+    return count;
+}
+/**
  * Returns the parent of the given node.
  * @param {KupDataNode[]} nodes - Input array of nodes.
  * @param {KupDataNode} child - Child node.

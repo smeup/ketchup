@@ -15,6 +15,7 @@ import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
 import { findColumns, hideColumns, newColumn } from './kup-data-column-helper';
 import { findRow, toNode } from './kup-data-row-helper';
 import {
+    getMaxChildrenNode,
     getParentNode,
     removeNode,
     setPropertiesNode,
@@ -152,6 +153,9 @@ export class KupData {
         },
     };
     node = {
+        getMaxChildren(nodes: KupDataNode[]): number {
+            return getMaxChildrenNode(nodes);
+        },
         getParent(nodes: KupDataNode[], child: KupDataNode): KupDataNode {
             return getParentNode(nodes, child);
         },
