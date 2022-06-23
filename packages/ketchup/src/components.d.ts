@@ -1570,6 +1570,34 @@ export namespace Components {
          */
         "yAxis": YAXisComponentOption;
     }
+    interface KupFamilyTree {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Actual data of the component.
+          * @default []
+         */
+        "data": KupDataNode[];
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
     interface KupField {
         /**
           * Custom style of the component.
@@ -3296,6 +3324,12 @@ declare global {
         prototype: HTMLKupEchartElement;
         new (): HTMLKupEchartElement;
     };
+    interface HTMLKupFamilyTreeElement extends Components.KupFamilyTree, HTMLStencilElement {
+    }
+    var HTMLKupFamilyTreeElement: {
+        prototype: HTMLKupFamilyTreeElement;
+        new (): HTMLKupFamilyTreeElement;
+    };
     interface HTMLKupFieldElement extends Components.KupField, HTMLStencilElement {
     }
     var HTMLKupFieldElement: {
@@ -3469,6 +3503,7 @@ declare global {
         "kup-drawer": HTMLKupDrawerElement;
         "kup-dropdown-button": HTMLKupDropdownButtonElement;
         "kup-echart": HTMLKupEchartElement;
+        "kup-family-tree": HTMLKupFamilyTreeElement;
         "kup-field": HTMLKupFieldElement;
         "kup-form": HTMLKupFormElement;
         "kup-gauge": HTMLKupGaugeElement;
@@ -4770,6 +4805,19 @@ declare namespace LocalJSX {
          */
         "yAxis"?: YAXisComponentOption;
     }
+    interface KupFamilyTree {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Actual data of the component.
+          * @default []
+         */
+        "data"?: KupDataNode[];
+    }
     interface KupField {
         /**
           * Custom style of the component.
@@ -5949,6 +5997,7 @@ declare namespace LocalJSX {
         "kup-drawer": KupDrawer;
         "kup-dropdown-button": KupDropdownButton;
         "kup-echart": KupEchart;
+        "kup-family-tree": KupFamilyTree;
         "kup-field": KupField;
         "kup-form": KupForm;
         "kup-gauge": KupGauge;
@@ -6002,6 +6051,7 @@ declare module "@stencil/core" {
             "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
             "kup-dropdown-button": LocalJSX.KupDropdownButton & JSXBase.HTMLAttributes<HTMLKupDropdownButtonElement>;
             "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
+            "kup-family-tree": LocalJSX.KupFamilyTree & JSXBase.HTMLAttributes<HTMLKupFamilyTreeElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
