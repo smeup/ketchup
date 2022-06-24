@@ -2,21 +2,42 @@
   display: block;
 }
 
-.family-tree {
-  td {
-    box-sizing: border-box;
-    max-width: 50px;
-    min-width: 50px;
-    overflow: hidden;
-    width: 50px;
-  }
+table {
+  //width: 100%;
+  //table-layout: fixed;
+  border-collapse: collapse;
 
-  &__item {
-    background: red;
-    color: white;
-    max-width: 50px;
-    min-width: 50px;
-    padding: 12px;
-    width: 50px;
+  > tr > td {
+    text-align: center;
+    vertical-align: top;
+    padding: 0;
   }
+}
+
+.line-placeholder {
+  height: 20px;
+}
+
+.line {
+  background-color: black;
+  width: 2px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.line-top {
+  border-top: 2px solid black;
+}
+
+.line-left {
+  border-left: 2px solid black;
+}
+
+.line-right {
+  border-right: 2px solid black;
+}
+
+.box {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

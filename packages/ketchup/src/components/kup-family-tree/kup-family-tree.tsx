@@ -91,41 +91,84 @@ export class KupFamilyTree {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
+    buildChildLine(
+        first: boolean,
+        last: boolean,
+        alone: boolean,
+        moreTwo: boolean
+    ) {
+        const content: VNode[] = [];
+        content.push(
+            <td class={{ 'line-top': !first, 'line-right': !first }}>
+                <div class={'line-placeholder'}></div>
+            </td>
+        );
+        content.push(
+            <td
+                class={{
+                    'line-top': (first && !alone) || (moreTwo && !last),
+                    'line-left': first,
+                }}
+            >
+                <div class={'line-placeholder'}></div>
+            </td>
+        );
+        return content;
+    }
+
+    buildNode(node: KupDataNode) {
+        const span1 =
+            node.children && node.children.length > 0
+                ? node.children.length * 2
+                : 1;
+        const styleVLine = {
+            'line-placeholder': node.children && node.children.length > 0,
+            line: node.children && node.children.length > 0,
+        };
+        return (
+            <table>
+                <tr>
+                    <td colSpan={span1}>
+                        <div class="box" title={node.value}>
+                            {node.value}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colSpan={span1}>
+                        <div class={styleVLine}></div>
+                    </td>
+                </tr>
+                <tr>
+                    {node.children && node.children.length > 0
+                        ? node.children.map((inode) =>
+                              this.buildChildLine(
+                                  node.children.indexOf(inode) == 0,
+                                  node.children.indexOf(inode) ==
+                                      node.children.length - 1,
+                                  node.children.length == 1,
+                                  node.children.length > 2
+                              )
+                          )
+                        : undefined}
+                </tr>
+                <tr>
+                    {node.children && node.children.length > 0
+                        ? node.children.map((inode) => (
+                              <td colSpan={2}>{this.buildNode(inode)}</td>
+                          ))
+                        : undefined}
+                </tr>
+            </table>
+        );
+    }
+
+    buildNodes(nodes: KupDataNode[]) {
+        return nodes.map((node) => this.buildNode(node));
+    }
+
     #createTree(): VNode {
         const content: VNode[] = [];
-        const itemsList: {
-            [index: string]: {
-                brothers: number;
-                children: number;
-                maxChildren: number;
-                jsxNode: VNode;
-            }[];
-        } = {};
-        const recursive = (
-            nodes: KupDataNode[],
-            brothers: number,
-            depth: number
-        ) => {
-            for (let index = 0; index < nodes.length; index++) {
-                const node = nodes[index];
-                if (!itemsList[depth]) {
-                    itemsList[depth] = [];
-                }
-                itemsList[depth].push({
-                    brothers,
-                    children: node.children?.length || 0,
-                    maxChildren: node.children?.length
-                        ? this.#kupManager.data.node.getDrilldownInfo(
-                              node.children
-                          ).maxChildren
-                        : 0,
-                    jsxNode: <div class="family-tree__item">{node.value}</div>,
-                });
-                if (node.children && index < node.children.length) {
-                    recursive(node.children, node.children.length, depth + 1);
-                }
-            }
-        };
 
         if (!this.data || !this.data.rows || !this.data.rows.length) {
             content.push(
@@ -136,25 +179,10 @@ export class KupFamilyTree {
                 </div>
             );
         } else {
-            recursive(this.data.rows, this.data.rows.length, 0);
-            console.log(itemsList);
-            const rows = [];
-            for (const key in itemsList) {
-                const items = itemsList[key];
-                const cells = [];
-                for (let index = 0; index < items.length; index++) {
-                    const item = items[index];
-                    const maxColumns = item.maxChildren || item.children;
-                    cells.push(<td colSpan={maxColumns}>{item.jsxNode}</td>);
-                }
-                rows.push(<tr>{cells}</tr>);
-            }
-            content.push(<table>{rows}</table>);
+            content.push(<div>{this.buildNodes(this.data.rows)}</div>);
         }
         return <div class="family-tree">{content}</div>;
     }
-
-    #createNode() {}
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
