@@ -9,6 +9,7 @@ import {
     VNode,
 } from '@stencil/core';
 import {
+    KupDataColumn,
     KupDataNode,
     KupDataNodeDrilldownInfo,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -20,6 +21,7 @@ import {
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupBoxData } from '../kup-box/kup-box-declarations';
 import {
     KupFamilyTreeData,
     KupFamilyTreeProps,
@@ -125,14 +127,21 @@ export class KupFamilyTree {
             'line-placeholder': node.children && node.children.length > 0,
             line: node.children && node.children.length > 0,
         };
+
+        const data: KupBoxData = {
+            columns: [{ name: 'MOCK' } as KupDataColumn],
+            rows: [{ cells: { MOCK: node } }],
+        };
+
+        const box = (
+            <div class={'box'}>
+                <kup-box data={data} class={'box-content'}></kup-box>
+            </div>
+        );
         return (
             <table>
                 <tr>
-                    <td colSpan={span1}>
-                        <div class="box" title={node.value}>
-                            {node.value}
-                        </div>
-                    </td>
+                    <td colSpan={span1}>{box}</td>
                 </tr>
                 <tr>
                     <td colSpan={span1}>
