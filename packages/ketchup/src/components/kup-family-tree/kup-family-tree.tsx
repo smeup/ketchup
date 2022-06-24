@@ -8,7 +8,10 @@ import {
     Prop,
     VNode,
 } from '@stencil/core';
-import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataNode,
+    KupDataNodeDrilldownInfo,
+} from '../../managers/kup-data/kup-data-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import {
     KupManager,
@@ -90,6 +93,40 @@ export class KupFamilyTree {
 
     #createTree(): VNode {
         const content: VNode[] = [];
+        const itemsList: {
+            [index: string]: {
+                brothers: number;
+                children: number;
+                maxChildren: number;
+                jsxNode: VNode;
+            }[];
+        } = {};
+        const recursive = (
+            nodes: KupDataNode[],
+            brothers: number,
+            depth: number
+        ) => {
+            for (let index = 0; index < nodes.length; index++) {
+                const node = nodes[index];
+                if (!itemsList[depth]) {
+                    itemsList[depth] = [];
+                }
+                itemsList[depth].push({
+                    brothers,
+                    children: node.children?.length || 0,
+                    maxChildren: node.children?.length
+                        ? this.#kupManager.data.node.getDrilldownInfo(
+                              node.children
+                          ).maxChildren
+                        : 0,
+                    jsxNode: <div class="family-tree__item">{node.value}</div>,
+                });
+                if (node.children && index < node.children.length) {
+                    recursive(node.children, node.children.length, depth + 1);
+                }
+            }
+        };
+
         if (!this.data || !this.data.rows || !this.data.rows.length) {
             content.push(
                 <div>
@@ -99,13 +136,25 @@ export class KupFamilyTree {
                 </div>
             );
         } else {
-            for (let index = 0; index < this.data.rows.length; index++) {
-                const row = this.data.rows[index];
+            recursive(this.data.rows, this.data.rows.length, 0);
+            console.log(itemsList);
+            const rows = [];
+            for (const key in itemsList) {
+                const items = itemsList[key];
+                const cells = [];
+                for (let index = 0; index < items.length; index++) {
+                    const item = items[index];
+                    const maxColumns = item.maxChildren || item.children;
+                    cells.push(<td colSpan={maxColumns}>{item.jsxNode}</td>);
+                }
+                rows.push(<tr>{cells}</tr>);
             }
+            content.push(<table>{rows}</table>);
         }
-        console.log(this.#kupManager.data.node.getMaxChildren(this.data.rows));
         return <div class="family-tree">{content}</div>;
     }
+
+    #createNode() {}
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */

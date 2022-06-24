@@ -8,6 +8,7 @@ import {
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
     KupDataNode,
+    KupDataNodeDrilldownInfo,
     KupDataRow,
     KupDataRowCells,
 } from './kup-data-declarations';
@@ -15,7 +16,7 @@ import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
 import { findColumns, hideColumns, newColumn } from './kup-data-column-helper';
 import { findRow, toNode } from './kup-data-row-helper';
 import {
-    getMaxChildrenNode,
+    getDrilldownInfoNode,
     getParentNode,
     removeNode,
     setPropertiesNode,
@@ -153,8 +154,8 @@ export class KupData {
         },
     };
     node = {
-        getMaxChildren(nodes: KupDataNode[]): number {
-            return getMaxChildrenNode(nodes);
+        getDrilldownInfo(nodes: KupDataNode[]): KupDataNodeDrilldownInfo {
+            return getDrilldownInfoNode(nodes);
         },
         getParent(nodes: KupDataNode[], child: KupDataNode): KupDataNode {
             return getParentNode(nodes, child);

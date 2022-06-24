@@ -1,4 +1,4 @@
-import { KupDataNode } from './kup-data-declarations';
+import { KupDataNode, KupDataNodeDrilldownInfo } from './kup-data-declarations';
 
 /**
  * Removes the given node from the input array, by searching even children.
@@ -90,23 +90,47 @@ export function toStreamNode(nodes: KupDataNode[]): KupDataNode[] {
     return streamlined;
 }
 /**
- * Returns the highest children count.
+ * Gets information about the tree depth, such as max number of children and max depth.
  * @param {KupDataNode[]} nodes - Input array of nodes.
- * @returns {number} Highest children count.
+ * @returns {KupDataNodeDrilldownInfo} Information about the tree depth.
  */
-export function getMaxChildrenNode(nodes: KupDataNode[]) {
-    let count = 0;
-    const recursive = (n: KupDataNode[]) => {
-        for (let index = 0; index < n.length; index++) {
-            const node = n[index];
-            if (Array.isArray(node.children) && count < node.children.length) {
-                count = node.children.length;
+export function getDrilldownInfoNode(
+    nodes: KupDataNode[]
+): KupDataNodeDrilldownInfo {
+    let maxChildren = 0;
+    let maxDepth = 0;
+    const getDepth = function (n: KupDataNode) {
+        const depth = 0;
+        if (n.children) {
+            n.children.forEach(function (d) {
+                const tmpDepth = getDepth(d);
+                if (tmpDepth > depth) {
+                    maxDepth = tmpDepth;
+                }
+            });
+        }
+        return depth;
+    };
+    const recursive = (arr: KupDataNode[]) => {
+        maxDepth++;
+        for (let index = 0; index < arr.length; index++) {
+            const node = arr[index];
+            getDepth(node);
+            if (
+                Array.isArray(node.children) &&
+                maxChildren < node.children.length
+            ) {
+                maxChildren = node.children.length;
                 recursive(node.children);
             }
         }
     };
+
     recursive(nodes);
-    return count;
+    return {
+        maxChildren,
+        maxDepth,
+    };
 }
 /**
  * Returns the parent of the given node.

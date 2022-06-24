@@ -1,3 +1,22 @@
 :host {
   display: block;
 }
+
+.family-tree {
+  td {
+    box-sizing: border-box;
+    max-width: 50px;
+    min-width: 50px;
+    overflow: hidden;
+    width: 50px;
+  }
+
+  &__item {
+    background: red;
+    color: white;
+    max-width: 50px;
+    min-width: 50px;
+    padding: 12px;
+    width: 50px;
+  }
+}
