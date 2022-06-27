@@ -11,7 +11,6 @@ import {
 import {
     KupDataColumn,
     KupDataNode,
-    KupDataNodeDrilldownInfo,
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import {
@@ -93,7 +92,7 @@ export class KupFamilyTree {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    buildChildLine(
+    #buildChildLine(
         first: boolean,
         last: boolean,
         alone: boolean,
@@ -101,31 +100,40 @@ export class KupFamilyTree {
     ) {
         const content: VNode[] = [];
         content.push(
-            <td class={{ 'line-top': !first, 'line-right': !first }}>
-                <div class={'line-placeholder'}></div>
+            <td
+                class={{
+                    'family-tree__line': true,
+                    'family-tree__line--right': !first,
+                    'family-tree__line--top': !first,
+                }}
+            >
+                <div class={'family-tree__line--placeholder'}></div>
             </td>
         );
         content.push(
             <td
                 class={{
-                    'line-top': (first && !alone) || (moreTwo && !last),
-                    'line-left': first,
+                    'family-tree__line': true,
+                    'family-tree__line--left': first,
+                    'family-tree__line--top':
+                        (first && !alone) || (moreTwo && !last),
                 }}
             >
-                <div class={'line-placeholder'}></div>
+                <div class={'family-tree__line--placeholder'}></div>
             </td>
         );
         return content;
     }
 
-    buildNode(node: KupDataNode) {
-        const span1 =
-            node.children && node.children.length > 0
-                ? node.children.length * 2
-                : 1;
+    #buildNode(node: KupDataNode) {
+        const hasChildren = node.children && node.children.length > 0;
+
+        const span1 = hasChildren ? node.children.length * 2 : 1;
+
         const styleVLine = {
-            'line-placeholder': node.children && node.children.length > 0,
-            line: node.children && node.children.length > 0,
+            'family-tree__line': true,
+            'family-tree__line--placeholder': hasChildren,
+            'family-tree__line--vertical': hasChildren,
         };
 
         const data: KupBoxData = {
@@ -133,9 +141,9 @@ export class KupFamilyTree {
             rows: [{ cells: { MOCK: node } }],
         };
 
-        const box = (
-            <div class={'box'}>
-                <kup-box data={data} class={'box-content'}></kup-box>
+        const box: VNode = (
+            <div class={'family-tree__item'}>
+                <kup-box data={data}></kup-box>
             </div>
         );
         return (
@@ -149,9 +157,9 @@ export class KupFamilyTree {
                     </td>
                 </tr>
                 <tr>
-                    {node.children && node.children.length > 0
+                    {hasChildren
                         ? node.children.map((inode) =>
-                              this.buildChildLine(
+                              this.#buildChildLine(
                                   node.children.indexOf(inode) == 0,
                                   node.children.indexOf(inode) ==
                                       node.children.length - 1,
@@ -162,9 +170,9 @@ export class KupFamilyTree {
                         : undefined}
                 </tr>
                 <tr>
-                    {node.children && node.children.length > 0
+                    {hasChildren
                         ? node.children.map((inode) => (
-                              <td colSpan={2}>{this.buildNode(inode)}</td>
+                              <td colSpan={2}>{this.#buildNode(inode)}</td>
                           ))
                         : undefined}
                 </tr>
@@ -172,8 +180,8 @@ export class KupFamilyTree {
         );
     }
 
-    buildNodes(nodes: KupDataNode[]) {
-        return nodes.map((node) => this.buildNode(node));
+    #buildNodes(nodes: KupDataNode[]) {
+        return nodes.map((node) => this.#buildNode(node));
     }
 
     #createTree(): VNode {
@@ -188,7 +196,7 @@ export class KupFamilyTree {
                 </div>
             );
         } else {
-            content.push(<div>{this.buildNodes(this.data.rows)}</div>);
+            content.push(<div>{this.#buildNodes(this.data.rows)}</div>);
         }
         return <div class="family-tree">{content}</div>;
     }

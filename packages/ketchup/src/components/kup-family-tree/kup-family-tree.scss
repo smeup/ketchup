@@ -1,5 +1,54 @@
+/**
+* @prop --kup-familytree-lines-color: Sets the color of the lines.
+*/
+
 :host {
+  --kup_familytree_lines_color: var(
+    --kup-familytree-lines-color,
+    var(--kup-border-color)
+  );
+
   display: block;
+}
+
+.family-tree {
+  &__line {
+    &--left {
+      border-left: 2px solid var(--kup_familytree_lines_color);
+    }
+
+    &--placeholder {
+      height: 20px;
+    }
+
+    &--right {
+      border-right: 2px solid var(--kup_familytree_lines_color);
+    }
+
+    &--top {
+      border-top: 2px solid var(--kup_familytree_lines_color);
+    }
+
+    &--vertical {
+      background-color: var(--kup_familytree_lines_color);
+      margin-left: auto;
+      margin-right: auto;
+      width: 2px;
+    }
+  }
+
+  &__item {
+    //max-width: 100px;
+    //max-height: 100px;
+    //margin-left: auto;
+    //margin-right: auto;
+    display: flex;
+
+    > kup-box {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
 }
 
 table {
@@ -10,41 +59,5 @@ table {
   > tr > td {
     vertical-align: top;
     padding: 0;
-  }
-}
-
-.line-placeholder {
-  height: 20px;
-}
-
-.line {
-  background-color: black;
-  width: 2px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.line-top {
-  border-top: 2px solid black;
-}
-
-.line-left {
-  border-left: 2px solid black;
-}
-
-.line-right {
-  border-right: 2px solid black;
-}
-
-.box {
-  //max-width: 100px;
-  //max-height: 100px;
-  //margin-left: auto;
-  //margin-right: auto;
-  display: flex;
-
-  > .box-content {
-      margin-left: auto;
-      margin-right: auto;
   }
 }
