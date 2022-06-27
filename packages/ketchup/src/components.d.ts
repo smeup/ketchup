@@ -33,7 +33,7 @@ import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, Ku
 import { GeoJSON } from "geojson";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
-import { KupFormData, KupFormLabelPlacement, KupFormLayout } from "./components/kup-form/kup-form-declarations";
+import { KupFormData, KupFormLayout } from "./components/kup-form/kup-form-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
@@ -1647,11 +1647,6 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
-        /**
-          * Placement of fields' labels.
-          * @default KupFormLabelPlacement.LEFT
-         */
-        "labelPlacement": KupFormLabelPlacement;
         /**
           * How the form will arrange its content.
           * @default null
@@ -4833,11 +4828,6 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: KupFormData;
-        /**
-          * Placement of fields' labels.
-          * @default KupFormLabelPlacement.LEFT
-         */
-        "labelPlacement"?: KupFormLabelPlacement;
         /**
           * How the form will arrange its content.
           * @default null

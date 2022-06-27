@@ -26,21 +26,34 @@ export interface KupFormLayout {
 }
 
 export interface KupFormSection {
-    id?: string;
-    horizontal?: boolean;
-    dim?: string;
-    sections?: KupFormSection[];
-    content?: KupFormField[];
-    style?: { [index: string]: string };
     columns?: number;
+    content?: KupFormField[];
+    dim?: string;
+    horizontal?: boolean;
+    id?: string;
+    label?: KupFormLabel;
+    sections?: KupFormSection[];
+    style?: { [index: string]: string };
     title?: string;
 }
 
 export interface KupFormField {
     column?: string;
-    value?: string;
+    data?: any;
     shape?: FCellShapes;
-    config?: any;
+    value?: string;
+}
+
+export interface KupFormLabel {
+    alignment?: KupFormLabelAlignment;
+    placement?: KupFormLabelPlacement;
+    width?: string;
+}
+
+export enum KupFormLabelAlignment {
+    CENTER = 'center',
+    LEFT = 'left',
+    RIGHT = 'right',
 }
 
 export enum KupFormLabelPlacement {

@@ -17,6 +17,7 @@ import {
     KupFormProps,
     KupFormData,
     KupFormLabelPlacement,
+    KupFormLabelAlignment,
 } from './kup-form-declarations';
 import {
     KupManager,
@@ -62,12 +63,6 @@ export class KupForm {
      * @default null
      */
     @Prop() data: KupFormData = null;
-    /**
-     * Placement of fields' labels.
-     * @default KupFormLabelPlacement.LEFT
-     */
-    @Prop({ reflect: true }) labelPlacement: KupFormLabelPlacement =
-        KupFormLabelPlacement.LEFT;
     /**
      * How the form will arrange its content.
      * @default null
@@ -299,7 +294,7 @@ export class KupForm {
                         row,
                         visibleColumns,
                     },
-                    true
+                    section
                 );
                 let field = formField;
                 if (!section.horizontal) {
@@ -317,6 +312,8 @@ export class KupForm {
         }
 
         const isGrid = !!section.columns;
+        const labelPlacement =
+            section?.label?.placement || KupFormLabelPlacement.LEFT;
 
         const sectionClass: { [index: string]: boolean } = {
             form__section: true,
@@ -325,6 +322,7 @@ export class KupForm {
             'form__section--titled': !!section.title,
             'form__section--last':
                 !section.sections || section.sections.length === 0,
+            [`form__section--${labelPlacement}`]: true,
         };
 
         const sectionStyle: GenericObject = section.style || {};
@@ -370,7 +368,7 @@ export class KupForm {
             row: KupFormRow;
             visibleColumns: KupDataColumn[];
         },
-        fromSection?: boolean
+        section?: KupFormSection
     ): VNode[] {
         const classObj: Record<string, boolean> = {
             form__field: true,
@@ -389,7 +387,7 @@ export class KupForm {
         if (index >= 0) {
             column = visibleColumns[index];
             visibleColumns.splice(index, 1);
-        } else if (fromSection) {
+        } else if (section) {
             column = this.data.columns.find((x) => x.name === formField.column);
         }
         const cell = row.cells[formField.column];
@@ -411,7 +409,7 @@ export class KupForm {
             return null;
         }
         const cellProps: FCellProps = {
-            cell: cell,
+            cell: formField.data ? { ...cell, data: formField.data } : cell,
             column: column,
             component: this,
             editable: true,
@@ -421,20 +419,20 @@ export class KupForm {
             shape: formField.shape,
         };
         resetLabel();
-        switch (this.labelPlacement) {
+        switch (section.label?.placement) {
             case KupFormLabelPlacement.BOTTOM:
                 return [<tr>{fieldCell()}</tr>, <tr>{labelCell()}</tr>];
             case KupFormLabelPlacement.PLACEHOLDER:
                 setPlaceholderLabel();
             case KupFormLabelPlacement.HIDDEN: {
-                if (fromSection) {
+                if (section) {
                     return [fieldCell()];
                 } else {
                     return [<tr>{fieldCell()}</tr>];
                 }
             }
             case KupFormLabelPlacement.RIGHT: {
-                if (fromSection) {
+                if (section) {
                     return [fieldCell(), labelCell()];
                 } else {
                     return [
@@ -448,7 +446,7 @@ export class KupForm {
             case KupFormLabelPlacement.TOP:
                 return [<tr>{labelCell()}</tr>, <tr>{fieldCell()}</tr>];
             default: {
-                if (fromSection) {
+                if (section) {
                     return [labelCell(), fieldCell()];
                 } else {
                     return [
@@ -481,8 +479,16 @@ export class KupForm {
         }
 
         function labelCell(): VNode {
+            const alignment =
+                section?.label?.alignment || KupFormLabelAlignment.LEFT;
+            const style = {
+                width: section?.label?.width ? section?.label?.width : '',
+            };
             return (
-                <td class="form__label">
+                <td
+                    class={`form__label form__label--${alignment}`}
+                    style={style}
+                >
                     <span>{column.title}</span>
                 </td>
             );

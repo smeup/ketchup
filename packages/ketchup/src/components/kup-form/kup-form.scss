@@ -3,6 +3,8 @@
 * @prop --kup-form-color: Sets text color of the component.
 * @prop --kup-form-font-family: Sets font family of the component.
 * @prop --kup-form-font-size: Sets font size of the component.
+* @prop --kup-form-label-alignment: Sets the text alignment of labels.
+* @prop --kup-form-label-width: Sets the width of labels.
 */
 
 :host {
@@ -13,27 +15,12 @@
   --kup_form_color: var(--kup-form-color, var(--kup-text-color));
   --kup_form_font_family: var(--kup-form-font-family, var(--kup-font-family));
   --kup_form_font_size: var(--kup-form-font-size, var(--kup-font-size));
+  --kup_form_label_alignment: var(--kup-form-label-alignment);
+  --kup_form_label_width: var(--kup-form-label-width);
 
   display: block;
   font-family: var(--kup_form_font_family);
   font-size: var(--kup_form_font_size);
-}
-
-:host([label-placement='left']) {
-  .form {
-    &__label {
-      width: 0;
-    }
-  }
-}
-
-:host([label-placement='right']) {
-  .form {
-    &__field {
-      min-width: 200px;
-      width: 0;
-    }
-  }
 }
 
 .form {
@@ -84,13 +71,40 @@
         transition: background-color 0.25s ease;
       }
     }
+
+    &--left {
+      .form__label {
+        width: var(--kup_form_label_width, 0);
+      }
+    }
+
+    &--right {
+      .form__field {
+        min-width: 200px;
+        width: 0;
+      }
+    }
   }
 
   &__label {
     -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
     font-size: 0.875em;
     letter-spacing: 0.0178571429em;
     white-space: nowrap;
+    width: var(--kup_form_label_width);
+
+    &--center {
+      text-align: var(--kup_form_label_alignment, center);
+    }
+
+    &--left {
+      text-align: var(--kup_form_label_alignment, left);
+    }
+
+    &--right {
+      text-align: var(--kup_form_label_alignment, right);
+    }
   }
 
   &__field {
