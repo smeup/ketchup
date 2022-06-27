@@ -23,6 +23,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupBoxData } from '../kup-box/kup-box-declarations';
 import {
     KupFamilyTreeData,
+    KupFamilyTreeNode,
     KupFamilyTreeProps,
 } from './kup-family-tree-declarations';
 
@@ -125,8 +126,21 @@ export class KupFamilyTree {
         return content;
     }
 
-    #buildNode(node: KupDataNode) {
+    #buildNode(node: KupFamilyTreeNode) {
+        let children: KupFamilyTreeNode[] = null;
+        let weirdChildren: KupFamilyTreeNode[] = null;
         const hasChildren = node.children && node.children.length > 0;
+        if (hasChildren) {
+            children = [];
+            weirdChildren = [];
+            node.children.forEach((child) => {
+                if (child.isWeird) {
+                    weirdChildren.push(child);
+                } else {
+                    children.push(child);
+                }
+            });
+        }
 
         const span1 = hasChildren ? node.children.length * 2 : 1;
 
@@ -143,11 +157,15 @@ export class KupFamilyTree {
 
         const box: VNode = (
             <div class={'family-tree__item'}>
-                <kup-box data={data}></kup-box>
+                <kup-box
+                    customStyle="#kup-component {  background: var(--kup-primary-color); box-sizing: border-box; height: 40px; padding: 8px } #kup-component .box-component { background: var(--kup-primary-color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup-text-on-primary-color); }"
+                    class="kup-borderless kup-paddingless"
+                    data={data}
+                ></kup-box>
             </div>
         );
         return (
-            <table>
+            <table class={'family-tree__node'}>
                 <tr>
                     <td colSpan={span1}>{box}</td>
                 </tr>
@@ -157,21 +175,41 @@ export class KupFamilyTree {
                     </td>
                 </tr>
                 <tr>
-                    {hasChildren
-                        ? node.children.map((inode) =>
+                    {weirdChildren
+                        ? weirdChildren.map((inode) =>
                               this.#buildChildLine(
-                                  node.children.indexOf(inode) == 0,
-                                  node.children.indexOf(inode) ==
-                                      node.children.length - 1,
-                                  node.children.length == 1,
-                                  node.children.length > 2
+                                  weirdChildren.indexOf(inode) == 0,
+                                  weirdChildren.indexOf(inode) ==
+                                      children.length - 1,
+                                  weirdChildren.length == 1,
+                                  weirdChildren.length > 2
                               )
                           )
                         : undefined}
                 </tr>
                 <tr>
-                    {hasChildren
-                        ? node.children.map((inode) => (
+                    {weirdChildren
+                        ? weirdChildren.map((inode) => (
+                              <td colSpan={2}>{this.#buildNode(inode)}</td>
+                          ))
+                        : undefined}
+                </tr>
+                <tr>
+                    {children
+                        ? children.map((inode) =>
+                              this.#buildChildLine(
+                                  children.indexOf(inode) == 0,
+                                  children.indexOf(inode) ==
+                                      children.length - 1,
+                                  children.length == 1,
+                                  children.length > 2
+                              )
+                          )
+                        : undefined}
+                </tr>
+                <tr>
+                    {children
+                        ? children.map((inode) => (
                               <td colSpan={2}>{this.#buildNode(inode)}</td>
                           ))
                         : undefined}

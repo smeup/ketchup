@@ -99,6 +99,7 @@ const data = {
                             icon: 'table-large',
                             id: 'AGE',
                             isExpanded: false,
+                            isWeird: true,
                             obj: {
                                 k: 'AGE',
                                 p: 'BRE',

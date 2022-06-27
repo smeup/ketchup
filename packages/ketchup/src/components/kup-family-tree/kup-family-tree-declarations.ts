@@ -15,5 +15,10 @@ export enum KupFamilyTreeProps {
 
 export interface KupFamilyTreeData {
     columns: KupDataColumn[];
-    rows: KupDataNode[];
+    rows: KupFamilyTreeNode[];
+}
+
+export interface KupFamilyTreeNode extends KupDataNode {
+    children?: KupFamilyTreeNode[];
+    isWeird?: boolean;
 }
