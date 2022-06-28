@@ -47,6 +47,7 @@ export interface KupFormField {
 export interface KupFormLabel {
     alignment?: KupFormLabelAlignment;
     placement?: KupFormLabelPlacement;
+    value?: string;
     width?: string;
 }
 
