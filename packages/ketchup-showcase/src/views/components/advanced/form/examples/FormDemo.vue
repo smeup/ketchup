@@ -76,13 +76,6 @@ export default {
           try: 'json',
         },
         {
-          prop: 'labelPlacement',
-          description: "Placement of fields' labels.",
-          type: 'KupFormLabelPlacement',
-          default: 'left',
-          try: 'field',
-        },
-        {
           prop: 'layout',
           description: 'How the form will arrange its content.',
           type: 'KupFormLayout',
