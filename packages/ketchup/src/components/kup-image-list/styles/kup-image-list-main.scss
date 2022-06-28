@@ -73,20 +73,12 @@
         background-color: rgba(var(--kup_imagelist_primary_color_rgb), 0.15);
         color: var(--kup_imagelist_primary_color);
       }
-
-      .navigation-bar__back,
-      .navigation-bar__top {
-        display: block;
-      }
     }
   }
 
   &__back,
   &__top {
     --kup-button-primary-color-rgb: 0; // Removes hover effect
-
-    animation: fade-in 0.375s ease-in;
-    display: none;
   }
 
   &__title {
