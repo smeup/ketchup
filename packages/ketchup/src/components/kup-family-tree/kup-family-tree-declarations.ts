@@ -21,8 +21,16 @@ export interface KupFamilyTreeData {
 }
 
 export interface KupFamilyTreeNode extends KupDataNode {
+    cells?: KupFamilyTreeNodeCells;
     children?: KupFamilyTreeNode[];
-    isWeird?: boolean;
+}
+
+export interface KupFamilyTreeNodeCells {
+    [index: string]: KupFamilyTreeCell;
+}
+
+export interface KupFamilyTreeCell extends KupDataNode {
+    isStaff?: boolean;
 }
 
 export interface KupFamilyTreeEventHandlerDetails {

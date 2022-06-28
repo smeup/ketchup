@@ -1,5 +1,8 @@
 const data = {
-    columns: [],
+    columns: [
+        { name: 'STAFF', title: 'Staff' },
+        { name: 'NOTSTAFF', title: 'Not Staff' },
+    ],
     rows: [
         {
             children: [
@@ -93,6 +96,27 @@ const data = {
                             visible: true,
                         },
                         {
+                            cells: {
+                                STAFF: {
+                                    icon: 'widgets',
+                                    isStaff: true,
+                                    obj: {
+                                        k: 'LOCTML',
+                                        p: 'B£AMO',
+                                        t: 'TA',
+                                    },
+                                    value: 'Cell, Staff',
+                                },
+                                NOTSTAFF: {
+                                    icon: 'widgets',
+                                    obj: {
+                                        k: 'LOCTML',
+                                        p: 'B£AMO',
+                                        t: 'TA',
+                                    },
+                                    value: 'Cell, not Staff',
+                                },
+                            },
                             children: [],
                             disabled: false,
                             expandable: false,

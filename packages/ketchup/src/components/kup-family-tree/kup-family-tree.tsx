@@ -167,21 +167,27 @@ export class KupFamilyTree {
 
     #buildNode(node: KupFamilyTreeNode) {
         let children: KupFamilyTreeNode[] = null;
-        let weirdChildren: KupFamilyTreeNode[] = null;
-        const hasChildren = node.children && node.children.length > 0;
+        let staffChildren: { [index: string]: KupFamilyTreeNode } = null;
+        const hasChildren =
+            (node.children && node.children.length > 0) ||
+            (node.cells && Object.keys(node.cells).length > 0);
         if (hasChildren) {
             children = [];
-            weirdChildren = [];
+            staffChildren = {};
             node.children.forEach((child) => {
-                if (child.isWeird) {
-                    weirdChildren.push(child);
-                } else {
-                    children.push(child);
-                }
+                children.push(child);
             });
+            for (const key in node.cells) {
+                const cell = node.cells[key];
+                if (cell.isStaff) {
+                    staffChildren[key] = cell;
+                } else {
+                    children.push(cell);
+                }
+            }
         }
 
-        const span1 = hasChildren ? node.children.length * 2 : 1;
+        const span1 = hasChildren ? children.length * 2 : 1;
 
         const styleVLine = {
             'family-tree__line': true,
@@ -190,8 +196,8 @@ export class KupFamilyTree {
         };
 
         const data: KupBoxData = {
-            columns: [{ name: 'MOCK' } as KupDataColumn],
-            rows: [{ cells: { MOCK: node } }],
+            columns: [{ name: 'NODE_COLUMN' } as KupDataColumn],
+            rows: [{ cells: { NODE_COLUMN: node } }],
         };
 
         const box: VNode = (
@@ -203,15 +209,11 @@ export class KupFamilyTree {
                 ></kup-box>
             </div>
         );
+        //TODO: set data-cell and data-column if needed inside events
         return (
             <table class={'family-tree__node'}>
                 <tr>
-                    <td
-                        data-column={node}
-                        data-cell={node}
-                        data-row={node}
-                        colSpan={span1}
-                    >
+                    <td data-row={node} colSpan={span1}>
                         {box}
                     </td>
                 </tr>
@@ -219,26 +221,6 @@ export class KupFamilyTree {
                     <td colSpan={span1}>
                         <div class={styleVLine}></div>
                     </td>
-                </tr>
-                <tr>
-                    {weirdChildren
-                        ? weirdChildren.map((inode) =>
-                              this.#buildChildLine(
-                                  weirdChildren.indexOf(inode) == 0,
-                                  weirdChildren.indexOf(inode) ==
-                                      children.length - 1,
-                                  weirdChildren.length == 1,
-                                  weirdChildren.length > 2
-                              )
-                          )
-                        : undefined}
-                </tr>
-                <tr>
-                    {weirdChildren
-                        ? weirdChildren.map((inode) => (
-                              <td colSpan={2}>{this.#buildNode(inode)}</td>
-                          ))
-                        : undefined}
                 </tr>
                 <tr>
                     {children
