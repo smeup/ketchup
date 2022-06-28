@@ -40,6 +40,7 @@ export interface KupFormSection {
 export interface KupFormField {
     column?: string;
     data?: any;
+    label?: string;
     shape?: FCellShapes;
     value?: string;
 }

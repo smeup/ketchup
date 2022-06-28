@@ -418,10 +418,11 @@ export class KupForm {
             setSizes: true,
             shape: formField.shape,
         };
+        const label = formField.label || column.title;
         resetLabel();
         switch (section.label?.placement) {
             case KupFormLabelPlacement.BOTTOM:
-                return [<tr>{fieldCell()}</tr>, <tr>{labelCell()}</tr>];
+                return [<tr>{fieldCell()}</tr>, <tr>{labelCell(label)}</tr>];
             case KupFormLabelPlacement.PLACEHOLDER:
                 setPlaceholderLabel();
             case KupFormLabelPlacement.HIDDEN: {
@@ -433,25 +434,25 @@ export class KupForm {
             }
             case KupFormLabelPlacement.RIGHT: {
                 if (section) {
-                    return [fieldCell(), labelCell()];
+                    return [fieldCell(), labelCell(label)];
                 } else {
                     return [
                         <tr>
                             {fieldCell()}
-                            {labelCell()}
+                            {labelCell(label)}
                         </tr>,
                     ];
                 }
             }
             case KupFormLabelPlacement.TOP:
-                return [<tr>{labelCell()}</tr>, <tr>{fieldCell()}</tr>];
+                return [<tr>{labelCell(label)}</tr>, <tr>{fieldCell()}</tr>];
             default: {
                 if (section) {
-                    return [labelCell(), fieldCell()];
+                    return [labelCell(label), fieldCell()];
                 } else {
                     return [
                         <tr>
-                            {labelCell()}
+                            {labelCell(label)}
                             {fieldCell()}
                         </tr>,
                     ];
@@ -478,7 +479,7 @@ export class KupForm {
             );
         }
 
-        function labelCell(): VNode {
+        function labelCell(label: string): VNode {
             const alignment =
                 section?.label?.alignment || KupFormLabelAlignment.LEFT;
             const style = {
@@ -489,7 +490,7 @@ export class KupForm {
                     class={`form__label form__label--${alignment}`}
                     style={style}
                 >
-                    <span>{column.title}</span>
+                    <span>{label}</span>
                 </td>
             );
         }

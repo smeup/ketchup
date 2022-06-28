@@ -352,6 +352,7 @@ const layoutData = {
                         content: [
                             {
                                 column: 'DES',
+                                label: 'layout label',
                             },
                         ],
                         horizontal: false,
