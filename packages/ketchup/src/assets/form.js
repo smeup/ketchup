@@ -347,7 +347,6 @@ const layoutData = {
                     {
                         label: {
                             alignment: 'center',
-                            value: 'layout label',
                             width: '250px',
                         },
                         content: [
