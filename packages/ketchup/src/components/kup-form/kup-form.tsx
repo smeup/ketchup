@@ -418,7 +418,7 @@ export class KupForm {
             setSizes: true,
             shape: formField.shape,
         };
-        const label = section.label?.value || column.title;
+        const label = formField.label || column.title;
         resetLabel();
         switch (section.label?.placement) {
             case KupFormLabelPlacement.BOTTOM:
