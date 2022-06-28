@@ -32,7 +32,7 @@ import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/
 import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 import { GeoJSON } from "geojson";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
-import { KupFamilyTreeData } from "./components/kup-family-tree/kup-family-tree-declarations";
+import { KupFamilyTreeData, KupFamilyTreeEventPayload } from "./components/kup-family-tree/kup-family-tree-declarations";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupFormData, KupFormLabelPlacement, KupFormLayout } from "./components/kup-form/kup-form-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
@@ -3120,6 +3120,10 @@ export interface KupEchartCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupEchartElement;
 }
+export interface KupFamilyTreeCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupFamilyTreeElement;
+}
 export interface KupFieldCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupFieldElement;
@@ -4818,6 +4822,9 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: KupFamilyTreeData;
+        "onKup-familytree-click"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;
+        "onKup-familytree-contextmenu"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;
+        "onKup-familytree-dblclick"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;
     }
     interface KupField {
         /**

@@ -1,7 +1,9 @@
 import {
+    KupDataCell,
     KupDataColumn,
     KupDataNode,
 } from '../../managers/kup-data/kup-data-declarations';
+import { KupEventPayload } from '../../types/GenericTypes';
 
 /**
  * Props of the kup-family-tree component.
@@ -21,4 +23,16 @@ export interface KupFamilyTreeData {
 export interface KupFamilyTreeNode extends KupDataNode {
     children?: KupFamilyTreeNode[];
     isWeird?: boolean;
+}
+
+export interface KupFamilyTreeEventHandlerDetails {
+    cell: KupDataCell;
+    column: KupDataColumn;
+    originalEvent: PointerEvent;
+    row: KupFamilyTreeNode;
+    td: HTMLElement;
+}
+
+export interface KupFamilyTreeEventPayload extends KupEventPayload {
+    details: KupFamilyTreeEventHandlerDetails;
 }

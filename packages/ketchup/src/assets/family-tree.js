@@ -220,3 +220,9 @@ familyTree.data = data;
 document.addEventListener('kup-familytree-click', (e) => {
     console.log(e);
 });
+document.addEventListener('kup-familytree-contextmenu', (e) => {
+    console.log(e);
+});
+document.addEventListener('kup-familytree-dblclick', (e) => {
+    console.log(e);
+});

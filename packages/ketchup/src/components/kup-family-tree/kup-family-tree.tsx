@@ -1,6 +1,8 @@
 import {
     Component,
     Element,
+    Event,
+    EventEmitter,
     forceUpdate,
     h,
     Host,
@@ -9,20 +11,25 @@ import {
     VNode,
 } from '@stencil/core';
 import {
+    KupDataCell,
     KupDataColumn,
     KupDataNode,
 } from '../../managers/kup-data/kup-data-declarations';
+import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import { getColumnByName } from '../../utils/cell-utils';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupBoxData } from '../kup-box/kup-box-declarations';
 import {
     KupFamilyTreeData,
+    KupFamilyTreeEventHandlerDetails,
+    KupFamilyTreeEventPayload,
     KupFamilyTreeNode,
     KupFamilyTreeProps,
 } from './kup-family-tree-declarations';
@@ -58,7 +65,39 @@ export class KupFamilyTree {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
+    #clickTimeout: ReturnType<typeof setTimeout>[] = [];
+    #hold: boolean = false;
+    #interactableTouch: HTMLElement[] = [];
     #kupManager: KupManager = kupManagerInstance();
+    #wrapperEl: HTMLElement = null;
+
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
+
+    @Event({
+        eventName: 'kup-familytree-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<KupFamilyTreeEventPayload>;
+
+    @Event({
+        eventName: 'kup-familytree-contextmenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupContextMenu: EventEmitter<KupFamilyTreeEventPayload>;
+
+    @Event({
+        eventName: 'kup-familytree-dblclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDblClick: EventEmitter<KupFamilyTreeEventPayload>;
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -167,7 +206,14 @@ export class KupFamilyTree {
         return (
             <table class={'family-tree__node'}>
                 <tr>
-                    <td colSpan={span1}>{box}</td>
+                    <td
+                        data-column={node}
+                        data-cell={node}
+                        data-row={node}
+                        colSpan={span1}
+                    >
+                        {box}
+                    </td>
                 </tr>
                 <tr>
                     <td colSpan={span1}>
@@ -239,6 +285,167 @@ export class KupFamilyTree {
         return <div class="family-tree">{content}</div>;
     }
 
+    #getEventPath(currentEl: unknown): HTMLElement[] {
+        const path: HTMLElement[] = [];
+
+        while (
+            currentEl &&
+            currentEl !== this.rootElement &&
+            currentEl !== document.body
+        ) {
+            path.push(currentEl as HTMLElement);
+            currentEl = (currentEl as HTMLElement).parentNode
+                ? (currentEl as HTMLElement).parentNode
+                : (currentEl as ShadowRoot).host;
+        }
+
+        return path;
+    }
+
+    #getEventDetails(
+        path: HTMLElement[],
+        e?: PointerEvent
+    ): KupFamilyTreeEventHandlerDetails {
+        let td: HTMLElement;
+        if (path) {
+            for (let i = path.length - 1; i >= 0; i--) {
+                let p = path[i];
+                if (!p.tagName) {
+                    continue;
+                }
+                switch (p.tagName.toUpperCase()) {
+                    case 'TD': {
+                        td = p;
+                        break;
+                    }
+                }
+            }
+        }
+
+        let cell: KupDataCell = null,
+            column: KupDataColumn = null,
+            row: KupFamilyTreeNode = null;
+        if (td) {
+            cell = td['data-cell'];
+            column = td['data-column'];
+            row = td['data-row'];
+        }
+
+        return {
+            cell: cell ? cell : null,
+            column: column ? column : null,
+            originalEvent: e,
+            row: row ? row : null,
+            td: td ? td : null,
+        };
+    }
+
+    #clickHandler(e: PointerEvent): KupFamilyTreeEventHandlerDetails {
+        const details = this.#getEventDetails(this.#getEventPath(e.target), e);
+        return details;
+    }
+
+    #contextMenuHandler(e: PointerEvent): KupFamilyTreeEventHandlerDetails {
+        const details = this.#getEventDetails(this.#getEventPath(e.target), e);
+        return details;
+    }
+
+    #dblClickHandler(e: PointerEvent): KupFamilyTreeEventHandlerDetails {
+        const details = this.#getEventDetails(this.#getEventPath(e.target), e);
+        return details;
+    }
+
+    #didLoadInteractables() {
+        this.#interactableTouch.push(this.#wrapperEl);
+        const tapCb = (e: PointerEvent) => {
+            if (this.#hold) {
+                this.#hold = false;
+                return;
+            }
+            switch (e.button) {
+                // left click
+                case 0:
+                    // Note: event must be cloned
+                    // otherwise inside setTimeout will be exiting the Shadow DOM scope(causing loss of information, including target).
+                    const clone: GenericObject = {};
+                    for (const key in e) {
+                        clone[key] = e[key];
+                    }
+                    this.#clickTimeout.push(
+                        setTimeout(() => {
+                            this.kupClick.emit({
+                                comp: this,
+                                id: this.rootElement.id,
+                                details: this.#clickHandler(
+                                    clone as PointerEvent
+                                ),
+                            });
+                        }, 300)
+                    );
+                    break;
+                // right click
+                case 2:
+                    this.kupContextMenu.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        details: this.#contextMenuHandler(e),
+                    });
+                    break;
+            }
+        };
+        const doubletapCb = (e: PointerEvent) => {
+            switch (e.button) {
+                // left click
+                case 0:
+                    for (
+                        let index = 0;
+                        index < this.#clickTimeout.length;
+                        index++
+                    ) {
+                        clearTimeout(this.#clickTimeout[index]);
+                        this.#kupManager.debug.logMessage(
+                            this,
+                            'Cleared clickHandler timeout(' +
+                                this.#clickTimeout[index] +
+                                ').'
+                        );
+                    }
+                    this.#clickTimeout = [];
+                    this.kupDblClick.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        details: this.#dblClickHandler(e),
+                    });
+                    break;
+            }
+        };
+        const holdCb = (e: PointerEvent) => {
+            if (e.pointerType === 'pen' || e.pointerType === 'touch') {
+                this.#hold = true;
+                this.kupContextMenu.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    details: this.#contextMenuHandler(e),
+                });
+            }
+        };
+        this.#kupManager.interact.on(
+            this.#wrapperEl,
+            KupPointerEventTypes.TAP,
+            tapCb
+        );
+        this.#kupManager.interact.on(
+            this.#wrapperEl,
+            KupPointerEventTypes.DOUBLETAP,
+            doubletapCb
+        );
+        this.#kupManager.interact.on(
+            this.#wrapperEl,
+            KupPointerEventTypes.HOLD,
+            holdCb
+        );
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -250,6 +457,7 @@ export class KupFamilyTree {
     }
 
     componentDidLoad() {
+        this.#didLoadInteractables();
         this.#kupManager.debug.logLoad(this, true);
     }
 
@@ -269,7 +477,15 @@ export class KupFamilyTree {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}>{this.#createTree()}</div>
+                <div
+                    id={componentWrapperId}
+                    onContextMenu={(e: MouseEvent) => {
+                        e.preventDefault();
+                    }}
+                    ref={(el) => (this.#wrapperEl = el)}
+                >
+                    {this.#createTree()}
+                </div>
             </Host>
         );
     }
