@@ -376,11 +376,11 @@ export default {
               {
                 cells: {
                   ROUTE: {
-                    value: 'field',
+                    value: 'familytree',
                   },
                 },
-                icon: 'edit',
-                value: 'Field',
+                icon: 'file-tree',
+                value: 'Family tree',
                 visible: true,
               },
               {

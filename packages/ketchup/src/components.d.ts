@@ -32,7 +32,7 @@ import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/
 import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 import { GeoJSON } from "geojson";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
-import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
+import { KupFamilyTreeData, KupFamilyTreeEventPayload } from "./components/kup-family-tree/kup-family-tree-declarations";
 import { KupFormData, KupFormLayout } from "./components/kup-form/kup-form-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
@@ -1570,7 +1570,7 @@ export namespace Components {
          */
         "yAxis": YAXisComponentOption;
     }
-    interface KupField {
+    interface KupFamilyTree {
         /**
           * Custom style of the component.
           * @default ""
@@ -1578,16 +1578,10 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * Effective data to pass to the component.
-          * @default {}
+          * Actual data of the component.
+          * @default null
          */
-        "data": Object;
-        /**
-          * Provides an interface to get the current value programmatically
-          * @method getCurrentValue
-          * @returns
-         */
-        "getCurrentValue": () => Promise<string | object>;
+        "data": KupFamilyTreeData;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -1595,39 +1589,14 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * The text of the label. If set to empty or has only white space chars, the label will be removed.
-          * @default ""
-         */
-        "label": string;
-        /**
-          * Sets the label's position, left right or top.
-          * @default "left"
-         */
-        "labelPos": string;
-        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
-          * Sets whether the submit button must be displayed or not.
-          * @default false
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
          */
-        "showSubmit": boolean;
-        /**
-          * Sets the submit button's label.
-          * @default ""
-         */
-        "submitLabel": string;
-        /**
-          * Sets the submit button's position, top right bottom or left.
-          * @default "right"
-         */
-        "submitPos": string;
-        /**
-          * The type of the FLD
-          * @default undefined
-         */
-        "type": string;
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupForm {
         /**
@@ -3086,9 +3055,9 @@ export interface KupEchartCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupEchartElement;
 }
-export interface KupFieldCustomEvent<T> extends CustomEvent<T> {
+export interface KupFamilyTreeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLKupFieldElement;
+    target: HTMLKupFamilyTreeElement;
 }
 export interface KupIframeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -3291,11 +3260,11 @@ declare global {
         prototype: HTMLKupEchartElement;
         new (): HTMLKupEchartElement;
     };
-    interface HTMLKupFieldElement extends Components.KupField, HTMLStencilElement {
+    interface HTMLKupFamilyTreeElement extends Components.KupFamilyTree, HTMLStencilElement {
     }
-    var HTMLKupFieldElement: {
-        prototype: HTMLKupFieldElement;
-        new (): HTMLKupFieldElement;
+    var HTMLKupFamilyTreeElement: {
+        prototype: HTMLKupFamilyTreeElement;
+        new (): HTMLKupFamilyTreeElement;
     };
     interface HTMLKupFormElement extends Components.KupForm, HTMLStencilElement {
     }
@@ -3464,7 +3433,7 @@ declare global {
         "kup-drawer": HTMLKupDrawerElement;
         "kup-dropdown-button": HTMLKupDropdownButtonElement;
         "kup-echart": HTMLKupEchartElement;
-        "kup-field": HTMLKupFieldElement;
+        "kup-family-tree": HTMLKupFamilyTreeElement;
         "kup-form": HTMLKupFormElement;
         "kup-gauge": HTMLKupGaugeElement;
         "kup-grid": HTMLKupGridElement;
@@ -4765,7 +4734,7 @@ declare namespace LocalJSX {
          */
         "yAxis"?: YAXisComponentOption;
     }
-    interface KupField {
+    interface KupFamilyTree {
         /**
           * Custom style of the component.
           * @default ""
@@ -4773,48 +4742,13 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Effective data to pass to the component.
-          * @default {}
+          * Actual data of the component.
+          * @default null
          */
-        "data"?: Object;
-        /**
-          * The text of the label. If set to empty or has only white space chars, the label will be removed.
-          * @default ""
-         */
-        "label"?: string;
-        /**
-          * Sets the label's position, left right or top.
-          * @default "left"
-         */
-        "labelPos"?: string;
-        /**
-          * Launched when the value of the current FLD changes.
-         */
-        "onKup-field-change"?: (event: KupFieldCustomEvent<KupFieldChangeEvent>) => void;
-        /**
-          * Launched when the FLD values are confirmed and a submit event is triggered.
-         */
-        "onKup-field-submit"?: (event: KupFieldCustomEvent<KupFieldSubmitEvent>) => void;
-        /**
-          * Sets whether the submit button must be displayed or not.
-          * @default false
-         */
-        "showSubmit"?: boolean;
-        /**
-          * Sets the submit button's label.
-          * @default ""
-         */
-        "submitLabel"?: string;
-        /**
-          * Sets the submit button's position, top right bottom or left.
-          * @default "right"
-         */
-        "submitPos"?: string;
-        /**
-          * The type of the FLD
-          * @default undefined
-         */
-        "type"?: string;
+        "data"?: KupFamilyTreeData;
+        "onKup-familytree-click"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;
+        "onKup-familytree-contextmenu"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;
+        "onKup-familytree-dblclick"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;
     }
     interface KupForm {
         /**
@@ -5939,7 +5873,7 @@ declare namespace LocalJSX {
         "kup-drawer": KupDrawer;
         "kup-dropdown-button": KupDropdownButton;
         "kup-echart": KupEchart;
-        "kup-field": KupField;
+        "kup-family-tree": KupFamilyTree;
         "kup-form": KupForm;
         "kup-gauge": KupGauge;
         "kup-grid": KupGrid;
@@ -5992,7 +5926,7 @@ declare module "@stencil/core" {
             "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
             "kup-dropdown-button": LocalJSX.KupDropdownButton & JSXBase.HTMLAttributes<HTMLKupDropdownButtonElement>;
             "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
-            "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
+            "kup-family-tree": LocalJSX.KupFamilyTree & JSXBase.HTMLAttributes<HTMLKupFamilyTreeElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
             "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;

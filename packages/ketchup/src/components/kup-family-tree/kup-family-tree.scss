@@ -1,0 +1,61 @@
+/**
+* @prop --kup-familytree-item-width: Sets the width of the items.
+* @prop --kup-familytree-lines-color: Sets the color of the lines.
+*/
+
+:host {
+  --kup_familytree_item_width: var(--kup-familytree-item-width, 120px);
+  --kup_familytree_lines_color: var(
+    --kup-familytree-lines-color,
+    var(--kup-border-color)
+  );
+
+  display: block;
+}
+
+.family-tree {
+  &__node {
+    border-collapse: collapse;
+
+    td {
+      vertical-align: top;
+      padding: 0;
+    }
+  }
+
+  &__line {
+    &--left {
+      border-left: 2px solid var(--kup_familytree_lines_color);
+    }
+
+    &--placeholder {
+      height: 20px;
+    }
+
+    &--right {
+      border-right: 2px solid var(--kup_familytree_lines_color);
+    }
+
+    &--top {
+      border-top: 2px solid var(--kup_familytree_lines_color);
+    }
+
+    &--vertical {
+      background-color: var(--kup_familytree_lines_color);
+      margin-left: auto;
+      margin-right: auto;
+      width: 2px;
+    }
+  }
+
+  &__item {
+    display: flex;
+
+    kup-box {
+      margin: 0 auto;
+      overflow: hidden;
+      padding: 0 18px;
+      width: var(--kup_familytree_item_width);
+    }
+  }
+}

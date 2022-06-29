@@ -99,6 +99,10 @@ components.data = [
         id: 'echart.html',
     },
     {
+        value: 'Family tree',
+        id: 'family-tree.html',
+    },
+    {
         value: 'Form',
         id: 'form.html',
     },

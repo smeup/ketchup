@@ -111,6 +111,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-family-tree](../kup-family-tree)
  - [kup-magic-box](../kup-magic-box)
 
 ### Depends on
@@ -244,6 +245,7 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-badge
+  kup-family-tree --> kup-box
   kup-magic-box --> kup-box
   style kup-box fill:#f9f,stroke:#333,stroke-width:4px
 ```

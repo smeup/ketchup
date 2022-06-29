@@ -224,9 +224,10 @@ const advancedRoutes = [
     component: () => import(`@/views/components/advanced/echart/Echart.vue`),
   },
   {
-    path: `/field`,
-    name: 'field',
-    component: () => import(`@/views/components/advanced/field/Field.vue`),
+    path: `/familytree`,
+    name: 'familytree',
+    component: () =>
+      import(`@/views/components/advanced/familytree/FamilyTree.vue`),
   },
   {
     path: `/form`,
