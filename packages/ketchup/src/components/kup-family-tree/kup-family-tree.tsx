@@ -167,20 +167,20 @@ export class KupFamilyTree {
 
     #buildNode(node: KupFamilyTreeNode) {
         let children: KupFamilyTreeNode[] = null;
-        let staffChildren: { [index: string]: KupFamilyTreeNode } = null;
+        let staffChildren: KupFamilyTreeNode[] = null;
         const hasChildren =
             (node.children && node.children.length > 0) ||
             (node.cells && Object.keys(node.cells).length > 0);
         if (hasChildren) {
             children = [];
-            staffChildren = {};
+            staffChildren = [];
             node.children.forEach((child) => {
                 children.push(child);
             });
             for (const key in node.cells) {
                 const cell = node.cells[key];
                 if (cell.isStaff) {
-                    staffChildren[key] = cell;
+                    staffChildren.push(cell);
                 } else {
                     children.push(cell);
                 }
@@ -222,6 +222,25 @@ export class KupFamilyTree {
                         <div class={styleVLine}></div>
                     </td>
                 </tr>
+                {staffChildren
+                    ? [
+                          <td colSpan={span1}>
+                              <div
+                                  class={{
+                                      ...styleVLine,
+                                      'family-tree__line--staff': true,
+                                  }}
+                              ></div>
+                          </td>,
+                          <tr>
+                              {staffChildren.map((inode) => [
+                                  <div class="family-tree__node--staff">
+                                      {this.#buildNode(inode)}
+                                  </div>,
+                              ])}
+                          </tr>,
+                      ]
+                    : null}
                 <tr>
                     {children
                         ? children.map((inode) =>

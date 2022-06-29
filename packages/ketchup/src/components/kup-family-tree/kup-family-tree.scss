@@ -1,9 +1,12 @@
 /**
+* //TODO: Handle height properly once understood whether to use kup-box or not
+* @prop --kup-familytree-item-height: Sets the height of the items.
 * @prop --kup-familytree-item-width: Sets the width of the items.
 * @prop --kup-familytree-lines-color: Sets the color of the lines.
 */
 
 :host {
+  --kup_familytree_item_height: var(--kup-familytree-item-height, 40px);
   --kup_familytree_item_width: var(--kup-familytree-item-width, 120px);
   --kup_familytree_lines_color: var(
     --kup-familytree-lines-color,
@@ -17,6 +20,20 @@
   &__node {
     border-collapse: collapse;
 
+    &--staff {
+      margin-left: calc(var(--kup_familytree_item_width) * 0.75);
+      margin-top: calc(0px - var(--kup_familytree_item_height));
+      position: absolute;
+
+      &:before {
+        border-top: 2px solid var(--kup_familytree_lines_color);
+        content: '';
+        position: absolute;
+        transform: translate(-12px, 18px);
+        width: 30px;
+      }
+    }
+
     td {
       vertical-align: top;
       padding: 0;
@@ -29,7 +46,11 @@
     }
 
     &--placeholder {
-      height: 20px;
+      height: calc(var(--kup_familytree_item_height) / 2);
+    }
+
+    &--staff {
+      height: var(--kup_familytree_item_height);
     }
 
     &--right {
