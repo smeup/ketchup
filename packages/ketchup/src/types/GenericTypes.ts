@@ -80,7 +80,6 @@ export enum KupTagNames {
     DATE_PICKER = 'KUP-DATE-PICKER',
     DRAWER = 'KUP-DRAWER',
     DROPDOWN_BUTTON = 'KUP-DROPDOWN-BUTTON',
-    FIELD = 'KUP-FIELD',
     FORM = 'KUP-FORM',
     GAUGE = 'KUP-GAUGE',
     GRID = 'KUP-GRID',

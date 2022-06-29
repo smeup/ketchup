@@ -12,7 +12,6 @@ import { KupEventPayload } from '../../types/GenericTypes';
 export enum KupFamilyTreeProps {
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the component',
-    ripple = "When enabled displays Material's ripple effect on clicked items.",
 }
 
 export interface KupFamilyTreeData {

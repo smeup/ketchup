@@ -7,12 +7,11 @@
 
 ## Properties
 
-| Property         | Attribute         | Description                            | Type                                                                                                                                                                                          | Default                      |
-| ---------------- | ----------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-| `customStyle`    | `custom-style`    | Custom style of the component.         | `string`                                                                                                                                                                                      | `''`                         |
-| `data`           | --                | Actual data of the form.               | `KupFormData`                                                                                                                                                                                 | `null`                       |
-| `labelPlacement` | `label-placement` | Placement of fields' labels.           | `KupFormLabelPlacement.BOTTOM \| KupFormLabelPlacement.HIDDEN \| KupFormLabelPlacement.LEFT \| KupFormLabelPlacement.PLACEHOLDER \| KupFormLabelPlacement.RIGHT \| KupFormLabelPlacement.TOP` | `KupFormLabelPlacement.LEFT` |
-| `layout`         | --                | How the form will arrange its content. | `KupFormLayout`                                                                                                                                                                               | `null`                       |
+| Property      | Attribute      | Description                            | Type            | Default |
+| ------------- | -------------- | -------------------------------------- | --------------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component.         | `string`        | `''`    |
+| `data`        | --             | Actual data of the form.               | `KupFormData`   | `null`  |
+| `layout`      | --             | How the form will arrange its content. | `KupFormLayout` | `null`  |
 
 
 ## Methods
@@ -66,6 +65,8 @@ Type: `Promise<void>`
 | `--kup-form-color`            | Sets text color of the component.  |
 | `--kup-form-font-family`      | Sets font family of the component. |
 | `--kup-form-font-size`        | Sets font size of the component.   |
+| `--kup-form-label-alignment`  | Sets the text alignment of labels. |
+| `--kup-form-label-width`      | Sets the width of labels.          |
 
 
 ## Dependencies
