@@ -17,6 +17,7 @@ import { findColumns, hideColumns, newColumn } from './kup-data-column-helper';
 import { findRow, toNode } from './kup-data-row-helper';
 import {
     getDrilldownInfoNode,
+    getNodeByPath,
     getParentNode,
     removeNode,
     setPropertiesNode,
@@ -29,6 +30,7 @@ import {
     FCellShapes,
     FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
+import { TreeNodePath } from '../../components/kup-tree/kup-tree-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -159,6 +161,20 @@ export class KupData {
         },
         getParent(nodes: KupDataNode[], child: KupDataNode): KupDataNode {
             return getParentNode(nodes, child);
+        },
+        find(nodes: KupDataNode[], treeNodePath: TreeNodePath): KupDataNode {
+            return getNodeByPath(nodes, treeNodePath);
+        },
+        findByStrTreeNodePath(
+            nodes: KupDataNode[],
+            treeNodePath: string
+        ): KupDataNode {
+            const split = treeNodePath.split(',');
+            const path: TreeNodePath = [];
+            for (let i = 0; i < split.length; i++) {
+                path.push(Number(split[i]));
+            }
+            return getNodeByPath(nodes, path);
         },
         remove(nodes: KupDataNode[], node2remove: KupDataNode): KupDataNode {
             return removeNode(nodes, node2remove);

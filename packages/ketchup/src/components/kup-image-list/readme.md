@@ -7,11 +7,14 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                      | Type            | Default |
-| ------------- | -------------- | ---------------------------------------------------------------- | --------------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                   | `string`        | `''`    |
-| `data`        | --             | Actual data of the component.                                    | `KupDataNode[]` | `[]`    |
-| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on clicked items. | `boolean`       | `true`  |
+| Property       | Attribute      | Description                                                      | Type            | Default     |
+| -------------- | -------------- | ---------------------------------------------------------------- | --------------- | ----------- |
+| `customStyle`  | `custom-style` | Custom style of the component.                                   | `string`        | `''`        |
+| `data`         | --             | Actual data of the component.                                    | `KupDataNode[]` | `[]`        |
+| `ripple`       | `ripple`       | When enabled displays Material's ripple effect on clicked items. | `boolean`       | `true`      |
+| `selectedNode` | --             | An array of integers containing the path to a selected child.\   | `number[]`      | `[]`        |
+| `stateId`      | `state-id`     |                                                                  | `string`        | `''`        |
+| `store`        | --             |                                                                  | `KupStore`      | `undefined` |
 
 
 ## Events

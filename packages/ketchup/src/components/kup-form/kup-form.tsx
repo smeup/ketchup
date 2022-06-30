@@ -580,7 +580,6 @@ export class KupForm {
     }
 
     render() {
-        console.log('kup-form.render() check 1');
         let formContent: VNode[] = null;
 
         if (this.data.rows.length === 0) {

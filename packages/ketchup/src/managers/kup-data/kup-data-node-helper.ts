@@ -1,3 +1,4 @@
+import { TreeNodePath } from '../../components/kup-tree/kup-tree-declarations';
 import { KupDataNode, KupDataNodeDrilldownInfo } from './kup-data-declarations';
 
 /**
@@ -164,4 +165,44 @@ export function getParentNode(
         }
     }
     return parent;
+}
+
+/**
+ * Returns the node with id equal to the given value.
+ * @param {KupDataNode[]} nodes - Input array of nodes.
+ * @param {string} treeNodePath - Tree node path.
+ * @returns {KupDataNode} Node.
+ */
+export function getNodeByPath(
+    nodes: KupDataNode[],
+    treeNodePath: TreeNodePath
+): KupDataNode {
+    if (!nodes || nodes.length == 0) {
+        return undefined;
+    }
+    if (!treeNodePath || treeNodePath.length == 0) {
+        return undefined;
+    }
+    return _getNodeByPath(nodes, treeNodePath);
+}
+
+function _getNodeByPath(nodes: KupDataNode[], path: TreeNodePath): KupDataNode {
+    let node: KupDataNode = null;
+    for (let j = 0; j < path.length; j++) {
+        const i = path[j];
+        node = _getNode(nodes, node, i);
+    }
+    return node;
+}
+
+function _getNode(
+    nodes: KupDataNode[],
+    node: KupDataNode,
+    index: number
+): KupDataNode {
+    if (node == null) {
+        return nodes[index];
+    } else {
+        return node.children[index];
+    }
 }
