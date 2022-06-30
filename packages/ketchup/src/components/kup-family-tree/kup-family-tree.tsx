@@ -24,7 +24,7 @@ import {
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupBoxData } from '../kup-box/kup-box-declarations';
+import { KupBoxData, KupBoxLayout } from '../kup-box/kup-box-declarations';
 import {
     KupFamilyTreeData,
     KupFamilyTreeEventHandlerDetails,
@@ -59,6 +59,11 @@ export class KupFamilyTree {
      * @default null
      */
     @Prop() data: KupFamilyTreeData = null;
+    /**
+     * Layout of the boxes.
+     * @default null
+     */
+    @Prop() layout: KupBoxLayout = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -166,48 +171,54 @@ export class KupFamilyTree {
 
     #buildNode(node: KupFamilyTreeNode) {
         let children: KupFamilyTreeNode[] = null;
-        let staffChildren: { [index: string]: KupFamilyTreeNode } = null;
-        const hasChildren =
-            (node.children && node.children.length > 0) ||
-            (node.cells && Object.keys(node.cells).length > 0);
-        if (hasChildren) {
-            children = [];
-            staffChildren = {};
-            node.children.forEach((child) => {
-                children.push(child);
-            });
-            for (const key in node.cells) {
-                const cell = node.cells[key];
-                if (cell.isStaff) {
-                    staffChildren[key] = cell;
-                } else {
-                    children.push(cell);
+        let staffChildren: KupFamilyTreeNode[] = null;
+        node.children?.forEach((child) => {
+            if (child.isStaff) {
+                if (!staffChildren) {
+                    staffChildren = [];
                 }
+                staffChildren.push(child);
+            } else {
+                if (!children) {
+                    children = [];
+                }
+                children.push(child);
             }
-        }
-
-        const span1 = hasChildren ? children.length * 2 : 1;
+        });
+        const span1 = children ? children.length * 2 : 1;
 
         const styleVLine = {
             'family-tree__line': true,
-            'family-tree__line--placeholder': hasChildren,
-            'family-tree__line--vertical': hasChildren,
+            'family-tree__line--placeholder': !!(children || staffChildren),
+            'family-tree__line--vertical': !!(children || staffChildren),
         };
 
         const data: KupBoxData = {
-            columns: [{ name: 'NODE_COLUMN' } as KupDataColumn],
-            rows: [{ cells: { NODE_COLUMN: node } }],
+            columns: [
+                { name: '*TREECOL', title: 'Fake column' },
+                ...this.data.columns,
+            ],
+            rows: [{ cells: { '*TREECOL': node, ...node.cells } }],
         };
+
+        const layout = node.layout || this.layout || null;
 
         const box: VNode = (
             <div class={'family-tree__item'}>
                 <kup-box
-                    customStyle="#kup-component {  background: var(--kup-primary-color); box-sizing: border-box; height: 40px; padding: 8px } #kup-component .box-component { background: var(--kup-primary-color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup-text-on-primary-color); }"
                     class="kup-borderless kup-paddingless"
+                    customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
                     data={data}
+                    layout={layout}
                 ></kup-box>
             </div>
         );
+
+        const staffStyle = {
+            ['--kup_familytree_staffchildren']:
+                staffChildren?.length.toString() || '0',
+        };
+
         //TODO: set data-cell and data-column if needed inside events
         return (
             <table class={'family-tree__node'}>
@@ -221,26 +232,65 @@ export class KupFamilyTree {
                         <div class={styleVLine}></div>
                     </td>
                 </tr>
-                <tr>
-                    {children
-                        ? children.map((inode) =>
-                              this.#buildChildLine(
-                                  children.indexOf(inode) == 0,
-                                  children.indexOf(inode) ==
-                                      children.length - 1,
-                                  children.length == 1,
-                                  children.length > 2
-                              )
-                          )
-                        : undefined}
-                </tr>
-                <tr>
-                    {children
-                        ? children.map((inode) => (
-                              <td colSpan={2}>{this.#buildNode(inode)}</td>
-                          ))
-                        : undefined}
-                </tr>
+                {staffChildren
+                    ? [
+                          <tr>
+                              <td colSpan={span1}>
+                                  <div
+                                      class={{
+                                          ...styleVLine,
+                                          'family-tree__line--staff': true,
+                                      }}
+                                      style={staffStyle}
+                                  ></div>
+                                  <div
+                                      class="family-tree__node__staff"
+                                      style={staffStyle}
+                                  >
+                                      {staffChildren.map((inode) => [
+                                          <div class="family-tree__node__staff__item">
+                                              {this.#buildNode(inode)}
+                                          </div>,
+                                      ])}
+                                  </div>
+                              </td>
+                          </tr>,
+                      ]
+                    : null}
+                {staffChildren && children
+                    ? [
+                          <tr>
+                              <td colSpan={span1}>
+                                  <div class={styleVLine}></div>
+                              </td>
+                          </tr>,
+                          <tr>
+                              <td colSpan={span1}>
+                                  <div class={styleVLine}></div>
+                              </td>
+                          </tr>,
+                      ]
+                    : null}
+                {children
+                    ? [
+                          <tr>
+                              {children.map((inode) =>
+                                  this.#buildChildLine(
+                                      children.indexOf(inode) == 0,
+                                      children.indexOf(inode) ==
+                                          children.length - 1,
+                                      children.length == 1,
+                                      children.length > 2
+                                  )
+                              )}
+                          </tr>,
+                          <tr>
+                              {children.map((inode) => (
+                                  <td colSpan={2}>{this.#buildNode(inode)}</td>
+                              ))}
+                          </tr>,
+                      ]
+                    : undefined}
             </table>
         );
     }

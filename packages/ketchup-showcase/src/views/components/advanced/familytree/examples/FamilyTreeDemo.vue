@@ -66,6 +66,13 @@ export default {
           default: 'null',
           try: 'json',
         },
+        {
+          prop: 'layout',
+          description: 'Layout of the boxes.',
+          type: 'KupBoxLayout',
+          default: 'null',
+          try: 'json',
+        },
       ],
     };
   },

@@ -1,9 +1,26 @@
 /**
+* //TODO: Handle height properly once understood whether to use kup-box or not
+* @prop --kup-familytree-item-background-color: Sets the background color of the items.
+* @prop --kup-familytree-item-color: Sets the color of the items.
+* @prop --kup-familytree-item-height: Sets the height of the items.
+* @prop --kup-familytree-item-h-padding: Sets the horizontal padding of items.
+* @prop --kup-familytree-item-v-padding: Sets the vertical padding of items.
 * @prop --kup-familytree-item-width: Sets the width of the items.
 * @prop --kup-familytree-lines-color: Sets the color of the lines.
 */
 
 :host {
+  --kup_familytree_item_background_color: var(
+    --kup-familytree-item-background-color,
+    var(--kup-primary-color)
+  );
+  --kup_familytree_item_color: var(
+    --kup-familytree-item-color,
+    var(--kup-text-on-primary-color)
+  );
+  --kup_familytree_item_height: var(--kup-familytree-item-height, 40px);
+  --kup_familytree_item_h_padding: var(--kup-familytree-item-h-padding, 8px);
+  --kup_familytree_item_v_padding: var(--kup-familytree-item-v-padding, 10px);
   --kup_familytree_item_width: var(--kup-familytree-item-width, 120px);
   --kup_familytree_lines_color: var(
     --kup-familytree-lines-color,
@@ -14,8 +31,49 @@
 }
 
 .family-tree {
+  overflow: auto;
+
   &__node {
     border-collapse: collapse;
+
+    &__staff {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      height: 0;
+      transform: translateX(
+          calc(
+            (
+                var(--kup_familytree_item_width) +
+                  (var(--kup_familytree_item_h_padding) * 2)
+              ) / 2
+          )
+        )
+        translateY(
+          calc(
+            0px -
+              (
+                var(--kup_familytree_staffchildren) *
+                  var(--kup_familytree_item_height) +
+                  var(--kup_familytree_staffchildren) *
+                  var(--kup_familytree_item_v_padding)
+              )
+          )
+        );
+
+      &__item {
+        padding: var(--kup_familytree_item_v_padding);
+
+        &:before {
+          border-top: 2px solid var(--kup_familytree_lines_color);
+          content: '';
+          position: absolute;
+          transform: translateX(100%)
+            translateY(calc(var(--kup_familytree_item_height) / 2));
+          width: var(--kup_familytree_item_v_padding);
+        }
+      }
+    }
 
     td {
       vertical-align: top;
@@ -29,7 +87,15 @@
     }
 
     &--placeholder {
-      height: 20px;
+      height: calc(var(--kup_familytree_item_height) / 2);
+    }
+
+    &--staff {
+      height: calc(
+        var(--kup_familytree_staffchildren) * var(--kup_familytree_item_height) +
+          var(--kup_familytree_staffchildren) *
+          var(--kup_familytree_item_v_padding)
+      );
     }
 
     &--right {
@@ -56,6 +122,7 @@
       overflow: hidden;
       padding: 0 18px;
       width: var(--kup_familytree_item_width);
+      z-index: 1;
     }
   }
 }
