@@ -10,6 +10,7 @@ import {
     Prop,
     State,
     VNode,
+    Watch,
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
 import {
@@ -34,6 +35,9 @@ import {
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { FCellPadding } from '../../f-components/f-cell/f-cell-declarations';
+import { KupStore } from '../kup-state/kup-store';
+import { KupImageListState } from './kup-image-list-state';
+import { TreeNodePath } from '../kup-tree/kup-tree-declarations';
 
 @Component({
     tag: 'kup-image-list',
@@ -50,8 +54,48 @@ export class KupImageList {
     /*                   S t a t e s                   */
     /*-------------------------------------------------*/
 
+    state: KupImageListState = new KupImageListState();
+
     @State() currentNode: KupDataNode = null;
     @State() navigationBarToggled: boolean = false;
+
+    initWithPersistedState(): void {
+        if (this.store && this.stateId) {
+            const state = this.store.getState(this.stateId);
+            if (state != null) {
+                this.currentNode =
+                    this.kupManager.data.node.findByStrTreeNodePath(
+                        this.data,
+                        state.selectedTreeNodePath
+                    );
+            }
+        }
+    }
+
+    persistState(): void {
+        if (this.store && this.stateId) {
+            let somethingChanged = false;
+            let cNodeRowId = this.currentNode ? this.currentNode.id : '';
+
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.selectedTreeNodePath,
+                    cNodeRowId
+                )
+            ) {
+                this.state.selectedTreeNodePath = cNodeRowId;
+                somethingChanged = true;
+            }
+
+            if (!this.state.load) {
+                this.state.load = true;
+                return;
+            }
+            if (somethingChanged) {
+                this.store.persistState(this.stateId, this.state);
+            }
+        }
+    }
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -74,9 +118,19 @@ export class KupImageList {
      */
     @Prop() ripple: boolean = true;
 
+    /**
+     * An array of integers containing the path to a selected child.\
+     */
+    @Prop() selectedNode: TreeNodePath = [];
+    @Prop() stateId: string = '';
+    @Prop() store: KupStore;
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
 
     #clickTimeout: ReturnType<typeof setTimeout>[] = [];
     #kupManager: KupManager = kupManagerInstance();
@@ -162,6 +216,18 @@ export class KupImageList {
             id: this.rootElement.id,
             node: node,
         });
+    }
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
+
+    @Watch('selectedNode')
+    selectNode(newData: TreeNodePath) {
+        if (!newData || newData.length == 0) {
+            return;
+        }
+        this.currentNode = this.kupManager.data.node.find(this.data, newData);
     }
 
     /*-------------------------------------------------*/
@@ -279,6 +345,9 @@ export class KupImageList {
                 }
             }
         }
+        // *** Store
+        this.persistState();
+        // ***
         this.#kupManager.debug.logRender(this, true);
     }
 

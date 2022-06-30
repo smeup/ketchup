@@ -37,6 +37,7 @@ import { KupFormData, KupFormLayout } from "./components/kup-form/kup-form-decla
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
+import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
@@ -48,7 +49,6 @@ import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declar
 import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
-import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 export namespace Components {
     interface KupAccordion {
         /**
@@ -1889,10 +1889,16 @@ export namespace Components {
          */
         "ripple": boolean;
         /**
+          * An array of integers containing the path to a selected child.\
+         */
+        "selectedNode": TreeNodePath;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        "stateId": string;
+        "store": KupStore;
     }
     interface KupLazy {
         /**
@@ -4955,6 +4961,12 @@ declare namespace LocalJSX {
           * @default true
          */
         "ripple"?: boolean;
+        /**
+          * An array of integers containing the path to a selected child.\
+         */
+        "selectedNode"?: TreeNodePath;
+        "stateId"?: string;
+        "store"?: KupStore;
     }
     interface KupLazy {
         /**

@@ -22,7 +22,6 @@ import {
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { getColumnByName } from '../../utils/cell-utils';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupBoxData } from '../kup-box/kup-box-declarations';
