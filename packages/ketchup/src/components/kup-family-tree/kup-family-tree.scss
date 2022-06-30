@@ -31,6 +31,8 @@
 }
 
 .family-tree {
+  overflow: auto;
+
   &__node {
     border-collapse: collapse;
 

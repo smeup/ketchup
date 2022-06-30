@@ -11,6 +11,7 @@
 | ------------- | -------------- | ------------------------------ | ------------------- | ------- |
 | `customStyle` | `custom-style` | Custom style of the component. | `string`            | `''`    |
 | `data`        | --             | Actual data of the component.  | `KupFamilyTreeData` | `null`  |
+| `layout`      | --             | Layout of the boxes.           | `KupBoxLayout`      | `null`  |
 
 
 ## Events
@@ -57,10 +58,15 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                           | Description                  |
-| ------------------------------ | ---------------------------- |
-| `--kup-familytree-item-width`  | Sets the width of the items. |
-| `--kup-familytree-lines-color` | Sets the color of the lines. |
+| Name                                     | Description                             |
+| ---------------------------------------- | --------------------------------------- |
+| `--kup-familytree-item-background-color` | Sets the background color of the items. |
+| `--kup-familytree-item-color`            | Sets the color of the items.            |
+| `--kup-familytree-item-h-padding`        | Sets the horizontal padding of items.   |
+| `--kup-familytree-item-height`           | Sets the height of the items.           |
+| `--kup-familytree-item-v-padding`        | Sets the vertical padding of items.     |
+| `--kup-familytree-item-width`            | Sets the width of the items.            |
+| `--kup-familytree-lines-color`           | Sets the color of the lines.            |
 
 
 ## Dependencies
