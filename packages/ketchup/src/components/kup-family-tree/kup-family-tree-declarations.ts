@@ -4,6 +4,7 @@ import {
     KupDataNode,
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupEventPayload } from '../../types/GenericTypes';
+import { KupBoxLayout } from '../kup-box/kup-box-declarations';
 
 /**
  * Props of the kup-family-tree component.
@@ -12,6 +13,7 @@ import { KupEventPayload } from '../../types/GenericTypes';
 export enum KupFamilyTreeProps {
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the component',
+    layout = 'Layout of the boxes.',
 }
 
 export interface KupFamilyTreeData {
@@ -20,16 +22,9 @@ export interface KupFamilyTreeData {
 }
 
 export interface KupFamilyTreeNode extends KupDataNode {
-    cells?: KupFamilyTreeNodeCells;
     children?: KupFamilyTreeNode[];
-}
-
-export interface KupFamilyTreeNodeCells {
-    [index: string]: KupFamilyTreeCell;
-}
-
-export interface KupFamilyTreeCell extends KupDataNode {
     isStaff?: boolean;
+    layout?: KupBoxLayout;
 }
 
 export interface KupFamilyTreeEventHandlerDetails {

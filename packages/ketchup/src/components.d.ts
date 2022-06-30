@@ -1589,6 +1589,11 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * Layout of the boxes.
+          * @default null
+         */
+        "layout": KupBoxLayout;
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
@@ -4746,6 +4751,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: KupFamilyTreeData;
+        /**
+          * Layout of the boxes.
+          * @default null
+         */
+        "layout"?: KupBoxLayout;
         "onKup-familytree-click"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;
         "onKup-familytree-contextmenu"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;
         "onKup-familytree-dblclick"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;
