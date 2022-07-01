@@ -421,7 +421,7 @@ const dataStaff = {
             expandable: true,
             icon: '/Web/javax.faces.resource/TA%253BB%25C2%25A3A%253BD0.jsf?ln=smeupIcons',
             id: 'D0',
-            isExpanded: true,
+            isExpanded: false,
             obj: {
                 k: 'D0',
                 p: 'B£A',

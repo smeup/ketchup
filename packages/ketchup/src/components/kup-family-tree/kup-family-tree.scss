@@ -116,12 +116,22 @@
   &__item {
     display: flex;
 
-    kup-box {
-      margin: 0 auto;
-      overflow: hidden;
-      padding: 0 18px;
-      width: var(--kup_familytree_item_width);
-      z-index: 1;
+    > div {
+      margin: auto;
+
+      > kup-box {
+        margin: 0 auto;
+        overflow: hidden;
+        padding: 0 18px;
+        width: var(--kup_familytree_item_width);
+        z-index: 1;
+      }
+  
+      > .f-button {
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
   }
 }

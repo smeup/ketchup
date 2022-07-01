@@ -10,6 +10,11 @@ import {
     Prop,
     VNode,
 } from '@stencil/core';
+import { FButton } from '../../f-components/f-button/f-button';
+import {
+    FButtonProps,
+    FButtonStyling,
+} from '../../f-components/f-button/f-button-declarations';
 import {
     KupDataCell,
     KupDataColumn,
@@ -181,19 +186,21 @@ export class KupFamilyTree {
     #buildNode(node: KupFamilyTreeNode) {
         let children: KupFamilyTreeNode[] = null;
         let staffChildren: KupFamilyTreeNode[] = null;
-        node.children?.forEach((child) => {
-            if (child.isStaff) {
-                if (!staffChildren) {
-                    staffChildren = [];
+        if (node.isExpanded) {
+            node.children?.forEach((child) => {
+                if (child.isStaff) {
+                    if (!staffChildren) {
+                        staffChildren = [];
+                    }
+                    staffChildren.push(child);
+                } else {
+                    if (!children) {
+                        children = [];
+                    }
+                    children.push(child);
                 }
-                staffChildren.push(child);
-            } else {
-                if (!children) {
-                    children = [];
-                }
-                children.push(child);
-            }
-        });
+            });
+        }
         const span1 = children ? children.length * 2 : 1;
 
         const styleVLine = {
@@ -212,14 +219,28 @@ export class KupFamilyTree {
 
         const layout = node.layout || this.layout || null;
 
+        const expandButtonProp: FButtonProps = {
+            icon: node.isExpanded ? 'remove' : 'plus',
+            styling: FButtonStyling.FLOATING,
+            onClick: () => {
+                node.isExpanded = !node.isExpanded;
+                this.refresh();
+            },
+        };
+
         const box: VNode = (
             <div class={'family-tree__item'}>
-                <kup-box
-                    class="kup-borderless kup-paddingless"
-                    customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
-                    data={data}
-                    layout={layout}
-                ></kup-box>
+                <div>
+                    <kup-box
+                        class="kup-borderless kup-paddingless"
+                        customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
+                        data={data}
+                        layout={layout}
+                    ></kup-box>
+                    {node.children && node.children.length > 0 ? (
+                        <FButton {...expandButtonProp} />
+                    ) : undefined}
+                </div>
             </div>
         );
 
