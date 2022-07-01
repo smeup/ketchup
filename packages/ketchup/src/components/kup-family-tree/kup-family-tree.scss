@@ -31,7 +31,13 @@
 }
 
 .family-tree {
-  overflow: auto;
+  --kup_familytree_pan_x: 0px;
+  --kup_familytree_pan_y: 0px;
+
+  transform: translate(
+    var(--kup_familytree_pan_x),
+    var(--kup_familytree_pan_y)
+  );
 
   &__node {
     border-collapse: collapse;
