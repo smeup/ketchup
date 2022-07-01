@@ -67,6 +67,13 @@ export default {
           try: 'json',
         },
         {
+          prop: 'expandable',
+          description: 'Enable expand or collapse for the boxes.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'layout',
           description: 'Layout of the boxes.',
           type: 'KupBoxLayout',
@@ -217,6 +224,7 @@ function createComp() {
       },
     ],
   };
+  comp.expandable = true;
   comp.id = 'demo-component';
 
   return comp;

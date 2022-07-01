@@ -81,6 +81,7 @@ Type: `Promise<void>`
  - [kup-dashboard](../kup-dashboard)
  - [kup-data-table](../kup-data-table)
  - [kup-dropdown-button](../kup-dropdown-button)
+ - [kup-family-tree](../kup-family-tree)
  - [kup-form](../kup-form)
  - [kup-image](../kup-image)
  - [kup-image-list](../kup-image-list)
@@ -131,6 +132,7 @@ graph TD;
   kup-calendar --> kup-badge
   kup-cell --> kup-badge
   kup-dashboard --> kup-badge
+  kup-family-tree --> kup-badge
   kup-form --> kup-badge
   kup-image-list --> kup-badge
   kup-magic-box --> kup-badge

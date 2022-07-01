@@ -10,6 +10,11 @@ import {
     Prop,
     VNode,
 } from '@stencil/core';
+import { FButton } from '../../f-components/f-button/f-button';
+import {
+    FButtonProps,
+    FButtonStyling,
+} from '../../f-components/f-button/f-button-declarations';
 import {
     KupDataCell,
     KupDataColumn,
@@ -60,6 +65,11 @@ export class KupFamilyTree {
      */
     @Prop() data: KupFamilyTreeData = null;
     /**
+     * Enable expand or collapse for the boxes.
+     * @default null
+     */
+    @Prop() expandable: boolean = true;
+    /**
      * Layout of the boxes.
      * @default null
      */
@@ -70,10 +80,19 @@ export class KupFamilyTree {
     /*-------------------------------------------------*/
 
     #clickTimeout: ReturnType<typeof setTimeout>[] = [];
-    #hold: boolean = false;
+    #hold = false;
+    #currentPanX = 0;
+    #currentPanY = 0;
     #interactableTouch: HTMLElement[] = [];
-    #kupManager: KupManager = kupManagerInstance();
-    #wrapperEl: HTMLElement = null;
+    #kupManager = kupManagerInstance();
+    #moveCb = (e: PointerEvent) => {
+        const deltaX = e.clientX - this.#currentPanX;
+        const deltaY = e.clientY - this.#currentPanY;
+        this.rootElement.scrollTop -= deltaY;
+        this.rootElement.scrollLeft -= deltaX;
+        this.#currentPanX = e.clientX;
+        this.#currentPanY = e.clientY;
+    };
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -172,19 +191,21 @@ export class KupFamilyTree {
     #buildNode(node: KupFamilyTreeNode) {
         let children: KupFamilyTreeNode[] = null;
         let staffChildren: KupFamilyTreeNode[] = null;
-        node.children?.forEach((child) => {
-            if (child.isStaff) {
-                if (!staffChildren) {
-                    staffChildren = [];
+        if (!this.expandable || (this.expandable && node.isExpanded)) {
+            node.children?.forEach((child) => {
+                if (child.isStaff) {
+                    if (!staffChildren) {
+                        staffChildren = [];
+                    }
+                    staffChildren.push(child);
+                } else {
+                    if (!children) {
+                        children = [];
+                    }
+                    children.push(child);
                 }
-                staffChildren.push(child);
-            } else {
-                if (!children) {
-                    children = [];
-                }
-                children.push(child);
-            }
-        });
+            });
+        }
         const span1 = children ? children.length * 2 : 1;
 
         const styleVLine = {
@@ -203,14 +224,31 @@ export class KupFamilyTree {
 
         const layout = node.layout || this.layout || null;
 
+        const expandButtonProp: FButtonProps = {
+            icon: node.isExpanded ? 'remove' : 'plus',
+            styling: FButtonStyling.OUTLINED,
+            slim: true,
+            onClick: () => {
+                node.isExpanded = !node.isExpanded;
+                this.refresh();
+            },
+        };
+
         const box: VNode = (
             <div class={'family-tree__item'}>
-                <kup-box
-                    class="kup-borderless kup-paddingless"
-                    customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
-                    data={data}
-                    layout={layout}
-                ></kup-box>
+                <div>
+                    <kup-box
+                        class="kup-borderless kup-paddingless"
+                        customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
+                        data={data}
+                        layout={layout}
+                    ></kup-box>
+                    {this.expandable &&
+                    node.children &&
+                    node.children.length > 0 ? (
+                        <FButton {...expandButtonProp} />
+                    ) : undefined}
+                </div>
             </div>
         );
 
@@ -313,7 +351,27 @@ export class KupFamilyTree {
         } else {
             content.push(<div>{this.#buildNodes(this.data.rows)}</div>);
         }
-        return <div class="family-tree">{content}</div>;
+        return (
+            <div
+                class="family-tree"
+                onContextMenu={(e: MouseEvent) => {
+                    e.preventDefault();
+                }}
+            >
+                {content}
+            </div>
+        );
+    }
+
+    #startPanning(e: PointerEvent) {
+        this.#currentPanX = e.clientX;
+        this.#currentPanY = e.clientY;
+        const endPanning = () => {
+            document.removeEventListener('pointermove', this.#moveCb);
+            document.removeEventListener('pointerup', endPanning);
+        };
+        document.addEventListener('pointermove', this.#moveCb);
+        document.addEventListener('pointerup', endPanning);
     }
 
     #getEventPath(currentEl: unknown): HTMLElement[] {
@@ -387,7 +445,7 @@ export class KupFamilyTree {
     }
 
     #didLoadInteractables() {
-        this.#interactableTouch.push(this.#wrapperEl);
+        this.#interactableTouch.push(this.rootElement);
         const tapCb = (e: PointerEvent) => {
             if (this.#hold) {
                 this.#hold = false;
@@ -461,20 +519,37 @@ export class KupFamilyTree {
             }
         };
         this.#kupManager.interact.on(
-            this.#wrapperEl,
+            this.rootElement,
             KupPointerEventTypes.TAP,
             tapCb
         );
         this.#kupManager.interact.on(
-            this.#wrapperEl,
+            this.rootElement,
             KupPointerEventTypes.DOUBLETAP,
             doubletapCb
         );
         this.#kupManager.interact.on(
-            this.#wrapperEl,
+            this.rootElement,
             KupPointerEventTypes.HOLD,
             holdCb
         );
+    }
+
+    #zoomTree(event: WheelEvent) {
+        const tree = this.rootElement.shadowRoot.querySelector(
+            '.family-tree'
+        ) as HTMLElement;
+        if (!tree.dataset.scale) {
+            tree.dataset.scale = '1.00';
+            tree.style.transformOrigin = '0px 0px';
+        }
+        const deltaVal = 0.05;
+        const scaleVal =
+            event.deltaY > 0
+                ? Number(tree.dataset.scale) - deltaVal
+                : Number(tree.dataset.scale) + deltaVal;
+        tree.dataset.scale = scaleVal.toFixed(2);
+        tree.style.transform = `scale(${tree.dataset.scale})`;
     }
 
     /*-------------------------------------------------*/
@@ -502,21 +577,23 @@ export class KupFamilyTree {
 
     render() {
         return (
-            <Host>
+            <Host
+                onDrag={(e: DragEvent) => e.preventDefault()}
+                onPointerDown={(e: PointerEvent) => {
+                    e.preventDefault();
+                    this.#startPanning(e);
+                }}
+                onWheel={(e: WheelEvent) => {
+                    e.preventDefault();
+                    this.#zoomTree(e);
+                }}
+            >
                 <style>
                     {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div
-                    id={componentWrapperId}
-                    onContextMenu={(e: MouseEvent) => {
-                        e.preventDefault();
-                    }}
-                    ref={(el) => (this.#wrapperEl = el)}
-                >
-                    {this.#createTree()}
-                </div>
+                <div id={componentWrapperId}>{this.#createTree()}</div>
             </Host>
         );
     }

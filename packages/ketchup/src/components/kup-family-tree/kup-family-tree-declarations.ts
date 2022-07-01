@@ -13,6 +13,7 @@ import { KupBoxLayout } from '../kup-box/kup-box-declarations';
 export enum KupFamilyTreeProps {
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the component',
+    expandable = 'Enable expand or collapse for the boxes',
     layout = 'Layout of the boxes.',
 }
 

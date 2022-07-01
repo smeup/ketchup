@@ -1583,6 +1583,11 @@ export namespace Components {
          */
         "data": KupFamilyTreeData;
         /**
+          * Enable expand or collapse for the boxes.
+          * @default null
+         */
+        "expandable": boolean;
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
@@ -4757,6 +4762,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: KupFamilyTreeData;
+        /**
+          * Enable expand or collapse for the boxes.
+          * @default null
+         */
+        "expandable"?: boolean;
         /**
           * Layout of the boxes.
           * @default null

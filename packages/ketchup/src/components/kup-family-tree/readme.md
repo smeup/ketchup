@@ -7,11 +7,12 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                    | Type                | Default |
-| ------------- | -------------- | ------------------------------ | ------------------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string`            | `''`    |
-| `data`        | --             | Actual data of the component.  | `KupFamilyTreeData` | `null`  |
-| `layout`      | --             | Layout of the boxes.           | `KupBoxLayout`      | `null`  |
+| Property      | Attribute      | Description                              | Type                | Default |
+| ------------- | -------------- | ---------------------------------------- | ------------------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component.           | `string`            | `''`    |
+| `data`        | --             | Actual data of the component.            | `KupFamilyTreeData` | `null`  |
+| `expandable`  | `expandable`   | Enable expand or collapse for the boxes. | `boolean`           | `true`  |
+| `layout`      | --             | Layout of the boxes.                     | `KupBoxLayout`      | `null`  |
 
 
 ## Events
@@ -74,12 +75,14 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-box](../kup-box)
+- [kup-badge](../kup-badge)
 - [kup-card](../kup-card)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-family-tree --> kup-box
+  kup-family-tree --> kup-badge
   kup-family-tree --> kup-card
   kup-box --> kup-card
   kup-box --> kup-checkbox
