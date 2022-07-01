@@ -78,8 +78,8 @@ export class KupFamilyTree {
     #moveCb = (e: PointerEvent) => {
         const deltaX = e.clientX - this.#currentPanX;
         const deltaY = e.clientY - this.#currentPanY;
-        this.rootElement.scrollTop += deltaY;
-        this.rootElement.scrollLeft += deltaX;
+        this.rootElement.scrollTop -= deltaY;
+        this.rootElement.scrollLeft -= deltaX;
         this.#currentPanX = e.clientX;
         this.#currentPanY = e.clientY;
     };
