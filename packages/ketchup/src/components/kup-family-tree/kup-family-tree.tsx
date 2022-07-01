@@ -70,9 +70,32 @@ export class KupFamilyTree {
     /*-------------------------------------------------*/
 
     #clickTimeout: ReturnType<typeof setTimeout>[] = [];
-    #hold: boolean = false;
+    #hold = false;
+    #currentPanX = 0;
+    #currentPanY = 0;
     #interactableTouch: HTMLElement[] = [];
-    #kupManager: KupManager = kupManagerInstance();
+    #kupManager = kupManagerInstance();
+    #moveCb = (e: PointerEvent) => {
+        const oldX =
+            parseInt(
+                this.#wrapperEl.style.getPropertyValue(this.#panXCSSVar)
+            ) || 0;
+        const oldY =
+            parseInt(
+                this.#wrapperEl.style.getPropertyValue(this.#panYCSSVar)
+            ) || 0;
+        const deltaX = e.clientX - this.#currentPanX;
+        const deltaY = e.clientY - this.#currentPanY;
+        const newX = oldX + deltaX;
+        const newY = oldY + deltaY;
+        this.#wrapperEl.style.setProperty(this.#panXCSSVar, `${newX}px`);
+        this.#wrapperEl.style.setProperty(this.#panYCSSVar, `${newY}px`);
+        console.log(e, this, oldX, oldY);
+        this.#currentPanX = e.clientX;
+        this.#currentPanY = e.clientY;
+    };
+    #panXCSSVar = '--kup_familytree_pan_x';
+    #panYCSSVar = '--kup_familytree_pan_y';
     #wrapperEl: HTMLElement = null;
 
     /*-------------------------------------------------*/
@@ -317,7 +340,32 @@ export class KupFamilyTree {
                 </div>
             );
         }
-        return <div class="family-tree">{content}</div>;
+        return (
+            <div
+                class="family-tree"
+                ref={(el) => (this.#wrapperEl = el)}
+                onContextMenu={(e: MouseEvent) => {
+                    e.preventDefault();
+                }}
+                onPointerDown={(e) => {
+                    this.#startPanning(e);
+                }}
+            >
+                {content}
+            </div>
+        );
+    }
+
+    #startPanning(e: PointerEvent) {
+        console.log(e);
+        this.#currentPanX = e.clientX;
+        this.#currentPanY = e.clientY;
+        const endPanning = () => {
+            this.#wrapperEl.removeEventListener('pointermove', this.#moveCb);
+            document.removeEventListener('pointerup', endPanning);
+        };
+        this.#wrapperEl.addEventListener('pointermove', this.#moveCb);
+        document.addEventListener('pointerup', endPanning);
     }
 
     #getEventPath(currentEl: unknown): HTMLElement[] {
@@ -527,15 +575,7 @@ export class KupFamilyTree {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div
-                    id={componentWrapperId}
-                    onContextMenu={(e: MouseEvent) => {
-                        e.preventDefault();
-                    }}
-                    ref={(el) => (this.#wrapperEl = el)}
-                >
-                    {this.#createTree()}
-                </div>
+                <div id={componentWrapperId}>{this.#createTree()}</div>
             </Host>
         );
     }
