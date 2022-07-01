@@ -76,27 +76,13 @@ export class KupFamilyTree {
     #interactableTouch: HTMLElement[] = [];
     #kupManager = kupManagerInstance();
     #moveCb = (e: PointerEvent) => {
-        const oldX =
-            parseInt(
-                this.#wrapperEl.style.getPropertyValue(this.#panXCSSVar)
-            ) || 0;
-        const oldY =
-            parseInt(
-                this.#wrapperEl.style.getPropertyValue(this.#panYCSSVar)
-            ) || 0;
         const deltaX = e.clientX - this.#currentPanX;
         const deltaY = e.clientY - this.#currentPanY;
-        const newX = oldX + deltaX;
-        const newY = oldY + deltaY;
-        this.#wrapperEl.style.setProperty(this.#panXCSSVar, `${newX}px`);
-        this.#wrapperEl.style.setProperty(this.#panYCSSVar, `${newY}px`);
-        console.log(e, this, oldX, oldY);
+        this.rootElement.scrollTop += deltaY;
+        this.rootElement.scrollLeft += deltaX;
         this.#currentPanX = e.clientX;
         this.#currentPanY = e.clientY;
     };
-    #panXCSSVar = '--kup_familytree_pan_x';
-    #panYCSSVar = '--kup_familytree_pan_y';
-    #wrapperEl: HTMLElement = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -339,12 +325,8 @@ export class KupFamilyTree {
         return (
             <div
                 class="family-tree"
-                ref={(el) => (this.#wrapperEl = el)}
                 onContextMenu={(e: MouseEvent) => {
                     e.preventDefault();
-                }}
-                onPointerDown={(e) => {
-                    this.#startPanning(e);
                 }}
             >
                 {content}
@@ -353,14 +335,13 @@ export class KupFamilyTree {
     }
 
     #startPanning(e: PointerEvent) {
-        console.log(e);
         this.#currentPanX = e.clientX;
         this.#currentPanY = e.clientY;
         const endPanning = () => {
-            this.#wrapperEl.removeEventListener('pointermove', this.#moveCb);
+            document.removeEventListener('pointermove', this.#moveCb);
             document.removeEventListener('pointerup', endPanning);
         };
-        this.#wrapperEl.addEventListener('pointermove', this.#moveCb);
+        document.addEventListener('pointermove', this.#moveCb);
         document.addEventListener('pointerup', endPanning);
     }
 
@@ -435,7 +416,7 @@ export class KupFamilyTree {
     }
 
     #didLoadInteractables() {
-        this.#interactableTouch.push(this.#wrapperEl);
+        this.#interactableTouch.push(this.rootElement);
         const tapCb = (e: PointerEvent) => {
             if (this.#hold) {
                 this.#hold = false;
@@ -509,17 +490,17 @@ export class KupFamilyTree {
             }
         };
         this.#kupManager.interact.on(
-            this.#wrapperEl,
+            this.rootElement,
             KupPointerEventTypes.TAP,
             tapCb
         );
         this.#kupManager.interact.on(
-            this.#wrapperEl,
+            this.rootElement,
             KupPointerEventTypes.DOUBLETAP,
             doubletapCb
         );
         this.#kupManager.interact.on(
-            this.#wrapperEl,
+            this.rootElement,
             KupPointerEventTypes.HOLD,
             holdCb
         );
@@ -550,7 +531,13 @@ export class KupFamilyTree {
 
     render() {
         return (
-            <Host>
+            <Host
+                onDrag={(e: DragEvent) => e.preventDefault()}
+                onPointerDown={(e: PointerEvent) => {
+                    e.preventDefault();
+                    this.#startPanning(e);
+                }}
+            >
                 <style>
                     {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
