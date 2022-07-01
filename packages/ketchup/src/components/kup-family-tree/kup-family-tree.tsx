@@ -533,6 +533,7 @@ export class KupFamilyTree {
         ) as HTMLElement;
         if (!tree.dataset.scale) {
             tree.dataset.scale = '1.00';
+            tree.style.transformOrigin = '0px 0px';
         }
         const deltaVal = 0.05;
         const scaleVal =
