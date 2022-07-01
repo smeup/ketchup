@@ -7,7 +7,7 @@
       <template v-slot:1>
         <family-tree-basic></family-tree-basic>
       </template>
-      <template v-slot:1>
+      <template v-slot:2>
         <family-tree-layout></family-tree-layout>
       </template>
     </comp>

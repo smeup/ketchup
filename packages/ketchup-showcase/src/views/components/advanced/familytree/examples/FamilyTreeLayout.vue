@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <p> It's possible to set a custom layout for the family tree boxes. </p>
+      <p>
+        It's possible to set a custom layout for the family tree boxes. In this
+        example, the component has a custom layout for boxes, it's set into
+        <span class="code-word">layout</span> property.</p
+      >
       <div class="demo-container">
         <kup-family-tree
           :data.prop="data"

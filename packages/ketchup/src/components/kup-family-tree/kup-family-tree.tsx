@@ -65,6 +65,11 @@ export class KupFamilyTree {
      */
     @Prop() data: KupFamilyTreeData = null;
     /**
+     * Enable expand or collapse for the boxes.
+     * @default null
+     */
+    @Prop() expandable: boolean = true;
+    /**
      * Layout of the boxes.
      * @default null
      */
@@ -186,7 +191,7 @@ export class KupFamilyTree {
     #buildNode(node: KupFamilyTreeNode) {
         let children: KupFamilyTreeNode[] = null;
         let staffChildren: KupFamilyTreeNode[] = null;
-        if (node.isExpanded) {
+        if (!this.expandable || (this.expandable && node.isExpanded)) {
             node.children?.forEach((child) => {
                 if (child.isStaff) {
                     if (!staffChildren) {
@@ -221,7 +226,8 @@ export class KupFamilyTree {
 
         const expandButtonProp: FButtonProps = {
             icon: node.isExpanded ? 'remove' : 'plus',
-            styling: FButtonStyling.FLOATING,
+            styling: FButtonStyling.OUTLINED,
+            slim: true,
             onClick: () => {
                 node.isExpanded = !node.isExpanded;
                 this.refresh();
@@ -237,7 +243,9 @@ export class KupFamilyTree {
                         data={data}
                         layout={layout}
                     ></kup-box>
-                    {node.children && node.children.length > 0 ? (
+                    {this.expandable &&
+                    node.children &&
+                    node.children.length > 0 ? (
                         <FButton {...expandButtonProp} />
                     ) : undefined}
                 </div>
