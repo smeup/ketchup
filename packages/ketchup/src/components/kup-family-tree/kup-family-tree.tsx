@@ -320,11 +320,7 @@ export class KupFamilyTree {
                 </div>
             );
         } else {
-            content.push(
-                <div onWheel={this.#onTreeWheel}>
-                    {this.#buildNodes(this.data.rows)}
-                </div>
-            );
+            content.push(<div>{this.#buildNodes(this.data.rows)}</div>);
         }
         return (
             <div
@@ -510,9 +506,10 @@ export class KupFamilyTree {
         );
     }
 
-    #onTreeWheel(event: WheelEvent) {
-        event.preventDefault();
-        const tree = event.currentTarget as HTMLElement;
+    #zoomTree(event: WheelEvent) {
+        const tree = this.rootElement.shadowRoot.querySelector(
+            '.family-tree'
+        ) as HTMLElement;
         if (!tree.dataset.scale) {
             tree.dataset.scale = '1.00';
         }
@@ -555,6 +552,10 @@ export class KupFamilyTree {
                 onPointerDown={(e: PointerEvent) => {
                     e.preventDefault();
                     this.#startPanning(e);
+                }}
+                onWheel={(e: WheelEvent) => {
+                    e.preventDefault();
+                    this.#zoomTree(e);
                 }}
             >
                 <style>
