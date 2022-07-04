@@ -3,10 +3,10 @@
     <div class="demo-wrapper">
       <p
         >The family tree component (or organigram) displays elements
-        hierarchically. The component show nodes readed by
-        <span class="code-word">data</span> property. Any node with children can
-        collapse or expand his content. The component support zoom with mouse
-        whell and move pan area with mouse click.</p
+        hierarchically. <br />
+        Any node with children can be collapsed or expanded if the
+        <span class="code-word">collapsible</span> prop is enabled.<br />
+        The component also supports zoom and panning.</p
       >
       <p class="centered">Sample markup</p>
       <code class="flat">{{ markupBasic }}</code>

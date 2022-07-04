@@ -1572,6 +1572,16 @@ export namespace Components {
     }
     interface KupFamilyTree {
         /**
+          * The component's initial render will fit the container.
+          * @default true
+         */
+        "autofit": boolean;
+        /**
+          * Nodes can be expanded/collapsed.
+          * @default true
+         */
+        "collapsible": boolean;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -1582,11 +1592,6 @@ export namespace Components {
           * @default null
          */
         "data": KupFamilyTreeData;
-        /**
-          * Enable expand or collapse for the boxes.
-          * @default null
-         */
-        "expandable": boolean;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -4752,6 +4757,16 @@ declare namespace LocalJSX {
     }
     interface KupFamilyTree {
         /**
+          * The component's initial render will fit the container.
+          * @default true
+         */
+        "autofit"?: boolean;
+        /**
+          * Nodes can be expanded/collapsed.
+          * @default true
+         */
+        "collapsible"?: boolean;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -4762,11 +4777,6 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: KupFamilyTreeData;
-        /**
-          * Enable expand or collapse for the boxes.
-          * @default null
-         */
-        "expandable"?: boolean;
         /**
           * Layout of the boxes.
           * @default null

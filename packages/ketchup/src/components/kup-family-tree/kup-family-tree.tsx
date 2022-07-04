@@ -54,6 +54,16 @@ export class KupFamilyTree {
     /*-------------------------------------------------*/
 
     /**
+     * The component's initial render will fit the container.
+     * @default true
+     */
+    @Prop() autofit: boolean = true;
+    /**
+     * Nodes can be expanded/collapsed.
+     * @default true
+     */
+    @Prop() collapsible: boolean = true;
+    /**
      * Custom style of the component.
      * @default ""
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -64,11 +74,6 @@ export class KupFamilyTree {
      * @default null
      */
     @Prop() data: KupFamilyTreeData = null;
-    /**
-     * Enable expand or collapse for the boxes.
-     * @default null
-     */
-    @Prop() expandable: boolean = true;
     /**
      * Layout of the boxes.
      * @default null
@@ -192,7 +197,7 @@ export class KupFamilyTree {
     #buildNode(node: KupFamilyTreeNode) {
         let children: KupFamilyTreeNode[] = null;
         let staffChildren: KupFamilyTreeNode[] = null;
-        if (!this.expandable || (this.expandable && node.isExpanded)) {
+        if (!this.collapsible || (this.collapsible && node.isExpanded)) {
             node.children?.forEach((child) => {
                 if (child.isStaff) {
                     if (!staffChildren) {
@@ -244,7 +249,7 @@ export class KupFamilyTree {
                         data={data}
                         layout={layout}
                     ></kup-box>
-                    {this.expandable &&
+                    {this.collapsible &&
                     node.children &&
                     node.children.length > 0 ? (
                         <FButton {...expandButtonProp} />
@@ -334,24 +339,14 @@ export class KupFamilyTree {
         );
     }
 
-    #buildNodes(nodes: KupDataNode[]) {
+    #buildNodes(nodes: KupDataNode[]): VNode[] {
         return nodes.map((node) => this.#buildNode(node));
     }
 
     #createTree(): VNode {
-        const content: VNode[] = [];
+        const emptyData =
+            !this.data || !this.data.rows || !this.data.rows.length;
 
-        if (!this.data || !this.data.rows || !this.data.rows.length) {
-            content.push(
-                <div>
-                    {this.#kupManager.language.translate(
-                        KupLanguageGeneric.EMPTY_DATA
-                    )}
-                </div>
-            );
-        } else {
-            content.push(<div>{this.#buildNodes(this.data.rows)}</div>);
-        }
         return (
             <div
                 class="family-tree"
@@ -360,7 +355,15 @@ export class KupFamilyTree {
                 }}
                 ref={(el) => (this.#wrapperEl = el)}
             >
-                {content}
+                {emptyData ? (
+                    <div>
+                        {this.#kupManager.language.translate(
+                            KupLanguageGeneric.EMPTY_DATA
+                        )}
+                    </div>
+                ) : (
+                    this.#buildNodes(this.data.rows)
+                )}
             </div>
         );
     }
@@ -565,6 +568,8 @@ export class KupFamilyTree {
 
     componentDidLoad() {
         this.#didLoadInteractables();
+        if (this.autofit) {
+        }
         this.#kupManager.debug.logLoad(this, true);
     }
 

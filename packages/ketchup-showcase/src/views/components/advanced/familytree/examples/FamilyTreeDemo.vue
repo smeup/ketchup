@@ -52,6 +52,20 @@ export default {
       ],
       demoProps: [
         {
+          prop: 'autofit',
+          description: "The component's initial render will fit the container.",
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'collapsible',
+          description: 'Nodes can be expanded/collapsed.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
@@ -65,13 +79,6 @@ export default {
           type: 'KupFamilyTreeData',
           default: 'null',
           try: 'json',
-        },
-        {
-          prop: 'expandable',
-          description: 'Enable expand or collapse for the boxes.',
-          type: 'boolean',
-          default: 'true',
-          try: 'switch',
         },
         {
           prop: 'layout',
