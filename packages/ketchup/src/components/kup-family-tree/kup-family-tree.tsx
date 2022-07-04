@@ -242,7 +242,7 @@ export class KupFamilyTree {
 
         const box: VNode = (
             <div class={'family-tree__item'}>
-                <div>
+                <div class={'family-tree__item__wrapper'}>
                     <kup-box
                         class="kup-borderless kup-paddingless"
                         customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
@@ -577,7 +577,6 @@ export class KupFamilyTree {
                 tooManyAttempts = 0;
             }
             tempWidth = childWidth * multiplier;
-            console.log(tempWidth, multiplier);
         }
         this.#wrapperEl.style.setProperty(
             '--kup_familytree_scale',
