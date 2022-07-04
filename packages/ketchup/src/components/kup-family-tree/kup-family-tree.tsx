@@ -556,6 +556,35 @@ export class KupFamilyTree {
         );
     }
 
+    #autofit(parentWidth: number, childWidth: number) {
+        const multiplierStep = 0.01;
+        const minWidth = (85 / 100) * parentWidth;
+        const maxWidth = (95 / 100) * parentWidth;
+        let multiplier = 1;
+        let tooManyAttempts = 2000;
+        let tempWidth = childWidth;
+        while (
+            (tempWidth < minWidth || tempWidth > maxWidth) &&
+            tooManyAttempts > 0 &&
+            multiplier > multiplierStep
+        ) {
+            tooManyAttempts--;
+            if (tempWidth < minWidth) {
+                multiplier = multiplier + multiplierStep;
+            } else if (tempWidth > maxWidth) {
+                multiplier = multiplier - multiplierStep;
+            } else {
+                tooManyAttempts = 0;
+            }
+            tempWidth = childWidth * multiplier;
+            console.log(tempWidth, multiplier);
+        }
+        this.#wrapperEl.style.setProperty(
+            '--kup_familytree_scale',
+            multiplier.toFixed(2)
+        );
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -569,6 +598,11 @@ export class KupFamilyTree {
     componentDidLoad() {
         this.#didLoadInteractables();
         if (this.autofit) {
+            const parentWidth = this.#wrapperEl.clientWidth;
+            const childWidth = this.#wrapperEl.children[0].clientWidth;
+            if (childWidth > parentWidth) {
+                this.#autofit(parentWidth, childWidth);
+            }
         }
         this.#kupManager.debug.logLoad(this, true);
     }
