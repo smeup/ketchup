@@ -32,6 +32,9 @@
 }
 
 .family-tree {
+  transform: scale(var(--kup_familytree_scale, 1));
+  transform-origin: 0px 0px;
+
   &__node {
     border-collapse: collapse;
 
@@ -126,7 +129,7 @@
         width: var(--kup_familytree_item_width);
         z-index: 1;
       }
-  
+
       > .f-button {
         width: fit-content;
         margin-left: auto;

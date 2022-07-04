@@ -93,6 +93,7 @@ export class KupFamilyTree {
         this.#currentPanX = e.clientX;
         this.#currentPanY = e.clientY;
     };
+    #wrapperEl: HTMLElement = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -357,6 +358,7 @@ export class KupFamilyTree {
                 onContextMenu={(e: MouseEvent) => {
                     e.preventDefault();
                 }}
+                ref={(el) => (this.#wrapperEl = el)}
             >
                 {content}
             </div>
@@ -536,20 +538,19 @@ export class KupFamilyTree {
     }
 
     #zoomTree(event: WheelEvent) {
-        const tree = this.rootElement.shadowRoot.querySelector(
-            '.family-tree'
-        ) as HTMLElement;
-        if (!tree.dataset.scale) {
-            tree.dataset.scale = '1.00';
-            tree.style.transformOrigin = '0px 0px';
+        const current =
+            parseFloat(
+                this.#wrapperEl.style.getPropertyValue('--kup_familytree_scale')
+            ) || 1;
+        const delta = 0.05;
+        let value = event.deltaY > 0 ? current - delta : current + delta;
+        if (value < delta) {
+            value = delta;
         }
-        const deltaVal = 0.05;
-        const scaleVal =
-            event.deltaY > 0
-                ? Number(tree.dataset.scale) - deltaVal
-                : Number(tree.dataset.scale) + deltaVal;
-        tree.dataset.scale = scaleVal.toFixed(2);
-        tree.style.transform = `scale(${tree.dataset.scale})`;
+        this.#wrapperEl.style.setProperty(
+            '--kup_familytree_scale',
+            value.toFixed(2)
+        );
     }
 
     /*-------------------------------------------------*/
