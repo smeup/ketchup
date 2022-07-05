@@ -32,8 +32,12 @@
 }
 
 .family-tree {
+  transform: scale(var(--kup_familytree_scale, 1));
+  transform-origin: 0px 0px;
+
   &__node {
     border-collapse: collapse;
+    margin: auto;
 
     &__staff {
       align-items: center;
@@ -62,14 +66,15 @@
 
       &__item {
         padding: var(--kup_familytree_item_v_padding);
+        text-align: left;
 
         &:before {
           border-top: 2px solid var(--kup_familytree_lines_color);
           content: '';
           position: absolute;
-          transform: translateX(100%)
+          transform: translateX(calc(100% + 2px))
             translateY(calc(var(--kup_familytree_item_height) / 2));
-          width: var(--kup_familytree_item_v_padding);
+          width: var(--kup_familytree_item_h_padding);
         }
       }
     }
@@ -116,18 +121,18 @@
   &__item {
     display: flex;
 
-    > div {
+    &__wrapper {
       margin: auto;
 
-      > kup-box {
+      kup-box {
         margin: 0 auto;
         overflow: hidden;
         padding: 0 18px;
         width: var(--kup_familytree_item_width);
         z-index: 1;
       }
-  
-      > .f-button {
+
+      .f-button {
         width: fit-content;
         margin-left: auto;
         margin-right: auto;

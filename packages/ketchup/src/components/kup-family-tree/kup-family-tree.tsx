@@ -54,6 +54,16 @@ export class KupFamilyTree {
     /*-------------------------------------------------*/
 
     /**
+     * The component's initial render will fit the container.
+     * @default true
+     */
+    @Prop() autofit: boolean = true;
+    /**
+     * Nodes can be expanded/collapsed.
+     * @default true
+     */
+    @Prop() collapsible: boolean = true;
+    /**
      * Custom style of the component.
      * @default ""
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -64,11 +74,6 @@ export class KupFamilyTree {
      * @default null
      */
     @Prop() data: KupFamilyTreeData = null;
-    /**
-     * Enable expand or collapse for the boxes.
-     * @default null
-     */
-    @Prop() expandable: boolean = true;
     /**
      * Layout of the boxes.
      * @default null
@@ -93,6 +98,7 @@ export class KupFamilyTree {
         this.#currentPanX = e.clientX;
         this.#currentPanY = e.clientY;
     };
+    #wrapperEl: HTMLElement = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -191,7 +197,7 @@ export class KupFamilyTree {
     #buildNode(node: KupFamilyTreeNode) {
         let children: KupFamilyTreeNode[] = null;
         let staffChildren: KupFamilyTreeNode[] = null;
-        if (!this.expandable || (this.expandable && node.isExpanded)) {
+        if (!this.collapsible || (this.collapsible && node.isExpanded)) {
             node.children?.forEach((child) => {
                 if (child.isStaff) {
                     if (!staffChildren) {
@@ -236,14 +242,14 @@ export class KupFamilyTree {
 
         const box: VNode = (
             <div class={'family-tree__item'}>
-                <div>
+                <div class={'family-tree__item__wrapper'}>
                     <kup-box
                         class="kup-borderless kup-paddingless"
                         customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
                         data={data}
                         layout={layout}
                     ></kup-box>
-                    {this.expandable &&
+                    {this.collapsible &&
                     node.children &&
                     node.children.length > 0 ? (
                         <FButton {...expandButtonProp} />
@@ -333,32 +339,31 @@ export class KupFamilyTree {
         );
     }
 
-    #buildNodes(nodes: KupDataNode[]) {
+    #buildNodes(nodes: KupDataNode[]): VNode[] {
         return nodes.map((node) => this.#buildNode(node));
     }
 
     #createTree(): VNode {
-        const content: VNode[] = [];
+        const emptyData =
+            !this.data || !this.data.rows || !this.data.rows.length;
 
-        if (!this.data || !this.data.rows || !this.data.rows.length) {
-            content.push(
-                <div>
-                    {this.#kupManager.language.translate(
-                        KupLanguageGeneric.EMPTY_DATA
-                    )}
-                </div>
-            );
-        } else {
-            content.push(<div>{this.#buildNodes(this.data.rows)}</div>);
-        }
         return (
             <div
                 class="family-tree"
                 onContextMenu={(e: MouseEvent) => {
                     e.preventDefault();
                 }}
+                ref={(el) => (this.#wrapperEl = el)}
             >
-                {content}
+                {emptyData ? (
+                    <div>
+                        {this.#kupManager.language.translate(
+                            KupLanguageGeneric.EMPTY_DATA
+                        )}
+                    </div>
+                ) : (
+                    this.#buildNodes(this.data.rows)
+                )}
             </div>
         );
     }
@@ -536,20 +541,47 @@ export class KupFamilyTree {
     }
 
     #zoomTree(event: WheelEvent) {
-        const tree = this.rootElement.shadowRoot.querySelector(
-            '.family-tree'
-        ) as HTMLElement;
-        if (!tree.dataset.scale) {
-            tree.dataset.scale = '1.00';
-            tree.style.transformOrigin = '0px 0px';
+        const current =
+            parseFloat(
+                this.#wrapperEl.style.getPropertyValue('--kup_familytree_scale')
+            ) || 1;
+        const delta = 0.05;
+        let value = event.deltaY > 0 ? current - delta : current + delta;
+        if (value < delta) {
+            value = delta;
         }
-        const deltaVal = 0.05;
-        const scaleVal =
-            event.deltaY > 0
-                ? Number(tree.dataset.scale) - deltaVal
-                : Number(tree.dataset.scale) + deltaVal;
-        tree.dataset.scale = scaleVal.toFixed(2);
-        tree.style.transform = `scale(${tree.dataset.scale})`;
+        this.#wrapperEl.style.setProperty(
+            '--kup_familytree_scale',
+            value.toFixed(2)
+        );
+    }
+
+    #autofit(parentWidth: number, childWidth: number) {
+        const multiplierStep = 0.01;
+        const minWidth = (85 / 100) * parentWidth;
+        const maxWidth = (95 / 100) * parentWidth;
+        let multiplier = 1;
+        let tooManyAttempts = 2000;
+        let tempWidth = childWidth;
+        while (
+            (tempWidth < minWidth || tempWidth > maxWidth) &&
+            tooManyAttempts > 0 &&
+            multiplier > multiplierStep
+        ) {
+            tooManyAttempts--;
+            if (tempWidth < minWidth) {
+                multiplier = multiplier + multiplierStep;
+            } else if (tempWidth > maxWidth) {
+                multiplier = multiplier - multiplierStep;
+            } else {
+                tooManyAttempts = 0;
+            }
+            tempWidth = childWidth * multiplier;
+        }
+        this.#wrapperEl.style.setProperty(
+            '--kup_familytree_scale',
+            multiplier.toFixed(2)
+        );
     }
 
     /*-------------------------------------------------*/
@@ -564,6 +596,13 @@ export class KupFamilyTree {
 
     componentDidLoad() {
         this.#didLoadInteractables();
+        if (this.autofit) {
+            const parentWidth = this.#wrapperEl.clientWidth;
+            const childWidth = this.#wrapperEl.children[0].clientWidth;
+            if (childWidth > parentWidth) {
+                this.#autofit(parentWidth, childWidth);
+            }
+        }
         this.#kupManager.debug.logLoad(this, true);
     }
 
