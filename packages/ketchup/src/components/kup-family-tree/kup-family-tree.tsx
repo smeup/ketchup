@@ -22,10 +22,7 @@ import {
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
-import {
-    KupManager,
-    kupManagerInstance,
-} from '../../managers/kup-manager/kup-manager';
+import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
