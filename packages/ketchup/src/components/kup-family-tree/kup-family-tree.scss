@@ -32,6 +32,7 @@
 }
 
 .family-tree {
+  display: flex;
   transform: scale(var(--kup_familytree_scale, 1));
   transform-origin: 0px 0px;
 
