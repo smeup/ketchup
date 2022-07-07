@@ -24,10 +24,12 @@ export interface KupFamilyTreeData {
     rows: KupFamilyTreeNode[];
 }
 
+export type KupFamilyTreeLayout = KupBoxLayout | number;
+
 export interface KupFamilyTreeNode extends KupDataNode {
     children?: KupFamilyTreeNode[];
     isStaff?: boolean;
-    layout?: KupBoxLayout;
+    layout?: KupFamilyTreeLayout;
 }
 
 export interface KupFamilyTreeEventHandlerDetails {

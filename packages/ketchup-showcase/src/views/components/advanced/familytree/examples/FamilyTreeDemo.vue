@@ -90,10 +90,10 @@ export default {
         },
         {
           prop: 'layout',
-          description: 'Layout of the boxes.',
-          type: 'KupBoxLayout',
+          description: 'Layout of the nodes (KupBoxLayout or number).',
+          type: 'KupFamilyTreeLayout',
           default: 'null',
-          try: 'json',
+          try: 'field',
         },
       ],
     };

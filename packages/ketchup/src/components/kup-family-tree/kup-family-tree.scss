@@ -156,9 +156,17 @@
       box-sizing: border-box;
       display: flex;
       height: var(--kup_familytree_item_height);
-      justify-content: flex-start;
+      
       margin: 0 18px;
       width: var(--kup_familytree_item_width);
+
+      &__1 {
+        justify-content: center;
+      }
+
+      &__2 {
+        justify-content: flex-start;
+      }
 
       &__color {
         background-color: var(--kup-secondary-color);

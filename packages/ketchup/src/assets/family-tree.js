@@ -2638,6 +2638,7 @@ const familyTreeCondensed = document.getElementById('condensed');
 familyTreeLayout.data = dataLayout;
 familyTreeLayout.layout = layout;
 familyTreeStaff.data = dataStaff;
+familyTreeStaff.layout = 2;
 familyTreeCondensed.data = dataCondensed;
 familyTreeCondensed.collapsible = false;
 familyTreeCondensed.condensedChildren = true;
