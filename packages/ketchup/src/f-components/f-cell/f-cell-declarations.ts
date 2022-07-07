@@ -10,7 +10,8 @@ import {
     KupTagNames,
 } from '../../types/GenericTypes';
 
-export const autoAlignComps = [KupTagNames.DATA_TABLE, KupTagNames.TREE];
+export const autoCenterComps = [KupTagNames.DATA_TABLE, KupTagNames.TREE];
+export const fullWidthFieldsComps = [KupTagNames.DATA_TABLE, KupTagNames.TREE];
 /**
  * Props of the f-cell component.
  */
@@ -119,6 +120,7 @@ export enum FCellShapes {
     PROGRESS_BAR = 'PGB',
     RADIO = 'RAD',
     RATING = 'RTG',
+    SWITCH = 'SWT',
     TEXT_FIELD = 'ITX',
 }
 /**
@@ -147,6 +149,7 @@ export enum FCellTypes {
     RADIO = 'radio',
     RATING = 'rating',
     STRING = 'string',
+    SWITCH = 'switch',
     TIME = 'time',
 }
 export const editableTypes = [
@@ -158,6 +161,7 @@ export const editableTypes = [
     FCellTypes.NUMBER,
     FCellTypes.RATING,
     FCellTypes.STRING,
+    FCellTypes.SWITCH,
     FCellTypes.TIME,
 ];
 export const kupTypes = [

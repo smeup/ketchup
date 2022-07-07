@@ -74,6 +74,7 @@ Type: `Promise<void>`
 | `--kup-lazy-hor-alignment`     | Sets the horizontal alignment of the subcomponent. |
 | `--kup-lazy-placeholder-color` | Sets color of the placeholder icon.                |
 | `--kup-lazy-ver-alignment`     | Sets the vertical alignment of the subcomponent.   |
+| `--kup-lazy-width`             | Sets the width of the component and subcomponent.  |
 
 
 ## Dependencies

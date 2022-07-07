@@ -1,41 +1,20 @@
-# kup-field
+# kup-form
+
+
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                      | Type      | Default     |
-| ------------- | -------------- | ------------------------------------------------------------------------------------------------ | --------- | ----------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                                                   | `string`  | `''`        |
-| `data`        | --             | Effective data to pass to the component.                                                         | `Object`  | `{}`        |
-| `label`       | `label`        | The text of the label. If set to empty or has only white space chars, the label will be removed. | `string`  | `''`        |
-| `labelPos`    | `label-pos`    | Sets the label's position, left right or top.                                                    | `string`  | `'left'`    |
-| `showSubmit`  | `show-submit`  | Sets whether the submit button must be displayed or not.                                         | `boolean` | `false`     |
-| `submitLabel` | `submit-label` | Sets the submit button's label.                                                                  | `string`  | `''`        |
-| `submitPos`   | `submit-pos`   | Sets the submit button's position, top right bottom or left.                                     | `string`  | `'right'`   |
-| `type`        | `type`         | The type of the FLD                                                                              | `string`  | `undefined` |
-
-
-## Events
-
-| Event              | Description                                                                 | Type                               |
-| ------------------ | --------------------------------------------------------------------------- | ---------------------------------- |
-| `kup-field-change` | Launched when the value of the current FLD changes.                         | `CustomEvent<KupFieldChangeEvent>` |
-| `kup-field-submit` | Launched when the FLD values are confirmed and a submit event is triggered. | `CustomEvent<KupFieldSubmitEvent>` |
+| Property      | Attribute      | Description                            | Type            | Default |
+| ------------- | -------------- | -------------------------------------- | --------------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component.         | `string`        | `''`    |
+| `data`        | --             | Actual data of the form.               | `KupFormData`   | `null`  |
+| `layout`      | --             | How the form will arrange its content. | `KupFormLayout` | `null`  |
 
 
 ## Methods
-
-### `getCurrentValue() => Promise<string | object>`
-
-Provides an interface to get the current value programmatically
-
-#### Returns
-
-Type: `Promise<string | object>`
-
-
 
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
@@ -57,21 +36,77 @@ Type: `Promise<void>`
 
 
 
+### `setFocus(column: string, rowId: string) => Promise<void>`
+
+Sets the focus on an editable table cell.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
+## CSS Custom Properties
+
+| Name                          | Description                        |
+| ----------------------------- | ---------------------------------- |
+| `--kup-form-background-color` | Sets background of the component.  |
+| `--kup-form-color`            | Sets text color of the component.  |
+| `--kup-form-font-family`      | Sets font family of the component. |
+| `--kup-form-font-size`        | Sets font size of the component.   |
+| `--kup-form-label-alignment`  | Sets the text alignment of labels. |
+| `--kup-form-label-width`      | Sets the width of labels.          |
+
 
 ## Dependencies
 
 ### Depends on
 
-- [kup-button](../kup-button)
 - [kup-card](../kup-card)
+- [kup-autocomplete](../kup-autocomplete)
+- [kup-color-picker](../kup-color-picker)
+- [kup-combobox](../kup-combobox)
+- [kup-date-picker](../kup-date-picker)
+- [kup-rating](../kup-rating)
+- [kup-time-picker](../kup-time-picker)
+- [kup-image](../kup-image)
+- [kup-button](../kup-button)
+- [kup-button-list](../kup-button-list)
+- [kup-chart](../kup-chart)
+- [kup-gauge](../kup-gauge)
+- [kup-progress-bar](../kup-progress-bar)
+- [kup-radio](../kup-radio)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-field --> kup-button
-  kup-field --> kup-card
-  kup-button --> kup-card
-  kup-button --> kup-badge
+  kup-form --> kup-card
+  kup-form --> kup-autocomplete
+  kup-form --> kup-color-picker
+  kup-form --> kup-combobox
+  kup-form --> kup-date-picker
+  kup-form --> kup-rating
+  kup-form --> kup-time-picker
+  kup-form --> kup-image
+  kup-form --> kup-button
+  kup-form --> kup-button-list
+  kup-form --> kup-chart
+  kup-form --> kup-gauge
+  kup-form --> kup-progress-bar
+  kup-form --> kup-radio
+  kup-form --> kup-badge
   kup-card --> kup-badge
   kup-card --> kup-button
   kup-card --> kup-chip
@@ -92,6 +127,8 @@ graph TD;
   kup-card --> kup-card
   kup-badge --> kup-badge
   kup-badge --> kup-card
+  kup-button --> kup-card
+  kup-button --> kup-badge
   kup-chip --> kup-card
   kup-chip --> kup-badge
   kup-list --> kup-list
@@ -161,7 +198,7 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-badge
-  style kup-field fill:#f9f,stroke:#333,stroke-width:4px
+  style kup-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

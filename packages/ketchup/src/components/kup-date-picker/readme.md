@@ -90,6 +90,7 @@ Type: `Promise<void>`
  - [kup-card](../kup-card)
  - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
+ - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
  - [kup-tree](../kup-tree)
 
@@ -143,6 +144,7 @@ graph TD;
   kup-tree --> kup-date-picker
   kup-box --> kup-date-picker
   kup-cell --> kup-date-picker
+  kup-form --> kup-date-picker
   kup-image-list --> kup-date-picker
   style kup-date-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```

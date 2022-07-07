@@ -458,6 +458,7 @@ export class KupDropdownButton {
                 ? true
                 : false,
             styling: this.styling ? this.styling : FButtonStyling.RAISED,
+            title: this.rootElement.title,
         };
 
         if (!this.dropdownOnly) {

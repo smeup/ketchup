@@ -846,6 +846,18 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">KUP-CELL</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    id="kup-cell"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">KUP-CHART</span>
                 </td>
                 <td class="text-cell">
@@ -967,12 +979,24 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
-                  <span class="code-word">KUP-FIELD</span>
+                  <span class="code-word">KUP-FAMILY-TREE</span>
                 </td>
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    id="kup-field"
+                    id="kup-family-tree"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-FORM</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    id="kup-form"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
@@ -1009,6 +1033,18 @@
                   <kup-text-field
                     text-area
                     id="kup-image"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-IMAGE-LIST</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    id="kup-image-list"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
@@ -1063,6 +1099,30 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">KUP-NUMERIC-PICKER</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    id="kup-numeric-picker"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-PHOTO-FRAME</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    id="kup-photo-frame"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">KUP-PROGRESS-BAR</span>
                 </td>
                 <td class="text-cell">
@@ -1093,6 +1153,18 @@
                   <kup-text-field
                     text-area
                     id="kup-rating"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-SNACKBAR</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    id="kup-snackbar"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>

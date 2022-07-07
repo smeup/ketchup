@@ -11,7 +11,6 @@ import {
     Prop,
     State,
     VNode,
-    Watch,
 } from '@stencil/core';
 import type {
     GenericObject,
@@ -26,12 +25,7 @@ import {
     KupNumericPickerEventPayload,
     KupNumericPickerProps,
 } from './kup-numeric-picker-declarations';
-import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import {
-    KupDatesFormats,
-    KupDatesNormalize,
-} from '../../managers/kup-dates/kup-dates-declarations';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
@@ -42,8 +36,6 @@ import {
     KupCardData,
     KupCardFamily,
 } from '../kup-card/kup-card-declarations';
-import { doNotExpectFiles } from '@stencil/core/testing/testing-utils';
-
 @Component({
     tag: 'kup-numeric-picker',
     styleUrl: 'kup-numeric-picker.scss',

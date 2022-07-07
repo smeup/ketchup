@@ -70,6 +70,7 @@ Type: `Promise<void>`
  - [kup-box](../kup-box)
  - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
+ - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
  - [kup-tree](../kup-tree)
 
@@ -140,6 +141,7 @@ graph TD;
   kup-tree --> kup-rating
   kup-box --> kup-rating
   kup-cell --> kup-rating
+  kup-form --> kup-rating
   kup-image-list --> kup-rating
   style kup-rating fill:#f9f,stroke:#333,stroke-width:4px
 ```

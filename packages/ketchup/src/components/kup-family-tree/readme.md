@@ -1,4 +1,4 @@
-# kup-form-editor
+# kup-image-list
 
 
 
@@ -7,17 +7,22 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                    | Type      | Default |
-| ------------- | -------------- | ------------------------------ | --------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string`  | `''`    |
-| `data`        | --             | The data of the component.     | `KupForm` | `null`  |
+| Property      | Attribute      | Description                                            | Type                | Default |
+| ------------- | -------------- | ------------------------------------------------------ | ------------------- | ------- |
+| `autofit`     | `autofit`      | The component's initial render will fit the container. | `boolean`           | `true`  |
+| `collapsible` | `collapsible`  | Nodes can be expanded/collapsed.                       | `boolean`           | `true`  |
+| `customStyle` | `custom-style` | Custom style of the component.                         | `string`            | `''`    |
+| `data`        | --             | Actual data of the component.                          | `KupFamilyTreeData` | `null`  |
+| `layout`      | --             | Layout of the boxes.                                   | `KupBoxLayout`      | `null`  |
 
 
 ## Events
 
-| Event                 | Description | Type                                     |
-| --------------------- | ----------- | ---------------------------------------- |
-| `kup-formeditor-save` |             | `CustomEvent<KupFormEditorEventPayload>` |
+| Event                        | Description | Type                                     |
+| ---------------------------- | ----------- | ---------------------------------------- |
+| `kup-familytree-click`       |             | `CustomEvent<KupFamilyTreeEventPayload>` |
+| `kup-familytree-contextmenu` |             | `CustomEvent<KupFamilyTreeEventPayload>` |
+| `kup-familytree-dblclick`    |             | `CustomEvent<KupFamilyTreeEventPayload>` |
 
 
 ## Methods
@@ -53,25 +58,50 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                                     | Description                             |
+| ---------------------------------------- | --------------------------------------- |
+| `--kup-familytree-item-background-color` | Sets the background color of the items. |
+| `--kup-familytree-item-color`            | Sets the color of the items.            |
+| `--kup-familytree-item-h-padding`        | Sets the horizontal padding of items.   |
+| `--kup-familytree-item-height`           | Sets the height of the items.           |
+| `--kup-familytree-item-v-padding`        | Sets the vertical padding of items.     |
+| `--kup-familytree-item-width`            | Sets the width of the items.            |
+| `--kup-familytree-lines-color`           | Sets the color of the lines.            |
+
+
 ## Dependencies
 
 ### Depends on
 
-- [kup-radio](../kup-radio)
-- [kup-switch](../kup-switch)
-- [kup-image](../kup-image)
+- [kup-box](../kup-box)
 - [kup-badge](../kup-badge)
 - [kup-card](../kup-card)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-form-editor --> kup-radio
-  kup-form-editor --> kup-switch
-  kup-form-editor --> kup-image
-  kup-form-editor --> kup-badge
-  kup-form-editor --> kup-card
-  kup-radio --> kup-card
+  kup-family-tree --> kup-box
+  kup-family-tree --> kup-badge
+  kup-family-tree --> kup-card
+  kup-box --> kup-card
+  kup-box --> kup-checkbox
+  kup-box --> kup-badge
+  kup-box --> kup-combobox
+  kup-box --> kup-text-field
+  kup-box --> kup-autocomplete
+  kup-box --> kup-color-picker
+  kup-box --> kup-date-picker
+  kup-box --> kup-rating
+  kup-box --> kup-time-picker
+  kup-box --> kup-image
+  kup-box --> kup-button
+  kup-box --> kup-button-list
+  kup-box --> kup-chart
+  kup-box --> kup-gauge
+  kup-box --> kup-progress-bar
+  kup-box --> kup-radio
   kup-card --> kup-badge
   kup-card --> kup-button
   kup-card --> kup-chip
@@ -100,6 +130,7 @@ graph TD;
   kup-list --> kup-radio
   kup-list --> kup-card
   kup-list --> kup-badge
+  kup-radio --> kup-card
   kup-combobox --> kup-list
   kup-combobox --> kup-card
   kup-autocomplete --> kup-list
@@ -162,7 +193,7 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-badge
-  style kup-form-editor fill:#f9f,stroke:#333,stroke-width:4px
+  style kup-family-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

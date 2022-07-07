@@ -75,6 +75,10 @@ components.data = [
         id: 'dash-list.html',
     },
     {
+        value: 'Dashboard',
+        id: 'dashboard.html',
+    },
+    {
         value: 'Data table',
         id: 'data-table.html',
     },
@@ -95,12 +99,20 @@ components.data = [
         id: 'echart.html',
     },
     {
-        value: 'Form editor',
-        id: 'form-editor.html',
+        value: 'Family tree',
+        id: 'family-tree.html',
+    },
+    {
+        value: 'Form',
+        id: 'form.html',
     },
     {
         value: 'Gauge',
         id: 'gauge.html',
+    },
+    {
+        value: 'Grid',
+        id: 'grid.html',
     },
     {
         value: 'Image',
@@ -117,10 +129,6 @@ components.data = [
     {
         value: 'KupTooltip',
         id: 'kuptooltip.html',
-    },
-    {
-        value: 'Layout',
-        id: 'layout.html',
     },
     {
         value: 'List',

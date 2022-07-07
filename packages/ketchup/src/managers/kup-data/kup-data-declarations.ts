@@ -126,6 +126,7 @@ export interface KupDataColumnOperations {
  * Interface related to nodes operations.
  */
 export interface KupDataNodeOperations {
+    getDrilldownInfo: (nodes: KupDataNode[]) => KupDataNodeDrilldownInfo;
     getParent: (nodes: KupDataNode[], child: KupDataNode) => KupDataNode;
     remove: (nodes: KupDataNode[], node2remove: KupDataNode) => KupDataNode;
     setProperties: (
@@ -180,6 +181,13 @@ export interface KupDataNewColumnOptions {
     newColumn?: KupDataColumn;
     operation?: string;
     separator?: string;
+}
+/**
+ * Interface containing the options related to column creation when invoking column.new.
+ */
+export interface KupDataNodeDrilldownInfo {
+    maxChildren?: number;
+    maxDepth?: number;
 }
 /**
  * Types of column creation when invoking column.new.

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dashboard</title>
+
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+
+        <link
+            href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
+            rel="stylesheet"
+            type="text/css"
+        />
+
+        <link
+            href="https://fonts.googleapis.com/css?family=Lato"
+            rel="stylesheet"
+        />
+
+        <script
+            type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"
+        ></script>
+
+        <style>
+            html {
+                background-color: var(--kup-background-color);
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
+                padding: 1rem;
+            }
+
+            .group {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .group > * {
+                width: 100%;
+                padding: 4px;
+            }
+
+            .dashboard-container {
+                height: 80vh;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true },
+                theme: { name: 'dark' },
+            };
+        </script>
+        <h1>DASHBOARD</h1>
+        <div class="dashboard-container">
+            <div class="group">
+                <div>
+                    <div>
+                        <b>Sample 1</b>
+                        <kup-switch
+                            id="enableDashboard1"
+                            checked="false"
+                            label="Enable design"
+                        ></kup-switch>
+                    </div>
+                    <kup-dashboard id="dashboard1">
+                        <h2
+                            slot="SA"
+                            style="margin-left: auto; margin-right: auto"
+                            >Component 1 in section 'SA'</h2
+                        >
+                        <h2
+                            slot="SB"
+                            style="margin-left: auto; margin-right: auto"
+                            >Component 2 in section 'SB'</h2
+                        >
+                        <h2
+                            slot="SC"
+                            style="margin-left: auto; margin-right: auto"
+                            >Component 3 in section 'SC'</h2
+                        >
+                        <h2
+                            slot="SC"
+                            style="margin-left: auto; margin-right: auto"
+                            >Component 4 in section 'SC'</h2
+                        >
+                        <h2
+                            slot="SD"
+                            style="margin-left: auto; margin-right: auto"
+                            >Component 5 in section 'SD'</h2
+                        >
+                    </kup-dashboard>
+                </div>
+                <div>
+                    <div>
+                        <b>Sample 2</b>
+                        <kup-switch
+                            id="enableDashboard2"
+                            checked="false"
+                            label="Enable design"
+                        ></kup-switch>
+                    </div>
+                    <kup-dashboard id="dashboard2">
+                        <h2
+                            slot="SA1"
+                            style="margin-left: auto; margin-right: auto"
+                            >Component 1 in section 'SA1'</h2
+                        >
+                        <h2
+                            slot="SA2"
+                            style="margin-left: auto; margin-right: auto"
+                            >Component 2 in section 'SA2'</h2
+                        >
+                        <h2
+                            slot="SB"
+                            style="margin-left: auto; margin-right: auto"
+                            >Component 3 in section 'SB'</h2
+                        >
+                        <h2
+                            slot="SC"
+                            style="margin-left: auto; margin-right: auto"
+                            >Component 4 in section 'SC'</h2
+                        >
+                        <h2
+                            slot="SD"
+                            style="margin-left: auto; margin-right: auto"
+                            >Component 5 in section 'SD'</h2
+                        >
+                    </kup-dashboard>
+                </div>
+            </div>
+            <div class="group">
+                <div style="height: 600px">
+                    <b>Sample 3</b>
+                    <kup-switch
+                        id="enableDashboard3"
+                        checked="false"
+                        label="Enable design"
+                    ></kup-switch>
+                    <kup-dashboard id="dashboard3">
+                        <div
+                            slot="SA"
+                            style="background-color: red; height: 100px"
+                        ></div>
+                        <div
+                            slot="SB"
+                            style="background-color: yellow; height: 100px"
+                        ></div>
+                        <div
+                            slot="SC"
+                            style="
+                                background-color: blue;
+                                height: 5000px;
+                                width: 5000px;
+                            "
+                        ></div>
+                        <div
+                            slot="SD"
+                            style="background-color: green; height: 100px"
+                        ></div>
+                    </kup-dashboard>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="/assets/dashboard.js"></script>
+    </body>
+</html>

@@ -1,0 +1,121 @@
+/**
+* @prop --kup-form-background-color: Sets background of the component.
+* @prop --kup-form-color: Sets text color of the component.
+* @prop --kup-form-font-family: Sets font family of the component.
+* @prop --kup-form-font-size: Sets font size of the component.
+* @prop --kup-form-label-alignment: Sets the text alignment of labels.
+* @prop --kup-form-label-width: Sets the width of labels.
+*/
+
+:host {
+  --kup_form_background_color: var(
+    --kup-form-background-color,
+    var(--kup-background-color)
+  );
+  --kup_form_color: var(--kup-form-color, var(--kup-text-color));
+  --kup_form_font_family: var(--kup-form-font-family, var(--kup-font-family));
+  --kup_form_font_size: var(--kup-form-font-size, var(--kup-font-size));
+  --kup_form_label_alignment: var(--kup-form-label-alignment);
+  --kup_form_label_width: var(--kup-form-label-width);
+
+  display: block;
+  font-family: var(--kup_form_font_family);
+  font-size: var(--kup_form_font_size);
+}
+
+.form {
+  background: var(--kup_form_background_color);
+  color: var(--kup_form_color);
+  display: flex;
+  flex-grow: 1;
+  overflow: auto;
+  position: relative;
+
+  &--column {
+    flex-direction: column;
+  }
+
+  &__section {
+    display: flex;
+    flex: 1 1 1%;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &--column {
+      flex-direction: column;
+      flex-wrap: unset;
+
+      > .form__section {
+        flex: 0 0 auto;
+      }
+    }
+
+    &--grid {
+      display: grid;
+    }
+
+    &--titled {
+      border: 1px solid var(--kup-border-color);
+      padding-top: 5px;
+      position: relative;
+      margin: 10px;
+
+      > h3 {
+        background: var(--kup-background-color);
+        font-size: calc(var(--kup-font-size) * 1.15);
+        position: absolute;
+        margin: 0px;
+        padding: 0 8px;
+        top: -11px;
+        left: 5px;
+        transition: background-color 0.25s ease;
+      }
+    }
+
+    &--left {
+      .form__label {
+        width: var(--kup_form_label_width, 0);
+      }
+    }
+
+    &--right {
+      .form__field {
+        min-width: 200px;
+        width: 0;
+      }
+    }
+  }
+
+  &__label {
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    font-size: 0.875em;
+    letter-spacing: 0.0178571429em;
+    white-space: nowrap;
+    width: var(--kup_form_label_width);
+
+    &--center {
+      text-align: var(--kup_form_label_alignment, center);
+    }
+
+    &--left {
+      text-align: var(--kup_form_label_alignment, left);
+    }
+
+    &--right {
+      text-align: var(--kup_form_label_alignment, right);
+    }
+  }
+
+  &__field {
+    min-height: 16px;
+
+    img {
+      height: auto;
+    }
+  }
+
+  .f-cell.c-right-aligned:not(.c-centered) .f-cell__content {
+    justify-content: flex-start;
+  }
+}

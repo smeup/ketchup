@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+
+        <title>Ketchup family tree</title>
+
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+        <!--<script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true, autoPrint: true },
+            };
+        </script>-->
+        <style>
+            html {
+                background-color: var(--kup-background-color);
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
+                padding: 1rem;
+
+                --kup-familytree-item-height: 80px;
+                --kup-familytree-item-width: 300px;
+            }
+
+            #staff {
+                background: black;
+                height: 500px;
+                width: 1500px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <kup-family-tree id="staff"></kup-family-tree>
+        <kup-family-tree id="layout"></kup-family-tree>
+    </body>
+    <script src="/assets/family-tree.js"></script>
+</html>

@@ -4,6 +4,7 @@ import {
     KupDataNode,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
+import type { PointerEvent } from '@interactjs/types/index';
 import { GenericMap, KupEventPayload } from '../../types/GenericTypes';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 /**
@@ -64,6 +65,7 @@ export interface KupTreeEventHandlerDetails {
     cell: KupDataCell;
     column: KupDataColumn;
     filterRemove: HTMLSpanElement;
+    originalEvent: PointerEvent;
     row: KupDataRow;
     td: HTMLElement;
     th: HTMLElement;

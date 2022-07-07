@@ -55,8 +55,8 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup/releases/tag/v6.0.0"
-            >v6.0.0</a
+          ><a href="https://github.com/smeup/ketchup/releases/tag/v6.2.0"
+            >v6.2.0</a
           ></div
         ></div
       >
@@ -348,6 +348,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'dashboard',
+                  },
+                },
+                icon: 'dashboard',
+                value: 'Dashboard',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'datatable',
                   },
                 },
@@ -368,11 +378,21 @@ export default {
               {
                 cells: {
                   ROUTE: {
-                    value: 'field',
+                    value: 'familytree',
                   },
                 },
-                icon: 'edit',
-                value: 'Field',
+                icon: 'file-tree',
+                value: 'Family tree',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'form',
+                  },
+                },
+                icon: 'mode_edit',
+                value: 'Form',
                 visible: true,
               },
               {

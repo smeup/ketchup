@@ -207,6 +207,12 @@ const advancedRoutes = [
       import(`@/views/components/advanced/dashlist/DashList.vue`),
   },
   {
+    path: `/dashboard`,
+    name: 'dashboard',
+    component: () =>
+      import(`@/views/components/advanced/dashboard/Dashboard.vue`),
+  },
+  {
     path: `/datatable`,
     name: 'datatable',
     component: () =>
@@ -218,9 +224,15 @@ const advancedRoutes = [
     component: () => import(`@/views/components/advanced/echart/Echart.vue`),
   },
   {
-    path: `/field`,
-    name: 'field',
-    component: () => import(`@/views/components/advanced/field/Field.vue`),
+    path: `/familytree`,
+    name: 'familytree',
+    component: () =>
+      import(`@/views/components/advanced/familytree/FamilyTree.vue`),
+  },
+  {
+    path: `/form`,
+    name: 'form',
+    component: () => import(`@/views/components/advanced/form/Form.vue`),
   },
   {
     path: `/imagelist`,

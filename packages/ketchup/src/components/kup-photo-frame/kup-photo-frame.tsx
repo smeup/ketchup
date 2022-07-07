@@ -217,11 +217,11 @@ export class KupPhotoFrame {
                             class="resource"
                             ref={(el) => (this.#resourceEl = el)}
                             onLoad={() => {
-                                this.#resourceEl.classList.add(
-                                    'resource--fade-in'
-                                );
                                 this.#placeholderEl.classList.add(
                                     'placeholder--fade-out'
+                                );
+                                this.#resourceEl.classList.add(
+                                    'resource--fade-in'
                                 );
                                 this.kupPhotoFrameResourceLoad.emit({
                                     comp: this,

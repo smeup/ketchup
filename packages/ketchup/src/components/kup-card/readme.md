@@ -97,13 +97,14 @@ Type: `Promise<void>`
  - [kup-combobox](../kup-combobox)
  - [kup-dash](../kup-dash)
  - [kup-dash-list](../kup-dash-list)
+ - [kup-dashboard](../kup-dashboard)
  - [kup-data-table](../kup-data-table)
  - [kup-date-picker](../kup-date-picker)
  - [kup-drawer](../kup-drawer)
  - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-echart](../kup-echart)
- - [kup-field](../kup-field)
- - [kup-form-editor](../kup-form-editor)
+ - [kup-family-tree](../kup-family-tree)
+ - [kup-form](../kup-form)
  - [kup-gauge](../kup-gauge)
  - [kup-grid](../kup-grid)
  - [kup-iframe](../kup-iframe)
@@ -183,10 +184,11 @@ graph TD;
   kup-cell --> kup-card
   kup-dash --> kup-card
   kup-dash-list --> kup-card
+  kup-dashboard --> kup-card
   kup-drawer --> kup-card
   kup-echart --> kup-card
-  kup-field --> kup-card
-  kup-form-editor --> kup-card
+  kup-family-tree --> kup-card
+  kup-form --> kup-card
   kup-grid --> kup-card
   kup-iframe --> kup-card
   kup-image-list --> kup-card

@@ -1,4 +1,5 @@
-import { KupDataNode } from './kup-data-declarations';
+import { TreeNodePath } from '../../components/kup-tree/kup-tree-declarations';
+import { KupDataNode, KupDataNodeDrilldownInfo } from './kup-data-declarations';
 
 /**
  * Removes the given node from the input array, by searching even children.
@@ -90,6 +91,49 @@ export function toStreamNode(nodes: KupDataNode[]): KupDataNode[] {
     return streamlined;
 }
 /**
+ * Gets information about the tree depth, such as max number of children and max depth.
+ * @param {KupDataNode[]} nodes - Input array of nodes.
+ * @returns {KupDataNodeDrilldownInfo} Information about the tree depth.
+ */
+export function getDrilldownInfoNode(
+    nodes: KupDataNode[]
+): KupDataNodeDrilldownInfo {
+    let maxChildren = 0;
+    let maxDepth = 0;
+    const getDepth = function (n: KupDataNode) {
+        const depth = 0;
+        if (n.children) {
+            n.children.forEach(function (d) {
+                const tmpDepth = getDepth(d);
+                if (tmpDepth > depth) {
+                    maxDepth = tmpDepth;
+                }
+            });
+        }
+        return depth;
+    };
+    const recursive = (arr: KupDataNode[]) => {
+        maxDepth++;
+        for (let index = 0; index < arr.length; index++) {
+            const node = arr[index];
+            getDepth(node);
+            if (
+                Array.isArray(node.children) &&
+                maxChildren < node.children.length
+            ) {
+                maxChildren = node.children.length;
+                recursive(node.children);
+            }
+        }
+    };
+
+    recursive(nodes);
+    return {
+        maxChildren,
+        maxDepth,
+    };
+}
+/**
  * Returns the parent of the given node.
  * @param {KupDataNode[]} nodes - Input array of nodes.
  * @param {KupDataNode} child - Child node.
@@ -121,4 +165,44 @@ export function getParentNode(
         }
     }
     return parent;
+}
+
+/**
+ * Returns the node with id equal to the given value.
+ * @param {KupDataNode[]} nodes - Input array of nodes.
+ * @param {string} treeNodePath - Tree node path.
+ * @returns {KupDataNode} Node.
+ */
+export function getNodeByPath(
+    nodes: KupDataNode[],
+    treeNodePath: TreeNodePath
+): KupDataNode {
+    if (!nodes || nodes.length == 0) {
+        return undefined;
+    }
+    if (!treeNodePath || treeNodePath.length == 0) {
+        return undefined;
+    }
+    return _getNodeByPath(nodes, treeNodePath);
+}
+
+function _getNodeByPath(nodes: KupDataNode[], path: TreeNodePath): KupDataNode {
+    let node: KupDataNode = null;
+    for (let j = 0; j < path.length; j++) {
+        const i = path[j];
+        node = _getNode(nodes, node, i);
+    }
+    return node;
+}
+
+function _getNode(
+    nodes: KupDataNode[],
+    node: KupDataNode,
+    index: number
+): KupDataNode {
+    if (node == null) {
+        return nodes[index];
+    } else {
+        return node.children[index];
+    }
 }

@@ -106,6 +106,7 @@ function renderButton(props: FButtonProps): VNode {
             onClick={props.onClick}
             onFocus={props.onFocus}
             style={styleSpinnerContainer}
+            aria-label={props.title}
             type="button"
         >
             {props.trailingIcon
@@ -161,6 +162,7 @@ function renderIconButton(props: FButtonProps): VNode {
             style={styleSpinnerContainer}
             type="button"
             value={props.checked ? 'on' : 'off'}
+            aria-label={props.title}
         >
             {!props.showSpinner || props.disabled ? (
                 <FImage

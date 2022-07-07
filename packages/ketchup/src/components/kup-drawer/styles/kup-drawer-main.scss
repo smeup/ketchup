@@ -41,15 +41,13 @@
 }
 
 .backdrop {
+  background: var(--kup_drawer_backdrop);
+  display: none;
+  height: 100%;
+  left: 0;
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  background: var(--kup_drawer_backdrop);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--kup_drawer_transition) ease-in;
   z-index: var(--kup-drawer-zindex);
 }
 
@@ -94,7 +92,6 @@
   left: 0;
 
   .backdrop {
-    opacity: 1;
-    pointer-events: all;
+    display: block;
   }
 }

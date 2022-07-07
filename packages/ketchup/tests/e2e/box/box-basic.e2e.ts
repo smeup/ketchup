@@ -17,23 +17,6 @@ describe('kup-box', () => {
         expect(element).toHaveClass('hydrated');
     });
 
-    it('renders without data', async () => {
-        const page = await newE2EPage();
-
-        await page.setContent('<kup-box></kup-box>');
-
-        await page.waitForChanges();
-
-        const message = await page.find('kup-box >>> #empty-data-message');
-
-        expect(message).toEqualText('Empty data.');
-
-        // no boxes
-        const boxes = await page.findAll(boxSelector);
-
-        expect(boxes).toHaveLength(0);
-    });
-
     it('renders with data', async () => {
         const page = await newE2EPage();
 

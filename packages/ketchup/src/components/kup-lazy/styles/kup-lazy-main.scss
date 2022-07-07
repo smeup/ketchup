@@ -1,22 +1,24 @@
 /**
-* @prop --kup-lazy-hor-alignment: Sets the horizontal alignment of the subcomponent.
-* @prop --kup-lazy-ver-alignment: Sets the vertical alignment of the subcomponent.
 * @prop --kup-lazy-animation-time: Sets the duration of the animation.
+* @prop --kup-lazy-hor-alignment: Sets the horizontal alignment of the subcomponent.
 * @prop --kup-lazy-placeholder-color: Sets color of the placeholder icon.
+* @prop --kup-lazy-ver-alignment: Sets the vertical alignment of the subcomponent.
+* @prop --kup-lazy-width: Sets the width of the component and subcomponent.
 */
 
 :host {
-  --kup_lazy_hor_alignment: var(--kup-lazy-hor-alignment, center);
-  --kup_lazy_ver_alignment: var(--kup-lazy-ver-alignment, center);
   --kup_lazy_animation_time: var(--kup-lazy-animation-time, 2s);
+  --kup_lazy_hor_alignment: var(--kup-lazy-hor-alignment, center);
   --kup_lazy_placeholder_color: var(
     --kup-lazy-placeholder-color,
     var(--kup-icon-color)
   );
+  --kup_lazy_ver_alignment: var(--kup-lazy-ver-alignment, center);
+  --kup_lazy_width: var(--kup-lazy-width, 100%);
 
   display: block;
   height: 100%;
-  width: 100%;
+  width: var(--kup_lazy_width);
   position: relative;
 }
 
@@ -25,11 +27,16 @@
   display: flex;
   justify-content: var(--kup_lazy_hor_alignment);
   height: 100%;
-  width: 100%;
+  width: var(--kup_lazy_width);
 
   kup-data-table {
     min-width: 100%;
   }
+}
+
+.kup-loaded,
+.kup-to-be-loaded {
+  width: var(--kup_lazy_width);
 }
 
 svg {

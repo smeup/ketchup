@@ -101,6 +101,7 @@ Type: `Promise<void>`
  - [kup-card](../kup-card)
  - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
+ - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
  - [kup-magic-box](../kup-magic-box)
  - [kup-tree](../kup-tree)
@@ -156,6 +157,7 @@ graph TD;
   kup-tree --> kup-combobox
   kup-box --> kup-combobox
   kup-cell --> kup-combobox
+  kup-form --> kup-combobox
   kup-image-list --> kup-combobox
   kup-magic-box --> kup-combobox
   style kup-combobox fill:#f9f,stroke:#333,stroke-width:4px

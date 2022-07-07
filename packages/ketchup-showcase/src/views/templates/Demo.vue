@@ -578,6 +578,21 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  KupDataDashboard: {
+    keys: {
+      id: 'number',
+      loaded: 'boolean',
+      title: 'string',
+      'fun?': 'KupObj',
+      'evaluatedFun?': 'string',
+      type: 'string',
+      'variables?': 'KupVariableEntity[]',
+      'timer?': 'setTimeout',
+      layout: 'string',
+      'sections?': 'KupSection[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   KupDataNode: {
     keys: {
       value: 'string',
@@ -652,6 +667,20 @@ const demoTypes: DemoTypeJson = {
       SCATTER: 'Scatter',
     },
     type: DemoTypeFeature.ENUM,
+  },
+  KupFormData: {
+    keys: {
+      'columns?': 'KupDataColumn[]',
+      'rows?': 'KupFormRow[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupFormLayout: {
+    keys: {
+      'horizontal?': 'boolean',
+      'sections?': 'KupFormSection[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
   },
   KupGlobalFilterMode: {
     keys: {

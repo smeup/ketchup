@@ -88,6 +88,7 @@ Type: `Promise<void>`
  - [kup-card](../kup-card)
  - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
+ - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
  - [kup-magic-box](../kup-magic-box)
  - [kup-tree](../kup-tree)
@@ -142,6 +143,7 @@ graph TD;
   kup-tree --> kup-chart
   kup-box --> kup-chart
   kup-cell --> kup-chart
+  kup-form --> kup-chart
   kup-image-list --> kup-chart
   kup-magic-box --> kup-chart
   style kup-chart fill:#f9f,stroke:#333,stroke-width:4px
