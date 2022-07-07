@@ -144,9 +144,13 @@
         --kup-button-primary-color-s: var(--kup-text-color-s);
         --kup-button-primary-color-l: var(--kup-text-color-l);
 
-        width: fit-content;
-        margin-left: auto;
-        margin-right: auto;
+        margin: 0 auto;
+        width: max-content;
+
+        button {
+          height: 32px;
+          width: 32px;
+        }
       }
     }
 
@@ -156,7 +160,7 @@
       box-sizing: border-box;
       display: flex;
       height: var(--kup_familytree_item_height);
-      
+
       margin: 0 18px;
       width: var(--kup_familytree_item_width);
 

@@ -240,8 +240,9 @@ export class KupFamilyTree {
 
         const expandButtonProp: FButtonProps = {
             icon: node.isExpanded ? 'remove' : 'plus',
-            styling: FButtonStyling.OUTLINED,
+            shaped: true,
             slim: true,
+            styling: FButtonStyling.OUTLINED,
             onClick: () => {
                 node.isExpanded = !node.isExpanded;
                 this.refresh();

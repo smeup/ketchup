@@ -298,6 +298,7 @@ function createComp() {
   };
   comp.collapsible = true;
   comp.id = 'demo-component';
+  comp.layout = 2;
 
   return comp;
 }
