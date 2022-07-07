@@ -13,6 +13,7 @@ import { KupBoxLayout } from '../kup-box/kup-box-declarations';
 export enum KupFamilyTreeProps {
     autofit = "The component's initial render will fit the container.",
     collapsible = 'Nodes can be expanded/collapsed.',
+    condensedChildren = 'Child nodes that have no children are condensed vertically',
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the component',
     layout = 'Layout of the boxes.',
@@ -23,10 +24,12 @@ export interface KupFamilyTreeData {
     rows: KupFamilyTreeNode[];
 }
 
+export type KupFamilyTreeLayout = KupBoxLayout | number;
+
 export interface KupFamilyTreeNode extends KupDataNode {
     children?: KupFamilyTreeNode[];
     isStaff?: boolean;
-    layout?: KupBoxLayout;
+    layout?: KupFamilyTreeLayout;
 }
 
 export interface KupFamilyTreeEventHandlerDetails {

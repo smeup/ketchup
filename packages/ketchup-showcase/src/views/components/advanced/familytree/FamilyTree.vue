@@ -8,9 +8,12 @@
         <family-tree-basic></family-tree-basic>
       </template>
       <template v-slot:2>
-        <family-tree-layout></family-tree-layout>
+        <family-tree-condensed></family-tree-condensed>
       </template>
       <template v-slot:3>
+        <family-tree-layout></family-tree-layout>
+      </template>
+      <template v-slot:4>
         <family-tree-staff></family-tree-staff>
       </template>
     </comp>
@@ -20,6 +23,7 @@
 <script>
 import FamilyTreeDemo from '@/views/components/advanced/familytree/examples/FamilyTreeDemo';
 import FamilyTreeBasic from '@/views/components/advanced/familytree/examples/FamilyTreeBasic';
+import FamilyTreeCondensed from '@/views/components/advanced/familytree/examples/FamilyTreeCondensed';
 import FamilyTreeLayout from '@/views/components/advanced/familytree/examples/FamilyTreeLayout';
 import FamilyTreeStaff from '@/views/components/advanced/familytree/examples/FamilyTreeStaff';
 import Comp from '@/views/templates/Comp';
@@ -27,6 +31,7 @@ export default {
   components: {
     FamilyTreeDemo,
     FamilyTreeBasic,
+    FamilyTreeCondensed,
     FamilyTreeLayout,
     FamilyTreeStaff,
     Comp,
@@ -36,7 +41,13 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-family-tree',
       headtitle: 'Family tree',
-      titles: ['Playground', 'Basic usage', 'With layout', 'Staff nodes'],
+      titles: [
+        'Playground',
+        'Basic usage',
+        'With condensed nodes',
+        'With layout',
+        'Staff nodes',
+      ],
     };
   },
   title: 'Ketchup | Family tree',

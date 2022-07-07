@@ -15,6 +15,7 @@ import {
     FButtonProps,
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
+import { FImage } from '../../f-components/f-image/f-image';
 import {
     KupDataCell,
     KupDataColumn,
@@ -31,6 +32,7 @@ import {
     KupFamilyTreeData,
     KupFamilyTreeEventHandlerDetails,
     KupFamilyTreeEventPayload,
+    KupFamilyTreeLayout,
     KupFamilyTreeNode,
     KupFamilyTreeProps,
 } from './kup-family-tree-declarations';
@@ -61,6 +63,11 @@ export class KupFamilyTree {
      */
     @Prop() collapsible: boolean = true;
     /**
+     * Child nodes that have no children are condensed vertically
+     * @default false
+     */
+    @Prop() condensedChildren: boolean = false;
+    /**
      * Custom style of the component.
      * @default ""
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -75,7 +82,7 @@ export class KupFamilyTree {
      * Layout of the boxes.
      * @default null
      */
-    @Prop() layout: KupBoxLayout = null;
+    @Prop() layout: KupFamilyTreeLayout = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -209,6 +216,10 @@ export class KupFamilyTree {
                 }
             });
         }
+        const condensed: boolean =
+            this.condensedChildren &&
+            children &&
+            children.every((c) => !c.children || c.children.length == 0);
         const span1 = children ? children.length * 2 : 1;
 
         const styleVLine = {
@@ -225,12 +236,13 @@ export class KupFamilyTree {
             rows: [{ cells: { '*TREECOL': node, ...node.cells } }],
         };
 
-        const layout = node.layout || this.layout || null;
+        const layout = node.layout || this.layout || 1;
 
         const expandButtonProp: FButtonProps = {
             icon: node.isExpanded ? 'remove' : 'plus',
-            styling: FButtonStyling.OUTLINED,
+            shaped: true,
             slim: true,
+            styling: FButtonStyling.OUTLINED,
             onClick: () => {
                 node.isExpanded = !node.isExpanded;
                 this.refresh();
@@ -240,12 +252,16 @@ export class KupFamilyTree {
         const box: VNode = (
             <div class={'family-tree__item'}>
                 <div class={'family-tree__item__wrapper'}>
-                    <kup-box
-                        class="kup-borderless kup-paddingless"
-                        customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
-                        data={data}
-                        layout={layout}
-                    ></kup-box>
+                    {this.#isBoxLayout(layout) ? (
+                        <kup-box
+                            class="kup-borderless kup-paddingless"
+                            customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
+                            data={data}
+                            layout={layout as KupBoxLayout}
+                        ></kup-box>
+                    ) : (
+                        this.#buildNodeLayout(node, layout)
+                    )}
                     {this.collapsible &&
                     node.children &&
                     node.children.length > 0 ? (
@@ -262,7 +278,14 @@ export class KupFamilyTree {
 
         //TODO: set data-cell and data-column if needed inside events
         return (
-            <table class={'family-tree__node'}>
+            <table
+                class={{
+                    'family-tree__node': true,
+                    'family-tree__node__condensed':
+                        this.condensedChildren &&
+                        (!node.children || node.children.length == 0),
+                }}
+            >
                 <tr>
                     <td data-row={node} colSpan={span1}>
                         {box}
@@ -315,24 +338,90 @@ export class KupFamilyTree {
                 {children
                     ? [
                           <tr>
-                              {children.map((inode) =>
-                                  this.#buildChildLine(
-                                      children.indexOf(inode) == 0,
-                                      children.indexOf(inode) ==
-                                          children.length - 1,
-                                      children.length == 1,
-                                      children.length > 2
+                              {condensed ? (
+                                  <td colSpan={span1}>
+                                      <div class={styleVLine}></div>
+                                  </td>
+                              ) : (
+                                  children.map((inode) =>
+                                      this.#buildChildLine(
+                                          children.indexOf(inode) == 0,
+                                          children.indexOf(inode) ==
+                                              children.length - 1,
+                                          children.length == 1,
+                                          children.length > 2
+                                      )
                                   )
                               )}
                           </tr>,
                           <tr>
-                              {children.map((inode) => (
-                                  <td colSpan={2}>{this.#buildNode(inode)}</td>
-                              ))}
+                              {condensed ? (
+                                  <td colSpan={span1}>
+                                      {children.map((inode) =>
+                                          this.#buildNode(inode)
+                                      )}
+                                  </td>
+                              ) : (
+                                  children.map((inode) => (
+                                      <td colSpan={2}>
+                                          {this.#buildNode(inode)}
+                                      </td>
+                                  ))
+                              )}
                           </tr>,
                       ]
                     : undefined}
             </table>
+        );
+    }
+
+    #buildNodeLayout(node: KupFamilyTreeNode, layout: number) {
+        switch (layout) {
+            case 2:
+                return this.#buildNodeLayout2(node);
+            default:
+                return this.#buildNodeLayout1(node);
+        }
+    }
+
+    #buildNodeLayout1(node: KupFamilyTreeNode) {
+        return (
+            <div
+                class={`family-tree__item__layout family-tree__item__layout__1`}
+            >
+                <div class={'family-tree__item__layout__text__title'}>
+                    {node.value}
+                </div>
+            </div>
+        );
+    }
+
+    #buildNodeLayout2(node: KupFamilyTreeNode) {
+        return (
+            <div
+                class={`family-tree__item__layout family-tree__item__layout__2`}
+            >
+                <div class={'family-tree__item__layout__color'}></div>
+                <div class={'family-tree__item__layout__image'}>
+                    <FImage
+                        resource={node.icon}
+                        sizeX="48px"
+                        sizeY="48px"
+                    ></FImage>
+                </div>
+                <div class={'family-tree__item__layout__text'}>
+                    <div class={'family-tree__item__layout__text__title'}>
+                        {node.value}
+                    </div>
+                    {node.title ? (
+                        <div
+                            class={'family-tree__item__layout__text__subtitle'}
+                        >
+                            {node.title}
+                        </div>
+                    ) : null}
+                </div>
+            </div>
         );
     }
 
@@ -363,6 +452,11 @@ export class KupFamilyTree {
                 )}
             </div>
         );
+    }
+
+    #isBoxLayout(layout: KupFamilyTreeLayout): layout is KupBoxLayout {
+        const tmp = layout as KupBoxLayout;
+        return tmp && tmp.sections && tmp.sections.length > 0;
     }
 
     #startPanning(e: PointerEvent) {

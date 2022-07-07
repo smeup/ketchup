@@ -32,7 +32,7 @@ import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/
 import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 import { GeoJSON } from "geojson";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
-import { KupFamilyTreeData, KupFamilyTreeEventPayload } from "./components/kup-family-tree/kup-family-tree-declarations";
+import { KupFamilyTreeData, KupFamilyTreeEventPayload, KupFamilyTreeLayout } from "./components/kup-family-tree/kup-family-tree-declarations";
 import { KupFormData, KupFormLayout } from "./components/kup-form/kup-form-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
@@ -1582,6 +1582,11 @@ export namespace Components {
          */
         "collapsible": boolean;
         /**
+          * Child nodes that have no children are condensed vertically
+          * @default false
+         */
+        "condensedChildren": boolean;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -1602,7 +1607,7 @@ export namespace Components {
           * Layout of the boxes.
           * @default null
          */
-        "layout": KupBoxLayout;
+        "layout": KupFamilyTreeLayout;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -4767,6 +4772,11 @@ declare namespace LocalJSX {
          */
         "collapsible"?: boolean;
         /**
+          * Child nodes that have no children are condensed vertically
+          * @default false
+         */
+        "condensedChildren"?: boolean;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -4781,7 +4791,7 @@ declare namespace LocalJSX {
           * Layout of the boxes.
           * @default null
          */
-        "layout"?: KupBoxLayout;
+        "layout"?: KupFamilyTreeLayout;
         "onKup-familytree-click"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;
         "onKup-familytree-contextmenu"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;
         "onKup-familytree-dblclick"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;

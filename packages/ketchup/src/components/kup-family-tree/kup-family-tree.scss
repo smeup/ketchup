@@ -18,10 +18,10 @@
     --kup-familytree-item-color,
     var(--kup-text-on-primary-color)
   );
-  --kup_familytree_item_height: var(--kup-familytree-item-height, 40px);
+  --kup_familytree_item_height: var(--kup-familytree-item-height, 80px);
   --kup_familytree_item_h_padding: var(--kup-familytree-item-h-padding, 8px);
   --kup_familytree_item_v_padding: var(--kup-familytree-item-v-padding, 10px);
-  --kup_familytree_item_width: var(--kup-familytree-item-width, 120px);
+  --kup_familytree_item_width: var(--kup-familytree-item-width, 280px);
   --kup_familytree_lines_color: var(
     --kup-familytree-lines-color,
     var(--kup-border-color)
@@ -39,6 +39,10 @@
   &__node {
     border-collapse: collapse;
     margin: auto;
+
+    &__condensed {
+      margin-bottom: 4px;
+    }
 
     &__staff {
       align-items: center;
@@ -134,9 +138,86 @@
       }
 
       .f-button {
-        width: fit-content;
-        margin-left: auto;
-        margin-right: auto;
+        --kup-button-primary-color: var(--kup-text-color);
+        --kup-button-primary-color-rgb: var(--kup-text-color-rgb);
+        --kup-button-primary-color-h: var(--kup-text-color-h);
+        --kup-button-primary-color-s: var(--kup-text-color-s);
+        --kup-button-primary-color-l: var(--kup-text-color-l);
+
+        margin: 0 auto;
+        width: max-content;
+
+        button {
+          height: 32px;
+          width: 32px;
+        }
+      }
+    }
+
+    &__layout {
+      border: 1px solid var(--kup-border-color);
+      border-radius: 8px;
+      box-sizing: border-box;
+      display: flex;
+      height: var(--kup_familytree_item_height);
+
+      margin: 0 18px;
+      width: var(--kup_familytree_item_width);
+
+      &__1 {
+        justify-content: center;
+        background-color: var(--kup_familytree_item_background_color);
+        color: var(--kup_familytree_item_color);
+
+        > .family-tree__item__layout__text__title {
+          margin-top: auto;
+          margin-bottom: auto;
+        }
+      }
+
+      &__2 {
+        justify-content: flex-start;
+      }
+
+      &__color {
+        background-color: var(--kup-secondary-color);
+        border-bottom-left-radius: 8px;
+        border-top-left-radius: 8px;
+        height: 100%;
+        width: 10px;
+      }
+
+      &__image {
+        display: flex;
+        margin: auto 10px;
+
+        img {
+          border-radius: 50px;
+          object-fit: cover;
+        }
+      }
+
+      &__text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        &__title {
+          font-size: 18px;
+          margin-bottom: 5px;
+        }
+
+        &__subtitle {
+          font-size: 14px;
+        }
+
+        &__title,
+        &__subtitle {
+          max-width: calc(var(--kup_familytree_item_width) - 30%);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
       }
     }
   }
