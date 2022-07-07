@@ -668,6 +668,17 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.ENUM,
   },
+  KupFamilyTreeData: {
+    keys: {
+      'columns?': 'KupDataColumn[]',
+      'rows?': 'KupFamilyTreeNode[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupFamilyTreeLayout: {
+    keys: {},
+    type: DemoTypeFeature.INTERFACE,
+  },
   KupFormData: {
     keys: {
       'columns?': 'KupDataColumn[]',

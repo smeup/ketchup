@@ -259,7 +259,7 @@ export class KupFamilyTree {
                             layout={layout as KupBoxLayout}
                         ></kup-box>
                     ) : (
-                        this['buildNodeLayout' + layout.toString()](node)
+                        this.#buildNodeLayout(node, layout)
                     )}
                     {this.collapsible &&
                     node.children &&
@@ -374,7 +374,16 @@ export class KupFamilyTree {
         );
     }
 
-    buildNodeLayout1(node: KupFamilyTreeNode) {
+    #buildNodeLayout(node: KupFamilyTreeNode, layout: number) {
+        switch (layout) {
+            case 2:
+                return this.#buildNodeLayout2(node);
+            default:
+                return this.#buildNodeLayout1(node);
+        }
+    }
+
+    #buildNodeLayout1(node: KupFamilyTreeNode) {
         return (
             <div
                 class={`family-tree__item__layout family-tree__item__layout__1`}
@@ -386,7 +395,7 @@ export class KupFamilyTree {
         );
     }
 
-    buildNodeLayout2(node: KupFamilyTreeNode) {
+    #buildNodeLayout2(node: KupFamilyTreeNode) {
         return (
             <div
                 class={`family-tree__item__layout family-tree__item__layout__2`}

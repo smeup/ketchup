@@ -162,6 +162,13 @@
 
       &__1 {
         justify-content: center;
+        background-color: var(--kup_familytree_item_background_color);
+        color: var(--kup_familytree_item_color);
+
+        > .family-tree__item__layout__text__title {
+          margin-top: auto;
+          margin-bottom: auto;
+        }
       }
 
       &__2 {
