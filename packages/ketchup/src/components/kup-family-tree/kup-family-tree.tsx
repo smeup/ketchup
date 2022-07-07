@@ -15,6 +15,7 @@ import {
     FButtonProps,
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
+import { FImage } from '../../f-components/f-image/f-image';
 import {
     KupDataCell,
     KupDataColumn,
@@ -240,12 +241,45 @@ export class KupFamilyTree {
         const box: VNode = (
             <div class={'family-tree__item'}>
                 <div class={'family-tree__item__wrapper'}>
-                    <kup-box
-                        class="kup-borderless kup-paddingless"
-                        customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
-                        data={data}
-                        layout={layout}
-                    ></kup-box>
+                    {this.layout || node.layout ? (
+                        <kup-box
+                            class="kup-borderless kup-paddingless"
+                            customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
+                            data={data}
+                            layout={layout}
+                        ></kup-box>
+                    ) : (
+                        <div class={'family-tree__item__layout'}>
+                            <div
+                                class={'family-tree__item__layout__color'}
+                            ></div>
+                            <div class={'family-tree__item__layout__image'}>
+                                <FImage
+                                    resource={node.icon}
+                                    sizeX="48px"
+                                    sizeY="48px"
+                                ></FImage>
+                            </div>
+                            <div class={'family-tree__item__layout__text'}>
+                                <div
+                                    class={
+                                        'family-tree__item__layout__text__title'
+                                    }
+                                >
+                                    {node.value}
+                                </div>
+                                {node.title ? (
+                                    <div
+                                        class={
+                                            'family-tree__item__layout__text__subtitle'
+                                        }
+                                    >
+                                        {node.title}
+                                    </div>
+                                ) : null}
+                            </div>
+                        </div>
+                    )}
                     {this.collapsible &&
                     node.children &&
                     node.children.length > 0 ? (
