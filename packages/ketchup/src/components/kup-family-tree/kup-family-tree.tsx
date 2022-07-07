@@ -61,6 +61,11 @@ export class KupFamilyTree {
      */
     @Prop() collapsible: boolean = true;
     /**
+     * Child nodes that have no children are condensed vertically
+     * @default false
+     */
+    @Prop() condensedChildren: boolean = false;
+    /**
      * Custom style of the component.
      * @default ""
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -209,6 +214,10 @@ export class KupFamilyTree {
                 }
             });
         }
+        const condensed: boolean =
+            this.condensedChildren &&
+            children &&
+            children.every((c) => !c.children || c.children.length == 0);
         const span1 = children ? children.length * 2 : 1;
 
         const styleVLine = {
@@ -262,7 +271,14 @@ export class KupFamilyTree {
 
         //TODO: set data-cell and data-column if needed inside events
         return (
-            <table class={'family-tree__node'}>
+            <table
+                class={{
+                    'family-tree__node': true,
+                    'family-tree__node__condensed':
+                        this.condensedChildren &&
+                        (!node.children || node.children.length == 0),
+                }}
+            >
                 <tr>
                     <td data-row={node} colSpan={span1}>
                         {box}
@@ -315,20 +331,36 @@ export class KupFamilyTree {
                 {children
                     ? [
                           <tr>
-                              {children.map((inode) =>
-                                  this.#buildChildLine(
-                                      children.indexOf(inode) == 0,
-                                      children.indexOf(inode) ==
-                                          children.length - 1,
-                                      children.length == 1,
-                                      children.length > 2
+                              {condensed ? (
+                                  <td colSpan={span1}>
+                                      <div class={styleVLine}></div>
+                                  </td>
+                              ) : (
+                                  children.map((inode) =>
+                                      this.#buildChildLine(
+                                          children.indexOf(inode) == 0,
+                                          children.indexOf(inode) ==
+                                              children.length - 1,
+                                          children.length == 1,
+                                          children.length > 2
+                                      )
                                   )
                               )}
                           </tr>,
                           <tr>
-                              {children.map((inode) => (
-                                  <td colSpan={2}>{this.#buildNode(inode)}</td>
-                              ))}
+                              {condensed ? (
+                                  <td colSpan={span1}>
+                                      {children.map((inode) =>
+                                          this.#buildNode(inode)
+                                      )}
+                                  </td>
+                              ) : (
+                                  children.map((inode) => (
+                                      <td colSpan={2}>
+                                          {this.#buildNode(inode)}
+                                      </td>
+                                  ))
+                              )}
                           </tr>,
                       ]
                     : undefined}
