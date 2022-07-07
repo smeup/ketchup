@@ -1582,6 +1582,11 @@ export namespace Components {
          */
         "collapsible": boolean;
         /**
+          * Child nodes that have no children are condensed vertically
+          * @default false
+         */
+        "condensedChildren": boolean;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -4766,6 +4771,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "collapsible"?: boolean;
+        /**
+          * Child nodes that have no children are condensed vertically
+          * @default false
+         */
+        "condensedChildren"?: boolean;
         /**
           * Custom style of the component.
           * @default ""

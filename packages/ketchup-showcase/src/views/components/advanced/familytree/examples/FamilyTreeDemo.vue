@@ -66,6 +66,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'condensedChildren',
+          description:
+            'Child nodes that have no children are condensed vertically.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
@@ -288,7 +296,7 @@ function createComp() {
       },
     ],
   };
-  comp.expandable = true;
+  comp.collapsible = true;
   comp.id = 'demo-component';
 
   return comp;
