@@ -370,7 +370,6 @@ export class KupTree {
      */
     private columnMenuCard: HTMLKupCardElement = null;
     private treeWrapperRef: KupScrollOnHoverElement;
-    private selectedColumn: string = '';
     private clickTimeout: any[] = [];
     private globalFilterTimeout: number;
     private footer: { [index: string]: number };
@@ -1030,6 +1029,11 @@ export class KupTree {
             (this.expansionMode.toLowerCase() === KupTreeExpansionMode.NODE &&
                 !treeNodeData.expandable)
         ) {
+            const td = e
+                ? this.getEventPath(e.target).find((el) => {
+                      if (el.tagName === 'TD') return el;
+                  })
+                : null;
             // If this TreeNode is not disabled, then it can be selected and an event is emitted
             if (treeNodeData && !treeNodeData.disabled) {
                 if (this.autoSelectionNodeMode)
@@ -1044,11 +1048,10 @@ export class KupTree {
                         .split(',')
                         .map((treeNodeIndex) => parseInt(treeNodeIndex)),
                     treeNode: treeNodeData,
-                    columnName: this.selectedColumn,
+                    columnName: td ? td.dataset.column : null,
                     auto: auto,
                 });
             }
-            this.selectedColumn = '';
         }
 
         // If KupTreeExpansionMode.NODE then click is a collapse/expand click
@@ -1550,12 +1553,18 @@ export class KupTree {
 
         // When can be expanded OR selected
         if (!treeNodeData.disabled) {
-            treeNodeOptions['onClick'] = () => {
+            treeNodeOptions['onClick'] = (e: MouseEvent) => {
+                // Note: event must be cloned
+                // otherwise inside setTimeout will be exiting the Shadow DOM scope(causing loss of information, including target).
+                const clone: GenericObject = {};
+                for (const key in e) {
+                    clone[key] = e[key];
+                }
                 this.clickTimeout.push(
                     setTimeout(
-                        (e: MouseEvent) =>
+                        () =>
                             this.hdlTreeNodeClick(
-                                e,
+                                clone as MouseEvent,
                                 treeNodeData,
                                 treeNodePath,
                                 false
@@ -1569,6 +1578,10 @@ export class KupTree {
         // When a tree node is displayed as a table
         let treeNodeCells: JSX.Element[] | null = null;
         let visibleCols = this.getVisibleColumns();
+
+        const _hasTooltip: boolean = !this.kupManager.objects.isEmptyKupObj(
+            treeNodeData.obj
+        );
         if (this.showColumns && visibleCols && visibleCols.length) {
             treeNodeCells = [];
             // Renders all the cells
