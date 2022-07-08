@@ -130,6 +130,14 @@ export default {
           try: 'css',
         },
         {
+          prop: 'decimals',
+          description:
+            'Number of decimals (should be use when inputType is number).',
+          type: 'number',
+          default: 'null',
+          try: 'field',
+        },
+        {
           prop: 'disabled',
           description:
             'Sets the component to disabled state, making it not interactable.',
