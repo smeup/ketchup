@@ -62,7 +62,7 @@ export class KupTextField {
      */
     @Prop() customStyle: string = '';
     /**
-     * Number of decimals (should be use when inputType is number).
+     * Number of decimals (should be used when inputType is number).
      * @default null
      */
     @Prop() decimals: number = null;

@@ -132,7 +132,7 @@ export default {
         {
           prop: 'decimals',
           description:
-            'Number of decimals (should be use when inputType is number).',
+            'Number of decimals (should be used when inputType is number).',
           type: 'number',
           default: 'null',
           try: 'field',
