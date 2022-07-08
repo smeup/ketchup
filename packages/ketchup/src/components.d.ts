@@ -2624,6 +2624,11 @@ export namespace Components {
          */
         "customStyle": string;
         /**
+          * Number of decimals (should be use when inputType is number).
+          * @default null
+         */
+        "decimals": number;
+        /**
           * When set to true, the component is disabled.
           * @default false
          */
@@ -5546,6 +5551,11 @@ declare namespace LocalJSX {
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
+        /**
+          * Number of decimals (should be use when inputType is number).
+          * @default null
+         */
+        "decimals"?: number;
         /**
           * When set to true, the component is disabled.
           * @default false

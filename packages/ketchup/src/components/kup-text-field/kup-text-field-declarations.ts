@@ -6,6 +6,7 @@ import { KupEventPayload } from '../../types/GenericTypes';
  */
 export enum KupTextFieldProps {
     customStyle = 'Custom style of the component.',
+    decimals = 'Number of decimals (should be use when inputType is number).',
     disabled = 'When set to true, the component is disabled.',
     emitSubmitEventOnEnter = "When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.",
     fullWidth = 'When set to true, the component will be rendered at full width.',

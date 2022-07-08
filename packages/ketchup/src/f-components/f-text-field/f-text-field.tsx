@@ -142,8 +142,20 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                     maxlength={props.maxLength}
                     value={props.value}
                     onBlur={props.onBlur}
+                    onChange={(e: InputEvent) => {
+                        if (
+                            props.decimals !== null &&
+                            props.inputType === 'number'
+                        ) {
+                            (e.target as HTMLInputElement).value = parseFloat(
+                                (e.target as HTMLInputElement).value
+                            ).toFixed(props.decimals);
+                        }
+                        if (props.onChange) {
+                            props.onChange(e);
+                        }
+                    }}
                     onClick={props.onClick}
-                    onChange={props.onChange}
                     onFocus={props.onFocus}
                     onInput={props.onInput}
                     onKeyDown={props.onKeyDown}
