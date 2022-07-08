@@ -2619,7 +2619,7 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * Number of decimals (should be use when inputType is number).
+          * Number of decimals (should be used when inputType is number).
           * @default null
          */
         "decimals": number;
@@ -5542,7 +5542,7 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Number of decimals (should be use when inputType is number).
+          * Number of decimals (should be used when inputType is number).
           * @default null
          */
         "decimals"?: number;
