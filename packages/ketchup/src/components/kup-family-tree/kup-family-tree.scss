@@ -64,7 +64,7 @@
                 var(--kup_familytree_staffchildren) *
                   var(--kup_familytree_item_height) +
                   var(--kup_familytree_staffchildren) *
-                  var(--kup_familytree_item_v_padding)
+                  (var(--kup_familytree_item_v_padding) * 2)
               )
           )
         );
@@ -103,7 +103,7 @@
       height: calc(
         var(--kup_familytree_staffchildren) * var(--kup_familytree_item_height) +
           var(--kup_familytree_staffchildren) *
-          var(--kup_familytree_item_v_padding)
+          (var(--kup_familytree_item_v_padding) * 2)
       );
     }
 
