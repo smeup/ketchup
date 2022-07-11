@@ -328,11 +328,6 @@ export class KupFamilyTree {
                                   <div class={styleVLine}></div>
                               </td>
                           </tr>,
-                          <tr>
-                              <td colSpan={span1}>
-                                  <div class={styleVLine}></div>
-                              </td>
-                          </tr>,
                       ]
                     : null}
                 {children

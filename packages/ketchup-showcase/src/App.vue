@@ -379,7 +379,7 @@ export default {
                     value: 'familytree',
                   },
                 },
-                icon: 'file-tree',
+                icon: 'sitemap',
                 value: 'Family tree',
                 visible: true,
               },
