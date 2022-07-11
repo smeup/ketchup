@@ -14,14 +14,16 @@
           <kup-family-tree
             collapsible="false"
             :data.prop="data"
+            layout="2"
           ></kup-family-tree>
         </div>
-        <div class="demo-container">
+        <div class="demo-container condensed">
           <h4>Condensed behavior</h4>
           <kup-family-tree
             collapsible="false"
             condensed-children="true"
             :data.prop="data"
+            layout="2"
           ></kup-family-tree>
         </div>
       </div>
@@ -62,13 +64,17 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .comparison {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .demo-container {
   margin-top: 0;
+
+  &.condensed {
+    margin-top: 30px;
+  }
 }
 </style>
