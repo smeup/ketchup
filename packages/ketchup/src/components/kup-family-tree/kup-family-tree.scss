@@ -35,9 +35,9 @@
   cursor: grab;
   display: flex;
   transform: scale(var(--kup_familytree_scale, 1));
-  transform-origin: 0px 0px;
+  transform-origin: var(--kup_familytree_origin, 0px 0px);
 
-  &--is-dragging {
+  &--dragging {
     cursor: grabbing;
   }
 

@@ -41,6 +41,11 @@ export default {
             "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
         },
         {
+          name: 'runAutofit',
+          description:
+            'This method causes the component to autofit its container.',
+        },
+        {
           name: 'refresh',
           description:
             'This method is used to trigger a new render of the component.',
@@ -53,7 +58,8 @@ export default {
       demoProps: [
         {
           prop: 'autofit',
-          description: "The component's initial render will fit the container.",
+          description:
+            "The component's initial render will fit the container by invoking the runAutofit method.",
           type: 'boolean',
           default: 'true',
           try: 'switch',
@@ -303,3 +309,11 @@ function createComp() {
   return comp;
 }
 </script>
+
+<style scoped lang="scss">
+#demo-component {
+  height: 100%;
+  padding: 15px;
+  width: 100%;
+}
+</style>

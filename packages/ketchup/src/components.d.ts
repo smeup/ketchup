@@ -1572,7 +1572,7 @@ export namespace Components {
     }
     interface KupFamilyTree {
         /**
-          * The component's initial render will fit the container.
+          * The component's initial render will fit the container by invoking the runAutofit method.
           * @default true
          */
         "autofit": boolean;
@@ -1612,6 +1612,10 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * This method causes the component to autofit its container's width.
+         */
+        "runAutofit": () => Promise<void>;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
@@ -4767,7 +4771,7 @@ declare namespace LocalJSX {
     }
     interface KupFamilyTree {
         /**
-          * The component's initial render will fit the container.
+          * The component's initial render will fit the container by invoking the runAutofit method.
           * @default true
          */
         "autofit"?: boolean;
