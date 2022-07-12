@@ -457,9 +457,11 @@ export class KupFamilyTree {
     #startPanning(e: PointerEvent) {
         this.#currentPanX = e.clientX;
         this.#currentPanY = e.clientY;
+        this.#wrapperEl.classList.add('family-tree--is-dragging');
         const endPanning = () => {
             document.removeEventListener('pointermove', this.#moveCb);
             document.removeEventListener('pointerup', endPanning);
+            this.#wrapperEl.classList.remove('family-tree--is-dragging');
         };
         document.addEventListener('pointermove', this.#moveCb);
         document.addEventListener('pointerup', endPanning);
@@ -626,20 +628,26 @@ export class KupFamilyTree {
         );
     }
 
-    #zoomTree(event: WheelEvent) {
-        const current =
-            parseFloat(
-                this.#wrapperEl.style.getPropertyValue('--kup_familytree_scale')
-            ) || 1;
-        const delta = 0.05;
-        let value = event.deltaY > 0 ? current - delta : current + delta;
-        if (value < delta) {
-            value = delta;
+    #zoomTree(e: WheelEvent) {
+        if (e.ctrlKey) {
+            e.preventDefault();
+            const current =
+                parseFloat(
+                    this.#wrapperEl.style.getPropertyValue(
+                        '--kup_familytree_scale'
+                    )
+                ) || 1;
+            e.ctrlKey;
+            const delta = 0.05;
+            let value = e.deltaY > 0 ? current - delta : current + delta;
+            if (value < delta) {
+                value = delta;
+            }
+            this.#wrapperEl.style.setProperty(
+                '--kup_familytree_scale',
+                value.toFixed(2)
+            );
         }
-        this.#wrapperEl.style.setProperty(
-            '--kup_familytree_scale',
-            value.toFixed(2)
-        );
     }
 
     #autofit(parentWidth: number, childWidth: number) {
@@ -709,7 +717,6 @@ export class KupFamilyTree {
                     this.#startPanning(e);
                 }}
                 onWheel={(e: WheelEvent) => {
-                    e.preventDefault();
                     this.#zoomTree(e);
                 }}
             >
