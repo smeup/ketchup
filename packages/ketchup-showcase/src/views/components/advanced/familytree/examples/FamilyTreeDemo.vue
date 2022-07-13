@@ -36,9 +36,22 @@ export default {
       ],
       demoMethods: [
         {
+          name: 'collapseAll',
+          description: 'Collapses all nodes.',
+        },
+        {
+          name: 'expandAll',
+          description: 'Expands all nodes.',
+        },
+        {
           name: 'getProps',
           description:
             "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'runAutofit',
+          description:
+            'This method causes the component to autofit its container.',
         },
         {
           name: 'refresh',
@@ -53,7 +66,8 @@ export default {
       demoProps: [
         {
           prop: 'autofit',
-          description: "The component's initial render will fit the container.",
+          description:
+            "The component's initial render will fit the container by invoking the runAutofit method.",
           type: 'boolean',
           default: 'true',
           try: 'switch',
@@ -63,14 +77,6 @@ export default {
           description: 'Nodes can be expanded/collapsed.',
           type: 'boolean',
           default: 'true',
-          try: 'switch',
-        },
-        {
-          prop: 'condensedChildren',
-          description:
-            'Child nodes that have no children are condensed vertically.',
-          type: 'boolean',
-          default: 'false',
           try: 'switch',
         },
         {
@@ -94,6 +100,14 @@ export default {
           type: 'KupFamilyTreeLayout',
           default: 'null',
           try: 'field',
+        },
+        {
+          prop: 'stackedLeaves',
+          description:
+            'Child nodes that have no children are arranged vertically.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
       ],
     };
@@ -146,6 +160,7 @@ function createComp() {
                 value: 'Lodi',
               },
               {
+                icon: 'location_city',
                 id: '006',
                 title: 'City',
                 value: 'Mantova',
@@ -163,6 +178,7 @@ function createComp() {
                 value: 'Monza',
               },
               {
+                icon: 'location_city',
                 id: '009',
                 title: 'City',
                 value: 'Pavia',
@@ -296,6 +312,7 @@ function createComp() {
       },
     ],
   };
+  comp.autofit = true;
   comp.collapsible = true;
   comp.id = 'demo-component';
   comp.layout = 2;
@@ -303,3 +320,11 @@ function createComp() {
   return comp;
 }
 </script>
+
+<style scoped lang="scss">
+#demo-component {
+  height: 100%;
+  padding: 15px;
+  width: 100%;
+}
+</style>

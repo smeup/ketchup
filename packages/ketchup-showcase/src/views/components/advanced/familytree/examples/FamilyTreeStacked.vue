@@ -4,9 +4,9 @@
       <p>
         Child nodes that do not contain children can be arranged vertically one
         below the other, using the
-        <span class="code-word">condensedChildren</span> property. The example
-        on the left shows the default behavior, while on the right the condensed
-        behavior is shown.</p
+        <span class="code-word">stackedLeaves</span> property. The example on
+        the left shows the default behavior, while on the right the stacked
+        one.</p
       >
       <div class="comparison">
         <div class="demo-container">
@@ -17,11 +17,11 @@
             layout="2"
           ></kup-family-tree>
         </div>
-        <div class="demo-container condensed">
-          <h4>Condensed behavior</h4>
+        <div class="demo-container stacked">
+          <h4>Stacked behavior</h4>
           <kup-family-tree
             collapsible="false"
-            condensed-children="true"
+            stacked-leaves="true"
             :data.prop="data"
             layout="2"
           ></kup-family-tree>
@@ -33,7 +33,7 @@
 
 <script>
 export default {
-  name: 'FamilyTreeCondensed',
+  name: 'FamilyTreeStacked',
   data() {
     return {
       data: {
@@ -73,7 +73,7 @@ export default {
 .demo-container {
   margin-top: 0;
 
-  &.condensed {
+  &.stacked {
     margin-top: 30px;
   }
 }
