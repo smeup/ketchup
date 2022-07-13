@@ -152,6 +152,7 @@ function createComp() {
                 value: 'Lodi',
               },
               {
+                icon: 'location_city',
                 id: '006',
                 title: 'City',
                 value: 'Mantova',
@@ -169,6 +170,7 @@ function createComp() {
                 value: 'Monza',
               },
               {
+                icon: 'location_city',
                 id: '009',
                 title: 'City',
                 value: 'Pavia',
