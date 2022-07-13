@@ -141,9 +141,9 @@ export class KupFamilyTree {
      * Collapses all nodes.
      */
     @Method()
-    async collapseAll() {
+    async collapseAll(nodes: KupFamilyTreeNode[] = this.data.rows) {
         this.#kupManager.data.node.setProperties(
-            this.data.rows,
+            nodes,
             { isExpanded: false },
             true
         );
@@ -153,9 +153,9 @@ export class KupFamilyTree {
      * Expands all nodes.
      */
     @Method()
-    async expandAll() {
+    async expandAll(nodes: KupFamilyTreeNode[] = this.data.rows) {
         this.#kupManager.data.node.setProperties(
-            this.data.rows,
+            nodes,
             { isExpanded: true },
             true
         );
@@ -309,15 +309,14 @@ export class KupFamilyTree {
                 KupLanguageGeneric.COLLAPSE
             )}  (CTRL + Click)`,
             onClick: (e) => {
-                if (e.ctrlKey) {
+                if (e.ctrlKey && node.children && node.children.length > 0) {
                     if (node.isExpanded) {
-                        this.collapseAll();
+                        this.collapseAll(node.children);
                     } else {
-                        this.expandAll();
+                        this.expandAll(node.children);
                     }
-                } else {
-                    node.isExpanded = !node.isExpanded;
                 }
+                node.isExpanded = !node.isExpanded;
                 this.#shouldAutofit = true;
                 this.refresh();
             },

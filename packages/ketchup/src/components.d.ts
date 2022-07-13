@@ -32,7 +32,7 @@ import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/
 import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 import { GeoJSON } from "geojson";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
-import { KupFamilyTreeData, KupFamilyTreeEventPayload, KupFamilyTreeLayout } from "./components/kup-family-tree/kup-family-tree-declarations";
+import { KupFamilyTreeData, KupFamilyTreeEventPayload, KupFamilyTreeLayout, KupFamilyTreeNode } from "./components/kup-family-tree/kup-family-tree-declarations";
 import { KupFormData, KupFormLayout } from "./components/kup-form/kup-form-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
@@ -1579,7 +1579,7 @@ export namespace Components {
         /**
           * Collapses all nodes.
          */
-        "collapseAll": () => Promise<void>;
+        "collapseAll": (nodes?: KupFamilyTreeNode[]) => Promise<void>;
         /**
           * Nodes can be expanded/collapsed.
           * @default true
@@ -1599,7 +1599,7 @@ export namespace Components {
         /**
           * Expands all nodes.
          */
-        "expandAll": () => Promise<void>;
+        "expandAll": (nodes?: KupFamilyTreeNode[]) => Promise<void>;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
