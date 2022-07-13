@@ -26,7 +26,7 @@
 
 ## Methods
 
-### `collapseAll() => Promise<void>`
+### `collapseAll(nodes?: KupFamilyTreeNode[]) => Promise<void>`
 
 Collapses all nodes.
 
@@ -36,7 +36,7 @@ Type: `Promise<void>`
 
 
 
-### `expandAll() => Promise<void>`
+### `expandAll(nodes?: KupFamilyTreeNode[]) => Promise<void>`
 
 Expands all nodes.
 

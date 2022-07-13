@@ -328,9 +328,10 @@ export class KupFamilyTree {
                     {this.#isBoxLayout(layout) ? (
                         <kup-box
                             class="kup-borderless kup-paddingless"
-                            customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
+                            customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); border: 2px solid var(--kup_familytree_lines_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
                             data={data}
                             layout={layout as KupBoxLayout}
+                            showSelection={false}
                         ></kup-box>
                     ) : (
                         this.#buildNodeLayout(node, layout)
@@ -455,7 +456,7 @@ export class KupFamilyTree {
     #buildNodeLayout1(node: KupFamilyTreeNode) {
         return (
             <div
-                class={`family-tree__item__layout family-tree__item__layout__1`}
+                class={`family-tree__item__layout family-tree__item__layout--1`}
             >
                 <div class={'family-tree__item__layout__text__title'}>
                     {node.value}
@@ -467,7 +468,7 @@ export class KupFamilyTree {
     #buildNodeLayout2(node: KupFamilyTreeNode) {
         return (
             <div
-                class={`family-tree__item__layout family-tree__item__layout__2`}
+                class={`family-tree__item__layout family-tree__item__layout--2`}
             >
                 <div class={'family-tree__item__layout__color'}></div>
                 <div class={'family-tree__item__layout__image'}>

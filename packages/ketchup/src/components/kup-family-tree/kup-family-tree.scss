@@ -12,11 +12,11 @@
 :host {
   --kup_familytree_item_background_color: var(
     --kup-familytree-item-background-color,
-    var(--kup-primary-color)
+    var(--kup-background-color)
   );
   --kup_familytree_item_color: var(
     --kup-familytree-item-color,
-    var(--kup-text-on-primary-color)
+    var(--kup-text-color)
   );
   --kup_familytree_item_height: var(--kup-familytree-item-height, 80px);
   --kup_familytree_item_h_padding: var(--kup-familytree-item-h-padding, 8px);
@@ -160,7 +160,8 @@
     }
 
     &__layout {
-      border: 1px solid var(--kup-border-color);
+      background-color: var(--kup_familytree_item_background_color);
+      border: 1px solid var(--kup_familytree_lines_color);
       border-radius: 8px;
       box-sizing: border-box;
       display: flex;
@@ -169,9 +170,8 @@
       margin: 0 18px;
       width: var(--kup_familytree_item_width);
 
-      &__1 {
+      &--1 {
         justify-content: center;
-        background-color: var(--kup_familytree_item_background_color);
         color: var(--kup_familytree_item_color);
 
         > .family-tree__item__layout__text__title {
@@ -180,7 +180,8 @@
         }
       }
 
-      &__2 {
+      &--2 {
+        background-color: var(--kup_familytree_item_background_color);
         justify-content: flex-start;
       }
 

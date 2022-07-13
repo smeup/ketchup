@@ -312,6 +312,7 @@ function createComp() {
       },
     ],
   };
+  comp.autofit = true;
   comp.collapsible = true;
   comp.id = 'demo-component';
   comp.layout = 2;
