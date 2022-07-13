@@ -36,6 +36,14 @@ export default {
       ],
       demoMethods: [
         {
+          name: 'collapseAll',
+          description: 'Collapses all nodes.',
+        },
+        {
+          name: 'expandAll',
+          description: 'Expands all nodes.',
+        },
+        {
           name: 'getProps',
           description:
             "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",

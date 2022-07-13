@@ -138,6 +138,30 @@ export class KupFamilyTree {
     /*-------------------------------------------------*/
 
     /**
+     * Collapses all nodes.
+     */
+    @Method()
+    async collapseAll() {
+        this.#kupManager.data.node.setProperties(
+            this.data.rows,
+            { isExpanded: false },
+            true
+        );
+        this.refresh();
+    }
+    /**
+     * Expands all nodes.
+     */
+    @Method()
+    async expandAll() {
+        this.#kupManager.data.node.setProperties(
+            this.data.rows,
+            { isExpanded: true },
+            true
+        );
+        this.refresh();
+    }
+    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -279,8 +303,21 @@ export class KupFamilyTree {
             shaped: true,
             slim: true,
             styling: FButtonStyling.OUTLINED,
-            onClick: () => {
-                node.isExpanded = !node.isExpanded;
+            title: `${this.#kupManager.language.translate(
+                KupLanguageGeneric.EXPAND
+            )}/${this.#kupManager.language.translate(
+                KupLanguageGeneric.COLLAPSE
+            )}  (CTRL + Click)`,
+            onClick: (e) => {
+                if (e.ctrlKey) {
+                    if (node.isExpanded) {
+                        this.collapseAll();
+                    } else {
+                        this.expandAll();
+                    }
+                } else {
+                    node.isExpanded = !node.isExpanded;
+                }
                 this.#shouldAutofit = true;
                 this.refresh();
             },
@@ -724,7 +761,7 @@ export class KupFamilyTree {
     }
 
     componentDidRender() {
-        if (this.#shouldAutofit) {
+        if (this.autofit && this.#shouldAutofit) {
             this.#shouldAutofit = false;
             this.runAutofit();
         }

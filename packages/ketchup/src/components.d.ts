@@ -1577,6 +1577,10 @@ export namespace Components {
          */
         "autofit": boolean;
         /**
+          * Collapses all nodes.
+         */
+        "collapseAll": () => Promise<void>;
+        /**
           * Nodes can be expanded/collapsed.
           * @default true
          */
@@ -1597,6 +1601,10 @@ export namespace Components {
           * @default null
          */
         "data": KupFamilyTreeData;
+        /**
+          * Expands all nodes.
+         */
+        "expandAll": () => Promise<void>;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
