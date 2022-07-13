@@ -102,6 +102,7 @@ export class KupFamilyTree {
         this.#currentPanX = e.clientX;
         this.#currentPanY = e.clientY;
     };
+    #shouldAutofit = false;
     #wrapperEl: HTMLElement = null;
 
     /*-------------------------------------------------*/
@@ -280,9 +281,8 @@ export class KupFamilyTree {
             styling: FButtonStyling.OUTLINED,
             onClick: () => {
                 node.isExpanded = !node.isExpanded;
-                this.refresh().then(() => {
-                    this.runAutofit();
-                });
+                this.#shouldAutofit = true;
+                this.refresh();
             },
         };
 
@@ -668,16 +668,25 @@ export class KupFamilyTree {
     #zoomTree(e: WheelEvent) {
         if (e.ctrlKey) {
             e.preventDefault();
-            const rect = this.#wrapperEl.getBoundingClientRect();
-            const current =
+            const currentScale =
                 parseFloat(
                     this.#wrapperEl.style.getPropertyValue(
                         '--kup_familytree_scale'
                     )
                 ) || 1;
-            e.ctrlKey;
+            const rect = this.#wrapperEl.getBoundingClientRect();
+            let x = 0;
+            let y = 0;
+            if (currentScale > 0.75) {
+                x = (e.clientX - rect.x) / currentScale;
+                y = (e.clientY - rect.y) / currentScale;
+            } else {
+                x = 0;
+                y = 0;
+            }
             const delta = 0.05;
-            let value = e.deltaY > 0 ? current - delta : current + delta;
+            let value =
+                e.deltaY > 0 ? currentScale - delta : currentScale + delta;
             if (value < delta) {
                 value = delta;
             }
@@ -687,7 +696,7 @@ export class KupFamilyTree {
             );
             this.#wrapperEl.style.setProperty(
                 '--kup_familytree_origin',
-                `${e.offsetX}px ${e.offsetY}px`
+                `${x}px ${y}px`
             );
         }
     }
@@ -715,6 +724,10 @@ export class KupFamilyTree {
     }
 
     componentDidRender() {
+        if (this.#shouldAutofit) {
+            this.#shouldAutofit = false;
+            this.runAutofit();
+        }
         this.#kupManager.debug.logRender(this, true);
     }
 
