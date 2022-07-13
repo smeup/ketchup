@@ -1586,11 +1586,6 @@ export namespace Components {
          */
         "collapsible": boolean;
         /**
-          * Child nodes that have no children are condensed vertically
-          * @default false
-         */
-        "condensedChildren": boolean;
-        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -1629,6 +1624,11 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Child nodes that have no children are arranged vertically.
+          * @default false
+         */
+        "stackedLeaves": boolean;
     }
     interface KupForm {
         /**
@@ -4789,11 +4789,6 @@ declare namespace LocalJSX {
          */
         "collapsible"?: boolean;
         /**
-          * Child nodes that have no children are condensed vertically
-          * @default false
-         */
-        "condensedChildren"?: boolean;
-        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -4812,6 +4807,11 @@ declare namespace LocalJSX {
         "onKup-familytree-click"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;
         "onKup-familytree-contextmenu"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;
         "onKup-familytree-dblclick"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;
+        /**
+          * Child nodes that have no children are arranged vertically.
+          * @default false
+         */
+        "stackedLeaves"?: boolean;
     }
     interface KupForm {
         /**

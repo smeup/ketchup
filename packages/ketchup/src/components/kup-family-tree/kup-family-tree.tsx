@@ -63,11 +63,6 @@ export class KupFamilyTree {
      */
     @Prop() collapsible: boolean = true;
     /**
-     * Child nodes that have no children are condensed vertically
-     * @default false
-     */
-    @Prop() condensedChildren: boolean = false;
-    /**
      * Custom style of the component.
      * @default ""
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -83,6 +78,11 @@ export class KupFamilyTree {
      * @default null
      */
     @Prop() layout: KupFamilyTreeLayout = null;
+    /**
+     * Child nodes that have no children are arranged vertically.
+     * @default false
+     */
+    @Prop() stackedLeaves: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -276,8 +276,8 @@ export class KupFamilyTree {
                 }
             });
         }
-        const condensed: boolean =
-            this.condensedChildren &&
+        const stacked: boolean =
+            this.stackedLeaves &&
             children &&
             children.every((c) => !c.children || c.children.length == 0);
         const span1 = children ? children.length * 2 : 1;
@@ -355,8 +355,8 @@ export class KupFamilyTree {
             <table
                 class={{
                     'family-tree__node': true,
-                    'family-tree__node__condensed':
-                        this.condensedChildren &&
+                    'family-tree__node--stacked':
+                        this.stackedLeaves &&
                         (!node.children || node.children.length == 0),
                 }}
             >
@@ -407,7 +407,7 @@ export class KupFamilyTree {
                 {children
                     ? [
                           <tr>
-                              {condensed ? (
+                              {stacked ? (
                                   <td colSpan={span1}>
                                       <div class={styleVLine}></div>
                                   </td>
@@ -424,7 +424,7 @@ export class KupFamilyTree {
                               )}
                           </tr>,
                           <tr>
-                              {condensed ? (
+                              {stacked ? (
                                   <td colSpan={span1}>
                                       {children.map((inode) =>
                                           this.#buildNode(inode)

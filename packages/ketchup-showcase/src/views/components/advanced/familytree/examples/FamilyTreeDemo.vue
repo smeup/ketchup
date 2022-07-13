@@ -80,14 +80,6 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'condensedChildren',
-          description:
-            'Child nodes that have no children are condensed vertically.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
@@ -108,6 +100,14 @@ export default {
           type: 'KupFamilyTreeLayout',
           default: 'null',
           try: 'field',
+        },
+        {
+          prop: 'stackedLeaves',
+          description:
+            'Child nodes that have no children are arranged vertically.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
       ],
     };

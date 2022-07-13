@@ -2385,7 +2385,7 @@ const dataLayout = {
     ],
 };
 
-const dataCondensed = {
+const dataStacked = {
     columns: [],
     rows: [
         {
@@ -2634,14 +2634,14 @@ const layout = {
 
 const familyTreeLayout = document.getElementById('layout');
 const familyTreeStaff = document.getElementById('staff');
-const familyTreeCondensed = document.getElementById('condensed');
+const familyTreeStacked = document.getElementById('stacked');
 familyTreeLayout.data = dataLayout;
 familyTreeLayout.layout = layout;
 familyTreeStaff.data = dataStaff;
 familyTreeStaff.layout = 2;
-familyTreeCondensed.data = dataCondensed;
-familyTreeCondensed.collapsible = false;
-familyTreeCondensed.condensedChildren = true;
+familyTreeStacked.data = dataStacked;
+familyTreeStacked.collapsible = false;
+familyTreeStacked.stackedLeaves = true;
 
 document.addEventListener('kup-familytree-click', (e) => {
     console.log(e);

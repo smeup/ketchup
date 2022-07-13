@@ -8,7 +8,7 @@
         <family-tree-basic></family-tree-basic>
       </template>
       <template v-slot:2>
-        <family-tree-condensed></family-tree-condensed>
+        <family-tree-stacked></family-tree-stacked>
       </template>
       <template v-slot:3>
         <family-tree-layout></family-tree-layout>
@@ -23,16 +23,16 @@
 <script>
 import FamilyTreeDemo from '@/views/components/advanced/familytree/examples/FamilyTreeDemo';
 import FamilyTreeBasic from '@/views/components/advanced/familytree/examples/FamilyTreeBasic';
-import FamilyTreeCondensed from '@/views/components/advanced/familytree/examples/FamilyTreeCondensed';
 import FamilyTreeLayout from '@/views/components/advanced/familytree/examples/FamilyTreeLayout';
+import FamilyTreeStacked from '@/views/components/advanced/familytree/examples/FamilyTreeStacked';
 import FamilyTreeStaff from '@/views/components/advanced/familytree/examples/FamilyTreeStaff';
 import Comp from '@/views/templates/Comp';
 export default {
   components: {
     FamilyTreeDemo,
     FamilyTreeBasic,
-    FamilyTreeCondensed,
     FamilyTreeLayout,
+    FamilyTreeStacked,
     FamilyTreeStaff,
     Comp,
   },
@@ -44,7 +44,7 @@ export default {
       titles: [
         'Playground',
         'Basic usage',
-        'With condensed nodes',
+        'Stacked leaves',
         'With layout',
         'Staff nodes',
       ],

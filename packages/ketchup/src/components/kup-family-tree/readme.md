@@ -1,20 +1,18 @@
 # kup-image-list
 
-
-
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property            | Attribute            | Description                                                                              | Type                     | Default |
-| ------------------- | -------------------- | ---------------------------------------------------------------------------------------- | ------------------------ | ------- |
-| `autofit`           | `autofit`            | The component's initial render will fit the container by invoking the runAutofit method. | `boolean`                | `true`  |
-| `collapsible`       | `collapsible`        | Nodes can be expanded/collapsed.                                                         | `boolean`                | `true`  |
-| `condensedChildren` | `condensed-children` | Child nodes that have no children are condensed vertically                               | `boolean`                | `false` |
-| `customStyle`       | `custom-style`       | Custom style of the component.                                                           | `string`                 | `''`    |
-| `data`              | --                   | Actual data of the component.                                                            | `KupFamilyTreeData`      | `null`  |
-| `layout`            | `layout`             | Layout of the boxes.                                                                     | `KupBoxLayout \| number` | `null`  |
+| Property        | Attribute        | Description                                                                              | Type                     | Default |
+| --------------- | ---------------- | ---------------------------------------------------------------------------------------- | ------------------------ | ------- |
+| `autofit`       | `autofit`        | The component's initial render will fit the container by invoking the runAutofit method. | `boolean`                | `true`  |
+| `collapsible`   | `collapsible`    | Nodes can be expanded/collapsed.                                                         | `boolean`                | `true`  |
+| `customStyle`   | `custom-style`   | Custom style of the component.                                                           | `string`                 | `''`    |
+| `data`          | --               | Actual data of the component.                                                            | `KupFamilyTreeData`      | `null`  |
+| `layout`        | `layout`         | Layout of the boxes.                                                                     | `KupBoxLayout \| number` | `null`  |
+| `stackedLeaves` | `stacked-leaves` | Child nodes that have no children are arranged vertically.                               | `boolean`                | `false` |
 
 
 ## Events
