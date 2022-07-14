@@ -2,22 +2,26 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        It's possible to set a custom layout for the family tree boxes. In this
-        example, the component has a custom layout for boxes, it's set into
+        It's possible to set a custom layout for the family tree boxes. <br />In
+        this example, the component has a custom layout set through the
         <span class="code-word">layout</span> property.</p
       >
       <div class="demo-container">
-        <kup-family-tree :data.prop="data"></kup-family-tree>
+        <kup-family-tree id="layout-custom" :data.prop="data"></kup-family-tree>
       </div>
     </div>
     <div class="demo-wrapper">
       <p>
-        It's possible to set a bultin layout for the family tree boxes. In this
-        example, the component has
-        <span class="code-word">layout</span> property set to 2.</p
+        It's also possible to set a template. <br />In this example, the
+        component has the <span class="code-word">layout</span> property set to
+        2.</p
       >
       <div class="demo-container">
-        <kup-family-tree layout="2" :data.prop="liteData"></kup-family-tree>
+        <kup-family-tree
+          id="layout-2"
+          layout="2"
+          :data.prop="liteData"
+        ></kup-family-tree>
       </div>
     </div>
   </div>
@@ -38,23 +42,33 @@ export default {
             children: [
               {
                 id: '01',
-                icon: 'flag',
-                value: 'France',
+                icon: 'images/faces/james.jpg',
+                title: 'Team leader',
+                value: 'James',
               },
               {
                 id: '02',
-                icon: 'flag',
-                value: 'Italy',
+                icon: 'images/faces/monique.jpg',
+                title: 'Team leader',
+                value: 'Monique',
               },
               {
                 id: '03',
-                icon: 'flag',
-                value: 'Spain',
+                icon: 'images/faces/jane.jpg',
+                title: 'Team leader',
+                value: 'Jane',
+              },
+              {
+                id: '04',
+                icon: 'images/faces/ken.jpg',
+                title: 'Team leader',
+                value: 'Ken',
               },
             ],
             id: '0',
-            icon: 'language',
-            value: 'Europe',
+            icon: 'images/faces/john.jpg',
+            title: 'CTO',
+            value: 'John',
           },
         ],
       },
@@ -64,8 +78,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-kup-family-tree {
+#layout-custom {
   --kup-familytree-item-height: 100px;
   --kup-familytree-item-width: 360px;
+}
+
+#layout-2 {
+  text-align: left;
 }
 </style>
