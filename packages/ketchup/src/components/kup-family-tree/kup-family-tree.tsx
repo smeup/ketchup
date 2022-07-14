@@ -298,7 +298,7 @@ export class KupFamilyTree {
 
         const layout = node.layout || this.layout || 1;
 
-        const expandButtonProp: FButtonProps = {
+        const expandButtonProps: FButtonProps = {
             icon: node.isExpanded ? 'remove' : 'plus',
             shaped: true,
             slim: true,
@@ -320,6 +320,7 @@ export class KupFamilyTree {
                 this.#shouldAutofit = true;
                 this.refresh();
             },
+            wrapperClass: 'family-tree__item__expand',
         };
 
         const box: VNode = (
@@ -339,7 +340,7 @@ export class KupFamilyTree {
                     {this.collapsible &&
                     node.children &&
                     node.children.length > 0 ? (
-                        <FButton {...expandButtonProp} />
+                        <FButton {...expandButtonProps} />
                     ) : undefined}
                 </div>
             </div>
@@ -562,16 +563,20 @@ export class KupFamilyTree {
         path: HTMLElement[],
         e?: PointerEvent
     ): KupFamilyTreeEventHandlerDetails {
+        let expandButton: HTMLElement;
         let td: HTMLElement;
         if (path) {
             for (let i = path.length - 1; i >= 0; i--) {
-                let p = path[i];
-                if (!p.tagName) {
+                const el = path[i];
+                if (!el.tagName) {
                     continue;
                 }
-                switch (p.tagName.toUpperCase()) {
+                if (el.classList.contains('family-tree__item__expand')) {
+                    expandButton = el;
+                }
+                switch (el.tagName.toUpperCase()) {
                     case 'TD': {
-                        td = p;
+                        td = el;
                         break;
                     }
                 }
@@ -590,6 +595,7 @@ export class KupFamilyTree {
         return {
             cell: cell ? cell : null,
             column: column ? column : null,
+            expandButton: expandButton ? expandButton : null,
             originalEvent: e,
             row: row ? row : null,
             td: td ? td : null,

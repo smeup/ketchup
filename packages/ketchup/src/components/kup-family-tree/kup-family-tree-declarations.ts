@@ -35,6 +35,7 @@ export interface KupFamilyTreeNode extends KupDataNode {
 export interface KupFamilyTreeEventHandlerDetails {
     cell: KupDataCell;
     column: KupDataColumn;
+    expandButton: HTMLElement;
     originalEvent: PointerEvent;
     row: KupFamilyTreeNode;
     td: HTMLElement;
