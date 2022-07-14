@@ -358,6 +358,7 @@ export class KupFamilyTree {
                     'family-tree__node': true,
                     'family-tree__node--stacked':
                         this.stackedLeaves &&
+                        !node.isStaff &&
                         (!node.children || node.children.length == 0),
                 }}
             >
