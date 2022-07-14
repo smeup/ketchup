@@ -65,9 +65,7 @@ export default {
 
 <style scoped lang="scss">
 kup-family-tree {
-  --kup-familytree-item-background-color: var(--kup-border-color);
-  --kup-familytree-item-color: var(--kup-text-color);
-  --kup-familytree-item-height: 80px;
+  --kup-familytree-item-height: 100px;
   --kup-familytree-item-width: 360px;
 }
 </style>
