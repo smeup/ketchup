@@ -718,16 +718,6 @@ export class KupFamilyTree {
                         '--kup_familytree_scale'
                     )
                 ) || 1;
-            const rect = this.#wrapperEl.getBoundingClientRect();
-            let x = 0;
-            let y = 0;
-            if (currentScale > 0.75) {
-                x = (e.clientX - rect.x) / currentScale;
-                y = (e.clientY - rect.y) / currentScale;
-            } else {
-                x = 0;
-                y = 0;
-            }
             const delta = 0.05;
             let value =
                 e.deltaY > 0 ? currentScale - delta : currentScale + delta;
@@ -737,10 +727,6 @@ export class KupFamilyTree {
             this.#wrapperEl.style.setProperty(
                 '--kup_familytree_scale',
                 value.toFixed(2)
-            );
-            this.#wrapperEl.style.setProperty(
-                '--kup_familytree_origin',
-                `${x}px ${y}px`
             );
         }
     }
