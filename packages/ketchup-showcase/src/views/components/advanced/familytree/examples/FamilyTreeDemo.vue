@@ -73,6 +73,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'autofitOnExpand',
+          description:
+            'The component will autofit everytime a node is expanded.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'collapsible',
           description: 'Nodes can be expanded/collapsed.',
           type: 'boolean',

@@ -12,6 +12,7 @@ import { KupBoxLayout } from '../kup-box/kup-box-declarations';
  */
 export enum KupFamilyTreeProps {
     autofit = "The component's initial render will fit the container by invoking the runAutofit method.",
+    autofitOnExpand = 'The component will autofit everytime a node is expanded.',
     collapsible = 'Nodes can be expanded/collapsed.',
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the component',

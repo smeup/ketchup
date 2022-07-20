@@ -58,6 +58,11 @@ export class KupFamilyTree {
      */
     @Prop() autofit: boolean = true;
     /**
+     * The component will autofit everytime a node is expanded.
+     * @default true
+     */
+    @Prop() autofitOnExpand: boolean = false;
+    /**
      * Nodes can be expanded/collapsed.
      * @default true
      */
@@ -317,7 +322,9 @@ export class KupFamilyTree {
                     }
                 }
                 node.isExpanded = !node.isExpanded;
-                this.#shouldAutofit = true;
+                if (this.autofitOnExpand) {
+                    this.#shouldAutofit = true;
+                }
                 this.refresh();
             },
             wrapperClass: 'family-tree__item__expand',
@@ -754,7 +761,7 @@ export class KupFamilyTree {
     }
 
     componentDidRender() {
-        if (this.autofit && this.#shouldAutofit) {
+        if (this.#shouldAutofit) {
             this.#shouldAutofit = false;
             this.runAutofit();
         }

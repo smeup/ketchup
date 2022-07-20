@@ -1577,6 +1577,11 @@ export namespace Components {
          */
         "autofit": boolean;
         /**
+          * The component will autofit everytime a node is expanded.
+          * @default true
+         */
+        "autofitOnExpand": boolean;
+        /**
           * Collapses all nodes.
          */
         "collapseAll": (nodes?: KupFamilyTreeNode[]) => Promise<void>;
@@ -4783,6 +4788,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "autofit"?: boolean;
+        /**
+          * The component will autofit everytime a node is expanded.
+          * @default true
+         */
+        "autofitOnExpand"?: boolean;
         /**
           * Nodes can be expanded/collapsed.
           * @default true
