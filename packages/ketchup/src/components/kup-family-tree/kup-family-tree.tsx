@@ -53,15 +53,15 @@ export class KupFamilyTree {
     /*-------------------------------------------------*/
 
     /**
-     * The component's initial render will fit the container by invoking the runAutofit method.
-     * @default true
-     */
-    @Prop() autofit: boolean = true;
-    /**
      * The component will autofit everytime a node is expanded.
      * @default true
      */
     @Prop() autofitOnExpand: boolean = true;
+    /**
+     * The component's initial render will fit the container by invoking the runAutofit method.
+     * @default true
+     */
+    @Prop() autofitOnLoad: boolean = true;
     /**
      * Nodes can be expanded/collapsed.
      * @default true
@@ -748,7 +748,7 @@ export class KupFamilyTree {
 
     componentDidLoad() {
         this.#didLoadInteractables();
-        if (this.autofit) {
+        if (this.autofitOnLoad) {
             this.runAutofit();
         }
         this.#kupManager.debug.logLoad(this, true);

@@ -65,17 +65,17 @@ export default {
       ],
       demoProps: [
         {
-          prop: 'autofit',
+          prop: 'autofitOnExpand',
           description:
-            "The component's initial render will fit the container by invoking the runAutofit method.",
+            'The component will autofit everytime a node is expanded.',
           type: 'boolean',
           default: 'true',
           try: 'switch',
         },
         {
-          prop: 'autofitOnExpand',
+          prop: 'autofitOnLoad',
           description:
-            'The component will autofit everytime a node is expanded.',
+            "The component's initial render will fit the container by invoking the runAutofit method.",
           type: 'boolean',
           default: 'true',
           try: 'switch',
@@ -320,7 +320,6 @@ function createComp() {
       },
     ],
   };
-  comp.autofit = true;
   comp.collapsible = true;
   comp.id = 'demo-component';
   comp.layout = 2;

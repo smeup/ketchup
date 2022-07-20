@@ -1572,15 +1572,15 @@ export namespace Components {
     }
     interface KupFamilyTree {
         /**
-          * The component's initial render will fit the container by invoking the runAutofit method.
-          * @default true
-         */
-        "autofit": boolean;
-        /**
           * The component will autofit everytime a node is expanded.
           * @default true
          */
         "autofitOnExpand": boolean;
+        /**
+          * The component's initial render will fit the container by invoking the runAutofit method.
+          * @default true
+         */
+        "autofitOnLoad": boolean;
         /**
           * Collapses all nodes.
          */
@@ -4784,15 +4784,15 @@ declare namespace LocalJSX {
     }
     interface KupFamilyTree {
         /**
-          * The component's initial render will fit the container by invoking the runAutofit method.
-          * @default true
-         */
-        "autofit"?: boolean;
-        /**
           * The component will autofit everytime a node is expanded.
           * @default true
          */
         "autofitOnExpand"?: boolean;
+        /**
+          * The component's initial render will fit the container by invoking the runAutofit method.
+          * @default true
+         */
+        "autofitOnLoad"?: boolean;
         /**
           * Nodes can be expanded/collapsed.
           * @default true
