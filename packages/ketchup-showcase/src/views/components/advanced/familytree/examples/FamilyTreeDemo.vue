@@ -77,7 +77,7 @@ export default {
           description:
             'The component will autofit everytime a node is expanded.',
           type: 'boolean',
-          default: 'false',
+          default: 'true',
           try: 'switch',
         },
         {
