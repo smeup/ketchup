@@ -53,10 +53,15 @@ export class KupFamilyTree {
     /*-------------------------------------------------*/
 
     /**
+     * The component will autofit everytime a node is expanded.
+     * @default true
+     */
+    @Prop() autofitOnExpand: boolean = true;
+    /**
      * The component's initial render will fit the container by invoking the runAutofit method.
      * @default true
      */
-    @Prop() autofit: boolean = true;
+    @Prop() autofitOnLoad: boolean = true;
     /**
      * Nodes can be expanded/collapsed.
      * @default true
@@ -184,33 +189,31 @@ export class KupFamilyTree {
     async runAutofit(): Promise<void> {
         const parentWidth = this.#wrapperEl.clientWidth;
         const childWidth = this.#wrapperEl.children[0].clientWidth;
-        if (childWidth > parentWidth) {
-            const multiplierStep = 0.01;
-            const minWidth = (85 / 100) * parentWidth;
-            const maxWidth = (95 / 100) * parentWidth;
-            let multiplier = 1;
-            let tooManyAttempts = 2000;
-            let tempWidth = childWidth;
-            while (
-                (tempWidth < minWidth || tempWidth > maxWidth) &&
-                tooManyAttempts > 0 &&
-                multiplier > multiplierStep
-            ) {
-                tooManyAttempts--;
-                if (tempWidth < minWidth) {
-                    multiplier = multiplier + multiplierStep;
-                } else if (tempWidth > maxWidth) {
-                    multiplier = multiplier - multiplierStep;
-                } else {
-                    tooManyAttempts = 0;
-                }
-                tempWidth = childWidth * multiplier;
+        const multiplierStep = 0.01;
+        const minWidth = (85 / 100) * parentWidth;
+        const maxWidth = (95 / 100) * parentWidth;
+        let multiplier = 1;
+        let tooManyAttempts = 2000;
+        let tempWidth = childWidth;
+        while (
+            (tempWidth < minWidth || tempWidth > maxWidth) &&
+            tooManyAttempts > 0 &&
+            multiplier > multiplierStep
+        ) {
+            tooManyAttempts--;
+            if (tempWidth < minWidth) {
+                multiplier = multiplier + multiplierStep;
+            } else if (tempWidth > maxWidth) {
+                multiplier = multiplier - multiplierStep;
+            } else {
+                tooManyAttempts = 0;
             }
-            this.#wrapperEl.style.setProperty(
-                '--kup_familytree_scale',
-                multiplier.toFixed(2)
-            );
+            tempWidth = childWidth * multiplier;
         }
+        this.#wrapperEl.style.setProperty(
+            '--kup_familytree_scale',
+            multiplier <= 1 ? multiplier.toFixed(2) : '1'
+        );
     }
     /**
      * Sets the props to the component.
@@ -317,7 +320,9 @@ export class KupFamilyTree {
                     }
                 }
                 node.isExpanded = !node.isExpanded;
-                this.#shouldAutofit = true;
+                if (this.autofitOnExpand) {
+                    this.#shouldAutofit = true;
+                }
                 this.refresh();
             },
             wrapperClass: 'family-tree__item__expand',
@@ -743,7 +748,7 @@ export class KupFamilyTree {
 
     componentDidLoad() {
         this.#didLoadInteractables();
-        if (this.autofit) {
+        if (this.autofitOnLoad) {
             this.runAutofit();
         }
         this.#kupManager.debug.logLoad(this, true);
@@ -754,7 +759,7 @@ export class KupFamilyTree {
     }
 
     componentDidRender() {
-        if (this.autofit && this.#shouldAutofit) {
+        if (this.#shouldAutofit) {
             this.#shouldAutofit = false;
             this.runAutofit();
         }
