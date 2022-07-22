@@ -1,3 +1,4 @@
+import type { DropEvent } from '@interactjs/types/index';
 import {
     Component,
     Element,
@@ -356,6 +357,36 @@ export class KupDashboard {
         );
     }
 
+    calcSectionPosition(
+        pointerY: number,
+        sectionCount: number,
+        elements: HTMLCollection
+    ) {
+        let idx = sectionCount;
+        for (let index = 0; index < elements.length; index++) {
+            const element = elements[index];
+            const srect = element.getBoundingClientRect();
+            if (pointerY < srect.y) {
+                idx = index;
+                break;
+            }
+        }
+        return idx;
+    }
+
+    calcNodePosition(pointerY: number, elements: HTMLCollection) {
+        let node = null;
+        for (let index = 0; index < elements.length; index++) {
+            const element = elements[index];
+            const srect = element.getBoundingClientRect();
+            if (pointerY < srect.y) {
+                node = element;
+                break;
+            }
+        }
+        return node;
+    }
+
     didRenderInteractables() {
         try {
             const items: Element[] = [];
@@ -393,6 +424,7 @@ export class KupDashboard {
                     {
                         drop: (ev) => {
                             this.dropped(
+                                ev,
                                 ev.currentTarget as KupDashboardElement,
                                 ev.relatedTarget as KupDashboardElement
                             );
@@ -409,7 +441,11 @@ export class KupDashboard {
         }
     }
 
-    dropped(parent: KupDashboardElement, child: KupDashboardElement) {
+    dropped(
+        event: DropEvent,
+        parent: KupDashboardElement,
+        child: KupDashboardElement
+    ) {
         const idx = child.kupData.parent.sections.indexOf(
             child.kupData.section
         );
@@ -418,7 +454,15 @@ export class KupDashboard {
             // form is the target of drop.
             if (!parent.kupData.form.sections)
                 parent.kupData.form.sections = [];
-            parent.kupData.form.sections.push(child.kupData.section);
+
+            // calculate a new position for the section.
+            let nidx = this.calcSectionPosition(
+                event.dragEvent.clientY,
+                parent.kupData.form.sections.length,
+                parent.children
+            );
+            // set the section in 'nidx' position.
+            parent.kupData.form.sections.splice(nidx, 0, child.kupData.section);
             child.kupData.parent = parent.kupData.form;
         } else if (parent.kupData.section) {
             // section is the target of drop.
@@ -436,7 +480,18 @@ export class KupDashboard {
                 parent.kupData.section.sections = [];
                 parent.kupData.section.sections.push(newSec);
             }
-            parent.kupData.section.sections.push(child.kupData.section);
+            // calculate a new position for the section.
+            let nidx = this.calcSectionPosition(
+                event.dragEvent.clientY,
+                parent.kupData.section.sections.length,
+                parent.lastElementChild.children
+            );
+            // set the section in 'nidx' position.
+            parent.kupData.section.sections.splice(
+                nidx,
+                0,
+                child.kupData.section
+            );
             child.kupData.parent = parent.kupData.section;
         }
         this.resetData(this.internalData);
