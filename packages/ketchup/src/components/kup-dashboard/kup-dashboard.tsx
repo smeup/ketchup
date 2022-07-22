@@ -248,6 +248,7 @@ export class KupDashboard {
             onChange: (e: UIEvent & { target: HTMLInputElement }) => {
                 const { target } = e;
                 section.dim = target.value;
+                this.refresh();
             },
         };
         const addButtonProp: FButtonProps = {
@@ -443,7 +444,7 @@ export class KupDashboard {
 
     getGridStyle(entity: KupForm | KupSection) {
         let bodyStyles = {};
-        if (!this.enableDesign && entity.sections) {
+        if (entity.sections) {
             let gridTemplate = '';
             entity.sections.forEach((childSection) => {
                 if (!childSection.dim) gridTemplate += ' 1fr';
