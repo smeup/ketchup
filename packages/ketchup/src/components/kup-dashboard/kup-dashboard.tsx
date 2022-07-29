@@ -414,19 +414,21 @@ export class KupDashboard {
             items.forEach((item) => {
                 this.kupManager.interact.dropzone(
                     item as HTMLElement,
-                    null,
-                    null,
                     {
-                        enter: (ev) => {
+                        ondropdeactivate: () => {
+                            this.removeSectionPlaceHolder();
+                        },
+                        ondropmove: (ev) => {
+                            this.removeSectionPlaceHolder();
                             this.dragEnter(
                                 ev.dragEvent.clientY,
                                 ev.dragEvent.clientX,
                                 ev.currentTarget as KupDashboardElement
                             );
                         },
-                        leave: () => {
-                            this.removeSectionPlaceHolder();
-                        },
+                    },
+                    null,
+                    {
                         drop: (ev) => {
                             this.dropped(
                                 ev,
@@ -486,7 +488,6 @@ export class KupDashboard {
         parent: KupDashboardElement,
         child: KupDashboardElement
     ) {
-        this.removeSectionPlaceHolder();
         const idx = child.kupData.parent.sections.indexOf(
             child.kupData.section
         );
