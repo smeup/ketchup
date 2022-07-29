@@ -69,6 +69,11 @@
     padding: 1em;
 }
 
+.section-placeholder {
+    border: 1px solid var(--kup-danger-color);
+    min-height: 1em;
+}
+
 .component {
     height: fit-content;
     padding: 1em;
