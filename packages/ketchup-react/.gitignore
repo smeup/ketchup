@@ -1,0 +1,32 @@
+# For now this has been commented to allow remote npm installation
+#dist/
+www/
+
+*~
+*.sw[mnpcod]
+*.log
+*.lock
+*.tmp
+*.tmp.*
+log.txt
+*.sublime-project
+*.sublime-workspace
+
+.stencil/
+.idea/
+.vscode/
+.sass-cache/
+.versions/
+node_modules/
+$RECYCLE.BIN/
+
+.DS_Store
+Thumbs.db
+UserInterfaceState.xcuserstate
+.env
+
+/dist
+
+# Ignores auto generated css files for f-components and kup-theme
+/src/f-components/**/*.css
+/src/managers/kup-theme/*.css
