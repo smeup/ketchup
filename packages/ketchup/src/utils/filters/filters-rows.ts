@@ -396,9 +396,13 @@ export class FiltersRows extends Filters {
         values.sort((n1, n2) => {
             return compareValues(
                 null,
-                getValueForDisplay2(n1, column),
+                kupObjects.isDate(column.obj)
+                    ? n1.value
+                    : getValueForDisplay2(n1, column),
                 null,
-                getValueForDisplay2(n2, column),
+                kupObjects.isDate(column.obj)
+                    ? n2.value
+                    : getValueForDisplay2(n2, column),
                 SortMode.A
             );
         });
