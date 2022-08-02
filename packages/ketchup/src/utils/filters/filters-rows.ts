@@ -393,16 +393,13 @@ export class FiltersRows extends Filters {
         }
 
         this.extractColumnValues(tmpRows, column, values);
+        let isDate: boolean = kupObjects.isDate(column.obj);
         values.sort((n1, n2) => {
             return compareValues(
                 null,
-                kupObjects.isDate(column.obj)
-                    ? n1.value
-                    : getValueForDisplay2(n1, column),
+                isDate ? n1.value : getValueForDisplay2(n1, column),
                 null,
-                kupObjects.isDate(column.obj)
-                    ? n2.value
-                    : getValueForDisplay2(n2, column),
+                isDate ? n2.value : getValueForDisplay2(n2, column),
                 SortMode.A
             );
         });
