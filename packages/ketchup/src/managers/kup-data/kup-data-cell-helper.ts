@@ -34,61 +34,41 @@ export function findCell(
 ): KupDataCell[] {
     return dom.ketchup.data.finder(dataset, filters).cells;
 }
-/**
- * Returns all the cells values of the specified columns.
- * @param {KupDataDataset} dataset - Input dataset.
- * @param {string[]} columns - Columns included in the search. When missing, searches all columns.
- * @returns {string[]} Values of the cells.
- */
-export function getCellValue(
-    dataset: KupDataDataset,
-    columns?: string[]
-): string[] {
-    const result: string[] = [];
-    for (let index = 0; index < dataset.rows.length; index++) {
-        const row = dataset.rows[index];
-        const cells = row.cells;
-        for (const key in cells) {
-            const cell = cells[key];
-            if (!columns || !columns.length || columns.includes(key)) {
-                result.push(cell.value);
-            }
-        }
-    }
-    return result;
-}
 
 /**
- * Returns all the cells values of the specified column, sorted.
- * @param {Array<KupDataRow>} rows - Input dataset rows.
+ * Returns all the cells values of the specified column, sorted if required.
+ * @param {Array<KupDataRow>} dataset - Input dataset.
  * @param {KupDataColumn} column - Column included in the search. When missing, returns empty array.
  * @returns {ValueDisplayedValue[]} Values of the cells, sorted.
  */
-export function getCellValueSorted(
-    rows: Array<KupDataRow>,
-    column: KupDataColumn
+export function getCellValue(
+    dataset: KupDataDataset,
+    column: KupDataColumn,
+    sorted?: boolean
 ): ValueDisplayedValue[] {
+    const rows = dataset.rows;
     const values: { value: string; displayedValue?: string; obj?: KupObj }[] =
         new Array();
     const result: ValueDisplayedValue[] = new Array();
     if (!rows || rows.length == 0 || !column) {
         return result;
     }
-
     extractColumnValues(rows, column, values);
-    values.sort((n1, n2) => {
-        return compareValues(
-            null,
-            kupObjects.isDate(n1.obj)
-                ? n1.value
-                : getValueForDisplay2(n1, column),
-            null,
-            kupObjects.isDate(n2.obj)
-                ? n2.value
-                : getValueForDisplay2(n2, column),
-            SortMode.A
-        );
-    });
+    if (sorted == true) {
+        values.sort((n1, n2) => {
+            return compareValues(
+                null,
+                kupObjects.isDate(n1.obj)
+                    ? n1.value
+                    : getValueForDisplay2(n1, column),
+                null,
+                kupObjects.isDate(n2.obj)
+                    ? n2.value
+                    : getValueForDisplay2(n2, column),
+                SortMode.A
+            );
+        });
+    }
     for (let i = 0; i < values.length; i++) {
         let v = values[i];
         result.push({ value: v.value, displayedValue: v.displayedValue });

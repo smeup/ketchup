@@ -391,6 +391,6 @@ export class FiltersRows extends Filters {
             values.push(checkboxes[i]);
         }
 
-        return kupData.cell.getValueSorted(tmpRows, column);
+        return kupData.cell.getValue({ rows: tmpRows }, column, true);
     }
 }
