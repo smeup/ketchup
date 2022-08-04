@@ -12,6 +12,7 @@ import {
     KupDataColumn,
     KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
+import { addColumnValueFromRow } from '../../managers/kup-data/kup-data-cell-helper';
 
 /**
  * Filtering algorithms related to tree items rows.
@@ -160,11 +161,7 @@ export class FiltersTreeItems extends FiltersRows {
                 value: node.value,
             };
             if (node.visible) {
-                this.addColumnValueFromRow(
-                    values,
-                    column,
-                    cellsHolder[column.name]
-                );
+                addColumnValueFromRow(values, column, cellsHolder[column.name]);
                 this.extractColumnValues(node.children, column, values);
             }
         });

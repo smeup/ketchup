@@ -12,7 +12,12 @@ import {
     KupDataRow,
     KupDataRowCells,
 } from './kup-data-declarations';
-import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
+import {
+    findCell,
+    getCellValue,
+    getCellValueSorted,
+    replaceCell,
+} from './kup-data-cell-helper';
 import { findColumns, hideColumns, newColumn } from './kup-data-column-helper';
 import { findRow, toNode } from './kup-data-row-helper';
 import {
@@ -31,6 +36,7 @@ import {
     FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { TreeNodePath } from '../../components/kup-tree/kup-tree-declarations';
+import { ValueDisplayedValue } from '../../utils/filters/filters-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -48,6 +54,12 @@ export class KupData {
         },
         getValue(dataset: KupDataDataset, columns?: string[]): string[] {
             return getCellValue(dataset, columns);
+        },
+        getValueSorted(
+            rows: Array<KupDataRow>,
+            column: KupDataColumn
+        ): ValueDisplayedValue[] {
+            return getCellValueSorted(rows, column);
         },
         replace(
             dataset: KupDataDataset,

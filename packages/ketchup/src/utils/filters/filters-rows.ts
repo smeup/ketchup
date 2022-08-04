@@ -4,13 +4,10 @@ import type {
 } from './filters-declarations';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import type { KupTree } from '../../components/kup-tree/kup-tree';
-import { SortMode } from '../../components/kup-data-table/kup-data-table-declarations';
 import {
-    compareValues,
     getCellValueForDisplay,
     getColumnByName,
     getValueForDisplay,
-    getValueForDisplay2,
 } from '../cell-utils';
 import { Filters } from './filters';
 import { FiltersColumnMenu } from './filters-column-menu';
@@ -23,11 +20,13 @@ import {
     KupDataRow,
     KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
+import { KupData } from '../../managers/kup-data/kup-data';
 
 const dom: KupDom = document.documentElement as KupDom;
 const kupObjects: KupObjects = dom.ketchup
     ? dom.ketchup.objects
     : new KupObjects();
+const kupData: KupData = dom.ketchup ? dom.ketchup.data : new KupData();
 
 /**
  * Filtering algorithms related to data-table rows.
@@ -392,45 +391,6 @@ export class FiltersRows extends Filters {
             values.push(checkboxes[i]);
         }
 
-        this.extractColumnValues(tmpRows, column, values);
-        let isDate: boolean = kupObjects.isDate(column.obj);
-        values.sort((n1, n2) => {
-            return compareValues(
-                null,
-                isDate ? n1.value : getValueForDisplay2(n1, column),
-                null,
-                isDate ? n2.value : getValueForDisplay2(n2, column),
-                SortMode.A
-            );
-        });
-        return values;
-    }
-
-    extractColumnValues(
-        rows: Array<KupDataRow>,
-        column: KupDataColumn,
-        values: ValueDisplayedValue[]
-    ) {
-        /** il valore delle righe attualmente filtrate, formattato */
-        rows.forEach((row) =>
-            this.addColumnValueFromRow(values, column, row.cells[column.name])
-        );
-        return values;
-    }
-
-    addColumnValueFromRow(
-        values: ValueDisplayedValue[],
-        column: KupDataColumn,
-        cell: KupDataCell
-    ) {
-        if (cell) {
-            let item: ValueDisplayedValue = {
-                value: cell.value,
-                displayedValue: getCellValueForDisplay(column, cell),
-            };
-            if (!Filters.valuesArrayContainsValue(values, cell.value)) {
-                values.push(item);
-            }
-        }
+        return kupData.cell.getValueSorted(tmpRows, column);
     }
 }
