@@ -31,6 +31,7 @@ import {
     FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { TreeNodePath } from '../../components/kup-tree/kup-tree-declarations';
+import { ValueDisplayedValue } from '../../utils/filters/filters-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -46,8 +47,12 @@ export class KupData {
         ): KupDataCell[] {
             return findCell(dataset, filters);
         },
-        getValue(dataset: KupDataDataset, columns?: string[]): string[] {
-            return getCellValue(dataset, columns);
+        getValue(
+            dataset: KupDataDataset,
+            column: KupDataColumn,
+            sorted?: boolean
+        ): ValueDisplayedValue[] {
+            return getCellValue(dataset, column, sorted);
         },
         replace(
             dataset: KupDataDataset,
@@ -457,9 +462,12 @@ export class KupData {
         const length = dataset.rows.length;
 
         // sort all columns values by descending
-        let values = getCellValue(dataset, [headerColumn]);
+        let values = getCellValue(
+            dataset,
+            this.column.find(dataset, { name: headerColumn })[0]
+        );
         values.sort(function (a, b) {
-            return Number(a) - Number(b);
+            return Number(a.value) - Number(b.value);
         });
         values.reverse();
         // excluding duplicates values.
@@ -473,7 +481,7 @@ export class KupData {
 
         // sort the rows like a "mountain", the greatest is in the middle and the other ones are splitted left and right
         for (let i = 0; i < length; i++) {
-            const value = values[i];
+            const value = values[i].value;
             // looping the rows because we have many rows with same value.
             this.finder(dataset, {
                 columns: [headerColumn],
