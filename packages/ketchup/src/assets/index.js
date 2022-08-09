@@ -127,6 +127,10 @@ components.data = [
         id: 'kupdata.html',
     },
     {
+        value: 'KupInteract',
+        id: 'kupinteract.html',
+    },
+    {
         value: 'KupTooltip',
         id: 'kuptooltip.html',
     },
