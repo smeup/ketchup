@@ -22,7 +22,8 @@
     "dependencies": {
         "@sme.up/ketchup": "../ketchup",
         "react": "18.2.0",
-        "react-dom": "18.2.0"
+        "react-dom": "18.2.0",
+        "rimraf": "^3.0.2"
     },
     "devDependencies": {
         "typescript": "4.2.3",
