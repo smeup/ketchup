@@ -6,6 +6,7 @@ export interface KupScrollOnHoverElement extends HTMLElement {
         active: boolean;
         children: NodeListOf<HTMLElement>;
         rect: DOMRect;
+        vertical: boolean;
         x: number;
         y: number;
     };
@@ -14,6 +15,8 @@ export interface KupScrollOnHoverElement extends HTMLElement {
  * The direction to which ScollableElement can be scrolled.
  */
 export enum ScrollOnHoverDirection {
+    BOTTOM = 'bottom',
     LEFT = 'left',
     RIGHT = 'right',
+    TOP = 'top',
 }
