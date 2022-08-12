@@ -48,7 +48,16 @@ const initialize = () => {
                 allowFrom: handleEl ? handleEl : null,
             },
             null,
-            'clone'
+            'clone',
+            {
+                end: () => {
+                    kupManager.scrollOnHover.stop(wrapper);
+                    kupManager.scrollOnHover.unregister(wrapper);
+                },
+                start: () => {
+                    kupManager.scrollOnHover.register(wrapper, true);
+                },
+            }
         );
     }
 };
