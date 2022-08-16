@@ -55,7 +55,10 @@ const initialize = () => {
                     kupManager.scrollOnHover.unregister(wrapper);
                 },
                 start: () => {
-                    kupManager.scrollOnHover.register(wrapper, true);
+                    kupManager.scrollOnHover.register(wrapper, true, {
+                        back: 0.3,
+                        forward: 0.7,
+                    });
                 },
             }
         );
