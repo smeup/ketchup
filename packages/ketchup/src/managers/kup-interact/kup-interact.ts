@@ -101,22 +101,13 @@ export class KupInteract {
                         draggable.kupDragDrop.ghostImage
                             ? draggable.kupDragDrop.ghostImage
                             : e.target;
-                    const oldTransform = ghostImage.style.transform;
                     let x = parseFloat(ghostImage.getAttribute('data-x')) || 0;
                     let y = parseFloat(ghostImage.getAttribute('data-y')) || 0;
                     x = x + e.dx;
                     y = y + e.dy;
                     ghostImage.style.transform = `translate(${x}px, ${y}px)`;
-                    if (
-                        dom.ketchup.interact.isInViewport(
-                            el,
-                            oldTransform,
-                            e.delta
-                        )
-                    ) {
-                        ghostImage.setAttribute('data-x', x.toString());
-                        ghostImage.setAttribute('data-y', y.toString());
-                    }
+                    ghostImage.setAttribute('data-x', x.toString());
+                    ghostImage.setAttribute('data-y', y.toString());
                 }
             },
             start(e: InteractEvent) {
@@ -164,6 +155,7 @@ export class KupInteract {
                         break;
                     case KupDragEffect.CLONE:
                         ghostImage = draggable.cloneNode(true) as HTMLElement;
+                        ghostImage.id = '';
                         ghostImage.style.cursor = 'grabbing';
                         ghostImage.style.height = draggable.clientHeight + 'px';
                         ghostImage.style.left =

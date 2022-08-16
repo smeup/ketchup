@@ -1,6 +1,7 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     KupScrollOnHoverElement,
+    KupScrollOnHoverPercentages,
     ScrollOnHoverDirection,
 } from './kup-scroll-on-hover-declarations';
 
@@ -77,12 +78,21 @@ export class KupScrollOnHover {
      * Watches the given element in order to trigger the scroll on hover when conditions are met.
      * Children nodes with the "hover-scrolling-child" will be watched and scrolled when el scrolls.
      * @param {KupScrollOnHoverElement} el - Element to watch.
+     * @param {boolean} vertical - Enables vertical scroll.
+     * @param {KupScrollOnHoverPercentages} percentages - Sets how big is the area in which the scroll is enabled.
      */
-    register(el: KupScrollOnHoverElement, vertical?: boolean): void {
+    register(
+        el: KupScrollOnHoverElement,
+        vertical?: boolean,
+        percentages?: KupScrollOnHoverPercentages
+    ): void {
         el.style.overflowX = 'auto';
         el.scrollOnHover = {
             active: false,
             children: el.querySelectorAll('.hover-scrolling-child'),
+            percentages: percentages
+                ? percentages
+                : { back: 0.1, forward: 0.9 },
             rect: null,
             vertical: vertical || null,
             x: 0,
@@ -140,8 +150,11 @@ export class KupScrollOnHover {
         }
         if (el.scrollWidth > trueWidth + 10) {
             if (trueWidth !== 0 && !el.scrollOnHover.active) {
-                const percRight: number = trueWidth - trueWidth * 0.1;
-                const percLeft: number = trueWidth - trueWidth * 0.9;
+                const percRight: number =
+                    trueWidth - trueWidth * el.scrollOnHover.percentages.back;
+                const percLeft: number =
+                    trueWidth -
+                    trueWidth * el.scrollOnHover.percentages.forward;
                 const elOffset: number =
                     el.scrollOnHover.x - el.scrollOnHover.rect.left;
                 const maxScrollLeft: number = el.scrollWidth - trueWidth;
@@ -177,9 +190,11 @@ export class KupScrollOnHover {
         }
         if (el.scrollOnHover.vertical && el.scrollHeight > trueHeight + 10) {
             if (trueHeight !== 0 && !el.scrollOnHover.active) {
-                console.log('here');
-                const percBottom: number = trueHeight - trueHeight * 0.1;
-                const percTop: number = trueHeight - trueHeight * 0.9;
+                const percBottom: number =
+                    trueHeight - trueHeight * el.scrollOnHover.percentages.back;
+                const percTop: number =
+                    trueHeight -
+                    trueHeight * el.scrollOnHover.percentages.forward;
                 const elOffset: number =
                     el.scrollOnHover.y - el.scrollOnHover.rect.top;
                 const maxScrollTop: number = el.scrollHeight - trueHeight;
