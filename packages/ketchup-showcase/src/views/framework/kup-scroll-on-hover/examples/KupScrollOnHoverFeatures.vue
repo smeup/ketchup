@@ -4,13 +4,18 @@
       <kup-accordion id="accordion">
         <div class="accordion-slot" slot="1">
           <p>
-            <span class="code-word">register(el): void</span><br />
+            <span class="code-word"
+              >register(el, vertical?, percentages?): void</span
+            ><br />
             Watches the given element in order to trigger the scroll on hover
             when conditions are met.<br />Children nodes with the
             "hover-scrolling-child" will be watched and scrolled when the main
             element scrolls.<br /><br />
             - <strong>el (KupScrollOnHoverElement)</strong> - Element to
-            watch.<br /> </p
+            watch.<br />
+            - <strong>vertical (boolean)</strong> - Enables vertical scroll..<br />
+            - <strong>percentages (KupScrollOnHoverPercentages)</strong> - Sets
+            how big is the area in which the scroll is enabled.<br /> </p
           ><div class="demo-container">
             <div id="scrolling-div"
               ><kup-card id="scrolling-card"></kup-card>
@@ -80,15 +85,20 @@ export default {
       scrollingCard.data = {
         image: [{ resource: 'images/catz_small.jpg' }],
         text: [
-          'Very wide card!',
+          'Very large card!',
           null,
-          'This card is super wide so it triggers a scrollbar on its container. Try hovering on the edges of the element: it should scroll automatically!',
+          'This card is super large so it triggers scrollbars on its container. Try hovering on the edges of the element: it should scroll automatically!',
         ],
       };
       scrollingCard.sizeX = '200vw';
-      scrollingCard.sizeY = '30vh';
+      scrollingCard.sizeY = '400px';
       dom.ketchup.scrollOnHover.register(
-        scrollingDiv as KupScrollOnHoverElement
+        scrollingDiv as KupScrollOnHoverElement,
+        true,
+        {
+          back: 0.3,
+          forward: 0.7,
+        }
       );
       accordion.expandAll();
     },
@@ -107,3 +117,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+#scrolling-div {
+  height: 200px;
+  overflow: auto;
+}
+</style>
