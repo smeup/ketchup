@@ -2146,7 +2146,6 @@ export class KupDataTable {
 
     private getEventPath(currentEl: unknown): HTMLElement[] {
         const path: HTMLElement[] = [];
-
         while (
             currentEl &&
             currentEl !== this.rootElement &&
