@@ -62,6 +62,11 @@ export class KupTextField {
      */
     @Prop() customStyle: string = '';
     /**
+     * Number of decimals (should be used when inputType is number).
+     * @default null
+     */
+    @Prop() decimals: number = null;
+    /**
      * When set to true, the component is disabled.
      * @default false
      */
@@ -446,6 +451,7 @@ export class KupTextField {
             danger: this.rootElement.classList.contains('kup-danger')
                 ? true
                 : false,
+            decimals: this.decimals,
             disabled: this.disabled,
             fullHeight: this.rootElement.classList.contains('kup-full-height')
                 ? true

@@ -8,7 +8,7 @@ import {
     KupDataTableRowGroup,
     KupDataTableCell,
 } from './kup-data-table-declarations';
-import { stringToNumber } from '../../utils/utils';
+import { isNumber, stringToNumber } from '../../utils/utils';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import {
@@ -19,6 +19,7 @@ import {
 import { FiltersRows } from '../../utils/filters/filters-rows';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
+import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -781,9 +782,11 @@ export function calcTotals(
     }
     const keys = Object.keys(totals);
     const footerRow: { [index: string]: any } = {};
+    const dateColumns: string[] = new Array();
+
     // if there are only COUNT, no need to loop on rows
     let onlyCount =
-        keys.length === 0 &&
+        keys.length === 0 ||
         keys.every((key) => totals[key] === TotalMode.COUNT);
     if (onlyCount) {
         keys.forEach((columnName) => (footerRow[columnName] = rows.length));
@@ -854,46 +857,55 @@ export function calcTotals(
                         }
                         // TODO DRY the MIN and MAX functions
                     } else if (dom.ketchup.objects.isDate(cell.obj)) {
-                        const momentValue = cell.obj
-                            ? dom.ketchup.objects.parseDate(cell.obj)
-                            : dom.ketchup.dates.toDayjs(cell.value);
+                        if (dateColumns.indexOf(key) == -1) {
+                            dateColumns.push(key);
+                        }
+                        const momentValue = dom.ketchup.dates.toDayjs(
+                            cell.value
+                        );
                         if (dom.ketchup.dates.isValid(momentValue)) {
                             const cellValue =
                                 dom.ketchup.dates.toDate(momentValue);
-                            const currentFooterValue = footerRow[key];
+                            const currentFooterValue = footerRow[key]
+                                ? dom.ketchup.dates.toDate(
+                                      dom.ketchup.dates.toDayjs(footerRow[key])
+                                  )
+                                : null;
                             switch (true) {
                                 case totals[key] === TotalMode.MIN:
                                     if (currentFooterValue) {
                                         let moments = [];
                                         moments.push(cellValue);
-                                        moments.push(
-                                            dom.ketchup.dates.format(
-                                                currentFooterValue
-                                            )
-                                        );
+                                        moments.push(currentFooterValue);
                                         footerRow[key] =
                                             dom.ketchup.dates.format(
-                                                dom.ketchup.dates.min(moments)
+                                                dom.ketchup.dates.min(moments),
+                                                KupDatesFormats.ISO_DATE
                                             );
                                     } else {
-                                        footerRow[key] = cellValue;
+                                        footerRow[key] =
+                                            dom.ketchup.dates.format(
+                                                cellValue,
+                                                KupDatesFormats.ISO_DATE
+                                            );
                                     }
                                     break;
                                 case totals[key] === TotalMode.MAX:
                                     if (currentFooterValue) {
                                         let moments = [];
                                         moments.push(cellValue);
-                                        moments.push(
-                                            dom.ketchup.dates.format(
-                                                currentFooterValue
-                                            )
-                                        );
+                                        moments.push(currentFooterValue);
                                         footerRow[key] =
                                             dom.ketchup.dates.format(
-                                                dom.ketchup.dates.max(moments)
+                                                dom.ketchup.dates.max(moments),
+                                                KupDatesFormats.ISO_DATE
                                             );
                                     } else {
-                                        footerRow[key] = cellValue;
+                                        footerRow[key] =
+                                            dom.ketchup.dates.format(
+                                                cellValue,
+                                                KupDatesFormats.ISO_DATE
+                                            );
                                     }
                                     break;
                                 default:
@@ -912,28 +924,32 @@ export function calcTotals(
                 }
             });
         });
-        // fixing MATH, AVERAGE and COUNT
-        for (let key of keys) {
-            switch (true) {
-                case totals[key] === TotalMode.AVERAGE:
-                    const sum: number = footerRow[key];
-                    if (sum && rows.length > 0) {
-                        footerRow[key] = sum / rows.length;
-                    }
-                    break;
-                case totals[key] === TotalMode.COUNT:
-                    footerRow[key] = rows.length;
-                    break;
-                case totals[key].indexOf(TotalMode.MATH) == 0:
-                    footerRow[key] = dom.ketchup.math.formulas.custom(
-                        totals[key].substring(TotalMode.MATH.length),
-                        footerRow
-                    );
-                    break;
-                default:
-                    break;
-            }
-            if (footerRow[key]) {
+    }
+    // fixing MATH, AVERAGE and COUNT
+    for (let key of keys) {
+        switch (true) {
+            case totals[key] === TotalMode.AVERAGE:
+                const sum: number = footerRow[key];
+                if (sum && rows.length > 0) {
+                    footerRow[key] = sum / rows.length;
+                }
+                break;
+            case totals[key] === TotalMode.COUNT:
+                footerRow[key] = rows.length;
+                break;
+            case totals[key].indexOf(TotalMode.MATH) == 0:
+                footerRow[key] = dom.ketchup.math.formulas.custom(
+                    totals[key].substring(TotalMode.MATH.length),
+                    footerRow
+                );
+                break;
+            default:
+                break;
+        }
+        if (footerRow[key]) {
+            if (dateColumns.indexOf(key) != -1) {
+                footerRow[key] = dom.ketchup.dates.format(footerRow[key]);
+            } else if (isNumber(footerRow[key])) {
                 footerRow[key] = +footerRow[key].toFixed(2);
             }
         }

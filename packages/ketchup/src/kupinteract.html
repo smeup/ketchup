@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+
+        <title>KupInteract</title>
+
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            html {
+                background-color: var(--kup-background-color);
+                box-sizing: border-box;
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
+                padding: 1rem;
+            }
+            #wrapper {
+                border: 3px solid var(--kup-border-color);
+                height: 500px;
+                overflow: auto;
+                padding: 30px;
+                width: max-content;
+            }
+            .item {
+                display: flex;
+                flex-direction: column;
+                height: 200px;
+                margin: 10px;
+                width: 200px;
+            }
+            .handle {
+                background-color: var(--kup-primary-color);
+                border: 1px solid var(--kup-border-color);
+                color: var(--kup-text-on-primary-color);
+                margin: auto;
+                padding: 5px;
+            }
+            kup-button {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h3>KupInteract</h3>
+        <kup-button></kup-button>
+        <div id="wrapper">
+            <div id="item-1" class="item"
+                >#1<div class="handle">Drag me</div></div
+            >
+            <div id="item-2" class="item"
+                >#2<div class="handle">Drag me</div></div
+            >
+            <div id="item-3" class="item"
+                >#3<div class="handle">Drag me</div></div
+            >
+            <div id="item-4" class="item"
+                >#4<div class="handle">Drag me</div></div
+            >
+            <div id="item-5" class="item"
+                >#5<div class="handle">Drag me</div></div
+            >
+            <div id="item-6" class="item"
+                >#6<div class="handle">Drag me</div></div
+            >
+            <div id="item-7" class="item"
+                >#7<div class="handle">Drag me</div></div
+            >
+        </div>
+        <script src="/assets/kupinteract.js"></script>
+    </body>
+</html>

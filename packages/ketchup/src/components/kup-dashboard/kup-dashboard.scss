@@ -26,6 +26,7 @@
     padding: 1em;
     grid-gap: 0.5em;
     border: 1px solid var(--kup-primary-color);
+    height: auto;
 }
 
 .section {
@@ -66,6 +67,12 @@
 .section-draggable {
     border: 1px solid var(--kup-secondary-color);
     padding: 1em;
+}
+
+.section-placeholder {
+    background-color: rgba(var(--kup-secondary-color-rgb), 0.5);
+    min-height: 1em;
+    min-width: 1em;
 }
 
 .component {

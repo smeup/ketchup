@@ -1,3 +1,4 @@
+import type { DropEvent } from '@interactjs/types/index';
 import {
     Component,
     Element,
@@ -248,6 +249,7 @@ export class KupDashboard {
             onChange: (e: UIEvent & { target: HTMLInputElement }) => {
                 const { target } = e;
                 section.dim = target.value;
+                this.refresh();
             },
         };
         const addButtonProp: FButtonProps = {
@@ -355,6 +357,31 @@ export class KupDashboard {
         );
     }
 
+    calcSectionPosition(
+        pointerY: number,
+        pointerX: number,
+        vertical: boolean,
+        sectionCount: number,
+        elements: HTMLCollection
+    ) {
+        let idx = sectionCount;
+        for (let index = 0; index < elements.length; index++) {
+            const element = elements[index];
+            const srect = element.getBoundingClientRect();
+            if (vertical && pointerY < srect.y) {
+                idx = index;
+                break;
+            } else if (!vertical && pointerX < srect.x) {
+                idx = index;
+                break;
+            }
+        }
+        //console.log(
+        //    `pointer: ${pointerX}:${pointerY} - vertical: ${vertical} - index: ${idx}`
+        //);
+        return idx;
+    }
+
     didRenderInteractables() {
         try {
             const items: Element[] = [];
@@ -387,11 +414,24 @@ export class KupDashboard {
             items.forEach((item) => {
                 this.kupManager.interact.dropzone(
                     item as HTMLElement,
-                    null,
+                    {
+                        ondropdeactivate: () => {
+                            this.removeSectionPlaceHolder();
+                        },
+                        ondropmove: (ev) => {
+                            this.removeSectionPlaceHolder();
+                            this.dragEnter(
+                                ev.dragEvent.clientY,
+                                ev.dragEvent.clientX,
+                                ev.currentTarget as KupDashboardElement
+                            );
+                        },
+                    },
                     null,
                     {
                         drop: (ev) => {
                             this.dropped(
+                                ev,
                                 ev.currentTarget as KupDashboardElement,
                                 ev.relatedTarget as KupDashboardElement
                             );
@@ -408,7 +448,46 @@ export class KupDashboard {
         }
     }
 
-    dropped(parent: KupDashboardElement, child: KupDashboardElement) {
+    dragEnter(clientY: number, clientX: number, parent: KupDashboardElement) {
+        if (parent.kupData.form) {
+            // form is the target of drop.
+
+            // calculate a new position for the section.
+            const nidx = this.calcSectionPosition(
+                clientY,
+                clientX,
+                parent.kupData.form.layout == 'column',
+                parent.kupData.form.sections.length,
+                parent.children
+            );
+
+            // set placeholder into target area.
+            this.setSectionPlaceHolder(parent, nidx);
+        } else if (parent.kupData.section) {
+            // section is the target of drop.
+
+            // calculate a new position for the section.
+            const nidx = this.calcSectionPosition(
+                clientY,
+                clientX,
+                parent.kupData.section.layout == 'column',
+                parent.kupData.section.sections.length,
+                parent.lastElementChild.children
+            );
+
+            // set placeholder into target area.
+            this.setSectionPlaceHolder(
+                parent.lastElementChild as HTMLElement,
+                nidx
+            );
+        }
+    }
+
+    dropped(
+        event: DropEvent,
+        parent: KupDashboardElement,
+        child: KupDashboardElement
+    ) {
         const idx = child.kupData.parent.sections.indexOf(
             child.kupData.section
         );
@@ -417,7 +496,17 @@ export class KupDashboard {
             // form is the target of drop.
             if (!parent.kupData.form.sections)
                 parent.kupData.form.sections = [];
-            parent.kupData.form.sections.push(child.kupData.section);
+
+            // calculate a new position for the section.
+            const nidx = this.calcSectionPosition(
+                event.dragEvent.clientY,
+                event.dragEvent.clientX,
+                parent.kupData.form.layout == 'column',
+                parent.kupData.form.sections.length,
+                parent.children
+            );
+            // set the section in 'nidx' position.
+            parent.kupData.form.sections.splice(nidx, 0, child.kupData.section);
             child.kupData.parent = parent.kupData.form;
         } else if (parent.kupData.section) {
             // section is the target of drop.
@@ -435,7 +524,20 @@ export class KupDashboard {
                 parent.kupData.section.sections = [];
                 parent.kupData.section.sections.push(newSec);
             }
-            parent.kupData.section.sections.push(child.kupData.section);
+            // calculate a new position for the section.
+            const nidx = this.calcSectionPosition(
+                event.dragEvent.clientY,
+                event.dragEvent.clientX,
+                parent.kupData.section.layout == 'column',
+                parent.kupData.section.sections.length,
+                parent.lastElementChild.children
+            );
+            // set the section in 'nidx' position.
+            parent.kupData.section.sections.splice(
+                nidx,
+                0,
+                child.kupData.section
+            );
             child.kupData.parent = parent.kupData.section;
         }
         this.resetData(this.internalData);
@@ -443,10 +545,11 @@ export class KupDashboard {
 
     getGridStyle(entity: KupForm | KupSection) {
         let bodyStyles = {};
-        if (!this.enableDesign && entity.sections) {
+        if (entity.sections) {
             let gridTemplate = '';
             entity.sections.forEach((childSection) => {
-                if (!childSection.dim) gridTemplate += ' 1fr';
+                if (this.enableDesign || !childSection.dim)
+                    gridTemplate += ' 1fr';
                 else
                     gridTemplate +=
                         childSection.dim.indexOf('%') < 0
@@ -459,6 +562,19 @@ export class KupDashboard {
                 bodyStyles['gridTemplateColumns'] = gridTemplate;
         }
         return bodyStyles;
+    }
+
+    setSectionPlaceHolder(element: HTMLElement, index: number) {
+        const ph = document.createElement('div');
+        ph.className = 'section-placeholder';
+        element.insertBefore(ph, element.childNodes[index]);
+    }
+
+    removeSectionPlaceHolder() {
+        const ph = this.rootElement.shadowRoot.querySelector(
+            '.section-placeholder'
+        );
+        if (ph) ph.parentElement.removeChild(ph);
     }
 
     resetData(form: KupForm = null) {

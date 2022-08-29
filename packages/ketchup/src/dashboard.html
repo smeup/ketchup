@@ -37,6 +37,7 @@
             .group {
                 display: flex;
                 flex-direction: row;
+                overflow: auto;
             }
 
             .group > * {
@@ -45,7 +46,7 @@
             }
 
             .dashboard-container {
-                height: 80vh;
+                height: 100%;
             }
         </style>
     </head>
@@ -163,6 +164,78 @@
                             slot="SD"
                             style="background-color: green; height: 100px"
                         ></div>
+                    </kup-dashboard>
+                </div>
+            </div>
+            <div class="group">
+                <div>
+                    <b>Sample 4</b>
+                    <kup-switch
+                        id="enableDashboard4"
+                        checked="false"
+                        label="Enable design"
+                    ></kup-switch>
+                    <kup-dashboard id="dashboard4">
+                        <kup-accordion id="loginSample1" slot="SA">
+                            <div slot="C1">
+                                <kup-text-field
+                                    icon="account"
+                                    label="User"
+                                ></kup-text-field>
+                                <kup-text-field
+                                    icon="key"
+                                    label="Password"
+                                ></kup-text-field>
+                                <kup-checkbox
+                                    label="Keep me logged in"
+                                ></kup-checkbox>
+                                <kup-switch label="Mobile"></kup-switch>
+                                <kup-button
+                                    icon="lock"
+                                    label="Login"
+                                ></kup-button>
+                            </div>
+                        </kup-accordion>
+                        <kup-accordion id="loginSample2" slot="SB">
+                            <div slot="C1">
+                                <kup-text-field
+                                    icon="account"
+                                    label="User"
+                                ></kup-text-field>
+                                <kup-text-field
+                                    icon="key"
+                                    label="Password"
+                                ></kup-text-field>
+                                <kup-checkbox
+                                    label="Keep me logged in"
+                                ></kup-checkbox>
+                                <kup-switch label="Mobile"></kup-switch>
+                                <kup-button
+                                    icon="lock"
+                                    label="Login"
+                                ></kup-button>
+                            </div>
+                        </kup-accordion>
+                        <kup-accordion id="loginSample3" slot="SC">
+                            <div slot="C1">
+                                <kup-text-field
+                                    icon="account"
+                                    label="User"
+                                ></kup-text-field>
+                                <kup-text-field
+                                    icon="key"
+                                    label="Password"
+                                ></kup-text-field>
+                                <kup-checkbox
+                                    label="Keep me logged in"
+                                ></kup-checkbox>
+                                <kup-switch label="Mobile"></kup-switch>
+                                <kup-button
+                                    icon="lock"
+                                    label="Login"
+                                ></kup-button>
+                            </div>
+                        </kup-accordion>
                     </kup-dashboard>
                 </div>
             </div>

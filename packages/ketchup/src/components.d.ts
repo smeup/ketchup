@@ -32,7 +32,7 @@ import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/
 import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 import { GeoJSON } from "geojson";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
-import { KupFamilyTreeData, KupFamilyTreeEventPayload } from "./components/kup-family-tree/kup-family-tree-declarations";
+import { KupFamilyTreeData, KupFamilyTreeEventPayload, KupFamilyTreeLayout, KupFamilyTreeNode } from "./components/kup-family-tree/kup-family-tree-declarations";
 import { KupFormData, KupFormLayout } from "./components/kup-form/kup-form-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
@@ -1572,10 +1572,19 @@ export namespace Components {
     }
     interface KupFamilyTree {
         /**
-          * The component's initial render will fit the container.
+          * The component will autofit everytime a node is expanded.
           * @default true
          */
-        "autofit": boolean;
+        "autofitOnExpand": boolean;
+        /**
+          * The component's initial render will fit the container by invoking the runAutofit method.
+          * @default true
+         */
+        "autofitOnLoad": boolean;
+        /**
+          * Collapses all nodes.
+         */
+        "collapseAll": (nodes?: KupFamilyTreeNode[]) => Promise<void>;
         /**
           * Nodes can be expanded/collapsed.
           * @default true
@@ -1593,6 +1602,10 @@ export namespace Components {
          */
         "data": KupFamilyTreeData;
         /**
+          * Expands all nodes.
+         */
+        "expandAll": (nodes?: KupFamilyTreeNode[]) => Promise<void>;
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
@@ -1602,16 +1615,25 @@ export namespace Components {
           * Layout of the boxes.
           * @default null
          */
-        "layout": KupBoxLayout;
+        "layout": KupFamilyTreeLayout;
         /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
+          * This method causes the component to autofit its container's width.
+         */
+        "runAutofit": () => Promise<void>;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Child nodes that have no children are arranged vertically.
+          * @default false
+         */
+        "stackedLeaves": boolean;
     }
     interface KupForm {
         /**
@@ -2618,6 +2640,11 @@ export namespace Components {
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
+        /**
+          * Number of decimals (should be used when inputType is number).
+          * @default null
+         */
+        "decimals": number;
         /**
           * When set to true, the component is disabled.
           * @default false
@@ -4757,10 +4784,15 @@ declare namespace LocalJSX {
     }
     interface KupFamilyTree {
         /**
-          * The component's initial render will fit the container.
+          * The component will autofit everytime a node is expanded.
           * @default true
          */
-        "autofit"?: boolean;
+        "autofitOnExpand"?: boolean;
+        /**
+          * The component's initial render will fit the container by invoking the runAutofit method.
+          * @default true
+         */
+        "autofitOnLoad"?: boolean;
         /**
           * Nodes can be expanded/collapsed.
           * @default true
@@ -4781,10 +4813,15 @@ declare namespace LocalJSX {
           * Layout of the boxes.
           * @default null
          */
-        "layout"?: KupBoxLayout;
+        "layout"?: KupFamilyTreeLayout;
         "onKup-familytree-click"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;
         "onKup-familytree-contextmenu"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;
         "onKup-familytree-dblclick"?: (event: KupFamilyTreeCustomEvent<KupFamilyTreeEventPayload>) => void;
+        /**
+          * Child nodes that have no children are arranged vertically.
+          * @default false
+         */
+        "stackedLeaves"?: boolean;
     }
     interface KupForm {
         /**
@@ -5536,6 +5573,11 @@ declare namespace LocalJSX {
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
+        /**
+          * Number of decimals (should be used when inputType is number).
+          * @default null
+         */
+        "decimals"?: number;
         /**
           * When set to true, the component is disabled.
           * @default false

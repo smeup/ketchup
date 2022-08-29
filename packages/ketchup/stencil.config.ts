@@ -43,6 +43,7 @@ export const config: Config = {
                 { src: 'image.html' },
                 { src: 'image-list.html' },
                 { src: 'kupdata.html' },
+                { src: 'kupinteract.html' },
                 { src: 'kuptooltip.html' },
                 { src: 'list.html' },
                 { src: 'magic-box.html' },

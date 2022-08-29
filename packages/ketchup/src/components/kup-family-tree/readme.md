@@ -1,19 +1,19 @@
 # kup-image-list
 
-
-
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property      | Attribute      | Description                                            | Type                | Default |
-| ------------- | -------------- | ------------------------------------------------------ | ------------------- | ------- |
-| `autofit`     | `autofit`      | The component's initial render will fit the container. | `boolean`           | `true`  |
-| `collapsible` | `collapsible`  | Nodes can be expanded/collapsed.                       | `boolean`           | `true`  |
-| `customStyle` | `custom-style` | Custom style of the component.                         | `string`            | `''`    |
-| `data`        | --             | Actual data of the component.                          | `KupFamilyTreeData` | `null`  |
-| `layout`      | --             | Layout of the boxes.                                   | `KupBoxLayout`      | `null`  |
+| Property          | Attribute           | Description                                                                              | Type                     | Default |
+| ----------------- | ------------------- | ---------------------------------------------------------------------------------------- | ------------------------ | ------- |
+| `autofitOnExpand` | `autofit-on-expand` | The component will autofit everytime a node is expanded.                                 | `boolean`                | `true`  |
+| `autofitOnLoad`   | `autofit-on-load`   | The component's initial render will fit the container by invoking the runAutofit method. | `boolean`                | `true`  |
+| `collapsible`     | `collapsible`       | Nodes can be expanded/collapsed.                                                         | `boolean`                | `true`  |
+| `customStyle`     | `custom-style`      | Custom style of the component.                                                           | `string`                 | `''`    |
+| `data`            | --                  | Actual data of the component.                                                            | `KupFamilyTreeData`      | `null`  |
+| `layout`          | `layout`            | Layout of the boxes.                                                                     | `KupBoxLayout \| number` | `null`  |
+| `stackedLeaves`   | `stacked-leaves`    | Child nodes that have no children are arranged vertically.                               | `boolean`                | `false` |
 
 
 ## Events
@@ -26,6 +26,26 @@
 
 
 ## Methods
+
+### `collapseAll(nodes?: KupFamilyTreeNode[]) => Promise<void>`
+
+Collapses all nodes.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `expandAll(nodes?: KupFamilyTreeNode[]) => Promise<void>`
+
+Expands all nodes.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
@@ -40,6 +60,16 @@ List of props as object, each key will be a prop.
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `runAutofit() => Promise<void>`
+
+This method causes the component to autofit its container's width.
 
 #### Returns
 

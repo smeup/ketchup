@@ -15,6 +15,7 @@ import {
     FButtonProps,
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
+import { FImage } from '../../f-components/f-image/f-image';
 import {
     KupDataCell,
     KupDataColumn,
@@ -31,6 +32,7 @@ import {
     KupFamilyTreeData,
     KupFamilyTreeEventHandlerDetails,
     KupFamilyTreeEventPayload,
+    KupFamilyTreeLayout,
     KupFamilyTreeNode,
     KupFamilyTreeProps,
 } from './kup-family-tree-declarations';
@@ -51,10 +53,15 @@ export class KupFamilyTree {
     /*-------------------------------------------------*/
 
     /**
-     * The component's initial render will fit the container.
+     * The component will autofit everytime a node is expanded.
      * @default true
      */
-    @Prop() autofit: boolean = true;
+    @Prop() autofitOnExpand: boolean = true;
+    /**
+     * The component's initial render will fit the container by invoking the runAutofit method.
+     * @default true
+     */
+    @Prop() autofitOnLoad: boolean = true;
     /**
      * Nodes can be expanded/collapsed.
      * @default true
@@ -75,7 +82,12 @@ export class KupFamilyTree {
      * Layout of the boxes.
      * @default null
      */
-    @Prop() layout: KupBoxLayout = null;
+    @Prop() layout: KupFamilyTreeLayout = null;
+    /**
+     * Child nodes that have no children are arranged vertically.
+     * @default false
+     */
+    @Prop() stackedLeaves: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -95,6 +107,7 @@ export class KupFamilyTree {
         this.#currentPanX = e.clientX;
         this.#currentPanY = e.clientY;
     };
+    #shouldAutofit = false;
     #wrapperEl: HTMLElement = null;
 
     /*-------------------------------------------------*/
@@ -130,6 +143,30 @@ export class KupFamilyTree {
     /*-------------------------------------------------*/
 
     /**
+     * Collapses all nodes.
+     */
+    @Method()
+    async collapseAll(nodes: KupFamilyTreeNode[] = this.data.rows) {
+        this.#kupManager.data.node.setProperties(
+            nodes,
+            { isExpanded: false },
+            true
+        );
+        this.refresh();
+    }
+    /**
+     * Expands all nodes.
+     */
+    @Method()
+    async expandAll(nodes: KupFamilyTreeNode[] = this.data.rows) {
+        this.#kupManager.data.node.setProperties(
+            nodes,
+            { isExpanded: true },
+            true
+        );
+        this.refresh();
+    }
+    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -144,6 +181,39 @@ export class KupFamilyTree {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
+    }
+    /**
+     * This method causes the component to autofit its container's width.
+     */
+    @Method()
+    async runAutofit(): Promise<void> {
+        const parentWidth = this.#wrapperEl.clientWidth;
+        const childWidth = this.#wrapperEl.children[0].clientWidth;
+        const multiplierStep = 0.01;
+        const minWidth = (85 / 100) * parentWidth;
+        const maxWidth = (95 / 100) * parentWidth;
+        let multiplier = 1;
+        let tooManyAttempts = 2000;
+        let tempWidth = childWidth;
+        while (
+            (tempWidth < minWidth || tempWidth > maxWidth) &&
+            tooManyAttempts > 0 &&
+            multiplier > multiplierStep
+        ) {
+            tooManyAttempts--;
+            if (tempWidth < minWidth) {
+                multiplier = multiplier + multiplierStep;
+            } else if (tempWidth > maxWidth) {
+                multiplier = multiplier - multiplierStep;
+            } else {
+                tooManyAttempts = 0;
+            }
+            tempWidth = childWidth * multiplier;
+        }
+        this.#wrapperEl.style.setProperty(
+            '--kup_familytree_scale',
+            multiplier <= 1 ? multiplier.toFixed(2) : '1'
+        );
     }
     /**
      * Sets the props to the component.
@@ -209,6 +279,10 @@ export class KupFamilyTree {
                 }
             });
         }
+        const stacked: boolean =
+            this.stackedLeaves &&
+            children &&
+            children.every((c) => !c.children || c.children.length == 0);
         const span1 = children ? children.length * 2 : 1;
 
         const styleVLine = {
@@ -225,31 +299,53 @@ export class KupFamilyTree {
             rows: [{ cells: { '*TREECOL': node, ...node.cells } }],
         };
 
-        const layout = node.layout || this.layout || null;
+        const layout = node.layout || this.layout || 1;
 
-        const expandButtonProp: FButtonProps = {
+        const expandButtonProps: FButtonProps = {
             icon: node.isExpanded ? 'remove' : 'plus',
-            styling: FButtonStyling.OUTLINED,
+            shaped: true,
             slim: true,
-            onClick: () => {
+            styling: FButtonStyling.OUTLINED,
+            title: `${this.#kupManager.language.translate(
+                KupLanguageGeneric.EXPAND
+            )}/${this.#kupManager.language.translate(
+                KupLanguageGeneric.COLLAPSE
+            )}  (CTRL + Click)`,
+            onClick: (e) => {
+                if (e.ctrlKey && node.children && node.children.length > 0) {
+                    if (node.isExpanded) {
+                        this.collapseAll(node.children);
+                    } else {
+                        this.expandAll(node.children);
+                    }
+                }
                 node.isExpanded = !node.isExpanded;
+                if (this.autofitOnExpand) {
+                    this.#shouldAutofit = true;
+                }
                 this.refresh();
             },
+            wrapperClass: 'family-tree__item__expand',
         };
 
         const box: VNode = (
             <div class={'family-tree__item'}>
                 <div class={'family-tree__item__wrapper'}>
-                    <kup-box
-                        class="kup-borderless kup-paddingless"
-                        customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
-                        data={data}
-                        layout={layout}
-                    ></kup-box>
+                    {this.#isBoxLayout(layout) ? (
+                        <kup-box
+                            class="kup-borderless kup-paddingless"
+                            customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); border: 2px solid var(--kup_familytree_lines_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
+                            data={data}
+                            layout={layout as KupBoxLayout}
+                            showSelection={false}
+                        ></kup-box>
+                    ) : (
+                        this.#buildNodeLayout(node, layout)
+                    )}
                     {this.collapsible &&
                     node.children &&
                     node.children.length > 0 ? (
-                        <FButton {...expandButtonProp} />
+                        <FButton {...expandButtonProps} />
                     ) : undefined}
                 </div>
             </div>
@@ -262,7 +358,15 @@ export class KupFamilyTree {
 
         //TODO: set data-cell and data-column if needed inside events
         return (
-            <table class={'family-tree__node'}>
+            <table
+                class={{
+                    'family-tree__node': true,
+                    'family-tree__node--stacked':
+                        this.stackedLeaves &&
+                        !node.isStaff &&
+                        (!node.children || node.children.length == 0),
+                }}
+            >
                 <tr>
                     <td data-row={node} colSpan={span1}>
                         {box}
@@ -305,34 +409,95 @@ export class KupFamilyTree {
                                   <div class={styleVLine}></div>
                               </td>
                           </tr>,
-                          <tr>
-                              <td colSpan={span1}>
-                                  <div class={styleVLine}></div>
-                              </td>
-                          </tr>,
                       ]
                     : null}
                 {children
                     ? [
                           <tr>
-                              {children.map((inode) =>
-                                  this.#buildChildLine(
-                                      children.indexOf(inode) == 0,
-                                      children.indexOf(inode) ==
-                                          children.length - 1,
-                                      children.length == 1,
-                                      children.length > 2
+                              {stacked ? (
+                                  <td colSpan={span1}>
+                                      <div class={styleVLine}></div>
+                                  </td>
+                              ) : (
+                                  children.map((inode) =>
+                                      this.#buildChildLine(
+                                          children.indexOf(inode) == 0,
+                                          children.indexOf(inode) ==
+                                              children.length - 1,
+                                          children.length == 1,
+                                          children.length > 2
+                                      )
                                   )
                               )}
                           </tr>,
                           <tr>
-                              {children.map((inode) => (
-                                  <td colSpan={2}>{this.#buildNode(inode)}</td>
-                              ))}
+                              {stacked ? (
+                                  <td colSpan={span1}>
+                                      {children.map((inode) =>
+                                          this.#buildNode(inode)
+                                      )}
+                                  </td>
+                              ) : (
+                                  children.map((inode) => (
+                                      <td colSpan={2}>
+                                          {this.#buildNode(inode)}
+                                      </td>
+                                  ))
+                              )}
                           </tr>,
                       ]
                     : undefined}
             </table>
+        );
+    }
+
+    #buildNodeLayout(node: KupFamilyTreeNode, layout: number) {
+        switch (layout) {
+            case 2:
+                return this.#buildNodeLayout2(node);
+            default:
+                return this.#buildNodeLayout1(node);
+        }
+    }
+
+    #buildNodeLayout1(node: KupFamilyTreeNode) {
+        return (
+            <div
+                class={`family-tree__item__layout family-tree__item__layout--1`}
+            >
+                <div class={'family-tree__item__layout__text__title'}>
+                    {node.value}
+                </div>
+            </div>
+        );
+    }
+
+    #buildNodeLayout2(node: KupFamilyTreeNode) {
+        return (
+            <div
+                class={`family-tree__item__layout family-tree__item__layout--2`}
+            >
+                <div class={'family-tree__item__layout__color'}></div>
+                <div class={'family-tree__item__layout__image'}>
+                    <FImage
+                        resource={node.icon}
+                        sizeX="48px"
+                        sizeY="48px"
+                    ></FImage>
+                </div>
+                <div class={'family-tree__item__layout__text'}>
+                    <div class={'family-tree__item__layout__text__title'}>
+                        {node.value}
+                    </div>
+                    {node.title ? (
+                        <div
+                            class={'family-tree__item__layout__text__subtitle'}
+                        >
+                            {node.title}
+                        </div>
+                    ) : null}
+                </div>
+            </div>
         );
     }
 
@@ -365,12 +530,19 @@ export class KupFamilyTree {
         );
     }
 
+    #isBoxLayout(layout: KupFamilyTreeLayout): layout is KupBoxLayout {
+        const tmp = layout as KupBoxLayout;
+        return tmp && tmp.sections && tmp.sections.length > 0;
+    }
+
     #startPanning(e: PointerEvent) {
         this.#currentPanX = e.clientX;
         this.#currentPanY = e.clientY;
+        this.#wrapperEl.classList.add('family-tree--dragging');
         const endPanning = () => {
             document.removeEventListener('pointermove', this.#moveCb);
             document.removeEventListener('pointerup', endPanning);
+            this.#wrapperEl.classList.remove('family-tree--dragging');
         };
         document.addEventListener('pointermove', this.#moveCb);
         document.addEventListener('pointerup', endPanning);
@@ -397,16 +569,20 @@ export class KupFamilyTree {
         path: HTMLElement[],
         e?: PointerEvent
     ): KupFamilyTreeEventHandlerDetails {
+        let expandButton: HTMLElement;
         let td: HTMLElement;
         if (path) {
             for (let i = path.length - 1; i >= 0; i--) {
-                let p = path[i];
-                if (!p.tagName) {
+                const el = path[i];
+                if (!el.tagName) {
                     continue;
                 }
-                switch (p.tagName.toUpperCase()) {
+                if (el.classList.contains('family-tree__item__expand')) {
+                    expandButton = el;
+                }
+                switch (el.tagName.toUpperCase()) {
                     case 'TD': {
-                        td = p;
+                        td = el;
                         break;
                     }
                 }
@@ -425,6 +601,7 @@ export class KupFamilyTree {
         return {
             cell: cell ? cell : null,
             column: column ? column : null,
+            expandButton: expandButton ? expandButton : null,
             originalEvent: e,
             row: row ? row : null,
             td: td ? td : null,
@@ -537,48 +714,26 @@ export class KupFamilyTree {
         );
     }
 
-    #zoomTree(event: WheelEvent) {
-        const current =
-            parseFloat(
-                this.#wrapperEl.style.getPropertyValue('--kup_familytree_scale')
-            ) || 1;
-        const delta = 0.05;
-        let value = event.deltaY > 0 ? current - delta : current + delta;
-        if (value < delta) {
-            value = delta;
-        }
-        this.#wrapperEl.style.setProperty(
-            '--kup_familytree_scale',
-            value.toFixed(2)
-        );
-    }
-
-    #autofit(parentWidth: number, childWidth: number) {
-        const multiplierStep = 0.01;
-        const minWidth = (85 / 100) * parentWidth;
-        const maxWidth = (95 / 100) * parentWidth;
-        let multiplier = 1;
-        let tooManyAttempts = 2000;
-        let tempWidth = childWidth;
-        while (
-            (tempWidth < minWidth || tempWidth > maxWidth) &&
-            tooManyAttempts > 0 &&
-            multiplier > multiplierStep
-        ) {
-            tooManyAttempts--;
-            if (tempWidth < minWidth) {
-                multiplier = multiplier + multiplierStep;
-            } else if (tempWidth > maxWidth) {
-                multiplier = multiplier - multiplierStep;
-            } else {
-                tooManyAttempts = 0;
+    #zoomTree(e: WheelEvent) {
+        if (e.ctrlKey) {
+            e.preventDefault();
+            const currentScale =
+                parseFloat(
+                    this.#wrapperEl.style.getPropertyValue(
+                        '--kup_familytree_scale'
+                    )
+                ) || 1;
+            const delta = 0.05;
+            let value =
+                e.deltaY > 0 ? currentScale - delta : currentScale + delta;
+            if (value < delta) {
+                value = delta;
             }
-            tempWidth = childWidth * multiplier;
+            this.#wrapperEl.style.setProperty(
+                '--kup_familytree_scale',
+                value.toFixed(2)
+            );
         }
-        this.#wrapperEl.style.setProperty(
-            '--kup_familytree_scale',
-            multiplier.toFixed(2)
-        );
     }
 
     /*-------------------------------------------------*/
@@ -593,12 +748,8 @@ export class KupFamilyTree {
 
     componentDidLoad() {
         this.#didLoadInteractables();
-        if (this.autofit) {
-            const parentWidth = this.#wrapperEl.clientWidth;
-            const childWidth = this.#wrapperEl.children[0].clientWidth;
-            if (childWidth > parentWidth) {
-                this.#autofit(parentWidth, childWidth);
-            }
+        if (this.autofitOnLoad) {
+            this.runAutofit();
         }
         this.#kupManager.debug.logLoad(this, true);
     }
@@ -608,6 +759,10 @@ export class KupFamilyTree {
     }
 
     componentDidRender() {
+        if (this.#shouldAutofit) {
+            this.#shouldAutofit = false;
+            this.runAutofit();
+        }
         this.#kupManager.debug.logRender(this, true);
     }
 
@@ -620,7 +775,6 @@ export class KupFamilyTree {
                     this.#startPanning(e);
                 }}
                 onWheel={(e: WheelEvent) => {
-                    e.preventDefault();
                     this.#zoomTree(e);
                 }}
             >
