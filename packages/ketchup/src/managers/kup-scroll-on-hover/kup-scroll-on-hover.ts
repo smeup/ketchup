@@ -342,7 +342,7 @@ export class KupScrollOnHover {
             }
             case ScrollOnHoverDirection.TOP: {
                 arrow = [];
-                if (el.scrollTop === maxScrollLeft) {
+                if (el.scrollTop === 0) {
                     this.stop(el);
                     return;
                 }
