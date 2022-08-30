@@ -7,6 +7,10 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
+          <div class="icon-wrapper" title="azure">
+            <kup-image size-x="48px" size-y="48px" resource="azure"></kup-image>
+            <div class="icon-label">azure</div>
+          </div>
           <div class="icon-wrapper" title="account">
             <kup-image
               size-x="48px"
