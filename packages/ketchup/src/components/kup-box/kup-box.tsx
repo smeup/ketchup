@@ -1567,7 +1567,9 @@ export class KupBox {
         return {
             jsx: kanbanJSX,
             style: {
-                'grid-template-columns': this.kanban.size
+                'grid-template-columns': this.kanban.isStacked
+                    ? 'repeat(1fr)'
+                    : this.kanban.size
                     ? `repeat(${Object.keys(kanbanSections).length}, ${
                           this.kanban.size
                       })`
