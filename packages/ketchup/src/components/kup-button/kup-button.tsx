@@ -54,6 +54,11 @@ export class KupButton {
     /*-------------------------------------------------*/
 
     /**
+     * Sets the type of the button.
+     * @default null
+     */
+    @Prop() buttonType: string = null;
+    /**
      * When set to true, the icon button state will be on.
      * @default false
      */
@@ -245,6 +250,7 @@ export class KupButton {
 
     render() {
         const props: FButtonProps = {
+            buttonType: this.buttonType,
             checked: this.checked,
             danger: this.rootElement.classList.contains('kup-danger')
                 ? true

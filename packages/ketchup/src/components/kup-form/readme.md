@@ -7,11 +7,12 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                            | Type            | Default |
-| ------------- | -------------- | -------------------------------------- | --------------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component.         | `string`        | `''`    |
-| `data`        | --             | Actual data of the form.               | `KupFormData`   | `null`  |
-| `layout`      | --             | How the form will arrange its content. | `KupFormLayout` | `null`  |
+| Property             | Attribute              | Description                                                            | Type            | Default |
+| -------------------- | ---------------------- | ---------------------------------------------------------------------- | --------------- | ------- |
+| `customStyle`        | `custom-style`         | Custom style of the component.                                         | `string`        | `''`    |
+| `data`               | --                     | Actual data of the form.                                               | `KupFormData`   | `null`  |
+| `hiddenSubmitButton` | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean`       | `false` |
+| `layout`             | --                     | How the form will arrange its content.                                 | `KupFormLayout` | `null`  |
 
 
 ## Methods

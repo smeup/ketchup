@@ -427,7 +427,48 @@ const layoutData = {
     ],
 };
 
+const dataAutocomplete = {
+    columns: [
+        {
+            name: 'ACC',
+            title: 'Username',
+        },
+        {
+            name: 'DES',
+            title: 'Password',
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                ACC: {
+                    value: '',
+                    isEditable: true,
+                    data: {
+                        label: 'Username',
+                        name: 'something',
+                        outlined: true,
+                    },
+                },
+                DES: {
+                    value: '',
+                    isEditable: true,
+                    data: {
+                        inputType: 'password',
+                        label: 'Password',
+                        name: 'something-else',
+                        outlined: true,
+                    },
+                },
+            },
+            id: '0',
+        },
+    ],
+};
+
 const form = document.getElementById('form');
 form.data = data;
 const formWithLayout = document.getElementById('form-with-layout');
 formWithLayout.data = layoutData;
+const formWithAutocomplete = document.getElementById('form-with-autocomplete');
+formWithAutocomplete.data = dataAutocomplete;
