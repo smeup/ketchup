@@ -3,6 +3,7 @@ import type { FComponent } from '../../types/GenericTypes';
  * Props of the f-button component.
  */
 export interface FButtonProps extends FComponent {
+    buttonType?: string;
     checked?: boolean;
     disabled?: boolean;
     fullHeight?: boolean;
@@ -12,8 +13,8 @@ export interface FButtonProps extends FComponent {
     label?: string;
     large?: boolean;
     onClick?: (event: MouseEvent) => void;
-    onBlur?: (event: FocusEvent) =>void;
-    onFocus?:(event: FocusEvent)=>void;
+    onBlur?: (event: FocusEvent) => void;
+    onFocus?: (event: FocusEvent) => void;
     pulsating?: boolean;
     shaped?: boolean;
     slim?: boolean;
