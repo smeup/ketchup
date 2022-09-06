@@ -397,14 +397,15 @@ function setEditableCell(
         case FCellTypes.NUMBER:
             classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
         case FCellTypes.STRING:
+            console.log(cell.data.cellType);
             return (
                 <FTextField
+                    inputType={cellType === FCellTypes.NUMBER ? 'number' : null}
                     {...cell.data}
                     icon={
                         cell.icon ? cell.icon : column.icon ? column.icon : null
                     }
                     fullWidth={isFullWidth(props) ? true : false}
-                    inputType={cellType === FCellTypes.NUMBER ? 'number' : null}
                     value={
                         cellType === FCellTypes.NUMBER
                             ? stringToNumber(cell.value).toString()
