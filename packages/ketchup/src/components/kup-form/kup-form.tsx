@@ -65,7 +65,7 @@ export class KupForm {
      */
     @Prop() data: KupFormData = null;
     /**
-     * Creates an hidden submit button in order to submt the form with enter.
+     * Creates a hidden submit button in order to submit the form with enter.
      * @default false
      */
     @Prop() hiddenSubmitButton: boolean = false;
@@ -112,6 +112,7 @@ export class KupForm {
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         return getProps(this, KupFormProps, descriptions);
     }
+
     /**
      * This method is used to trigger a new render of the component.
      */
@@ -426,7 +427,7 @@ export class KupForm {
             return null;
         }
         const cellProps: FCellProps = {
-            cell: formField.data ? { ...cell, data: formField.data } : cell,
+            cell: cell,
             column: column,
             component: this,
             editable: true,

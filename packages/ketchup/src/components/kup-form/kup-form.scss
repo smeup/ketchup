@@ -29,6 +29,7 @@
   display: flex;
   flex-grow: 1;
   overflow: auto;
+  padding: 1em 0;
   position: relative;
 
   &--column {
@@ -118,6 +119,7 @@
   &__submit {
     height: 0;
     opacity: 0;
+    overflow: hidden;
     position: absolute;
     width: 0;
   }
