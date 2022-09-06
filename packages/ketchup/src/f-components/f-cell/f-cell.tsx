@@ -397,7 +397,6 @@ function setEditableCell(
         case FCellTypes.NUMBER:
             classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
         case FCellTypes.STRING:
-            console.log(cell.data.cellType);
             return (
                 <FTextField
                     inputType={cellType === FCellTypes.NUMBER ? 'number' : null}
