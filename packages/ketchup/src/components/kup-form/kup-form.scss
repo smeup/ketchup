@@ -115,6 +115,13 @@
     }
   }
 
+  &__submit {
+    height: 0;
+    opacity: 0;
+    position: absolute;
+    width: 0;
+  }
+
   .f-cell.c-right-aligned:not(.c-centered) .f-cell__content {
     justify-content: flex-start;
   }

@@ -364,6 +364,11 @@ export namespace Components {
     }
     interface KupButton {
         /**
+          * Sets the type of the button.
+          * @default null
+         */
+        "buttonType": string;
+        /**
           * When set to true, the icon button state will be on.
           * @default false
          */
@@ -1653,6 +1658,11 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Creates an hidden submit button in order to submt the form with enter.
+          * @default false
+         */
+        "hiddenSubmitButton": boolean;
         /**
           * How the form will arrange its content.
           * @default null
@@ -3776,6 +3786,11 @@ declare namespace LocalJSX {
     }
     interface KupButton {
         /**
+          * Sets the type of the button.
+          * @default null
+         */
+        "buttonType"?: string;
+        /**
           * When set to true, the icon button state will be on.
           * @default false
          */
@@ -4835,6 +4850,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: KupFormData;
+        /**
+          * Creates an hidden submit button in order to submt the form with enter.
+          * @default false
+         */
+        "hiddenSubmitButton"?: boolean;
         /**
           * How the form will arrange its content.
           * @default null
