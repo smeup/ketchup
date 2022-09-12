@@ -83,6 +83,7 @@ export interface CollapsedSectionsState {
  */
 export interface KupBoxKanban {
     columns: string[];
+    isStacked?: boolean;
     labels?: Array<Array<string>>;
     size?: string;
 }

@@ -414,6 +414,7 @@ const demoTypes: DemoTypeJson = {
   KupBoxKanban: {
     keys: {
       columns: 'string[]',
+      'isStacked?': 'boolean',
       'labels?': 'string[][]',
       'size?': 'string',
     },

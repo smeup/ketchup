@@ -43,6 +43,7 @@ import {
     KupDataRow,
     KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
+import { ValueDisplayedValue } from '../../utils/filters/filters-declarations';
 
 @Component({
     tag: 'kup-echart',
@@ -700,7 +701,7 @@ export class KupEchart {
             } else {
                 type = KupEchartTypes.GAUSSIAN;
             }
-            let values: string[] = null;
+            let values: ValueDisplayedValue[] = null;
             const column = this.data.columns.find(
                 (col: KupDataColumn) => col.title === key
             );
@@ -710,12 +711,13 @@ export class KupEchart {
                         this.data,
                         [column.name]
                     );
-                    values = this.#kupManager.data.cell.getValue(newDataset, [
-                        column.name,
-                    ]);
+                    values = this.#kupManager.data.cell.getValue(
+                        newDataset,
+                        column
+                    );
                     this.#gaussianDatasets[column.name] = newDataset;
                 } else {
-                    values = y[key];
+                    values = [{ value: y[key] }];
                 }
             } else {
                 if (needSortDataset) {
@@ -727,19 +729,26 @@ export class KupEchart {
                     );
                     values = this.#kupManager.data.cell.getValue(
                         this.#sortedDataset,
-                        [column.name]
+                        column
                     );
                     x = this.#createX(this.#sortedDataset);
                 } else {
-                    values = this.#kupManager.data.cell.getValue(this.data, [
-                        column.name,
-                    ]);
+                    values = this.#kupManager.data.cell.getValue(
+                        this.data,
+                        column
+                    );
                 }
             }
+            const justValues: string[] = new Array();
+
+            for (let i = 0; i < values.length; i++) {
+                justValues.push(values[i].value);
+            }
+
             this.#addSeries(
                 type,
                 series,
-                values,
+                justValues,
                 key,
                 mixedSeries,
                 needSortDataset

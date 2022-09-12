@@ -161,7 +161,6 @@ import {
     KupDataNewColumnTypes,
     KupDataRowAction,
 } from '../../managers/kup-data/kup-data-declarations';
-import { KupChipNode } from '../kup-chip/kup-chip-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -5097,7 +5096,9 @@ export class KupDataTable {
                 } else {
                     this.kupManager.debug.logMessage(
                         this,
-                        "Grouped for a non-existent column! ("+group.column+")",
+                        'Grouped for a non-existent column! (' +
+                            group.column +
+                            ')',
                         KupDebugCategory.WARNING
                     );
                 }

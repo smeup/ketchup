@@ -100,6 +100,7 @@ function renderButton(props: FButtonProps): VNode {
 
     return (
         <button
+            type={props.buttonType ? props.buttonType : 'button'}
             class={classObj}
             disabled={props.disabled}
             onBlur={props.onBlur}
@@ -107,7 +108,6 @@ function renderButton(props: FButtonProps): VNode {
             onFocus={props.onFocus}
             style={styleSpinnerContainer}
             aria-label={props.title}
-            type="button"
         >
             {props.trailingIcon
                 ? [
@@ -156,11 +156,11 @@ function renderIconButton(props: FButtonProps): VNode {
 
     return (
         <button
+            type={props.buttonType ? props.buttonType : 'button'}
             class={classObj}
             disabled={props.disabled}
             onClick={props.onClick}
             style={styleSpinnerContainer}
-            type="button"
             value={props.checked ? 'on' : 'off'}
             aria-label={props.title}
         >

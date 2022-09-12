@@ -1,6 +1,7 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     KupScrollOnHoverElement,
+    KupScrollOnHoverPercentages,
     ScrollOnHoverDirection,
 } from './kup-scroll-on-hover-declarations';
 
@@ -32,17 +33,21 @@ export class KupScrollOnHover {
         this.delay = delay ? delay : 500;
         this.managedElements = new Set();
         this.step = step ? step : 50;
-        this.#arrowsContainer = document.createElement('div');
-        this.#leftArrows = [];
         this.#mouseleaveEvent = (event: MouseEvent) =>
             this.stop(event.target as KupScrollOnHoverElement);
         this.#mousemoveEvent = (event: MouseEvent) => this.start(event);
         this.#rAF = null;
-        this.#rightArrows = [];
         this.#scrollEvent = (event: Event) =>
             this.updateChildren(event.target as KupScrollOnHoverElement);
         this.#timeout = null;
-
+    }
+    /**
+     * Initializes the left and right arrow icons.
+     */
+    #initArrows() {
+        this.#arrowsContainer = document.createElement('div');
+        this.#leftArrows = [];
+        this.#rightArrows = [];
         this.#arrowsContainer.id = 'kup-scrolling-arrows';
         for (let index = 1; index < 4; index++) {
             const arrow: HTMLElement = document.createElement('div');
@@ -77,13 +82,26 @@ export class KupScrollOnHover {
      * Watches the given element in order to trigger the scroll on hover when conditions are met.
      * Children nodes with the "hover-scrolling-child" will be watched and scrolled when el scrolls.
      * @param {KupScrollOnHoverElement} el - Element to watch.
+     * @param {boolean} vertical - Enables vertical scroll.
+     * @param {KupScrollOnHoverPercentages} percentages - Sets how big is the area in which the scroll is enabled.
      */
-    register(el: KupScrollOnHoverElement): void {
+    register(
+        el: KupScrollOnHoverElement,
+        vertical?: boolean,
+        percentages?: KupScrollOnHoverPercentages
+    ): void {
+        if (!this.#arrowsContainer) {
+            this.#initArrows();
+        }
         el.style.overflowX = 'auto';
         el.scrollOnHover = {
             active: false,
             children: el.querySelectorAll('.hover-scrolling-child'),
+            percentages: percentages
+                ? percentages
+                : { back: 0.1, forward: 0.9 },
             rect: null,
+            vertical: vertical || null,
             x: 0,
             y: 0,
         };
@@ -129,14 +147,21 @@ export class KupScrollOnHover {
         if (el.scrollOnHover.active || this.#timeout) {
             return;
         }
+        let trueHeight: number = el.clientHeight;
+        if (trueHeight === 0) {
+            trueHeight = el.offsetHeight;
+        }
         let trueWidth: number = el.clientWidth;
         if (trueWidth === 0) {
             trueWidth = el.offsetWidth;
         }
         if (el.scrollWidth > trueWidth + 10) {
             if (trueWidth !== 0 && !el.scrollOnHover.active) {
-                const percRight: number = trueWidth - trueWidth * 0.1;
-                const percLeft: number = trueWidth - trueWidth * 0.9;
+                const percRight: number =
+                    trueWidth - trueWidth * el.scrollOnHover.percentages.back;
+                const percLeft: number =
+                    trueWidth -
+                    trueWidth * el.scrollOnHover.percentages.forward;
                 const elOffset: number =
                     el.scrollOnHover.x - el.scrollOnHover.rect.left;
                 const maxScrollLeft: number = el.scrollWidth - trueWidth;
@@ -170,6 +195,38 @@ export class KupScrollOnHover {
                 }
             }
         }
+        if (el.scrollOnHover.vertical && el.scrollHeight > trueHeight + 10) {
+            if (trueHeight !== 0 && !el.scrollOnHover.active) {
+                const percBottom: number =
+                    trueHeight - trueHeight * el.scrollOnHover.percentages.back;
+                const percTop: number =
+                    trueHeight -
+                    trueHeight * el.scrollOnHover.percentages.forward;
+                const elOffset: number =
+                    el.scrollOnHover.y - el.scrollOnHover.rect.top;
+                const maxScrollTop: number = el.scrollHeight - trueHeight;
+                const direction: ScrollOnHoverDirection =
+                    elOffset < percTop && el.scrollTop !== 0
+                        ? ScrollOnHoverDirection.TOP
+                        : elOffset > percBottom && el.scrollTop !== maxScrollTop
+                        ? ScrollOnHoverDirection.BOTTOM
+                        : null;
+                if (direction) {
+                    this.#timeout = setTimeout(() => {
+                        el.scrollOnHover.active = true;
+                        this.#rAF = requestAnimationFrame(function () {
+                            dom.ketchup.scrollOnHover.run(
+                                el,
+                                maxScrollTop,
+                                percBottom,
+                                percTop,
+                                direction
+                            );
+                        });
+                    }, this.delay);
+                }
+            }
+        }
     }
     /**
      * When called, this function stops the scrolling process.
@@ -193,31 +250,61 @@ export class KupScrollOnHover {
      * The actual recursive scroll function.
      * @param {KupScrollOnHoverElement} el - The scrolled element.
      * @param {number} maxScrollLeft - Left coordinates to which the recursiveness must be stopped.
-     * @param {number} percRight - Range of the right scrollable area.
-     * @param {number} percLeft - Range of the left scrollable area.
+     * @param {number} percForward - Range of the right (or bottom) area.
+     * @param {number} percBack - Range of the left (or top) scrollable area.
      * @param {ScrollOnHoverDirection} direction - Direction of the scroll.
      */
     run(
         el: KupScrollOnHoverElement,
         maxScrollLeft: number,
-        percRight: number,
-        percLeft: number,
+        percForward: number,
+        percBack: number,
         direction: ScrollOnHoverDirection
     ): void {
         if (!el.scrollOnHover.active) {
             this.stop(el);
             return;
         }
-        const offset: number = el.scrollOnHover.x - el.scrollOnHover.rect.left;
-        if (offset > percLeft && offset < percRight) {
+        let offset: number = 0;
+        switch (direction) {
+            case ScrollOnHoverDirection.BOTTOM:
+            case ScrollOnHoverDirection.TOP: {
+                offset = el.scrollOnHover.y - el.scrollOnHover.rect.top;
+                if (offset > percBack && offset < percForward) {
+                    this.stop(el);
+                    return;
+                }
+                break;
+            }
+            case ScrollOnHoverDirection.LEFT:
+            case ScrollOnHoverDirection.RIGHT: {
+                offset = el.scrollOnHover.x - el.scrollOnHover.rect.left;
+                if (offset > percBack && offset < percForward) {
+                    this.stop(el);
+                    return;
+                }
+                break;
+            }
+        }
+        if (
+            direction === ScrollOnHoverDirection.RIGHT &&
+            percForward > offset
+        ) {
             this.stop(el);
             return;
         }
-        if (direction === ScrollOnHoverDirection.RIGHT && percRight > offset) {
+        if (direction === ScrollOnHoverDirection.LEFT && percBack < offset) {
             this.stop(el);
             return;
         }
-        if (direction === ScrollOnHoverDirection.LEFT && percLeft < offset) {
+        if (direction === ScrollOnHoverDirection.TOP && percBack < offset) {
+            this.stop(el);
+            return;
+        }
+        if (
+            direction === ScrollOnHoverDirection.BOTTOM &&
+            percForward > offset
+        ) {
             this.stop(el);
             return;
         }
@@ -225,21 +312,45 @@ export class KupScrollOnHover {
             this.updateChildren(el);
         }
         let arrow: HTMLElement[];
-        if (direction === ScrollOnHoverDirection.LEFT) {
-            arrow = this.#leftArrows;
-            if (el.scrollLeft === 0) {
-                this.stop(el);
-                return;
+        switch (direction) {
+            case ScrollOnHoverDirection.BOTTOM: {
+                arrow = [];
+                if (el.scrollTop === maxScrollLeft) {
+                    this.stop(el);
+                    return;
+                }
+                el.scrollTop += this.step;
+                break;
             }
-            el.scrollLeft -= this.step;
-        } else {
-            arrow = this.#rightArrows;
-            if (el.scrollLeft === maxScrollLeft) {
-                this.stop(el);
-                return;
+            case ScrollOnHoverDirection.LEFT: {
+                arrow = this.#leftArrows;
+                if (el.scrollLeft === 0) {
+                    this.stop(el);
+                    return;
+                }
+                el.scrollLeft -= this.step;
+                break;
             }
-            el.scrollLeft += this.step;
+            case ScrollOnHoverDirection.RIGHT: {
+                arrow = this.#rightArrows;
+                if (el.scrollLeft === maxScrollLeft) {
+                    this.stop(el);
+                    return;
+                }
+                el.scrollLeft += this.step;
+                break;
+            }
+            case ScrollOnHoverDirection.TOP: {
+                arrow = [];
+                if (el.scrollTop === 0) {
+                    this.stop(el);
+                    return;
+                }
+                el.scrollTop -= this.step;
+                break;
+            }
         }
+
         for (let i = 0; i < arrow.length; i++) {
             arrow[i].classList.add('kup-animated');
         }
@@ -248,8 +359,8 @@ export class KupScrollOnHover {
             dom.ketchup.scrollOnHover.run(
                 el,
                 maxScrollLeft,
-                percRight,
-                percLeft,
+                percForward,
+                percBack,
                 direction
             );
         });
