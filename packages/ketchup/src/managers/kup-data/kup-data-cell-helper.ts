@@ -44,7 +44,8 @@ export function findCell(
 export function getCellValue(
     dataset: KupDataDataset,
     column: KupDataColumn,
-    sorted?: boolean
+    sorted?: boolean,
+    univocal?: boolean
 ): ValueDisplayedValue[] {
     const rows = dataset.rows;
     const values: { value: string; displayedValue?: string; obj?: KupObj }[] =
@@ -53,7 +54,7 @@ export function getCellValue(
     if (!rows || rows.length == 0 || !column) {
         return result;
     }
-    extractColumnValues(rows, column, values);
+    extractColumnValues(rows, column, values, univocal);
     if (sorted == true) {
         values.sort((n1, n2) => {
             return compareValues(
@@ -79,11 +80,12 @@ export function getCellValue(
 function extractColumnValues(
     rows: Array<KupDataRow>,
     column: KupDataColumn,
-    values: { value: string; displayedValue?: string; obj?: KupObj }[]
+    values: { value: string; displayedValue?: string; obj?: KupObj }[],
+    univocal?: boolean
 ) {
     /** il valore delle righe attualmente filtrate, formattato */
     rows.forEach((row) =>
-        addColumnValueFromRow(values, column, row.cells[column.name])
+        addColumnValueFromRow(values, column, row.cells[column.name], univocal)
     );
     return values;
 }
@@ -91,7 +93,8 @@ function extractColumnValues(
 export function addColumnValueFromRow(
     values: { value: string; displayedValue?: string; obj?: KupObj }[],
     column: KupDataColumn,
-    cell: KupDataCell
+    cell: KupDataCell,
+    univocal?: boolean
 ) {
     if (cell) {
         let item: { value: string; displayedValue?: string; obj?: KupObj } = {
@@ -99,7 +102,10 @@ export function addColumnValueFromRow(
             displayedValue: getCellValueForDisplay(column, cell),
             obj: cell.obj ? cell.obj : column.obj,
         };
-        if (!Filters.valuesArrayContainsValue(values, cell.value)) {
+        if (
+            univocal != true ||
+            !Filters.valuesArrayContainsValue(values, cell.value)
+        ) {
             values.push(item);
         }
     }
