@@ -2706,6 +2706,11 @@ export namespace Components {
          */
         "initialValue": string;
         /**
+          * The HTML inputmode of the input element.
+          * @default null
+         */
+        "inputMode": string;
+        /**
           * The HTML type of the input element. It has no effect on text areas.
           * @default "text"
          */
@@ -5638,6 +5643,11 @@ declare namespace LocalJSX {
           * @default ""
          */
         "initialValue"?: string;
+        /**
+          * The HTML inputmode of the input element.
+          * @default null
+         */
+        "inputMode"?: string;
         /**
           * The HTML type of the input element. It has no effect on text areas.
           * @default "text"

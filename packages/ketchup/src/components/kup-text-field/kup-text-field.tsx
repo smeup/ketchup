@@ -107,15 +107,15 @@ export class KupTextField {
      */
     @Prop() initialValue: string = '';
     /**
+     * The HTML inputmode of the input element.
+     * @default null
+     */
+    @Prop() inputMode: string = null;
+    /**
      * The HTML type of the input element. It has no effect on text areas.
      * @default "text"
      */
     @Prop() inputType: string = 'text';
-    /**
-     * The HTML input mode of the input element.
-     * @default ""
-     */
-     @Prop() inputMode: string = 'text';
     /**
      * Enables a clear trailing icon.
      * @default false
@@ -469,8 +469,8 @@ export class KupTextField {
             info: this.rootElement.classList.contains('kup-info')
                 ? true
                 : false,
-            inputType: this.inputType,
             inputMode: this.inputMode,
+            inputType: this.inputType,
             isClearable: this.isClearable,
             label: this.label,
             leadingLabel: this.leadingLabel,

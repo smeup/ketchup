@@ -11,8 +11,8 @@ export interface FTextFieldProps extends FComponent {
     helperEnabled?: boolean;
     helperWhenFocused?: boolean;
     icon?: string;
-    inputType?: string;
     inputMode?: string;
+    inputType?: string;
     max?: number;
     maxLength?: number;
     min?: number;
