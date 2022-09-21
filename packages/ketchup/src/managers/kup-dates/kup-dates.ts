@@ -50,6 +50,23 @@ export class KupDates {
             this.locale = navLangs[0]
                 .split('-')[0]
                 .toLowerCase() as KupDatesLocales;
+
+            let found = false;
+            for (const key in KupDatesLocales) {
+                if (
+                    Object.prototype.hasOwnProperty.call(KupDatesLocales, key)
+                ) {
+                    const localeItem = KupDatesLocales[key];
+                    if (localeItem == this.locale) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            if (!found) {
+                console.log('set forced locale: en');
+                this.locale = KupDatesLocales.ENGLISH;
+            }
         }
         dayjs.locale(this.locale);
         this.managedComponents.forEach(function (comp) {

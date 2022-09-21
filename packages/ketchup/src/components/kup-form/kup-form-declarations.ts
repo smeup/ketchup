@@ -10,6 +10,7 @@ import {
 export enum KupFormProps {
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the form.',
+    hiddenSubmitButton = 'Creates a hidden submit button in order to submit the form with enter.',
     layout = 'How the form will arrange its content.',
 }
 export interface KupFormData {

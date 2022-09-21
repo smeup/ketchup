@@ -35,6 +35,7 @@ import {
 import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
+import { FButton } from '../../f-components/f-button/f-button';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -63,6 +64,11 @@ export class KupForm {
      * @default null
      */
     @Prop() data: KupFormData = null;
+    /**
+     * Creates a hidden submit button in order to submit the form with enter.
+     * @default false
+     */
+    @Prop() hiddenSubmitButton: boolean = false;
     /**
      * How the form will arrange its content.
      * @default null
@@ -106,6 +112,7 @@ export class KupForm {
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         return getProps(this, KupFormProps, descriptions);
     }
+
     /**
      * This method is used to trigger a new render of the component.
      */
@@ -248,7 +255,18 @@ export class KupForm {
             'form--column': !horizontal,
         };
 
-        return <form class={classObj}>{formContent}</form>;
+        return (
+            <form class={classObj} name={this.rootElement.id}>
+                {formContent}
+                {this.hiddenSubmitButton ? (
+                    <FButton
+                        buttonType="submit"
+                        label="submit"
+                        wrapperClass="form__submit"
+                    ></FButton>
+                ) : null}
+            </form>
+        );
     }
 
     private renderSection(
@@ -409,7 +427,7 @@ export class KupForm {
             return null;
         }
         const cellProps: FCellProps = {
-            cell: formField.data ? { ...cell, data: formField.data } : cell,
+            cell: cell,
             column: column,
             component: this,
             editable: true,

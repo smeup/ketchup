@@ -110,6 +110,13 @@ export default {
       ],
       demoProps: [
         {
+          prop: 'buttonType',
+          description: 'Sets the type of the button.',
+          type: 'string',
+          default: 'null',
+          try: 'field',
+        },
+        {
           prop: 'checked',
           description:
             'Icon button variant only. The toggable icon button state will be initialized to ON.',

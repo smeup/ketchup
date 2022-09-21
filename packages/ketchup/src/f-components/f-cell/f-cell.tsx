@@ -22,7 +22,6 @@ import {
     FCellEvents,
     FCellInfo,
     FCellProps,
-    FCellShapes,
     FCellTypes,
     fullWidthFieldsComps,
     kupTypes,
@@ -399,12 +398,12 @@ function setEditableCell(
         case FCellTypes.STRING:
             return (
                 <FTextField
+                    inputType={cellType === FCellTypes.NUMBER ? 'number' : null}
+                    fullWidth={isFullWidth(props) ? true : false}
                     {...cell.data}
                     icon={
                         cell.icon ? cell.icon : column.icon ? column.icon : null
                     }
-                    fullWidth={isFullWidth(props) ? true : false}
-                    inputType={cellType === FCellTypes.NUMBER ? 'number' : null}
                     value={
                         cellType === FCellTypes.NUMBER
                             ? stringToNumber(cell.value).toString()

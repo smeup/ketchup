@@ -5,6 +5,7 @@ import { KupEventPayload } from '../../types/GenericTypes';
  * Used to export every prop in an object.
  */
 export enum KupButtonProps {
+    buttonType = 'Sets the type of the button.',
     checked = 'When set to true, the icon button state will be on.',
     customStyle = 'Custom style of the component.',
     disabled = 'Defaults at false. When set to true, the component is disabled.',

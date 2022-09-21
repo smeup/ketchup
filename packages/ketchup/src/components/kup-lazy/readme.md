@@ -71,6 +71,7 @@ Type: `Promise<void>`
 | Name                           | Description                                        |
 | ------------------------------ | -------------------------------------------------- |
 | `--kup-lazy-animation-time`    | Sets the duration of the animation.                |
+| `--kup-lazy-height`            | Sets the height of the component and subcomponent. |
 | `--kup-lazy-hor-alignment`     | Sets the horizontal alignment of the subcomponent. |
 | `--kup-lazy-placeholder-color` | Sets color of the placeholder icon.                |
 | `--kup-lazy-ver-alignment`     | Sets the vertical alignment of the subcomponent.   |

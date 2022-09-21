@@ -496,21 +496,23 @@ export class KupEchart {
         }
         const y = {};
         let objKey: string;
-        for (const row of this.data.rows) {
-            objKey = row.cells[this.axis].value;
-            y[objKey] = [];
-            for (const key of Object.keys(row.cells)) {
-                const cell = row.cells[key];
-                const value = cell.value;
-                if (!this.axis.includes(key)) {
-                    if (
-                        this.series &&
-                        this.series.length > 0 &&
-                        !this.series.includes(key)
-                    ) {
-                        continue;
+        if (this.axis) {
+            for (const row of this.data.rows) {
+                objKey = row.cells[this.axis].value;
+                y[objKey] = [];
+                for (const key of Object.keys(row.cells)) {
+                    const cell = row.cells[key];
+                    const value = cell.value;
+                    if (!this.axis.includes(key)) {
+                        if (
+                            this.series &&
+                            this.series.length > 0 &&
+                            !this.series.includes(key)
+                        ) {
+                            continue;
+                        }
+                        y[objKey].push(value);
                     }
-                    y[objKey].push(value);
                 }
             }
         }
@@ -578,6 +580,13 @@ export class KupEchart {
                 );
             }
         };
+        let axisColumn = this.#kupManager.data.column.find(this.data, {
+            name: this.axis,
+        });
+        let serieTitle =
+            axisColumn && axisColumn.length > 0
+                ? axisColumn[0].title
+                : 'No title';
         const echartOption: echarts.EChartsOption = {
             emphasis: {
                 label: {
@@ -620,9 +629,7 @@ export class KupEchart {
                         padding: 4,
                     },
                     map: this.rootElement.id ? this.rootElement.id : '',
-                    name: this.#kupManager.data.column.find(this.data, {
-                        name: this.axis,
-                    })[0].title,
+                    name: serieTitle,
                     roam: true,
                     select: {
                         itemStyle: {
@@ -711,13 +718,17 @@ export class KupEchart {
                         this.data,
                         [column.name]
                     );
-                    values = this.#kupManager.data.cell.getValue(
+                    values = this.#kupManager.data.cell.getUnivocalValue(
                         newDataset,
                         column
                     );
                     this.#gaussianDatasets[column.name] = newDataset;
                 } else {
-                    values = [{ value: y[key] }];
+                    values = [];
+                    for (let index = 0; index < y[key].length; index++) {
+                        const element = y[key][index];
+                        values.push({ value: element });
+                    }
                 }
             } else {
                 if (needSortDataset) {
