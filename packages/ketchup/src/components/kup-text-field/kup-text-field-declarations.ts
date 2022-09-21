@@ -16,6 +16,7 @@ export enum KupTextFieldProps {
     icon = 'When set, the text-field will show this icon.',
     initialValue = 'Sets the initial value of the component',
     inputType = 'The HTML type of the input element. It has no effect on text areas.',
+    inputMode = 'The HTML input mode of the input element.',
     isClearable = 'Enables a clear trailing icon.',
     label = 'When set, its content will be shown as a label.',
     leadingLabel = 'When set to true, the label will be on the left of the component.',
