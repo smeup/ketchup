@@ -393,6 +393,17 @@ for (let index = 0; index < cards.length; index++) {
                 leadingLabel: true,
             },
         ],
+        object: [
+            { k: 'OBJ KEY #1' },
+            { k: 'OBJ KEY #2' },
+            { k: 'OBJ KEY #3' },
+            { k: 'OBJ KEY #4' },
+            { k: 'OBJ KEY #5' },
+            { k: 'OBJ KEY #6' },
+            { k: 'OBJ KEY #7' },
+            { k: 'OBJ KEY #8' },
+            { k: 'OBJ KEY #9' },
+        ],
         tabbar: [
             {
                 data: [

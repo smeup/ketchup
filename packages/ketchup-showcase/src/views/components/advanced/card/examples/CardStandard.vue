@@ -485,6 +485,32 @@
         </div>
       </div>
     </div>
+
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 16</span> configuration (this layout
+        allows you to arrange the elements contained in text and object in the
+        grid):
+        <br />
+        <br />
+        <span class="code-word">- text[0 to n]</span>: They represent labels
+        that appear in the left column.
+        <br />
+        <span class="code-word">- object[0 to n]</span>: They represent the
+        values that are displayed in the right column.
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            size-x="300px"
+            size-y="200px"
+            layout-number="16"
+            :data.prop="liteData"
+          ></kup-card>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -1396,6 +1422,15 @@ export default {
             ],
             title: 'tree[0]',
           },
+        ],
+      },
+      liteData: {
+        text: ['#1', '#2', '#3', '#4'],
+        object: [
+          { k: 'Value 1' },
+          { k: 'Value 2' },
+          { k: 'Value 3' },
+          { k: 'Value 4' },
         ],
       },
     };
