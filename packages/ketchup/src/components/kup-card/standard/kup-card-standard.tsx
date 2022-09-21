@@ -13,6 +13,7 @@ import { KupCardCSSClasses, KupCardIds } from '../kup-card-declarations';
 import { KupColumnMenuIds } from '../../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupThemeColorValues } from '../../../managers/kup-theme/kup-theme-declarations';
 import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
+import { KupObj } from '../../../managers/kup-objects/kup-objects-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -1475,6 +1476,36 @@ export function create15(component: KupCard): VNode {
                     ></kup-button>
                 </div>
             ) : null}
+        </div>
+    );
+}
+
+/**
+ * 16th standard card layout, it can be used as a key-value grid list.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 16th standard layout virtual node.
+ */
+export function create16(component: KupCard): VNode {
+    const rows: VNode[] = [];
+    for (let index = 0; index < component.data.text.length; index++) {
+        const element = component.data.text[index];
+        const object =
+            component.data.object &&
+            component.data.object[index] &&
+            component.data.object[index].k
+                ? component.data.object[index]
+                : ({ k: '' } as KupObj);
+        rows.push(
+            <tr>
+                <td class="label">{element}</td>
+                <td class="value">{object.k}</td>
+            </tr>
+        );
+    }
+
+    return (
+        <div class={`standard-layout-${component.layoutNumber}`}>
+            <table>{rows}</table>
         </div>
     );
 }
