@@ -42,10 +42,25 @@
             is-clearable
             initial-value="ciao"
         ></kup-text-field>
+        <h4>Input text type number with decimals</h4>
         <kup-text-field
             id="decimals"
             decimals="2"
             input-type="number"
+            input-mode="decimal"
+        ></kup-text-field>
+        <kup-text-field
+            input-type="number"
+            input-mode="decimal"
+            label="I'm a numeric text field with decimals and step 0.01"
+            initial-value="22"
+            step="0.01"
+        ></kup-text-field>
+        <h4>Input text type number without decimals</h4>
+        <kup-text-field
+            id="number"
+            input-type="number"
+            input-mode="numeric"
         ></kup-text-field>
         <h4>Input text type password</h4>
         <kup-text-field
@@ -111,12 +126,6 @@
         <kup-text-field
             label="I am a label"
             initial-value="yooooo"
-        ></kup-text-field>
-        <kup-text-field
-            input-type="number"
-            label="I'm a numeric text field"
-            initial-value="22"
-            step="0.01"
         ></kup-text-field>
         <script>
             // For the password field

@@ -130,6 +130,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                 </span>
             ) : (
                 <input
+                    inputmode={props.inputMode ? props.inputMode : undefined}
                     type={props.inputType ? props.inputType : 'text'}
                     step={props.step}
                     min={props.min}
