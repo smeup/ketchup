@@ -948,7 +948,7 @@ export class KupBox {
         const cardData: KupCardData = {
             button: [],
             cell: [],
-            columns: this.data.columns,
+            columns: [],
             image: [],
             progressbar: [],
             text: [],
@@ -958,7 +958,11 @@ export class KupBox {
         for (const key in row.cells) {
             if (row.cells.hasOwnProperty(key)) {
                 const cell = row.cells[key];
-                cardData.cell.push(cell);
+                const column = getColumnByName(this.data.columns, key);
+                if (column.visible !== false) {
+                    cardData.cell.push(cell);
+                    cardData.columns.push(column);
+                }
                 if (cell.cardID !== undefined) {
                     switch (cell.obj.p) {
                         case 'BTN':
