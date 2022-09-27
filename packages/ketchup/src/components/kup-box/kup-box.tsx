@@ -958,8 +958,10 @@ export class KupBox {
         for (const key in row.cells) {
             if (row.cells.hasOwnProperty(key)) {
                 const cell = row.cells[key];
-                const column = getColumnByName(this.data.columns, key);
-                if (column.visible !== false) {
+                const column = this.visibleColumns.find(
+                    (col) => col.name === key
+                );
+                if (column && column.visible !== false) {
                     cardData.cell.push(cell);
                     cardData.columns.push(column);
                 }
