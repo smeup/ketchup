@@ -174,7 +174,16 @@ export class KupObjects {
      */
     isNumber(obj: KupObj): boolean {
         if (!obj) return false;
-        return 'NR' === obj.t;
+        return 'NR' === obj.t || 'NP' === obj.t;
+    }
+    /**
+     * Checks whether the object represents a positive number or not.
+     * @param {KupObj} obj - Object to check.
+     * @returns {boolean} True when the object is a positive number.
+     */
+    isPositiveNumber(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'NP' === obj.t;
     }
     /**
      * Checks whether the object represents a password or not.
