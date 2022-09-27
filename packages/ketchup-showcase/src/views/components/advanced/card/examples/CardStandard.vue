@@ -488,16 +488,12 @@
 
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 16</span> configuration (this layout
-        allows you to arrange the elements contained in text and object in the
-        grid):
+        <span class="code-word">Layout 16</span> configuration:
         <br />
         <br />
-        <span class="code-word">- text[0 to n]</span>: They represent labels
-        that appear in the left column.
+        <span class="code-word">- columns[0 to n]</span>: labels (left column).
         <br />
-        <span class="code-word">- object[0 to n]</span>: They represent the
-        values that are displayed in the right column.
+        <span class="code-word">- cells[0 to n]</span>: values (right column).
       </p>
       <br />
       <div class="demo-container">
@@ -506,7 +502,7 @@
             size-x="300px"
             size-y="200px"
             layout-number="16"
-            :data.prop="liteData"
+            :data.prop="data"
           ></kup-card>
         </div>
       </div>
@@ -1099,6 +1095,11 @@ export default {
           { icon: 'widgets', flat: true, title: 'button[1]' },
           { icon: 'widgets', flat: true, title: 'button[2]' },
         ],
+        cell: [
+          { obj: { t: '', p: '', k: 'Cell #1' }, value: 'Cell #1' },
+          { obj: { t: '', p: '', k: 'Cell #2' }, value: 'Cell #2' },
+          { obj: { t: '', p: '', k: 'Cell #3' }, value: 'Cell #3' },
+        ],
         chart: [
           {
             title: 'chart[0]',
@@ -1191,6 +1192,11 @@ export default {
           },
         ],
         color: ['var(--kup-spinner-color)', 'var(--kup-border-color)'],
+        columns: [
+          { name: '1', title: 'Column #1' },
+          { name: '2', title: 'Column #2' },
+          { name: '3', title: 'Column #3' },
+        ],
         combobox: [
           {
             data: {
@@ -1422,15 +1428,6 @@ export default {
             ],
             title: 'tree[0]',
           },
-        ],
-      },
-      liteData: {
-        text: ['#1', '#2', '#3', '#4'],
-        object: [
-          { k: 'Value 1' },
-          { k: 'Value 2' },
-          { k: 'Value 3' },
-          { k: 'Value 4' },
         ],
       },
     };

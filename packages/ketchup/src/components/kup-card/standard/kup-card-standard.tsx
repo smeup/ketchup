@@ -14,6 +14,12 @@ import { KupColumnMenuIds } from '../../../utils/kup-column-menu/kup-column-menu
 import { KupThemeColorValues } from '../../../managers/kup-theme/kup-theme-declarations';
 import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
 import { KupObj } from '../../../managers/kup-objects/kup-objects-declarations';
+import { FCell } from '../../../f-components/f-cell/f-cell';
+import {
+    FCellPadding,
+    FCellProps,
+} from '../../../f-components/f-cell/f-cell-declarations';
+import { KupDataCell } from '../../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -1487,18 +1493,23 @@ export function create15(component: KupCard): VNode {
  */
 export function create16(component: KupCard): VNode {
     const rows: VNode[] = [];
-    for (let index = 0; index < component.data.text.length; index++) {
-        const element = component.data.text[index];
-        const object =
-            component.data.object &&
-            component.data.object[index] &&
-            component.data.object[index].k
-                ? component.data.object[index]
-                : ({ k: '' } as KupObj);
+    for (let index = 0; index < component.data.cell.length; index++) {
+        const cell = component.data.cell[index] as KupDataCell;
+        const column = component.data.columns[index];
+        const props: FCellProps = {
+            cell: cell,
+            column: column,
+            component: component,
+            density: FCellPadding.NONE,
+            renderKup: true,
+            row: { cells: { [column.name]: cell } },
+        };
         rows.push(
             <tr>
-                <td class="label">{element}</td>
-                <td class="value">{object.k}</td>
+                <td class="label">{column.title}</td>
+                <td class="value">
+                    <FCell {...props}></FCell>
+                </td>
             </tr>
         );
     }

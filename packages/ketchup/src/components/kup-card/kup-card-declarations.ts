@@ -137,6 +137,7 @@ export interface KupCardBuiltInNumeric extends HTMLElement {
 export interface KupCardData {
     autocomplete?: GenericObject[];
     button?: GenericObject[];
+    cell?: GenericObject[];
     chart?: GenericObject[];
     checkbox?: GenericObject[];
     chip?: GenericObject[];
