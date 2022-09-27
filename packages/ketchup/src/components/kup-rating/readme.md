@@ -68,6 +68,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-card](../kup-card)
  - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
@@ -82,24 +83,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-rating --> kup-card
-  kup-card --> kup-badge
-  kup-card --> kup-button
-  kup-card --> kup-chip
-  kup-card --> kup-list
-  kup-card --> kup-combobox
-  kup-card --> kup-autocomplete
-  kup-card --> kup-checkbox
-  kup-card --> kup-date-picker
-  kup-card --> kup-text-field
-  kup-card --> kup-time-picker
-  kup-card --> kup-data-table
-  kup-card --> kup-spinner
-  kup-card --> kup-progress-bar
-  kup-card --> kup-chart
-  kup-card --> kup-tab-bar
-  kup-card --> kup-tree
-  kup-card --> kup-switch
-  kup-card --> kup-card
+  kup-card --> kup-rating
   kup-badge --> kup-badge
   kup-badge --> kup-card
   kup-button --> kup-card

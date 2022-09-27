@@ -83,6 +83,12 @@ graph TD;
   kup-card --> kup-tab-bar
   kup-card --> kup-tree
   kup-card --> kup-switch
+  kup-card --> kup-color-picker
+  kup-card --> kup-rating
+  kup-card --> kup-image
+  kup-card --> kup-button-list
+  kup-card --> kup-gauge
+  kup-card --> kup-radio
   kup-card --> kup-card
   kup-button --> kup-card
   kup-button --> kup-badge

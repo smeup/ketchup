@@ -160,6 +160,8 @@ for (let index = 0; index < cards.length; index++) {
                 title: 'search',
             },
         ],
+        cell: [{ obj: { t: '', p: '', k: 'Cell 1' }, value: 'Cell 1' }],
+        columns: [{ name: '1', title: 'Column 1' }],
         chart: [
             {
                 data: {
