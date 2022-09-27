@@ -954,17 +954,18 @@ export class KupBox {
             text: [],
         };
 
+        for (let index = 0; index < this.data.columns.length; index++) {
+            const column = this.data.columns[index];
+            if (column.visible !== false) {
+                cardData.cell.push(row.cells[column.name]);
+                cardData.columns.push(column);
+            }
+        }
+
         //First cycle sets specific binds between cardIDs and cells
         for (const key in row.cells) {
             if (row.cells.hasOwnProperty(key)) {
                 const cell = row.cells[key];
-                const column = this.visibleColumns.find(
-                    (col) => col.name === key
-                );
-                if (column && column.visible !== false) {
-                    cardData.cell.push(cell);
-                    cardData.columns.push(column);
-                }
                 if (cell.cardID !== undefined) {
                     switch (cell.obj.p) {
                         case 'BTN':
