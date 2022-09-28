@@ -485,6 +485,28 @@
         </div>
       </div>
     </div>
+
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 16</span> configuration:
+        <br />
+        <br />
+        <span class="code-word">- columns[0 to n]</span>: labels (left column).
+        <br />
+        <span class="code-word">- cells[0 to n]</span>: values (right column).
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            size-x="300px"
+            size-y="200px"
+            layout-number="16"
+            :data.prop="data"
+          ></kup-card>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -1073,6 +1095,11 @@ export default {
           { icon: 'widgets', flat: true, title: 'button[1]' },
           { icon: 'widgets', flat: true, title: 'button[2]' },
         ],
+        cell: [
+          { obj: { t: '', p: '', k: 'Cell #1' }, value: 'Cell #1' },
+          { obj: { t: '', p: '', k: 'Cell #2' }, value: 'Cell #2' },
+          { obj: { t: '', p: '', k: 'Cell #3' }, value: 'Cell #3' },
+        ],
         chart: [
           {
             title: 'chart[0]',
@@ -1165,6 +1192,11 @@ export default {
           },
         ],
         color: ['var(--kup-spinner-color)', 'var(--kup-border-color)'],
+        columns: [
+          { name: '1', title: 'Column #1' },
+          { name: '2', title: 'Column #2' },
+          { name: '3', title: 'Column #3' },
+        ],
         combobox: [
           {
             data: {

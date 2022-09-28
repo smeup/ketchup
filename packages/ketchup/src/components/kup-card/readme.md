@@ -148,6 +148,12 @@ Type: `Promise<void>`
 - [kup-tab-bar](../kup-tab-bar)
 - [kup-tree](../kup-tree)
 - [kup-switch](../kup-switch)
+- [kup-color-picker](../kup-color-picker)
+- [kup-rating](../kup-rating)
+- [kup-image](../kup-image)
+- [kup-button-list](../kup-button-list)
+- [kup-gauge](../kup-gauge)
+- [kup-radio](../kup-radio)
 - [kup-card](.)
 
 ### Graph

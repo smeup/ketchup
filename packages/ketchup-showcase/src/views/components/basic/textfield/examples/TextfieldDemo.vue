@@ -200,6 +200,14 @@ export default {
           try: 'field',
         },
         {
+          prop: 'inputMode',
+          description:
+            'The HTML inputmode of the input element. It has no effect on text areas.',
+          type: 'string',
+          default: 'null',
+          try: 'field',
+        },
+        {
           prop: 'inputType',
           description:
             'The HTML type of the input element. It has no effect on text areas.',

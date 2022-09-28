@@ -945,17 +945,27 @@ export class KupBox {
     // render methods
     private renderSectionAsCard(row: KupBoxRow) {
         let skipPush: boolean = false;
-        let cardData: KupCardData = {
+        const cardData: KupCardData = {
             button: [],
+            cell: [],
+            columns: [],
             image: [],
             progressbar: [],
             text: [],
         };
 
+        for (let index = 0; index < this.data.columns.length; index++) {
+            const column = this.data.columns[index];
+            if (column.visible !== false) {
+                cardData.cell.push(row.cells[column.name]);
+                cardData.columns.push(column);
+            }
+        }
+
         //First cycle sets specific binds between cardIDs and cells
-        for (var key in row.cells) {
+        for (const key in row.cells) {
             if (row.cells.hasOwnProperty(key)) {
-                var cell = row.cells[key];
+                const cell = row.cells[key];
                 if (cell.cardID !== undefined) {
                     switch (cell.obj.p) {
                         case 'BTN':
@@ -994,9 +1004,9 @@ export class KupBox {
         }
 
         //Second cycle sets leftover binds automatically
-        for (var key in row.cells) {
+        for (const key in row.cells) {
             if (row.cells.hasOwnProperty(key)) {
-                var cell = row.cells[key];
+                const cell = row.cells[key];
                 if (cell.cardID === undefined) {
                     skipPush = false;
                     switch (cell.obj.p) {
@@ -1007,7 +1017,9 @@ export class KupBox {
                                 index++
                             ) {
                                 //If there are empty elements, the first one will be used
-                                if (cardData.button[index] === {}) {
+                                if (
+                                    !Object.keys(cardData.button[index]).length
+                                ) {
                                     cardData.button[index] = {
                                         label: cell.value,
                                     };
@@ -1029,7 +1041,9 @@ export class KupBox {
                                 index++
                             ) {
                                 //If there are empty elements, the first one will be used
-                                if (cardData.image[index] === {}) {
+                                if (
+                                    !Object.keys(cardData.image[index]).length
+                                ) {
                                     cardData.image[index] = {
                                         resource: cell.value,
                                     };
@@ -1051,7 +1065,10 @@ export class KupBox {
                                 index++
                             ) {
                                 //If there are empty elements, the first one will be used
-                                if (cardData.progressbar[index] === {}) {
+                                if (
+                                    !Object.keys(cardData.progressbar[index])
+                                        .length
+                                ) {
                                     cardData.progressbar[index] = {
                                         value: cell.value,
                                     };

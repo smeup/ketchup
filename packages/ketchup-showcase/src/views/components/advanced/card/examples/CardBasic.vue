@@ -24,6 +24,8 @@
       >
       props.
       <br />
+      <span class="code-word">cell</span>: array of cells.
+      <br />
       <span class="code-word">chart</span>: array of objects containing
       <a href="https://ketchup.smeup.com/ketchup-showcase/#/chart">kup-chart</a>
       props.
@@ -38,6 +40,8 @@
       props.
       <br />
       <span class="code-word">color</span>: array of CSS color strings.
+      <br />
+      <span class="code-word">columns</span>: array of columns.
       <br />
       <span class="code-word">combobox</span>: array of objects containing
       <a href="https://ketchup.smeup.com/ketchup-showcase/#/combobox"
