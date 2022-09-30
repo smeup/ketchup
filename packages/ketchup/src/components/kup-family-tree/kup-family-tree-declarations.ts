@@ -11,6 +11,7 @@ import { KupBoxLayout } from '../kup-box/kup-box-declarations';
  * Used to export every prop in an object.
  */
 export enum KupFamilyTreeProps {
+    cardData = "Data of the card linked to the box when the latter's layout must be a premade template.",
     autofitOnExpand = 'The component will autofit everytime a node is expanded.',
     autofitOnLoad = "The component's initial render will fit the container by invoking the runAutofit method.",
     collapsible = 'Nodes can be expanded/collapsed.',

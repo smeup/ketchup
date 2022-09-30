@@ -1587,6 +1587,11 @@ export namespace Components {
          */
         "autofitOnLoad": boolean;
         /**
+          * Data of the card linked to the box when the latter's layout must be a premade template.
+          * @default null
+         */
+        "cardData": GenericObject;
+        /**
           * Collapses all nodes.
          */
         "collapseAll": (nodes?: KupFamilyTreeNode[]) => Promise<void>;
@@ -4813,6 +4818,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "autofitOnLoad"?: boolean;
+        /**
+          * Data of the card linked to the box when the latter's layout must be a premade template.
+          * @default null
+         */
+        "cardData"?: GenericObject;
         /**
           * Nodes can be expanded/collapsed.
           * @default true

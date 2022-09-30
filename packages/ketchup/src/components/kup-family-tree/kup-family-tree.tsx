@@ -53,6 +53,12 @@ export class KupFamilyTree {
     /*-------------------------------------------------*/
 
     /**
+     * Data of the card linked to the box when the latter's layout must be a premade template.
+     * @default null
+     */
+    @Prop() cardData: GenericObject = null;
+
+    /**
      * The component will autofit everytime a node is expanded.
      * @default true
      */
@@ -328,20 +334,40 @@ export class KupFamilyTree {
             wrapperClass: 'family-tree__item__expand',
         };
 
+        var boxVar = {};
+
+        if (this.#isBoxLayout(layout) || this.#isBoxLayoutNumber()) {
+            if (layout) {
+                boxVar = (
+                    <kup-box
+                        class="kup-borderless kup-paddingless"
+                        customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); border: 2px solid var(--kup_familytree_lines_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
+                        data={data}
+                        layout={layout as KupBoxLayout}
+                        showSelection={false}
+                    ></kup-box>
+                );
+            }
+            if (this.cardData) {
+                boxVar = (
+                    <kup-box
+                        class="kup-borderless kup-paddingless"
+                        customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); border: 2px solid var(--kup_familytree_lines_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
+                        data={data}
+                        cardData={this.cardData}
+                        showSelection={false}
+                    ></kup-box>
+                );
+            }
+        }
+
         const box: VNode = (
             <div class={'family-tree__item'}>
                 <div class={'family-tree__item__wrapper'}>
-                    {this.#isBoxLayout(layout) ? (
-                        <kup-box
-                            class="kup-borderless kup-paddingless"
-                            customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); border: 2px solid var(--kup_familytree_lines_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
-                            data={data}
-                            layout={layout as KupBoxLayout}
-                            showSelection={false}
-                        ></kup-box>
-                    ) : (
-                        this.#buildNodeLayout(node, layout)
-                    )}
+                    {this.#isBoxLayout(layout) || this.#isBoxLayoutNumber()
+                        ? boxVar
+                        : this.#buildNodeLayout(node, layout)}
+
                     {this.collapsible &&
                     node.children &&
                     node.children.length > 0 ? (
@@ -533,6 +559,13 @@ export class KupFamilyTree {
     #isBoxLayout(layout: KupFamilyTreeLayout): layout is KupBoxLayout {
         const tmp = layout as KupBoxLayout;
         return tmp && tmp.sections && tmp.sections.length > 0;
+    }
+
+    #isBoxLayoutNumber(): boolean {
+        if (this.cardData.layoutNumber) {
+            return true;
+        }
+        return false;
     }
 
     #startPanning(e: PointerEvent) {
