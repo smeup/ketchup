@@ -16,7 +16,7 @@
     "repository": "https://github.com/smeup/ketchup",
     "devDependencies": {
         "eslint": "^7.32.0",
-        "lerna": "^5.1.8",
+        "lerna": "^5.6.0",
         "workbox-build": "^4.3.1"
     },
     "scripts": {

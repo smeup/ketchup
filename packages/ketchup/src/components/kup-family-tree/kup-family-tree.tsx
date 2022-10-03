@@ -63,6 +63,11 @@ export class KupFamilyTree {
      */
     @Prop() autofitOnLoad: boolean = true;
     /**
+     * Used to render the family tree boxes as kup-cards (through kup-box).
+     * @default null
+     */
+    @Prop() cardData: GenericObject = null;
+    /**
      * Nodes can be expanded/collapsed.
      * @default true
      */
@@ -328,20 +333,27 @@ export class KupFamilyTree {
             wrapperClass: 'family-tree__item__expand',
         };
 
+        let kupBox: VNode = null;
+
+        if (this.#isBoxLayout(layout)) {
+            kupBox = (
+                <kup-box
+                    class="kup-borderless kup-paddingless"
+                    customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); border: 2px solid var(--kup_familytree_lines_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
+                    data={data}
+                    cardData={this.cardData}
+                    layout={this.cardData ? null : (layout as KupBoxLayout)}
+                    showSelection={false}
+                ></kup-box>
+            );
+        }
+
         const box: VNode = (
             <div class={'family-tree__item'}>
                 <div class={'family-tree__item__wrapper'}>
-                    {this.#isBoxLayout(layout) ? (
-                        <kup-box
-                            class="kup-borderless kup-paddingless"
-                            customStyle="#kup-component {  background: var(--kup_familytree_item_background_color); border: 2px solid var(--kup_familytree_lines_color); box-sizing: border-box; height: var(--kup_familytree_item_height); padding: 0 var(--kup_familytree_item_h_padding); } #kup-component .box-component { background: var(--kup_familytree_item_background_color); box-sizing: border-box; height: 100%;} #kup-component .f-cell__text { color: var(--kup_familytree_item_color); }"
-                            data={data}
-                            layout={layout as KupBoxLayout}
-                            showSelection={false}
-                        ></kup-box>
-                    ) : (
-                        this.#buildNodeLayout(node, layout)
-                    )}
+                    {this.#isBoxLayout(layout)
+                        ? kupBox
+                        : this.#buildNodeLayout(node, layout)}
                     {this.collapsible &&
                     node.children &&
                     node.children.length > 0 ? (
@@ -532,7 +544,9 @@ export class KupFamilyTree {
 
     #isBoxLayout(layout: KupFamilyTreeLayout): layout is KupBoxLayout {
         const tmp = layout as KupBoxLayout;
-        return tmp && tmp.sections && tmp.sections.length > 0;
+        return (
+            !!this.cardData || (tmp && tmp.sections && tmp.sections.length > 0)
+        );
     }
 
     #startPanning(e: PointerEvent) {

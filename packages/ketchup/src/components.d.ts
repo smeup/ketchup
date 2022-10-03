@@ -1587,6 +1587,11 @@ export namespace Components {
          */
         "autofitOnLoad": boolean;
         /**
+          * Used to render the family tree boxes as kup-cards (through kup-box).
+          * @default null
+         */
+        "cardData": GenericObject;
+        /**
           * Collapses all nodes.
          */
         "collapseAll": (nodes?: KupFamilyTreeNode[]) => Promise<void>;
@@ -4813,6 +4818,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "autofitOnLoad"?: boolean;
+        /**
+          * Used to render the family tree boxes as kup-cards (through kup-box).
+          * @default null
+         */
+        "cardData"?: GenericObject;
         /**
           * Nodes can be expanded/collapsed.
           * @default true
