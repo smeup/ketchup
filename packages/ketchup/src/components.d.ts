@@ -1587,7 +1587,7 @@ export namespace Components {
          */
         "autofitOnLoad": boolean;
         /**
-          * Data of the card linked to the box when the latter's layout must be a premade template.
+          * Used to render the family tree boxes as kup-cards (through kup-box).
           * @default null
          */
         "cardData": GenericObject;
@@ -4819,7 +4819,7 @@ declare namespace LocalJSX {
          */
         "autofitOnLoad"?: boolean;
         /**
-          * Data of the card linked to the box when the latter's layout must be a premade template.
+          * Used to render the family tree boxes as kup-cards (through kup-box).
           * @default null
          */
         "cardData"?: GenericObject;

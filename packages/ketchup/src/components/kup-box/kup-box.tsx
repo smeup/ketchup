@@ -966,7 +966,7 @@ export class KupBox {
         for (const key in row.cells) {
             if (row.cells.hasOwnProperty(key)) {
                 const cell = row.cells[key];
-                if (cell.cardID !== undefined) {
+                if (cell.cardID !== undefined && cell.obj) {
                     switch (cell.obj.p) {
                         case 'BTN':
                             do {
@@ -1007,7 +1007,7 @@ export class KupBox {
         for (const key in row.cells) {
             if (row.cells.hasOwnProperty(key)) {
                 const cell = row.cells[key];
-                if (cell.cardID === undefined) {
+                if (cell.cardID === undefined && cell.obj) {
                     skipPush = false;
                     switch (cell.obj.p) {
                         case 'BTN':
