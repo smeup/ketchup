@@ -1,23 +1,21 @@
-.box-layout-3 {
+.box-layout-4 {
   background-color: var(--kup-background-color);
   color: var(--kup-text-color);
+  display: flex;
   font-size: var(--kup-font-size);
+  height: 100%;
   padding: 0.5em;
 
   .container {
-    display: flex;
+    margin: auto;
     width: 100%;
   }
 
-  .flex-container {
-    display: flex;
-  }
-
-  .label {
-    overflow: hidden;
-    padding: 0.5em;
-    text-overflow: ellipsis;
-    width: 50%;
+  .image {
+    border-radius: 50%;
+    height: 64px;
+    margin: auto;
+    width: 64px;
   }
 
   .value {

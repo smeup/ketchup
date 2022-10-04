@@ -13,13 +13,6 @@ import { KupCardCSSClasses, KupCardIds } from '../kup-card-declarations';
 import { KupColumnMenuIds } from '../../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupThemeColorValues } from '../../../managers/kup-theme/kup-theme-declarations';
 import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
-import { KupObj } from '../../../managers/kup-objects/kup-objects-declarations';
-import { FCell } from '../../../f-components/f-cell/f-cell';
-import {
-    FCellPadding,
-    FCellProps,
-} from '../../../f-components/f-cell/f-cell-declarations';
-import { KupDataCell } from '../../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 

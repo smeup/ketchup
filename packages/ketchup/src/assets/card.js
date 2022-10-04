@@ -160,8 +160,18 @@ for (let index = 0; index < cards.length; index++) {
                 title: 'search',
             },
         ],
-        cell: [{ obj: { t: '', p: '', k: 'Cell 1' }, value: 'Cell 1' }, { obj: { t: '', p: '', k: 'Cell 2' }, value: 'Cell 2' }, { obj: { t: '', p: '', k: 'Cell 3' }, value: 'Cell 3' }],
-        columns: [{ name: '1', title: 'Column 1' }, { name: '2', title: 'Column 2' }, { name: '3', title: 'Column 3' }],
+        cell: [
+            { obj: { t: '', p: '', k: 'Cell 1' }, value: 'Cell 1' },
+            { obj: { t: '', p: '', k: 'Cell 2' }, value: 'Cell 2' },
+            { obj: { t: '', p: '', k: 'Cell 3' }, value: 'Cell 3' },
+            { obj: { t: 'J4', p: 'ICO', k: 'widgets' }, value: 'widgets' },
+        ],
+        columns: [
+            { name: '1', title: 'Column 1' },
+            { name: '2', title: 'Column 2' },
+            { name: '3', title: 'Column 3' },
+            { name: 'ICO', title: 'Column ICO' },
+        ],
         chart: [
             {
                 data: {
