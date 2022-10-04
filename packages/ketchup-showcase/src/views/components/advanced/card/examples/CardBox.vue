@@ -14,10 +14,54 @@
       <div class="demo-container">
         <div class="kup-container" style="text-align: left">
           <kup-card
-            size-x="300px"
+            size-x="400px"
             size-y="200px"
             layout-family="box"
             layout-number="1"
+            :data.prop="data"
+          ></kup-card>
+        </div>
+      </div>
+    </div>
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 2</span> configuration:
+        <br />
+        <br />
+        <span class="code-word">- columns[0 to n]</span>: labels (left column).
+        <br />
+        <span class="code-word">- cells[0 to n]</span>: values (right column).
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container" style="text-align: left">
+          <kup-card
+            size-x="400px"
+            size-y="200px"
+            layout-family="box"
+            layout-number="2"
+            :data.prop="data"
+          ></kup-card>
+        </div>
+      </div>
+    </div>
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 3</span> configuration:
+        <br />
+        <br />
+        <span class="code-word">- columns[0 to n]</span>: labels.
+        <br />
+        <span class="code-word">- cells[0 to n]</span>: values.
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container" style="text-align: left">
+          <kup-card
+            size-x="400px"
+            size-y="200px"
+            layout-family="box"
+            layout-number="3"
             :data.prop="data"
           ></kup-card>
         </div>

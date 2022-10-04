@@ -1,0 +1,27 @@
+.box-layout-2 {
+  background-color: var(--kup-background-color);
+  color: var(--kup-text-color);
+  font-size: var(--kup-font-size);
+  padding: 0.5em;
+
+  .container {
+    width: 100%;
+  }
+
+  .flex-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .label {
+    overflow: hidden;
+    padding: 0.5em;
+    text-overflow: ellipsis;
+    width: 50%;
+  }
+
+  .value {
+    padding: 0.5em;
+    font-weight: bold;
+  }
+}
