@@ -116,7 +116,7 @@
         <br />
         <br />
         <span class="code-word">box</span>: features cards tailored for
-        kup-boxes (3 layouts).
+        kup-boxes (4 layouts).
         <br />
         <span class="code-word">built-in</span>: features cards that offer a
         premade layout with integrated functionalities (5 layouts).
