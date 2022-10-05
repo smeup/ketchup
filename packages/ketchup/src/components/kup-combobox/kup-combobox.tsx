@@ -244,6 +244,7 @@ export class KupCombobox {
         this.kupItemClick.emit({
             comp: this,
             id: this.rootElement.id,
+            node: e.detail.selected,
             value: this.value,
             inputValue: this.#textfieldEl.value,
         });
