@@ -4,6 +4,7 @@ import { FCell } from '../../../f-components/f-cell/f-cell';
 import {
     FCellPadding,
     FCellProps,
+    FCellShapes,
 } from '../../../f-components/f-cell/f-cell-declarations';
 import { KupDataCell } from '../../../managers/kup-data/kup-data-declarations';
 import { FImage } from '../../../f-components/f-image/f-image';
@@ -126,9 +127,10 @@ export function create4(component: KupCard): VNode {
     for (let index = 0; index < cells.length; index++) {
         const cell = cells[index];
         if (
-            !image &&
-            (dom.ketchup.objects.isImage(cell.obj) ||
-                dom.ketchup.objects.isIcon(cell.obj))
+            (!image &&
+                (dom.ketchup.objects.isImage(cell.obj) ||
+                    dom.ketchup.objects.isIcon(cell.obj))) ||
+            cell.shape === FCellShapes.IMAGE
         ) {
             image = index;
             if (!cell.data) {
