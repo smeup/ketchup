@@ -141,7 +141,6 @@ export function create4(component: KupCard): VNode {
             value = index;
         }
     }
-    console.log(image, cells[image]);
     const imageProps: FCellProps = {
         cell: cells[image],
         column: columns[image],
