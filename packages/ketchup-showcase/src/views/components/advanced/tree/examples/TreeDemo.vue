@@ -130,13 +130,6 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'autoSelectionNodeMode',
-          description: 'Auto selection of the node.',
-          type: 'boolean',
-          default: 'true',
-          try: 'switch',
-        },
-        {
           prop: 'columns',
           description:
             'The columns of the tree when tree visualization is active.',
@@ -247,15 +240,6 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'selectedNode',
-          description:
-            'An array of integers containing the path to a selected child. Groups up the properties SelFirst, SelItem, SelName.',
-          type: 'number',
-          isArray: true,
-          default: '[]',
-          try: 'json',
-        },
-        {
           prop: 'showColumns',
           description: 'Shows the tree data as a table.',
           type: 'boolean',
@@ -299,7 +283,6 @@ export default {
 
 function createComp() {
   let comp = document.createElement('kup-tree');
-  comp.autoSelectionNodeMode = true;
   comp.data = [
     {
       cells: {

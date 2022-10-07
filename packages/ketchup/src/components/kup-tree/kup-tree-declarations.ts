@@ -13,7 +13,6 @@ import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
  */
 export enum KupTreeProps {
     asAccordion = 'When enabled, the first level of depth will give an accordion look to nodes.',
-    autoSelectionNodeMode = 'Auto select programmatic selectic node',
     columns = 'The columns of the tree when tree visualization is active.',
     customStyle = 'Custom style of the component.',
     data = 'The json data used to populate the tree view: the basic, always visible tree nodes.',
@@ -30,7 +29,6 @@ export enum KupTreeProps {
     preventXScroll = 'Experimental feature: when active, the tree will try to prevent horizontal overflowing elements by setting a width on the content of the table cells. It works only on cells of the main column.',
     ripple = "When enabled displays Material's ripple effect on nodes (only when no columns are displayed).",
     scrollOnHover = 'Activates the scroll on hover function.',
-    selectedNode = 'An array of integers containing the path to a selected child. Groups up the properties SelFirst, SelItem, SelName.',
     showColumns = 'Shows the tree data as a table.',
     showFilters = 'When set to true enables the column filters.',
     showFooter = 'When set to true shows the footer.',
@@ -91,14 +89,12 @@ export interface KupTreeNodeExpandEventPayload
 export interface KupTreeNodeSelectedEventPayload
     extends KupTreeNodeCollapseEventPayload {
     columnName: string;
-    auto: boolean;
 }
 
 export interface KupTreeNodeButtonClickEventPayload
     extends KupTreeNodeCollapseEventPayload {
     column: KupDataColumn;
     columnName: string;
-    auto: boolean;
 }
 
 export interface KupTreeContextMenuEventPayload extends KupEventPayload {
