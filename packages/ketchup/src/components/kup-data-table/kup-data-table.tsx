@@ -4516,8 +4516,9 @@ export class KupDataTable {
         return (
             <div class="paginator-wrapper">
                 <div class="paginator-tabs">
-                    {!this.lazyLoadRows &&
-                    this.rowsLength > this.rowsPerPage ? (
+                    {this.showLoadMore ||
+                    (!this.lazyLoadRows &&
+                        this.rowsLength > this.rowsPerPage) ? (
                         <FPaginator
                             id={top ? 'top-paginator' : 'bottom-paginator'}
                             currentPage={this.currentPage}
