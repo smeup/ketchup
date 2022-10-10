@@ -646,12 +646,12 @@ function cellEvent(
 
 function isAutoCentered(props: FCellProps) {
     return autoCenterComps.includes(
-        (props.component as KupComponent).rootElement.tagName as KupTagNames
+        (props.component as KupComponent)?.rootElement.tagName as KupTagNames
     );
 }
 
 function isFullWidth(props: FCellProps) {
     return fullWidthFieldsComps.includes(
-        (props.component as KupComponent).rootElement.tagName as KupTagNames
+        (props.component as KupComponent)?.rootElement.tagName as KupTagNames
     );
 }
