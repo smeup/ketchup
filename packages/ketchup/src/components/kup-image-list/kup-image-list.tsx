@@ -276,6 +276,7 @@ export class KupImageList {
             <FCell
                 cell={{ value: node.value, icon: node.icon, obj: node.obj }}
                 column={{ name: 'IMAGE', title: 'Image' }}
+                component={this}
                 density={FCellPadding.NONE}
                 row={{ ...node }}
             >
