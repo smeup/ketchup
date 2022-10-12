@@ -298,7 +298,7 @@ export class KupFamilyTree {
 
         const data: KupBoxData = {
             columns: [
-                { name: '*TREECOL', title: 'Fake column' },
+                { name: '*TREECOL', title: 'Fake column', visible: false },
                 ...this.data.columns,
             ],
             rows: [{ cells: { '*TREECOL': node, ...node.cells } }],
