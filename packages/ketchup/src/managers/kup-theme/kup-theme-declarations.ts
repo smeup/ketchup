@@ -26,6 +26,7 @@ export const fButtonUsers = [
  */
 export const fCellUsers = [
     KupTagNames.BOX,
+    KupTagNames.CARD,
     KupTagNames.CELL,
     KupTagNames.DATA_TABLE,
     KupTagNames.FORM,

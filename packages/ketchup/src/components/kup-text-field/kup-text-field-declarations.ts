@@ -15,6 +15,7 @@ export enum KupTextFieldProps {
     helperWhenFocused = 'When set, the helper will be shown only when the field is focused.',
     icon = 'When set, the text-field will show this icon.',
     initialValue = 'Sets the initial value of the component',
+    inputMode = 'The HTML inputmode of the input element. It has no effect on text areas.',
     inputType = 'The HTML type of the input element. It has no effect on text areas.',
     isClearable = 'Enables a clear trailing icon.',
     label = 'When set, its content will be shown as a label.',

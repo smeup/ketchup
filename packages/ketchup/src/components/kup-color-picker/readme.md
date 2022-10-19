@@ -91,6 +91,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-card](../kup-card)
  - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
@@ -105,51 +106,28 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-color-picker --> kup-card
-  kup-card --> kup-badge
-  kup-card --> kup-button
-  kup-card --> kup-chip
-  kup-card --> kup-list
-  kup-card --> kup-combobox
-  kup-card --> kup-autocomplete
-  kup-card --> kup-checkbox
-  kup-card --> kup-date-picker
-  kup-card --> kup-text-field
-  kup-card --> kup-time-picker
-  kup-card --> kup-data-table
-  kup-card --> kup-spinner
-  kup-card --> kup-progress-bar
-  kup-card --> kup-chart
-  kup-card --> kup-tab-bar
-  kup-card --> kup-tree
-  kup-card --> kup-switch
-  kup-card --> kup-card
-  kup-badge --> kup-badge
-  kup-badge --> kup-card
-  kup-button --> kup-card
-  kup-button --> kup-badge
-  kup-chip --> kup-card
-  kup-chip --> kup-badge
+  kup-card --> kup-color-picker
+  kup-autocomplete --> kup-list
+  kup-autocomplete --> kup-card
   kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-card
   kup-list --> kup-badge
   kup-radio --> kup-card
+  kup-badge --> kup-badge
+  kup-badge --> kup-card
   kup-combobox --> kup-list
   kup-combobox --> kup-card
-  kup-autocomplete --> kup-list
-  kup-autocomplete --> kup-card
-  kup-checkbox --> kup-card
   kup-date-picker --> kup-card
-  kup-text-field --> kup-card
+  kup-rating --> kup-card
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
-  kup-data-table --> kup-color-picker
-  kup-switch --> kup-card
-  kup-rating --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-card
   kup-image --> kup-badge
   kup-spinner --> kup-card
+  kup-button --> kup-card
+  kup-button --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-badge
@@ -159,6 +137,12 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
+  kup-chip --> kup-card
+  kup-chip --> kup-badge
+  kup-checkbox --> kup-card
+  kup-text-field --> kup-card
+  kup-data-table --> kup-color-picker
+  kup-switch --> kup-card
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
   kup-tree --> kup-color-picker

@@ -391,6 +391,6 @@ export class FiltersRows extends Filters {
             values.push(checkboxes[i]);
         }
 
-        return kupData.cell.getValue({ rows: tmpRows }, column, true);
+        return kupData.cell.getUnivocalValue({ rows: tmpRows }, column, true);
     }
 }

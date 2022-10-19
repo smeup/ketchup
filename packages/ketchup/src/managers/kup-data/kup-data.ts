@@ -52,7 +52,14 @@ export class KupData {
             column: KupDataColumn,
             sorted?: boolean
         ): ValueDisplayedValue[] {
-            return getCellValue(dataset, column, sorted);
+            return getCellValue(dataset, column, sorted, false);
+        },
+        getUnivocalValue(
+            dataset: KupDataDataset,
+            column: KupDataColumn,
+            sorted?: boolean
+        ): ValueDisplayedValue[] {
+            return getCellValue(dataset, column, sorted, true);
         },
         replace(
             dataset: KupDataDataset,
@@ -459,19 +466,17 @@ export class KupData {
             columns: JSON.parse(JSON.stringify(dataset.columns)),
             rows: [],
         };
-        const length = dataset.rows.length;
 
         // sort all columns values by descending
         let values = getCellValue(
             dataset,
-            this.column.find(dataset, { name: headerColumn })[0]
+            this.column.find(dataset, { name: headerColumn })[0],
+            true,
+            true
         );
-        values.sort(function (a, b) {
-            return Number(a.value) - Number(b.value);
-        });
         values.reverse();
-        // excluding duplicates values.
-        values = [...new Set(values)];
+
+        const length = dataset.rows.length;
 
         // calculating middle index
         const idx = Math.floor(length / 2);
@@ -480,7 +485,7 @@ export class KupData {
         let rightIdx = idx + 1;
 
         // sort the rows like a "mountain", the greatest is in the middle and the other ones are splitted left and right
-        for (let i = 0; i < length; i++) {
+        for (let i = 0; i < values.length; i++) {
             const value = values[i].value;
             // looping the rows because we have many rows with same value.
             this.finder(dataset, {

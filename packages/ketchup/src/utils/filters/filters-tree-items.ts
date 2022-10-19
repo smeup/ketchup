@@ -148,7 +148,8 @@ export class FiltersTreeItems extends FiltersRows {
     extractColumnValues(
         rows: Array<KupTreeNode>,
         column: KupDataColumn,
-        values: ValueDisplayedValue[]
+        values: ValueDisplayedValue[],
+        univocal?: boolean
     ) {
         if (rows == null || rows.length == 0) {
             return;
@@ -161,8 +162,18 @@ export class FiltersTreeItems extends FiltersRows {
                 value: node.value,
             };
             if (node.visible) {
-                addColumnValueFromRow(values, column, cellsHolder[column.name]);
-                this.extractColumnValues(node.children, column, values);
+                addColumnValueFromRow(
+                    values,
+                    column,
+                    cellsHolder[column.name],
+                    univocal
+                );
+                this.extractColumnValues(
+                    node.children,
+                    column,
+                    values,
+                    univocal
+                );
             }
         });
         return values;

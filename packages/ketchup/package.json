@@ -1,6 +1,6 @@
 {
     "name": "@sme.up/ketchup",
-    "version": "6.4.0-SNAPSHOT",
+    "version": "6.6.0-SNAPSHOT",
     "keywords": [
         "smeup",
         "KetchUP",
@@ -56,7 +56,7 @@
         "vanilla-picker": "^2.12.1"
     },
     "devDependencies": {
-        "@stencil/core": "^2.17.3",
+        "@stencil/core": "^2.18.1",
         "@stencil/sass": "^1.4.1",
         "@stencil/react-output-target": "0.3.1",
         "@types/d3-shape": "^3.0.2",

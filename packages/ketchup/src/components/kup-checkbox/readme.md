@@ -96,33 +96,28 @@ Type: `Promise<void>`
 graph TD;
   kup-checkbox --> kup-card
   kup-card --> kup-checkbox
-  kup-badge --> kup-badge
-  kup-badge --> kup-card
-  kup-button --> kup-card
-  kup-button --> kup-badge
-  kup-chip --> kup-card
-  kup-chip --> kup-badge
+  kup-autocomplete --> kup-list
+  kup-autocomplete --> kup-card
   kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-card
   kup-list --> kup-badge
   kup-radio --> kup-card
+  kup-badge --> kup-badge
+  kup-badge --> kup-card
+  kup-color-picker --> kup-card
   kup-combobox --> kup-list
   kup-combobox --> kup-card
-  kup-autocomplete --> kup-list
-  kup-autocomplete --> kup-card
   kup-date-picker --> kup-card
-  kup-text-field --> kup-card
+  kup-rating --> kup-card
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
-  kup-data-table --> kup-checkbox
-  kup-switch --> kup-card
-  kup-color-picker --> kup-card
-  kup-rating --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-card
   kup-image --> kup-badge
   kup-spinner --> kup-card
+  kup-button --> kup-card
+  kup-button --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-badge
@@ -132,6 +127,11 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
+  kup-chip --> kup-card
+  kup-chip --> kup-badge
+  kup-text-field --> kup-card
+  kup-data-table --> kup-checkbox
+  kup-switch --> kup-card
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
   kup-tree --> kup-card

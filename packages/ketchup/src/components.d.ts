@@ -1587,6 +1587,11 @@ export namespace Components {
          */
         "autofitOnLoad": boolean;
         /**
+          * Used to render the family tree boxes as kup-cards (through kup-box).
+          * @default null
+         */
+        "cardData": GenericObject;
+        /**
           * Collapses all nodes.
          */
         "collapseAll": (nodes?: KupFamilyTreeNode[]) => Promise<void>;
@@ -2706,6 +2711,11 @@ export namespace Components {
          */
         "initialValue": string;
         /**
+          * The HTML inputmode of the input element.
+          * @default null
+         */
+        "inputMode": string;
+        /**
           * The HTML type of the input element. It has no effect on text areas.
           * @default "text"
          */
@@ -2865,10 +2875,6 @@ export namespace Components {
          */
         "asAccordion": boolean;
         /**
-          * Auto select programmatic selectic node
-         */
-        "autoSelectionNodeMode": boolean;
-        /**
           * Closes any opened column menu.
          */
         "closeColumnMenu": () => Promise<void>;
@@ -2935,6 +2941,10 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * This method will get the selected nodes of the component.
+         */
+        "getSelectedNode": () => Promise<TreeNodePath>;
+        /**
           * When set to true it activates the global filter.
          */
         "globalFilter": boolean;
@@ -2987,14 +2997,16 @@ export namespace Components {
          */
         "scrollOnHover": boolean;
         /**
-          * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
-         */
-        "selectedNode": TreeNodePath;
-        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * This method will set the selected rows of the component.
+          * @param rowsIdentifiers - Array of ids (dataset) or indexes (rendered rows).
+          * @param emitEvent - The event will always be emitted unless emitEvent is set to false.
+         */
+        "setSelectedNode": (treeNodePath: string, emitEvent?: boolean) => Promise<void>;
         /**
           * Shows the tree data as a table.
          */
@@ -4809,6 +4821,11 @@ declare namespace LocalJSX {
          */
         "autofitOnLoad"?: boolean;
         /**
+          * Used to render the family tree boxes as kup-cards (through kup-box).
+          * @default null
+         */
+        "cardData"?: GenericObject;
+        /**
           * Nodes can be expanded/collapsed.
           * @default true
          */
@@ -5639,6 +5656,11 @@ declare namespace LocalJSX {
          */
         "initialValue"?: string;
         /**
+          * The HTML inputmode of the input element.
+          * @default null
+         */
+        "inputMode"?: string;
+        /**
           * The HTML type of the input element. It has no effect on text areas.
           * @default "text"
          */
@@ -5795,10 +5817,6 @@ declare namespace LocalJSX {
          */
         "asAccordion"?: boolean;
         /**
-          * Auto select programmatic selectic node
-         */
-        "autoSelectionNodeMode"?: boolean;
-        /**
           * The columns of the tree when tree visualization is active.
          */
         "columns"?: KupDataColumn[];
@@ -5917,10 +5935,6 @@ declare namespace LocalJSX {
           * Activates the scroll on hover function.
          */
         "scrollOnHover"?: boolean;
-        /**
-          * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
-         */
-        "selectedNode"?: TreeNodePath;
         /**
           * Shows the tree data as a table.
          */

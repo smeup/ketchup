@@ -1,0 +1,33 @@
+.box-layout-3 {
+  background-color: var(--kup-background-color);
+  color: var(--kup-text-color);
+  font-size: var(--kup-font-size);
+  padding: 0.5em;
+
+  .container {
+    display: flex;
+    width: 100%;
+  }
+
+  .flex-container {
+    align-items: center;
+    display: flex;
+  }
+
+  .label {
+    overflow: hidden;
+    padding: 0.5em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 50%;
+  }
+
+  .value {
+    padding: 0.5em;
+    font-weight: bold;
+  }
+
+  .f-cell .f-cell__text {
+    white-space: nowrap;
+  }
+}

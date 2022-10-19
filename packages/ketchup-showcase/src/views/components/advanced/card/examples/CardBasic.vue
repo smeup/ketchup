@@ -24,6 +24,8 @@
       >
       props.
       <br />
+      <span class="code-word">cell</span>: array of cells.
+      <br />
       <span class="code-word">chart</span>: array of objects containing
       <a href="https://ketchup.smeup.com/ketchup-showcase/#/chart">kup-chart</a>
       props.
@@ -38,6 +40,8 @@
       props.
       <br />
       <span class="code-word">color</span>: array of CSS color strings.
+      <br />
+      <span class="code-word">columns</span>: array of columns.
       <br />
       <span class="code-word">combobox</span>: array of objects containing
       <a href="https://ketchup.smeup.com/ketchup-showcase/#/combobox"
@@ -111,8 +115,11 @@
         Currently, the following layouts families are available.
         <br />
         <br />
+        <span class="code-word">box</span>: features cards tailored for
+        kup-boxes (4 layouts).
+        <br />
         <span class="code-word">built-in</span>: features cards that offer a
-        premade layout with integrated functionalities (2 layouts).
+        premade layout with integrated functionalities (5 layouts).
         <br />
         <span class="code-word">collapsible</span>: features cards that can be
         expanded after a user action (2 layouts).

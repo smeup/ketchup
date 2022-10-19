@@ -4516,8 +4516,9 @@ export class KupDataTable {
         return (
             <div class="paginator-wrapper">
                 <div class="paginator-tabs">
-                    {!this.lazyLoadRows &&
-                    this.rowsLength > this.rowsPerPage ? (
+                    {this.showLoadMore ||
+                    (!this.lazyLoadRows &&
+                        this.rowsLength > this.rowsPerPage) ? (
                         <FPaginator
                             id={top ? 'top-paginator' : 'bottom-paginator'}
                             currentPage={this.currentPage}
@@ -4768,12 +4769,14 @@ export class KupDataTable {
                     value = KupLanguageDensity.WIDE;
                     break;
             }
-            listItems[i] = {
-                icon: icons[i],
-                id: codes[i],
-                selected: selectedCode == codes[i],
-                value: this.kupManager.language.translate(value),
-            };
+            if (value) {
+                listItems[i] = {
+                    icon: icons[i],
+                    id: codes[i],
+                    selected: selectedCode == codes[i],
+                    value: this.kupManager.language.translate(value),
+                };
+            }
         }
         return listItems;
     }
@@ -4830,10 +4833,12 @@ export class KupDataTable {
                     isSelect={true}
                     data={data}
                     initialValue={this.kupManager.language.translate(text)}
-                    onkup-combobox-itemclick={(e: CustomEvent) => {
+                    onkup-combobox-itemclick={(
+                        e: CustomEvent<KupComboboxEventPayload>
+                    ) => {
                         e.stopPropagation();
                         this.fontsize = this.getFontSizeCodeFromDecode(
-                            e.detail.value
+                            e.detail.node.id
                         );
                     }}
                 />
@@ -4841,7 +4846,7 @@ export class KupDataTable {
         );
     }
 
-    private DENSITY_DECODES: Array<string> = ['Dense', 'Normal', 'Wide'];
+    private DENSITY_DECODES: Array<string> = ['Dense', 'Medium', 'Wide'];
     private DENSITY_ICONS: Array<string> = [
         'format-align-justify',
         'reorder-horizontal',
@@ -4849,16 +4854,16 @@ export class KupDataTable {
     ];
 
     private getDensityCodeFromDecode(decode: string): string {
-        return this.transcodeItem(
-            decode,
-            this.DENSITY_DECODES,
-            Object.values(FCellPadding)
-        );
+        return this.transcodeItem(decode, this.DENSITY_DECODES, [
+            'dense',
+            'medium',
+            'wide',
+        ]);
     }
 
     private renderDensityPanel() {
         const listItems: KupListNode[] = this.createListData(
-            Object.values(FCellPadding),
+            ['dense', 'medium', 'wide'],
             this.DENSITY_ICONS,
             this.density
         );
@@ -4870,7 +4875,6 @@ export class KupDataTable {
             label: this.kupManager.language.translate(KupLanguageDensity.LABEL),
             icon: 'arrow_drop_down',
         };
-
         const data = { 'kup-text-field': textfieldData, 'kup-list': listData };
         let text: KupLanguageDensity = null;
         switch (this.density) {
@@ -4892,10 +4896,12 @@ export class KupDataTable {
                     initialValue={this.kupManager.language.translate(text)}
                     selectMode={ItemsDisplayMode.DESCRIPTION}
                     data={data}
-                    onkup-combobox-itemclick={(e: CustomEvent) => {
+                    onkup-combobox-itemclick={(
+                        e: CustomEvent<KupComboboxEventPayload>
+                    ) => {
                         e.stopPropagation();
                         this.density = this.getDensityCodeFromDecode(
-                            e.detail.value
+                            e.detail.node.id
                         ) as FCellPadding;
                     }}
                 />

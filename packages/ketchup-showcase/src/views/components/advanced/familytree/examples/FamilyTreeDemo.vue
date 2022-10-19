@@ -81,6 +81,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'cardData',
+          description:
+            'Used to render the family tree boxes as kup-cards (through kup-box).',
+          type: 'GenericObject',
+          default: 'null',
+          try: 'json',
+        },
+        {
           prop: 'collapsible',
           description: 'Nodes can be expanded/collapsed.',
           type: 'boolean',

@@ -137,6 +137,7 @@ export interface KupCardBuiltInNumeric extends HTMLElement {
 export interface KupCardData {
     autocomplete?: GenericObject[];
     button?: GenericObject[];
+    cell?: GenericObject[];
     chart?: GenericObject[];
     checkbox?: GenericObject[];
     chip?: GenericObject[];
@@ -165,6 +166,7 @@ export interface KupCardData {
 /**
  * Layout families of the kup-card component.
  * @enum {string}
+ * @property {string} BOX - Layouts tailored for kup-box.
  * @property {string} BUILT_IN - Cards belonging to this family will be created automatically by the library and will have premade behaviors.
  * @property {string} COLLAPSIBLE - Cards belonging to this family will display an area usable to expand the content of the card.
  * @property {string} DIALOG - Cards belonging to this family will be movable and usually closable.
@@ -173,6 +175,7 @@ export interface KupCardData {
  * @property {string} STANDARD - Stndard layouts.
  */
 export enum KupCardFamily {
+    BOX = 'box',
     BUILT_IN = 'built-in',
     COLLAPSIBLE = 'collapsible',
     DIALOG = 'dialog',
