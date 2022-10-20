@@ -48,7 +48,7 @@
 
 <script>
 export default {
-  name: 'CardBuiltin',
+  name: 'CardFree',
   data() {
     return {
       data: {},

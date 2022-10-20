@@ -36,6 +36,7 @@
     --kup-button-text-on-primary-color,
     var(--kup-text-on-primary-color)
   );
+  --kup_button_text_transform: var(--kup-button-text-transform, uppercase);
   --kup-spinner-color: var(--kup_button_primary_color);
 
   font-size: var(--kup_button_font_size);
@@ -65,7 +66,7 @@
     padding: var(--kup_button_padding);
     position: relative;
     text-decoration: none;
-    text-transform: uppercase;
+    text-transform: var(--kup_button_text_transform);
     transition: background-color 80ms linear,
       box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;

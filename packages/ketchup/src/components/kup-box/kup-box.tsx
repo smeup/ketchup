@@ -706,15 +706,25 @@ export class KupBox {
         let column: KupDataColumn = null;
         if (el) {
             boxObject =
-                el.closest('.box-object') || el.querySelector('.box-object');
+                el.closest('.box-object') ||
+                el.querySelector('.box-object') ||
+                el.closest('.f-cell');
         }
         if (boxObject) {
-            cell = boxObject['data-cell'];
-            row = boxObject['data-row'];
-            column = getColumnByName(
-                this.visibleColumns,
-                boxObject.dataset.column
-            );
+            if (boxObject.classList.contains('f-cell')) {
+                const props = boxObject['kup-get-cell-props']();
+                cell = props.cell;
+                column = props.column;
+                row = props.row;
+            } else {
+                cell = boxObject['data-cell'];
+                row = boxObject['data-row'];
+                column = getColumnByName(
+                    this.visibleColumns,
+                    boxObject.dataset.column
+                );
+            }
+        } else {
         }
 
         return {
@@ -966,7 +976,7 @@ export class KupBox {
         for (const key in row.cells) {
             if (row.cells.hasOwnProperty(key)) {
                 const cell = row.cells[key];
-                if (cell.cardID !== undefined) {
+                if (cell.cardID !== undefined && cell.obj) {
                     switch (cell.obj.p) {
                         case 'BTN':
                             do {
@@ -1007,7 +1017,7 @@ export class KupBox {
         for (const key in row.cells) {
             if (row.cells.hasOwnProperty(key)) {
                 const cell = row.cells[key];
-                if (cell.cardID === undefined) {
+                if (cell.cardID === undefined && cell.obj) {
                     skipPush = false;
                     switch (cell.obj.p) {
                         case 'BTN':

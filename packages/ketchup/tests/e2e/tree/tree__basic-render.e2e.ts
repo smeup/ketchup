@@ -294,7 +294,7 @@ describe('kup-tree with data', () => {
                 await page.waitForChanges();
             });
 
-            test('can be selected programmatically, through prop selectedNode', async () => {
+            test.skip('can be selected programmatically, through prop selectedNode', async () => {
                 const selectedListener = await treeElement.spyOnEvent(
                     'kup-tree-nodeselected'
                 );
@@ -307,8 +307,8 @@ describe('kup-tree with data', () => {
                         updatedData,
                         dataTreeConfiguration.depth
                     );
-
-                    await treeElement.setProperty('selectedNode', treeNodePath);
+                    await treeElement.setSelectedNode(treeNodePath, true);
+                    //await treeElement.setProperty('selectedNode', treeNodePath);
                     await page.waitForChanges();
 
                     console.time('Slept for');

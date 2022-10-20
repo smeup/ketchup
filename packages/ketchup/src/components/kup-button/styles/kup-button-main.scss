@@ -14,6 +14,7 @@
 * @prop --kup-button-primary-color-l: Sets the primary color Lightness value of the button (used for focus/hover effects).
 * @prop --kup-button-primary-color-rgb: Sets the primary color RGB values of the button (used for shaders).
 * @prop --kup-button-text-on-primary-color: Sets text and icon color for raised buttons.
+* @prop --kup-button-text-transform: Set the label case, default is uppercase.
 */
 
 :host {

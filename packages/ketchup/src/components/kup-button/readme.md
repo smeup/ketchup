@@ -79,6 +79,7 @@ Type: `Promise<void>`
 | `--kup-button-primary-color-rgb`     | Sets the primary color RGB values of the button (used for shaders).                   |
 | `--kup-button-primary-color-s`       | Sets the primary color Saturation value of the button (used for focus/hover effects). |
 | `--kup-button-text-on-primary-color` | Sets text and icon color for raised buttons.                                          |
+| `--kup-button-text-transform`        | Set the label case, default is uppercase.                                             |
 
 
 ## Dependencies
@@ -106,28 +107,22 @@ graph TD;
   kup-button --> kup-card
   kup-button --> kup-badge
   kup-card --> kup-button
-  kup-badge --> kup-badge
-  kup-badge --> kup-card
-  kup-chip --> kup-card
-  kup-chip --> kup-badge
+  kup-autocomplete --> kup-list
+  kup-autocomplete --> kup-card
   kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-card
   kup-list --> kup-badge
   kup-radio --> kup-card
+  kup-badge --> kup-badge
+  kup-badge --> kup-card
+  kup-color-picker --> kup-card
   kup-combobox --> kup-list
   kup-combobox --> kup-card
-  kup-autocomplete --> kup-list
-  kup-autocomplete --> kup-card
-  kup-checkbox --> kup-card
   kup-date-picker --> kup-card
-  kup-text-field --> kup-card
+  kup-rating --> kup-card
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
-  kup-data-table --> kup-button
-  kup-switch --> kup-card
-  kup-color-picker --> kup-card
-  kup-rating --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-card
   kup-image --> kup-badge
@@ -141,6 +136,12 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
+  kup-chip --> kup-card
+  kup-chip --> kup-badge
+  kup-checkbox --> kup-card
+  kup-text-field --> kup-card
+  kup-data-table --> kup-button
+  kup-switch --> kup-card
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
   kup-tree --> kup-button

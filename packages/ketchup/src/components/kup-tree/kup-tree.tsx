@@ -118,8 +118,13 @@ export class KupTree {
      */
     @State() private openedTotalMenu: string = null;
     @State() private columnMenuAnchor: string = null;
-    @State() selectedNodeString: string = '';
     @State() stateSwitcher: boolean = false;
+    /**
+     * An array of integers containing the path to a selected child.\
+     * Groups up the properties SelFirst, SelItem, SelName.
+     */
+    @State()
+    private selectedNode: TreeNodePath = [];
 
     initWithPersistedState(): void {
         if (this.store && this.stateId) {
@@ -223,10 +228,6 @@ export class KupTree {
      */
     @Prop({ reflect: true }) asAccordion: boolean = false;
     /**
-     * Auto select programmatic selectic node
-     */
-    @Prop() autoSelectionNodeMode: boolean = true;
-    /**
      * The columns of the tree when tree visualization is active.
      */
     @Prop({ mutable: true }) columns?: KupDataColumn[];
@@ -313,11 +314,6 @@ export class KupTree {
      * Activates the scroll on hover function.
      */
     @Prop() scrollOnHover: boolean = false;
-    /**
-     * An array of integers containing the path to a selected child.\
-     * Groups up the properties SelFirst, SelItem, SelName.
-     */
-    @Prop({ mutable: true }) selectedNode: TreeNodePath = [];
     /**
      * Shows the tree data as a table.
      */
@@ -514,6 +510,37 @@ export class KupTree {
     })
     kupColumnRemove: EventEmitter<KupTreeColumnRemoveEventPayload>;
 
+    /**
+     * This method will get the selected nodes of the component.
+     */
+    @Method()
+    async getSelectedNode(): Promise<TreeNodePath> {
+        return this.selectedNode;
+    }
+
+    /**
+     * This method will set the selected rows of the component.
+     * @param {string|number[]} rowsIdentifiers - Array of ids (dataset) or indexes (rendered rows).
+     * @param {boolean} emitEvent - The event will always be emitted unless emitEvent is set to false.
+     */
+    @Method()
+    async setSelectedNode(
+        treeNodePath: string,
+        emitEvent?: boolean
+    ): Promise<void> {
+        this.selectedNode = treeNodePath
+            .split(',')
+            .map((treeNodeIndex) => parseInt(treeNodeIndex));
+        if (emitEvent !== false) {
+            this.kupTreeNodeSelected.emit({
+                comp: this,
+                id: this.rootElement.id,
+                treeNodePath: this.selectedNode,
+                treeNode: this.getTreeNode(this.selectedNode),
+                columnName: this.selectedColumn,
+            });
+        }
+    }
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
     /*-------------------------------------------------*/
@@ -538,12 +565,6 @@ export class KupTree {
         }
     }
 
-    @Watch('selectedNode')
-    selectedNodeToStr(newData) {
-        if (Array.isArray(newData)) {
-            this.selectedNodeString = newData.toString();
-        }
-    }
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
@@ -865,8 +886,7 @@ export class KupTree {
                     this.hdlTreeNodeClick(
                         null,
                         tn,
-                        this.selectedNodeString,
-                        true
+                        this.selectedNodeToString(this.selectedNode)
                     );
                 }
             }
@@ -1020,8 +1040,7 @@ export class KupTree {
     hdlTreeNodeClick(
         e: MouseEvent,
         treeNodeData: KupTreeNode,
-        treeNodePath: string,
-        auto: boolean
+        treeNodePath: string
     ) {
         if (
             this.expansionMode.toLowerCase() ===
@@ -1036,20 +1055,16 @@ export class KupTree {
                 : null;
             // If this TreeNode is not disabled, then it can be selected and an event is emitted
             if (treeNodeData && !treeNodeData.disabled) {
-                if (this.autoSelectionNodeMode)
-                    this.selectedNode = treeNodePath
-                        .split(',')
-                        .map((treeNodeIndex) => parseInt(treeNodeIndex));
+                this.selectedNode = treeNodePath
+                    .split(',')
+                    .map((treeNodeIndex) => parseInt(treeNodeIndex));
 
                 this.kupTreeNodeSelected.emit({
                     comp: this,
                     id: this.rootElement.id,
-                    treeNodePath: treeNodePath
-                        .split(',')
-                        .map((treeNodeIndex) => parseInt(treeNodeIndex)),
+                    treeNodePath: this.selectedNode,
                     treeNode: treeNodeData,
-                    columnName: td ? td.dataset.column : null,
-                    auto: auto,
+                    columnName: this.selectedColumn,
                 });
             }
         }
@@ -1166,9 +1181,9 @@ export class KupTree {
         return this.totals && Object.keys(this.totals).length > 0;
     }
 
-    private handleChildren(TreeNode: KupTreeNode, expand: boolean) {
-        for (let index = 0; index < TreeNode.children.length; index++) {
-            let node = TreeNode.children[index];
+    private handleChildren(treeNode: KupTreeNode, expand: boolean) {
+        for (let index = 0; index < treeNode.children.length; index++) {
+            let node = treeNode.children[index];
             if (!node.disabled) {
                 node.isExpanded = expand;
                 if (node.children) {
@@ -1187,7 +1202,7 @@ export class KupTree {
         if (nodePath && nodePath.length) {
             strToRet = nodePath[0].toString();
             for (let i = 1; i < nodePath.length; i++) {
-                strToRet += `,${nodePath[0]}`;
+                strToRet += `,${nodePath[i]}`;
             }
         }
         return strToRet;
@@ -1198,6 +1213,22 @@ export class KupTree {
             this.filters,
             column
         );
+    }
+
+    private getTreeNode(nodePath: TreeNodePath): KupTreeNode {
+        if (!nodePath || nodePath.length == 0) {
+            return null;
+        }
+        let father = this.data;
+        let node: KupTreeNode = null;
+        for (let index = 0; index < nodePath.length; index++) {
+            if (node) {
+                father = node.children;
+            }
+            const nodeIndex = nodePath[index];
+            node = father[nodeIndex];
+        }
+        return node;
     }
 
     private onRemoveFilter(column: KupDataColumn) {
@@ -1274,6 +1305,7 @@ export class KupTree {
                     this.expanded && !this.useDynamicExpansion
                 );
             });
+            this.selectedNode = [];
         }
     }
 
@@ -1566,8 +1598,7 @@ export class KupTree {
                             this.hdlTreeNodeClick(
                                 clone as MouseEvent,
                                 treeNodeData,
-                                treeNodePath,
-                                false
+                                treeNodePath
                             ),
                         300
                     )
@@ -1688,7 +1719,8 @@ export class KupTree {
                     'kup-tree__node--first': treeNodeDepth ? false : true,
                     'kup-tree__node--selected':
                         !treeNodeData.disabled &&
-                        treeNodePath === this.selectedNodeString,
+                        treeNodePath ===
+                            this.selectedNodeToString(this.selectedNode),
                 }}
                 data-row={treeNodeData}
                 data-tree-path={treeNodePath}
@@ -2040,27 +2072,9 @@ export class KupTree {
         this.kupManager.theme.register(this);
         this.columnMenuInstance = new KupColumnMenu();
         this.refreshStructureState();
-        // Initializes the selectedNodeString
-        if (Array.isArray(this.selectedNode)) {
-            this.selectedNodeString = this.selectedNode.toString();
-        }
     }
 
     componentDidLoad() {
-        if (
-            this.selectedNode &&
-            this.selectedNode.length > 0 &&
-            this.selectedNode[0] >= 0
-        ) {
-            let path = this.selectedNode;
-            let tn = this.data[path[0]];
-            if (path.length > 1) {
-                path = path.slice(1);
-                this.launchNodeEvent(path, tn);
-            } else {
-                this.hdlTreeNodeClick(null, tn, this.selectedNodeString, true);
-            }
-        }
         this.didLoadInteractables();
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
         this.kupManager.resize.observe(this.rootElement);

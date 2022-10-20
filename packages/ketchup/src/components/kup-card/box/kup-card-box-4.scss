@@ -1,0 +1,30 @@
+.box-layout-4 {
+  background-color: var(--kup-background-color);
+  color: var(--kup-text-color);
+  display: flex;
+  font-size: var(--kup-font-size);
+  height: 100%;
+  padding: 0.5em;
+
+  .container {
+    margin: auto;
+    width: 100%;
+  }
+
+  .image {
+    border-radius: 50%;
+    height: 64px;
+    margin: auto;
+    width: 64px;
+  }
+
+  .value {
+    padding: 0.5em;
+    font-weight: bold;
+  }
+
+  .f-cell.c-centered .f-cell__content img,
+  .f-cell.c-centered .f-cell__content .f-image {
+    margin: 0;
+  }
+}

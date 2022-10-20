@@ -29,6 +29,9 @@
         <card-free></card-free>
       </template>
       <template v-slot:9>
+        <card-box></card-box>
+      </template>
+      <template v-slot:10>
         <card-dialog></card-dialog>
       </template>
     </comp>
@@ -38,6 +41,7 @@
 <script>
 import CardDemo from '@/views/components/advanced/card/examples/CardDemo';
 import CardBasic from '@/views/components/advanced/card/examples/CardBasic';
+import CardBox from '@/views/components/advanced/card/examples/CardBox';
 import CardStyling from '@/views/components/advanced/card/examples/CardStyling';
 import CardMenu from '@/views/components/advanced/card/examples/CardMenu';
 import CardBuiltin from '@/views/components/advanced/card/examples/CardBuiltin';
@@ -51,6 +55,7 @@ export default {
   components: {
     CardDemo,
     CardBasic,
+    CardBox,
     CardStyling,
     CardMenu,
     CardBuiltin,
@@ -76,6 +81,7 @@ export default {
         'Scalable layouts',
         'Built-in layouts',
         'Free layouts',
+        'Box layouts',
         'Dialog layouts',
       ],
     };

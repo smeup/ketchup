@@ -86,7 +86,7 @@ export default {
         {
           prop: 'layoutFamily',
           description:
-            'Sets the type of the card. Currently supported values: "built-in", "collapsible", "dialog",  "free", "scalable", "standard".',
+            'Sets the type of the card. Currently supported values: "box", "built-in", "collapsible", "dialog",  "free", "scalable", "standard".',
           type: 'KupCardFamily',
           default: 'standard',
           try: 'field',

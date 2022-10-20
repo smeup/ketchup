@@ -1,4 +1,5 @@
 import { KupEventPayload } from '../../types/GenericTypes';
+import { KupListNode } from '../kup-list/kup-list-declarations';
 
 /**
  * Props of the kup-combobox component.
@@ -16,8 +17,9 @@ export enum KupComboboxProps {
 }
 
 export interface KupComboboxEventPayload extends KupEventPayload {
-    value: any;
     inputValue: any;
+    node?: KupListNode;
+    value: any;
 }
 export interface KupComboboxIconClickEventPayload
     extends KupComboboxEventPayload {
