@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "allowUnreachableCode": false,
+        "declaration": true,
+        "experimentalDecorators": true,
+        "jsx": "react",
+        "lib": ["dom", "es2017"],
+        "moduleResolution": "node",
+        "module": "esnext",
+        "noUnusedLocals": false,
+        "noUnusedParameters": true,
+        "resolveJsonModule": true,
+        "target": "es2017",
+        "outDir": "./dist"
+    },
+    "include": ["src", "types/jsx.d.ts"],
+    "exclude": ["node_modules"]
+}

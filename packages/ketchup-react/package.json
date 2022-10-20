@@ -1,0 +1,34 @@
+{
+    "name": "@sme.up/ketchup-react",
+    "version": "2.0.0",
+    "exports": "./dist/index.js",
+    "types": "dist/index.d.ts",
+    "keywords": [
+        "smeup",
+        "KetchUP showcase",
+        "pwa",
+        "custom elements",
+        "components"
+    ],
+    "files": [
+        "dist/"
+    ],
+    "scripts": {
+        "build": "npm run clean && tsc",
+        "clean": "rimraf dist"
+    },
+    "description": "Ketchup React Components library by smeup",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "@sme.up/ketchup": "../ketchup",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "rimraf": "^3.0.2"
+    },
+    "devDependencies": {
+        "typescript": "4.2.3",
+        "@types/node": "18.0.0",
+        "@types/react": "18.0.14",
+        "@types/react-dom": "18.0.5"
+    }
+}

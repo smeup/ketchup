@@ -1,5 +1,6 @@
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
+import { reactOutputTarget } from '@stencil/react-output-target';
 
 export const config: Config = {
     sourceMap: false,
@@ -62,6 +63,11 @@ export const config: Config = {
             ],
             serviceWorker: null, // disable service workers
         },
+        reactOutputTarget({
+            componentCorePackage: '@sme.up/ketchup',
+            proxiesFile: '../ketchup-react/src/index.ts',
+            includeDefineCustomElements: true,
+        }),
     ],
     plugins: [
         sass({

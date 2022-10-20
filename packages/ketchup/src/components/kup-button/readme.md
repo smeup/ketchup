@@ -79,6 +79,7 @@ Type: `Promise<void>`
 | `--kup-button-primary-color-rgb`     | Sets the primary color RGB values of the button (used for shaders).                   |
 | `--kup-button-primary-color-s`       | Sets the primary color Saturation value of the button (used for focus/hover effects). |
 | `--kup-button-text-on-primary-color` | Sets text and icon color for raised buttons.                                          |
+| `--kup-button-text-transform`        | Set the label case, default is uppercase.                                             |
 
 
 ## Dependencies
