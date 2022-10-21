@@ -239,6 +239,42 @@
         </div>
       </div>
     </div>
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 9</span> settings:
+        <br />
+        <br />
+        <span class="code-word">- color[0]</span>: The color of left vertical
+        bar (optional, by default is primary color of theme).
+        <br />
+        <span class="code-word">- color[1]</span>: The color of background
+        component (optional, by default is background color of theme).
+        <br />
+        <span class="code-word">- color[2]</span>: The color of text in right
+        area (optional, by default is text color of theme).
+        <br />
+        <span class="code-word">- text[0]</span>: The main emphasized text,
+        ideally for a value.
+        <br />
+        <span class="code-word">- text[1]</span>: A description text (optional).
+        <br />
+        <span class="code-word">- button[0-3]</span>: A list of button at bottom
+        of right area (optional).
+        <br />
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            size-x="300px"
+            size-y="200px"
+            layout-number="9"
+            layout-family="scalable"
+            :data.prop="data"
+          ></kup-card>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -256,6 +292,10 @@ export default {
           },
         ],
         text: ['t[0]', 't[1]', 't[2]', 't[3]'],
+        button: [
+          { id: 'search', icon: 'search', title: 'Find objects' },
+          { id: 'widgets', icon: 'widgets', title: 'Open objects' },
+        ],
       },
     };
   },
