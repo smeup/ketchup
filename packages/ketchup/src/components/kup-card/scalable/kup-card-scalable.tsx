@@ -500,19 +500,22 @@ export function create9(component: KupCard): VNode {
     buttons.reverse();
 
     //Dynamic CSS variables
-    let CSSVariables: GenericObject = {
+    const CSSVariables: GenericObject = {
         ['--color-0']: lineBg,
         ['--color-1']: componentBg,
         ['--color-2']: textFg,
     };
+    const CSSVariablesChild: GenericObject = {
+        ['--kup_card_multiplier']: '1',
+    };
     return (
         <div
-            class={`scalable-layout-${component.layoutNumber} scalable-card`}
+            class={`scalable-layout-${component.layoutNumber}`}
             style={CSSVariables}
         >
             <div class="section-1"></div>
-            <div class="section-2">
-                <div class="text">
+            <div class="section-2 scalable-card" style={CSSVariablesChild}>
+                <div class="text scalable-element">
                     <div class="value">{mainText}</div>
                     <div class="descr">{subText}</div>
                 </div>
