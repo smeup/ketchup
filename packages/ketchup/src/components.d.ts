@@ -2037,6 +2037,11 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * Returns the selected node.
+          * @returns Selected node.
+         */
+        "getSelectedNode": () => Promise<KupListNode[]>;
+        /**
           * Hides rows' text, ideally to display a list of icons only.
           * @default false
          */
