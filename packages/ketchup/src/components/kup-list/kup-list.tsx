@@ -213,10 +213,6 @@ export class KupList {
     }
 
     /*-------------------------------------------------*/
-    /*                  W a t c h e r s                */
-    /*-------------------------------------------------*/
-
-    /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
@@ -280,6 +276,20 @@ export class KupList {
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         return getProps(this, KupListProps, descriptions);
+    }
+    /**
+     * Returns the selected node.
+     * @returns {Promise<KupListNode>} Selected node.
+     */
+    @Method()
+    async getSelectedNode(): Promise<KupListNode[]> {
+        const nodes: KupListNode[] = [];
+        this.data.forEach((node) => {
+            if (this.selected.includes(node.id)) {
+                nodes.push(node);
+            }
+        });
+        return nodes;
     }
     /**
      * This method is used to trigger a new render of the component.
