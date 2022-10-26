@@ -83,7 +83,13 @@ defineCustomElements(window);
 
 ### Contributing
 
-If you have amazing ideas and you wish to contribute to this project, you're welcome to do so. Check out our [style guide](docs/styleGuide.md) for more details about our coding practices.
+In order to keep the code under control, if you want to contribute you must have knowledge of the following fundamentals:
+
+ - Git (how branching works, scoped commits and clear pull requests);
+ - Deep understanding of TypeScript, Sass and JSX (the core of the library);
+ - Basic understanding of Vue2 (this is only for the showcase, yet still important because components must be showcased once created). 
+
+If you respect this prerequisites and you wish to contribute to this project, you're welcome to do so. Check out our [style guide](docs/styleGuide.md) for more details about our coding practices.
 
 ### Issues
 

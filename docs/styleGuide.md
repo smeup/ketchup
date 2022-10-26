@@ -366,3 +366,19 @@ And an example of a prop:
      */
     @Prop() label: string = null;
 ```
+## Commits
+
+Commits should wrap all the edits concerning a common fix or feature and they must be formatted like this: 
+
+```
+Component: name of the fix/feature.
+```
+
+A few examples below.
+   
+```
+FTextField: handled input type.
+kup-box: added kanban feature.
+kup-data-table: improved render performances.
+Showcase: created family tree page.
+```
