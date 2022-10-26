@@ -507,6 +507,7 @@ export function create9(component: KupCard): VNode {
     };
     const CSSVariablesChild: GenericObject = {
         ['--kup_card_multiplier']: '1',
+        ['box-shadow']: 'none',
     };
     return (
         <div
@@ -514,13 +515,15 @@ export function create9(component: KupCard): VNode {
             style={CSSVariables}
         >
             <div class="section-1"></div>
-            <div class="section-2 scalable-card" style={CSSVariablesChild}>
-                <div class="text scalable-element">
-                    <div class="value">{mainText}</div>
-                    <div class="descr">{subText}</div>
+            <div class="section-2">
+                <div class="scalable-card" style={CSSVariablesChild}>
+                    <div class="text scalable-element">
+                        <div class="value">{mainText}</div>
+                        <div class="descr">{subText}</div>
+                    </div>
                 </div>
-                <div class="buttons">
-                    <div class="buttons-content">
+                {buttons.length > 0 ? (
+                    <div class="buttons">
                         {buttons.map((b) => (
                             <FButton
                                 icon={b.icon}
@@ -536,7 +539,7 @@ export function create9(component: KupCard): VNode {
                             />
                         ))}
                     </div>
-                </div>
+                ) : undefined}
             </div>
         </div>
     );
