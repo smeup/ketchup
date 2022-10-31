@@ -21,7 +21,7 @@
     },
     "scripts": {
         "lerna": "lerna",
-        "k:build": "lerna run build --scope @sme.up/ketchup --stream",
+        "k:build": "lerna run build --scope @sme.up/ketchup --stream && lerna run build --scope @sme.up/ketchup-react --stream",
         "k:start": "lerna run start --scope @sme.up/ketchup --stream",
         "k:test:unit": "lerna run test:spec --scope @sme.up/ketchup --stream",
         "k:test:e2e": "lerna run test:e2e --scope @sme.up/ketchup --stream",

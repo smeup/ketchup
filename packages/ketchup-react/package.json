@@ -10,6 +10,7 @@
         "custom elements",
         "components"
     ],
+    "type": "module",
     "files": [
         "dist/"
     ],
