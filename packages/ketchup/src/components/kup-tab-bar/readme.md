@@ -33,6 +33,16 @@ Type: `Promise<GenericObject>`
 
 List of props as object, each key will be a prop.
 
+### `getSelectedNode() => Promise<KupTabBarNode>`
+
+Returns the selected node.
+
+#### Returns
+
+Type: `Promise<KupTabBarNode>`
+
+Selected node.
+
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.

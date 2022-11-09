@@ -2639,6 +2639,11 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * Returns the selected node.
+          * @returns Selected node.
+         */
+        "getSelectedNode": () => Promise<KupTabBarNode>;
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
