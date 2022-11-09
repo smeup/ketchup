@@ -131,7 +131,7 @@ export class KupTabBar {
             this.data[i].active = false;
         }
         this.data[i].active = true;
-        this.value = this.data[i].value;
+        this.value = node.id;
 
         this.kupClick.emit({
             comp: this,
@@ -183,6 +183,21 @@ export class KupTabBar {
         return getProps(this, KupTabBarProps, descriptions);
     }
     /**
+     * Returns the selected node.
+     * @returns {Promise<KupTabBarNode>} Selected node.
+     */
+    @Method()
+    async getSelectedNode(): Promise<KupTabBarNode> {
+        let res: KupTabBarNode = null;
+        this.data.forEach((node) => {
+            console.log(this.value, node);
+            if (node.id === this.value) {
+                res = node;
+            }
+        });
+        return res;
+    }
+    /**
      * This method is used to trigger a new render of the component.
      */
     @Method()
@@ -215,7 +230,7 @@ export class KupTabBar {
             }
             if (activeTabs > 1) {
                 this.data[lastActiveOccurrence].active = true;
-                this.value = this.data[lastActiveOccurrence].value;
+                this.value = this.data[lastActiveOccurrence].id;
                 this.kupManager.debug.logMessage(
                     this,
                     'Too many active tabs, forcing last one.',
@@ -223,13 +238,14 @@ export class KupTabBar {
                 );
             } else if (activeTabs === 0) {
                 this.data[0].active = true;
-                this.value = this.data[0].value;
+                this.value = this.data[0].id;
                 this.kupManager.debug.logMessage(
                     this,
                     'No active tabs detected, forcing first one.'
                 );
             } else {
                 this.data[lastActiveOccurrence].active = true;
+                this.value = this.data[lastActiveOccurrence].id;
             }
         }
     }

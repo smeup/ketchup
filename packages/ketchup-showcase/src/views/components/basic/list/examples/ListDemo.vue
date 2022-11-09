@@ -3,6 +3,7 @@
     <demo
       :demoComp="demoComp"
       :demoEvents="demoEvents"
+      :demoMethods="demoMethods"
       :demoProps="demoProps"
       :demoClasses="demoClasses"
     ></demo>
