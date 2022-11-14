@@ -1202,10 +1202,10 @@ export class KupDataTable {
     }
 
     /**
-     * Sets the focus on an editable table cell.
+     * Sets the cell value in a table cell.
      * @param {string} columnName - Name of the column.
      * @param {string} rowId - Id of the row.
-     * @param {string} value - Value to set
+     * @param {string} value - Value to set.
      */
     @Method()
     async setCellValue(

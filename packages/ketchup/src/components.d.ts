@@ -1234,10 +1234,10 @@ export namespace Components {
          */
         "selection": SelectionMode;
         /**
-          * Sets the focus on an editable table cell.
+          * Sets the cell value in a table cell.
           * @param columnName - Name of the column.
           * @param rowId - Id of the row.
-          * @param value - Value to set
+          * @param value - Value to set.
          */
         "setCellValue": (columnName: string, rowId: string, value: string) => Promise<void>;
         /**

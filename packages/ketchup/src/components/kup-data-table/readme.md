@@ -231,7 +231,7 @@ Type: `Promise<void>`
 
 ### `setCellValue(columnName: string, rowId: string, value: string) => Promise<void>`
 
-Sets the focus on an editable table cell.
+Sets the cell value in a table cell.
 
 #### Returns
 
