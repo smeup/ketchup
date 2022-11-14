@@ -50,7 +50,10 @@ import {
     KupDataTableRowCells,
     KupDataTableCell,
 } from './kup-data-table-declarations';
-import { getColumnByName } from '../../utils/cell-utils';
+import {
+    getCellValueForDisplay,
+    getColumnByName,
+} from '../../utils/cell-utils';
 import {
     calcTotals,
     normalizeRows,
@@ -159,6 +162,7 @@ import {
     KupDataDataset,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
+    KupDataRow,
     KupDataRowAction,
 } from '../../managers/kup-data/kup-data-declarations';
 
@@ -1196,6 +1200,58 @@ export class KupDataTable {
             this.resizeTimeout = window.setTimeout(() => this.refresh(), 300);
         }
     }
+
+    /**
+     * Sets the cell value in a table cell.
+     * @param {string} columnName - Name of the column.
+     * @param {string} rowId - Id of the row.
+     * @param {string} value - Value to set.
+     */
+    @Method()
+    async setCellValue(
+        columnName: string,
+        rowId: string,
+        value: string
+    ): Promise<void> {
+        const column = getColumnByName(this.data.columns, columnName);
+        if (!column) {
+            return;
+        }
+        const row = this.getRow(rowId);
+        if (!row) {
+            return;
+        }
+        const cell = row.cells[columnName];
+        if (!cell) {
+            return;
+        }
+        cell.value = value;
+        cell.displayedValue = null;
+
+        const cellValueForDisplay = getCellValueForDisplay(column, cell);
+        const cells = this.rootElement.shadowRoot.querySelectorAll(
+            'td[data-column="' + columnName + '"]'
+        );
+        for (let index = 0; cells && index < cells.length; index++) {
+            const cell = cells[index];
+            if (cell['data-row'] && cell['data-row'].id == rowId) {
+                const input = cell.querySelector('input');
+                if (input) {
+                    input.value = cellValueForDisplay;
+                } else {
+                    const kupInput = cell.querySelector('.hydrated');
+                    if (kupInput) {
+                        try {
+                            (kupInput as any).setValue(value);
+                            //(kupInput as any).refresh();
+                        } catch (error) {}
+                    }
+                }
+                break;
+            }
+        }
+    }
+
     /**
      * Sets the focus on an editable table cell.
      * @param {string} column - Name of the column.
@@ -1245,12 +1301,7 @@ export class KupDataTable {
         this.selectedRows = [];
         for (let index = 0; index < rowsIdentifiers.length; index++) {
             const id = rowsIdentifiers[index];
-            if (typeof id === 'number') {
-                this.selectedRows.push(this.renderedRows[id]);
-            } else {
-                const row = this.renderedRows.find((row) => row.id === id);
-                this.selectedRows.push(row);
-            }
+            this.selectedRows.push(this.getRow(id));
         }
 
         if (emitEvent !== false) {
@@ -1337,6 +1388,21 @@ export class KupDataTable {
             // transpose
             this.setTransposedData();
         }
+    }
+
+    private getRow(id: string | number): KupDataRow {
+        if (typeof id === 'number') {
+            return this.renderedRows[id];
+        } else {
+            return this.renderedRows.find((row) => row.id === id);
+        }
+    }
+
+    private getTransposedData(column?: string): KupDataDataset {
+        if (column) {
+            this.filters = {};
+        }
+        return this.kupManager.data.transpose(this.data, column);
     }
 
     private setTransposedData(): void {
@@ -1482,13 +1548,6 @@ export class KupDataTable {
         if (column.icon) {
             delete column.icon;
         }
-    }
-
-    private getTransposedData(column?: string): KupDataDataset {
-        if (column) {
-            this.filters = {};
-        }
-        return this.kupManager.data.transpose(this.data, column);
     }
 
     private stickyHeaderPosition = () => {

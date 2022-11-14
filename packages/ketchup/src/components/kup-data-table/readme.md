@@ -229,6 +229,16 @@ Type: `Promise<void>`
 
 
 
+### `setCellValue(columnName: string, rowId: string, value: string) => Promise<void>`
+
+Sets the cell value in a table cell.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setFocus(column: string, rowId: string) => Promise<void>`
 
 Sets the focus on an editable table cell.
