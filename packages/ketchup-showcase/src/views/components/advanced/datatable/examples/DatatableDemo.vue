@@ -137,6 +137,10 @@ export default {
             'This method is invoked by KupManager whenever the component changes size.',
         },
         {
+          name: 'setCellValue',
+          description: 'Sets the a new cell value in table.',
+        },
+        {
           name: 'setFocus',
           description: 'Sets the focus on an editable table cell.',
         },
