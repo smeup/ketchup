@@ -597,6 +597,7 @@ function cellEvent(
         ? (e.target as HTMLInputElement).value
         : e.detail.value;
     if (cellEventName === FCellEvents.UPDATE) {
+        debugger;
         switch (cellType) {
             case FCellTypes.AUTOCOMPLETE:
             case FCellTypes.COMBOBOX:

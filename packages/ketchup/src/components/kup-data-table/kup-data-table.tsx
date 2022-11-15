@@ -1227,29 +1227,28 @@ export class KupDataTable {
         }
         cell.value = value;
         cell.displayedValue = null;
+        if (cell.data) {
+            cell.data.key = new Date().getTime() + column.name;
+            cell.data.initialValue = value;
+        }
 
-        const cellValueForDisplay = getCellValueForDisplay(column, cell);
+        /*
         const cells = this.rootElement.shadowRoot.querySelectorAll(
             'td[data-column="' + columnName + '"]'
         );
         for (let index = 0; cells && index < cells.length; index++) {
             const cell = cells[index];
             if (cell['data-row'] && cell['data-row'].id == rowId) {
-                const input = cell.querySelector('input');
-                if (input) {
-                    input.value = cellValueForDisplay;
-                } else {
-                    const kupInput = cell.querySelector('.hydrated');
-                    if (kupInput) {
-                        try {
-                            (kupInput as any).setValue(value);
-                            //(kupInput as any).refresh();
-                        } catch (error) {}
-                    }
+                const kupInput = cell.querySelector('.hydrated');
+                if (kupInput) {
+                    try {
+                        (kupInput as any).setValue(value);
+                    } catch (error) {}
                 }
                 break;
             }
-        }
+        }*/
+        this.refresh();
     }
 
     /**
@@ -1392,9 +1391,9 @@ export class KupDataTable {
 
     private getRow(id: string | number): KupDataRow {
         if (typeof id === 'number') {
-            return this.renderedRows[id];
+            return this.data.rows[id];
         } else {
-            return this.renderedRows.find((row) => row.id === id);
+            return this.data.rows.find((row) => row.id === id);
         }
     }
 
