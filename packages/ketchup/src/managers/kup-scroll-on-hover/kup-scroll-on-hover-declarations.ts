@@ -7,6 +7,7 @@ export interface KupScrollOnHoverElement extends HTMLElement {
         children: NodeListOf<HTMLElement>;
         percentages: KupScrollOnHoverPercentages;
         rect: DOMRect;
+        step?: number;
         vertical: boolean;
         x: number;
         y: number;

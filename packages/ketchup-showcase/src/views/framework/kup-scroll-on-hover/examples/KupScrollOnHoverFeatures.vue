@@ -13,9 +13,10 @@
             element scrolls.<br /><br />
             - <strong>el (KupScrollOnHoverElement)</strong> - Element to
             watch.<br />
-            - <strong>vertical (boolean)</strong> - Enables vertical scroll..<br />
+            - <strong>vertical (boolean)</strong> - Enables vertical scroll.<br />
             - <strong>percentages (KupScrollOnHoverPercentages)</strong> - Sets
-            how big is the area in which the scroll is enabled.<br /> </p
+            how big is the area in which the scroll is enabled.<br />
+            - <strong>step (number)</strong> - Sets the speed of the scroll.<br /> </p
           ><div class="demo-container">
             <div id="scrolling-div"
               ><kup-card id="scrolling-card"></kup-card>
