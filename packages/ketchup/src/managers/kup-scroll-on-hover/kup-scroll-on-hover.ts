@@ -84,11 +84,13 @@ export class KupScrollOnHover {
      * @param {KupScrollOnHoverElement} el - Element to watch.
      * @param {boolean} vertical - Enables vertical scroll.
      * @param {KupScrollOnHoverPercentages} percentages - Sets how big is the area in which the scroll is enabled.
+     * @param {number} step - The amount in pixels for each scroll recursion.
      */
     register(
         el: KupScrollOnHoverElement,
         vertical?: boolean,
-        percentages?: KupScrollOnHoverPercentages
+        percentages?: KupScrollOnHoverPercentages,
+        step?: number
     ): void {
         if (!this.#arrowsContainer) {
             this.#initArrows();
@@ -101,6 +103,7 @@ export class KupScrollOnHover {
                 ? percentages
                 : { back: 0.1, forward: 0.9 },
             rect: null,
+            step: step,
             vertical: vertical || null,
             x: 0,
             y: 0,
@@ -319,7 +322,9 @@ export class KupScrollOnHover {
                     this.stop(el);
                     return;
                 }
-                el.scrollTop += this.step;
+                el.scrollTop += el.scrollOnHover.step
+                    ? el.scrollOnHover.step
+                    : this.step;
                 break;
             }
             case ScrollOnHoverDirection.LEFT: {
@@ -328,7 +333,9 @@ export class KupScrollOnHover {
                     this.stop(el);
                     return;
                 }
-                el.scrollLeft -= this.step;
+                el.scrollLeft -= el.scrollOnHover.step
+                    ? el.scrollOnHover.step
+                    : this.step;
                 break;
             }
             case ScrollOnHoverDirection.RIGHT: {
@@ -337,7 +344,9 @@ export class KupScrollOnHover {
                     this.stop(el);
                     return;
                 }
-                el.scrollLeft += this.step;
+                el.scrollLeft += el.scrollOnHover.step
+                    ? el.scrollOnHover.step
+                    : this.step;
                 break;
             }
             case ScrollOnHoverDirection.TOP: {
@@ -346,7 +355,9 @@ export class KupScrollOnHover {
                     this.stop(el);
                     return;
                 }
-                el.scrollTop -= this.step;
+                el.scrollTop -= el.scrollOnHover.step
+                    ? el.scrollOnHover.step
+                    : this.step;
                 break;
             }
         }
