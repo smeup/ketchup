@@ -47,6 +47,7 @@ export interface KupBoxData {
 export interface KupBoxRow extends KupDataRow {
     layout?: KupBoxLayout;
     badgeData?: KupBadge[];
+    style?: { [index: string]: string };
 }
 
 export interface KupBoxLayout {
