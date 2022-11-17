@@ -1253,8 +1253,10 @@ export class KupBox {
             column: !horizontal,
         };
 
+        const rowStyle: any = row.style || {};
+
         return (
-            <div class="box-wrapper">
+            <div class="box-wrapper" style={rowStyle}>
                 <div
                     class={boxClass}
                     onClick={(e) => this.onBoxClick(e, row)}
