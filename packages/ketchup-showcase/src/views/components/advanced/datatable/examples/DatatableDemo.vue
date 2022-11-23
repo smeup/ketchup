@@ -106,6 +106,11 @@ export default {
           description: 'Collapses all groups.',
         },
         {
+          name: 'deleteRows',
+          description:
+            'This method will delete rows by id from the data table dataset.',
+        },
+        {
           name: 'expandAll',
           description: 'Expands all groups.',
         },
