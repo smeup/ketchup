@@ -139,6 +139,16 @@ Type: `Promise<KupDataColumn[]>`
 
 
 
+### `deleteRows(ids?: string[]) => Promise<Array<KupDataTableRow>>`
+
+This method will delete rows by id from the data table dataset.
+
+#### Returns
+
+Type: `Promise<KupDataTableRow[]>`
+
+Deleted rows.
+
 ### `expandAll() => Promise<void>`
 
 Expands all groups.

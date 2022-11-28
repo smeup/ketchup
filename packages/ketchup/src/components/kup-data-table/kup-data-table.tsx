@@ -1066,6 +1066,30 @@ export class KupDataTable {
         this.expandGroups = false;
     }
     /**
+     * This method will delete rows by id from the data table dataset.
+     * @param {string[]} ids - Array of row ids to delete.
+     * @returns {Promise<Array<KupDataTableRow>>} Deleted rows.
+     */
+    @Method()
+    async deleteRows(ids: string[] = []): Promise<Array<KupDataTableRow>> {
+        const deletedRows: KupDataTableRow[] = [];
+        const newRows: KupDataTableRow[] = [];
+        for (let index = 0; index < this.data.rows.length; index++) {
+            const row = this.data.rows[index];
+            if (ids.includes(row.id)) {
+                deletedRows.push(row);
+            } else {
+                newRows.push(row);
+            }
+        }
+        if (deletedRows.length > 0) {
+            this.data.rows = newRows;
+            this.recalculateRowsAndUndoSelections();
+            await this.refresh();
+        }
+        return deletedRows;
+    }
+    /**
      * Expands all groups.
      */
     @Method()
