@@ -1052,6 +1052,12 @@ export namespace Components {
         "data": KupDataTableDataset;
         "defaultSortingFunction": (columns: KupDataColumn[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<KupDataColumn[]>;
         /**
+          * This method will delete rows by id from the data table dataset.
+          * @param ids - Array of row ids to delete.
+          * @returns Deleted rows.
+         */
+        "deleteRows": (ids?: string[]) => Promise<Array<KupDataTableRow>>;
+        /**
           * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
          */
         "density": FCellPadding;

@@ -13,6 +13,8 @@ import { KupCardCSSClasses, KupCardIds } from '../kup-card-declarations';
 import { KupColumnMenuIds } from '../../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupThemeColorValues } from '../../../managers/kup-theme/kup-theme-declarations';
 import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
+import { KupDropdownButton } from '../../kup-dropdown-button/kup-dropdown-button';
+import { FButtonStyling } from '../../../f-components/f-button/f-button-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -1377,6 +1379,30 @@ export function create15(component: KupCard): VNode {
             genericButtons.push(button);
         }
     }
+    const createDropdown = () => {
+        const props: Partial<KupDropdownButton> = {
+            data: { 'kup-list': { data: [], showIcons: true } },
+            dropdownOnly: true,
+            icon: 'more_vert',
+            id: 'options',
+            styling: FButtonStyling.ICON,
+        };
+        for (let index = 5; index < genericButtons.length; index++) {
+            const button: Partial<HTMLKupButtonElement> = genericButtons[index];
+            props.data['kup-list'].data.push({
+                ...button,
+                value: button.title,
+            });
+        }
+        return (
+            <kup-dropdown-button
+                {...props}
+                title={dom.ketchup.language.translate(
+                    KupLanguageGeneric.OPTIONS
+                )}
+            ></kup-dropdown-button>
+        );
+    };
     return (
         <div class={`standard-layout-${component.layoutNumber}`}>
             <div class="section-1">
@@ -1466,13 +1492,16 @@ export function create15(component: KupCard): VNode {
             {genericButtons.length > 0 ? (
                 <div class="section-3">
                     {compList(genericButtons.slice(0, 5), 'button')}
-                    <kup-button
-                        title={dom.ketchup.language.translate(
-                            KupLanguageGeneric.SHOW_ROW_OPTIONS
-                        )}
-                        id="view-selector"
-                        icon="menu"
-                    ></kup-button>
+                    {genericButtons.length > 5 ? createDropdown() : null}
+                    {treeArray[0] ? (
+                        <kup-button
+                            title={dom.ketchup.language.translate(
+                                KupLanguageGeneric.SHOW_ROW_OPTIONS
+                            )}
+                            id="view-selector"
+                            icon="menu"
+                        ></kup-button>
+                    ) : null}
                 </div>
             ) : null}
         </div>
