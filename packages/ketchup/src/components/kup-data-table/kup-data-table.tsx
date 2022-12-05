@@ -1256,22 +1256,6 @@ export class KupDataTable {
             cell.data.initialValue = value;
         }
 
-        /*
-        const cells = this.rootElement.shadowRoot.querySelectorAll(
-            'td[data-column="' + columnName + '"]'
-        );
-        for (let index = 0; cells && index < cells.length; index++) {
-            const cell = cells[index];
-            if (cell['data-row'] && cell['data-row'].id == rowId) {
-                const kupInput = cell.querySelector('.hydrated');
-                if (kupInput) {
-                    try {
-                        (kupInput as any).setValue(value);
-                    } catch (error) {}
-                }
-                break;
-            }
-        }*/
         this.refresh();
     }
 
