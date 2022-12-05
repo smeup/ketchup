@@ -139,6 +139,16 @@ Type: `Promise<KupDataColumn[]>`
 
 
 
+### `deleteRows(ids?: string[]) => Promise<Array<KupDataTableRow>>`
+
+This method will delete rows by id from the data table dataset.
+
+#### Returns
+
+Type: `Promise<KupDataTableRow[]>`
+
+Deleted rows.
+
 ### `expandAll() => Promise<void>`
 
 Expands all groups.
@@ -222,6 +232,16 @@ Type: `Promise<void>`
 ### `resizeCallback() => Promise<void>`
 
 This method is invoked by KupManager whenever the component changes size.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setCellValue(columnName: string, rowId: string, value: string) => Promise<void>`
+
+Sets the cell value in a table cell.
 
 #### Returns
 

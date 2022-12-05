@@ -533,16 +533,16 @@ export class KupAutocomplete {
                 </style>
                 <div id={componentWrapperId} style={this.#elStyle}>
                     <FTextField
-                        {...this.data['kup-text-field']}
-                        disabled={this.disabled}
-                        fullHeight={fullHeight}
-                        fullWidth={fullWidth}
                         icon={
                             this.showDropDownIcon
                                 ? KupThemeIconValues.DROPDOWN
                                 : null
                         }
                         trailingIcon={true}
+                        {...this.data['kup-text-field']}
+                        disabled={this.disabled}
+                        fullHeight={fullHeight}
+                        fullWidth={fullWidth}
                         value={this.displayedValue}
                         onBlur={() => this.onKupBlur()}
                         onClick={() => this.onKupClick()}

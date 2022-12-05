@@ -106,6 +106,11 @@ export default {
           description: 'Collapses all groups.',
         },
         {
+          name: 'deleteRows',
+          description:
+            'This method will delete rows by id from the data table dataset.',
+        },
+        {
           name: 'expandAll',
           description: 'Expands all groups.',
         },
@@ -135,6 +140,10 @@ export default {
           name: 'resizeCallback',
           description:
             'This method is invoked by KupManager whenever the component changes size.',
+        },
+        {
+          name: 'setCellValue',
+          description: 'Sets the a new cell value in table.',
         },
         {
           name: 'setFocus',

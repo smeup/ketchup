@@ -1,0 +1,47 @@
+.scalable-layout-9 {
+  background-color: var(--color-1);
+  color: var(--color-2);
+  height: 100%;
+  display: flex;
+  justify-content: unset;
+  overflow: auto;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+  0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+
+  .section-1 {
+    background-color: var(--color-0);
+    width: 20%;
+    height: 100%;
+  }
+
+  .section-2 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .text {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .descr {
+    font-size: 80%;
+  }
+
+  .value {
+    font-size: 220%;
+  }
+
+  .buttons { 
+    height: max-content;
+    margin-bottom: 2%;
+  }
+
+  .f-button {
+    float: right;
+  }
+}

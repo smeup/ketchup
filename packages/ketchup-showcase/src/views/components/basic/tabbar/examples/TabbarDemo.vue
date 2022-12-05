@@ -69,6 +69,10 @@ export default {
             "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
         },
         {
+          name: 'getSelectedNode',
+          description: 'Returns the selected node.',
+        },
+        {
           name: 'refresh',
           description:
             'This method is used to trigger a new render of the component.',

@@ -227,7 +227,9 @@ export class imageCanvas {
     }
 
     drawArc(x: number, radius: number, color: Color): void {
-        this.ctx.fillStyle = color.toString();
+        if(color){
+            this.ctx.fillStyle = color.toString();
+        }
         this.ctx.beginPath();
         this.ctx.arc(x, radius, radius, 0, 2 * Math.PI, true);
         this.ctx.fill();
@@ -240,7 +242,9 @@ export class imageCanvas {
         height: number,
         color: Color
     ): void {
-        this.ctx.fillStyle = color.toString();
+        if(color){
+            this.ctx.fillStyle = color.toString();
+        }
         this.ctx.fillRect(x, y, width, height);
     }
 
@@ -251,7 +255,9 @@ export class imageCanvas {
         y2: number,
         color: Color
     ): void {
-        this.ctx.fillStyle = color.toString();
+        if(color){
+            this.ctx.fillStyle = color.toString();
+        }
         this.ctx.beginPath();
         this.ctx.moveTo(x1, y1);
         this.ctx.lineTo(x2, y2);

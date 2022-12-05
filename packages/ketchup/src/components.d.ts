@@ -1052,6 +1052,12 @@ export namespace Components {
         "data": KupDataTableDataset;
         "defaultSortingFunction": (columns: KupDataColumn[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<KupDataColumn[]>;
         /**
+          * This method will delete rows by id from the data table dataset.
+          * @param ids - Array of row ids to delete.
+          * @returns Deleted rows.
+         */
+        "deleteRows": (ids?: string[]) => Promise<Array<KupDataTableRow>>;
+        /**
           * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
          */
         "density": FCellPadding;
@@ -1233,6 +1239,13 @@ export namespace Components {
           * Set the type of the rows selection.
          */
         "selection": SelectionMode;
+        /**
+          * Sets the cell value in a table cell.
+          * @param columnName - Name of the column.
+          * @param rowId - Id of the row.
+          * @param value - Value to set.
+         */
+        "setCellValue": (columnName: string, rowId: string, value: string) => Promise<void>;
         /**
           * Sets the focus on an editable table cell.
           * @param column - Name of the column.
@@ -2037,6 +2050,11 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * Returns the selected node.
+          * @returns Selected node.
+         */
+        "getSelectedNode": () => Promise<KupListNode[]>;
+        /**
           * Hides rows' text, ideally to display a list of icons only.
           * @default false
          */
@@ -2633,6 +2651,11 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Returns the selected node.
+          * @returns Selected node.
+         */
+        "getSelectedNode": () => Promise<KupTabBarNode>;
         /**
           * This method is used to trigger a new render of the component.
          */

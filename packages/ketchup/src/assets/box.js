@@ -701,6 +701,9 @@ let graphicsBoxData = {
     ],
     rows: [
         {
+            style: {
+                background: 'rgb(189,107,118)',
+            },
             cells: {
                 COL: {
                     data: {
@@ -713,8 +716,7 @@ let graphicsBoxData = {
                         t: 'CN',
                     },
                     shape: 'Img',
-                    value:
-                        '/WebUP/javax.faces.resource/CN%253BCOL%253BBERNIC.jsf?ln=smeupImages',
+                    value: '/WebUP/javax.faces.resource/CN%253BCOL%253BBERNIC.jsf?ln=smeupImages',
                 },
                 GREF: {
                     data: {
@@ -768,6 +770,9 @@ let graphicsBoxData = {
             id: '0',
         },
         {
+            style: {
+                background: 'lightblue',
+            },
             cells: {
                 COL: {
                     data: {
@@ -780,8 +785,7 @@ let graphicsBoxData = {
                         t: 'CN',
                     },
                     shape: 'Img',
-                    value:
-                        '/WebUP/javax.faces.resource/CN%253BCOL%253BSCIMAM.jsf?ln=smeupImages',
+                    value: '/WebUP/javax.faces.resource/CN%253BCOL%253BSCIMAM.jsf?ln=smeupImages',
                 },
                 GREF: {
                     data: {
@@ -848,8 +852,7 @@ let graphicsBoxData = {
                         t: 'CN',
                     },
                     shape: 'Img',
-                    value:
-                        '/WebUP/javax.faces.resource/CN%253BCOL%253BVERFRA.jsf?ln=smeupImages',
+                    value: '/WebUP/javax.faces.resource/CN%253BCOL%253BVERFRA.jsf?ln=smeupImages',
                 },
                 GREF: {
                     data: {

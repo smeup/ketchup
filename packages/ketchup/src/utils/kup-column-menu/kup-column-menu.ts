@@ -180,29 +180,6 @@ export class KupColumnMenu {
                           ),
             });
         }
-        props.push({
-            className: 'printable',
-            customStyle: ':host {--kup-font-size: 0.75em;}',
-            icon: 'open-in-new',
-            id: KupColumnMenuIds.BUTTON_OPEN_IN_NEW,
-            title: dom.ketchup.language.translate(
-                KupLanguageGeneric.OPEN_IN_NEW_TAB
-            ),
-        });
-        props.push({
-            className: 'printable',
-            customStyle: ':host {--kup-font-size: 0.75em;}',
-            icon: 'search',
-            id: KupColumnMenuIds.BUTTON_SEARCH,
-            title: dom.ketchup.language.translate(KupLanguageGeneric.INFO),
-        });
-        props.push({
-            className: 'printable',
-            customStyle: ':host {--kup-font-size: 0.75em;}',
-            icon: 'add',
-            id: KupColumnMenuIds.BUTTON_NEW,
-            title: dom.ketchup.language.translate(KupLanguageGeneric.ADD_NEW),
-        });
         if (comp.removableColumns) {
             props.push({
                 className: 'printable',
