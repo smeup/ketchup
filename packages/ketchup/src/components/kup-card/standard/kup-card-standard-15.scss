@@ -30,16 +30,18 @@
     }
 
     .title {
-      align-items: center;
+      align-items: flex-end;
       display: flex;
       font-size: 1.25em;
       font-weight: 600;
+      margin-bottom: 0.5em;
       padding: 0 0.25em 0.25em;
       text-align: left;
 
       .label {
         cursor: pointer;
         padding-right: 0.25em;
+        padding-top: 0.5em;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
