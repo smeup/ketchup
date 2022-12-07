@@ -4,28 +4,3 @@
 @import 'styles/kup-data-table-fixed-rows';
 @import 'styles/kup-data-table-drag-drop';
 @import 'styles/kup-data-table-classes';
-
-.actions-wrapper {
-  display: flex;
-}
-
-.insert-button,
-.delete-button {
-  padding: 1em 0.5em;
-}
-
-.delete-button {
-  --kup-button-primary-color: var(--kup-danger-color);
-  --kup-button-primary-color-rgb: var(--kup-danger-color-rgb);
-  --kup-button-primary-color-h: var(--kup-danger-color-h);
-  --kup-button-primary-color-s: var(--kup-danger-color-s);
-  --kup-button-primary-color-l: var(--kup-danger-color-l);
-}
-
-.insert-button {
-  --kup-button-primary-color: var(--kup-success-color);
-  --kup-button-primary-color-rgb: var(--kup-success-color-rgb);
-  --kup-button-primary-color-h: var(--kup-success-color-h);
-  --kup-button-primary-color-s: var(--kup-success-color-s);
-  --kup-button-primary-color-l: var(--kup-success-color-l);
-}
