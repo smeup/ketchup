@@ -24,6 +24,7 @@ export interface KupDataColumn {
     formula?: string;
     hideValuesRepetitions?: boolean;
     icon?: string;
+    isEditable?: boolean;
     isKey?: boolean;
     mergedFrom?: string[];
     obj?: KupObj;
