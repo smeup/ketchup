@@ -91,6 +91,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-button-list](../kup-button-list)
+ - [kup-card](../kup-card)
 
 ### Depends on
 
@@ -109,30 +110,7 @@ graph TD;
   kup-list --> kup-card
   kup-list --> kup-badge
   kup-radio --> kup-card
-  kup-card --> kup-autocomplete
-  kup-card --> kup-color-picker
-  kup-card --> kup-combobox
-  kup-card --> kup-date-picker
-  kup-card --> kup-rating
-  kup-card --> kup-time-picker
-  kup-card --> kup-image
-  kup-card --> kup-button
-  kup-card --> kup-button-list
-  kup-card --> kup-chart
-  kup-card --> kup-gauge
-  kup-card --> kup-progress-bar
-  kup-card --> kup-radio
-  kup-card --> kup-badge
-  kup-card --> kup-chip
-  kup-card --> kup-list
-  kup-card --> kup-checkbox
-  kup-card --> kup-text-field
-  kup-card --> kup-data-table
-  kup-card --> kup-spinner
-  kup-card --> kup-tab-bar
-  kup-card --> kup-tree
-  kup-card --> kup-switch
-  kup-card --> kup-card
+  kup-card --> kup-dropdown-button
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-color-picker --> kup-card

@@ -177,6 +177,7 @@ graph TD;
   kup-card --> kup-tab-bar
   kup-card --> kup-tree
   kup-card --> kup-switch
+  kup-card --> kup-dropdown-button
   kup-card --> kup-card
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card

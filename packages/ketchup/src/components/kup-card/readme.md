@@ -154,6 +154,7 @@ Type: `Promise<void>`
 - [kup-tab-bar](../kup-tab-bar)
 - [kup-tree](../kup-tree)
 - [kup-switch](../kup-switch)
+- [kup-dropdown-button](../kup-dropdown-button)
 - [kup-card](.)
 
 ### Graph
