@@ -51,11 +51,13 @@ export enum KupDataTableProps {
     rowsPerPage = 'Sets the number of rows per page to display.',
     scrollOnHover = 'Activates the scroll on hover function.',
     showCustomization = 'If set to true, displays the button to open the customization panel.',
+    showDeleteButton = 'Enables the delete row button.',
     showFilters = 'When set to true enables the column filters.',
     showFooter = 'When set to true shows the footer.',
     showGrid = 'Can be used to customize the grid view of the table.',
     showGroups = 'When set to true enables the column grouping.',
     showHeader = 'Enables rendering of the table header.',
+    showInsertButton = 'Enables the insert row button.',
     showLoadMore = 'If set to true, displays the button to load more records.',
     sort = 'Defines the current sorting options.',
     stateId = '',
@@ -284,4 +286,7 @@ export interface KupDataTableCellButtonClickEventPayload
 }
 export interface KupDatatableLoadMoreClickEventPayload extends KupEventPayload {
     loadItems: number;
+}
+export interface KupDatatableDeleteRowEventPayload extends KupEventPayload {
+    selectedRows: KupDataTableRow[];
 }

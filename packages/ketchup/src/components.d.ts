@@ -25,7 +25,7 @@ import { FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
-import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
@@ -1268,6 +1268,10 @@ export namespace Components {
          */
         "showCustomization": boolean;
         /**
+          * Enables the delete row button.
+         */
+        "showDeleteButton": boolean;
+        /**
           * When set to true enables the column filters.
          */
         "showFilters": boolean;
@@ -1288,6 +1292,10 @@ export namespace Components {
           * @namespace KupDataTable.showHeader
          */
         "showHeader": boolean;
+        /**
+          * Enables the insert row button.
+         */
+        "showInsertButton": boolean;
         /**
           * If set to true, displays the button to load more records.
          */
@@ -4511,6 +4519,10 @@ declare namespace LocalJSX {
          */
         "onKup-datatable-dblclick"?: (event: KupDataTableCustomEvent<KupDatatableClickEventPayload>) => void;
         /**
+          * Event fired when the delete row button is pressed.
+         */
+        "onKup-datatable-delete-row"?: (event: KupDataTableCustomEvent<KupDatatableDeleteRowEventPayload>) => void;
+        /**
           * When component load is complete
          */
         "onKup-datatable-didload"?: (event: KupDataTableCustomEvent<KupEventPayload>) => void;
@@ -4568,6 +4580,10 @@ declare namespace LocalJSX {
          */
         "showCustomization"?: boolean;
         /**
+          * Enables the delete row button.
+         */
+        "showDeleteButton"?: boolean;
+        /**
           * When set to true enables the column filters.
          */
         "showFilters"?: boolean;
@@ -4588,6 +4604,10 @@ declare namespace LocalJSX {
           * @namespace KupDataTable.showHeader
          */
         "showHeader"?: boolean;
+        /**
+          * Enables the insert row button.
+         */
+        "showInsertButton"?: boolean;
         /**
           * If set to true, displays the button to load more records.
          */

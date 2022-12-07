@@ -49,6 +49,7 @@ import {
     KupDataTableRow,
     KupDataTableRowCells,
     KupDataTableCell,
+    KupDatatableDeleteRowEventPayload,
 } from './kup-data-table-declarations';
 import {
     getCellValueForDisplay,
@@ -165,6 +166,8 @@ import {
     KupDataRow,
     KupDataRowAction,
 } from '../../managers/kup-data/kup-data-declarations';
+import { FButton } from '../../f-components/f-button/f-button';
+import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -676,13 +679,13 @@ export class KupDataTable {
      */
     @Prop() showCustomization: boolean = true;
     /**
+     * Enables the delete row button.
+     */
+    @Prop() showDeleteButton: boolean = false;
+    /**
      * When set to true enables the column filters.
      */
     @Prop() showFilters: boolean = false;
-    /**
-     * When set to true enables the column grouping.
-     */
-    @Prop() showGroups: boolean = false;
     /**
      * When set to true shows the footer.
      */
@@ -692,10 +695,18 @@ export class KupDataTable {
      */
     @Prop() showGrid: ShowGrid = ShowGrid.ROW;
     /**
+     * When set to true enables the column grouping.
+     */
+    @Prop() showGroups: boolean = false;
+    /**
      * Enables rendering of the table header.
      * @namespace KupDataTable.showHeader
      */
     @Prop() showHeader: boolean = true;
+    /**
+     * Enables the insert row button.
+     */
+    @Prop() showInsertButton: boolean = false;
     /**
      * If set to true, displays the button to load more records.
      */
@@ -1039,6 +1050,16 @@ export class KupDataTable {
         bubbles: true,
     })
     kupColumnRemove: EventEmitter<KupDatatableColumnRemoveEventPayload>;
+    /**
+     * Event fired when the delete row button is pressed.
+     */
+    @Event({
+        eventName: 'kup-datatable-delete-row',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDeleteRow: EventEmitter<KupDatatableDeleteRowEventPayload>;
     /**
      * Closes any opened column menu.
      */
@@ -5294,6 +5315,33 @@ export class KupDataTable {
                         {paginatorTop}
                     </div>
                     <div class="group-wrapper">{groupChips}</div>
+                    <div class="actions-wrapper">
+                        {this.showInsertButton ? (
+                            <FButton
+                                icon="plus"
+                                label="Insert"
+                                slim={true}
+                                styling={FButtonStyling.OUTLINED}
+                                wrapperClass="insert-button"
+                            ></FButton>
+                        ) : null}
+                        {this.showDeleteButton ? (
+                            <FButton
+                                icon="delete"
+                                label="Delete"
+                                onClick={() => {
+                                    this.kupDeleteRow.emit({
+                                        comp: this,
+                                        id: this.rootElement.id,
+                                        selectedRows: this.selectedRows,
+                                    });
+                                }}
+                                slim={true}
+                                styling={FButtonStyling.OUTLINED}
+                                wrapperClass="delete-button"
+                            ></FButton>
+                        ) : null}
+                    </div>
                     <div class="droparea" ref={(el) => (this.dropareaRef = el)}>
                         {this.showGroups ? this.columnGroupArea() : null}
                         {this.removableColumns ? this.columnRemoveArea() : null}
