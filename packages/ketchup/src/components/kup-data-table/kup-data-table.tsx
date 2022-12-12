@@ -168,6 +168,7 @@ import {
 } from '../../managers/kup-data/kup-data-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
+import { KupFormRow } from '../kup-form/kup-form-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -706,7 +707,7 @@ export class KupDataTable {
     /**
      * Enables the insert row button.
      */
-    @Prop() showInsertButton: boolean = false;
+    @Prop() showInsertButton: boolean = true;
     /**
      * If set to true, displays the button to load more records.
      */
@@ -926,6 +927,7 @@ export class KupDataTable {
     private filtersColumnMenuInstance: FiltersColumnMenu;
     private filtersRowsInstance: FiltersRows;
     private detailCard: HTMLKupCardElement = null;
+    private insertCard: HTMLKupCardElement = null;
     private columnMenuCard: HTMLKupCardElement = null;
     private columnDropCard: HTMLKupCardElement = null;
     private columnDropCardAnchor: HTMLElement = null;
@@ -2458,6 +2460,61 @@ export class KupDataTable {
         this.detailCard.setAttribute('data-y', y.toString());
         this.detailCard.style.transform = 'translate(' + x + 'px,' + y + 'px)';
         this.rootElement.shadowRoot.append(this.detailCard);
+    }
+
+    private rowInsert() {
+        if (!this.insertCard) {
+            this.insertCard = document.createElement('kup-card');
+            this.insertCard.layoutFamily = KupCardFamily.FREE;
+            this.insertCard.layoutNumber = 1;
+            this.insertCard.sizeX = '300px';
+            this.insertCard.sizeY = '300px';
+        } else {
+            const children: HTMLCollection = Array.prototype.slice.call(
+                this.insertCard.children,
+                0
+            );
+            for (let index = 0; index < children.length; index++) {
+                children[index].remove();
+            }
+        }
+        const buttonWrapper = document.createElement('div');
+        buttonWrapper.className = 'button-wrapper';
+        const cancel = document.createElement('kup-button');
+        const confirm = document.createElement('kup-button');
+        const form = document.createElement('kup-form');
+        const row: KupFormRow = {
+            cells: {},
+            id: '0',
+        };
+        const style = document.createElement('style');
+        style.innerText =
+            'kup-form { max-height: 40vh; } .button-wrapper { display: flex; justify-content: space-around; }';
+        this.data.columns.forEach((column) => {
+            row.cells[column.name] = {
+                isEditable: column.isEditable,
+                shape: column.shape,
+                value: '',
+            };
+        });
+        form.data = {
+            columns: this.data.columns,
+            rows: [row],
+        };
+        cancel.icon = 'clear';
+        cancel.label = 'Cancel';
+        confirm.icon = 'check';
+        confirm.label = 'Submit';
+        this.insertCard.append(style);
+        this.insertCard.append(form);
+        buttonWrapper.append(cancel);
+        buttonWrapper.append(confirm);
+        this.insertCard.append(buttonWrapper);
+        this.insertCard.data = {};
+        this.insertCard.style.position = 'fixed';
+        this.insertCard.style.left = '0';
+        this.insertCard.style.top = '0';
+        this.rootElement.shadowRoot.append(this.insertCard);
     }
 
     private getEventDetails(
@@ -5320,6 +5377,9 @@ export class KupDataTable {
                             <FButton
                                 icon="plus"
                                 label="Insert"
+                                onClick={() => {
+                                    this.rowInsert();
+                                }}
                                 slim={true}
                                 styling={FButtonStyling.OUTLINED}
                                 wrapperClass="insert-button"
