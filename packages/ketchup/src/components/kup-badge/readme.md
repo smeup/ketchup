@@ -121,6 +121,7 @@ graph TD;
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
   kup-chip --> kup-badge
+  kup-form --> kup-badge
   kup-checkbox --> kup-card
   kup-text-field --> kup-card
   kup-data-table --> kup-badge
@@ -133,7 +134,6 @@ graph TD;
   kup-cell --> kup-badge
   kup-dashboard --> kup-badge
   kup-family-tree --> kup-badge
-  kup-form --> kup-badge
   kup-image-list --> kup-badge
   kup-magic-box --> kup-badge
   kup-snackbar --> kup-badge

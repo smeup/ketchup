@@ -134,6 +134,7 @@ graph TD;
   kup-progress-bar --> kup-card
   kup-chip --> kup-card
   kup-chip --> kup-badge
+  kup-form --> kup-chart
   kup-checkbox --> kup-card
   kup-text-field --> kup-card
   kup-data-table --> kup-chart
@@ -143,7 +144,6 @@ graph TD;
   kup-tree --> kup-chart
   kup-box --> kup-chart
   kup-cell --> kup-chart
-  kup-form --> kup-chart
   kup-image-list --> kup-chart
   kup-magic-box --> kup-chart
   style kup-chart fill:#f9f,stroke:#333,stroke-width:4px

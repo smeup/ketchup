@@ -150,6 +150,7 @@ graph TD;
   kup-progress-bar --> kup-card
   kup-chip --> kup-card
   kup-chip --> kup-badge
+  kup-form --> kup-autocomplete
   kup-checkbox --> kup-card
   kup-text-field --> kup-card
   kup-data-table --> kup-autocomplete
@@ -159,7 +160,6 @@ graph TD;
   kup-tree --> kup-autocomplete
   kup-box --> kup-autocomplete
   kup-cell --> kup-autocomplete
-  kup-form --> kup-autocomplete
   kup-image-list --> kup-autocomplete
   style kup-autocomplete fill:#f9f,stroke:#333,stroke-width:4px
 ```

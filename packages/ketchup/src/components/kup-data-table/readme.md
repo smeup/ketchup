@@ -78,7 +78,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `showGrid`                  | `show-grid`                    | Can be used to customize the grid view of the table.                                                                                                                                                                           | `ShowGrid.COL \| ShowGrid.COMPLETE \| ShowGrid.NONE \| ShowGrid.ROW`                                      | `ShowGrid.ROW`                       |
 | `showGroups`                | `show-groups`                  | When set to true enables the column grouping.                                                                                                                                                                                  | `boolean`                                                                                                 | `false`                              |
 | `showHeader`                | `show-header`                  | Enables rendering of the table header.                                                                                                                                                                                         | `boolean`                                                                                                 | `true`                               |
-| `showInsertButton`          | `show-insert-button`           | Enables the insert row button.                                                                                                                                                                                                 | `boolean`                                                                                                 | `false`                              |
+| `showInsertButton`          | `show-insert-button`           | Enables the insert row button.                                                                                                                                                                                                 | `boolean`                                                                                                 | `true`                               |
 | `showLoadMore`              | `show-load-more`               | If set to true, displays the button to load more records.                                                                                                                                                                      | `boolean`                                                                                                 | `false`                              |
 | `sort`                      | --                             | Defines the current sorting options.                                                                                                                                                                                           | `SortObject[]`                                                                                            | `[]`                                 |
 | `sortEnabled`               | `sort-enabled`                 | When set to true enables the sorting of the columns by clicking on the column header.                                                                                                                                          | `boolean`                                                                                                 | `true`                               |
@@ -307,10 +307,11 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-card](../kup-card)
+- [kup-button](../kup-button)
+- [kup-form](../kup-form)
 - [kup-checkbox](../kup-checkbox)
 - [kup-list](../kup-list)
 - [kup-switch](../kup-switch)
-- [kup-button](../kup-button)
 - [kup-combobox](../kup-combobox)
 - [kup-badge](../kup-badge)
 - [kup-autocomplete](../kup-autocomplete)
@@ -329,10 +330,11 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-data-table --> kup-card
+  kup-data-table --> kup-button
+  kup-data-table --> kup-form
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-list
   kup-data-table --> kup-switch
-  kup-data-table --> kup-button
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete
@@ -380,6 +382,21 @@ graph TD;
   kup-progress-bar --> kup-card
   kup-chip --> kup-card
   kup-chip --> kup-badge
+  kup-form --> kup-card
+  kup-form --> kup-autocomplete
+  kup-form --> kup-color-picker
+  kup-form --> kup-combobox
+  kup-form --> kup-date-picker
+  kup-form --> kup-rating
+  kup-form --> kup-time-picker
+  kup-form --> kup-image
+  kup-form --> kup-button
+  kup-form --> kup-button-list
+  kup-form --> kup-chart
+  kup-form --> kup-gauge
+  kup-form --> kup-progress-bar
+  kup-form --> kup-radio
+  kup-form --> kup-badge
   kup-checkbox --> kup-card
   kup-text-field --> kup-card
   kup-tab-bar --> kup-card

@@ -138,6 +138,7 @@ graph TD;
   kup-progress-bar --> kup-card
   kup-chip --> kup-card
   kup-chip --> kup-badge
+  kup-form --> kup-button
   kup-checkbox --> kup-card
   kup-text-field --> kup-card
   kup-data-table --> kup-button
@@ -147,7 +148,6 @@ graph TD;
   kup-tree --> kup-button
   kup-box --> kup-button
   kup-cell --> kup-button
-  kup-form --> kup-button
   kup-iframe --> kup-button
   kup-image-list --> kup-button
   kup-magic-box --> kup-button

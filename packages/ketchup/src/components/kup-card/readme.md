@@ -147,6 +147,7 @@ Type: `Promise<void>`
 - [kup-badge](../kup-badge)
 - [kup-chip](../kup-chip)
 - [kup-list](../kup-list)
+- [kup-form](../kup-form)
 - [kup-checkbox](../kup-checkbox)
 - [kup-text-field](../kup-text-field)
 - [kup-data-table](../kup-data-table)
@@ -179,6 +180,7 @@ graph TD;
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
   kup-chip --> kup-card
+  kup-form --> kup-card
   kup-checkbox --> kup-card
   kup-text-field --> kup-card
   kup-data-table --> kup-card
@@ -195,7 +197,6 @@ graph TD;
   kup-drawer --> kup-card
   kup-echart --> kup-card
   kup-family-tree --> kup-card
-  kup-form --> kup-card
   kup-grid --> kup-card
   kup-iframe --> kup-card
   kup-image-list --> kup-card

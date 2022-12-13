@@ -148,6 +148,7 @@ graph TD;
   kup-progress-bar --> kup-card
   kup-chip --> kup-card
   kup-chip --> kup-badge
+  kup-form --> kup-time-picker
   kup-checkbox --> kup-card
   kup-text-field --> kup-card
   kup-data-table --> kup-time-picker
@@ -157,7 +158,6 @@ graph TD;
   kup-tree --> kup-time-picker
   kup-box --> kup-time-picker
   kup-cell --> kup-time-picker
-  kup-form --> kup-time-picker
   kup-image-list --> kup-time-picker
   style kup-time-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -148,6 +148,7 @@ graph TD;
   kup-progress-bar --> kup-card
   kup-chip --> kup-card
   kup-chip --> kup-badge
+  kup-form --> kup-combobox
   kup-checkbox --> kup-card
   kup-text-field --> kup-card
   kup-data-table --> kup-combobox
@@ -157,7 +158,6 @@ graph TD;
   kup-tree --> kup-combobox
   kup-box --> kup-combobox
   kup-cell --> kup-combobox
-  kup-form --> kup-combobox
   kup-image-list --> kup-combobox
   kup-magic-box --> kup-combobox
   style kup-combobox fill:#f9f,stroke:#333,stroke-width:4px
