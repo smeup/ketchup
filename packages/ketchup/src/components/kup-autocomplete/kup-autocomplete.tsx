@@ -248,7 +248,9 @@ export class KupAutocomplete {
         if (this.#textfieldWrapper.classList.contains('toggled')) {
             this.#closeList();
         } else {
-            this.#openList(true);
+            if (this.showDropDownIcon) {
+                this.#openList(true);
+            }
         }
         this.kupIconClick.emit({
             comp: this,
