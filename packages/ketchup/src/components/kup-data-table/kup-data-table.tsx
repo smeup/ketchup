@@ -167,6 +167,8 @@ import {
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupFormRow } from '../kup-form/kup-form-declarations';
+import { KupButton } from '../kup-button/kup-button';
+import { KupForm } from '../kup-form/kup-form';
 
 @Component({
     tag: 'kup-data-table',
@@ -929,6 +931,9 @@ export class KupDataTable {
     #columnDropCard: HTMLKupCardElement = null;
     #columnDropCardAnchor: HTMLElement = null;
 
+    #BUTTON_SUBMIT_ID: string = 'submit';
+    #FIELDS_FORM_ID: string = 'fieldsForm';
+
     /**
      * When component unload is complete
      */
@@ -1152,7 +1157,26 @@ export class KupDataTable {
      */
     @Method()
     async showErrorOnInsertRow(colName: string, message: string) {
-        alert(message);
+        const submitButton = this.#findComponentById(
+            this.#insertCard,
+            this.#BUTTON_SUBMIT_ID
+        ) as KupButton;
+        submitButton.showSpinner = false;
+        const form = this.#findComponentById(
+            this.#insertCard,
+            this.#FIELDS_FORM_ID
+        ) as KupForm;
+        const cell = form.data.rows[0].cells[colName];
+        if (!cell) {
+            alert(message);
+            return;
+        }
+        cell['info'] = {
+            color: 'var(--kup-danger-color)',
+            icon: 'cancel',
+            message: message,
+        };
+        form.refresh();
     }
 
     /**
@@ -2532,7 +2556,7 @@ export class KupDataTable {
             this.#insertCard.remove();
             this.#insertCard = null;
         });
-        confirm.id = 'submit';
+        confirm.id = this.#BUTTON_SUBMIT_ID;
         confirm.icon = 'check';
         confirm.label = 'Submit';
         let innerComp = document.createElement('kup-spinner');
@@ -2552,16 +2576,19 @@ export class KupDataTable {
         buttonWrapper.append(confirm);
 
         const form = document.createElement('kup-form');
+        form.id = this.#FIELDS_FORM_ID;
         const row: KupFormRow = {
             cells: {},
             id: '0',
         };
         this.data.columns.forEach((column) => {
-            row.cells[column.name] = {
-                isEditable: column.isEditable,
-                shape: column.shape,
-                value: '',
-            };
+            if (column.isEditable || column.isKey) {
+                row.cells[column.name] = {
+                    isEditable: column.isEditable,
+                    shape: column.shape,
+                    value: '',
+                };
+            }
         });
         form.data = {
             columns: this.data.columns,
@@ -2576,7 +2603,28 @@ export class KupDataTable {
         this.rootElement.shadowRoot.append(this.#insertCard);
     }
 
-    #getComponentByIdFromCard(card: HTMLKupCardElement, id: string) {}
+    #findComponentById(father: any, id: string): any {
+        if (!father) {
+            return null;
+        }
+        if (!id) {
+            return null;
+        }
+        if (father.id == id) {
+            return father;
+        }
+
+        const children = father.childNodes;
+
+        for (let i = 0; i < children.length; i++) {
+            const child = children[i];
+            const comp = this.#findComponentById(child, id);
+            if (comp != null) {
+                return comp;
+            }
+        }
+        return null;
+    }
 
     #rowsDelete() {
         const CARD_WIDTH = 250;
@@ -2608,6 +2656,7 @@ export class KupDataTable {
             this.#confirmDeleteCard.remove();
             this.#confirmDeleteCard = null;
         });
+        confirm.id = this.#BUTTON_SUBMIT_ID;
         confirm.icon = 'check';
         confirm.label = 'Submit';
         confirm.addEventListener('kup-button-click', () => {

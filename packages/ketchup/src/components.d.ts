@@ -27,6 +27,8 @@ import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./com
 import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
 import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
+import { KupButton } from "./components/kup-button/kup-button";
+import { KupForm } from "./components/kup-form/kup-form";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
@@ -1285,6 +1287,12 @@ export namespace Components {
           * Enables the delete row button.
          */
         "showDeleteButton": boolean;
+        /**
+          * Shows the error occured during insert
+          * @param colName the column name for cell whitch will display the message
+          * @param message the message to display
+         */
+        "showErrorOnInsertRow": (colName: string, message: string) => Promise<void>;
         /**
           * When set to true enables the column filters.
          */
