@@ -7,10 +7,12 @@
 @import 'standard/kup-card-standard';
 
 /**
+* @prop --kup-card-backdrop: Backdrop of the component when is visible.
 * @prop --kup-card-ripple-color: Sets color of ripple effect (for Material layouts).
 */
 
 :host {
+  --kup_card_backdrop: var(--kup-card-backdrop, rgba(0, 0, 0, 0.32));
   --kup_card_ripple_color: var(
     --kup-card-ripple-color,
     var(--kup-primary-color)
@@ -26,6 +28,18 @@
   width: var(--kup_card_width);
 }
 
+:host([show-modal]) {
+  #kup-component {
+    position: fixed;
+    z-index: var(--kup-card-zindex);
+    height: var(--kup_card_height);
+    width: var(--kup_card_width);
+    top: var(--kup_card_top);
+    left: var(--kup_card_left);
+    display: var(--kup_card_display, none);
+  }
+}
+
 :host([is-menu]) {
   display: none;
   animation: fade-in 0.25s ease-out;
@@ -39,6 +53,18 @@
 #kup-component {
   height: 100%;
   width: 100%;
+}
+
+.backdrop {
+  background: var(--kup_card_backdrop);
+  display: none;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: calc(var(--kup-card-zindex) - 1);
+  display: block;
 }
 
 .mdc-ripple-surface {

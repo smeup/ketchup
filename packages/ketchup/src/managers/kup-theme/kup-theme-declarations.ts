@@ -179,6 +179,7 @@ export interface KupThemeCSSVariables {
     '--kup-font-family-monospace': string;
     '--kup-obj-cursor': string;
     [KupThemeColorValues.TEXT_ON_SECONDARY]: string;
+    '--kup-card-zindex': number;
     '--kup-drawer-zindex': number;
     '--kup-navbar-zindex': number;
 }

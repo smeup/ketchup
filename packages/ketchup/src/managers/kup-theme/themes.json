@@ -35,6 +35,7 @@
             "--kup-chart-color-3": "#8e1010",
             "--kup-chart-color-4": "#f5f5dc",
             "--kup-obj-cursor": "inherit",
+            "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
             "--kup-navbar-zindex": "900"
         },
@@ -90,6 +91,7 @@
             "--kup-chart-color-3": "#b1eafb",
             "--kup-chart-color-4": "#ffffff",
             "--kup-obj-cursor": "inherit",
+            "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
             "--kup-navbar-zindex": "900"
         },
@@ -144,6 +146,7 @@
             "--kup-chart-color-3": "#860bb5",
             "--kup-chart-color-4": "#1a83e4",
             "--kup-obj-cursor": "inherit",
+            "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
             "--kup-navbar-zindex": "900"
         },
@@ -198,6 +201,7 @@
             "--kup-chart-color-3": "#c21350",
             "--kup-chart-color-4": "#c88da1",
             "--kup-obj-cursor": "inherit",
+            "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
             "--kup-navbar-zindex": "900"
         },
@@ -258,6 +262,7 @@
             "--kup-chart-color-9": "grey",
             "--kup-chart-color-10": "indigo",
             "--kup-obj-cursor": "inherit",
+            "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
             "--kup-navbar-zindex": "900"
         },
@@ -312,6 +317,7 @@
             "--kup-chart-color-3": "#8e1010",
             "--kup-chart-color-4": "#f5f5dc",
             "--kup-obj-cursor": "inherit",
+            "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
             "--kup-navbar-zindex": "900"
         },
@@ -372,6 +378,7 @@
             "--kup-chart-color-9": "grey",
             "--kup-chart-color-10": "indigo",
             "--kup-obj-cursor": "inherit",
+            "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
             "--kup-navbar-zindex": "900"
         },
@@ -426,6 +433,7 @@
             "--kup-chart-color-3": "#e48b47",
             "--kup-chart-color-4": "#81e447",
             "--kup-obj-cursor": "inherit",
+            "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
             "--kup-navbar-zindex": "900"
         },
@@ -486,6 +494,7 @@
             "--kup-chart-color-9": "grey",
             "--kup-chart-color-10": "indigo",
             "--kup-obj-cursor": "inherit",
+            "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
             "--kup-navbar-zindex": "900"
         },
@@ -547,6 +556,7 @@
             "--kup-chart-color-3": "#ffe600",
             "--kup-chart-color-4": "#effd02",
             "--kup-obj-cursor": "inherit",
+            "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
             "--kup-navbar-zindex": "900"
         },
@@ -607,6 +617,7 @@
             "--kup-chart-color-9": "grey",
             "--kup-chart-color-10": "indigo",
             "--kup-obj-cursor": "inherit",
+            "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
             "--kup-navbar-zindex": "900"
         },
@@ -668,6 +679,7 @@
             "--kup-chart-color-9": "grey",
             "--kup-chart-color-10": "indigo",
             "--kup-obj-cursor": "inherit",
+            "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
             "--kup-navbar-zindex": "900"
         },
@@ -725,6 +737,7 @@
             "--kup-chart-color-6": "#59af57",
             "--kup-chart-color-7": "#aeaa5d",
             "--kup-obj-cursor": "inherit",
+            "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
             "--kup-navbar-zindex": "900"
         },
@@ -786,6 +799,7 @@
             "--kup-chart-color-9": "grey",
             "--kup-chart-color-10": "indigo",
             "--kup-obj-cursor": "inherit",
+            "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
             "--kup-navbar-zindex": "900"
         },
@@ -837,6 +851,7 @@
             "--kup-chart-color-3": "#e48b47",
             "--kup-chart-color-4": "#81e447",
             "--kup-obj-cursor": "inherit",
+            "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
             "--kup-navbar-zindex": "900"
         },
