@@ -13,6 +13,7 @@
 | `layoutFamily` | `layout-family` | Sets the type of the card.                                                                                      | `KupCardFamily.BOX \| KupCardFamily.BUILT_IN \| KupCardFamily.COLLAPSIBLE \| KupCardFamily.DIALOG \| KupCardFamily.FREE \| KupCardFamily.SCALABLE \| KupCardFamily.STANDARD` | `KupCardFamily.STANDARD` |
 | `layoutNumber` | `layout-number` | Sets the number of the layout.                                                                                  | `number`                                                                                                                                                                     | `1`                      |
 | `menuVisible`  | `menu-visible`  | Sets the status of the card as menu, when false it's hidden otherwise it's visible. Works together with isMenu. | `boolean`                                                                                                                                                                    | `false`                  |
+| `showModal`    | `show-modal`    | Sets the card as modal window                                                                                   | `boolean`                                                                                                                                                                    | `false`                  |
 | `sizeX`        | `size-x`        | The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).                        | `string`                                                                                                                                                                     | `'100%'`                 |
 | `sizeY`        | `size-y`        | The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).                       | `string`                                                                                                                                                                     | `'100%'`                 |
 
@@ -74,6 +75,7 @@ Type: `Promise<void>`
 
 | Name                      | Description                                         |
 | ------------------------- | --------------------------------------------------- |
+| `--kup-card-backdrop`     | Backdrop of the component when is visible.          |
 | `--kup-card-ripple-color` | Sets color of ripple effect (for Material layouts). |
 
 

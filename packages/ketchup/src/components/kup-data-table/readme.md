@@ -104,6 +104,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `kup-datatable-delete-row`        | Event fired when the delete row button is pressed.                                    | `CustomEvent<KupDatatableDeleteRowEventPayload>`      |
 | `kup-datatable-didload`           | When component load is complete                                                       | `CustomEvent<KupEventPayload>`                        |
 | `kup-datatable-didunload`         | When component unload is complete                                                     | `CustomEvent<KupEventPayload>`                        |
+| `kup-datatable-insert-row`        | Event fired when the insert row confirm button is pressed.                            | `CustomEvent<KupDatatableInsertRowEventPayload>`      |
 | `kup-datatable-loadmoreclick`     |                                                                                       | `CustomEvent<KupDatatableLoadMoreClickEventPayload>`  |
 | `kup-datatable-resetselectedrows` | When rows selections reset                                                            | `CustomEvent<KupEventPayload>`                        |
 | `kup-datatable-rowactionclick`    | When a row action is clicked                                                          | `CustomEvent<KupDatatableRowActionClickEventPayload>` |
@@ -115,6 +116,16 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 ### `closeColumnMenu() => Promise<void>`
 
 Closes any opened column menu.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `closeInsertCard() => Promise<void>`
+
+Closes the insert new record card (called by backend, on success)
 
 #### Returns
 
@@ -195,6 +206,16 @@ Type: `Promise<KupDataTableRow[]>`
 ### `hideColumn(column: KupDataColumn) => Promise<void>`
 
 Hides the given column.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `insertNewRow(row: KupDataTableRow) => Promise<void>`
+
+Adds a new row to the list data
 
 #### Returns
 
@@ -308,6 +329,7 @@ Type: `Promise<void>`
 
 - [kup-card](../kup-card)
 - [kup-button](../kup-button)
+- [kup-spinner](../kup-spinner)
 - [kup-form](../kup-form)
 - [kup-checkbox](../kup-checkbox)
 - [kup-list](../kup-list)
@@ -331,6 +353,7 @@ Type: `Promise<void>`
 graph TD;
   kup-data-table --> kup-card
   kup-data-table --> kup-button
+  kup-data-table --> kup-spinner
   kup-data-table --> kup-form
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-list

@@ -156,6 +156,7 @@ graph TD;
   kup-checkbox --> kup-card
   kup-data-table --> kup-card
   kup-data-table --> kup-button
+  kup-data-table --> kup-spinner
   kup-data-table --> kup-form
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-list
