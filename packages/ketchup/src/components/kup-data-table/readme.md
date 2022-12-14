@@ -303,6 +303,16 @@ Type: `Promise<void>`
 
 
 
+### `showErrorOnInsertRow(colName: string, message: string) => Promise<void>`
+
+Shows the error occured during insert
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## CSS Custom Properties
 
@@ -328,12 +338,12 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-card](../kup-card)
+- [kup-list](../kup-list)
+- [kup-switch](../kup-switch)
 - [kup-button](../kup-button)
 - [kup-spinner](../kup-spinner)
 - [kup-form](../kup-form)
 - [kup-checkbox](../kup-checkbox)
-- [kup-list](../kup-list)
-- [kup-switch](../kup-switch)
 - [kup-combobox](../kup-combobox)
 - [kup-badge](../kup-badge)
 - [kup-autocomplete](../kup-autocomplete)
@@ -352,12 +362,12 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-data-table --> kup-card
+  kup-data-table --> kup-list
+  kup-data-table --> kup-switch
   kup-data-table --> kup-button
   kup-data-table --> kup-spinner
   kup-data-table --> kup-form
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-list
-  kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete

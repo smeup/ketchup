@@ -146,12 +146,12 @@ graph TD;
   kup-checkbox --> kup-card
   kup-text-field --> kup-card
   kup-data-table --> kup-card
+  kup-data-table --> kup-list
+  kup-data-table --> kup-switch
   kup-data-table --> kup-button
   kup-data-table --> kup-spinner
   kup-data-table --> kup-form
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-list
-  kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete
