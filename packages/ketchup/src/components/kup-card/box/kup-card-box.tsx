@@ -64,19 +64,22 @@ export function create2(component: KupCard): VNode {
             renderKup: true,
             row: { cells: { [column.name]: cell } },
         };
+        props.cell.cssClass = props.cell.cssClass
+            ? props.cell.cssClass + ' c-right-aligned'
+            : 'c-right-aligned';
         rows.push(
-            <div class="flex-container">
-                <div class="label">{column.title}</div>
-                <div class="value">
+            <tr>
+                <td class="label">{column.title}</td>
+                <td class="value">
                     <FCell {...props}></FCell>
-                </div>
-            </div>
+                </td>
+            </tr>
         );
     }
 
     return (
         <div class={`box-layout-${component.layoutNumber}`}>
-            <div class="container">{rows}</div>
+            <table>{rows}</table>
         </div>
     );
 }

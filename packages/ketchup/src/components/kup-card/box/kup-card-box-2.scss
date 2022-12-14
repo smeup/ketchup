@@ -4,20 +4,16 @@
   font-size: var(--kup-font-size);
   padding: 0.5em;
 
-  .container {
+  table {
     width: 100%;
   }
 
-  .flex-container {
-    display: flex;
-    justify-content: space-between;
-  }
-
   .label {
+    max-width: 50%;
     overflow: hidden;
     padding: 0.5em;
     text-overflow: ellipsis;
-    width: 50%;
+    white-space: nowrap;
   }
 
   .value {
