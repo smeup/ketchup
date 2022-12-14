@@ -25,8 +25,10 @@ import { FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
-import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
+import { KupButton } from "./components/kup-button/kup-button";
+import { KupForm } from "./components/kup-form/kup-form";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
@@ -582,6 +584,11 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
+          * Sets the card as modal window
+          * @default false
+         */
+        "showModal": boolean;
+        /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
          */
@@ -1039,6 +1046,10 @@ export namespace Components {
          */
         "closeColumnMenu": () => Promise<void>;
         /**
+          * Closes the insert new record card (called by backend, on success)
+         */
+        "closeInsertCard": () => Promise<void>;
+        /**
           * Collapses all groups.
          */
         "collapseAll": () => Promise<void>;
@@ -1159,6 +1170,11 @@ export namespace Components {
          */
         "hideColumn": (column: KupDataColumn) => Promise<void>;
         /**
+          * Adds a new row to the list data
+          * @param row new row
+         */
+        "insertNewRow": (row: KupDataTableRow) => Promise<void>;
+        /**
           * When set to true, clicked-on rows will have a visual feedback.
           * @default false
          */
@@ -1268,6 +1284,16 @@ export namespace Components {
          */
         "showCustomization": boolean;
         /**
+          * Enables the delete row button.
+         */
+        "showDeleteButton": boolean;
+        /**
+          * Shows the error occured during insert
+          * @param colName the column name for cell whitch will display the message
+          * @param message the message to display
+         */
+        "showErrorOnInsertRow": (colName: string, message: string) => Promise<void>;
+        /**
           * When set to true enables the column filters.
          */
         "showFilters": boolean;
@@ -1288,6 +1314,10 @@ export namespace Components {
           * @namespace KupDataTable.showHeader
          */
         "showHeader": boolean;
+        /**
+          * Enables the insert row button.
+         */
+        "showInsertButton": boolean;
         /**
           * If set to true, displays the button to load more records.
          */
@@ -4016,6 +4046,11 @@ declare namespace LocalJSX {
          */
         "onKup-card-ready"?: (event: KupCardCustomEvent<KupEventPayload>) => void;
         /**
+          * Sets the card as modal window
+          * @default false
+         */
+        "showModal"?: boolean;
+        /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
          */
@@ -4511,6 +4546,10 @@ declare namespace LocalJSX {
          */
         "onKup-datatable-dblclick"?: (event: KupDataTableCustomEvent<KupDatatableClickEventPayload>) => void;
         /**
+          * Event fired when the delete row button is pressed.
+         */
+        "onKup-datatable-delete-row"?: (event: KupDataTableCustomEvent<KupDatatableDeleteRowEventPayload>) => void;
+        /**
           * When component load is complete
          */
         "onKup-datatable-didload"?: (event: KupDataTableCustomEvent<KupEventPayload>) => void;
@@ -4518,6 +4557,10 @@ declare namespace LocalJSX {
           * When component unload is complete
          */
         "onKup-datatable-didunload"?: (event: KupDataTableCustomEvent<KupEventPayload>) => void;
+        /**
+          * Event fired when the insert row confirm button is pressed.
+         */
+        "onKup-datatable-insert-row"?: (event: KupDataTableCustomEvent<KupDatatableInsertRowEventPayload>) => void;
         "onKup-datatable-loadmoreclick"?: (event: KupDataTableCustomEvent<KupDatatableLoadMoreClickEventPayload>) => void;
         /**
           * When rows selections reset
@@ -4568,6 +4611,10 @@ declare namespace LocalJSX {
          */
         "showCustomization"?: boolean;
         /**
+          * Enables the delete row button.
+         */
+        "showDeleteButton"?: boolean;
+        /**
           * When set to true enables the column filters.
          */
         "showFilters"?: boolean;
@@ -4588,6 +4635,10 @@ declare namespace LocalJSX {
           * @namespace KupDataTable.showHeader
          */
         "showHeader"?: boolean;
+        /**
+          * Enables the insert row button.
+         */
+        "showInsertButton"?: boolean;
         /**
           * If set to true, displays the button to load more records.
          */

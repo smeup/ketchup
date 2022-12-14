@@ -1,0 +1,14 @@
+.built-in-layout-6 {
+    background-color: var(--kup-background-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 1px -1px rgba(128, 128, 128, 0.1),
+      0 1px 1px 0 rgba(128, 128, 128, 0.1), 0 1px 3px 0 rgba(128, 128, 128, 0.6);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    overflow: auto;
+    padding: 0.5em;
+  }

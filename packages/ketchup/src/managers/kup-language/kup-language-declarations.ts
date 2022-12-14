@@ -129,6 +129,7 @@ export enum KupLanguageGeneric {
     APPLY = 'genericApply',
     BACK = 'genericBack',
     COLLAPSE = 'genericCollapse',
+    CONFIRM_DELETE = 'genericConfirmDelete',
     DAY = 'genericDay',
     DRAG_AND_DROP = 'genericDragAndDrop',
     DROP_YOUR_DATA = 'genericDropYourData',

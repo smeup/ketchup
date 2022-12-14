@@ -72,11 +72,13 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `scrollOnHover`             | `scroll-on-hover`              | Activates the scroll on hover function.                                                                                                                                                                                        | `boolean`                                                                                                 | `false`                              |
 | `selection`                 | `selection`                    | Set the type of the rows selection.                                                                                                                                                                                            | `SelectionMode.MULTIPLE \| SelectionMode.MULTIPLE_CHECKBOX \| SelectionMode.NONE \| SelectionMode.SINGLE` | `SelectionMode.SINGLE`               |
 | `showCustomization`         | `show-customization`           | If set to true, displays the button to open the customization panel.                                                                                                                                                           | `boolean`                                                                                                 | `true`                               |
+| `showDeleteButton`          | `show-delete-button`           | Enables the delete row button.                                                                                                                                                                                                 | `boolean`                                                                                                 | `false`                              |
 | `showFilters`               | `show-filters`                 | When set to true enables the column filters.                                                                                                                                                                                   | `boolean`                                                                                                 | `false`                              |
 | `showFooter`                | `show-footer`                  | When set to true shows the footer.                                                                                                                                                                                             | `boolean`                                                                                                 | `false`                              |
 | `showGrid`                  | `show-grid`                    | Can be used to customize the grid view of the table.                                                                                                                                                                           | `ShowGrid.COL \| ShowGrid.COMPLETE \| ShowGrid.NONE \| ShowGrid.ROW`                                      | `ShowGrid.ROW`                       |
 | `showGroups`                | `show-groups`                  | When set to true enables the column grouping.                                                                                                                                                                                  | `boolean`                                                                                                 | `false`                              |
 | `showHeader`                | `show-header`                  | Enables rendering of the table header.                                                                                                                                                                                         | `boolean`                                                                                                 | `true`                               |
+| `showInsertButton`          | `show-insert-button`           | Enables the insert row button.                                                                                                                                                                                                 | `boolean`                                                                                                 | `true`                               |
 | `showLoadMore`              | `show-load-more`               | If set to true, displays the button to load more records.                                                                                                                                                                      | `boolean`                                                                                                 | `false`                              |
 | `sort`                      | --                             | Defines the current sorting options.                                                                                                                                                                                           | `SortObject[]`                                                                                            | `[]`                                 |
 | `sortEnabled`               | `sort-enabled`                 | When set to true enables the sorting of the columns by clicking on the column header.                                                                                                                                          | `boolean`                                                                                                 | `true`                               |
@@ -99,8 +101,10 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `kup-datatable-columnremove`      | Event fired when columns are removed (set to hidden).                                 | `CustomEvent<KupDatatableColumnRemoveEventPayload>`   |
 | `kup-datatable-contextmenu`       | Generic right click event on data table.                                              | `CustomEvent<KupDatatableClickEventPayload>`          |
 | `kup-datatable-dblclick`          | Generic double click event on data table.                                             | `CustomEvent<KupDatatableClickEventPayload>`          |
+| `kup-datatable-delete-row`        | Event fired when the delete row button is pressed.                                    | `CustomEvent<KupDatatableDeleteRowEventPayload>`      |
 | `kup-datatable-didload`           | When component load is complete                                                       | `CustomEvent<KupEventPayload>`                        |
 | `kup-datatable-didunload`         | When component unload is complete                                                     | `CustomEvent<KupEventPayload>`                        |
+| `kup-datatable-insert-row`        | Event fired when the insert row confirm button is pressed.                            | `CustomEvent<KupDatatableInsertRowEventPayload>`      |
 | `kup-datatable-loadmoreclick`     |                                                                                       | `CustomEvent<KupDatatableLoadMoreClickEventPayload>`  |
 | `kup-datatable-resetselectedrows` | When rows selections reset                                                            | `CustomEvent<KupEventPayload>`                        |
 | `kup-datatable-rowactionclick`    | When a row action is clicked                                                          | `CustomEvent<KupDatatableRowActionClickEventPayload>` |
@@ -112,6 +116,16 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 ### `closeColumnMenu() => Promise<void>`
 
 Closes any opened column menu.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `closeInsertCard() => Promise<void>`
+
+Closes the insert new record card (called by backend, on success)
 
 #### Returns
 
@@ -199,6 +213,16 @@ Type: `Promise<void>`
 
 
 
+### `insertNewRow(row: KupDataTableRow) => Promise<void>`
+
+Adds a new row to the list data
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `newColumn(type: KupDataNewColumnTypes, options: KupDataNewColumnOptions) => Promise<string | KupDataColumn>`
 
 Invokes the KupData API for column creation, then refreshes the component in case no errors were catched.
@@ -279,6 +303,16 @@ Type: `Promise<void>`
 
 
 
+### `showErrorOnInsertRow(colName: string, message: string) => Promise<void>`
+
+Shows the error occured during insert
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## CSS Custom Properties
 
@@ -304,10 +338,12 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-card](../kup-card)
-- [kup-checkbox](../kup-checkbox)
 - [kup-list](../kup-list)
 - [kup-switch](../kup-switch)
 - [kup-button](../kup-button)
+- [kup-spinner](../kup-spinner)
+- [kup-form](../kup-form)
+- [kup-checkbox](../kup-checkbox)
 - [kup-combobox](../kup-combobox)
 - [kup-badge](../kup-badge)
 - [kup-autocomplete](../kup-autocomplete)
@@ -326,10 +362,12 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-data-table --> kup-card
-  kup-data-table --> kup-checkbox
   kup-data-table --> kup-list
   kup-data-table --> kup-switch
   kup-data-table --> kup-button
+  kup-data-table --> kup-spinner
+  kup-data-table --> kup-form
+  kup-data-table --> kup-checkbox
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete
@@ -377,6 +415,21 @@ graph TD;
   kup-progress-bar --> kup-card
   kup-chip --> kup-card
   kup-chip --> kup-badge
+  kup-form --> kup-card
+  kup-form --> kup-autocomplete
+  kup-form --> kup-color-picker
+  kup-form --> kup-combobox
+  kup-form --> kup-date-picker
+  kup-form --> kup-rating
+  kup-form --> kup-time-picker
+  kup-form --> kup-image
+  kup-form --> kup-button
+  kup-form --> kup-button-list
+  kup-form --> kup-chart
+  kup-form --> kup-gauge
+  kup-form --> kup-progress-bar
+  kup-form --> kup-radio
+  kup-form --> kup-badge
   kup-checkbox --> kup-card
   kup-text-field --> kup-card
   kup-tab-bar --> kup-card

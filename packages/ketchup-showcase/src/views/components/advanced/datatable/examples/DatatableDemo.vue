@@ -76,6 +76,10 @@ export default {
           type: 'click',
         },
         {
+          name: 'kup-datatable-delete-row',
+          type: 'CustomEvent',
+        },
+        {
           name: 'kup-datatable-dblclick',
           type: 'dblclick',
         },
@@ -442,6 +446,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'showDeleteButton',
+          description: 'Enables the delete row button.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'showFilters',
           description: 'When set to true enables the column filters.',
           type: 'boolean',
@@ -475,6 +486,13 @@ export default {
           description: 'Enables rendering of the table header.',
           type: 'boolean',
           default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'showInsertButton',
+          description: 'Enables the insert row button.',
+          type: 'boolean',
+          default: 'false',
           try: 'switch',
         },
         {

@@ -69,6 +69,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-card](../kup-card)
+ - [kup-data-table](../kup-data-table)
  - [kup-image](../kup-image)
 
 ### Depends on
@@ -110,26 +111,24 @@ graph TD;
   kup-progress-bar --> kup-card
   kup-chip --> kup-card
   kup-chip --> kup-badge
+  kup-form --> kup-card
+  kup-form --> kup-autocomplete
+  kup-form --> kup-color-picker
+  kup-form --> kup-combobox
+  kup-form --> kup-date-picker
+  kup-form --> kup-rating
+  kup-form --> kup-time-picker
+  kup-form --> kup-image
+  kup-form --> kup-button
+  kup-form --> kup-button-list
+  kup-form --> kup-chart
+  kup-form --> kup-gauge
+  kup-form --> kup-progress-bar
+  kup-form --> kup-radio
+  kup-form --> kup-badge
   kup-checkbox --> kup-card
   kup-text-field --> kup-card
-  kup-data-table --> kup-card
-  kup-data-table --> kup-checkbox
-  kup-data-table --> kup-list
-  kup-data-table --> kup-switch
-  kup-data-table --> kup-button
-  kup-data-table --> kup-combobox
-  kup-data-table --> kup-badge
-  kup-data-table --> kup-autocomplete
-  kup-data-table --> kup-color-picker
-  kup-data-table --> kup-date-picker
-  kup-data-table --> kup-rating
-  kup-data-table --> kup-time-picker
-  kup-data-table --> kup-image
-  kup-data-table --> kup-button-list
-  kup-data-table --> kup-chart
-  kup-data-table --> kup-gauge
-  kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-radio
+  kup-data-table --> kup-spinner
   kup-switch --> kup-card
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
