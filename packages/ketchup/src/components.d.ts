@@ -25,7 +25,7 @@ import { FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
-import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
@@ -582,6 +582,11 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
+          * Sets the card as modal window
+          * @default false
+         */
+        "showModal": boolean;
+        /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
          */
@@ -1039,6 +1044,10 @@ export namespace Components {
          */
         "closeColumnMenu": () => Promise<void>;
         /**
+          * Closes the insert new record card (called by backend, on success)
+         */
+        "closeInsertCard": () => Promise<void>;
+        /**
           * Collapses all groups.
          */
         "collapseAll": () => Promise<void>;
@@ -1158,6 +1167,11 @@ export namespace Components {
           * @param column - Column to hide.
          */
         "hideColumn": (column: KupDataColumn) => Promise<void>;
+        /**
+          * Adds a new row to the list data
+          * @param row new row
+         */
+        "insertNewRow": (row: KupDataTableRow) => Promise<void>;
         /**
           * When set to true, clicked-on rows will have a visual feedback.
           * @default false
@@ -4024,6 +4038,11 @@ declare namespace LocalJSX {
          */
         "onKup-card-ready"?: (event: KupCardCustomEvent<KupEventPayload>) => void;
         /**
+          * Sets the card as modal window
+          * @default false
+         */
+        "showModal"?: boolean;
+        /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
          */
@@ -4530,6 +4549,10 @@ declare namespace LocalJSX {
           * When component unload is complete
          */
         "onKup-datatable-didunload"?: (event: KupDataTableCustomEvent<KupEventPayload>) => void;
+        /**
+          * Event fired when the insert row confirm button is pressed.
+         */
+        "onKup-datatable-insert-row"?: (event: KupDataTableCustomEvent<KupDatatableInsertRowEventPayload>) => void;
         "onKup-datatable-loadmoreclick"?: (event: KupDataTableCustomEvent<KupDatatableLoadMoreClickEventPayload>) => void;
         /**
           * When rows selections reset

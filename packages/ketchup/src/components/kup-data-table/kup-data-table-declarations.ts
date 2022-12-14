@@ -290,3 +290,6 @@ export interface KupDatatableLoadMoreClickEventPayload extends KupEventPayload {
 export interface KupDatatableDeleteRowEventPayload extends KupEventPayload {
     selectedRows: KupDataTableRow[];
 }
+export interface KupDatatableInsertRowEventPayload extends KupEventPayload {
+    row: KupDataTableRow;
+}
