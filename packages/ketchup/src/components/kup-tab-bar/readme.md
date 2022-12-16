@@ -150,6 +150,7 @@ graph TD;
   kup-data-table --> kup-button
   kup-data-table --> kup-spinner
   kup-data-table --> kup-form
+  kup-data-table --> kup-image
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
@@ -158,7 +159,6 @@ graph TD;
   kup-data-table --> kup-date-picker
   kup-data-table --> kup-rating
   kup-data-table --> kup-time-picker
-  kup-data-table --> kup-image
   kup-data-table --> kup-button-list
   kup-data-table --> kup-chart
   kup-data-table --> kup-gauge

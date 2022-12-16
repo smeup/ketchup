@@ -261,7 +261,9 @@ export class KupForm {
                 {this.hiddenSubmitButton ? (
                     <FButton
                         buttonType="submit"
-                        label="submit"
+                        label={this.kupManager.language.translate(
+                            KupLanguageGeneric.CONFIRM
+                        )}
                         wrapperClass="form__submit"
                     ></FButton>
                 ) : null}
