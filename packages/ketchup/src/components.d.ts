@@ -27,8 +27,6 @@ import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./com
 import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
 import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
-import { KupButton } from "./components/kup-button/kup-button";
-import { KupForm } from "./components/kup-form/kup-form";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
@@ -1046,6 +1044,10 @@ export namespace Components {
          */
         "closeColumnMenu": () => Promise<void>;
         /**
+          * Closes the delete confirm card (called by backend, on success)
+         */
+        "closeConfirmDeleteCard": () => Promise<void>;
+        /**
           * Closes the insert new record card (called by backend, on success)
          */
         "closeInsertCard": () => Promise<void>;
@@ -1133,6 +1135,10 @@ export namespace Components {
           * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
          */
         "forceOneLine": boolean;
+        /**
+          * Returns cards and sub components
+         */
+        "getCards": () => Promise<any>;
         "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: KupDataTableDataset; }>;
         /**
           * Used to retrieve component's props values.
@@ -1287,12 +1293,6 @@ export namespace Components {
           * Enables the delete row button.
          */
         "showDeleteButton": boolean;
-        /**
-          * Shows the error occured during insert
-          * @param colName the column name for cell whitch will display the message
-          * @param message the message to display
-         */
-        "showErrorOnInsertRow": (colName: string, message: string) => Promise<void>;
         /**
           * When set to true enables the column filters.
          */

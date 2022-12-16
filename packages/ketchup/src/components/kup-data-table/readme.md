@@ -123,6 +123,16 @@ Type: `Promise<void>`
 
 
 
+### `closeConfirmDeleteCard() => Promise<void>`
+
+Closes the delete confirm card (called by backend, on success)
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `closeInsertCard() => Promise<void>`
 
 Closes the insert new record card (called by backend, on success)
@@ -170,6 +180,16 @@ Expands all groups.
 #### Returns
 
 Type: `Promise<void>`
+
+
+
+### `getCards() => Promise<any>`
+
+Returns cards and sub components
+
+#### Returns
+
+Type: `Promise<any>`
 
 
 
@@ -303,16 +323,6 @@ Type: `Promise<void>`
 
 
 
-### `showErrorOnInsertRow(colName: string, message: string) => Promise<void>`
-
-Shows the error occured during insert
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
 
 ## CSS Custom Properties
 
@@ -343,6 +353,7 @@ Type: `Promise<void>`
 - [kup-button](../kup-button)
 - [kup-spinner](../kup-spinner)
 - [kup-form](../kup-form)
+- [kup-image](../kup-image)
 - [kup-checkbox](../kup-checkbox)
 - [kup-combobox](../kup-combobox)
 - [kup-badge](../kup-badge)
@@ -351,7 +362,6 @@ Type: `Promise<void>`
 - [kup-date-picker](../kup-date-picker)
 - [kup-rating](../kup-rating)
 - [kup-time-picker](../kup-time-picker)
-- [kup-image](../kup-image)
 - [kup-button-list](../kup-button-list)
 - [kup-chart](../kup-chart)
 - [kup-gauge](../kup-gauge)
@@ -367,6 +377,7 @@ graph TD;
   kup-data-table --> kup-button
   kup-data-table --> kup-spinner
   kup-data-table --> kup-form
+  kup-data-table --> kup-image
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
@@ -375,7 +386,6 @@ graph TD;
   kup-data-table --> kup-date-picker
   kup-data-table --> kup-rating
   kup-data-table --> kup-time-picker
-  kup-data-table --> kup-image
   kup-data-table --> kup-button-list
   kup-data-table --> kup-chart
   kup-data-table --> kup-gauge

@@ -167,8 +167,6 @@ import {
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupFormRow } from '../kup-form/kup-form-declarations';
-import { KupButton } from '../kup-button/kup-button';
-import { KupForm } from '../kup-form/kup-form';
 
 @Component({
     tag: 'kup-data-table',
@@ -931,8 +929,11 @@ export class KupDataTable {
     #columnDropCard: HTMLKupCardElement = null;
     #columnDropCardAnchor: HTMLElement = null;
 
+    #BUTTON_CANCEL_ID: string = 'cancel';
     #BUTTON_SUBMIT_ID: string = 'submit';
     #FIELDS_FORM_ID: string = 'fieldsForm';
+    #MESSAGE_ID: string = 'message';
+    #MESSAGE_WRAPPER_ID: string = 'messageWrapper';
 
     /**
      * When component unload is complete
@@ -1136,6 +1137,66 @@ export class KupDataTable {
             this.#insertCard = null;
         }
     }
+    /**
+     * Closes the delete confirm card (called by backend, on success)
+     */
+    @Method()
+    async closeConfirmDeleteCard() {
+        if (this.#confirmDeleteCard) {
+            this.#confirmDeleteCard.remove();
+            this.#confirmDeleteCard = null;
+        }
+    }
+
+    /**
+     * Returns cards and sub components
+     */
+    @Method()
+    async getCards(): Promise<any> {
+        const obj = {};
+
+        if (this.#insertCard) {
+            obj['insertCard'] = {
+                el: this.#insertCard,
+                messageWrapper: this.#insertCard.querySelector(
+                    '#' + this.#MESSAGE_WRAPPER_ID
+                ),
+                message: this.#insertCard.querySelector('#' + this.#MESSAGE_ID),
+                submitButton: this.#insertCard.querySelector(
+                    '#' + this.#BUTTON_SUBMIT_ID
+                ),
+                cancelButton: this.#insertCard.querySelector(
+                    '#' + this.#BUTTON_CANCEL_ID
+                ),
+                form: this.#insertCard.querySelector(
+                    '#' + this.#FIELDS_FORM_ID
+                ),
+            };
+        }
+        if (this.#confirmDeleteCard) {
+            obj['confirmDeleteCard'] = {
+                el: this.#confirmDeleteCard,
+                messageWrapper: this.#insertCard.querySelector(
+                    '#' + this.#MESSAGE_WRAPPER_ID
+                ),
+                message: this.#confirmDeleteCard.querySelector(
+                    '#' + this.#MESSAGE_ID
+                ),
+                submitButton: this.#confirmDeleteCard.querySelector(
+                    '#' + this.#BUTTON_SUBMIT_ID
+                ),
+                cancelButton: this.#confirmDeleteCard.querySelector(
+                    '#' + this.#BUTTON_CANCEL_ID
+                ),
+            };
+        }
+        /*
+        #detailCard: HTMLKupCardElement = null;
+        #columnMenuCard: HTMLKupCardElement = null;
+        #columnDropCard: HTMLKupCardElement = null;
+        */
+        return obj;
+    }
 
     /**
      * Adds a new row to the list data
@@ -1148,35 +1209,6 @@ export class KupDataTable {
             this.recalculateRowsAndUndoSelections();
             await this.refresh();
         }
-    }
-
-    /**
-     * Shows the error occured during insert
-     * @param colName the column name for cell whitch will display the message
-     * @param message the message to display
-     */
-    @Method()
-    async showErrorOnInsertRow(colName: string, message: string) {
-        const submitButton = this.#findComponentById(
-            this.#insertCard,
-            this.#BUTTON_SUBMIT_ID
-        ) as KupButton;
-        submitButton.showSpinner = false;
-        const form = this.#findComponentById(
-            this.#insertCard,
-            this.#FIELDS_FORM_ID
-        ) as KupForm;
-        const cell = form.data.rows[0].cells[colName];
-        if (!cell) {
-            alert(message);
-            return;
-        }
-        cell['info'] = {
-            color: 'var(--kup-danger-color)',
-            icon: 'cancel',
-            message: message,
-        };
-        form.refresh();
     }
 
     /**
@@ -2537,7 +2569,11 @@ export class KupDataTable {
 
         const style = document.createElement('style');
         style.innerText =
-            'kup-form { max-height: 40vh; overflow: auto; } .page-wrapper { display: grid; } .button-wrapper { padding-top: 20px; display: flex; justify-content: space-around; }';
+            'kup-form { max-height: 40vh; overflow: auto; } .page-wrapper { display: grid; } ' +
+            '.button-wrapper { padding-top: 20px; display: flex; justify-content: space-around; z-index: var(--kup-card-zindex); } ' +
+            '.message-wrapper { display: none; justify-content: start; padding-top: 5px; padding-bottom: 5px; } ' +
+            '.errorIcon { --kup-icon-color: var(--kup-danger-color); } ' +
+            '.message { background-color: var(--kup-danger-color); color: white; padding: 3px; } ';
         this.#insertCard.append(style);
 
         const pageWrapper = document.createElement('div');
@@ -2547,25 +2583,30 @@ export class KupDataTable {
         buttonWrapper.className = 'button-wrapper';
         const cancel = document.createElement('kup-button');
         const confirm = document.createElement('kup-button');
+        cancel.id = this.#BUTTON_CANCEL_ID;
         cancel.icon = 'clear';
-        cancel.label = 'Cancel';
+        cancel.label = this.#kupManager.language.translate(
+            KupLanguageGeneric.ABORT
+        );
+        cancel.styling = FButtonStyling.FLAT;
         cancel.addEventListener('kup-button-click', () => {
-            if (confirm.showSpinner == true) {
-                return;
-            }
             this.#insertCard.remove();
             this.#insertCard = null;
         });
         confirm.id = this.#BUTTON_SUBMIT_ID;
         confirm.icon = 'check';
-        confirm.label = 'Submit';
+        confirm.label = this.#kupManager.language.translate(
+            KupLanguageGeneric.CONFIRM
+        );
         let innerComp = document.createElement('kup-spinner');
         innerComp.slot = 'spinner';
         innerComp.dimensions = '0.6em';
         innerComp.active = true;
         confirm.appendChild(innerComp);
         confirm.addEventListener('kup-button-click', () => {
+            messageWrapper.style.display = 'none';
             confirm.showSpinner = true;
+            cancel.disabled = true;
             this.kupInsertRow.emit({
                 comp: this,
                 id: this.rootElement.id,
@@ -2595,35 +2636,30 @@ export class KupDataTable {
             rows: [row],
         };
 
+        const messageWrapper = document.createElement('div');
+        messageWrapper.className = 'message-wrapper';
+        messageWrapper.id = this.#MESSAGE_WRAPPER_ID;
+        const icon = document.createElement('kup-image');
+        icon.className = 'errorIcon';
+        icon.resource = 'cancel';
+        icon.sizeX = '20px';
+        icon.sizeY = '20px';
+        messageWrapper.append(icon);
+
+        const message = document.createElement('span');
+        message.className = 'message';
+        message.id = this.#MESSAGE_ID;
+        let msg = '';
+        message.innerText = msg;
+        messageWrapper.append(message);
+
+        pageWrapper.append(messageWrapper);
         pageWrapper.append(form);
         pageWrapper.append(buttonWrapper);
 
         this.#insertCard.append(pageWrapper);
         this.#insertCard.data = {};
         this.rootElement.shadowRoot.append(this.#insertCard);
-    }
-
-    #findComponentById(father: any, id: string): any {
-        if (!father) {
-            return null;
-        }
-        if (!id) {
-            return null;
-        }
-        if (father.id == id) {
-            return father;
-        }
-
-        const children = father.childNodes;
-
-        for (let i = 0; i < children.length; i++) {
-            const child = children[i];
-            const comp = this.#findComponentById(child, id);
-            if (comp != null) {
-                return comp;
-            }
-        }
-        return null;
     }
 
     #rowsDelete() {
@@ -2640,33 +2676,48 @@ export class KupDataTable {
             '.button-wrapper, .message-wrapper { display: flex; justify-content: space-around; z-index: var(--kup-card-zindex); } .message-wrapper { padding-bottom: 20px; }';
         const messageWrapper = document.createElement('div');
         messageWrapper.className = 'message-wrapper';
+        messageWrapper.id = this.#MESSAGE_WRAPPER_ID;
         const message = document.createElement('span');
         message.className = 'message';
-        message.innerText = this.#kupManager.language.translate(
-            KupLanguageGeneric.CONFIRM_DELETE
+        message.id = this.#MESSAGE_ID;
+        let msg = this.#kupManager.language.translate(
+            KupLanguageGeneric.CONFIRM_DELETE_X_ROWS
         );
+        msg = msg.replace('{0}', this.selectedRows.length + '');
+        message.innerText = msg;
         messageWrapper.append(message);
         const buttonWrapper = document.createElement('div');
         buttonWrapper.className = 'button-wrapper';
         const cancel = document.createElement('kup-button');
         const confirm = document.createElement('kup-button');
+        cancel.id = this.#BUTTON_CANCEL_ID;
         cancel.icon = 'clear';
-        cancel.label = 'Cancel';
+        cancel.label = this.#kupManager.language.translate(
+            KupLanguageGeneric.ABORT
+        );
+        cancel.styling = FButtonStyling.FLAT;
         cancel.addEventListener('kup-button-click', () => {
             this.#confirmDeleteCard.remove();
             this.#confirmDeleteCard = null;
         });
         confirm.id = this.#BUTTON_SUBMIT_ID;
         confirm.icon = 'check';
-        confirm.label = 'Submit';
+        confirm.label = this.#kupManager.language.translate(
+            KupLanguageGeneric.CONFIRM
+        );
+        let innerComp = document.createElement('kup-spinner');
+        innerComp.slot = 'spinner';
+        innerComp.dimensions = '0.6em';
+        innerComp.active = true;
+        confirm.appendChild(innerComp);
         confirm.addEventListener('kup-button-click', () => {
+            confirm.showSpinner = true;
+            cancel.disabled = true;
             this.kupDeleteRow.emit({
                 comp: this,
                 id: this.rootElement.id,
                 selectedRows: this.selectedRows,
             });
-            this.#confirmDeleteCard.remove();
-            this.#confirmDeleteCard = null;
         });
         buttonWrapper.append(cancel);
         buttonWrapper.append(confirm);
@@ -2675,6 +2726,7 @@ export class KupDataTable {
         this.#confirmDeleteCard.append(buttonWrapper);
         this.#confirmDeleteCard.data = {};
         this.rootElement.shadowRoot.append(this.#confirmDeleteCard);
+        //this.#kupManager.interact.dialogify(this.#confirmDeleteCard);
     }
 
     #getEventDetails(
