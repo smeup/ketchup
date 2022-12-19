@@ -12,4 +12,14 @@ export interface KupObj {
     t: string;
     p: string;
     k: string;
+    /** text (D) */
+    d?: string;
+    /** exec (E) */
+    e?: string;
+    /** Field */
+    fld?: string;
+    /** Leaf */
+    leaf?: string;
+    /** i (I) */
+    i?: string;
 }
