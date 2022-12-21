@@ -190,7 +190,6 @@ export class KupTabBar {
     async getSelectedNode(): Promise<KupTabBarNode> {
         let res: KupTabBarNode = null;
         this.data.forEach((node) => {
-            console.log(this.value, node);
             if (node.id === this.value) {
                 res = node;
             }
