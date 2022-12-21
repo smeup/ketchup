@@ -1126,8 +1126,7 @@ export class KupDataTable {
         }
         if (deletedRows.length > 0) {
             this.data.rows = newRows;
-            this.recalculateRowsAndUndoSelections();
-            await this.refresh();
+            await this.refresh(true);
         }
         return deletedRows;
     }
@@ -1211,8 +1210,7 @@ export class KupDataTable {
     async insertNewRow(row: KupDataTableRow) {
         if (row) {
             this.data.rows.push(row);
-            this.recalculateRowsAndUndoSelections();
-            await this.refresh();
+            await this.refresh(true);
         }
     }
 
@@ -1335,7 +1333,10 @@ export class KupDataTable {
      * This method is used to trigger a new render of the component.
      */
     @Method()
-    async refresh(): Promise<void> {
+    async refresh(recalcRows?: boolean): Promise<void> {
+        if (recalcRows) {
+            this.recalculateRowsAndUndoSelections();
+        }
         forceUpdate(this);
     }
     /**
@@ -5640,8 +5641,7 @@ export class KupDataTable {
                                                 this.#INSERT_PREFIX +
                                                 this.#insertCount,
                                         });
-                                        this.recalculateRows();
-                                        await this.refresh();
+                                        await this.refresh(true);
                                     }
                                 }}
                                 styling={FButtonStyling.OUTLINED}

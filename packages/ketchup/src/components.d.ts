@@ -1237,7 +1237,7 @@ export namespace Components {
         /**
           * This method is used to trigger a new render of the component.
          */
-        "refresh": () => Promise<void>;
+        "refresh": (recalcRows?: boolean) => Promise<void>;
         /**
           * Sets the possibility to remove the selected column.
          */

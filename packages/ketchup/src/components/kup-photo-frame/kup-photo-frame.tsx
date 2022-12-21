@@ -237,6 +237,6 @@ export class KupPhotoFrame {
 
     disconnectedCallback() {
         this.#kupManager.theme.unregister(this);
-        this.#intObserver.unobserve(this.rootElement);
+        this.#intObserver?.unobserve(this.rootElement);
     }
 }
