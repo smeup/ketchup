@@ -524,6 +524,15 @@ th.obj:hover span:not(.overlay-action) {
   }
 }
 
+.actions-wrapper {
+  display: flex;
+}
+
+.insert-button,
+.delete-button {
+  padding: 1em 0.5em;
+}
+
 .#{$kup-icon}.#{$kup-icon-ascending} {
   -webkit-mask: var(--kup-ascending-icon);
   mask: var(--kup-ascending-icon);

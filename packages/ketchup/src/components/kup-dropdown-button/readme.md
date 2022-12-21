@@ -91,6 +91,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-button-list](../kup-button-list)
+ - [kup-card](../kup-card)
 
 ### Depends on
 
@@ -109,30 +110,7 @@ graph TD;
   kup-list --> kup-card
   kup-list --> kup-badge
   kup-radio --> kup-card
-  kup-card --> kup-autocomplete
-  kup-card --> kup-color-picker
-  kup-card --> kup-combobox
-  kup-card --> kup-date-picker
-  kup-card --> kup-rating
-  kup-card --> kup-time-picker
-  kup-card --> kup-image
-  kup-card --> kup-button
-  kup-card --> kup-button-list
-  kup-card --> kup-chart
-  kup-card --> kup-gauge
-  kup-card --> kup-progress-bar
-  kup-card --> kup-radio
-  kup-card --> kup-badge
-  kup-card --> kup-chip
-  kup-card --> kup-list
-  kup-card --> kup-checkbox
-  kup-card --> kup-text-field
-  kup-card --> kup-data-table
-  kup-card --> kup-spinner
-  kup-card --> kup-tab-bar
-  kup-card --> kup-tree
-  kup-card --> kup-switch
-  kup-card --> kup-card
+  kup-card --> kup-dropdown-button
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-color-picker --> kup-card
@@ -156,13 +134,31 @@ graph TD;
   kup-progress-bar --> kup-card
   kup-chip --> kup-card
   kup-chip --> kup-badge
+  kup-form --> kup-card
+  kup-form --> kup-autocomplete
+  kup-form --> kup-color-picker
+  kup-form --> kup-combobox
+  kup-form --> kup-date-picker
+  kup-form --> kup-rating
+  kup-form --> kup-time-picker
+  kup-form --> kup-image
+  kup-form --> kup-button
+  kup-form --> kup-button-list
+  kup-form --> kup-chart
+  kup-form --> kup-gauge
+  kup-form --> kup-progress-bar
+  kup-form --> kup-radio
+  kup-form --> kup-badge
   kup-checkbox --> kup-card
   kup-text-field --> kup-card
   kup-data-table --> kup-card
-  kup-data-table --> kup-checkbox
   kup-data-table --> kup-list
   kup-data-table --> kup-switch
   kup-data-table --> kup-button
+  kup-data-table --> kup-spinner
+  kup-data-table --> kup-form
+  kup-data-table --> kup-image
+  kup-data-table --> kup-checkbox
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete
@@ -170,7 +166,6 @@ graph TD;
   kup-data-table --> kup-date-picker
   kup-data-table --> kup-rating
   kup-data-table --> kup-time-picker
-  kup-data-table --> kup-image
   kup-data-table --> kup-button-list
   kup-data-table --> kup-chart
   kup-data-table --> kup-gauge

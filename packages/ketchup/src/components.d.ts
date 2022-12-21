@@ -25,7 +25,7 @@ import { FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
-import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
@@ -582,6 +582,11 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
+          * Sets the card as modal window
+          * @default false
+         */
+        "showModal": boolean;
+        /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
          */
@@ -1039,6 +1044,14 @@ export namespace Components {
          */
         "closeColumnMenu": () => Promise<void>;
         /**
+          * Closes the delete confirm card (called by backend, on success)
+         */
+        "closeConfirmDeleteCard": () => Promise<void>;
+        /**
+          * Closes the insert new record card (called by backend, on success)
+         */
+        "closeInsertCard": () => Promise<void>;
+        /**
           * Collapses all groups.
          */
         "collapseAll": () => Promise<void>;
@@ -1122,6 +1135,10 @@ export namespace Components {
           * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
          */
         "forceOneLine": boolean;
+        /**
+          * Returns cards and sub components
+         */
+        "getCards": () => Promise<any>;
         "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: KupDataTableDataset; }>;
         /**
           * Used to retrieve component's props values.
@@ -1158,6 +1175,16 @@ export namespace Components {
           * @param column - Column to hide.
          */
         "hideColumn": (column: KupDataColumn) => Promise<void>;
+        /**
+          * Enables insert mode.
+          * @default '''
+         */
+        "insertMode": KupDataTableInsertMode;
+        /**
+          * Adds a new row to the list data
+          * @param row new row
+         */
+        "insertNewRow": (row: KupDataTableRow) => Promise<void>;
         /**
           * When set to true, clicked-on rows will have a visual feedback.
           * @default false
@@ -1210,7 +1237,7 @@ export namespace Components {
         /**
           * This method is used to trigger a new render of the component.
          */
-        "refresh": () => Promise<void>;
+        "refresh": (recalcRows?: boolean) => Promise<void>;
         /**
           * Sets the possibility to remove the selected column.
          */
@@ -1267,6 +1294,10 @@ export namespace Components {
           * If set to true, displays the button to open the customization panel.
          */
         "showCustomization": boolean;
+        /**
+          * Enables the delete row button.
+         */
+        "showDeleteButton": boolean;
         /**
           * When set to true enables the column filters.
          */
@@ -4016,6 +4047,11 @@ declare namespace LocalJSX {
          */
         "onKup-card-ready"?: (event: KupCardCustomEvent<KupEventPayload>) => void;
         /**
+          * Sets the card as modal window
+          * @default false
+         */
+        "showModal"?: boolean;
+        /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
          */
@@ -4458,6 +4494,11 @@ declare namespace LocalJSX {
          */
         "headerIsPersistent"?: boolean;
         /**
+          * Enables insert mode.
+          * @default '''
+         */
+        "insertMode"?: KupDataTableInsertMode;
+        /**
           * When set to true, clicked-on rows will have a visual feedback.
           * @default false
          */
@@ -4511,6 +4552,10 @@ declare namespace LocalJSX {
          */
         "onKup-datatable-dblclick"?: (event: KupDataTableCustomEvent<KupDatatableClickEventPayload>) => void;
         /**
+          * Event fired when the delete row button is pressed.
+         */
+        "onKup-datatable-delete-row"?: (event: KupDataTableCustomEvent<KupDatatableDeleteRowEventPayload>) => void;
+        /**
           * When component load is complete
          */
         "onKup-datatable-didload"?: (event: KupDataTableCustomEvent<KupEventPayload>) => void;
@@ -4518,6 +4563,10 @@ declare namespace LocalJSX {
           * When component unload is complete
          */
         "onKup-datatable-didunload"?: (event: KupDataTableCustomEvent<KupEventPayload>) => void;
+        /**
+          * Event fired when the insert row confirm button is pressed.
+         */
+        "onKup-datatable-insert-row"?: (event: KupDataTableCustomEvent<KupDatatableInsertRowEventPayload>) => void;
         "onKup-datatable-loadmoreclick"?: (event: KupDataTableCustomEvent<KupDatatableLoadMoreClickEventPayload>) => void;
         /**
           * When rows selections reset
@@ -4567,6 +4616,10 @@ declare namespace LocalJSX {
           * If set to true, displays the button to open the customization panel.
          */
         "showCustomization"?: boolean;
+        /**
+          * Enables the delete row button.
+         */
+        "showDeleteButton"?: boolean;
         /**
           * When set to true enables the column filters.
          */

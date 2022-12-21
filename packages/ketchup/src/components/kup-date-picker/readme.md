@@ -135,6 +135,7 @@ graph TD;
   kup-progress-bar --> kup-card
   kup-chip --> kup-card
   kup-chip --> kup-badge
+  kup-form --> kup-date-picker
   kup-checkbox --> kup-card
   kup-text-field --> kup-card
   kup-data-table --> kup-date-picker
@@ -144,7 +145,6 @@ graph TD;
   kup-tree --> kup-date-picker
   kup-box --> kup-date-picker
   kup-cell --> kup-date-picker
-  kup-form --> kup-date-picker
   kup-image-list --> kup-date-picker
   style kup-date-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```

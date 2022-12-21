@@ -118,6 +118,7 @@ graph TD;
   kup-gauge --> kup-card
   kup-chip --> kup-card
   kup-chip --> kup-badge
+  kup-form --> kup-progress-bar
   kup-checkbox --> kup-card
   kup-text-field --> kup-card
   kup-data-table --> kup-progress-bar
@@ -127,7 +128,6 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-box --> kup-progress-bar
   kup-cell --> kup-progress-bar
-  kup-form --> kup-progress-bar
   kup-image-list --> kup-progress-bar
   style kup-progress-bar fill:#f9f,stroke:#333,stroke-width:4px
 ```

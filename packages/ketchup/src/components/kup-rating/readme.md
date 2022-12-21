@@ -116,6 +116,7 @@ graph TD;
   kup-progress-bar --> kup-card
   kup-chip --> kup-card
   kup-chip --> kup-badge
+  kup-form --> kup-rating
   kup-checkbox --> kup-card
   kup-text-field --> kup-card
   kup-data-table --> kup-rating
@@ -125,7 +126,6 @@ graph TD;
   kup-tree --> kup-rating
   kup-box --> kup-rating
   kup-cell --> kup-rating
-  kup-form --> kup-rating
   kup-image-list --> kup-rating
   style kup-rating fill:#f9f,stroke:#333,stroke-width:4px
 ```

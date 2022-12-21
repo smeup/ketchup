@@ -36,6 +36,7 @@ export enum KupDataTableProps {
     groupLabelDisplay = 'How the label of a group must be displayed. For available values',
     groups = 'The list of groups.',
     headerIsPersistent = 'When set to true the header will stick on top of the table when scrolling.',
+    insertMode = 'Enables insert mode.',
     isFocusable = 'When set to true, clicked-on rows will have a visual feedback.',
     lazyLoadRows = 'When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content. Paginator is disabled.',
     lineBreakCharacter = 'Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.',
@@ -51,6 +52,7 @@ export enum KupDataTableProps {
     rowsPerPage = 'Sets the number of rows per page to display.',
     scrollOnHover = 'Activates the scroll on hover function.',
     showCustomization = 'If set to true, displays the button to open the customization panel.',
+    showDeleteButton = 'Enables the delete row button.',
     showFilters = 'When set to true enables the column filters.',
     showFooter = 'When set to true shows the footer.',
     showGrid = 'Can be used to customize the grid view of the table.',
@@ -107,6 +109,8 @@ export enum SortMode {
     A = 'A',
     D = 'D',
 }
+
+export type KupDataTableInsertMode = 'form' | 'row' | '';
 
 export interface TotalsMap {
     [index: string]: TotalMode;
@@ -284,4 +288,10 @@ export interface KupDataTableCellButtonClickEventPayload
 }
 export interface KupDatatableLoadMoreClickEventPayload extends KupEventPayload {
     loadItems: number;
+}
+export interface KupDatatableDeleteRowEventPayload extends KupEventPayload {
+    selectedRows: KupDataTableRow[];
+}
+export interface KupDatatableInsertRowEventPayload extends KupEventPayload {
+    row: KupDataTableRow;
 }

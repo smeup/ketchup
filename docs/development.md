@@ -5,7 +5,7 @@ This document contains information for developers who want to contribute to the 
 ## Requirements
 
 -   Git
--   NodeJs (14.5.0 suggested)
+-   NodeJs (16.13.0 suggested)
 
 ## Getting started
 

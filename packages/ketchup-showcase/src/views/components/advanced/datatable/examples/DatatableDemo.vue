@@ -76,6 +76,10 @@ export default {
           type: 'click',
         },
         {
+          name: 'kup-datatable-delete-row',
+          type: 'CustomEvent',
+        },
+        {
           name: 'kup-datatable-dblclick',
           type: 'dblclick',
         },
@@ -326,6 +330,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'insertMode',
+          description: 'Enables insert mode.',
+          type: '"form" | "row" | ""',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'isFocusable',
           description:
             'When set to true, clicked-on rows will have a visual feedback.',
@@ -439,6 +450,13 @@ export default {
             'If set to true, displays the button to open the customization panel.',
           type: 'boolean',
           default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'showDeleteButton',
+          description: 'Enables the delete row button.',
+          type: 'boolean',
+          default: 'false',
           try: 'switch',
         },
         {

@@ -120,6 +120,7 @@ graph TD;
   kup-progress-bar --> kup-card
   kup-chip --> kup-card
   kup-chip --> kup-badge
+  kup-form --> kup-radio
   kup-checkbox --> kup-card
   kup-text-field --> kup-card
   kup-data-table --> kup-radio
@@ -129,7 +130,6 @@ graph TD;
   kup-tree --> kup-radio
   kup-box --> kup-radio
   kup-cell --> kup-radio
-  kup-form --> kup-radio
   kup-image-list --> kup-radio
   style kup-radio fill:#f9f,stroke:#333,stroke-width:4px
 ```

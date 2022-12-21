@@ -355,6 +355,6 @@ export class KupLazy {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
-        this.intObserver.unobserve(this.rootElement);
+        this.intObserver?.unobserve(this.rootElement);
     }
 }

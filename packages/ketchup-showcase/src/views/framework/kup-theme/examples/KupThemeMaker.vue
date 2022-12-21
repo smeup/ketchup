@@ -690,6 +690,25 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">--kup-card-zindex</span>
+                </td>
+                <td
+                  >Sets the z-index for kup-card. Should be set accordingly to
+                  the app using the component.</td
+                >
+                <td class="prevent-cr">
+                  <span class="code-word">z-index</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    id="card-zindex"
+                    input-type="number"
+                    @kup-textfield-input="updateVariable"
+                  ></kup-text-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">--kup-drawer-zindex</span>
                 </td>
                 <td

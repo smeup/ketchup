@@ -125,10 +125,14 @@ export enum KupLanguageFontsize {
  * Generic user interface action/messages.
  */
 export enum KupLanguageGeneric {
+    ABORT = 'genericAbort',
     ADD_NEW = 'genericAddNew',
     APPLY = 'genericApply',
     BACK = 'genericBack',
     COLLAPSE = 'genericCollapse',
+    CONFIRM = 'genericConfirm',
+    CONFIRM_DELETE = 'genericConfirmDelete',
+    CONFIRM_DELETE_X_ROWS = 'genericConfirmDeleteXRows',
     DAY = 'genericDay',
     DRAG_AND_DROP = 'genericDragAndDrop',
     DROP_YOUR_DATA = 'genericDropYourData',
@@ -149,6 +153,7 @@ export enum KupLanguageGeneric {
     MONTH = 'genericMonth',
     MOVE = 'genericMove',
     NEXT = 'genericNext',
+    NO = 'genericNo',
     OPEN_NAVIGATION_MENU = 'genericOpenNavigationMenu',
     OPEN_IN_NEW_TAB = 'genericOpenInNewTab',
     OPEN_IN_NEW_WINDOW = 'genericOpenInNewWindow',
@@ -167,6 +172,7 @@ export enum KupLanguageGeneric {
     TRANSPOSE_DATA = 'genericTransposeData',
     VIEW_AS = 'genericViewAs',
     WEEK = 'genericWeek',
+    YES = 'genericYes',
 }
 /**
  * Grid decodes (data table customization settings).
