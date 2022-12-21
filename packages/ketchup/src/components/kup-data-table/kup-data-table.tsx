@@ -51,6 +51,7 @@ import {
     KupDataTableCell,
     KupDatatableDeleteRowEventPayload,
     KupDatatableInsertRowEventPayload,
+    KupDataTableInsertMode,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -163,6 +164,7 @@ import {
     KupDataNewColumnTypes,
     KupDataRow,
     KupDataRowAction,
+    KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
@@ -609,6 +611,11 @@ export class KupDataTable {
      */
     @Prop() headerIsPersistent = true;
     /**
+     * Enables insert mode.
+     * @default '''
+     */
+    @Prop() insertMode: KupDataTableInsertMode = '';
+    /**
      * When set to true, clicked-on rows will have a visual feedback.
      * @default false
      */
@@ -702,10 +709,6 @@ export class KupDataTable {
      * @namespace KupDataTable.showHeader
      */
     @Prop() showHeader: boolean = true;
-    /**
-     * Enables the insert row button.
-     */
-    @Prop() showInsertButton: boolean = true;
     /**
      * If set to true, displays the button to load more records.
      */
@@ -928,12 +931,14 @@ export class KupDataTable {
     #columnMenuCard: HTMLKupCardElement = null;
     #columnDropCard: HTMLKupCardElement = null;
     #columnDropCardAnchor: HTMLElement = null;
+    #insertCount = 0;
 
     #BUTTON_CANCEL_ID: string = 'cancel';
     #BUTTON_SUBMIT_ID: string = 'submit';
     #FIELDS_FORM_ID: string = 'fieldsForm';
     #MESSAGE_ID: string = 'message';
     #MESSAGE_WRAPPER_ID: string = 'messageWrapper';
+    #INSERT_PREFIX = 'insert_';
 
     /**
      * When component unload is complete
@@ -2557,7 +2562,7 @@ export class KupDataTable {
         this.rootElement.shadowRoot.append(this.#detailCard);
     }
 
-    #rowInsert() {
+    #rowInsertForm() {
         const CARD_WIDTH = 400;
         const CARD_HEIGHT = 400;
         this.#insertCard = document.createElement('kup-card');
@@ -2663,70 +2668,87 @@ export class KupDataTable {
     }
 
     #rowsDelete() {
-        const CARD_WIDTH = 250;
-        const CARD_HEIGHT = 200;
-        this.#confirmDeleteCard = document.createElement('kup-card');
-        this.#confirmDeleteCard.showModal = true;
-        this.#confirmDeleteCard.layoutFamily = KupCardFamily.FREE;
-        this.#confirmDeleteCard.layoutNumber = 1;
-        this.#confirmDeleteCard.sizeX = CARD_WIDTH + 'px';
-        this.#confirmDeleteCard.sizeY = CARD_HEIGHT + 'px';
-        const style = document.createElement('style');
-        style.innerText =
-            '.button-wrapper, .message-wrapper { display: flex; justify-content: space-around; z-index: var(--kup-card-zindex); } .message-wrapper { padding-bottom: 20px; }';
-        const messageWrapper = document.createElement('div');
-        messageWrapper.className = 'message-wrapper';
-        messageWrapper.id = this.#MESSAGE_WRAPPER_ID;
-        const message = document.createElement('span');
-        message.className = 'message';
-        message.id = this.#MESSAGE_ID;
-        let msg = this.#kupManager.language.translate(
-            KupLanguageGeneric.CONFIRM_DELETE_X_ROWS
-        );
-        msg = msg.replace('{0}', this.selectedRows.length + '');
-        message.innerText = msg;
-        messageWrapper.append(message);
-        const buttonWrapper = document.createElement('div');
-        buttonWrapper.className = 'button-wrapper';
-        const cancel = document.createElement('kup-button');
-        const confirm = document.createElement('kup-button');
-        cancel.id = this.#BUTTON_CANCEL_ID;
-        cancel.icon = 'clear';
-        cancel.label = this.#kupManager.language.translate(
-            KupLanguageGeneric.ABORT
-        );
-        cancel.styling = FButtonStyling.FLAT;
-        cancel.addEventListener('kup-button-click', () => {
-            this.#confirmDeleteCard.remove();
-            this.#confirmDeleteCard = null;
-        });
-        confirm.id = this.#BUTTON_SUBMIT_ID;
-        confirm.icon = 'check';
-        confirm.label = this.#kupManager.language.translate(
-            KupLanguageGeneric.CONFIRM
-        );
-        let innerComp = document.createElement('kup-spinner');
-        innerComp.slot = 'spinner';
-        innerComp.dimensions = '0.6em';
-        innerComp.active = true;
-        confirm.appendChild(innerComp);
-        confirm.addEventListener('kup-button-click', () => {
-            confirm.showSpinner = true;
-            cancel.disabled = true;
-            this.kupDeleteRow.emit({
-                comp: this,
-                id: this.rootElement.id,
-                selectedRows: this.selectedRows,
+        const createDeleteCard = () => {
+            const CARD_WIDTH = 250;
+            const CARD_HEIGHT = 200;
+            this.#confirmDeleteCard = document.createElement('kup-card');
+            this.#confirmDeleteCard.showModal = true;
+            this.#confirmDeleteCard.layoutFamily = KupCardFamily.FREE;
+            this.#confirmDeleteCard.layoutNumber = 1;
+            this.#confirmDeleteCard.sizeX = CARD_WIDTH + 'px';
+            this.#confirmDeleteCard.sizeY = CARD_HEIGHT + 'px';
+            const style = document.createElement('style');
+            style.innerText =
+                '.button-wrapper, .message-wrapper { display: flex; justify-content: space-around; z-index: var(--kup-card-zindex); } .message-wrapper { padding-bottom: 20px; }';
+            const messageWrapper = document.createElement('div');
+            messageWrapper.className = 'message-wrapper';
+            messageWrapper.id = this.#MESSAGE_WRAPPER_ID;
+            const message = document.createElement('span');
+            message.className = 'message';
+            message.id = this.#MESSAGE_ID;
+            let msg = this.#kupManager.language.translate(
+                KupLanguageGeneric.CONFIRM_DELETE_X_ROWS
+            );
+            msg = msg.replace('{0}', this.selectedRows.length + '');
+            message.innerText = msg;
+            messageWrapper.append(message);
+            const buttonWrapper = document.createElement('div');
+            buttonWrapper.className = 'button-wrapper';
+            const cancel = document.createElement('kup-button');
+            const confirm = document.createElement('kup-button');
+            cancel.id = this.#BUTTON_CANCEL_ID;
+            cancel.icon = 'clear';
+            cancel.label = this.#kupManager.language.translate(
+                KupLanguageGeneric.ABORT
+            );
+            cancel.styling = FButtonStyling.FLAT;
+            cancel.addEventListener('kup-button-click', () => {
+                this.#confirmDeleteCard.remove();
+                this.#confirmDeleteCard = null;
             });
+            confirm.id = this.#BUTTON_SUBMIT_ID;
+            confirm.icon = 'check';
+            confirm.label = this.#kupManager.language.translate(
+                KupLanguageGeneric.CONFIRM
+            );
+            let innerComp = document.createElement('kup-spinner');
+            innerComp.slot = 'spinner';
+            innerComp.dimensions = '0.6em';
+            innerComp.active = true;
+            confirm.appendChild(innerComp);
+            confirm.addEventListener('kup-button-click', () => {
+                confirm.showSpinner = true;
+                cancel.disabled = true;
+                this.kupDeleteRow.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    selectedRows: this.selectedRows,
+                });
+            });
+            buttonWrapper.append(cancel);
+            buttonWrapper.append(confirm);
+            this.#confirmDeleteCard.append(style);
+            this.#confirmDeleteCard.append(messageWrapper);
+            this.#confirmDeleteCard.append(buttonWrapper);
+            this.#confirmDeleteCard.data = {};
+            this.rootElement.shadowRoot.append(this.#confirmDeleteCard);
+        };
+
+        const insertRowsIds: string[] = [];
+        const startingRows: KupDataTableRow[] = [];
+        this.selectedRows.forEach((row) => {
+            if (row.id.indexOf(this.#INSERT_PREFIX) > -1) {
+                insertRowsIds.push(row.id);
+            } else {
+                startingRows.push(row);
+            }
         });
-        buttonWrapper.append(cancel);
-        buttonWrapper.append(confirm);
-        this.#confirmDeleteCard.append(style);
-        this.#confirmDeleteCard.append(messageWrapper);
-        this.#confirmDeleteCard.append(buttonWrapper);
-        this.#confirmDeleteCard.data = {};
-        this.rootElement.shadowRoot.append(this.#confirmDeleteCard);
-        //this.#kupManager.interact.dialogify(this.#confirmDeleteCard);
+        this.deleteRows(insertRowsIds).then(() => {
+            if (startingRows.length > 0) {
+                this.selectedRows = startingRows;
+                createDeleteCard();
+            }
+        });
     }
 
     #getEventDetails(
@@ -5587,15 +5609,43 @@ export class KupDataTable {
                     </div>
                     <div class="group-wrapper">{groupChips}</div>
                     <div class="actions-wrapper">
-                        {this.showInsertButton ? (
+                        {this.insertMode !== '' ? (
                             <FButton
                                 icon="plus"
-                                label="Insert"
-                                onClick={() => {
-                                    this.#rowInsert();
+                                onClick={async () => {
+                                    if (this.insertMode === 'form') {
+                                        this.#rowInsertForm();
+                                    } else {
+                                        this.#insertCount++;
+                                        const cells: KupDataRowCells = {};
+                                        for (
+                                            let index = 0;
+                                            index < this.data.columns.length;
+                                            index++
+                                        ) {
+                                            const column =
+                                                this.data.columns[index];
+                                            cells[column.name] = {
+                                                isEditable:
+                                                    column.isKey ||
+                                                    column.isEditable,
+                                                obj: column.obj,
+                                                shape: column.shape,
+                                                value: '',
+                                            };
+                                        }
+                                        this.data.rows.unshift({
+                                            cells,
+                                            id:
+                                                this.#INSERT_PREFIX +
+                                                this.#insertCount,
+                                        });
+                                        this.recalculateRows();
+                                        await this.refresh();
+                                    }
                                 }}
-                                slim={true}
                                 styling={FButtonStyling.OUTLINED}
+                                title="Insert row"
                                 wrapperClass="insert-button"
                             ></FButton>
                         ) : null}
@@ -5603,12 +5653,11 @@ export class KupDataTable {
                         this.selectedRows.length > 0 ? (
                             <FButton
                                 icon="delete"
-                                label="Delete"
                                 onClick={() => {
                                     this.#rowsDelete();
                                 }}
-                                slim={true}
                                 styling={FButtonStyling.OUTLINED}
+                                title="Delete selected rows"
                                 wrapperClass="delete-button"
                             ></FButton>
                         ) : null}

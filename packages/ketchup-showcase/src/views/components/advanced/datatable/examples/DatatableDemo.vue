@@ -330,6 +330,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'insertMode',
+          description: 'Enables insert mode.',
+          type: '"form" | "row" | ""',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'isFocusable',
           description:
             'When set to true, clicked-on rows will have a visual feedback.',
@@ -486,13 +493,6 @@ export default {
           description: 'Enables rendering of the table header.',
           type: 'boolean',
           default: 'true',
-          try: 'switch',
-        },
-        {
-          prop: 'showInsertButton',
-          description: 'Enables the insert row button.',
-          type: 'boolean',
-          default: 'false',
           try: 'switch',
         },
         {

@@ -36,6 +36,7 @@ export enum KupDataTableProps {
     groupLabelDisplay = 'How the label of a group must be displayed. For available values',
     groups = 'The list of groups.',
     headerIsPersistent = 'When set to true the header will stick on top of the table when scrolling.',
+    insertMode = 'Enables insert mode.',
     isFocusable = 'When set to true, clicked-on rows will have a visual feedback.',
     lazyLoadRows = 'When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content. Paginator is disabled.',
     lineBreakCharacter = 'Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.',
@@ -57,7 +58,6 @@ export enum KupDataTableProps {
     showGrid = 'Can be used to customize the grid view of the table.',
     showGroups = 'When set to true enables the column grouping.',
     showHeader = 'Enables rendering of the table header.',
-    showInsertButton = 'Enables the insert row button.',
     showLoadMore = 'If set to true, displays the button to load more records.',
     sort = 'Defines the current sorting options.',
     stateId = '',
@@ -109,6 +109,8 @@ export enum SortMode {
     A = 'A',
     D = 'D',
 }
+
+export type KupDataTableInsertMode = 'form' | 'row' | '';
 
 export interface TotalsMap {
     [index: string]: TotalMode;
