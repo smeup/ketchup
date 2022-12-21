@@ -105,7 +105,6 @@ graph TD;
   kup-card --> kup-chip
   kup-card --> kup-list
   kup-card --> kup-form
-  kup-card --> kup-card
   kup-card --> kup-checkbox
   kup-card --> kup-text-field
   kup-card --> kup-data-table
@@ -114,6 +113,7 @@ graph TD;
   kup-card --> kup-tree
   kup-card --> kup-switch
   kup-card --> kup-dropdown-button
+  kup-card --> kup-card
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-list --> kup-list
