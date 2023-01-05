@@ -6,7 +6,7 @@ export const config: Config = {
     sourceMap: false,
     namespace: 'ketchup',
     outputTargets: [
-        { type: 'dist' },
+        /*{ type: 'dist' },*/
         { type: 'docs-readme' },
         {
             type: 'www',
@@ -68,6 +68,13 @@ export const config: Config = {
             proxiesFile: '../ketchup-react/src/index.ts',
             includeDefineCustomElements: true,
         }),
+        {
+            type: 'dist',
+            esmLoaderPath: './loader',
+        },
+        {
+            type: 'dist-custom-elements',
+        },
     ],
     plugins: [
         sass({
