@@ -164,13 +164,20 @@ for (let index = 0; index < cards.length; index++) {
             { obj: { t: '', p: '', k: 'Cell 1' }, value: 'Cell 1' },
             { obj: { t: '', p: '', k: 'Cell 2' }, value: 'Cell 2' },
             { obj: { t: '', p: '', k: 'Cell 3' }, value: 'Cell 3' },
-            { obj: { t: 'J4', p: 'ICO', k: 'widgets' }, value: 'widgets' },
+            {
+                obj: {
+                    t: 'J4',
+                    p: 'IMG',
+                    k: 'https://www.w3schools.com/howto/img_avatar.png',
+                },
+                value: 'https://www.w3schools.com/howto/img_avatar.png',
+            },
         ],
         columns: [
             { name: '1', title: 'Column 1' },
             { name: '2', title: 'Column 2' },
             { name: '3', title: 'Column 3' },
-            { name: 'ICO', title: 'Column ICO' },
+            { name: 'IMG', title: 'Column IMG' },
         ],
         chart: [
             {
