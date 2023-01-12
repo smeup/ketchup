@@ -7,7 +7,6 @@ import {
     FCellShapes,
 } from '../../../f-components/f-cell/f-cell-declarations';
 import { KupDataCell } from '../../../managers/kup-data/kup-data-declarations';
-import { FImage } from '../../../f-components/f-image/f-image';
 import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -129,18 +128,17 @@ export function create4(component: KupCard): VNode {
     let value: number = null;
     for (let index = 0; index < cells.length; index++) {
         const cell = cells[index];
-        if (
-            (!image &&
-                (dom.ketchup.objects.isImage(cell.obj) ||
-                    dom.ketchup.objects.isIcon(cell.obj))) ||
-            cell.shape === FCellShapes.IMAGE
-        ) {
+        const isImage =
+            dom.ketchup.objects.isImage(cell.obj) ||
+            dom.ketchup.objects.isIcon(cell.obj) ||
+            cell.shape?.toUpperCase() === FCellShapes.IMAGE;
+        if (!image && isImage) {
             image = index;
             if (!cell.data) {
                 cell.data = { resource: cell.value };
             }
         }
-        if (!value && !dom.ketchup.objects.isImage(cell.obj)) {
+        if (!value && !isImage) {
             value = index;
         }
     }
@@ -189,12 +187,11 @@ export function create5(component: KupCard): VNode {
     for (let index = 0; index < cells.length; index++) {
         const cell = cells[index];
         const column = component.data.columns[index];
-        if (
-            (!image &&
-                (dom.ketchup.objects.isImage(cell.obj) ||
-                    dom.ketchup.objects.isIcon(cell.obj))) ||
-            cell.shape === FCellShapes.IMAGE
-        ) {
+        const isImage =
+            dom.ketchup.objects.isImage(cell.obj) ||
+            dom.ketchup.objects.isIcon(cell.obj) ||
+            cell.shape?.toUpperCase() === FCellShapes.IMAGE;
+        if (!image && isImage) {
             image = index;
             if (!cell.data) {
                 cell.data = { resource: cell.value };
@@ -254,12 +251,11 @@ export function create6(component: KupCard): VNode {
     for (let index = 0; index < cells.length; index++) {
         const cell = cells[index];
         const column = component.data.columns[index];
-        if (
-            (!image &&
-                (dom.ketchup.objects.isImage(cell.obj) ||
-                    dom.ketchup.objects.isIcon(cell.obj))) ||
-            cell.shape === FCellShapes.IMAGE
-        ) {
+        const isImage =
+            dom.ketchup.objects.isImage(cell.obj) ||
+            dom.ketchup.objects.isIcon(cell.obj) ||
+            cell.shape?.toUpperCase() === FCellShapes.IMAGE;
+        if (!image && isImage) {
             image = index;
             if (!cell.data) {
                 cell.data = { resource: cell.value };
