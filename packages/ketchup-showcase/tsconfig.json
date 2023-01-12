@@ -1,27 +1,32 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "allowUnreachableCode": false,
-    "baseUrl": ".",
-    "declaration": false,
-    "experimentalDecorators": true,
-    "lib": [
-      "dom",
-      "esnext"
-    ],
-    "types": ["node", "jest"],
-    "moduleResolution": "node",
-    "module": "esnext",
     "target": "esnext",
-    "noUnusedLocals": false,
-    "resolveJsonModule": true,
-    "jsx": "react",
-    "jsxFactory": "h",
+    "module": "esnext",
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "useDefineForClassFields": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "types": [
+      "webpack-env",
+      "jest"
+    ],
     "paths": {
       "@/*": [
         "src/*"
       ]
     },
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
   },
   "include": [
     "src/**/*.ts",

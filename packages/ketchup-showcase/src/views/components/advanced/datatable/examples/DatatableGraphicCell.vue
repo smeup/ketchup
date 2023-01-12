@@ -96,8 +96,7 @@ export default {
                   obj: {
                     t: 'J4',
                     p: 'BAR',
-                    k:
-                      'R255G000B000;12,4\\\\SEP;25,00\\\\R255G255B000;74,00\\\\GRID;20',
+                    k: 'R255G000B000;12,4\\\\SEP;25,00\\\\R255G255B000;74,00\\\\GRID;20',
                   },
                   data: {
                     resource:
@@ -125,8 +124,7 @@ export default {
                   obj: {
                     t: 'J4',
                     p: 'BAR',
-                    k:
-                      'R000G255B128;33,3\\\\ARW;50,00\\\\R255G255B051;66,5\\\\R220G000B000;100,0\\\\GRID;3',
+                    k: 'R000G255B128;33,3\\\\ARW;50,00\\\\R255G255B051;66,5\\\\R220G000B000;100,0\\\\GRID;3',
                   },
                   data: {
                     resource:
@@ -154,8 +152,7 @@ export default {
                   obj: {
                     t: 'J4',
                     p: 'BAR',
-                    k:
-                      'SHAPE;CIRCLE\\\\R000G255B128;33,3\\\\R255G255B051;66,5\\\\R220G000B000;100,0',
+                    k: 'SHAPE;CIRCLE\\\\R000G255B128;33,3\\\\R255G255B051;66,5\\\\R220G000B000;100,0',
                   },
                   data: {
                     resource:
@@ -183,8 +180,7 @@ export default {
                   obj: {
                     t: 'J4',
                     p: 'BAR',
-                    k:
-                      'SHAPE;TRIR\\\\R000G255B128;33,3\\\\R255G255B051;66,5\\\\R220G000B000;100,0',
+                    k: 'SHAPE;TRIR\\\\R000G255B128;33,3\\\\R255G255B051;66,5\\\\R220G000B000;100,0',
                   },
                   data: {
                     resource:
@@ -212,8 +208,7 @@ export default {
                   obj: {
                     t: 'J4',
                     p: 'BAR',
-                    k:
-                      'SHAPE;TRIL\\\\R000G255B128;33,3\\\\R255G255B051;66,5\\\\R220G000B000;100,0',
+                    k: 'SHAPE;TRIL\\\\R000G255B128;33,3\\\\R255G255B051;66,5\\\\R220G000B000;100,0',
                   },
                   data: {
                     resource:
@@ -241,8 +236,7 @@ export default {
                   obj: {
                     t: 'J4',
                     p: 'BAR',
-                    k:
-                      'SHAPE;TRIR;50\\\\BCOLOR;R102G255B178\\\\*NONE;33,3\\\\R255G255B051;66,5',
+                    k: 'SHAPE;TRIR;50\\\\BCOLOR;R102G255B178\\\\*NONE;33,3\\\\R255G255B051;66,5',
                   },
                   data: {
                     resource:
@@ -270,8 +264,7 @@ export default {
                   obj: {
                     t: 'J4',
                     p: 'BAR',
-                    k:
-                      'SHAPE;TRIR\\\\R000G255B128;33,3\\\\AND\\\\SHAPE;TRIL\\\\*NONE;33,3\\\\R255G255B051;66,6\\\\AND\\\\SHAPE;CIRCLE\\\\R000G000B255;66,6',
+                    k: 'SHAPE;TRIR\\\\R000G255B128;33,3\\\\AND\\\\SHAPE;TRIL\\\\*NONE;33,3\\\\R255G255B051;66,6\\\\AND\\\\SHAPE;CIRCLE\\\\R000G000B255;66,6',
                   },
                   data: {
                     resource:
