@@ -261,7 +261,7 @@ import { KupTextFieldEventPayload } from '@sme.up/ketchup/dist/types/components/
 import {
   KupDataColumn,
   KupDataDataset,
-} from '@sme.up/ketchup/src/managers/kup-data/kup-data-declarations';
+} from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 
 var accordion: HTMLKupAccordionElement = null;
 var cellFindTable: HTMLKupDataTableElement = null;
