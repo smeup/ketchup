@@ -164,7 +164,7 @@ export const fldDataWupComboboxUnselected = [
 export function fldConfigFactory(
   propToChange: { name: string; value: string }[] = []
 ) {
-  let toRet: {
+  const toRet: {
     [index: string]: string | object | boolean;
   } = {
     type: 'cmb',
@@ -186,7 +186,7 @@ export function fldConfigFactory(
 export function fldConfigItxFactory(
   propToChange: { name: string; value: string }[] = []
 ) {
-  let toRet: {
+  const toRet: {
     [index: string]: string | object | boolean;
   } = {
     type: 'itx',

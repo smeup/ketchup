@@ -24,7 +24,7 @@ function getRandomArbitrary(min: number, max: number): number {
 export function createDataForPagination(
   colSize: number,
   rowSize: number,
-  useStepValues: boolean = false
+  useStepValues = false
 ) {
   const columns: any = [];
   let stepValue = -20;
@@ -82,11 +82,11 @@ export function createDataForPagination(
 }
 
 export function filterFakeDepartmentData(filter: string, dataSuffix: string) {
-  let data = createFakeDepartmentData(dataSuffix);
+  const data = createFakeDepartmentData(dataSuffix);
   let rowsFiltered = data.rows;
   if (filter) {
     rowsFiltered = data.rows.filter((row: any) => {
-      let includes = row.cells['code'].value + ' ' + row.cells['desc'].value;
+      const includes = row.cells['code'].value + ' ' + row.cells['desc'].value;
       return includes.toUpperCase().includes(filter.toUpperCase());
     });
   }
@@ -1603,8 +1603,8 @@ export const repetitionsGroupDataTable = createDataForPagination(8, 1000, true);
 
 //---- Checkbox and radio data table ----
 export function dataTableCheckboxFactory(
-  inputType: string = 'SI/NO',
-  hideValuesRepetitions: boolean = false
+  inputType = 'SI/NO',
+  hideValuesRepetitions = false
 ) {
   return {
     config: {

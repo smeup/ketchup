@@ -1,19 +1,15 @@
 {
     "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
-        "allowUnreachableCode": false,
-        "declaration": true,
-        "experimentalDecorators": true,
-        "jsx": "react",
-        "lib": ["dom", "es2017"],
-        "moduleResolution": "node",
-        "module": "esnext",
-        "noUnusedLocals": false,
-        "noUnusedParameters": true,
-        "resolveJsonModule": true,
-        "target": "es2017",
-        "outDir": "./dist"
+      "target": "ESNext", 
+      "module": "ESNext",  
+      "declaration": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "strict": true,                   
+      "skipLibCheck": true,
+      "jsx": "react",
+      "moduleResolution": "node",
+      "outDir": "dist"
     },
-    "include": ["src", "types/jsx.d.ts"],
-    "exclude": ["node_modules"]
-}
+    "exclude": ["node_modules", "dist", "**/*.test.ts"]
+  }

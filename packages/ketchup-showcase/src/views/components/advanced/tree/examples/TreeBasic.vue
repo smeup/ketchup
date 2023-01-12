@@ -16,7 +16,7 @@
       :columns.prop="firstSelection.columns"
       :data.prop="firstSelection.data"
       :selectedNode.prop="selectedNodes.first"
-      @kup-tree-nodeselected="hdlChangeSelected($event, 'first')"
+      @kup-tree-nodeselected="this.hdlChangeSelected($event, 'first')"
     />
 
     <h3>With initial selection on 3 item and handler for selection</h3>
@@ -25,7 +25,7 @@
       :columns.prop="complexSelection.columns"
       :data.prop="complexSelection.data"
       :selectedNode.prop="selectedNodes.complex"
-      @kup-tree-nodeselected="hdlChangeSelected($event, 'complex')"
+      @kup-tree-nodeselected="this.hdlChangeSelected($event, 'complex')"
     />
     <div class="example-container">
       <div
@@ -43,17 +43,18 @@
   </div>
 </template>
 
-<script>
-import { TreeFactory } from '@sme.up/ketchup/src/components/kup-tree/kup-tree-faker';
+<script lang="ts">
+//import { TreeFactory } from '@sme.up/ketchup/dist/types/components/kup-tree/kup-tree-faker';
+import { TreeFactory } from '@/utils/kup-tree-faker';
 
 export default {
   name: 'TBasic',
   data() {
     return {
       basicData: TreeFactory(),
-      expandedData: TreeFactory(3, 3),
-      firstSelection: TreeFactory(3, 3),
-      complexSelection: TreeFactory(3, 3),
+      expandedData: TreeFactory(),
+      firstSelection: TreeFactory(),
+      complexSelection: TreeFactory(),
       optionObj: {
         cell: '',
         column: '',

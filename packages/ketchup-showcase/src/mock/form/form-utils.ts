@@ -4,7 +4,7 @@ export function buildFormEventCallback(eventType: string) {
 
 export function formEventCallbackCall(eventType: string, detail: any) {
   console.log('FormEventCallbackCall for eventType: ' + eventType);
-  let result = chooseAndApplyFakeBackendLogic(eventType, detail);
+  const result = chooseAndApplyFakeBackendLogic(eventType, detail);
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (result) resolve(result);
@@ -20,14 +20,14 @@ export function chooseAndApplyFakeBackendLogic(eventType: string, detail: any) {
   } else {
     let isToCheck = false;
     if (detail.field && detail.field.key) {
-      let cell =
+      const cell =
         detail.actual &&
         detail.actual.cells &&
         detail.actual.cells[detail.field.key];
       if (cell.extra && cell.extra.liveBackendCheck) {
         isToCheck = true;
       } else {
-        let field =
+        const field =
           detail.actual &&
           detail.actual.fields &&
           detail.actual.fields[detail.field.key];
@@ -104,7 +104,7 @@ export function fakeBackendLogic(
 
   if (newCells) {
     const keys = Object.keys(newCells);
-    let cells: any = [];
+    const cells: any = [];
     keys.forEach((key) => {
       newCells[key].key = key;
       cells.push(newCells[key]);
@@ -258,7 +258,7 @@ export function fakeBackendLogic(
 }
 
 export function cellValueIsOfType(cell: any, type: string) {
-  let value = JSON.stringify(cell.value);
+  const value = JSON.stringify(cell.value);
 
   if (value && value.includes(type)) {
     return true;
