@@ -9,6 +9,7 @@
       "dom",
       "esnext"
     ],
+    "types": ["node", "jest"],
     "moduleResolution": "node",
     "module": "esnext",
     "target": "esnext",
