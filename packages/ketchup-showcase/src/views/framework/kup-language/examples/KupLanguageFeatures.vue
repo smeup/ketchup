@@ -89,7 +89,7 @@ import { KupComboboxEventPayload } from '@sme.up/ketchup/dist/types/components/k
 import {
   KupDataColumn,
   KupDataRow,
-} from '@sme.up/ketchup/src/managers/kup-data/kup-data-declarations';
+} from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 import { KupDataCell } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 import { KupChipNode } from '@sme.up/ketchup/dist/types/components/kup-chip/kup-chip-declarations';
 

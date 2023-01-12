@@ -13,9 +13,9 @@ export function searchFilterSubmittedCallbackCall(detail: any) {
     aParamForBackend = detail.extra.aParamForBackend;
   }
 
-  let prefix = aParamForBackend.substring(0, 3).toUpperCase();
+  const prefix = aParamForBackend.substring(0, 3).toUpperCase();
 
-  let data = filterFakeDepartmentData(detail.filter, aParamForBackend);
+  const data = filterFakeDepartmentData(detail.filter, aParamForBackend);
 
   return new Promise((resolve, reject) => {
     setTimeout(() => {
