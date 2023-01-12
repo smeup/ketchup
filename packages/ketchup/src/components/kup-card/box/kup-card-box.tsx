@@ -7,7 +7,6 @@ import {
     FCellShapes,
 } from '../../../f-components/f-cell/f-cell-declarations';
 import { KupDataCell } from '../../../managers/kup-data/kup-data-declarations';
-import { FImage } from '../../../f-components/f-image/f-image';
 import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -129,18 +128,17 @@ export function create4(component: KupCard): VNode {
     let value: number = null;
     for (let index = 0; index < cells.length; index++) {
         const cell = cells[index];
-        if (
-            (!image &&
-                (dom.ketchup.objects.isImage(cell.obj) ||
-                    dom.ketchup.objects.isIcon(cell.obj))) ||
-            cell.shape === FCellShapes.IMAGE
-        ) {
+        const isImage =
+            dom.ketchup.objects.isImage(cell.obj) ||
+            dom.ketchup.objects.isIcon(cell.obj) ||
+            cell.shape?.toUpperCase() === FCellShapes.IMAGE;
+        if (!image && isImage) {
             image = index;
             if (!cell.data) {
                 cell.data = { resource: cell.value };
             }
         }
-        if (!value && !dom.ketchup.objects.isImage(cell.obj)) {
+        if (!value && !isImage) {
             value = index;
         }
     }
@@ -175,4 +173,152 @@ export function create4(component: KupCard): VNode {
             </div>
         </div>
     );
+}
+/**
+ * 5th box card layout, image on the left and rows of text.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 4th box layout virtual node.
+ */
+export function create5(component: KupCard): VNode {
+    const cells = component.data.cell as KupDataCell[];
+    const columns = component.data.columns;
+    const rows = [];
+    let image: number = null;
+    for (let index = 0; index < cells.length; index++) {
+        const cell = cells[index];
+        const column = component.data.columns[index];
+        const isImage =
+            dom.ketchup.objects.isImage(cell.obj) ||
+            dom.ketchup.objects.isIcon(cell.obj) ||
+            cell.shape?.toUpperCase() === FCellShapes.IMAGE;
+        if (!image && isImage) {
+            image = index;
+            if (!cell.data) {
+                cell.data = { resource: cell.value };
+            }
+        } else {
+            const props: FCellProps = {
+                cell: cell,
+                column: column,
+                component: component,
+                density: FCellPadding.NONE,
+                renderKup: true,
+                row: { cells: { [column.name]: cell } },
+            };
+            rows.push(
+                <tr>
+                    <td class="label">{column.title}</td>
+                    <td class="value">
+                        <FCell {...props}></FCell>
+                    </td>
+                </tr>
+            );
+        }
+    }
+    const imageProps: FCellProps = {
+        cell: cells[image],
+        column: columns[image],
+        component: component,
+        density: FCellPadding.NONE,
+        renderKup: true,
+        row: { cells: { [columns[image].name]: cells[image] } },
+        wrapperClass: 'c-centered',
+    };
+
+    return (
+        <div class={`box-layout-${component.layoutNumber}`}>
+            <div class="container">
+                <div class="image">
+                    <FCell {...imageProps}></FCell>
+                </div>
+                <div class="table">
+                    <table>{rows}</table>
+                </div>
+            </div>
+        </div>
+    );
+}
+/**
+ * 6th box card layout, image on the left and vertical list of text.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 4th box layout virtual node.
+ */
+export function create6(component: KupCard): VNode {
+    const cells = component.data.cell as KupDataCell[];
+    const columns = component.data.columns;
+    const rows = [];
+    let image: number = null;
+    for (let index = 0; index < cells.length; index++) {
+        const cell = cells[index];
+        const column = component.data.columns[index];
+        const isImage =
+            dom.ketchup.objects.isImage(cell.obj) ||
+            dom.ketchup.objects.isIcon(cell.obj) ||
+            cell.shape?.toUpperCase() === FCellShapes.IMAGE;
+        if (!image && isImage) {
+            image = index;
+            if (!cell.data) {
+                cell.data = { resource: cell.value };
+            }
+        } else {
+            const props: FCellProps = {
+                cell: cell,
+                column: column,
+                component: component,
+                density: FCellPadding.NONE,
+                renderKup: true,
+                row: { cells: { [column.name]: cell } },
+            };
+            rows.push(
+                <tr>
+                    <td class="label">{column.title}</td>
+                </tr>
+            );
+            rows.push(
+                <tr>
+                    <td class="value">
+                        <FCell {...props}></FCell>
+                    </td>
+                </tr>
+            );
+        }
+    }
+    const imageProps: FCellProps = {
+        cell: cells[image],
+        column: columns[image],
+        component: component,
+        density: FCellPadding.NONE,
+        renderKup: true,
+        row: { cells: { [columns[image].name]: cells[image] } },
+        wrapperClass: 'c-centered',
+    };
+
+    return (
+        <div class={`box-layout-${component.layoutNumber}`}>
+            <div class="container">
+                <div class="image">
+                    <FCell {...imageProps}></FCell>
+                </div>
+                <div class="table">
+                    <table>{rows}</table>
+                </div>
+            </div>
+        </div>
+    );
+}
+/**
+ * 7th box card layout, image above and rows of text.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 4th box layout virtual node.
+ */
+export function create7(component: KupCard): VNode {
+    return create5(component);
+}
+/**
+ * 6th box card layout, image above and vertical list of text.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 4th box layout virtual node.
+ */
+export function create8(component: KupCard): VNode {
+    return create6(component);
 }
