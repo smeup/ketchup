@@ -423,7 +423,7 @@ const demoTypes: DemoTypeJson = {
   KupBoxLayout: {
     keys: {
       'horizontal?': 'boolean',
-      'sections?': 'Section[]',
+      'sections?': 'KupBoxSection[]',
     },
     type: DemoTypeFeature.INTERFACE,
   },
