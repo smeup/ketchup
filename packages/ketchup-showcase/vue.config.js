@@ -4,4 +4,5 @@ module.exports = defineConfig({
   devServer: {
     port: 4000,
   },
+  publicPath: './',
 });
