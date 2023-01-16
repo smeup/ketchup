@@ -24,7 +24,10 @@
   }
 
   .label {
+    overflow: hidden;
     text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .value {
