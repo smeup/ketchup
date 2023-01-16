@@ -146,7 +146,7 @@ export function create4(component: KupCard): VNode {
         cell: cells[image],
         column: columns[image],
         component: component,
-        density: FCellPadding.NONE,
+        density: FCellPadding.MEDIUM,
         renderKup: true,
         row: { cells: { [columns[image].name]: cells[image] } },
         wrapperClass: 'c-centered',
@@ -155,7 +155,7 @@ export function create4(component: KupCard): VNode {
         cell: cells[value],
         column: columns[value],
         component: component,
-        density: FCellPadding.NONE,
+        density: FCellPadding.MEDIUM,
         renderKup: true,
         row: { cells: { [columns[value].name]: cells[value] } },
         wrapperClass: 'c-centered',
@@ -177,13 +177,13 @@ export function create4(component: KupCard): VNode {
 /**
  * 5th box card layout, image on the left and rows of text.
  * @param {KupCard} component - Card component.
- * @returns {VNode} 4th box layout virtual node.
+ * @returns {VNode} 5th box layout virtual node.
  */
 export function create5(component: KupCard): VNode {
     const cells = component.data.cell as KupDataCell[];
     const columns = component.data.columns;
     const rows = [];
-    let image: number = null;
+    let imageProps: FCellProps = null;
     for (let index = 0; index < cells.length; index++) {
         const cell = cells[index];
         const column = component.data.columns[index];
@@ -191,8 +191,16 @@ export function create5(component: KupCard): VNode {
             dom.ketchup.objects.isImage(cell.obj) ||
             dom.ketchup.objects.isIcon(cell.obj) ||
             cell.shape?.toUpperCase() === FCellShapes.IMAGE;
-        if (!image && isImage) {
-            image = index;
+        if (!imageProps && isImage) {
+            imageProps = {
+                cell: cells[index],
+                column: columns[index],
+                component: component,
+                density: FCellPadding.MEDIUM,
+                renderKup: true,
+                row: { cells: { [columns[index].name]: cells[index] } },
+                wrapperClass: 'c-centered',
+            };
             if (!cell.data) {
                 cell.data = { resource: cell.value };
             }
@@ -201,7 +209,7 @@ export function create5(component: KupCard): VNode {
                 cell: cell,
                 column: column,
                 component: component,
-                density: FCellPadding.NONE,
+                density: FCellPadding.MEDIUM,
                 renderKup: true,
                 row: { cells: { [column.name]: cell } },
             };
@@ -215,22 +223,15 @@ export function create5(component: KupCard): VNode {
             );
         }
     }
-    const imageProps: FCellProps = {
-        cell: cells[image],
-        column: columns[image],
-        component: component,
-        density: FCellPadding.NONE,
-        renderKup: true,
-        row: { cells: { [columns[image].name]: cells[image] } },
-        wrapperClass: 'c-centered',
-    };
 
     return (
         <div class={`box-layout-${component.layoutNumber}`}>
             <div class="container">
-                <div class="image">
-                    <FCell {...imageProps}></FCell>
-                </div>
+                {imageProps ? (
+                    <div class="image">
+                        <FCell {...imageProps}></FCell>
+                    </div>
+                ) : null}
                 <div class="table">
                     <table>{rows}</table>
                 </div>
@@ -241,7 +242,7 @@ export function create5(component: KupCard): VNode {
 /**
  * 6th box card layout, image on the left and vertical list of text.
  * @param {KupCard} component - Card component.
- * @returns {VNode} 4th box layout virtual node.
+ * @returns {VNode} 6th box layout virtual node.
  */
 export function create6(component: KupCard): VNode {
     const cells = component.data.cell as KupDataCell[];
@@ -265,7 +266,7 @@ export function create6(component: KupCard): VNode {
                 cell: cell,
                 column: column,
                 component: component,
-                density: FCellPadding.NONE,
+                density: FCellPadding.MEDIUM,
                 renderKup: true,
                 row: { cells: { [column.name]: cell } },
             };
@@ -287,7 +288,7 @@ export function create6(component: KupCard): VNode {
         cell: cells[image],
         column: columns[image],
         component: component,
-        density: FCellPadding.NONE,
+        density: FCellPadding.MEDIUM,
         renderKup: true,
         row: { cells: { [columns[image].name]: cells[image] } },
         wrapperClass: 'c-centered',
@@ -309,15 +310,15 @@ export function create6(component: KupCard): VNode {
 /**
  * 7th box card layout, image above and rows of text.
  * @param {KupCard} component - Card component.
- * @returns {VNode} 4th box layout virtual node.
+ * @returns {VNode} 7th box layout virtual node.
  */
 export function create7(component: KupCard): VNode {
     return create5(component);
 }
 /**
- * 6th box card layout, image above and vertical list of text.
+ * 8th box card layout, image above and vertical list of text.
  * @param {KupCard} component - Card component.
- * @returns {VNode} 4th box layout virtual node.
+ * @returns {VNode} 8th box layout virtual node.
  */
 export function create8(component: KupCard): VNode {
     return create6(component);
