@@ -33,7 +33,7 @@ import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, Ku
 import { GeoJSON } from "geojson";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
 import { KupFamilyTreeData, KupFamilyTreeEventPayload, KupFamilyTreeLayout, KupFamilyTreeNode } from "./components/kup-family-tree/kup-family-tree-declarations";
-import { KupFormData, KupFormLayout } from "./components/kup-form/kup-form-declarations";
+import { KupFormData, KupFormLabelPlacement, KupFormLayout } from "./components/kup-form/kup-form-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
@@ -1712,6 +1712,11 @@ export namespace Components {
           * @default false
          */
         "hiddenSubmitButton": boolean;
+        /**
+          * Sets the label placement for 'all' fields in form
+          * @default KupFormLabelPlacement.LEFT
+         */
+        "labelPlacement": KupFormLabelPlacement;
         /**
           * How the form will arrange its content.
           * @default null
@@ -4948,6 +4953,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "hiddenSubmitButton"?: boolean;
+        /**
+          * Sets the label placement for 'all' fields in form
+          * @default KupFormLabelPlacement.LEFT
+         */
+        "labelPlacement"?: KupFormLabelPlacement;
         /**
           * How the form will arrange its content.
           * @default null
