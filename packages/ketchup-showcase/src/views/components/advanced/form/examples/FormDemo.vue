@@ -76,6 +76,22 @@ export default {
           try: 'json',
         },
         {
+          prop: 'hiddenSubmitButton',
+          description:
+            'Creates a hidden submit button in order to submit the form with enter.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'labelPlacement',
+          description:
+            "Sets the label placement for 'all' fields in form. Available values: top, bottom, left, right, hidden, placeholder or watermark.",
+          type: 'string',
+          default: 'left',
+          try: 'field',
+        },
+        {
           prop: 'layout',
           description: 'How the form will arrange its content.',
           type: 'KupFormLayout',
