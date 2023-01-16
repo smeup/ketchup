@@ -43,7 +43,7 @@ export enum FCellEvents {
     CLICK = 'kup-cell-click',
     ICON_CLICK = 'kup-cell-iconclick',
     INPUT = 'kup-cell-input',
-    KEYPRESS = 'kup-cell-keypress',
+    KEYDOWN = 'kup-cell-keydown',
     UPDATE = 'kup-cell-update',
 }
 /**

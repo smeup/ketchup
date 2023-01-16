@@ -48,7 +48,7 @@ export default {
           type: 'CustomEvent',
         },
         {
-          name: 'kup-cell-keypress',
+          name: 'kup-cell-keydown',
           type: 'CustomEvent',
         },
         {
