@@ -159,6 +159,7 @@ export const editableTypes = [
     FCellTypes.COLOR_PICKER,
     FCellTypes.COMBOBOX,
     FCellTypes.DATE,
+    FCellTypes.LINK,
     FCellTypes.NUMBER,
     FCellTypes.RATING,
     FCellTypes.STRING,
