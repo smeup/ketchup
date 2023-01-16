@@ -43,6 +43,7 @@ export enum FCellEvents {
     CLICK = 'kup-cell-click',
     ICON_CLICK = 'kup-cell-iconclick',
     INPUT = 'kup-cell-input',
+    KEYPRESS = 'kup-cell-keypress',
     UPDATE = 'kup-cell-update',
 }
 /**
@@ -183,7 +184,7 @@ export const kupTypes = [
 export interface FCellEventPayload extends KupEventPayload {
     cell: KupDataCell;
     column: KupDataColumn;
-    event: CustomEvent | InputEvent | MouseEvent;
+    event: CustomEvent | InputEvent | MouseEvent | KeyboardEvent;
     row: KupDataRow;
     type: FCellTypes;
 }

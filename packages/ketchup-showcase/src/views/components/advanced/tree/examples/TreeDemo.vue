@@ -47,7 +47,15 @@ export default {
           type: 'CustomEvent',
         },
         {
+          name: 'kup-cell-iconclick',
+          type: 'CustomEvent',
+        },
+        {
           name: 'kup-cell-input',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-cell-keypress',
           type: 'CustomEvent',
         },
         {

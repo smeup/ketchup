@@ -48,6 +48,10 @@ export default {
           type: 'CustomEvent',
         },
         {
+          name: 'kup-cell-keypress',
+          type: 'CustomEvent',
+        },
+        {
           name: 'kup-cell-update',
           type: 'CustomEvent',
         },
