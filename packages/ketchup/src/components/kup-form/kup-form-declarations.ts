@@ -63,6 +63,7 @@ export enum KupFormLabelPlacement {
     LEFT = 'left',
     HIDDEN = 'hidden',
     PLACEHOLDER = 'placeholder',
+    WATERMARK = 'watermark',
     RIGHT = 'right',
     TOP = 'top',
 }

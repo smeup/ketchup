@@ -7,12 +7,13 @@
 
 ## Properties
 
-| Property             | Attribute              | Description                                                            | Type            | Default |
-| -------------------- | ---------------------- | ---------------------------------------------------------------------- | --------------- | ------- |
-| `customStyle`        | `custom-style`         | Custom style of the component.                                         | `string`        | `''`    |
-| `data`               | --                     | Actual data of the form.                                               | `KupFormData`   | `null`  |
-| `hiddenSubmitButton` | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean`       | `false` |
-| `layout`             | --                     | How the form will arrange its content.                                 | `KupFormLayout` | `null`  |
+| Property             | Attribute              | Description                                                            | Type                                                                                                                                                                                                                             | Default                      |
+| -------------------- | ---------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| `customStyle`        | `custom-style`         | Custom style of the component.                                         | `string`                                                                                                                                                                                                                         | `''`                         |
+| `data`               | --                     | Actual data of the form.                                               | `KupFormData`                                                                                                                                                                                                                    | `null`                       |
+| `hiddenSubmitButton` | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean`                                                                                                                                                                                                                        | `false`                      |
+| `labelPlacement`     | `label-placement`      | Sets the label placement for 'all' fields in form                      | `KupFormLabelPlacement.BOTTOM \| KupFormLabelPlacement.HIDDEN \| KupFormLabelPlacement.LEFT \| KupFormLabelPlacement.PLACEHOLDER \| KupFormLabelPlacement.RIGHT \| KupFormLabelPlacement.TOP \| KupFormLabelPlacement.WATERMARK` | `KupFormLabelPlacement.LEFT` |
+| `layout`             | --                     | How the form will arrange its content.                                 | `KupFormLayout`                                                                                                                                                                                                                  | `null`                       |
 
 
 ## Methods
