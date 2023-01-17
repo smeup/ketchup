@@ -13,6 +13,7 @@ export enum KupFormProps {
     hiddenSubmitButton = 'Creates a hidden submit button in order to submit the form with enter.',
     labelPlacement = "Sets the label placement for 'all' fields in form",
     layout = 'How the form will arrange its content.',
+    submitCb = 'Sets the callback function on submit form',
 }
 export interface KupFormData {
     columns?: KupDataColumn[];

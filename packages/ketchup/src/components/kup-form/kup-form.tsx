@@ -81,6 +81,12 @@ export class KupForm {
      */
     @Prop() layout: KupFormLayout = null;
 
+    /**
+     * Sets the callback function on submit form
+     * @default null
+     */
+    @Prop() submitCb: (e: SubmitEvent) => unknown = null;
+
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -262,7 +268,11 @@ export class KupForm {
         };
 
         return (
-            <form class={classObj} name={this.rootElement.id}>
+            <form
+                class={classObj}
+                name={this.rootElement.id}
+                onSubmit={this.submitCb}
+            >
                 {formContent}
                 {this.hiddenSubmitButton ? (
                     <FButton

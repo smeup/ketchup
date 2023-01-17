@@ -1737,6 +1737,11 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the callback function on submit form
+          * @default null
+         */
+        "submitCb": (e: SubmitEvent) => unknown;
     }
     interface KupGauge {
         /**
@@ -4963,6 +4968,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "layout"?: KupFormLayout;
+        /**
+          * Sets the callback function on submit form
+          * @default null
+         */
+        "submitCb"?: (e: SubmitEvent) => unknown;
     }
     interface KupGauge {
         /**

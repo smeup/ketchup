@@ -14,6 +14,7 @@
 | `hiddenSubmitButton` | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean`                                                                                                                                                                                                                        | `false`                      |
 | `labelPlacement`     | `label-placement`      | Sets the label placement for 'all' fields in form                      | `KupFormLabelPlacement.BOTTOM \| KupFormLabelPlacement.HIDDEN \| KupFormLabelPlacement.LEFT \| KupFormLabelPlacement.PLACEHOLDER \| KupFormLabelPlacement.RIGHT \| KupFormLabelPlacement.TOP \| KupFormLabelPlacement.WATERMARK` | `KupFormLabelPlacement.LEFT` |
 | `layout`             | --                     | How the form will arrange its content.                                 | `KupFormLayout`                                                                                                                                                                                                                  | `null`                       |
+| `submitCb`           | --                     | Sets the callback function on submit form                              | `(e: SubmitEvent) => unknown`                                                                                                                                                                                                    | `null`                       |
 
 
 ## Methods
