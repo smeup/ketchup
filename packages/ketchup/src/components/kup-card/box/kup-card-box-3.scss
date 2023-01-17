@@ -16,6 +16,11 @@
     display: flex;
   }
 
+  .label,
+  .value {
+    word-break: normal;
+  }
+
   .label {
     overflow: hidden;
     padding: 0.5em;
