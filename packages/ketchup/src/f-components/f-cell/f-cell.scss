@@ -41,6 +41,7 @@
   .f-cell__text {
     overflow: hidden;
     text-overflow: ellipsis;
+    word-break: normal;
   }
 
   &.bar-cell {
