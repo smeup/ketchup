@@ -18,6 +18,11 @@
     width: 64px;
   }
 
+  .label,
+  .value {
+    word-break: normal;
+  }
+
   .value {
     padding: 0.5em;
     font-weight: bold;
