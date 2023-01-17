@@ -160,9 +160,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     return (
         <div
-            onKeyDown={(e) =>
-                cellEvent(e, props, cellType, FCellEvents.KEYDOWN)
-            }
+            onKeyUp={(e) => cellEvent(e, props, cellType, FCellEvents.KEYUP)}
             class={classObj}
             kup-get-cell-props={() => {
                 return props;
