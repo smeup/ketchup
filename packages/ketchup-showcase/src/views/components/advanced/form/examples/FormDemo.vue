@@ -98,6 +98,13 @@ export default {
           default: 'null',
           try: 'json',
         },
+        {
+          prop: 'submitCb',
+          description: 'Sets the callback function on submit form.',
+          type: 'string',
+          default: 'null',
+          try: 'field',
+        },
       ],
     };
   },
