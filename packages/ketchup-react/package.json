@@ -20,7 +20,7 @@
     "description": "Ketchup React Components library by smeup",
     "license": "Apache-2.0",
     "dependencies": {
-        "@sme.up/ketchup": "^6.8.0",
+        "@sme.up/ketchup": "^6.9.0-SNAPSHOT",
         "react": "18.2.0",
         "react-dom": "18.2.0"
     },
