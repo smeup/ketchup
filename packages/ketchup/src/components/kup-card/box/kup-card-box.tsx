@@ -146,7 +146,7 @@ export function create4(component: KupCard): VNode {
         cell: cells[image],
         column: columns[image],
         component: component,
-        density: FCellPadding.MEDIUM,
+        density: FCellPadding.NONE,
         renderKup: true,
         row: { cells: { [columns[image].name]: cells[image] } },
         wrapperClass: 'c-centered',
@@ -155,7 +155,7 @@ export function create4(component: KupCard): VNode {
         cell: cells[value],
         column: columns[value],
         component: component,
-        density: FCellPadding.MEDIUM,
+        density: FCellPadding.NONE,
         renderKup: true,
         row: { cells: { [columns[value].name]: cells[value] } },
         wrapperClass: 'c-centered',
@@ -196,7 +196,7 @@ export function create5(component: KupCard): VNode {
                 cell: cells[index],
                 column: columns[index],
                 component: component,
-                density: FCellPadding.MEDIUM,
+                density: FCellPadding.NONE,
                 renderKup: true,
                 row: { cells: { [columns[index].name]: cells[index] } },
                 wrapperClass: 'c-centered',
@@ -209,14 +209,14 @@ export function create5(component: KupCard): VNode {
                 cell: cell,
                 column: column,
                 component: component,
-                density: FCellPadding.MEDIUM,
+                density: FCellPadding.NONE,
                 renderKup: true,
                 row: { cells: { [column.name]: cell } },
             };
             rows.push(
                 <tr>
                     <td class="label">{column.title}</td>
-                    <td class="value">
+                    <td class={`value`}>
                         <FCell {...props}></FCell>
                     </td>
                 </tr>
@@ -266,7 +266,7 @@ export function create6(component: KupCard): VNode {
                 cell: cell,
                 column: column,
                 component: component,
-                density: FCellPadding.MEDIUM,
+                density: FCellPadding.NONE,
                 renderKup: true,
                 row: { cells: { [column.name]: cell } },
             };
@@ -277,7 +277,7 @@ export function create6(component: KupCard): VNode {
             );
             rows.push(
                 <tr>
-                    <td class="value">
+                    <td class={`value`}>
                         <FCell {...props}></FCell>
                     </td>
                 </tr>
@@ -288,7 +288,7 @@ export function create6(component: KupCard): VNode {
         cell: cells[image],
         column: columns[image],
         component: component,
-        density: FCellPadding.MEDIUM,
+        density: FCellPadding.NONE,
         renderKup: true,
         row: { cells: { [columns[image].name]: cells[image] } },
         wrapperClass: 'c-centered',
