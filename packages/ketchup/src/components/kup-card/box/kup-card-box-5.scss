@@ -4,7 +4,7 @@
   display: flex;
   font-size: var(--kup-font-size);
   height: 100%;
-  padding: 0.5em;
+  padding: 1em 0.5em;
 
   .container {
     display: flex;
@@ -14,8 +14,15 @@
   }
 
   .image {
+    display: flex;
     height: 100%;
+    margin: auto;
     width: 50%;
+  }
+
+  .label,
+  .value {
+    padding: 0.5em;
   }
 
   .label {

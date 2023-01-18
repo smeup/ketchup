@@ -14,6 +14,16 @@
   .flex-container {
     align-items: center;
     display: flex;
+    justify-content: center;
+    width: 100%;
+
+    &:first-child {
+      justify-content: flex-start;
+    }
+
+    &:last-child {
+      justify-content: flex-end;
+    }
   }
 
   .label {
