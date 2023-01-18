@@ -1698,11 +1698,15 @@ export class KupDataTable {
     };
 
     #updateStickyHeaderSize() {
-        const navBar: Element = document.querySelectorAll('.header')[0];
+        const navBar = document.querySelector('.header') as HTMLElement;
+        const topBar = document.querySelector('.topbar') as HTMLElement;
         if (navBar) {
             this.#navBarHeight = navBar.clientHeight;
         } else {
             this.#navBarHeight = 0;
+        }
+        if (topBar) {
+            this.#navBarHeight += topBar.clientHeight;
         }
         if (this.#stickyTheadRef) {
             this.#stickyTheadRef.style.top = this.#navBarHeight + 'px';
@@ -2262,11 +2266,14 @@ export class KupDataTable {
         identify(this.getRows());
         this.expandGroupsHandler();
 
-        if (document.querySelectorAll('.header')[0]) {
-            this.#navBarHeight =
-                document.querySelectorAll('.header')[0].clientHeight;
+        if (document.querySelector('.header')) {
+            this.#navBarHeight = document.querySelector('.header').clientHeight;
         } else {
             this.#navBarHeight = 0;
+        }
+        if (document.querySelector('.topbar')) {
+            this.#navBarHeight +=
+                document.querySelector('.topbar').clientHeight;
         }
         this.#setObserver();
 
