@@ -295,7 +295,7 @@ export class KupColumnMenu {
         column: KupDataColumn
     ): GenericObject[] {
         let props: GenericObject[] = [];
-        const chipProps: FChipsProps = {};
+        const chipProps: FChipsProps = { data: [] };
         if (column.children) {
             const chipData: KupChipNode[] = [];
             for (let index = 0; index < column.children.length; index++) {

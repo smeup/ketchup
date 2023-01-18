@@ -69,11 +69,23 @@ export class KupForm {
      * @default false
      */
     @Prop() hiddenSubmitButton: boolean = false;
+
+    /**
+     * Sets the label placement for 'all' fields in form
+     * @default KupFormLabelPlacement.LEFT
+     */
+    @Prop() labelPlacement: KupFormLabelPlacement = KupFormLabelPlacement.LEFT;
     /**
      * How the form will arrange its content.
      * @default null
      */
     @Prop() layout: KupFormLayout = null;
+
+    /**
+     * Sets the callback function on submit form
+     * @default null
+     */
+    @Prop() submitCb: (e: SubmitEvent) => unknown = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -256,7 +268,11 @@ export class KupForm {
         };
 
         return (
-            <form class={classObj} name={this.rootElement.id}>
+            <form
+                class={classObj}
+                name={this.rootElement.id}
+                onSubmit={this.submitCb}
+            >
                 {formContent}
                 {this.hiddenSubmitButton ? (
                     <FButton
@@ -332,8 +348,7 @@ export class KupForm {
         }
 
         const isGrid = !!section.columns;
-        const labelPlacement =
-            section?.label?.placement || KupFormLabelPlacement.LEFT;
+        const labelPlacement = section?.label?.placement || this.labelPlacement;
 
         const sectionClass: { [index: string]: boolean } = {
             form__section: true,
@@ -440,10 +455,12 @@ export class KupForm {
         };
         const label = formField.label || column.title;
         resetLabel();
-        switch (section.label?.placement) {
+        const labelPlacement = section?.label?.placement || this.labelPlacement;
+        switch (labelPlacement) {
             case KupFormLabelPlacement.BOTTOM:
                 return [<tr>{fieldCell()}</tr>, <tr>{labelCell(label)}</tr>];
             case KupFormLabelPlacement.PLACEHOLDER:
+            case KupFormLabelPlacement.WATERMARK:
                 setPlaceholderLabel();
             case KupFormLabelPlacement.HIDDEN: {
                 if (section) {

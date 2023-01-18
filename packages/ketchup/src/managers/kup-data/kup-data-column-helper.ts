@@ -23,10 +23,13 @@ export function findColumns(
     dataset: KupDataDataset | KupDataColumn[],
     filters: Partial<KupDataColumn>
 ): KupDataColumn[] {
+    const result: KupDataColumn[] = [];
+    if (!dataset) {
+        return result;
+    }
     const columns = (dataset as KupDataDataset).columns
         ? (dataset as KupDataDataset).columns
         : (dataset as KupDataColumn[]);
-    const result: KupDataColumn[] = [];
     for (let index = 0; index < columns.length; index++) {
         const column = columns[index];
         for (const key in filters) {

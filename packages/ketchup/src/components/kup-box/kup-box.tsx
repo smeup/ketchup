@@ -20,9 +20,9 @@ import {
 import {
     KupBoxRow,
     KupBoxLayout,
-    Section,
+    KupBoxSection,
     CollapsedSectionsState,
-    BoxObject,
+    KupBoxObject,
     KupBoxKanban,
     KupBoxProps,
     KupBoxClickEventPayload,
@@ -624,7 +624,7 @@ export class KupBox {
         }
 
         // only one section, containing all visible fields
-        const section: Section = {
+        const section: KupBoxSection = {
             horizontal: false,
             sections: [],
         };
@@ -663,7 +663,7 @@ export class KupBox {
         this.globalFilterValue = value;
     }
 
-    private isSectionExpanded(row: KupBoxRow, section: Section): boolean {
+    private isSectionExpanded(row: KupBoxRow, section: KupBoxSection): boolean {
         if (!row.id || !section.id) {
             return false;
         }
@@ -828,7 +828,7 @@ export class KupBox {
         });
     }
 
-    private toggleSectionExpand(row: KupBoxRow, section: Section) {
+    private toggleSectionExpand(row: KupBoxRow, section: KupBoxSection) {
         // check if section / row has id
         if (!section.id) {
             // error
@@ -1145,7 +1145,7 @@ export class KupBox {
             }
 
             // create fake parent section
-            const parent: Section = {
+            const parent: KupBoxSection = {
                 horizontal: horizontal,
             };
 
@@ -1272,8 +1272,8 @@ export class KupBox {
     }
 
     private renderSection(
-        section: Section,
-        parent: Section,
+        section: KupBoxSection,
+        parent: KupBoxSection,
         row: KupBoxRow,
         visibleColumns: KupDataColumn[]
     ) {
@@ -1425,7 +1425,7 @@ export class KupBox {
             row,
             visibleColumns,
         }: {
-            boxObject: BoxObject;
+            boxObject: KupBoxObject;
             row: KupBoxRow;
             visibleColumns: KupDataColumn[];
         },

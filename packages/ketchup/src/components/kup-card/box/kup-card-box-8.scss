@@ -1,0 +1,47 @@
+.box-layout-8 {
+  background-color: var(--kup-background-color);
+  color: var(--kup-text-color);
+  display: flex;
+  font-size: var(--kup-font-size);
+  height: 100%;
+  padding: 1em 0.5em;
+
+  .container {
+    height: 100%;
+    margin: auto;
+    width: 100%;
+  }
+
+  .image {
+    width: 100%;
+  }
+
+  .label {
+    overflow: hidden;
+    padding-bottom: 0.25em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .value {
+    font-weight: bold;
+    padding-bottom: 1.25em;
+  }
+
+  tr:last-child {
+    .value {
+      padding-bottom: 0;
+    }
+  }
+
+  .table {
+    box-sizing: border-box;
+    padding: 1.25em;
+    padding-bottom: 0;
+  }
+
+  .table,
+  table {
+    width: 100%;
+  }
+}

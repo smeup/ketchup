@@ -215,7 +215,7 @@ import type {
 } from '@sme.up/ketchup/dist/types/types/GenericTypes';
 import type { KupSwitchEventPayload } from '@sme.up/ketchup/dist/types/components/kup-switch/kup-switch-declarations';
 import type { KupTabBarEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
-import type { KupTabBarNode } from '@sme.up/ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
+import type { KupTabBarNode } from '@sme.up/ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
 import type { KupTextFieldEventPayload } from '@sme.up/ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
 import type { KupDynamicPosition } from '@sme.up/ketchup/dist/types/managers/kup-dynamic-position/kup-dynamic-position';
 
@@ -423,7 +423,7 @@ const demoTypes: DemoTypeJson = {
   KupBoxLayout: {
     keys: {
       'horizontal?': 'boolean',
-      'sections?': 'Section[]',
+      'sections?': 'KupBoxSection[]',
     },
     type: DemoTypeFeature.INTERFACE,
   },
@@ -803,11 +803,11 @@ const demoTypes: DemoTypeJson = {
 };
 
 // Recurring CSS classes
-const closedClass: string = 'closed',
-  detachedClass: string = 'detached',
-  fullClass: string = 'full',
-  paddedClass: string = 'padded',
-  visibleClass: string = 'visible';
+const closedClass = 'closed',
+  detachedClass = 'detached',
+  fullClass = 'full',
+  paddedClass = 'padded',
+  visibleClass = 'visible';
 
 const dom: KupDom = document.documentElement as KupDom;
 

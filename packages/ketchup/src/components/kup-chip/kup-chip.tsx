@@ -230,7 +230,7 @@ export class KupChip {
         const isChoice: boolean = this.type.toLowerCase() === FChipType.CHOICE;
         let firstCheckedFound: boolean = false;
         if (isChoice) {
-            for (let j = 0; j < this.data.length; j++) {
+            for (let j = 0; this.data && j < this.data.length; j++) {
                 if (this.data[j].checked && firstCheckedFound) {
                     this.data[j].checked = false;
                     let message =
@@ -284,7 +284,7 @@ export class KupChip {
                 ? true
                 : false,
         };
-        for (let j = 0; j < this.data.length; j++) {
+        for (let j = 0; this.data && j < this.data.length; j++) {
             props.onBlur.push((chip) => this.onKupBlur(chip));
             props.onClick.push((chip) => this.onKupClick(chip));
             props.onExpansionClick.push((chip, e) => {
