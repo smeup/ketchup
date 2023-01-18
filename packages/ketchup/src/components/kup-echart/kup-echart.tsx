@@ -278,6 +278,9 @@ export class KupEchart {
             case KupEchartTypes.PIE:
                 options = this.#setPieOptions();
                 break;
+            case KupEchartTypes.FUNNEL:
+                options = this.#funnelChart();
+                break;
             default:
                 options = this.#setOptions();
                 break;
@@ -308,6 +311,69 @@ export class KupEchart {
         });
     }
 
+    #funnelChart() {
+        const x = this.#createX();
+        let y = this.#createY();
+        const key = Object.keys(y)[0];
+        y = y[key];
+        let data = x.map((val, index) => {
+            return { name: val, value: y[index] };
+        });
+
+        let fontSize: any = this.#setTitle();
+        fontSize =
+            fontSize &&
+            fontSize['textStyle'] &&
+            fontSize['textStyle']['fontSize'];
+
+        return {
+            title: this.#setTitle(),
+            tooltip: {
+                ...this.#setTooltip(),
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c}%',
+            },
+            toolbox: {
+                feature: {
+                    dataView: { readOnly: false },
+                    restore: {},
+                    saveAsImage: {},
+                },
+            },
+            legend: {
+                data: x,
+            },
+
+            series: [
+                {
+                    name: 'Funnel',
+                    type: 'funnel',
+                    gap: 2,
+                    label: {
+                        show: true,
+                        position: 'inside',
+                    },
+                    labelLine: {
+                        lineStyle: {
+                            width: 1,
+                            type: 'solid',
+                        },
+                    },
+                    itemStyle: {
+                        borderColor: this.#themeBackground,
+                        borderWidth: 1,
+                    },
+                    emphasis: {
+                        label: {
+                            fontSize: fontSize,
+                        },
+                    },
+                    data: data,
+                },
+            ],
+        } as echarts.EChartsOption;
+    }
+
     #createX(dataset: KupDataDataset = null) {
         const x: string[] = [];
         if (!dataset) dataset = this.data;
@@ -330,7 +396,9 @@ export class KupEchart {
                 const treatedCells: KupDataRowCells = {};
                 const title = getColumnByName(dataset.columns, this.axis).title;
                 treatedCells[title] = cells[this.axis];
-                x.push(treatedCells[title].value);
+                if (treatedCells && treatedCells[title]) {
+                    x.push(treatedCells[title].value);
+                }
             }
         }
         return x;
@@ -919,6 +987,13 @@ export class KupEchart {
                     name: key,
                     type: 'scatter',
                 } as echarts.ScatterSeriesOption);
+                break;
+            case KupEchartTypes.FUNNEL:
+                series.push({
+                    data: values,
+                    name: key,
+                    type: 'funnel',
+                } as echarts.FunnelSeriesOption);
                 break;
             case KupEchartTypes.LINE:
             default:
