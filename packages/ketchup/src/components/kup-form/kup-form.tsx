@@ -380,15 +380,15 @@ export class KupForm {
         return (
             <div class={sectionClass} style={sectionStyle}>
                 {section.title ? <h3>{section.title}</h3> : null}
-                <table>
-                    <tbody>
-                        {section.horizontal ? (
+                {section.horizontal ? (
+                    sectionContent
+                ) : (
+                    <table>
+                        <tbody>
                             <tr>{sectionContent}</tr>
-                        ) : (
-                            sectionContent
-                        )}
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                )}
             </div>
         );
     }
