@@ -384,9 +384,7 @@ export class KupForm {
                     sectionContent
                 ) : (
                     <table>
-                        <tbody>
-                            <tr>{sectionContent}</tr>
-                        </tbody>
+                        <tbody>{sectionContent}</tbody>
                     </table>
                 )}
             </div>
