@@ -2633,7 +2633,7 @@ export class KupDataTable {
             this.kupInsertRow.emit({
                 comp: this,
                 id: this.rootElement.id,
-                rows: [row],
+                selectedRows: [row],
             });
         });
         buttonWrapper.append(cancel);
@@ -3537,7 +3537,7 @@ export class KupDataTable {
 
         this.#rows = groupRows(
             this.getColumns(),
-            this.#rows,
+            this.data.rows,
             this.groups,
             this.totals
         );
@@ -5587,16 +5587,6 @@ export class KupDataTable {
             belowClass += ' custom-size';
         }
 
-        const insertRows: KupDataTableRow[] = [];
-        if (this.data?.rows && this.insertMode) {
-            for (let index = 0; index < this.data.rows.length; index++) {
-                const row = this.data.rows[index];
-                if (row.id.indexOf(this.#INSERT_PREFIX) > -1) {
-                    insertRows.push(row);
-                }
-            }
-        }
-
         const compCreated = (
             <Host>
                 <style>
@@ -5637,62 +5627,62 @@ export class KupDataTable {
                     </div>
                     <div class="group-wrapper">{groupChips}</div>
                     <div class="actions-wrapper">
-                        {this.insertMode !== ''
-                            ? [
-                                  <FButton
-                                      icon="plus"
-                                      onClick={async () => {
-                                          if (this.insertMode === 'form') {
-                                              this.#rowInsertForm();
-                                          } else {
-                                              this.#insertCount++;
-                                              const cells: KupDataRowCells = {};
-                                              for (
-                                                  let index = 0;
-                                                  index <
-                                                  this.data.columns.length;
-                                                  index++
-                                              ) {
-                                                  const column =
-                                                      this.data.columns[index];
-                                                  cells[column.name] = {
-                                                      isEditable:
-                                                          column.isKey ||
-                                                          column.isEditable,
-                                                      obj: column.obj,
-                                                      shape: column.shape,
-                                                      value: '',
-                                                  };
-                                              }
-                                              this.data.rows.unshift({
-                                                  cells,
-                                                  id:
-                                                      this.#INSERT_PREFIX +
-                                                      this.#insertCount,
-                                              });
-                                              await this.refresh(true);
-                                          }
-                                      }}
-                                      styling={FButtonStyling.OUTLINED}
-                                      title="Insert row"
-                                      wrapperClass="insert-button"
-                                  ></FButton>,
-                                  <FButton
-                                      icon="save"
-                                      onClick={() => {
-                                          this.kupSave.emit({
-                                              comp: this,
-                                              id: this.rootElement.id,
-                                              rows: insertRows,
-                                          });
-                                      }}
-                                      disabled={insertRows.length > 0 ? false : true}
-                                      styling={FButtonStyling.OUTLINED}
-                                      title="Save"
-                                      wrapperClass="save-button"
-                                  ></FButton>,
-                              ]
-                            : null}
+                        {this.insertMode !== '' ? (
+                            <FButton
+                                icon="plus"
+                                onClick={async () => {
+                                    if (this.insertMode === 'form') {
+                                        this.#rowInsertForm();
+                                    } else {
+                                        this.#insertCount++;
+                                        const cells: KupDataRowCells = {};
+                                        for (
+                                            let index = 0;
+                                            index < this.data.columns.length;
+                                            index++
+                                        ) {
+                                            const column =
+                                                this.data.columns[index];
+                                            cells[column.name] = {
+                                                isEditable:
+                                                    column.isKey ||
+                                                    column.isEditable,
+                                                obj: column.obj,
+                                                shape: column.shape,
+                                                value: '',
+                                            };
+                                        }
+                                        const row = {
+                                            cells,
+                                            id:
+                                                this.#INSERT_PREFIX +
+                                                this.#insertCount,
+                                        };
+                                        this.data.rows.unshift(row);
+                                        await this.refresh(true);
+                                    }
+                                }}
+                                styling={FButtonStyling.OUTLINED}
+                                title="Insert row"
+                                wrapperClass="insert-button"
+                            ></FButton>
+                        ) : null}
+                        {this.insertMode !== '' &&
+                        this.selectedRows.length > 0 ? (
+                            <FButton
+                                icon="save"
+                                onClick={() => {
+                                    this.kupSave.emit({
+                                        comp: this,
+                                        id: this.rootElement.id,
+                                        selectedRows: this.selectedRows,
+                                    });
+                                }}
+                                styling={FButtonStyling.OUTLINED}
+                                title="Save"
+                                wrapperClass="save-button"
+                            ></FButton>
+                        ) : null}
                         {this.showDeleteButton &&
                         this.selectedRows.length > 0 ? (
                             <FButton

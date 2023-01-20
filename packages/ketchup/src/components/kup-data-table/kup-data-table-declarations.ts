@@ -293,8 +293,5 @@ export interface KupDatatableDeleteRowEventPayload extends KupEventPayload {
     selectedRows: KupDataTableRow[];
 }
 export interface KupDatatableInsertRowEventPayload extends KupEventPayload {
-    rows: KupDataTableRow[];
-}
-export interface KupDatatableDeleteRowEventPayload extends KupEventPayload {
     selectedRows: KupDataTableRow[];
 }
