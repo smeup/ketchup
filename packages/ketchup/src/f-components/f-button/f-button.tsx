@@ -1,10 +1,7 @@
 import { FunctionalComponent, h, VNode } from '@stencil/core';
-import type { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { FButtonProps, FButtonStyling } from './f-button-declarations';
 import { FImage } from '../f-image/f-image';
 import { FImageProps } from '../f-image/f-image-declarations';
-
-const dom: KupDom = document.documentElement as KupDom;
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
