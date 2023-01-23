@@ -1538,9 +1538,9 @@ export class KupDataTable {
 
     #getRow(id: string | number): KupDataRow {
         if (typeof id === 'number') {
-            return this.data.rows[id];
+            return this.#rows[id];
         } else {
-            return this.data.rows.find((row) => row.id === id);
+            return this.#rows.find((row) => row.id === id);
         }
     }
 
@@ -5587,24 +5587,29 @@ export class KupDataTable {
             belowClass += ' custom-size';
         }
 
+        const autoselectOnAction = (e: CustomEvent<FCellEventPayload>) => {
+            if (e && e.detail && e.detail.row) {
+                const row = e.detail.row;
+                if (!this.selectedRows.includes(row)) {
+                    if (
+                        this.selection === SelectionMode.MULTIPLE_CHECKBOX ||
+                        this.selection === SelectionMode.MULTIPLE
+                    ) {
+                        this.selectedRows.push(row);
+                    } else {
+                        this.selectedRows = [row];
+                    }
+                }
+                if (e.type === 'kup-cell-input') {
+                    this.refresh();
+                }
+            }
+        };
+
         const compCreated = (
             <Host
-                onKup-cell-update={(e: CustomEvent<FCellEventPayload>) => {
-                    const row = e.detail.row;
-                    if (!this.selectedRows.includes(row)) {
-                        const ids: string[] = [row.id];
-                        if (
-                            this.selection ===
-                                SelectionMode.MULTIPLE_CHECKBOX ||
-                            this.selection === SelectionMode.MULTIPLE
-                        ) {
-                            this.selectedRows.forEach((row) =>
-                                ids.push(row.id)
-                            );
-                        }
-                        this.setSelectedRows(ids);
-                    }
-                }}
+                onKup-cell-input={autoselectOnAction}
+                onKup-cell-update={autoselectOnAction}
             >
                 <style>
                     {this.#kupManager.theme.setKupStyle(
