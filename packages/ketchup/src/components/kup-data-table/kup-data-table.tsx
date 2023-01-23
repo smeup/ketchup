@@ -148,6 +148,7 @@ import {
 } from '../../managers/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
+    FCellEventPayload,
     FCellPadding,
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -1345,7 +1346,7 @@ export class KupDataTable {
     @Method()
     async refresh(recalcRows?: boolean): Promise<void> {
         if (recalcRows) {
-            this.recalculateRowsAndUndoSelections();
+            this.#initRows();
         }
         forceUpdate(this);
     }
@@ -3537,7 +3538,7 @@ export class KupDataTable {
 
         this.#rows = groupRows(
             this.getColumns(),
-            this.data.rows,
+            this.#rows,
             this.groups,
             this.totals
         );
@@ -4610,7 +4611,6 @@ export class KupDataTable {
                         rowCssIndex,
                         specialExtraCellsCount - 1
                     );
-
                 const props: FCheckboxProps = {
                     checked: this.selectedRows.includes(row),
                     onChange: () => {
@@ -5588,7 +5588,24 @@ export class KupDataTable {
         }
 
         const compCreated = (
-            <Host>
+            <Host
+                onKup-cell-update={(e: CustomEvent<FCellEventPayload>) => {
+                    const row = e.detail.row;
+                    if (!this.selectedRows.includes(row)) {
+                        const ids: string[] = [row.id];
+                        if (
+                            this.selection ===
+                                SelectionMode.MULTIPLE_CHECKBOX ||
+                            this.selection === SelectionMode.MULTIPLE
+                        ) {
+                            this.selectedRows.forEach((row) =>
+                                ids.push(row.id)
+                            );
+                        }
+                        this.setSelectedRows(ids);
+                    }
+                }}
+            >
                 <style>
                     {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
