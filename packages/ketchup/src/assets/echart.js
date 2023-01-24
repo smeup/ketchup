@@ -3,6 +3,7 @@ const echart2 = document.getElementById('mapchart');
 const echart3 = document.getElementById('gaussianchart');
 const echart4 = document.getElementById('gaussian1chart');
 const echart5 = document.getElementById('gaussian2chart');
+const echart6 = document.getElementById('funnelChart');
 
 const mockData = {
     columns: [
@@ -475,6 +476,100 @@ echart5.axis = 'COL3';
 echart5.data = {
     columns: testMockColumns,
     rows: testMockRows,
+};
+
+echart6.consistencyCheck = true;
+echart6.types = ['Funnel'];
+echart6.colors = ['blue'];
+echart6.axis = 'Col1';
+echart6.chartTitle = {
+    value: 'Funnel',
+    color: 'black',
+    position: 'top',
+    size: 16,
+};
+echart6.data = {
+    columns: [
+        {
+            name: 'Col1',
+            title: 'Person',
+            size: '10',
+        },
+
+        {
+            name: 'Col4',
+            title: 'Value5',
+            size: '10',
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                Col1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                },
+
+                Col4: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '55',
+                    },
+                    value: '55',
+                },
+            },
+            id: '0',
+        },
+        {
+            cells: {
+                Col1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'DELGIO',
+                    },
+                    value: 'DELGIO',
+                },
+
+                Col4: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '33',
+                    },
+                    value: '33',
+                },
+            },
+            id: '1',
+        },
+        {
+            cells: {
+                Col1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'PARFRA',
+                    },
+                    value: 'PARFRA',
+                },
+
+                Col4: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '77',
+                    },
+                    value: '77',
+                },
+            },
+            id: '2',
+        },
+    ],
 };
 document.addEventListener('kup-echart-click', (e) => {
     console.log(e);
