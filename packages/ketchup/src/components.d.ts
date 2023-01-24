@@ -4591,6 +4591,10 @@ declare namespace LocalJSX {
          */
         "onKup-datatable-rowselected"?: (event: KupDataTableCustomEvent<KupDatatableRowSelectedEventPayload>) => void;
         /**
+          * Event fired when the save button is pressed.
+         */
+        "onKup-datatable-save"?: (event: KupDataTableCustomEvent<KupDatatableInsertRowEventPayload>) => void;
+        /**
           * Current selected page set on component load
          */
         "pageSelected"?: number;

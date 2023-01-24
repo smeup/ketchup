@@ -148,6 +148,7 @@ import {
 } from '../../managers/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
+    FCellEventPayload,
     FCellPadding,
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -1071,6 +1072,16 @@ export class KupDataTable {
     })
     kupDeleteRow: EventEmitter<KupDatatableDeleteRowEventPayload>;
     /**
+     * Event fired when the save button is pressed.
+     */
+    @Event({
+        eventName: 'kup-datatable-save',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupSave: EventEmitter<KupDatatableInsertRowEventPayload>;
+    /**
      * Event fired when the insert row confirm button is pressed.
      */
     @Event({
@@ -1120,6 +1131,9 @@ export class KupDataTable {
             const row = currentRows[index];
             if (ids.includes(row.id)) {
                 deletedRows.push(row);
+                if (this.selectedRows.includes(row)) {
+                    this.selectedRows.splice(this.selectedRows.indexOf(row), 1);
+                }
             } else {
                 newRows.push(row);
             }
@@ -1335,7 +1349,7 @@ export class KupDataTable {
     @Method()
     async refresh(recalcRows?: boolean): Promise<void> {
         if (recalcRows) {
-            this.recalculateRowsAndUndoSelections();
+            this.#initRows();
         }
         forceUpdate(this);
     }
@@ -1527,9 +1541,9 @@ export class KupDataTable {
 
     #getRow(id: string | number): KupDataRow {
         if (typeof id === 'number') {
-            return this.data.rows[id];
+            return this.#rows[id];
         } else {
-            return this.data.rows.find((row) => row.id === id);
+            return this.#rows.find((row) => row.id === id);
         }
     }
 
@@ -2623,7 +2637,7 @@ export class KupDataTable {
             this.kupInsertRow.emit({
                 comp: this,
                 id: this.rootElement.id,
-                row: row,
+                selectedRows: [row],
             });
         });
         buttonWrapper.append(cancel);
@@ -4600,7 +4614,6 @@ export class KupDataTable {
                         rowCssIndex,
                         specialExtraCellsCount - 1
                     );
-
                 const props: FCheckboxProps = {
                     checked: this.selectedRows.includes(row),
                     onChange: () => {
@@ -5577,8 +5590,30 @@ export class KupDataTable {
             belowClass += ' custom-size';
         }
 
+        const autoselectOnAction = (e: CustomEvent<FCellEventPayload>) => {
+            if (e && e.detail && e.detail.row) {
+                const row = e.detail.row;
+                if (!this.selectedRows.includes(row)) {
+                    if (
+                        this.selection === SelectionMode.MULTIPLE_CHECKBOX ||
+                        this.selection === SelectionMode.MULTIPLE
+                    ) {
+                        this.selectedRows.push(row);
+                    } else {
+                        this.selectedRows = [row];
+                    }
+                }
+                if (e.type === 'kup-cell-input') {
+                    this.refresh();
+                }
+            }
+        };
+
         const compCreated = (
-            <Host>
+            <Host
+                onKup-cell-input={autoselectOnAction}
+                onKup-cell-update={autoselectOnAction}
+            >
                 <style>
                     {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
@@ -5642,18 +5677,35 @@ export class KupDataTable {
                                                 value: '',
                                             };
                                         }
-                                        this.data.rows.unshift({
+                                        const row = {
                                             cells,
                                             id:
                                                 this.#INSERT_PREFIX +
                                                 this.#insertCount,
-                                        });
+                                        };
+                                        this.data.rows.unshift(row);
                                         await this.refresh(true);
                                     }
                                 }}
                                 styling={FButtonStyling.OUTLINED}
                                 title="Insert row"
                                 wrapperClass="insert-button"
+                            ></FButton>
+                        ) : null}
+                        {this.insertMode !== '' &&
+                        this.selectedRows.length > 0 ? (
+                            <FButton
+                                icon="save"
+                                onClick={() => {
+                                    this.kupSave.emit({
+                                        comp: this,
+                                        id: this.rootElement.id,
+                                        selectedRows: this.selectedRows,
+                                    });
+                                }}
+                                styling={FButtonStyling.OUTLINED}
+                                title="Save"
+                                wrapperClass="save-button"
                             ></FButton>
                         ) : null}
                         {this.showDeleteButton &&
