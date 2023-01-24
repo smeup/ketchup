@@ -1131,6 +1131,9 @@ export class KupDataTable {
             const row = currentRows[index];
             if (ids.includes(row.id)) {
                 deletedRows.push(row);
+                if (this.selectedRows.includes(row)) {
+                    this.selectedRows.splice(this.selectedRows.indexOf(row), 1);
+                }
             } else {
                 newRows.push(row);
             }
