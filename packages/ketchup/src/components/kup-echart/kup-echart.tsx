@@ -580,11 +580,13 @@ export class KupEchart {
         let objKey: string;
         if (this.axis) {
             for (const row of this.data.rows) {
-                objKey = row.cells[this.axis].value;
-                y[objKey] = [];
+                objKey = row.cells[this.axis].value.trim();
+                if (!y[objKey]) {
+                    y[objKey] = [];
+                }
                 for (const key of Object.keys(row.cells)) {
                     const cell = row.cells[key];
-                    const value = cell.value;
+                    const value = cell.value.trim();
                     if (!this.axis.includes(key)) {
                         if (
                             this.series &&
