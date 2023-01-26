@@ -52,6 +52,7 @@ export enum KupDataTableProps {
     rowsPerPage = 'Sets the number of rows per page to display.',
     scrollOnHover = 'Activates the scroll on hover function.',
     showCustomization = 'If set to true, displays the button to open the customization panel.',
+    selection = 'Set the type of the rows selection.',
     showDeleteButton = 'Enables the delete row button.',
     showFilters = 'When set to true enables the column filters.',
     showFooter = 'When set to true shows the footer.',
@@ -76,6 +77,7 @@ export interface KupDataTableDataset {
 export interface KupDataTableRow extends KupDataRow {
     cells?: KupDataTableRowCells;
     group?: KupDataTableRowGroup;
+    clonedFrom?: KupDataTableRow;
     unselectable?: boolean;
 }
 export interface KupDataTableRowGroup {

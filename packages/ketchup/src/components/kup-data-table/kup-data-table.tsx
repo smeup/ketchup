@@ -1130,7 +1130,8 @@ export class KupDataTable {
         for (let index = 0; index < currentRows.length; index++) {
             const row = currentRows[index];
             if (ids.includes(row.id)) {
-                deletedRows.push(row);
+                const r = row.clonedFrom ? row.clonedFrom : row;
+                deletedRows.push(r);
                 if (this.selectedRows.includes(row)) {
                     this.selectedRows.splice(this.selectedRows.indexOf(row), 1);
                 }
@@ -1249,7 +1250,15 @@ export class KupDataTable {
      */
     @Method()
     async getSelectedRows(): Promise<Array<KupDataTableRow>> {
-        return this.selectedRows;
+        const selRows: KupDataTableRow[] = [];
+        this.selectedRows.forEach((row) => {
+            if (row.clonedFrom) {
+                selRows.push(row.clonedFrom);
+            } else {
+                selRows.push(row);
+            }
+        });
+        return selRows;
     }
     /**
      * Hides the given column.
@@ -1540,11 +1549,25 @@ export class KupDataTable {
     }
 
     #getRow(id: string | number): KupDataRow {
-        if (typeof id === 'number') {
-            return this.#rows[id];
+        let row: KupDataTableRow = null;
+        const search = (rows: KupDataTableRow[]) => {
+            if (rows && rows.length > 0 && !row) {
+                test(rows);
+            }
+        };
+        const test = (rows: KupDataTableRow[]) => {
+            if (typeof id === 'number') {
+                row = rows[id];
+            } else {
+                row = rows.find((row) => row.id === id);
+            }
+        };
+        if (this.#isGrouping() && typeof id === 'string') {
+            this.#paginatedRows.forEach((row) => search(row.group.children));
         } else {
-            return this.#rows.find((row) => row.id === id);
+            test(this.#rows);
         }
+        return row;
     }
 
     #getTransposedData(column?: string): KupDataDataset {
