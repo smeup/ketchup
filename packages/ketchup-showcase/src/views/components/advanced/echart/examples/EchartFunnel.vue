@@ -24,7 +24,7 @@ export default {
       singleData,
       chartTitle: {
         value: 'Funnel',
-        color: 'black',
+        color: 'red',
         position: 'top',
         size: 16,
       },

@@ -317,34 +317,20 @@ export class KupEchart {
 
         const key = Object.keys(y)[0];
         y = y[key];
-        let data = x.map((val, index) => {
+        const data = x.map((val, index) => {
             return { name: val, value: y[index] };
         });
 
-        let chartTitle: any = this.chartTitle,
-            fontSize = this.chartTitle && this.chartTitle['size'],
-            title = chartTitle && chartTitle['value'],
-            tooltip: any = this.#setTitle(),
-            legend: any = this.#setLegend(y);
-
-        // use the default fontsize
-        if (
-            tooltip &&
-            tooltip['textStyle'] &&
-            tooltip['textStyle'] &&
-            tooltip['textStyle']['fontSize']
-        ) {
-            delete tooltip['textStyle']['fontSize'];
-        }
-
+        const fontSize = this.chartTitle && this.chartTitle['size'],
+            legend = this.#setLegend(y);
         // set data value in legend
         if (legend && legend['data']) {
             legend['data'] = x;
         }
 
-        let temp = {
+        return {
+            color: this.#computedColors,
             title: this.#setTitle(),
-            ...tooltip,
             tooltip: {
                 trigger: 'item',
                 formatter: '{a} <br/>{b} : {c}%',
@@ -359,7 +345,9 @@ export class KupEchart {
             legend: legend,
             series: [
                 {
-                    name: title,
+                    name: this.#kupManager.data.column.find(this.data, {
+                        name: this.axis,
+                    })[0].title,
                     type: 'funnel',
                     gap: 2,
                     label: {
@@ -385,7 +373,6 @@ export class KupEchart {
                 },
             ],
         } as echarts.EChartsOption;
-        return temp;
     }
 
     #createX(dataset: KupDataDataset = null) {
@@ -580,13 +567,11 @@ export class KupEchart {
         let objKey: string;
         if (this.axis) {
             for (const row of this.data.rows) {
-                objKey = row.cells[this.axis].value.trim();
-                if (!y[objKey]) {
-                    y[objKey] = [];
-                }
+                objKey = row.cells[this.axis].value;
+                y[objKey] = [];
                 for (const key of Object.keys(row.cells)) {
                     const cell = row.cells[key];
-                    const value = cell.value.trim();
+                    const value = cell.value;
                     if (!this.axis.includes(key)) {
                         if (
                             this.series &&
@@ -1004,13 +989,6 @@ export class KupEchart {
                     type: 'scatter',
                 } as echarts.ScatterSeriesOption);
                 break;
-            case KupEchartTypes.FUNNEL:
-                series.push({
-                    data: values,
-                    name: key,
-                    type: 'funnel',
-                } as echarts.FunnelSeriesOption);
-                break;
             case KupEchartTypes.LINE:
             default:
                 series.push({
@@ -1233,6 +1211,7 @@ export class KupEchart {
     componentWillLoad() {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.theme.register(this);
+
         if (this.consistencyCheck) {
             this.#checks();
         }
