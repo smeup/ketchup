@@ -103,6 +103,10 @@ export default {
           name: 'kup-datatable-loadmoreclick',
           type: 'click',
         },
+        {
+          name: 'kup-datatable-save',
+          type: 'CustomEvent',
+        },
       ],
       demoMethods: [
         {

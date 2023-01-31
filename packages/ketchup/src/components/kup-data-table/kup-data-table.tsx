@@ -148,6 +148,7 @@ import {
 } from '../../managers/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
+    FCellEventPayload,
     FCellPadding,
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -1071,6 +1072,16 @@ export class KupDataTable {
     })
     kupDeleteRow: EventEmitter<KupDatatableDeleteRowEventPayload>;
     /**
+     * Event fired when the save button is pressed.
+     */
+    @Event({
+        eventName: 'kup-datatable-save',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupSave: EventEmitter<KupDatatableInsertRowEventPayload>;
+    /**
      * Event fired when the insert row confirm button is pressed.
      */
     @Event({
@@ -1119,7 +1130,11 @@ export class KupDataTable {
         for (let index = 0; index < currentRows.length; index++) {
             const row = currentRows[index];
             if (ids.includes(row.id)) {
-                deletedRows.push(row);
+                const r = row.clonedFrom ? row.clonedFrom : row;
+                deletedRows.push(r);
+                if (this.selectedRows.includes(row)) {
+                    this.selectedRows.splice(this.selectedRows.indexOf(row), 1);
+                }
             } else {
                 newRows.push(row);
             }
@@ -1235,7 +1250,15 @@ export class KupDataTable {
      */
     @Method()
     async getSelectedRows(): Promise<Array<KupDataTableRow>> {
-        return this.selectedRows;
+        const selRows: KupDataTableRow[] = [];
+        this.selectedRows.forEach((row) => {
+            if (row.clonedFrom) {
+                selRows.push(row.clonedFrom);
+            } else {
+                selRows.push(row);
+            }
+        });
+        return selRows;
     }
     /**
      * Hides the given column.
@@ -1335,7 +1358,7 @@ export class KupDataTable {
     @Method()
     async refresh(recalcRows?: boolean): Promise<void> {
         if (recalcRows) {
-            this.recalculateRowsAndUndoSelections();
+            this.#initRows();
         }
         forceUpdate(this);
     }
@@ -1526,11 +1549,25 @@ export class KupDataTable {
     }
 
     #getRow(id: string | number): KupDataRow {
-        if (typeof id === 'number') {
-            return this.data.rows[id];
+        let row: KupDataTableRow = null;
+        const search = (rows: KupDataTableRow[]) => {
+            if (rows && rows.length > 0 && !row) {
+                test(rows);
+            }
+        };
+        const test = (rows: KupDataTableRow[]) => {
+            if (typeof id === 'number') {
+                row = rows[id];
+            } else {
+                row = rows.find((row) => row.id === id);
+            }
+        };
+        if (this.#isGrouping() && typeof id === 'string') {
+            this.#paginatedRows.forEach((row) => search(row.group.children));
         } else {
-            return this.data.rows.find((row) => row.id === id);
+            test(this.#rows);
         }
+        return row;
     }
 
     #getTransposedData(column?: string): KupDataDataset {
@@ -2622,7 +2659,7 @@ export class KupDataTable {
             this.kupInsertRow.emit({
                 comp: this,
                 id: this.rootElement.id,
-                row: row,
+                selectedRows: [row],
             });
         });
         buttonWrapper.append(cancel);
@@ -4599,7 +4636,6 @@ export class KupDataTable {
                         rowCssIndex,
                         specialExtraCellsCount - 1
                     );
-
                 const props: FCheckboxProps = {
                     checked: this.selectedRows.includes(row),
                     onChange: () => {
@@ -5576,8 +5612,30 @@ export class KupDataTable {
             belowClass += ' custom-size';
         }
 
+        const autoselectOnAction = (e: CustomEvent<FCellEventPayload>) => {
+            if (e && e.detail && e.detail.row) {
+                const row = e.detail.row;
+                if (!this.selectedRows.includes(row)) {
+                    if (
+                        this.selection === SelectionMode.MULTIPLE_CHECKBOX ||
+                        this.selection === SelectionMode.MULTIPLE
+                    ) {
+                        this.selectedRows.push(row);
+                    } else {
+                        this.selectedRows = [row];
+                    }
+                }
+                if (e.type === 'kup-cell-input') {
+                    this.refresh();
+                }
+            }
+        };
+
         const compCreated = (
-            <Host>
+            <Host
+                onKup-cell-input={autoselectOnAction}
+                onKup-cell-update={autoselectOnAction}
+            >
                 <style>
                     {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
@@ -5641,18 +5699,35 @@ export class KupDataTable {
                                                 value: '',
                                             };
                                         }
-                                        this.data.rows.unshift({
+                                        const row = {
                                             cells,
                                             id:
                                                 this.#INSERT_PREFIX +
                                                 this.#insertCount,
-                                        });
+                                        };
+                                        this.data.rows.unshift(row);
                                         await this.refresh(true);
                                     }
                                 }}
                                 styling={FButtonStyling.OUTLINED}
                                 title="Insert row"
                                 wrapperClass="insert-button"
+                            ></FButton>
+                        ) : null}
+                        {this.insertMode !== '' &&
+                        this.selectedRows.length > 0 ? (
+                            <FButton
+                                icon="save"
+                                onClick={() => {
+                                    this.kupSave.emit({
+                                        comp: this,
+                                        id: this.rootElement.id,
+                                        selectedRows: this.selectedRows,
+                                    });
+                                }}
+                                styling={FButtonStyling.OUTLINED}
+                                title="Save"
+                                wrapperClass="save-button"
                             ></FButton>
                         ) : null}
                         {this.showDeleteButton &&
