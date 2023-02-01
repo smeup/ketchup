@@ -40,7 +40,7 @@
             size-y="200px"
             layout-family="box"
             layout-number="2"
-            :data.prop="data2"
+            :data.prop="data"
           ></kup-card>
         </div>
       </div>
@@ -91,98 +91,6 @@
         </div>
       </div>
     </div>
-    <div class="demo-wrapper">
-      <p>
-        <span class="code-word">Layout 5</span> configuration:
-        <br />
-        <br />
-        <span class="code-word">- columns[0 to n]</span>: labels.
-        <br />
-        <span class="code-word">- cells[0 to n]</span>: values (the first image
-        or icon cell will be used to load the image).
-      </p>
-      <br />
-      <div class="demo-container">
-        <div class="kup-container" style="text-align: left">
-          <kup-card
-            size-x="400px"
-            size-y="200px"
-            layout-family="box"
-            layout-number="5"
-            :data.prop="data"
-          ></kup-card>
-        </div>
-      </div>
-    </div>
-    <div class="demo-wrapper">
-      <p>
-        <span class="code-word">Layout 6</span> configuration:
-        <br />
-        <br />
-        <span class="code-word">- columns[0 to n]</span>: labels.
-        <br />
-        <span class="code-word">- cells[0 to n]</span>: values (the first image
-        or icon cell will be used to load the image).
-      </p>
-      <br />
-      <div class="demo-container">
-        <div class="kup-container" style="text-align: left">
-          <kup-card
-            size-x="400px"
-            size-y="200px"
-            layout-family="box"
-            layout-number="6"
-            :data.prop="data"
-          ></kup-card>
-        </div>
-      </div>
-    </div>
-    <div class="demo-wrapper">
-      <p>
-        <span class="code-word">Layout 7</span> configuration:
-        <br />
-        <br />
-        <span class="code-word">- columns[0 to n]</span>: labels.
-        <br />
-        <span class="code-word">- cells[0 to n]</span>: values (the first image
-        or icon cell will be used to load the image).
-      </p>
-      <br />
-      <div class="demo-container">
-        <div class="kup-container" style="text-align: left">
-          <kup-card
-            size-x="200px"
-            size-y="400px"
-            layout-family="box"
-            layout-number="7"
-            :data.prop="data"
-          ></kup-card>
-        </div>
-      </div>
-    </div>
-    <div class="demo-wrapper">
-      <p>
-        <span class="code-word">Layout 8</span> configuration:
-        <br />
-        <br />
-        <span class="code-word">- columns[0 to n]</span>: labels.
-        <br />
-        <span class="code-word">- cells[0 to n]</span>: values (the first image
-        or icon cell will be used to load the image).
-      </p>
-      <br />
-      <div class="demo-container">
-        <div class="kup-container" style="text-align: left">
-          <kup-card
-            size-x="200px"
-            size-y="400px"
-            layout-family="box"
-            layout-number="8"
-            :data.prop="data"
-          ></kup-card>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -197,34 +105,16 @@ export default {
           { obj: { t: '', p: '', k: 'Cell #2' }, value: 'Cell #2' },
           { obj: { t: '', p: '', k: 'Cell #3' }, value: 'Cell #3' },
           {
-            data: { resource: 'images/faces/john.jpg' },
-            obj: { t: 'J4', p: 'IMG', k: 'images/faces/john.jpg' },
-            value: 'images/faces/john.jpg',
+            data: { resource: 'widgets' },
+            obj: { t: 'J4', p: 'ICO', k: 'widgets' },
+            value: 'widgets',
           },
         ],
         columns: [
           { name: '1', title: 'Column #1' },
           { name: '2', title: 'Column #2' },
           { name: '3', title: 'Column #3' },
-          { name: 'IMG', title: 'Column IMG' },
-        ],
-      },
-      data2: {
-        cell: [
-          { obj: { t: '', p: '', k: 'Cell #1' }, value: 'Cell #1' },
-          { obj: { t: '', p: '', k: 'Cell #2' }, value: 'Cell #2' },
-          { obj: { t: '', p: '', k: 'Cell #3' }, value: 'Cell #3' },
-          {
-            data: { resource: 'images/faces/john.jpg' },
-            obj: { t: 'J4', p: 'IMG', k: 'images/faces/john.jpg' },
-            value: 'images/faces/john.jpg',
-          },
-        ],
-        columns: [
-          { name: '1', title: 'Column #1' },
-          { name: '2', title: 'Column #2' },
-          { name: '3', title: 'Column #3' },
-          { name: 'IMG', title: 'Column IMG' },
+          { name: 'ICO', title: 'Column ICO' },
         ],
       },
     };

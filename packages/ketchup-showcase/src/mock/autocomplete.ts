@@ -20,7 +20,7 @@ export function AutocompleteItemFactory(
     });
   }
 
-  const pp = { data: toRet, displayMode: 'both', selectable: true };
+  let pp = { data: toRet, displayMode: 'both', selectable: true };
   return pp;
 }
 
@@ -41,8 +41,8 @@ export function autocompleteFilterUpdateCallbackCall(
     aParamForBackend = detail.extra.aParamForBackend;
   }
 
-  const baseCode = aParamForBackend.substring(0, 3).toUpperCase();
-  const baseDescription = aParamForBackend + ' ';
+  let baseCode = aParamForBackend.substring(0, 3).toUpperCase();
+  let baseDescription = aParamForBackend + ' ';
 
   let items: any = [];
   if (detail.matchesMinimumCharsRequired) {

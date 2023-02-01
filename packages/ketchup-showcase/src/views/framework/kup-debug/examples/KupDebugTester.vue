@@ -132,10 +132,6 @@ export default {
               id: 'kup-echart',
             },
             {
-              value: 'kup-form',
-              id: 'kup-form',
-            },
-            {
               value: 'kup-gauge',
               id: 'kup-gauge',
             },

@@ -30,11 +30,8 @@ export function prepareCalendar(component: KupCard) {
             el.kupData = {};
             const obj = opts.initialValue as KupObj;
             if (opts.initialValue) {
-                if (obj && obj.k) {
-                    setValue(component, new Date(obj.k));
-                } else {
-                    setValue(component, new Date(opts.initialValue as string));
-                }
+                if (obj && obj.k) setValue(component, new Date(obj.k));
+                else setValue(component, new Date(opts.initialValue as string));
             }
             if (opts.firstDayIndex)
                 el.kupData.firstDayIndex = opts.firstDayIndex;
@@ -106,9 +103,6 @@ export function prepareCalendar(component: KupCard) {
 }
 
 function setValue(component: KupCard, value: Date) {
-    if (!!(value instanceof Date)) {
-        value = new Date();
-    }
     const el = component.rootElement as KupCardBuiltInCalendar;
     el.kupData.value = value;
     el.kupData.day = el.kupData.value.getDate();

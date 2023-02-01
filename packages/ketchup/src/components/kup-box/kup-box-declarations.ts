@@ -52,22 +52,22 @@ export interface KupBoxRow extends KupDataRow {
 
 export interface KupBoxLayout {
     horizontal?: boolean;
-    sections?: KupBoxSection[];
+    sections?: Section[];
 }
 
-export interface KupBoxSection {
+export interface Section {
+    id?: string;
+    horizontal?: boolean;
+    dim?: string;
+    sections?: Section[];
+    content?: BoxObject[];
+    style?: { [index: string]: string };
     collapsible?: boolean;
     columns?: number;
-    content?: KupBoxObject[];
-    dim?: string;
-    horizontal?: boolean;
-    id?: string;
-    sections?: KupBoxSection[];
-    style?: { [index: string]: string };
     title?: string;
 }
 
-export interface KupBoxObject {
+export interface BoxObject {
     column?: string;
     value?: string;
     shape?: FCellShapes;

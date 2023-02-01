@@ -1,8 +1,8 @@
 {
     "name": "@sme.up/ketchup-react",
-    "version": "7.2.0-SNAPSHOT",
-    "module": "dist/index.js",
-    "typings": "dist/index.d.ts",
+    "version": "6.9.0-SNAPSHOT",
+    "exports": "./dist/index.js",
+    "types": "dist/index.d.ts",
     "keywords": [
         "smeup",
         "KetchUP showcase",
@@ -10,6 +10,7 @@
         "custom elements",
         "components"
     ],
+    "type": "module",
     "files": [
         "dist/"
     ],
@@ -20,16 +21,16 @@
     "description": "Ketchup React Components library by smeup",
     "license": "Apache-2.0",
     "dependencies": {
-        "@sme.up/ketchup": "^7.2.0-SNAPSHOT",
+        "@sme.up/ketchup": "^6.8.0",
         "react": "18.2.0",
-        "react-dom": "18.2.0"
+        "react-dom": "18.2.0",
+        "rimraf": "^3.0.2"
     },
     "devDependencies": {
+        "typescript": "4.2.3",
         "@types/geojson": "^7946.0.8",
         "@types/node": "18.0.0",
         "@types/react": "18.0.14",
-        "@types/react-dom": "18.0.5",
-        "rimraf": "^3.0.2",
-        "typescript": "4.2.3"
+        "@types/react-dom": "18.0.5"
     }
 }

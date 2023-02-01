@@ -123,7 +123,7 @@ import { KupThemeColor } from '@sme.up/ketchup/dist/types/managers/kup-theme/kup
 import {
   KupDataColumn,
   KupDataRow,
-} from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
+} from '@sme.up/ketchup/src/managers/kup-data/kup-data-declarations';
 import { KupDataCell } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 
 var accordion: HTMLKupAccordionElement = null;

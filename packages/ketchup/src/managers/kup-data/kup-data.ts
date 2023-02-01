@@ -283,11 +283,7 @@ export class KupData {
                                 result.rows.push(row);
                             }
                         }
-                    } else if (
-                        value &&
-                        cell.value &&
-                        value.trim() === cell.value.trim()
-                    ) {
+                    } else if (value === cell.value) {
                         result.cells.push(cell);
                         result.rows.push(row);
                     }

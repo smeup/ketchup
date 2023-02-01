@@ -296,7 +296,6 @@ export class FiltersRows extends Filters {
             for (let i = 0; i < rows.length; i++) {
                 let r: KupDataRow = rows[i];
                 if (
-                    (r.id && r.id.indexOf('insert_') > -1) ||
                     this.isRowCompliant(
                         r,
                         filters,

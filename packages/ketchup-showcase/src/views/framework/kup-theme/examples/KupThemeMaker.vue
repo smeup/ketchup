@@ -1410,9 +1410,9 @@ enum ThemeMakerTabs {
 }
 
 // Recurring CSS classes
-const visibleClass = 'visible';
+const visibleClass: string = 'visible';
 // Name of the theme in creation
-const temporaryTheme = 'showcaseDemo';
+const temporaryTheme: string = 'showcaseDemo';
 
 const dom: KupDom = document.documentElement as KupDom;
 

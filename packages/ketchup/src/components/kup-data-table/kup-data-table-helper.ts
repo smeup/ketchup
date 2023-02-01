@@ -1039,17 +1039,17 @@ function _paginateRows(
 function cloneRow(row: KupDataTableRow): KupDataTableRow {
     if (row == null) {
         return null;
-    } else {
-        return {
-            id: row.id,
-            cells: { ...row.cells },
-            actions: row.actions ? [...row.actions] : null,
-            group: cloneRowGroup(row.group),
-            clonedFrom: row,
-            readOnly: row.readOnly,
-            cssClass: row.cssClass,
-        };
     }
+    let cloned: KupDataTableRow = {
+        id: row.id,
+        cells: { ...row.cells },
+        actions: row.actions ? [...row.actions] : null,
+        group: cloneRowGroup(row.group),
+        readOnly: row.readOnly,
+        cssClass: row.cssClass,
+    };
+
+    return cloned;
 }
 
 function cloneRows(rows: Array<KupDataTableRow>): Array<KupDataTableRow> {

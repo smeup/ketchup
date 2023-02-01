@@ -33,16 +33,15 @@
   </div>
 </template>
 
-<script lang="ts">
-//import { TreeFactory } from '@sme.up/ketchup/dist/types/components/kup-tree/kup-tree-faker';
-import { TreeFactory } from '@/utils/kup-tree-faker';
+<script>
+import { TreeFactory } from '@sme.up/ketchup/src/components/kup-tree/kup-tree-faker';
 
 export default {
   name: 'TTable',
   data() {
     return {
       basicData: TreeFactory(),
-      expandedData: TreeFactory(),
+      expandedData: TreeFactory(2, 3),
       optionObj: {
         cell: '',
         column: '',

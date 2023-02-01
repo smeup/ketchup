@@ -160,7 +160,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     return (
         <div
-            onKeyUp={(e) => cellEvent(e, props, cellType, FCellEvents.KEYUP)}
             class={classObj}
             kup-get-cell-props={() => {
                 return props;
@@ -403,7 +402,6 @@ function setEditableCell(
             );
         case FCellTypes.NUMBER:
             classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
-        case FCellTypes.LINK:
         case FCellTypes.STRING:
             return (
                 <FTextField
@@ -626,7 +624,7 @@ function setKupCell(
 }
 
 function cellEvent(
-    e: InputEvent | CustomEvent | MouseEvent | KeyboardEvent,
+    e: InputEvent | CustomEvent | MouseEvent,
     props: FCellProps,
     cellType: FCellTypes,
     cellEventName: FCellEvents
@@ -681,11 +679,9 @@ function cellEvent(
             },
         });
         (comp as KupComponent).rootElement.dispatchEvent(cellEvent);
-        if (cellEventName === FCellEvents.UPDATE) {
-            try {
-                (comp as KupComponent).refresh();
-            } catch (error) {}
-        }
+        try {
+            (comp as KupComponent).refresh();
+        } catch (error) {}
     }
 }
 

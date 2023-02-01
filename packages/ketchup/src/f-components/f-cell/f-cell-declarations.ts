@@ -43,7 +43,6 @@ export enum FCellEvents {
     CLICK = 'kup-cell-click',
     ICON_CLICK = 'kup-cell-iconclick',
     INPUT = 'kup-cell-input',
-    KEYUP = 'kup-cell-keyup',
     UPDATE = 'kup-cell-update',
 }
 /**
@@ -159,7 +158,6 @@ export const editableTypes = [
     FCellTypes.COLOR_PICKER,
     FCellTypes.COMBOBOX,
     FCellTypes.DATE,
-    FCellTypes.LINK,
     FCellTypes.NUMBER,
     FCellTypes.RATING,
     FCellTypes.STRING,
@@ -185,7 +183,7 @@ export const kupTypes = [
 export interface FCellEventPayload extends KupEventPayload {
     cell: KupDataCell;
     column: KupDataColumn;
-    event: CustomEvent | InputEvent | MouseEvent | KeyboardEvent;
+    event: CustomEvent | InputEvent | MouseEvent;
     row: KupDataRow;
     type: FCellTypes;
 }

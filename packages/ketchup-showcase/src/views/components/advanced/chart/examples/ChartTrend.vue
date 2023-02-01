@@ -21,7 +21,7 @@ export default {
       types: ['Line'],
       trendLinesData,
       series: [{ code: 'COL2', decode: 'COL2' }],
-      trendlines: { 0: {} },
+      trendlines: { '0': {} },
     };
   },
 };
