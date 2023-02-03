@@ -278,6 +278,9 @@ export class KupEchart {
             case KupEchartTypes.PIE:
                 options = this.#setPieOptions();
                 break;
+            case KupEchartTypes.FUNNEL:
+                options = this.#funnelChart();
+                break;
             default:
                 options = this.#setOptions();
                 break;
@@ -306,6 +309,80 @@ export class KupEchart {
                 y: Array.isArray(e.data as number[]) ? e.data[1] : e.value,
             });
         });
+    }
+
+    #funnelChart() {
+        const y = this.#createY();
+        const data = [];
+        let highest = 0;
+        const cellsSum = {};
+        for (let key in y) {
+            for (let j = 0; j < y[key].length; j++) {
+                const value = parseFloat(y[key][j]);
+                if (cellsSum[key]) {
+                    cellsSum[key] += value;
+                } else {
+                    cellsSum[key] = value;
+                }
+            }
+        }
+
+        for (const key in cellsSum) {
+            const value = cellsSum[key];
+            if (highest < value) {
+                highest = value;
+            }
+        }
+
+        for (const key in cellsSum) {
+            const value = cellsSum[key];
+            data.push({
+                name: key,
+                value: ((100 * value) / highest).toFixed(2),
+            });
+        }
+
+        return {
+            color: this.#computedColors,
+            title: this.#setTitle(),
+            tooltip: {
+                ...this.#setTooltip(),
+                trigger: 'item',
+                formatter: '{b} : {c}%',
+            },
+            toolbox: {
+                feature: {
+                    dataView: { readOnly: false },
+                    restore: {},
+                    saveAsImage: {},
+                },
+            },
+            legend: { ...this.#setLegend(y) },
+            series: [
+                {
+                    name: this.#kupManager.data.column.find(this.data, {
+                        name: this.axis,
+                    })[0].title,
+                    type: 'funnel',
+                    gap: 2,
+                    label: {
+                        show: true,
+                        position: 'inside',
+                    },
+                    labelLine: {
+                        lineStyle: {
+                            width: 1,
+                            type: 'solid',
+                        },
+                    },
+                    itemStyle: {
+                        borderColor: this.#themeBackground,
+                        borderWidth: 1,
+                    },
+                    data,
+                },
+            ],
+        } as echarts.EChartsOption;
     }
 
     #createX(dataset: KupDataDataset = null) {

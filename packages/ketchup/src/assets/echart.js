@@ -3,6 +3,7 @@ const echart2 = document.getElementById('mapchart');
 const echart3 = document.getElementById('gaussianchart');
 const echart4 = document.getElementById('gaussian1chart');
 const echart5 = document.getElementById('gaussian2chart');
+const echart6 = document.getElementById('funnelChart');
 
 const mockData = {
     columns: [
@@ -475,6 +476,151 @@ echart5.axis = 'COL3';
 echart5.data = {
     columns: testMockColumns,
     rows: testMockRows,
+};
+
+echart6.consistencyCheck = true;
+echart6.types = ['Funnel'];
+echart6.colors = ['blue'];
+echart6.axis = 'Col1';
+echart6.chartTitle = {
+    value: 'Funnel',
+    color: 'red',
+    position: 'top',
+    size: 16,
+};
+echart6.data = {
+    columns: [
+        {
+            name: 'Col1',
+            title: 'Person',
+            size: '10',
+        },
+        {
+            name: 'Col2',
+            title: 'Value1',
+            size: '10',
+        },
+        {
+            name: 'Col3',
+            title: 'Value2',
+            size: '10',
+        },
+        {
+            name: 'Col4',
+            title: 'Value3',
+            size: '10',
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                Col1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                },
+                Col2: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '10',
+                    },
+                    value: '10',
+                },
+                Col3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '100.60',
+                    },
+                    value: '100.60',
+                },
+                Col4: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '55',
+                    },
+                    value: '55',
+                },
+            },
+        },
+        {
+            cells: {
+                Col1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'DELGIO',
+                    },
+                    value: 'DELGIO',
+                },
+                Col2: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '6',
+                    },
+                    value: '6',
+                },
+                Col3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '67.8',
+                    },
+                    value: '67.8',
+                },
+                Col4: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '33',
+                    },
+                    value: '33',
+                },
+            },
+        },
+        {
+            cells: {
+                Col1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'PARFRA',
+                    },
+                    value: 'PARFRA',
+                },
+                Col2: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '5',
+                    },
+                    value: '5',
+                },
+                Col3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '120.06',
+                    },
+                    value: '120.06',
+                },
+                Col4: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '77',
+                    },
+                    value: '77',
+                },
+            },
+        },
+    ],
 };
 document.addEventListener('kup-echart-click', (e) => {
     console.log(e);

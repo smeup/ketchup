@@ -24,6 +24,9 @@
     <template v-slot:7>
       <echart-gaussian></echart-gaussian>
     </template>
+    <template v-slot:8>
+      <echart-funnel></echart-funnel>
+    </template>
   </comp>
 </template>
 
@@ -36,6 +39,7 @@ import EchartPie from '@/views/components/advanced/echart/examples/EchartPie';
 import EchartScatter from '@/views/components/advanced/echart/examples/EchartScatter';
 import EchartMap from '@/views/components/advanced/echart/examples/EchartMap';
 import EchartGaussian from '@/views/components/advanced/echart/examples/EchartGaussian';
+import EchartFunnel from '@/views/components/advanced/echart/examples/EchartFunnel';
 import Comp from '@/views/templates/Comp';
 export default {
   components: {
@@ -47,6 +51,7 @@ export default {
     EchartScatter,
     EchartMap,
     EchartGaussian,
+    EchartFunnel,
     Comp,
   },
   data() {
@@ -63,6 +68,7 @@ export default {
         'Scatter',
         'Map',
         'Gaussian',
+        'Funnel',
       ],
     };
   },
