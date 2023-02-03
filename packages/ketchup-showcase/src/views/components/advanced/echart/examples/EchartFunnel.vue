@@ -4,7 +4,7 @@
       <div class="kup-container">
         <kup-echart
           :axis.prop="axis"
-          :data.prop="singleData"
+          :data.prop="data"
           :types.prop="types"
           :chartTitle.prop="chartTitle"
           :colors.prop="colors"
@@ -15,20 +15,13 @@
 </template>
 
 <script>
-import { singleData } from '@/mock/echarts';
+import { baseData } from '@/mock/chart';
 export default {
   data() {
     return {
       axis: 'Col1',
       types: ['Funnel'],
-      singleData,
-      chartTitle: {
-        value: 'Funnel',
-        color: 'red',
-        position: 'top',
-        size: 16,
-      },
-      colors: ['blue'],
+      data: baseData,
       legend: 'top',
     };
   },

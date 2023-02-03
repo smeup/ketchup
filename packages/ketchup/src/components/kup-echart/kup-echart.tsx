@@ -312,14 +312,35 @@ export class KupEchart {
     }
 
     #funnelChart() {
-        const x = this.#createX();
-        let y = this.#createY();
+        const y = this.#createY();
+        const data = [];
+        let highest = 0;
+        const cellsSum = {};
+        for (let key in y) {
+            for (let j = 0; j < y[key].length; j++) {
+                const value = parseFloat(y[key][j]);
+                if (cellsSum[key]) {
+                    cellsSum[key] += value;
+                } else {
+                    cellsSum[key] = value;
+                }
+            }
+        }
 
-        const key = Object.keys(y)[0];
-        y = y[key];
-        const data = x.map((val, index) => {
-            return { name: val, value: y[index] };
-        });
+        for (const key in cellsSum) {
+            const value = cellsSum[key];
+            if (highest < value) {
+                highest = value;
+            }
+        }
+
+        for (const key in cellsSum) {
+            const value = cellsSum[key];
+            data.push({
+                name: key,
+                value: ((100 * value) / highest).toFixed(2),
+            });
+        }
 
         return {
             color: this.#computedColors,
@@ -327,7 +348,7 @@ export class KupEchart {
             tooltip: {
                 ...this.#setTooltip(),
                 trigger: 'item',
-                formatter: '{a} <br/>{b} : {c}%',
+                formatter: '{b} : {c}%',
             },
             toolbox: {
                 feature: {
@@ -336,7 +357,7 @@ export class KupEchart {
                     saveAsImage: {},
                 },
             },
-            legend: { ...this.#setLegend(y), data: x },
+            legend: { ...this.#setLegend(y) },
             series: [
                 {
                     name: this.#kupManager.data.column.find(this.data, {
@@ -386,9 +407,7 @@ export class KupEchart {
                 const treatedCells: KupDataRowCells = {};
                 const title = getColumnByName(dataset.columns, this.axis).title;
                 treatedCells[title] = cells[this.axis];
-                if (treatedCells && treatedCells[title]) {
-                    x.push(treatedCells[title].value);
-                }
+                x.push(treatedCells[title].value);
             }
         }
         return x;
@@ -1202,7 +1221,6 @@ export class KupEchart {
     componentWillLoad() {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.theme.register(this);
-
         if (this.consistencyCheck) {
             this.#checks();
         }
