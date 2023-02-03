@@ -44,6 +44,7 @@ import {
     KupDataNewColumnTypes,
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupChipNode } from '../../components/kup-chip/kup-chip-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -139,7 +140,7 @@ export class KupColumnMenu {
             : column.obj
             ? [column.obj]
             : null;
-        data.switch = this.prepSwitch(comp, column);
+        data.switch = this.prepSwitch(comp, column, data.object);
         if (!currentData) {
             data.tabbar = this.prepTabBar(comp, column);
             data.text = [column.title];
@@ -337,15 +338,21 @@ export class KupColumnMenu {
      * Handles the column menu's switch prop.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {KupDataColumn} column - Column of the menu.
+     * @param {KupObj[]} objs - Column's objs.
      * @returns {GenericObject[]} Switches props.
      */
     prepSwitch(
         comp: KupDataTable | KupTree,
-        column: KupDataColumn
+        column: KupDataColumn,
+        objs: KupObj[]
     ): GenericObject[] {
         const props: GenericObject[] = [];
         if (!FiltersColumnMenu.isTree(comp)) {
-            if (!dom.ketchup.objects.isEmptyKupObj(column.obj)) {
+            if (
+                objs &&
+                objs.length > 0 &&
+                !dom.ketchup.objects.isEmptyKupObj(objs[0])
+            ) {
                 props.push({
                     'data-storage': {
                         columnName: column.name,
