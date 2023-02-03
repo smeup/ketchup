@@ -321,17 +321,11 @@ export class KupEchart {
             return { name: val, value: y[index] };
         });
 
-        const fontSize = this.chartTitle && this.chartTitle['size'],
-            legend = this.#setLegend(y);
-        // set data value in legend
-        if (legend && legend['data']) {
-            legend['data'] = x;
-        }
-
         return {
             color: this.#computedColors,
             title: this.#setTitle(),
             tooltip: {
+                ...this.#setTooltip(),
                 trigger: 'item',
                 formatter: '{a} <br/>{b} : {c}%',
             },
@@ -342,7 +336,7 @@ export class KupEchart {
                     saveAsImage: {},
                 },
             },
-            legend: legend,
+            legend: { ...this.#setLegend(y), data: x },
             series: [
                 {
                     name: this.#kupManager.data.column.find(this.data, {
@@ -364,12 +358,7 @@ export class KupEchart {
                         borderColor: this.#themeBackground,
                         borderWidth: 1,
                     },
-                    emphasis: {
-                        label: {
-                            fontSize: fontSize,
-                        },
-                    },
-                    data: data,
+                    data,
                 },
             ],
         } as echarts.EChartsOption;
@@ -567,11 +556,13 @@ export class KupEchart {
         let objKey: string;
         if (this.axis) {
             for (const row of this.data.rows) {
-                objKey = row.cells[this.axis].value;
-                y[objKey] = [];
+                objKey = row.cells[this.axis].value.trim();
+                if (!y[objKey]) {
+                    y[objKey] = [];
+                }
                 for (const key of Object.keys(row.cells)) {
                     const cell = row.cells[key];
-                    const value = cell.value;
+                    const value = cell.value.trim();
                     if (!this.axis.includes(key)) {
                         if (
                             this.series &&
