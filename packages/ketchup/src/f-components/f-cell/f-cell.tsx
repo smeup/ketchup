@@ -41,6 +41,8 @@ import {
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 import { FSwitch } from '../f-switch/f-switch';
+import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-declarations';
+import { FChipsProps, FChipType } from '../f-chip/f-chip-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -319,6 +321,22 @@ function setEditableCell(
                     }
                 />
             );
+        case FCellTypes.CHIP:
+            return (
+                <kup-chip
+                    {...cell.data}
+                    type={FChipType.INPUT}
+                    enableInput={true}
+                    onKup-chip-change={(
+                        e: CustomEvent<KupChipChangeEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
+                >
+                    <kup-text-field
+                        fullWidth={true}
+                        slot="field"
+                    ></kup-text-field>
+                </kup-chip>
+            );
         case FCellTypes.COLOR_PICKER:
             return (
                 <kup-color-picker
@@ -364,6 +382,38 @@ function setEditableCell(
                         e: CustomEvent<KupDatePickerEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
                 />
+            );
+        case FCellTypes.MULTI_AUTOCOMPLETE:
+            return (
+                <kup-chip
+                    {...cell.data}
+                    type={FChipType.INPUT}
+                    enableInput={true}
+                    onKup-chip-change={(
+                        e: CustomEvent<KupChipChangeEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
+                >
+                    <kup-autocomplete
+                        class="kup-full-width"
+                        slot="field"
+                    ></kup-autocomplete>
+                </kup-chip>
+            );
+        case FCellTypes.MULTI_COMBOBOX:
+            return (
+                <kup-chip
+                    {...cell.data}
+                    type={FChipType.INPUT}
+                    enableInput={true}
+                    onKup-chip-change={(
+                        e: CustomEvent<KupChipChangeEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
+                >
+                    <kup-combobox
+                        class="kup-full-width"
+                        slot="field"
+                    ></kup-combobox>
+                </kup-chip>
             );
         case FCellTypes.RATING:
             return (
@@ -655,6 +705,15 @@ function cellEvent(
                 if (cell.data) {
                     (cell.data as FCheckboxProps).checked =
                         value === '0' ? false : true;
+                }
+                break;
+            case FCellTypes.CHIP:
+                value = (e as CustomEvent<KupChipChangeEventPayload>).detail
+                    .stringifiedValues;
+                if (cell.data) {
+                    (cell.data as FChipsProps).data = (
+                        e as CustomEvent<KupChipChangeEventPayload>
+                    ).detail.comp.data;
                 }
                 break;
         }
