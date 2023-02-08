@@ -20,7 +20,7 @@ import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } 
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
-import { KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
+import { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
 import { FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
@@ -827,6 +827,11 @@ export namespace Components {
           * @default []
          */
         "data": KupChipNode[];
+        /**
+          * When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field).
+          * @default false
+         */
+        "enableInput": boolean;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -4260,9 +4265,18 @@ declare namespace LocalJSX {
          */
         "data"?: KupChipNode[];
         /**
+          * When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field).
+          * @default false
+         */
+        "enableInput"?: boolean;
+        /**
           * Triggered when a chip loses focus.
          */
         "onKup-chip-blur"?: (event: KupChipCustomEvent<KupChipEventPayload>) => void;
+        /**
+          * Triggered when the chip dataset changes.
+         */
+        "onKup-chip-change"?: (event: KupChipCustomEvent<KupChipChangeEventPayload>) => void;
         /**
           * Triggered when a chip is clicked.
          */

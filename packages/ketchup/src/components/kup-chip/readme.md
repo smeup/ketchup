@@ -5,21 +5,23 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                    | Type                                                                            | Default              |
-| ------------- | -------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- | -------------------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                                 | `string`                                                                        | `''`                 |
-| `data`        | --             | List of elements.                                                              | `KupChipNode[]`                                                                 | `[]`                 |
-| `type`        | `type`         | The type of chip. Available types: input, filter, choice or empty for default. | `FChipType.CHOICE \| FChipType.FILTER \| FChipType.INPUT \| FChipType.STANDARD` | `FChipType.STANDARD` |
+| Property      | Attribute      | Description                                                                                                                            | Type                                                                            | Default              |
+| ------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | -------------------- |
+| `customStyle` | `custom-style` | Custom style of the component.                                                                                                         | `string`                                                                        | `''`                 |
+| `data`        | --             | List of elements.                                                                                                                      | `KupChipNode[]`                                                                 | `[]`                 |
+| `enableInput` | `enable-input` | When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field). | `boolean`                                                                       | `false`              |
+| `type`        | `type`         | The type of chip. Available types: input, filter, choice or empty for default.                                                         | `FChipType.CHOICE \| FChipType.FILTER \| FChipType.INPUT \| FChipType.STANDARD` | `FChipType.STANDARD` |
 
 
 ## Events
 
-| Event                | Description                                                | Type                               |
-| -------------------- | ---------------------------------------------------------- | ---------------------------------- |
-| `kup-chip-blur`      | Triggered when a chip loses focus.                         | `CustomEvent<KupChipEventPayload>` |
-| `kup-chip-click`     | Triggered when a chip is clicked.                          | `CustomEvent<KupChipEventPayload>` |
-| `kup-chip-focus`     | Triggered when a chip gets focused.                        | `CustomEvent<KupChipEventPayload>` |
-| `kup-chip-iconclick` | Triggered when the removal icon on input chips is clicked. | `CustomEvent<KupChipEventPayload>` |
+| Event                | Description                                                | Type                                     |
+| -------------------- | ---------------------------------------------------------- | ---------------------------------------- |
+| `kup-chip-blur`      | Triggered when a chip loses focus.                         | `CustomEvent<KupChipEventPayload>`       |
+| `kup-chip-change`    | Triggered when the chip dataset changes.                   | `CustomEvent<KupChipChangeEventPayload>` |
+| `kup-chip-click`     | Triggered when a chip is clicked.                          | `CustomEvent<KupChipEventPayload>`       |
+| `kup-chip-focus`     | Triggered when a chip gets focused.                        | `CustomEvent<KupChipEventPayload>`       |
+| `kup-chip-iconclick` | Triggered when the removal icon on input chips is clicked. | `CustomEvent<KupChipEventPayload>`       |
 
 
 ## Methods
