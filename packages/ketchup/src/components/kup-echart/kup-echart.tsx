@@ -335,8 +335,6 @@ export class KupEchart {
             }
         }
 
-        console.log(x, y, cellsSum, highest);
-
         for (const key in cellsSum) {
             const value = cellsSum[key];
             data.push({
