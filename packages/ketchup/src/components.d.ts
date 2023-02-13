@@ -1743,6 +1743,29 @@ export namespace Components {
          */
         "submitCb": (e: SubmitEvent) => unknown;
     }
+    interface KupGantt {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
     interface KupGauge {
         /**
           * Sets how much the arc of the gauge should be thick.
@@ -3406,6 +3429,12 @@ declare global {
         prototype: HTMLKupFormElement;
         new (): HTMLKupFormElement;
     };
+    interface HTMLKupGanttElement extends Components.KupGantt, HTMLStencilElement {
+    }
+    var HTMLKupGanttElement: {
+        prototype: HTMLKupGanttElement;
+        new (): HTMLKupGanttElement;
+    };
     interface HTMLKupGaugeElement extends Components.KupGauge, HTMLStencilElement {
     }
     var HTMLKupGaugeElement: {
@@ -3569,6 +3598,7 @@ declare global {
         "kup-echart": HTMLKupEchartElement;
         "kup-family-tree": HTMLKupFamilyTreeElement;
         "kup-form": HTMLKupFormElement;
+        "kup-gantt": HTMLKupGanttElement;
         "kup-gauge": HTMLKupGaugeElement;
         "kup-grid": HTMLKupGridElement;
         "kup-iframe": HTMLKupIframeElement;
@@ -4978,6 +5008,14 @@ declare namespace LocalJSX {
          */
         "submitCb"?: (e: SubmitEvent) => unknown;
     }
+    interface KupGantt {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+    }
     interface KupGauge {
         /**
           * Sets how much the arc of the gauge should be thick.
@@ -6093,6 +6131,7 @@ declare namespace LocalJSX {
         "kup-echart": KupEchart;
         "kup-family-tree": KupFamilyTree;
         "kup-form": KupForm;
+        "kup-gantt": KupGantt;
         "kup-gauge": KupGauge;
         "kup-grid": KupGrid;
         "kup-iframe": KupIframe;
@@ -6146,6 +6185,7 @@ declare module "@stencil/core" {
             "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
             "kup-family-tree": LocalJSX.KupFamilyTree & JSXBase.HTMLAttributes<HTMLKupFamilyTreeElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
+            "kup-gantt": LocalJSX.KupGantt & JSXBase.HTMLAttributes<HTMLKupGanttElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
             "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;
             "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;
