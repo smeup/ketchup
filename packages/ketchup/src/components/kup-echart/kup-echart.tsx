@@ -335,8 +335,6 @@ export class KupEchart {
             }
         }
 
-        console.log(x, y, cellsSum, highest);
-
         for (const key in cellsSum) {
             const value = cellsSum[key];
             data.push({
@@ -375,7 +373,7 @@ export class KupEchart {
                     gap: 2,
                     label: {
                         show: true,
-                        position: 'inside',
+                        position: 'right',
                     },
                     labelLine: {
                         lineStyle: {
