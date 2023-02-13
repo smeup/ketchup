@@ -312,27 +312,30 @@ export class KupEchart {
     }
 
     #funnelChart() {
+        const x = this.#createX();
         const y = this.#createY();
+        const cellsSum: { [index: string]: number } = {};
         const data = [];
         let highest = 0;
-        const cellsSum = {};
+
         for (let key in y) {
             for (let j = 0; j < y[key].length; j++) {
-                const value = parseFloat(y[key][j]);
-                if (cellsSum[key]) {
-                    cellsSum[key] += value;
+                if (cellsSum[x[j]]) {
+                    cellsSum[x[j]] += parseFloat(y[key][j]);
                 } else {
-                    cellsSum[key] = value;
+                    cellsSum[x[j]] = parseFloat(y[key][j]);
                 }
             }
         }
 
-        for (const key in cellsSum) {
+        for (let key in cellsSum) {
             const value = cellsSum[key];
-            if (highest < value) {
+            if (value > highest) {
                 highest = value;
             }
         }
+
+        console.log(x, y, cellsSum, highest);
 
         for (const key in cellsSum) {
             const value = cellsSum[key];
@@ -341,14 +344,19 @@ export class KupEchart {
                 value: ((100 * value) / highest).toFixed(2),
             });
         }
-
         return {
             color: this.#computedColors,
             title: this.#setTitle(),
             tooltip: {
                 ...this.#setTooltip(),
                 trigger: 'item',
-                formatter: '{b} : {c}%',
+                formatter: (value: unknown) => {
+                    return `${
+                        (value as GenericObject).data.name
+                    }: ${this.#kupManager.math.format(
+                        (value as GenericObject).data.value as string
+                    )}%`;
+                },
             },
             toolbox: {
                 feature: {
@@ -357,7 +365,7 @@ export class KupEchart {
                     saveAsImage: {},
                 },
             },
-            legend: { ...this.#setLegend(y) },
+            legend: { ...this.#setLegend(cellsSum) },
             series: [
                 {
                     name: this.#kupManager.data.column.find(this.data, {
