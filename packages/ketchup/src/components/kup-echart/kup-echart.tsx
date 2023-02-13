@@ -373,7 +373,7 @@ export class KupEchart {
                     gap: 2,
                     label: {
                         show: true,
-                        position: 'inside',
+                        position: 'right',
                     },
                     labelLine: {
                         lineStyle: {
