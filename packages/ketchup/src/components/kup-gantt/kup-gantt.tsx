@@ -16,6 +16,8 @@ import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupGanttProps } from './kup-gantt-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { Gantt, Task } from 'gantt-task-react';
+import 'gantt-task-react/dist/index.css';
 
 @Component({
     tag: 'kup-gantt',
@@ -106,6 +108,21 @@ export class KupGantt {
     }
 
     render() {
+        let tasks: Task[] = [
+            {
+                start: new Date(2020, 1, 1),
+                end: new Date(2020, 1, 2),
+                name: 'Idea',
+                id: 'Task 0',
+                type: 'task',
+                progress: 45,
+                isDisabled: true,
+                styles: {
+                    progressColor: '#ffbb54',
+                    progressSelectedColor: '#ff9e0d',
+                },
+            },
+        ];
         return (
             <Host>
                 <style>
@@ -113,7 +130,9 @@ export class KupGantt {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}></div>
+                <div id={componentWrapperId}>
+                    <Gantt tasks={tasks} />
+                </div>
             </Host>
         );
     }
