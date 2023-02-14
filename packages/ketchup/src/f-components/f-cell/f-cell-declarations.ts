@@ -118,6 +118,8 @@ export enum FCellShapes {
     GAUGE = 'GAU',
     IMAGE = 'IMG',
     KNOB = 'KNB',
+    MULTI_AUTOCOMPLETE = 'AML',
+    MULTI_COMBOBOX = 'CML',
     PROGRESS_BAR = 'PGB',
     RADIO = 'RAD',
     RATING = 'RTG',
