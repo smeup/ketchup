@@ -6,8 +6,6 @@
           :axis.prop="axis"
           :data.prop="data"
           :types.prop="types"
-          :chartTitle.prop="chartTitle"
-          :colors.prop="colors"
           :legend.prop="legend"
       /></div>
     </div>
