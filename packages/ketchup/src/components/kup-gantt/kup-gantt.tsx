@@ -16,8 +16,10 @@ import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupGanttProps } from './kup-gantt-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { Gantt, Task } from 'gantt-task-react';
+import { Gantt, Task, GanttProps } from 'gantt-task-react';
 import 'gantt-task-react/dist/index.css';
+import ReactDOM from 'react-dom';
+import React from 'react';
 
 @Component({
     tag: 'kup-gantt',
@@ -95,8 +97,9 @@ export class KupGantt {
         this.#kupManager.theme.register(this);
     }
 
-    componentDidLsoad() {
+    componentDidLoad() {
         this.#kupManager.debug.logLoad(this, true);
+        this.componentDidUpdate();
     }
 
     componentWillRender() {
@@ -105,9 +108,7 @@ export class KupGantt {
 
     componentDidRender() {
         this.#kupManager.debug.logRender(this, true);
-    }
 
-    render() {
         let tasks: Task[] = [
             {
                 start: new Date(2020, 1, 1),
@@ -123,16 +124,23 @@ export class KupGantt {
                 },
             },
         ];
+
+        const ganttProps: GanttProps = {
+            tasks: tasks,
+        };
+
+        ReactDOM.render(
+            React.createElement(Gantt, ganttProps),
+            this.rootElement
+        );
+    }
+
+    componentDidUpdate() {}
+
+    render() {
         return (
             <Host>
-                <style>
-                    {this.#kupManager.theme.setKupStyle(
-                        this.rootElement as KupComponent
-                    )}
-                </style>
-                <div id={componentWrapperId}>
-                    <Gantt tasks={tasks} />
-                </div>
+                <slot />
             </Host>
         );
     }
