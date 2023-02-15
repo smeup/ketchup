@@ -401,7 +401,14 @@ function setEditableCell(
                         ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
                         onkup-autocomplete-iconclick={(
                             e: CustomEvent<KupAutocompleteEventPayload>
-                        ) => cellEvent(e, props, cellType, FCellEvents.ICON_CLICK)}
+                        ) =>
+                            cellEvent(
+                                e,
+                                props,
+                                cellType,
+                                FCellEvents.ICON_CLICK
+                            )
+                        }
                     ></kup-autocomplete>
                 </kup-chip>
             );
@@ -423,7 +430,14 @@ function setEditableCell(
                         ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
                         onkup-combobox-iconclick={(
                             e: CustomEvent<KupComboboxEventPayload>
-                        ) => cellEvent(e, props, cellType, FCellEvents.ICON_CLICK)}
+                        ) =>
+                            cellEvent(
+                                e,
+                                props,
+                                cellType,
+                                FCellEvents.ICON_CLICK
+                            )
+                        }
                     ></kup-combobox>
                 </kup-chip>
             );
@@ -720,6 +734,8 @@ function cellEvent(
                 }
                 break;
             case FCellTypes.CHIP:
+            case FCellTypes.MULTI_AUTOCOMPLETE:
+            case FCellTypes.MULTI_COMBOBOX:
                 value = (e as CustomEvent<KupChipChangeEventPayload>).detail
                     .stringifiedValues;
                 if (cell.data) {
