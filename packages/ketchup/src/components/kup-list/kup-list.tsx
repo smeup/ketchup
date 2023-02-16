@@ -584,17 +584,6 @@ export class KupList {
             return true;
         }
 
-        if (this.displayMode == ItemsDisplayMode.CODE) {
-            return (
-                item.id.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
-            );
-        }
-        if (this.displayMode == ItemsDisplayMode.DESCRIPTION) {
-            return (
-                item.value.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
-            );
-        }
-
         return (
             item.id.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 ||
             item.value.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
