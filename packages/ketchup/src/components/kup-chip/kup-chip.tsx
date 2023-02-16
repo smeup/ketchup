@@ -66,6 +66,11 @@ export class KupChip {
      */
     @Prop({ mutable: true }) data: KupChipNode[] = [];
     /**
+     * When enabled, the chip's text will display both the id and the value.
+     * @default false
+     */
+    @Prop() displayId = false;
+    /**
      * When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field).
      * @default false
      */
@@ -340,6 +345,7 @@ export class KupChip {
                 ? true
                 : false,
             data: this.data,
+            displayId: this.displayId,
             info: this.rootElement.classList.contains('kup-info')
                 ? true
                 : false,
