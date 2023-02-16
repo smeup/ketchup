@@ -43,6 +43,7 @@ import {
 import { FSwitch } from '../f-switch/f-switch';
 import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-declarations';
 import { FChipsProps, FChipType } from '../f-chip/f-chip-declarations';
+import { ItemsDisplayMode } from '../../components/kup-list/kup-list-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -396,6 +397,8 @@ function setEditableCell(
                     <kup-autocomplete
                         class="kup-full-width"
                         slot="field"
+                        displayMode={ItemsDisplayMode.DESCRIPTION_AND_CODE}
+                        selectMode={ItemsDisplayMode.DESCRIPTION_AND_CODE}
                         onkup-autocomplete-input={(
                             e: CustomEvent<KupAutocompleteEventPayload>
                         ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
@@ -425,6 +428,8 @@ function setEditableCell(
                     <kup-combobox
                         class="kup-full-width"
                         slot="field"
+                        displayMode={ItemsDisplayMode.DESCRIPTION_AND_CODE}
+                        selectMode={ItemsDisplayMode.DESCRIPTION_AND_CODE}
                         onkup-combobox-input={(
                             e: CustomEvent<KupComboboxEventPayload>
                         ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
