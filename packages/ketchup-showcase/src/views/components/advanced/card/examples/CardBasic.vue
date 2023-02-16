@@ -125,7 +125,7 @@
         expanded after a user action (2 layouts).
         <br />
         <span class="code-word">dialog</span>: features closable and draggable
-        cards with an header bar (6 layouts).
+        cards with an header bar (7 layouts).
         <br />
         <span class="code-word">free</span>: features cards which accept only
         slots as content, useful to quickly set-up a generic container or a
