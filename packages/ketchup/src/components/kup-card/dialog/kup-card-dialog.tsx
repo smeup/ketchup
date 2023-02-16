@@ -240,6 +240,27 @@ export function create6(component: KupCard): VNode {
     );
 }
 /**
+ * 7th dialog card layout, a raw slot.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 1st standard layout virtual node.
+ */
+export function create7(component: KupCard): VNode {
+    //Dialog title
+    const textArray: string[] =
+        component.data && component.data['text'] ? component.data['text'] : [];
+    //Slot list
+    const slots: Array<HTMLElement> = Array.prototype.slice.call(
+        component.rootElement.children,
+        0
+    );
+    return (
+        <div class={`dialog-layout-${component.layoutNumber}`}>
+            {textArray[0] ? dialogHeader(textArray[0]) : dialogHeader('')}
+            {slots.length > 0 ? compList(slots, 'slot') : null}
+        </div>
+    );
+}
+/**
  * Invoked by 4th layout to switch to the previous record of the original data table.
  * Reminder: data table inside 4th layout should be transposed and valid columns should be named with numbers (strings, but numerical).
  * @param {KupCard} component - Card component.

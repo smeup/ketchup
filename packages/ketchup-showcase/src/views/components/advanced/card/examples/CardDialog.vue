@@ -227,6 +227,27 @@
         </div>
       </div>
     </div>
+
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 7</span> is suited for generic dialogs:
+        <br />
+        <br />
+      </p>
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            style="position: absolute !important; top: unset; left: unset"
+            layout-family="dialog"
+            layout-number="7"
+            size-x="300px"
+            size-y="300px"
+            :data.prop="data"
+            ><div style="margin: auto">Generic slot</div></kup-card
+          >
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
