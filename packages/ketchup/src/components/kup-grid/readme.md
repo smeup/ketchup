@@ -70,6 +70,8 @@ Type: `Promise<void>`
 graph TD;
   kup-grid --> kup-card
   kup-card --> kup-autocomplete
+  kup-card --> kup-chip
+  kup-card --> kup-text-field
   kup-card --> kup-color-picker
   kup-card --> kup-combobox
   kup-card --> kup-date-picker
@@ -83,11 +85,9 @@ graph TD;
   kup-card --> kup-progress-bar
   kup-card --> kup-radio
   kup-card --> kup-badge
-  kup-card --> kup-chip
   kup-card --> kup-list
   kup-card --> kup-form
   kup-card --> kup-checkbox
-  kup-card --> kup-text-field
   kup-card --> kup-data-table
   kup-card --> kup-spinner
   kup-card --> kup-tab-bar
@@ -104,6 +104,9 @@ graph TD;
   kup-radio --> kup-card
   kup-badge --> kup-badge
   kup-badge --> kup-card
+  kup-chip --> kup-card
+  kup-chip --> kup-badge
+  kup-text-field --> kup-card
   kup-color-picker --> kup-card
   kup-combobox --> kup-list
   kup-combobox --> kup-card
@@ -126,10 +129,10 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
-  kup-chip --> kup-card
-  kup-chip --> kup-badge
   kup-form --> kup-card
   kup-form --> kup-autocomplete
+  kup-form --> kup-chip
+  kup-form --> kup-text-field
   kup-form --> kup-color-picker
   kup-form --> kup-combobox
   kup-form --> kup-date-picker
@@ -144,7 +147,6 @@ graph TD;
   kup-form --> kup-radio
   kup-form --> kup-badge
   kup-checkbox --> kup-card
-  kup-text-field --> kup-card
   kup-data-table --> kup-card
   kup-data-table --> kup-list
   kup-data-table --> kup-switch
@@ -156,6 +158,8 @@ graph TD;
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete
+  kup-data-table --> kup-chip
+  kup-data-table --> kup-text-field
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-date-picker
   kup-data-table --> kup-rating
@@ -172,6 +176,7 @@ graph TD;
   kup-tree --> kup-list
   kup-tree --> kup-text-field
   kup-tree --> kup-autocomplete
+  kup-tree --> kup-chip
   kup-tree --> kup-color-picker
   kup-tree --> kup-combobox
   kup-tree --> kup-date-picker

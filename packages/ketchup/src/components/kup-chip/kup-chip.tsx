@@ -8,6 +8,7 @@ import {
     Host,
     Method,
     Prop,
+    State,
     Watch,
 } from '@stencil/core';
 import {
@@ -20,15 +21,23 @@ import {
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
 import {
+    KupChipChangeEventPayload,
     KupChipEventPayload,
     KupChipNode,
     KupChipProps,
 } from './kup-chip-declarations';
-import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
+import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
+import { KupAutocompleteEventPayload } from '../kup-autocomplete/kup-autocomplete-declarations';
+import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
 
 @Component({
     tag: 'kup-chip',
@@ -56,6 +65,16 @@ export class KupChip {
      * @default []
      */
     @Prop({ mutable: true }) data: KupChipNode[] = [];
+    /**
+     * When enabled, the chip's text will display both the id and the value.
+     * @default false
+     */
+    @Prop() displayId = false;
+    /**
+     * When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field).
+     * @default false
+     */
+    @Prop() enableInput = false;
     /**
      * The type of chip. Available types: input, filter, choice or empty for default.
      * @default FChipType.STANDARD
@@ -85,6 +104,16 @@ export class KupChip {
         bubbles: true,
     })
     kupBlur: EventEmitter<KupChipEventPayload>;
+    /**
+     * Triggered when the chip dataset changes.
+     */
+    @Event({
+        eventName: 'kup-chip-change',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupChange: EventEmitter<KupChipChangeEventPayload>;
     /**
      * Triggered when a chip is clicked.
      */
@@ -160,6 +189,11 @@ export class KupChip {
             id: this.rootElement.id,
             chip: this.kupManager.data.node.remove(this.data, chip),
         });
+        this.kupChange.emit({
+            comp: this,
+            id: this.rootElement.id,
+            stringifiedValues: this.#stringifiedValues(),
+        });
         this.refresh();
     }
 
@@ -210,6 +244,52 @@ export class KupChip {
     @Method()
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupChipProps, props);
+    }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    async #changeHandler(
+        e: CustomEvent<
+            | KupAutocompleteEventPayload
+            | KupComboboxEventPayload
+            | KupTextFieldEventPayload
+        >
+    ) {
+        e.stopPropagation();
+        const value = e.detail?.value;
+        if (value) {
+            const node = this.data?.find((node) => node.id === value);
+            if (!node) {
+                this.data = [
+                    ...this.data,
+                    {
+                        id: value,
+                        value,
+                    },
+                ];
+                const slot:
+                    | HTMLKupAutocompleteElement
+                    | HTMLKupComboboxElement
+                    | HTMLKupTextFieldElement =
+                    this.rootElement.querySelector('[slot=field]');
+                await slot.setValue('');
+                await slot.refresh();
+                await slot.setFocus();
+                this.kupChange.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    stringifiedValues: this.#stringifiedValues(),
+                });
+            }
+        }
+    }
+
+    #stringifiedValues() {
+        let stringifiedValues = '';
+        this.data.forEach((node) => (stringifiedValues += node.id + ';'));
+        return stringifiedValues;
     }
 
     /*-------------------------------------------------*/
@@ -265,6 +345,7 @@ export class KupChip {
                 ? true
                 : false,
             data: this.data,
+            displayId: this.displayId,
             info: this.rootElement.classList.contains('kup-info')
                 ? true
                 : false,
@@ -301,19 +382,33 @@ export class KupChip {
             props.onFocus.push((chip) => this.onKupFocus(chip));
             props.onIconClick.push((chip) => this.onKupIconClick(chip));
         }
-        if (!this.data || this.data.length === 0) {
-            return;
-        }
 
         return (
-            <Host>
+            <Host
+                onKup-autocomplete-change={(
+                    e: CustomEvent<KupAutocompleteEventPayload>
+                ) => {
+                    this.#changeHandler(e);
+                }}
+                onKup-combobox-change={(
+                    e: CustomEvent<KupComboboxEventPayload>
+                ) => {
+                    this.#changeHandler(e);
+                }}
+                onKup-textfield-change={(
+                    e: CustomEvent<KupTextFieldEventPayload>
+                ) => {
+                    this.#changeHandler(e);
+                }}
+            >
                 <style>
                     {this.kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
                     )}
                 </style>
                 <div id={componentWrapperId}>
-                    <FChip {...props} />
+                    {this.data?.length > 0 ? <FChip {...props} /> : null}
+                    <slot name="field"></slot>
                 </div>
             </Host>
         );

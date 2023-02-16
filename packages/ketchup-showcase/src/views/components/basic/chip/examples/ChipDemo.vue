@@ -50,6 +50,10 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
+          name: 'kup-chip-change',
+          type: 'CustomEvent',
+        },
+        {
           name: 'kup-chip-click',
           type: 'click',
         },
@@ -99,6 +103,22 @@ export default {
           isArray: true,
           default: '[]',
           try: 'json',
+        },
+        {
+          prop: 'displayId',
+          description:
+            "When enabled, the chip's text will display both the id and the value.",
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'enableInput',
+          description:
+            "When enabled, it's possible to add items to the chip's dataset through an input slot named 'field' (kup-autocomplete, kup-combobox, kup-text-field).",
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'type',

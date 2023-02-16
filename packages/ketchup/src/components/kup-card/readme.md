@@ -134,6 +134,8 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-autocomplete](../kup-autocomplete)
+- [kup-chip](../kup-chip)
+- [kup-text-field](../kup-text-field)
 - [kup-color-picker](../kup-color-picker)
 - [kup-combobox](../kup-combobox)
 - [kup-date-picker](../kup-date-picker)
@@ -147,11 +149,9 @@ Type: `Promise<void>`
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-radio](../kup-radio)
 - [kup-badge](../kup-badge)
-- [kup-chip](../kup-chip)
 - [kup-list](../kup-list)
 - [kup-form](../kup-form)
 - [kup-checkbox](../kup-checkbox)
-- [kup-text-field](../kup-text-field)
 - [kup-data-table](../kup-data-table)
 - [kup-spinner](../kup-spinner)
 - [kup-tab-bar](../kup-tab-bar)
@@ -168,6 +168,8 @@ graph TD;
   kup-list --> kup-card
   kup-radio --> kup-card
   kup-badge --> kup-card
+  kup-chip --> kup-card
+  kup-text-field --> kup-card
   kup-color-picker --> kup-card
   kup-combobox --> kup-card
   kup-date-picker --> kup-card
@@ -181,10 +183,8 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
-  kup-chip --> kup-card
   kup-form --> kup-card
   kup-checkbox --> kup-card
-  kup-text-field --> kup-card
   kup-data-table --> kup-card
   kup-switch --> kup-card
   kup-tab-bar --> kup-card

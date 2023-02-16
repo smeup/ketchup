@@ -8,6 +8,8 @@ import { KupEventPayload } from '../../types/GenericTypes';
 export enum KupChipProps {
     customStyle = 'Custom style of the component.',
     data = 'List of elements.',
+    displayId = "When enabled, the chip's text will display both the id and the value.",
+    enableInput = "When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field).",
     type = 'The type of chip. Available types: input, filter, choice or empty for default.',
 }
 
@@ -17,4 +19,8 @@ export interface KupChipNode extends KupDataNode {
 
 export interface KupChipEventPayload extends KupEventPayload {
     chip: KupChipNode;
+}
+
+export interface KupChipChangeEventPayload extends KupEventPayload {
+    stringifiedValues: string;
 }
