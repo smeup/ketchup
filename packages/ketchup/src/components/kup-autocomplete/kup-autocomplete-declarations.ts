@@ -1,4 +1,5 @@
 import { KupEventPayload } from '../../types/GenericTypes';
+import { KupListNode } from '../kup-list/kup-list-declarations';
 /**
  * Props of the kup-autocomplete component.
  * Used to export every prop in an object.
@@ -26,8 +27,9 @@ export enum KupAutocompleteDisplayMode {
 }
 
 export interface KupAutocompleteEventPayload extends KupEventPayload {
-    value: any;
-    inputValue: any;
+    value: string;
+    inputValue: string;
+    node?: KupListNode;
 }
 export interface KupAutocompleteIconClickEventPayload
     extends KupAutocompleteEventPayload {

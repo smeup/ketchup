@@ -174,12 +174,13 @@ export class KupCombobox {
     }
 
     onKupChange(value: string) {
-        this.#consistencyCheck(value, true);
+        let ret = this.#consistencyCheck(value, true);
         this.kupChange.emit({
             comp: this,
             id: this.rootElement.id,
             value: this.value,
             inputValue: this.#textfieldEl.value,
+            node: ret.node,
         });
     }
 
@@ -210,13 +211,14 @@ export class KupCombobox {
     }
 
     onKupInput() {
-        this.#consistencyCheck(this.#textfieldEl.value, false);
+        let ret = this.#consistencyCheck(this.#textfieldEl.value, false);
         this.#openList();
         this.kupInput.emit({
             comp: this,
             id: this.rootElement.id,
             value: this.value,
             inputValue: this.#textfieldEl.value,
+            node: ret.node,
         });
     }
 

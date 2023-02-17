@@ -259,14 +259,15 @@ export class KupChip {
     ) {
         e.stopPropagation();
         const value = e.detail?.value;
+        const listNode = (e.detail as KupAutocompleteEventPayload).node;
         if (value) {
             const node = this.data?.find((node) => node.id === value);
             if (!node) {
                 this.data = [
                     ...this.data,
                     {
-                        id: value,
-                        value,
+                        id: listNode ? listNode.id : value,
+                        value: listNode ? listNode.value : value,
                     },
                 ];
                 const slot:
