@@ -12,13 +12,12 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import { GenericObject } from '../../types/GenericTypes';
 import { KupGanttProps } from './kup-gantt-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { Gantt, Task, GanttProps } from 'gantt-task-react';
-import 'gantt-task-react/dist/index.css';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import React from 'react';
 
 @Component({
@@ -98,18 +97,7 @@ export class KupGantt {
     }
 
     componentDidLoad() {
-        this.#kupManager.debug.logLoad(this, true);
-        this.componentDidUpdate();
-    }
-
-    componentWillRender() {
-        this.#kupManager.debug.logRender(this, false);
-    }
-
-    componentDidRender() {
-        this.#kupManager.debug.logRender(this, true);
-
-        let tasks: Task[] = [
+        const tasks: Task[] = [
             {
                 start: new Date(2020, 1, 1),
                 end: new Date(2020, 1, 2),
@@ -129,18 +117,26 @@ export class KupGantt {
             tasks: tasks,
         };
 
-        ReactDOM.render(
-            React.createElement(Gantt, ganttProps),
-            this.rootElement
+        const root = createRoot(
+            this.rootElement.shadowRoot.getElementById(componentWrapperId)
         );
+        root.render(React.createElement(Gantt, ganttProps));
+
+        this.#kupManager.debug.logLoad(this, true);
     }
 
-    componentDidUpdate() {}
+    componentWillRender() {
+        this.#kupManager.debug.logRender(this, false);
+    }
+
+    componentDidRender() {
+        this.#kupManager.debug.logRender(this, true);
+    }
 
     render() {
         return (
             <Host>
-                <slot />
+                <div id={componentWrapperId}></div>
             </Host>
         );
     }
