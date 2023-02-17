@@ -208,6 +208,7 @@ export class KupAutocomplete {
                 id: this.rootElement.id,
                 value: this.value,
                 inputValue: this.#textfieldEl.value,
+                node: ret.node,
             });
         }
     }
@@ -232,7 +233,7 @@ export class KupAutocomplete {
 
     onKupInput() {
         this.#doConsistencyCheck = true;
-        this.#consistencyCheck(this.#textfieldEl.value, false);
+        const ret = this.#consistencyCheck(this.#textfieldEl.value, false);
         this.#openList(false);
         if (this.#textfieldEl.value.length >= this.minimumChars) {
             this.kupInput.emit({
@@ -240,6 +241,7 @@ export class KupAutocomplete {
                 id: this.rootElement.id,
                 value: this.value,
                 inputValue: this.#textfieldEl.value,
+                node: ret.node,
             });
         }
     }
@@ -272,6 +274,7 @@ export class KupAutocomplete {
             id: this.rootElement.id,
             value: this.value,
             inputValue: this.#textfieldEl.value,
+            node: e.detail.selected,
         });
     }
 
