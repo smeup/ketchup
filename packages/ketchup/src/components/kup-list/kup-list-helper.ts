@@ -62,14 +62,17 @@ export function consistencyCheck(
         );
     }
 
+    const listNode = validList
+        ? (listData['data'] as KupListNode[]).find((x) => x.id === trueValue)
+        : null;
+
+    let exists = listNode ? true : false;
+
     return {
         value: id,
         displayedValue: displayedValue,
-        exists:
-            validList &&
-            (listData['data'] as KupListNode[]).find((x) => x.id === trueValue)
-                ? true
-                : false,
+        node: listNode,
+        exists: exists,
     };
 }
 

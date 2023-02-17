@@ -147,7 +147,6 @@ export class KupEchart {
     #sortedDataset: KupDataDataset = null;
     #themeBorder: string = null;
     #themeBackground: string = null;
-    #computedColors: string[] = null;
     #minColorHeatMap: string = null;
     #maxColorHeatMap: string = null;
     #themeFont: string = null;
@@ -312,24 +311,25 @@ export class KupEchart {
     }
 
     #funnelChart() {
+        const x = this.#createX();
         const y = this.#createY();
+        const cellsSum: { [index: string]: number } = {};
         const data = [];
         let highest = 0;
-        const cellsSum = {};
+
         for (let key in y) {
             for (let j = 0; j < y[key].length; j++) {
-                const value = parseFloat(y[key][j]);
-                if (cellsSum[key]) {
-                    cellsSum[key] += value;
+                if (cellsSum[x[j]]) {
+                    cellsSum[x[j]] += parseFloat(y[key][j]);
                 } else {
-                    cellsSum[key] = value;
+                    cellsSum[x[j]] = parseFloat(y[key][j]);
                 }
             }
         }
 
-        for (const key in cellsSum) {
+        for (let key in cellsSum) {
             const value = cellsSum[key];
-            if (highest < value) {
+            if (value > highest) {
                 highest = value;
             }
         }
@@ -341,14 +341,19 @@ export class KupEchart {
                 value: ((100 * value) / highest).toFixed(2),
             });
         }
-
         return {
-            color: this.#computedColors,
+            color: this.#setColors(Object.keys(cellsSum).length),
             title: this.#setTitle(),
             tooltip: {
                 ...this.#setTooltip(),
                 trigger: 'item',
-                formatter: '{b} : {c}%',
+                formatter: (value: unknown) => {
+                    return `${
+                        (value as GenericObject).data.name
+                    }: ${this.#kupManager.math.format(
+                        (value as GenericObject).data.value as string
+                    )}%`;
+                },
             },
             toolbox: {
                 feature: {
@@ -357,7 +362,7 @@ export class KupEchart {
                     saveAsImage: {},
                 },
             },
-            legend: { ...this.#setLegend(y) },
+            legend: { ...this.#setLegend(cellsSum) },
             series: [
                 {
                     name: this.#kupManager.data.column.find(this.data, {
@@ -367,7 +372,7 @@ export class KupEchart {
                     gap: 2,
                     label: {
                         show: true,
-                        position: 'inside',
+                        position: 'right',
                     },
                     labelLine: {
                         lineStyle: {
@@ -563,6 +568,7 @@ export class KupEchart {
     }
 
     #setMapOptions(map: string) {
+        const computedColors = this.#setColors(3);
         const mapJson: FeatureCollection = JSON.parse(map);
         const isoA2: string[] = [];
         const names: string[] = [];
@@ -712,7 +718,7 @@ export class KupEchart {
                     roam: true,
                     select: {
                         itemStyle: {
-                            areaColor: this.#computedColors[0],
+                            areaColor: computedColors[0],
                         },
                         label: {
                             color: this.#themeText,
@@ -743,7 +749,7 @@ export class KupEchart {
             });
         }
         return {
-            color: this.#computedColors,
+            color: this.#setColors(Object.keys(y).length),
             legend: this.#setLegend(y),
             title: this.#setTitle(),
             tooltip: {
@@ -950,7 +956,7 @@ export class KupEchart {
             yAxisTmp.splice(0, 1);
         }
         return {
-            color: this.#computedColors,
+            color: this.#setColors(Object.keys(y).length),
             legend: this.#setLegend(y),
             series: series,
             title: this.#setTitle(),
@@ -1027,7 +1033,7 @@ export class KupEchart {
             i++;
         }
         return {
-            color: this.#computedColors,
+            color: this.#setColors(Object.keys(y).length),
             legend: this.#setLegend(y),
             series: series,
             title: this.#setTitle(),
@@ -1049,7 +1055,7 @@ export class KupEchart {
         } as echarts.EChartsOption;
     }
 
-    #fetchcomputedColors() {
+    #setColors(requiredNumber: number) {
         let colorArray: string[] =
             this.colors && this.colors.length > 0 ? [...this.colors] : [];
         let key: string = '--kup-chart-color-';
@@ -1060,14 +1066,6 @@ export class KupEchart {
         ) {
             colorArray.push(this.#kupManager.theme.cssVars[key + index]);
         }
-        this.#themeBackground =
-            this.#kupManager.theme.cssVars[KupThemeColorValues.BACKGROUND];
-        this.#themeBorder =
-            this.#kupManager.theme.cssVars[KupThemeColorValues.BORDER];
-        this.#themeFont = this.#kupManager.theme.cssVars['--kup-font-family'];
-        this.#themeText =
-            this.#kupManager.theme.cssVars[KupThemeColorValues.TEXT];
-        this.#computedColors = colorArray;
         if (this.colors && this.colors[0]) {
             this.#maxColorHeatMap = this.colors[0];
         } else {
@@ -1088,6 +1086,15 @@ export class KupEchart {
                 colorCheckBright.saturation
             }, ${(parseFloat(colorCheckBright.lightness) + 30).toString()}%)`;
         }
+        for (
+            let index = colorArray.length;
+            requiredNumber && index < requiredNumber;
+            index++
+        ) {
+            colorArray.push(this.#kupManager.theme.randomColor(128));
+        }
+
+        return colorArray;
     }
 
     #checks() {
@@ -1232,8 +1239,14 @@ export class KupEchart {
     }
 
     componentWillRender() {
+        this.#themeBackground =
+            this.#kupManager.theme.cssVars[KupThemeColorValues.BACKGROUND];
+        this.#themeBorder =
+            this.#kupManager.theme.cssVars[KupThemeColorValues.BORDER];
+        this.#themeFont = this.#kupManager.theme.cssVars['--kup-font-family'];
+        this.#themeText =
+            this.#kupManager.theme.cssVars[KupThemeColorValues.TEXT];
         this.#kupManager.debug.logRender(this, false);
-        this.#fetchcomputedColors();
     }
 
     componentDidRender() {

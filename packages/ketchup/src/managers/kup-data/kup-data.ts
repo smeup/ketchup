@@ -94,6 +94,10 @@ export class KupData {
                         return FCellTypes.IMAGE;
                     case FCellShapes.KNOB:
                         return FCellTypes.KNOB;
+                    case FCellShapes.MULTI_AUTOCOMPLETE:
+                        return FCellTypes.MULTI_AUTOCOMPLETE;
+                    case FCellShapes.MULTI_COMBOBOX:
+                        return FCellTypes.MULTI_COMBOBOX;
                     case FCellShapes.PROGRESS_BAR:
                         return FCellTypes.PROGRESS_BAR;
                     case FCellShapes.RADIO:
