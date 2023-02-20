@@ -362,7 +362,7 @@ export class KupEchart {
                     saveAsImage: {},
                 },
             },
-            legend: { ...this.#setLegend(cellsSum) },
+            legend: this.#setLegend(cellsSum),
             series: [
                 {
                     name: this.#kupManager.data.column.find(this.data, {
