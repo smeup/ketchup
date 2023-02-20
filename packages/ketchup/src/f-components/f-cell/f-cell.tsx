@@ -403,16 +403,17 @@ function setEditableCell(
                         onkup-autocomplete-input={(
                             e: CustomEvent<KupAutocompleteEventPayload>
                         ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
-                        onkup-autocomplete-iconclick={(
-                            e: CustomEvent<KupAutocompleteEventPayload>
-                        ) =>
-                            cellEvent(
-                                e,
-                                props,
-                                cellType,
-                                FCellEvents.ICON_CLICK
-                            )
-                        }
+                        showDropDownIcon={false}
+                        // onkup-autocomplete-iconclick={(
+                        //     e: CustomEvent<KupAutocompleteEventPayload>
+                        // ) =>
+                        //     cellEvent(
+                        //         e,
+                        //         props,
+                        //         cellType,
+                        //         FCellEvents.ICON_CLICK
+                        //     )
+                        // }
                     ></kup-autocomplete>
                 </kup-chip>
             );
