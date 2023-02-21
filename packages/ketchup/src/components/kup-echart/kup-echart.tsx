@@ -348,21 +348,15 @@ export class KupEchart {
                 ...this.#setTooltip(),
                 trigger: 'item',
                 formatter: (value: unknown) => {
-                    return `${
-                        (value as GenericObject).data.name
-                    }: ${this.#kupManager.math.format(
-                        (value as GenericObject).data.value as string
-                    )}%`;
+                    const name = (value as GenericObject).data.name as string;
+                    const percentage = (value as GenericObject).data
+                        .value as string;
+                    return `${name}: <strong>${
+                        cellsSum[name]
+                    }</strong> (${this.#kupManager.math.format(percentage)}%)`;
                 },
             },
-            toolbox: {
-                feature: {
-                    dataView: { readOnly: false },
-                    restore: {},
-                    saveAsImage: {},
-                },
-            },
-            legend: { ...this.#setLegend(cellsSum) },
+            legend: this.#setLegend(cellsSum),
             series: [
                 {
                     name: this.#kupManager.data.column.find(this.data, {
@@ -384,6 +378,9 @@ export class KupEchart {
                         borderColor: this.#themeBackground,
                         borderWidth: 1,
                     },
+                    left: '10%',
+                    right: '10%',
+                    width: '80%',
                     data,
                 },
             ],
