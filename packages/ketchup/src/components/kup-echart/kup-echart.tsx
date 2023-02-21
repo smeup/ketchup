@@ -355,13 +355,6 @@ export class KupEchart {
                     )}%`;
                 },
             },
-            toolbox: {
-                feature: {
-                    dataView: { readOnly: false },
-                    restore: {},
-                    saveAsImage: {},
-                },
-            },
             legend: this.#setLegend(cellsSum),
             series: [
                 {
@@ -384,6 +377,9 @@ export class KupEchart {
                         borderColor: this.#themeBackground,
                         borderWidth: 1,
                     },
+                    left: '10%',
+                    right: '10%',
+                    width: '80%',
                     data,
                 },
             ],
