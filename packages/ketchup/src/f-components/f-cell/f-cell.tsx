@@ -335,6 +335,7 @@ function setEditableCell(
                     <kup-text-field
                         fullWidth={true}
                         slot="field"
+                        {...cell.slotData}
                     ></kup-text-field>
                 </kup-chip>
             );
@@ -404,16 +405,7 @@ function setEditableCell(
                             e: CustomEvent<KupAutocompleteEventPayload>
                         ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
                         showDropDownIcon={false}
-                        // onkup-autocomplete-iconclick={(
-                        //     e: CustomEvent<KupAutocompleteEventPayload>
-                        // ) =>
-                        //     cellEvent(
-                        //         e,
-                        //         props,
-                        //         cellType,
-                        //         FCellEvents.ICON_CLICK
-                        //     )
-                        // }
+                        {...cell.slotData}
                     ></kup-autocomplete>
                 </kup-chip>
             );
@@ -446,6 +438,7 @@ function setEditableCell(
                                 FCellEvents.ICON_CLICK
                             )
                         }
+                        {...cell.slotData}
                     ></kup-combobox>
                 </kup-chip>
             );
