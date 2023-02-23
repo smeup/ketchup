@@ -1,8 +1,11 @@
 :host {
   display: block;
   height: var(--kup_dialog_height);
+  left: var(--kup_dialog_left);
   min-height: var(--kup_dialog_height);
   min-width: var(--kup_dialog_width);
+  position: absolute;
+  top: var(--kup_dialog_top);
   width: var(--kup_dialog_width);
 }
 

@@ -12,7 +12,11 @@ import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupDialogHeader, KupDialogProps } from './kup-dialog-declarations';
+import {
+    KupDialogAutoCenter,
+    KupDialogHeader,
+    KupDialogProps,
+} from './kup-dialog-declarations';
 
 @Component({
     tag: 'kup-dialog',
@@ -30,31 +34,42 @@ export class KupDialog {
     /*-------------------------------------------------*/
 
     /**
+     * Auto centers the dialog relatively to the viewport.
+     * @default "{ onReady: true }"
+     */
+    @Prop() autoCenter: KupDialogAutoCenter = { onReady: true };
+    /**
      * Custom style of the component.
      * @default ""
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = '';
+    @Prop() customStyle = '';
     /**
      * Header options.
      * @default "{ icons: { close: true } }"
      */
     @Prop() header: KupDialogHeader = { icons: { close: true } };
     /**
+     * Sets whether the dialog is resizable or not.
+     * @default "true"
+     */
+    @Prop() resizable = true;
+    /**
      * The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).
      * @default "auto"
      */
-    @Prop() sizeX: string = 'auto';
+    @Prop() sizeX = 'auto';
     /**
      * The height of the card, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).
      * @default "auto"
      */
-    @Prop() sizeY: string = 'auto';
+    @Prop() sizeY = 'auto';
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
+    #header: HTMLElement = null;
     #kupManager = kupManagerInstance();
 
     /*-------------------------------------------------*/
@@ -69,6 +84,20 @@ export class KupDialog {
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         return getProps(this, KupDialogProps, descriptions);
+    }
+    /**
+     * Places the dialog at the center of the screen.
+     */
+    @Method()
+    async recalcPosition(): Promise<void> {
+        this.rootElement.style.setProperty(
+            '--kup_dialog_left',
+            window.innerWidth / 2 - this.rootElement.clientWidth / 2 + 'px'
+        );
+        this.rootElement.style.setProperty(
+            '--kup_dialog_top',
+            window.innerHeight / 2 - this.rootElement.clientHeight / 2 + 'px'
+        );
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -96,6 +125,9 @@ export class KupDialog {
     }
 
     componentDidLoad() {
+        if (this.autoCenter?.onReady) {
+            this.recalcPosition();
+        }
         this.#kupManager.debug.logLoad(this, true);
     }
 
@@ -104,13 +136,20 @@ export class KupDialog {
     }
 
     componentDidRender() {
+        if (!this.#kupManager.interact.isRegistered(this.rootElement)) {
+            this.#kupManager.interact.dialogify(
+                this.rootElement,
+                this.#header ? this.#header : null,
+                !this.resizable
+            );
+        }
         this.#kupManager.debug.logRender(this, true);
     }
 
     render() {
         const style = {
-            '--kup_card_height': this.sizeY ? this.sizeY : 'auto',
-            '--kup_card_width': this.sizeX ? this.sizeX : 'auto',
+            '--kup_dialog_height': this.sizeY ? this.sizeY : 'auto',
+            '--kup_dialog_width': this.sizeX ? this.sizeX : 'auto',
         };
 
         return (
@@ -122,7 +161,7 @@ export class KupDialog {
                 </style>
                 <div id={componentWrapperId}>
                     {this.header ? (
-                        <div class="header">
+                        <div class="header" ref={(el) => (this.#header = el)}>
                             {this.header.title ? (
                                 <div class="header__title">
                                     {this.header.title}
