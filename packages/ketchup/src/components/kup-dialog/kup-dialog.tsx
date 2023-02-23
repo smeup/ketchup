@@ -133,14 +133,11 @@ export class KupDialog {
      */
     @Method()
     async recalcPosition(): Promise<void> {
-        this.rootElement.style.setProperty(
-            '--kup_dialog_left',
-            window.innerWidth / 2 - this.rootElement.clientWidth / 2 + 'px'
-        );
-        this.rootElement.style.setProperty(
-            '--kup_dialog_top',
-            window.innerHeight / 2 - this.rootElement.clientHeight / 2 + 'px'
-        );
+        const rect = this.rootElement.getBoundingClientRect();
+        const left = window.innerWidth / 2 - rect.width / 2;
+        const top = window.innerHeight / 2 - rect.height / 2;
+        this.rootElement.style.setProperty('--kup_dialog_left', left + 'px');
+        this.rootElement.style.setProperty('--kup_dialog_top', top + 'px');
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -236,7 +233,9 @@ export class KupDialog {
                             ) : null}
                         </div>
                     ) : null}
-                    <slot></slot>
+                    <div class="content">
+                        <slot></slot>
+                    </div>
                 </div>
             </Host>
         );

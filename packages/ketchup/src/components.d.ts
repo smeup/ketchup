@@ -628,11 +628,6 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
-          * Sets the card as modal window
-          * @default false
-         */
-        "showModal": boolean;
-        /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
          */
@@ -4184,11 +4179,6 @@ declare namespace LocalJSX {
           * Triggered when the component is ready.
          */
         "onKup-card-ready"?: (event: KupCardCustomEvent<KupEventPayload>) => void;
-        /**
-          * Sets the card as modal window
-          * @default false
-         */
-        "showModal"?: boolean;
         /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"

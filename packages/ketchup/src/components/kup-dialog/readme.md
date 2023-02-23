@@ -1,4 +1,4 @@
-# kup-magic-box
+# kup-dialog
 
 
 
@@ -7,21 +7,54 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                    | Type                                                                                                                                                | Default                                                                                                                                                                                           |
-| ------------- | -------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string`                                                                                                                                            | `''`                                                                                                                                                                                              |
-| `features`    | --             | Specify features to test.      | `{ debug: boolean; language: boolean; longCycleProp: boolean; longCycleVar: boolean; objects: boolean; objectsFunction: boolean; theme: boolean; }` | `{         debug: false,         language: false,         longCycleProp: false,         longCycleVar: false,         objects: false,         objectsFunction: false,         theme: false,     }` |
+| Property      | Attribute      | Description                                                                                | Type                  | Default                          |
+| ------------- | -------------- | ------------------------------------------------------------------------------------------ | --------------------- | -------------------------------- |
+| `autoCenter`  | --             | Auto centers the dialog relatively to the viewport.                                        | `KupDialogAutoCenter` | `{ onReady: true }`              |
+| `customStyle` | `custom-style` | Custom style of the component.                                                             | `string`              | `''`                             |
+| `header`      | --             | Header options.                                                                            | `KupDialogHeader`     | `{ icons: { close: true } }`     |
+| `modal`       | --             | Set of options to display the dialog as a modal.                                           | `KupDialogModal`      | `{ closeOnBackdropClick: true }` |
+| `resizable`   | `resizable`    | Sets whether the dialog is resizable or not.                                               | `boolean`             | `true`                           |
+| `sizeX`       | `size-x`       | The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.). | `string`              | `'auto'`                         |
+| `sizeY`       | `size-y`       | The height of the card, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).  | `string`              | `'auto'`                         |
+
+
+## Events
+
+| Event              | Description | Type                           |
+| ------------------ | ----------- | ------------------------------ |
+| `kup-dialog-close` |             | `CustomEvent<KupEventPayload>` |
+| `kup-dialog-ready` |             | `CustomEvent<KupEventPayload>` |
 
 
 ## Methods
 
-### `printLifecycleTime() => Promise<{ id: string; featuresTime: number; fullTime: number; }>`
+### `close() => Promise<void>`
 
-This method is used to trigger a new render of the component.
+Closes the dialog detaching it from the DOM.
 
 #### Returns
 
-Type: `Promise<{ id: string; featuresTime: number; fullTime: number; }>`
+Type: `Promise<void>`
+
+
+
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+List of props as object, each key will be a prop.
+
+### `recalcPosition() => Promise<void>`
+
+Places the dialog at the center of the screen.
+
+#### Returns
+
+Type: `Promise<void>`
 
 
 
@@ -35,17 +68,42 @@ Type: `Promise<void>`
 
 
 
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
+## CSS Custom Properties
+
+| Name                         | Description                        |
+| ---------------------------- | ---------------------------------- |
+| `--kup-dialog-header-height` | Sets the height of the header bar. |
+
 
 ## Dependencies
 
+### Used by
+
+ - [kup-data-table](../kup-data-table)
+
 ### Depends on
 
+- [kup-badge](../kup-badge)
 - [kup-card](../kup-card)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-probe --> kup-card
+  kup-dialog --> kup-badge
+  kup-dialog --> kup-card
+  kup-badge --> kup-badge
+  kup-badge --> kup-card
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -79,8 +137,6 @@ graph TD;
   kup-list --> kup-card
   kup-list --> kup-badge
   kup-radio --> kup-card
-  kup-badge --> kup-badge
-  kup-badge --> kup-card
   kup-chip --> kup-card
   kup-chip --> kup-badge
   kup-text-field --> kup-card
@@ -124,32 +180,8 @@ graph TD;
   kup-form --> kup-radio
   kup-form --> kup-badge
   kup-checkbox --> kup-card
-  kup-data-table --> kup-card
-  kup-data-table --> kup-list
-  kup-data-table --> kup-switch
-  kup-data-table --> kup-button
-  kup-data-table --> kup-spinner
-  kup-data-table --> kup-form
-  kup-data-table --> kup-image
   kup-data-table --> kup-dialog
-  kup-data-table --> kup-checkbox
-  kup-data-table --> kup-combobox
-  kup-data-table --> kup-badge
-  kup-data-table --> kup-autocomplete
-  kup-data-table --> kup-chip
-  kup-data-table --> kup-text-field
-  kup-data-table --> kup-color-picker
-  kup-data-table --> kup-date-picker
-  kup-data-table --> kup-rating
-  kup-data-table --> kup-time-picker
-  kup-data-table --> kup-button-list
-  kup-data-table --> kup-chart
-  kup-data-table --> kup-gauge
-  kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-radio
   kup-switch --> kup-card
-  kup-dialog --> kup-badge
-  kup-dialog --> kup-card
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
   kup-tree --> kup-card
@@ -170,7 +202,7 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-badge
-  style kup-probe fill:#f9f,stroke:#333,stroke-width:4px
+  style kup-dialog fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

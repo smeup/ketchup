@@ -138,6 +138,8 @@ graph TD;
   kup-form --> kup-badge
   kup-checkbox --> kup-card
   kup-data-table --> kup-switch
+  kup-dialog --> kup-badge
+  kup-dialog --> kup-card
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
   kup-tree --> kup-card

@@ -12,6 +12,10 @@ export enum KupDialogProps {
     sizeY = 'The height of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).',
 }
 
+export interface KupDialogAutoCenter {
+    onReady?: boolean;
+}
+
 export interface KupDialogHeader {
     icons?: KupDialogIcons;
     title?: string;
@@ -19,10 +23,6 @@ export interface KupDialogHeader {
 
 export interface KupDialogIcons {
     close?: boolean;
-}
-
-export interface KupDialogAutoCenter {
-    onReady?: boolean;
 }
 
 export interface KupDialogModal {

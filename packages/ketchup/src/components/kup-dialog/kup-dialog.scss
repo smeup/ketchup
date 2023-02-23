@@ -1,4 +1,11 @@
+/**
+* @prop --kup-dialog-header-height: Sets the height of the header bar.
+*/
+
 :host {
+  --kup_dialog_header_height: var(--kup-dialog-header-height, 2em);
+
+  box-sizing: border-box;
   display: block;
   height: var(--kup_dialog_height);
   left: var(--kup_dialog_left);
@@ -8,6 +15,11 @@
   top: var(--kup_dialog_top);
   transition: opacity 0.25s ease-in;
   width: var(--kup_dialog_width);
+}
+
+#kup-component {
+  height: 100%;
+  width: 100%;
 }
 
 [fade-in] {
@@ -23,7 +35,7 @@
   color: var(--kup-title-color);
   display: flex;
   flex-direction: row;
-  height: 2em;
+  height: var(--kup_dialog_header_height);
   position: relative;
   width: 100%;
 
@@ -51,4 +63,9 @@
       opacity: 0.5;
     }
   }
+}
+
+.content {
+  height: calc(100% - var(--kup_dialog_header_height));
+  overflow: auto;
 }

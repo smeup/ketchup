@@ -929,6 +929,7 @@ export class KupDataTable {
     #detailCard: HTMLKupCardElement = null;
     #insertCard: HTMLKupCardElement = null;
     #confirmDeleteCard: HTMLKupCardElement = null;
+    #confirmDeleteDialog: HTMLKupDialogElement = null;
     #columnMenuCard: HTMLKupCardElement = null;
     #columnDropCard: HTMLKupCardElement = null;
     #columnDropCardAnchor: HTMLElement = null;
@@ -1161,9 +1162,10 @@ export class KupDataTable {
      */
     @Method()
     async closeConfirmDeleteCard() {
-        if (this.#confirmDeleteCard) {
-            this.#confirmDeleteCard.remove();
+        if (this.#confirmDeleteDialog) {
+            this.#confirmDeleteDialog.close();
             this.#confirmDeleteCard = null;
+            this.#confirmDeleteDialog = null;
         }
     }
 
@@ -2611,7 +2613,6 @@ export class KupDataTable {
         const CARD_WIDTH = 400;
         const CARD_HEIGHT = 400;
         this.#insertCard = document.createElement('kup-card');
-        this.#insertCard.showModal = true;
         this.#insertCard.layoutFamily = KupCardFamily.FREE;
         this.#insertCard.layoutNumber = 1;
         this.#insertCard.sizeX = CARD_WIDTH + 'px';
@@ -2714,14 +2715,12 @@ export class KupDataTable {
 
     #rowsDelete() {
         const createDeleteCard = () => {
-            const CARD_WIDTH = 250;
-            const CARD_HEIGHT = 200;
+            this.#confirmDeleteDialog = document.createElement('kup-dialog');
             this.#confirmDeleteCard = document.createElement('kup-card');
-            this.#confirmDeleteCard.showModal = true;
             this.#confirmDeleteCard.layoutFamily = KupCardFamily.FREE;
             this.#confirmDeleteCard.layoutNumber = 1;
-            this.#confirmDeleteCard.sizeX = CARD_WIDTH + 'px';
-            this.#confirmDeleteCard.sizeY = CARD_HEIGHT + 'px';
+            this.#confirmDeleteCard.sizeX = "auto";
+            this.#confirmDeleteCard.sizeY = "auto";
             const style = document.createElement('style');
             style.innerText =
                 '.button-wrapper, .message-wrapper { display: flex; justify-content: space-around; z-index: var(--kup-card-zindex); } .message-wrapper { padding-bottom: 20px; }';
@@ -2776,7 +2775,8 @@ export class KupDataTable {
             this.#confirmDeleteCard.append(messageWrapper);
             this.#confirmDeleteCard.append(buttonWrapper);
             this.#confirmDeleteCard.data = {};
-            this.rootElement.shadowRoot.append(this.#confirmDeleteCard);
+            this.#confirmDeleteDialog.append(this.#confirmDeleteCard);
+            this.rootElement.shadowRoot.append(this.#confirmDeleteDialog);
         };
 
         const insertRowsIds: string[] = [];

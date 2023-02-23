@@ -355,6 +355,7 @@ Type: `Promise<void>`
 - [kup-spinner](../kup-spinner)
 - [kup-form](../kup-form)
 - [kup-image](../kup-image)
+- [kup-dialog](../kup-dialog)
 - [kup-checkbox](../kup-checkbox)
 - [kup-combobox](../kup-combobox)
 - [kup-badge](../kup-badge)
@@ -381,6 +382,7 @@ graph TD;
   kup-data-table --> kup-spinner
   kup-data-table --> kup-form
   kup-data-table --> kup-image
+  kup-data-table --> kup-dialog
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
@@ -470,6 +472,8 @@ graph TD;
   kup-tree --> kup-radio
   kup-tree --> kup-badge
   kup-switch --> kup-card
+  kup-dialog --> kup-badge
+  kup-dialog --> kup-card
   kup-magic-box --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```

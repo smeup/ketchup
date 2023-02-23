@@ -206,6 +206,7 @@ graph TD;
   kup-data-table --> kup-spinner
   kup-data-table --> kup-form
   kup-data-table --> kup-image
+  kup-data-table --> kup-dialog
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
@@ -222,6 +223,8 @@ graph TD;
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-radio
   kup-switch --> kup-card
+  kup-dialog --> kup-badge
+  kup-dialog --> kup-card
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
   kup-tree --> kup-card
