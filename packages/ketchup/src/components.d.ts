@@ -28,6 +28,7 @@ import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-das
 import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
+import { KupDialogHeader } from "./components/kup-dialog/kup-dialog-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 import { GeoJSON } from "geojson";
@@ -72,6 +73,7 @@ export { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-das
 export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 export { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 export { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
+export { KupDialogHeader } from "./components/kup-dialog/kup-dialog-declarations";
 export { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 export { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 export { GeoJSON } from "geojson";
@@ -1474,6 +1476,11 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * Header options.
+          * @default "{ icons: { close: true } }"
+         */
+        "header": KupDialogHeader;
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
@@ -1482,6 +1489,16 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).
+          * @default "auto"
+         */
+        "sizeX": string;
+        /**
+          * The height of the card, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default "auto"
+         */
+        "sizeY": string;
     }
     interface KupDrawer {
         /**
@@ -4832,6 +4849,21 @@ declare namespace LocalJSX {
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
+        /**
+          * Header options.
+          * @default "{ icons: { close: true } }"
+         */
+        "header"?: KupDialogHeader;
+        /**
+          * The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).
+          * @default "auto"
+         */
+        "sizeX"?: string;
+        /**
+          * The height of the card, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default "auto"
+         */
+        "sizeY"?: string;
     }
     interface KupDrawer {
         /**

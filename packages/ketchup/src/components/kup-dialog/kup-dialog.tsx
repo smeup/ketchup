@@ -7,11 +7,12 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
+import { FImage } from '../../f-components/f-image/f-image';
 import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupDialogProps } from './kup-dialog-declarations';
+import { KupDialogHeader, KupDialogProps } from './kup-dialog-declarations';
 
 @Component({
     tag: 'kup-dialog',
@@ -34,6 +35,21 @@ export class KupDialog {
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
+    /**
+     * Header options.
+     * @default "{ icons: { close: true } }"
+     */
+    @Prop() header: KupDialogHeader = { icons: { close: true } };
+    /**
+     * The width of the dialog, defaults to auto. Accepts any valid CSS format (px, %, vw, etc.).
+     * @default "auto"
+     */
+    @Prop() sizeX: string = 'auto';
+    /**
+     * The height of the card, defaults to auto. Accepts any valid CSS format (px, %, vh, etc.).
+     * @default "auto"
+     */
+    @Prop() sizeY: string = 'auto';
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -92,14 +108,36 @@ export class KupDialog {
     }
 
     render() {
+        const style = {
+            '--kup_card_height': this.sizeY ? this.sizeY : 'auto',
+            '--kup_card_width': this.sizeX ? this.sizeX : 'auto',
+        };
+
         return (
-            <Host>
+            <Host style={style}>
                 <style>
                     {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
                     )}
                 </style>
                 <div id={componentWrapperId}>
+                    {this.header ? (
+                        <div class="header">
+                            {this.header.title ? (
+                                <div class="header__title">
+                                    {this.header.title}
+                                </div>
+                            ) : null}
+                            {this.header.icons?.close ? (
+                                <FImage
+                                    sizeX="1.25em"
+                                    sizeY="100%"
+                                    resource="clear"
+                                    wrapperClass="header__close"
+                                ></FImage>
+                            ) : null}
+                        </div>
+                    ) : null}
                     <slot></slot>
                 </div>
             </Host>

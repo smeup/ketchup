@@ -1,4 +1,42 @@
 :host {
   display: block;
-  margin: auto;
+  height: var(--kup_dialog_height);
+  min-height: var(--kup_dialog_height);
+  min-width: var(--kup_dialog_width);
+  width: var(--kup_dialog_width);
+}
+
+.header {
+  background-color: var(--kup-title-background-color);
+  color: var(--kup-title-color);
+  display: flex;
+  flex-direction: row;
+  height: 2em;
+  position: relative;
+  width: 100%;
+
+  &__title {
+    font-weight: bold;
+    line-height: 2em;
+    padding-left: 0.5em;
+    padding-right: 2em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__close.f-image {
+    --kup-icon-color: var(--kup-title-color);
+
+    cursor: pointer;
+    margin-right: 0;
+    transition: opacity 0.25s;
+    position: absolute;
+    right: 0;
+    background: var(--kup-title-background-color);
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
 }
