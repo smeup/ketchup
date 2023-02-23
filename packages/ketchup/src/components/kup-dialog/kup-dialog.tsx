@@ -1,6 +1,8 @@
 import {
     Component,
     Element,
+    Event,
+    EventEmitter,
     forceUpdate,
     h,
     Host,
@@ -9,12 +11,17 @@ import {
 } from '@stencil/core';
 import { FImage } from '../../f-components/f-image/f-image';
 import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
-import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
     KupDialogAutoCenter,
     KupDialogHeader,
+    KupDialogModal,
     KupDialogProps,
 } from './kup-dialog-declarations';
 
@@ -50,6 +57,11 @@ export class KupDialog {
      */
     @Prop() header: KupDialogHeader = { icons: { close: true } };
     /**
+     * Set of options to display the dialog as a modal.
+     * @default "{ closeOnBackdropClick: true }"
+     */
+    @Prop() modal: KupDialogModal = { closeOnBackdropClick: true };
+    /**
      * Sets whether the dialog is resizable or not.
      * @default "true"
      */
@@ -73,9 +85,40 @@ export class KupDialog {
     #kupManager = kupManagerInstance();
 
     /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
+
+    @Event({
+        eventName: 'kup-dialog-close',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClose: EventEmitter<KupEventPayload>;
+
+    @Event({
+        eventName: 'kup-dialog-ready',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupReady: EventEmitter<KupEventPayload>;
+
+    /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
+    /**
+     * Closes the dialog detaching it from the DOM.
+     */
+    @Method()
+    async close(): Promise<void> {
+        this.kupClose.emit({
+            comp: this,
+            id: this.rootElement.id,
+        });
+        this.rootElement.remove();
+    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -125,9 +168,31 @@ export class KupDialog {
     }
 
     componentDidLoad() {
+        this.#kupManager.interact.dialogify(
+            this.rootElement,
+            this.#header ? this.#header : null,
+            !this.resizable
+        );
         if (this.autoCenter?.onReady) {
-            this.recalcPosition();
+            this.recalcPosition().then(() => {
+                this.rootElement.removeAttribute('fade-in');
+            });
+        } else {
+            this.rootElement.removeAttribute('fade-in');
         }
+        if (this.modal) {
+            this.#kupManager.interact.showModalBackdrop(
+                this.modal.closeOnBackdropClick
+                    ? () => {
+                          this.close();
+                      }
+                    : null
+            );
+        }
+        this.kupReady.emit({
+            comp: this,
+            id: this.rootElement.id,
+        });
         this.#kupManager.debug.logLoad(this, true);
     }
 
@@ -136,13 +201,6 @@ export class KupDialog {
     }
 
     componentDidRender() {
-        if (!this.#kupManager.interact.isRegistered(this.rootElement)) {
-            this.#kupManager.interact.dialogify(
-                this.rootElement,
-                this.#header ? this.#header : null,
-                !this.resizable
-            );
-        }
         this.#kupManager.debug.logRender(this, true);
     }
 
@@ -153,7 +211,7 @@ export class KupDialog {
         };
 
         return (
-            <Host style={style}>
+            <Host fade-in style={style}>
                 <style>
                     {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
@@ -169,6 +227,7 @@ export class KupDialog {
                             ) : null}
                             {this.header.icons?.close ? (
                                 <FImage
+                                    onClick={() => this.close()}
                                     sizeX="1.25em"
                                     sizeY="100%"
                                     resource="clear"
@@ -184,6 +243,9 @@ export class KupDialog {
     }
 
     disconnectedCallback() {
+        if (this.modal) {
+            this.#kupManager.interact.hideModalBackdrop();
+        }
         this.#kupManager.theme.unregister(this);
     }
 }

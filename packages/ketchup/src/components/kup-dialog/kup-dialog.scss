@@ -6,7 +6,16 @@
   min-width: var(--kup_dialog_width);
   position: absolute;
   top: var(--kup_dialog_top);
+  transition: opacity 0.25s ease-in;
   width: var(--kup_dialog_width);
+}
+
+[fade-in] {
+  opacity: 0;
+
+  ::slotted {
+    display: none;
+  }
 }
 
 .header {

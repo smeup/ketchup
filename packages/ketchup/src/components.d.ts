@@ -28,7 +28,7 @@ import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-das
 import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
-import { KupDialogAutoCenter, KupDialogHeader } from "./components/kup-dialog/kup-dialog-declarations";
+import { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 import { GeoJSON } from "geojson";
@@ -73,7 +73,7 @@ export { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-das
 export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 export { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 export { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
-export { KupDialogAutoCenter, KupDialogHeader } from "./components/kup-dialog/kup-dialog-declarations";
+export { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
 export { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 export { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 export { GeoJSON } from "geojson";
@@ -1469,6 +1469,10 @@ export namespace Components {
          */
         "autoCenter": KupDialogAutoCenter;
         /**
+          * Closes the dialog detaching it from the DOM.
+         */
+        "close": () => Promise<void>;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -1485,6 +1489,11 @@ export namespace Components {
           * @default "{ icons: { close: true } }"
          */
         "header": KupDialogHeader;
+        /**
+          * Set of options to display the dialog as a modal.
+          * @default "{ closeOnBackdropClick: true }"
+         */
+        "modal": KupDialogModal;
         /**
           * Places the dialog at the center of the screen.
          */
@@ -3285,6 +3294,10 @@ export interface KupDatePickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupDatePickerElement;
 }
+export interface KupDialogCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupDialogElement;
+}
 export interface KupDrawerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupDrawerElement;
@@ -4873,6 +4886,13 @@ declare namespace LocalJSX {
           * @default "{ icons: { close: true } }"
          */
         "header"?: KupDialogHeader;
+        /**
+          * Set of options to display the dialog as a modal.
+          * @default "{ closeOnBackdropClick: true }"
+         */
+        "modal"?: KupDialogModal;
+        "onKup-dialog-close"?: (event: KupDialogCustomEvent<KupEventPayload>) => void;
+        "onKup-dialog-ready"?: (event: KupDialogCustomEvent<KupEventPayload>) => void;
         /**
           * Sets whether the dialog is resizable or not.
           * @default "true"
