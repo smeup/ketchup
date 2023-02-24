@@ -13,21 +13,24 @@ import {
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { GenericObject } from '../../types/GenericTypes';
-import { KupGanttProps } from './kup-gantt-declarations';
-import { getProps, setProps } from '../../utils/utils';
+import { KupPlannerProps } from './kup-planner-declarations';
+import { getProps, setProps, stringToNumber } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { Gantt, Task, GanttProps } from 'gantt-task-react';
 import { createRoot } from 'react-dom/client';
 import React from 'react';
+import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
+import { KupObjects } from '../../managers/kup-objects/kup-objects';
+import { TaskType } from 'gantt-task-react/dist/types/public-types';
 
 @Component({
-    tag: 'kup-gantt',
-    styleUrl: 'kup-gantt.scss',
+    tag: 'kup-planner',
+    styleUrl: 'kup-planner.scss',
     shadow: true,
 })
-export class KupGantt {
+export class KupPlanner {
     /**
-     * References the root HTML element of the component (<kup-gantt>).
+     * References the root HTML element of the component (<kup-planner>).
      */
     @Element() rootElement: HTMLElement;
 
@@ -50,13 +53,35 @@ export class KupGantt {
      * @default ""
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = '';
+    @Prop()
+    customStyle: string = '';
+
+    @Prop()
+    data: KupDataDataset;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
     #kupManager: KupManager = kupManagerInstance();
+
+    #toTasks(data: KupDataDataset): Task[] {
+        const kupObjects: KupObjects = new KupObjects();
+        let tasks: Task[] = data.rows?.map((value) => {
+            let task: Task = {
+                id: value.cells['ID'].obj.k,
+                name: value.cells['NAME'].obj.k,
+                start: kupObjects.parseDate(value.cells['START'].obj).toDate(),
+                end: kupObjects.parseDate(value.cells['END'].obj).toDate(),
+                isDisabled: value.cells['DISABLED'].obj.k.startsWith('S'),
+                progress: stringToNumber(value.cells['PROGRESS'].obj.k),
+                type: value.cells['TYPE'].obj.k as TaskType,
+            };
+            return task;
+        });
+
+        return tasks;
+    }
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -69,7 +94,7 @@ export class KupGantt {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        return getProps(this, KupGanttProps, descriptions);
+        return getProps(this, KupPlannerProps, descriptions);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -84,7 +109,7 @@ export class KupGantt {
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupGanttProps, props);
+        setProps(this, KupPlannerProps, props);
     }
 
     /*-------------------------------------------------*/
@@ -97,21 +122,7 @@ export class KupGantt {
     }
 
     componentDidLoad() {
-        const tasks: Task[] = [
-            {
-                start: new Date(2020, 1, 1),
-                end: new Date(2020, 1, 2),
-                name: 'Idea',
-                id: 'Task 0',
-                type: 'task',
-                progress: 45,
-                isDisabled: true,
-                styles: {
-                    progressColor: '#ffbb54',
-                    progressSelectedColor: '#ff9e0d',
-                },
-            },
-        ];
+        const tasks = this.#toTasks(this.data);
 
         const ganttProps: GanttProps = {
             tasks: tasks,

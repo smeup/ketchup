@@ -32,6 +32,7 @@ export const KupDropdownButton = /*@__PURE__*/createReactComponent<JSX.KupDropdo
 export const KupEchart = /*@__PURE__*/createReactComponent<JSX.KupEchart, HTMLKupEchartElement>('kup-echart');
 export const KupFamilyTree = /*@__PURE__*/createReactComponent<JSX.KupFamilyTree, HTMLKupFamilyTreeElement>('kup-family-tree');
 export const KupForm = /*@__PURE__*/createReactComponent<JSX.KupForm, HTMLKupFormElement>('kup-form');
+export const KupGantt = /*@__PURE__*/createReactComponent<JSX.KupGantt, HTMLKupGanttElement>('kup-gantt');
 export const KupGauge = /*@__PURE__*/createReactComponent<JSX.KupGauge, HTMLKupGaugeElement>('kup-gauge');
 export const KupGrid = /*@__PURE__*/createReactComponent<JSX.KupGrid, HTMLKupGridElement>('kup-grid');
 export const KupIframe = /*@__PURE__*/createReactComponent<JSX.KupIframe, HTMLKupIframeElement>('kup-iframe');

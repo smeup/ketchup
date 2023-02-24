@@ -107,6 +107,7 @@ Type: `Promise<void>`
  - [kup-echart](../kup-echart)
  - [kup-family-tree](../kup-family-tree)
  - [kup-form](../kup-form)
+ - [kup-gantt](../kup-gantt)
  - [kup-gauge](../kup-gauge)
  - [kup-grid](../kup-grid)
  - [kup-iframe](../kup-iframe)
@@ -199,6 +200,7 @@ graph TD;
   kup-drawer --> kup-card
   kup-echart --> kup-card
   kup-family-tree --> kup-card
+  kup-gantt --> kup-card
   kup-grid --> kup-card
   kup-iframe --> kup-card
   kup-image-list --> kup-card
