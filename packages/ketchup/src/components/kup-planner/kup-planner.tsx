@@ -57,6 +57,27 @@ export class KupPlanner {
     customStyle: string = '';
 
     @Prop()
+    idCol: string = 'ID';
+
+    @Prop()
+    nameCol: string = 'NAME';
+
+    @Prop()
+    startCol: string = 'START';
+
+    @Prop()
+    endCol: string = 'END';
+
+    @Prop()
+    progrCol: string = 'PROGRESS';
+
+    @Prop()
+    disabledCol: string = 'PROGRESS';
+
+    @Prop()
+    typeCol: string = 'TYPE';
+
+    @Prop()
     data: KupDataDataset;
 
     /*-------------------------------------------------*/
@@ -69,13 +90,17 @@ export class KupPlanner {
         const kupObjects: KupObjects = new KupObjects();
         let tasks: Task[] = data.rows?.map((value) => {
             let task: Task = {
-                id: value.cells['ID'].obj.k,
-                name: value.cells['NAME'].obj.k,
-                start: kupObjects.parseDate(value.cells['START'].obj).toDate(),
-                end: kupObjects.parseDate(value.cells['END'].obj).toDate(),
-                isDisabled: value.cells['DISABLED'].obj.k.startsWith('S'),
-                progress: stringToNumber(value.cells['PROGRESS'].obj.k),
-                type: value.cells['TYPE'].obj.k as TaskType,
+                id: value.cells[this.idCol].obj.k,
+                name: value.cells[this.nameCol].obj.k,
+                start: kupObjects
+                    .parseDate(value.cells[this.startCol].obj)
+                    .toDate(),
+                end: kupObjects
+                    .parseDate(value.cells[this.endCol].obj)
+                    .toDate(),
+                isDisabled: value.cells[this.disabledCol].obj.k.startsWith('S'),
+                progress: stringToNumber(value.cells[this.progrCol].obj.k),
+                type: value.cells[this.typeCol].obj.k as TaskType,
             };
             return task;
         });

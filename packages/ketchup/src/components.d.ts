@@ -2338,12 +2338,17 @@ export namespace Components {
          */
         "customStyle": string;
         "data": KupDataDataset;
+        "disabledCol": string;
+        "endCol": string;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        "idCol": string;
+        "nameCol": string;
+        "progrCol": string;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -2353,6 +2358,8 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        "startCol": string;
+        "typeCol": string;
     }
     interface KupProbe {
         /**
@@ -5455,6 +5462,13 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         "data"?: KupDataDataset;
+        "disabledCol"?: string;
+        "endCol"?: string;
+        "idCol"?: string;
+        "nameCol"?: string;
+        "progrCol"?: string;
+        "startCol"?: string;
+        "typeCol"?: string;
     }
     interface KupProbe {
         /**
