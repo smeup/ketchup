@@ -73,6 +73,7 @@ export interface KupDataCell {
     isEditable?: boolean;
     obj?: KupObj;
     shape?: FCellShapes;
+    slotData?: GenericObject;
     style?: GenericMap;
     styleContent?: GenericMap;
     title?: string;

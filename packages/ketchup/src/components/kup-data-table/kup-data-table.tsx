@@ -5695,7 +5695,7 @@ export class KupDataTable {
                                                 isEditable:
                                                     column.isKey ||
                                                     column.isEditable,
-                                                obj: column.obj,
+                                                obj: { ...column.obj },
                                                 shape: column.shape,
                                                 value: '',
                                             };
