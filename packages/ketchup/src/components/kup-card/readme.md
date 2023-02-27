@@ -13,7 +13,6 @@
 | `layoutFamily` | `layout-family` | Sets the type of the card.                                                                                      | `KupCardFamily.BOX \| KupCardFamily.BUILT_IN \| KupCardFamily.COLLAPSIBLE \| KupCardFamily.DIALOG \| KupCardFamily.FREE \| KupCardFamily.SCALABLE \| KupCardFamily.STANDARD` | `KupCardFamily.STANDARD` |
 | `layoutNumber` | `layout-number` | Sets the number of the layout.                                                                                  | `number`                                                                                                                                                                     | `1`                      |
 | `menuVisible`  | `menu-visible`  | Sets the status of the card as menu, when false it's hidden otherwise it's visible. Works together with isMenu. | `boolean`                                                                                                                                                                    | `false`                  |
-| `showModal`    | `show-modal`    | Sets the card as modal window                                                                                   | `boolean`                                                                                                                                                                    | `false`                  |
 | `sizeX`        | `size-x`        | The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).                        | `string`                                                                                                                                                                     | `'100%'`                 |
 | `sizeY`        | `size-y`        | The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).                       | `string`                                                                                                                                                                     | `'100%'`                 |
 
@@ -102,6 +101,7 @@ Type: `Promise<void>`
  - [kup-dashboard](../kup-dashboard)
  - [kup-data-table](../kup-data-table)
  - [kup-date-picker](../kup-date-picker)
+ - [kup-dialog](../kup-dialog)
  - [kup-drawer](../kup-drawer)
  - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-echart](../kup-echart)
@@ -134,6 +134,8 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-autocomplete](../kup-autocomplete)
+- [kup-chip](../kup-chip)
+- [kup-text-field](../kup-text-field)
 - [kup-color-picker](../kup-color-picker)
 - [kup-combobox](../kup-combobox)
 - [kup-date-picker](../kup-date-picker)
@@ -147,11 +149,9 @@ Type: `Promise<void>`
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-radio](../kup-radio)
 - [kup-badge](../kup-badge)
-- [kup-chip](../kup-chip)
 - [kup-list](../kup-list)
 - [kup-form](../kup-form)
 - [kup-checkbox](../kup-checkbox)
-- [kup-text-field](../kup-text-field)
 - [kup-data-table](../kup-data-table)
 - [kup-spinner](../kup-spinner)
 - [kup-tab-bar](../kup-tab-bar)
@@ -168,6 +168,8 @@ graph TD;
   kup-list --> kup-card
   kup-radio --> kup-card
   kup-badge --> kup-card
+  kup-chip --> kup-card
+  kup-text-field --> kup-card
   kup-color-picker --> kup-card
   kup-combobox --> kup-card
   kup-date-picker --> kup-card
@@ -181,12 +183,11 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
-  kup-chip --> kup-card
   kup-form --> kup-card
   kup-checkbox --> kup-card
-  kup-text-field --> kup-card
   kup-data-table --> kup-card
   kup-switch --> kup-card
+  kup-dialog --> kup-card
   kup-tab-bar --> kup-card
   kup-tree --> kup-card
   kup-accordion --> kup-card

@@ -214,7 +214,11 @@ function createChipList(
                                     : null
                             }
                         >
-                            <span class="chip__text">{chip.value}</span>
+                            <span class="chip__text">
+                                {props.displayId
+                                    ? chip.id + ' - ' + chip.value
+                                    : chip.value}
+                            </span>
                         </span>
                     </span>
                     {isInput ? (

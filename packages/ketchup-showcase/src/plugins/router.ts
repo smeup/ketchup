@@ -67,6 +67,11 @@ const basicRoutes = [
       import(`@/views/components/basic/datepicker/DatePicker.vue`),
   },
   {
+    path: `/dialog`,
+    name: 'dialog',
+    component: () => import(`@/views/components/basic/dialog/Dialog.vue`),
+  },
+  {
     path: `/dropdownbutton`,
     name: 'dropdownbutton',
     component: () =>

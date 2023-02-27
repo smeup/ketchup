@@ -25,6 +25,21 @@
   }
 }
 
+[kup-modal-backdrop] {
+  animation: fade-in 0.25s ease-out;
+  background: rgba(0, 0, 0, 0.32);
+  display: none;
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+
+  &.visible {
+    display: block;
+  }
+}
+
 @keyframes fade-in {
   0% {
     display: none;

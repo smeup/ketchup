@@ -1,3 +1,5 @@
+import { KupListNode } from '../../components/kup-list/kup-list-declarations';
+
 /**
  * Interface for ranged filters.
  */
@@ -13,6 +15,8 @@ export interface GenericFilter {
 export interface ValueDisplayedValue {
     value: string;
     displayedValue?: string;
+    // userd for kup-autocomplete and kup-combobox
+    node?: KupListNode;
 }
 
 export interface Filter {

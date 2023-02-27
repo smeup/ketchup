@@ -27,6 +27,7 @@ export const KupDashList = /*@__PURE__*/createReactComponent<JSX.KupDashList, HT
 export const KupDashboard = /*@__PURE__*/createReactComponent<JSX.KupDashboard, HTMLKupDashboardElement>('kup-dashboard');
 export const KupDataTable = /*@__PURE__*/createReactComponent<JSX.KupDataTable, HTMLKupDataTableElement>('kup-data-table');
 export const KupDatePicker = /*@__PURE__*/createReactComponent<JSX.KupDatePicker, HTMLKupDatePickerElement>('kup-date-picker');
+export const KupDialog = /*@__PURE__*/createReactComponent<JSX.KupDialog, HTMLKupDialogElement>('kup-dialog');
 export const KupDrawer = /*@__PURE__*/createReactComponent<JSX.KupDrawer, HTMLKupDrawerElement>('kup-drawer');
 export const KupDropdownButton = /*@__PURE__*/createReactComponent<JSX.KupDropdownButton, HTMLKupDropdownButtonElement>('kup-dropdown-button');
 export const KupEchart = /*@__PURE__*/createReactComponent<JSX.KupEchart, HTMLKupEchartElement>('kup-echart');

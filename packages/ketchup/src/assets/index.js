@@ -87,6 +87,10 @@ components.data = [
         id: 'date-picker.html',
     },
     {
+        value: 'Dialog',
+        id: 'dialog.html',
+    },
+    {
         value: 'Drawer',
         id: 'drawer.html',
     },

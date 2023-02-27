@@ -72,6 +72,7 @@ export const fImageUsers = [
     KupTagNames.CHIP,
     KupTagNames.DASHBOARD,
     KupTagNames.DATA_TABLE,
+    KupTagNames.DIALOG,
     KupTagNames.DROPDOWN_BUTTON,
     KupTagNames.FAMILY_TREE,
     KupTagNames.FORM,
