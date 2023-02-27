@@ -2353,6 +2353,8 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        "secEndCol": string;
+        "secStartCol": string;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
@@ -5467,6 +5469,8 @@ declare namespace LocalJSX {
         "idCol"?: string;
         "nameCol"?: string;
         "progrCol"?: string;
+        "secEndCol"?: string;
+        "secStartCol"?: string;
         "startCol"?: string;
         "typeCol"?: string;
     }

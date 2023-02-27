@@ -16,12 +16,15 @@ import { GenericObject } from '../../types/GenericTypes';
 import { KupPlannerProps } from './kup-planner-declarations';
 import { getProps, setProps, stringToNumber } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { Gantt, Task, GanttProps } from 'gantt-task-react';
 import { createRoot } from 'react-dom/client';
 import React from 'react';
 import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 import { KupObjects } from '../../managers/kup-objects/kup-objects';
-import { TaskType } from 'gantt-task-react/dist/types/public-types';
+import { Gantt, Task } from '@sme.up/gantt-component';
+import {
+    GanttProps,
+    TaskType,
+} from '@sme.up/gantt-component/dist/types/public-types';
 
 @Component({
     tag: 'kup-planner',
@@ -66,7 +69,13 @@ export class KupPlanner {
     startCol: string = 'START';
 
     @Prop()
+    secStartCol: string = 'SEC_START';
+
+    @Prop()
     endCol: string = 'END';
+
+    @Prop()
+    secEndCol: string = 'SEC_END';
 
     @Prop()
     progrCol: string = 'PROGRESS';
@@ -87,8 +96,11 @@ export class KupPlanner {
     #kupManager: KupManager = kupManagerInstance();
 
     #toTasks(data: KupDataDataset): Task[] {
+        debugger;
         const kupObjects: KupObjects = new KupObjects();
         let tasks: Task[] = data.rows?.map((value) => {
+            const secondaryStart = value.cells[this.secStartCol]?.obj;
+            const secondaryEnd = value.cells[this.secEndCol]?.obj;
             let task: Task = {
                 id: value.cells[this.idCol].obj.k,
                 name: value.cells[this.nameCol].obj.k,
@@ -98,6 +110,16 @@ export class KupPlanner {
                 end: kupObjects
                     .parseDate(value.cells[this.endCol].obj)
                     .toDate(),
+                secondaryStart: secondaryStart
+                    ? kupObjects
+                          .parseDate(value.cells[this.secStartCol].obj)
+                          .toDate()
+                    : undefined,
+                secondaryEnd: secondaryEnd
+                    ? kupObjects
+                          .parseDate(value.cells[this.secEndCol].obj)
+                          .toDate()
+                    : undefined,
                 isDisabled: value.cells[this.disabledCol].obj.k.startsWith('S'),
                 progress: stringToNumber(value.cells[this.progrCol].obj.k),
                 type: value.cells[this.typeCol].obj.k as TaskType,
