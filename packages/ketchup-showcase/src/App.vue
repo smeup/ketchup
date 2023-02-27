@@ -515,6 +515,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'dialog',
+                  },
+                },
+                icon: 'art_track',
+                value: 'Dialog',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'drawer',
                   },
                 },

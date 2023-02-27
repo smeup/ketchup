@@ -94,11 +94,6 @@ export class KupCard {
      */
     @Prop({ mutable: true, reflect: true }) menuVisible: boolean = false;
     /**
-     * Sets the card as modal window
-     * @default false
-     */
-    @Prop({ reflect: true }) showModal: boolean = false;
-    /**
      * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
      * @default "100%"
      */
@@ -627,19 +622,6 @@ export class KupCard {
             }, 0);
         }
         this.kupManager.debug.logRender(this, true);
-        if (this.showModal) {
-            this.rootElement.style.setProperty(
-                '--kup_card_left',
-                window.innerWidth / 2 - this.rootElement.clientWidth / 2 + 'px'
-            );
-            this.rootElement.style.setProperty(
-                '--kup_card_top',
-                window.innerHeight / 2 -
-                    this.rootElement.clientHeight / 2 +
-                    'px'
-            );
-            this.rootElement.style.setProperty('--kup_card_display', 'block');
-        }
     }
 
     render() {
@@ -652,23 +634,6 @@ export class KupCard {
             '--kup_card_width': this.sizeX ? this.sizeX : '100%',
         };
 
-        const backdropComp = this.showModal ? (
-            <div
-                class="backdrop"
-                onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }}
-                onPointerDown={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }}
-                onTouchStart={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }}
-            />
-        ) : null;
         return (
             <Host style={style}>
                 <style>
@@ -676,7 +641,6 @@ export class KupCard {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                {backdropComp}
                 <div
                     id={componentWrapperId}
                     onClick={() => this.onKupClick(null, null)}

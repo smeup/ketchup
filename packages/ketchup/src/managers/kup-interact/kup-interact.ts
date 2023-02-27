@@ -41,7 +41,17 @@ const dom: KupDom = document.documentElement as KupDom;
  */
 export class KupInteract {
     container: HTMLElement;
+    defaultModalCb: (e: MouseEvent) => void = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        if (this.modalCb) {
+            this.modalCb(e);
+            this.modalCb = null;
+        }
+    };
     managedElements: Set<HTMLElement>;
+    modalBackdrop: HTMLElement;
+    modalCb: (e: MouseEvent) => unknown;
     restrictContainer: RectResolvable<
         [number, number, Interaction<keyof ActionMap>]
     >;
@@ -60,9 +70,17 @@ export class KupInteract {
         interact.dynamicDrop(true);
         this.container = document.createElement('div');
         this.container.setAttribute('kup-interact', '');
+        this.modalBackdrop = document.createElement('div');
+        this.modalBackdrop.setAttribute('kup-modal-backdrop', '');
+        this.modalBackdrop.style.zIndex = (zIndex - 1).toString();
+        this.modalBackdrop.addEventListener('click', this.defaultModalCb);
+        this.modalBackdrop.addEventListener('pointerdown', this.defaultModalCb);
+        this.modalBackdrop.addEventListener('touchstart', this.defaultModalCb);
+        this.container.appendChild(this.modalBackdrop);
         document.body.appendChild(this.container);
         this.managedElements = new Set();
-        this.zIndex = zIndex ? zIndex : 200;
+        this.zIndex = zIndex ? zIndex : 1000;
+        this.modalBackdrop.style.zIndex = (this.zIndex - 1).toString();
         this.restrictContainer = restrictContainer ? restrictContainer : null;
     }
     /**
@@ -442,6 +460,22 @@ export class KupInteract {
                 true,
                 true
             );
+        }
+    }
+    /**
+     * Hides the modal's backdrop.
+     */
+    hideModalBackdrop(): void {
+        this.modalBackdrop.classList.remove('visible');
+        this.modalCb = null;
+    }
+    /**
+     * Displays the modal's backdrop.
+     */
+    showModalBackdrop(cb?: (e: MouseEvent) => unknown): void {
+        this.modalBackdrop.classList.add('visible');
+        if (cb) {
+            this.modalCb = cb;
         }
     }
     /**

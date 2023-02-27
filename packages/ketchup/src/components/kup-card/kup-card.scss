@@ -28,18 +28,6 @@
   width: var(--kup_card_width);
 }
 
-:host([show-modal]) {
-  #kup-component {
-    position: fixed;
-    z-index: var(--kup-card-zindex);
-    height: var(--kup_card_height);
-    width: var(--kup_card_width);
-    top: var(--kup_card_top);
-    left: var(--kup_card_left);
-    display: var(--kup_card_display, none);
-  }
-}
-
 :host([is-menu]) {
   display: none;
   animation: fade-in 0.25s ease-out;
@@ -53,18 +41,6 @@
 #kup-component {
   height: 100%;
   width: 100%;
-}
-
-.backdrop {
-  background: var(--kup_card_backdrop);
-  display: none;
-  height: 100%;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: calc(var(--kup-card-zindex) - 1);
-  display: block;
 }
 
 .mdc-ripple-surface {
