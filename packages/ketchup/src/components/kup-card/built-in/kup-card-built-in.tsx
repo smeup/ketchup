@@ -4,7 +4,7 @@ import { KupCardCSSClasses } from '../kup-card-declarations';
 import { prepareCalendar } from './kup-card-calendar';
 import { prepareClock } from './kup-card-clock';
 import { prepareColumnDropMenu } from './kup-card-column-drop-menu';
-import { prepareForm } from './kup-card-form';
+import { prepareMessageBox } from './kup-card-message-box';
 import { prepareNumeric } from './kup-card-numeric';
 
 /**
@@ -79,7 +79,7 @@ export function create5(component: KupCard): VNode {
 }
 
 /**
- * 6th built-in layout, form with submit button.
+ * 6th built-in layout, message box with confirm and cancel buttons.
  * @param {KupCard} component - Card component.
  * @returns {VNode} 6th built-in layout virtual node.
  */
@@ -88,7 +88,7 @@ export function create6(component: KupCard): VNode {
         <div
             class={`built-in-layout-${component.layoutNumber} ${KupCardCSSClasses.BUILT_IN_CARD}`}
         >
-            {prepareForm(component)}
+            {prepareMessageBox(component)}
         </div>
     );
 }
