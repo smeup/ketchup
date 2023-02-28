@@ -68,4 +68,5 @@
 .content {
   height: calc(100% - var(--kup_dialog_header_height));
   overflow: auto;
+  user-select: text;
 }
