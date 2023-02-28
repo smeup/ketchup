@@ -60,7 +60,6 @@ graph TD;
   kup-card --> kup-radio
   kup-card --> kup-badge
   kup-card --> kup-list
-  kup-card --> kup-form
   kup-card --> kup-checkbox
   kup-card --> kup-data-table
   kup-card --> kup-spinner
@@ -103,23 +102,6 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
-  kup-form --> kup-card
-  kup-form --> kup-autocomplete
-  kup-form --> kup-chip
-  kup-form --> kup-text-field
-  kup-form --> kup-color-picker
-  kup-form --> kup-combobox
-  kup-form --> kup-date-picker
-  kup-form --> kup-rating
-  kup-form --> kup-time-picker
-  kup-form --> kup-image
-  kup-form --> kup-button
-  kup-form --> kup-button-list
-  kup-form --> kup-chart
-  kup-form --> kup-gauge
-  kup-form --> kup-progress-bar
-  kup-form --> kup-radio
-  kup-form --> kup-badge
   kup-checkbox --> kup-card
   kup-data-table --> kup-card
   kup-data-table --> kup-list
@@ -145,6 +127,23 @@ graph TD;
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-radio
   kup-switch --> kup-card
+  kup-form --> kup-card
+  kup-form --> kup-autocomplete
+  kup-form --> kup-chip
+  kup-form --> kup-text-field
+  kup-form --> kup-color-picker
+  kup-form --> kup-combobox
+  kup-form --> kup-date-picker
+  kup-form --> kup-rating
+  kup-form --> kup-time-picker
+  kup-form --> kup-image
+  kup-form --> kup-button
+  kup-form --> kup-button-list
+  kup-form --> kup-chart
+  kup-form --> kup-gauge
+  kup-form --> kup-progress-bar
+  kup-form --> kup-radio
+  kup-form --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-tab-bar --> kup-card

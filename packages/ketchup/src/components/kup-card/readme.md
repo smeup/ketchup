@@ -150,7 +150,6 @@ Type: `Promise<void>`
 - [kup-radio](../kup-radio)
 - [kup-badge](../kup-badge)
 - [kup-list](../kup-list)
-- [kup-form](../kup-form)
 - [kup-checkbox](../kup-checkbox)
 - [kup-data-table](../kup-data-table)
 - [kup-spinner](../kup-spinner)
@@ -183,10 +182,10 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
-  kup-form --> kup-card
   kup-checkbox --> kup-card
   kup-data-table --> kup-card
   kup-switch --> kup-card
+  kup-form --> kup-card
   kup-dialog --> kup-card
   kup-tab-bar --> kup-card
   kup-tree --> kup-card
