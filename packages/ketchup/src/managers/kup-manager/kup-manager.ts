@@ -342,16 +342,14 @@ export class KupManager {
  */
 export function kupManagerInstance(): KupManager {
     if (!dom.ketchup) {
-        const overrides: KupManagerInitialization = dom.ketchupInit
-            ? dom.ketchupInit
-            : null;
+        const overrides: KupManagerInitialization = dom.ketchupInit ?? null;
         dom.ketchup = new KupManager(overrides);
         dom.ketchup.theme.set();
         if (dom.ketchup.debug.active) {
             dom.ketchup.debug.toggle(dom.ketchup.debug.active);
         }
         globalThis.kupManager = dom.ketchup;
-        if (overrides && overrides.autoSetLocalization) {
+        if (overrides?.autoSetLocalization) {
             const locale = dom.ketchup.dates.locale;
             if (!overrides.language || !overrides.language.name) {
                 dom.ketchup.language.set(KupLanguageDefaults[locale]);

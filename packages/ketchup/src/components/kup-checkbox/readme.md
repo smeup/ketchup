@@ -130,6 +130,8 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
+  kup-data-table --> kup-checkbox
+  kup-switch --> kup-card
   kup-form --> kup-card
   kup-form --> kup-autocomplete
   kup-form --> kup-chip
@@ -147,8 +149,6 @@ graph TD;
   kup-form --> kup-progress-bar
   kup-form --> kup-radio
   kup-form --> kup-badge
-  kup-data-table --> kup-checkbox
-  kup-switch --> kup-card
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-tab-bar --> kup-card

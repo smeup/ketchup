@@ -77,13 +77,16 @@ export class KupDashList {
             let valueInt = '';
             let valueDec = '';
             let iconColor = {
-                color: this.iconColor[count],
+                color: this.kupManager.theme.colorCheck(this.iconColor[count])
+                    .hexColor,
             };
             let textColor = {
-                color: this.textColor[count],
+                color: this.kupManager.theme.colorCheck(this.textColor[count])
+                    .hexColor,
             };
             let valueColor = {
-                color: this.valueColor[count],
+                color: this.kupManager.theme.colorCheck(this.valueColor[count])
+                    .hexColor,
             };
 
             if (this.data.columns[0]) {
