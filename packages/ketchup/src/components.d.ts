@@ -50,51 +50,6 @@ import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declar
 import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
-export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
-export { GenericObject, KupEventPayload } from "./types/GenericTypes";
-export { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
-export { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
-export { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
-export { KupStore } from "./components/kup-state/kup-store";
-export { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
-export { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
-export { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
-export { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
-export { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
-export { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
-export { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
-export { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
-export { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
-export { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
-export { FChipType } from "./f-components/f-chip/f-chip-declarations";
-export { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
-export { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
-export { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
-export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
-export { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
-export { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
-export { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
-export { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
-export { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
-export { GeoJSON } from "geojson";
-export { XAXisComponentOption, YAXisComponentOption } from "echarts";
-export { KupFamilyTreeData, KupFamilyTreeEventPayload, KupFamilyTreeLayout, KupFamilyTreeNode } from "./components/kup-family-tree/kup-family-tree-declarations";
-export { KupFormData, KupFormLabelPlacement, KupFormLayout } from "./components/kup-form/kup-form-declarations";
-export { KupBadge } from "./components/kup-badge/kup-badge";
-export { FImageData } from "./f-components/f-image/f-image-declarations";
-export { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
-export { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
-export { KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
-export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
-export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
-export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
-export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
-export { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
-export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
-export { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
-export { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
-export { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
-export { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 export namespace Components {
     interface KupAccordion {
         /**
@@ -3309,6 +3264,10 @@ export interface KupFamilyTreeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupFamilyTreeElement;
 }
+export interface KupFormCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupFormElement;
+}
 export interface KupIframeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupIframeElement;
@@ -5144,6 +5103,10 @@ declare namespace LocalJSX {
           * @default null
          */
         "layout"?: KupFormLayout;
+        /**
+          * When component load is complete
+         */
+        "onKup-form-didload"?: (event: KupFormCustomEvent<KupEventPayload>) => void;
         /**
           * Sets the callback function on submit form
           * @default null
