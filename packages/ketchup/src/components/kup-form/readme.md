@@ -19,9 +19,9 @@
 
 ## Events
 
-| Event              | Description                     | Type                           |
-| ------------------ | ------------------------------- | ------------------------------ |
-| `kup-form-didload` | When component load is complete | `CustomEvent<KupEventPayload>` |
+| Event            | Description                     | Type                           |
+| ---------------- | ------------------------------- | ------------------------------ |
+| `kup-form-ready` | When component load is complete | `CustomEvent<KupEventPayload>` |
 
 
 ## Methods
