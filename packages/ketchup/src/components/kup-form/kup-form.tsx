@@ -182,12 +182,12 @@ export class KupForm {
      * When component load is complete
      */
     @Event({
-        eventName: 'kup-form-didload',
+        eventName: 'kup-form-ready',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupDidLoad: EventEmitter<KupEventPayload>;
+    kupReady: EventEmitter<KupEventPayload>;
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
@@ -616,8 +616,8 @@ export class KupForm {
     }
 
     componentDidLoad() {
+        this.kupReady.emit({ comp: this, id: this.rootElement.id });
         this.kupManager.debug.logLoad(this, true);
-        this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
     }
 
     componentWillRender() {

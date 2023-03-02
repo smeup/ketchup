@@ -5151,7 +5151,7 @@ declare namespace LocalJSX {
         /**
           * When component load is complete
          */
-        "onKup-form-didload"?: (event: KupFormCustomEvent<KupEventPayload>) => void;
+        "onKup-form-ready"?: (event: KupFormCustomEvent<KupEventPayload>) => void;
         /**
           * Sets the callback function on submit form
           * @default null
