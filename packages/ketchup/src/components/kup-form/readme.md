@@ -17,6 +17,13 @@
 | `submitCb`           | --                     | Sets the callback function on submit form                              | `(e: SubmitEvent) => unknown`                                                                                                                                                                                                    | `null`                       |
 
 
+## Events
+
+| Event              | Description                     | Type                           |
+| ------------------ | ------------------------------- | ------------------------------ |
+| `kup-form-didload` | When component load is complete | `CustomEvent<KupEventPayload>` |
+
+
 ## Methods
 
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
