@@ -3309,6 +3309,10 @@ export interface KupFamilyTreeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupFamilyTreeElement;
 }
+export interface KupFormCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupFormElement;
+}
 export interface KupIframeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupIframeElement;
@@ -5144,6 +5148,10 @@ declare namespace LocalJSX {
           * @default null
          */
         "layout"?: KupFormLayout;
+        /**
+          * When component load is complete
+         */
+        "onKup-form-ready"?: (event: KupFormCustomEvent<KupEventPayload>) => void;
         /**
           * Sets the callback function on submit form
           * @default null

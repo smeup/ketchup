@@ -423,6 +423,16 @@ for (let index = 0; index < cards.length; index++) {
             { k: 'OBJ KEY #8' },
             { k: 'OBJ KEY #9' },
         ],
+        options: {
+            cancelCb: (e) => {
+                console.log('Cancel callback', e);
+            },
+            confirmCb: (e) => {
+                console.log('Confirm callback', e);
+            },
+            text: 'Are you sure?',
+            data: {},
+        },
         tabbar: [
             {
                 data: [
