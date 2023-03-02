@@ -7,9 +7,19 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                    | Type     | Default |
-| ------------- | -------------- | ------------------------------ | -------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''`    |
+| Property      | Attribute       | Description                    | Type             | Default       |
+| ------------- | --------------- | ------------------------------ | ---------------- | ------------- |
+| `customStyle` | `custom-style`  | Custom style of the component. | `string`         | `''`          |
+| `data`        | --              |                                | `KupDataDataset` | `undefined`   |
+| `disabledCol` | `disabled-col`  |                                | `string`         | `'PROGRESS'`  |
+| `endCol`      | `end-col`       |                                | `string`         | `'END'`       |
+| `idCol`       | `id-col`        |                                | `string`         | `'ID'`        |
+| `nameCol`     | `name-col`      |                                | `string`         | `'NAME'`      |
+| `progrCol`    | `progr-col`     |                                | `string`         | `'PROGRESS'`  |
+| `secEndCol`   | `sec-end-col`   |                                | `string`         | `'SEC_END'`   |
+| `secStartCol` | `sec-start-col` |                                | `string`         | `'SEC_START'` |
+| `startCol`    | `start-col`     |                                | `string`         | `'START'`     |
+| `typeCol`     | `type-col`      |                                | `string`         | `'TYPE'`      |
 
 
 ## Methods
@@ -54,7 +64,7 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
-  kup-gantt --> kup-card
+  kup-planner --> kup-card
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -176,7 +186,7 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-badge
-  style kup-gantt fill:#f9f,stroke:#333,stroke-width:4px
+  style kup-planner fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

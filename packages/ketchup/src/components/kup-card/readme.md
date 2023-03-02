@@ -107,7 +107,6 @@ Type: `Promise<void>`
  - [kup-echart](../kup-echart)
  - [kup-family-tree](../kup-family-tree)
  - [kup-form](../kup-form)
- - [kup-gantt](../kup-gantt)
  - [kup-gauge](../kup-gauge)
  - [kup-grid](../kup-grid)
  - [kup-iframe](../kup-iframe)
@@ -119,6 +118,7 @@ Type: `Promise<void>`
  - [kup-nav-bar](../kup-nav-bar)
  - [kup-numeric-picker](../kup-numeric-picker)
  - [kup-photo-frame](../kup-photo-frame)
+ - [kup-planner](../kup-planner)
  - [kup-probe](../kup-probe)
  - [kup-progress-bar](../kup-progress-bar)
  - [kup-qlik](../kup-qlik)
@@ -200,7 +200,6 @@ graph TD;
   kup-drawer --> kup-card
   kup-echart --> kup-card
   kup-family-tree --> kup-card
-  kup-gantt --> kup-card
   kup-grid --> kup-card
   kup-iframe --> kup-card
   kup-image-list --> kup-card
@@ -209,6 +208,7 @@ graph TD;
   kup-nav-bar --> kup-card
   kup-numeric-picker --> kup-card
   kup-photo-frame --> kup-card
+  kup-planner --> kup-card
   kup-probe --> kup-card
   kup-qlik --> kup-card
   kup-snackbar --> kup-card
