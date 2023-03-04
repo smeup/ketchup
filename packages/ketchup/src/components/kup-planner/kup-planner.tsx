@@ -28,8 +28,9 @@ import {
     PlannerProps,
     Task,
 } from '@sme.up/gantt-component';
-import { TaskType } from '@sme.up/gantt-component/dist/types/public-types';
+//import { TaskType } from '@sme.up/gantt-component/dist/types/public-types';
 import ReactDOM from 'react-dom';
+import { TaskType } from '@sme.up/gantt-component/dist/types/public-types';
 
 @Component({
     tag: 'kup-planner',
@@ -188,15 +189,19 @@ export class KupPlanner {
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
-    onClickHandler(row: GanttRow) {
-        console.log('ketchup: ' + row.name);
+    onClickHandler(_row: GanttRow) {
         if (!this.#clicked) {
-            this.plannerProps.items = this.mockDataProjectSelected.projects;
+            this.plannerProps = {
+                ...this.plannerProps,
+                items: this.mockDataProjectSelected.projects,
+            };
         } else {
-            this.plannerProps.items = this.mockDataProjects.projects;
+            this.plannerProps = {
+                ...this.plannerProps,
+                items: this.mockDataProjects.projects,
+            };
         }
         this.#clicked = !this.#clicked;
-        this.refresh();
     }
 
     componentWillLoad() {
@@ -207,13 +212,14 @@ export class KupPlanner {
     private rootPlanner;
 
     componentDidLoad() {
-        const gantProps: GanttProps = {
-            tasks: this.#toTasks(this.data),
-        };
+        // const gantProps: GanttProps = {
+        //     tasks: this.#toTasks(this.data),
+        // };
 
         this.rootPlanner = createRoot(
             this.rootElement.shadowRoot.getElementById(componentWrapperId)
         );
+
         this.rootPlanner.render(
             React.createElement(Planner, this.plannerProps)
         );
