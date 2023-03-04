@@ -355,6 +355,7 @@ Type: `Promise<void>`
 - [kup-spinner](../kup-spinner)
 - [kup-form](../kup-form)
 - [kup-image](../kup-image)
+- [kup-dialog](../kup-dialog)
 - [kup-checkbox](../kup-checkbox)
 - [kup-combobox](../kup-combobox)
 - [kup-badge](../kup-badge)
@@ -381,6 +382,7 @@ graph TD;
   kup-data-table --> kup-spinner
   kup-data-table --> kup-form
   kup-data-table --> kup-image
+  kup-data-table --> kup-dialog
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
@@ -431,23 +433,6 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
-  kup-form --> kup-card
-  kup-form --> kup-autocomplete
-  kup-form --> kup-chip
-  kup-form --> kup-text-field
-  kup-form --> kup-color-picker
-  kup-form --> kup-combobox
-  kup-form --> kup-date-picker
-  kup-form --> kup-rating
-  kup-form --> kup-time-picker
-  kup-form --> kup-image
-  kup-form --> kup-button
-  kup-form --> kup-button-list
-  kup-form --> kup-chart
-  kup-form --> kup-gauge
-  kup-form --> kup-progress-bar
-  kup-form --> kup-radio
-  kup-form --> kup-badge
   kup-checkbox --> kup-card
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
@@ -470,6 +455,25 @@ graph TD;
   kup-tree --> kup-radio
   kup-tree --> kup-badge
   kup-switch --> kup-card
+  kup-form --> kup-card
+  kup-form --> kup-autocomplete
+  kup-form --> kup-chip
+  kup-form --> kup-text-field
+  kup-form --> kup-color-picker
+  kup-form --> kup-combobox
+  kup-form --> kup-date-picker
+  kup-form --> kup-rating
+  kup-form --> kup-time-picker
+  kup-form --> kup-image
+  kup-form --> kup-button
+  kup-form --> kup-button-list
+  kup-form --> kup-chart
+  kup-form --> kup-gauge
+  kup-form --> kup-progress-bar
+  kup-form --> kup-radio
+  kup-form --> kup-badge
+  kup-dialog --> kup-badge
+  kup-dialog --> kup-card
   kup-magic-box --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```

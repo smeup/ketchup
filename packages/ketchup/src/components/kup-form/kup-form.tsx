@@ -8,6 +8,8 @@ import {
     Prop,
     VNode,
     Watch,
+    Event,
+    EventEmitter,
 } from '@stencil/core';
 import {
     KupFormRow,
@@ -24,7 +26,11 @@ import {
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { getProps, identify, setProps } from '../../utils/utils';
-import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FCell } from '../../f-components/f-cell/f-cell';
@@ -167,6 +173,21 @@ export class KupForm {
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupFormProps, props);
     }
+
+    /*-------------------------------------------------*/
+    /*           Events                                */
+    /*-------------------------------------------------*/
+
+    /**
+     * When component load is complete
+     */
+    @Event({
+        eventName: 'kup-form-ready',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupReady: EventEmitter<KupEventPayload>;
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
@@ -595,6 +616,7 @@ export class KupForm {
     }
 
     componentDidLoad() {
+        this.kupReady.emit({ comp: this, id: this.rootElement.id });
         this.kupManager.debug.logLoad(this, true);
     }
 

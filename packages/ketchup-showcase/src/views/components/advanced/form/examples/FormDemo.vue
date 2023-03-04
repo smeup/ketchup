@@ -42,6 +42,10 @@ export default {
           name: 'kup-cell-update',
           type: 'CustomEvent',
         },
+        {
+          name: 'kup-form-ready',
+          type: 'CustomEvent',
+        },
       ],
       demoMethods: [
         {

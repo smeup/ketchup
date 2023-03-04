@@ -114,10 +114,12 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
-  kup-form --> kup-image
   kup-checkbox --> kup-card
   kup-data-table --> kup-image
   kup-switch --> kup-card
+  kup-form --> kup-image
+  kup-dialog --> kup-badge
+  kup-dialog --> kup-card
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
   kup-tree --> kup-image

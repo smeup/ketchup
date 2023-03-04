@@ -135,6 +135,31 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
+  kup-checkbox --> kup-card
+  kup-data-table --> kup-card
+  kup-data-table --> kup-list
+  kup-data-table --> kup-switch
+  kup-data-table --> kup-button
+  kup-data-table --> kup-spinner
+  kup-data-table --> kup-form
+  kup-data-table --> kup-image
+  kup-data-table --> kup-dialog
+  kup-data-table --> kup-checkbox
+  kup-data-table --> kup-combobox
+  kup-data-table --> kup-badge
+  kup-data-table --> kup-autocomplete
+  kup-data-table --> kup-chip
+  kup-data-table --> kup-text-field
+  kup-data-table --> kup-color-picker
+  kup-data-table --> kup-date-picker
+  kup-data-table --> kup-rating
+  kup-data-table --> kup-time-picker
+  kup-data-table --> kup-button-list
+  kup-data-table --> kup-chart
+  kup-data-table --> kup-gauge
+  kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-radio
+  kup-switch --> kup-card
   kup-form --> kup-card
   kup-form --> kup-autocomplete
   kup-form --> kup-chip
@@ -152,30 +177,8 @@ graph TD;
   kup-form --> kup-progress-bar
   kup-form --> kup-radio
   kup-form --> kup-badge
-  kup-checkbox --> kup-card
-  kup-data-table --> kup-card
-  kup-data-table --> kup-list
-  kup-data-table --> kup-switch
-  kup-data-table --> kup-button
-  kup-data-table --> kup-spinner
-  kup-data-table --> kup-form
-  kup-data-table --> kup-image
-  kup-data-table --> kup-checkbox
-  kup-data-table --> kup-combobox
-  kup-data-table --> kup-badge
-  kup-data-table --> kup-autocomplete
-  kup-data-table --> kup-chip
-  kup-data-table --> kup-text-field
-  kup-data-table --> kup-color-picker
-  kup-data-table --> kup-date-picker
-  kup-data-table --> kup-rating
-  kup-data-table --> kup-time-picker
-  kup-data-table --> kup-button-list
-  kup-data-table --> kup-chart
-  kup-data-table --> kup-gauge
-  kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-radio
-  kup-switch --> kup-card
+  kup-dialog --> kup-badge
+  kup-dialog --> kup-card
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
   kup-tree --> kup-card

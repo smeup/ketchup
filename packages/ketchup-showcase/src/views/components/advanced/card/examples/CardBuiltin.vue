@@ -178,6 +178,32 @@
         </div>
       </div>
     </div>
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 6</span> is a message box with confirm
+        and cancel buttons:
+        <br />
+        <br />
+        <span class="code-word">options</span> <br />
+        <span class="code-word">- text? (string)</span>: Text displayed above
+        the buttons.<br />
+        <span class="code-word">- cancelCb? ((e: MouseEvent) => unknown)</span>:
+        Callback when the cancel button is clicked.<br />
+        <span class="code-word">- confirmCb? ((e: MouseEvent) => unknown)</span
+        >: Callback when the confirm button is clicked.<br />
+      </p>
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            layout-family="built-in"
+            layout-number="6"
+            size-x="auto"
+            size-y="auto"
+            :data.prop="dataMessage"
+          ></kup-card>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -221,6 +247,13 @@ export default {
           decimals: true,
           negative: true,
           resetStatus: true,
+        },
+      },
+      dataMessage: {
+        options: {
+          text: "I'm a message. Below me there are two buttons.",
+          cancelCb: () => {},
+          confirmCb: () => {},
         },
       },
     };

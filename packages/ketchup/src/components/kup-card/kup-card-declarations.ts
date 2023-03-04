@@ -6,7 +6,6 @@ import {
     KupDataColumn,
     KupDataDataset,
 } from '../../managers/kup-data/kup-data-declarations';
-import { KupFormData } from '../kup-form/kup-form-declarations';
 /**
  * Props of the kup-card component.
  * Used to export every prop in an object.
@@ -57,13 +56,12 @@ export interface KupCardBuiltInClockOptions {
     secondsActive?: boolean;
 }
 /**
- * Options of the built-in form.
+ * Options of the built-in message box.
  */
-export interface KupCardFormOptions {
-    form: KupFormData;
-    errors: boolean;
-    cancelCb?: () => void;
-    submitCb?: () => void;
+export interface KupCardBuiltInMessageBoxOptions {
+    cancelCb?: (e: MouseEvent) => unknown;
+    confirmCb?: (e: MouseEvent) => unknown;
+    text?: string;
 }
 /**
  * Options of the built-in column drop menu.
@@ -165,7 +163,7 @@ export interface KupCardData {
         | KupCardColumnDropMenuOptions
         | KupCardColorPickerOptions
         | KupCardBuiltInNumericOptions
-        | KupCardFormOptions;
+        | KupCardBuiltInMessageBoxOptions;
     progressbar?: GenericObject[];
     switch?: GenericObject[];
     tabbar?: GenericObject[];

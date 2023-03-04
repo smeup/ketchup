@@ -929,6 +929,7 @@ export class KupDataTable {
     #detailCard: HTMLKupCardElement = null;
     #insertCard: HTMLKupCardElement = null;
     #confirmDeleteCard: HTMLKupCardElement = null;
+    #confirmDeleteDialog: HTMLKupDialogElement = null;
     #columnMenuCard: HTMLKupCardElement = null;
     #columnDropCard: HTMLKupCardElement = null;
     #columnDropCardAnchor: HTMLElement = null;
@@ -1161,9 +1162,10 @@ export class KupDataTable {
      */
     @Method()
     async closeConfirmDeleteCard() {
-        if (this.#confirmDeleteCard) {
-            this.#confirmDeleteCard.remove();
+        if (this.#confirmDeleteDialog) {
+            this.#confirmDeleteDialog.close();
             this.#confirmDeleteCard = null;
+            this.#confirmDeleteDialog = null;
         }
     }
 
@@ -2611,7 +2613,6 @@ export class KupDataTable {
         const CARD_WIDTH = 400;
         const CARD_HEIGHT = 400;
         this.#insertCard = document.createElement('kup-card');
-        this.#insertCard.showModal = true;
         this.#insertCard.layoutFamily = KupCardFamily.FREE;
         this.#insertCard.layoutNumber = 1;
         this.#insertCard.sizeX = CARD_WIDTH + 'px';
@@ -2714,14 +2715,12 @@ export class KupDataTable {
 
     #rowsDelete() {
         const createDeleteCard = () => {
-            const CARD_WIDTH = 250;
-            const CARD_HEIGHT = 200;
+            this.#confirmDeleteDialog = document.createElement('kup-dialog');
             this.#confirmDeleteCard = document.createElement('kup-card');
-            this.#confirmDeleteCard.showModal = true;
             this.#confirmDeleteCard.layoutFamily = KupCardFamily.FREE;
             this.#confirmDeleteCard.layoutNumber = 1;
-            this.#confirmDeleteCard.sizeX = CARD_WIDTH + 'px';
-            this.#confirmDeleteCard.sizeY = CARD_HEIGHT + 'px';
+            this.#confirmDeleteCard.sizeX = 'auto';
+            this.#confirmDeleteCard.sizeY = 'auto';
             const style = document.createElement('style');
             style.innerText =
                 '.button-wrapper, .message-wrapper { display: flex; justify-content: space-around; z-index: var(--kup-card-zindex); } .message-wrapper { padding-bottom: 20px; }';
@@ -2739,18 +2738,7 @@ export class KupDataTable {
             messageWrapper.append(message);
             const buttonWrapper = document.createElement('div');
             buttonWrapper.className = 'button-wrapper';
-            const cancel = document.createElement('kup-button');
             const confirm = document.createElement('kup-button');
-            cancel.id = this.#BUTTON_CANCEL_ID;
-            cancel.icon = 'clear';
-            cancel.label = this.#kupManager.language.translate(
-                KupLanguageGeneric.ABORT
-            );
-            cancel.styling = FButtonStyling.FLAT;
-            cancel.addEventListener('kup-button-click', () => {
-                this.#confirmDeleteCard.remove();
-                this.#confirmDeleteCard = null;
-            });
             confirm.id = this.#BUTTON_SUBMIT_ID;
             confirm.icon = 'check';
             confirm.label = this.#kupManager.language.translate(
@@ -2763,20 +2751,19 @@ export class KupDataTable {
             confirm.appendChild(innerComp);
             confirm.addEventListener('kup-button-click', () => {
                 confirm.showSpinner = true;
-                cancel.disabled = true;
                 this.kupDeleteRow.emit({
                     comp: this,
                     id: this.rootElement.id,
                     selectedRows: this.selectedRows,
                 });
             });
-            buttonWrapper.append(cancel);
             buttonWrapper.append(confirm);
             this.#confirmDeleteCard.append(style);
             this.#confirmDeleteCard.append(messageWrapper);
             this.#confirmDeleteCard.append(buttonWrapper);
             this.#confirmDeleteCard.data = {};
-            this.rootElement.shadowRoot.append(this.#confirmDeleteCard);
+            this.#confirmDeleteDialog.append(this.#confirmDeleteCard);
+            document.querySelector('body').append(this.#confirmDeleteDialog);
         };
 
         const insertRowsIds: string[] = [];

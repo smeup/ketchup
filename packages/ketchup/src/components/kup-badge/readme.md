@@ -80,6 +80,7 @@ Type: `Promise<void>`
  - [kup-chip](../kup-chip)
  - [kup-dashboard](../kup-dashboard)
  - [kup-data-table](../kup-data-table)
+ - [kup-dialog](../kup-dialog)
  - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-family-tree](../kup-family-tree)
  - [kup-form](../kup-form)
@@ -122,10 +123,11 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
-  kup-form --> kup-badge
   kup-checkbox --> kup-card
   kup-data-table --> kup-badge
   kup-switch --> kup-card
+  kup-form --> kup-badge
+  kup-dialog --> kup-badge
   kup-tab-bar --> kup-badge
   kup-tree --> kup-badge
   kup-accordion --> kup-badge

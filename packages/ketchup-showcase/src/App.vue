@@ -55,7 +55,7 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup">v7.2.0-SNAPSHOT</a></div
+          ><a href="https://github.com/smeup/ketchup">v7.4.0-SNAPSHOT</a></div
         ></div
       >
     </kup-drawer>
@@ -510,6 +510,16 @@ export default {
                 },
                 icon: 'event',
                 value: 'Date picker',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'dialog',
+                  },
+                },
+                icon: 'art_track',
+                value: 'Dialog',
                 visible: true,
               },
               {

@@ -1,6 +1,6 @@
 {
     "name": "@sme.up/ketchup",
-    "version": "7.2.0-SNAPSHOT",
+    "version": "7.4.0-SNAPSHOT",
     "keywords": [
         "smeup",
         "KetchUP",
@@ -59,9 +59,9 @@
         "vanilla-picker": "^2.12.1"
     },
     "devDependencies": {
-        "@stencil/core": "^2.20.0",
-        "@stencil/react-output-target": "0.3.1",
+        "@stencil/core": "^3.0.1",
         "@stencil/sass": "^1.4.1",
+        "@stencil/react-output-target": "0.3.1",
         "@types/d3-shape": "^3.0.2",
         "@types/geojson": "^7946.0.8",
         "@types/jest": "^26.0.24",
