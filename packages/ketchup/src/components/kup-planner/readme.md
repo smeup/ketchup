@@ -7,22 +7,38 @@
 
 ## Properties
 
-| Property      | Attribute       | Description                    | Type             | Default       |
-| ------------- | --------------- | ------------------------------ | ---------------- | ------------- |
-| `customStyle` | `custom-style`  | Custom style of the component. | `string`         | `''`          |
-| `data`        | --              |                                | `KupDataDataset` | `undefined`   |
-| `disabledCol` | `disabled-col`  |                                | `string`         | `'PROGRESS'`  |
-| `endCol`      | `end-col`       |                                | `string`         | `'END'`       |
-| `idCol`       | `id-col`        |                                | `string`         | `'ID'`        |
-| `nameCol`     | `name-col`      |                                | `string`         | `'NAME'`      |
-| `progrCol`    | `progr-col`     |                                | `string`         | `'PROGRESS'`  |
-| `secEndCol`   | `sec-end-col`   |                                | `string`         | `'SEC_END'`   |
-| `secStartCol` | `sec-start-col` |                                | `string`         | `'SEC_START'` |
-| `startCol`    | `start-col`     |                                | `string`         | `'START'`     |
-| `typeCol`     | `type-col`      |                                | `string`         | `'TYPE'`      |
+| Property         | Attribute           | Description                    | Type             | Default     |
+| ---------------- | ------------------- | ------------------------------ | ---------------- | ----------- |
+| `customStyle`    | `custom-style`      | Custom style of the component. | `string`         | `''`        |
+| `data`           | --                  |                                | `KupDataDataset` | `undefined` |
+| `dataRaw`        | `data-raw`          |                                | `any`            | `undefined` |
+| `onClick`        | --                  |                                | `Function`       | `undefined` |
+| `phaseColParDep` | `phase-col-par-dep` |                                | `string`         | `undefined` |
+| `phaseColorCol`  | `phase-color-col`   |                                | `string`         | `undefined` |
+| `phaseColumns`   | --                  |                                | `string[]`       | `undefined` |
+| `phaseDates`     | --                  |                                | `string[]`       | `undefined` |
+| `phaseIdCol`     | `phase-id-col`      |                                | `string`         | `undefined` |
+| `phaseNameCol`   | `phase-name-col`    |                                | `string`         | `undefined` |
+| `phasePrevDates` | --                  |                                | `string[]`       | `undefined` |
+| `taskColumns`    | --                  |                                | `string[]`       | `undefined` |
+| `taskDates`      | --                  |                                | `string[]`       | `undefined` |
+| `taskIdCol`      | `task-id-col`       |                                | `string`         | `undefined` |
+| `taskNameCol`    | `task-name-col`     |                                | `string`         | `undefined` |
+| `taskPrevDates`  | --                  |                                | `string[]`       | `undefined` |
+| `titleMess`      | `title-mess`        |                                | `string`         | `undefined` |
 
 
 ## Methods
+
+### `addPhases(projectName: string, data: KupDataDataset) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
