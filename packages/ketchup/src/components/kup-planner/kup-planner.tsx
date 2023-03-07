@@ -21,12 +21,11 @@ import React from 'react';
 import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 import { KupObjects } from '../../managers/kup-objects/kup-objects';
 import {
-    Gantt,
-    GanttProps,
     GanttRow,
+    Phase,
     Planner,
     PlannerProps,
-    Task,
+    Project,
 } from '@sme.up/gantt-component';
 //import { TaskType } from '@sme.up/gantt-component/dist/types/public-types';
 import ReactDOM from 'react-dom';
@@ -38,14 +37,6 @@ import { TaskType } from '@sme.up/gantt-component/dist/types/public-types';
     shadow: true,
 })
 export class KupPlanner {
-    mockDataProjects = JSON.parse(
-        '{"projects":[{"id":"1","name":"G456","customerCountry":"ISVAL S.P.A","startDate":"2021-10-25","endDate":"2023-07-04","secondaryStartDate":"2021-10-25","secondaryEndDate":"2023-03-07","type":"project","phases":[],"employees":[]},{"id":"2","name":"G460","customerCountry":"ALBAN GIACOMO SPA","startDate":"2021-10-20","endDate":"2023-04-07","secondaryStartDate":"2021-10-20","secondaryEndDate":"2022-12-16","type":"project","phases":[],"employees":[]},{"id":"3","name":"G452","customerCountry":"RACCORPE DI PE ANGELO & C SNC","startDate":"2022-01-03","endDate":"2023-06-30","secondaryStartDate":"2022-01-03","secondaryEndDate":"2023-03-06","type":"project","phases":[],"employees":[]},{"id":"4","name":"G453","customerCountry":"RACCORPE DI PE ANGELO & C SNC","startDate":"2022-01-03","endDate":"2023-06-30","secondaryStartDate":"2022-01-03","secondaryEndDate":"2023-07-06","type":"project","phases":[],"employees":[]},{"id":"5","name":"G458","customerCountry":"IBP INSTALFITTINGS SP Z.O.O","startDate":"2021-11-02","endDate":"2023-04-04","secondaryStartDate":"2021-11-02","secondaryEndDate":"2022-10-19","type":"project","phases":[],"employees":[]},{"id":"6","name":"G462","customerCountry":"Catalina Cylinders","startDate":"2021-12-15","endDate":"2023-07-07","secondaryStartDate":"2021-12-15","secondaryEndDate":"2023-03-06","type":"project","phases":[],"employees":[]},{"id":"7","name":"G465","customerCountry":"CONBRACO INDUSTRIES INC.","startDate":"2021-12-08","endDate":"2023-07-07","secondaryStartDate":"2021-12-08","secondaryEndDate":"2023-02-17","type":"project","phases":[],"employees":[]},{"id":"8","name":"G466","customerCountry":"CONBRACO INDUSTRIES INC.","startDate":"2022-01-20","endDate":"2023-07-07","secondaryStartDate":"2022-01-20","secondaryEndDate":"2023-02-24","type":"project","phases":[],"employees":[]},{"id":"9","name":"G468","customerCountry":"CALEFFI S.P.A.","startDate":"2022-02-02","endDate":"2023-07-21","secondaryStartDate":"2022-02-02","secondaryEndDate":"2023-03-03","type":"project","phases":[],"employees":[]},{"id":"10","name":"G469","customerCountry":"CALEFFI S.P.A.","startDate":"2021-11-02","endDate":"2023-07-21","secondaryStartDate":"2021-11-02","secondaryEndDate":"2023-06-16","type":"project","phases":[],"employees":[]},{"id":"11","name":"G418","customerCountry":"BENDER ARMATUREN","startDate":"2022-01-20","endDate":"2023-10-06","secondaryStartDate":"2022-01-20","secondaryEndDate":"2023-01-20","type":"project","phases":[],"employees":[]},{"id":"12","name":"G471","customerCountry":"FAPIM SPA","startDate":"2022-02-21","endDate":"2023-07-28","secondaryStartDate":"2022-02-21","secondaryEndDate":"2023-02-27","type":"project","phases":[],"employees":[]},{"id":"13","name":"G472","customerCountry":"DOCOL METAIS SANITARIOS","startDate":"2022-04-02","endDate":"2023-09-29","secondaryStartDate":"2022-04-02","secondaryEndDate":"2023-05-12","type":"project","phases":[],"employees":[]},{"id":"14","name":"G474","customerCountry":"UPONOR GMBH","startDate":"2022-01-07","endDate":"2023-04-14","secondaryStartDate":"2022-01-07","secondaryEndDate":"2023-03-09","type":"project","phases":[],"employees":[]},{"id":"15","name":"G480","customerCountry":"ILME SPA","startDate":"2021-11-20","endDate":"2023-07-21","secondaryStartDate":"2021-11-20","secondaryEndDate":"2023-05-03","type":"project","phases":[],"employees":[]},{"id":"16","name":"G470","customerCountry":"GIACOMINI SPA","startDate":"2022-01-15","endDate":"2023-05-19","secondaryStartDate":"2022-01-15","secondaryEndDate":"2023-02-17","type":"project","phases":[],"employees":[]},{"id":"17","name":"G481","customerCountry":"MEC TO SRL","startDate":"2022-05-20","endDate":"2023-07-21","secondaryStartDate":"2022-05-20","secondaryEndDate":"2023-05-23","type":"project","phases":[],"employees":[]},{"id":"18","name":"G473","customerCountry":"RELIANCE WORLDWIDE CORP.","startDate":"2022-05-20","endDate":"2023-10-13","secondaryStartDate":"2022-05-20","secondaryEndDate":"2023-08-01","type":"project","phases":[],"employees":[]},{"id":"19","name":"G482","customerCountry":"ARCO-VALVULAS ARCO","startDate":"2022-03-15","endDate":"2023-09-08","secondaryStartDate":"2022-03-15","secondaryEndDate":"2023-03-27","type":"project","phases":[],"employees":[]},{"id":"20","name":"G483","customerCountry":"ARCO-VALVULAS ARCO","startDate":"2022-03-15","endDate":"2023-11-03","secondaryStartDate":"2022-03-15","secondaryEndDate":"2023-10-30","type":"project","phases":[],"employees":[]},{"id":"21","name":"G487","customerCountry":"Vitillo SpA","startDate":"2022-05-02","endDate":"2024-02-23","secondaryStartDate":"2022-05-02","secondaryEndDate":"2023-11-30","type":"project","phases":[],"employees":[]},{"id":"22","name":"G488","customerCountry":"Vitillo SpA","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[],"employees":[]},{"id":"23","name":"G489","customerCountry":"Vitillo SpA","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[],"employees":[]},{"id":"24","name":"G490","customerCountry":"Vitillo SpA","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[],"employees":[]},{"id":"25","name":"G491","customerCountry":"Vitillo SpA","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[],"employees":[]},{"id":"26","name":"G492","customerCountry":"AALBERTS IPS AMERICAS, INC","startDate":"2022-09-01","endDate":"2024-02-09","secondaryStartDate":"2022-09-01","secondaryEndDate":"2023-12-22","type":"project","phases":[],"employees":[]},{"id":"27","name":"G493","customerCountry":"AALBERTS IPS AMERICAS, INC","startDate":"2022-10-20","endDate":"2024-02-09","secondaryStartDate":"2022-10-20","secondaryEndDate":"2024-01-10","type":"project","phases":[],"employees":[]},{"id":"28","name":"G495","customerCountry":"OMB SALERI VENTILGAS SPA","startDate":"2022-04-15","endDate":"2024-01-26","secondaryStartDate":"2022-04-15","secondaryEndDate":"2023-11-07","type":"project","phases":[],"employees":[]},{"id":"29","name":"G496","customerCountry":"Cisa Spa","startDate":"2022-01-07","endDate":"2023-09-07","secondaryStartDate":"2022-01-07","secondaryEndDate":"2023-07-27","type":"project","phases":[],"employees":[]},{"id":"30","name":"G484","customerCountry":"LA.CAM Lavorazioni Camune S.r.l.","startDate":"2021-12-05","endDate":"2023-04-06","secondaryStartDate":"2021-12-05","secondaryEndDate":"2023-04-07","type":"project","phases":[],"employees":[]},{"id":"31","name":"G485","customerCountry":"BREMBO NANJING BRAKE SYSTEM CO.LTD.","startDate":"2022-02-25","endDate":"2024-01-16","secondaryStartDate":"2022-02-25","secondaryEndDate":"2023-10-16","type":"project","phases":[],"employees":[]},{"id":"32","name":"G497","customerCountry":"THE FORD METER BOX CO. INC.","startDate":"2022-09-02","endDate":"2024-01-19","secondaryStartDate":"2022-09-02","secondaryEndDate":"2023-12-05","type":"project","phases":[],"employees":[]},{"id":"33","name":"G498","customerCountry":"NIBCO INC.","startDate":"2022-11-02","endDate":"2024-03-29","secondaryStartDate":"2022-11-02","secondaryEndDate":"2024-02-07","type":"project","phases":[],"employees":[]},{"id":"34","name":"G477","customerCountry":"Vitillo SpA","startDate":"2022-05-02","endDate":"2023-07-28","secondaryStartDate":"2022-05-02","secondaryEndDate":"2023-06-06","type":"project","phases":[],"employees":[]},{"id":"35","name":"G478","customerCountry":"Vitillo SpA","startDate":"2022-05-02","endDate":"2023-12-01","secondaryStartDate":"2022-05-02","secondaryEndDate":"2023-11-17","type":"project","phases":[],"employees":[]},{"id":"36","name":"G479","customerCountry":"Vitillo SpA","startDate":"2022-05-02","endDate":"2024-07-05","secondaryStartDate":"2022-05-02","secondaryEndDate":"2024-06-26","type":"project","phases":[],"employees":[]},{"id":"37","name":"G486","customerCountry":"COMISA SpA","startDate":"2022-05-20","endDate":"2023-07-07","secondaryStartDate":"2022-05-20","secondaryEndDate":"2023-04-27","type":"project","phases":[],"employees":[]},{"id":"38","name":"G499","customerCountry":"Beck Manufacturing","startDate":"2022-09-15","endDate":"2024-05-03","secondaryStartDate":"2022-09-15","secondaryEndDate":"2024-01-24","type":"project","phases":[],"employees":[]},{"id":"39","name":"G501","customerCountry":"THE FORD METER BOX CO. INC.","startDate":"2022-09-02","endDate":"2024-05-31","secondaryStartDate":"2022-09-02","secondaryEndDate":"2024-04-16","type":"project","phases":[],"employees":[]},{"id":"40","name":"G502","customerCountry":"THE FORD METER BOX CO. INC.","startDate":"2022-09-02","endDate":"2024-05-31","secondaryStartDate":"2022-09-02","secondaryEndDate":"2024-05-24","type":"project","phases":[],"employees":[]},{"id":"41","name":"G504","customerCountry":"SWAGELOK COMPANY","startDate":"2022-10-20","endDate":"2024-05-24","secondaryStartDate":"2022-10-20","secondaryEndDate":"2024-04-22","type":"project","phases":[],"employees":[]},{"id":"42","name":"G507","customerCountry":"KONGSBERG AUTOMOTIVE AS","startDate":"2022-10-20","endDate":"2023-12-22","secondaryStartDate":"2022-10-20","secondaryEndDate":"2024-02-05","type":"project","phases":[],"employees":[]},{"id":"43","name":"G509","customerCountry":"PPT-Armature DD p.o.","startDate":"2022-11-15","endDate":"2023-12-22","secondaryStartDate":"2022-11-15","secondaryEndDate":"2024-02-02","type":"project","phases":[],"employees":[]},{"id":"44","name":"G503","customerCountry":"ISVAL S.P.A","startDate":"2022-10-17","endDate":"2024-02-23","secondaryStartDate":"2022-10-17","secondaryEndDate":"2023-11-20","type":"project","phases":[],"employees":[]},{"id":"45","name":"G510","customerCountry":"AYVAZ COMPAny","startDate":"2022-12-02","endDate":"2024-04-19","secondaryStartDate":"2022-12-02","secondaryEndDate":"2024-04-15","type":"project","phases":[],"employees":[]},{"id":"46","name":"G511","customerCountry":"ISIFLO AS, Norway","startDate":"2022-09-15","endDate":"2024-05-31","secondaryStartDate":"2022-09-15","secondaryEndDate":"2024-05-08","type":"project","phases":[],"employees":[]},{"id":"47","name":"G505","customerCountry":"CALEFFI S.P.A.","startDate":"2022-08-02","endDate":"2024-06-21","secondaryStartDate":"2022-08-02","secondaryEndDate":"2024-05-21","type":"project","phases":[],"employees":[]},{"id":"48","name":"G508","customerCountry":"Wonder SpA","startDate":"2022-11-14","endDate":"2024-03-22","secondaryStartDate":"2022-11-14","secondaryEndDate":"2024-03-01","type":"project","phases":[],"employees":[]},{"id":"49","name":"G494","customerCountry":"COMISA SpA","startDate":"2022-11-14","endDate":"2024-01-26","secondaryStartDate":"2022-11-14","secondaryEndDate":"2023-12-07","type":"project","phases":[],"employees":[]},{"id":"50","name":"G515","customerCountry":"THE FORD METER BOX CO. INC.","startDate":"2022-11-29","endDate":"2024-12-20","secondaryStartDate":"2022-11-29","secondaryEndDate":"2024-12-23","type":"project","phases":[],"employees":[]},{"id":"51","name":"G519","customerCountry":"THE FORD METER BOX CO. INC.","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[],"employees":[]},{"id":"52","name":"G523","customerCountry":"SWAGELOK COMPANY","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[],"employees":[]},{"id":"53","name":"G520","customerCountry":"Neuman Alluminium GmbH & Co","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[],"employees":[]},{"id":"54","name":"G521","customerCountry":"SAINTE LIZAIGNE SAS","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[],"employees":[]},{"id":"55","name":"G518","customerCountry":"RACCORPE DI PE ANGELO & C SNC","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[],"employees":[]},{"id":"56","name":"G522","customerCountry":"Zoppelletto SpA","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[],"employees":[]},{"id":"57","name":"G516","customerCountry":"RACCORPE DI PE ANGELO & C SNC","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[],"employees":[]},{"id":"58","name":"G517","customerCountry":"RACCORPE DI PE ANGELO & C SNC","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[],"employees":[]}],"timeUnit":"days","stylingOptions":{"listCellWidth":"297px","rowHeight":40,"barFill":90,"projectProgressColor":"#CBCBCB","projectProgressSelectedColor":"#CBCBCB","projectBackgroundColor":"#CBCBCB","projectBackgroundSelectedColor":"#CBCBCB","barProgressColor":"#A2A415","barProgressSelectedColor":"#A2A415","barBackgroundColor":"#A2A415","barBackgroundSelectedColor":"#A2A415"},"hideLabel":true,"showSecondaryDates":true,"ganttHeight":350,"hideDependencies":true}'
-    );
-
-    mockDataProjectSelected = JSON.parse(
-        '{"projects":[{"id":"1","name":"G456","customerCountry":"ISVAL S.P.A","startDate":"2021-10-25","endDate":"2023-07-04","secondaryStartDate":"2021-10-25","secondaryEndDate":"2023-03-07","type":"project","phases":[{"id":"P410           ","name":"P410           ","startDate":"2022-10-17","endDate":"2023-03-10","secondaryStartDate":"2022-11-07","secondaryEndDate":"2022-11-04","color":"#ED7D31","selectedColor":"#ED7D31","dependencies":[],"type":"phase"},{"id":"P420           ","name":"P420           ","startDate":"2022-11-21","endDate":"2023-03-10","secondaryStartDate":"2023-01-13","secondaryEndDate":"2022-11-11","color":"#FF0000","selectedColor":"#FF0000","dependencies":[],"type":"phase"},{"id":"P610           ","name":"P610           ","startDate":"2023-03-27","endDate":"2023-04-14","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-01-02","color":"#70AD47","selectedColor":"#70AD47","dependencies":["P410           "],"type":"phase"},{"id":"P620           ","name":"P620           ","startDate":"2023-03-27","endDate":"2023-04-14","secondaryStartDate":"2023-03-01","secondaryEndDate":"2022-11-30","color":"#C6E0B4","selectedColor":"#C6E0B4","dependencies":["P410           "],"type":"phase"},{"id":"P630           ","name":"P630           ","startDate":"2023-03-20","endDate":"2023-04-07","secondaryStartDate":"2023-03-01","secondaryEndDate":"2022-12-21","color":"#BDD7EE","selectedColor":"#BDD7EE","dependencies":["P410           "],"type":"phase"},{"id":"P710           ","name":"P710           ","startDate":"2023-04-17","endDate":"2023-04-28","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-01-10","color":"#FFFF00","selectedColor":"#FFFF00","dependencies":["P610           "],"type":"phase"},{"id":"P720           ","name":"P720           ","startDate":"2023-05-02","endDate":"2023-05-10","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-01-17","color":"#BDD7EE","selectedColor":"#BDD7EE","dependencies":["P710           "],"type":"phase"},{"id":"P730           ","name":"P730           ","startDate":"2023-05-17","endDate":"2023-05-30","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-01-31","color":"#F8CBAD","selectedColor":"#F8CBAD","dependencies":["P720           "],"type":"phase"},{"id":"P750           ","name":"P750           ","startDate":"2023-05-31","endDate":"2023-07-04","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-07","color":"#7030A0","selectedColor":"#7030A0","dependencies":["P730           "],"type":"phase"}]},{"id":"2","name":"G460","customerCountry":"ALBAN GIACOMO SPA","startDate":"2021-10-20","endDate":"2023-04-07","secondaryStartDate":"2021-10-20","secondaryEndDate":"2022-12-16","type":"project","phases":[]},{"id":"3","name":"G452","customerCountry":"RACCORPE DI PE ANGELO & C SNC","startDate":"2022-01-03","endDate":"2023-06-30","secondaryStartDate":"2022-01-03","secondaryEndDate":"2023-03-06","type":"project","phases":[]},{"id":"4","name":"G453","customerCountry":"RACCORPE DI PE ANGELO & C SNC","startDate":"2022-01-03","endDate":"2023-06-30","secondaryStartDate":"2022-01-03","secondaryEndDate":"2023-07-06","type":"project","phases":[]},{"id":"5","name":"G458","customerCountry":"IBP INSTALFITTINGS SP Z.O.O","startDate":"2021-11-02","endDate":"2023-04-04","secondaryStartDate":"2021-11-02","secondaryEndDate":"2022-10-19","type":"project","phases":[]},{"id":"6","name":"G462","customerCountry":"Catalina Cylinders","startDate":"2021-12-15","endDate":"2023-07-07","secondaryStartDate":"2021-12-15","secondaryEndDate":"2023-03-06","type":"project","phases":[]},{"id":"7","name":"G465","customerCountry":"CONBRACO INDUSTRIES INC.","startDate":"2021-12-08","endDate":"2023-07-07","secondaryStartDate":"2021-12-08","secondaryEndDate":"2023-02-17","type":"project","phases":[]},{"id":"8","name":"G466","customerCountry":"CONBRACO INDUSTRIES INC.","startDate":"2022-01-20","endDate":"2023-07-07","secondaryStartDate":"2022-01-20","secondaryEndDate":"2023-02-24","type":"project","phases":[]},{"id":"9","name":"G468","customerCountry":"CALEFFI S.P.A.","startDate":"2022-02-02","endDate":"2023-07-21","secondaryStartDate":"2022-02-02","secondaryEndDate":"2023-03-03","type":"project","phases":[]},{"id":"10","name":"G469","customerCountry":"CALEFFI S.P.A.","startDate":"2021-11-02","endDate":"2023-07-21","secondaryStartDate":"2021-11-02","secondaryEndDate":"2023-06-16","type":"project","phases":[]},{"id":"11","name":"G418","customerCountry":"BENDER ARMATUREN","startDate":"2022-01-20","endDate":"2023-10-06","secondaryStartDate":"2022-01-20","secondaryEndDate":"2023-01-20","type":"project","phases":[]},{"id":"12","name":"G471","customerCountry":"FAPIM SPA","startDate":"2022-02-21","endDate":"2023-07-28","secondaryStartDate":"2022-02-21","secondaryEndDate":"2023-02-27","type":"project","phases":[]},{"id":"13","name":"G472","customerCountry":"DOCOL METAIS SANITARIOS","startDate":"2022-04-02","endDate":"2023-09-29","secondaryStartDate":"2022-04-02","secondaryEndDate":"2023-05-12","type":"project","phases":[]},{"id":"14","name":"G474","customerCountry":"UPONOR GMBH","startDate":"2022-01-07","endDate":"2023-04-14","secondaryStartDate":"2022-01-07","secondaryEndDate":"2023-03-09","type":"project","phases":[]},{"id":"15","name":"G480","customerCountry":"ILME SPA","startDate":"2021-11-20","endDate":"2023-07-21","secondaryStartDate":"2021-11-20","secondaryEndDate":"2023-05-03","type":"project","phases":[]},{"id":"16","name":"G470","customerCountry":"GIACOMINI SPA","startDate":"2022-01-15","endDate":"2023-05-19","secondaryStartDate":"2022-01-15","secondaryEndDate":"2023-02-17","type":"project","phases":[]},{"id":"17","name":"G481","customerCountry":"MEC TO SRL","startDate":"2022-05-20","endDate":"2023-07-21","secondaryStartDate":"2022-05-20","secondaryEndDate":"2023-05-23","type":"project","phases":[]},{"id":"18","name":"G473","customerCountry":"RELIANCE WORLDWIDE CORP.","startDate":"2022-05-20","endDate":"2023-10-13","secondaryStartDate":"2022-05-20","secondaryEndDate":"2023-08-01","type":"project","phases":[]},{"id":"19","name":"G482","customerCountry":"ARCO-VALVULAS ARCO","startDate":"2022-03-15","endDate":"2023-09-08","secondaryStartDate":"2022-03-15","secondaryEndDate":"2023-03-27","type":"project","phases":[]},{"id":"20","name":"G483","customerCountry":"ARCO-VALVULAS ARCO","startDate":"2022-03-15","endDate":"2023-11-03","secondaryStartDate":"2022-03-15","secondaryEndDate":"2023-10-30","type":"project","phases":[]},{"id":"21","name":"G487","customerCountry":"Vitillo SpA","startDate":"2022-05-02","endDate":"2024-02-23","secondaryStartDate":"2022-05-02","secondaryEndDate":"2023-11-30","type":"project","phases":[]},{"id":"22","name":"G488","customerCountry":"Vitillo SpA","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[]},{"id":"23","name":"G489","customerCountry":"Vitillo SpA","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[]},{"id":"24","name":"G490","customerCountry":"Vitillo SpA","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[]},{"id":"25","name":"G491","customerCountry":"Vitillo SpA","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[]},{"id":"26","name":"G492","customerCountry":"AALBERTS IPS AMERICAS, INC","startDate":"2022-09-01","endDate":"2024-02-09","secondaryStartDate":"2022-09-01","secondaryEndDate":"2023-12-22","type":"project","phases":[]},{"id":"27","name":"G493","customerCountry":"AALBERTS IPS AMERICAS, INC","startDate":"2022-10-20","endDate":"2024-02-09","secondaryStartDate":"2022-10-20","secondaryEndDate":"2024-01-10","type":"project","phases":[]},{"id":"28","name":"G495","customerCountry":"OMB SALERI VENTILGAS SPA","startDate":"2022-04-15","endDate":"2024-01-26","secondaryStartDate":"2022-04-15","secondaryEndDate":"2023-11-07","type":"project","phases":[]},{"id":"29","name":"G496","customerCountry":"Cisa Spa","startDate":"2022-01-07","endDate":"2023-09-07","secondaryStartDate":"2022-01-07","secondaryEndDate":"2023-07-27","type":"project","phases":[]},{"id":"30","name":"G484","customerCountry":"LA.CAM Lavorazioni Camune S.r.l.","startDate":"2021-12-05","endDate":"2023-04-06","secondaryStartDate":"2021-12-05","secondaryEndDate":"2023-04-07","type":"project","phases":[]},{"id":"31","name":"G485","customerCountry":"BREMBO NANJING BRAKE SYSTEM CO.LTD.","startDate":"2022-02-25","endDate":"2024-01-16","secondaryStartDate":"2022-02-25","secondaryEndDate":"2023-10-16","type":"project","phases":[]},{"id":"32","name":"G497","customerCountry":"THE FORD METER BOX CO. INC.","startDate":"2022-09-02","endDate":"2024-01-19","secondaryStartDate":"2022-09-02","secondaryEndDate":"2023-12-05","type":"project","phases":[]},{"id":"33","name":"G498","customerCountry":"NIBCO INC.","startDate":"2022-11-02","endDate":"2024-03-29","secondaryStartDate":"2022-11-02","secondaryEndDate":"2024-02-07","type":"project","phases":[]},{"id":"34","name":"G477","customerCountry":"Vitillo SpA","startDate":"2022-05-02","endDate":"2023-07-28","secondaryStartDate":"2022-05-02","secondaryEndDate":"2023-06-06","type":"project","phases":[]},{"id":"35","name":"G478","customerCountry":"Vitillo SpA","startDate":"2022-05-02","endDate":"2023-12-01","secondaryStartDate":"2022-05-02","secondaryEndDate":"2023-11-17","type":"project","phases":[]},{"id":"36","name":"G479","customerCountry":"Vitillo SpA","startDate":"2022-05-02","endDate":"2024-07-05","secondaryStartDate":"2022-05-02","secondaryEndDate":"2024-06-26","type":"project","phases":[]},{"id":"37","name":"G486","customerCountry":"COMISA SpA","startDate":"2022-05-20","endDate":"2023-07-07","secondaryStartDate":"2022-05-20","secondaryEndDate":"2023-04-27","type":"project","phases":[]},{"id":"38","name":"G499","customerCountry":"Beck Manufacturing","startDate":"2022-09-15","endDate":"2024-05-03","secondaryStartDate":"2022-09-15","secondaryEndDate":"2024-01-24","type":"project","phases":[]},{"id":"39","name":"G501","customerCountry":"THE FORD METER BOX CO. INC.","startDate":"2022-09-02","endDate":"2024-05-31","secondaryStartDate":"2022-09-02","secondaryEndDate":"2024-04-16","type":"project","phases":[]},{"id":"40","name":"G502","customerCountry":"THE FORD METER BOX CO. INC.","startDate":"2022-09-02","endDate":"2024-05-31","secondaryStartDate":"2022-09-02","secondaryEndDate":"2024-05-24","type":"project","phases":[]},{"id":"41","name":"G504","customerCountry":"SWAGELOK COMPANY","startDate":"2022-10-20","endDate":"2024-05-24","secondaryStartDate":"2022-10-20","secondaryEndDate":"2024-04-22","type":"project","phases":[]},{"id":"42","name":"G507","customerCountry":"KONGSBERG AUTOMOTIVE AS","startDate":"2022-10-20","endDate":"2023-12-22","secondaryStartDate":"2022-10-20","secondaryEndDate":"2024-02-05","type":"project","phases":[]},{"id":"43","name":"G509","customerCountry":"PPT-Armature DD p.o.","startDate":"2022-11-15","endDate":"2023-12-22","secondaryStartDate":"2022-11-15","secondaryEndDate":"2024-02-02","type":"project","phases":[]},{"id":"44","name":"G503","customerCountry":"ISVAL S.P.A","startDate":"2022-10-17","endDate":"2024-02-23","secondaryStartDate":"2022-10-17","secondaryEndDate":"2023-11-20","type":"project","phases":[]},{"id":"45","name":"G510","customerCountry":"AYVAZ COMPAny","startDate":"2022-12-02","endDate":"2024-04-19","secondaryStartDate":"2022-12-02","secondaryEndDate":"2024-04-15","type":"project","phases":[]},{"id":"46","name":"G511","customerCountry":"ISIFLO AS, Norway","startDate":"2022-09-15","endDate":"2024-05-31","secondaryStartDate":"2022-09-15","secondaryEndDate":"2024-05-08","type":"project","phases":[]},{"id":"47","name":"G505","customerCountry":"CALEFFI S.P.A.","startDate":"2022-08-02","endDate":"2024-06-21","secondaryStartDate":"2022-08-02","secondaryEndDate":"2024-05-21","type":"project","phases":[]},{"id":"48","name":"G508","customerCountry":"Wonder SpA","startDate":"2022-11-14","endDate":"2024-03-22","secondaryStartDate":"2022-11-14","secondaryEndDate":"2024-03-01","type":"project","phases":[]},{"id":"49","name":"G494","customerCountry":"COMISA SpA","startDate":"2022-11-14","endDate":"2024-01-26","secondaryStartDate":"2022-11-14","secondaryEndDate":"2023-12-07","type":"project","phases":[]},{"id":"50","name":"G515","customerCountry":"THE FORD METER BOX CO. INC.","startDate":"2022-11-29","endDate":"2024-12-20","secondaryStartDate":"2022-11-29","secondaryEndDate":"2024-12-23","type":"project","phases":[]},{"id":"51","name":"G519","customerCountry":"THE FORD METER BOX CO. INC.","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[]},{"id":"52","name":"G523","customerCountry":"SWAGELOK COMPANY","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[]},{"id":"53","name":"G520","customerCountry":"Neuman Alluminium GmbH & Co","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[]},{"id":"54","name":"G521","customerCountry":"SAINTE LIZAIGNE SAS","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[]},{"id":"55","name":"G518","customerCountry":"RACCORPE DI PE ANGELO & C SNC","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[]},{"id":"56","name":"G522","customerCountry":"Zoppelletto SpA","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[]},{"id":"57","name":"G516","customerCountry":"RACCORPE DI PE ANGELO & C SNC","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[]},{"id":"58","name":"G517","customerCountry":"RACCORPE DI PE ANGELO & C SNC","startDate":"2023-03-01","endDate":"2023-03-01","secondaryStartDate":"2023-03-01","secondaryEndDate":"2023-03-01","type":"project","phases":[]}],"timeUnit":"months","stylingOptions":{"listCellWidth":"297px","rowHeight":40,"barFill":90,"projectProgressColor":"#CBCBCB","projectProgressSelectedColor":"#CBCBCB","projectBackgroundColor":"#CBCBCB","projectBackgroundSelectedColor":"#CBCBCB","barProgressColor":"#A2A415","barProgressSelectedColor":"#A2A415","barBackgroundColor":"#A2A415","barBackgroundSelectedColor":"#A2A415"},"hideLabel":true,"showSecondaryDates":true,"ganttHeight":350,"hideDependencies":true}'
-    );
-
     /**
      * References the root HTML element of the component (<kup-planner>).
      */
@@ -61,17 +52,7 @@ export class KupPlanner {
      */
 
     @State()
-    plannerProps: PlannerProps = {
-        items: this.mockDataProjects.projects,
-        stylingOptions: this.mockDataProjects.stylingOptions,
-        ganttHeight: this.mockDataProjects.ganttHeight,
-        hideLabel: this.mockDataProjects.hideLabel,
-        hideDependencies: this.mockDataProjects.hideDependencies,
-        showSecondaryDates: this.mockDataProjects.showSecondaryDates,
-        onClick: (row) => this.onClickHandler(row),
-    };
-
-    #clicked: boolean;
+    plannerProps: PlannerProps;
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -86,74 +67,124 @@ export class KupPlanner {
     customStyle: string = '';
 
     @Prop()
-    idCol: string = 'ID';
+    taskIdCol: string;
 
     @Prop()
-    nameCol: string = 'NAME';
+    taskNameCol: string;
 
     @Prop()
-    startCol: string = 'START';
+    taskDates: string[];
 
     @Prop()
-    secStartCol: string = 'SEC_START';
+    taskPrevDates: string[];
 
     @Prop()
-    endCol: string = 'END';
+    taskColumns: string[];
 
     @Prop()
-    secEndCol: string = 'SEC_END';
+    phaseIdCol: string;
 
     @Prop()
-    progrCol: string = 'PROGRESS';
+    phaseNameCol: string;
 
     @Prop()
-    disabledCol: string = 'PROGRESS';
+    phaseDates: string[];
 
     @Prop()
-    typeCol: string = 'TYPE';
+    phasePrevDates: string[];
+
+    @Prop()
+    phaseColumns: string[];
+
+    @Prop()
+    phaseColorCol: string;
+
+    @Prop()
+    phaseColParDep: string;
+
+    @Prop()
+    titleMess: string;
 
     @Prop()
     data: KupDataDataset;
+
+    @Prop()
+    onClick: Function;
+
+    @Prop()
+    dataRaw: any;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
     #kupManager: KupManager = kupManagerInstance();
+    #rootPlanner;
 
-    #toTasks(data: KupDataDataset): Task[] {
-        //debugger;
-        const kupObjects: KupObjects = new KupObjects();
-        let tasks: Task[] = data.rows?.map((value) => {
-            const secondaryStart = value.cells[this.secStartCol]?.obj;
-            const secondaryEnd = value.cells[this.secEndCol]?.obj;
-            let task: Task = {
-                id: value.cells[this.idCol].obj.k,
-                name: value.cells[this.nameCol].obj.k,
-                start: kupObjects
-                    .parseDate(value.cells[this.startCol].obj)
-                    .toDate(),
-                end: kupObjects
-                    .parseDate(value.cells[this.endCol].obj)
-                    .toDate(),
-                secondaryStart: secondaryStart
-                    ? kupObjects
-                          .parseDate(value.cells[this.secStartCol].obj)
-                          .toDate()
-                    : undefined,
-                secondaryEnd: secondaryEnd
-                    ? kupObjects
-                          .parseDate(value.cells[this.secEndCol].obj)
-                          .toDate()
-                    : undefined,
-                isDisabled: value.cells[this.disabledCol].obj.k.startsWith('S'),
-                progress: stringToNumber(value.cells[this.progrCol].obj.k),
-                type: value.cells[this.typeCol].obj.k as TaskType,
+    #addPlannerComponent() {
+        // TODO destroy
+        this.#rootPlanner = createRoot(
+            this.rootElement.shadowRoot.getElementById(componentWrapperId)
+        );
+
+        this.#rootPlanner.render(
+            React.createElement(Planner, this.plannerProps)
+        );
+    }
+
+    #toProjects(data: KupDataDataset): Phase[] {
+        let projects: Phase[] = data.rows?.map((value) => {
+            let project: Phase = {
+                id: value.cells[this.taskIdCol].value,
+                name: value.cells[this.taskNameCol].value,
+                startDate: value.cells[this.taskDates[0]].value,
+                endDate: value.cells[this.taskDates[1]].value,
+                secondaryStartDate: value.cells[this.taskPrevDates[0]].value,
+                secondaryEndDate: value.cells[this.taskPrevDates[1]].value,
+                type: 'project',
+                valuesToShow: this.taskColumns.map(
+                    (col) => value.cells[col].value
+                ),
             };
-            return task;
+            return project;
         });
+        return projects;
+    }
 
-        return tasks;
+    @Method()
+    async addPhases(projectName: string, data: KupDataDataset) {
+        console.log('addPhases ' + projectName);
+
+        console.log('before plannerProps=' + JSON.stringify(this.plannerProps));
+        const updatedProps: PlannerProps = { ...this.plannerProps };
+
+        const project = (updatedProps.items as Project[]).find(
+            (project) => project.name == projectName
+        );
+
+        if (project) {
+            project.phases = data.rows?.map((value) => {
+                let phase: Phase = {
+                    id: value.cells[this.phaseIdCol].value,
+                    name: value.cells[this.phaseNameCol].value,
+                    startDate: value.cells[this.phaseDates[0]].value,
+                    endDate: value.cells[this.phaseDates[1]].value,
+                    secondaryStartDate:
+                        value.cells[this.phasePrevDates[0]].value,
+                    secondaryEndDate: value.cells[this.phasePrevDates[1]].value,
+                    type: 'phase',
+                    color: value.cells[this.phaseColorCol].value,
+                    valuesToShow: this.taskColumns.map(
+                        (col) => value.cells[col].value
+                    ),
+                };
+                return phase;
+            });
+        }
+
+        console.log('after plannerProps=' + JSON.stringify(this.plannerProps));
+        this.plannerProps = updatedProps;
+        this.refresh();
     }
 
     /*-------------------------------------------------*/
@@ -185,23 +216,8 @@ export class KupPlanner {
         setProps(this, KupPlannerProps, props);
     }
 
-    /*-------------------------------------------------*/
-    /*          L i f e c y c l e   H o o k s          */
-    /*-------------------------------------------------*/
-
-    onClickHandler(_row: GanttRow) {
-        if (!this.#clicked) {
-            this.plannerProps = {
-                ...this.plannerProps,
-                items: this.mockDataProjectSelected.projects,
-            };
-        } else {
-            this.plannerProps = {
-                ...this.plannerProps,
-                items: this.mockDataProjects.projects,
-            };
-        }
-        this.#clicked = !this.#clicked;
+    handleOnClick(row: GanttRow) {
+        if (this.onClick) this.onClick(row);
     }
 
     componentWillLoad() {
@@ -209,28 +225,20 @@ export class KupPlanner {
         this.#kupManager.theme.register(this);
     }
 
-    private rootPlanner;
-
     componentDidLoad() {
-        // const gantProps: GanttProps = {
-        //     tasks: this.#toTasks(this.data),
-        // };
+        this.plannerProps = {
+            title: this.titleMess,
+            items: this.#toProjects(this.data),
+            onClick: (row) => this.handleOnClick(row),
+        };
 
-        this.rootPlanner = createRoot(
-            this.rootElement.shadowRoot.getElementById(componentWrapperId)
-        );
+        this.#addPlannerComponent();
 
-        this.rootPlanner.render(
-            React.createElement(Planner, this.plannerProps)
-        );
         this.#kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.rootPlanner.render(
-            React.createElement(Planner, this.plannerProps)
-        );
-        this.#kupManager.debug.logRender(this, false);
+        this.#addPlannerComponent();
     }
 
     componentDidRender() {

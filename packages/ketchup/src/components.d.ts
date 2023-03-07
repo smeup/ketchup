@@ -43,6 +43,7 @@ import { KupImageListEventPayload } from "./components/kup-image-list/kup-image-
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
+import { Phase, PlannerProps, Project } from "@sme.up/gantt-component";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
@@ -88,6 +89,7 @@ export { KupImageListEventPayload } from "./components/kup-image-list/kup-image-
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
+export { Phase, PlannerProps, Project } from "@sme.up/gantt-component";
 export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 export { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
 export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
@@ -2433,6 +2435,7 @@ export namespace Components {
         "threshold": number;
     }
     interface KupPlanner {
+        "addPhases": (projectName: string, data: KupDataDataset) => Promise<void>;
         /**
           * Custom style of the component.
           * @default ""
@@ -2440,30 +2443,36 @@ export namespace Components {
          */
         "customStyle": string;
         "data": KupDataDataset;
-        "disabledCol": string;
-        "endCol": string;
+        "dataRaw": any;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
-        "idCol": string;
-        "nameCol": string;
-        "progrCol": string;
+        "onClick": Function;
+        "phaseColParDep": string;
+        "phaseColorCol": string;
+        "phaseColumns": string[];
+        "phaseDates": string[];
+        "phaseIdCol": string;
+        "phaseNameCol": string;
+        "phasePrevDates": string[];
         /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
-        "secEndCol": string;
-        "secStartCol": string;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
-        "startCol": string;
-        "typeCol": string;
+        "taskColumns": string[];
+        "taskDates": string[];
+        "taskIdCol": string;
+        "taskNameCol": string;
+        "taskPrevDates": string[];
+        "titleMess": string;
     }
     interface KupProbe {
         /**
@@ -5620,15 +5629,21 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         "data"?: KupDataDataset;
-        "disabledCol"?: string;
-        "endCol"?: string;
-        "idCol"?: string;
-        "nameCol"?: string;
-        "progrCol"?: string;
-        "secEndCol"?: string;
-        "secStartCol"?: string;
-        "startCol"?: string;
-        "typeCol"?: string;
+        "dataRaw"?: any;
+        "onClick"?: Function;
+        "phaseColParDep"?: string;
+        "phaseColorCol"?: string;
+        "phaseColumns"?: string[];
+        "phaseDates"?: string[];
+        "phaseIdCol"?: string;
+        "phaseNameCol"?: string;
+        "phasePrevDates"?: string[];
+        "taskColumns"?: string[];
+        "taskDates"?: string[];
+        "taskIdCol"?: string;
+        "taskNameCol"?: string;
+        "taskPrevDates"?: string[];
+        "titleMess"?: string;
     }
     interface KupProbe {
         /**
