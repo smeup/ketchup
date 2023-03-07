@@ -122,7 +122,7 @@ export class KupPlanner {
     #rootPlanner;
 
     #addPlannerComponent() {
-        // TODO destroy
+        // TODO destroy before
         this.#rootPlanner = createRoot(
             this.rootElement.shadowRoot.getElementById(componentWrapperId)
         );
@@ -153,9 +153,6 @@ export class KupPlanner {
 
     @Method()
     async addPhases(projectName: string, data: KupDataDataset) {
-        console.log('addPhases ' + projectName);
-
-        console.log('before plannerProps=' + JSON.stringify(this.plannerProps));
         const updatedProps: PlannerProps = { ...this.plannerProps };
 
         const project = (updatedProps.items as Project[]).find(
@@ -181,10 +178,8 @@ export class KupPlanner {
                 return phase;
             });
         }
-
-        console.log('after plannerProps=' + JSON.stringify(this.plannerProps));
         this.plannerProps = updatedProps;
-        this.refresh();
+        //this.refresh();
     }
 
     /*-------------------------------------------------*/
