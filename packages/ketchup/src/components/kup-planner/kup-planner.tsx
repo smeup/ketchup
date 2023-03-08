@@ -32,6 +32,7 @@ import {
     Planner,
     PlannerProps,
 } from '@sme.up/gantt-component';
+import { unmountComponentAtNode } from 'react-dom';
 
 @Component({
     tag: 'kup-planner',
@@ -120,7 +121,8 @@ export class KupPlanner {
     #kupManager: KupManager = kupManagerInstance();
     #rootPlanner;
 
-    #createReactPlannerElement() {
+    #renderReactPlannerElement() {
+        this.#rootPlanner?.unmount();
         this.#rootPlanner = createRoot(
             this.rootElement.shadowRoot.getElementById(componentWrapperId)
         );
@@ -317,12 +319,12 @@ export class KupPlanner {
             onDateChange: (row) => this.handleOnDateChange(row),
         };
 
-        this.#createReactPlannerElement();
+        this.#renderReactPlannerElement();
         this.#kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.#createReactPlannerElement();
+        this.#renderReactPlannerElement();
     }
 
     componentDidRender() {
