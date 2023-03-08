@@ -1,6 +1,8 @@
 import {
     Component,
     Element,
+    Event,
+    EventEmitter,
     forceUpdate,
     h,
     Host,
@@ -13,7 +15,10 @@ import {
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { GenericObject } from '../../types/GenericTypes';
-import { KupPlannerProps } from './kup-planner-declarations';
+import {
+    KupPlannerEventPayload,
+    KupPlannerProps,
+} from './kup-planner-declarations';
 import { getProps, setProps, stringToNumber } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { createRoot } from 'react-dom/client';
@@ -22,14 +27,11 @@ import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 import { KupObjects } from '../../managers/kup-objects/kup-objects';
 import {
     GanttRow,
+    GanttTask,
     Phase,
     Planner,
     PlannerProps,
-    Project,
 } from '@sme.up/gantt-component';
-//import { TaskType } from '@sme.up/gantt-component/dist/types/public-types';
-import ReactDOM from 'react-dom';
-import { TaskType } from '@sme.up/gantt-component/dist/types/public-types';
 
 @Component({
     tag: 'kup-planner',
@@ -109,9 +111,6 @@ export class KupPlanner {
     data: KupDataDataset;
 
     @Prop()
-    onClick: Function;
-
-    @Prop()
     dataRaw: any;
 
     /*-------------------------------------------------*/
@@ -121,65 +120,106 @@ export class KupPlanner {
     #kupManager: KupManager = kupManagerInstance();
     #rootPlanner;
 
-    #addPlannerComponent() {
-        // TODO destroy before
+    #createReactPlannerElement() {
         this.#rootPlanner = createRoot(
             this.rootElement.shadowRoot.getElementById(componentWrapperId)
         );
-
         this.#rootPlanner.render(
             React.createElement(Planner, this.plannerProps)
         );
     }
 
-    #toProjects(data: KupDataDataset): Phase[] {
-        let projects: Phase[] = data.rows?.map((value) => {
-            let project: Phase = {
+    #toTasks(data: KupDataDataset): GanttTask[] {
+        let tasks: GanttTask[] = data.rows?.map((value) => {
+            let task: GanttTask = {
                 id: value.cells[this.taskIdCol].value,
                 name: value.cells[this.taskNameCol].value,
                 startDate: value.cells[this.taskDates[0]].value,
                 endDate: value.cells[this.taskDates[1]].value,
                 secondaryStartDate: value.cells[this.taskPrevDates[0]].value,
                 secondaryEndDate: value.cells[this.taskPrevDates[1]].value,
-                type: 'project',
+                type: 'task',
                 valuesToShow: this.taskColumns.map(
                     (col) => value.cells[col].value
                 ),
             };
-            return project;
+            return task;
         });
-        return projects;
+        return tasks;
     }
 
-    @Method()
-    async addPhases(projectName: string, data: KupDataDataset) {
-        const updatedProps: PlannerProps = { ...this.plannerProps };
-
-        const project = (updatedProps.items as Project[]).find(
-            (project) => project.name == projectName
+    #getTask(taskName: string): GanttTask {
+        return (this.plannerProps.items as GanttTask[]).find(
+            (task) => task.name == taskName
         );
+    }
 
-        if (project) {
-            project.phases = data.rows?.map((value) => {
-                let phase: Phase = {
-                    id: value.cells[this.phaseIdCol].value,
-                    name: value.cells[this.phaseNameCol].value,
-                    startDate: value.cells[this.phaseDates[0]].value,
-                    endDate: value.cells[this.phaseDates[1]].value,
-                    secondaryStartDate:
-                        value.cells[this.phasePrevDates[0]].value,
-                    secondaryEndDate: value.cells[this.phasePrevDates[1]].value,
-                    type: 'phase',
-                    color: value.cells[this.phaseColorCol].value,
-                    valuesToShow: this.taskColumns.map(
-                        (col) => value.cells[col].value
-                    ),
-                };
-                return phase;
-            });
+    #removePhases(taskName: string) {
+        const task = this.#getTask(taskName);
+
+        if (task) task.phases = undefined;
+
+        this.plannerProps = { ...this.plannerProps };
+    }
+
+    /**
+     *
+     * @param row
+     * @returns true if caller must call onKupClick
+     */
+    #handleOnClickOnTask(row: GanttRow): boolean {
+        const task = this.#getTask(row.name);
+        if (task?.phases) {
+            this.#removePhases(row.name);
+            return false;
+        } else {
+            return true;
         }
-        this.plannerProps = updatedProps;
-        //this.refresh();
+    }
+
+    /**
+     *
+     * @param row
+     * @returns true if caller must call onKupClick
+     */
+    #handleOnClickOnPhase(): boolean {
+        return true;
+    }
+
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
+
+    @Event({
+        eventName: 'kup-planner-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<KupPlannerEventPayload>;
+
+    onKupClick(row: GanttRow) {
+        this.kupClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: row,
+        });
+    }
+
+    @Event({
+        eventName: 'kup-planner-date-change',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDateChange: EventEmitter<KupPlannerEventPayload>;
+
+    onKupDateChange(row: GanttRow) {
+        this.kupDateChange.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: row,
+        });
     }
 
     /*-------------------------------------------------*/
@@ -211,8 +251,57 @@ export class KupPlanner {
         setProps(this, KupPlannerProps, props);
     }
 
+    /**
+     * Add a list of phases to the project
+     * @param taskName
+     * @param data - Matrix which contains project phases
+     */
+    @Method()
+    async addPhases(taskName: string, data: KupDataDataset) {
+        const task = this.#getTask(taskName);
+
+        if (task) {
+            task.phases = data.rows?.map((value) => {
+                let phase: Phase = {
+                    id: value.cells[this.phaseIdCol].value,
+                    name: value.cells[this.phaseNameCol].value,
+                    startDate: value.cells[this.phaseDates[0]].value,
+                    endDate: value.cells[this.phaseDates[1]].value,
+                    secondaryStartDate:
+                        value.cells[this.phasePrevDates[0]].value,
+                    secondaryEndDate: value.cells[this.phasePrevDates[1]].value,
+                    type: 'phase',
+                    color: value.cells[this.phaseColorCol].value,
+                    valuesToShow: this.taskColumns.map(
+                        (col) => value.cells[col].value
+                    ),
+                };
+                return phase;
+            });
+        }
+
+        this.plannerProps = { ...this.plannerProps };
+    }
+
     handleOnClick(row: GanttRow) {
-        if (this.onClick) this.onClick(row);
+        console.log('handleOnClick', row);
+        switch (row.type) {
+            case 'task':
+                if (this.#handleOnClickOnTask(row)) {
+                    this.onKupClick(row);
+                }
+                break;
+            case 'phase':
+                if (this.#handleOnClickOnPhase()) {
+                    this.onKupClick(row);
+                }
+                break;
+        }
+    }
+
+    handleOnDateChange(row: GanttRow) {
+        console.log('handleOnDateChange', row);
+        this.onKupDateChange(row);
     }
 
     componentWillLoad() {
@@ -223,17 +312,17 @@ export class KupPlanner {
     componentDidLoad() {
         this.plannerProps = {
             title: this.titleMess,
-            items: this.#toProjects(this.data),
+            items: this.#toTasks(this.data),
             onClick: (row) => this.handleOnClick(row),
+            onDateChange: (row) => this.handleOnDateChange(row),
         };
 
-        this.#addPlannerComponent();
-
+        this.#createReactPlannerElement();
         this.#kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.#addPlannerComponent();
+        this.#createReactPlannerElement();
     }
 
     componentDidRender() {

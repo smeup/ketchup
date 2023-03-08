@@ -43,7 +43,8 @@ import { KupImageListEventPayload } from "./components/kup-image-list/kup-image-
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
-import { Phase, PlannerProps, Project } from "@sme.up/gantt-component";
+import { KupPlannerEventPayload } from "./components/kup-planner/kup-planner-declarations";
+import { Phase } from "@sme.up/gantt-component";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
@@ -89,7 +90,8 @@ export { KupImageListEventPayload } from "./components/kup-image-list/kup-image-
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
-export { Phase, PlannerProps, Project } from "@sme.up/gantt-component";
+export { KupPlannerEventPayload } from "./components/kup-planner/kup-planner-declarations";
+export { Phase } from "@sme.up/gantt-component";
 export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 export { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
 export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
@@ -2435,7 +2437,12 @@ export namespace Components {
         "threshold": number;
     }
     interface KupPlanner {
-        "addPhases": (projectName: string, data: KupDataDataset) => Promise<void>;
+        /**
+          * Add a list of phases to the project
+          * @param taskName
+          * @param data - Matrix which contains project phases
+         */
+        "addPhases": (taskName: string, data: KupDataDataset) => Promise<void>;
         /**
           * Custom style of the component.
           * @default ""
@@ -2450,7 +2457,6 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
-        "onClick": Function;
         "phaseColParDep": string;
         "phaseColorCol": string;
         "phaseColumns": string[];
@@ -3386,6 +3392,10 @@ export interface KupNumericPickerCustomEvent<T> extends CustomEvent<T> {
 export interface KupPhotoFrameCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupPhotoFrameElement;
+}
+export interface KupPlannerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupPlannerElement;
 }
 export interface KupRadioCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -5630,7 +5640,8 @@ declare namespace LocalJSX {
         "customStyle"?: string;
         "data"?: KupDataDataset;
         "dataRaw"?: any;
-        "onClick"?: Function;
+        "onKup-planner-click"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
+        "onKup-planner-date-change"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
         "phaseColParDep"?: string;
         "phaseColorCol"?: string;
         "phaseColumns"?: string[];

@@ -12,7 +12,6 @@
 | `customStyle`    | `custom-style`      | Custom style of the component. | `string`         | `''`        |
 | `data`           | --                  |                                | `KupDataDataset` | `undefined` |
 | `dataRaw`        | `data-raw`          |                                | `any`            | `undefined` |
-| `onClick`        | --                  |                                | `Function`       | `undefined` |
 | `phaseColParDep` | `phase-col-par-dep` |                                | `string`         | `undefined` |
 | `phaseColorCol`  | `phase-color-col`   |                                | `string`         | `undefined` |
 | `phaseColumns`   | --                  |                                | `string[]`       | `undefined` |
@@ -28,11 +27,19 @@
 | `titleMess`      | `title-mess`        |                                | `string`         | `undefined` |
 
 
+## Events
+
+| Event                     | Description | Type                                  |
+| ------------------------- | ----------- | ------------------------------------- |
+| `kup-planner-click`       |             | `CustomEvent<KupPlannerEventPayload>` |
+| `kup-planner-date-change` |             | `CustomEvent<KupPlannerEventPayload>` |
+
+
 ## Methods
 
-### `addPhases(projectName: string, data: KupDataDataset) => Promise<void>`
+### `addPhases(taskName: string, data: KupDataDataset) => Promise<void>`
 
-
+Add a list of phases to the project
 
 #### Returns
 
