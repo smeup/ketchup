@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div>
     <div class="demo-container">
       <div class="kup-container">
