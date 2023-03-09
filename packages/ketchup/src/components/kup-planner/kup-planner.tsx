@@ -17,6 +17,8 @@ import {
 import { GenericObject } from '../../types/GenericTypes';
 import {
     KupPlannerEventPayload,
+    KupPlannerGanttTask,
+    KupPlannerPhase,
     KupPlannerProps,
 } from './kup-planner-declarations';
 import { getProps, setProps, stringToNumber } from '../../utils/utils';
@@ -133,7 +135,8 @@ export class KupPlanner {
 
     #toTasks(data: KupDataDataset): GanttTask[] {
         let tasks: GanttTask[] = data.rows?.map((value) => {
-            let task: GanttTask = {
+            let task: KupPlannerGanttTask = {
+                taskRowId: value.id,
                 id: value.cells[this.taskIdCol].value,
                 name: value.cells[this.taskNameCol].value,
                 startDate: value.cells[this.taskDates[0]].value,
@@ -150,14 +153,14 @@ export class KupPlanner {
         return tasks;
     }
 
-    #getTask(taskName: string): GanttTask {
-        return (this.plannerProps.items as GanttTask[]).find(
-            (task) => task.name == taskName
+    #getTask(taskId: string): KupPlannerGanttTask {
+        return (this.plannerProps.items as KupPlannerGanttTask[]).find(
+            (task) => task.id == taskId
         );
     }
 
-    #removePhases(taskName: string) {
-        const task = this.#getTask(taskName);
+    #removePhases(taskId: string) {
+        const task = this.#getTask(taskId);
 
         if (task) task.phases = undefined;
 
@@ -166,13 +169,13 @@ export class KupPlanner {
 
     /**
      *
-     * @param row
+     * @param nativeEvent
      * @returns true if caller must call onKupClick
      */
-    #handleOnClickOnTask(row: GanttRow): boolean {
-        const task = this.#getTask(row.name);
+    #handleOnClickOnTask(nativeEvent: GanttRow): boolean {
+        const task = this.#getTask(nativeEvent.id);
         if (task?.phases) {
-            this.#removePhases(row.name);
+            this.#removePhases(task.id);
             return false;
         } else {
             return true;
@@ -200,11 +203,11 @@ export class KupPlanner {
     })
     kupClick: EventEmitter<KupPlannerEventPayload>;
 
-    onKupClick(row: GanttRow) {
+    onKupClick(event: GanttRow) {
         this.kupClick.emit({
             comp: this,
             id: this.rootElement.id,
-            value: row,
+            value: event,
         });
     }
 
@@ -216,11 +219,11 @@ export class KupPlanner {
     })
     kupDateChange: EventEmitter<KupPlannerEventPayload>;
 
-    onKupDateChange(row: GanttRow) {
+    onKupDateChange(event: GanttRow) {
         this.kupDateChange.emit({
             comp: this,
             id: this.rootElement.id,
-            value: row,
+            value: event,
         });
     }
 
@@ -255,27 +258,27 @@ export class KupPlanner {
 
     /**
      * Add a list of phases to the project
-     * @param taskName
+     * @param taskId
      * @param data - Matrix which contains project phases
      */
     @Method()
-    async addPhases(taskName: string, data: KupDataDataset) {
-        const task = this.#getTask(taskName);
-
+    async addPhases(taskId: string, data: KupDataDataset) {
+        const task = this.#getTask(taskId);
         if (task) {
-            task.phases = data.rows?.map((value) => {
-                let phase: Phase = {
-                    id: value.cells[this.phaseIdCol].value,
-                    name: value.cells[this.phaseNameCol].value,
-                    startDate: value.cells[this.phaseDates[0]].value,
-                    endDate: value.cells[this.phaseDates[1]].value,
-                    secondaryStartDate:
-                        value.cells[this.phasePrevDates[0]].value,
-                    secondaryEndDate: value.cells[this.phasePrevDates[1]].value,
+            task.phases = data.rows?.map((row) => {
+                let phase: KupPlannerPhase = {
+                    id: row.cells[this.phaseIdCol].value,
+                    phaseRowId: row.id,
+                    taskRowId: task.taskRowId,
+                    name: row.cells[this.phaseNameCol].value,
+                    startDate: row.cells[this.phaseDates[0]].value,
+                    endDate: row.cells[this.phaseDates[1]].value,
+                    secondaryStartDate: row.cells[this.phasePrevDates[0]].value,
+                    secondaryEndDate: row.cells[this.phasePrevDates[1]].value,
                     type: 'phase',
-                    color: value.cells[this.phaseColorCol].value,
+                    color: row.cells[this.phaseColorCol].value,
                     valuesToShow: this.taskColumns.map(
-                        (col) => value.cells[col].value
+                        (col) => row.cells[col].value
                     ),
                 };
                 return phase;
@@ -285,25 +288,25 @@ export class KupPlanner {
         this.plannerProps = { ...this.plannerProps };
     }
 
-    handleOnClick(row: GanttRow) {
-        console.log('handleOnClick', row);
-        switch (row.type) {
+    handleOnClick(nativeEvent: GanttRow) {
+        console.log('handleOnClick', nativeEvent);
+        switch (nativeEvent.type) {
             case 'task':
-                if (this.#handleOnClickOnTask(row)) {
-                    this.onKupClick(row);
+                if (this.#handleOnClickOnTask(nativeEvent)) {
+                    this.onKupClick(nativeEvent);
                 }
                 break;
             case 'phase':
                 if (this.#handleOnClickOnPhase()) {
-                    this.onKupClick(row);
+                    this.onKupClick(nativeEvent);
                 }
                 break;
         }
     }
 
-    handleOnDateChange(row: GanttRow) {
-        console.log('handleOnDateChange', row);
-        this.onKupDateChange(row);
+    handleOnDateChange(nativeEvent: GanttRow) {
+        console.log('handleOnDateChange', nativeEvent);
+        this.onKupDateChange(nativeEvent);
     }
 
     componentWillLoad() {
@@ -315,8 +318,8 @@ export class KupPlanner {
         this.plannerProps = {
             title: this.titleMess,
             items: this.#toTasks(this.data),
-            onClick: (row) => this.handleOnClick(row),
-            onDateChange: (row) => this.handleOnDateChange(row),
+            onClick: (nativeEvent) => this.handleOnClick(nativeEvent),
+            onDateChange: (nativeEvent) => this.handleOnDateChange(nativeEvent),
         };
 
         this.#renderReactPlannerElement();

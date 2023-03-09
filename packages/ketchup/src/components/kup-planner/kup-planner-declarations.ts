@@ -1,3 +1,5 @@
+import { GanttRowType, GanttTask } from '@sme.up/gantt-component';
+import { Phase } from '@sme.up/gantt-component';
 import { GanttRow } from '@sme.up/gantt-component';
 import { KupEventPayload } from '../../components';
 
@@ -11,4 +13,13 @@ export enum KupPlannerProps {
 
 export interface KupPlannerEventPayload extends KupEventPayload {
     value: GanttRow;
+}
+
+export interface KupPlannerGanttTask extends GanttTask {
+    taskRowId: string;
+}
+
+export interface KupPlannerPhase extends Phase {
+    taskRowId: string;
+    phaseRowId: string;
 }
