@@ -33,11 +33,12 @@
 | ------------------------- | ----------- | ------------------------------------- |
 | `kup-planner-click`       |             | `CustomEvent<KupPlannerEventPayload>` |
 | `kup-planner-date-change` |             | `CustomEvent<KupPlannerEventPayload>` |
+| `kup-planner-ready`       |             | `CustomEvent<KupPlannerEventPayload>` |
 
 
 ## Methods
 
-### `addPhases(taskName: string, data: KupDataDataset) => Promise<void>`
+### `addPhases(taskId: string, data: KupDataDataset) => Promise<void>`
 
 Add a list of phases to the project
 

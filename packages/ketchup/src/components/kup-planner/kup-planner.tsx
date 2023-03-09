@@ -22,7 +22,7 @@ import {
     KupPlannerProps,
     KupPlannerTaskAction,
 } from './kup-planner-declarations';
-import { getProps, setProps, stringToNumber } from '../../utils/utils';
+import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { createRoot } from 'react-dom/client';
 import React from 'react';
@@ -33,7 +33,6 @@ import {
     Planner,
     PlannerProps,
 } from '@sme.up/gantt-component';
-import { unmountComponentAtNode } from 'react-dom';
 
 @Component({
     tag: 'kup-planner',
@@ -71,19 +70,22 @@ export class KupPlanner {
     customStyle: string = '';
 
     @Prop()
-    taskIdCol: string;
+    data: KupDataDataset;
 
     @Prop()
-    taskNameCol: string;
+    dataRaw: any;
 
     @Prop()
-    taskDates: string[];
+    phaseColorCol: string;
 
     @Prop()
-    taskPrevDates: string[];
+    phaseColumns: string[];
 
     @Prop()
-    taskColumns: string[];
+    phaseColParDep: string;
+
+    @Prop()
+    phaseDates: string[];
 
     @Prop()
     phaseIdCol: string;
@@ -92,25 +94,25 @@ export class KupPlanner {
     phaseNameCol: string;
 
     @Prop()
-    phaseDates: string[];
-
-    @Prop()
     phasePrevDates: string[];
 
     @Prop()
-    phaseColumns: string[];
+    taskColumns: string[];
 
     @Prop()
-    phaseColorCol: string;
+    taskDates: string[];
 
     @Prop()
-    phaseColParDep: string;
+    taskIdCol: string;
+
+    @Prop()
+    taskNameCol: string;
+
+    @Prop()
+    taskPrevDates: string[];
 
     @Prop()
     titleMess: string;
-
-    @Prop()
-    data: KupDataDataset;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -121,12 +123,16 @@ export class KupPlanner {
 
     #renderReactPlannerElement() {
         this.#rootPlanner?.unmount();
-        this.#rootPlanner = createRoot(
-            this.rootElement.shadowRoot.getElementById(componentWrapperId)
-        );
-        this.#rootPlanner.render(
-            React.createElement(Planner, this.plannerProps)
-        );
+
+        const componentWrapperElement =
+            this.rootElement.shadowRoot.getElementById(componentWrapperId);
+
+        if (componentWrapperElement) {
+            this.#rootPlanner = createRoot(componentWrapperElement);
+            this.#rootPlanner.render(
+                React.createElement(Planner, this.plannerProps)
+            );
+        }
     }
 
     #toTasks(data: KupDataDataset): GanttTask[] {
@@ -157,9 +163,7 @@ export class KupPlanner {
 
     #removePhases(taskId: string) {
         const task = this.#getTask(taskId);
-
         if (task) task.phases = undefined;
-
         this.plannerProps = { ...this.plannerProps };
     }
 
@@ -221,6 +225,14 @@ export class KupPlanner {
             value: event,
         });
     }
+
+    @Event({
+        eventName: 'kup-planner-ready',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupReady: EventEmitter<KupPlannerEventPayload>;
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -321,6 +333,11 @@ export class KupPlanner {
         };
 
         this.#renderReactPlannerElement();
+        this.kupReady.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: undefined,
+        });
         this.#kupManager.debug.logLoad(this, true);
     }
 
