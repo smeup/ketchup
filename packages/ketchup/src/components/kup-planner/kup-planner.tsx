@@ -20,13 +20,13 @@ import {
     KupPlannerGanttTask,
     KupPlannerPhase,
     KupPlannerProps,
+    KupPlannerTaskAction,
 } from './kup-planner-declarations';
 import { getProps, setProps, stringToNumber } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { createRoot } from 'react-dom/client';
 import React from 'react';
 import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
-import { KupObjects } from '../../managers/kup-objects/kup-objects';
 import {
     GanttRow,
     GanttTask,
@@ -176,10 +176,8 @@ export class KupPlanner {
         const task = this.#getTask(nativeEvent.id);
         if (task?.phases) {
             this.#removePhases(task.id);
-            return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     /**
@@ -203,11 +201,12 @@ export class KupPlanner {
     })
     kupClick: EventEmitter<KupPlannerEventPayload>;
 
-    onKupClick(event: GanttRow) {
+    onKupClick(event: GanttRow, taskAction?: KupPlannerTaskAction) {
         this.kupClick.emit({
             comp: this,
             id: this.rootElement.id,
             value: event,
+            taskAction: taskAction,
         });
     }
 
@@ -292,8 +291,11 @@ export class KupPlanner {
         console.log('handleOnClick', nativeEvent);
         switch (nativeEvent.type) {
             case 'task':
+                const taskAction = (nativeEvent as KupPlannerGanttTask).phases
+                    ? KupPlannerTaskAction.onClosing
+                    : KupPlannerTaskAction.onOpening;
                 if (this.#handleOnClickOnTask(nativeEvent)) {
-                    this.onKupClick(nativeEvent);
+                    this.onKupClick(nativeEvent, taskAction);
                 }
                 break;
             case 'phase':
