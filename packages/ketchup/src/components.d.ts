@@ -43,6 +43,7 @@ import { KupImageListEventPayload } from "./components/kup-image-list/kup-image-
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
+import { KupPlannerEventPayload, KupPlannerPhase } from "./components/kup-planner/kup-planner-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
@@ -88,6 +89,7 @@ export { KupImageListEventPayload } from "./components/kup-image-list/kup-image-
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
+export { KupPlannerEventPayload, KupPlannerPhase } from "./components/kup-planner/kup-planner-declarations";
 export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 export { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
 export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
@@ -2432,6 +2434,50 @@ export namespace Components {
          */
         "threshold": number;
     }
+    interface KupPlanner {
+        /**
+          * Add a list of phases to the project
+          * @param taskId
+          * @param data - Matrix which contains project phases
+         */
+        "addPhases": (taskId: string, data: KupDataDataset) => Promise<void>;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        "data": KupDataDataset;
+        "dataRaw": any;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        "phaseColParDep": string;
+        "phaseColorCol": string;
+        "phaseColumns": string[];
+        "phaseDates": string[];
+        "phaseIdCol": string;
+        "phaseNameCol": string;
+        "phasePrevDates": string[];
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        "taskColumns": string[];
+        "taskDates": string[];
+        "taskIdCol": string;
+        "taskNameCol": string;
+        "taskPrevDates": string[];
+        "titleMess": string;
+    }
     interface KupProbe {
         /**
           * Custom style of the component.
@@ -3345,6 +3391,10 @@ export interface KupPhotoFrameCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupPhotoFrameElement;
 }
+export interface KupPlannerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupPlannerElement;
+}
 export interface KupRadioCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupRadioElement;
@@ -3598,6 +3648,12 @@ declare global {
         prototype: HTMLKupPhotoFrameElement;
         new (): HTMLKupPhotoFrameElement;
     };
+    interface HTMLKupPlannerElement extends Components.KupPlanner, HTMLStencilElement {
+    }
+    var HTMLKupPlannerElement: {
+        prototype: HTMLKupPlannerElement;
+        new (): HTMLKupPlannerElement;
+    };
     interface HTMLKupProbeElement extends Components.KupProbe, HTMLStencilElement {
     }
     var HTMLKupProbeElement: {
@@ -3707,6 +3763,7 @@ declare global {
         "kup-nav-bar": HTMLKupNavBarElement;
         "kup-numeric-picker": HTMLKupNumericPickerElement;
         "kup-photo-frame": HTMLKupPhotoFrameElement;
+        "kup-planner": HTMLKupPlannerElement;
         "kup-probe": HTMLKupProbeElement;
         "kup-progress-bar": HTMLKupProgressBarElement;
         "kup-qlik": HTMLKupQlikElement;
@@ -5572,6 +5629,32 @@ declare namespace LocalJSX {
          */
         "threshold"?: number;
     }
+    interface KupPlanner {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        "data"?: KupDataDataset;
+        "dataRaw"?: any;
+        "onKup-planner-click"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
+        "onKup-planner-datechange"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
+        "onKup-planner-ready"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
+        "phaseColParDep"?: string;
+        "phaseColorCol"?: string;
+        "phaseColumns"?: string[];
+        "phaseDates"?: string[];
+        "phaseIdCol"?: string;
+        "phaseNameCol"?: string;
+        "phasePrevDates"?: string[];
+        "taskColumns"?: string[];
+        "taskDates"?: string[];
+        "taskIdCol"?: string;
+        "taskNameCol"?: string;
+        "taskPrevDates"?: string[];
+        "titleMess"?: string;
+    }
     interface KupProbe {
         /**
           * Custom style of the component.
@@ -6285,6 +6368,7 @@ declare namespace LocalJSX {
         "kup-nav-bar": KupNavBar;
         "kup-numeric-picker": KupNumericPicker;
         "kup-photo-frame": KupPhotoFrame;
+        "kup-planner": KupPlanner;
         "kup-probe": KupProbe;
         "kup-progress-bar": KupProgressBar;
         "kup-qlik": KupQlik;
@@ -6339,6 +6423,7 @@ declare module "@stencil/core" {
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-numeric-picker": LocalJSX.KupNumericPicker & JSXBase.HTMLAttributes<HTMLKupNumericPickerElement>;
             "kup-photo-frame": LocalJSX.KupPhotoFrame & JSXBase.HTMLAttributes<HTMLKupPhotoFrameElement>;
+            "kup-planner": LocalJSX.KupPlanner & JSXBase.HTMLAttributes<HTMLKupPlannerElement>;
             "kup-probe": LocalJSX.KupProbe & JSXBase.HTMLAttributes<HTMLKupProbeElement>;
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;
             "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;

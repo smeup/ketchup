@@ -40,6 +40,7 @@ export const config: Config = {
                 { src: 'echart.html' },
                 { src: 'family-tree.html' },
                 { src: 'form.html' },
+                { src: 'gantt.html' },
                 { src: 'gauge.html' },
                 { src: 'grid.html' },
                 { src: 'image.html' },
