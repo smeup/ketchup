@@ -5640,6 +5640,7 @@ declare namespace LocalJSX {
         "dataRaw"?: any;
         "onKup-planner-click"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
         "onKup-planner-date-change"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
+        "onKup-planner-ready"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
         "phaseColParDep"?: string;
         "phaseColorCol"?: string;
         "phaseColumns"?: string[];
