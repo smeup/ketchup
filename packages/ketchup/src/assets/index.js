@@ -111,6 +111,10 @@ components.data = [
         id: 'form.html',
     },
     {
+        value: 'Gantt',
+        id: 'gantt.html',
+    },
+    {
         value: 'Gauge',
         id: 'gauge.html',
     },

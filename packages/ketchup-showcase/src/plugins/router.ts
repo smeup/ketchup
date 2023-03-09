@@ -250,6 +250,11 @@ const advancedRoutes = [
     name: 'tree',
     component: () => import(`@/views/components/advanced/tree/Tree.vue`),
   },
+  {
+    path: `/planner`,
+    name: 'planner',
+    component: () => import(`@/views/components/advanced/planner/Planner.vue`),
+  },
 ];
 
 const thirdPartiesRoutes = [
