@@ -207,7 +207,7 @@ export class KupPlanner {
     }
 
     @Event({
-        eventName: 'kup-planner-date-change',
+        eventName: 'kup-planner-datechange',
         composed: true,
         cancelable: false,
         bubbles: true,

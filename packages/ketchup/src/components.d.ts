@@ -2448,7 +2448,6 @@ export namespace Components {
          */
         "customStyle": string;
         "data": KupDataDataset;
-        "dataRaw": any;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -5637,9 +5636,8 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         "data"?: KupDataDataset;
-        "dataRaw"?: any;
         "onKup-planner-click"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
-        "onKup-planner-date-change"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
+        "onKup-planner-datechange"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
         "phaseColParDep"?: string;
         "phaseColorCol"?: string;
         "phaseColumns"?: string[];

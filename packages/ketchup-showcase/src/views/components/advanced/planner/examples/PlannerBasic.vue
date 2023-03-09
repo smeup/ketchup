@@ -2,9 +2,9 @@
   <div>
     <div class="demo-wrapper">
       <p
-        >The Dash list component is an extension of the Dash component, it
-        creates a list of Dash objects that you can customize by choosing
-        different layouts or colors.</p
+        >The Planner component is a powerful tools derived by a gantt component,
+        used to help users to analize and display the planning of each
+        activities</p
       >
       <br />
       <h3>Horizontal Configuration</h3>
