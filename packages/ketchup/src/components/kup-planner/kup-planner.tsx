@@ -277,7 +277,7 @@ export class KupPlanner {
                     secondaryEndDate: row.cells[this.phasePrevDates[1]].value,
                     type: 'phase',
                     color: row.cells[this.phaseColorCol].value,
-                    valuesToShow: this.taskColumns.map(
+                    valuesToShow: this.phaseColumns.map(
                         (col) => row.cells[col].value
                     ),
                 };
