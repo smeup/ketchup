@@ -280,6 +280,9 @@ export class KupEchart {
             case KupEchartTypes.FUNNEL:
                 options = this.#funnelChart();
                 break;
+            case KupEchartTypes.RADAR:
+                options = this.#radarChart();
+                break;
             default:
                 options = this.#setOptions();
                 break;
@@ -382,6 +385,53 @@ export class KupEchart {
                     right: '10%',
                     width: '80%',
                     data,
+                },
+            ],
+        } as echarts.EChartsOption;
+    }
+
+    #radarChart() {
+        const x = this.#createX();
+        const y = this.#createY();
+        let indicator: { name: String; max: number };
+        const data = [],
+            indicatorData = [],
+            legend = {};
+
+        for (const [index, values] of x.entries()) {
+            data.push({ name: values, value: [] });
+            legend[values] = index;
+        }
+
+        for (const key in y) {
+            indicator = {
+                name: key,
+                max: Math.floor(Math.max(...y[key]) * 1.05),
+            };
+            indicatorData.push(indicator);
+            for (const values in y[key]) {
+                data[values].value.push(y[key][values]);
+            }
+        }
+
+        return {
+            color: this.#setColors(x.length),
+            title: this.#setTitle(),
+            legend: this.#setLegend(legend),
+            radar: {
+                indicator: indicatorData,
+            },
+            tooltip: {
+                ...this.#setTooltip(),
+                trigger: 'item',
+            },
+            series: [
+                {
+                    name: this.#kupManager.data.column.find(this.data, {
+                        name: this.axis,
+                    })[0].title,
+                    type: 'radar',
+                    data: data,
                 },
             ],
         } as echarts.EChartsOption;

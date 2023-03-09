@@ -708,3 +708,158 @@ export const trendLinesData = {
     },
   ],
 };
+
+export const radarData = {
+  columns: [
+    {
+      name: 'Col1',
+      title: 'Budget type',
+    },
+    {
+      name: 'Col2',
+      title: 'Sales',
+    },
+    {
+      name: 'Col3',
+      title: 'Administration',
+    },
+    {
+      name: 'Col4',
+      title: 'Information Technology',
+    },
+    {
+      name: 'Col5',
+      title: 'Customer Support',
+    },
+    {
+      name: 'Col6',
+      title: 'Development',
+    },
+    {
+      name: 'Col7',
+      title: 'Marketing',
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        Col1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'ALLOCB',
+          },
+          value: 'Allocated Budget',
+        },
+        Col2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4200',
+          },
+          value: '4200',
+        },
+        Col3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '3000',
+          },
+          value: '3000',
+        },
+        Col4: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '20000',
+          },
+          value: '20000',
+        },
+        Col5: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '35000',
+          },
+          value: '35000',
+        },
+        Col6: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '50000',
+          },
+          value: '50000',
+        },
+        Col7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '18000',
+          },
+          value: '18000',
+        },
+      },
+    },
+    {
+      cells: {
+        Col1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'ACTSPEND',
+          },
+          value: 'Actual Spending',
+        },
+        Col2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '5000',
+          },
+          value: '5000',
+        },
+        Col3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '14000',
+          },
+          value: '14000',
+        },
+        Col4: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '28000',
+          },
+          value: '28000',
+        },
+        Col5: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '26000',
+          },
+          value: '26000',
+        },
+        Col6: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '42000',
+          },
+          value: '42000',
+        },
+        Col7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '21000',
+          },
+          value: '21000',
+        },
+      },
+    },
+  ],
+};
