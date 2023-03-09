@@ -30,7 +30,6 @@ import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 import {
     GanttRow,
     GanttTask,
-    Phase,
     Planner,
     PlannerProps,
 } from '@sme.up/gantt-component';
