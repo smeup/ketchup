@@ -2,6 +2,7 @@ import { GanttRowType, GanttTask } from '@sme.up/gantt-component';
 import { Phase } from '@sme.up/gantt-component';
 import { GanttRow } from '@sme.up/gantt-component';
 import { KupEventPayload } from '../../components';
+import { KupDataRow } from '../../managers/kup-data/kup-data-declarations';
 
 /**
  * Props of the kup-gantt component.
@@ -37,9 +38,33 @@ export interface KupPlannerEventPayload extends KupEventPayload {
 
 export interface KupPlannerGanttTask extends GanttTask {
     taskRowId: string;
+    taskRow: KupDataRow;
 }
 
 export interface KupPlannerPhase extends Phase {
     taskRowId: string;
     phaseRowId: string;
+    taskRow: KupDataRow;
+    phaseRow: KupDataRow;
+}
+
+export class KupPlannerLastOnChangeReceived {
+    private event: GanttRow;
+    private dateTime = new Date();
+    private threshold;
+
+    constructor(event: GanttRow, threshold: number = 100) {
+        this.event = event;
+        this.threshold = threshold;
+    }
+
+    isEquivalent(newEvent: GanttRow): boolean {
+        const intervalTime = new Date().valueOf() - this.dateTime.valueOf();
+        const equals = JSON.stringify(this.event) === JSON.stringify(newEvent);
+        return equals && intervalTime < this.threshold;
+    }
+
+    resetDateTime() {
+        this.dateTime = new Date();
+    }
 }
