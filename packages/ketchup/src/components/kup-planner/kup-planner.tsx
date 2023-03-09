@@ -112,9 +112,6 @@ export class KupPlanner {
     @Prop()
     data: KupDataDataset;
 
-    @Prop()
-    dataRaw: any;
-
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
