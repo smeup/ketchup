@@ -7,24 +7,26 @@
 
 ## Properties
 
-| Property         | Attribute           | Description                    | Type             | Default     |
-| ---------------- | ------------------- | ------------------------------ | ---------------- | ----------- |
-| `customStyle`    | `custom-style`      | Custom style of the component. | `string`         | `''`        |
-| `data`           | --                  |                                | `KupDataDataset` | `undefined` |
-| `dataRaw`        | `data-raw`          |                                | `any`            | `undefined` |
-| `phaseColParDep` | `phase-col-par-dep` |                                | `string`         | `undefined` |
-| `phaseColorCol`  | `phase-color-col`   |                                | `string`         | `undefined` |
-| `phaseColumns`   | --                  |                                | `string[]`       | `undefined` |
-| `phaseDates`     | --                  |                                | `string[]`       | `undefined` |
-| `phaseIdCol`     | `phase-id-col`      |                                | `string`         | `undefined` |
-| `phaseNameCol`   | `phase-name-col`    |                                | `string`         | `undefined` |
-| `phasePrevDates` | --                  |                                | `string[]`       | `undefined` |
-| `taskColumns`    | --                  |                                | `string[]`       | `undefined` |
-| `taskDates`      | --                  |                                | `string[]`       | `undefined` |
-| `taskIdCol`      | `task-id-col`       |                                | `string`         | `undefined` |
-| `taskNameCol`    | `task-name-col`     |                                | `string`         | `undefined` |
-| `taskPrevDates`  | --                  |                                | `string[]`       | `undefined` |
-| `titleMess`      | `title-mess`        |                                | `string`         | `undefined` |
+| Property             | Attribute              | Description                    | Type             | Default     |
+| -------------------- | ---------------------- | ------------------------------ | ---------------- | ----------- |
+| `customStyle`        | `custom-style`         | Custom style of the component. | `string`         | `''`        |
+| `data`               | --                     |                                | `KupDataDataset` | `undefined` |
+| `dataRaw`            | `data-raw`             |                                | `any`            | `undefined` |
+| `listCellWidth`      | `list-cell-width`      |                                | `string`         | `'300px'`   |
+| `phaseColParDep`     | `phase-col-par-dep`    |                                | `string`         | `undefined` |
+| `phaseColorCol`      | `phase-color-col`      |                                | `string`         | `undefined` |
+| `phaseColumns`       | --                     |                                | `string[]`       | `undefined` |
+| `phaseDates`         | --                     |                                | `string[]`       | `undefined` |
+| `phaseIdCol`         | `phase-id-col`         |                                | `string`         | `undefined` |
+| `phaseNameCol`       | `phase-name-col`       |                                | `string`         | `undefined` |
+| `phasePrevDates`     | --                     |                                | `string[]`       | `undefined` |
+| `showSecondaryDates` | `show-secondary-dates` |                                | `boolean`        | `false`     |
+| `taskColumns`        | --                     |                                | `string[]`       | `undefined` |
+| `taskDates`          | --                     |                                | `string[]`       | `undefined` |
+| `taskIdCol`          | `task-id-col`          |                                | `string`         | `undefined` |
+| `taskNameCol`        | `task-name-col`        |                                | `string`         | `undefined` |
+| `taskPrevDates`      | --                     |                                | `string[]`       | `undefined` |
+| `titleMess`          | `title-mess`           |                                | `string`         | `undefined` |
 
 
 ## Events
