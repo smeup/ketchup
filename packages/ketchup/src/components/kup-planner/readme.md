@@ -29,11 +29,11 @@
 
 ## Events
 
-| Event                     | Description | Type                                  |
-| ------------------------- | ----------- | ------------------------------------- |
-| `kup-planner-click`       |             | `CustomEvent<KupPlannerEventPayload>` |
-| `kup-planner-date-change` |             | `CustomEvent<KupPlannerEventPayload>` |
-| `kup-planner-ready`       |             | `CustomEvent<KupPlannerEventPayload>` |
+| Event                    | Description | Type                                  |
+| ------------------------ | ----------- | ------------------------------------- |
+| `kup-planner-click`      |             | `CustomEvent<KupPlannerEventPayload>` |
+| `kup-planner-datechange` |             | `CustomEvent<KupPlannerEventPayload>` |
+| `kup-planner-ready`      |             | `CustomEvent<KupPlannerEventPayload>` |
 
 
 ## Methods

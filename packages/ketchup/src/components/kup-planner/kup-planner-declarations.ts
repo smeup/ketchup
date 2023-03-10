@@ -1,4 +1,4 @@
-import { GanttRowType, GanttTask } from '@sme.up/gantt-component';
+import { GanttTask } from '@sme.up/gantt-component';
 import { Phase } from '@sme.up/gantt-component';
 import { GanttRow } from '@sme.up/gantt-component';
 import { KupEventPayload } from '../../components';
@@ -43,11 +43,10 @@ export interface KupPlannerGanttTask extends GanttTask {
 
 export interface KupPlannerPhase extends Phase {
     taskRowId: string;
-    phaseRowId: string;
     taskRow: KupDataRow;
+    phaseRowId: string;
     phaseRow: KupDataRow;
 }
-
 export class KupPlannerLastOnChangeReceived {
     private event: GanttRow;
     private dateTime = new Date();
