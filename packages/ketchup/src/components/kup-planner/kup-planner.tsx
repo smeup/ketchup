@@ -18,6 +18,7 @@ import { GenericObject } from '../../types/GenericTypes';
 import {
     KupPlannerEventPayload,
     KupPlannerGanttTask,
+    KupPlannerLastOnChangeReceived,
     KupPlannerPhase,
     KupPlannerProps,
     KupPlannerTaskAction,
@@ -120,6 +121,7 @@ export class KupPlanner {
 
     #kupManager: KupManager = kupManagerInstance();
     #rootPlanner;
+    #lastOnChangeReceived: KupPlannerLastOnChangeReceived;
 
     #renderReactPlannerElement() {
         this.#rootPlanner?.unmount();
@@ -136,18 +138,19 @@ export class KupPlanner {
     }
 
     #toTasks(data: KupDataDataset): GanttTask[] {
-        let tasks: GanttTask[] = data.rows?.map((value) => {
+        let tasks: GanttTask[] = data.rows?.map((row) => {
             let task: KupPlannerGanttTask = {
-                taskRowId: value.id,
-                id: value.cells[this.taskIdCol].value,
-                name: value.cells[this.taskNameCol].value,
-                startDate: value.cells[this.taskDates[0]].value,
-                endDate: value.cells[this.taskDates[1]].value,
-                secondaryStartDate: value.cells[this.taskPrevDates[0]].value,
-                secondaryEndDate: value.cells[this.taskPrevDates[1]].value,
+                taskRow: row,
+                taskRowId: row.id,
+                id: row.cells[this.taskIdCol].value,
+                name: row.cells[this.taskNameCol].value,
+                startDate: row.cells[this.taskDates[0]].value,
+                endDate: row.cells[this.taskDates[1]].value,
+                secondaryStartDate: row.cells[this.taskPrevDates[0]].value,
+                secondaryEndDate: row.cells[this.taskPrevDates[1]].value,
                 type: 'task',
                 valuesToShow: this.taskColumns.map(
-                    (col) => value.cells[col].value
+                    (col) => row.cells[col].value
                 ),
             };
             return task;
@@ -187,6 +190,22 @@ export class KupPlanner {
      */
     #handleOnClickOnPhase(): boolean {
         return true;
+    }
+
+    #emitOnChangeEventsReceived(nativeEvent: GanttRow): boolean {
+        let emitEvent: boolean = false;
+        if (!this.#lastOnChangeReceived) {
+            emitEvent = true;
+            this.#lastOnChangeReceived = new KupPlannerLastOnChangeReceived(
+                nativeEvent
+            );
+        } else if (!this.#lastOnChangeReceived.isEquivalent(nativeEvent)) {
+            this.#lastOnChangeReceived = new KupPlannerLastOnChangeReceived(
+                nativeEvent
+            );
+            emitEvent = true;
+        }
+        return emitEvent;
     }
 
     /*-------------------------------------------------*/
@@ -274,6 +293,8 @@ export class KupPlanner {
         if (task) {
             task.phases = data.rows?.map((row) => {
                 let phase: KupPlannerPhase = {
+                    taskRow: task.taskRow,
+                    phaseRow: row,
                     id: row.cells[this.phaseIdCol].value,
                     phaseRowId: row.id,
                     taskRowId: task.taskRowId,
@@ -315,8 +336,10 @@ export class KupPlanner {
     }
 
     handleOnDateChange(nativeEvent: GanttRow) {
-        console.log('handleOnDateChange', nativeEvent);
-        this.onKupDateChange(nativeEvent);
+        if (this.#emitOnChangeEventsReceived(nativeEvent)) {
+            console.log('handleOnDateChange', nativeEvent);
+            this.onKupDateChange(nativeEvent);
+        }
     }
 
     componentWillLoad() {
