@@ -16,6 +16,7 @@ import {
 } from '../../managers/kup-manager/kup-manager';
 import { GenericObject } from '../../types/GenericTypes';
 import {
+    defaultStylingOptions,
     KupPlannerEventPayload,
     KupPlannerGanttTask,
     KupPlannerLastOnChangeReceived,
@@ -34,6 +35,7 @@ import {
     Planner,
     PlannerProps,
 } from '@sme.up/gantt-component';
+import { getCellValueForDisplay } from '../../utils/cell-utils';
 
 @Component({
     tag: 'kup-planner',
@@ -113,6 +115,12 @@ export class KupPlanner {
     taskPrevDates: string[];
 
     @Prop()
+    listCellWidth: string = '300px';
+
+    @Prop()
+    showSecondaryDates: boolean = false;
+
+    @Prop()
     titleMess: string;
 
     /*-------------------------------------------------*/
@@ -171,7 +179,6 @@ export class KupPlanner {
     }
 
     /**
-     *
      * @param nativeEvent
      * @returns true if caller must call onKupClick
      */
@@ -305,8 +312,15 @@ export class KupPlanner {
                     secondaryEndDate: row.cells[this.phasePrevDates[1]].value,
                     type: 'phase',
                     color: row.cells[this.phaseColorCol].value,
-                    valuesToShow: this.phaseColumns.map(
-                        (col) => row.cells[col].value
+                    valuesToShow: this.phaseColumns.map((col) =>
+                        col == this.phaseDates[0]
+                            ? '#START#'
+                            : col == this.phaseDates[1]
+                            ? '#END#'
+                            : getCellValueForDisplay(
+                                  data.columns.find((kCol) => kCol.name == col),
+                                  row.cells[col]
+                              )
                     ),
                 };
                 return phase;
@@ -351,6 +365,12 @@ export class KupPlanner {
         this.plannerProps = {
             title: this.titleMess,
             items: this.#toTasks(this.data),
+            stylingOptions: {
+                ...defaultStylingOptions,
+                listCellWidth: this.listCellWidth,
+            },
+            hideLabel: true,
+            showSecondaryDates: this.showSecondaryDates,
             onClick: (nativeEvent) => this.handleOnClick(nativeEvent),
             onDateChange: (nativeEvent) => this.handleOnDateChange(nativeEvent),
         };

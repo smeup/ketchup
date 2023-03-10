@@ -2455,6 +2455,7 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        "listCellWidth": string;
         "phaseColParDep": string;
         "phaseColorCol": string;
         "phaseColumns": string[];
@@ -2471,6 +2472,7 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        "showSecondaryDates": boolean;
         "taskColumns": string[];
         "taskDates": string[];
         "taskIdCol": string;
@@ -5638,6 +5640,7 @@ declare namespace LocalJSX {
         "customStyle"?: string;
         "data"?: KupDataDataset;
         "dataRaw"?: any;
+        "listCellWidth"?: string;
         "onKup-planner-click"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
         "onKup-planner-datechange"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
         "onKup-planner-ready"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
@@ -5648,6 +5651,7 @@ declare namespace LocalJSX {
         "phaseIdCol"?: string;
         "phaseNameCol"?: string;
         "phasePrevDates"?: string[];
+        "showSecondaryDates"?: boolean;
         "taskColumns"?: string[];
         "taskDates"?: string[];
         "taskIdCol"?: string;
