@@ -305,8 +305,12 @@ export class KupPlanner {
                     secondaryEndDate: row.cells[this.phasePrevDates[1]].value,
                     type: 'phase',
                     color: row.cells[this.phaseColorCol].value,
-                    valuesToShow: this.phaseColumns.map(
-                        (col) => row.cells[col].value
+                    valuesToShow: this.phaseColumns.map((col) =>
+                        col == this.phaseDates[0]
+                            ? '#START#'
+                            : col == this.phaseDates[1]
+                            ? '#END#'
+                            : row.cells[col].value
                     ),
                 };
                 return phase;
@@ -351,6 +355,7 @@ export class KupPlanner {
         this.plannerProps = {
             title: this.titleMess,
             items: this.#toTasks(this.data),
+            stylingOptions: { listCellWidth: '200px' },
             onClick: (nativeEvent) => this.handleOnClick(nativeEvent),
             onDateChange: (nativeEvent) => this.handleOnDateChange(nativeEvent),
         };
