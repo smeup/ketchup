@@ -23,6 +23,8 @@ export enum KupPlannerProps {
     phaseColorCol = 'Phase color in hex format',
     phaseColParDep = 'Names of the parent phases',
     titleMess = 'Message displayed',
+    listCellWidth = 'Size of the cells inside to the left box near the gantt',
+    showSecondaryDates = 'Enable/disable display of secondary dates',
     data = 'Dataset containg the task list',
 }
 
@@ -67,3 +69,17 @@ export class KupPlannerLastOnChangeReceived {
         this.dateTime = new Date();
     }
 }
+
+export const defaultStylingOptions = {
+    listCellWidth: '300px',
+    rowHeight: 40,
+    barFill: 90,
+    projectProgressColor: '#CBCBCB',
+    projectProgressSelectedColor: '#CBCBCB',
+    projectBackgroundColor: '#CBCBCB',
+    projectBackgroundSelectedColor: '#CBCBCB',
+    barProgressColor: '#A2A415',
+    barProgressSelectedColor: '#A2A415',
+    barBackgroundColor: '#A2A415',
+    barBackgroundSelectedColor: '#A2A415',
+};
