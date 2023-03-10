@@ -35,7 +35,6 @@ import {
     Planner,
     PlannerProps,
 } from '@sme.up/gantt-component';
-import { KupObjects } from '../../managers/kup-objects/kup-objects';
 import { getCellValueForDisplay } from '../../utils/cell-utils';
 
 @Component({
@@ -297,7 +296,6 @@ export class KupPlanner {
      */
     @Method()
     async addPhases(taskId: string, data: KupDataDataset) {
-        const kupObjects = new KupObjects();
         const task = this.#getTask(taskId);
         if (task) {
             task.phases = data.rows?.map((row) => {
