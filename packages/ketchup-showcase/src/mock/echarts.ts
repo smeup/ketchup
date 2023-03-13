@@ -2,22 +2,22 @@ export const baseData = {
   columns: [
     {
       name: 'Col1',
-      title: 'Person',
+      title: 'Department',
       size: '10',
     },
     {
       name: 'Col2',
-      title: 'Value1',
+      title: 'Current Budget',
       size: '10',
     },
     {
       name: 'Col3',
-      title: 'Value2',
+      title: 'Projected Budget',
       size: '10',
     },
     {
       name: 'Col4',
-      title: 'Value3',
+      title: 'Allocated Budget',
       size: '10',
     },
   ],
@@ -28,9 +28,9 @@ export const baseData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'CASFRA',
+            k: 'Marketing',
           },
-          value: 'CASFRA',
+          value: 'Marketing',
         },
         Col2: {
           obj: {
@@ -44,9 +44,9 @@ export const baseData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100.60',
+            k: '100.50',
           },
-          value: '100.60',
+          value: '100.50',
         },
         Col4: {
           obj: {
@@ -64,9 +64,9 @@ export const baseData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
+            k: 'Sales',
           },
-          value: 'DELGIO',
+          value: 'Sales',
         },
         Col2: {
           obj: {
@@ -100,9 +100,9 @@ export const baseData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'PARFRA',
+            k: 'Administration',
           },
-          value: 'PARFRA',
+          value: 'Administration',
         },
         Col2: {
           obj: {
