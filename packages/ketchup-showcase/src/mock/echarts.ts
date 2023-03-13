@@ -2,23 +2,31 @@ export const baseData = {
   columns: [
     {
       name: 'Col1',
-      title: 'Person',
-      size: '10',
+      title: 'Budget type',
     },
     {
       name: 'Col2',
-      title: 'Value1',
-      size: '10',
+      title: 'Sales',
     },
     {
       name: 'Col3',
-      title: 'Value2',
-      size: '10',
+      title: 'Administration',
     },
     {
       name: 'Col4',
-      title: 'Value3',
-      size: '10',
+      title: 'Information Technology',
+    },
+    {
+      name: 'Col5',
+      title: 'Customer Support',
+    },
+    {
+      name: 'Col6',
+      title: 'Development',
+    },
+    {
+      name: 'Col7',
+      title: 'Marketing',
     },
   ],
   rows: [
@@ -28,33 +36,57 @@ export const baseData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'CASFRA',
+            k: 'ALLOCB',
           },
-          value: 'CASFRA',
+          value: 'Allocated Budget',
         },
         Col2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '10',
+            k: '4200',
           },
-          value: '10',
+          value: '4200',
         },
         Col3: {
           obj: {
             t: 'NR',
             p: '',
-            k: '100.60',
+            k: '3000',
           },
-          value: '100.60',
+          value: '3000',
         },
         Col4: {
           obj: {
             t: 'NR',
             p: '',
-            k: '55',
+            k: '20000',
           },
-          value: '55',
+          value: '20000',
+        },
+        Col5: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '35000',
+          },
+          value: '35000',
+        },
+        Col6: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '50000',
+          },
+          value: '50000',
+        },
+        Col7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '18000',
+          },
+          value: '18000',
         },
       },
     },
@@ -64,69 +96,57 @@ export const baseData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
+            k: 'ACTSPEND',
           },
-          value: 'DELGIO',
+          value: 'Actual Spending',
         },
         Col2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '6',
+            k: '5000',
           },
-          value: '6',
+          value: '5000',
         },
         Col3: {
           obj: {
             t: 'NR',
             p: '',
-            k: '67.8',
+            k: '14000',
           },
-          value: '67.8',
+          value: '14000',
         },
         Col4: {
           obj: {
             t: 'NR',
             p: '',
-            k: '33',
+            k: '28000',
           },
-          value: '33',
+          value: '28000',
         },
-      },
-    },
-    {
-      cells: {
-        Col1: {
-          obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'PARFRA',
-          },
-          value: 'PARFRA',
-        },
-        Col2: {
+        Col5: {
           obj: {
             t: 'NR',
             p: '',
-            k: '5',
+            k: '26000',
           },
-          value: '5',
+          value: '26000',
         },
-        Col3: {
+        Col6: {
           obj: {
             t: 'NR',
             p: '',
-            k: '120.06',
+            k: '42000',
           },
-          value: '120.06',
+          value: '42000',
         },
-        Col4: {
+        Col7: {
           obj: {
             t: 'NR',
             p: '',
-            k: '77',
+            k: '21000',
           },
-          value: '77',
+          value: '21000',
         },
       },
     },

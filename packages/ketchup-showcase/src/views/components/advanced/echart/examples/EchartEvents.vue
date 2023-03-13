@@ -17,6 +17,7 @@
           :axis.prop="axis"
           :data.prop="baseData"
           :types.prop="types1"
+          legend="hidden"
           @kup-echart-click="onPieChartClick()"
         />
       </div>

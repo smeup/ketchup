@@ -406,21 +406,21 @@ export default {
               {
                 cells: {
                   ROUTE: {
-                    value: 'tree',
-                  },
-                },
-                icon: 'file-tree',
-                value: 'Tree',
-                visible: true,
-              },
-              {
-                cells: {
-                  ROUTE: {
                     value: 'planner',
                   },
                 },
                 icon: 'multiline_chart',
                 value: 'Planner',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'tree',
+                  },
+                },
+                icon: 'file-tree',
+                value: 'Tree',
                 visible: true,
               },
             ],

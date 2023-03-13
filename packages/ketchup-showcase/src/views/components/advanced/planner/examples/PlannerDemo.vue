@@ -70,35 +70,92 @@ export default {
         },
         {
           prop: 'data',
-          description: 'The actual data of the planner.',
+          description: 'Dataset containg the tasks list',
           type: 'KupDataDataset',
           default: 'undefined',
           try: 'json',
         },
         {
-          prop: 'dataRaw',
-          description: '',
-          type: 'any',
+          prop: 'detailColorCol',
+          description: 'Column containing the detail color, in hex format',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'detailColorCol',
+          description: 'Column containing the detail color, in hex format',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'detailColumns',
+          description:
+            'Columns containing informations displayed in the left box, near the gantt of details',
+          type: 'string',
+          default: 'undefined',
+          isArray: true,
+          try: 'field',
+        },
+        {
+          prop: 'detailData',
+          description: 'Dataset containg the details list',
+          type: 'KupDataDataset',
           default: 'undefined',
           try: 'json',
         },
         {
+          prop: 'detailDates',
+          description:
+            'Columns containing detail duration, from (firstDate) to (secondDate)',
+          type: 'string',
+          default: 'undefined',
+          isArray: true,
+          try: 'field',
+        },
+        {
+          prop: 'detailIdCol',
+          description: 'Column containing unique detail identifier',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'detailNameCol',
+          description: 'Column containing detail name displayed',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'detailPrevDates',
+          description:
+            'Columns containing fForecast detail duration, from (firstDate) to (secondDate)',
+          type: 'string',
+          default: 'undefined',
+          isArray: true,
+          try: 'field',
+        },
+        {
           prop: 'listCellWidth',
-          description: '',
+          description:
+            'Total size of the cells inside to the left box, near the gantt',
           type: 'string',
           default: '300px',
           try: 'field',
         },
         {
           prop: 'phaseColorCol',
-          description: '',
+          description: 'Column containing the phase color in hex format',
           type: 'string',
           default: 'undefined',
           try: 'field',
         },
         {
           prop: 'phaseColumns',
-          description: '',
+          description:
+            'Columns containing informations displayed in the left box ,near the gantt of phases',
           type: 'string',
           default: 'undefined',
           try: 'json',
@@ -106,14 +163,15 @@ export default {
         },
         {
           prop: 'phaseColParDep',
-          description: '',
+          description: 'Column containing the name of the parent phases',
           type: 'string',
           default: 'undefined',
           try: 'field',
         },
         {
           prop: 'phaseDates',
-          description: '',
+          description:
+            'Columns containing phase duration, from (firstDate) to (secondDate)',
           type: 'string',
           default: 'undefined',
           try: 'field',
@@ -121,21 +179,22 @@ export default {
         },
         {
           prop: 'phaseIdCol',
-          description: '',
+          description: 'Column containing unique phase identifier',
           type: 'string',
           default: 'undefined',
           try: 'field',
         },
         {
           prop: 'phaseNameCol',
-          description: '',
+          description: 'Column containing phase name displayed',
           type: 'string',
           default: 'undefined',
           try: 'field',
         },
         {
           prop: 'phasePrevDates',
-          description: '',
+          description:
+            'Columns containing forecast phase duration, from (firstDate) to (secondDate)',
           type: 'string',
           default: 'undefined',
           try: 'json',
@@ -143,14 +202,15 @@ export default {
         },
         {
           prop: 'showSecondaryDates',
-          description: '',
+          description: 'Enable/disable display of secondary dates',
           type: 'boolean',
           default: 'false',
           try: 'switch',
         },
         {
           prop: 'taskColumns',
-          description: '',
+          description:
+            'Columns containing informations displayed in the left box, near the gantt',
           type: 'string',
           default: 'undefined',
           try: 'json',
@@ -158,7 +218,8 @@ export default {
         },
         {
           prop: 'taskDates',
-          description: '',
+          description:
+            'Columns containing task duration, from (firstDate) to (secondDate)',
           type: 'string',
           default: 'undefined',
           try: 'json',
@@ -166,21 +227,22 @@ export default {
         },
         {
           prop: 'taskIdCol',
-          description: '',
+          description: 'Column containing unique task identifier',
           type: 'string',
           default: 'undefined',
           try: 'field',
         },
         {
           prop: 'taskNameCol',
-          description: '',
+          description: 'Column containing task name displayed',
           type: 'string',
           default: 'undefined',
           try: 'field',
         },
         {
           prop: 'taskPrevDates',
-          description: '',
+          description:
+            'Columns containing forecast task duration, from (firstDate) to (secondDate)',
           type: 'string',
           default: 'undefined',
           try: 'json',
@@ -188,7 +250,7 @@ export default {
         },
         {
           prop: 'titleMess',
-          description: '',
+          description: 'Message displayed on top',
           type: 'string',
           default: 'undefined',
           try: 'field',

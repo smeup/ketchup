@@ -168,7 +168,7 @@ export class KupPlanner {
     phaseDates: string[];
 
     /**
-     * Column containing unique phase identifie
+     * Column containing unique phase identifier
      * @default null
      */
     @Prop()
