@@ -288,7 +288,7 @@ export class KupPlanner {
                     row,
                     this.taskIdCol,
                     this.taskNameCol,
-                    this.data.columns,
+                    data.columns,
                     this.taskColumns
                 );
                 let task: KupPlannerGanttTask = {
