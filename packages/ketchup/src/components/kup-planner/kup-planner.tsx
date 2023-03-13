@@ -23,6 +23,8 @@ import {
     KupPlannerPhase,
     KupPlannerProps,
     KupPlannerTaskAction,
+    KupPlannerGanttRowType,
+    KupPlannerDetail,
 } from './kup-planner-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
@@ -34,6 +36,7 @@ import {
     KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
 import {
+    Detail,
     GanttRow,
     GanttTask,
     Planner,
@@ -43,6 +46,7 @@ import { getCellValueForDisplay } from '../../utils/cell-utils';
 import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import { start } from 'repl';
 import { isAtLeastOneDateValid, sanitizeAllDates } from './kup-planner-helper';
+import { TaskType } from '@sme.up/gantt-component/dist/types/public-types';
 
 @Component({
     tag: 'kup-planner',
@@ -79,54 +83,164 @@ export class KupPlanner {
     @Prop()
     customStyle: string = '';
 
+    /**
+     * Dataset containg the tasks list
+     * @default null
+     */
     @Prop()
     data: KupDataDataset;
 
+    /**
+     * Dataset containg the details list
+     * @default null
+     */
     @Prop()
-    dataRaw: any;
+    detailData: KupDataDataset;
 
+    /**
+     * Column containing the detail color, in hex format
+     * @default null
+     */
     @Prop()
-    phaseColorCol: string;
+    detailColorCol: string;
 
+    /**
+     * Columns containing informations displayed in the left box, near the gantt of details
+     * @default null
+     */
     @Prop()
-    phaseColumns: string[];
+    detailColumns: string[];
 
+    /**
+     * Columns containing detail duration, from (firstDate) to (secondDate)
+     * @default null
+     */
     @Prop()
-    phaseColParDep: string;
+    detailDates: string[];
 
+    /**
+     * Column containing unique detail identifier
+     * @default null
+     */
     @Prop()
-    phaseDates: string[];
+    detailIdCol: string;
 
+    /**
+     * Column containing detail name displayed
+     * @default null
+     */
     @Prop()
-    phaseIdCol: string;
+    detailNameCol: string;
 
+    /**
+     * Columns containing fForecast detail duration, from (firstDate) to (secondDate)
+     * @default null
+     */
     @Prop()
-    phaseNameCol: string;
+    detailPrevDates: string[];
 
-    @Prop()
-    phasePrevDates: string[];
-
-    @Prop()
-    taskColumns: string[];
-
-    @Prop()
-    taskDates: string[];
-
-    @Prop()
-    taskIdCol: string;
-
-    @Prop()
-    taskNameCol: string;
-
-    @Prop()
-    taskPrevDates: string[];
-
+    /**
+     * Total size of the cells inside to the left box, near the gantt
+     * @default '300px'
+     */
     @Prop()
     listCellWidth: string = '300px';
 
+    /**
+     * Column containing the phase color in hex format
+     * @default null
+     */
+    @Prop()
+    phaseColorCol: string;
+
+    /**
+     * Columns containing informations displayed in the left box ,near the gantt of phases
+     * @default null
+     */
+    @Prop()
+    phaseColumns: string[];
+
+    /**
+     * Column containing the name of the parent phases
+     * @default null
+     */
+    @Prop()
+    phaseColParDep: string;
+
+    /**
+     * Columns containing phase duration, from (firstDate) to (secondDate)
+     * @default null
+     */
+    @Prop()
+    phaseDates: string[];
+
+    /**
+     * Column containing unique phase identifie
+     * @default null
+     */
+    @Prop()
+    phaseIdCol: string;
+
+    /**
+     * Column containing phase name displayed
+     * @default null
+     */
+    @Prop()
+    phaseNameCol: string;
+
+    /**
+     * Columns containing forecast phase duration, from (firstDate) to (secondDate)
+     * @default null
+     */
+    @Prop()
+    phasePrevDates: string[];
+
+    /**
+     * Enable/disable display of secondary dates
+     * @default false
+     */
     @Prop()
     showSecondaryDates: boolean = false;
 
+    /**
+     * Columns containing informations displayed in the left box, near the gantt
+     * @default null
+     */
+    @Prop()
+    taskColumns: string[];
+
+    /**
+     * Columns containing task duration, from (firstDate) to (secondDate)
+     * @default null
+     */
+    @Prop()
+    taskDates: string[];
+
+    /**
+     * Column containing unique task identifier
+     * @default null
+     */
+    @Prop()
+    taskIdCol: string;
+
+    /**
+     * Column containing task name displayed
+     * @default null
+     */
+    @Prop()
+    taskNameCol: string;
+
+    /**
+     * Columns containing forecast task duration, from (firstDate) to (secondDate)
+     * @default null
+     */
+    @Prop()
+    taskPrevDates: string[];
+
+    /**
+     * Message displayed on top
+     * @default null
+     */
     @Prop()
     titleMess: string;
 
@@ -183,18 +297,54 @@ export class KupPlanner {
                     endDate: datesSanitized.dateValues[1],
                     secondaryStartDate: datesSanitized.secDateValues[0],
                     secondaryEndDate: datesSanitized.secDateValues[1],
-                    type: 'task',
+                    type: 'task' as TaskType,
                     valuesToShow: valuesToShow,
+                    rowType: KupPlannerGanttRowType.TASK,
                 };
                 return task;
             });
         return tasks;
     }
 
+    #toDetails(data: KupDataDataset): Detail[] {
+        let details: Detail[] = [];
+        data.rows.forEach((row) => {
+            const detailId = row.cells[this.detailIdCol].value;
+            const detailNameId = row.cells[this.detailNameCol].value;
+            const valuesToShow = this.detailColumns.map(
+                (col) => row.cells[col].value
+            );
+
+            let detail: Detail = details.find((det) => det.id == detailId);
+            if (!detail) {
+                detail = {
+                    id: detailId,
+                    name: detailNameId,
+                    type: 'timeline',
+                    valuesToShow: valuesToShow,
+                    schedule: [],
+                };
+                details.push(detail);
+            }
+            detail.schedule.push({
+                startDate: row.cells[this.detailDates[0]].value,
+                endDate: row.cells[this.detailDates[1]].value,
+                color: this.detailColorCol
+                    ? row.cells[this.detailColorCol].value
+                    : '#D9D9D8',
+                selectedColor: this.detailColorCol
+                    ? row.cells[this.detailColorCol].value
+                    : '#D9D9D8',
+            });
+        });
+
+        return details;
+    }
+
     #getTask(taskId: string): KupPlannerGanttTask {
-        return (this.plannerProps.items as KupPlannerGanttTask[]).find(
-            (task) => task.id == taskId
-        );
+        return (
+            this.plannerProps.mainGantt.items as KupPlannerGanttTask[]
+        ).find((task) => task.id == taskId);
     }
 
     #removePhases(taskId: string) {
@@ -216,11 +366,16 @@ export class KupPlanner {
     }
 
     /**
-     *
-     * @param row
      * @returns true if caller must call onKupClick
      */
     #handleOnClickOnPhase(): boolean {
+        return true;
+    }
+
+    /**
+     * @returns true if caller must call onKupClick
+     */
+    #handleOnClickOnDetail(): boolean {
         return true;
     }
 
@@ -367,9 +522,10 @@ export class KupPlanner {
                         endDate: datesSanitized.dateValues[1],
                         secondaryStartDate: datesSanitized.secDateValues[0],
                         secondaryEndDate: datesSanitized.secDateValues[1],
-                        type: 'phase',
+                        type: 'task' as TaskType,
                         color: row.cells[this.phaseColorCol].value,
                         valuesToShow: valuesToShow,
+                        rowType: KupPlannerGanttRowType.PHASE,
                     };
                     return phase;
                 });
@@ -378,10 +534,12 @@ export class KupPlanner {
         this.plannerProps = { ...this.plannerProps };
     }
 
-    handleOnClick(nativeEvent: GanttRow) {
+    handleOnClick(
+        nativeEvent: KupPlannerGanttTask | KupPlannerPhase | KupPlannerDetail
+    ) {
         console.log('handleOnClick', nativeEvent);
-        switch (nativeEvent.type) {
-            case 'task':
+        switch (nativeEvent.rowType) {
+            case KupPlannerGanttRowType.TASK:
                 const taskAction = (nativeEvent as KupPlannerGanttTask).phases
                     ? KupPlannerTaskAction.onClosing
                     : KupPlannerTaskAction.onOpening;
@@ -389,8 +547,13 @@ export class KupPlanner {
                     this.onKupClick(nativeEvent, taskAction);
                 }
                 break;
-            case 'phase':
+            case KupPlannerGanttRowType.PHASE:
                 if (this.#handleOnClickOnPhase()) {
+                    this.onKupClick(nativeEvent);
+                }
+                break;
+            case KupPlannerGanttRowType.DETAIL:
+                if (this.#handleOnClickOnDetail()) {
                     this.onKupClick(nativeEvent);
                 }
                 break;
@@ -411,16 +574,35 @@ export class KupPlanner {
 
     componentDidLoad() {
         this.plannerProps = {
-            title: this.titleMess,
-            items: this.#toTasks(this.data),
-            stylingOptions: {
-                ...defaultStylingOptions,
-                listCellWidth: this.listCellWidth,
+            mainGantt: {
+                title: this.titleMess,
+                items: this.#toTasks(this.data),
+                stylingOptions: {
+                    ...defaultStylingOptions,
+                    listCellWidth: this.listCellWidth,
+                },
+                hideLabel: true,
+                showSecondaryDates: this.showSecondaryDates,
+                onClick: (nativeEvent: KupPlannerGanttTask | KupPlannerPhase) =>
+                    this.handleOnClick(nativeEvent),
+                onDateChange: (nativeEvent) =>
+                    this.handleOnDateChange(nativeEvent),
             },
-            hideLabel: true,
-            showSecondaryDates: this.showSecondaryDates,
-            onClick: (nativeEvent) => this.handleOnClick(nativeEvent),
-            onDateChange: (nativeEvent) => this.handleOnDateChange(nativeEvent),
+            secondaryGantt: this.detailData
+                ? {
+                      title: '',
+                      items: this.#toDetails(this.detailData),
+                      stylingOptions: {
+                          ...defaultStylingOptions,
+                          listCellWidth: this.listCellWidth,
+                      },
+                      hideLabel: true,
+                      onClick: (nativeEvent: KupPlannerDetail) =>
+                          this.handleOnClick(nativeEvent),
+                      onDateChange: (nativeEvent) =>
+                          this.handleOnDateChange(nativeEvent),
+                  }
+                : undefined,
         };
 
         this.#renderReactPlannerElement();

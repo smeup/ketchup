@@ -1,4 +1,4 @@
-import { GanttTask } from '@sme.up/gantt-component';
+import { Detail, GanttTask } from '@sme.up/gantt-component';
 import { Phase } from '@sme.up/gantt-component';
 import { GanttRow } from '@sme.up/gantt-component';
 import { KupEventPayload } from '../../components';
@@ -10,22 +10,35 @@ import { KupDataRow } from '../../managers/kup-data/kup-data-declarations';
  */
 export enum KupPlannerProps {
     customStyle = 'Custom style of the component.',
-    taskIdCol = 'Unique task identifier',
-    taskNameCol = 'Task name displayed',
-    taskDates = 'Task duration, from (firstDate) to (secondDate)',
-    taskPrevDates = 'Forecast task duration, from (firstDate) to (secondDate)',
-    taskColumns = 'Columns containing informations displayed on the left box near the gantt',
-    phaseIdCol = 'Unique phase identifier',
-    phaseNameCol = 'Phase name displayed',
-    phaseDates = 'Phase duration, from (firstDate) to (secondDate)',
-    phasePrevDates = 'Forecast phase duration, from (firstDate) to (secondDate)',
-    phaseColumns = 'Columns containing informations displayed on the left box near the gantt',
-    phaseColorCol = 'Phase color in hex format',
-    phaseColParDep = 'Names of the parent phases',
-    titleMess = 'Message displayed',
-    listCellWidth = 'Size of the cells inside to the left box near the gantt',
+    data = 'Dataset containg the tasks list',
+    detailData = 'Dataset containg the details list',
+
+    detailColorCol = 'Column containing the detail color, in hex format',
+    detailColumns = 'Columns containing informations displayed in the left box, near the gantt of details',
+    detailDates = 'Columns containing detail duration, from (firstDate) to (secondDate)',
+    detailIdCol = 'Column containing unique detail identifier',
+    detailNameCol = 'Column containing detail name displayed',
+    detailPrevDates = 'Columns containing forecast detail duration, from (firstDate) to (secondDate)',
+
+    listCellWidth = 'Total size of the cells inside to the left box, near the gantt',
+
+    phaseColorCol = 'Column containing the phase color in hex format',
+    phaseColumns = 'Columns containing informations displayed in the left box ,near the gantt of phases',
+    phaseColParDep = 'Column containing the name of the parent phases',
+    phaseDates = 'Columns containing phase duration, from (firstDate) to (secondDate)',
+    phaseIdCol = 'Column containing unique phase identifier',
+    phaseNameCol = 'Column containing phase name displayed',
+    phasePrevDates = 'Columns containing forecast phase duration, from (firstDate) to (secondDate)',
+
     showSecondaryDates = 'Enable/disable display of secondary dates',
-    data = 'Dataset containg the task list',
+
+    taskColumns = 'Columns containing informations displayed in the left box, near the gantt',
+    taskDates = 'Columns containing task duration, from (firstDate) to (secondDate)',
+    taskIdCol = 'Column containing unique task identifier',
+    taskNameCol = 'Column containing task name displayed',
+    taskPrevDates = 'Columns containing forecast task duration, from (firstDate) to (secondDate)',
+
+    titleMess = 'Message displayed on top',
 }
 
 export enum KupPlannerTaskAction {
@@ -38,9 +51,21 @@ export interface KupPlannerEventPayload extends KupEventPayload {
     taskAction?: KupPlannerTaskAction;
 }
 
+export enum KupPlannerGanttRowType {
+    TASK = 'task',
+    PHASE = 'phase',
+    DETAIL = 'detail',
+}
+
 export interface KupPlannerGanttTask extends GanttTask {
     taskRowId: string;
     taskRow: KupDataRow;
+    rowType: KupPlannerGanttRowType;
+}
+export interface KupPlannerDetail extends Detail {
+    detailRowId: string;
+    detailRow: KupDataRow;
+    rowType: KupPlannerGanttRowType;
 }
 
 export interface KupPlannerPhase extends Phase {
@@ -48,6 +73,7 @@ export interface KupPlannerPhase extends Phase {
     taskRow: KupDataRow;
     phaseRowId: string;
     phaseRow: KupDataRow;
+    rowType: KupPlannerGanttRowType;
 }
 
 export class KupPlannerLastOnChangeReceived {
