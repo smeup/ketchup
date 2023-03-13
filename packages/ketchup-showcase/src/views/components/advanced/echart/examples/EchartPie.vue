@@ -6,7 +6,7 @@
           :axis.prop="axis"
           :data.prop="baseData"
           :types.prop="types"
-          legend="right"
+          legend="hidden"
       /></div>
     </div>
   </div>

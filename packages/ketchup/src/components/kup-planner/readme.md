@@ -23,7 +23,7 @@
 | `phaseColorCol`      | `phase-color-col`      | Column containing the phase color in hex format                                      | `string`         | `undefined` |
 | `phaseColumns`       | --                     | Columns containing informations displayed in the left box ,near the gantt of phases  | `string[]`       | `undefined` |
 | `phaseDates`         | --                     | Columns containing phase duration, from (firstDate) to (secondDate)                  | `string[]`       | `undefined` |
-| `phaseIdCol`         | `phase-id-col`         | Column containing unique phase identifie                                             | `string`         | `undefined` |
+| `phaseIdCol`         | `phase-id-col`         | Column containing unique phase identifier                                            | `string`         | `undefined` |
 | `phaseNameCol`       | `phase-name-col`       | Column containing phase name displayed                                               | `string`         | `undefined` |
 | `phasePrevDates`     | --                     | Columns containing forecast phase duration, from (firstDate) to (secondDate)         | `string[]`       | `undefined` |
 | `showSecondaryDates` | `show-secondary-dates` | Enable/disable display of secondary dates                                            | `boolean`        | `false`     |
