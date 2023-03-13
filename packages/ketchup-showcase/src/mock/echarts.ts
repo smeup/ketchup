@@ -36,9 +36,9 @@ export const baseData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '4200',
+            k: '10',
           },
-          value: '4200',
+          value: '10',
         },
         Col3: {
           obj: {
@@ -52,33 +52,9 @@ export const baseData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '20000',
+            k: '55',
           },
-          value: '20000',
-        },
-        Col5: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '35000',
-          },
-          value: '35000',
-        },
-        Col6: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '50000',
-          },
-          value: '50000',
-        },
-        Col7: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '18000',
-          },
-          value: '18000',
+          value: '55',
         },
       },
     },
@@ -96,25 +72,25 @@ export const baseData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '5000',
+            k: '6',
           },
-          value: '5000',
+          value: '6',
         },
         Col3: {
           obj: {
             t: 'NR',
             p: '',
-            k: '14000',
+            k: '67.8',
           },
-          value: '14000',
+          value: '67.8',
         },
         Col4: {
           obj: {
             t: 'NR',
             p: '',
-            k: '28000',
+            k: '33',
           },
-          value: '28000',
+          value: '33',
         },
       },
     },
@@ -132,25 +108,25 @@ export const baseData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '26000',
+            k: '5',
           },
-          value: '26000',
+          value: '5',
         },
-        Col6: {
+        Col3: {
           obj: {
             t: 'NR',
             p: '',
-            k: '42000',
+            k: '120.06',
           },
-          value: '42000',
+          value: '120.06',
         },
-        Col7: {
+        Col4: {
           obj: {
             t: 'NR',
             p: '',
-            k: '21000',
+            k: '77',
           },
-          value: '21000',
+          value: '77',
         },
       },
     },

@@ -3,13 +3,10 @@
     <div class="demo-container">
       <div class="kup-container">
         <kup-echart
-          :axis.prop="chartProps.axis"
-          :data.prop="chartProps.data"
-          :legend.prop="chartProps.legend"
-          :series.prop="chartProps.series"
-          :sizeX.prop="chartProps.sizeX"
-          :sizeY.prop="chartProps.sizeY"
-          :types.prop="chartProps.types"
+          :axis.prop="axis"
+          :data.prop="data"
+          :legend.prop="legend"
+          :types.prop="types"
       /></div>
     </div>
   </div>
