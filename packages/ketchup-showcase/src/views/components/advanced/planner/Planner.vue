@@ -2,6 +2,9 @@
   <div>
     <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
       <template v-slot:0>
+        <planner-demo></planner-demo>
+      </template>
+      <template v-slot:1>
         <planner-basic></planner-basic>
       </template>
     </comp>
@@ -11,10 +14,12 @@
 <script>
 import Comp from '@/views/templates/Comp';
 import PlannerBasic from './examples/PlannerBasic';
+import PlannerDemo from './examples/PlannerDemo';
 
 export default {
   components: {
     PlannerBasic,
+    PlannerDemo,
     Comp,
   },
 

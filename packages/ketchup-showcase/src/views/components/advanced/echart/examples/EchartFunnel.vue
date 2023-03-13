@@ -3,17 +3,19 @@
     <div class="demo-container">
       <div class="kup-container">
         <kup-echart
-          :axis.prop="axis"
-          :data.prop="data"
-          :types.prop="types"
-          :legend.prop="legend"
+          :axis.prop="chartProps.axis"
+          :data.prop="chartProps.data"
+          :legend.prop="chartProps.legend"
+          :series.prop="chartProps.series"
+          :sizeX.prop="chartProps.sizeX"
+          :sizeY.prop="chartProps.sizeY"
+          :types.prop="chartProps.types"
       /></div>
     </div>
   </div>
 </template>
 
 <script>
-import { baseData } from '@/mock/chart';
 export default {
   data() {
     return {

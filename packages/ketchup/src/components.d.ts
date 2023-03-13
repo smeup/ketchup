@@ -2521,7 +2521,7 @@ export namespace Components {
          */
         "phaseDates": string[];
         /**
-          * Column containing unique phase identifie
+          * Column containing unique phase identifier
           * @default null
          */
         "phaseIdCol": string;
@@ -5807,7 +5807,7 @@ declare namespace LocalJSX {
          */
         "phaseDates"?: string[];
         /**
-          * Column containing unique phase identifie
+          * Column containing unique phase identifier
           * @default null
          */
         "phaseIdCol"?: string;

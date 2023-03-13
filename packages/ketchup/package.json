@@ -34,7 +34,9 @@
         "test:spec": "npm run build:setup && stencil test --spec",
         "test:e2e": "npm run build:setup && stencil test --e2e",
         "test": "npm run build:setup && stencil test --spec --e2e",
-        "test.watch": "npm run build:setup && stencil test --spec --e2e --watchAll"
+        "test.watch": "npm run build:setup && stencil test --spec --e2e --watchAll",
+        "react:dev": "npx link ../../../gantt-component && cd ../../../gantt-component && npx link ../ketchup/packages/ketchup/node_modules/react ../ketchup/packages/ketchup/node_modules/react-dom && cd ../ketchup/packages/ketchup",
+        "jenkins:react:dev": "npx link ../../../GanttComponent-Develop-Continuum && cd ../../../GanttComponent-Develop-Continuum && npx link ../KetchUP-Develop-Continuum/packages/ketchup/node_modules/react ../KetchUP-Develop-Continuum/packages/ketchup/node_modules/react-dom && cd ../KetchUP-Develop-Continuum/packages/ketchup"
     },
     "dependencies": {
         "@fullcalendar/core": "^5.11.0",
@@ -59,7 +61,7 @@
         "vanilla-picker": "^2.12.1"
     },
     "devDependencies": {
-        "@stencil/core": "^3.0.1",
+        "@stencil/core": "^3.1.0",
         "@stencil/sass": "^1.4.1",
         "@stencil/react-output-target": "0.3.1",
         "@types/d3-shape": "^3.0.2",
