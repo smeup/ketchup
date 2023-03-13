@@ -49,6 +49,7 @@ export interface KupPlannerPhase extends Phase {
     phaseRowId: string;
     phaseRow: KupDataRow;
 }
+
 export class KupPlannerLastOnChangeReceived {
     private event: GanttRow;
     private dateTime = new Date();
@@ -83,3 +84,8 @@ export const defaultStylingOptions = {
     barBackgroundColor: '#A2A415',
     barBackgroundSelectedColor: '#A2A415',
 };
+
+export interface KupPlannerDatesSanitized {
+    dateValues: string[];
+    secDateValues: string[];
+}
