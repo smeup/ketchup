@@ -55,15 +55,35 @@ export const mockedTaskData = {
           value: 'G456',
         },
         START: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '',
+          },
           value: '2022-06-04',
         },
         END: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '',
+          },
           value: '2022-12-04',
         },
         SEC_START: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '',
+          },
           value: '2022-06-04',
         },
         SEC_END: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '',
+          },
           value: '2022-12-04',
         },
       },
@@ -137,15 +157,35 @@ export const mockedPhaseData = {
           value: 'F001',
         },
         START: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '',
+          },
           value: '2022-07-04',
         },
         END: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '',
+          },
           value: '2022-08-04',
         },
         SEC_START: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '',
+          },
           value: '2022-07-04',
         },
         SEC_END: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '',
+          },
           value: '2022-08-04',
         },
         PHASE_COL: {
@@ -231,15 +271,35 @@ export function getMockupTaskDatas() {
             value: 'G456',
           },
           START: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
             value: '2022-06-04',
           },
           END: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
             value: '2022-12-04',
           },
           SEC_START: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
             value: '2022-06-04',
           },
           SEC_END: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
             value: '2022-12-04',
           },
         },
@@ -254,15 +314,35 @@ export function getMockupTaskDatas() {
             value: 'G457',
           },
           START: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
             value: '2022-07-04',
           },
           END: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
             value: '2022-12-04',
           },
           SEC_START: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
             value: '2022-07-04',
           },
           SEC_END: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
             value: '2022-12-04',
           },
         },
@@ -339,9 +419,19 @@ export function getMockupPhaseDatas(taskRowId) {
             value: 'F00' + (taskRowId + 1),
           },
           START: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
             value: '2022-07-04',
           },
           END: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
             value: '2022-08-04',
           },
           SEC_START: {
