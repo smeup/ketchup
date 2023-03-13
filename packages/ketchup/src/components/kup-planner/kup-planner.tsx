@@ -30,15 +30,25 @@ import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { createRoot } from 'react-dom/client';
 import React from 'react';
-import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataCell,
+    KupDataDataset,
+    KupDataRowCells,
+} from '../../managers/kup-data/kup-data-declarations';
 import {
     Detail,
     GanttRow,
     GanttTask,
     Planner,
     PlannerProps,
+    validDates,
 } from '@sme.up/gantt-component';
 import { getCellValueForDisplay } from '../../utils/cell-utils';
+import {
+    getValuesToShow,
+    isAtLeastOneDateValid,
+    sanitizeAllDates,
+} from './kup-planner-helper';
 import { TaskType } from '@sme.up/gantt-component/dist/types/public-types';
 
 @Component({
@@ -260,58 +270,93 @@ export class KupPlanner {
     }
 
     #toTasks(data: KupDataDataset): GanttTask[] {
-        let tasks: GanttTask[] = data.rows?.map((row) => {
-            let task: KupPlannerGanttTask = {
-                taskRow: row,
-                taskRowId: row.id,
-                id: row.cells[this.taskIdCol].value,
-                name: row.cells[this.taskNameCol].value,
-                startDate: row.cells[this.taskDates[0]].value,
-                endDate: row.cells[this.taskDates[1]].value,
-                secondaryStartDate: row.cells[this.taskPrevDates[0]].value,
-                secondaryEndDate: row.cells[this.taskPrevDates[1]].value,
-                type: 'task' as TaskType,
-                valuesToShow: this.taskColumns.map(
-                    (col) => row.cells[col].value
-                ),
-                rowType: KupPlannerGanttRowType.TASK,
-            };
-            return task;
-        });
+        let tasks: GanttTask[] = data.rows
+            ?.filter((row) =>
+                isAtLeastOneDateValid(
+                    row.cells[this.taskDates[0]],
+                    row.cells[this.taskDates[1]]
+                )
+            )
+            .map((row) => {
+                const datesSanitized = sanitizeAllDates(
+                    row.cells[this.taskDates[0]],
+                    row.cells[this.taskDates[1]],
+                    row.cells[this.taskPrevDates[0]],
+                    row.cells[this.taskPrevDates[1]]
+                );
+                const valuesToShow = getValuesToShow(
+                    row,
+                    this.taskIdCol,
+                    this.taskNameCol,
+                    data.columns,
+                    this.taskColumns
+                );
+                let task: KupPlannerGanttTask = {
+                    taskRow: row,
+                    taskRowId: row.id,
+                    id: row.cells[this.taskIdCol].value,
+                    name: row.cells[this.taskNameCol].value,
+                    startDate: datesSanitized.dateValues[0],
+                    endDate: datesSanitized.dateValues[1],
+                    secondaryStartDate: datesSanitized.secDateValues[0],
+                    secondaryEndDate: datesSanitized.secDateValues[1],
+                    type: 'task' as TaskType,
+                    valuesToShow: valuesToShow,
+                    rowType: KupPlannerGanttRowType.TASK,
+                };
+                return task;
+            });
         return tasks;
     }
 
     #toDetails(data: KupDataDataset): Detail[] {
         let details: Detail[] = [];
-        data.rows.forEach((row) => {
-            const detailId = row.cells[this.detailIdCol].value;
-            const detailNameId = row.cells[this.detailNameCol].value;
-            const valuesToShow = this.detailColumns.map(
-                (col) => row.cells[col].value
-            );
+        data.rows
+            .filter((row) =>
+                isAtLeastOneDateValid(
+                    row.cells[this.detailDates[0]],
+                    row.cells[this.detailDates[1]]
+                )
+            )
+            .forEach((row) => {
+                const detailId = row.cells[this.detailIdCol].value;
+                const detailNameId = row.cells[this.detailNameCol].value;
 
-            let detail: Detail = details.find((det) => det.id == detailId);
-            if (!detail) {
-                detail = {
-                    id: detailId,
-                    name: detailNameId,
-                    type: 'timeline',
-                    valuesToShow: valuesToShow,
-                    schedule: [],
-                };
-                details.push(detail);
-            }
-            detail.schedule.push({
-                startDate: row.cells[this.detailDates[0]].value,
-                endDate: row.cells[this.detailDates[1]].value,
-                color: this.detailColorCol
-                    ? row.cells[this.detailColorCol].value
-                    : '#D9D9D8',
-                selectedColor: this.detailColorCol
-                    ? row.cells[this.detailColorCol].value
-                    : '#D9D9D8',
+                const datesSanitized = sanitizeAllDates(
+                    row.cells[this.detailDates[0]],
+                    row.cells[this.detailDates[1]]
+                );
+
+                const valuesToShow = getValuesToShow(
+                    row,
+                    this.detailIdCol,
+                    this.detailNameCol,
+                    data.columns,
+                    this.detailColumns
+                );
+
+                let detail: Detail = details.find((det) => det.id == detailId);
+                if (!detail) {
+                    detail = {
+                        id: detailId,
+                        name: detailNameId,
+                        type: 'timeline',
+                        valuesToShow: valuesToShow,
+                        schedule: [],
+                    };
+                    details.push(detail);
+                }
+                detail.schedule.push({
+                    startDate: datesSanitized.dateValues[0],
+                    endDate: datesSanitized.dateValues[1],
+                    color: this.detailColorCol
+                        ? row.cells[this.detailColorCol].value
+                        : '#D9D9D8',
+                    selectedColor: this.detailColorCol
+                        ? row.cells[this.detailColorCol].value
+                        : '#D9D9D8',
+                });
             });
-        });
 
         return details;
     }
@@ -453,35 +498,59 @@ export class KupPlanner {
     async addPhases(taskId: string, data: KupDataDataset) {
         const task = this.#getTask(taskId);
         if (task) {
-            task.phases = data.rows?.map((row) => {
-                let phase: KupPlannerPhase = {
-                    taskRow: task.taskRow,
-                    phaseRow: row,
-                    id: row.cells[this.phaseIdCol].value,
-                    phaseRowId: row.id,
-                    taskRowId: task.taskRowId,
-                    name: row.cells[this.phaseNameCol].value,
-                    startDate: row.cells[this.phaseDates[0]].value,
-                    endDate: row.cells[this.phaseDates[1]].value,
-                    secondaryStartDate: row.cells[this.phasePrevDates[0]].value,
-                    secondaryEndDate: row.cells[this.phasePrevDates[1]].value,
-                    type: 'task' as TaskType,
-                    color: row.cells[this.phaseColorCol].value,
-                    valuesToShow: this.phaseColumns.map((col) =>
-                        col == this.phaseDates[0]
-                            ? '#START#'
-                            : col == this.phaseDates[1]
-                            ? '#END#'
-                            : getCellValueForDisplay(
-                                  data.columns.find((kCol) => kCol.name == col),
-                                  row.cells[col]
-                              )
-                    ),
-                    selectedColor: row.cells[this.phaseColorCol].value,
-                    rowType: KupPlannerGanttRowType.PHASE,
-                };
-                return phase;
-            });
+            task.phases = data.rows
+                ?.filter((row) =>
+                    isAtLeastOneDateValid(
+                        row.cells[this.phaseDates[0]],
+                        row.cells[this.phaseDates[1]]
+                    )
+                )
+                .map((row) => {
+                    const datesSanitized = sanitizeAllDates(
+                        row.cells[this.phaseDates[0]],
+                        row.cells[this.phaseDates[1]],
+                        row.cells[this.phasePrevDates[0]],
+                        row.cells[this.phasePrevDates[1]]
+                    );
+                    const valuesToShow = getValuesToShow(
+                        row,
+                        this.phaseIdCol,
+                        this.phaseNameCol,
+                        data.columns,
+                        this.phaseColumns,
+                        () =>
+                            this.phaseColumns.map((col) =>
+                                col == this.phaseDates[0]
+                                    ? '#START#'
+                                    : col == this.phaseDates[1]
+                                    ? '#END#'
+                                    : getCellValueForDisplay(
+                                          data.columns.find(
+                                              (kCol) => kCol.name == col
+                                          ),
+                                          row.cells[col]
+                                      )
+                            )
+                    );
+
+                    let phase: KupPlannerPhase = {
+                        taskRow: task.taskRow,
+                        phaseRow: row,
+                        id: row.cells[this.phaseIdCol].value,
+                        phaseRowId: row.id,
+                        taskRowId: task.taskRowId,
+                        name: row.cells[this.phaseNameCol].value,
+                        startDate: datesSanitized.dateValues[0],
+                        endDate: datesSanitized.dateValues[1],
+                        secondaryStartDate: datesSanitized.secDateValues[0],
+                        secondaryEndDate: datesSanitized.secDateValues[1],
+                        type: 'task' as TaskType,
+                        color: row.cells[this.phaseColorCol].value,
+                        valuesToShow: valuesToShow,
+                        rowType: KupPlannerGanttRowType.PHASE,
+                    };
+                    return phase;
+                });
         }
 
         this.plannerProps = { ...this.plannerProps };
