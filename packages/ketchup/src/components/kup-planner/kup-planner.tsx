@@ -532,23 +532,6 @@ export class KupPlanner {
                                       )
                             )
                     );
-                    // this.phaseColumns?.length >= 2
-                    //     ? this.phaseColumns.map((col) =>
-                    //           col == this.phaseDates[0]
-                    //               ? '#START#'
-                    //               : col == this.phaseDates[1]
-                    //               ? '#END#'
-                    //               : getCellValueForDisplay(
-                    //                     data.columns.find(
-                    //                         (kCol) => kCol.name == col
-                    //                     ),
-                    //                     row.cells[col]
-                    //                 )
-                    //       )
-                    //     : [
-                    //           row.cells[this.phaseIdCol].value,
-                    //           row.cells[this.phaseNameCol].value,
-                    //       ];
 
                     let phase: KupPlannerPhase = {
                         taskRow: task.taskRow,
