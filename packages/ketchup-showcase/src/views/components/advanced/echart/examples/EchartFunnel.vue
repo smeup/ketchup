@@ -19,173 +19,155 @@
 export default {
   data() {
     return {
-      chartProps: {
-        axis: 'INT',
-        chartTitle: {},
-        colors: [],
-        consistencyCheck: true,
-        customStyle: '',
-        data: {
-          columns: [
-            {
-              isEditable: false,
-              isKey: false,
-              name: 'INT',
-              obj: {
-                k: '',
-                p: 'STR',
-                t: 'J1',
-              },
-              title: 'Significato indice',
-              tooltip: true,
+      axis: 'INT',
+      types: ['Funnel'],
+      data: {
+        columns: [
+          {
+            isEditable: false,
+            isKey: false,
+            name: 'INT',
+            obj: {
+              k: '',
+              p: 'STR',
+              t: 'J1',
             },
-            {
-              decimals: 0,
-              isEditable: false,
-              isKey: false,
-              name: 'NUM',
-              obj: {
-                k: '',
-                p: '',
-                t: 'NR',
-              },
-              title: 'Valore',
-              tooltip: false,
+            title: 'Description',
+            tooltip: true,
+          },
+          {
+            decimals: 0,
+            isEditable: false,
+            isKey: false,
+            name: 'NUM',
+            obj: {
+              k: '',
+              p: '',
+              t: 'NR',
             },
-          ],
-          rows: [
-            {
-              cells: {
-                NUM: {
-                  obj: {
-                    k: '124',
-                    p: '',
-                    t: 'NR',
-                  },
-                  value: '124',
+            title: 'Value',
+            tooltip: false,
+          },
+        ],
+        rows: [
+          {
+            cells: {
+              NUM: {
+                obj: {
+                  k: '124',
+                  p: '',
+                  t: 'NR',
                 },
-                INT: {
-                  obj: {
-                    k: 'Attività Marketig',
-                    p: 'STR',
-                    t: 'J1',
-                  },
-                  value: 'Attività Marketig',
-                },
+                value: '124',
               },
-              id: '0',
-              object: '',
-              readOnly: true,
-            },
-            {
-              cells: {
-                NUM: {
-                  obj: {
-                    k: '68',
-                    p: '',
-                    t: 'NR',
-                  },
-                  value: '68',
+              INT: {
+                obj: {
+                  k: 'Visits',
+                  p: 'STR',
+                  t: 'J1',
                 },
-                INT: {
-                  obj: {
-                    k: 'Lead Da Campagna',
-                    p: 'STR',
-                    t: 'J1',
-                  },
-                  value: 'Lead Da Campagna',
-                },
+                value: 'Visits',
               },
-              id: '1',
-              object: '',
-              readOnly: true,
             },
-            {
-              cells: {
-                NUM: {
-                  obj: {
-                    k: '13',
-                    p: '',
-                    t: 'NR',
-                  },
-                  value: '13',
+            id: '0',
+            object: '',
+            readOnly: true,
+          },
+          {
+            cells: {
+              NUM: {
+                obj: {
+                  k: '68',
+                  p: '',
+                  t: 'NR',
                 },
-                INT: {
-                  obj: {
-                    k: 'Opportunità Create Campagna',
-                    p: 'STR',
-                    t: 'J1',
-                  },
-                  value: 'Opportunità Create Campagna',
-                },
+                value: '68',
               },
-              id: '2',
-              object: '',
-              readOnly: true,
-            },
-            {
-              cells: {
-                NUM: {
-                  obj: {
-                    k: '2',
-                    p: '',
-                    t: 'NR',
-                  },
-                  value: '2',
+              INT: {
+                obj: {
+                  k: 'Clicks',
+                  p: 'STR',
+                  t: 'J1',
                 },
-                INT: {
-                  obj: {
-                    k: 'opportunità Vinte Campagna',
-                    p: 'STR',
-                    t: 'J1',
-                  },
-                  value: 'opportunità Vinte Campagna',
-                },
+                value: 'Clicks',
               },
-              id: '3',
-              object: '',
-              readOnly: true,
             },
-            {
-              cells: {
-                NUM: {
-                  obj: {
-                    k: '402',
-                    p: '',
-                    t: 'NR',
-                  },
-                  value: '402',
+            id: '1',
+            object: '',
+            readOnly: true,
+          },
+          {
+            cells: {
+              NUM: {
+                obj: {
+                  k: '13',
+                  p: '',
+                  t: 'NR',
                 },
-                INT: {
-                  obj: {
-                    k: 'Pagine Visitate Lead Champion',
-                    p: 'STR',
-                    t: 'J1',
-                  },
-                  value: 'Pagine Visitate Lead Champion',
-                },
+                value: '13',
               },
-              id: '4',
-              object: '',
-              readOnly: true,
+              INT: {
+                obj: {
+                  k: 'Inquiries',
+                  p: 'STR',
+                  t: 'J1',
+                },
+                value: 'Inquiries',
+              },
             },
-          ],
-        },
-        legend: 'hidden',
-        map: null,
-        series: ['NUM'],
-        sizeX: '750',
-        sizeY: '460px',
-        types: ['Funnel'],
-        xAxis: {
-          axisLabel: {},
-          mainType: 'xAxis',
-        },
-        yAxis: {
-          axisLabel: {},
-          mainType: 'yAxis',
-        },
+            id: '2',
+            object: '',
+            readOnly: true,
+          },
+          {
+            cells: {
+              NUM: {
+                obj: {
+                  k: '2',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              INT: {
+                obj: {
+                  k: 'Orders',
+                  p: 'STR',
+                  t: 'J1',
+                },
+                value: 'Orders',
+              },
+            },
+            id: '3',
+            object: '',
+            readOnly: true,
+          },
+          {
+            cells: {
+              NUM: {
+                obj: {
+                  k: '402',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '402',
+              },
+              INT: {
+                obj: {
+                  k: 'Impressions',
+                  p: 'STR',
+                  t: 'J1',
+                },
+                value: 'Impressions',
+              },
+            },
+            id: '4',
+            object: '',
+            readOnly: true,
+          },
+        ],
       },
+      legend: 'top',
     };
   },
 };

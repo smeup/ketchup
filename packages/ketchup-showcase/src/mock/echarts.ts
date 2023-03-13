@@ -2,31 +2,23 @@ export const baseData = {
   columns: [
     {
       name: 'Col1',
-      title: 'Budget type',
+      title: 'Department',
+      size: '10',
     },
     {
       name: 'Col2',
-      title: 'Sales',
+      title: 'Current Budget',
+      size: '10',
     },
     {
       name: 'Col3',
-      title: 'Administration',
+      title: 'Projected Budget',
+      size: '10',
     },
     {
       name: 'Col4',
-      title: 'Information Technology',
-    },
-    {
-      name: 'Col5',
-      title: 'Customer Support',
-    },
-    {
-      name: 'Col6',
-      title: 'Development',
-    },
-    {
-      name: 'Col7',
-      title: 'Marketing',
+      title: 'Allocated Budget',
+      size: '10',
     },
   ],
   rows: [
@@ -36,9 +28,9 @@ export const baseData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'ALLOCB',
+            k: 'Marketing',
           },
-          value: 'Allocated Budget',
+          value: 'Marketing',
         },
         Col2: {
           obj: {
@@ -52,9 +44,9 @@ export const baseData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '3000',
+            k: '100.50',
           },
-          value: '3000',
+          value: '100.50',
         },
         Col4: {
           obj: {
@@ -96,9 +88,9 @@ export const baseData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'ACTSPEND',
+            k: 'Sales',
           },
-          value: 'Actual Spending',
+          value: 'Sales',
         },
         Col2: {
           obj: {
@@ -124,7 +116,19 @@ export const baseData = {
           },
           value: '28000',
         },
-        Col5: {
+      },
+    },
+    {
+      cells: {
+        Col1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'Administration',
+          },
+          value: 'Administration',
+        },
+        Col2: {
           obj: {
             t: 'NR',
             p: '',
