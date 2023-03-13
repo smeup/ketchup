@@ -1,6 +1,11 @@
 import { KupDataCell } from '../../components';
+import {
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
+import { getCellValueForDisplay } from '../../utils/cell-utils';
 import { KupPlannerDatesSanitized } from './kup-planner-declarations';
 
 const kupManager = kupManagerInstance();
@@ -8,18 +13,20 @@ const kupManager = kupManagerInstance();
 export function sanitizeAllDates(
     startDateCell: KupDataCell,
     endDateCell: KupDataCell,
-    secStartDateCell: KupDataCell,
-    secEndDateCell: KupDataCell
+    secStartDateCell?: KupDataCell,
+    secEndDateCell?: KupDataCell
 ): KupPlannerDatesSanitized {
     const sanitizedDateValues = sanitizeDates(startDateCell, endDateCell);
     let sanitizedSecDateValues = [];
-    if (isAtLeastOneDateValid(secStartDateCell, secEndDateCell)) {
-        sanitizedSecDateValues = sanitizeDates(
-            secStartDateCell,
-            secEndDateCell
-        );
-    } else {
-        sanitizedSecDateValues = [...sanitizedDateValues];
+    if (secStartDateCell && secEndDateCell) {
+        if (isAtLeastOneDateValid(secStartDateCell, secEndDateCell)) {
+            sanitizedSecDateValues = sanitizeDates(
+                secStartDateCell,
+                secEndDateCell
+            );
+        } else {
+            sanitizedSecDateValues = [...sanitizedDateValues];
+        }
     }
     return {
         dateValues: sanitizedDateValues,
@@ -55,4 +62,29 @@ export function isAtLeastOneDateValid(
     endDateCell: KupDataCell
 ): boolean {
     return isDateValid(startDateCell) || isDateValid(endDateCell);
+}
+
+export function getValuesToShow(
+    row: KupDataRow,
+    idCol: string,
+    nameCol: string,
+    dataColumns: KupDataColumn[],
+    columns?: string[],
+    customToValuesFunction?: () => string[]
+): string[] {
+    let toValuesFunction = () =>
+        columns.map((col: string) => {
+            return getCellValueForDisplay(
+                dataColumns.find((kCol) => kCol.name == col),
+                row.cells[col]
+            );
+        });
+    if (customToValuesFunction) {
+        toValuesFunction = customToValuesFunction;
+    }
+    const valuesToShow =
+        columns?.length >= 2
+            ? toValuesFunction()
+            : [row.cells[idCol].value, row.cells[nameCol].value];
+    return valuesToShow;
 }

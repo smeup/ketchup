@@ -41,9 +41,14 @@ import {
     GanttTask,
     Planner,
     PlannerProps,
+    validDates,
 } from '@sme.up/gantt-component';
 import { getCellValueForDisplay } from '../../utils/cell-utils';
-import { isAtLeastOneDateValid, sanitizeAllDates } from './kup-planner-helper';
+import {
+    getValuesToShow,
+    isAtLeastOneDateValid,
+    sanitizeAllDates,
+} from './kup-planner-helper';
 import { TaskType } from '@sme.up/gantt-component/dist/types/public-types';
 
 @Component({
@@ -279,13 +284,13 @@ export class KupPlanner {
                     row.cells[this.taskPrevDates[0]],
                     row.cells[this.taskPrevDates[1]]
                 );
-                const valuesToShow =
-                    this.taskColumns?.length >= 2
-                        ? this.taskColumns.map((col) => row.cells[col].value)
-                        : [
-                              row.cells[this.taskIdCol].value,
-                              row.cells[this.taskNameCol].value,
-                          ];
+                const valuesToShow = getValuesToShow(
+                    row,
+                    this.taskIdCol,
+                    this.taskNameCol,
+                    this.data.columns,
+                    this.taskColumns
+                );
                 let task: KupPlannerGanttTask = {
                     taskRow: row,
                     taskRowId: row.id,
@@ -306,35 +311,52 @@ export class KupPlanner {
 
     #toDetails(data: KupDataDataset): Detail[] {
         let details: Detail[] = [];
-        data.rows.forEach((row) => {
-            const detailId = row.cells[this.detailIdCol].value;
-            const detailNameId = row.cells[this.detailNameCol].value;
-            const valuesToShow = this.detailColumns.map(
-                (col) => row.cells[col].value
-            );
+        data.rows
+            .filter((row) =>
+                isAtLeastOneDateValid(
+                    row.cells[this.detailDates[0]],
+                    row.cells[this.detailDates[1]]
+                )
+            )
+            .forEach((row) => {
+                const detailId = row.cells[this.detailIdCol].value;
+                const detailNameId = row.cells[this.detailNameCol].value;
 
-            let detail: Detail = details.find((det) => det.id == detailId);
-            if (!detail) {
-                detail = {
-                    id: detailId,
-                    name: detailNameId,
-                    type: 'timeline',
-                    valuesToShow: valuesToShow,
-                    schedule: [],
-                };
-                details.push(detail);
-            }
-            detail.schedule.push({
-                startDate: row.cells[this.detailDates[0]].value,
-                endDate: row.cells[this.detailDates[1]].value,
-                color: this.detailColorCol
-                    ? row.cells[this.detailColorCol].value
-                    : '#D9D9D8',
-                selectedColor: this.detailColorCol
-                    ? row.cells[this.detailColorCol].value
-                    : '#D9D9D8',
+                const datesSanitized = sanitizeAllDates(
+                    row.cells[this.detailDates[0]],
+                    row.cells[this.detailDates[1]]
+                );
+
+                const valuesToShow = getValuesToShow(
+                    row,
+                    this.detailIdCol,
+                    this.detailNameCol,
+                    data.columns,
+                    this.detailColumns
+                );
+
+                let detail: Detail = details.find((det) => det.id == detailId);
+                if (!detail) {
+                    detail = {
+                        id: detailId,
+                        name: detailNameId,
+                        type: 'timeline',
+                        valuesToShow: valuesToShow,
+                        schedule: [],
+                    };
+                    details.push(detail);
+                }
+                detail.schedule.push({
+                    startDate: datesSanitized.dateValues[0],
+                    endDate: datesSanitized.dateValues[1],
+                    color: this.detailColorCol
+                        ? row.cells[this.detailColorCol].value
+                        : '#D9D9D8',
+                    selectedColor: this.detailColorCol
+                        ? row.cells[this.detailColorCol].value
+                        : '#D9D9D8',
+                });
             });
-        });
 
         return details;
     }
@@ -490,24 +512,43 @@ export class KupPlanner {
                         row.cells[this.phasePrevDates[0]],
                         row.cells[this.phasePrevDates[1]]
                     );
-                    const valuesToShow =
-                        this.phaseColumns?.length >= 2
-                            ? this.phaseColumns.map((col) =>
-                                  col == this.phaseDates[0]
-                                      ? '#START#'
-                                      : col == this.phaseDates[1]
-                                      ? '#END#'
-                                      : getCellValueForDisplay(
-                                            data.columns.find(
-                                                (kCol) => kCol.name == col
-                                            ),
-                                            row.cells[col]
-                                        )
-                              )
-                            : [
-                                  row.cells[this.phaseIdCol].value,
-                                  row.cells[this.phaseNameCol].value,
-                              ];
+                    const valuesToShow = getValuesToShow(
+                        row,
+                        this.phaseIdCol,
+                        this.phaseNameCol,
+                        data.columns,
+                        this.phaseColumns,
+                        () =>
+                            this.phaseColumns.map((col) =>
+                                col == this.phaseDates[0]
+                                    ? '#START#'
+                                    : col == this.phaseDates[1]
+                                    ? '#END#'
+                                    : getCellValueForDisplay(
+                                          data.columns.find(
+                                              (kCol) => kCol.name == col
+                                          ),
+                                          row.cells[col]
+                                      )
+                            )
+                    );
+                    // this.phaseColumns?.length >= 2
+                    //     ? this.phaseColumns.map((col) =>
+                    //           col == this.phaseDates[0]
+                    //               ? '#START#'
+                    //               : col == this.phaseDates[1]
+                    //               ? '#END#'
+                    //               : getCellValueForDisplay(
+                    //                     data.columns.find(
+                    //                         (kCol) => kCol.name == col
+                    //                     ),
+                    //                     row.cells[col]
+                    //                 )
+                    //       )
+                    //     : [
+                    //           row.cells[this.phaseIdCol].value,
+                    //           row.cells[this.phaseNameCol].value,
+                    //       ];
 
                     let phase: KupPlannerPhase = {
                         taskRow: task.taskRow,
