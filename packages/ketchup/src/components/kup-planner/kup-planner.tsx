@@ -42,7 +42,7 @@ import {
 import { getCellValueForDisplay } from '../../utils/cell-utils';
 import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import { start } from 'repl';
-import { isAtLeastOneDateValid, normalizeAllDates } from './kup-planner-helper';
+import { isAtLeastOneDateValid, sanitizeAllDates } from './kup-planner-helper';
 
 @Component({
     tag: 'kup-planner',
@@ -161,12 +161,19 @@ export class KupPlanner {
                 )
             )
             .map((row) => {
-                const datesSanitized = normalizeAllDates(
+                const datesSanitized = sanitizeAllDates(
                     row.cells[this.taskDates[0]],
                     row.cells[this.taskDates[1]],
                     row.cells[this.taskPrevDates[0]],
                     row.cells[this.taskPrevDates[1]]
                 );
+                const valuesToShow =
+                    this.taskColumns?.length >= 2
+                        ? this.taskColumns.map((col) => row.cells[col].value)
+                        : [
+                              row.cells[this.taskIdCol].value,
+                              row.cells[this.taskNameCol].value,
+                          ];
                 let task: KupPlannerGanttTask = {
                     taskRow: row,
                     taskRowId: row.id,
@@ -177,9 +184,7 @@ export class KupPlanner {
                     secondaryStartDate: datesSanitized.secDateValues[0],
                     secondaryEndDate: datesSanitized.secDateValues[1],
                     type: 'task',
-                    valuesToShow: this.taskColumns.map(
-                        (col) => row.cells[col].value
-                    ),
+                    valuesToShow: valuesToShow,
                 };
                 return task;
             });
@@ -326,12 +331,30 @@ export class KupPlanner {
                     )
                 )
                 .map((row) => {
-                    const datesSanitized = normalizeAllDates(
+                    const datesSanitized = sanitizeAllDates(
                         row.cells[this.phaseDates[0]],
                         row.cells[this.phaseDates[1]],
                         row.cells[this.phasePrevDates[0]],
                         row.cells[this.phasePrevDates[1]]
                     );
+                    const valuesToShow =
+                        this.phaseColumns?.length >= 2
+                            ? this.phaseColumns.map((col) =>
+                                  col == this.phaseDates[0]
+                                      ? '#START#'
+                                      : col == this.phaseDates[1]
+                                      ? '#END#'
+                                      : getCellValueForDisplay(
+                                            data.columns.find(
+                                                (kCol) => kCol.name == col
+                                            ),
+                                            row.cells[col]
+                                        )
+                              )
+                            : [
+                                  row.cells[this.phaseIdCol].value,
+                                  row.cells[this.phaseNameCol].value,
+                              ];
 
                     let phase: KupPlannerPhase = {
                         taskRow: task.taskRow,
@@ -346,18 +369,7 @@ export class KupPlanner {
                         secondaryEndDate: datesSanitized.secDateValues[1],
                         type: 'phase',
                         color: row.cells[this.phaseColorCol].value,
-                        valuesToShow: this.phaseColumns.map((col) =>
-                            col == this.phaseDates[0]
-                                ? '#START#'
-                                : col == this.phaseDates[1]
-                                ? '#END#'
-                                : getCellValueForDisplay(
-                                      data.columns.find(
-                                          (kCol) => kCol.name == col
-                                      ),
-                                      row.cells[col]
-                                  )
-                        ),
+                        valuesToShow: valuesToShow,
                     };
                     return phase;
                 });

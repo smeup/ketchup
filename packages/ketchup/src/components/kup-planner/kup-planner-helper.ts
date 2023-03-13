@@ -5,16 +5,16 @@ import { KupPlannerDatesSanitized } from './kup-planner-declarations';
 
 const kupManager = kupManagerInstance();
 
-export function normalizeAllDates(
+export function sanitizeAllDates(
     startDateCell: KupDataCell,
     endDateCell: KupDataCell,
     secStartDateCell: KupDataCell,
     secEndDateCell: KupDataCell
 ): KupPlannerDatesSanitized {
-    const sanitizedDateValues = normalizeDates(startDateCell, endDateCell);
+    const sanitizedDateValues = sanitizeDates(startDateCell, endDateCell);
     let sanitizedSecDateValues = [];
     if (isAtLeastOneDateValid(secStartDateCell, secEndDateCell)) {
-        sanitizedSecDateValues = normalizeDates(
+        sanitizedSecDateValues = sanitizeDates(
             secStartDateCell,
             secEndDateCell
         );
@@ -27,7 +27,7 @@ export function normalizeAllDates(
     };
 }
 
-function normalizeDates(
+function sanitizeDates(
     startDateCell: KupDataCell,
     endDateCell: KupDataCell
 ): string[] {
