@@ -43,8 +43,6 @@ import {
     PlannerProps,
 } from '@sme.up/gantt-component';
 import { getCellValueForDisplay } from '../../utils/cell-utils';
-import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
-import { start } from 'repl';
 import { isAtLeastOneDateValid, sanitizeAllDates } from './kup-planner-helper';
 import { TaskType } from '@sme.up/gantt-component/dist/types/public-types';
 
