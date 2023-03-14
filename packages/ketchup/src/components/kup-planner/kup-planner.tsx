@@ -339,8 +339,6 @@ export class KupPlanner {
                 );
                 if (!detail) {
                     detail = {
-                        detailRowId: row.id,
-                        detailRow: row,
                         id: detailId,
                         name: detailNameId,
                         type: 'timeline',
