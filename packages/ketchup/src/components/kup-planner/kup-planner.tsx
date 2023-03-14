@@ -41,7 +41,6 @@ import {
     GanttTask,
     Planner,
     PlannerProps,
-    validDates,
 } from '@sme.up/gantt-component';
 import { getCellValueForDisplay } from '../../utils/cell-utils';
 import {
@@ -310,7 +309,7 @@ export class KupPlanner {
     }
 
     #toDetails(data: KupDataDataset): Detail[] {
-        let details: Detail[] = [];
+        let details: KupPlannerDetail[] = [];
         data.rows
             .filter((row) =>
                 isAtLeastOneDateValid(
@@ -335,13 +334,16 @@ export class KupPlanner {
                     this.detailColumns
                 );
 
-                let detail: Detail = details.find((det) => det.id == detailId);
+                let detail: KupPlannerDetail = details.find(
+                    (det) => det.id == detailId
+                );
                 if (!detail) {
                     detail = {
                         id: detailId,
                         name: detailNameId,
                         type: 'timeline',
                         valuesToShow: valuesToShow,
+                        rowType: KupPlannerGanttRowType.DETAIL,
                         schedule: [],
                     };
                     details.push(detail);

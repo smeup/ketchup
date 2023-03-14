@@ -63,8 +63,6 @@ export interface KupPlannerGanttTask extends GanttTask {
     rowType: KupPlannerGanttRowType;
 }
 export interface KupPlannerDetail extends Detail {
-    detailRowId: string;
-    detailRow: KupDataRow;
     rowType: KupPlannerGanttRowType;
 }
 
