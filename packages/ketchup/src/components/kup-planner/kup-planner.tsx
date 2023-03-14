@@ -316,7 +316,7 @@ export class KupPlanner {
                     endDate: datesSanitized.dateValues[1],
                     secondaryStartDate: datesSanitized.secDateValues[0],
                     secondaryEndDate: datesSanitized.secDateValues[1],
-                    type: 'task' as TaskType,
+                    type: 'project' as TaskType,
                     valuesToShow: valuesToShow,
                     rowType: KupPlannerGanttRowType.TASK,
                 };
