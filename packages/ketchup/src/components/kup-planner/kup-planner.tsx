@@ -538,7 +538,7 @@ export class KupPlanner {
                     let phase: KupPlannerPhase = {
                         taskRow: task.taskRow,
                         phaseRow: row,
-                        id: row.cells[this.phaseIdCol].value,
+                        id: task.id + '_' + row.cells[this.phaseIdCol].value,
                         phaseRowId: row.id,
                         taskRowId: task.taskRowId,
                         name: row.cells[this.phaseNameCol].value,
