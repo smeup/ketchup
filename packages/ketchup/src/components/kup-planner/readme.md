@@ -15,10 +15,12 @@
 | `detailColumns`      | --                     | Columns containing informations displayed in the left box, near the gantt of details | `string[]`       | `undefined` |
 | `detailData`         | --                     | Dataset containg the details list                                                    | `KupDataDataset` | `undefined` |
 | `detailDates`        | --                     | Columns containing detail duration, from (firstDate) to (secondDate)                 | `string[]`       | `undefined` |
+| `detailHeight`       | `detail-height`        | Height for detail gantt                                                              | `number`         | `undefined` |
 | `detailIdCol`        | `detail-id-col`        | Column containing unique detail identifier                                           | `string`         | `undefined` |
 | `detailNameCol`      | `detail-name-col`      | Column containing detail name displayed                                              | `string`         | `undefined` |
 | `detailPrevDates`    | --                     | Columns containing fForecast detail duration, from (firstDate) to (secondDate)       | `string[]`       | `undefined` |
 | `listCellWidth`      | `list-cell-width`      | Total size of the cells inside to the left box, near the gantt                       | `string`         | `'300px'`   |
+| `maxWidth`           | `max-width`            | Max width for component                                                              | `string`         | `'90vw'`    |
 | `phaseColParDep`     | `phase-col-par-dep`    | Column containing the name of the parent phases                                      | `string`         | `undefined` |
 | `phaseColorCol`      | `phase-color-col`      | Column containing the phase color in hex format                                      | `string`         | `undefined` |
 | `phaseColumns`       | --                     | Columns containing informations displayed in the left box ,near the gantt of phases  | `string[]`       | `undefined` |
@@ -29,6 +31,7 @@
 | `showSecondaryDates` | `show-secondary-dates` | Enable/disable display of secondary dates                                            | `boolean`        | `false`     |
 | `taskColumns`        | --                     | Columns containing informations displayed in the left box, near the gantt            | `string[]`       | `undefined` |
 | `taskDates`          | --                     | Columns containing task duration, from (firstDate) to (secondDate)                   | `string[]`       | `undefined` |
+| `taskHeight`         | `task-height`          | Height for main gantt                                                                | `number`         | `undefined` |
 | `taskIdCol`          | `task-id-col`          | Column containing unique task identifier                                             | `string`         | `undefined` |
 | `taskNameCol`        | `task-name-col`        | Column containing task name displayed                                                | `string`         | `undefined` |
 | `taskPrevDates`      | --                     | Columns containing forecast task duration, from (firstDate) to (secondDate)          | `string[]`       | `undefined` |
