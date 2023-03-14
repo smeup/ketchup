@@ -30,11 +30,7 @@ import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { createRoot } from 'react-dom/client';
 import React from 'react';
-import {
-    KupDataCell,
-    KupDataDataset,
-    KupDataRowCells,
-} from '../../managers/kup-data/kup-data-declarations';
+import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 import {
     Detail,
     GanttRow,
@@ -121,6 +117,13 @@ export class KupPlanner {
     detailDates: string[];
 
     /**
+     * Height for detail gantt
+     * @default null
+     */
+    @Prop()
+    detailHeight: number;
+
+    /**
      * Column containing unique detail identifier
      * @default null
      */
@@ -147,6 +150,13 @@ export class KupPlanner {
      */
     @Prop()
     listCellWidth: string = '300px';
+
+    /**
+     * Max width for component
+     * @default '90vw'
+     */
+    @Prop()
+    maxWidth: string = '90vw';
 
     /**
      * Column containing the phase color in hex format
@@ -217,6 +227,13 @@ export class KupPlanner {
      */
     @Prop()
     taskDates: string[];
+
+    /**
+     * Height for main gantt
+     * @default null
+     */
+    @Prop()
+    taskHeight: number;
 
     /**
      * Column containing unique task identifier
@@ -606,6 +623,7 @@ export class KupPlanner {
                     listCellWidth: this.listCellWidth,
                 },
                 hideLabel: true,
+                ganttHeight: this.taskHeight,
                 showSecondaryDates: this.showSecondaryDates,
                 onClick: (nativeEvent: KupPlannerGanttTask | KupPlannerPhase) =>
                     this.handleOnClick(nativeEvent),
@@ -621,6 +639,7 @@ export class KupPlanner {
                           listCellWidth: this.listCellWidth,
                       },
                       hideLabel: true,
+                      ganttHeight: this.detailHeight,
                       onClick: (nativeEvent: KupPlannerDetail) =>
                           this.handleOnClick(nativeEvent),
                       onDateChange: (nativeEvent) =>
@@ -649,7 +668,10 @@ export class KupPlanner {
     render() {
         return (
             <Host>
-                <div id={componentWrapperId}></div>
+                <div
+                    id={componentWrapperId}
+                    style={{ maxWidth: this.maxWidth }}
+                ></div>
             </Host>
         );
     }

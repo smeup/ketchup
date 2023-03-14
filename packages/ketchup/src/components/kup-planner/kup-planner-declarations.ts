@@ -16,11 +16,13 @@ export enum KupPlannerProps {
     detailColorCol = 'Column containing the detail color, in hex format',
     detailColumns = 'Columns containing informations displayed in the left box, near the gantt of details',
     detailDates = 'Columns containing detail duration, from (firstDate) to (secondDate)',
+    detailHeight = 'Height for detail gantt',
     detailIdCol = 'Column containing unique detail identifier',
     detailNameCol = 'Column containing detail name displayed',
     detailPrevDates = 'Columns containing forecast detail duration, from (firstDate) to (secondDate)',
 
     listCellWidth = 'Total size of the cells inside to the left box, near the gantt',
+    maxWidth = 'Max width for component',
 
     phaseColorCol = 'Column containing the phase color in hex format',
     phaseColumns = 'Columns containing informations displayed in the left box ,near the gantt of phases',
@@ -34,6 +36,7 @@ export enum KupPlannerProps {
 
     taskColumns = 'Columns containing informations displayed in the left box, near the gantt',
     taskDates = 'Columns containing task duration, from (firstDate) to (secondDate)',
+    taskHeight = 'Height for main gantt',
     taskIdCol = 'Column containing unique task identifier',
     taskNameCol = 'Column containing task name displayed',
     taskPrevDates = 'Columns containing forecast task duration, from (firstDate) to (secondDate)',

@@ -2475,6 +2475,11 @@ export namespace Components {
          */
         "detailDates": string[];
         /**
+          * Height for detail gantt
+          * @default null
+         */
+        "detailHeight": number;
+        /**
           * Column containing unique detail identifier
           * @default null
          */
@@ -2500,6 +2505,11 @@ export namespace Components {
           * @default '300px'
          */
         "listCellWidth": string;
+        /**
+          * Max width for component
+          * @default '90vw'
+         */
+        "maxWidth": string;
         /**
           * Column containing the name of the parent phases
           * @default null
@@ -2559,6 +2569,11 @@ export namespace Components {
           * @default null
          */
         "taskDates": string[];
+        /**
+          * Height for main gantt
+          * @default null
+         */
+        "taskHeight": number;
         /**
           * Column containing unique task identifier
           * @default null
@@ -5764,6 +5779,11 @@ declare namespace LocalJSX {
          */
         "detailDates"?: string[];
         /**
+          * Height for detail gantt
+          * @default null
+         */
+        "detailHeight"?: number;
+        /**
           * Column containing unique detail identifier
           * @default null
          */
@@ -5783,6 +5803,11 @@ declare namespace LocalJSX {
           * @default '300px'
          */
         "listCellWidth"?: string;
+        /**
+          * Max width for component
+          * @default '90vw'
+         */
+        "maxWidth"?: string;
         "onKup-planner-click"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
         "onKup-planner-datechange"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
         "onKup-planner-ready"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
@@ -5836,6 +5861,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "taskDates"?: string[];
+        /**
+          * Height for main gantt
+          * @default null
+         */
+        "taskHeight"?: number;
         /**
           * Column containing unique task identifier
           * @default null
