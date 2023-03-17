@@ -327,6 +327,9 @@ export class KupPlanner {
 
     #toDetails(data: KupDataDataset): Detail[] {
         let details: KupPlannerDetail[] = [];
+        if (!data || !data.rows) {
+            return details;
+        }
         data.rows
             .filter((row) =>
                 isAtLeastOneDateValid(
@@ -614,6 +617,10 @@ export class KupPlanner {
     }
 
     componentDidLoad() {
+        let details = this.#toDetails(this.detailData);
+        if (details && details.length == 0) {
+            details = undefined;
+        }
         this.plannerProps = {
             mainGantt: {
                 title: this.titleMess,
@@ -630,10 +637,10 @@ export class KupPlanner {
                 onDateChange: (nativeEvent) =>
                     this.handleOnDateChange(nativeEvent),
             },
-            secondaryGantt: this.detailData
+            secondaryGantt: details
                 ? {
                       title: '',
-                      items: this.#toDetails(this.detailData),
+                      items: details,
                       stylingOptions: {
                           ...defaultStylingOptions,
                           listCellWidth: this.listCellWidth,
