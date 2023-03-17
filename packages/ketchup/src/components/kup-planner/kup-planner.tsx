@@ -392,6 +392,9 @@ export class KupPlanner {
     #removePhases(taskId: string) {
         const task = this.#getTask(taskId);
         if (task) task.phases = undefined;
+        // this.plannerProps.mainGantt = JSON.parse(
+        //     JSON.stringify(this.plannerProps.mainGantt)
+        // );
         this.plannerProps = { ...this.plannerProps };
     }
 
@@ -655,6 +658,10 @@ export class KupPlanner {
                 : undefined,
         };
 
+        console.log(
+            'kup-planner.tsx componentDidLoad plannerProps',
+            this.plannerProps
+        );
         this.#renderReactPlannerElement();
         this.kupReady.emit({
             comp: this,
@@ -673,6 +680,7 @@ export class KupPlanner {
     }
 
     render() {
+        //console.log('kup-planner.tsx render');
         return (
             <Host>
                 <div
