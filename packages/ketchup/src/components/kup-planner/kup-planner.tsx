@@ -571,6 +571,7 @@ export class KupPlanner {
                         secondaryEndDate: datesSanitized.secDateValues[1],
                         type: 'task' as TaskType,
                         color: row.cells[this.phaseColorCol].value,
+                        selectedColor: row.cells[this.phaseColorCol].value,
                         valuesToShow: valuesToShow,
                         rowType: KupPlannerGanttRowType.PHASE,
                     };
