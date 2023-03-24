@@ -55,8 +55,8 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup/releases/tag/v7.4.1"
-            >v7.4.1</a
+          ><a href="https://github.com/smeup/ketchup/releases/tag/v7.4.2"
+            >v7.4.2</a
           ></div
         ></div
       >
@@ -408,21 +408,21 @@ export default {
               {
                 cells: {
                   ROUTE: {
-                    value: 'tree',
-                  },
-                },
-                icon: 'file-tree',
-                value: 'Tree',
-                visible: true,
-              },
-              {
-                cells: {
-                  ROUTE: {
                     value: 'planner',
                   },
                 },
                 icon: 'multiline_chart',
                 value: 'Planner',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'tree',
+                  },
+                },
+                icon: 'file-tree',
+                value: 'Tree',
                 visible: true,
               },
             ],

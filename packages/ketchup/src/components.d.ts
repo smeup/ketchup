@@ -44,6 +44,7 @@ import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
 import { KupPlannerEventPayload, KupPlannerPhase } from "./components/kup-planner/kup-planner-declarations";
+import { TaskType } from "@sme.up/gantt-component/dist/types/public-types";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
@@ -90,6 +91,7 @@ export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
 export { KupPlannerEventPayload, KupPlannerPhase } from "./components/kup-planner/kup-planner-declarations";
+export { TaskType } from "@sme.up/gantt-component/dist/types/public-types";
 export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 export { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
 export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
@@ -2447,20 +2449,101 @@ export namespace Components {
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
+        /**
+          * Dataset containg the tasks list
+          * @default null
+         */
         "data": KupDataDataset;
-        "dataRaw": any;
+        /**
+          * Column containing the detail color, in hex format
+          * @default null
+         */
+        "detailColorCol": string;
+        /**
+          * Columns containing informations displayed in the left box, near the gantt of details
+          * @default null
+         */
+        "detailColumns": string[];
+        /**
+          * Dataset containg the details list
+          * @default null
+         */
+        "detailData": KupDataDataset;
+        /**
+          * Columns containing detail duration, from (firstDate) to (secondDate)
+          * @default null
+         */
+        "detailDates": string[];
+        /**
+          * Height for detail gantt
+          * @default null
+         */
+        "detailHeight": number;
+        /**
+          * Column containing unique detail identifier
+          * @default null
+         */
+        "detailIdCol": string;
+        /**
+          * Column containing detail name displayed
+          * @default null
+         */
+        "detailNameCol": string;
+        /**
+          * Columns containing fForecast detail duration, from (firstDate) to (secondDate)
+          * @default null
+         */
+        "detailPrevDates": string[];
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Total size of the cells inside to the left box, near the gantt
+          * @default '300px'
+         */
+        "listCellWidth": string;
+        /**
+          * Max width for component
+          * @default '90vw'
+         */
+        "maxWidth": string;
+        /**
+          * Column containing the name of the parent phases
+          * @default null
+         */
         "phaseColParDep": string;
+        /**
+          * Column containing the phase color in hex format
+          * @default null
+         */
         "phaseColorCol": string;
+        /**
+          * Columns containing informations displayed in the left box ,near the gantt of phases
+          * @default null
+         */
         "phaseColumns": string[];
+        /**
+          * Columns containing phase duration, from (firstDate) to (secondDate)
+          * @default null
+         */
         "phaseDates": string[];
+        /**
+          * Column containing unique phase identifier
+          * @default null
+         */
         "phaseIdCol": string;
+        /**
+          * Column containing phase name displayed
+          * @default null
+         */
         "phaseNameCol": string;
+        /**
+          * Columns containing forecast phase duration, from (firstDate) to (secondDate)
+          * @default null
+         */
         "phasePrevDates": string[];
         /**
           * This method is used to trigger a new render of the component.
@@ -2471,11 +2554,45 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Enable/disable display of secondary dates
+          * @default false
+         */
+        "showSecondaryDates": boolean;
+        /**
+          * Columns containing informations displayed in the left box, near the gantt
+          * @default null
+         */
         "taskColumns": string[];
+        /**
+          * Columns containing task duration, from (firstDate) to (secondDate)
+          * @default null
+         */
         "taskDates": string[];
+        /**
+          * Height for main gantt
+          * @default null
+         */
+        "taskHeight": number;
+        /**
+          * Column containing unique task identifier
+          * @default null
+         */
         "taskIdCol": string;
+        /**
+          * Column containing task name displayed
+          * @default null
+         */
         "taskNameCol": string;
+        /**
+          * Columns containing forecast task duration, from (firstDate) to (secondDate)
+          * @default null
+         */
         "taskPrevDates": string[];
+        /**
+          * Message displayed on top
+          * @default null
+         */
         "titleMess": string;
     }
     interface KupProbe {
@@ -5636,23 +5753,138 @@ declare namespace LocalJSX {
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
+        /**
+          * Dataset containg the tasks list
+          * @default null
+         */
         "data"?: KupDataDataset;
-        "dataRaw"?: any;
+        /**
+          * Column containing the detail color, in hex format
+          * @default null
+         */
+        "detailColorCol"?: string;
+        /**
+          * Columns containing informations displayed in the left box, near the gantt of details
+          * @default null
+         */
+        "detailColumns"?: string[];
+        /**
+          * Dataset containg the details list
+          * @default null
+         */
+        "detailData"?: KupDataDataset;
+        /**
+          * Columns containing detail duration, from (firstDate) to (secondDate)
+          * @default null
+         */
+        "detailDates"?: string[];
+        /**
+          * Height for detail gantt
+          * @default null
+         */
+        "detailHeight"?: number;
+        /**
+          * Column containing unique detail identifier
+          * @default null
+         */
+        "detailIdCol"?: string;
+        /**
+          * Column containing detail name displayed
+          * @default null
+         */
+        "detailNameCol"?: string;
+        /**
+          * Columns containing fForecast detail duration, from (firstDate) to (secondDate)
+          * @default null
+         */
+        "detailPrevDates"?: string[];
+        /**
+          * Total size of the cells inside to the left box, near the gantt
+          * @default '300px'
+         */
+        "listCellWidth"?: string;
+        /**
+          * Max width for component
+          * @default '90vw'
+         */
+        "maxWidth"?: string;
         "onKup-planner-click"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
         "onKup-planner-datechange"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
         "onKup-planner-ready"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
+        /**
+          * Column containing the name of the parent phases
+          * @default null
+         */
         "phaseColParDep"?: string;
+        /**
+          * Column containing the phase color in hex format
+          * @default null
+         */
         "phaseColorCol"?: string;
+        /**
+          * Columns containing informations displayed in the left box ,near the gantt of phases
+          * @default null
+         */
         "phaseColumns"?: string[];
+        /**
+          * Columns containing phase duration, from (firstDate) to (secondDate)
+          * @default null
+         */
         "phaseDates"?: string[];
+        /**
+          * Column containing unique phase identifier
+          * @default null
+         */
         "phaseIdCol"?: string;
+        /**
+          * Column containing phase name displayed
+          * @default null
+         */
         "phaseNameCol"?: string;
+        /**
+          * Columns containing forecast phase duration, from (firstDate) to (secondDate)
+          * @default null
+         */
         "phasePrevDates"?: string[];
+        /**
+          * Enable/disable display of secondary dates
+          * @default false
+         */
+        "showSecondaryDates"?: boolean;
+        /**
+          * Columns containing informations displayed in the left box, near the gantt
+          * @default null
+         */
         "taskColumns"?: string[];
+        /**
+          * Columns containing task duration, from (firstDate) to (secondDate)
+          * @default null
+         */
         "taskDates"?: string[];
+        /**
+          * Height for main gantt
+          * @default null
+         */
+        "taskHeight"?: number;
+        /**
+          * Column containing unique task identifier
+          * @default null
+         */
         "taskIdCol"?: string;
+        /**
+          * Column containing task name displayed
+          * @default null
+         */
         "taskNameCol"?: string;
+        /**
+          * Columns containing forecast task duration, from (firstDate) to (secondDate)
+          * @default null
+         */
         "taskPrevDates"?: string[];
+        /**
+          * Message displayed on top
+          * @default null
+         */
         "titleMess"?: string;
     }
     interface KupProbe {
