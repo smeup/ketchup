@@ -61,9 +61,9 @@
         "vanilla-picker": "^2.12.1"
     },
     "devDependencies": {
-        "@stencil/core": "^3.1.0",
-        "@stencil/sass": "^1.4.1",
-        "@stencil/react-output-target": "0.3.1",
+        "@stencil/core": "^3.2.0",
+        "@stencil/sass": "^3.0.0",
+        "@stencil/react-output-target": "0.4.0",
         "@types/d3-shape": "^3.0.2",
         "@types/geojson": "^7946.0.8",
         "@types/jest": "^26.0.24",
