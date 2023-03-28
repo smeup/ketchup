@@ -769,15 +769,17 @@ export class KupPlanner {
                     onChange={(e: UIEvent) => this.#onFilter(e)}
                     wrapperClass="filter"
                 ></FTextField>
-                <FTextField
-                    icon={KupThemeIconValues.SEARCH}
-                    id="secondary-filter"
-                    label={this.#kupManager.language.translate(
-                        KupLanguageSearch.SEARCH
-                    )}
-                    onChange={(e: UIEvent) => this.#onFilter(e, true)}
-                    wrapperClass="filter"
-                ></FTextField>
+                {this.detailData?.rows && this.detailData.rows.length > 0 ? (
+                    <FTextField
+                        icon={KupThemeIconValues.SEARCH}
+                        id="secondary-filter"
+                        label={this.#kupManager.language.translate(
+                            KupLanguageSearch.SEARCH
+                        )}
+                        onChange={(e: UIEvent) => this.#onFilter(e, true)}
+                        wrapperClass="filter"
+                    ></FTextField>
+                ) : null}
             </Host>
         );
     }
