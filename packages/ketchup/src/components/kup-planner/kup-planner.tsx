@@ -766,7 +766,11 @@ export class KupPlanner {
                     label={this.#kupManager.language.translate(
                         KupLanguageSearch.SEARCH
                     )}
-                    onChange={(e: UIEvent) => this.#onFilter(e)}
+                    onKeyDown={(e: KeyboardEvent) => {
+                        if (e.key === 'Enter') {
+                            this.#onFilter(e);
+                        }
+                    }}
                     wrapperClass="filter"
                 ></FTextField>
                 {this.detailData?.rows && this.detailData.rows.length > 0 ? (
@@ -776,7 +780,11 @@ export class KupPlanner {
                         label={this.#kupManager.language.translate(
                             KupLanguageSearch.SEARCH
                         )}
-                        onChange={(e: UIEvent) => this.#onFilter(e, true)}
+                        onKeyDown={(e: KeyboardEvent) => {
+                            if (e.key === 'Enter') {
+                                this.#onFilter(e, true);
+                            }
+                        }}
                         wrapperClass="filter"
                     ></FTextField>
                 ) : null}
