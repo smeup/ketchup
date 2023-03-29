@@ -14,7 +14,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     defaultStylingOptions,
     KupPlannerEventPayload,
@@ -45,6 +45,10 @@ import {
     sanitizeAllDates,
 } from './kup-planner-helper';
 import { TaskType } from '@sme.up/gantt-component/dist/types/public-types';
+import { FTextField } from '../../f-components/f-text-field/f-text-field';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
+import { KupLanguageSearch } from '../../managers/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-planner',
@@ -469,11 +473,12 @@ export class KupPlanner {
     })
     kupDateChange: EventEmitter<KupPlannerEventPayload>;
 
-    onKupDateChange(event: GanttRow) {
+    onKupDateChange(event: GanttRow, taskAction?: KupPlannerTaskAction) {
         this.kupDateChange.emit({
             comp: this,
             id: this.rootElement.id,
             value: event,
+            taskAction: taskAction,
         });
     }
 
@@ -585,34 +590,94 @@ export class KupPlanner {
     handleOnClick(
         nativeEvent: KupPlannerGanttTask | KupPlannerPhase | KupPlannerDetail
     ) {
-        console.log('handleOnClick', nativeEvent);
+        console.log('kup-planner.handleOnClick', nativeEvent);
         switch (nativeEvent.rowType) {
             case KupPlannerGanttRowType.TASK:
                 const taskAction = (nativeEvent as KupPlannerGanttTask).phases
-                    ? KupPlannerTaskAction.onClosing
-                    : KupPlannerTaskAction.onOpening;
+                    ? KupPlannerTaskAction.onTaskClosing
+                    : KupPlannerTaskAction.onTaskOpening;
                 if (this.#handleOnClickOnTask(nativeEvent)) {
                     this.onKupClick(nativeEvent, taskAction);
                 }
                 break;
             case KupPlannerGanttRowType.PHASE:
                 if (this.#handleOnClickOnPhase()) {
-                    this.onKupClick(nativeEvent);
+                    this.onKupClick(nativeEvent, KupPlannerTaskAction.onClick);
                 }
                 break;
             case KupPlannerGanttRowType.DETAIL:
                 if (this.#handleOnClickOnDetail()) {
-                    this.onKupClick(nativeEvent);
+                    this.onKupClick(nativeEvent, KupPlannerTaskAction.onClick);
                 }
                 break;
         }
     }
 
-    handleOnDateChange(nativeEvent: GanttRow) {
+    handleOnDateChange(
+        nativeEvent: KupPlannerGanttTask | KupPlannerPhase | KupPlannerDetail
+    ) {
         if (this.#emitOnChangeEventsReceived(nativeEvent)) {
-            console.log('handleOnDateChange', nativeEvent);
-            this.onKupDateChange(nativeEvent);
+            if (nativeEvent.rowType != KupPlannerGanttRowType.DETAIL) {
+                console.log('kup-planner.handleOnDateChange', nativeEvent);
+                this.onKupDateChange(
+                    nativeEvent,
+                    KupPlannerTaskAction.onResize
+                );
+            }
         }
+    }
+
+    #onFilter(e: UIEvent, isDetail?: boolean) {
+        const tempData: KupDataDataset = {
+            columns: this.data.columns,
+            rows: [],
+        };
+        const value = (e.target as HTMLInputElement).value;
+        const data = isDetail ? this.detailData : this.data;
+        for (let index = 0; index < data.rows.length; index++) {
+            const row = data.rows[index];
+            const valuesToShow = isDetail
+                ? getValuesToShow(
+                      row,
+                      this.detailIdCol,
+                      this.detailNameCol,
+                      data.columns,
+                      this.detailColumns
+                  )
+                : getValuesToShow(
+                      row,
+                      this.taskIdCol,
+                      this.taskNameCol,
+                      data.columns,
+                      this.taskColumns
+                  );
+            for (let index = 0; index < valuesToShow.length; index++) {
+                const valueToShow = valuesToShow[index];
+                if (
+                    valueToShow.toLowerCase().indexOf(value.toLowerCase()) > -1
+                ) {
+                    tempData.rows.push(row);
+                    break;
+                }
+            }
+        }
+        const newGantt = isDetail
+            ? {
+                  secondaryGantt: {
+                      ...this.plannerProps.secondaryGantt,
+                      items: this.#toDetails(tempData),
+                  },
+              }
+            : {
+                  mainGantt: {
+                      ...this.plannerProps.mainGantt,
+                      items: this.#toTasks(tempData),
+                  },
+              };
+        this.plannerProps = {
+            ...this.plannerProps,
+            ...newGantt,
+        };
     }
 
     componentWillLoad() {
@@ -625,6 +690,15 @@ export class KupPlanner {
         if (details && details.length == 0) {
             details = undefined;
         }
+        const mainFilter: HTMLElement =
+            this.rootElement.shadowRoot.querySelector('#main-filter');
+        FTextFieldMDC(mainFilter);
+        const secondaryFilter: HTMLElement =
+            this.rootElement.shadowRoot.querySelector('#secondary-filter');
+        if (details) {
+            FTextFieldMDC(secondaryFilter);
+        }
+
         this.plannerProps = {
             mainGantt: {
                 title: this.titleMess,
@@ -633,13 +707,15 @@ export class KupPlanner {
                     ...defaultStylingOptions,
                     listCellWidth: this.listCellWidth,
                 },
+                filter: mainFilter,
                 hideLabel: true,
                 ganttHeight: this.taskHeight,
                 showSecondaryDates: this.showSecondaryDates,
                 onClick: (nativeEvent: KupPlannerGanttTask | KupPlannerPhase) =>
                     this.handleOnClick(nativeEvent),
-                onDateChange: (nativeEvent) =>
-                    this.handleOnDateChange(nativeEvent),
+                onDateChange: (
+                    nativeEvent: KupPlannerGanttTask | KupPlannerPhase
+                ) => this.handleOnDateChange(nativeEvent),
             },
             secondaryGantt: details
                 ? {
@@ -649,20 +725,16 @@ export class KupPlanner {
                           ...defaultStylingOptions,
                           listCellWidth: this.listCellWidth,
                       },
+                      filter: secondaryFilter,
                       hideLabel: true,
                       ganttHeight: this.detailHeight,
                       onClick: (nativeEvent: KupPlannerDetail) =>
                           this.handleOnClick(nativeEvent),
-                      onDateChange: (nativeEvent) =>
+                      onDateChange: (nativeEvent: KupPlannerDetail) =>
                           this.handleOnDateChange(nativeEvent),
                   }
                 : undefined,
         };
-
-        console.log(
-            'kup-planner.tsx componentDidLoad plannerProps',
-            this.plannerProps
-        );
         this.#renderReactPlannerElement();
         this.kupReady.emit({
             comp: this,
@@ -684,10 +756,43 @@ export class KupPlanner {
         //console.log('kup-planner.tsx render');
         return (
             <Host>
+                <style>
+                    {this.#kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div
                     id={componentWrapperId}
                     style={{ maxWidth: this.maxWidth }}
                 ></div>
+                <FTextField
+                    icon={KupThemeIconValues.SEARCH}
+                    id="main-filter"
+                    label={this.#kupManager.language.translate(
+                        KupLanguageSearch.SEARCH
+                    )}
+                    onKeyDown={(e: KeyboardEvent) => {
+                        if (e.key === 'Enter') {
+                            this.#onFilter(e);
+                        }
+                    }}
+                    wrapperClass="filter"
+                ></FTextField>
+                {this.detailData?.rows && this.detailData.rows.length > 0 ? (
+                    <FTextField
+                        icon={KupThemeIconValues.SEARCH}
+                        id="secondary-filter"
+                        label={this.#kupManager.language.translate(
+                            KupLanguageSearch.SEARCH
+                        )}
+                        onKeyDown={(e: KeyboardEvent) => {
+                            if (e.key === 'Enter') {
+                                this.#onFilter(e, true);
+                            }
+                        }}
+                        wrapperClass="filter"
+                    ></FTextField>
+                ) : null}
             </Host>
         );
     }

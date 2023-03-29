@@ -45,8 +45,10 @@ export enum KupPlannerProps {
 }
 
 export enum KupPlannerTaskAction {
-    onOpening = 'onOpening',
-    onClosing = 'onClosing',
+    onTaskOpening = 'onTaskOpening',
+    onTaskClosing = 'onTaskClosing',
+    onClick = 'onClick',
+    onResize = 'onResize',
 }
 
 export interface KupPlannerEventPayload extends KupEventPayload {

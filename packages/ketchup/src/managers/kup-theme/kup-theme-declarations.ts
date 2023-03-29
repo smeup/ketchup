@@ -113,6 +113,7 @@ export const fTextFieldUsers = [
     KupTagNames.DATE_PICKER,
     KupTagNames.FORM,
     KupTagNames.NUMERIC_PICKER,
+    KupTagNames.PLANNER,
     KupTagNames.TEXT_FIELD,
     KupTagNames.TIME_PICKER,
     KupTagNames.TREE,
