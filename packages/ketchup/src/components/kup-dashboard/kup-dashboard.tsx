@@ -376,9 +376,6 @@ export class KupDashboard {
                 break;
             }
         }
-        //console.log(
-        //    `pointer: ${pointerX}:${pointerY} - vertical: ${vertical} - index: ${idx}`
-        //);
         return idx;
     }
 

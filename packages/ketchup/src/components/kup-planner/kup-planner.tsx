@@ -473,11 +473,12 @@ export class KupPlanner {
     })
     kupDateChange: EventEmitter<KupPlannerEventPayload>;
 
-    onKupDateChange(event: GanttRow) {
+    onKupDateChange(event: GanttRow, taskAction?: KupPlannerTaskAction) {
         this.kupDateChange.emit({
             comp: this,
             id: this.rootElement.id,
             value: event,
+            taskAction: taskAction,
         });
     }
 
@@ -589,33 +590,40 @@ export class KupPlanner {
     handleOnClick(
         nativeEvent: KupPlannerGanttTask | KupPlannerPhase | KupPlannerDetail
     ) {
-        console.log('handleOnClick', nativeEvent);
+        console.log('kup-planner.handleOnClick', nativeEvent);
         switch (nativeEvent.rowType) {
             case KupPlannerGanttRowType.TASK:
                 const taskAction = (nativeEvent as KupPlannerGanttTask).phases
-                    ? KupPlannerTaskAction.onClosing
-                    : KupPlannerTaskAction.onOpening;
+                    ? KupPlannerTaskAction.onTaskClosing
+                    : KupPlannerTaskAction.onTaskOpening;
                 if (this.#handleOnClickOnTask(nativeEvent)) {
                     this.onKupClick(nativeEvent, taskAction);
                 }
                 break;
             case KupPlannerGanttRowType.PHASE:
                 if (this.#handleOnClickOnPhase()) {
-                    this.onKupClick(nativeEvent);
+                    this.onKupClick(nativeEvent, KupPlannerTaskAction.onClick);
                 }
                 break;
             case KupPlannerGanttRowType.DETAIL:
                 if (this.#handleOnClickOnDetail()) {
-                    this.onKupClick(nativeEvent);
+                    this.onKupClick(nativeEvent, KupPlannerTaskAction.onClick);
                 }
                 break;
         }
     }
 
-    handleOnDateChange(nativeEvent: GanttRow) {
+    handleOnDateChange(
+        nativeEvent: KupPlannerGanttTask | KupPlannerPhase | KupPlannerDetail
+    ) {
         if (this.#emitOnChangeEventsReceived(nativeEvent)) {
-            console.log('handleOnDateChange', nativeEvent);
-            this.onKupDateChange(nativeEvent);
+            if (nativeEvent.rowType != KupPlannerGanttRowType.DETAIL) {
+                console.log('kup-planner.handleOnDateChange', nativeEvent);
+                this.onKupDateChange(
+                    nativeEvent,
+                    KupPlannerTaskAction.onResize
+                );
+            }
         }
     }
 
@@ -684,11 +692,12 @@ export class KupPlanner {
         }
         const mainFilter: HTMLElement =
             this.rootElement.shadowRoot.querySelector('#main-filter');
+        FTextFieldMDC(mainFilter);
         const secondaryFilter: HTMLElement =
             this.rootElement.shadowRoot.querySelector('#secondary-filter');
-
-        FTextFieldMDC(mainFilter);
-        FTextFieldMDC(secondaryFilter);
+        if (details) {
+            FTextFieldMDC(secondaryFilter);
+        }
 
         this.plannerProps = {
             mainGantt: {
@@ -704,8 +713,9 @@ export class KupPlanner {
                 showSecondaryDates: this.showSecondaryDates,
                 onClick: (nativeEvent: KupPlannerGanttTask | KupPlannerPhase) =>
                     this.handleOnClick(nativeEvent),
-                onDateChange: (nativeEvent) =>
-                    this.handleOnDateChange(nativeEvent),
+                onDateChange: (
+                    nativeEvent: KupPlannerGanttTask | KupPlannerPhase
+                ) => this.handleOnDateChange(nativeEvent),
             },
             secondaryGantt: details
                 ? {
@@ -720,16 +730,11 @@ export class KupPlanner {
                       ganttHeight: this.detailHeight,
                       onClick: (nativeEvent: KupPlannerDetail) =>
                           this.handleOnClick(nativeEvent),
-                      onDateChange: (nativeEvent) =>
+                      onDateChange: (nativeEvent: KupPlannerDetail) =>
                           this.handleOnDateChange(nativeEvent),
                   }
                 : undefined,
         };
-
-        console.log(
-            'kup-planner.tsx componentDidLoad plannerProps',
-            this.plannerProps
-        );
         this.#renderReactPlannerElement();
         this.kupReady.emit({
             comp: this,
