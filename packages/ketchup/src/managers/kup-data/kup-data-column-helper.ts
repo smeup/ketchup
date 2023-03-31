@@ -157,6 +157,7 @@ function newColumnFromConcatenate(
                 'The product of these columns in the same order already exists!(' +
                 columns.toString() +
                 ')';
+            col.visible = true;
             dom.ketchup.debug.logMessage(
                 'kup-data',
                 message,

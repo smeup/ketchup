@@ -1292,12 +1292,8 @@ export class KupDataTable {
             type,
             options
         );
-        const error = !!(
-            typeof result === 'string' || result instanceof String
-        );
-        if (!error) {
-            this.refresh();
-        }
+        this.refresh();
+
         return result;
     }
     /**
