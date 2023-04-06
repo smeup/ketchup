@@ -17,12 +17,14 @@
     "devDependencies": {
         "@types/d3-shape": "^3.0.2",
         "@types/geojson": "^7946.0.8",
-        "@types/jest": "^29.5.0",
+        "@types/jest": "^27.0.3",
         "@types/node": "^16.13.0",
         "@types/numeral": "^2.0.2",
         "@types/react": "^18.0.28",
         "@types/react-dom": "^18.0.10",
         "eslint": "^8.37.0",
+        "jest": "^27.0.3",
+        "jest-cli": "^27.4.5",
         "lerna": "^6.6.1",
         "workbox-build": "^6.5.4"
     },
@@ -31,14 +33,9 @@
         "k:build": "lerna run build --scope @sme.up/ketchup --stream && lerna run build --scope @sme.up/ketchup-react --stream",
         "k:start": "lerna run start --scope @sme.up/ketchup --stream",
         "k:test:unit": "lerna run test:spec --scope @sme.up/ketchup --stream",
-        "k:test:e2e": "lerna run test:e2e --scope @sme.up/ketchup --stream",
         "ksc:serve": "lerna run serve --scope @sme.up/ketchup-showcase --stream",
         "ksc:build": "lerna run build --scope @sme.up/ketchup-showcase --stream",
         "ksc:lint": "lerna run lint --scope @sme.up/ketchup-showcase --stream",
-        "ksc:test:unit": "lerna run test:unit --scope @sme.up/ketchup-showcase --stream",
-        "ksc:test:cy:open": "lerna run test:cy:open --scope @sme.up/ketchup-showcase --stream",
-        "ksc:test:cy:run": "lerna run test:cy:run --scope @sme.up/ketchup-showcase --stream",
-        "ksc:test:e2e:open": "lerna run test:e2e:open --scope @sme.up/ketchup-showcase --stream",
-        "ksc:test:e2e:run": "lerna run test:e2e:run --scope @sme.up/ketchup-showcase --stream"
+        "ksc:test:unit": "lerna run test:unit --scope @sme.up/ketchup-showcase --stream"
     }
 }
