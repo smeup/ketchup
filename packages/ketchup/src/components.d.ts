@@ -5483,6 +5483,7 @@ declare namespace LocalJSX {
          */
         "isCanvas"?: boolean;
         "onKup-image-click"?: (event: KupImageCustomEvent<KupImageClickEventPayload>) => void;
+        "onKup-image-load"?: (event: KupImageCustomEvent<KupImageClickEventPayload>) => void;
         /**
           * The resource used to fetch the image.
           * @default null

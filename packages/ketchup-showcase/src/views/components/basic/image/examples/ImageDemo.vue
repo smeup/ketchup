@@ -33,6 +33,10 @@ export default {
           name: 'kup-image-click',
           type: 'click',
         },
+        {
+          name: 'kup-image-load',
+          type: 'load',
+        },
       ],
       demoMethods: [
         {
