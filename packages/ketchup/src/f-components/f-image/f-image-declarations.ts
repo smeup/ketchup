@@ -12,6 +12,7 @@ export interface FImageProps extends FComponent {
     sizeX?: string;
     sizeY?: string;
     onClick?: (event: MouseEvent) => void;
+    onLoad?: (event: Event) => void;
 }
 /**
  * The object of a single step of CSS when the f-image is in CSS-drawing mode.

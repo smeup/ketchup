@@ -23,6 +23,7 @@
 | Event             | Description | Type                                     |
 | ----------------- | ----------- | ---------------------------------------- |
 | `kup-image-click` |             | `CustomEvent<KupImageClickEventPayload>` |
+| `kup-image-load`  |             | `CustomEvent<KupImageClickEventPayload>` |
 
 
 ## Methods

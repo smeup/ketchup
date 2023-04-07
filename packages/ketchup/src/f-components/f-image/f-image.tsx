@@ -27,7 +27,7 @@ export const FImage: FunctionalComponent<FImageProps> = (
                 '--kup_image_height': props.sizeY ? props.sizeY : 'auto',
                 '--kup_image_width': props.sizeX ? props.sizeX : '100%',
             };
-            el = createImage(props.resource);
+            el = createImage(props);
         } else {
             style = {
                 '--kup_image_height': props.sizeY ? props.sizeY : '100%',
@@ -92,8 +92,8 @@ function createIcon(props: FImageProps): HTMLDivElement {
     return <div class={classObj} style={style}></div>;
 }
 
-function createImage(resource: string): HTMLImageElement {
-    return <img src={resource}></img>;
+function createImage(props: FImageProps): HTMLImageElement {
+    return <img onLoad={props.onLoad} src={props.resource}></img>;
 }
 
 function createBar(data: FImageData[]): HTMLDivElement {
