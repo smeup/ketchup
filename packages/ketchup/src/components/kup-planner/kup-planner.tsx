@@ -376,10 +376,10 @@ export class KupPlanner {
                     startDate: datesSanitized.dateValues[0],
                     endDate: datesSanitized.dateValues[1],
                     color: this.detailColorCol
-                        ? row.cells[this.detailColorCol].value
+                        ? row.cells[this.detailColorCol].value ?? '#D9D9D8'
                         : '#D9D9D8',
                     selectedColor: this.detailColorCol
-                        ? row.cells[this.detailColorCol].value
+                        ? row.cells[this.detailColorCol].value ?? '#D9D9D8'
                         : '#D9D9D8',
                 });
             });
