@@ -8,13 +8,19 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
+            "skipFiles": ["<node_internals>/**"],
             "program": "${workspaceFolder}\\packages\\ketchup\\tests\\e2e\\data-table\\data-table-filters.e2e.ts",
-            "outFiles": [
-                "${workspaceFolder}/**/*.js"
-            ]
+            "outFiles": ["${workspaceFolder}/**/*.js"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Spec Test Current File",
+            "cwd": "${workspaceFolder}/packages/ketchup/",
+            "program": "${workspaceFolder}/packages/ketchup/node_modules/.bin/stencil",
+            "args": ["test", "--spec", "${fileBasename}"],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
         }
     ]
 }
