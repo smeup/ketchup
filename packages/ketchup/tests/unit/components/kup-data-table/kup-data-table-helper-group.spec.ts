@@ -10,361 +10,19 @@ const dom: KupDom = document.documentElement as KupDom;
 if (!dom.ketchup) {
     dom.ketchup = new KupManager();
 }
+import sampleKupDataDataset from '../../../resources/mock/kup-data-dataset-with-places-and-nrs.json';
 
-const columns: KupDataColumn[] = [
-    {
-        name: 'FLD1',
-        title: '',
-    },
-    {
-        name: 'FLD2',
-        title: '',
-    },
-    {
-        name: 'FLD3',
-        title: '',
-    },
-    {
-        name: 'FLD4',
-        title: '',
-    },
-];
+const columns: KupDataColumn[] = sampleKupDataDataset.columns;
+const rows: KupDataRow[] = sampleKupDataDataset.rows;
 
-const rows: KupDataRow[] = [
-    {
-        cells: {
-            FLD1: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Europe',
-                },
-                value: 'Europe',
-            },
-            FLD2: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Italy',
-                },
-                value: 'Italy',
-            },
-            FLD3: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Rome',
-                },
-                value: 'Rome',
-            },
-            FLD4: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '2,857,321',
-                },
-                value: '2,857,321',
-            },
-        },
-    },
-    {
-        cells: {
-            FLD1: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Europe',
-                },
-                value: 'Europe',
-            },
-            FLD2: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'France',
-                },
-                value: 'France',
-            },
-            FLD3: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Paris',
-                },
-                value: 'Paris',
-            },
-            FLD4: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '2,229,095',
-                },
-                value: '2,229,095',
-            },
-        },
-    },
-    {
-        cells: {
-            FLD1: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Europe',
-                },
-                value: 'Europe',
-            },
-            FLD2: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Spain',
-                },
-                value: 'Spain',
-            },
-            FLD3: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Madrid',
-                },
-                value: 'Madrid',
-            },
-            FLD4: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '3,223,334',
-                },
-                value: '3,223,334',
-            },
-        },
-    },
-    {
-        cells: {
-            FLD1: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'America',
-                },
-                value: 'America',
-            },
-            FLD2: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'California',
-                },
-                value: 'California',
-            },
-            FLD3: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Los Angeles',
-                },
-                value: 'Los Angeles',
-            },
-            FLD4: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '4,057,875',
-                },
-                value: '4,057,875',
-            },
-        },
-    },
-    {
-        cells: {
-            FLD1: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'America',
-                },
-                value: 'America',
-            },
-            FLD2: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Florida',
-                },
-                value: 'Florida',
-            },
-            FLD3: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Miami',
-                },
-                value: 'Miami',
-            },
-            FLD4: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '463,347',
-                },
-                value: '463,347',
-            },
-        },
-    },
-    {
-        cells: {
-            FLD1: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'America',
-                },
-                value: 'America',
-            },
-            FLD2: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Texas',
-                },
-                value: 'Texas',
-            },
-            FLD3: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Austin',
-                },
-                value: 'Austin',
-            },
-            FLD4: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '790,390',
-                },
-                value: '790,390',
-            },
-        },
-    },
-    {
-        cells: {
-            FLD1: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Asia',
-                },
-                value: 'Asia',
-            },
-            FLD2: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Japan',
-                },
-                value: 'Japan',
-            },
-            FLD3: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Tokyo',
-                },
-                value: 'Tokyo',
-            },
-            FLD4: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '13,857,443',
-                },
-                value: '13,857,443',
-            },
-        },
-    },
-    {
-        cells: {
-            FLD1: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Asia',
-                },
-                value: 'Asia',
-            },
-            FLD2: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'China',
-                },
-                value: 'China',
-            },
-            FLD3: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Beijing',
-                },
-                value: 'Beijing',
-            },
-            FLD4: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '24,516,000',
-                },
-                value: '24,516,000',
-            },
-        },
-    },
-    {
-        cells: {
-            FLD1: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'Asia',
-                },
-                value: 'Asia',
-            },
-            FLD2: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'India',
-                },
-                value: 'India',
-            },
-            FLD3: {
-                obj: {
-                    t: '',
-                    p: '',
-                    k: 'New Delhi',
-                },
-                value: 'New Delhi',
-            },
-            FLD4: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '21,750,000',
-                },
-                value: '21,750,000',
-            },
-        },
-    },
-];
-
-describe('it group rows', () => {
-    it('group without parameters', () => {
+describe('kup datatable grouping rows - general', () => {
+    it('groups without parameters', () => {
         const groups = groupRows();
 
         expect(groups).toEqual([]);
     });
 
-    it('group with empty columns', () => {
+    it('groups with empty columns', () => {
         let groups = groupRows(null);
 
         expect(groups).toEqual([]);
@@ -374,7 +32,7 @@ describe('it group rows', () => {
         expect(groups).toEqual([]);
     });
 
-    it('group with empty rows', () => {
+    it('groups with empty rows', () => {
         let groups = groupRows(null, null);
 
         expect(groups).toEqual([]);
@@ -384,7 +42,7 @@ describe('it group rows', () => {
         expect(groups).toEqual([]);
     });
 
-    it('if no / null / empty group, return rows as they are', () => {
+    it('returns rows as they are if no / null / empty group', () => {
         let groups = groupRows(columns, rows);
 
         expect(groups).toEqual(rows);
@@ -398,7 +56,7 @@ describe('it group rows', () => {
         expect(groups).toEqual(rows);
     });
 
-    it('group on invalid column', () => {
+    it('groups on invalid column', () => {
         const groups = groupRows(columns, rows, [
             { column: 'XXXX', visible: true },
         ]);
@@ -409,7 +67,7 @@ describe('it group rows', () => {
         groups.forEach((row) => expect(row).not.toHaveProperty('group'));
     });
 
-    it('Grouping on FLD1', () => {
+    it('groups on FLD1', () => {
         const groups = groupRows(columns, rows, [
             { column: 'FLD1', visible: true },
         ]);
@@ -473,7 +131,7 @@ describe('it group rows', () => {
         }
     });
 
-    it('Grouping on FLD1 and FLD2', () => {
+    it('groups on FLD1 and FLD2', () => {
         const groups = groupRows(columns, rows, [
             { column: 'FLD1', visible: true },
             { column: 'FLD2', visible: true },
@@ -574,8 +232,8 @@ describe('it group rows', () => {
     });
 });
 
-describe('single groups with totals', () => {
-    it('Group on FLD1, count on FLD2', () => {
+describe('kup datatable grouping rows - single with totals', () => {
+    it('groups on FLD1, counts on FLD2', () => {
         const groups = groupRows(
             columns,
             rows,
@@ -600,7 +258,7 @@ describe('single groups with totals', () => {
         }
     });
 
-    it('Group on FLD1, sum on FLD4', () => {
+    it('groups on FLD1, sums on FLD4', () => {
         const groups = groupRows(
             columns,
             rows,
@@ -641,7 +299,7 @@ describe('single groups with totals', () => {
         }
     });
 
-    it('Group on FLD1, avarate on FLD4', () => {
+    it('group on FLD1, avarages on FLD4', () => {
         const groups = groupRows(
             columns,
             rows,
@@ -683,7 +341,7 @@ describe('single groups with totals', () => {
         }
     });
 
-    it('Group on FLD1, count on FLD1, average on FLD4', () => {
+    it('groups on FLD1, counts on FLD1, averages on FLD4', () => {
         const groups = groupRows(
             columns,
             rows,
@@ -730,8 +388,8 @@ describe('single groups with totals', () => {
     });
 });
 
-describe('multiple groups with totals', () => {
-    it('Group on FLD1 and FLD2, count on FLD2', () => {
+describe('kup datatable grouping rows - multiple with totals', () => {
+    it('groups on FLD1 and FLD2, counts on FLD2', () => {
         const groups = groupRows(
             columns,
             rows,
@@ -772,7 +430,7 @@ describe('multiple groups with totals', () => {
         }
     });
 
-    it('Group on FLD1 and FLD2, sum on FLD4', () => {
+    it('groups on FLD1 and FLD2, sums on FLD4', () => {
         const groups = groupRows(
             columns,
             rows,
@@ -832,7 +490,7 @@ describe('multiple groups with totals', () => {
         }
     });
 
-    it('Group on FLD1 and FLD2, average on FLD4', () => {
+    it('groups on FLD1 and FLD2, averages on FLD4', () => {
         const groups = groupRows(
             columns,
             rows,
@@ -892,7 +550,7 @@ describe('multiple groups with totals', () => {
         }
     });
 
-    it('Group on FLD1 and FLD2, count on FLD2 and average on FLD4', () => {
+    it('groups on FLD1 and FLD2, counts on FLD2 and averages on FLD4', () => {
         const groups = groupRows(
             columns,
             rows,
