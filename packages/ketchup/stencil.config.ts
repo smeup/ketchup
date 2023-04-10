@@ -5,6 +5,38 @@ import { reactOutputTarget } from '@stencil/react-output-target';
 export const config: Config = {
     sourceMap: false,
     namespace: 'ketchup',
+    testing: {
+        reporters: [
+            'default',
+            [
+                'jest-junit',
+                {
+                    outputDirectory: 'target/tests/unit/junit/junit.xml',
+                    classNameTemplate: '{classname}',
+                    titleTemplate: '{classname} - {title}',
+                },
+            ],
+            [
+                '../../node_modules/jest-html-reporter',
+                {
+                    pageTitle: 'Jest Unit Test Report',
+                    outputPath: 'target/tests/unit/html/index.html',
+                },
+            ],
+        ],
+        coverageReporters: ['text', 'cobertura', 'html'],
+        coverageDirectory: 'target/tests/unit/coverage',
+        // todo: rise them!
+        coverageThreshold: {
+            global: {
+                branches: 0,
+                functions: 1,
+                lines: 1,
+                statements: 1,
+            },
+        },
+        collectCoverageFrom: ['src/**/*.ts'],
+    },
     outputTargets: [
         /*{ type: 'dist' },*/
         { type: 'docs-readme' },
