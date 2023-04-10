@@ -1,11 +1,11 @@
-import { groupRows } from '../../../src/components/kup-data-table/kup-data-table-helper';
-import { TotalMode } from '../../../src/components/kup-data-table/kup-data-table-declarations';
-import { KupDom } from '../../../src/managers/kup-manager/kup-manager-declarations';
-import { KupManager } from '../../../src/managers/kup-manager/kup-manager';
+import { groupRows } from '../../../../src/components/kup-data-table/kup-data-table-helper';
+import { TotalMode } from '../../../../src/components/kup-data-table/kup-data-table-declarations';
+import { KupDom } from '../../../../src/managers/kup-manager/kup-manager-declarations';
+import { KupManager } from '../../../../src/managers/kup-manager/kup-manager';
 import {
     KupDataColumn,
     KupDataRow,
-} from '../../../src/managers/kup-data/kup-data-declarations';
+} from '../../../../src/managers/kup-data/kup-data-declarations';
 const dom: KupDom = document.documentElement as KupDom;
 if (!dom.ketchup) {
     dom.ketchup = new KupManager();

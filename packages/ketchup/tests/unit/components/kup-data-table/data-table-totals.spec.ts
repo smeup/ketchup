@@ -1,12 +1,11 @@
-import { sortRows } from '../../../src/components/kup-data-table/kup-data-table-helper';
-import { SortMode } from '../../../src/components/kup-data-table/kup-data-table-declarations';
-import { KupDom } from '../../../src/managers/kup-manager/kup-manager-declarations';
-import { KupManager } from '../../../src/managers/kup-manager/kup-manager';
+import { calcTotals } from '../../../../src/components/kup-data-table/kup-data-table-helper';
+import { TotalMode } from '../../../../src/components/kup-data-table/kup-data-table-declarations';
+import { KupDom } from '../../../../src/managers/kup-manager/kup-manager-declarations';
+import { KupManager } from '../../../../src/managers/kup-manager/kup-manager';
 const dom: KupDom = document.documentElement as KupDom;
 if (!dom.ketchup) {
     dom.ketchup = new KupManager();
 }
-
 const mockedRows = [
     {
         cells: {
@@ -334,224 +333,91 @@ const mockedRows = [
     },
 ];
 
-describe('it sorts rows', () => {
-    it('sort without parameters', () => {
-        const sortedRows = sortRows();
-
-        expect(sortedRows).toEqual([]);
+describe('can handle errors', () => {
+    it('without parameters', () => {
+        const totals = calcTotals();
+        expect(totals).toEqual({});
     });
 
-    it('sort null rows', () => {
-        const sortedRows = sortRows(null);
-
-        expect(sortedRows).toEqual([]);
+    it('null rows', () => {
+        const totals = calcTotals(null);
+        expect(totals).toEqual({});
     });
 
-    it('if no sort value, return rows in the same order', () => {
-        const sortedRows = sortRows(mockedRows);
-
-        expect(sortedRows).toEqual(mockedRows);
+    it('empty rows', () => {
+        const totals = calcTotals([]);
+        expect(totals).toEqual({});
     });
 
-    it('if null sort value, return rows in the same order', () => {
-        const sortedRows = sortRows(mockedRows, null);
-
-        expect(sortedRows).toEqual(mockedRows);
+    it('rows without total', () => {
+        const totals = calcTotals(mockedRows);
+        expect(totals).toEqual({});
     });
 
-    it('sort on a single column, ascending', () => {
-        const sortedRows = sortRows(mockedRows, [
-            { column: 'FLD1', sortMode: SortMode.A },
-        ]);
-
-        // not same object
-        expect(sortedRows).not.toEqual(mockedRows);
-
-        expect(sortedRows.length).toEqual(9);
-
-        // testing sortedRows values
-        let row = sortedRows[0];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('12');
-
-        row = sortedRows[1];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('10');
-
-        row = sortedRows[2];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('11');
-
-        row = sortedRows[3];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('8');
-
-        row = sortedRows[4];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('6');
-
-        row = sortedRows[5];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('7');
-
-        row = sortedRows[6];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('7');
-
-        row = sortedRows[7];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('5');
-
-        row = sortedRows[8];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('6');
+    it('rows with null total', () => {
+        const totals = calcTotals(mockedRows, null);
+        expect(totals).toEqual({});
     });
 
-    it('sort on a single column, descending', () => {
-        const sortedRows = sortRows(mockedRows, [
-            { column: 'FLD1', sortMode: SortMode.D },
-        ]);
+    it('rows with empty total', () => {
+        const totals = calcTotals(mockedRows, {});
+        expect(totals).toEqual({});
+    });
+});
 
-        // not same object
-        expect(sortedRows).not.toEqual(mockedRows);
-
-        expect(sortedRows.length).toEqual(9);
-
-        // testing sortedRows values
-        let row = sortedRows[0];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('7');
-
-        row = sortedRows[1];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('5');
-
-        row = sortedRows[2];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('6');
-
-        row = sortedRows[3];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('8');
-
-        row = sortedRows[4];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('6');
-
-        row = sortedRows[5];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('7');
-
-        row = sortedRows[6];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('12');
-
-        row = sortedRows[7];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('10');
-
-        row = sortedRows[8];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('11');
+describe('it calc totals', () => {
+    it('count', () => {
+        const totals = calcTotals(mockedRows, {
+            FLD1: TotalMode.COUNT,
+            FLD2: TotalMode.COUNT,
+            FLD3: TotalMode.COUNT,
+            FLD4: TotalMode.COUNT,
+        });
+        expect(totals).toEqual({
+            FLD1: 9,
+            FLD2: 9,
+            FLD3: 9,
+            FLD4: 9,
+        });
     });
 
-    it('sort on two column, descending on both', () => {
-        const sortedRows = sortRows(mockedRows, [
-            { column: 'FLD1', sortMode: SortMode.D },
-            { column: 'FLD2', sortMode: SortMode.D },
-        ]);
-
-        // not same object
-        expect(sortedRows).not.toEqual(mockedRows);
-
-        // same length and greater than 0
-        expect(sortedRows.length).toEqual(9);
-
-        // testing sortedRows values
-        let row = sortedRows[0];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('7');
-
-        row = sortedRows[1];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('6');
-
-        row = sortedRows[2];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('5');
-
-        row = sortedRows[3];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('8');
-
-        row = sortedRows[4];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('7');
-
-        row = sortedRows[5];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('6');
-
-        row = sortedRows[6];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('12');
-
-        row = sortedRows[7];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('11');
-
-        row = sortedRows[8];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('10');
+    it('sum', () => {
+        const totals = calcTotals(mockedRows, {
+            FLD1: TotalMode.SUM,
+            FLD2: TotalMode.SUM,
+            FLD3: TotalMode.SUM,
+            FLD4: TotalMode.SUM,
+        });
+        expect(totals).toEqual({
+            FLD2: 72,
+            FLD3: 865.38,
+        });
     });
 
-    it('sort on two column, descending on first, ascending on second', () => {
-        const sortedRows = sortRows(mockedRows, [
-            { column: 'FLD1', sortMode: SortMode.D },
-            { column: 'FLD2', sortMode: SortMode.A },
-        ]);
+    it('average', () => {
+        const totals = calcTotals(mockedRows, {
+            FLD1: TotalMode.AVERAGE,
+            FLD2: TotalMode.AVERAGE,
+            FLD3: TotalMode.AVERAGE,
+            FLD4: TotalMode.AVERAGE,
+        });
+        expect(totals).toEqual({
+            FLD2: 8,
+            FLD3: 96.15,
+        });
+    });
 
-        // not same object
-        expect(sortedRows).not.toEqual(mockedRows);
-
-        // same length and greater than 0
-        expect(sortedRows.length).toEqual(9);
-
-        // testing sortedRows values
-        let row = sortedRows[0];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('5');
-
-        row = sortedRows[1];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('6');
-
-        row = sortedRows[2];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('7');
-
-        row = sortedRows[3];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('6');
-
-        row = sortedRows[4];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('7');
-
-        row = sortedRows[5];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('8');
-
-        row = sortedRows[6];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('10');
-
-        row = sortedRows[7];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('11');
-
-        row = sortedRows[8];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('12');
+    it('mixed', () => {
+        const totals = calcTotals(mockedRows, {
+            FLD1: TotalMode.SUM,
+            FLD2: TotalMode.AVERAGE,
+            FLD3: TotalMode.SUM,
+            FLD4: TotalMode.COUNT,
+        });
+        expect(totals).toEqual({
+            FLD2: 8,
+            FLD3: 865.38,
+            FLD4: 9,
+        });
     });
 });

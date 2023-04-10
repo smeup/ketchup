@@ -1,8 +1,11 @@
-import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
-import { KupManager } from '../../managers/kup-manager/kup-manager';
-import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
-import { KupChart } from './kup-chart';
-import { convertColumns, convertRows } from './kup-chart-builder';
+import { KupDataDataset } from '../../../../src/managers/kup-data/kup-data-declarations';
+import { KupManager } from '../../../../src/managers/kup-manager/kup-manager';
+import { KupDom } from '../../../../src/managers/kup-manager/kup-manager-declarations';
+import { KupChart } from '../../../../src/components/kup-chart/kup-chart';
+import {
+    convertColumns,
+    convertRows,
+} from '../../../../src/components/kup-chart/kup-chart-builder';
 
 const dataMock: KupDataDataset = {
     columns: [

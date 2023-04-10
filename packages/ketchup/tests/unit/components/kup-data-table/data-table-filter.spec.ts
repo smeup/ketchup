@@ -1,6 +1,6 @@
-import { filterRows } from '../../../src/components/kup-data-table/kup-data-table-helper';
-import { KupManager } from '../../../src/managers/kup-manager/kup-manager';
-import { KupDom } from '../../../src/managers/kup-manager/kup-manager-declarations';
+import { filterRows } from '../../../../src/components/kup-data-table/kup-data-table-helper';
+import { KupManager } from '../../../../src/managers/kup-manager/kup-manager';
+import { KupDom } from '../../../../src/managers/kup-manager/kup-manager-declarations';
 import { MockedRowsFactory } from './mocked-data';
 
 const mockedRows = MockedRowsFactory();
