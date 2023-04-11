@@ -654,6 +654,7 @@ export class KupPlanner {
                     );
                     if (found) {
                         tempRows.push({ row, weight: index });
+                        break;
                     }
                 }
             }
