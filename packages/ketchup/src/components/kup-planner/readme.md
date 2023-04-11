@@ -16,15 +16,17 @@
 | `detailData`         | --                     | Dataset containg the details list                                                    | `KupDataDataset` | `undefined` |
 | `detailDates`        | --                     | Columns containing detail duration, from (firstDate) to (secondDate)                 | `string[]`       | `undefined` |
 | `detailHeight`       | `detail-height`        | Height for detail gantt                                                              | `number`         | `undefined` |
+| `detailIconCol`      | `detail-icon-col`      | Column containing icon name to show, for detail                                      | `string`         | `undefined` |
 | `detailIdCol`        | `detail-id-col`        | Column containing unique detail identifier                                           | `string`         | `undefined` |
 | `detailNameCol`      | `detail-name-col`      | Column containing detail name displayed                                              | `string`         | `undefined` |
-| `detailPrevDates`    | --                     | Columns containing fForecast detail duration, from (firstDate) to (secondDate)       | `string[]`       | `undefined` |
+| `detailPrevDates`    | --                     | Columns containing forecast detail duration, from (firstDate) to (secondDate)        | `string[]`       | `undefined` |
 | `listCellWidth`      | `list-cell-width`      | Total size of the cells inside to the left box, near the gantt                       | `string`         | `'300px'`   |
 | `maxWidth`           | `max-width`            | Max width for component                                                              | `string`         | `'90vw'`    |
 | `phaseColParDep`     | `phase-col-par-dep`    | Column containing the name of the parent phases                                      | `string`         | `undefined` |
 | `phaseColorCol`      | `phase-color-col`      | Column containing the phase color in hex format                                      | `string`         | `undefined` |
 | `phaseColumns`       | --                     | Columns containing informations displayed in the left box ,near the gantt of phases  | `string[]`       | `undefined` |
 | `phaseDates`         | --                     | Columns containing phase duration, from (firstDate) to (secondDate)                  | `string[]`       | `undefined` |
+| `phaseIconCol`       | `phase-icon-col`       | Column containing icon name to show, for phase                                       | `string`         | `undefined` |
 | `phaseIdCol`         | `phase-id-col`         | Column containing unique phase identifier                                            | `string`         | `undefined` |
 | `phaseNameCol`       | `phase-name-col`       | Column containing phase name displayed                                               | `string`         | `undefined` |
 | `phasePrevDates`     | --                     | Columns containing forecast phase duration, from (firstDate) to (secondDate)         | `string[]`       | `undefined` |
@@ -32,6 +34,7 @@
 | `taskColumns`        | --                     | Columns containing informations displayed in the left box, near the gantt            | `string[]`       | `undefined` |
 | `taskDates`          | --                     | Columns containing task duration, from (firstDate) to (secondDate)                   | `string[]`       | `undefined` |
 | `taskHeight`         | `task-height`          | Height for main gantt                                                                | `number`         | `undefined` |
+| `taskIconCol`        | `task-icon-col`        | Column containing icon name to show, for task                                        | `string`         | `undefined` |
 | `taskIdCol`          | `task-id-col`          | Column containing unique task identifier                                             | `string`         | `undefined` |
 | `taskNameCol`        | `task-name-col`        | Column containing task name displayed                                                | `string`         | `undefined` |
 | `taskPrevDates`      | --                     | Columns containing forecast task duration, from (firstDate) to (secondDate)          | `string[]`       | `undefined` |

@@ -4,6 +4,7 @@ import {
     Event,
     EventEmitter,
     forceUpdate,
+    getAssetPath,
     h,
     Host,
     Method,
@@ -128,6 +129,13 @@ export class KupPlanner {
     detailHeight: number;
 
     /**
+     * Column containing icon name to show, for detail
+     * @default null
+     */
+    @Prop()
+    detailIconCol: string;
+
+    /**
      * Column containing unique detail identifier
      * @default null
      */
@@ -142,7 +150,7 @@ export class KupPlanner {
     detailNameCol: string;
 
     /**
-     * Columns containing fForecast detail duration, from (firstDate) to (secondDate)
+     * Columns containing forecast detail duration, from (firstDate) to (secondDate)
      * @default null
      */
     @Prop()
@@ -189,6 +197,13 @@ export class KupPlanner {
      */
     @Prop()
     phaseDates: string[];
+
+    /**
+     * Column containing icon name to show, for phase
+     * @default null
+     */
+    @Prop()
+    phaseIconCol: string;
 
     /**
      * Column containing unique phase identifier
@@ -238,6 +253,13 @@ export class KupPlanner {
      */
     @Prop()
     taskHeight: number;
+
+    /**
+     * Column containing icon name to show, for task
+     * @default null
+     */
+    @Prop()
+    taskIconCol: string;
 
     /**
      * Column containing unique task identifier
@@ -311,6 +333,15 @@ export class KupPlanner {
                     data.columns,
                     this.taskColumns
                 );
+                let iconUrl = undefined;
+                if (this.taskIconCol) {
+                    const icon = row.cells[this.taskIconCol];
+                    if (icon) {
+                        iconUrl = getAssetPath(
+                            './assets/svg/' + icon.value + '.svg'
+                        );
+                    }
+                }
                 let task: KupPlannerGanttTask = {
                     taskRow: row,
                     taskRowId: row.id,
@@ -323,6 +354,7 @@ export class KupPlanner {
                     type: 'project' as TaskType,
                     valuesToShow: valuesToShow,
                     rowType: KupPlannerGanttRowType.TASK,
+                    iconUrl: iconUrl,
                 };
                 return task;
             });
@@ -372,6 +404,15 @@ export class KupPlanner {
                     };
                     details.push(detail);
                 }
+                let iconUrl = undefined;
+                if (this.detailIconCol) {
+                    const icon = row.cells[this.detailIconCol];
+                    if (icon) {
+                        iconUrl = getAssetPath(
+                            './assets/svg/' + icon.value + '.svg'
+                        );
+                    }
+                }
                 detail.schedule.push({
                     startDate: datesSanitized.dateValues[0],
                     endDate: datesSanitized.dateValues[1],
@@ -381,6 +422,7 @@ export class KupPlanner {
                     selectedColor: this.detailColorCol
                         ? row.cells[this.detailColorCol].value ?? '#D9D9D8'
                         : '#D9D9D8',
+                    iconUrl: iconUrl,
                 });
             });
 
@@ -562,6 +604,15 @@ export class KupPlanner {
                                       )
                             )
                     );
+                    let iconUrl = undefined;
+                    if (this.phaseIconCol) {
+                        const icon = row.cells[this.phaseIconCol];
+                        if (icon) {
+                            iconUrl = getAssetPath(
+                                './assets/svg/' + icon.value + '.svg'
+                            );
+                        }
+                    }
 
                     let phase: KupPlannerPhase = {
                         taskRow: task.taskRow,
@@ -579,6 +630,7 @@ export class KupPlanner {
                         selectedColor: row.cells[this.phaseColorCol].value,
                         valuesToShow: valuesToShow,
                         rowType: KupPlannerGanttRowType.PHASE,
+                        iconUrl: iconUrl,
                     };
                     return phase;
                 });

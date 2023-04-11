@@ -2480,6 +2480,11 @@ export namespace Components {
          */
         "detailHeight": number;
         /**
+          * Column containing icon name to show, for detail
+          * @default null
+         */
+        "detailIconCol": string;
+        /**
           * Column containing unique detail identifier
           * @default null
          */
@@ -2490,7 +2495,7 @@ export namespace Components {
          */
         "detailNameCol": string;
         /**
-          * Columns containing fForecast detail duration, from (firstDate) to (secondDate)
+          * Columns containing forecast detail duration, from (firstDate) to (secondDate)
           * @default null
          */
         "detailPrevDates": string[];
@@ -2530,6 +2535,11 @@ export namespace Components {
           * @default null
          */
         "phaseDates": string[];
+        /**
+          * Column containing icon name to show, for phase
+          * @default null
+         */
+        "phaseIconCol": string;
         /**
           * Column containing unique phase identifier
           * @default null
@@ -2574,6 +2584,11 @@ export namespace Components {
           * @default null
          */
         "taskHeight": number;
+        /**
+          * Column containing icon name to show, for task
+          * @default null
+         */
+        "taskIconCol": string;
         /**
           * Column containing unique task identifier
           * @default null
@@ -5785,6 +5800,11 @@ declare namespace LocalJSX {
          */
         "detailHeight"?: number;
         /**
+          * Column containing icon name to show, for detail
+          * @default null
+         */
+        "detailIconCol"?: string;
+        /**
           * Column containing unique detail identifier
           * @default null
          */
@@ -5795,7 +5815,7 @@ declare namespace LocalJSX {
          */
         "detailNameCol"?: string;
         /**
-          * Columns containing fForecast detail duration, from (firstDate) to (secondDate)
+          * Columns containing forecast detail duration, from (firstDate) to (secondDate)
           * @default null
          */
         "detailPrevDates"?: string[];
@@ -5833,6 +5853,11 @@ declare namespace LocalJSX {
          */
         "phaseDates"?: string[];
         /**
+          * Column containing icon name to show, for phase
+          * @default null
+         */
+        "phaseIconCol"?: string;
+        /**
           * Column containing unique phase identifier
           * @default null
          */
@@ -5867,6 +5892,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "taskHeight"?: number;
+        /**
+          * Column containing icon name to show, for task
+          * @default null
+         */
+        "taskIconCol"?: string;
         /**
           * Column containing unique task identifier
           * @default null
