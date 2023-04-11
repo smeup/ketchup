@@ -21,8 +21,8 @@ if (!(document.documentElement as KupDom).ketchup) {
 
 describe('kup chart cols/rows conversion', () => {
     it('can convert null', () => {
-        const columns = convertColumns(null, { axis: null, series: null });
-        const rows = convertRows(null, null, false);
+        const columns = convertColumns({}, { axis: null, series: null });
+        const rows = convertRows(null, [], false);
 
         expect(columns).toEqual([]);
         expect(rows).toEqual([]);

@@ -17,8 +17,8 @@ describe('kup datatable totalizations', () => {
         expect(totals).toEqual({});
     });
 
-    it('handles error with null rows', () => {
-        const totals = calcTotals(null);
+    it('handles error with undefined rows', () => {
+        const totals = calcTotals(undefined);
         expect(totals).toEqual({});
     });
 
@@ -32,8 +32,8 @@ describe('kup datatable totalizations', () => {
         expect(totals).toEqual({});
     });
 
-    it('handles error with null total', () => {
-        const totals = calcTotals(mockedRows, null);
+    it('handles error with undefined total', () => {
+        const totals = calcTotals(mockedRows, undefined);
         expect(totals).toEqual({});
     });
 

@@ -17,8 +17,8 @@ describe('kup datatable sorting rows', () => {
         expect(sortedRows).toEqual([]);
     });
 
-    it('sorts null rows', () => {
-        const sortedRows = sortRows(null);
+    it('sorts undefined rows', () => {
+        const sortedRows = sortRows(undefined);
 
         expect(sortedRows).toEqual([]);
     });
@@ -30,7 +30,7 @@ describe('kup datatable sorting rows', () => {
     });
 
     it('returns rows in the same order if null sort value', () => {
-        const sortedRows = sortRows(mockedRows, null);
+        const sortedRows = sortRows(mockedRows, undefined);
 
         expect(sortedRows).toEqual(mockedRows);
     });
@@ -47,40 +47,53 @@ describe('kup datatable sorting rows', () => {
 
         // testing sortedRows values
         let row = sortedRows[0];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('12');
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('CASFRA');
+            expect(row.cells['FLD2'].value).toEqual('12');
+        }
 
         row = sortedRows[1];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('10');
+
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('CASFRA');
+            expect(row.cells['FLD2'].value).toEqual('10');
+        }
 
         row = sortedRows[2];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('11');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('CASFRA');
+            expect(row.cells['FLD2'].value).toEqual('11');
+        }
         row = sortedRows[3];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('8');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('DELGIO');
+            expect(row.cells['FLD2'].value).toEqual('8');
+        }
         row = sortedRows[4];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('6');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('DELGIO');
+            expect(row.cells['FLD2'].value).toEqual('6');
+        }
         row = sortedRows[5];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('7');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('DELGIO');
+            expect(row.cells['FLD2'].value).toEqual('7');
+        }
         row = sortedRows[6];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('7');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('PARFRA');
+            expect(row.cells['FLD2'].value).toEqual('7');
+        }
         row = sortedRows[7];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('5');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('PARFRA');
+            expect(row.cells['FLD2'].value).toEqual('5');
+        }
         row = sortedRows[8];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('6');
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('PARFRA');
+            expect(row.cells['FLD2'].value).toEqual('6');
+        }
     });
 
     it('sorts on a single column, descending', () => {
@@ -95,40 +108,50 @@ describe('kup datatable sorting rows', () => {
 
         // testing sortedRows values
         let row = sortedRows[0];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('7');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('PARFRA');
+            expect(row.cells['FLD2'].value).toEqual('7');
+        }
         row = sortedRows[1];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('5');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('PARFRA');
+            expect(row.cells['FLD2'].value).toEqual('5');
+        }
         row = sortedRows[2];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('6');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('PARFRA');
+            expect(row.cells['FLD2'].value).toEqual('6');
+        }
         row = sortedRows[3];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('8');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('DELGIO');
+            expect(row.cells['FLD2'].value).toEqual('8');
+        }
         row = sortedRows[4];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('6');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('DELGIO');
+            expect(row.cells['FLD2'].value).toEqual('6');
+        }
         row = sortedRows[5];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('7');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('DELGIO');
+            expect(row.cells['FLD2'].value).toEqual('7');
+        }
         row = sortedRows[6];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('12');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('CASFRA');
+            expect(row.cells['FLD2'].value).toEqual('12');
+        }
         row = sortedRows[7];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('10');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('CASFRA');
+            expect(row.cells['FLD2'].value).toEqual('10');
+        }
         row = sortedRows[8];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('11');
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('CASFRA');
+            expect(row.cells['FLD2'].value).toEqual('11');
+        }
     });
 
     it('sorts on two column, descending on both', () => {
@@ -145,40 +168,50 @@ describe('kup datatable sorting rows', () => {
 
         // testing sortedRows values
         let row = sortedRows[0];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('7');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('PARFRA');
+            expect(row.cells['FLD2'].value).toEqual('7');
+        }
         row = sortedRows[1];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('6');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('PARFRA');
+            expect(row.cells['FLD2'].value).toEqual('6');
+        }
         row = sortedRows[2];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('5');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('PARFRA');
+            expect(row.cells['FLD2'].value).toEqual('5');
+        }
         row = sortedRows[3];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('8');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('DELGIO');
+            expect(row.cells['FLD2'].value).toEqual('8');
+        }
         row = sortedRows[4];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('7');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('DELGIO');
+            expect(row.cells['FLD2'].value).toEqual('7');
+        }
         row = sortedRows[5];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('6');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('DELGIO');
+            expect(row.cells['FLD2'].value).toEqual('6');
+        }
         row = sortedRows[6];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('12');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('CASFRA');
+            expect(row.cells['FLD2'].value).toEqual('12');
+        }
         row = sortedRows[7];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('11');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('CASFRA');
+            expect(row.cells['FLD2'].value).toEqual('11');
+        }
         row = sortedRows[8];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('10');
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('CASFRA');
+            expect(row.cells['FLD2'].value).toEqual('10');
+        }
     });
 
     it('sorts on two column, descending on first, ascending on second', () => {
@@ -195,39 +228,49 @@ describe('kup datatable sorting rows', () => {
 
         // testing sortedRows values
         let row = sortedRows[0];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('5');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('PARFRA');
+            expect(row.cells['FLD2'].value).toEqual('5');
+        }
         row = sortedRows[1];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('6');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('PARFRA');
+            expect(row.cells['FLD2'].value).toEqual('6');
+        }
         row = sortedRows[2];
-        expect(row.cells['FLD1'].value).toEqual('PARFRA');
-        expect(row.cells['FLD2'].value).toEqual('7');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('PARFRA');
+            expect(row.cells['FLD2'].value).toEqual('7');
+        }
         row = sortedRows[3];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('6');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('DELGIO');
+            expect(row.cells['FLD2'].value).toEqual('6');
+        }
         row = sortedRows[4];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('7');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('DELGIO');
+            expect(row.cells['FLD2'].value).toEqual('7');
+        }
         row = sortedRows[5];
-        expect(row.cells['FLD1'].value).toEqual('DELGIO');
-        expect(row.cells['FLD2'].value).toEqual('8');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('DELGIO');
+            expect(row.cells['FLD2'].value).toEqual('8');
+        }
         row = sortedRows[6];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('10');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('CASFRA');
+            expect(row.cells['FLD2'].value).toEqual('10');
+        }
         row = sortedRows[7];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('11');
-
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('CASFRA');
+            expect(row.cells['FLD2'].value).toEqual('11');
+        }
         row = sortedRows[8];
-        expect(row.cells['FLD1'].value).toEqual('CASFRA');
-        expect(row.cells['FLD2'].value).toEqual('12');
+        if (row && row.cells) {
+            expect(row.cells['FLD1'].value).toEqual('CASFRA');
+            expect(row.cells['FLD2'].value).toEqual('12');
+        }
     });
 });

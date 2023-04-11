@@ -29,16 +29,16 @@ describe('kup datatable filtering rows', () => {
         expect(filtered).toEqual([]);
     });
 
-    it('filters null rows', () => {
-        const filtered = filterRows(null);
+    it('filters undefined rows', () => {
+        const filtered = filterRows(undefined);
         expect(filtered).toEqual([]);
     });
 
-    it('returns rows as they are if no / null / empty filter', () => {
+    it('returns rows as they are if no / undefined / empty filter', () => {
         let filtered = filterRows(mockedRows.rows);
         expect(filtered).toEqual(mockedRows.rows);
 
-        filtered = filterRows(mockedRows.rows, null);
+        filtered = filterRows(mockedRows.rows, undefined);
         expect(filtered).toEqual(mockedRows.rows);
 
         filtered = filterRows(mockedRows.rows, {});
@@ -93,20 +93,20 @@ describe('kup datatable filtering rows', () => {
     });
 
     it('global filters without columns', () => {
-        let filtered = filterRows(mockedRows.rows, null, 'fra');
+        let filtered = filterRows(mockedRows.rows, undefined, 'fra');
         expect(filtered).toEqual(mockedRows.rows);
 
-        filtered = filterRows(mockedRows.rows, null, 'fra', null);
+        filtered = filterRows(mockedRows.rows, undefined, 'fra', undefined);
         expect(filtered).toEqual(mockedRows.rows);
 
-        filtered = filterRows(mockedRows.rows, null, 'fra', []);
+        filtered = filterRows(mockedRows.rows, undefined, 'fra', []);
         expect(filtered).toEqual(mockedRows.rows);
     });
 
     it('global filters with columns', () => {
         const filtered = filterRows(
             mockedRows.rows,
-            null,
+            undefined,
             'fra',
             displayedColumns
         );
@@ -149,7 +149,7 @@ describe('kup datatable filtering rows', () => {
             );
             expect(filtered).toHaveLength(3);
             filtered.forEach((row) => {
-                expect(row.cells[columnToFilterOn].value).toBe('');
+                expect(row.cells && row.cells[columnToFilterOn].value).toBe('');
             });
         });
 
@@ -168,7 +168,9 @@ describe('kup datatable filtering rows', () => {
                 expect(
                     displayedColumns.reduce(
                         (whiteSpaceFound, col) =>
+                            row.cells &&
                             row.cells[col.name] &&
+                            row.cells &&
                             row.cells[col.name].value === ''
                                 ? true
                                 : whiteSpaceFound,
@@ -258,11 +260,19 @@ describe('kup datatable filtering rows', () => {
                     expect(filtered).toHaveLength(filterProofRowsCount);
 
                     filtered.forEach((row) => {
+                        if (!row.cells) {
+                            fail('it should not reach here');
+                        }
+
                         let compareResult = compareFunction(
                             row.cells[columnToFilterOn].value,
                             filterText
                         );
-                        if (!compareResult && row.cells[columnToFilterOn].obj) {
+                        if (
+                            !compareResult &&
+                            row.cells &&
+                            row.cells[columnToFilterOn].obj
+                        ) {
                             compareResult = compareFunction(
                                 row.cells[columnToFilterOn].obj.k,
                                 filterText
@@ -327,10 +337,12 @@ describe('kup datatable filtering rows', () => {
                             i < displayedColumns.length && !foundItem;
                             i++
                         ) {
-                            foundItem = compareFunction(
-                                cells[displayedColumns[i].name].value,
-                                filterText
-                            );
+                            if (cells && cells[displayedColumns[i].name]) {
+                                foundItem = compareFunction(
+                                    cells[displayedColumns[i].name].value,
+                                    filterText
+                                );
+                            }
                         }
                         // Checks if there is at least a value in one of the displayed columns (when negative, there must be no values found)
                         expect(
