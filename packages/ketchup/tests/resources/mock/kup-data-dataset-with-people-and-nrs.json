@@ -1,0 +1,102 @@
+{
+    "columns": [
+        {
+            "name": "Col1",
+            "title": "Person"
+        },
+        {
+            "name": "Col2",
+            "title": "Value1"
+        },
+        {
+            "name": "Col3",
+            "title": "Value2"
+        }
+    ],
+    "rows": [
+        {
+            "cells": {
+                "Col1": {
+                    "obj": {
+                        "t": "CN",
+                        "p": "COL",
+                        "k": "CASFRA"
+                    },
+                    "value": "CASFRA"
+                },
+                "Col2": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "10"
+                    },
+                    "value": "10"
+                },
+                "Col3": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "100.60"
+                    },
+                    "value": "100.60"
+                }
+            }
+        },
+        {
+            "cells": {
+                "Col1": {
+                    "obj": {
+                        "t": "CN",
+                        "p": "COL",
+                        "k": "DELGIO"
+                    },
+                    "value": "DELGIO"
+                },
+                "Col2": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "6"
+                    },
+                    "value": "6"
+                },
+                "Col3": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "67.8"
+                    },
+                    "value": "67.8"
+                }
+            }
+        },
+        {
+            "cells": {
+                "Col1": {
+                    "obj": {
+                        "t": "CN",
+                        "p": "COL",
+                        "k": "PARFRA"
+                    },
+                    "value": "PARFRA"
+                },
+                "Col2": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "5"
+                    },
+                    "value": "5"
+                },
+                "Col3": {
+                    "obj": {
+                        "t": "NR",
+                        "p": "",
+                        "k": "120.06"
+                    },
+                    "value": "120.06"
+                }
+            }
+        }
+    ]
+}

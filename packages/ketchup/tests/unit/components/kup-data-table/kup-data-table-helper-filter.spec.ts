@@ -1,8 +1,17 @@
-import { filterRows } from '../../../src/components/kup-data-table/kup-data-table-helper';
-import { KupManager } from '../../../src/managers/kup-manager/kup-manager';
-import { KupDom } from '../../../src/managers/kup-manager/kup-manager-declarations';
-import { MockedRowsFactory } from './mocked-data';
+import { filterRows } from '../../../../src/components/kup-data-table/kup-data-table-helper';
+import { KupManager } from '../../../../src/managers/kup-manager/kup-manager';
+import { KupDom } from '../../../../src/managers/kup-manager/kup-manager-declarations';
+import { KupDataColumn } from '../../../../src/managers/kup-data/kup-data-declarations';
+import sampleKupDataDataset from '../../../resources/mock/kup-data-dataset-with-people-nrs-dates-2.json';
 
+const mockedColumns: KupDataColumn[] = sampleKupDataDataset.columns;
+export function MockedRowsFactory() {
+    let mockedRows = JSON.parse(JSON.stringify(sampleKupDataDataset.rows));
+    return {
+        columns: mockedColumns,
+        rows: mockedRows,
+    };
+}
 const mockedRows = MockedRowsFactory();
 const mockedRowsWithEmptyValues = MockedRowsFactory();
 mockedRowsWithEmptyValues.rows[0].cells.FLD1.value = '';
@@ -14,22 +23,22 @@ if (!dom.ketchup) {
     dom.ketchup = new KupManager();
 }
 
-describe('kup-data-table filters rows', () => {
-    it('filter without parameters', () => {
+describe('kup datatable filtering rows', () => {
+    it('filters without parameters', () => {
         const filtered = filterRows();
         expect(filtered).toEqual([]);
     });
 
-    it('filter null rows', () => {
-        const filtered = filterRows(null);
+    it('filters undefined rows', () => {
+        const filtered = filterRows(undefined);
         expect(filtered).toEqual([]);
     });
 
-    it('if no / null / empty filter, return rows as they are', () => {
+    it('returns rows as they are if no / undefined / empty filter', () => {
         let filtered = filterRows(mockedRows.rows);
         expect(filtered).toEqual(mockedRows.rows);
 
-        filtered = filterRows(mockedRows.rows, null);
+        filtered = filterRows(mockedRows.rows, undefined);
         expect(filtered).toEqual(mockedRows.rows);
 
         filtered = filterRows(mockedRows.rows, {});
@@ -54,7 +63,7 @@ describe('kup-data-table filters rows', () => {
         expect(filtered).toHaveLength(0);
     });
 
-    it('filter on FLD1', () => {
+    it('filters on FLD1', () => {
         const filtered = filterRows(
             mockedRows.rows,
             {
@@ -68,7 +77,7 @@ describe('kup-data-table filters rows', () => {
         expect(filtered).toHaveLength(5);
     });
 
-    it('filter on FLD1 and FLD2', () => {
+    it('filters on FLD1 and FLD2', () => {
         const filtered = filterRows(
             mockedRows.rows,
             {
@@ -83,21 +92,21 @@ describe('kup-data-table filters rows', () => {
         expect(filtered).toHaveLength(1);
     });
 
-    it('global filter without columns', () => {
-        let filtered = filterRows(mockedRows.rows, null, 'fra');
+    it('global filters without columns', () => {
+        let filtered = filterRows(mockedRows.rows, undefined, 'fra');
         expect(filtered).toEqual(mockedRows.rows);
 
-        filtered = filterRows(mockedRows.rows, null, 'fra', null);
+        filtered = filterRows(mockedRows.rows, undefined, 'fra', undefined);
         expect(filtered).toEqual(mockedRows.rows);
 
-        filtered = filterRows(mockedRows.rows, null, 'fra', []);
+        filtered = filterRows(mockedRows.rows, undefined, 'fra', []);
         expect(filtered).toEqual(mockedRows.rows);
     });
 
-    it('global filter with columns', () => {
+    it('global filters with columns', () => {
         const filtered = filterRows(
             mockedRows.rows,
-            null,
+            undefined,
             'fra',
             displayedColumns
         );
@@ -106,7 +115,7 @@ describe('kup-data-table filters rows', () => {
         expect(filtered).toHaveLength(5);
     });
 
-    it('global filter + column filter', () => {
+    it('global filters + column filters', () => {
         const filtered = filterRows(
             mockedRows.rows,
             {
@@ -125,7 +134,7 @@ describe('kup-data-table filters rows', () => {
     describe(`with expression set to ''`, () => {
         const columnToFilterOn = 'FLD1';
 
-        it('on column filter', () => {
+        it('column filters', () => {
             const filtered = filterRows(
                 mockedRowsWithEmptyValues.rows,
                 {
@@ -140,11 +149,11 @@ describe('kup-data-table filters rows', () => {
             );
             expect(filtered).toHaveLength(3);
             filtered.forEach((row) => {
-                expect(row.cells[columnToFilterOn].value).toBe('');
+                expect(row.cells && row.cells[columnToFilterOn].value).toBe('');
             });
         });
 
-        it('on global column filter', () => {
+        it('global column filters', () => {
             const filtered = filterRows(
                 mockedRowsWithEmptyValues.rows,
                 {},
@@ -159,7 +168,9 @@ describe('kup-data-table filters rows', () => {
                 expect(
                     displayedColumns.reduce(
                         (whiteSpaceFound, col) =>
+                            row.cells &&
                             row.cells[col.name] &&
+                            row.cells &&
                             row.cells[col.name].value === ''
                                 ? true
                                 : whiteSpaceFound,
@@ -201,12 +212,12 @@ describe('kup-data-table filters rows', () => {
             describe.each([
                 [`affirmative`, true],
                 [`negative, with a prepended '!'`, false],
-            ])(`(%s), `, (testDescription, isAffirmative) => {
+            ])(`(%s) `, (testDescription, isAffirmative) => {
                 const completeFilter = `${
                     isAffirmative ? '' : '!'
                 }'${searchKey.toLowerCase()}'`;
 
-                it('on column filter', () => {
+                it('column filters', () => {
                     const filtered = filterRows(
                         mockedRowsWithEmptyValues.rows,
                         {
@@ -249,11 +260,19 @@ describe('kup-data-table filters rows', () => {
                     expect(filtered).toHaveLength(filterProofRowsCount);
 
                     filtered.forEach((row) => {
+                        if (!row.cells) {
+                            fail('it should not reach here');
+                        }
+
                         let compareResult = compareFunction(
                             row.cells[columnToFilterOn].value,
                             filterText
                         );
-                        if (!compareResult && row.cells[columnToFilterOn].obj) {
+                        if (
+                            !compareResult &&
+                            row.cells &&
+                            row.cells[columnToFilterOn].obj
+                        ) {
                             compareResult = compareFunction(
                                 row.cells[columnToFilterOn].obj.k,
                                 filterText
@@ -266,7 +285,7 @@ describe('kup-data-table filters rows', () => {
                     });
                 });
 
-                it('on global column filter', () => {
+                it('global column filters', () => {
                     const filtered = filterRows(
                         mockedRowsWithEmptyValues.rows,
                         {},
@@ -318,10 +337,12 @@ describe('kup-data-table filters rows', () => {
                             i < displayedColumns.length && !foundItem;
                             i++
                         ) {
-                            foundItem = compareFunction(
-                                cells[displayedColumns[i].name].value,
-                                filterText
-                            );
+                            if (cells && cells[displayedColumns[i].name]) {
+                                foundItem = compareFunction(
+                                    cells[displayedColumns[i].name].value,
+                                    filterText
+                                );
+                            }
                         }
                         // Checks if there is at least a value in one of the displayed columns (when negative, there must be no values found)
                         expect(
