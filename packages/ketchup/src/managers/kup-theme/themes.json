@@ -1,4 +1,60 @@
 {
+    "leotes": {
+        "cssVariables": {
+            "--kup-primary-color": "#59a5b0",
+            "--kup-secondary-color": "#333",
+            "--kup-background-color": "#ffffff",
+            "--kup-navbar-background-color": "#999999",
+            "--kup-navbar-color": "#ffffff",
+            "--kup-drawer-background-color": "#e8e8e8",
+            "--kup-drawer-color": "#474747",
+            "--kup-navbar-height": "64px",
+            "--kup-drawer-width": "300px",
+            "--kup-font-family": "Open Sans Condensed, sans-serif",
+            "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
+            "--kup-font-size": "14px",
+            "--kup-text-color": "#1b1b1b",
+            "--kup-text-on-primary-color": "#003C49",
+            "--kup-text-on-secondary-color": "#fff",
+            "--kup-disabled-background-color": "#d1d1d1",
+            "--kup-disabled-color": "#999999",
+            "--kup-hover-background-color": "#aaa",
+            "--kup-hover-color": "#474747",
+            "--kup-title-background-color": "#f1f3f4",
+            "--kup-title-color": "#1b1b1b",
+            "--kup-icon-color": "#505050",
+            "--kup-border-color": "#e0e0e0",
+            "--kup-box-shadow": "0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)",
+            "--kup-info-color": "#2592df",
+            "--kup-success-color": "#A4BA4C",
+            "--kup-warning-color": "#DE8906",
+            "--kup-danger-color": "#A6192E",
+            "--kup-spinner-color": "#6edeff",
+            "--kup-chart-color-1": "#60c3fc",
+            "--kup-chart-color-2": "#e268d8",
+            "--kup-chart-color-3": "#e48b47",
+            "--kup-chart-color-4": "#81e447",
+            "--kup-obj-cursor": "inherit",
+            "--kup-card-zindex": "900",
+            "--kup-drawer-zindex": "900",
+            "--kup-navbar-zindex": "900"
+        },
+        "icons": {
+            "--kup-ascending-icon": "arrow_drop_up",
+            "--kup-descending-icon": "arrow_drop_down",
+            "--kup-expanded-icon": "arrow_drop_down",
+            "--kup-collapsed-icon": "menu-right",
+            "--kup-dropdown-icon": "arrow_drop_down",
+            "--kup-clear-icon": "cancel",
+            "--kup-filter-remove-icon": "filter-remove",
+            "--kup-key-icon": "key-variant",
+            "--kup-search-icon": "search"
+        },
+        "imports": [
+            "url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300;700&display=swap')"
+        ],
+        "customStyles": {}
+    },
     "bubbles": {
         "cssVariables": {
             "--kup-primary-color": "#c18f00",
