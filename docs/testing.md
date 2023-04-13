@@ -42,18 +42,4 @@ Jest Unit Test Report inside ./packages/ketchup/target dir must be easily unders
 
 ## TODO
 
--   Coverage seems not to work correctly (it returns 0%)
-
--   If you want to run a specific test actually it run all tests. If you run:
-
-```
-./node_modules/.bin/stencil test --spec data-table-sort.spec.ts
-```
-
-you see in logs that file name is missing:
-
-```
-jest args: --spec --max-workers=8
-```
-
-To see a project where it works: https://github.com/mandric/testing-web-components
+-   Coverage seems not to work correctly
