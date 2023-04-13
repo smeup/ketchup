@@ -4,6 +4,7 @@ import { KupDom } from '../../../../src/managers/kup-manager/kup-manager-declara
 import sampleKupDataDataset from '../../../resources/mock/kup-data-dataset-luckynrs.json';
 import sampleNewColumns from '../../../resources/mock/kup-data-new-columns-luckynrs.json';
 import {
+    KupDataCell,
     KupDataColumn,
     KupDataDataset,
     KupDataNewColumn,
@@ -26,7 +27,7 @@ describe('kup dataset manipulation', () => {
             title: 'Lucky numbers 20-99',
         };
 
-        const outDataDataset = dom.ketchup.data.rangedDistinct(
+        const outDataDataset: KupDataDataset = dom.ketchup.data.rangedDistinct(
             inpDataDataset,
             dataNewColumns,
             resultingColumn
