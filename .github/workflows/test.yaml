@@ -23,6 +23,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
+    - name: Install dependencies
+      run: npm install
+
     - name: Run lerna bootstrap
       run: npm run lerna bootstrap
 
