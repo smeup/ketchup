@@ -1,0 +1,41 @@
+[
+    {
+        "column": {
+            "name": "2039",
+            "title": "Lucky numbers 20-39"
+        },
+        "criteria": {
+            "columns": ["NUMBER"],
+            "range": {
+                "min": 20,
+                "max": 39
+            }
+        }
+    },
+    {
+        "column": {
+            "name": "4059",
+            "title": "Lucky numbers 40-59"
+        },
+        "criteria": {
+            "columns": ["NUMBER"],
+            "range": {
+                "min": 40,
+                "max": 59
+            }
+        }
+    },
+    {
+        "column": {
+            "name": "6099",
+            "title": "Lucky numbers 60-99"
+        },
+        "criteria": {
+            "columns": ["NUMBER"],
+            "range": {
+                "min": 60,
+                "max": 99
+            }
+        }
+    }
+]
