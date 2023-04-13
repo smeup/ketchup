@@ -1,8 +1,7 @@
 name: Ketchup test
 
 on:
-  push:
-    branches: add_github_action
+  workflow_dispatch:
   pull_request:
     branches: 
      - develop
