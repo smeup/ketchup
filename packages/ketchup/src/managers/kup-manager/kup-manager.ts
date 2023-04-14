@@ -310,6 +310,29 @@ export class KupManager {
             this.utilities.clickCallbacks.add(cb);
         }
     }
+
+    /**
+     * Retrives event path from event.target
+     * @param currentEl event.target
+     * @param rootElement rootElement of component
+     * @returns
+     */
+    getEventPath(currentEl: unknown, rootElement: HTMLElement): HTMLElement[] {
+        const path: HTMLElement[] = [];
+
+        while (
+            currentEl &&
+            currentEl !== rootElement &&
+            currentEl !== document.body
+        ) {
+            path.push(currentEl as HTMLElement);
+            currentEl = (currentEl as HTMLElement).parentNode
+                ? (currentEl as HTMLElement).parentNode
+                : (currentEl as ShadowRoot).host;
+        }
+
+        return path;
+    }
     /**
      * Rasterizes an HTMLElement, transforming into a canvas.
      * @param {HTMLElement} el - Element to rasterize.
