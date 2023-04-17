@@ -43,11 +43,12 @@
 
 ## Events
 
-| Event                    | Description | Type                                  |
-| ------------------------ | ----------- | ------------------------------------- |
-| `kup-planner-click`      |             | `CustomEvent<KupPlannerEventPayload>` |
-| `kup-planner-datechange` |             | `CustomEvent<KupPlannerEventPayload>` |
-| `kup-planner-ready`      |             | `CustomEvent<KupPlannerEventPayload>` |
+| Event                     | Description                           | Type                                       |
+| ------------------------- | ------------------------------------- | ------------------------------------------ |
+| `kup-planner-click`       |                                       | `CustomEvent<KupPlannerEventPayload>`      |
+| `kup-planner-contextmenu` | Generic right click event on planner. | `CustomEvent<KupPlannerClickEventPayload>` |
+| `kup-planner-datechange`  |                                       | `CustomEvent<KupPlannerEventPayload>`      |
+| `kup-planner-ready`       |                                       | `CustomEvent<KupPlannerEventPayload>`      |
 
 
 ## Methods
