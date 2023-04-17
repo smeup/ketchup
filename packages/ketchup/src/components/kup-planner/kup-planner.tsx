@@ -31,7 +31,10 @@ import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { createRoot } from 'react-dom/client';
 import React from 'react';
-import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataDataset,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 import {
     Detail,
     GanttRow,
@@ -686,33 +689,33 @@ export class KupPlanner {
         };
         const value = (e.target as HTMLInputElement).value;
         const data = isDetail ? this.detailData : this.data;
+        const tempRows: { weight: number; row: KupDataRow }[] = [];
         for (let index = 0; index < data.rows.length; index++) {
             const row = data.rows[index];
-            const valuesToShow = isDetail
-                ? getValuesToShow(
-                      row,
-                      this.detailIdCol,
-                      this.detailNameCol,
-                      data.columns,
-                      this.detailColumns
-                  )
-                : getValuesToShow(
-                      row,
-                      this.taskIdCol,
-                      this.taskNameCol,
-                      data.columns,
-                      this.taskColumns
-                  );
-            for (let index = 0; index < valuesToShow.length; index++) {
-                const valueToShow = valuesToShow[index];
-                if (
-                    valueToShow.toLowerCase().indexOf(value.toLowerCase()) > -1
-                ) {
-                    tempData.rows.push(row);
-                    break;
+            const cells = row.cells;
+            for (let index = 0; index < data.columns.length; index++) {
+                const column = data.columns[index];
+                const cell = cells[column.name];
+                if (cell) {
+                    const dValue = getCellValueForDisplay(
+                        data.columns[index],
+                        cell
+                    );
+                    const found = !!(
+                        dValue.toLowerCase().indexOf(value.toLowerCase()) > -1
+                    );
+                    if (found) {
+                        tempRows.push({ row, weight: index });
+                        break;
+                    }
                 }
             }
         }
+        tempRows
+            .sort((a, b) => a.weight - b.weight)
+            .forEach((tempRow) => {
+                tempData.rows.push(tempRow.row);
+            });
         const newGantt = isDetail
             ? {
                   secondaryGantt: {

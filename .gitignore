@@ -3,3 +3,4 @@ node_modules/
 .project
 packages/ketchup/src/assets/debug.js
 packages/ketchup/src/assets/debug.js
+target/
