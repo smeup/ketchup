@@ -146,7 +146,7 @@ export class KupTree {
             let somethingChanged = false;
 
             if (
-                !this.kupManager.objects.deepEqual(
+                !this.#kupManager.objects.deepEqual(
                     this.state.filters,
                     this.filters
                 )
@@ -155,7 +155,7 @@ export class KupTree {
                 somethingChanged = true;
             }
             if (
-                !this.kupManager.objects.deepEqual(
+                !this.#kupManager.objects.deepEqual(
                     this.state.density,
                     this.density
                 )
@@ -164,7 +164,7 @@ export class KupTree {
                 somethingChanged = true;
             }
             if (
-                !this.kupManager.objects.deepEqual(
+                !this.#kupManager.objects.deepEqual(
                     this.state.showFilters,
                     this.showFilters
                 )
@@ -173,7 +173,7 @@ export class KupTree {
                 somethingChanged = true;
             }
             if (
-                !this.kupManager.objects.deepEqual(
+                !this.#kupManager.objects.deepEqual(
                     this.state.showFooter,
                     this.showFooter
                 )
@@ -182,7 +182,7 @@ export class KupTree {
                 somethingChanged = true;
             }
             if (
-                !this.kupManager.objects.deepEqual(
+                !this.#kupManager.objects.deepEqual(
                     this.state.totals,
                     this.totals
                 )
@@ -191,7 +191,7 @@ export class KupTree {
                 somethingChanged = true;
             }
             if (
-                !this.kupManager.objects.deepEqual(
+                !this.#kupManager.objects.deepEqual(
                     this.state.globalFilter,
                     this.globalFilter
                 )
@@ -200,7 +200,7 @@ export class KupTree {
                 somethingChanged = true;
             }
             if (
-                !this.kupManager.objects.deepEqual(
+                !this.#kupManager.objects.deepEqual(
                     this.state.globalFilterValue,
                     this.globalFilterValue
                 )
@@ -360,7 +360,7 @@ export class KupTree {
     /**
      * Instance of the KupManager class.
      */
-    private kupManager: KupManager = kupManagerInstance();
+    #kupManager: KupManager = kupManagerInstance();
     /**
      * Reference to the column menu card.
      */
@@ -648,7 +648,7 @@ export class KupTree {
      */
     @Method()
     async hideColumn(column: KupDataColumn): Promise<void> {
-        this.kupManager.data.column.hide(this.columns, [column.name]);
+        this.#kupManager.data.column.hide(this.columns, [column.name]);
         this.kupColumnRemove.emit({
             comp: this,
             id: this.rootElement.id,
@@ -749,13 +749,13 @@ export class KupTree {
     }
 
     private checkScrollOnHover() {
-        if (!this.kupManager.scrollOnHover.isRegistered(this.treeWrapperRef)) {
+        if (!this.#kupManager.scrollOnHover.isRegistered(this.treeWrapperRef)) {
             if (this.scrollOnHover) {
-                this.kupManager.scrollOnHover.register(this.treeWrapperRef);
+                this.#kupManager.scrollOnHover.register(this.treeWrapperRef);
             }
         } else {
             if (!this.scrollOnHover) {
-                this.kupManager.scrollOnHover.unregister(this.treeWrapperRef);
+                this.#kupManager.scrollOnHover.unregister(this.treeWrapperRef);
             }
         }
     }
@@ -763,7 +763,7 @@ export class KupTree {
     onKupTreeNodeDblClick(treeNodeData: KupTreeNode, treeNodePath: string) {
         for (let index = 0; index < this.clickTimeout.length; index++) {
             clearTimeout(this.clickTimeout[index]);
-            this.kupManager.debug.logMessage(
+            this.#kupManager.debug.logMessage(
                 this,
                 'Cleared hdlTreeNodeClick timeout(' +
                     this.clickTimeout[index] +
@@ -1003,7 +1003,10 @@ export class KupTree {
 
     private contextMenuHandler(e: PointerEvent): KupTreeEventHandlerDetails {
         e.preventDefault();
-        const details = this.getEventDetails(this.getEventPath(e.target), e);
+        const details = this.getEventDetails(
+            this.#kupManager.getEventPath(e.target, this.rootElement),
+            e
+        );
         if (details.area === 'header') {
             if (details.th && details.column) {
                 this.openColumnMenu(details.column.name);
@@ -1019,23 +1022,6 @@ export class KupTree {
         return details;
     }
 
-    private getEventPath(currentEl: unknown): HTMLElement[] {
-        const path: HTMLElement[] = [];
-
-        while (
-            currentEl &&
-            currentEl !== this.rootElement &&
-            currentEl !== document.body
-        ) {
-            path.push(currentEl as HTMLElement);
-            currentEl = (currentEl as HTMLElement).parentNode
-                ? (currentEl as HTMLElement).parentNode
-                : (currentEl as ShadowRoot).host;
-        }
-
-        return path;
-    }
-
     // When a TreeNode can be selected
     hdlTreeNodeClick(
         e: MouseEvent,
@@ -1049,9 +1035,11 @@ export class KupTree {
                 !treeNodeData.expandable)
         ) {
             const td = e
-                ? this.getEventPath(e.target).find((el) => {
-                      if (el.tagName === 'TD') return el;
-                  })
+                ? this.#kupManager
+                      .getEventPath(e.target, this.rootElement)
+                      .find((el) => {
+                          if (el.tagName === 'TD') return el;
+                      })
                 : null;
             // If this TreeNode is not disabled, then it can be selected and an event is emitted
             if (treeNodeData && !treeNodeData.disabled) {
@@ -1286,14 +1274,14 @@ export class KupTree {
     private refreshStructureState() {
         if (this.data) {
             if ((this.data as KupDataDataset).columns) {
-                this.kupManager.debug.logMessage(
+                this.#kupManager.debug.logMessage(
                     this,
                     'Detected KupDataDataset: setting up tree as grid.',
                     KupDebugCategory.WARNING
                 );
                 const data = this.data as KupDataDataset;
                 this.columns = data.columns;
-                this.data = this.kupManager.data.row.toNode(data);
+                this.data = this.#kupManager.data.row.toNode(data);
                 this.showColumns = true;
                 this.showHeader = true;
             }
@@ -1389,7 +1377,7 @@ export class KupTree {
                 )
             ) {
                 const svgLabel =
-                    this.kupManager.language.translate(
+                    this.#kupManager.language.translate(
                         KupLanguageGeneric.REMOVE_FILTERS
                     ) + `: '${this.getFilterValueForTooltip(column)}'`;
                 /**
@@ -1528,11 +1516,11 @@ export class KupTree {
         let treeExpandIcon = (
             <span
                 title={
-                    this.kupManager.language.translate(
+                    this.#kupManager.language.translate(
                         KupLanguageGeneric.EXPAND
                     ) +
                     '/' +
-                    this.kupManager.language.translate(
+                    this.#kupManager.language.translate(
                         KupLanguageGeneric.COLLAPSE
                     ) +
                     ' (CTRL + Click)'
@@ -1644,8 +1632,8 @@ export class KupTree {
         }
         let title: string = undefined;
         if (
-            !this.kupManager.objects.isEmptyKupObj(treeNodeData.obj) &&
-            this.kupManager.debug.isDebug()
+            !this.#kupManager.objects.isEmptyKupObj(treeNodeData.obj) &&
+            this.#kupManager.debug.isDebug()
         ) {
             title =
                 treeNodeData.obj.t +
@@ -1685,7 +1673,7 @@ export class KupTree {
                             this.ripple &&
                             !this.showColumns &&
                             !treeNodeData.disabled,
-                        'is-obj': !this.kupManager.objects.isEmptyKupObj(
+                        'is-obj': !this.#kupManager.objects.isEmptyKupObj(
                             treeNodeData.obj
                         ),
                     }}
@@ -1730,7 +1718,7 @@ export class KupTree {
 
     private closeTotalMenu() {
         this.openedTotalMenu = null;
-        this.kupManager.removeClickCallback(this.clickCb);
+        this.#kupManager.removeClickCallback(this.clickCb);
     }
 
     private isOpenedTotalMenuForColumn(column: string): boolean {
@@ -1763,31 +1751,31 @@ export class KupTree {
                 let totalMenu = undefined;
                 let menuLabel = TotalLabel.CALC;
                 const translation = {
-                    [TotalLabel.AVERAGE]: this.kupManager.language.translate(
+                    [TotalLabel.AVERAGE]: this.#kupManager.language.translate(
                         KupLanguageTotals.AVERAGE
                     ),
-                    [TotalLabel.CALC]: this.kupManager.language.translate(
+                    [TotalLabel.CALC]: this.#kupManager.language.translate(
                         KupLanguageTotals.CALCULATE
                     ),
-                    [TotalLabel.CANC]: this.kupManager.language.translate(
+                    [TotalLabel.CANC]: this.#kupManager.language.translate(
                         KupLanguageTotals.CANCEL
                     ),
-                    [TotalLabel.COUNT]: this.kupManager.language.translate(
+                    [TotalLabel.COUNT]: this.#kupManager.language.translate(
                         KupLanguageTotals.COUNT
                     ),
-                    [TotalLabel.DISTINCT]: this.kupManager.language.translate(
+                    [TotalLabel.DISTINCT]: this.#kupManager.language.translate(
                         KupLanguageTotals.DISTINCT
                     ),
-                    [TotalLabel.MATH]: this.kupManager.language.translate(
+                    [TotalLabel.MATH]: this.#kupManager.language.translate(
                         KupLanguageTotals.FORMULA
                     ),
-                    [TotalLabel.MAX]: this.kupManager.language.translate(
+                    [TotalLabel.MAX]: this.#kupManager.language.translate(
                         KupLanguageTotals.MAXIMUM
                     ),
-                    [TotalLabel.MIN]: this.kupManager.language.translate(
+                    [TotalLabel.MIN]: this.#kupManager.language.translate(
                         KupLanguageTotals.MINIMUM
                     ),
-                    [TotalLabel.SUM]: this.kupManager.language.translate(
+                    [TotalLabel.SUM]: this.#kupManager.language.translate(
                         KupLanguageTotals.SUM
                     ),
                 };
@@ -1834,7 +1822,7 @@ export class KupTree {
                             value: translation[TotalLabel.DISTINCT],
                         },
                     ];
-                    if (this.kupManager.objects.isNumber(column.obj)) {
+                    if (this.#kupManager.objects.isNumber(column.obj)) {
                         listData.push(
                             {
                                 id: TotalMode.SUM,
@@ -1947,12 +1935,12 @@ export class KupTree {
                 });
             }
         };
-        this.kupManager.interact.on(
+        this.#kupManager.interact.on(
             this.treeWrapperRef,
             KupPointerEventTypes.TAP,
             tapCb
         );
-        this.kupManager.interact.on(
+        this.#kupManager.interact.on(
             this.treeWrapperRef,
             KupPointerEventTypes.HOLD,
             holdCb
@@ -1964,7 +1952,7 @@ export class KupTree {
             const menu: HTMLKupListElement =
                 this.rootElement.shadowRoot.querySelector('#totals-menu');
             if (menu) {
-                this.kupManager.dynamicPosition.register(
+                this.#kupManager.dynamicPosition.register(
                     menu as unknown as KupDynamicPositionElement,
                     this.totalMenuCoords
                 );
@@ -1972,15 +1960,15 @@ export class KupTree {
                     this.clickCb = {
                         cb: () => {
                             this.closeTotalMenu();
-                            this.kupManager.dynamicPosition.stop(
+                            this.#kupManager.dynamicPosition.stop(
                                 menu as unknown as KupDynamicPositionElement
                             );
                         },
                         el: menu,
                     };
                 }
-                this.kupManager.addClickCallback(this.clickCb, true);
-                this.kupManager.dynamicPosition.start(
+                this.#kupManager.addClickCallback(this.clickCb, true);
+                this.#kupManager.dynamicPosition.start(
                     menu as unknown as KupDynamicPositionElement
                 );
                 menu.menuVisible = true;
@@ -2063,9 +2051,9 @@ export class KupTree {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        this.kupManager.debug.logLoad(this, false);
-        this.kupManager.language.register(this);
-        this.kupManager.theme.register(this);
+        this.#kupManager.debug.logLoad(this, false);
+        this.#kupManager.language.register(this);
+        this.#kupManager.theme.register(this);
         this.columnMenuInstance = new KupColumnMenu();
         this.refreshStructureState();
     }
@@ -2073,12 +2061,12 @@ export class KupTree {
     componentDidLoad() {
         this.didLoadInteractables();
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
-        this.kupManager.resize.observe(this.rootElement);
-        this.kupManager.debug.logLoad(this, true);
+        this.#kupManager.resize.observe(this.rootElement);
+        this.#kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupManager.debug.logRender(this, false);
+        this.#kupManager.debug.logRender(this, false);
         if (this.showFooter && this.columns) {
             this.footer = calcTotals(
                 normalizeRows(this.getColumns(), this.nodesToRows()),
@@ -2118,7 +2106,7 @@ export class KupTree {
         this.persistState();
         // ***
         this.oldWidth = this.rootElement.clientWidth;
-        this.kupManager.debug.logRender(this, true);
+        this.#kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -2148,7 +2136,7 @@ export class KupTree {
             treeNodes.push(
                 <tr>
                     <td>
-                        {this.kupManager.language.translate(
+                        {this.#kupManager.language.translate(
                             KupLanguageGeneric.EMPTY_DATA
                         )}
                     </td>
@@ -2170,7 +2158,7 @@ export class KupTree {
                 <div id="global-filter">
                     <kup-text-field
                         fullWidth={true}
-                        label={this.kupManager.language.translate(
+                        label={this.#kupManager.language.translate(
                             KupLanguageSearch.SEARCH
                         )}
                         icon={KupThemeIconValues.SEARCH}
@@ -2190,7 +2178,7 @@ export class KupTree {
         return (
             <Host>
                 <style>
-                    {this.kupManager.theme.setKupStyle(
+                    {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
                     )}
                 </style>
@@ -2232,15 +2220,15 @@ export class KupTree {
     }
 
     disconnectedCallback() {
-        this.kupManager.language.register(this);
-        this.kupManager.resize.unobserve(this.rootElement);
-        this.kupManager.theme.unregister(this);
+        this.#kupManager.language.register(this);
+        this.#kupManager.resize.unobserve(this.rootElement);
+        this.#kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
             this.rootElement.shadowRoot.querySelectorAll(
                 '[' + kupDynamicPositionAttribute + ']'
             );
         if (dynamicPositionElements.length > 0) {
-            this.kupManager.dynamicPosition.unregister(
+            this.#kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
             );
         }
@@ -2248,7 +2236,7 @@ export class KupTree {
             this.columnMenuCard.remove();
         }
         if (this.scrollOnHover) {
-            this.kupManager.scrollOnHover.unregister(this.treeWrapperRef);
+            this.#kupManager.scrollOnHover.unregister(this.treeWrapperRef);
         }
         this.kupDidUnload.emit({ comp: this, id: this.rootElement.id });
     }
