@@ -29,7 +29,7 @@ export interface KupLanguageJSON {
  */
 export interface KupLanguageElement {
     keys: GenericObject;
-    variants: {
+    variants?: {
         keys: GenericObject;
     };
 }
