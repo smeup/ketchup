@@ -301,6 +301,15 @@ export class KupPlanner {
         this.#phases = {};
     }
 
+    @Watch('showSecondaryDates')
+    showSecondaryDatesChanged() {
+        this.#showSecondaryDatesLocal = this.showSecondaryDates;
+        if (this.plannerProps?.mainGantt) {
+            this.plannerProps.mainGantt.showSecondaryDates =
+                this.showSecondaryDates;
+        }
+    }
+
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -309,6 +318,8 @@ export class KupPlanner {
     #lastOnChangeReceived: KupPlannerLastOnChangeReceived;
     #rootPlanner;
     #phases: GenericObject = {};
+    // no re-render
+    #showSecondaryDatesLocal: boolean = false;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -385,7 +396,6 @@ export class KupPlanner {
      */
     @Method()
     async addPhases(taskId: string, data: KupDataDataset) {
-        console.log('kup-planner.tsx addPhases()');
         const task = this.#getTask(taskId);
         if (task) {
             this.#phases[taskId] = data;
@@ -487,7 +497,20 @@ export class KupPlanner {
                     this.taskIdCol,
                     this.taskNameCol,
                     data.columns,
-                    this.taskColumns
+                    this.taskColumns,
+                    () =>
+                        this.taskColumns.map((col) =>
+                            col == this.taskDates[0]
+                                ? '#START#'
+                                : col == this.taskDates[1]
+                                ? '#END#'
+                                : getCellValueForDisplay(
+                                      data.columns.find(
+                                          (kCol) => kCol.name == col
+                                      ),
+                                      row.cells[col]
+                                  )
+                        )
                 );
                 let iconUrl = this.#getIconUrl(row, this.taskIconCol);
                 let iconColor = this.#getIconColor(row, this.taskIconCol);
@@ -587,9 +610,6 @@ export class KupPlanner {
     #removePhases(taskId: string) {
         const task = this.#getTask(taskId);
         if (task) task.phases = undefined;
-        // this.plannerProps.mainGantt = JSON.parse(
-        //     JSON.stringify(this.plannerProps.mainGantt)
-        // );
         this.plannerProps = { ...this.plannerProps };
     }
 
@@ -717,6 +737,8 @@ export class KupPlanner {
     }
 
     componentDidLoad() {
+        this.#showSecondaryDatesLocal = this.showSecondaryDates;
+
         let details = this.#toDetails(this.detailData);
         if (details && details.length == 0) {
             details = undefined;
@@ -741,7 +763,7 @@ export class KupPlanner {
                 filter: mainFilter,
                 hideLabel: true,
                 ganttHeight: this.taskHeight,
-                showSecondaryDates: this.showSecondaryDates,
+                showSecondaryDates: this.#showSecondaryDatesLocal,
                 onClick: (nativeEvent: KupPlannerGanttTask | KupPlannerPhase) =>
                     this.handleOnClick(nativeEvent),
                 onContextMenu: (
@@ -773,6 +795,8 @@ export class KupPlanner {
                           this.handleOnDateChange(nativeEvent),
                   }
                 : undefined,
+            onSetDoubleView: (checked: boolean) =>
+                this.handleOnSetDoubleView(checked),
         };
         this.#renderReactPlannerElement();
         this.kupReady.emit({
@@ -854,7 +878,6 @@ export class KupPlanner {
     handleOnClick(
         nativeEvent: KupPlannerGanttTask | KupPlannerPhase | KupPlannerDetail
     ) {
-        console.log('kup-planner.handleOnClick', nativeEvent);
         switch (nativeEvent.rowType) {
             case KupPlannerGanttRowType.TASK:
                 const taskAction = (nativeEvent as KupPlannerGanttTask).phases
@@ -881,7 +904,6 @@ export class KupPlanner {
         event: React.MouseEvent<Element, MouseEvent>,
         row: KupPlannerGanttTask | KupPlannerPhase | KupPlannerDetail
     ) {
-        console.log('kup-planner.handleOnContextMenu', row);
         switch (row.rowType) {
             case KupPlannerGanttRowType.TASK:
                 if (this.#handleOnContextMenuOnTask()) {
@@ -913,12 +935,18 @@ export class KupPlanner {
         }
     }
 
+    handleOnSetDoubleView(checked: boolean) {
+        this.#showSecondaryDatesLocal = checked;
+        if (this.plannerProps?.mainGantt) {
+            this.plannerProps.mainGantt.showSecondaryDates = checked;
+        }
+    }
+
     handleOnDateChange(
         nativeEvent: KupPlannerGanttTask | KupPlannerPhase | KupPlannerDetail
     ) {
         if (this.#emitOnChangeEventsReceived(nativeEvent)) {
             if (nativeEvent.rowType != KupPlannerGanttRowType.DETAIL) {
-                console.log('kup-planner.handleOnDateChange', nativeEvent);
                 this.onKupDateChange(
                     nativeEvent,
                     KupPlannerTaskAction.onResize
