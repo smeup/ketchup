@@ -1038,6 +1038,7 @@ export class KupEchart {
                 } as echarts.LineSeriesOption);
                 break;
             case KupEchartTypes.BAR:
+            case KupEchartTypes.HBAR:
                 series.push({
                     data: values,
                     name: key,
@@ -1079,6 +1080,7 @@ export class KupEchart {
             this.#addSeries(type, series, values, key);
             i++;
         }
+        const isHorizontal = !!(KupEchartTypes.HBAR === this.types[0]);
         return {
             color: this.#setColors(Object.keys(y).length),
             legend: this.#setLegend(y),
@@ -1090,13 +1092,14 @@ export class KupEchart {
             },
             xAxis: {
                 ...this.#setAxisColors(),
-                data: x,
-                type: 'category',
+                data: isHorizontal ? undefined : x,
+                type: isHorizontal ? 'value' : 'category',
                 ...this.xAxis,
             },
             yAxis: {
                 ...this.#setAxisColors(),
-                type: 'value',
+                data: isHorizontal ? x : undefined,
+                type: isHorizontal ? 'category' : 'value',
                 ...this.yAxis,
             },
         } as echarts.EChartsOption;

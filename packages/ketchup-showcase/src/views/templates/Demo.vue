@@ -661,10 +661,13 @@ const demoTypes: DemoTypeJson = {
   KupEchartTypes: {
     keys: {
       BAR: 'Bar',
+      FUNNEL: 'Funnel',
+      HBAR: 'HBar',
       GAUSSIAN: 'Gaussian',
       LINE: 'Line',
       MAP: 'Map',
       PIE: 'Pie',
+      RADAR: 'Radar',
       SCATTER: 'Scatter',
     },
     type: DemoTypeFeature.ENUM,
