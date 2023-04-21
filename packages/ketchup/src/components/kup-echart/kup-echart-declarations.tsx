@@ -50,6 +50,7 @@ export enum KupEchartMaps {
 }
 
 export enum KupEchartTypes {
+    AREA = 'Area',
     BAR = 'Bar',
     HBAR = 'HBar',
     GAUSSIAN = 'Gaussian',
