@@ -660,6 +660,7 @@ const demoTypes: DemoTypeJson = {
   },
   KupEchartTypes: {
     keys: {
+      AREA: 'Area',
       BAR: 'Bar',
       FUNNEL: 'Funnel',
       HBAR: 'HBar',

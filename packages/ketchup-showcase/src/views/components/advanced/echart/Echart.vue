@@ -16,21 +16,24 @@
       <echart-line></echart-line>
     </template>
     <template v-slot:5>
-      <echart-pie></echart-pie>
+      <echart-area></echart-area>
     </template>
     <template v-slot:6>
-      <echart-scatter></echart-scatter>
+      <echart-pie></echart-pie>
     </template>
     <template v-slot:7>
-      <echart-map></echart-map>
+      <echart-scatter></echart-scatter>
     </template>
     <template v-slot:8>
-      <echart-gaussian></echart-gaussian>
+      <echart-map></echart-map>
     </template>
     <template v-slot:9>
-      <echart-funnel></echart-funnel>
+      <echart-gaussian></echart-gaussian>
     </template>
     <template v-slot:10>
+      <echart-funnel></echart-funnel>
+    </template>
+    <template v-slot:11>
       <echart-radar></echart-radar>
     </template>
   </comp>
@@ -38,6 +41,7 @@
 
 <script>
 import EchartDemo from '@/views/components/advanced/echart/examples/EchartDemo';
+import EchartArea from '@/views/components/advanced/echart/examples/EchartArea';
 import EchartBar from '@/views/components/advanced/echart/examples/EchartBar';
 import EchartHBar from '@/views/components/advanced/echart/examples/EchartHBar';
 import EchartEvents from '@/views/components/advanced/echart/examples/EchartEvents';
@@ -52,6 +56,7 @@ import Comp from '@/views/templates/Comp';
 export default {
   components: {
     EchartDemo,
+    EchartArea,
     EchartBar,
     EchartHBar,
     EchartEvents,
@@ -75,6 +80,7 @@ export default {
         'Bar',
         'Horizontal Bar',
         'Line',
+        'Area',
         'Pie',
         'Scatter',
         'Map',

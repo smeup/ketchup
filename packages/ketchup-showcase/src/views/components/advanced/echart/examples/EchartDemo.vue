@@ -128,7 +128,7 @@ export default {
         {
           prop: 'types',
           description:
-            'The type of the chart. Supported formats: Bar, HBar, Funnel, Gaussian, Line, Map, Pie, Scatter, Radar. It is possible for line bar and scatter types to pass multiple values ​​to create series of different types',
+            'The type of the chart. Supported formats: Area, Bar, Funnel, HBar, Gaussian, Line, Map, Pie, Scatter, Radar. It is possible for line bar and scatter types to pass multiple values ​​to create series of different types',
           type: 'KupEchartTypes',
           isArray: true,
           default: "['Line']",
