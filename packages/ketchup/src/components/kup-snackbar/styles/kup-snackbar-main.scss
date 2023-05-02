@@ -19,6 +19,7 @@
 }
 
 #kup-component {
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   height: 100%;
@@ -33,7 +34,7 @@
   box-shadow: var(--kup-box-shadow);
   color: var(--kup-navbar-color);
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   max-width: 672px;
   min-height: 48px;
   min-width: 344px;
@@ -41,7 +42,7 @@
   &__text {
     padding: 14px 16px;
     pointer-events: all;
-    white-space: nowrap;
+    word-break: break-word;
   }
 
   &__buttons {
@@ -50,13 +51,13 @@
     --kup-button-primary-color-h: var(--kup-navbar-color-h);
     --kup-button-primary-color-s: var(--kup-navbar-color-s);
     --kup-button-primary-color-l: var(--kup-navbar-color-l);
-    
+
     align-items: center;
     display: flex;
     justify-content: flex-end;
     margin-right: 8px;
     pointer-events: all;
-    width: 100%;
+    width: max-content;
   }
 
   &__close {
