@@ -21,9 +21,10 @@
 
 ## Events
 
-| Event                      | Description                              | Type                           |
-| -------------------------- | ---------------------------------------- | ------------------------------ |
-| `kup-snackbar-actionclick` | Triggered when action button is clicked. | `CustomEvent<KupEventPayload>` |
+| Event                          | Description                                               | Type                           |
+| ------------------------------ | --------------------------------------------------------- | ------------------------------ |
+| `kup-snackbar-actionclick`     | Triggered when action button is clicked.                  | `CustomEvent<KupEventPayload>` |
+| `kup-snackbar-timeoutcomplete` | Triggered when the snackbar's hidden timeout is complete. | `CustomEvent<KupEventPayload>` |
 
 
 ## Methods
