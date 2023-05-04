@@ -387,12 +387,12 @@ export class KupChip {
 
         return (
             <Host
-                onKup-autocomplete-change={(
+                onKup-autocomplete-itemclick={(
                     e: CustomEvent<KupAutocompleteEventPayload>
                 ) => {
                     this.#changeHandler(e);
                 }}
-                onKup-combobox-change={(
+                onKup-combobox-itemclick={(
                     e: CustomEvent<KupComboboxEventPayload>
                 ) => {
                     this.#changeHandler(e);
