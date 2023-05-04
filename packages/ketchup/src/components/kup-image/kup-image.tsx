@@ -134,6 +134,22 @@ export class KupImage {
         });
     }
 
+    @Event({
+        eventName: 'kup-image-load',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupLoad: EventEmitter<KupImageClickEventPayload>;
+
+    onKupLoad(e: Event) {
+        this.kupLoad.emit({
+            comp: this,
+            id: this.rootElement.id,
+            el: e.target,
+        });
+    }
+
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
@@ -238,6 +254,7 @@ export class KupImage {
             sizeX: this.sizeX,
             sizeY: this.sizeY,
             onClick: (e) => this.onKupClick(e),
+            onLoad: (e) => this.onKupLoad(e),
         };
 
         let elStyle: {

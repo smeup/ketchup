@@ -263,8 +263,9 @@ export class KupChip {
         if (value) {
             const node = this.data?.find((node) => node.id === value);
             if (!node) {
+                const data = this.data && this.data.length ? this.data : [];
                 this.data = [
-                    ...this.data,
+                    ...data,
                     {
                         id: listNode ? listNode.id : value,
                         value: listNode ? listNode.value : value,
@@ -386,12 +387,12 @@ export class KupChip {
 
         return (
             <Host
-                onKup-autocomplete-change={(
+                onKup-autocomplete-itemclick={(
                     e: CustomEvent<KupAutocompleteEventPayload>
                 ) => {
                     this.#changeHandler(e);
                 }}
-                onKup-combobox-change={(
+                onKup-combobox-itemclick={(
                     e: CustomEvent<KupComboboxEventPayload>
                 ) => {
                     this.#changeHandler(e);

@@ -1,0 +1,437 @@
+{
+    "columns": [
+        {
+            "isKey": false,
+            "name": "PERSON",
+            "obj": {
+                "k": "",
+                "p": "COL",
+                "t": "CN"
+            },
+            "title": "Person"
+        },
+        {
+            "decimals": 0,
+            "isKey": false,
+            "name": "NUMBER",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "NR"
+            },
+            "title": "Lucky number"
+        },
+        {
+            "decimals": 0,
+            "isKey": false,
+            "name": "BIRTH",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "D8"
+            },
+            "title": "Birthdate"
+        }
+    ],
+    "rows": [
+        {
+            "cells": {
+                "PERSON": {
+                    "cssClass": "strong-text",
+                    "isEditable": false,
+                    "obj": {
+                        "k": "Mark Wright",
+                        "p": "COL",
+                        "t": "CN"
+                    },
+                    "value": "Mark Wright"
+                },
+                "NUMBER": {
+                    "isEditable": false,
+                    "obj": {
+                        "k": "43",
+                        "p": "",
+                        "t": "NR"
+                    },
+                    "value": "43"
+                },
+                "BIRTH": {
+                    "obj": {
+                        "k": "1900-12-12",
+                        "p": "",
+                        "t": "D8"
+                    },
+                    "value": "1900-12-12"
+                }
+            },
+            "id": "0",
+            "readOnly": true
+        },
+        {
+            "cells": {
+                "PERSON": {
+                    "cssClass": "strong-text",
+                    "isEditable": false,
+                    "obj": {
+                        "k": "Jack Smith",
+                        "p": "COL",
+                        "t": "CN"
+                    },
+                    "value": "Jack Smith"
+                },
+                "NUMBER": {
+                    "isEditable": false,
+                    "obj": {
+                        "k": "69",
+                        "p": "",
+                        "t": "NR"
+                    },
+                    "value": "69"
+                },
+                "BIRTH": {
+                    "obj": {
+                        "k": "1921-02-01",
+                        "p": "",
+                        "t": "D8"
+                    },
+                    "value": "1921-02-01"
+                }
+            },
+            "id": "1",
+            "readOnly": true
+        },
+        {
+            "cells": {
+                "PERSON": {
+                    "cssClass": "strong-text",
+                    "isEditable": false,
+                    "obj": {
+                        "k": "Liz Johnson",
+                        "p": "COL",
+                        "t": "CN"
+                    },
+                    "value": "Liz Johnson"
+                },
+                "NUMBER": {
+                    "isEditable": false,
+                    "obj": {
+                        "k": "33",
+                        "p": "",
+                        "t": "NR"
+                    },
+                    "value": "33"
+                },
+                "BIRTH": {
+                    "obj": {
+                        "k": "1932-06-30",
+                        "p": "",
+                        "t": "D8"
+                    },
+                    "value": "1932-06-30"
+                }
+            },
+            "id": "2",
+            "readOnly": true
+        },
+        {
+            "cells": {
+                "PERSON": {
+                    "cssClass": "strong-text",
+                    "isEditable": false,
+                    "obj": {
+                        "k": "Patrick Day",
+                        "p": "COL",
+                        "t": "CN"
+                    },
+                    "value": "Patrick Day"
+                },
+                "NUMBER": {
+                    "isEditable": false,
+                    "obj": {
+                        "k": "24",
+                        "p": "",
+                        "t": "NR"
+                    },
+                    "value": "24"
+                },
+                "BIRTH": {
+                    "obj": {
+                        "k": "2015-01-31",
+                        "p": "",
+                        "t": "D8"
+                    },
+                    "value": "2015-01-31"
+                }
+            },
+            "id": "3",
+            "readOnly": true
+        },
+        {
+            "cells": {
+                "PERSON": {
+                    "cssClass": "strong-text",
+                    "isEditable": false,
+                    "obj": {
+                        "k": "Arya Jackson",
+                        "p": "COL",
+                        "t": "CN"
+                    },
+                    "value": "Arya Jackson"
+                },
+                "NUMBER": {
+                    "isEditable": false,
+                    "obj": {
+                        "k": "59",
+                        "p": "",
+                        "t": "NR"
+                    },
+                    "value": "59",
+                    "displayedValue": "59"
+                },
+                "BIRTH": {
+                    "obj": {
+                        "k": "2000-01-01",
+                        "p": "",
+                        "t": "D8"
+                    },
+                    "value": "2000-01-01"
+                }
+            },
+            "id": "4",
+            "readOnly": true
+        },
+        {
+            "cells": {
+                "PERSON": {
+                    "cssClass": "strong-text",
+                    "isEditable": false,
+                    "obj": {
+                        "k": "Frank Boyle",
+                        "p": "COL",
+                        "t": "CN"
+                    },
+                    "value": "Frank Boyle"
+                },
+                "NUMBER": {
+                    "isEditable": false,
+                    "obj": {
+                        "k": "33",
+                        "p": "",
+                        "t": "NR"
+                    },
+                    "value": "33"
+                },
+                "BIRTH": {
+                    "obj": {
+                        "k": "1999-05-12",
+                        "p": "",
+                        "t": "D8"
+                    },
+                    "value": "1999-05-12"
+                }
+            },
+            "id": "5",
+            "readOnly": true
+        },
+        {
+            "cells": {
+                "PERSON": {
+                    "cssClass": "strong-text",
+                    "isEditable": false,
+                    "obj": {
+                        "k": "Victoria Fletcher",
+                        "p": "COL",
+                        "t": "CN"
+                    },
+                    "value": "Victoria Fletcher"
+                },
+                "NUMBER": {
+                    "isEditable": false,
+                    "obj": {
+                        "k": "51",
+                        "p": "",
+                        "t": "NR"
+                    },
+                    "value": "51"
+                },
+                "BIRTH": {
+                    "obj": {
+                        "k": "1807-08-21",
+                        "p": "",
+                        "t": "D8"
+                    },
+                    "value": "1807-08-21"
+                }
+            },
+            "id": "6",
+            "readOnly": true
+        },
+        {
+            "cells": {
+                "PERSON": {
+                    "cssClass": "strong-text",
+                    "isEditable": false,
+                    "obj": {
+                        "k": "Patricia Stewart",
+                        "p": "COL",
+                        "t": "CN"
+                    },
+                    "value": "Patricia Stewart"
+                },
+                "NUMBER": {
+                    "isEditable": false,
+                    "obj": {
+                        "k": "27",
+                        "p": "",
+                        "t": "NR"
+                    },
+                    "value": "27"
+                },
+                "BIRTH": {
+                    "obj": {
+                        "k": "1780-10-01",
+                        "p": "",
+                        "t": "D8"
+                    },
+                    "value": "1780-10-01"
+                }
+            },
+            "id": "7",
+            "readOnly": true
+        },
+        {
+            "cells": {
+                "PERSON": {
+                    "cssClass": "strong-text",
+                    "isEditable": false,
+                    "obj": {
+                        "k": "Tom Styles",
+                        "p": "COL",
+                        "t": "CN"
+                    },
+                    "value": "Tom Styles"
+                },
+                "NUMBER": {
+                    "isEditable": false,
+                    "obj": {
+                        "k": "51",
+                        "p": "",
+                        "t": "NR"
+                    },
+                    "value": "51"
+                },
+                "BIRTH": {
+                    "obj": {
+                        "k": "2021-03-12",
+                        "p": "",
+                        "t": "D8"
+                    },
+                    "value": "2021-03-12"
+                }
+            },
+            "id": "8",
+            "readOnly": true
+        },
+        {
+            "cells": {
+                "PERSON": {
+                    "cssClass": "strong-text",
+                    "isEditable": false,
+                    "obj": {
+                        "k": "Olivia Ridge",
+                        "p": "COL",
+                        "t": "CN"
+                    },
+                    "value": "Olivia Ridge"
+                },
+                "NUMBER": {
+                    "isEditable": false,
+                    "obj": {
+                        "k": "79",
+                        "p": "",
+                        "t": "NR"
+                    },
+                    "value": "79",
+                    "displayedValue": "79"
+                },
+                "BIRTH": {
+                    "obj": {
+                        "k": "1790-11-11",
+                        "p": "",
+                        "t": "D8"
+                    },
+                    "value": "1790-11-11"
+                }
+            },
+            "id": "9",
+            "readOnly": true
+        },
+        {
+            "cells": {
+                "PERSON": {
+                    "cssClass": "strong-text",
+                    "isEditable": false,
+                    "obj": {
+                        "k": "Ruby White",
+                        "p": "COL",
+                        "t": "CN"
+                    },
+                    "value": "Ruby White"
+                },
+                "NUMBER": {
+                    "isEditable": false,
+                    "obj": {
+                        "k": "29",
+                        "p": "",
+                        "t": "NR"
+                    },
+                    "value": "29",
+                    "displayedValue": "29"
+                },
+                "BIRTH": {
+                    "obj": {
+                        "k": "1990-12-02",
+                        "p": "",
+                        "t": "D8"
+                    },
+                    "value": "1990-12-02"
+                }
+            },
+            "id": "10",
+            "readOnly": true
+        },
+        {
+            "cells": {
+                "PERSON": {
+                    "cssClass": "strong-text",
+                    "isEditable": false,
+                    "obj": {
+                        "k": "Linda King",
+                        "p": "COL",
+                        "t": "CN"
+                    },
+                    "value": "Linda King"
+                },
+                "NUMBER": {
+                    "isEditable": false,
+                    "obj": {
+                        "k": "51",
+                        "p": "",
+                        "t": "NR"
+                    },
+                    "value": "51"
+                },
+                "BIRTH": {
+                    "obj": {
+                        "k": "1945-03-17",
+                        "p": "",
+                        "t": "D8"
+                    },
+                    "value": "1945-03-17"
+                }
+            },
+            "id": "11",
+            "readOnly": true
+        }
+    ]
+}

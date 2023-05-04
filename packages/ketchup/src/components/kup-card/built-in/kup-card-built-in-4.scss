@@ -136,9 +136,9 @@
         font-size: 1em;
       }
 
-      padding: $width-gutter/2;
+      padding: calc($width-gutter/2);
       > * {
-        margin: $width-gutter/2;
+        margin: calc($width-gutter/2);
       }
 
       //https://stackoverflow.com/questions/29732575/line-break-in-multi-line-flexbox
@@ -156,7 +156,7 @@
 
     .picker_slider,
     .picker_selector {
-      padding: $width-slider/2;
+      padding: calc($width-slider/2);
     }
 
     .picker_hue {

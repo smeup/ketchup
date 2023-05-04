@@ -1035,6 +1035,7 @@ export class KupDataTable {
         bubbles: true,
     })
     kupRowActionClick: EventEmitter<KupDatatableRowActionClickEventPayload>;
+
     @Event({
         eventName: 'kup-datatable-loadmoreclick',
         composed: true,
@@ -1292,12 +1293,8 @@ export class KupDataTable {
             type,
             options
         );
-        const error = !!(
-            typeof result === 'string' || result instanceof String
-        );
-        if (!error) {
-            this.refresh();
-        }
+        this.refresh();
+
         return result;
     }
     /**
@@ -2137,7 +2134,10 @@ export class KupDataTable {
                     );
                     return;
                 }
-                const path = this.#getEventPath(cell);
+                const path = this.#kupManager.getEventPath(
+                    cell,
+                    this.rootElement
+                );
                 const receivingDetails = this.#getEventDetails(path);
                 return {
                     cell: receivingDetails.cell,
@@ -2379,22 +2379,6 @@ export class KupDataTable {
     }
 
     //======== Utility methods ========
-
-    #getEventPath(currentEl: unknown): HTMLElement[] {
-        const path: HTMLElement[] = [];
-        while (
-            currentEl &&
-            currentEl !== this.rootElement &&
-            currentEl !== document.body
-        ) {
-            path.push(currentEl as HTMLElement);
-            currentEl = (currentEl as HTMLElement).parentNode
-                ? (currentEl as HTMLElement).parentNode
-                : (currentEl as ShadowRoot).host;
-        }
-
-        return path;
-    }
 
     #resetSelectedRows() {
         if (this.getRows().length === 0) return;
@@ -2898,7 +2882,7 @@ export class KupDataTable {
 
     #clickHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.#getEventDetails(
-            this.#getEventPath(e.target),
+            this.#kupManager.getEventPath(e.target, this.rootElement),
             e
         );
         if (details.area === 'header') {
@@ -2942,7 +2926,7 @@ export class KupDataTable {
 
     #contextMenuHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.#getEventDetails(
-            this.#getEventPath(e.target),
+            this.#kupManager.getEventPath(e.target, this.rootElement),
             e
         );
         if (details.area === 'header') {
@@ -2962,7 +2946,7 @@ export class KupDataTable {
 
     #dblClickHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.#getEventDetails(
-            this.#getEventPath(e.target),
+            this.#kupManager.getEventPath(e.target, this.rootElement),
             e
         );
         if (details.area === 'body') {

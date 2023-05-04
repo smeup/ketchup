@@ -43,7 +43,7 @@ import { KupImageListEventPayload } from "./components/kup-image-list/kup-image-
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
-import { KupPlannerEventPayload, KupPlannerPhase } from "./components/kup-planner/kup-planner-declarations";
+import { KupPlannerClickEventPayload, KupPlannerEventPayload, KupPlannerPhase } from "./components/kup-planner/kup-planner-declarations";
 import { TaskType } from "@sme.up/gantt-component/dist/types/public-types";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
@@ -90,7 +90,7 @@ export { KupImageListEventPayload } from "./components/kup-image-list/kup-image-
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
-export { KupPlannerEventPayload, KupPlannerPhase } from "./components/kup-planner/kup-planner-declarations";
+export { KupPlannerClickEventPayload, KupPlannerEventPayload, KupPlannerPhase } from "./components/kup-planner/kup-planner-declarations";
 export { TaskType } from "@sme.up/gantt-component/dist/types/public-types";
 export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 export { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
@@ -2480,6 +2480,11 @@ export namespace Components {
          */
         "detailHeight": number;
         /**
+          * Column containing icon name to show, for detail
+          * @default null
+         */
+        "detailIconCol": string;
+        /**
           * Column containing unique detail identifier
           * @default null
          */
@@ -2490,7 +2495,7 @@ export namespace Components {
          */
         "detailNameCol": string;
         /**
-          * Columns containing fForecast detail duration, from (firstDate) to (secondDate)
+          * Columns containing forecast detail duration, from (firstDate) to (secondDate)
           * @default null
          */
         "detailPrevDates": string[];
@@ -2530,6 +2535,11 @@ export namespace Components {
           * @default null
          */
         "phaseDates": string[];
+        /**
+          * Column containing icon name to show, for phase
+          * @default null
+         */
+        "phaseIconCol": string;
         /**
           * Column containing unique phase identifier
           * @default null
@@ -2574,6 +2584,11 @@ export namespace Components {
           * @default null
          */
         "taskHeight": number;
+        /**
+          * Column containing icon name to show, for task
+          * @default null
+         */
+        "taskIconCol": string;
         /**
           * Column containing unique task identifier
           * @default null
@@ -5483,6 +5498,7 @@ declare namespace LocalJSX {
          */
         "isCanvas"?: boolean;
         "onKup-image-click"?: (event: KupImageCustomEvent<KupImageClickEventPayload>) => void;
+        "onKup-image-load"?: (event: KupImageCustomEvent<KupImageClickEventPayload>) => void;
         /**
           * The resource used to fetch the image.
           * @default null
@@ -5784,6 +5800,11 @@ declare namespace LocalJSX {
          */
         "detailHeight"?: number;
         /**
+          * Column containing icon name to show, for detail
+          * @default null
+         */
+        "detailIconCol"?: string;
+        /**
           * Column containing unique detail identifier
           * @default null
          */
@@ -5794,7 +5815,7 @@ declare namespace LocalJSX {
          */
         "detailNameCol"?: string;
         /**
-          * Columns containing fForecast detail duration, from (firstDate) to (secondDate)
+          * Columns containing forecast detail duration, from (firstDate) to (secondDate)
           * @default null
          */
         "detailPrevDates"?: string[];
@@ -5809,6 +5830,10 @@ declare namespace LocalJSX {
          */
         "maxWidth"?: string;
         "onKup-planner-click"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
+        /**
+          * Generic right click event on planner.
+         */
+        "onKup-planner-contextmenu"?: (event: KupPlannerCustomEvent<KupPlannerClickEventPayload>) => void;
         "onKup-planner-datechange"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
         "onKup-planner-ready"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
         /**
@@ -5831,6 +5856,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "phaseDates"?: string[];
+        /**
+          * Column containing icon name to show, for phase
+          * @default null
+         */
+        "phaseIconCol"?: string;
         /**
           * Column containing unique phase identifier
           * @default null
@@ -5866,6 +5896,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "taskHeight"?: number;
+        /**
+          * Column containing icon name to show, for task
+          * @default null
+         */
+        "taskIconCol"?: string;
         /**
           * Column containing unique task identifier
           * @default null

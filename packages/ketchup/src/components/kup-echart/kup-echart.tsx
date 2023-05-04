@@ -833,6 +833,7 @@ export class KupEchart {
             this.types.filter((j) => j != KupEchartTypes.GAUSSIAN).length == 1;
         this.#gaussianDatasets = {};
         let i: number = 0;
+        const color = this.#setColors(Object.keys(y).length);
         for (const key in y) {
             let type: KupEchartTypes;
             if (this.types[i]) {
@@ -893,6 +894,7 @@ export class KupEchart {
                 series,
                 justValues,
                 key,
+                color[i],
                 mixedSeries,
                 needSortDataset
             );
@@ -1003,7 +1005,7 @@ export class KupEchart {
             yAxisTmp.splice(0, 1);
         }
         return {
-            color: this.#setColors(Object.keys(y).length),
+            color,
             legend: this.#setLegend(y),
             series: series,
             title: this.#setTitle(),
@@ -1022,6 +1024,7 @@ export class KupEchart {
         series: echarts.SeriesOption[],
         values: string[],
         key: string,
+        color: string,
         mixedSeries: boolean = false,
         needSortDataset: boolean = false
     ) {
@@ -1038,6 +1041,7 @@ export class KupEchart {
                 } as echarts.LineSeriesOption);
                 break;
             case KupEchartTypes.BAR:
+            case KupEchartTypes.HBAR:
                 series.push({
                     data: values,
                     name: key,
@@ -1052,12 +1056,34 @@ export class KupEchart {
                     type: 'scatter',
                 } as echarts.ScatterSeriesOption);
                 break;
+            case KupEchartTypes.AREA:
             case KupEchartTypes.LINE:
             default:
                 series.push({
                     data: values,
                     name: key,
                     type: 'line',
+                    areaStyle:
+                        type === KupEchartTypes.AREA
+                            ? {
+                                  color: new echarts.graphic.LinearGradient(
+                                      0,
+                                      0,
+                                      0,
+                                      0.25,
+                                      [
+                                          {
+                                              offset: 0,
+                                              color: `rgba(${
+                                                  this.#kupManager.theme.colorCheck(
+                                                      color
+                                                  ).rgbValues
+                                              }, 0.375)`,
+                                          },
+                                      ]
+                                  ),
+                              }
+                            : undefined,
                 } as echarts.LineSeriesOption);
                 break;
         }
@@ -1068,6 +1094,7 @@ export class KupEchart {
         const y = this.#createY();
         let i: number = 0;
         const series: echarts.SeriesOption[] = [];
+        const color = this.#setColors(Object.keys(y).length);
         for (const key in y) {
             const values: string[] = y[key];
             let type: KupEchartTypes;
@@ -1076,11 +1103,12 @@ export class KupEchart {
             } else {
                 type = KupEchartTypes.LINE;
             }
-            this.#addSeries(type, series, values, key);
+            this.#addSeries(type, series, values, key, color[i]);
             i++;
         }
+        const isHorizontal = !!(KupEchartTypes.HBAR === this.types[0]);
         return {
-            color: this.#setColors(Object.keys(y).length),
+            color,
             legend: this.#setLegend(y),
             series: series,
             title: this.#setTitle(),
@@ -1090,13 +1118,14 @@ export class KupEchart {
             },
             xAxis: {
                 ...this.#setAxisColors(),
-                data: x,
-                type: 'category',
+                data: isHorizontal ? undefined : x,
+                type: isHorizontal ? 'value' : 'category',
                 ...this.xAxis,
             },
             yAxis: {
                 ...this.#setAxisColors(),
-                type: 'value',
+                data: isHorizontal ? x : undefined,
+                type: isHorizontal ? 'category' : 'value',
                 ...this.yAxis,
             },
         } as echarts.EChartsOption;

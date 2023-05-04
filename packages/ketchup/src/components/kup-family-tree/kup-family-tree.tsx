@@ -562,23 +562,6 @@ export class KupFamilyTree {
         document.addEventListener('pointerup', endPanning);
     }
 
-    #getEventPath(currentEl: unknown): HTMLElement[] {
-        const path: HTMLElement[] = [];
-
-        while (
-            currentEl &&
-            currentEl !== this.rootElement &&
-            currentEl !== document.body
-        ) {
-            path.push(currentEl as HTMLElement);
-            currentEl = (currentEl as HTMLElement).parentNode
-                ? (currentEl as HTMLElement).parentNode
-                : (currentEl as ShadowRoot).host;
-        }
-
-        return path;
-    }
-
     #getEventDetails(
         path: HTMLElement[],
         e?: PointerEvent
@@ -623,17 +606,26 @@ export class KupFamilyTree {
     }
 
     #clickHandler(e: PointerEvent): KupFamilyTreeEventHandlerDetails {
-        const details = this.#getEventDetails(this.#getEventPath(e.target), e);
+        const details = this.#getEventDetails(
+            this.#kupManager.getEventPath(e.target, this.rootElement),
+            e
+        );
         return details;
     }
 
     #contextMenuHandler(e: PointerEvent): KupFamilyTreeEventHandlerDetails {
-        const details = this.#getEventDetails(this.#getEventPath(e.target), e);
+        const details = this.#getEventDetails(
+            this.#kupManager.getEventPath(e.target, this.rootElement),
+            e
+        );
         return details;
     }
 
     #dblClickHandler(e: PointerEvent): KupFamilyTreeEventHandlerDetails {
-        const details = this.#getEventDetails(this.#getEventPath(e.target), e);
+        const details = this.#getEventDetails(
+            this.#kupManager.getEventPath(e.target, this.rootElement),
+            e
+        );
         return details;
     }
 

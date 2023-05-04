@@ -2,7 +2,11 @@ import { Detail, GanttTask } from '@sme.up/gantt-component';
 import { Phase } from '@sme.up/gantt-component';
 import { GanttRow } from '@sme.up/gantt-component';
 import { KupEventPayload } from '../../components';
-import { KupDataRow } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
+import { KupDataTableCell } from '../kup-data-table/kup-data-table-declarations';
 
 /**
  * Props of the kup-gantt component.
@@ -45,13 +49,26 @@ export enum KupPlannerProps {
 }
 
 export enum KupPlannerTaskAction {
-    onOpening = 'onOpening',
-    onClosing = 'onClosing',
+    onTaskOpening = 'onTaskOpening',
+    onTaskClosing = 'onTaskClosing',
+    onClick = 'onClick',
+    onResize = 'onResize',
+    onRightClick = 'onRightClick',
 }
 
 export interface KupPlannerEventPayload extends KupEventPayload {
     value: GanttRow;
     taskAction?: KupPlannerTaskAction;
+}
+export interface KupPlannerClickEventPayload extends KupPlannerEventPayload {
+    details: KupPlannerEventHandlerDetails;
+}
+
+export interface KupPlannerEventHandlerDetails {
+    cell: KupDataTableCell;
+    column: KupDataColumn;
+    originalEvent: React.MouseEvent<Element, MouseEvent>;
+    row: KupDataRow;
 }
 
 export enum KupPlannerGanttRowType {
@@ -67,6 +84,7 @@ export interface KupPlannerGanttTask extends GanttTask {
 }
 export interface KupPlannerDetail extends Detail {
     rowType: KupPlannerGanttRowType;
+    detailRow: KupDataRow;
 }
 
 export interface KupPlannerPhase extends Phase {

@@ -55,6 +55,10 @@ export interface KupManager {
     toggleMagicBox: () => void;
     setLibraryLocalization: (locale: KupDatesLocales) => void;
     addClickCallback: (cb: KupManagerClickCb, async?: boolean) => void;
+    getEventPath: (
+        currentEl: unknown,
+        rootElement: HTMLElement
+    ) => HTMLElement[];
     removeClickCallback: (cb: KupManagerClickCb) => void;
     rasterize: (
         el: HTMLElement,
