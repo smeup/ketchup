@@ -2,7 +2,7 @@
     "octane": {
         "cssVariables": {
             "--kup-primary-color": "#068a9c",
-            "--kup-secondary-color": "#9c7406",
+            "--kup-secondary-color": "#f4a22e",
             "--kup-background-color": "#ffffff",
             "--kup-navbar-background-color": "#068a9c",
             "--kup-navbar-color": "#ffffff",
@@ -13,7 +13,7 @@
             "--kup-font-family": "IBM Plex Sans, sans-serif",
             "--kup-font-family-monospace": "IBM Plex Sans, sans-serif",
             "--kup-font-size": "14px",
-            "--kup-text-color": "#e8e8e8",
+            "--kup-text-color": "#474747",
             "--kup-text-on-primary-color": "#e8e8e8",
             "--kup-text-on-secondary-color": "#312c2c",
             "--kup-disabled-background-color": "#d1d1d1",
@@ -22,7 +22,7 @@
             "--kup-hover-color": "#303030",
             "--kup-title-background-color": "#068a9c",
             "--kup-title-color": "#fff",
-            "--kup-icon-color": "#fff",
+            "--kup-icon-color": "#e8e8e8",
             "--kup-border-color": "#d8d8d8",
             "--kup-box-shadow": "0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)",
             "--kup-info-color": "#2592df",
