@@ -5,11 +5,13 @@ import { KupEventPayload } from '../../types/GenericTypes';
  * Used to export every prop in an object.
  */
 export enum KupTextFieldProps {
+    allowNegative = 'When true, could be input negative numbers. It has effect only with number input type.',
     customStyle = 'Custom style of the component.',
     decimals = 'Number of decimals (should be used when inputType is number).',
     disabled = 'When set to true, the component is disabled.',
     emitSubmitEventOnEnter = "When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.",
     fullWidth = 'When set to true, the component will be rendered at full width.',
+    group = 'When true, the number will be formatted with group separator. It has effect only with number input type.',
     helper = 'When set, its content will be shown as a help text below the field.',
     helperEnabled = 'When true, the helper will be displayed.',
     helperWhenFocused = 'When set, the helper will be shown only when the field is focused.',
@@ -17,6 +19,7 @@ export enum KupTextFieldProps {
     initialValue = 'Sets the initial value of the component',
     inputMode = 'The HTML inputmode of the input element. It has no effect on text areas.',
     inputType = 'The HTML type of the input element. It has no effect on text areas.',
+    integers = 'Number of integers (should be used when inputType is number).',
     isClearable = 'Enables a clear trailing icon.',
     label = 'When set, its content will be shown as a label.',
     leadingLabel = 'When set to true, the label will be on the left of the component.',

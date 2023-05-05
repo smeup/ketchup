@@ -27,3 +27,10 @@ export enum KupMathLocales {
 export interface KupMathNumbers {
     toLocaleString: (value: string) => string;
 }
+
+export interface NumericFieldFormatOptions {
+    integer: number;
+    decimal: number;
+    allowNegative: boolean;
+    group: boolean;
+}
