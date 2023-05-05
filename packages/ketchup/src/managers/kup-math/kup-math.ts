@@ -125,6 +125,7 @@ export class KupMath {
      * Formats the input number with the specified format of the currently set locale.
      * @param {string | String | number} input - Input number which will be automatically "numberified".
      * @param {string} format - Desired format. Defaults to '0,0.00' (i.e.: 2,000,000.51).
+     * @param {boolean} inputIsLocalized Numberifies assuming the input string is in the current KupMath locale's format.
      * @returns {string} Formatted number.
      */
     format(
@@ -185,6 +186,12 @@ export class KupMath {
             .find((part) => part.type === 'group').value;
     }
 
+    /**
+     * Checks if an input string matches options, for desired formatted decimal number (integer digits, decimal digits)
+     * @param value the input value to check
+     * @param options options for customize the check
+     * @returns an object from applying the regular expression for check
+     */
     matchNumericValueWithOptions(
         value: string,
         options: NumericFieldFormatOptions
