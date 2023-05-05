@@ -105,6 +105,23 @@ export class KupSnackbar {
             id: this.rootElement.id,
         });
     }
+    /**
+     * Triggered when the snackbar's hidden timeout is complete.
+     */
+    @Event({
+        eventName: 'kup-snackbar-timeoutcomplete',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTimeoutComplete: EventEmitter<KupEventPayload>;
+
+    onKupTimeoutComplete() {
+        this.kupTimeoutComplete.emit({
+            comp: this,
+            id: this.rootElement.id,
+        });
+    }
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -170,6 +187,7 @@ export class KupSnackbar {
         if (this.timeout && this.visible) {
             setTimeout(() => {
                 this.hide();
+                this.onKupTimeoutComplete();
             }, this.timeout);
         }
         this.kupManager.debug.logRender(this, true);

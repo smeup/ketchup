@@ -6106,6 +6106,10 @@ declare namespace LocalJSX {
          */
         "onKup-snackbar-actionclick"?: (event: KupSnackbarCustomEvent<KupEventPayload>) => void;
         /**
+          * Triggered when the snackbar's hidden timeout is complete.
+         */
+        "onKup-snackbar-timeoutcomplete"?: (event: KupSnackbarCustomEvent<KupEventPayload>) => void;
+        /**
           * Sets the textual content of the snackbar.
           * @default ''
          */
