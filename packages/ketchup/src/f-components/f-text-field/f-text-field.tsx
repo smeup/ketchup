@@ -3,6 +3,7 @@ import { FunctionalComponent, getAssetPath, h, VNode } from '@stencil/core';
 import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { NumericFieldFormatOptions } from '../../managers/kup-math/kup-math-declarations';
+import { formattedStringToUnformattedStringNumber } from '../../utils/utils';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -204,16 +205,8 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                     }}
                     onClick={props.onClick}
                     onFocus={props.onFocus}
-                    onInput={(e: InputEvent) => {
-                        if (props.onInput) {
-                            props.onInput(e);
-                        }
-                    }}
-                    onKeyDown={(e: KeyboardEvent) => {
-                        if (props.onKeyDown) {
-                            props.onKeyDown(e);
-                        }
-                    }}
+                    onInput={props.onInput}
+                    onKeyDown={props.onKeyDown}
                     onKeyPress={(e: KeyboardEvent) => {
                         if (!persManageForNumberFormat) {
                             return;

@@ -27,9 +27,12 @@ import {
     KupTextFieldProps,
 } from './kup-text-field-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
-import { getProps, setProps, stringToNumber } from '../../utils/utils';
+import {
+    getProps,
+    setProps,
+    unformattedStringToFormattedStringNumber,
+} from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { numberToString } from '../../utils/utils';
 import { formattedStringToUnformattedStringNumber } from '../../utils/utils';
 
 @Component({
@@ -301,38 +304,39 @@ export class KupTextField {
 
     onKupBlur(event: FocusEvent & { target: HTMLInputElement }) {
         const { target } = event;
+        this.#setValueFromEventTaget(target);
         this.kupBlur.emit({
             comp: this,
             id: this.rootElement.id,
-            value: target.value,
+            value: this.value,
         });
     }
 
     onKupChange(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
-        this.value = target.value;
+        this.#setValueFromEventTaget(target);
         this.kupChange.emit({
             comp: this,
             id: this.rootElement.id,
-            value: target.value,
+            value: this.value,
         });
     }
 
     onKupClick(event: MouseEvent & { target: HTMLInputElement }) {
         const { target } = event;
+        this.#setValueFromEventTaget(target);
         this.kupClick.emit({
             comp: this,
             id: this.rootElement.id,
-            value: target.value,
+            value: this.value,
         });
     }
 
-    onKupFocus(event: FocusEvent & { target: HTMLInputElement }) {
-        const { target } = event;
+    onKupFocus(_event: FocusEvent & { target: HTMLInputElement }) {
         this.kupFocus.emit({
             comp: this,
             id: this.rootElement.id,
-            value: target.value,
+            value: this.value,
         });
     }
 
@@ -363,13 +367,15 @@ export class KupTextField {
         });
     }
 
-    onKeyDown(event: KeyboardEvent) {
+    onKeyDown(event: KeyboardEvent & { target: HTMLInputElement }) {
+        const { target } = event;
         if (event.key === 'Enter') {
             if (this.emitSubmitEventOnEnter == true) {
+                this.#setValueFromEventTaget(target);
                 this.kupTextFieldSubmit.emit({
                     comp: this,
                     id: this.rootElement.id,
-                    value: this.inputEl.value,
+                    value: this.value,
                 });
             }
         }
@@ -427,7 +433,7 @@ export class KupTextField {
     async setValue(value: string): Promise<void> {
         this.value = value;
         try {
-            this.inputEl.value = value;
+            this.inputEl.value = this.#getValueForOutput();
         } catch (error) {
             this.kupManager.debug.logMessage(
                 this,
@@ -437,6 +443,32 @@ export class KupTextField {
         }
     }
 
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    #getValueForOutput(): string {
+        if (this.value == null || this.value.trim() == '') {
+            return '';
+        }
+        let v1 = unformattedStringToFormattedStringNumber(
+            this.value,
+            this.decimals,
+            ''
+        );
+        return v1;
+    }
+
+    #setValueFromEventTaget(target: HTMLInputElement) {
+        if (this.inputType == 'number') {
+            this.value = formattedStringToUnformattedStringNumber(
+                target.value,
+                ''
+            );
+        } else {
+            this.value = target.value;
+        }
+    }
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -530,7 +562,8 @@ export class KupTextField {
                 this.onKupFocus(e),
             onInput: (e: UIEvent & { target: HTMLInputElement }) =>
                 this.onKupInput(e),
-            onKeyDown: (e: KeyboardEvent) => this.onKeyDown(e),
+            onKeyDown: (e: KeyboardEvent & { target: HTMLInputElement }) =>
+                this.onKeyDown(e),
             onIconClick: (e: MouseEvent & { target: HTMLInputElement }) =>
                 this.onKupIconClick(e),
             onClearIconClick: () => this.onKupClearIconClick(),
