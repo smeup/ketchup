@@ -122,6 +122,14 @@ export default {
       ],
       demoProps: [
         {
+          prop: 'allowNegative',
+          description:
+            'When true, could be input negative numbers (should be used when inputType is number).',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
@@ -157,6 +165,14 @@ export default {
           prop: 'fullWidth',
           description:
             'Sets the width of the component to fill all the available horizontal space provided by its parent.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'group',
+          description:
+            'When true, the number will be formatted with group separator (should be used when inputType is number).',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -213,6 +229,14 @@ export default {
             'The HTML type of the input element. It has no effect on text areas.',
           type: 'string',
           default: 'text',
+          try: 'field',
+        },
+        {
+          prop: 'integers',
+          description:
+            'Number of integers (should be used when inputType is number).',
+          type: 'number',
+          default: 'null',
           try: 'field',
         },
         {

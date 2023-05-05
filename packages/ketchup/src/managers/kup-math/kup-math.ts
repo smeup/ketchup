@@ -12,6 +12,7 @@ import {
     KupMathFormulas,
     KupMathLocales,
     KupMathNumbers,
+    NumericFieldFormatOptions,
 } from './kup-math-declarations';
 import { customFormula, normalDistributionFormula } from './kup-math-helper';
 
@@ -124,10 +125,15 @@ export class KupMath {
      * Formats the input number with the specified format of the currently set locale.
      * @param {string | String | number} input - Input number which will be automatically "numberified".
      * @param {string} format - Desired format. Defaults to '0,0.00' (i.e.: 2,000,000.51).
+     * @param {boolean} inputIsLocalized Numberifies assuming the input string is in the current KupMath locale's format.
      * @returns {string} Formatted number.
      */
-    format(input: string | String | number, format?: string): string {
-        const n = this.numberify(input);
+    format(
+        input: string | String | number,
+        format?: string,
+        inputIsLocalized?: boolean
+    ): string {
+        const n = this.numberify(input, inputIsLocalized);
         if (!format) {
             const positiveN = Math.abs(n);
             const decimals = positiveN - Math.floor(positiveN);
@@ -137,9 +143,96 @@ export class KupMath {
                 format = '0,0';
             }
         }
-        const formatted = this.numeral(n).format(format);
-        return formatted;
+        return this.numeral(n).format(format);
     }
+    /**
+     * Created the string for format a number
+     * @param {boolean} thousandPoint - show thousandPoint
+     * @param {number} decimals - number of decimals
+     */
+    createFormatPattern(thousandPoint?: boolean, decimals?: number): string {
+        var format = '0';
+        if (thousandPoint) {
+            format += ',000';
+        }
+        if (decimals && decimals > 0) {
+            format += '.';
+            for (let i = 0; i < decimals; i++) {
+                format += '0';
+            }
+        }
+        return format;
+    }
+
+    /**
+     * Returns the decimal separator of current browser
+     * @returns current decimal separator, by locale
+     */
+    decimalSeparator() {
+        const numberWithGroupAndDecimalSeparator = 1000.1;
+        return Intl.NumberFormat(this.locale)
+            .formatToParts(numberWithGroupAndDecimalSeparator)
+            .find((part) => part.type === 'decimal').value;
+    }
+
+    /**
+     * Returns the group separator of current browser
+     * @returns current group separator, by locale
+     */
+    groupSeparator() {
+        const numberWithGroupAndDecimalSeparator = 1000.1;
+        return Intl.NumberFormat(this.locale)
+            .formatToParts(numberWithGroupAndDecimalSeparator)
+            .find((part) => part.type === 'group').value;
+    }
+
+    /**
+     * Checks if an input string matches options, for desired formatted decimal number (integer digits, decimal digits)
+     * @param value the input value to check
+     * @param options options for customize the check
+     * @returns an object from applying the regular expression for check
+     */
+    matchNumericValueWithOptions(
+        value: string,
+        options: NumericFieldFormatOptions
+    ): RegExpMatchArray {
+        // see https://github.com/24eme/jquery-input-number-format.git
+        let found: RegExpMatchArray = undefined;
+        let integerPartSuffix = '+';
+        if (options.integer && options.integer > 0) {
+            integerPartSuffix = '{0,' + options.integer + '}';
+        }
+
+        let regexp: string = '^[0-9]' + integerPartSuffix;
+        if (options.allowNegative) {
+            regexp = '^-{0,1}[0-9]' + integerPartSuffix;
+        }
+        if (options.decimal && options.decimal > 0) {
+            regexp +=
+                '([' +
+                this.decimalSeparator() +
+                '][0-9]{0,' +
+                options.decimal +
+                '})?';
+            let regexpObj = new RegExp(regexp + '$');
+            found = value.match(regexpObj);
+            if (!found) {
+                regexp =
+                    '^[' +
+                    this.decimalSeparator() +
+                    '][0-9]{0,' +
+                    options.decimal +
+                    '}';
+                regexpObj = new RegExp(regexp + '$');
+                found = value.match(regexpObj);
+            }
+        } else {
+            let regexpObj = new RegExp(regexp + '$');
+            found = value.match(regexpObj);
+        }
+        return found;
+    }
+
     /**
      * Returns a number from a non-specified input type between string, number, or String.
      * @param {string | String | number} input - Input value to numberify.

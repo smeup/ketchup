@@ -3,16 +3,19 @@ import type { FComponent } from '../../types/GenericTypes';
  * Props of the f-text-field component.
  */
 export interface FTextFieldProps extends FComponent {
+    allowNegative?: boolean;
     decimals?: number;
     disabled?: boolean;
     fullHeight?: boolean;
     fullWidth?: boolean;
+    group?: boolean;
     helper?: string;
     helperEnabled?: boolean;
     helperWhenFocused?: boolean;
     icon?: string;
     inputMode?: string;
     inputType?: string;
+    integers?: number;
     max?: number;
     maxLength?: number;
     min?: number;

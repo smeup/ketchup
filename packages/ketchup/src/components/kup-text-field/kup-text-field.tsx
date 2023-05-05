@@ -27,8 +27,10 @@ import {
     KupTextFieldProps,
 } from './kup-text-field-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
-import { getProps, setProps } from '../../utils/utils';
+import { getProps, setProps, stringToNumber } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { numberToString } from '../../utils/utils';
+import { formattedStringToUnformattedStringNumber } from '../../utils/utils';
 
 @Component({
     tag: 'kup-text-field',
@@ -56,6 +58,11 @@ export class KupTextField {
     /*-------------------------------------------------*/
 
     /**
+     * When true, could be input negative numbers (should be used when inputType is number).
+     * @default null
+     */
+    @Prop() allowNegative: boolean = false;
+    /**
      * Custom style of the component.
      * @default ""
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -81,6 +88,11 @@ export class KupTextField {
      * @default false
      */
     @Prop({ reflect: true }) fullWidth: boolean = false;
+    /**
+     * When true, the number will be formatted with group separator (should be used when inputType is number).
+     * @default null
+     */
+    @Prop() group: boolean = false;
     /**
      * When set, its content will be shown as a help text below the field.
      * @default null
@@ -116,6 +128,11 @@ export class KupTextField {
      * @default "text"
      */
     @Prop() inputType: string = 'text';
+    /**
+     * Number of integers (should be used when inputType is number).
+     * @default null
+     */
+    @Prop() integers: number = null;
     /**
      * Enables a clear trailing icon.
      * @default false
@@ -376,6 +393,9 @@ export class KupTextField {
      */
     @Method()
     async getValue(): Promise<string> {
+        if (this.inputType == 'number') {
+            return formattedStringToUnformattedStringNumber(this.value, '');
+        }
         return this.value;
     }
     /**
@@ -453,6 +473,7 @@ export class KupTextField {
 
     render() {
         const props: FTextFieldProps = {
+            allowNegative: this.allowNegative,
             danger: this.rootElement.classList.contains('kup-danger')
                 ? true
                 : false,
@@ -462,6 +483,7 @@ export class KupTextField {
                 ? true
                 : false,
             fullWidth: this.fullWidth,
+            group: this.group,
             helper: this.helper,
             helperEnabled: this.helperEnabled,
             helperWhenFocused: this.helperWhenFocused,
@@ -471,6 +493,7 @@ export class KupTextField {
                 : false,
             inputMode: this.inputMode,
             inputType: this.inputType,
+            integers: this.integers,
             isClearable: this.isClearable,
             label: this.label,
             leadingLabel: this.leadingLabel,
