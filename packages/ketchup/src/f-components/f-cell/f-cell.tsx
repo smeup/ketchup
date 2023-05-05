@@ -30,7 +30,10 @@ import { FunctionalComponent, h, VNode } from '@stencil/core';
 import { getCellValueForDisplay } from '../../utils/cell-utils';
 import { FCheckbox } from '../f-checkbox/f-checkbox';
 import { FTextField } from '../f-text-field/f-text-field';
-import { stringToNumber } from '../../utils/utils';
+import {
+    formattedStringToUnformattedStringNumber,
+    stringToNumber,
+} from '../../utils/utils';
 import { FImage } from '../f-image/f-image';
 import { FChip } from '../f-chip/f-chip';
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
@@ -722,10 +725,7 @@ function cellEvent(
     const column = props.column;
     const comp = props.component;
     const row = props.row;
-    const isInputEvent = !!((e.target as HTMLElement).tagName === 'INPUT');
-    let value = isInputEvent
-        ? (e.target as HTMLInputElement).value
-        : e.detail.value;
+    let value = getValueFromEventTaget(e, cellType);
     if (cellEventName === FCellEvents.UPDATE) {
         switch (cellType) {
             case FCellTypes.AUTOCOMPLETE:
@@ -785,6 +785,21 @@ function cellEvent(
             } catch (error) {}
         }
     }
+}
+
+function getValueFromEventTaget(
+    e: InputEvent | CustomEvent | MouseEvent | KeyboardEvent,
+    cellType: FCellTypes
+): string {
+    const isInputEvent = !!((e.target as HTMLElement).tagName === 'INPUT');
+    let value = isInputEvent
+        ? (e.target as HTMLInputElement).value
+        : e.detail.value;
+
+    if (cellType === FCellTypes.NUMBER && isInputEvent) {
+        value = formattedStringToUnformattedStringNumber(value, '');
+    }
+    return value;
 }
 
 function isAutoCentered(props: FCellProps) {

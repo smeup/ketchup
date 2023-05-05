@@ -4,7 +4,6 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import { getDecimalSeparator } from '../../utils/utils';
 import {
     KupDataDataset,
     KupDataRow,
@@ -158,8 +157,7 @@ export class KupDashList {
                     r.cells[this.data.columns[6].name].obj.k
                 ) {
                     newValue =
-                        newValue +
-                        getDecimalSeparator(this.kupManager.dates.getLocale());
+                        newValue + this.kupManager.math.decimalSeparator();
                 }
                 valueInt = (
                     <div slot="value-int" style={valueColor}>

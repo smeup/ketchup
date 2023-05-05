@@ -3004,6 +3004,11 @@ export namespace Components {
     }
     interface KupTextField {
         /**
+          * When true, could be input negative numbers (should be used when inputType is number).
+          * @default null
+         */
+        "allowNegative": boolean;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -3040,6 +3045,11 @@ export namespace Components {
          */
         "getValue": () => Promise<string>;
         /**
+          * When true, the number will be formatted with group separator (should be used when inputType is number).
+          * @default null
+         */
+        "group": boolean;
+        /**
           * When set, its content will be shown as a help text below the field.
           * @default null
          */
@@ -3074,6 +3084,11 @@ export namespace Components {
           * @default "text"
          */
         "inputType": string;
+        /**
+          * Number of integers (should be used when inputType is number).
+          * @default null
+         */
+        "integers": number;
         /**
           * Enables a clear trailing icon.
           * @default false
@@ -6106,6 +6121,10 @@ declare namespace LocalJSX {
          */
         "onKup-snackbar-actionclick"?: (event: KupSnackbarCustomEvent<KupEventPayload>) => void;
         /**
+          * Triggered when the snackbar's hidden timeout is complete.
+         */
+        "onKup-snackbar-timeoutcomplete"?: (event: KupSnackbarCustomEvent<KupEventPayload>) => void;
+        /**
           * Sets the textual content of the snackbar.
           * @default ''
          */
@@ -6235,6 +6254,11 @@ declare namespace LocalJSX {
     }
     interface KupTextField {
         /**
+          * When true, could be input negative numbers (should be used when inputType is number).
+          * @default null
+         */
+        "allowNegative"?: boolean;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -6260,6 +6284,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "fullWidth"?: boolean;
+        /**
+          * When true, the number will be formatted with group separator (should be used when inputType is number).
+          * @default null
+         */
+        "group"?: boolean;
         /**
           * When set, its content will be shown as a help text below the field.
           * @default null
@@ -6295,6 +6324,11 @@ declare namespace LocalJSX {
           * @default "text"
          */
         "inputType"?: string;
+        /**
+          * Number of integers (should be used when inputType is number).
+          * @default null
+         */
+        "integers"?: number;
         /**
           * Enables a clear trailing icon.
           * @default false

@@ -25,13 +25,6 @@ export function identify(array: Array<KupBoxRow | KupDataRow>) {
     }
 }
 
-function getSeparator(locale, separatorType) {
-    const numberWithGroupAndDecimalSeparator = 1000.1;
-    return Intl.NumberFormat(locale)
-        .formatToParts(numberWithGroupAndDecimalSeparator)
-        .find((part) => part.type === separatorType).value;
-}
-
 export function getCurrentDateFormatFromBrowserLocale(): string {
     const formatObj = new Intl.DateTimeFormat(
         dom.ketchup.dates.getLocale()
@@ -202,7 +195,7 @@ export function formattedStringToUnformattedStringNumber(
     return numberStringToNumberString(
         input,
         type,
-        getDecimalSeparator(dom.ketchup.dates.getLocale())
+        dom.ketchup.math.decimalSeparator()
     );
 }
 
@@ -251,10 +244,6 @@ function numberStringToNumberString(
     let unf: number = stringToNumber(input);
 
     return _numberToString(unf, -1, 'en-US', false);
-}
-
-export function getDecimalSeparator(locale) {
-    return getSeparator(locale, 'decimal');
 }
 
 function countDecimals(value: number): number {
