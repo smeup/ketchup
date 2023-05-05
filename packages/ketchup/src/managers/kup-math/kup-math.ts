@@ -15,6 +15,7 @@ import {
     NumericFieldFormatOptions,
 } from './kup-math-declarations';
 import { customFormula, normalDistributionFormula } from './kup-math-helper';
+import { getRegExpFromString } from '../../utils/utils';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -196,6 +197,10 @@ export class KupMath {
         value: string,
         options: NumericFieldFormatOptions
     ): RegExpMatchArray {
+        value = value.replace(
+            getRegExpFromString(this.groupSeparator(), 'g'),
+            ''
+        );
         // see https://github.com/24eme/jquery-input-number-format.git
         let found: RegExpMatchArray = undefined;
         let integerPartSuffix = '+';
