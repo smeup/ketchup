@@ -655,3 +655,17 @@ export function setProps(
         }
     }
 }
+
+/**
+ * Creates a regular expression object, from a string un-escaped
+ * @param s string to use for create regular expression (not escaped)
+ * @param flags flags used for the regular expression
+ * @returns the regular expression object
+ */
+export function getRegExpFromString(s: string, flags?: string): RegExp {
+    return new RegExp(escapeRegExp(s), flags);
+}
+
+function escapeRegExp(s: string) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
