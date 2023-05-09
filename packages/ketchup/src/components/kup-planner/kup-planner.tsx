@@ -152,6 +152,27 @@ export class KupPlanner {
     detailPrevDates: string[];
 
     /**
+     * When true, the detail gantt is not interactable.
+     * @default false
+     */
+    @Prop()
+    detailReadOnly: boolean = false;
+
+    /**
+     * Sets the initial scroll X for the detail.
+     * @default undefined
+     */
+    @Prop()
+    detailInitialScrollX: number;
+
+    /**
+     * Sets the initial scroll Y for the detail.
+     * @default undefined
+     */
+    @Prop()
+    detailInitialScrollY: number;
+
+    /**
      * Total size of the cells inside to the left box, near the gantt
      * @default '300px'
      */
@@ -220,6 +241,27 @@ export class KupPlanner {
      */
     @Prop()
     phasePrevDates: string[];
+
+    /**
+     * When true, the phase gantt is not interactable.
+     * @default false
+     */
+    @Prop()
+    phaseReadOnly: boolean = false;
+
+    /**
+     * Sets the initial scroll X for the phase.
+     * @default undefined
+     */
+    @Prop()
+    phaseInitialScrollX: number;
+
+    /**
+     * Sets the initial scroll Y for the phase.
+     * @default undefined
+     */
+    @Prop()
+    phaseInitialScrollY: number;
 
     /**
      * Enable/disable display of secondary dates
@@ -773,6 +815,9 @@ export class KupPlanner {
                 onDateChange: (
                     nativeEvent: KupPlannerGanttTask | KupPlannerPhase
                 ) => this.handleOnDateChange(nativeEvent),
+                initialScrollX: this.detailInitialScrollX,
+                initialScrollY: this.detailInitialScrollY,
+                readOnly: this.detailReadOnly,
             },
             secondaryGantt: details
                 ? {
@@ -793,6 +838,9 @@ export class KupPlanner {
                       ) => this.handleOnContextMenu(event, row),
                       onDateChange: (nativeEvent: KupPlannerDetail) =>
                           this.handleOnDateChange(nativeEvent),
+                      initialScrollX: this.phaseInitialScrollX,
+                      initialScrollY: this.phaseInitialScrollY,
+                      readOnly: this.phaseReadOnly,
                   }
                 : undefined,
             onSetDoubleView: (checked: boolean) =>

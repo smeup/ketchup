@@ -138,6 +138,27 @@ export default {
           try: 'field',
         },
         {
+          prop: 'detailInitialScrollX',
+          description: 'Sets the initial scroll X for the detail.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'detailInitialScrollY',
+          description: 'Sets the initial scroll Y for the detail.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'detailReadOnly',
+          description: 'When true, the detail gantt is not interactable.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'listCellWidth',
           description:
             'Total size of the cells inside to the left box, near the gantt',
@@ -185,6 +206,20 @@ export default {
           try: 'field',
         },
         {
+          prop: 'phaseInitialScrollX',
+          description: 'Sets the initial scroll X for the phase.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'phaseInitialScrollY',
+          description: 'Sets the initial scroll Y for the phase.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'phaseNameCol',
           description: 'Column containing phase name displayed',
           type: 'string',
@@ -199,6 +234,13 @@ export default {
           default: 'undefined',
           try: 'json',
           isArray: true,
+        },
+        {
+          prop: 'phaseReadOnly',
+          description: 'When true, the phase gantt is not interactable.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'showSecondaryDates',

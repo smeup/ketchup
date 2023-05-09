@@ -2490,6 +2490,16 @@ export namespace Components {
          */
         "detailIdCol": string;
         /**
+          * Sets the initial scroll X for the detail.
+          * @default undefined
+         */
+        "detailInitialScrollX": number;
+        /**
+          * Sets the initial scroll Y for the detail.
+          * @default undefined
+         */
+        "detailInitialScrollY": number;
+        /**
           * Column containing detail name displayed
           * @default null
          */
@@ -2499,6 +2509,11 @@ export namespace Components {
           * @default null
          */
         "detailPrevDates": string[];
+        /**
+          * When true, the detail gantt is not interactable.
+          * @default false
+         */
+        "detailReadOnly": boolean;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -2546,6 +2561,16 @@ export namespace Components {
          */
         "phaseIdCol": string;
         /**
+          * Sets the initial scroll X for the phase.
+          * @default undefined
+         */
+        "phaseInitialScrollX": number;
+        /**
+          * Sets the initial scroll Y for the phase.
+          * @default undefined
+         */
+        "phaseInitialScrollY": number;
+        /**
           * Column containing phase name displayed
           * @default null
          */
@@ -2555,6 +2580,11 @@ export namespace Components {
           * @default null
          */
         "phasePrevDates": string[];
+        /**
+          * When true, the phase gantt is not interactable.
+          * @default false
+         */
+        "phaseReadOnly": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -5825,6 +5855,16 @@ declare namespace LocalJSX {
          */
         "detailIdCol"?: string;
         /**
+          * Sets the initial scroll X for the detail.
+          * @default undefined
+         */
+        "detailInitialScrollX"?: number;
+        /**
+          * Sets the initial scroll Y for the detail.
+          * @default undefined
+         */
+        "detailInitialScrollY"?: number;
+        /**
           * Column containing detail name displayed
           * @default null
          */
@@ -5834,6 +5874,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "detailPrevDates"?: string[];
+        /**
+          * When true, the detail gantt is not interactable.
+          * @default false
+         */
+        "detailReadOnly"?: boolean;
         /**
           * Total size of the cells inside to the left box, near the gantt
           * @default '300px'
@@ -5882,6 +5927,16 @@ declare namespace LocalJSX {
          */
         "phaseIdCol"?: string;
         /**
+          * Sets the initial scroll X for the phase.
+          * @default undefined
+         */
+        "phaseInitialScrollX"?: number;
+        /**
+          * Sets the initial scroll Y for the phase.
+          * @default undefined
+         */
+        "phaseInitialScrollY"?: number;
+        /**
           * Column containing phase name displayed
           * @default null
          */
@@ -5891,6 +5946,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "phasePrevDates"?: string[];
+        /**
+          * When true, the phase gantt is not interactable.
+          * @default false
+         */
+        "phaseReadOnly"?: boolean;
         /**
           * Enable/disable display of secondary dates
           * @default false
