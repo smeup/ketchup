@@ -1,7 +1,9 @@
-import { isNumber } from '../../utils/utils';
+import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
 
 export function pageChange(pageNumber: number, max: number, perPage: number) {
-    if (isNumber(pageNumber)) {
+    if (dom.ketchup.math.isNumber(pageNumber)) {
         const numberOfPages = Math.ceil(max / perPage);
         let tmpNewPage: number = pageNumber;
         if (tmpNewPage > numberOfPages) {
@@ -16,7 +18,7 @@ export function pageChange(pageNumber: number, max: number, perPage: number) {
 }
 
 export function rowsPerPageChange(rowsNumber: number, max: number) {
-    if (isNumber(rowsNumber)) {
+    if (dom.ketchup.math.isNumber(rowsNumber)) {
         let tmpRowsPerPage: number = rowsNumber;
         if (tmpRowsPerPage > max) {
             tmpRowsPerPage = max;

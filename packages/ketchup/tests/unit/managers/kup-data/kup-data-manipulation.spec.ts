@@ -4,7 +4,6 @@ import { KupDom } from '../../../../src/managers/kup-manager/kup-manager-declara
 import sampleKupDataDataset from '../../../resources/mock/kup-data-dataset-luckynrs.json';
 import sampleNewColumns from '../../../resources/mock/kup-data-new-columns-luckynrs.json';
 import {
-    KupDataCell,
     KupDataColumn,
     KupDataDataset,
     KupDataNewColumn,

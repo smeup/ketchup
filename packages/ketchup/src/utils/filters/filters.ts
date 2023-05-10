@@ -7,16 +7,6 @@ import {
 } from '../../managers/kup-dates/kup-dates-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import {
-    formattedStringToCustomUnformattedStringTime,
-    formattedStringToDefaultUnformattedStringTimestamp,
-    formattedStringToUnformattedStringNumber,
-    isValidFormattedStringNumber,
-    isValidFormattedStringTime,
-    stringToNumber,
-    unformattedStringNumberToNumber,
-    isNumber as isNumberThisString,
-} from '../utils';
-import {
     FilterInterval,
     FILTER_ANALIZER,
     ValueDisplayedValue,
@@ -82,8 +72,13 @@ export class Filters {
             ) {
                 return newValue;
             }
-            if (isValidFormattedStringTime(value, manageSeconds)) {
-                return formattedStringToCustomUnformattedStringTime(
+            if (
+                dom.ketchup.dates.isValidFormattedStringTime(
+                    value,
+                    manageSeconds
+                )
+            ) {
+                return dom.ketchup.dates.formattedStringToCustomDateTime(
                     value,
                     manageSeconds
                         ? KupDatesFormats.ISO_TIME
@@ -97,16 +92,19 @@ export class Filters {
             ) {
                 return newValue;
             }
-            if (isValidFormattedStringTime(value, true)) {
-                return formattedStringToDefaultUnformattedStringTimestamp(
+            if (dom.ketchup.dates.isValidFormattedStringTime(value, true)) {
+                return dom.ketchup.dates.formattedStringToTimestampString(
                     value
                 );
             }
         } else if (dom.ketchup.objects.isNumber(smeupObj)) {
             if (
-                isValidFormattedStringNumber(value, smeupObj ? smeupObj.p : '')
+                dom.ketchup.math.isStringNumber(
+                    value,
+                    smeupObj ? smeupObj.p : ''
+                )
             ) {
-                return formattedStringToUnformattedStringNumber(
+                return dom.ketchup.math.formattedStringToNumberString(
                     value,
                     smeupObj ? smeupObj.p : ''
                 );
@@ -254,12 +252,15 @@ export class Filters {
         }
         let checkByRegularExpression = true;
         if (dom.ketchup.objects.isNumber(obj)) {
-            value = unformattedStringNumberToNumber(value, obj ? obj.p : '');
-            let valueNumber: number = stringToNumber(value);
+            let valueNumber: number = dom.ketchup.math.numberifySafe(
+                value,
+                obj ? obj.p : ''
+            );
             if (from != '') {
-                if (isNumberThisString(from)) {
+                if (dom.ketchup.math.isNumber(from)) {
                     checkByRegularExpression = false;
-                    let fromNumber: number = stringToNumber(from);
+                    let fromNumber: number =
+                        dom.ketchup.math.numberifySafe(from);
                     if (valueNumber < fromNumber) {
                         return false;
                     }
@@ -268,9 +269,9 @@ export class Filters {
                 }
             }
             if (to != '') {
-                if (isNumberThisString(to)) {
+                if (dom.ketchup.math.isNumber(to)) {
                     checkByRegularExpression = false;
-                    let toNumber: number = stringToNumber(to);
+                    let toNumber: number = dom.ketchup.math.numberifySafe(to);
                     if (valueNumber > toNumber) {
                         return false;
                     }
