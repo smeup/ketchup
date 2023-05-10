@@ -4,7 +4,6 @@ import {
     FButtonProps,
     FButtonStyling,
 } from '../../../f-components/f-button/f-button-declarations';
-import { KupDatesFormats } from '../../../managers/kup-dates/kup-dates-declarations';
 import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
 import { KupObj } from '../../../managers/kup-objects/kup-objects-declarations';
 import { KupCard } from '../kup-card';
@@ -14,6 +13,7 @@ import {
     KupCardBuiltInClockOptions,
     KupCardCSSClasses,
 } from '../kup-card-declarations';
+import { KupDatesFormats } from '../../../managers/kup-dates/kup-dates-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 

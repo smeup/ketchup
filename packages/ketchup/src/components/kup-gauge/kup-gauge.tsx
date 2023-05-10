@@ -14,11 +14,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import {
-    getProps,
-    setProps,
-    unformattedStringToFormattedStringNumber,
-} from '../../utils/utils';
+import { getProps, setProps } from '../../utils/utils';
 import { KupGaugeProps } from './kup-gauge-declarations';
 
 import { arc } from 'd3-shape';
@@ -428,7 +424,7 @@ export class KupGauge {
                                       x={topX}
                                       y={topY}
                                   >
-                                      {unformattedStringToFormattedStringNumber(
+                                      {this.kupManager.math.numberStringToFormattedString(
                                           String(threshold),
                                           -1,
                                           ''
@@ -452,7 +448,7 @@ export class KupGauge {
                                       x={topX}
                                       y={topY}
                                   >
-                                      {unformattedStringToFormattedStringNumber(
+                                      {this.kupManager.math.numberStringToFormattedString(
                                           String(threshold),
                                           -1,
                                           ''
@@ -476,7 +472,7 @@ export class KupGauge {
                     y={valueLabelYPosition}
                     style={style}
                 >
-                    {unformattedStringToFormattedStringNumber(
+                    {this.kupManager.math.numberStringToFormattedString(
                         String(tempValue),
                         -1,
                         ''

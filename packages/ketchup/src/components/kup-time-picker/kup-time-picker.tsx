@@ -17,14 +17,7 @@ import {
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { KupListNode } from '../kup-list/kup-list-declarations';
-import {
-    isValidFormattedStringTime,
-    formattedStringToCustomUnformattedStringTime,
-    unformattedStringToFormattedStringTime,
-    formatTime,
-    getProps,
-    setProps,
-} from '../../utils/utils';
+import { getProps, setProps } from '../../utils/utils';
 import {
     KupTimePickerEventPayload,
     KupTimePickerProps,
@@ -36,7 +29,6 @@ import {
 } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
@@ -47,6 +39,7 @@ import {
 } from '../kup-card/kup-card-declarations';
 import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
+import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 @Component({
     tag: 'kup-time-picker',
     styleUrl: 'kup-time-picker.scss',
@@ -402,7 +395,7 @@ export class KupTimePicker {
     /*-------------------------------------------------*/
 
     getFormattedValue(value: string): string {
-        return formattedStringToCustomUnformattedStringTime(
+        return this.kupManager.dates.formattedStringToCustomDateTime(
             value,
             this.manageSeconds
                 ? KupDatesFormats.ISO_TIME
@@ -413,7 +406,12 @@ export class KupTimePicker {
 
     refreshPickerValue(eventDetailValue: string, eventToRaise: EventEmitter) {
         let newValue = null;
-        if (isValidFormattedStringTime(eventDetailValue, this.manageSeconds)) {
+        if (
+            this.kupManager.dates.isValidFormattedStringTime(
+                eventDetailValue,
+                this.manageSeconds
+            )
+        ) {
             this.value = eventDetailValue;
             newValue = this.value;
         }
@@ -636,8 +634,11 @@ export class KupTimePicker {
             ) {
                 selected = true;
             }
-            const value: string = formatTime(date, this.manageSeconds);
-            const id = formattedStringToCustomUnformattedStringTime(
+            const value: string = this.kupManager.dates.formatTime(
+                date,
+                this.manageSeconds
+            );
+            const id = this.kupManager.dates.formattedStringToCustomDateTime(
                 value,
                 this.manageSeconds
                     ? KupDatesFormats.ISO_TIME
@@ -660,7 +661,7 @@ export class KupTimePicker {
         if (this.value == null || this.value.trim() == '') {
             return '';
         }
-        let v1 = unformattedStringToFormattedStringTime(
+        let v1 = this.kupManager.dates.timeStringToFormattedString(
             this.value,
             this.manageSeconds
         );

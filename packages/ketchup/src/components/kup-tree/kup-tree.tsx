@@ -47,11 +47,7 @@ import {
 import { KupTreeState } from './kup-tree-state';
 import { KupStore } from '../kup-state/kup-store';
 import { getColumnByName } from '../../utils/cell-utils';
-import {
-    getProps,
-    numberToFormattedStringNumber,
-    setProps,
-} from '../../utils/utils';
+import { getProps, setProps } from '../../utils/utils';
 import { KupColumnMenu } from '../../utils/kup-column-menu/kup-column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import {
@@ -1876,7 +1872,7 @@ export class KupTree {
                 ) {
                     value = this.footer[column.name];
                 } else {
-                    value = numberToFormattedStringNumber(
+                    value = this.#kupManager.math.numberToFormattedString(
                         this.footer[column.name],
                         column.decimals,
                         column.obj ? column.obj.p : ''
