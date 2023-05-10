@@ -1,17 +1,11 @@
 import { SortMode } from '../components/kup-data-table/kup-data-table-declarations';
-import {
-    stringToNumber,
-    unformattedStringToFormattedStringNumber,
-    unformattedStringToFormattedStringTime,
-    unformattedStringToFormattedStringTimestamp,
-} from './utils';
 import { ValueDisplayedValue } from './filters/filters-declarations';
 import { KupDom } from '../managers/kup-manager/kup-manager-declarations';
-import { KupDatesFormats } from '../managers/kup-dates/kup-dates-declarations';
 import {
     KupDataCell,
     KupDataColumn,
 } from '../managers/kup-data/kup-data-declarations';
+import { DatesFormats } from '../managers/kup-dates/kup-dates-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -81,7 +75,7 @@ export function getValueForDisplay(value, obj, decimals: number): string {
         return value;
     }
     if (dom.ketchup.objects.isNumber(obj)) {
-        return unformattedStringToFormattedStringNumber(
+        return dom.ketchup.math.numberStringToFormattedString(
             value,
             decimals ? decimals : -1,
             obj ? obj.p : ''
@@ -89,19 +83,19 @@ export function getValueForDisplay(value, obj, decimals: number): string {
     }
     if (
         dom.ketchup.objects.isDate(obj) &&
-        dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE)
+        dom.ketchup.dates.isValid(value, DatesFormats.ISO_DATE)
     ) {
         return dom.ketchup.dates.format(value);
     }
     if (dom.ketchup.objects.isTime(obj)) {
-        return unformattedStringToFormattedStringTime(
+        return dom.ketchup.dates.timeStringToFormattedString(
             value,
             dom.ketchup.objects.isTimeWithSeconds(obj),
             obj.t + obj.p
         );
     }
     if (dom.ketchup.objects.isTimestamp(obj)) {
-        return unformattedStringToFormattedStringTimestamp(value);
+        return dom.ketchup.dates.timestampStringToFormattedString(value);
     }
     return value;
 }
@@ -176,14 +170,14 @@ export function compareValues(
     let v1: any = s1;
     let v2: any = s2;
     if (dom.ketchup.objects.isNumber(obj1)) {
-        v1 = stringToNumber(s1);
-        v2 = stringToNumber(s2);
+        v1 = dom.ketchup.math.numberifySafe(s1);
+        v2 = dom.ketchup.math.numberifySafe(s2);
     } else if (dom.ketchup.objects.isDate(obj1)) {
         v1 = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(s1, KupDatesFormats.ISO_DATE)
+            dom.ketchup.dates.format(s1, DatesFormats.ISO_DATE)
         );
         v2 = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(s2, KupDatesFormats.ISO_DATE)
+            dom.ketchup.dates.format(s2, DatesFormats.ISO_DATE)
         );
     } else if (dom.ketchup.objects.isTime(obj1)) {
         let manageSeconds = dom.ketchup.objects.isTimeWithSeconds(obj1);
@@ -191,24 +185,24 @@ export function compareValues(
             dom.ketchup.dates.format(
                 s1,
                 manageSeconds
-                    ? KupDatesFormats.ISO_TIME
-                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
+                    ? DatesFormats.ISO_TIME
+                    : DatesFormats.ISO_TIME_WITHOUT_SECONDS
             )
         );
         v2 = dom.ketchup.dates.toDate(
             dom.ketchup.dates.format(
                 s2,
                 manageSeconds
-                    ? KupDatesFormats.ISO_TIME
-                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
+                    ? DatesFormats.ISO_TIME
+                    : DatesFormats.ISO_TIME_WITHOUT_SECONDS
             )
         );
     } else if (dom.ketchup.objects.isTimestamp(obj1)) {
         v1 = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(s1, KupDatesFormats.ISO_DATE_TIME)
+            dom.ketchup.dates.format(s1, DatesFormats.ISO_DATE_TIME)
         );
         v2 = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(s2, KupDatesFormats.ISO_DATE_TIME)
+            dom.ketchup.dates.format(s2, DatesFormats.ISO_DATE_TIME)
         );
     }
     if (v1 > v2) {

@@ -3,7 +3,6 @@ import { FunctionalComponent, getAssetPath, h, VNode } from '@stencil/core';
 import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { NumericFieldFormatOptions } from '../../managers/kup-math/kup-math-declarations';
-import { formattedStringToUnformattedStringNumber } from '../../utils/utils';
 
 const dom: KupDom = document.documentElement as KupDom;
 

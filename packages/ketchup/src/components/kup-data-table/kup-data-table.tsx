@@ -67,12 +67,7 @@ import {
     KupComponent,
     KupEventPayload,
 } from '../../types/GenericTypes';
-import {
-    numberToFormattedStringNumber,
-    identify,
-    getProps,
-    setProps,
-} from '../../utils/utils';
+import { identify, getProps, setProps } from '../../utils/utils';
 import {
     KupListNode,
     ItemsDisplayMode,
@@ -131,7 +126,6 @@ import {
     KupThemeIconValues,
 } from '../../managers/kup-theme/kup-theme-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import {
     kupDragActiveAttr,
     KupDragCallbacks,
@@ -170,6 +164,7 @@ import {
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupFormRow } from '../kup-form/kup-form-declarations';
+import { DatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -1644,7 +1639,7 @@ export class KupDataTable {
                 if (
                     this.#kupManager.dates.isValid(
                         totalValue,
-                        KupDatesFormats.ISO_DATE
+                        DatesFormats.ISO_DATE
                     )
                 ) {
                     totalValue = this.#kupManager.dates.format(totalValue);
@@ -4375,7 +4370,7 @@ export class KupDataTable {
                         value = footerValue;
                     }
                 } else {
-                    value = numberToFormattedStringNumber(
+                    value = this.#kupManager.math.numberToFormattedString(
                         footerValue,
                         column.decimals,
                         column.obj ? column.obj.p : ''
@@ -4503,7 +4498,7 @@ export class KupDataTable {
                                 if (
                                     this.#kupManager.dates.isValid(
                                         totalValue,
-                                        KupDatesFormats.ISO_DATE
+                                        DatesFormats.ISO_DATE
                                     )
                                 ) {
                                     value =
@@ -4515,11 +4510,12 @@ export class KupDataTable {
                                 }
                             }
                         } else {
-                            value = numberToFormattedStringNumber(
-                                totalValue,
-                                column.decimals,
-                                column.obj ? column.obj.p : ''
-                            );
+                            value =
+                                this.#kupManager.math.numberToFormattedString(
+                                    totalValue,
+                                    column.decimals,
+                                    column.obj ? column.obj.p : ''
+                                );
                         }
                     }
                     cells.push(<td class={totalClass}>{value}</td>);

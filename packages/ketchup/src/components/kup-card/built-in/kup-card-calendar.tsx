@@ -4,19 +4,19 @@ import {
     FButtonProps,
     FButtonStyling,
 } from '../../../f-components/f-button/f-button-declarations';
-import { KupDatesFormats } from '../../../managers/kup-dates/kup-dates-declarations';
-import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
-import { KupObj } from '../../../managers/kup-objects/kup-objects-declarations';
 import {
     DateTimeFormatOptionsMonth,
-    getMonthsAsStringByLocale,
-} from '../../../utils/utils';
+    DatesFormats,
+} from '../../../managers/kup-dates/kup-dates-declarations';
+import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
+import { KupObj } from '../../../managers/kup-objects/kup-objects-declarations';
 import { SourceEvent } from '../../kup-date-picker/kup-date-picker-declarations';
 import { KupCard } from '../kup-card';
 import {
     KupCardBuiltInCalendar,
     KupCardBuiltInCalendarOptions,
 } from '../kup-card-declarations';
+import { fillString } from '../../../utils/utils';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -44,7 +44,7 @@ export function prepareCalendar(component: KupCard) {
 
     if (!el.kupData.value) setValue(component, new Date());
 
-    const months = getMonthsAsStringByLocale();
+    const months = dom.ketchup.dates.getMonthsAsString();
     const curYear: number = getYear(component);
     const curMonth: number = getMonth(component);
     const yearRange = getInitEndYear(curYear);
@@ -187,7 +187,9 @@ function createCalendar(component: KupCard) {
 }
 
 function createDaysCalendar(component: KupCard) {
-    const days = getDaysOfWeekAsStringByLocale(getFirstDayIndex(component));
+    const days = dom.ketchup.dates.getDaysOfWeekAsString(
+        getFirstDayIndex(component)
+    );
 
     const selectedDate: Date = getValue(component);
     const selectedDay: number = getDay(component);
@@ -280,7 +282,9 @@ function createDaysCalendar(component: KupCard) {
 }
 
 function createMonthsCalendar(component: KupCard) {
-    const months = getMonthsAsStringByLocale(DateTimeFormatOptionsMonth.SHORT);
+    const months = dom.ketchup.dates.getMonthsAsString(
+        DateTimeFormatOptionsMonth.SHORT
+    );
 
     let selectedDay: number = getDay(component);
     const selectedMonth: number = getMonth(component);
@@ -393,76 +397,6 @@ function createYearsCalendar(component: KupCard) {
     );
 }
 
-function getDaysOfWeekAsStringByLocale(firstDayIndex?: number): string[] {
-    const thisWeekDays: { startDate: Date; endDate: Date } =
-        thisWeek(firstDayIndex);
-    const monday: Date = thisWeekDays.startDate;
-    const days: string[] = [];
-    for (var i = 0; i < 7; i++) {
-        var date: Date = new Date(monday.toISOString());
-        date.setDate(date.getDate() + i);
-        days[i] = getDayAsStringByLocale(date);
-    }
-    return days;
-}
-
-function thisWeek(firstDayIndex?: number): { startDate: Date; endDate: Date } {
-    const firstDay = firstDayThisWeek(firstDayIndex);
-    return {
-        startDate: firstDay,
-        endDate: offsetDate(firstDay, 6),
-    };
-}
-
-function firstDayThisWeek(firstDayIndex?: number): Date {
-    const d = new Date();
-    const day = d.getDay();
-    // dayIndex0
-    d.setDate(d.getDate() - day);
-    // dayIndexX
-    d.setDate(d.getDate() + firstDayIndex);
-    return d;
-}
-
-const offsetDate = (base: Date, count: number): Date => {
-    const date = new Date(base);
-    date.setDate(base.getDate() + count);
-    return date;
-};
-
-function getDayAsStringByLocale(date: Date): string {
-    if (date == null) {
-        return '';
-    }
-    const options: Intl.DateTimeFormatOptions = {
-        weekday: 'narrow',
-        /** weekday: 'narrow' 'short' 'long' */
-    };
-    const dateTimeFormat = new Intl.DateTimeFormat(
-        dom.ketchup.dates.getLocale(),
-        options
-    );
-    return dateTimeFormat.format(date);
-}
-
-function fillString(
-    stringIn: string,
-    stringForFill: string,
-    finalLen: number,
-    addBefore: boolean
-): string {
-    const initSize = stringIn.length;
-    let stringOut: string = '';
-    for (let i: number = initSize; i < finalLen; i += stringForFill.length) {
-        stringOut += stringForFill;
-    }
-    if (addBefore) {
-        return stringOut + stringIn;
-    } else {
-        return stringIn + stringOut;
-    }
-}
-
 function prevPage(component: KupCard) {
     let mm: number = getMonth(component);
     let yy: number = getYear(component);
@@ -549,7 +483,7 @@ function refresh(component: KupCard) {
 
 function onCalendarMonthYearItemClick(component: KupCard, value: string) {
     let d: Date;
-    if (dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE)) {
+    if (dom.ketchup.dates.isValid(value, DatesFormats.ISO_DATE)) {
         d = new Date(value);
     } else {
         d = new Date();
@@ -573,7 +507,7 @@ function onCalendarMonthYearItemClick(component: KupCard, value: string) {
 
 function onCalendarItemClick(component: KupCard, value: string) {
     let d: Date;
-    if (dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE)) {
+    if (dom.ketchup.dates.isValid(value, DatesFormats.ISO_DATE)) {
         d = new Date(value);
     } else {
         d = new Date();

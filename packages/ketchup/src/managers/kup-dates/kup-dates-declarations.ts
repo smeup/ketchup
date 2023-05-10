@@ -6,15 +6,7 @@ export enum KupDatesNormalize {
     TIME = 'time',
     TIMESTAMP = 'timestamp',
 }
-/**
- * Common use formats
- */
-export enum KupDatesFormats {
-    ISO_DATE = 'YYYY-MM-DD',
-    ISO_DATE_TIME = 'YYYY-MM-DD HH:mm:ss',
-    ISO_TIME = 'HH:mm:ss',
-    ISO_TIME_WITHOUT_SECONDS = 'HH:mm',
-}
+
 /**
  * Supported locales.
  */
@@ -26,4 +18,25 @@ export enum KupDatesLocales {
     POLISH = 'pl',
     RUSSIAN = 'ru',
     SPANISH = 'es',
+}
+
+/**
+ * Format Months
+ */
+export enum DateTimeFormatOptionsMonth {
+    NUMERIC = 'numeric',
+    DIGIT2 = '2-digit',
+    LONG = 'long',
+    SHORT = 'short',
+    NARROW = 'narrow',
+}
+
+/**
+ * Common use formats
+ */
+export enum DatesFormats {
+    ISO_DATE = 'YYYY-MM-DD',
+    ISO_DATE_TIME = 'YYYY-MM-DD HH:mm:ss',
+    ISO_TIME = 'HH:mm:ss',
+    ISO_TIME_WITHOUT_SECONDS = 'HH:mm',
 }

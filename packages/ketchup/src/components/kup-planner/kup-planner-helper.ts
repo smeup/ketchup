@@ -3,7 +3,7 @@ import {
     KupDataColumn,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
-import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
+import { DatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
 import { getCellValueForDisplay } from '../../utils/cell-utils';
 import { KupPlannerDatesSanitized } from './kup-planner-declarations';
@@ -53,7 +53,7 @@ function sanitizeDates(
 function isDateValid(dateCell: KupDataCell) {
     return (
         kupManager.objects.isDate(dateCell.obj) &&
-        kupManager.dates.isValid(dateCell.value, KupDatesFormats.ISO_DATE)
+        kupManager.dates.isValid(dateCell.value, DatesFormats.ISO_DATE)
     );
 }
 

@@ -2,20 +2,10 @@ import { KupTagNames } from '../../types/GenericTypes';
 import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import { KupTree } from '../../components/kup-tree/kup-tree';
 import {
-    KupDatesFormats,
+    DatesFormats,
     KupDatesNormalize,
 } from '../../managers/kup-dates/kup-dates-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
-import {
-    formattedStringToCustomUnformattedStringTime,
-    formattedStringToDefaultUnformattedStringTimestamp,
-    formattedStringToUnformattedStringNumber,
-    isValidFormattedStringNumber,
-    isValidFormattedStringTime,
-    stringToNumber,
-    unformattedStringNumberToNumber,
-    isNumber as isNumberThisString,
-} from '../utils';
 import {
     FilterInterval,
     FILTER_ANALIZER,
@@ -61,13 +51,13 @@ export class Filters {
             return newValue;
         }
         if (dom.ketchup.objects.isDate(smeupObj)) {
-            if (dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE)) {
+            if (dom.ketchup.dates.isValid(value, DatesFormats.ISO_DATE)) {
                 return newValue;
             }
             if (dom.ketchup.dates.isValid(value)) {
                 return dom.ketchup.dates.format(
                     dom.ketchup.dates.normalize(value, KupDatesNormalize.DATE),
-                    KupDatesFormats.ISO_DATE
+                    DatesFormats.ISO_DATE
                 );
             }
         } else if (dom.ketchup.objects.isTime(smeupObj)) {
@@ -76,37 +66,43 @@ export class Filters {
                 dom.ketchup.dates.isValid(
                     value,
                     manageSeconds
-                        ? KupDatesFormats.ISO_TIME
-                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
+                        ? DatesFormats.ISO_TIME
+                        : DatesFormats.ISO_TIME_WITHOUT_SECONDS
                 )
             ) {
                 return newValue;
             }
-            if (isValidFormattedStringTime(value, manageSeconds)) {
-                return formattedStringToCustomUnformattedStringTime(
+            if (
+                dom.ketchup.dates.isValidFormattedStringTime(
                     value,
                     manageSeconds
-                        ? KupDatesFormats.ISO_TIME
-                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS,
+                )
+            ) {
+                return dom.ketchup.dates.formattedStringToCustomDateTime(
+                    value,
+                    manageSeconds
+                        ? DatesFormats.ISO_TIME
+                        : DatesFormats.ISO_TIME_WITHOUT_SECONDS,
                     manageSeconds
                 );
             }
         } else if (dom.ketchup.objects.isTimestamp(smeupObj)) {
-            if (
-                dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE_TIME)
-            ) {
+            if (dom.ketchup.dates.isValid(value, DatesFormats.ISO_DATE_TIME)) {
                 return newValue;
             }
-            if (isValidFormattedStringTime(value, true)) {
-                return formattedStringToDefaultUnformattedStringTimestamp(
+            if (dom.ketchup.dates.isValidFormattedStringTime(value, true)) {
+                return dom.ketchup.dates.formattedStringToTimestampString(
                     value
                 );
             }
         } else if (dom.ketchup.objects.isNumber(smeupObj)) {
             if (
-                isValidFormattedStringNumber(value, smeupObj ? smeupObj.p : '')
+                dom.ketchup.math.isStringNumber(
+                    value,
+                    smeupObj ? smeupObj.p : ''
+                )
             ) {
-                return formattedStringToUnformattedStringNumber(
+                return dom.ketchup.math.formattedStringToNumberString(
                     value,
                     smeupObj ? smeupObj.p : ''
                 );
@@ -254,12 +250,15 @@ export class Filters {
         }
         let checkByRegularExpression = true;
         if (dom.ketchup.objects.isNumber(obj)) {
-            value = unformattedStringNumberToNumber(value, obj ? obj.p : '');
-            let valueNumber: number = stringToNumber(value);
+            let valueNumber: number = dom.ketchup.math.numberifySafe(
+                value,
+                obj ? obj.p : ''
+            );
             if (from != '') {
-                if (isNumberThisString(from)) {
+                if (dom.ketchup.math.isNumber(from)) {
                     checkByRegularExpression = false;
-                    let fromNumber: number = stringToNumber(from);
+                    let fromNumber: number =
+                        dom.ketchup.math.numberifySafe(from);
                     if (valueNumber < fromNumber) {
                         return false;
                     }
@@ -268,9 +267,9 @@ export class Filters {
                 }
             }
             if (to != '') {
-                if (isNumberThisString(to)) {
+                if (dom.ketchup.math.isNumber(to)) {
                     checkByRegularExpression = false;
-                    let toNumber: number = stringToNumber(to);
+                    let toNumber: number = dom.ketchup.math.numberifySafe(to);
                     if (valueNumber > toNumber) {
                         return false;
                     }
@@ -286,15 +285,15 @@ export class Filters {
         ) {
             let valueDate: Date = null;
 
-            let defaultFormat = KupDatesFormats.ISO_DATE;
+            let defaultFormat = DatesFormats.ISO_DATE;
             if (dom.ketchup.objects.isDate(obj)) {
-                defaultFormat = KupDatesFormats.ISO_DATE;
+                defaultFormat = DatesFormats.ISO_DATE;
             } else if (dom.ketchup.objects.isTime(obj)) {
                 defaultFormat = dom.ketchup.objects.isTimeWithSeconds(obj)
-                    ? KupDatesFormats.ISO_TIME
-                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS;
+                    ? DatesFormats.ISO_TIME
+                    : DatesFormats.ISO_TIME_WITHOUT_SECONDS;
             } else if (dom.ketchup.objects.isTimestamp(obj)) {
-                defaultFormat = KupDatesFormats.ISO_DATE_TIME;
+                defaultFormat = DatesFormats.ISO_DATE_TIME;
             }
 
             if (dom.ketchup.dates.isValid(value, defaultFormat, true)) {

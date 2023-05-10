@@ -30,10 +30,6 @@ import { FunctionalComponent, h, VNode } from '@stencil/core';
 import { getCellValueForDisplay } from '../../utils/cell-utils';
 import { FCheckbox } from '../f-checkbox/f-checkbox';
 import { FTextField } from '../f-text-field/f-text-field';
-import {
-    formattedStringToUnformattedStringNumber,
-    stringToNumber,
-} from '../../utils/utils';
 import { FImage } from '../f-image/f-image';
 import { FChip } from '../f-chip/f-chip';
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
@@ -505,7 +501,9 @@ function setEditableCell(
                     }
                     value={
                         cellType === FCellTypes.NUMBER
-                            ? stringToNumber(cell.value).toString()
+                            ? dom.ketchup.math
+                                  .numberifySafe(cell.value)
+                                  .toString()
                             : cell.value
                     }
                     onChange={(e: InputEvent) =>
@@ -576,7 +574,9 @@ function setCell(
             );
         case FCellTypes.NUMBER:
             if (content && content != '') {
-                const cellValueNumber = stringToNumber(cell.value);
+                const cellValueNumber = dom.ketchup.math.numberifySafe(
+                    cell.value
+                );
                 const cellValue = getCellValueForDisplay(column, cell);
                 if (cellValueNumber < 0) {
                     classObj[FCellClasses.TEXT_DANGER] = true;
@@ -680,7 +680,7 @@ function setKupCell(
             return (
                 <kup-gauge
                     key={column.name + props.row.id}
-                    value={stringToNumber(cell.value)}
+                    value={dom.ketchup.math.numberifySafe(cell.value)}
                     width-component="280px"
                     {...subcomponentProps}
                 ></kup-gauge>
@@ -797,7 +797,7 @@ function getValueFromEventTaget(
         : e.detail.value;
 
     if (cellType === FCellTypes.NUMBER && isInputEvent) {
-        value = formattedStringToUnformattedStringNumber(value, '');
+        value = dom.ketchup.math.formattedStringToNumberString(value, '');
     }
     return value;
 }
