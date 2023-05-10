@@ -23,7 +23,7 @@ export enum KupDatesLocales {
 /**
  * Format Months
  */
-export enum DateTimeFormatOptionsMonth {
+export enum KupDateTimeFormatOptionsMonth {
     NUMERIC = 'numeric',
     DIGIT2 = '2-digit',
     LONG = 'long',

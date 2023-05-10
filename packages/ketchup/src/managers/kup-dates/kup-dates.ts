@@ -10,7 +10,7 @@ import 'dayjs/locale/ru';
 import 'dayjs/locale/zh';
 import { KupComponent } from '../../types/GenericTypes';
 import {
-    DateTimeFormatOptionsMonth,
+    KupDateTimeFormatOptionsMonth,
     KupDatesFormats,
     KupDatesLocales,
     KupDatesNormalize,
@@ -444,12 +444,12 @@ export class KupDates {
     /**
      * Gets the month formatted
      * @param {number} month month id
-     * @param {DateTimeFormatOptionsMonth} format format
+     * @param {KupDateTimeFormatOptionsMonth} format format
      * @returns {string} the month formatted, by browser locale
      */
     getMonthAsString(
         month: number,
-        format: DateTimeFormatOptionsMonth
+        format: KupDateTimeFormatOptionsMonth
     ): string {
         if (month == null) {
             return '';
@@ -469,12 +469,12 @@ export class KupDates {
 
     /**
      * Gets the year months formatted
-     * @param {DateTimeFormatOptionsMonth} format format
+     * @param {KupDateTimeFormatOptionsMonth} format format
      * @returns {string[]} the months formatted, by browser locale
      */
-    getMonthsAsString(format?: DateTimeFormatOptionsMonth): string[] {
+    getMonthsAsString(format?: KupDateTimeFormatOptionsMonth): string[] {
         if (format == null || format.trim() == '') {
-            format = DateTimeFormatOptionsMonth.LONG;
+            format = KupDateTimeFormatOptionsMonth.LONG;
         }
         var months: string[] = [];
         for (var i = 0; i < 12; i++) {

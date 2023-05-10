@@ -5,7 +5,7 @@ import {
     FButtonStyling,
 } from '../../../f-components/f-button/f-button-declarations';
 import {
-    DateTimeFormatOptionsMonth,
+    KupDateTimeFormatOptionsMonth,
     KupDatesFormats,
 } from '../../../managers/kup-dates/kup-dates-declarations';
 import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
@@ -283,7 +283,7 @@ function createDaysCalendar(component: KupCard) {
 
 function createMonthsCalendar(component: KupCard) {
     const months = dom.ketchup.dates.getMonthsAsString(
-        DateTimeFormatOptionsMonth.SHORT
+        KupDateTimeFormatOptionsMonth.SHORT
     );
 
     let selectedDay: number = getDay(component);
