@@ -34,7 +34,7 @@ export enum DateTimeFormatOptionsMonth {
 /**
  * Common use formats
  */
-export enum DatesFormats {
+export enum KupDatesFormats {
     ISO_DATE = 'YYYY-MM-DD',
     ISO_DATE_TIME = 'YYYY-MM-DD HH:mm:ss',
     ISO_TIME = 'HH:mm:ss',

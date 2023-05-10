@@ -11,7 +11,7 @@ import 'dayjs/locale/zh';
 import { KupComponent } from '../../types/GenericTypes';
 import {
     DateTimeFormatOptionsMonth,
-    DatesFormats,
+    KupDatesFormats,
     KupDatesLocales,
     KupDatesNormalize,
 } from './kup-dates-declarations';
@@ -585,15 +585,15 @@ export class KupDates {
     formattedStringToTimestampString(value: string): string {
         return this.formattedStringToCustomDateTime(
             value,
-            DatesFormats.ISO_DATE_TIME,
+            KupDatesFormats.ISO_DATE_TIME,
             true
         );
     }
 
     /**
-     * Gets formatted dateTime as customed ISO (see DatesFormats)
+     * Gets formatted dateTime as customed ISO (see KupDatesFormats)
      * @param {string} value time as string, formatted by actual browser locale
-     * @param {string} outputFormat time format to return (see DatesFormats)
+     * @param {string} outputFormat time format to return (see KupDatesFormats)
      * @param {boolean} manageSeconds flag to set seconds managing
      * @returns {string} time as string, formatted
      **/

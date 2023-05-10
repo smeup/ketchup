@@ -13,7 +13,7 @@ import {
     KupCardBuiltInClockOptions,
     KupCardCSSClasses,
 } from '../kup-card-declarations';
-import { DatesFormats } from '../../../managers/kup-dates/kup-dates-declarations';
+import { KupDatesFormats } from '../../../managers/kup-dates/kup-dates-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -153,8 +153,8 @@ function createClock(component: KupCard) {
         selectedTime = dom.ketchup.dates.toDate(
             getValue(component),
             isManageSeconds(component)
-                ? DatesFormats.ISO_TIME
-                : DatesFormats.ISO_TIME_WITHOUT_SECONDS
+                ? KupDatesFormats.ISO_TIME
+                : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
         );
     } else {
         selectedTime = new Date();

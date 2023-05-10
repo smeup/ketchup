@@ -164,7 +164,7 @@ import {
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupFormRow } from '../kup-form/kup-form-declarations';
-import { DatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
+import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -1639,7 +1639,7 @@ export class KupDataTable {
                 if (
                     this.#kupManager.dates.isValid(
                         totalValue,
-                        DatesFormats.ISO_DATE
+                        KupDatesFormats.ISO_DATE
                     )
                 ) {
                     totalValue = this.#kupManager.dates.format(totalValue);
@@ -4498,7 +4498,7 @@ export class KupDataTable {
                                 if (
                                     this.#kupManager.dates.isValid(
                                         totalValue,
-                                        DatesFormats.ISO_DATE
+                                        KupDatesFormats.ISO_DATE
                                     )
                                 ) {
                                     value =

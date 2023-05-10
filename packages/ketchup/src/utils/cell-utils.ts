@@ -5,7 +5,7 @@ import {
     KupDataCell,
     KupDataColumn,
 } from '../managers/kup-data/kup-data-declarations';
-import { DatesFormats } from '../managers/kup-dates/kup-dates-declarations';
+import { KupDatesFormats } from '../managers/kup-dates/kup-dates-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -83,7 +83,7 @@ export function getValueForDisplay(value, obj, decimals: number): string {
     }
     if (
         dom.ketchup.objects.isDate(obj) &&
-        dom.ketchup.dates.isValid(value, DatesFormats.ISO_DATE)
+        dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE)
     ) {
         return dom.ketchup.dates.format(value);
     }
@@ -174,10 +174,10 @@ export function compareValues(
         v2 = dom.ketchup.math.numberifySafe(s2);
     } else if (dom.ketchup.objects.isDate(obj1)) {
         v1 = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(s1, DatesFormats.ISO_DATE)
+            dom.ketchup.dates.format(s1, KupDatesFormats.ISO_DATE)
         );
         v2 = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(s2, DatesFormats.ISO_DATE)
+            dom.ketchup.dates.format(s2, KupDatesFormats.ISO_DATE)
         );
     } else if (dom.ketchup.objects.isTime(obj1)) {
         let manageSeconds = dom.ketchup.objects.isTimeWithSeconds(obj1);
@@ -185,24 +185,24 @@ export function compareValues(
             dom.ketchup.dates.format(
                 s1,
                 manageSeconds
-                    ? DatesFormats.ISO_TIME
-                    : DatesFormats.ISO_TIME_WITHOUT_SECONDS
+                    ? KupDatesFormats.ISO_TIME
+                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
             )
         );
         v2 = dom.ketchup.dates.toDate(
             dom.ketchup.dates.format(
                 s2,
                 manageSeconds
-                    ? DatesFormats.ISO_TIME
-                    : DatesFormats.ISO_TIME_WITHOUT_SECONDS
+                    ? KupDatesFormats.ISO_TIME
+                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
             )
         );
     } else if (dom.ketchup.objects.isTimestamp(obj1)) {
         v1 = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(s1, DatesFormats.ISO_DATE_TIME)
+            dom.ketchup.dates.format(s1, KupDatesFormats.ISO_DATE_TIME)
         );
         v2 = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(s2, DatesFormats.ISO_DATE_TIME)
+            dom.ketchup.dates.format(s2, KupDatesFormats.ISO_DATE_TIME)
         );
     }
     if (v1 > v2) {

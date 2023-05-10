@@ -18,7 +18,7 @@ import {
 import { FiltersRows } from '../../utils/filters/filters-rows';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
-import { DatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
+import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -879,13 +879,13 @@ export function calcTotals(
                                         footerRow[key] =
                                             dom.ketchup.dates.format(
                                                 dom.ketchup.dates.min(moments),
-                                                DatesFormats.ISO_DATE
+                                                KupDatesFormats.ISO_DATE
                                             );
                                     } else {
                                         footerRow[key] =
                                             dom.ketchup.dates.format(
                                                 cellValue,
-                                                DatesFormats.ISO_DATE
+                                                KupDatesFormats.ISO_DATE
                                             );
                                     }
                                     break;
@@ -897,13 +897,13 @@ export function calcTotals(
                                         footerRow[key] =
                                             dom.ketchup.dates.format(
                                                 dom.ketchup.dates.max(moments),
-                                                DatesFormats.ISO_DATE
+                                                KupDatesFormats.ISO_DATE
                                             );
                                     } else {
                                         footerRow[key] =
                                             dom.ketchup.dates.format(
                                                 cellValue,
-                                                DatesFormats.ISO_DATE
+                                                KupDatesFormats.ISO_DATE
                                             );
                                     }
                                     break;

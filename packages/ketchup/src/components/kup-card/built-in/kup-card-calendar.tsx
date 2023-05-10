@@ -6,7 +6,7 @@ import {
 } from '../../../f-components/f-button/f-button-declarations';
 import {
     DateTimeFormatOptionsMonth,
-    DatesFormats,
+    KupDatesFormats,
 } from '../../../managers/kup-dates/kup-dates-declarations';
 import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
 import { KupObj } from '../../../managers/kup-objects/kup-objects-declarations';
@@ -483,7 +483,7 @@ function refresh(component: KupCard) {
 
 function onCalendarMonthYearItemClick(component: KupCard, value: string) {
     let d: Date;
-    if (dom.ketchup.dates.isValid(value, DatesFormats.ISO_DATE)) {
+    if (dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE)) {
         d = new Date(value);
     } else {
         d = new Date();
@@ -507,7 +507,7 @@ function onCalendarMonthYearItemClick(component: KupCard, value: string) {
 
 function onCalendarItemClick(component: KupCard, value: string) {
     let d: Date;
-    if (dom.ketchup.dates.isValid(value, DatesFormats.ISO_DATE)) {
+    if (dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE)) {
         d = new Date(value);
     } else {
         d = new Date();

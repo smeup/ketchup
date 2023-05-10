@@ -2,7 +2,7 @@ import { KupTagNames } from '../../types/GenericTypes';
 import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import { KupTree } from '../../components/kup-tree/kup-tree';
 import {
-    DatesFormats,
+    KupDatesFormats,
     KupDatesNormalize,
 } from '../../managers/kup-dates/kup-dates-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
@@ -51,13 +51,13 @@ export class Filters {
             return newValue;
         }
         if (dom.ketchup.objects.isDate(smeupObj)) {
-            if (dom.ketchup.dates.isValid(value, DatesFormats.ISO_DATE)) {
+            if (dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE)) {
                 return newValue;
             }
             if (dom.ketchup.dates.isValid(value)) {
                 return dom.ketchup.dates.format(
                     dom.ketchup.dates.normalize(value, KupDatesNormalize.DATE),
-                    DatesFormats.ISO_DATE
+                    KupDatesFormats.ISO_DATE
                 );
             }
         } else if (dom.ketchup.objects.isTime(smeupObj)) {
@@ -66,8 +66,8 @@ export class Filters {
                 dom.ketchup.dates.isValid(
                     value,
                     manageSeconds
-                        ? DatesFormats.ISO_TIME
-                        : DatesFormats.ISO_TIME_WITHOUT_SECONDS
+                        ? KupDatesFormats.ISO_TIME
+                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
                 )
             ) {
                 return newValue;
@@ -81,13 +81,15 @@ export class Filters {
                 return dom.ketchup.dates.formattedStringToCustomDateTime(
                     value,
                     manageSeconds
-                        ? DatesFormats.ISO_TIME
-                        : DatesFormats.ISO_TIME_WITHOUT_SECONDS,
+                        ? KupDatesFormats.ISO_TIME
+                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS,
                     manageSeconds
                 );
             }
         } else if (dom.ketchup.objects.isTimestamp(smeupObj)) {
-            if (dom.ketchup.dates.isValid(value, DatesFormats.ISO_DATE_TIME)) {
+            if (
+                dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE_TIME)
+            ) {
                 return newValue;
             }
             if (dom.ketchup.dates.isValidFormattedStringTime(value, true)) {
@@ -285,15 +287,15 @@ export class Filters {
         ) {
             let valueDate: Date = null;
 
-            let defaultFormat = DatesFormats.ISO_DATE;
+            let defaultFormat = KupDatesFormats.ISO_DATE;
             if (dom.ketchup.objects.isDate(obj)) {
-                defaultFormat = DatesFormats.ISO_DATE;
+                defaultFormat = KupDatesFormats.ISO_DATE;
             } else if (dom.ketchup.objects.isTime(obj)) {
                 defaultFormat = dom.ketchup.objects.isTimeWithSeconds(obj)
-                    ? DatesFormats.ISO_TIME
-                    : DatesFormats.ISO_TIME_WITHOUT_SECONDS;
+                    ? KupDatesFormats.ISO_TIME
+                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS;
             } else if (dom.ketchup.objects.isTimestamp(obj)) {
-                defaultFormat = DatesFormats.ISO_DATE_TIME;
+                defaultFormat = KupDatesFormats.ISO_DATE_TIME;
             }
 
             if (dom.ketchup.dates.isValid(value, defaultFormat, true)) {

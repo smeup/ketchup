@@ -29,7 +29,7 @@ import {
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
-    DatesFormats,
+    KupDatesFormats,
     KupDatesNormalize,
 } from '../../managers/kup-dates/kup-dates-declarations';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
@@ -387,7 +387,7 @@ export class KupDatePicker {
                     eventDetailValue,
                     KupDatesNormalize.DATE
                 ),
-                DatesFormats.ISO_DATE
+                KupDatesFormats.ISO_DATE
             );
 
             this.refreshPickerComponentValue(newValue);
@@ -411,7 +411,7 @@ export class KupDatePicker {
             return;
         }
         let d: Date;
-        if (this.kupManager.dates.isValid(value, DatesFormats.ISO_DATE)) {
+        if (this.kupManager.dates.isValid(value, KupDatesFormats.ISO_DATE)) {
             d = new Date(value);
         } else {
             d = new Date();

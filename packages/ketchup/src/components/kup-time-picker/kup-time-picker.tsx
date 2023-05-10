@@ -39,7 +39,7 @@ import {
 } from '../kup-card/kup-card-declarations';
 import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
-import { DatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
+import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 @Component({
     tag: 'kup-time-picker',
     styleUrl: 'kup-time-picker.scss',
@@ -398,8 +398,8 @@ export class KupTimePicker {
         return this.kupManager.dates.formattedStringToCustomDateTime(
             value,
             this.manageSeconds
-                ? DatesFormats.ISO_TIME
-                : DatesFormats.ISO_TIME_WITHOUT_SECONDS,
+                ? KupDatesFormats.ISO_TIME
+                : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS,
             this.manageSeconds
         );
     }
@@ -620,8 +620,8 @@ export class KupTimePicker {
             selectedTime = this.kupManager.dates.toDate(
                 value,
                 this.manageSeconds
-                    ? DatesFormats.ISO_TIME
-                    : DatesFormats.ISO_TIME_WITHOUT_SECONDS
+                    ? KupDatesFormats.ISO_TIME
+                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
             );
         }
 
@@ -641,8 +641,8 @@ export class KupTimePicker {
             const id = this.kupManager.dates.formattedStringToCustomDateTime(
                 value,
                 this.manageSeconds
-                    ? DatesFormats.ISO_TIME
-                    : DatesFormats.ISO_TIME_WITHOUT_SECONDS,
+                    ? KupDatesFormats.ISO_TIME
+                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS,
                 this.manageSeconds
             );
             let item: KupListNode = {
