@@ -421,7 +421,7 @@ export class KupDates {
     add(
         input: dayjs.ConfigType,
         value: number,
-        unit?: dayjs.OpUnitType
+        unit?: dayjs.ManipulateType
     ): dayjs.Dayjs {
         return dayjs(input).add(value, unit);
     }
@@ -436,7 +436,7 @@ export class KupDates {
     subtract(
         input: dayjs.ConfigType,
         value: number,
-        unit?: dayjs.OpUnitType
+        unit?: dayjs.ManipulateType
     ): dayjs.Dayjs {
         return dayjs(input).subtract(value, unit);
     }
