@@ -17,7 +17,7 @@ export const config: Config = {
                 },
             ],
             [
-                '../../node_modules/jest-html-reporter',
+                './node_modules/jest-html-reporter',
                 {
                     pageTitle: 'Jest Unit Test Report',
                     outputPath: 'target/tests/unit/html/index.html',

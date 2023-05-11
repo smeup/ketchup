@@ -278,10 +278,12 @@ export class KupData {
                             }
                         } else {
                             n = dom.ketchup.math.numberify(cell.value);
+                            const nMax = dom.ketchup.math.numberify(max);
+                            const nMin = dom.ketchup.math.numberify(min);
                             if (
                                 n === max ||
                                 n === min ||
-                                (n < max && n > min)
+                                (n < nMax && n > nMin)
                             ) {
                                 result.cells.push(cell);
                                 result.rows.push(row);

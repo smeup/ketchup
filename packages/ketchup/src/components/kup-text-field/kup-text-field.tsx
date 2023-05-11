@@ -27,13 +27,8 @@ import {
     KupTextFieldProps,
 } from './kup-text-field-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
-import {
-    getProps,
-    setProps,
-    unformattedStringToFormattedStringNumber,
-} from '../../utils/utils';
+import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { formattedStringToUnformattedStringNumber } from '../../utils/utils';
 
 @Component({
     tag: 'kup-text-field',
@@ -400,7 +395,10 @@ export class KupTextField {
     @Method()
     async getValue(): Promise<string> {
         if (this.inputType == 'number') {
-            return formattedStringToUnformattedStringNumber(this.value, '');
+            return this.kupManager.math.formattedStringToNumberString(
+                this.value,
+                ''
+            );
         }
         return this.value;
     }
@@ -451,7 +449,7 @@ export class KupTextField {
         if (this.value == null || this.value.trim() == '') {
             return '';
         }
-        let v1 = unformattedStringToFormattedStringNumber(
+        let v1 = this.kupManager.math.numberStringToFormattedString(
             this.value,
             this.decimals,
             ''
@@ -461,7 +459,7 @@ export class KupTextField {
 
     #setValueFromEventTaget(target: HTMLInputElement) {
         if (this.inputType == 'number') {
-            this.value = formattedStringToUnformattedStringNumber(
+            this.value = this.kupManager.math.formattedStringToNumberString(
                 target.value,
                 ''
             );
