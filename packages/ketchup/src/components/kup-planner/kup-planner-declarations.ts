@@ -24,7 +24,6 @@ export enum KupPlannerProps {
     detailIdCol = 'Column containing unique detail identifier',
     detailNameCol = 'Column containing detail name displayed',
     detailPrevDates = 'Columns containing forecast detail duration, from (firstDate) to (secondDate)',
-    detailReadOnly = 'When true, the detail gantt is not interactable.',
     detailInitialScrollX = 'Sets the initial scroll X for the detail.',
     detailInitialScrollY = 'Sets the initial scroll Y for the detail.',
 
@@ -38,10 +37,10 @@ export enum KupPlannerProps {
     phaseIdCol = 'Column containing unique phase identifier',
     phaseNameCol = 'Column containing phase name displayed',
     phasePrevDates = 'Columns containing forecast phase duration, from (firstDate) to (secondDate)',
-    phaseReadOnly = 'When true, the phase gantt is not interactable.',
     phaseInitialScrollX = 'Sets the initial scroll X for the phase.',
     phaseInitialScrollY = 'Sets the initial scroll Y for the phase.',
 
+    readOnly = 'When true, the two gantts are not interactable.',
     showSecondaryDates = 'Enable/disable display of secondary dates',
 
     taskColumns = 'Columns containing informations displayed in the left box, near the gantt',

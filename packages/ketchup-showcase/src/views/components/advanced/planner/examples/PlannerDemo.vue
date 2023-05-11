@@ -152,13 +152,6 @@ export default {
           try: 'field',
         },
         {
-          prop: 'detailReadOnly',
-          description: 'When true, the detail gantt is not interactable.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'listCellWidth',
           description:
             'Total size of the cells inside to the left box, near the gantt',
@@ -236,8 +229,8 @@ export default {
           isArray: true,
         },
         {
-          prop: 'phaseReadOnly',
-          description: 'When true, the phase gantt is not interactable.',
+          prop: 'readOnly',
+          description: 'When true, the two gantts are not interactable.',
           type: 'boolean',
           default: 'false',
           try: 'switch',

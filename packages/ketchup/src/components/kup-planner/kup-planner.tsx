@@ -152,13 +152,6 @@ export class KupPlanner {
     detailPrevDates: string[];
 
     /**
-     * When true, the detail gantt is not interactable.
-     * @default false
-     */
-    @Prop()
-    detailReadOnly: boolean = false;
-
-    /**
      * Sets the initial scroll X for the detail.
      * @default undefined
      */
@@ -243,13 +236,6 @@ export class KupPlanner {
     phasePrevDates: string[];
 
     /**
-     * When true, the phase gantt is not interactable.
-     * @default false
-     */
-    @Prop()
-    phaseReadOnly: boolean = false;
-
-    /**
      * Sets the initial scroll X for the phase.
      * @default undefined
      */
@@ -262,6 +248,13 @@ export class KupPlanner {
      */
     @Prop()
     phaseInitialScrollY: number;
+
+    /**
+     * When true, the two gantts are not interactable.
+     * @default false
+     */
+    @Prop()
+    readOnly: boolean = false;
 
     /**
      * Enable/disable display of secondary dates
@@ -817,7 +810,7 @@ export class KupPlanner {
                 ) => this.handleOnDateChange(nativeEvent),
                 initialScrollX: this.detailInitialScrollX,
                 initialScrollY: this.detailInitialScrollY,
-                readOnly: this.detailReadOnly,
+                readOnly: this.readOnly,
             },
             secondaryGantt: details
                 ? {
@@ -840,7 +833,7 @@ export class KupPlanner {
                           this.handleOnDateChange(nativeEvent),
                       initialScrollX: this.phaseInitialScrollX,
                       initialScrollY: this.phaseInitialScrollY,
-                      readOnly: this.phaseReadOnly,
+                      readOnly: this.readOnly,
                   }
                 : undefined,
             onSetDoubleView: (checked: boolean) =>
