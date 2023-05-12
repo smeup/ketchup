@@ -20,6 +20,7 @@ export enum KupPlannerProps {
     detailColorCol = 'Column containing the detail color, in hex format',
     detailColumns = 'Columns containing informations displayed in the left box, near the gantt of details',
     detailDates = 'Columns containing detail duration, from (firstDate) to (secondDate)',
+    detailFilter = "Sets the detail's filter.",
     detailHeight = 'Height for detail gantt',
     detailIdCol = 'Column containing unique detail identifier',
     detailNameCol = 'Column containing detail name displayed',
@@ -37,18 +38,19 @@ export enum KupPlannerProps {
     phaseIdCol = 'Column containing unique phase identifier',
     phaseNameCol = 'Column containing phase name displayed',
     phasePrevDates = 'Columns containing forecast phase duration, from (firstDate) to (secondDate)',
-    phaseInitialScrollX = 'Sets the initial scroll X for the phase.',
-    phaseInitialScrollY = 'Sets the initial scroll Y for the phase.',
 
     readOnly = 'When true, the two gantts are not interactable.',
     showSecondaryDates = 'Enable/disable display of secondary dates',
 
     taskColumns = 'Columns containing informations displayed in the left box, near the gantt',
     taskDates = 'Columns containing task duration, from (firstDate) to (secondDate)',
+    taskFilter = "Sets the task's filter.",
     taskHeight = 'Height for main gantt',
     taskIdCol = 'Column containing unique task identifier',
     taskNameCol = 'Column containing task name displayed',
     taskPrevDates = 'Columns containing forecast task duration, from (firstDate) to (secondDate)',
+    taskInitialScrollX = 'Sets the initial scroll X for the task.',
+    taskInitialScrollY = 'Sets the initial scroll Y for the task.',
 
     titleMess = 'Message displayed on top',
 }
@@ -139,3 +141,5 @@ export interface KupPlannerDatesSanitized {
     dateValues: string[];
     secDateValues: string[];
 }
+
+export type KupPlannerViewMode = 'day' | 'week' | 'month' | 'year';

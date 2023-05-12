@@ -43,7 +43,7 @@ import { KupImageListEventPayload } from "./components/kup-image-list/kup-image-
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
-import { KupPlannerClickEventPayload, KupPlannerEventPayload, KupPlannerPhase } from "./components/kup-planner/kup-planner-declarations";
+import { KupPlannerClickEventPayload, KupPlannerEventPayload, KupPlannerPhase, KupPlannerViewMode } from "./components/kup-planner/kup-planner-declarations";
 import { TaskType } from "@sme.up/gantt-component/dist/types/public-types";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
@@ -90,7 +90,7 @@ export { KupImageListEventPayload } from "./components/kup-image-list/kup-image-
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
-export { KupPlannerClickEventPayload, KupPlannerEventPayload, KupPlannerPhase } from "./components/kup-planner/kup-planner-declarations";
+export { KupPlannerClickEventPayload, KupPlannerEventPayload, KupPlannerPhase, KupPlannerViewMode } from "./components/kup-planner/kup-planner-declarations";
 export { TaskType } from "@sme.up/gantt-component/dist/types/public-types";
 export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 export { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
@@ -2475,6 +2475,11 @@ export namespace Components {
          */
         "detailDates": string[];
         /**
+          * Sets the detail's filter.
+          * @default undefined
+         */
+        "detailFilter": string;
+        /**
           * Height for detail gantt
           * @default null
          */
@@ -2509,11 +2514,6 @@ export namespace Components {
           * @default null
          */
         "detailPrevDates": string[];
-        /**
-          * When true, the detail gantt is not interactable.
-          * @default false
-         */
-        "detailReadOnly": boolean;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -2561,16 +2561,6 @@ export namespace Components {
          */
         "phaseIdCol": string;
         /**
-          * Sets the initial scroll X for the phase.
-          * @default undefined
-         */
-        "phaseInitialScrollX": number;
-        /**
-          * Sets the initial scroll Y for the phase.
-          * @default undefined
-         */
-        "phaseInitialScrollY": number;
-        /**
           * Column containing phase name displayed
           * @default null
          */
@@ -2581,10 +2571,10 @@ export namespace Components {
          */
         "phasePrevDates": string[];
         /**
-          * When true, the phase gantt is not interactable.
+          * When true, the two gantts are not interactable.
           * @default false
          */
-        "phaseReadOnly": boolean;
+        "readOnly": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -2610,6 +2600,11 @@ export namespace Components {
          */
         "taskDates": string[];
         /**
+          * Sets the task's filter.
+          * @default undefined
+         */
+        "taskFilter": string;
+        /**
           * Height for main gantt
           * @default null
          */
@@ -2625,6 +2620,16 @@ export namespace Components {
          */
         "taskIdCol": string;
         /**
+          * Sets the initial scroll X for the task.
+          * @default undefined
+         */
+        "taskInitialScrollX": number;
+        /**
+          * Sets the initial scroll Y for the task.
+          * @default undefined
+         */
+        "taskInitialScrollY": number;
+        /**
           * Column containing task name displayed
           * @default null
          */
@@ -2639,6 +2644,11 @@ export namespace Components {
           * @default null
          */
         "titleMess": string;
+        /**
+          * Sets the view mode.
+          * @default 'month'
+         */
+        "viewMode": KupPlannerViewMode;
     }
     interface KupProbe {
         /**
@@ -5840,6 +5850,11 @@ declare namespace LocalJSX {
          */
         "detailDates"?: string[];
         /**
+          * Sets the detail's filter.
+          * @default undefined
+         */
+        "detailFilter"?: string;
+        /**
           * Height for detail gantt
           * @default null
          */
@@ -5874,11 +5889,6 @@ declare namespace LocalJSX {
           * @default null
          */
         "detailPrevDates"?: string[];
-        /**
-          * When true, the detail gantt is not interactable.
-          * @default false
-         */
-        "detailReadOnly"?: boolean;
         /**
           * Total size of the cells inside to the left box, near the gantt
           * @default '300px'
@@ -5927,16 +5937,6 @@ declare namespace LocalJSX {
          */
         "phaseIdCol"?: string;
         /**
-          * Sets the initial scroll X for the phase.
-          * @default undefined
-         */
-        "phaseInitialScrollX"?: number;
-        /**
-          * Sets the initial scroll Y for the phase.
-          * @default undefined
-         */
-        "phaseInitialScrollY"?: number;
-        /**
           * Column containing phase name displayed
           * @default null
          */
@@ -5947,10 +5947,10 @@ declare namespace LocalJSX {
          */
         "phasePrevDates"?: string[];
         /**
-          * When true, the phase gantt is not interactable.
+          * When true, the two gantts are not interactable.
           * @default false
          */
-        "phaseReadOnly"?: boolean;
+        "readOnly"?: boolean;
         /**
           * Enable/disable display of secondary dates
           * @default false
@@ -5967,6 +5967,11 @@ declare namespace LocalJSX {
          */
         "taskDates"?: string[];
         /**
+          * Sets the task's filter.
+          * @default undefined
+         */
+        "taskFilter"?: string;
+        /**
           * Height for main gantt
           * @default null
          */
@@ -5982,6 +5987,16 @@ declare namespace LocalJSX {
          */
         "taskIdCol"?: string;
         /**
+          * Sets the initial scroll X for the task.
+          * @default undefined
+         */
+        "taskInitialScrollX"?: number;
+        /**
+          * Sets the initial scroll Y for the task.
+          * @default undefined
+         */
+        "taskInitialScrollY"?: number;
+        /**
           * Column containing task name displayed
           * @default null
          */
@@ -5996,6 +6011,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "titleMess"?: string;
+        /**
+          * Sets the view mode.
+          * @default 'month'
+         */
+        "viewMode"?: KupPlannerViewMode;
     }
     interface KupProbe {
         /**

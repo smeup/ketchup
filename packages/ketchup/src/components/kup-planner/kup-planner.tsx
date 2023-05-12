@@ -28,6 +28,7 @@ import {
     KupPlannerGanttRowType,
     KupPlannerDetail,
     KupPlannerClickEventPayload,
+    KupPlannerViewMode,
 } from './kup-planner-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
@@ -115,6 +116,13 @@ export class KupPlanner {
      */
     @Prop()
     detailDates: string[];
+
+    /**
+     * Sets the detail's filter.
+     * @default undefined
+     */
+    @Prop()
+    detailFilter: string;
 
     /**
      * Height for detail gantt
@@ -236,20 +244,6 @@ export class KupPlanner {
     phasePrevDates: string[];
 
     /**
-     * Sets the initial scroll X for the phase.
-     * @default undefined
-     */
-    @Prop()
-    phaseInitialScrollX: number;
-
-    /**
-     * Sets the initial scroll Y for the phase.
-     * @default undefined
-     */
-    @Prop()
-    phaseInitialScrollY: number;
-
-    /**
      * When true, the two gantts are not interactable.
      * @default false
      */
@@ -278,6 +272,13 @@ export class KupPlanner {
     taskDates: string[];
 
     /**
+     * Sets the task's filter.
+     * @default undefined
+     */
+    @Prop()
+    taskFilter: string;
+
+    /**
      * Height for main gantt
      * @default null
      */
@@ -297,6 +298,20 @@ export class KupPlanner {
      */
     @Prop()
     taskIdCol: string;
+
+    /**
+     * Sets the initial scroll X for the task.
+     * @default undefined
+     */
+    @Prop()
+    taskInitialScrollX: number;
+
+    /**
+     * Sets the initial scroll Y for the task.
+     * @default undefined
+     */
+    @Prop()
+    taskInitialScrollY: number;
 
     /**
      * Column containing task name displayed
@@ -319,6 +334,13 @@ export class KupPlanner {
     @Prop()
     titleMess: string;
 
+    /**
+     * Sets the view mode.
+     * @default 'month'
+     */
+    @Prop()
+    viewMode: KupPlannerViewMode = 'month';
+
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
     /*-------------------------------------------------*/
@@ -335,7 +357,7 @@ export class KupPlanner {
     dataChanged() {
         this.#phases = {};
     }
-
+    /*
     @Watch('showSecondaryDates')
     showSecondaryDatesChanged() {
         this.#showSecondaryDatesLocal = this.showSecondaryDates;
@@ -344,7 +366,7 @@ export class KupPlanner {
                 this.showSecondaryDates;
         }
     }
-
+*/
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -711,12 +733,11 @@ export class KupPlanner {
         return emitEvent;
     }
 
-    #onFilter(e: UIEvent, isDetail?: boolean) {
+    #onFilter(value: string, isDetail?: boolean) {
         const tempData: KupDataDataset = {
             columns: this.data.columns,
             rows: [],
         };
-        const value = (e.target as HTMLInputElement).value;
         const data = isDetail ? this.detailData : this.data;
         const tempRows: { weight: number; row: KupDataRow }[] = [];
         for (let index = 0; index < data.rows.length; index++) {
@@ -808,8 +829,8 @@ export class KupPlanner {
                 onDateChange: (
                     nativeEvent: KupPlannerGanttTask | KupPlannerPhase
                 ) => this.handleOnDateChange(nativeEvent),
-                initialScrollX: this.detailInitialScrollX,
-                initialScrollY: this.detailInitialScrollY,
+                initialScrollX: this.taskInitialScrollX,
+                initialScrollY: this.taskInitialScrollY,
                 readOnly: this.readOnly,
             },
             secondaryGantt: details
@@ -831,13 +852,14 @@ export class KupPlanner {
                       ) => this.handleOnContextMenu(event, row),
                       onDateChange: (nativeEvent: KupPlannerDetail) =>
                           this.handleOnDateChange(nativeEvent),
-                      initialScrollX: this.phaseInitialScrollX,
-                      initialScrollY: this.phaseInitialScrollY,
+                      initialScrollX: this.detailInitialScrollX,
+                      initialScrollY: this.detailInitialScrollY,
                       readOnly: this.readOnly,
                   }
                 : undefined,
             onSetDoubleView: (checked: boolean) =>
                 this.handleOnSetDoubleView(checked),
+            viewMode: this.viewMode,
         };
         this.#renderReactPlannerElement();
         this.kupReady.emit({
@@ -845,6 +867,15 @@ export class KupPlanner {
             id: this.rootElement.id,
             value: undefined,
         });
+
+        if (this.taskFilter) {
+            this.#onFilter(this.taskFilter);
+        }
+
+        if (this.detailFilter) {
+            this.#onFilter(this.detailFilter, true);
+        }
+
         this.#kupManager.debug.logLoad(this, true);
     }
 
@@ -1045,9 +1076,12 @@ export class KupPlanner {
                     )}
                     onKeyDown={(e: KeyboardEvent) => {
                         if (e.key === 'Enter') {
-                            this.#onFilter(e);
+                            this.#onFilter(
+                                (e.target as HTMLInputElement).value
+                            );
                         }
                     }}
+                    value={this.taskFilter}
                     wrapperClass="filter"
                 ></FTextField>
                 {this.detailData?.rows && this.detailData.rows.length > 0 ? (
@@ -1059,9 +1093,13 @@ export class KupPlanner {
                         )}
                         onKeyDown={(e: KeyboardEvent) => {
                             if (e.key === 'Enter') {
-                                this.#onFilter(e, true);
+                                this.#onFilter(
+                                    (e.target as HTMLInputElement).value,
+                                    true
+                                );
                             }
                         }}
+                        value={this.detailFilter}
                         wrapperClass="filter"
                     ></FTextField>
                 ) : null}
