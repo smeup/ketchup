@@ -43,7 +43,7 @@ import { KupImageListEventPayload } from "./components/kup-image-list/kup-image-
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
-import { KupPlannerClickEventPayload, KupPlannerEventPayload, KupPlannerPhase, KupPlannerViewMode } from "./components/kup-planner/kup-planner-declarations";
+import { KupPlannerClickEventPayload, KupPlannerEventPayload, KupPlannerPhase, KupPlannerUnloadEventPayload, KupPlannerViewMode } from "./components/kup-planner/kup-planner-declarations";
 import { TaskType } from "@sme.up/gantt-component/dist/types/public-types";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
@@ -90,7 +90,7 @@ export { KupImageListEventPayload } from "./components/kup-image-list/kup-image-
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
-export { KupPlannerClickEventPayload, KupPlannerEventPayload, KupPlannerPhase, KupPlannerViewMode } from "./components/kup-planner/kup-planner-declarations";
+export { KupPlannerClickEventPayload, KupPlannerEventPayload, KupPlannerPhase, KupPlannerUnloadEventPayload, KupPlannerViewMode } from "./components/kup-planner/kup-planner-declarations";
 export { TaskType } from "@sme.up/gantt-component/dist/types/public-types";
 export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 export { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
@@ -5905,6 +5905,10 @@ declare namespace LocalJSX {
          */
         "onKup-planner-contextmenu"?: (event: KupPlannerCustomEvent<KupPlannerClickEventPayload>) => void;
         "onKup-planner-datechange"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
+        /**
+          * When component unload is complete
+         */
+        "onKup-planner-didunload"?: (event: KupPlannerCustomEvent<KupPlannerUnloadEventPayload>) => void;
         "onKup-planner-ready"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
         /**
           * Column containing the name of the parent phases

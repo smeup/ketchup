@@ -29,6 +29,8 @@ import {
     KupPlannerDetail,
     KupPlannerClickEventPayload,
     KupPlannerViewMode,
+    KupPlannerStoredSettings,
+    KupPlannerUnloadEventPayload,
 } from './kup-planner-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
@@ -357,16 +359,7 @@ export class KupPlanner {
     dataChanged() {
         this.#phases = {};
     }
-    /*
-    @Watch('showSecondaryDates')
-    showSecondaryDatesChanged() {
-        this.#showSecondaryDatesLocal = this.showSecondaryDates;
-        if (this.plannerProps?.mainGantt) {
-            this.plannerProps.mainGantt.showSecondaryDates =
-                this.showSecondaryDates;
-        }
-    }
-*/
+
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -376,7 +369,7 @@ export class KupPlanner {
     #rootPlanner;
     #phases: GenericObject = {};
     // no re-render
-    #showSecondaryDatesLocal: boolean = false;
+    #storedSettings: KupPlannerStoredSettings;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -416,6 +409,17 @@ export class KupPlanner {
         bubbles: true,
     })
     kupContextMenu: EventEmitter<KupPlannerClickEventPayload>;
+
+    /**
+     * When component unload is complete
+     */
+    @Event({
+        eventName: 'kup-planner-didunload',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDidUnload: EventEmitter<KupPlannerUnloadEventPayload>;
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -734,6 +738,11 @@ export class KupPlanner {
     }
 
     #onFilter(value: string, isDetail?: boolean) {
+        if (isDetail) {
+            this.#storedSettings.detailFilter = value;
+        } else {
+            this.#storedSettings.taskFilter = value;
+        }
         const tempData: KupDataDataset = {
             columns: this.data.columns,
             rows: [],
@@ -790,11 +799,19 @@ export class KupPlanner {
     componentWillLoad() {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.theme.register(this);
+        this.#storedSettings = {
+            detailFilter: this.detailFilter,
+            detailInitialScrollX: this.detailInitialScrollX,
+            detailInitialScrollY: this.detailInitialScrollY,
+            showSecondaryDates: this.showSecondaryDates,
+            taskFilter: this.taskFilter,
+            taskInitialScrollX: this.taskInitialScrollX,
+            taskInitialScrollY: this.taskInitialScrollY,
+            viewMode: this.viewMode,
+        };
     }
 
     componentDidLoad() {
-        this.#showSecondaryDatesLocal = this.showSecondaryDates;
-
         let details = this.#toDetails(this.detailData);
         if (details && details.length == 0) {
             details = undefined;
@@ -819,7 +836,7 @@ export class KupPlanner {
                 filter: mainFilter,
                 hideLabel: true,
                 ganttHeight: this.taskHeight,
-                showSecondaryDates: this.#showSecondaryDatesLocal,
+                showSecondaryDates: this.#storedSettings.showSecondaryDates,
                 onClick: (nativeEvent: KupPlannerGanttTask | KupPlannerPhase) =>
                     this.handleOnClick(nativeEvent),
                 onContextMenu: (
@@ -859,6 +876,8 @@ export class KupPlanner {
                 : undefined,
             onSetDoubleView: (checked: boolean) =>
                 this.handleOnSetDoubleView(checked),
+            onSetViewMode: (value: KupPlannerViewMode) =>
+                this.handleOnSetViewMode(value),
             viewMode: this.viewMode,
         };
         this.#renderReactPlannerElement();
@@ -1008,9 +1027,16 @@ export class KupPlanner {
     }
 
     handleOnSetDoubleView(checked: boolean) {
-        this.#showSecondaryDatesLocal = checked;
+        this.#storedSettings.showSecondaryDates = checked;
         if (this.plannerProps?.mainGantt) {
             this.plannerProps.mainGantt.showSecondaryDates = checked;
+        }
+    }
+
+    handleOnSetViewMode(value: KupPlannerViewMode) {
+        this.#storedSettings.viewMode = value;
+        if (this.plannerProps?.mainGantt) {
+            this.plannerProps.mainGantt.viewMode = value;
         }
     }
 
@@ -1109,5 +1135,10 @@ export class KupPlanner {
 
     disconnectedCallback() {
         this.#kupManager.theme.unregister(this);
+        this.kupDidUnload.emit({
+            comp: this,
+            id: this.rootElement.id,
+            storedSettings: this.#storedSettings,
+        });
     }
 }

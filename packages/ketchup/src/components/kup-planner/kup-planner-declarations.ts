@@ -70,7 +70,9 @@ export interface KupPlannerEventPayload extends KupEventPayload {
 export interface KupPlannerClickEventPayload extends KupPlannerEventPayload {
     details: KupPlannerEventHandlerDetails;
 }
-
+export interface KupPlannerUnloadEventPayload extends KupEventPayload {
+    storedSettings: KupPlannerStoredSettings;
+}
 export interface KupPlannerEventHandlerDetails {
     cell: KupDataTableCell;
     column: KupDataColumn;
@@ -143,3 +145,14 @@ export interface KupPlannerDatesSanitized {
 }
 
 export type KupPlannerViewMode = 'day' | 'week' | 'month' | 'year';
+
+export interface KupPlannerStoredSettings {
+    showSecondaryDates: boolean;
+    detailFilter: string;
+    detailInitialScrollX: number;
+    detailInitialScrollY: number;
+    taskFilter: string;
+    taskInitialScrollX: number;
+    taskInitialScrollY: number;
+    viewMode: KupPlannerViewMode;
+}

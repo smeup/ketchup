@@ -159,6 +159,10 @@ components.data = [
         id: 'numeric-picker.html',
     },
     {
+        value: 'Planner',
+        id: 'planner.html',
+    },
+    {
         value: 'Radio',
         id: 'radio.html',
     },

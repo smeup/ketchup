@@ -84,6 +84,7 @@ export const config: Config = {
                 { src: 'magic-box.html' },
                 { src: 'nav-bar.html' },
                 { src: 'numeric-picker.html' },
+                { src: 'planner.html' },
                 { src: 'probe.html' },
                 { src: 'radio.html' },
                 { src: 'rating.html' },
