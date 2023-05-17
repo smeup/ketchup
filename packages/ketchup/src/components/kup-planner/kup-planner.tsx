@@ -60,6 +60,8 @@ import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { KupLanguageSearch } from '../../managers/kup-language/kup-language-declarations';
+import { KupPlannerState } from './kup-planner-state';
+import { KupStore } from '../kup-state/kup-store';
 
 @Component({
     tag: 'kup-planner',
@@ -67,6 +69,119 @@ import { KupLanguageSearch } from '../../managers/kup-language/kup-language-decl
     shadow: true,
 })
 export class KupPlanner {
+    @Prop() stateId: string = '';
+    @Prop() store: KupStore;
+
+    state: KupPlannerState = new KupPlannerState();
+
+    initWithPersistedState(): void {
+        if (this.store && this.stateId) {
+            const state = {...this.store.getState(this.stateId)} as KupPlannerState;
+            if (state != null) {
+                this.#kupManager.debug.logMessage(
+                    this,
+                    'Initializing stateId ' + this.stateId
+                );
+                // *** PROPS ***
+                this.detailFilter = state.detailFilter;
+                this.showSecondaryDates = state.showSecondaryDates;
+                this.detailInitialScrollX = state.detailInitialScrollX;
+                this.detailInitialScrollY = state.detailInitialScrollY;
+                this.taskFilter = state.taskFilter;
+                this.taskInitialScrollX = state.taskInitialScrollX;
+                this.taskInitialScrollY = state.taskInitialScrollY;
+                this.viewMode = state.viewMode
+            }
+        }
+    }
+
+    persistState(): void {
+        if (this.store && this.stateId) {
+            let somethingChanged = false;
+            if (
+                !this.#kupManager.objects.deepEqual(
+                    this.state.detailFilter,
+                    this.#storedSettings.detailFilter
+                )
+            ) {
+                this.state.detailFilter = this.#storedSettings.detailFilter;
+                somethingChanged = true;
+            }
+            if (
+                !this.#kupManager.objects.deepEqual(
+                    this.state.showSecondaryDates,
+                    this.#storedSettings.showSecondaryDates
+                )
+            ) {
+                this.state.showSecondaryDates = this.#storedSettings.showSecondaryDates;
+                somethingChanged = true;
+            }
+            if (
+                !this.#kupManager.objects.deepEqual(this.state.detailInitialScrollX, this.#storedSettings.detailInitialScrollX)
+            ) {
+                this.state.detailInitialScrollX = this.#storedSettings.detailInitialScrollX;
+                somethingChanged = true;
+            }
+            if (
+                !this.#kupManager.objects.deepEqual(
+                    this.state.detailInitialScrollY,
+                    this.#storedSettings.detailInitialScrollY
+                )
+            ) {
+                this.state.detailInitialScrollY = this.#storedSettings.detailInitialScrollY;
+                somethingChanged = true;
+            }
+            if (
+                !this.#kupManager.objects.deepEqual(
+                    this.state.taskFilter,
+                    this.#storedSettings.taskFilter
+                )
+            ) {
+                this.state.taskFilter = this.#storedSettings.taskFilter;
+                somethingChanged = true;
+            }
+            if (
+                !this.#kupManager.objects.deepEqual(
+                    this.state.taskInitialScrollX,
+                    this.#storedSettings.taskInitialScrollX
+                )
+            ) {
+                this.state.taskInitialScrollX = this.#storedSettings.taskInitialScrollX;
+                somethingChanged = true;
+            }
+            if (
+                !this.#kupManager.objects.deepEqual(
+                    this.state.taskInitialScrollY,
+                    this.#storedSettings.taskInitialScrollY
+                )
+            ) {
+                this.state.taskInitialScrollY = this.#storedSettings.taskInitialScrollY;
+                somethingChanged = true;
+            }
+            if (
+                !this.#kupManager.objects.deepEqual(
+                    this.state.viewMode,
+                    this.#storedSettings.viewMode
+                )
+            ) {
+                this.state.viewMode = this.#storedSettings.viewMode;
+                somethingChanged = true;
+            }
+
+            if (somethingChanged) {
+                this.#kupManager.debug.logMessage(
+                    this,
+                    'Persisting stateId ' + this.stateId
+                );
+                this.store.persistState(this.stateId, this.state);
+            }
+        }
+    }
+
+    //////////////////////////////
+    // End state stuff
+    //////////////////////////////
+
     /**
      * References the root HTML element of the component (<kup-planner>).
      */
@@ -792,6 +907,7 @@ export class KupPlanner {
             ...this.plannerProps,
             ...newGantt,
         };
+        this.persistState();
     }
 
     //---- Lifecycle hooks ----
@@ -799,6 +915,8 @@ export class KupPlanner {
     componentWillLoad() {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.theme.register(this);
+        // *** Store
+        this.initWithPersistedState();
         this.#storedSettings = {
             detailFilter: this.detailFilter,
             detailInitialScrollX: this.detailInitialScrollX,
@@ -879,6 +997,8 @@ export class KupPlanner {
             onSetViewMode: (value: KupPlannerViewMode) =>
                 this.handleOnSetViewMode(value),
             viewMode: this.viewMode,
+            //TODO: add 4 scroll
+
         };
         this.#renderReactPlannerElement();
         this.kupReady.emit({
@@ -1031,6 +1151,7 @@ export class KupPlanner {
         if (this.plannerProps?.mainGantt) {
             this.plannerProps.mainGantt.showSecondaryDates = checked;
         }
+        this.persistState();
     }
 
     handleOnSetViewMode(value: KupPlannerViewMode) {
@@ -1038,6 +1159,7 @@ export class KupPlanner {
         if (this.plannerProps?.mainGantt) {
             this.plannerProps.mainGantt.viewMode = value;
         }
+        this.persistState();
     }
 
     handleOnDateChange(
