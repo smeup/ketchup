@@ -76,7 +76,9 @@ export class KupPlanner {
 
     initWithPersistedState(): void {
         if (this.store && this.stateId) {
-            const state = {...this.store.getState(this.stateId)} as KupPlannerState;
+            const state = {
+                ...this.store.getState(this.stateId),
+            } as KupPlannerState;
             if (state != null) {
                 this.#kupManager.debug.logMessage(
                     this,
@@ -90,7 +92,7 @@ export class KupPlanner {
                 this.taskFilter = state.taskFilter;
                 this.taskInitialScrollX = state.taskInitialScrollX;
                 this.taskInitialScrollY = state.taskInitialScrollY;
-                this.viewMode = state.viewMode
+                this.viewMode = state.viewMode;
             }
         }
     }
@@ -113,13 +115,18 @@ export class KupPlanner {
                     this.#storedSettings.showSecondaryDates
                 )
             ) {
-                this.state.showSecondaryDates = this.#storedSettings.showSecondaryDates;
+                this.state.showSecondaryDates =
+                    this.#storedSettings.showSecondaryDates;
                 somethingChanged = true;
             }
             if (
-                !this.#kupManager.objects.deepEqual(this.state.detailInitialScrollX, this.#storedSettings.detailInitialScrollX)
+                !this.#kupManager.objects.deepEqual(
+                    this.state.detailInitialScrollX,
+                    this.#storedSettings.detailInitialScrollX
+                )
             ) {
-                this.state.detailInitialScrollX = this.#storedSettings.detailInitialScrollX;
+                this.state.detailInitialScrollX =
+                    this.#storedSettings.detailInitialScrollX;
                 somethingChanged = true;
             }
             if (
@@ -128,7 +135,8 @@ export class KupPlanner {
                     this.#storedSettings.detailInitialScrollY
                 )
             ) {
-                this.state.detailInitialScrollY = this.#storedSettings.detailInitialScrollY;
+                this.state.detailInitialScrollY =
+                    this.#storedSettings.detailInitialScrollY;
                 somethingChanged = true;
             }
             if (
@@ -146,7 +154,8 @@ export class KupPlanner {
                     this.#storedSettings.taskInitialScrollX
                 )
             ) {
-                this.state.taskInitialScrollX = this.#storedSettings.taskInitialScrollX;
+                this.state.taskInitialScrollX =
+                    this.#storedSettings.taskInitialScrollX;
                 somethingChanged = true;
             }
             if (
@@ -155,7 +164,8 @@ export class KupPlanner {
                     this.#storedSettings.taskInitialScrollY
                 )
             ) {
-                this.state.taskInitialScrollY = this.#storedSettings.taskInitialScrollY;
+                this.state.taskInitialScrollY =
+                    this.#storedSettings.taskInitialScrollY;
                 somethingChanged = true;
             }
             if (
@@ -967,6 +977,9 @@ export class KupPlanner {
                 initialScrollX: this.taskInitialScrollX,
                 initialScrollY: this.taskInitialScrollY,
                 readOnly: this.readOnly,
+                onScrollY(y: number) {
+                    this.handleTaskGanttScrollY(y);
+                },
             },
             secondaryGantt: details
                 ? {
@@ -990,6 +1003,9 @@ export class KupPlanner {
                       initialScrollX: this.detailInitialScrollX,
                       initialScrollY: this.detailInitialScrollY,
                       readOnly: this.readOnly,
+                      onScrollY(y: number) {
+                          this.handleDetailGanttScrollY(y);
+                      },
                   }
                 : undefined,
             onSetDoubleView: (checked: boolean) =>
@@ -997,8 +1013,9 @@ export class KupPlanner {
             onSetViewMode: (value: KupPlannerViewMode) =>
                 this.handleOnSetViewMode(value),
             viewMode: this.viewMode,
-            //TODO: add 4 scroll
-
+            onScrollX(x: number) {
+                this.handleOnScrollX(x);
+            },
         };
         this.#renderReactPlannerElement();
         this.kupReady.emit({
@@ -1159,6 +1176,22 @@ export class KupPlanner {
         if (this.plannerProps?.mainGantt) {
             this.plannerProps.mainGantt.viewMode = value;
         }
+        this.persistState();
+    }
+
+    handleOnScrollX(x: number) {
+        this.#storedSettings.taskInitialScrollX = x;
+        this.#storedSettings.detailInitialScrollX = x;
+        this.persistState();
+    }
+
+    handleTaskGanttScrollY(y: number) {
+        this.#storedSettings.taskInitialScrollY = y;
+        this.persistState();
+    }
+
+    handleDetailGanttScrollY(y: number) {
+        this.#storedSettings.detailInitialScrollY = y;
         this.persistState();
     }
 

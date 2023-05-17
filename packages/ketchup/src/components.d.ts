@@ -2589,6 +2589,8 @@ export namespace Components {
           * @default false
          */
         "showSecondaryDates": boolean;
+        "stateId": string;
+        "store": KupStore;
         /**
           * Columns containing informations displayed in the left box, near the gantt
           * @default null
@@ -5960,6 +5962,8 @@ declare namespace LocalJSX {
           * @default false
          */
         "showSecondaryDates"?: boolean;
+        "stateId"?: string;
+        "store"?: KupStore;
         /**
           * Columns containing informations displayed in the left box, near the gantt
           * @default null
