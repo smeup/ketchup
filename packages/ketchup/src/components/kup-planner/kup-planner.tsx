@@ -953,6 +953,12 @@ export class KupPlanner {
             FTextFieldMDC(secondaryFilter);
         }
 
+        // timeout for scroll events
+        let scrollXTimeout: number;
+        let taskScrollYTimeout: number;
+        let detailScrollYTimeout: number;
+        const scrollDelay = 1500;
+
         this.plannerProps = {
             mainGantt: {
                 title: this.titleMess,
@@ -978,7 +984,11 @@ export class KupPlanner {
                 initialScrollY: this.taskInitialScrollY,
                 readOnly: this.readOnly,
                 onScrollY(y: number) {
-                    this.handleTaskGanttScrollY(y);
+                    window.clearTimeout(this.taskScrollYTimeout);
+                    this.taskScrollYTimeout = window.setTimeout(
+                        () => this.handleTaskGanttScrollY(y),
+                        this.scrollDelay
+                    );
                 },
             },
             secondaryGantt: details
@@ -1004,7 +1014,11 @@ export class KupPlanner {
                       initialScrollY: this.detailInitialScrollY,
                       readOnly: this.readOnly,
                       onScrollY(y: number) {
-                          this.handleDetailGanttScrollY(y);
+                          window.clearTimeout(this.detailScrollYTimeout);
+                          this.detailScrollYTimeout = window.setTimeout(
+                              () => this.handleDetailGanttScrollY(y),
+                              this.scrollDelay
+                          );
                       },
                   }
                 : undefined,
@@ -1014,7 +1028,11 @@ export class KupPlanner {
                 this.handleOnSetViewMode(value),
             viewMode: this.viewMode,
             onScrollX(x: number) {
-                this.handleOnScrollX(x);
+                window.clearTimeout(this.scrollXTimeout);
+                this.scrollXTimeout = window.setTimeout(
+                    () => this.handleOnScrollX(x),
+                    this.scrollDelay
+                );
             },
         };
         this.#renderReactPlannerElement();
