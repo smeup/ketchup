@@ -76,9 +76,7 @@ export class KupPlanner {
 
     initWithPersistedState(): void {
         if (this.store && this.stateId) {
-            const state = {
-                ...this.store.getState(this.stateId),
-            } as KupPlannerState;
+            const state = this.store.getState(this.stateId);
             if (state != null) {
                 this.#kupManager.debug.logMessage(
                     this,
@@ -664,6 +662,9 @@ export class KupPlanner {
     }
 
     #toTasks(data: KupDataDataset): GanttTask[] {
+        if (!data || !data.rows) {
+            return [];
+        }
         let tasks: GanttTask[] = data.rows
             ?.filter((row) =>
                 isAtLeastOneDateValid(
@@ -723,10 +724,10 @@ export class KupPlanner {
     }
 
     #toDetails(data: KupDataDataset): Detail[] {
-        let details: KupPlannerDetail[] = [];
         if (!data || !data.rows) {
-            return details;
+            return undefined;
         }
+        let details: KupPlannerDetail[] = [];
         data.rows
             .filter((row) =>
                 isAtLeastOneDateValid(
@@ -868,11 +869,42 @@ export class KupPlanner {
         } else {
             this.#storedSettings.taskFilter = value;
         }
+        const newGantt = isDetail
+            ? {
+                  secondaryGantt: {
+                      ...this.plannerProps.secondaryGantt,
+                      items: this.#toDetails(
+                          this.#getFilteredRows(value, isDetail)
+                      ),
+                  },
+              }
+            : {
+                  mainGantt: {
+                      ...this.plannerProps.mainGantt,
+                      items: this.#toTasks(
+                          this.#getFilteredRows(value, isDetail)
+                      ),
+                  },
+              };
+        this.plannerProps = {
+            ...this.plannerProps,
+            ...newGantt,
+        };
+        this.persistState();
+    }
+
+    #getFilteredRows(value: string, isDetail?: boolean): KupDataDataset {
+        const data = isDetail ? this.detailData : this.data;
+        if (!data || !data.rows || data.rows.length == 0) {
+            return undefined;
+        }
+        if (!value) {
+            return data;
+        }
         const tempData: KupDataDataset = {
             columns: this.data.columns,
             rows: [],
         };
-        const data = isDetail ? this.detailData : this.data;
         const tempRows: { weight: number; row: KupDataRow }[] = [];
         for (let index = 0; index < data.rows.length; index++) {
             const row = data.rows[index];
@@ -900,26 +932,8 @@ export class KupPlanner {
             .forEach((tempRow) => {
                 tempData.rows.push(tempRow.row);
             });
-        const newGantt = isDetail
-            ? {
-                  secondaryGantt: {
-                      ...this.plannerProps.secondaryGantt,
-                      items: this.#toDetails(tempData),
-                  },
-              }
-            : {
-                  mainGantt: {
-                      ...this.plannerProps.mainGantt,
-                      items: this.#toTasks(tempData),
-                  },
-              };
-        this.plannerProps = {
-            ...this.plannerProps,
-            ...newGantt,
-        };
-        this.persistState();
+        return tempData;
     }
-
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -940,10 +954,9 @@ export class KupPlanner {
     }
 
     componentDidLoad() {
-        let details = this.#toDetails(this.detailData);
-        if (details && details.length == 0) {
-            details = undefined;
-        }
+        let details = this.#toDetails(
+            this.#getFilteredRows(this.#storedSettings.detailFilter, true)
+        );
         const mainFilter: HTMLElement =
             this.rootElement.shadowRoot.querySelector('#main-filter');
         FTextFieldMDC(mainFilter);
@@ -962,7 +975,12 @@ export class KupPlanner {
         this.plannerProps = {
             mainGantt: {
                 title: this.titleMess,
-                items: this.#toTasks(this.data),
+                items: this.#toTasks(
+                    this.#getFilteredRows(
+                        this.#storedSettings.taskFilter,
+                        false
+                    )
+                ),
                 stylingOptions: {
                     ...defaultStylingOptions,
                     listCellWidth: this.listCellWidth,
@@ -983,11 +1001,11 @@ export class KupPlanner {
                 initialScrollX: this.taskInitialScrollX,
                 initialScrollY: this.taskInitialScrollY,
                 readOnly: this.readOnly,
-                onScrollY(y: number) {
-                    window.clearTimeout(this.taskScrollYTimeout);
-                    this.taskScrollYTimeout = window.setTimeout(
+                onScrollY: (y: number) => {
+                    window.clearTimeout(taskScrollYTimeout);
+                    taskScrollYTimeout = window.setTimeout(
                         () => this.handleTaskGanttScrollY(y),
-                        this.scrollDelay
+                        scrollDelay
                     );
                 },
             },
@@ -1013,11 +1031,11 @@ export class KupPlanner {
                       initialScrollX: this.detailInitialScrollX,
                       initialScrollY: this.detailInitialScrollY,
                       readOnly: this.readOnly,
-                      onScrollY(y: number) {
-                          window.clearTimeout(this.detailScrollYTimeout);
-                          this.detailScrollYTimeout = window.setTimeout(
+                      onScrollY: (y: number) => {
+                          window.clearTimeout(detailScrollYTimeout);
+                          detailScrollYTimeout = window.setTimeout(
                               () => this.handleDetailGanttScrollY(y),
-                              this.scrollDelay
+                              scrollDelay
                           );
                       },
                   }
@@ -1027,11 +1045,11 @@ export class KupPlanner {
             onSetViewMode: (value: KupPlannerViewMode) =>
                 this.handleOnSetViewMode(value),
             viewMode: this.viewMode,
-            onScrollX(x: number) {
-                window.clearTimeout(this.scrollXTimeout);
-                this.scrollXTimeout = window.setTimeout(
+            onScrollX: (x: number) => {
+                window.clearTimeout(scrollXTimeout);
+                scrollXTimeout = window.setTimeout(
                     () => this.handleOnScrollX(x),
-                    this.scrollDelay
+                    scrollDelay
                 );
             },
         };
@@ -1058,6 +1076,7 @@ export class KupPlanner {
     }
 
     componentDidRender() {
+        this.persistState();
         this.#kupManager.debug.logRender(this, true);
     }
 

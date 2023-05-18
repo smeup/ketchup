@@ -35,6 +35,8 @@
 | `phasePrevDates`       | --                        | Columns containing forecast phase duration, from (firstDate) to (secondDate)         | `string[]`                             | `undefined` |
 | `readOnly`             | `read-only`               | When true, the two gantts are not interactable.                                      | `boolean`                              | `false`     |
 | `showSecondaryDates`   | `show-secondary-dates`    | Enable/disable display of secondary dates                                            | `boolean`                              | `false`     |
+| `stateId`              | `state-id`                |                                                                                      | `string`                               | `''`        |
+| `store`                | --                        |                                                                                      | `KupStore`                             | `undefined` |
 | `taskColumns`          | --                        | Columns containing informations displayed in the left box, near the gantt            | `string[]`                             | `undefined` |
 | `taskDates`            | --                        | Columns containing task duration, from (firstDate) to (secondDate)                   | `string[]`                             | `undefined` |
 | `taskFilter`           | `task-filter`             | Sets the task's filter.                                                              | `string`                               | `undefined` |
