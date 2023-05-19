@@ -49,11 +49,6 @@
   color: var(--kup_box_color);
   overflow: auto;
 
-  .f-cell .f-cell__content .f-cell__text
-  {
-    white-space: nowrap;
-  }  
-
   &.is-kanban {
     .kanban-section {
       overflow: auto;
