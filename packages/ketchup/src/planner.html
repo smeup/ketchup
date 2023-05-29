@@ -24,6 +24,12 @@
     </head>
 
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true, logLimit: 20000 },
+                autoSetLocalization: true,
+            };
+        </script>
         <kup-planner id="planner"></kup-planner>
         <kup-button
             label="Unmount"

@@ -1,9 +1,7 @@
 import { GenericObject } from '../types/GenericTypes';
-import { KupDom } from '../managers/kup-manager/kup-manager-declarations';
 import { KupBoxRow } from '../components/kup-box/kup-box-declarations';
 import { KupDataRow } from '../managers/kup-data/kup-data-declarations';
-
-const dom: KupDom = document.documentElement as KupDom;
+import { KupManager } from '../managers/kup-manager/kup-manager';
 
 export function identify(array: Array<KupBoxRow | KupDataRow>) {
     if (array) {
@@ -97,4 +95,9 @@ export function getRegExpFromString(s: string, flags?: string): RegExp {
 
 function escapeRegExp(s: string) {
     return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
+
+export function getNewKupManager(): KupManager {
+    const kupManager = new KupManager();
+    return kupManager;
 }
