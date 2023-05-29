@@ -3079,8 +3079,8 @@ if (props) {
 }
 
 function onclick(event) {
-    console.log('debug.js onclick', event.detail.taskAction);
-    if (event.detail.taskAction == 'onOpening') {
+    console.log('planner.js onclick', event.detail.taskAction);
+    if (event.detail.taskAction == 'onTaskOpening') {
         comp.addPhases('G503', phases);
     }
 }

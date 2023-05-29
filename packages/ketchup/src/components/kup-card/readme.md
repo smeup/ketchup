@@ -150,6 +150,7 @@ Type: `Promise<void>`
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-radio](../kup-radio)
 - [kup-badge](../kup-badge)
+- [kup-card](.)
 - [kup-list](../kup-list)
 - [kup-checkbox](../kup-checkbox)
 - [kup-data-table](../kup-data-table)
@@ -158,7 +159,6 @@ Type: `Promise<void>`
 - [kup-tree](../kup-tree)
 - [kup-switch](../kup-switch)
 - [kup-dropdown-button](../kup-dropdown-button)
-- [kup-card](.)
 
 ### Graph
 ```mermaid
