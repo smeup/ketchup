@@ -20,6 +20,7 @@
 | `globalFilterValue` | `global-filter-value` | The value of the global filter.                                                                    | `string`        | `''`        |
 | `kanban`            | --                    | Displays the boxlist as a Kanban.                                                                  | `KupBoxKanban`  | `null`      |
 | `layout`            | --                    | How the field will be displayed. If not present, a default one will be created.                    | `KupBoxLayout`  | `undefined` |
+| `lazyLoadRows`      | `lazy-load-rows`      | When set to true, extra rows will be automatically loaded once the last row enters the viewport.   | `boolean`       | `false`     |
 | `multiSelection`    | `multi-selection`     | Enable multi selection                                                                             | `boolean`       | `false`     |
 | `pageSelected`      | `page-selected`       | Current page number                                                                                | `number`        | `1`         |
 | `pageSize`          | `page-size`           | Number of boxes per page                                                                           | `number`        | `10`        |

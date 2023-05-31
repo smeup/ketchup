@@ -339,6 +339,10 @@ export namespace Components {
           * @default undefined
          */
         "layout": KupBoxLayout;
+        /**
+          * When set to true, extra rows will be automatically loaded once the last row enters the viewport.
+         */
+        "lazyLoadRows": boolean;
         "loadRowActions": (row: KupBoxRow, actions: KupDataRowAction[]) => Promise<void>;
         /**
           * Enable multi selection
@@ -4141,6 +4145,10 @@ declare namespace LocalJSX {
           * @default undefined
          */
         "layout"?: KupBoxLayout;
+        /**
+          * When set to true, extra rows will be automatically loaded once the last row enters the viewport.
+         */
+        "lazyLoadRows"?: boolean;
         /**
           * Enable multi selection
           * @default false
