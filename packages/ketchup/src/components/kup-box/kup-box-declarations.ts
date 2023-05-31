@@ -25,6 +25,7 @@ export enum KupBoxProps {
     globalFilterValue = 'The value of the global filter.',
     kanban = 'Displays the boxlist as a Kanban.',
     layout = 'How the field will be displayed. If not present, a default one will be created.',
+    lazyLoadRows = 'When set to true, extra rows will be automatically loaded once the last row enters the viewport.',
     multiSelection = 'Enable multi selection.',
     pageSelected = 'Current page number.',
     pageSize = 'Number of boxes per page.',
