@@ -120,9 +120,7 @@
                 id="normalize-field"
                 initial-value="010101"
                 label="Date"
-                @kup-textfield-input="
-                  (e) => normalizeResult(e.detail.value, null)
-                "
+                @kup-textfield-input="(e) => normalizeResult(e.detail.value)"
               ></kup-text-field>
               <kup-text-field
                 disabled
@@ -184,14 +182,14 @@ import { KupListNode } from '@sme.up/ketchup/dist/types/components/kup-list/kup-
 import { KupComboboxEventPayload } from '@sme.up/ketchup/dist/types/components/kup-combobox/kup-combobox-declarations';
 import { KupChipNode } from '@sme.up/ketchup/dist/types/components/kup-chip/kup-chip-declarations';
 
-var accordion: HTMLKupAccordionElement = null;
-var combobox: HTMLKupComboboxElement = null;
-var localesChip: HTMLKupChipElement = null;
-var dateField: HTMLKupTextFieldElement = null;
-var formatField: HTMLKupTextFieldElement = null;
-var normalizeField: HTMLKupTextFieldElement = null;
-var normalizeResultField: HTMLKupTextFieldElement = null;
-var resultField: HTMLKupTextFieldElement = null;
+let accordion: HTMLKupAccordionElement = null;
+let combobox: HTMLKupComboboxElement = null;
+let localesChip: HTMLKupChipElement = null;
+let dateField: HTMLKupTextFieldElement = null;
+let formatField: HTMLKupTextFieldElement = null;
+let normalizeField: HTMLKupTextFieldElement = null;
+let normalizeResultField: HTMLKupTextFieldElement = null;
+let resultField: HTMLKupTextFieldElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 

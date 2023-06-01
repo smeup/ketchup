@@ -344,7 +344,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-text-field');
+  const comp = document.createElement('kup-text-field');
   comp.icon = 'widgets';
   comp.id = 'demo-component';
   comp.initialValue = 'Some text';

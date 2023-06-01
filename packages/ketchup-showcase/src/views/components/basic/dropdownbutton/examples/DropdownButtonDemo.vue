@@ -211,7 +211,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-dropdown-button');
+  const comp = document.createElement('kup-dropdown-button');
   comp.icon = 'widgets';
   comp.id = 'demo-component';
   comp.label = 'Demo';

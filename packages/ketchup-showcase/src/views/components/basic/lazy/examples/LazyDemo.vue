@@ -110,7 +110,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-lazy');
+  const comp = document.createElement('kup-lazy');
   comp.componentName = 'kup-card';
   comp.data = {
     data: {

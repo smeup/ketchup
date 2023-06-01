@@ -72,11 +72,11 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-grid');
+  const comp = document.createElement('kup-grid');
   comp.id = 'demo-component';
   comp.columns = '12';
   for (let index = 0; index < 48; index++) {
-    let compImage = document.createElement('kup-image');
+    const compImage = document.createElement('kup-image');
     compImage.data = [
       {
         shape: 'bar',

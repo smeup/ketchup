@@ -126,7 +126,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-radio');
+  const comp = document.createElement('kup-radio');
   comp.data = [
     {
       value: '1',

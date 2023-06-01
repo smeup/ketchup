@@ -43,9 +43,9 @@
 import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 import { KupScrollOnHoverElement } from '@sme.up/ketchup/dist/types/managers/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 
-var accordion: HTMLKupAccordionElement = null;
-var scrollingCard: HTMLKupCardElement = null;
-var scrollingDiv: HTMLElement = null;
+let accordion: HTMLKupAccordionElement = null;
+let scrollingCard: HTMLKupCardElement = null;
+let scrollingDiv: HTMLElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 

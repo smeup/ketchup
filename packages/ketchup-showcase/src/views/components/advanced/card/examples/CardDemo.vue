@@ -128,7 +128,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-card');
+  const comp = document.createElement('kup-card');
   comp.data = {
     button: [
       { icon: 'play', flat: true },

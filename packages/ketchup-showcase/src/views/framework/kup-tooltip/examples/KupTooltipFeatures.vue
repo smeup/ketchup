@@ -120,11 +120,11 @@ import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-mana
 import { KupTooltipAnchor } from '@sme.up/ketchup/dist/types/managers/kup-tooltip/kup-tooltip-declarations';
 import { KupButtonClickEventPayload } from '@sme.up/ketchup/dist/types/components/kup-button/kup-button-declarations';
 
-var accordion: HTMLKupAccordionElement = null;
-var anchor: KupTooltipAnchor = null;
-var fCellDatatable: HTMLKupDataTableElement = null;
-var registerButton: HTMLKupButtonElement = null;
-var showButton: HTMLKupButtonElement = null;
+let accordion: HTMLKupAccordionElement = null;
+let anchor: KupTooltipAnchor = null;
+let fCellDatatable: HTMLKupDataTableElement = null;
+let registerButton: HTMLKupButtonElement = null;
+let showButton: HTMLKupButtonElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 

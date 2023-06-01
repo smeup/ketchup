@@ -139,7 +139,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-progress-bar');
+  const comp = document.createElement('kup-progress-bar');
   comp.centeredLabel = true;
   comp.id = 'demo-component';
   comp.value = '75';

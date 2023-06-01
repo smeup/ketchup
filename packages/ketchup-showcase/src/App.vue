@@ -107,12 +107,12 @@ import type { KupSwitchEventPayload } from '@sme.up/ketchup/dist/types/component
 import { KupTreeNodeSelectedEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tree/kup-tree-declarations';
 import { KupDataCell } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 
-var drawer: HTMLKupDrawerElement = null;
-var main: HTMLElement = null;
-var modal: HTMLElement = null;
-var navbar: HTMLKupNavBarElement = null;
-var spinnerLabel: HTMLElement = null;
-var theme: HTMLKupSwitchElement = null;
+let drawer: HTMLKupDrawerElement = null;
+let main: HTMLElement = null;
+let modal: HTMLElement = null;
+let navbar: HTMLKupNavBarElement = null;
+let spinnerLabel: HTMLElement = null;
+let theme: HTMLKupSwitchElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 

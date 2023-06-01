@@ -123,7 +123,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-switch');
+  const comp = document.createElement('kup-switch');
   comp.id = 'demo-component';
   comp.label = 'Demo';
   return comp;

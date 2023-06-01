@@ -1417,7 +1417,7 @@ const temporaryTheme = 'showcaseDemo';
 const dom: KupDom = document.documentElement as KupDom;
 
 // Navigation tab bar
-var tabBar: HTMLKupTabBarElement = null,
+let tabBar: HTMLKupTabBarElement = null,
   // Views
   variablesView: HTMLElement = null,
   customStyleView: HTMLElement = null,
@@ -1663,7 +1663,7 @@ export default {
       }).on('change', function (cm) {
         cm.save();
         try {
-          let jsonifiedData = JSON.parse(jsonTextarea.value);
+          const jsonifiedData = JSON.parse(jsonTextarea.value);
           list[temporaryTheme] = jsonifiedData;
           dom.ketchup.theme.set(temporaryTheme, list);
           jsonWarning.classList.remove('visible');
@@ -1697,7 +1697,7 @@ export default {
         }
       }
       // Sets the variables components.
-      for (let key in theme.cssVariables) {
+      for (const key in theme.cssVariables) {
         const variable: string = key.replace('--kup-', '');
         const field: HTMLKupTextFieldElement = variablesView.querySelector(
           '#' + variable
@@ -1711,7 +1711,7 @@ export default {
         }
       }
       // Sets the custom styles components.
-      for (let key in theme.customStyles) {
+      for (const key in theme.customStyles) {
         const field: HTMLKupTextFieldElement = customStyleView.querySelector(
           '#' + key.toLowerCase()
         );
@@ -1724,7 +1724,7 @@ export default {
         }
       }
       // Sets the icons components.
-      for (let key in theme.icons) {
+      for (const key in theme.icons) {
         const variable: string = key.replace('--kup-', '');
         const field: HTMLKupTextFieldElement = iconsView.querySelector(
           '#' + variable

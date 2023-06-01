@@ -169,7 +169,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-date-picker');
+  const comp = document.createElement('kup-date-picker');
   comp.id = 'demo-component';
   comp.data = {
     'kup-text-field': {

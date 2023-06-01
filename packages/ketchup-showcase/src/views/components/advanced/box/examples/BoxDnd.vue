@@ -123,8 +123,8 @@ export default {
       this.toSelectedRows = event.detail.toSelectedRows;
     },
     appendEventToHistory(eventType, event) {
-      var node = document.createElement('LI');
-      var textnode = document.createTextNode(
+      const node = document.createElement('LI');
+      const textnode = document.createTextNode(
         eventType + ': ' + JSON.stringify(event.detail)
       );
       node.appendChild(textnode);

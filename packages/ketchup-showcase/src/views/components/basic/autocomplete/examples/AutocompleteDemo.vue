@@ -207,7 +207,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-autocomplete');
+  const comp = document.createElement('kup-autocomplete');
   comp.id = 'demo-component';
   comp.data = {
     'kup-list': {

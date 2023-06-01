@@ -126,11 +126,11 @@ import {
 } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 import { KupDataCell } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 
-var accordion: HTMLKupAccordionElement = null;
-var brightnessSelector: HTMLKupTextFieldElement = null;
-var colorCheckTable: HTMLKupDataTableElement = null;
-var randomArea: HTMLElement = null;
-var themeContainer: HTMLKupGridElement = null;
+let accordion: HTMLKupAccordionElement = null;
+let brightnessSelector: HTMLKupTextFieldElement = null;
+let colorCheckTable: HTMLKupDataTableElement = null;
+let randomArea: HTMLElement = null;
+let themeContainer: HTMLKupGridElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 

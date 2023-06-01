@@ -263,16 +263,16 @@ import {
   KupDataDataset,
 } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 
-var accordion: HTMLKupAccordionElement = null;
-var cellFindTable: HTMLKupDataTableElement = null;
-var distinctButton: HTMLKupButtonElement = null;
-var distinctTable: HTMLKupDataTableElement = null;
-var newButton: HTMLKupButtonElement = null;
-var newTable: HTMLKupDataTableElement = null;
-var rangedDistinctButton: HTMLKupButtonElement = null;
-var rangedDistinctTable: HTMLKupDataTableElement = null;
-var transposeButton: HTMLKupButtonElement = null;
-var transposeTable: HTMLKupDataTableElement = null;
+let accordion: HTMLKupAccordionElement = null;
+let cellFindTable: HTMLKupDataTableElement = null;
+let distinctButton: HTMLKupButtonElement = null;
+let distinctTable: HTMLKupDataTableElement = null;
+let newButton: HTMLKupButtonElement = null;
+let newTable: HTMLKupDataTableElement = null;
+let rangedDistinctButton: HTMLKupButtonElement = null;
+let rangedDistinctTable: HTMLKupDataTableElement = null;
+let transposeButton: HTMLKupButtonElement = null;
+let transposeTable: HTMLKupDataTableElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 const dataset: KupDataDataset = { ...kupDataDataset };

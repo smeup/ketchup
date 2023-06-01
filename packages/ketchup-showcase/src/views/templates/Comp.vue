@@ -46,9 +46,9 @@
 
 <script lang="ts">
 import { KupDataCell } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
-var labels: NodeListOf<HTMLKupCellElement> = null;
-var sections: NodeListOf<HTMLElement> = null;
-var title: NodeListOf<HTMLElement> = null;
+let labels: NodeListOf<HTMLKupCellElement> = null;
+let sections: NodeListOf<HTMLElement> = null;
+let title: NodeListOf<HTMLElement> = null;
 
 export default {
   beforeMount: function () {
