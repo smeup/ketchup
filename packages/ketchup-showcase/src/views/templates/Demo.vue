@@ -816,7 +816,7 @@ const closedClass = 'closed',
 const dom: KupDom = document.documentElement as KupDom;
 
 // Kup component
-var demoComponent: HTMLElement = null,
+let demoComponent: HTMLElement = null,
   // Kup component wrapper
   demoComponentWrapper: HTMLDivElement = null,
   // Vue component's props

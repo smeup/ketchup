@@ -115,9 +115,9 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('div');
-  let compSurface = document.createElement('span');
-  let compEl = document.createElement('kup-badge');
+  const comp = document.createElement('div');
+  const compSurface = document.createElement('span');
+  const compEl = document.createElement('kup-badge');
   comp.classList.add('badge-anchor');
   compSurface.innerText = 'YOUR CONTAINER';
   compEl.id = 'demo-component';

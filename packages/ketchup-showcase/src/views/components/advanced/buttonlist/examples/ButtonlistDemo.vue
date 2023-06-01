@@ -156,7 +156,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-button-list');
+  const comp = document.createElement('kup-button-list');
   comp.id = 'demo-component';
   comp.data = [
     {

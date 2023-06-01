@@ -183,7 +183,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-combobox');
+  const comp = document.createElement('kup-combobox');
   comp.id = 'demo-component';
   comp.data = {
     'kup-list': {

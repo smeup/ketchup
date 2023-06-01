@@ -290,7 +290,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-tree');
+  const comp = document.createElement('kup-tree');
   comp.data = [
     {
       cells: {

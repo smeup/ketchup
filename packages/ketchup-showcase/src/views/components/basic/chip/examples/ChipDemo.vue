@@ -134,7 +134,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-chip');
+  const comp = document.createElement('kup-chip');
   comp.data = [
     {
       children: [

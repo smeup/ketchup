@@ -167,15 +167,15 @@ import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-mana
 import { KupComboboxEventPayload } from '@sme.up/ketchup/dist/types/components/kup-combobox/kup-combobox-declarations';
 import { KupListNode } from '@sme.up/ketchup/dist/types/components/kup-list/kup-list-declarations';
 
-var accordion: HTMLKupAccordionElement = null;
-var combobox: HTMLKupComboboxElement = null;
-var dialog: HTMLElement = null;
-var dialogHandle: HTMLElement = null;
-var dialogifyButton: HTMLKupButtonElement = null;
-var dragMe: HTMLElement = null;
-var dropzone: HTMLElement = null;
-var eventTester: HTMLElement = null;
-var resize: HTMLElement = null;
+let accordion: HTMLKupAccordionElement = null;
+let combobox: HTMLKupComboboxElement = null;
+let dialog: HTMLElement = null;
+let dialogHandle: HTMLElement = null;
+let dialogifyButton: HTMLKupButtonElement = null;
+let dragMe: HTMLElement = null;
+let dropzone: HTMLElement = null;
+let eventTester: HTMLElement = null;
+let resize: HTMLElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 

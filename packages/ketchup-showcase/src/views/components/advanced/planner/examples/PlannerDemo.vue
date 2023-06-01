@@ -317,7 +317,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-planner');
+  const comp = document.createElement('kup-planner');
   comp.id = 'demo-component';
   for (const key in mockedProps) {
     const prop = mockedProps[key];

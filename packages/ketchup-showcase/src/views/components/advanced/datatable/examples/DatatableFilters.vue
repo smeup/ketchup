@@ -63,7 +63,7 @@ export default {
   name: 'dataTableFilters',
 
   data() {
-    let dataTableWithEmptyValues = {
+    const dataTableWithEmptyValues = {
       ...defaultDataTable,
     };
 

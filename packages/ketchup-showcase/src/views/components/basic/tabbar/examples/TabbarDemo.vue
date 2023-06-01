@@ -114,7 +114,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-tab-bar');
+  const comp = document.createElement('kup-tab-bar');
   comp.data = [
     {
       active: true,

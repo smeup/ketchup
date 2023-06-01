@@ -104,7 +104,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-calendar');
+  const comp = document.createElement('kup-calendar');
   comp.data = {
     columns: [
       {

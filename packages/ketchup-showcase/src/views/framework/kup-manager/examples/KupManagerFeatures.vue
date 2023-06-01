@@ -126,8 +126,8 @@ const rasterizeCb = async (e: MouseEvent) => {
   }
 };
 
-var card: HTMLKupCardElement = null;
-var combobox: HTMLKupComboboxElement = null;
+let card: HTMLKupCardElement = null;
+let combobox: HTMLKupComboboxElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 

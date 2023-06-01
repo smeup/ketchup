@@ -199,7 +199,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-list');
+  const comp = document.createElement('kup-list');
   comp.data = [
     {
       value: 'First choice',

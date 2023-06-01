@@ -67,7 +67,7 @@
 <script lang="ts">
 import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 
-var accordion: HTMLKupAccordionElement = null;
+let accordion: HTMLKupAccordionElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 

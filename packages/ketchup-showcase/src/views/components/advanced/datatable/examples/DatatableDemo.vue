@@ -571,7 +571,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-data-table');
+  const comp = document.createElement('kup-data-table');
   comp.data = defaultDataTable;
   comp.density = 'dense';
   comp.groupLabelDisplay = 'both';

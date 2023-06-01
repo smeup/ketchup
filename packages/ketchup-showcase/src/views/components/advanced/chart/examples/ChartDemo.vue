@@ -217,7 +217,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-chart');
+  const comp = document.createElement('kup-chart');
   comp.asp = '2D';
   comp.axis = 'Col1';
   comp.chartTitle = {

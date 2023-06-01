@@ -130,7 +130,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-checkbox');
+  const comp = document.createElement('kup-checkbox');
   comp.id = 'demo-component';
   comp.label = 'Demo';
   return comp;

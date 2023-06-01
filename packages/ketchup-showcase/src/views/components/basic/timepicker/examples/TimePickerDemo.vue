@@ -175,7 +175,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-time-picker');
+  const comp = document.createElement('kup-time-picker');
   comp.id = 'demo-component';
   comp.data = {
     'kup-text-field': {
