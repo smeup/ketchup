@@ -395,10 +395,11 @@ export class KupTextField {
     @Method()
     async getValue(): Promise<string> {
         if (this.inputType == 'number') {
-            return this.kupManager.math.formattedStringToNumberString(
-                this.value,
-                ''
-            );
+            // return this.kupManager.math.formattedStringToNumberString(
+            //     this.value,
+            //     ''
+            // );
+            /** value is already ok, decimal separator . */
         }
         return this.value;
     }

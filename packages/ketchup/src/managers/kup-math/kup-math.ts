@@ -244,12 +244,14 @@ export class KupMath {
      * @param {string | String | number} input - Input value to numberify.
      * @param {boolean} inputIsLocalized - Numberifies assuming the input string is in the current KupMath locale's format.
      * @param {string} type - type of number for calculate suffix
+     * @param {string} decFmt - decimal format for the input value.
      * @returns {number} Resulting number or NaN (when not a number).
      */
     numberify(
         input: string | String | number,
         inputIsLocalized?: boolean,
-        type?: string
+        type?: string,
+        decFmt?: string
     ): number {
         if (typeof input != 'number') {
             if (type) {
@@ -258,20 +260,21 @@ export class KupMath {
                     input = input.replace(getRegExpFromString(suffix, 'g'), '');
                 }
             }
-            const groupSeparator = inputIsLocalized
-                ? this.groupSeparator()
-                : ',';
+            if (!decFmt) {
+                decFmt = inputIsLocalized ? this.decimalSeparator() : '.';
+            }
+            const groupSeparator = decFmt == '.' ? ',' : '.';
             input = input.replace(getRegExpFromString(groupSeparator, 'g'), '');
+            if (decFmt != '.') {
+                input = input.replace(getRegExpFromString(decFmt, 'g'), '.');
+            }
         }
         let n = NaN;
-        if (inputIsLocalized) {
-            n = this.numeral(input).value();
-        } else {
-            const locale = this.numeral.locale();
-            this.numeral.locale(KupMathLocales.en);
-            n = this.numeral(input).value();
-            this.numeral.locale(locale);
-        }
+
+        const locale = this.numeral.locale();
+        this.numeral.locale(KupMathLocales.en);
+        n = this.numeral(input).value();
+        this.numeral.locale(locale);
         if (n === null) {
             return NaN;
         }
@@ -288,12 +291,13 @@ export class KupMath {
     numberifySafe(
         input: string,
         inputIsLocalized?: boolean,
-        type?: string
+        type?: string,
+        decFmt?: string
     ): number {
         if (!input || input == null || input.trim() == '') {
             input = '0';
         }
-        return this.numberify(input, inputIsLocalized, type);
+        return this.numberify(input, inputIsLocalized, type, decFmt);
     }
 
     /**
@@ -337,12 +341,7 @@ export class KupMath {
         type: string,
         decSeparator?: string
     ): string {
-        return numberStringToNumberString(
-            input,
-            type,
-            decSeparator ?? this.decimalSeparator(),
-            this
-        );
+        return numberStringToNumberString(input, type, decSeparator, this);
 
         function numberStringToNumberString(
             input: string,
@@ -353,7 +352,12 @@ export class KupMath {
             if (!input || input == null || input.trim() == '') {
                 return '';
             }
-            let unf: number = kupMath.numberifySafe(input, decFmt != '.', type);
+            let unf: number = kupMath.numberifySafe(
+                input,
+                !decFmt || decFmt != '.',
+                type,
+                decFmt
+            );
             if (unf == null || isNaN(unf)) {
                 return input;
             }
