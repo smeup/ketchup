@@ -283,6 +283,9 @@ export class KupEchart {
             case KupEchartTypes.RADAR:
                 options = this.#radarChart();
                 break;
+            case KupEchartTypes.BUBBLE:
+                options = this.#bubbleChart();
+                break;
             default:
                 options = this.#setOptions();
                 break;
@@ -437,6 +440,64 @@ export class KupEchart {
         } as echarts.EChartsOption;
     }
 
+    #bubbleChart() {
+        const x = this.#createX(),
+         y = this.#createY(),
+         data = [], temp=[], legend={}, series=[];
+        
+        for(let i =0; i<x.length; i++){
+
+            temp.push([y['Gdp'][i], y['Age'][i], y['Size'][i], y['Country'][i], x[i] ]);
+        }
+
+        const year = [... new Set(x)];
+
+        year.forEach((e, i) =>{
+            let k=[];
+            temp.forEach(data=>{
+                if(data.includes(e)) k.push(data);
+            })
+            data.push(k);
+
+            legend[e] =i;
+        });
+
+        data.forEach((el, i) =>{
+            series.push({
+                name: year[i],
+                data: el,
+                type: 'scatter',
+                symbolSize: function (data) {
+                    return Math.sqrt(data[2]) / 5e2;
+                }
+
+            })
+        });
+
+          return { 
+                    
+            title: this.#setTitle(),
+            legend: this.#setLegend(legend),
+            xAxis: {
+              splitLine: {
+                lineStyle: {
+                  type: 'dashed'
+                }
+              }
+            },
+            yAxis: {
+              splitLine: {
+                lineStyle: {
+                  type: 'dashed'
+                }
+              },
+              scale: true
+            },
+            color: this.#setColors(x.length),
+            series: series
+        } as echarts.EChartsOption;
+          
+    }
     #createX(dataset: KupDataDataset = null) {
         const x: string[] = [];
         if (!dataset) dataset = this.data;
