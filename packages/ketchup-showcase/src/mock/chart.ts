@@ -864,7 +864,7 @@ export const radarData = {
   ],
 };
 
-const bubbleChartData = {
+export const bubbleChartData = {
     columns: [
       {
           name: 'COUNTRY',
