@@ -469,10 +469,20 @@ export class KupEchart {
                 type: 'scatter',
                 symbolSize: function (data) {
                     return Math.sqrt(data[2]) / 5e2;
+                },
+                emphasis: {
+                    focus: 'series',
+                    label: {
+                      show: true,
+                      formatter: function (param: any) {
+                        return param.data[3];
+                      },
+                      position: 'top'
+                    }
                 }
 
             })
-        });
+        }); 
 
           return { 
                     
