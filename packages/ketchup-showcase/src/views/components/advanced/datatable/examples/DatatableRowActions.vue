@@ -36,11 +36,10 @@ export default {
           },
         ],
         ['onkup-datatable-rowactionclick']: (e) => {
-          var action, index, type, row;
-          action = e.detail.action;
-          index = e.detail.index;
-          type = e.detail.type;
-          row = e.detail.row;
+          const action = e.detail.action;
+          const index = e.detail.index;
+          const type = e.detail.type;
+          const row = e.detail.row;
           this.actionType = type;
           this.row = row;
 

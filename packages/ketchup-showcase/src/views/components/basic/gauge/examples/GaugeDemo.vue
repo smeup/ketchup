@@ -190,7 +190,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-gauge');
+  const comp = document.createElement('kup-gauge');
   comp.id = 'demo-component';
   comp.arcThickness = 30;
   comp.colors = [

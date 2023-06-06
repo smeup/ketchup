@@ -259,6 +259,14 @@ export default {
           try: 'json',
         },
         {
+          prop: 'lazyLoadRows',
+          description:
+            'When set to true, extra rows will be automatically loaded once the last row enters the viewport.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'multiSelection',
           description: 'Enable multi selection.',
           type: 'boolean',
@@ -364,7 +372,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-box');
+  const comp = document.createElement('kup-box');
   comp.columns = '4';
   comp.data = defaultData;
   comp.id = 'demo-component';

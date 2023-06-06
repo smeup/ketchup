@@ -129,12 +129,12 @@
 <script lang="ts">
 import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 
-var accordion: HTMLKupAccordionElement = null;
-var anchor: HTMLElement = null;
-var anchorChange: HTMLElement = null;
-var buttonRegister: HTMLKupButtonElement = null;
-var buttonStart: HTMLKupButtonElement = null;
-var buttonStop: HTMLKupButtonElement = null;
+let accordion: HTMLKupAccordionElement = null;
+let anchor: HTMLElement = null;
+let anchorChange: HTMLElement = null;
+let buttonRegister: HTMLKupButtonElement = null;
+let buttonStart: HTMLKupButtonElement = null;
+let buttonStop: HTMLKupButtonElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 

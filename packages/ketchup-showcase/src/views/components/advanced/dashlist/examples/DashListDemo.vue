@@ -108,7 +108,7 @@ export default {
   },
 };
 function createComp() {
-  let comp = document.createElement('kup-dash-list');
+  const comp = document.createElement('kup-dash-list');
   comp.columnsNumber = '3';
   comp.data = defaultData;
   comp.valueColor = defaultValueColor;

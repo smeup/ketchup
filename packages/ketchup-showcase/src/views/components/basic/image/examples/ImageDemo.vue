@@ -134,7 +134,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-image');
+  const comp = document.createElement('kup-image');
   comp.badgeData = [
     {
       imageData: {

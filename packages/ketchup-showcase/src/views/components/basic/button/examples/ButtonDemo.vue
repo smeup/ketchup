@@ -202,12 +202,12 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-button');
+  const comp = document.createElement('kup-button');
   comp.icon = 'widgets';
   comp.id = 'demo-component';
   comp.label = 'Demo';
   comp.styling = 'raised';
-  let innerComp = document.createElement('kup-spinner');
+  const innerComp = document.createElement('kup-spinner');
   innerComp.slot = 'spinner';
   innerComp.dimensions = '0.6em';
   innerComp.active = true;

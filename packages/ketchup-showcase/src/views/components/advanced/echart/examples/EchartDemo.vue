@@ -153,7 +153,7 @@ export default {
   },
 };
 function createComp() {
-  let comp = document.createElement('kup-echart');
+  const comp = document.createElement('kup-echart');
   comp.axis = 'Col1';
   comp.chartTitle = {
     value: 'This is a title.',

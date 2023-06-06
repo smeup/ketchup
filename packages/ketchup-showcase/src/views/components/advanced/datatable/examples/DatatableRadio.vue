@@ -7,7 +7,7 @@
 
 <script>
 import { dataTableCheckboxFactory } from '@/mock/dataTable';
-let tableRadioData = dataTableCheckboxFactory('rad');
+const tableRadioData = dataTableCheckboxFactory('rad');
 
 export default {
   name: 'DTRadio',

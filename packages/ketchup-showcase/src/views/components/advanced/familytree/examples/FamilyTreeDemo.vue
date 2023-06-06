@@ -131,7 +131,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-family-tree');
+  const comp = document.createElement('kup-family-tree');
   comp.data = {
     columns: [],
     rows: [

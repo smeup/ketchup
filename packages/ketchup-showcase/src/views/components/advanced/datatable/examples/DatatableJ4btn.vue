@@ -31,7 +31,7 @@ export default {
           const cell = JSON.stringify(e.detail.cell),
             row = JSON.stringify(e.detail.row),
             column = JSON.stringify(e.detail.column);
-          let codeEl = document.querySelector('#button-small');
+          const codeEl = document.querySelector('#button-small');
           codeEl.innerHTML = `Cell:<br>${cell}<br>Column:<br>${column}<br>Row:<br>${row}<br>`;
         },
       },
@@ -42,7 +42,7 @@ export default {
           const cell = JSON.stringify(e.detail.cell),
             row = JSON.stringify(e.detail.row),
             column = JSON.stringify(e.detail.column);
-          let codeEl = document.querySelector('#button-large');
+          const codeEl = document.querySelector('#button-large');
           codeEl.innerHTML = `Cell:<br>${cell}<br>Column:<br>${column}<br>Row:<br>${row}<br>`;
         },
       },

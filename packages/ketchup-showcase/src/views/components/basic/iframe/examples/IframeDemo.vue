@@ -75,7 +75,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-iframe');
+  const comp = document.createElement('kup-iframe');
   comp.buttonData = {
     flat: true,
   };

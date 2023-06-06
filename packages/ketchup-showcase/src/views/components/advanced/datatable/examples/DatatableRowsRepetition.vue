@@ -44,7 +44,7 @@ export default {
   name: 'dataTableFilters',
 
   data() {
-    let sortData = sortDataTable;
+    const sortData = sortDataTable;
     sortData.columns.forEach((col) => {
       col.hideValuesRepetitions = true;
     });

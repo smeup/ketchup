@@ -115,6 +115,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'detailFilter',
+          description: "Sets the detail's filter.",
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'detailIdCol',
           description: 'Column containing unique detail identifier',
           type: 'string',
@@ -135,6 +142,20 @@ export default {
           type: 'string',
           default: 'undefined',
           isArray: true,
+          try: 'field',
+        },
+        {
+          prop: 'detailInitialScrollX',
+          description: 'Sets the initial scroll X for the detail.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'detailInitialScrollY',
+          description: 'Sets the initial scroll Y for the detail.',
+          type: 'number',
+          default: 'undefined',
           try: 'field',
         },
         {
@@ -201,6 +222,13 @@ export default {
           isArray: true,
         },
         {
+          prop: 'readOnly',
+          description: 'When true, the two gantts are not interactable.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'showSecondaryDates',
           description: 'Enable/disable display of secondary dates',
           type: 'boolean',
@@ -226,9 +254,30 @@ export default {
           isArray: true,
         },
         {
+          prop: 'taskFilter',
+          description: "Sets the task's filter.",
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'taskIdCol',
           description: 'Column containing unique task identifier',
           type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'taskInitialScrollX',
+          description: 'Sets the initial scroll X for the task.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'taskInitialScrollY',
+          description: 'Sets the initial scroll Y for the task.',
+          type: 'number',
           default: 'undefined',
           try: 'field',
         },
@@ -255,13 +304,20 @@ export default {
           default: 'undefined',
           try: 'field',
         },
+        {
+          prop: 'viewMode',
+          description: 'Sets the view mode.',
+          type: 'string',
+          default: 'month"',
+          try: 'field',
+        },
       ],
     };
   },
 };
 
 function createComp() {
-  let comp = document.createElement('kup-planner');
+  const comp = document.createElement('kup-planner');
   comp.id = 'demo-component';
   for (const key in mockedProps) {
     const prop = mockedProps[key];

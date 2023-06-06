@@ -117,7 +117,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-spinner');
+  const comp = document.createElement('kup-spinner');
   comp.active = true;
   comp.id = 'demo-component';
   comp.layout = '1';

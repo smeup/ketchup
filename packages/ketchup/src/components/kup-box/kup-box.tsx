@@ -294,6 +294,10 @@ export class KupBox {
      */
     @Prop() layout: KupBoxLayout;
     /**
+     * When set to true, extra rows will be automatically loaded once the last row enters the viewport.
+     */
+    @Prop() lazyLoadRows: boolean = false;
+    /**
      * Enable multi selection
      * @default false
      */
@@ -376,6 +380,9 @@ export class KupBox {
     private interactableDrag: HTMLElement[] = [];
     private interactableDrop: HTMLElement[] = [];
     private interactableTouch: HTMLElement[] = [];
+    #intObserver: IntersectionObserver = undefined;
+    #rowsRefs: HTMLElement[] = [];
+    #navBarHeight: number = 0;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -1256,7 +1263,11 @@ export class KupBox {
         const rowStyle: any = row.style || {};
 
         return (
-            <div class="box-wrapper" style={rowStyle}>
+            <div
+                class="box-wrapper"
+                style={rowStyle}
+                ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
+            >
                 <div
                     class={boxClass}
                     onClick={(e) => this.onBoxClick(e, row)}
@@ -1346,6 +1357,7 @@ export class KupBox {
         const sectionStyle: any = section.style || {};
         if (section.dim && parent) {
             sectionStyle.flex = `0 0 ${section.dim}`;
+            sectionStyle.overflow = 'hidden';
 
             if (parent.horizontal) {
                 sectionStyle.maxWidth = section.dim;
@@ -1729,6 +1741,46 @@ export class KupBox {
         }
     }
 
+    #didRenderObservers() {
+        if (
+            this.lazyLoadRows &&
+            this.currentRowsPerPage < this.data.rows.length
+        ) {
+            this.#intObserver.observe(
+                this.#rowsRefs[this.#rowsRefs.length - 1]
+            );
+        }
+    }
+
+    #setObserver() {
+        const callback: IntersectionObserverCallback = (
+            entries: IntersectionObserverEntry[]
+        ) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    this.kupManager.debug.logMessage(
+                        this,
+                        'Last row entering the viewport, loading more elements.'
+                    );
+                    const delta =
+                        this.data.rows.length - this.currentRowsPerPage;
+                    if (delta < 10) {
+                        this.currentRowsPerPage += delta;
+                    } else {
+                        this.currentRowsPerPage += 10;
+                    }
+                    entry.target.classList.remove('last-row');
+                    this.#intObserver.unobserve(entry.target);
+                }
+            });
+        };
+        const options: IntersectionObserverInit = {
+            threshold: 0,
+            rootMargin: '-' + this.#navBarHeight + 'px 0px 0px 0px',
+        };
+        this.#intObserver = new IntersectionObserver(callback, options);
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -1751,6 +1803,16 @@ export class KupBox {
         this.kupManager.theme.register(this);
         this.onDataChanged();
         this.adjustPaginator();
+        if (document.querySelector('.header')) {
+            this.#navBarHeight = document.querySelector('.header').clientHeight;
+        } else {
+            this.#navBarHeight = 0;
+        }
+        if (document.querySelector('.topbar')) {
+            this.#navBarHeight +=
+                document.querySelector('.topbar').clientHeight;
+        }
+        this.#setObserver();
     }
 
     componentDidLoad() {
@@ -1789,6 +1851,7 @@ export class KupBox {
         this.checkScrollOnHover();
         this.persistState();
         this.didRenderInteractables();
+        this.#didRenderObservers();
         this.kupManager.debug.logRender(this, true);
     }
 

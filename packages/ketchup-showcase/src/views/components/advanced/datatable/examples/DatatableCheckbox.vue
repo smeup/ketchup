@@ -7,7 +7,7 @@
 
 <script>
 import { dataTableCheckboxFactory } from '@/mock/dataTable';
-let baseCheckbox = dataTableCheckboxFactory();
+const baseCheckbox = dataTableCheckboxFactory();
 
 export default {
   name: 'DTCheckbox',

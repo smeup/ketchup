@@ -174,18 +174,18 @@ import {
   KupDataRow,
 } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 
-var accordion: HTMLKupAccordionElement = null;
-var formatInput: HTMLKupTextFieldElement = null;
-var formatOption: HTMLKupTextFieldElement = null;
-var formatOutput: HTMLKupTextFieldElement = null;
-var localeCombobox: HTMLKupComboboxElement = null;
-var localeTextfield: HTMLKupTextFieldElement = null;
-var ndInput: HTMLKupTextFieldElement = null;
-var ndOutput: HTMLKupEchartElement = null;
-var numberifyInput: HTMLKupTextFieldElement = null;
-var numberifyOutput: HTMLKupTextFieldElement = null;
-var numberLocaleStringInput: HTMLKupTextFieldElement = null;
-var numberLocaleStringOutput: HTMLKupTextFieldElement = null;
+let accordion: HTMLKupAccordionElement = null;
+let formatInput: HTMLKupTextFieldElement = null;
+let formatOption: HTMLKupTextFieldElement = null;
+let formatOutput: HTMLKupTextFieldElement = null;
+let localeCombobox: HTMLKupComboboxElement = null;
+let localeTextfield: HTMLKupTextFieldElement = null;
+let ndInput: HTMLKupTextFieldElement = null;
+let ndOutput: HTMLKupEchartElement = null;
+let numberifyInput: HTMLKupTextFieldElement = null;
+let numberifyOutput: HTMLKupTextFieldElement = null;
+let numberLocaleStringInput: HTMLKupTextFieldElement = null;
+let numberLocaleStringOutput: HTMLKupTextFieldElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 const kupMathLocales = {

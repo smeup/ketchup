@@ -55,8 +55,8 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup/releases/tag/v8.0.2"
-            >v8.0.2</a
+          ><a href="https://github.com/smeup/ketchup/releases/tag/v8.1.0"
+            >v8.1.0</a
           ></div
         ></div
       >
@@ -109,12 +109,12 @@ import type { KupSwitchEventPayload } from '@sme.up/ketchup/dist/types/component
 import { KupTreeNodeSelectedEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tree/kup-tree-declarations';
 import { KupDataCell } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 
-var drawer: HTMLKupDrawerElement = null;
-var main: HTMLElement = null;
-var modal: HTMLElement = null;
-var navbar: HTMLKupNavBarElement = null;
-var spinnerLabel: HTMLElement = null;
-var theme: HTMLKupSwitchElement = null;
+let drawer: HTMLKupDrawerElement = null;
+let main: HTMLElement = null;
+let modal: HTMLElement = null;
+let navbar: HTMLKupNavBarElement = null;
+let spinnerLabel: HTMLElement = null;
+let theme: HTMLKupSwitchElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 

@@ -28,7 +28,7 @@ const colors = ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd'];
 export default {
   data() {
     // deep clone
-    let dataTableWithLayout = JSON.parse(JSON.stringify(defaultData));
+    const dataTableWithLayout = JSON.parse(JSON.stringify(defaultData));
 
     let i = dataTableWithLayout.rows.length - 1;
     while (i >= 0) {

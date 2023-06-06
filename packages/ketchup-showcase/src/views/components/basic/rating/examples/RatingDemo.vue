@@ -79,7 +79,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-rating');
+  const comp = document.createElement('kup-rating');
   comp.id = 'demo-component';
   comp.name = 'rating';
   return comp;

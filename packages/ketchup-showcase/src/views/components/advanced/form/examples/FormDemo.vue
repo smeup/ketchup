@@ -119,7 +119,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-form');
+  const comp = document.createElement('kup-form');
   comp.data = {
     columns: [
       {

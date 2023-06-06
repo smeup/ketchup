@@ -93,10 +93,10 @@ import {
 import { KupDataCell } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 import { KupChipNode } from '@sme.up/ketchup/dist/types/components/kup-chip/kup-chip-declarations';
 
-var accordion: HTMLKupAccordionElement = null;
-var combobox: HTMLKupComboboxElement = null;
-var languagesChip: HTMLKupChipElement = null;
-var translations: HTMLKupDataTableElement = null;
+let accordion: HTMLKupAccordionElement = null;
+let combobox: HTMLKupComboboxElement = null;
+let languagesChip: HTMLKupChipElement = null;
+let translations: HTMLKupDataTableElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 
