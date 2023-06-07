@@ -283,6 +283,9 @@ export class KupEchart {
             case KupEchartTypes.RADAR:
                 options = this.#radarChart();
                 break;
+            case KupEchartTypes.BUBBLE:
+                options = this.#bubbleChart();
+                break;
             default:
                 options = this.#setOptions();
                 break;
@@ -437,6 +440,102 @@ export class KupEchart {
         } as echarts.EChartsOption;
     }
 
+    #bubbleChart() {
+        const y = this.#createY(),
+         data = [], temp=[], legend={}, series=[]; 
+         let year = [];
+
+        const  content = this.data.columns.map(data=> data.title);
+
+        if(content && content.length) {
+            for(let i =0; i<y[content[0]].length; i++){
+                const arr=[];
+                for(let j =0; j<content.length; j++){
+                    arr.push(y[content[j]][i]);
+                    // last value always be a year 
+                    if(j === content.length -1){
+                        year.push(y[content[j]][i])
+                    }
+                }
+                temp.push(arr);
+            }
+        }
+
+         year = [... new Set(year)];
+
+        year.forEach((e, i) =>{
+            let k=[];
+            temp.forEach(data=>{
+                if(data.includes(e)) k.push(data);
+            })
+            data.push(k);
+
+            legend[e] =i;
+        });
+
+        data.forEach((el, i) =>{
+            series.push({
+                name: year[i],
+                data: el,
+                type: 'scatter',
+                symbolSize: function (data) {
+                    return Math.sqrt(data[2]) / 5e2;
+                },
+                emphasis: {
+                    focus: 'series',
+                    label: {
+                    show: true,
+                    formatter: function (param: any) {
+                        return param.data[3];
+                    },
+                    position: 'top'
+                    }
+                }
+
+            })
+        }); 
+
+          return { 
+                    
+            title: this.#setTitle(),
+            legend: this.#setLegend(legend),
+            tooltip: {
+                ...this.#setTooltip(),
+                trigger: 'item',
+                formatter: (value: unknown) => {
+                    const name = (value as GenericObject).data 
+                    const data = content.map((e, i)=>{
+                        return `<li>  ${e }: ${name[i]} </li>`
+                    })
+                    let showContent = '';
+                    data.forEach(r=>{
+                        showContent += r;
+                    })
+
+                    return `<ul>${showContent }</ul> `;
+                },
+
+            },
+            xAxis: {
+              splitLine: {
+                lineStyle: {
+                  type: 'dashed'
+                }
+              }
+            },
+            yAxis: {
+              splitLine: {
+                lineStyle: {
+                  type: 'dashed'
+                }
+              },
+              scale: true
+            },
+            color: this.#setColors(content.length),
+            series: series
+        } as echarts.EChartsOption;
+          
+    }
     #createX(dataset: KupDataDataset = null) {
         const x: string[] = [];
         if (!dataset) dataset = this.data;

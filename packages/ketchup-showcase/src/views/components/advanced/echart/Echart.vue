@@ -36,6 +36,9 @@
     <template v-slot:11>
       <echart-radar></echart-radar>
     </template>
+    <template v-slot:12>
+      <echart-bubble></echart-bubble>
+    </template>
   </comp>
 </template>
 
@@ -52,6 +55,7 @@ import EchartMap from '@/views/components/advanced/echart/examples/EchartMap';
 import EchartGaussian from '@/views/components/advanced/echart/examples/EchartGaussian';
 import EchartFunnel from '@/views/components/advanced/echart/examples/EchartFunnel';
 import EchartRadar from '@/views/components/advanced/echart/examples/EchartRadar';
+import EchartBubble from '@/views/components/advanced/echart/examples/EchartBubble';
 import Comp from '@/views/templates/Comp';
 export default {
   components: {
@@ -67,6 +71,7 @@ export default {
     EchartGaussian,
     EchartFunnel,
     EchartRadar,
+    EchartBubble,
     Comp,
   },
   data() {
@@ -87,6 +92,7 @@ export default {
         'Gaussian',
         'Funnel',
         'Radar',
+        'Bubble',
       ],
     };
   },
