@@ -17,7 +17,7 @@ import { bubbleChartData } from '@/mock/chart';
 export default {
   data() {
     return {
-      axis: 'YEAR',
+      axis: '',
       types: ['Bubble'],
       data: bubbleChartData,
       legend: 'top',

@@ -794,7 +794,7 @@ echart7.data = {
 echart8.consistencyCheck = true;
 echart8.types = ['Bubble'];
 echart8.colors =  ['blue'];
-echart8.axis = 'YEAR';
+echart8.axis = '';
 echart8.chartTitle = {
     value: 'Bubble',
     color: 'red',
@@ -803,10 +803,6 @@ echart8.chartTitle = {
 };
 echart8.data = {
     columns: [
-        {
-            name: 'COUNTRY',
-            title: 'Country',
-        },
         {
             name: 'GDP',
             title: 'Gdp',
@@ -820,9 +816,13 @@ echart8.data = {
             title: 'Size',
         },
         {
+            name: 'COUNTRY',
+            title: 'Country',
+        },
+        {
             name: 'YEAR',
             title: 'Year',
-        },
+        }
     ],
     rows: [
         {

@@ -441,16 +441,27 @@ export class KupEchart {
     }
 
     #bubbleChart() {
-        const x = this.#createX(),
-         y = this.#createY(),
-         data = [], temp=[], legend={}, series=[];
-        
-        for(let i =0; i<x.length; i++){
+        const y = this.#createY(),
+         data = [], temp=[], legend={}, series=[]; 
+         let year = [];
 
-            temp.push([y['Gdp'][i], y['Age'][i], y['Size'][i], y['Country'][i], x[i] ]);
+        const  content = this.data.columns.map(data=> data.title);
+
+        if(content && content.length) {
+            for(let i =0; i<y[content[0]].length; i++){
+                const arr=[];
+                for(let j =0; j<content.length; j++){
+                    arr.push(y[content[j]][i]);
+                    // last value always be a year 
+                    if(j === content.length -1){
+                        year.push(y[content[j]][i])
+                    }
+                }
+                temp.push(arr);
+            }
         }
 
-        const year = [... new Set(x)];
+         year = [... new Set(year)];
 
         year.forEach((e, i) =>{
             let k=[];
@@ -473,11 +484,11 @@ export class KupEchart {
                 emphasis: {
                     focus: 'series',
                     label: {
-                      show: true,
-                      formatter: function (param: any) {
+                    show: true,
+                    formatter: function (param: any) {
                         return param.data[3];
-                      },
-                      position: 'top'
+                    },
+                    position: 'top'
                     }
                 }
 
@@ -488,6 +499,23 @@ export class KupEchart {
                     
             title: this.#setTitle(),
             legend: this.#setLegend(legend),
+            tooltip: {
+                ...this.#setTooltip(),
+                trigger: 'item',
+                formatter: (value: unknown) => {
+                    const name = (value as GenericObject).data 
+                    const data = content.map((e, i)=>{
+                        return `<li>  ${e }: ${name[i]} </li>`
+                    })
+                    let showContent = '';
+                    data.forEach(r=>{
+                        showContent += r;
+                    })
+
+                    return `<ul>${showContent }</ul> `;
+                },
+
+            },
             xAxis: {
               splitLine: {
                 lineStyle: {
@@ -503,7 +531,7 @@ export class KupEchart {
               },
               scale: true
             },
-            color: this.#setColors(x.length),
+            color: this.#setColors(content.length),
             series: series
         } as echarts.EChartsOption;
           
