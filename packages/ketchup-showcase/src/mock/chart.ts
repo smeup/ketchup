@@ -865,164 +865,164 @@ export const radarData = {
 };
 
 export const bubbleChartData = {
-    columns: [
-      {
-          name: 'COUNTRY',
-          title: 'Country',
-      },
-      {
-          name: 'GDP',
-          title: 'Gdp',
-      },
-      {
-          name: 'AGE',
-          title: 'Age',
-      },
-      {
-          name: 'SIZE',
-          title: 'Size',
-      },
-      {
-          name: 'YEAR',
-          title: 'Year',
-      },
+  columns: [
+    {
+      name: 'COUNTRY',
+      title: 'Country',
+    },
+    {
+      name: 'GDP',
+      title: 'Gdp',
+    },
+    {
+      name: 'AGE',
+      title: 'Age',
+    },
+    {
+      name: 'SIZE',
+      title: 'Size',
+    },
+    {
+      name: 'YEAR',
+      title: 'Year',
+    },
   ],
   rows: [
-      {
-          cells: {
-              COUNTRY: {
-                  value: 'China',
-              },
-              GDP: {
-                  obj: {
-                      t: 'NR',
-                      p: '',
-                      k: '1516',
-                  },
-                  value: '1516',
-              },
-              AGE: {
-                  obj: {
-                      t: 'NR',
-                      p: '',
-                      k: '68',
-                  },
-                  value: '68',
-              },
-              SIZE: {
-                  obj: {
-                      t: 'NR',
-                      p: '',
-                      k: '1154605773',
-                  },
-                  value: '1154605773',
-              },
-              YEAR: {
-                  value: '1990',
-              },
+    {
+      cells: {
+        COUNTRY: {
+          value: 'China',
+        },
+        GDP: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1516',
           },
-      },
-      {
-          cells: {
-              COUNTRY: {
-                  value: 'China',
-              },
-              GDP: {
-                  obj: {
-                      t: 'NR',
-                      p: '',
-                      k: '13334',
-                  },
-                  value: '13334',
-              },
-              AGE: {
-                  obj: {
-                      t: 'NR',
-                      p: '',
-                      k: '76.9',
-                  },
-                  value: '76.9',
-              },
-              SIZE: {
-                  obj: {
-                      t: 'NR',
-                      p: '',
-                      k: '1376048943',
-                  },
-                  value: '1376048943',
-              },
-              YEAR: {
-                  value: '2015',
-              },
+          value: '1516',
+        },
+        AGE: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '68',
           },
-      },
-      {
-          cells: {
-              COUNTRY: {
-                  value: 'United States',
-              },
-              GDP: {
-                  obj: {
-                      t: 'NR',
-                      p: '',
-                      k: '37062',
-                  },
-                  value: '37062',
-              },
-              AGE: {
-                  obj: {
-                      t: 'NR',
-                      p: '',
-                      k: '75.4',
-                  },
-                  value: '75.4',
-              },
-              SIZE: {
-                  obj: {
-                      t: 'NR',
-                      p: '',
-                      k: '252847810',
-                  },
-                  value: '252847810',
-              },
-              YEAR: {
-                  value: '1990',
-              },
+          value: '68',
+        },
+        SIZE: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1154605773',
           },
+          value: '1154605773',
+        },
+        YEAR: {
+          value: '1990',
+        },
       },
-      {
-          cells: {
-              COUNTRY: {
-                  value: 'United States',
-              },
-              GDP: {
-                  obj: {
-                      t: 'NR',
-                      p: '',
-                      k: '53354',
-                  },
-                  value: '53354',
-              },
-              AGE: {
-                  obj: {
-                      t: 'NR',
-                      p: '',
-                      k: '79.1',
-                  },
-                  value: '79.1',
-              },
-              SIZE: {
-                  obj: {
-                      t: 'NR',
-                      p: '',
-                      k: '321773631',
-                  },
-                  value: '321773631',
-              },
-              YEAR: {
-                  value: '2015',
-              },
+    },
+    {
+      cells: {
+        COUNTRY: {
+          value: 'China',
+        },
+        GDP: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '13334',
           },
+          value: '13334',
+        },
+        AGE: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '76.9',
+          },
+          value: '76.9',
+        },
+        SIZE: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1376048943',
+          },
+          value: '1376048943',
+        },
+        YEAR: {
+          value: '2015',
+        },
       },
-  ]
+    },
+    {
+      cells: {
+        COUNTRY: {
+          value: 'United States',
+        },
+        GDP: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '37062',
+          },
+          value: '37062',
+        },
+        AGE: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '75.4',
+          },
+          value: '75.4',
+        },
+        SIZE: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '252847810',
+          },
+          value: '252847810',
+        },
+        YEAR: {
+          value: '1990',
+        },
+      },
+    },
+    {
+      cells: {
+        COUNTRY: {
+          value: 'United States',
+        },
+        GDP: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '53354',
+          },
+          value: '53354',
+        },
+        AGE: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '79.1',
+          },
+          value: '79.1',
+        },
+        SIZE: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '321773631',
+          },
+          value: '321773631',
+        },
+        YEAR: {
+          value: '2015',
+        },
+      },
+    },
+  ],
 };
