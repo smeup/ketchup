@@ -643,7 +643,16 @@ export class KupPlanner {
                     return phase;
                 });
         }
-
+        this.plannerProps.mainGantt.initialScrollX =
+            this.#storedSettings.taskInitialScrollX;
+        this.plannerProps.mainGantt.initialScrollY =
+            this.#storedSettings.taskInitialScrollY;
+        if (this.plannerProps.secondaryGantt) {
+            this.plannerProps.secondaryGantt.initialScrollX =
+                this.#storedSettings.detailInitialScrollX;
+            this.plannerProps.secondaryGantt.initialScrollX =
+                this.#storedSettings.detailInitialScrollY;
+        }
         this.plannerProps = { ...this.plannerProps };
     }
 
@@ -970,7 +979,7 @@ export class KupPlanner {
         let scrollXTimeout: number;
         let taskScrollYTimeout: number;
         let detailScrollYTimeout: number;
-        const scrollDelay = 1500;
+        const scrollDelay = 500;
 
         this.plannerProps = {
             mainGantt: {
