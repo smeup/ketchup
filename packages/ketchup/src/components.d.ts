@@ -355,11 +355,6 @@ export namespace Components {
          */
         "pageSelected": number;
         /**
-          * Number of boxes per page
-          * @default 10
-         */
-        "pageSize": number;
-        /**
           * Enables pagination
           * @default false
          */
@@ -4188,11 +4183,6 @@ declare namespace LocalJSX {
           * @default 1
          */
         "pageSelected"?: number;
-        /**
-          * Number of boxes per page
-          * @default 10
-         */
-        "pageSize"?: number;
         /**
           * Enables pagination
           * @default false

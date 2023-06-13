@@ -28,7 +28,6 @@ export enum KupBoxProps {
     lazyLoadRows = 'When set to true, extra rows will be automatically loaded once the last row enters the viewport.',
     multiSelection = 'Enable multi selection.',
     pageSelected = 'Current page number.',
-    pageSize = 'Number of boxes per page.',
     pagination = 'Enables pagination.',
     rowsPerPage = 'Number of current rows per page.',
     scrollOnHover = 'Activates the scroll on hover function.',
