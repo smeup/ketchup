@@ -17,7 +17,6 @@
           :sortEnabled.prop="true"
           :multiSelection.prop="multi1"
           pagination
-          pageSize="10"
           :layout.prop="horizontalLayout"
           drag-enabled="true"
         ></kup-box>

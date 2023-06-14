@@ -25,7 +25,7 @@ import { FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
-import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
@@ -72,7 +72,7 @@ export { FChipType } from "./f-components/f-chip/f-chip-declarations";
 export { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 export { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 export { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
-export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 export { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 export { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 export { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
@@ -354,11 +354,6 @@ export namespace Components {
           * @default 1
          */
         "pageSelected": number;
-        /**
-          * Number of boxes per page
-          * @default 10
-         */
-        "pageSize": number;
         /**
           * Enables pagination
           * @default false
@@ -1378,6 +1373,10 @@ export namespace Components {
           * @namespace KupDataTable.showHeader
          */
         "showHeader": boolean;
+        /**
+          * Enables the history button.
+         */
+        "showHistoryButton": boolean;
         /**
           * If set to true, displays the button to load more records.
          */
@@ -4189,11 +4188,6 @@ declare namespace LocalJSX {
          */
         "pageSelected"?: number;
         /**
-          * Number of boxes per page
-          * @default 10
-         */
-        "pageSize"?: number;
-        /**
           * Enables pagination
           * @default false
          */
@@ -4964,6 +4958,10 @@ declare namespace LocalJSX {
          */
         "onKup-datatable-didunload"?: (event: KupDataTableCustomEvent<KupEventPayload>) => void;
         /**
+          * Event fired when the history confirm button is pressed.
+         */
+        "onKup-datatable-history"?: (event: KupDataTableCustomEvent<KupDatatableHistoryEventPayload>) => void;
+        /**
           * Event fired when the insert row confirm button is pressed.
          */
         "onKup-datatable-insert-row"?: (event: KupDataTableCustomEvent<KupDatatableInsertRowEventPayload>) => void;
@@ -5045,6 +5043,10 @@ declare namespace LocalJSX {
           * @namespace KupDataTable.showHeader
          */
         "showHeader"?: boolean;
+        /**
+          * Enables the history button.
+         */
+        "showHistoryButton"?: boolean;
         /**
           * If set to true, displays the button to load more records.
          */
