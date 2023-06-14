@@ -54,6 +54,7 @@ export enum KupDataTableProps {
     showCustomization = 'If set to true, displays the button to open the customization panel.',
     selection = 'Set the type of the rows selection.',
     showDeleteButton = 'Enables the delete row button.',
+    showHistoryButton = 'Enables the history datatable button.',
     showFilters = 'When set to true enables the column filters.',
     showFooter = 'When set to true shows the footer.',
     showGrid = 'Can be used to customize the grid view of the table.',
