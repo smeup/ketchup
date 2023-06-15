@@ -1219,9 +1219,7 @@ export class KupPlanner {
 
     handleOnSetViewMode(value: KupPlannerViewMode) {
         this.#storedSettings.viewMode = value;
-        if (this.plannerProps?.mainGantt) {
-            this.plannerProps.mainGantt.viewMode = value;
-        }
+        this.plannerProps.viewMode = value;
         this.persistState();
     }
 
