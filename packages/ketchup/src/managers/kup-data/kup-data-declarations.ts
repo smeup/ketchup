@@ -68,6 +68,7 @@ export interface KupDataCell {
     cssClass?: string;
     data?: GenericObject;
     displayedValue?: string;
+    element?: HTMLElement;
     icon?: string;
     info?: FCellInfo;
     isEditable?: boolean;
