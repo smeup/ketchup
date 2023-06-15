@@ -473,6 +473,20 @@ export class KupForm {
             shape: formField.shape,
         };
         const label = formField.label || column.title;
+        const resetLabel = () => {
+            if (this.kupManager.objects.isButton(cell.obj)) {
+                return;
+            }
+            if (!cell.data) {
+                cell.data = {};
+            }
+            try {
+                delete cell.data.label;
+            } catch {}
+            try {
+                delete cell.data.data['kup-text-field'].label;
+            } catch {}
+        };
         resetLabel();
         const labelPlacement = section?.label?.placement || this.labelPlacement;
         switch (labelPlacement) {
@@ -549,18 +563,6 @@ export class KupForm {
                     <span>{label}</span>
                 </td>
             );
-        }
-
-        function resetLabel() {
-            if (!cell.data) {
-                cell.data = {};
-            }
-            try {
-                delete cell.data.label;
-            } catch {}
-            try {
-                delete cell.data.data['kup-text-field'].label;
-            } catch {}
         }
 
         function setPlaceholderLabel() {

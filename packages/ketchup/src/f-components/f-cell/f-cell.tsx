@@ -497,7 +497,13 @@ function setEditableCell(
                     fullWidth={isFullWidth(props) ? true : false}
                     {...cell.data}
                     icon={
-                        cell.icon ? cell.icon : column.icon ? column.icon : null
+                        cell.data && cell.data.icon
+                            ? cell.data.icon
+                            : cell.icon
+                            ? cell.icon
+                            : column.icon
+                            ? column.icon
+                            : null
                     }
                     value={
                         cellType === FCellTypes.NUMBER

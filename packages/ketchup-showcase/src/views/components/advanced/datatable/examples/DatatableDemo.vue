@@ -468,6 +468,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'showHistoryButton',
+          description: 'Enables the remote history datatable button.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'showFilters',
           description: 'When set to true enables the column filters.',
           type: 'boolean',

@@ -23,7 +23,6 @@
 | `lazyLoadRows`      | `lazy-load-rows`      | When set to true, extra rows will be automatically loaded once the last row enters the viewport.   | `boolean`       | `false`     |
 | `multiSelection`    | `multi-selection`     | Enable multi selection                                                                             | `boolean`       | `false`     |
 | `pageSelected`      | `page-selected`       | Current page number                                                                                | `number`        | `1`         |
-| `pageSize`          | `page-size`           | Number of boxes per page                                                                           | `number`        | `10`        |
 | `pagination`        | `pagination`          | Enables pagination                                                                                 | `boolean`       | `false`     |
 | `rowsPerPage`       | `rows-per-page`       | Number of current rows per page                                                                    | `number`        | `undefined` |
 | `scrollOnHover`     | `scroll-on-hover`     | Activates the scroll on hover function.                                                            | `boolean`       | `false`     |
