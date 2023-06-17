@@ -6,6 +6,7 @@ const echart5 = document.getElementById('gaussian2chart');
 const echart6 = document.getElementById('funnelChart');
 const echart7 = document.getElementById('radarChart');
 const echart8 = document.getElementById('bubbleChart');
+const echart9 = document.getElementById('sankeyChart');
 
 const mockData = {
     columns: [
@@ -964,6 +965,148 @@ echart8.data = {
     ]
 
 };
+
+echart9.consistencyCheck = true;
+echart9.types = ['Sankey'];
+echart9.colors =  ['blue'];
+echart9.axis = '';
+echart9.chartTitle = {
+    value: 'Sankey',
+    color: 'red',
+    position: 'top',
+    size: 16,
+};
+echart9.data = { // actual dataset
+    columns: [
+        {
+            name: 'SOURCE',
+            title: 'Source',
+        },
+        {
+            name: 'TARGET',
+            title: 'Target',
+        },
+        {
+            name: 'VALUE',
+            obj: {
+                t: 'NR',
+                p: '',
+                k: '',
+            },
+            title: 'Value',
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                SOURCE: {
+                    value: 'a',
+                },
+                TARGET: {
+                    value: 'a1',
+                },
+                VALUE: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '5',
+                    },
+                    value: '5',
+                },
+            },
+        },
+        {
+            cells: {
+                SOURCE: {
+                    value: 'a',
+                },
+                TARGET: {
+                    value: 'a2',
+                },
+                VALUE: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '3',
+                    },
+                    value: '3',
+                },
+            },
+        },
+        {
+            cells: {
+                SOURCE: {
+                    value: 'b',
+                },
+                TARGET: {
+                    value: 'b1',
+                },
+                VALUE: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '8',
+                    },
+                    value: '8',
+                },
+            },
+        },
+        {
+            cells: {
+                SOURCE: {
+                    value: 'a',
+                },
+                TARGET: {
+                    value: 'b1',
+                },
+                VALUE: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '3',
+                    },
+                    value: '3',
+                },
+            },
+        },
+        {
+            cells: {
+                SOURCE: {
+                    value: 'b1',
+                },
+                TARGET: {
+                    value: 'a1',
+                },
+                VALUE: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '1',
+                    },
+                    value: '1',
+                },
+            },
+        },
+        {
+            cells: {
+                SOURCE: {
+                    value: 'b1',
+                },
+                TARGET: {
+                    value: 'c',
+                },
+                VALUE: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '2',
+                    },
+                    value: '2',
+                },
+            },
+        },
+    ],
+}
 
 document.addEventListener('kup-echart-click', (e) => {
     console.log(e);

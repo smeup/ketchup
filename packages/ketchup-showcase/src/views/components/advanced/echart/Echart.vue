@@ -56,6 +56,7 @@ import EchartGaussian from '@/views/components/advanced/echart/examples/EchartGa
 import EchartFunnel from '@/views/components/advanced/echart/examples/EchartFunnel';
 import EchartRadar from '@/views/components/advanced/echart/examples/EchartRadar';
 import EchartBubble from '@/views/components/advanced/echart/examples/EchartBubble';
+import EchartSankey from '@/views/components/advanced/echart/examples/EchartSankey';
 import Comp from '@/views/templates/Comp';
 export default {
   components: {
@@ -72,6 +73,7 @@ export default {
     EchartFunnel,
     EchartRadar,
     EchartBubble,
+    EchartSankey,
     Comp,
   },
   data() {
@@ -93,6 +95,7 @@ export default {
         'Funnel',
         'Radar',
         'Bubble',
+        'Sankey'
       ],
     };
   },

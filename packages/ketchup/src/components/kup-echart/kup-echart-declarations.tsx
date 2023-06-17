@@ -60,7 +60,9 @@ export enum KupEchartTypes {
     SCATTER = 'Scatter',
     FUNNEL = 'Funnel',
     RADAR = 'Radar',
-    BUBBLE = 'Bubble'
+    BUBBLE = 'Bubble',
+    SANKEY = 'Sankey'
+
 }
 export interface KupEchartClickEventPayload extends KupEventPayload {
     column: KupDataColumn;

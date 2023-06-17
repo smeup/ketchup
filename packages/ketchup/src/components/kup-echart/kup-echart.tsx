@@ -286,6 +286,9 @@ export class KupEchart {
             case KupEchartTypes.BUBBLE:
                 options = this.#bubbleChart();
                 break;
+            case KupEchartTypes.SANKEY:
+                options = this.#sankeyChart();
+                break;
             default:
                 options = this.#setOptions();
                 break;
@@ -535,6 +538,56 @@ export class KupEchart {
             series: series
         } as echarts.EChartsOption;
           
+    }
+
+    #sankeyChart () {
+        const links = [], y = this.#createY(), keys = Object.keys(y);
+        // Assuming all arrays in the question object have the same length
+        const arrayLength = y[keys[0]].length;
+
+        for (let i = 0; i < arrayLength; i++) {
+            const entry = {};
+
+            // keys.forEach(key => {
+            //     entry[key.toLowerCase()] = y[key][i];
+            // }); 
+
+            entry['source'] = y[keys[0]][i];
+            entry['target'] = y[keys[1]][i];
+            entry['value'] = parseInt(y[keys[2]][i]);
+
+            links.push(entry);
+        }      
+
+          const data = Array.from(new Set([...links.map(link => link.source), ...links.map(link => link.target)]))
+  .map(name => ({ name }));
+
+  let legend = {};
+  data.forEach((e,i)=>{
+    legend[e.name] = i;
+  })
+
+
+        return {
+            title: this.#setTitle(),
+            legend: this.#setLegend(legend),
+            color: this.#setColors(6),
+            tooltip: {
+                ...this.#setTooltip(),
+                trigger: 'item',
+            },
+            series: {
+              type: 'sankey',
+              layout: 'none',
+              emphasis: {
+                focus: 'adjacency'
+              },
+              data:data,
+              links: links,
+              right: "10%",
+              left: "10%",
+            }
+          }as echarts.EChartsOption;     
     }
     #createX(dataset: KupDataDataset = null) {
         const x: string[] = [];
