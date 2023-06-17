@@ -39,6 +39,9 @@
     <template v-slot:12>
       <echart-bubble></echart-bubble>
     </template>
+     <template v-slot:13>
+      <echart-sankey></echart-sankey>
+    </template>
   </comp>
 </template>
 
