@@ -567,11 +567,11 @@ export class KupEchart {
     legend[e.name] = i;
   })
 
-
-        return {
+        
+  return {
             title: this.#setTitle(),
             legend: this.#setLegend(legend),
-            color: this.#setColors(6),
+            color: this.#setColors(arrayLength),
             tooltip: {
                 ...this.#setTooltip(),
                 trigger: 'item',
