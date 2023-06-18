@@ -289,6 +289,9 @@ export class KupEchart {
             case KupEchartTypes.SANKEY:
                 options = this.#sankeyChart();
                 break;
+            case KupEchartTypes.CANDLE:
+                options = this.#candleChart();
+                break;
             default:
                 options = this.#setOptions();
                 break;
@@ -568,7 +571,7 @@ export class KupEchart {
   })
 
 
-        return {
+  return {
             title: this.#setTitle(),
             legend: this.#setLegend(legend),
             color: this.#setColors(6),
@@ -588,6 +591,56 @@ export class KupEchart {
               left: "10%",
             }
           }as echarts.EChartsOption;     
+    }
+
+    #candleChart(){
+        
+        const y = this.#createY(), x= this.#createX();
+        const keys = Object.keys(y);
+        const arrayLength = y[keys[0]].length;
+        const answer = [];
+        
+        for (let i = 0; i < arrayLength; i++) {
+            const entry = [];
+            keys.forEach(key => {
+                entry.push(parseInt(y[key][i]));
+            });
+            answer.push(entry);
+        }
+        let legend = {};
+        x.forEach((e,i)=>{
+          legend[e] = i;
+        })
+        console.log('y is ', this.#createY(), this.#createX(), answer, legend);
+
+
+        return  {
+            xAxis: {
+              data: this.#createX()
+            //   ['2017-10-24', '2017-10-25', '2017-10-26', '2017-10-27']
+            },
+            yAxis: {},
+            legend: this.#setLegend(legend),
+            color: this.#setColors(6),
+            tooltip: {
+                ...this.#setTooltip(),
+                trigger: 'item',
+            },
+            title: this.#setTitle(),
+            
+            series: [
+              {
+                type: 'candlestick',
+                data: answer
+                // [
+                //   [20, 34, 10, 38],
+                //   [40, 35, 30, 50],
+                //   [31, 38, 33, 44],
+                //   [38, 15, 5, 42]
+                // ]
+              }
+            ]
+          }as echarts.EChartsOption;
     }
     #createX(dataset: KupDataDataset = null) {
         const x: string[] = [];

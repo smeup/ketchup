@@ -7,6 +7,7 @@ const echart6 = document.getElementById('funnelChart');
 const echart7 = document.getElementById('radarChart');
 const echart8 = document.getElementById('bubbleChart');
 const echart9 = document.getElementById('sankeyChart');
+const echart10 = document.getElementById('candleStickChart');
 
 const mockData = {
     columns: [
@@ -1106,6 +1107,155 @@ echart9.data = { // actual dataset
             },
         },
     ],
+}
+
+echart10.consistencyCheck = true;
+echart10.types = ['Candle'];
+echart10.colors =  ['blue'];
+echart10.axis = 'DATE';
+echart10.chartTitle = {
+    value: 'Candle',
+    color: 'red',
+    position: 'top',
+    size: 16,
+};
+echart10.data = { // actual dataset
+    columns: [
+        {
+            name: 'DATE',
+            obj: {
+                t: 'D8',
+                p: '*YYMD',
+                k: '',
+            },
+            title: 'Date',
+        },
+        {
+            name: 'LOW',
+            obj: {
+                t: 'NR',
+                p: '',
+                k: '',
+            },
+            title: 'Low',
+        },
+        {
+            name: 'HIGH',
+            obj: {
+                t: 'NR',
+                p: '',
+                k: '',
+            },
+            title: 'High',
+        },
+        {
+            name: 'OPEN',
+            obj: {
+                t: 'NR',
+                p: '',
+                k: '',
+            },
+            title: 'Open',
+        },
+        {
+            name: 'CLOSE',
+            obj: {
+                t: 'NR',
+                p: '',
+                k: '',
+            },
+            title: 'Close',
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                DATE: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20171024',
+                    },
+                    value: '2017-10-24',
+                },
+                HIGH: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '38',
+                    },
+                    value: '38',
+                },
+                LOW: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '10',
+                    },
+                    value: '10',
+                },
+                OPEN: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '34',
+                    },
+                    value: '34',
+                },
+                CLOSE: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '20',
+                    },
+                    value: '20',
+                },
+            },
+        },{
+            cells: {
+                DATE: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20171025',
+                    },
+                    value: '2017-10-25',
+                },
+                HIGH: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '50',
+                    },
+                    value: '50',
+                },
+                LOW: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '30',
+                    },
+                    value: '30',
+                },
+                OPEN: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '35',
+                    },
+                    value: '35',
+                },
+                CLOSE: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '40',
+                    },
+                    value: '40',
+                },
+            },
+        },
+    ]
 }
 
 document.addEventListener('kup-echart-click', (e) => {
