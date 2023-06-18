@@ -1,7 +1,11 @@
 <template>
   <div>
     <h3>Box with pagination</h3>
-    <kup-box :data.prop="paginationData" pagination pageSize="10"></kup-box>
+    <kup-box
+      :data.prop="paginationData"
+      pagination
+      rows-per-page="10"
+    ></kup-box>
   </div>
 </template>
 

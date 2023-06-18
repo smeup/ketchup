@@ -167,6 +167,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
             kup-get-cell-props={() => {
                 return props;
             }}
+            ref={(el) => (cell.element = el)}
             style={cell.style}
         >
             <div
@@ -497,7 +498,13 @@ function setEditableCell(
                     fullWidth={isFullWidth(props) ? true : false}
                     {...cell.data}
                     icon={
-                        cell.icon ? cell.icon : column.icon ? column.icon : null
+                        cell.data && cell.data.icon
+                            ? cell.data.icon
+                            : cell.icon
+                            ? cell.icon
+                            : column.icon
+                            ? column.icon
+                            : null
                     }
                     value={
                         cellType === FCellTypes.NUMBER

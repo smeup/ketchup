@@ -52,6 +52,7 @@ import {
     KupDatatableDeleteRowEventPayload,
     KupDatatableInsertRowEventPayload,
     KupDataTableInsertMode,
+    KupDatatableHistoryEventPayload,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -685,6 +686,10 @@ export class KupDataTable {
      */
     @Prop() showDeleteButton: boolean = false;
     /**
+     * Enables the history button.
+     */
+    @Prop() showHistoryButton: boolean = false;
+    /**
      * When set to true enables the column filters.
      */
     @Prop() showFilters: boolean = false;
@@ -1088,6 +1093,18 @@ export class KupDataTable {
         bubbles: true,
     })
     kupInsertRow: EventEmitter<KupDatatableInsertRowEventPayload>;
+
+    /**
+     * Event fired when the history confirm button is pressed.
+     */
+    @Event({
+        eventName: 'kup-datatable-history',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupHistory: EventEmitter<KupDatatableHistoryEventPayload>;
+
     /**
      * Closes any opened column menu.
      */
@@ -5707,6 +5724,21 @@ export class KupDataTable {
                                 styling={FButtonStyling.OUTLINED}
                                 title="Delete selected rows"
                                 wrapperClass="delete-button"
+                            ></FButton>
+                        ) : null}
+                        {this.showHistoryButton ? (
+                            <FButton
+                                icon="history"
+                                onClick={() => {
+                                    this.kupHistory.emit({
+                                        comp: this,
+                                        id: this.rootElement.id,
+                                        selectedRows: this.selectedRows,
+                                    });
+                                }}
+                                styling={FButtonStyling.OUTLINED}
+                                title="History"
+                                wrapperClass="history-button"
                             ></FButton>
                         ) : null}
                     </div>

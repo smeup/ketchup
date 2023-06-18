@@ -281,13 +281,6 @@ export default {
           try: 'field',
         },
         {
-          prop: 'pageSize',
-          description: 'Number of boxes per page.',
-          type: 'number',
-          default: '10',
-          try: 'field',
-        },
-        {
           prop: 'pagination',
           description: 'Enables pagination.',
           type: 'boolean',
