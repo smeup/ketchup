@@ -308,11 +308,6 @@ export class KupBox {
      */
     @Prop() pageSelected: number = 1;
     /**
-     * Number of boxes per page
-     * @default 10
-     */
-    @Prop() pageSize: number = 10;
-    /**
      * Enables pagination
      * @default false
      */
@@ -476,7 +471,7 @@ export class KupBox {
     /*                  W a t c h e r s                */
     /*-------------------------------------------------*/
 
-    @Watch('pageSize')
+    @Watch('rowsPerPage')
     rowsPerPageHandler(newValue: number) {
         this.currentRowsPerPage = newValue;
     }
@@ -484,7 +479,7 @@ export class KupBox {
     @Watch('globalFilterValue')
     @Watch('sortBy')
     @Watch('pagination')
-    @Watch('pageSize')
+    @Watch('rowsPerPage')
     @Watch('currentPage')
     @Watch('currentRowsPerPage')
     recalculateRows() {
@@ -1789,8 +1784,6 @@ export class KupBox {
         this.kupManager.debug.logLoad(this, false);
         if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
-        } else if (this.pageSize) {
-            this.currentRowsPerPage = this.pageSize;
         }
         if (
             this.data &&
@@ -1931,7 +1924,7 @@ export class KupBox {
                     perPage={
                         this.currentRowsPerPage
                             ? this.currentRowsPerPage
-                            : this.pageSize
+                            : this.rowsPerPage
                     }
                     onPageChange={(e: CustomEvent<KupComboboxEventPayload>) =>
                         this.handlePageChange(e.detail.value)
