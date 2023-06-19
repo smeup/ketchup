@@ -4,7 +4,6 @@
       <div class="kup-container">
         <kup-echart
           :axis.prop="axis"
-          consistency-check="true"
           :data.prop="data"
           :types.prop="types"
           :legend.prop="legend"
@@ -14,13 +13,13 @@
 </template>
 
 <script>
-import { bubbleChartData } from '@/mock/chart';
+import { sankeyChartData } from '@/mock/chart';
 export default {
   data() {
     return {
       axis: '',
-      types: ['Bubble'],
-      data: bubbleChartData,
+      types: ['Sankey'],
+      data: sankeyChartData,
       legend: 'top',
     };
   },

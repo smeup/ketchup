@@ -286,6 +286,9 @@ export class KupEchart {
             case KupEchartTypes.BUBBLE:
                 options = this.#bubbleChart();
                 break;
+            case KupEchartTypes.SANKEY:
+                options = this.#sankeyChart();
+                break;
             default:
                 options = this.#setOptions();
                 break;
@@ -442,38 +445,41 @@ export class KupEchart {
 
     #bubbleChart() {
         const y = this.#createY(),
-         data = [], temp=[], legend={}, series=[]; 
-         let year = [];
+            data = [],
+            temp = [],
+            legend = {},
+            series = [];
+        let year = [];
 
-        const  content = this.data.columns.map(data=> data.title);
+        const content = this.data.columns.map((data) => data.title);
 
-        if(content && content.length) {
-            for(let i =0; i<y[content[0]].length; i++){
-                const arr=[];
-                for(let j =0; j<content.length; j++){
+        if (content && content.length) {
+            for (let i = 0; i < y[content[0]].length; i++) {
+                const arr = [];
+                for (let j = 0; j < content.length; j++) {
                     arr.push(y[content[j]][i]);
-                    // last value always be a year 
-                    if(j === content.length -1){
-                        year.push(y[content[j]][i])
+                    // last value always be a year
+                    if (j === content.length - 1) {
+                        year.push(y[content[j]][i]);
                     }
                 }
                 temp.push(arr);
             }
         }
 
-         year = [... new Set(year)];
+        year = [...new Set(year)];
 
-        year.forEach((e, i) =>{
-            let k=[];
-            temp.forEach(data=>{
-                if(data.includes(e)) k.push(data);
-            })
+        year.forEach((e, i) => {
+            let k = [];
+            temp.forEach((data) => {
+                if (data.includes(e)) k.push(data);
+            });
             data.push(k);
 
-            legend[e] =i;
+            legend[e] = i;
         });
 
-        data.forEach((el, i) =>{
+        data.forEach((el, i) => {
             series.push({
                 name: year[i],
                 data: el,
@@ -484,58 +490,106 @@ export class KupEchart {
                 emphasis: {
                     focus: 'series',
                     label: {
-                    show: true,
-                    formatter: function (param: any) {
-                        return param.data[3];
+                        show: true,
+                        formatter: function (param: any) {
+                            return param.data[3];
+                        },
+                        position: 'top',
                     },
-                    position: 'top'
-                    }
-                }
+                },
+            });
+        });
 
-            })
-        }); 
-
-          return { 
-                    
+        return {
             title: this.#setTitle(),
             legend: this.#setLegend(legend),
             tooltip: {
                 ...this.#setTooltip(),
                 trigger: 'item',
                 formatter: (value: unknown) => {
-                    const name = (value as GenericObject).data 
-                    const data = content.map((e, i)=>{
-                        return `<li>  ${e }: ${name[i]} </li>`
-                    })
+                    const name = (value as GenericObject).data;
+                    const data = content.map((e, i) => {
+                        return `<li>  ${e}: ${name[i]} </li>`;
+                    });
                     let showContent = '';
-                    data.forEach(r=>{
+                    data.forEach((r) => {
                         showContent += r;
-                    })
+                    });
 
-                    return `<ul>${showContent }</ul> `;
+                    return `<ul>${showContent}</ul> `;
                 },
-
             },
             xAxis: {
-              splitLine: {
-                lineStyle: {
-                  type: 'dashed'
-                }
-              }
+                splitLine: {
+                    lineStyle: {
+                        type: 'dashed',
+                    },
+                },
             },
             yAxis: {
-              splitLine: {
-                lineStyle: {
-                  type: 'dashed'
-                }
-              },
-              scale: true
+                splitLine: {
+                    lineStyle: {
+                        type: 'dashed',
+                    },
+                },
+                scale: true,
             },
             color: this.#setColors(content.length),
-            series: series
+            series: series,
         } as echarts.EChartsOption;
-          
     }
+
+    #sankeyChart() {
+        const links: GenericObject[] = [],
+            y = this.#createY(),
+            keys = Object.keys(y);
+        // Assuming all arrays in the question object have the same length
+        const arrayLength = y[keys[0]].length;
+
+        for (let i = 0; i < arrayLength; i++) {
+            const entry: GenericObject = {};
+
+            entry['source'] = y[keys[0]][i];
+            entry['target'] = y[keys[1]][i];
+            entry['value'] = parseInt(y[keys[2]][i]);
+
+            links.push(entry);
+        }
+
+        const data = Array.from(
+            new Set([
+                ...links.map((link) => link.source),
+                ...links.map((link) => link.target),
+            ])
+        ).map((name) => ({ name }));
+
+        const legend = {};
+        data.forEach((e, i) => {
+            legend[e.name] = i;
+        });
+
+        return {
+            title: this.#setTitle(),
+            legend: this.#setLegend(legend),
+            color: this.#setColors(arrayLength),
+            tooltip: {
+                ...this.#setTooltip(),
+                trigger: 'item',
+            },
+            series: {
+                type: 'sankey',
+                layout: 'none',
+                emphasis: {
+                    focus: 'adjacency',
+                },
+                data,
+                links,
+                right: '10%',
+                left: '10%',
+            },
+        } as echarts.EChartsOption;
+    }
+
     #createX(dataset: KupDataDataset = null) {
         const x: string[] = [];
         if (!dataset) dataset = this.data;
