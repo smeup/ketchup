@@ -791,10 +791,9 @@ echart7.data = {
     ],
 };
 
-
 echart8.consistencyCheck = true;
 echart8.types = ['Bubble'];
-echart8.colors =  ['blue'];
+echart8.colors = ['blue'];
 echart8.axis = '';
 echart8.chartTitle = {
     value: 'Bubble',
@@ -823,7 +822,7 @@ echart8.data = {
         {
             name: 'YEAR',
             title: 'Year',
-        }
+        },
     ],
     rows: [
         {
@@ -962,13 +961,12 @@ echart8.data = {
                 },
             },
         },
-    ]
-
+    ],
 };
 
 echart9.consistencyCheck = true;
 echart9.types = ['Sankey'];
-echart9.colors =  ['blue'];
+echart9.colors = ['blue'];
 echart9.axis = '';
 echart9.chartTitle = {
     value: 'Sankey',
@@ -976,7 +974,8 @@ echart9.chartTitle = {
     position: 'top',
     size: 16,
 };
-echart9.data = { // actual dataset
+echart9.data = {
+    // actual dataset
     columns: [
         {
             name: 'SOURCE',
@@ -1106,7 +1105,7 @@ echart9.data = { // actual dataset
             },
         },
     ],
-}
+};
 
 document.addEventListener('kup-echart-click', (e) => {
     console.log(e);

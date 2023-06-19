@@ -4,6 +4,7 @@
       <div class="kup-container">
         <kup-echart
           :axis.prop="axis"
+          consistency-check="true"
           :data.prop="data"
           :types.prop="types"
           :legend.prop="legend"
