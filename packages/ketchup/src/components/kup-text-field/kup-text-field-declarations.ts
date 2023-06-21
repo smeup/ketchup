@@ -29,6 +29,7 @@ export enum KupTextFieldProps {
     name = 'The HTML name attribute used for form autocomplete.',
     outlined = 'When set to true, the component will be rendered as an outlined field.',
     readOnly = 'Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.',
+    size = 'The HTML attribute size of the input element.',
     step = 'The HTML step of the input element. It has effect only with number input type.',
     textArea = 'When set to true, the component will be rendered as a textarea.',
     trailingIcon = 'When set, the icon will be shown after the text.',

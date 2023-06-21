@@ -309,6 +309,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'size',
+          description: 'The HTML size attribute of the input element.',
+          type: 'number',
+          default: '',
+          try: 'field',
+        },
+        {
           prop: 'step',
           description:
             'The HTML step of the input element. It has effect only with number input type.',

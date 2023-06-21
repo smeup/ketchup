@@ -165,6 +165,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                             : undefined
                     }
                     maxlength={props.maxLength}
+                    size={props.size}
                     value={value}
                     onBlur={(e: FocusEvent) => {
                         if (persManageForNumberFormat) {
