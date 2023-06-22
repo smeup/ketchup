@@ -167,6 +167,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
             kup-get-cell-props={() => {
                 return props;
             }}
+            ref={(el) => (cell.element = el)}
             style={cell.style}
         >
             <div

@@ -179,6 +179,11 @@ export class KupTextField {
      */
     @Prop() readOnly: boolean = false;
     /**
+     * The HTML attribute size of the input element.
+     * @default null
+     */
+    @Prop() size: number = null;
+    /**
      * The HTML step of the input element. It has effect only with number input type.
      * @default null
      */
@@ -540,6 +545,7 @@ export class KupTextField {
             shaped: this.rootElement.classList.contains('kup-shaped')
                 ? true
                 : false,
+            size: this.size,
             step: this.step,
             success: this.rootElement.classList.contains('kup-success')
                 ? true

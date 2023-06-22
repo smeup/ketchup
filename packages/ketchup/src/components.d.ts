@@ -3197,6 +3197,11 @@ export namespace Components {
          */
         "setValue": (value: string) => Promise<void>;
         /**
+          * The HTML attribute size of the input element.
+          * @default null
+         */
+        "size": number;
+        /**
           * The HTML step of the input element. It has effect only with number input type.
           * @default null
          */
@@ -6504,6 +6509,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "readOnly"?: boolean;
+        /**
+          * The HTML attribute size of the input element.
+          * @default null
+         */
+        "size"?: number;
         /**
           * The HTML step of the input element. It has effect only with number input type.
           * @default null
