@@ -107,6 +107,11 @@ export class KupTextField {
      */
     @Prop() helperWhenFocused: boolean = false;
     /**
+     * Hides the character counter.
+     * @default false
+     */
+    @Prop() hiddenCounter: boolean = false;
+    /**
      * When set, the text-field will show this icon.
      * @default null
      */
@@ -523,6 +528,7 @@ export class KupTextField {
             helper: this.helper,
             helperEnabled: this.helperEnabled,
             helperWhenFocused: this.helperWhenFocused,
+            hiddenCounter: this.hiddenCounter,
             icon: this.icon,
             info: this.rootElement.classList.contains('kup-info')
                 ? true

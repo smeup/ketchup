@@ -3110,6 +3110,11 @@ export namespace Components {
          */
         "helperWhenFocused": boolean;
         /**
+          * Hides the character counter.
+          * @default false
+         */
+        "hiddenCounter": boolean;
+        /**
           * When set, the text-field will show this icon.
           * @default null
          */
@@ -6407,6 +6412,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "helperWhenFocused"?: boolean;
+        /**
+          * Hides the character counter.
+          * @default false
+         */
+        "hiddenCounter"?: boolean;
         /**
           * When set, the text-field will show this icon.
           * @default null

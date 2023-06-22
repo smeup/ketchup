@@ -15,6 +15,7 @@ export enum KupTextFieldProps {
     helper = 'When set, its content will be shown as a help text below the field.',
     helperEnabled = 'When true, the helper will be displayed.',
     helperWhenFocused = 'When set, the helper will be shown only when the field is focused.',
+    hiddenCounter = 'Hides the character counter.',
     icon = 'When set, the text-field will show this icon.',
     initialValue = 'Sets the initial value of the component',
     inputMode = 'The HTML inputmode of the input element. It has no effect on text areas.',
