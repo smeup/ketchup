@@ -507,7 +507,7 @@ function setEditableCell(
                             : null
                     }
                     value={
-                        cellType === FCellTypes.NUMBER
+                        cellType === FCellTypes.NUMBER && cell.value
                             ? dom.ketchup.math
                                   .numberifySafe(cell.value)
                                   .toString()
