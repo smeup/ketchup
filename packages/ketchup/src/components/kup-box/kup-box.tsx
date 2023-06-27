@@ -1914,7 +1914,7 @@ export class KupBox {
         }
 
         let paginator = null;
-        if (this.pagination) {
+        if (!this.lazyLoadRows && this.pagination) {
             paginator = (
                 <FPaginator
                     id={top ? 'top-paginator' : 'bottom-paginator'}

@@ -3110,6 +3110,11 @@ export namespace Components {
          */
         "helperWhenFocused": boolean;
         /**
+          * Hides the character counter.
+          * @default false
+         */
+        "hiddenCounter": boolean;
+        /**
           * When set, the text-field will show this icon.
           * @default null
          */
@@ -3196,6 +3201,11 @@ export namespace Components {
           * Sets the internal value of the component.
          */
         "setValue": (value: string) => Promise<void>;
+        /**
+          * The HTML attribute size of the input element.
+          * @default null
+         */
+        "size": number;
         /**
           * The HTML step of the input element. It has effect only with number input type.
           * @default null
@@ -6403,6 +6413,11 @@ declare namespace LocalJSX {
          */
         "helperWhenFocused"?: boolean;
         /**
+          * Hides the character counter.
+          * @default false
+         */
+        "hiddenCounter"?: boolean;
+        /**
           * When set, the text-field will show this icon.
           * @default null
          */
@@ -6504,6 +6519,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "readOnly"?: boolean;
+        /**
+          * The HTML attribute size of the input element.
+          * @default null
+         */
+        "size"?: number;
         /**
           * The HTML step of the input element. It has effect only with number input type.
           * @default null

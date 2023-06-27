@@ -12,6 +12,7 @@ export interface FTextFieldProps extends FComponent {
     helper?: string;
     helperEnabled?: boolean;
     helperWhenFocused?: boolean;
+    hiddenCounter?: boolean;
     icon?: string;
     inputMode?: string;
     inputType?: string;
@@ -26,6 +27,7 @@ export interface FTextFieldProps extends FComponent {
     outlined?: boolean;
     readOnly?: boolean;
     shaped?: boolean;
+    size?: number;
     step?: number;
     textArea?: boolean;
     trailingIcon?: boolean;

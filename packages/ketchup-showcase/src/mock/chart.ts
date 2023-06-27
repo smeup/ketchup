@@ -867,10 +867,6 @@ export const radarData = {
 export const bubbleChartData = {
   columns: [
     {
-      name: 'COUNTRY',
-      title: 'Country',
-    },
-    {
       name: 'GDP',
       title: 'Gdp',
     },
@@ -881,6 +877,10 @@ export const bubbleChartData = {
     {
       name: 'SIZE',
       title: 'Size',
+    },
+    {
+      name: 'COUNTRY',
+      title: 'Country',
     },
     {
       name: 'YEAR',
@@ -1030,131 +1030,131 @@ export const bubbleChartData = {
 export const sankeyChartData = {
   columns: [
     {
-        name: 'SOURCE',
-        title: 'Source',
+      name: 'SOURCE',
+      title: 'Source',
     },
     {
-        name: 'TARGET',
-        title: 'Target',
+      name: 'TARGET',
+      title: 'Target',
     },
     {
-        name: 'VALUE',
-        obj: {
-            t: 'NR',
-            p: '',
-            k: '',
-        },
-        title: 'Value',
+      name: 'VALUE',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
+      title: 'Value',
     },
   ],
   rows: [
     {
-        cells: {
-            SOURCE: {
-                value: 'a',
-            },
-            TARGET: {
-                value: 'a1',
-            },
-            VALUE: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '5',
-                },
-                value: '5',
-            },
+      cells: {
+        SOURCE: {
+          value: 'a',
         },
+        TARGET: {
+          value: 'a1',
+        },
+        VALUE: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '5',
+          },
+          value: '5',
+        },
+      },
     },
     {
-        cells: {
-            SOURCE: {
-                value: 'a',
-            },
-            TARGET: {
-                value: 'a2',
-            },
-            VALUE: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '3',
-                },
-                value: '3',
-            },
+      cells: {
+        SOURCE: {
+          value: 'a',
         },
+        TARGET: {
+          value: 'a2',
+        },
+        VALUE: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '3',
+          },
+          value: '3',
+        },
+      },
     },
     {
-        cells: {
-            SOURCE: {
-                value: 'b',
-            },
-            TARGET: {
-                value: 'b1',
-            },
-            VALUE: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '8',
-                },
-                value: '8',
-            },
+      cells: {
+        SOURCE: {
+          value: 'b',
         },
+        TARGET: {
+          value: 'b1',
+        },
+        VALUE: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '8',
+          },
+          value: '8',
+        },
+      },
     },
     {
-        cells: {
-            SOURCE: {
-                value: 'a',
-            },
-            TARGET: {
-                value: 'b1',
-            },
-            VALUE: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '3',
-                },
-                value: '3',
-            },
+      cells: {
+        SOURCE: {
+          value: 'a',
         },
+        TARGET: {
+          value: 'b1',
+        },
+        VALUE: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '3',
+          },
+          value: '3',
+        },
+      },
     },
     {
-        cells: {
-            SOURCE: {
-                value: 'b1',
-            },
-            TARGET: {
-                value: 'a1',
-            },
-            VALUE: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '1',
-                },
-                value: '1',
-            },
+      cells: {
+        SOURCE: {
+          value: 'b1',
         },
+        TARGET: {
+          value: 'a1',
+        },
+        VALUE: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1',
+          },
+          value: '1',
+        },
+      },
     },
     {
-        cells: {
-            SOURCE: {
-                value: 'b1',
-            },
-            TARGET: {
-                value: 'c',
-            },
-            VALUE: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '2',
-                },
-                value: '2',
-            },
+      cells: {
+        SOURCE: {
+          value: 'b1',
         },
+        TARGET: {
+          value: 'c',
+        },
+        VALUE: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '2',
+          },
+          value: '2',
+        },
+      },
     },
   ]
 

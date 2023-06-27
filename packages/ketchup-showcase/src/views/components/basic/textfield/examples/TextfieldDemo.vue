@@ -201,6 +201,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'hiddenCounter',
+          description: 'Hides the character counter.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'icon',
           description:
             "The text-field will be rendered with the specified icon. It shouldn't be used in textareas.",
@@ -307,6 +314,13 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'size',
+          description: 'The HTML size attribute of the input element.',
+          type: 'number',
+          default: '',
+          try: 'field',
         },
         {
           prop: 'step',
