@@ -595,31 +595,37 @@ export class KupEchart {
 
     #candleChart(){
         
-        const y = this.#createY(), x= this.#createX();
-        const keys = Object.keys(y);
-        const arrayLength = y[keys[0]].length;
-        const answer = [];
-        
-        for (let i = 0; i < arrayLength; i++) {
-            const entry = [];
-            keys.forEach(key => {
-                entry.push(parseInt(y[key][i]));
-            });
-            answer.push(entry);
+        const y = this.#createY(),
+        date = this.#createX(),
+        arrayLength = date.length;
+        const answer = [], itemStyle = {}, colors = this.#setColors(arrayLength);
+
+        for (let i = 0; i < y['Open'].length; i++) {
+            answer.push([
+                parseInt(y['Open'][i]),
+                parseInt(y['High'][i]),
+                parseInt(y['Low'][i]),
+                parseInt(y['Close'][i])
+            ]);
         }
         let legend = {};
-        x.forEach((e,i)=>{
+        date.forEach((e,i)=>{
           legend[e] = i;
         })
-        console.log('y is ', this.#createY(), this.#createX(), answer, legend);
 
+        colors.forEach((data, i)=>{
+            if(i==0){
+                itemStyle['color'] = data;
+                itemStyle['borderColor'] = data;
+            }
+            else{
+                itemStyle['color'+(i-1)]= data;
+                itemStyle['borderColor'+(i-1)] = data;
+
+            }
+        })
 
         return  {
-            xAxis: {
-              data: this.#createX()
-            //   ['2017-10-24', '2017-10-25', '2017-10-26', '2017-10-27']
-            },
-            yAxis: {},
             legend: this.#setLegend(legend),
             color: this.#setColors(6),
             tooltip: {
@@ -627,17 +633,15 @@ export class KupEchart {
                 trigger: 'item',
             },
             title: this.#setTitle(),
-            
+            xAxis: {
+              data: date
+            },
+            yAxis: {},
             series: [
               {
                 type: 'candlestick',
-                data: answer
-                // [
-                //   [20, 34, 10, 38],
-                //   [40, 35, 30, 50],
-                //   [31, 38, 33, 44],
-                //   [38, 15, 5, 42]
-                // ]
+                data: answer,
+                itemStyle: itemStyle
               }
             ]
           }as echarts.EChartsOption;
