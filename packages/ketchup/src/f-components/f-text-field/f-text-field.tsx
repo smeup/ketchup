@@ -284,7 +284,9 @@ function setHelper(props: FTextFieldProps): HTMLDivElement {
             return (
                 <div class="mdc-text-field-helper-line">
                     <div class={classObj}>{props.helper}</div>
-                    {props.maxLength && !props.textArea ? (
+                    {props.hiddenCounter !== true &&
+                    props.maxLength &&
+                    !props.textArea ? (
                         <div class="mdc-text-field-character-counter">
                             '0 / ' + {props.maxLength.toString()}
                         </div>
@@ -292,7 +294,11 @@ function setHelper(props: FTextFieldProps): HTMLDivElement {
                 </div>
             );
         } else {
-            if (props.maxLength && !props.textArea) {
+            if (
+                props.hiddenCounter !== true &&
+                props.maxLength &&
+                !props.textArea
+            ) {
                 return (
                     <div class="mdc-text-field-helper-line">
                         <div class="mdc-text-field-character-counter">

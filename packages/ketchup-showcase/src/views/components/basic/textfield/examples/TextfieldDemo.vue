@@ -201,6 +201,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'hiddenCounter',
+          description: 'Hides the character counter.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'icon',
           description:
             "The text-field will be rendered with the specified icon. It shouldn't be used in textareas.",
