@@ -105,10 +105,7 @@ export default {
         'Radar',
         'Bubble',
         'Sankey',
-<<<<<<< HEAD
         'Candle'
-=======
->>>>>>> 1a769646f249182bece7255b1d14170a95f83d8a
       ],
     };
   },
