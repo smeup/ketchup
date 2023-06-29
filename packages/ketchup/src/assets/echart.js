@@ -1111,7 +1111,7 @@ echart9.data = {
 echart10.consistencyCheck = true;
 echart10.types = ['Candle'];
 echart10.colors =  ['blue'];
-echart10.axis = 'DATE';
+echart10.axis = '';
 echart10.chartTitle = {
     value: 'Candle',
     color: 'red',

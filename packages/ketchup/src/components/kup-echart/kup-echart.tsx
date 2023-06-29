@@ -596,16 +596,39 @@ export class KupEchart {
     #candleChart(){
         
         const y = this.#createY(),
-        date = this.#createX(),
-        arrayLength = date.length;
-        const answer = [], itemStyle = {}, colors = this.#setColors(arrayLength);
+        answer = [], 
+        itemStyle = {
+            "color": "red",
+            "borderColor": "red",
+            "color0": "green",
+            "borderColor0": "green"
+        };
 
-        for (let i = 0; i < y['Open'].length; i++) {
+        let caseInsensitiveObj = new Proxy(y, {
+            get: function(target, prop:any) {
+              // Convert the property name to lowercase
+              const lowercaseProp = prop.toLowerCase();
+              
+              // Search for the property case-insensitively
+              for (let key in target) {
+                if (key.toLowerCase() === lowercaseProp) {
+                  return target[key];
+                }
+              }
+              
+              // Property not found, return undefined
+              return undefined;
+            }
+          });
+         const date = caseInsensitiveObj['date'];
+
+        for (let i = 0; i < caseInsensitiveObj['Open'].length; i++) {
             answer.push([
-                parseInt(y['Open'][i]),
-                parseInt(y['High'][i]),
-                parseInt(y['Low'][i]),
-                parseInt(y['Close'][i])
+                parseInt(caseInsensitiveObj['close'][i]),
+                parseInt(caseInsensitiveObj['Open'][i]),
+                parseInt(caseInsensitiveObj['Low'][i]),
+                parseInt(caseInsensitiveObj['High'][i]),
+
             ]);
         }
         let legend = {};
@@ -613,21 +636,8 @@ export class KupEchart {
           legend[e] = i;
         })
 
-        colors.forEach((data, i)=>{
-            if(i==0){
-                itemStyle['color'] = data;
-                itemStyle['borderColor'] = data;
-            }
-            else{
-                itemStyle['color'+(i-1)]= data;
-                itemStyle['borderColor'+(i-1)] = data;
-
-            }
-        })
-
         return  {
             legend: this.#setLegend(legend),
-            color: this.#setColors(6),
             tooltip: {
                 ...this.#setTooltip(),
                 trigger: 'item',

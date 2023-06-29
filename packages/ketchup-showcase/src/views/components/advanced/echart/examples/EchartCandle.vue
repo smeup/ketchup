@@ -17,7 +17,7 @@ import { candleChartData } from '@/mock/chart';
 export default {
   data() {
     return {
-      axis: 'DATE',
+      axis: '',
       types: ['Candle'],
       data: candleChartData,
       legend: 'top',
