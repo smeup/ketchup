@@ -105,7 +105,7 @@ export default {
         'Radar',
         'Bubble',
         'Sankey',
-        'Candle'
+        'Candle',
       ],
     };
   },
