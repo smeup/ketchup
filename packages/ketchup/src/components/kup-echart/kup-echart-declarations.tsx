@@ -61,7 +61,9 @@ export enum KupEchartTypes {
     FUNNEL = 'Funnel',
     RADAR = 'Radar',
     BUBBLE = 'Bubble',
-    SANKEY = 'Sankey'
+    SANKEY = 'Sankey',
+    CANDLE = 'Candle'
+
 
 }
 export interface KupEchartClickEventPayload extends KupEventPayload {

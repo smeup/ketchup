@@ -289,6 +289,9 @@ export class KupEchart {
             case KupEchartTypes.SANKEY:
                 options = this.#sankeyChart();
                 break;
+            case KupEchartTypes.CANDLE:
+                options = this.#candleChart();
+                break;
             default:
                 options = this.#setOptions();
                 break;
@@ -568,7 +571,7 @@ export class KupEchart {
             legend[e.name] = i;
         });
 
-        return {
+  return {
             title: this.#setTitle(),
             legend: this.#setLegend(legend),
             color: this.#setColors(arrayLength),
@@ -590,6 +593,69 @@ export class KupEchart {
         } as echarts.EChartsOption;
     }
 
+    #candleChart(){
+        
+        const y = this.#createY(),
+        answer = [], 
+        itemStyle = {
+            "color": "red",
+            "borderColor": "red",
+            "color0": "green",
+            "borderColor0": "green"
+        };
+
+        let caseInsensitiveObj = new Proxy(y, {
+            get: function(target, prop:any) {
+              // Convert the property name to lowercase
+              const lowercaseProp = prop.toLowerCase();
+              
+              // Search for the property case-insensitively
+              for (let key in target) {
+                if (key.toLowerCase() === lowercaseProp) {
+                  return target[key];
+                }
+              }
+              
+              // Property not found, return undefined
+              return undefined;
+            }
+          });
+         const date = caseInsensitiveObj['date'];
+
+        for (let i = 0; i < caseInsensitiveObj['Open'].length; i++) {
+            answer.push([
+                parseInt(caseInsensitiveObj['close'][i]),
+                parseInt(caseInsensitiveObj['Open'][i]),
+                parseInt(caseInsensitiveObj['Low'][i]),
+                parseInt(caseInsensitiveObj['High'][i]),
+
+            ]);
+        }
+        let legend = {};
+        date.forEach((e,i)=>{
+          legend[e] = i;
+        })
+
+        return  {
+            legend: this.#setLegend(legend),
+            tooltip: {
+                ...this.#setTooltip(),
+                trigger: 'item',
+            },
+            title: this.#setTitle(),
+            xAxis: {
+              data: date
+            },
+            yAxis: {},
+            series: [
+              {
+                type: 'candlestick',
+                data: answer,
+                itemStyle: itemStyle
+              }
+            ]
+          }as echarts.EChartsOption;
+    }
     #createX(dataset: KupDataDataset = null) {
         const x: string[] = [];
         if (!dataset) dataset = this.data;

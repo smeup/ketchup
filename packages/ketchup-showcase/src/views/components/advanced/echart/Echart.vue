@@ -42,6 +42,9 @@
     <template v-slot:13>
       <echart-sankey></echart-sankey>
     </template>
+    <template v-slot:14>
+      <echart-candle></echart-candle>
+    </template>
   </comp>
 </template>
 
@@ -60,6 +63,8 @@ import EchartFunnel from '@/views/components/advanced/echart/examples/EchartFunn
 import EchartRadar from '@/views/components/advanced/echart/examples/EchartRadar';
 import EchartBubble from '@/views/components/advanced/echart/examples/EchartBubble';
 import EchartSankey from '@/views/components/advanced/echart/examples/EchartSankey';
+import EchartCandle from '@/views/components/advanced/echart/examples/EchartCandle';
+
 import Comp from '@/views/templates/Comp';
 export default {
   components: {
@@ -77,6 +82,7 @@ export default {
     EchartRadar,
     EchartBubble,
     EchartSankey,
+    EchartCandle,
     Comp,
   },
   data() {
@@ -99,6 +105,7 @@ export default {
         'Radar',
         'Bubble',
         'Sankey',
+        'Candle'
       ],
     };
   },
