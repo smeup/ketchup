@@ -35,6 +35,7 @@ export interface KupDataColumn {
     valuesForFilter?: string[];
     visible?: boolean;
     style?: GenericMap;
+    cellData?: GenericObject;
 }
 export interface KupDataColumnChild {
     name: string;
