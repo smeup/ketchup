@@ -36,6 +36,7 @@ export interface KupDataColumn {
     visible?: boolean;
     style?: GenericMap;
     cellData?: GenericObject;
+    cellSlotData?: GenericObject;
 }
 export interface KupDataColumnChild {
     name: string;

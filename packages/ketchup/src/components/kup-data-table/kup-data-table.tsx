@@ -5676,6 +5676,7 @@ export class KupDataTable {
                                                 this.data.columns[index];
                                             cells[column.name] = {
                                                 data: column.cellData,
+                                                slotData: column.cellSlotData,
                                                 isEditable:
                                                     column.isKey ||
                                                     column.isEditable,
