@@ -292,6 +292,10 @@ export class KupEchart {
             case KupEchartTypes.CANDLE:
                 options = this.#candleChart();
                 break;
+            case KupEchartTypes.CALENDAR:
+                console.log('virtual 0');
+                options = this.#calendarChart();
+                break;
             default:
                 options = this.#setOptions();
                 break;
@@ -635,7 +639,6 @@ export class KupEchart {
         date.forEach((e,i)=>{
           legend[e] = i;
         })
-
         return  {
             legend: this.#setLegend(legend),
             tooltip: {
@@ -654,6 +657,75 @@ export class KupEchart {
                 itemStyle: itemStyle
               }
             ]
+          }as echarts.EChartsOption;
+    }
+
+    #calendarChart(){
+
+        const y = this.#createY();
+
+        let caseInsensitiveObj = new Proxy(y, {
+            get: function(target, prop:any) {
+              // Convert the property name to lowercase
+              const lowercaseProp = prop.toLowerCase();
+              
+              // Search for the property case-insensitively
+              for (let key in target) {
+                if (key.toLowerCase() === lowercaseProp) {
+                  return target[key];
+                }
+              }
+              
+              // Property not found, return undefined
+              return undefined;
+            }
+          });
+
+        const 
+        date = caseInsensitiveObj['Date'], 
+        answer=[], 
+        keys = Object.keys(y), 
+        year = new Date(date[0]).getFullYear(),
+        arrayLength = date.length;
+        
+    
+        date.forEach((element, i) => {
+            answer.push([element, caseInsensitiveObj['Value'][i]]);
+        })
+
+          return {
+            tooltip: {
+                ...this.#setTooltip(),
+                trigger: 'item',
+                formatter: (value: unknown) => {
+                    const name = (value as GenericObject).data;
+                    console.log('data', name)
+                    const data = keys.map((e, i) => {
+                        return `<li>  ${e}: ${name[i]} </li>`;
+                    });
+                    let showContent = '';
+                    data.forEach((r) => {
+                        showContent += r;
+                    });
+
+                    return `<ul>${showContent}</ul> `;
+                },
+            },
+            gradientColor: this.#setColors(arrayLength),
+            title: this.#setTitle(),
+            visualMap: {
+              show: false,
+              min: 0,
+              max: 10000
+            },
+            calendar: {
+              range: year
+            },
+            series: {
+              type: 'heatmap',
+              coordinateSystem: 'calendar',
+              data: answer
+            }
           }as echarts.EChartsOption;
     }
     #createX(dataset: KupDataDataset = null) {
