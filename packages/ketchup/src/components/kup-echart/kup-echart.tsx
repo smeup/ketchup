@@ -692,7 +692,6 @@ export class KupEchart {
         date.forEach((element, i) => {
             answer.push([element, caseInsensitiveObj['Value'][i]]);
         })
-
           return {
             tooltip: {
                 ...this.#setTooltip(),
@@ -719,7 +718,26 @@ export class KupEchart {
               max: 10000
             },
             calendar: {
-              range: year
+              range: year,
+              itemStyle:{
+                color: this.#themeBackground
+              },
+              dayLabel:{
+                color: this.#themeText
+              },
+              yearLabel:{
+                color: this.#themeText
+              },
+              monthLabel:{
+                color: this.#themeText
+              },
+              splitLine:{
+                show: true,
+                lineStyle:{
+                    color: this.#themeText
+
+                }
+              }
             },
             series: {
               type: 'heatmap',
