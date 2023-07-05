@@ -672,6 +672,8 @@ function setKupCell(
                     {...subcomponentProps}
                 />
             );
+        case FCellTypes.MULTI_AUTOCOMPLETE:
+        case FCellTypes.MULTI_COMBOBOX:
         case FCellTypes.CHIP:
             return <FChip {...subcomponentProps} />;
         case FCellTypes.COLOR_PICKER:
