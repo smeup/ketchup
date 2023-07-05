@@ -7,6 +7,7 @@
           :data.prop="data"
           :types.prop="types"
           :legend.prop="legend"
+          :colors.prop="colors"
       /></div>
     </div>
   </div>
@@ -21,6 +22,7 @@ export default {
       types: ['Calendar'],
       data: calendarChartData,
       legend: 'top',
+      colors: ['blue']
     };
   },
 };
