@@ -22,7 +22,7 @@ export default {
       types: ['Calendar'],
       data: calendarChartData,
       legend: 'top',
-      colors: ['blue']
+      colors: ['blue'],
     };
   },
 };

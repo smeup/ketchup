@@ -69,7 +69,6 @@ import EchartSankey from '@/views/components/advanced/echart/examples/EchartSank
 import EchartCandle from '@/views/components/advanced/echart/examples/EchartCandle';
 import EchartCalendar from '@/views/components/advanced/echart/examples/EchartCalendar';
 
-
 import Comp from '@/views/templates/Comp';
 export default {
   components: {
