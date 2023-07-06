@@ -292,6 +292,10 @@ export class KupEchart {
             case KupEchartTypes.CANDLE:
                 options = this.#candleChart();
                 break;
+            case KupEchartTypes.CALENDAR:
+                console.log('virtual 0');
+                options = this.#calendarChart();
+                break;
             default:
                 options = this.#setOptions();
                 break;
@@ -571,7 +575,7 @@ export class KupEchart {
             legend[e.name] = i;
         });
 
-  return {
+        return {
             title: this.#setTitle(),
             legend: this.#setLegend(legend),
             color: this.#setColors(arrayLength),
@@ -593,34 +597,33 @@ export class KupEchart {
         } as echarts.EChartsOption;
     }
 
-    #candleChart(){
-        
+    #candleChart() {
         const y = this.#createY(),
-        answer = [], 
-        itemStyle = {
-            "color": "red",
-            "borderColor": "red",
-            "color0": "green",
-            "borderColor0": "green"
-        };
+            answer = [],
+            itemStyle = {
+                color: 'red',
+                borderColor: 'red',
+                color0: 'green',
+                borderColor0: 'green',
+            };
 
         let caseInsensitiveObj = new Proxy(y, {
-            get: function(target, prop:any) {
-              // Convert the property name to lowercase
-              const lowercaseProp = prop.toLowerCase();
-              
-              // Search for the property case-insensitively
-              for (let key in target) {
-                if (key.toLowerCase() === lowercaseProp) {
-                  return target[key];
+            get: function (target, prop: any) {
+                // Convert the property name to lowercase
+                const lowercaseProp = prop.toLowerCase();
+
+                // Search for the property case-insensitively
+                for (let key in target) {
+                    if (key.toLowerCase() === lowercaseProp) {
+                        return target[key];
+                    }
                 }
-              }
-              
-              // Property not found, return undefined
-              return undefined;
-            }
-          });
-         const date = caseInsensitiveObj['date'];
+
+                // Property not found, return undefined
+                return undefined;
+            },
+        });
+        const date = caseInsensitiveObj['date'];
 
         for (let i = 0; i < caseInsensitiveObj['Open'].length; i++) {
             answer.push([
@@ -628,15 +631,13 @@ export class KupEchart {
                 parseInt(caseInsensitiveObj['Open'][i]),
                 parseInt(caseInsensitiveObj['Low'][i]),
                 parseInt(caseInsensitiveObj['High'][i]),
-
             ]);
         }
         let legend = {};
-        date.forEach((e,i)=>{
-          legend[e] = i;
-        })
-
-        return  {
+        date.forEach((e, i) => {
+            legend[e] = i;
+        });
+        return {
             legend: this.#setLegend(legend),
             tooltip: {
                 ...this.#setTooltip(),
@@ -644,17 +645,100 @@ export class KupEchart {
             },
             title: this.#setTitle(),
             xAxis: {
-              data: date
+                data: date,
             },
             yAxis: {},
             series: [
-              {
-                type: 'candlestick',
+                {
+                    type: 'candlestick',
+                    data: answer,
+                    itemStyle: itemStyle,
+                },
+            ],
+        } as echarts.EChartsOption;
+    }
+
+    #calendarChart() {
+        const y = this.#createY();
+
+        let caseInsensitiveObj = new Proxy(y, {
+            get: function (target, prop: any) {
+                // Convert the property name to lowercase
+                const lowercaseProp = prop.toLowerCase();
+
+                // Search for the property case-insensitively
+                for (let key in target) {
+                    if (key.toLowerCase() === lowercaseProp) {
+                        return target[key];
+                    }
+                }
+
+                // Property not found, return undefined
+                return undefined;
+            },
+        });
+
+        const date = caseInsensitiveObj['Date'],
+            answer = [],
+            keys = Object.keys(y),
+            year = new Date(date[0]).getFullYear(),
+            arrayLength = date.length;
+
+        date.forEach((element, i) => {
+            answer.push([element, caseInsensitiveObj['Value'][i]]);
+        });
+        return {
+            tooltip: {
+                ...this.#setTooltip(),
+                trigger: 'item',
+                formatter: (value: unknown) => {
+                    const name = (value as GenericObject).data;
+                    console.log('data', name);
+                    const data = keys.map((e, i) => {
+                        return `<li>  ${e}: ${name[i]} </li>`;
+                    });
+                    let showContent = '';
+                    data.forEach((r) => {
+                        showContent += r;
+                    });
+
+                    return `<ul>${showContent}</ul> `;
+                },
+            },
+            gradientColor: this.#setColors(arrayLength),
+            title: this.#setTitle(),
+            visualMap: {
+                show: false,
+                min: 0,
+                max: 10000,
+            },
+            calendar: {
+                range: year,
+                itemStyle: {
+                    color: this.#themeBackground,
+                },
+                dayLabel: {
+                    color: this.#themeText,
+                },
+                yearLabel: {
+                    color: this.#themeText,
+                },
+                monthLabel: {
+                    color: this.#themeText,
+                },
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: this.#themeText,
+                    },
+                },
+            },
+            series: {
+                type: 'heatmap',
+                coordinateSystem: 'calendar',
                 data: answer,
-                itemStyle: itemStyle
-              }
-            ]
-          }as echarts.EChartsOption;
+            },
+        } as echarts.EChartsOption;
     }
     #createX(dataset: KupDataDataset = null) {
         const x: string[] = [];

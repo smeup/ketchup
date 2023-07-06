@@ -62,7 +62,9 @@ export enum KupEchartTypes {
     RADAR = 'Radar',
     BUBBLE = 'Bubble',
     SANKEY = 'Sankey',
-    CANDLE = 'Candle'
+    CANDLE = 'Candle',
+    CALENDAR = 'Calendar'
+
 
 
 }

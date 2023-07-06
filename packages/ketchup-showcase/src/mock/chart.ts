@@ -1298,3 +1298,88 @@ export const candleChartData = {
     },
   ],
 };
+
+export const calendarChartData = {
+  columns: [
+    {
+      name: 'DATE',
+      obj: {
+        t: 'D8',
+        p: '*YYMD',
+        k: '',
+      },
+      title: 'Date',
+    },
+    {
+      name: 'VALUE',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
+      title: 'Value',
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        DATE: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20230401',
+          },
+          value: '2023-04-01',
+        },
+        VALUE: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '50',
+          },
+          value: '50',
+        },
+      },
+    },
+    {
+      cells: {
+        DATE: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20230415',
+          },
+          value: '2023-04-15',
+        },
+        VALUE: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '25',
+          },
+          value: '25',
+        },
+      },
+    },
+    {
+      cells: {
+        DATE: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20230430',
+          },
+          value: '2023-04-30',
+        },
+        VALUE: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100',
+          },
+          value: '100',
+        },
+      },
+    },
+  ],
+};

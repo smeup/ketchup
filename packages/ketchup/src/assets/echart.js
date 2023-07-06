@@ -8,6 +8,9 @@ const echart7 = document.getElementById('radarChart');
 const echart8 = document.getElementById('bubbleChart');
 const echart9 = document.getElementById('sankeyChart');
 const echart10 = document.getElementById('candleStickChart');
+const echart11 = document.getElementById('calendarChart');
+
+
 
 const mockData = {
     columns: [
@@ -1255,6 +1258,101 @@ echart10.data = { // actual dataset
             },
         },
     ]
+}
+
+echart11.consistencyCheck = true;
+echart11.types = ['Calendar'];
+echart11.colors =  ['blue'];
+echart11.axis = '';
+echart11.chartTitle = {
+    value: 'Calendar',
+    color: 'red',
+    position: 'top',
+    size: 16,
+};
+echart11.data = { // actual dataset
+    columns: [
+        {
+            name: 'DATE',
+            obj: {
+                t: 'D8',
+                p: '*YYMD',
+                k: '',
+            },
+            title: 'Date',
+        },
+        {
+            name: 'VALUE',
+            obj: {
+                t: 'NR',
+                p: '',
+                k: '',
+            },
+            title: 'Value',
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                DATE: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20230401',
+                    },
+                    value: '2023-04-01',
+                },
+                VALUE: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '50',
+                    },
+                    value: '50',
+                },
+            },
+        },
+        {
+            cells: {
+                DATE: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20230415',
+                    },
+                    value: '2023-04-15',
+                },
+                VALUE: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '25',
+                    },
+                    value: '25',
+                },
+            },
+        },
+        {
+            cells: {
+                DATE: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20230430',
+                    },
+                    value: '2023-04-30',
+                },
+                VALUE: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '100',
+                    },
+                    value: '100',
+                },
+            },
+        },
+    ],
 }
 
 document.addEventListener('kup-echart-click', (e) => {
