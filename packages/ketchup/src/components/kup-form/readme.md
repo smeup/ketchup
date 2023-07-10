@@ -77,6 +77,7 @@ Type: `Promise<void>`
 | `--kup-form-font-size`        | Sets font size of the component.   |
 | `--kup-form-label-alignment`  | Sets the text alignment of labels. |
 | `--kup-form-label-width`      | Sets the width of labels.          |
+| `--kup-form-padding`          | Sets the padding of the form.      |
 
 
 ## Dependencies
