@@ -5,6 +5,7 @@
 * @prop --kup-form-font-size: Sets font size of the component.
 * @prop --kup-form-label-alignment: Sets the text alignment of labels.
 * @prop --kup-form-label-width: Sets the width of labels.
+* @prop --kup-form-padding: Sets the padding of the form.
 */
 
 :host {
@@ -17,6 +18,7 @@
   --kup_form_font_size: var(--kup-form-font-size, var(--kup-font-size));
   --kup_form_label_alignment: var(--kup-form-label-alignment);
   --kup_form_label_width: var(--kup-form-label-width);
+  --kup_form_padding: var(--kup-form-padding, 1em 0);
 
   display: block;
   font-family: var(--kup_form_font_family);
@@ -29,7 +31,7 @@
   display: flex;
   flex-grow: 1;
   overflow: auto;
-  padding: 1em 0;
+  padding: var(--kup_form_padding);
   position: relative;
 
   &--column {
