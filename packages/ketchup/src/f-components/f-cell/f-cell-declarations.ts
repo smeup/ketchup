@@ -182,6 +182,8 @@ export const kupTypes = [
     FCellTypes.COLOR_PICKER,
     FCellTypes.GAUGE,
     FCellTypes.KNOB,
+    FCellTypes.MULTI_AUTOCOMPLETE,
+    FCellTypes.MULTI_COMBOBOX,
     FCellTypes.PROGRESS_BAR,
     FCellTypes.RADIO,
     FCellTypes.RATING,
