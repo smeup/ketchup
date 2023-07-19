@@ -620,6 +620,7 @@ function setKupCell(
                 return (
                     <kup-image
                         key={column.name + props.row.id}
+                        sizeX="250px"
                         {...subcomponentProps}
                     />
                 );
