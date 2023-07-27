@@ -217,4 +217,18 @@
   .navigation {
     flex-direction: column;
   }
+  .calendar{
+    height: 100%;
+  }
+  .calendar .fc-view-harness{
+    min-height: 450px;
+  }
+
+  .navigation .navigation__left{
+    font-size: 20px;
+    gap: 8px;
+  }
+  .navigation .navigation__right .f-chip .chip-set .chip-set__item{
+    font-size: 16px;
+  }
 }
