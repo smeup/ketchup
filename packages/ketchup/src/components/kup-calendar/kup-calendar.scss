@@ -219,11 +219,11 @@
   }
   .calendar{
     height: 100%;
+    .fc-view-harness{
+      min-height: 450px;
+    }
   }
-  .calendar .fc-view-harness{
-    min-height: 450px;
-  }
-
+  
   .navigation .navigation__left{
     font-size: 20px;
     gap: 8px;
