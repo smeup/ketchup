@@ -177,6 +177,9 @@ export class KupCalendar {
     @Watch('data')
     @Watch('currentDate')
     setCalendarData() {
+        if(!this.calendarContainer){
+            return;
+        }
         if (this.calendar) {
             this.calendar.destroy();
         }
