@@ -5675,8 +5675,8 @@ export class KupDataTable {
                                             const column =
                                                 this.data.columns[index];
                                             cells[column.name] = {
-                                                data: column.cellData,
-                                                slotData: column.cellSlotData,
+                                                data: column.cellData ? JSON.parse(JSON.stringify(column.cellData)) : undefined,
+                                                slotData: column.cellSlotData ? JSON.parse(JSON.stringify(column.cellSlotData)) : undefined,
                                                 isEditable:
                                                     column.isKey ||
                                                     column.isEditable,
