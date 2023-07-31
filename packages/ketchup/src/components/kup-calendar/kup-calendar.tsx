@@ -97,6 +97,11 @@ export class KupCalendar {
      */
     @Prop() hideNavigation = false;
     /**
+     * When true, events are editable.
+     * @default true
+     */
+    @Prop() editableEvents: boolean = true;
+    /**
      * Type of the view.
      * @default KupCalendarViewTypes.MONTH
      */
@@ -172,6 +177,9 @@ export class KupCalendar {
     @Watch('data')
     @Watch('currentDate')
     setCalendarData() {
+        if(!this.calendarContainer){
+            return;
+        }
         if (this.calendar) {
             this.calendar.destroy();
         }
@@ -454,6 +462,7 @@ export class KupCalendar {
 
             const el: EventInput = {
                 allDay: isHourRange ? false : true,
+                editable: this.editableEvents,
                 end: endDate.toISOString(),
                 extendedProps: {
                     row,
