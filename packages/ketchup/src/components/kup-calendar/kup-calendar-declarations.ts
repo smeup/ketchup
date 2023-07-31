@@ -11,7 +11,8 @@ import { KupEventPayload } from '../../types/GenericTypes';
 export enum KupCalendarProps {
     currentDate = 'Sets the date of the calendar. Must be in ISO format (YYYY-MM-DD).',
     customStyle = 'Custom style of the component.',
-    data = ' Actual data of the calendar.',
+    data = 'Actual data of the calendar.',
+    editableEvents = 'When true, events are editable.',
     hideNavigation = "When disabled, the navigation toolbar won't be displayed.",
     viewType = 'Type of the view.',
 }
