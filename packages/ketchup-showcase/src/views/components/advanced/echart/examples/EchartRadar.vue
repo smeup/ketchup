@@ -17,10 +17,11 @@ import { radarData } from '@/mock/chart';
 export default {
   data() {
     return {
-      axis: 'Col1',
+      axis: 'COL1',
       types: ['Radar'],
       data: radarData,
       legend: 'top',
+      series: ['COL2', 'COL3'],
     };
   },
 };

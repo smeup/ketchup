@@ -10,8 +10,6 @@ const echart9 = document.getElementById('sankeyChart');
 const echart10 = document.getElementById('candleStickChart');
 const echart11 = document.getElementById('calendarChart');
 
-
-
 const mockData = {
     columns: [
         {
@@ -633,7 +631,8 @@ echart6.data = {
 echart7.consistencyCheck = true;
 echart7.types = ['Radar'];
 echart7.colors = ['blue'];
-echart7.axis = 'Col1';
+echart7.axis = 'COL1';
+echart7.series = ['COL2', 'COL3'];
 echart7.chartTitle = {
     value: 'Radar',
     color: 'red',
@@ -643,154 +642,230 @@ echart7.chartTitle = {
 echart7.data = {
     columns: [
         {
-            name: 'Col1',
+            isEditable: false,
+            isKey: false,
+            name: 'COL1',
+            obj: {
+                k: '',
+                p: 'STR',
+                t: 'J1',
+            },
             title: 'Budget type',
+            tooltip: true,
         },
         {
-            name: 'Col2',
-            title: 'Sales',
+            decimals: 0,
+            isEditable: false,
+            isKey: false,
+            name: 'COL2',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'Allocated Budget',
+            tooltip: false,
         },
         {
-            name: 'Col3',
-            title: 'Administration',
-        },
-        {
-            name: 'Col4',
-            title: 'Information Technology',
-        },
-        {
-            name: 'Col5',
-            title: 'Customer Support',
-        },
-        {
-            name: 'Col6',
-            title: 'Development',
-        },
-        {
-            name: 'Col7',
-            title: 'Marketing',
+            decimals: 0,
+            isEditable: false,
+            isKey: false,
+            name: 'COL3',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'Actual Spending',
+            tooltip: false,
         },
     ],
     rows: [
         {
             cells: {
-                Col1: {
+                COL3: {
                     obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'ALLOCB',
-                    },
-                    value: 'Allocated Budget',
-                },
-                Col2: {
-                    obj: {
-                        t: 'NR',
+                        k: '',
                         p: '',
-                        k: '4200',
-                    },
-                    value: '4200',
-                },
-                Col3: {
-                    obj: {
                         t: 'NR',
-                        p: '',
-                        k: '3000',
-                    },
-                    value: '3000',
-                },
-                Col4: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '20000',
-                    },
-                    value: '20000',
-                },
-                Col5: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '35000',
-                    },
-                    value: '35000',
-                },
-                Col6: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '50000',
-                    },
-                    value: '50000',
-                },
-                Col7: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '18000',
-                    },
-                    value: '18000',
-                },
-            },
-        },
-        {
-            cells: {
-                Col1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'ACTSPEND',
-                    },
-                    value: 'Actual Spending',
-                },
-                Col2: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '5000',
                     },
                     value: '5000',
                 },
-                Col3: {
+                COL2: {
                     obj: {
-                        t: 'NR',
+                        k: '',
                         p: '',
-                        k: '14000',
+                        t: 'NR',
+                    },
+                    value: '4200',
+                },
+                COL1: {
+                    obj: {
+                        k: 'Sales',
+                        p: 'STR',
+                        t: 'J1',
+                    },
+                    value: 'Sales',
+                },
+            },
+            id: '0',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                COL3: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: 'NR',
                     },
                     value: '14000',
                 },
-                Col4: {
+                COL2: {
                     obj: {
-                        t: 'NR',
+                        k: '',
                         p: '',
-                        k: '28000',
+                        t: 'NR',
+                    },
+                    value: '3000',
+                },
+                COL1: {
+                    obj: {
+                        k: 'Administration',
+                        p: 'STR',
+                        t: 'J1',
+                    },
+                    value: 'Administration',
+                },
+            },
+            id: '1',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                COL3: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: 'NR',
                     },
                     value: '28000',
                 },
-                Col5: {
+                COL2: {
                     obj: {
-                        t: 'NR',
+                        k: '',
                         p: '',
-                        k: '26000',
+                        t: 'NR',
+                    },
+                    value: '20000',
+                },
+                COL1: {
+                    obj: {
+                        k: 'Information Technology',
+                        p: 'STR',
+                        t: 'J1',
+                    },
+                    value: 'Information Technology',
+                },
+            },
+            id: '2',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                COL3: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: 'NR',
                     },
                     value: '26000',
                 },
-                Col6: {
+                COL2: {
                     obj: {
-                        t: 'NR',
+                        k: '',
                         p: '',
-                        k: '42000',
+                        t: 'NR',
+                    },
+                    value: '35000',
+                },
+                COL1: {
+                    obj: {
+                        k: 'Customer Support',
+                        p: 'STR',
+                        t: 'J1',
+                    },
+                    value: 'Customer Support',
+                },
+            },
+            id: '3',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                COL3: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: 'NR',
                     },
                     value: '42000',
                 },
-                Col7: {
+                COL2: {
                     obj: {
-                        t: 'NR',
+                        k: '',
                         p: '',
-                        k: '21000',
+                        t: 'NR',
+                    },
+                    value: '50000',
+                },
+                COL1: {
+                    obj: {
+                        k: 'Development',
+                        p: 'STR',
+                        t: 'J1',
+                    },
+                    value: 'Development',
+                },
+            },
+            id: '4',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                COL3: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: 'NR',
                     },
                     value: '21000',
                 },
+                COL2: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '18000',
+                },
+                COL1: {
+                    obj: {
+                        k: 'Marketing',
+                        p: 'STR',
+                        t: 'J1',
+                    },
+                    value: 'Marketing',
+                },
             },
+            id: '5',
+            object: '',
+            readOnly: true,
         },
     ],
 };
@@ -1113,7 +1188,7 @@ echart9.data = {
 
 echart10.consistencyCheck = true;
 echart10.types = ['Candle'];
-echart10.colors =  ['blue'];
+echart10.colors = ['blue'];
 echart10.axis = '';
 echart10.chartTitle = {
     value: 'Candle',
@@ -1121,7 +1196,8 @@ echart10.chartTitle = {
     position: 'top',
     size: 16,
 };
-echart10.data = { // actual dataset
+echart10.data = {
+    // actual dataset
     columns: [
         {
             name: 'DATE',
@@ -1213,7 +1289,8 @@ echart10.data = { // actual dataset
                     value: '20',
                 },
             },
-        },{
+        },
+        {
             cells: {
                 DATE: {
                     obj: {
@@ -1257,12 +1334,12 @@ echart10.data = { // actual dataset
                 },
             },
         },
-    ]
-}
+    ],
+};
 
 echart11.consistencyCheck = true;
 echart11.types = ['Calendar'];
-echart11.colors =  ['blue'];
+echart11.colors = ['blue'];
 echart11.axis = '';
 echart11.chartTitle = {
     value: 'Calendar',
@@ -1270,7 +1347,8 @@ echart11.chartTitle = {
     position: 'top',
     size: 16,
 };
-echart11.data = { // actual dataset
+echart11.data = {
+    // actual dataset
     columns: [
         {
             name: 'DATE',
@@ -1353,7 +1431,7 @@ echart11.data = { // actual dataset
             },
         },
     ],
-}
+};
 
 document.addEventListener('kup-echart-click', (e) => {
     console.log(e);
