@@ -550,6 +550,11 @@ export namespace Components {
          */
         "data": KupCalendarData;
         /**
+          * When true, events are editable.
+          * @default true
+         */
+        "editableEvents": boolean;
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
@@ -4366,6 +4371,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: KupCalendarData;
+        /**
+          * When true, events are editable.
+          * @default true
+         */
+        "editableEvents"?: boolean;
         /**
           * When disabled, the navigation toolbar won't be displayed.
           * @default false

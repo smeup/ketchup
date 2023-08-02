@@ -84,6 +84,13 @@ export default {
           try: 'json',
         },
         {
+          prop: 'editableEvents',
+          description: 'When true, events are editable.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'hideNavigation',
           description:
             "When disabled, the navigation toolbar won't be displayed.",

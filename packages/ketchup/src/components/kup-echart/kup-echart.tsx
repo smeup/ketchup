@@ -406,33 +406,44 @@ export class KupEchart {
     #radarChart() {
         const x = this.#createX();
         const y = this.#createY();
-        let indicator: { name: String; max: number };
-        const data = [],
-            indicatorData = [],
-            legend = {};
+        const data: { name: string; value: number[] }[] = [],
+            transposedData: { name: string; value: number[] }[] = [],
+            transposedIndicator: { name: string; max: number }[] = [];
 
-        for (const [index, values] of x.entries()) {
+        for (const [_index, values] of x.entries()) {
             data.push({ name: values, value: [] });
-            legend[values] = index;
         }
 
         for (const key in y) {
-            indicator = {
+            transposedData.push({
                 name: key,
-                max: Math.floor(Math.max(...y[key]) * 1.05),
-            };
-            indicatorData.push(indicator);
+                value: y[key],
+            });
             for (const values in y[key]) {
                 data[values].value.push(y[key][values]);
             }
         }
+        for (let index = 0; index < data.length; index++) {
+            const dataEl = data[index];
+            const key = dataEl.name;
+            const foundEl = transposedIndicator.find((d) => d.name === key);
+            const max = Math.floor(Math.max(...dataEl.value) * 1.05);
+            if (!foundEl) {
+                transposedIndicator.push({
+                    name: key,
+                    max,
+                });
+            } else {
+                foundEl.max = foundEl.max > max ? foundEl.max : max;
+            }
+        }
 
         return {
-            color: this.#setColors(x.length),
+            color: this.#setColors(Object.keys(y).length),
             title: this.#setTitle(),
-            legend: this.#setLegend(legend),
+            legend: this.#setLegend(y),
             radar: {
-                indicator: indicatorData,
+                indicator: transposedIndicator,
             },
             tooltip: {
                 ...this.#setTooltip(),
@@ -444,7 +455,7 @@ export class KupEchart {
                         name: this.axis,
                     })[0].title,
                     type: 'radar',
-                    data: data,
+                    data: transposedData,
                 },
             ],
         } as echarts.EChartsOption;
