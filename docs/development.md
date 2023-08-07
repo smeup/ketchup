@@ -5,7 +5,7 @@ This document contains information for developers who want to contribute to the 
 ## Requirements
 
 -   Git
--   NodeJs (16.13.0 suggested)
+-   NodeJs (16.14.0 suggested)
 
 ## Getting started
 
@@ -15,12 +15,11 @@ This document contains information for developers who want to contribute to the 
 git clone https://github.com/smeup/ketchup.git
 ```
 
--   Install the dependencies:
+-   Install the dependencies using yarn:
 
 ```
 // From the root of the repository
-npm install
-npm run lerna bootstrap
+yarn install
 ```
 
 -   Compile and minifies Ketchup library for production:
