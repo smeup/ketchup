@@ -5,7 +5,7 @@ This document contains information for developers who want to contribute to the 
 ## Requirements
 
 -   Git
--   NodeJs (16.14.0 suggested)
+-   NodeJs (18.16.0 suggested)
 
 ## Getting started
 
@@ -19,6 +19,7 @@ git clone https://github.com/smeup/ketchup.git
 
 ```
 // From the root of the repository
+npm install yarn --global
 yarn install
 ```
 
