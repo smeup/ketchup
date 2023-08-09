@@ -31,5 +31,8 @@
         "@types/react-dom": "^18.2.4",
         "rimraf": "^5.0.1",
         "typescript": "5.0.4"
+    },
+    "installConfig": {
+        "hoistingLimits": "workspaces"
     }
 }
