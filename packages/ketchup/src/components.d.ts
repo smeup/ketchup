@@ -1072,6 +1072,12 @@ export namespace Components {
          */
         "fullWidth": boolean;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * Sets whether the dash elements are placed horizontally or not.
           * @default false
          */
@@ -1081,6 +1087,15 @@ export namespace Components {
           * @default false
          */
         "isClickable": boolean;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupDashboard {
         /**

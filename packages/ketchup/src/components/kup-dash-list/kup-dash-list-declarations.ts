@@ -9,8 +9,12 @@ import {
  * Used to export every prop in an object.
  */
 export enum KupDashListProps {
+    columnsNumber = 'Sets the number of columns.',
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the dash.',
+    fullWidth = 'Sets whether the component occupies all available width.',
+    horizontal = 'Sets whether the dash elements are placed horizontally or not.',
+    isClickable = 'Sets whether a single dash is clickable or not.',
 }
 /**
  * Available column options.

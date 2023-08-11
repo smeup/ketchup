@@ -14,20 +14,13 @@
   display: block;
 }
 
-.horizontal {
-  display: inline-block;
-  min-width: 300px;
-  max-width: 100%;
-  overflow: visible;
-  white-space: nowrap;
-  border: solid;
-  border-width: 1px;
-  margin: 2px;
-}
-
 kup-card {
   max-height: var(--kup_dashlist_cardsmaxheight);
   min-height: var(--kup_dashlist_cardsminheight);
   max-width: var(--kup_dashlist_cardsmaxwidth);
   min-width: var(--kup_dashlist_cardsminwidth);
+
+  &.is-clickable {
+    cursor: pointer;
+  }
 }

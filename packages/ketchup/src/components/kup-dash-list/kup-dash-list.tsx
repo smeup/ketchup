@@ -7,6 +7,8 @@ import {
     Element,
     VNode,
     Host,
+    Method,
+    forceUpdate,
 } from '@stencil/core';
 import {
     KupManager,
@@ -16,10 +18,13 @@ import {
     KupDashListColumn,
     KupDashListData,
     KupDashListClickEventPayload,
+    KupDashListProps,
 } from './kup-dash-list-declarations';
 import { KupCardData, KupCardFamily } from '../kup-card/kup-card-declarations';
-import { KupComponent } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { getCellValueForDisplay } from '../../utils/cell-utils';
+import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-dash-list',
@@ -90,6 +95,35 @@ export class KupDashList {
         bubbles: true,
     })
     kupDashListClickEvent: EventEmitter<KupDashListClickEventPayload>;
+
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
+
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        return getProps(this, KupDashListProps, descriptions);
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupDashListProps, props);
+    }
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
@@ -176,6 +210,7 @@ export class KupDashList {
                     : 1;
             const card: VNode = (
                 <kup-card
+                    class={this.isClickable ? 'is-clickable' : ''}
                     data={data}
                     layoutFamily={KupCardFamily.SCALABLE}
                     layoutNumber={layout}
@@ -199,8 +234,9 @@ export class KupDashList {
                 index: number
             ) => {
                 if (col) {
-                    const value = row.cells[col.name]?.value;
-                    if (value) {
+                    const cell = row.cells[col.name];
+                    if (cell) {
+                        const value = cell.value;
                         switch (prop) {
                             case 'color':
                                 data[prop][index] =
@@ -209,8 +245,15 @@ export class KupDashList {
                                     ).hexColor;
                                 break;
 
+                            case 'icon':
+                                data[prop][index] = { resource: value };
+                                break;
+
                             default:
-                                data[prop][index] = value;
+                                data[prop][index] = getCellValueForDisplay(
+                                    col,
+                                    cell
+                                );
                                 break;
                         }
                     }
@@ -228,8 +271,8 @@ export class KupDashList {
                     loadData(valuecolorCol, 'color', 1);
                     loadData(iconCol, 'image', 0);
                     loadData(intvalueCol, 'text', 0);
-                    loadData(measureCol, 'text', 1);
-                    loadData(decvalueCol, 'text', 2);
+                    loadData(decvalueCol, 'text', 1);
+                    loadData(measureCol, 'text', 2);
                     break;
                 case 3:
                     loadData(valuecolorCol, 'color', 0);
@@ -243,8 +286,8 @@ export class KupDashList {
                     loadData(textcolorCol, 'color', 2);
                     loadData(iconCol, 'image', 0);
                     loadData(intvalueCol, 'text', 0);
-                    loadData(measureCol, 'text', 1);
-                    loadData(decvalueCol, 'text', 2);
+                    loadData(decvalueCol, 'text', 1);
+                    loadData(measureCol, 'text', 2);
                     loadData(descrCol, 'text', 3);
                     break;
                 case 5:
