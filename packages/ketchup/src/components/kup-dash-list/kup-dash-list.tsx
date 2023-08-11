@@ -117,7 +117,6 @@ export class KupDashList {
         let decvalueCol: KupDashListColumn,
             descrCol: KupDashListColumn,
             iconCol: KupDashListColumn,
-            groupCol: KupDashListColumn,
             iconcolorCol: KupDashListColumn,
             intvalueCol: KupDashListColumn,
             layoutCol: KupDashListColumn,
@@ -135,9 +134,6 @@ export class KupDashList {
                         break;
                     case 'descr':
                         descrCol = column;
-                        break;
-                    case 'group':
-                        groupCol = column;
                         break;
                     case 'icon':
                         iconCol = column;
@@ -205,11 +201,18 @@ export class KupDashList {
                 if (col) {
                     const value = row.cells[col.name]?.value;
                     if (value) {
-                        data[prop][index] =
-                            prop === 'color'
-                                ? this.#kupManager.theme.colorCheck(value)
-                                      .hexColor
-                                : value;
+                        switch (prop) {
+                            case 'color':
+                                data[prop][index] =
+                                    this.#kupManager.theme.colorCheck(
+                                        value
+                                    ).hexColor;
+                                break;
+
+                            default:
+                                data[prop][index] = value;
+                                break;
+                        }
                     }
                 }
             };
