@@ -105,7 +105,8 @@ export function create2(component: KupCard): VNode {
                             colorArray[1] ? { color: colorArray[1] } : undefined
                         }
                     >
-                        {textArray[textIndex] ? textArray[textIndex] : ''},
+                        {textArray[textIndex] ? textArray[textIndex] : ''}
+                        {dom.ketchup.math.decimalSeparator()}
                     </div>
                 </div>
                 <div class="value-dec">
@@ -232,7 +233,8 @@ export function create4(component: KupCard): VNode {
                         }
                     >
                         <div>
-                            {textArray[textIndex] ? textArray[textIndex] : ''},
+                            {textArray[textIndex] ? textArray[textIndex] : ''}
+                            {dom.ketchup.math.decimalSeparator()}
                         </div>
                     </div>
                     <div class="value-dec">
