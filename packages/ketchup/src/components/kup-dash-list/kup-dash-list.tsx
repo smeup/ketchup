@@ -245,7 +245,7 @@ export class KupDashList {
                                     ).hexColor;
                                 break;
 
-                            case 'icon':
+                            case 'image':
                                 data[prop][index] = { resource: value };
                                 break;
 

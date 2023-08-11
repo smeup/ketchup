@@ -24,10 +24,6 @@
 
 ## Dependencies
 
-### Used by
-
- - [kup-dash-list](../kup-dash-list)
-
 ### Depends on
 
 - [kup-card](../kup-card)
@@ -159,7 +155,6 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-badge
-  kup-dash-list --> kup-dash
   style kup-dash fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

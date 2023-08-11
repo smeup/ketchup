@@ -7,42 +7,78 @@
 
 ## Properties
 
-| Property        | Attribute        | Description | Type             | Default     |
-| --------------- | ---------------- | ----------- | ---------------- | ----------- |
-| `active`        | `active`         |             | `boolean`        | `false`     |
-| `columnsNumber` | `columns-number` |             | `number`         | `1`         |
-| `data`          | --               |             | `KupDataDataset` | `undefined` |
-| `fontsize`      | `fontsize`       |             | `string`         | `''`        |
-| `fullWidth`     | `full-width`     |             | `boolean`        | `true`      |
-| `horizontal`    | `horizontal`     |             | `boolean`        | `false`     |
-| `iconColor`     | --               |             | `any[]`          | `[]`        |
-| `layout`        | `layout`         |             | `string`         | `'1'`       |
-| `textColor`     | --               |             | `any[]`          | `[]`        |
-| `valueColor`    | --               |             | `any[]`          | `[]`        |
+| Property        | Attribute        | Description                                                    | Type              | Default |
+| --------------- | ---------------- | -------------------------------------------------------------- | ----------------- | ------- |
+| `columnsNumber` | `columns-number` | Sets the number of columns.                                    | `number`          | `1`     |
+| `customStyle`   | `custom-style`   | Custom style of the component.                                 | `string`          | `''`    |
+| `data`          | --               | Sets the number of columns.                                    | `KupDashListData` | `null`  |
+| `fullWidth`     | `full-width`     | Sets whether the component occupies all available width.       | `boolean`         | `true`  |
+| `horizontal`    | `horizontal`     | Sets whether the dash elements are placed horizontally or not. | `boolean`         | `false` |
+| `isClickable`   | `is-clickable`   | Sets whether a single dash is clickable or not.                | `boolean`         | `false` |
 
 
 ## Events
 
-| Event            | Description | Type                            |
-| ---------------- | ----------- | ------------------------------- |
-| `kup-dash-click` |             | `CustomEvent<{ idx: number; }>` |
+| Event                | Description | Type                                        |
+| -------------------- | ----------- | ------------------------------------------- |
+| `kup-dashlist-click` |             | `CustomEvent<KupDashListClickEventPayload>` |
+
+
+## Methods
+
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+List of props as object, each key will be a prop.
+
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
+## CSS Custom Properties
+
+| Name                            | Description                       |
+| ------------------------------- | --------------------------------- |
+| `--kup-dashlist-cardsmaxheight` | Sets the max height of the cards. |
+| `--kup-dashlist-cardsmaxwidth`  | Sets the max width of the cards.  |
+| `--kup-dashlist-cardsminheight` | Sets the min height of the cards. |
+| `--kup-dashlist-cardsminwidth`  | Sets the min width of the cards.  |
 
 
 ## Dependencies
 
 ### Depends on
 
-- [kup-dash](../kup-dash)
-- [kup-grid](../kup-grid)
 - [kup-card](../kup-card)
+- [kup-grid](../kup-grid)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-dash-list --> kup-dash
-  kup-dash-list --> kup-grid
   kup-dash-list --> kup-card
-  kup-dash --> kup-card
+  kup-dash-list --> kup-grid
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
