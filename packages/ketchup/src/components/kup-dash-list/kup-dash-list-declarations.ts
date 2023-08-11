@@ -20,7 +20,6 @@ export type KupDashListOptions =
     | 'icon'
     | 'value'
     | 'measure'
-    | 'group'
     | 'intvalue'
     | 'decvalue'
     | 'textcolor'
