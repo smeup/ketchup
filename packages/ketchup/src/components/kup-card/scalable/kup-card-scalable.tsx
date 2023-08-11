@@ -14,6 +14,10 @@ const dom: KupDom = document.documentElement as KupDom;
  * @returns {VNode} 1st scalable layout virtual node.
  */
 export function create1(component: KupCard): VNode {
+    //Image color
+    const colorArray: string[] = component.data['color']
+        ? component.data['color']
+        : [];
     //Title, subtitle
     let textIndex: number = 0;
     const textArray: string[] = component.data['text']
@@ -30,12 +34,20 @@ export function create1(component: KupCard): VNode {
         >
             <div class="scalable-element">
                 <div class="descr">
-                    <div>
+                    <div
+                        style={
+                            colorArray[0] ? { color: colorArray[0] } : undefined
+                        }
+                    >
                         {textArray[textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
                 <div class="value">
-                    <div>
+                    <div
+                        style={
+                            colorArray[1] ? { color: colorArray[1] } : undefined
+                        }
+                    >
                         {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
@@ -88,17 +100,29 @@ export function create2(component: KupCard): VNode {
                     ) : null}
                 </div>
                 <div class="value-int">
-                    <div>
+                    <div
+                        style={
+                            colorArray[1] ? { color: colorArray[1] } : undefined
+                        }
+                    >
                         {textArray[textIndex] ? textArray[textIndex] : ''},
                     </div>
                 </div>
                 <div class="value-dec">
-                    <div>
+                    <div
+                        style={
+                            colorArray[1] ? { color: colorArray[1] } : undefined
+                        }
+                    >
                         {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
                 <div class="unit">
-                    <div>
+                    <div
+                        style={
+                            colorArray[1] ? { color: colorArray[1] } : undefined
+                        }
+                    >
                         {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
@@ -112,6 +136,10 @@ export function create2(component: KupCard): VNode {
  * @returns {VNode} 3rd scalable layout virtual node.
  */
 export function create3(component: KupCard): VNode {
+    //Image color
+    const colorArray: string[] = component.data['color']
+        ? component.data['color']
+        : [];
     //Title, subtitle
     let textIndex: number = 0;
     const textArray: string[] = component.data['text']
@@ -128,12 +156,20 @@ export function create3(component: KupCard): VNode {
         >
             <div class="scalable-element">
                 <div class="value">
-                    <div>
+                    <div
+                        style={
+                            colorArray[0] ? { color: colorArray[0] } : undefined
+                        }
+                    >
                         {textArray[textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
                 <div class="descr">
-                    <div>
+                    <div
+                        style={
+                            colorArray[1] ? { color: colorArray[1] } : undefined
+                        }
+                    >
                         {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
@@ -189,25 +225,46 @@ export function create4(component: KupCard): VNode {
                     ) : null}
                 </div>
                 <div class="value-and-unit">
-                    <div class="value-int">
+                    <div
+                        class="value-int"
+                        style={
+                            colorArray[1] ? { color: colorArray[1] } : undefined
+                        }
+                    >
                         <div>
                             {textArray[textIndex] ? textArray[textIndex] : ''},
                         </div>
                     </div>
                     <div class="value-dec">
-                        <div>
+                        <div
+                            style={
+                                colorArray[1]
+                                    ? { color: colorArray[1] }
+                                    : undefined
+                            }
+                        >
                             {textArray[++textIndex] ? textArray[textIndex] : ''}
                         </div>
                     </div>
                     <div class="unit">
-                        <div>
+                        <div
+                            style={
+                                colorArray[1]
+                                    ? { color: colorArray[1] }
+                                    : undefined
+                            }
+                        >
                             {textArray[++textIndex] ? textArray[textIndex] : ''}
                         </div>
                     </div>
                 </div>
                 <div class="empty-placeholder"></div>
                 <div class="descr">
-                    <div>
+                    <div
+                        style={
+                            colorArray[2] ? { color: colorArray[2] } : undefined
+                        }
+                    >
                         {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
@@ -246,13 +303,25 @@ export function create5(component: KupCard): VNode {
             <div class="scalable-element">
                 <div class="text-wrapper">
                     <div class="descr">
-                        <div>
+                        <div
+                            style={
+                                colorArray[1]
+                                    ? { color: colorArray[1] }
+                                    : undefined
+                            }
+                        >
                             {textArray[textIndex] ? textArray[textIndex] : ''}
                         </div>
                     </div>
 
                     <div class="value">
-                        <div>
+                        <div
+                            style={
+                                colorArray[2]
+                                    ? { color: colorArray[2] }
+                                    : undefined
+                            }
+                        >
                             {textArray[++textIndex] ? textArray[textIndex] : ''}
                         </div>
                     </div>
@@ -323,12 +392,24 @@ export function create6(component: KupCard): VNode {
 
                 <div class="text-wrapper">
                     <div class="value">
-                        <div>
+                        <div
+                            style={
+                                colorArray[1]
+                                    ? { color: colorArray[1] }
+                                    : undefined
+                            }
+                        >
                             {textArray[textIndex] ? textArray[textIndex] : ''}
                         </div>
                     </div>
                     <div class="descr">
-                        <div>
+                        <div
+                            style={
+                                colorArray[2]
+                                    ? { color: colorArray[2] }
+                                    : undefined
+                            }
+                        >
                             {textArray[++textIndex] ? textArray[textIndex] : ''}
                         </div>
                     </div>
@@ -368,13 +449,25 @@ export function create7(component: KupCard): VNode {
             <div class="scalable-element">
                 <div class="text-wrapper">
                     <div class="value">
-                        <div>
+                        <div
+                            style={
+                                colorArray[1]
+                                    ? { color: colorArray[1] }
+                                    : undefined
+                            }
+                        >
                             {textArray[textIndex] ? textArray[textIndex] : ''}
                         </div>
                     </div>
 
                     <div class="descr">
-                        <div>
+                        <div
+                            style={
+                                colorArray[2]
+                                    ? { color: colorArray[2] }
+                                    : undefined
+                            }
+                        >
                             {textArray[++textIndex] ? textArray[textIndex] : ''}
                         </div>
                     </div>
@@ -443,12 +536,20 @@ export function create8(component: KupCard): VNode {
                     ) : null}
                 </div>
                 <div class="value">
-                    <div>
+                    <div
+                        style={
+                            colorArray[1] ? { color: colorArray[1] } : undefined
+                        }
+                    >
                         {textArray[textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
                 <div class="descr">
-                    <div>
+                    <div
+                        style={
+                            colorArray[2] ? { color: colorArray[2] } : undefined
+                        }
+                    >
                         {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>

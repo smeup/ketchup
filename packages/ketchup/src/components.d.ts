@@ -24,6 +24,7 @@ import { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./c
 import { FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
+import { KupDashListClickEventPayload, KupDashListData } from "./components/kup-dash-list/kup-dash-list-declarations";
 import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
 import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
@@ -71,6 +72,7 @@ export { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./c
 export { FChipType } from "./f-components/f-chip/f-chip-declarations";
 export { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 export { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
+export { KupDashListClickEventPayload, KupDashListData } from "./components/kup-dash-list/kup-dash-list-declarations";
 export { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
 export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 export { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
@@ -1048,16 +1050,37 @@ export namespace Components {
         "layout": string;
     }
     interface KupDashList {
-        "active": boolean;
+        /**
+          * Sets the number of columns.
+          * @default 1
+         */
         "columnsNumber": number;
-        "data": KupDataDataset;
-        "fontsize": string;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Sets the number of columns.
+          * @default 1
+         */
+        "data": KupDashListData;
+        /**
+          * Sets whether the component occupies all available width.
+          * @default true
+         */
         "fullWidth": boolean;
+        /**
+          * Sets whether the dash elements are placed horizontally or not.
+          * @default false
+         */
         "horizontal": boolean;
-        "iconColor": Array<any>;
-        "layout": string;
-        "textColor": Array<any>;
-        "valueColor": Array<any>;
+        /**
+          * Sets whether a single dash is clickable or not.
+          * @default false
+         */
+        "isClickable": boolean;
     }
     interface KupDashboard {
         /**
@@ -4779,19 +4802,38 @@ declare namespace LocalJSX {
     }>) => void;
     }
     interface KupDashList {
-        "active"?: boolean;
+        /**
+          * Sets the number of columns.
+          * @default 1
+         */
         "columnsNumber"?: number;
-        "data"?: KupDataDataset;
-        "fontsize"?: string;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Sets the number of columns.
+          * @default 1
+         */
+        "data"?: KupDashListData;
+        /**
+          * Sets whether the component occupies all available width.
+          * @default true
+         */
         "fullWidth"?: boolean;
+        /**
+          * Sets whether the dash elements are placed horizontally or not.
+          * @default false
+         */
         "horizontal"?: boolean;
-        "iconColor"?: Array<any>;
-        "layout"?: string;
-        "onKup-dash-click"?: (event: KupDashListCustomEvent<{
-        idx: number;
-    }>) => void;
-        "textColor"?: Array<any>;
-        "valueColor"?: Array<any>;
+        /**
+          * Sets whether a single dash is clickable or not.
+          * @default false
+         */
+        "isClickable"?: boolean;
+        "onKup-dashlist-click"?: (event: KupDashListCustomEvent<KupDashListClickEventPayload>) => void;
     }
     interface KupDashboard {
         /**

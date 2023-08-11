@@ -67,7 +67,7 @@ import { KupChipNode } from '../kup-chip/kup-chip-declarations';
 })
 export class KupCalendar {
     /**
-     * References the root HTML element of the component (<kup-button>).
+     * References the root HTML element of the component (<kup-calendar>).
      */
     @Element() rootElement: HTMLElement;
 
@@ -177,7 +177,7 @@ export class KupCalendar {
     @Watch('data')
     @Watch('currentDate')
     setCalendarData() {
-        if(!this.calendarContainer){
+        if (!this.calendarContainer) {
             return;
         }
         if (this.calendar) {

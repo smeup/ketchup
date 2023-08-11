@@ -1,4 +1,20 @@
- .horizontal {
+ /**
+* @prop --kup-dashlist-cardsmaxheight: Sets the max height of the cards.
+* @prop --kup-dashlist-cardsminheight: Sets the min height of the cards.
+* @prop --kup-dashlist-cardsmaxwidth: Sets the max width of the cards.
+* @prop --kup-dashlist-cardsminwidth: Sets the min width of the cards.
+*/
+
+:host {
+  --kup_dashlist_cardsmaxheight: var(--kup-dashlist-cardsmaxheight, unset);
+  --kup_dashlist_cardsminheight: var(--kup-dashlist-cardsminheight, 128px);
+  --kup_dashlist_cardsmaxwidth: var(--kup-dashlist-cardsmaxwidth, unset);
+  --kup_dashlist_cardsminwidth: var(--kup-dashlist-cardsminwidth, 128px);
+
+  display: block;
+}
+
+.horizontal {
   display: inline-block;
   min-width: 300px;
   max-width: 100%;
@@ -7,4 +23,11 @@
   border: solid;
   border-width: 1px;
   margin: 2px;
+}
+
+kup-card {
+  max-height: var(--kup_dashlist_cardsmaxheight);
+  min-height: var(--kup_dashlist_cardsminheight);
+  max-width: var(--kup_dashlist_cardsmaxwidth);
+  min-width: var(--kup_dashlist_cardsminwidth);
 }
