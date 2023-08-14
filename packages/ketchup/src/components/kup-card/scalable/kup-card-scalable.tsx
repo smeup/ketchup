@@ -70,7 +70,6 @@ export function create2(component: KupCard): VNode {
         ? component.data['image']
         : [];
     //Value, decimal value, measurement unit
-    let textIndex: number = 0;
     const textArray: string[] = component.data['text']
         ? component.data['text']
         : [];
@@ -105,26 +104,32 @@ export function create2(component: KupCard): VNode {
                             colorArray[1] ? { color: colorArray[1] } : undefined
                         }
                     >
-                        {textArray[textIndex] ? textArray[textIndex] : ''}
-                        {dom.ketchup.math.decimalSeparator()}
+                        {textArray[0] ? textArray[0] : ''}
+                        {textArray[1]
+                            ? dom.ketchup.math.decimalSeparator()
+                            : ''}
                     </div>
                 </div>
-                <div class="value-dec">
-                    <div
-                        style={
-                            colorArray[1] ? { color: colorArray[1] } : undefined
-                        }
-                    >
-                        {textArray[++textIndex] ? textArray[textIndex] : ''}
+                {textArray[1] ? (
+                    <div class="value-dec">
+                        <div
+                            style={
+                                colorArray[1]
+                                    ? { color: colorArray[1] }
+                                    : undefined
+                            }
+                        >
+                            {textArray[1]}
+                        </div>
                     </div>
-                </div>
+                ) : null}
                 <div class="unit">
                     <div
                         style={
                             colorArray[1] ? { color: colorArray[1] } : undefined
                         }
                     >
-                        {textArray[++textIndex] ? textArray[textIndex] : ''}
+                        {textArray[2] ? textArray[2] : ''}
                     </div>
                 </div>
             </div>
@@ -193,7 +198,6 @@ export function create4(component: KupCard): VNode {
         ? component.data['image']
         : [];
     //Value, decimal value, measurement unit, subtitle
-    let textIndex: number = 0;
     const textArray: string[] = component.data['text']
         ? component.data['text']
         : [];
@@ -230,21 +234,25 @@ export function create4(component: KupCard): VNode {
                         }
                     >
                         <div>
-                            {textArray[textIndex] ? textArray[textIndex] : ''}
-                            {dom.ketchup.math.decimalSeparator()}
+                            {textArray[0] ? textArray[0] : ''}
+                            {textArray[1]
+                                ? dom.ketchup.math.decimalSeparator()
+                                : ''}
                         </div>
                     </div>
-                    <div class="value-dec">
-                        <div
-                            style={
-                                colorArray[1]
-                                    ? { color: colorArray[1] }
-                                    : undefined
-                            }
-                        >
-                            {textArray[++textIndex] ? textArray[textIndex] : ''}
+                    {textArray[1] ? (
+                        <div class="value-dec">
+                            <div
+                                style={
+                                    colorArray[1]
+                                        ? { color: colorArray[1] }
+                                        : undefined
+                                }
+                            >
+                                {textArray[1]}
+                            </div>
                         </div>
-                    </div>
+                    ) : null}
                     <div class="unit">
                         <div
                             style={
@@ -253,7 +261,7 @@ export function create4(component: KupCard): VNode {
                                     : undefined
                             }
                         >
-                            {textArray[++textIndex] ? textArray[textIndex] : ''}
+                            {textArray[2] ? textArray[2] : ''}
                         </div>
                     </div>
                 </div>
@@ -264,7 +272,7 @@ export function create4(component: KupCard): VNode {
                             colorArray[2] ? { color: colorArray[2] } : undefined
                         }
                     >
-                        {textArray[++textIndex] ? textArray[textIndex] : ''}
+                        {textArray[3] ? textArray[3] : ''}
                     </div>
                 </div>
             </div>
