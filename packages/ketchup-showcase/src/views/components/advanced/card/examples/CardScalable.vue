@@ -18,10 +18,14 @@
         <span class="code-word">Layout 1</span> configuration:
         <br />
         <br />
-        <span class="code-word">- text[0]</span>: Emphasized text, ideally for a
-        value.
+        <span class="code-word">- color[0]</span>: The color of text0.
         <br />
-        <span class="code-word">- text[1]</span>: Description.
+        <span class="code-word">- color[1]</span>: The color of text1.
+        <br />
+        <span class="code-word">- text[0]</span>: Description.
+        <br />
+        <span class="code-word">- text[1]</span>: Emphasized text, ideally for a
+        value.
         <br />
       </p>
       <br />
@@ -44,16 +48,19 @@
         <br />
         <span class="code-word">- color[0]</span>: The color of image1.
         <br />
+        <span class="code-word">- color[1]</span>: The color of text0, text1,
+        text2.
+        <br />
         <span class="code-word">- image[0]</span>: Should be an icon.
         <br />
         <span class="code-word">- text[0]</span>: Should be the integer part of
         a number, the layout automatically places a comma.
         <br />
-        <span class="code-word">- text[1]</span>: Should be the decimal part of
-        a number.
-        <br />
-        <span class="code-word">- text[2]</span>: Should be a unit of
+        <span class="code-word">- text[1]</span>: Should be a unit of
         measurement.
+        <br />
+        <span class="code-word">- text[2]</span>: Should be the decimal part of
+        a number.
         <br />
       </p>
       <br />
@@ -73,6 +80,10 @@
       <p>
         <span class="code-word">Layout 3</span> configuration:
         <br />
+        <br />
+        <span class="code-word">- color[0]</span>: The color of text0.
+        <br />
+        <span class="code-word">- color[1]</span>: The color of text1.
         <br />
         <span class="code-word">- text[0]</span>: Emphasized text, ideally for a
         value.
@@ -99,6 +110,11 @@
         <br />
         <br />
         <span class="code-word">- color[0]</span>: The color of image1.
+        <br />
+        <span class="code-word">- color[1]</span>: The color of text0, text1,
+        text2.
+        <br />
+        <span class="code-word">- color[2]</span>: The color of text3.
         <br />
         <span class="code-word">- image[0]</span>: Should be an icon.
         <br />
@@ -134,6 +150,10 @@
         <br />
         <span class="code-word">- color[0]</span>: The color of image1.
         <br />
+        <span class="code-word">- color[1]</span>: The color of text0.
+        <br />
+        <span class="code-word">- color[2]</span>: The color of text1.
+        <br />
         <span class="code-word">- image[0]</span>: Should be an icon.
         <br />
         <span class="code-word">- text[0]</span>: Emphasized text, ideally for a
@@ -162,12 +182,16 @@
         <br />
         <span class="code-word">- color[0]</span>: The color of image1.
         <br />
+        <span class="code-word">- color[1]</span>: The color of text0.
+        <br />
+        <span class="code-word">- color[2]</span>: The color of text1.
+        <br />
         <span class="code-word">- image[0]</span>: Should be an icon.
         <br />
-        <span class="code-word">- text[0]</span>: Emphasized text, ideally for a
-        value.
+        <span class="code-word">- text[0]</span>: Description.
         <br />
-        <span class="code-word">- text[1]</span>: Description.
+        <span class="code-word">- text[1]</span>: Emphasized text, ideally for a
+        value.
         <br />
       </p>
       <br />
@@ -189,6 +213,10 @@
         <br />
         <br />
         <span class="code-word">- color[0]</span>: The color of image1.
+        <br />
+        <span class="code-word">- color[1]</span>: The color of text0.
+        <br />
+        <span class="code-word">- color[2]</span>: The color of text1.
         <br />
         <span class="code-word">- image[0]</span>: Should be an icon.
         <br />
@@ -217,6 +245,10 @@
         <br />
         <br />
         <span class="code-word">- color[0]</span>: The color of image1.
+        <br />
+        <span class="code-word">- color[1]</span>: The color of text0.
+        <br />
+        <span class="code-word">- color[2]</span>: The color of text1.
         <br />
         <span class="code-word">- image[0]</span>: Should be an icon.
         <br />

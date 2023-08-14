@@ -1,13 +1,30 @@
-import { Component, Prop, Event, h, EventEmitter } from '@stencil/core';
-import { getCellValueForDisplay } from '../../utils/cell-utils';
+import {
+    Component,
+    Prop,
+    Event,
+    h,
+    EventEmitter,
+    Element,
+    VNode,
+    Host,
+    Method,
+    forceUpdate,
+} from '@stencil/core';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import {
-    KupDataDataset,
-    KupDataRow,
-} from '../../managers/kup-data/kup-data-declarations';
+    KupDashListColumn,
+    KupDashListData,
+    KupDashListClickEventPayload,
+    KupDashListProps,
+} from './kup-dash-list-declarations';
+import { KupCardData, KupCardFamily } from '../kup-card/kup-card-declarations';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import { componentWrapperId } from '../../variables/GenericVariables';
+import { getCellValueForDisplay } from '../../utils/cell-utils';
+import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-dash-list',
@@ -15,201 +32,324 @@ import {
     shadow: true,
 })
 export class KupDashList {
-    @Prop()
-    layout = '1';
+    /**
+     * References the root HTML element of the component (<kup-dash-list>).
+     */
+    @Element() rootElement: HTMLElement;
 
-    @Prop()
-    fontsize = '';
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
 
+    /**
+     * Sets the number of columns.
+     * @default 1
+     */
     @Prop()
-    active = false;
-
+    columnsNumber = 1;
+    /**
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = '';
+    /**
+     * Sets the number of columns.
+     * @default 1
+     */
     @Prop()
-    columnsNumber: number = 1;
-
+    data: KupDashListData = null;
+    /**
+     * Sets whether the component occupies all available width.
+     * @default true
+     */
     @Prop()
-    fullWidth: boolean = true;
-
+    fullWidth = true;
+    /**
+     * Sets whether the dash elements are placed horizontally or not.
+     * @default false
+     */
     @Prop()
-    horizontal: boolean = false;
-
+    horizontal = false;
+    /**
+     * Sets whether a single dash is clickable or not.
+     * @default false
+     */
     @Prop()
-    iconColor: Array<any> = [];
-
-    @Prop()
-    valueColor: Array<any> = [];
-
-    @Prop()
-    textColor: Array<any> = [];
-
-    @Prop()
-    data: KupDataDataset;
+    isClickable = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    /**
-     * Instance of the KupManager class.
-     */
-    private kupManager: KupManager = kupManagerInstance();
+    #kupManager: KupManager = kupManagerInstance();
+
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     @Event({
-        eventName: 'kup-dash-click',
+        eventName: 'kup-dashlist-click',
         composed: true,
         cancelable: true,
         bubbles: true,
     })
-    dashClick: EventEmitter<{
-        idx: number;
-    }>;
+    kupDashListClickEvent: EventEmitter<KupDashListClickEventPayload>;
+
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
+
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        return getProps(this, KupDashListProps, descriptions);
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupDashListProps, props);
+    }
+
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
+
+    componentWillLoad() {
+        this.#kupManager.debug.logLoad(this, false);
+        this.#kupManager.theme.register(this);
+    }
+
+    componentDidLoad() {
+        this.#kupManager.debug.logLoad(this, true);
+    }
+
+    componentDidRender() {
+        this.#kupManager.debug.logRender(this, true);
+    }
 
     render() {
-        let rows = [];
-        var count = 0;
+        if (!this.data || !this.data.columns || !this.data.columns.length) {
+            return;
+        }
+        const content: VNode[] = [];
 
-        this.data.rows.forEach((r: KupDataRow) => {
-            let icon = '';
-            let unit = '';
-            let descr = '';
-            let value = '';
-            let valueInt = '';
-            let valueDec = '';
-            let iconColor = {
-                color: this.iconColor[count]
-                    ? this.kupManager.theme.colorCheck(this.iconColor[count])
-                          .hexColor
-                    : null,
-            };
-            let textColor = {
-                color: this.textColor[count]
-                    ? this.kupManager.theme.colorCheck(this.textColor[count])
-                          .hexColor
-                    : null,
-            };
-            let valueColor = {
-                color: this.valueColor[count]
-                    ? this.kupManager.theme.colorCheck(this.valueColor[count])
-                          .hexColor
-                    : null,
-            };
+        let decvalueCol: KupDashListColumn,
+            descrCol: KupDashListColumn,
+            iconCol: KupDashListColumn,
+            iconcolorCol: KupDashListColumn,
+            intvalueCol: KupDashListColumn,
+            layoutCol: KupDashListColumn,
+            measureCol: KupDashListColumn,
+            textcolorCol: KupDashListColumn,
+            valueCol: KupDashListColumn,
+            valuecolorCol: KupDashListColumn;
 
-            if (this.data.columns[0]) {
-                icon = (
-                    <div slot="icon">
-                        <icon
-                            class={r.cells[this.data.columns[0].name].obj.k}
-                            style={iconColor}
-                        ></icon>
-                    </div>
-                );
-            } else {
-                icon = <div slot="icon"></div>;
-            }
-
-            if (this.data.columns[1]) {
-                unit = (
-                    <div slot="unit" style={valueColor}>
-                        {r.cells[this.data.columns[1].name].obj.k}{' '}
-                    </div>
-                );
-            } else {
-                unit = <div slot="unit"></div>;
-            }
-
-            if (this.data.columns[2]) {
-                descr = (
-                    <div slot="descr" style={textColor}>
-                        {r.cells[this.data.columns[2].name].obj.k}
-                    </div>
-                );
-            } else {
-                descr = <div slot="descr"></div>;
-            }
-
-            if (this.data.columns[3]) {
-                let col = this.data.columns[3];
-                col.obj = r.cells[this.data.columns[3].name].obj;
-
-                let newValue = getCellValueForDisplay(
-                    col,
-                    r.cells[this.data.columns[3].name]
-                );
-                value = (
-                    <div slot="value" style={valueColor}>
-                        {newValue}
-                    </div>
-                );
-            } else {
-                value = <div slot="value"></div>;
-            }
-
-            if (this.data.columns[5]) {
-                let col = this.data.columns[5];
-                col.obj = r.cells[this.data.columns[5].name].obj;
-
-                let newValue = getCellValueForDisplay(
-                    col,
-                    r.cells[this.data.columns[5].name]
-                );
-                if (
-                    this.data.columns[6] &&
-                    r.cells[this.data.columns[6].name].obj.k
-                ) {
-                    newValue =
-                        newValue + this.kupManager.math.decimalSeparator();
+        for (let index = 0; index < this.data.columns.length; index++) {
+            const column = this.data.columns[index];
+            if (column.dashListOption) {
+                switch (column.dashListOption) {
+                    case 'decvalue':
+                        decvalueCol = column;
+                        break;
+                    case 'descr':
+                        descrCol = column;
+                        break;
+                    case 'icon':
+                        iconCol = column;
+                        break;
+                    case 'iconcolor':
+                        iconcolorCol = column;
+                        break;
+                    case 'intvalue':
+                        intvalueCol = column;
+                        break;
+                    case 'layout':
+                        layoutCol = column;
+                        break;
+                    case 'measure':
+                        measureCol = column;
+                        break;
+                    case 'textcolor':
+                        textcolorCol = column;
+                        break;
+                    case 'value':
+                        valueCol = column;
+                        break;
+                    case 'valuecolor':
+                        valuecolorCol = column;
+                        break;
                 }
-                valueInt = (
-                    <div slot="value-int" style={valueColor}>
-                        {newValue}
-                    </div>
-                );
-            } else {
-                valueInt = <div slot="value-int"></div>;
             }
-            if (this.data.columns[6]) {
-                valueDec = (
-                    <div slot="value-dec" style={valueColor}>
-                        {r.cells[this.data.columns[6].name].obj.k}
-                    </div>
-                );
-            } else {
-                valueDec = <div slot="value-dec"></div>;
-            }
-            const row = (
-                <kup-dash
-                    layout={this.layout}
-                    fontsize={this.fontsize}
-                    index={count}
-                    active={this.active}
-                    slot={String(count)}
-                >
-                    {icon}
-                    {unit}
-                    {descr}
-                    {value}
-                    {valueInt}
-                    {valueDec}
-                </kup-dash>
+        }
+
+        for (let index = 0; index < this.data.rows.length; index++) {
+            const row = this.data.rows[index];
+            const data: KupCardData = {
+                color: [],
+                image: [],
+                text: [],
+            };
+            const layout =
+                layoutCol && row.cells[layoutCol.name].value
+                    ? parseInt(row.cells[layoutCol.name].value)
+                    : 1;
+            const card: VNode = (
+                <kup-card
+                    class={this.isClickable ? 'is-clickable' : ''}
+                    customStyle="#kup-component, .scalable-card { min-height: var(--kup_dashlist_cardsminheight) }"
+                    data={data}
+                    layoutFamily={KupCardFamily.SCALABLE}
+                    layoutNumber={layout}
+                    key={index}
+                    onKup-card-click={() => {
+                        if (this.isClickable) {
+                            this.kupDashListClickEvent.emit({
+                                comp: this,
+                                id: this.rootElement.id,
+                                index,
+                                row: row,
+                            });
+                        }
+                    }}
+                    slot={index.toString()}
+                ></kup-card>
             );
-            rows.push(row);
-            count++;
-        });
+            const loadData = (
+                col: KupDashListColumn,
+                prop: string,
+                index: number
+            ) => {
+                if (col) {
+                    const cell = row.cells[col.name];
+                    if (cell) {
+                        const value = cell.value;
+                        switch (prop) {
+                            case 'color':
+                                data[prop][index] =
+                                    this.#kupManager.theme.colorCheck(
+                                        value
+                                    ).hexColor;
+                                break;
+
+                            case 'image':
+                                data[prop][index] = { resource: value };
+                                break;
+
+                            default:
+                                data[prop][index] = getCellValueForDisplay(
+                                    col,
+                                    cell
+                                );
+                                break;
+                        }
+                    }
+                }
+            };
+            switch (layout) {
+                case 1:
+                    loadData(textcolorCol, 'color', 0);
+                    loadData(valuecolorCol, 'color', 1);
+                    loadData(descrCol, 'text', 0);
+                    loadData(valueCol, 'text', 1);
+                    break;
+                case 2:
+                    loadData(iconcolorCol, 'color', 0);
+                    loadData(valuecolorCol, 'color', 1);
+                    loadData(iconCol, 'image', 0);
+                    loadData(intvalueCol, 'text', 0);
+                    loadData(decvalueCol, 'text', 1);
+                    loadData(measureCol, 'text', 2);
+                    break;
+                case 3:
+                    loadData(valuecolorCol, 'color', 0);
+                    loadData(textcolorCol, 'color', 1);
+                    loadData(valueCol, 'text', 0);
+                    loadData(descrCol, 'text', 1);
+                    break;
+                case 4:
+                    loadData(iconcolorCol, 'color', 0);
+                    loadData(valuecolorCol, 'color', 1);
+                    loadData(textcolorCol, 'color', 2);
+                    loadData(iconCol, 'image', 0);
+                    loadData(intvalueCol, 'text', 0);
+                    loadData(decvalueCol, 'text', 1);
+                    loadData(measureCol, 'text', 2);
+                    loadData(descrCol, 'text', 3);
+                    break;
+                case 5:
+                    loadData(iconcolorCol, 'color', 0);
+                    loadData(textcolorCol, 'color', 1);
+                    loadData(valuecolorCol, 'color', 2);
+                    loadData(iconCol, 'image', 0);
+                    loadData(descrCol, 'text', 0);
+                    loadData(valueCol, 'text', 1);
+                    break;
+                case 6:
+                    loadData(iconcolorCol, 'color', 0);
+                    loadData(valuecolorCol, 'color', 1);
+                    loadData(textcolorCol, 'color', 2);
+                    loadData(iconCol, 'image', 0);
+                    loadData(valueCol, 'text', 0);
+                    loadData(descrCol, 'text', 1);
+                    break;
+                case 7:
+                    loadData(iconcolorCol, 'color', 0);
+                    loadData(valuecolorCol, 'color', 1);
+                    loadData(textcolorCol, 'color', 2);
+                    loadData(iconCol, 'image', 0);
+                    loadData(valueCol, 'text', 0);
+                    loadData(descrCol, 'text', 1);
+                    break;
+                case 8:
+                    loadData(iconcolorCol, 'color', 0);
+                    loadData(valuecolorCol, 'color', 1);
+                    loadData(textcolorCol, 'color', 2);
+                    loadData(iconCol, 'image', 0);
+                    loadData(valueCol, 'text', 0);
+                    loadData(descrCol, 'text', 1);
+                    break;
+            }
+            content.push(card);
+        }
+
         return (
-            <div>
-                <link
-                    href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
-                    rel="stylesheet"
-                    type="text/css"
-                />
-                <kup-grid
-                    columns={this.columnsNumber}
-                    singleLine={this.horizontal}
-                    class={`${this.fullWidth ? 'kup-full-width' : ''}`}
-                >
-                    {rows}
-                </kup-grid>
-            </div>
+            <Host>
+                <style>
+                    {this.#kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
+                <div id={componentWrapperId}>
+                    <kup-grid
+                        class={`${
+                            this.fullWidth ? 'kup-full-width' : ''
+                        } scalable-cards`}
+                        columns={this.columnsNumber}
+                        singleLine={this.horizontal}
+                    >
+                        {content}
+                    </kup-grid>
+                </div>
+            </Host>
         );
+    }
+
+    disconnectedCallback() {
+        this.#kupManager.theme.unregister(this);
     }
 }
