@@ -199,9 +199,6 @@ export function create4(component: KupCard): VNode {
         : [];
     //Dynamic CSS variables
     let CSSVariables = {
-        [`--color-0`]: colorArray[0]
-            ? colorArray[0]
-            : `var(${KupThemeColorValues.PRIMARY})`,
         ['--kup_card_multiplier']: '1',
     };
     return (
