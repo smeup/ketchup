@@ -211,6 +211,7 @@ export class KupDashList {
             const card: VNode = (
                 <kup-card
                     class={this.isClickable ? 'is-clickable' : ''}
+                    customStyle="#kup-component, .scalable-card { min-height: var(--kup_dashlist_cardsminheight) }"
                     data={data}
                     layoutFamily={KupCardFamily.SCALABLE}
                     layoutNumber={layout}
@@ -335,7 +336,9 @@ export class KupDashList {
                 </style>
                 <div id={componentWrapperId}>
                     <kup-grid
-                        class={`${this.fullWidth ? 'kup-full-width' : ''}`}
+                        class={`${
+                            this.fullWidth ? 'kup-full-width' : ''
+                        } scalable-cards`}
                         columns={this.columnsNumber}
                         singleLine={this.horizontal}
                     >
