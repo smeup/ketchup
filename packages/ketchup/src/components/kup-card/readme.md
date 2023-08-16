@@ -72,11 +72,12 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                             | Description                                         |
-| -------------------------------- | --------------------------------------------------- |
-| `--kup-card-backdrop`            | Backdrop of the component when is visible.          |
-| `--kup-card-ripple-color`        | Sets color of ripple effect (for Material layouts). |
-| `--kup-card-scalable-box-shadow` | Box shadow of the scalable layouts.                 |
+| Name                                     | Description                                         |
+| ---------------------------------------- | --------------------------------------------------- |
+| `--kup-card-backdrop`                    | Backdrop of the component when is visible.          |
+| `--kup-card-ripple-color`                | Sets color of ripple effect (for Material layouts). |
+| `--kup-card-scalable-box-shadow`         | Box shadow of the scalable layouts.                 |
+| `--kup-card-scalable-starting-font-size` | Starting font size for scalable cards.              |
 
 
 ## Dependencies
