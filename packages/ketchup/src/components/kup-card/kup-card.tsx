@@ -522,7 +522,6 @@ export class KupCard {
      * Viceversa, when the content exceeds the boundaries, the multiplier will be decreased.
      */
     scalable(): void {
-        debugger;
         this.scalingActive = true;
         const root: ShadowRoot = this.rootElement.shadowRoot;
         const el: HTMLElement = root.querySelector('.scalable-element');
