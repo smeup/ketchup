@@ -59,12 +59,12 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                            | Description                       |
-| ------------------------------- | --------------------------------- |
-| `--kup-dashlist-cardsmaxheight` | Sets the max height of the cards. |
-| `--kup-dashlist-cardsmaxwidth`  | Sets the max width of the cards.  |
-| `--kup-dashlist-cardsminheight` | Sets the min height of the cards. |
-| `--kup-dashlist-cardsminwidth`  | Sets the min width of the cards.  |
+| Name                              | Description                       |
+| --------------------------------- | --------------------------------- |
+| `--kup-dashlist-cards-max-height` | Sets the max height of the cards. |
+| `--kup-dashlist-cards-max-width`  | Sets the max width of the cards.  |
+| `--kup-dashlist-cards-min-height` | Sets the min height of the cards. |
+| `--kup-dashlist-cards-min-width`  | Sets the min width of the cards.  |
 
 
 ## Dependencies

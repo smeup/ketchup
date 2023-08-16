@@ -23,15 +23,8 @@ export function create1(component: KupCard): VNode {
     const textArray: string[] = component.data['text']
         ? component.data['text']
         : [];
-    //Dynamic CSS variables
-    let CSSVariables = {
-        ['--kup_card_multiplier']: '1',
-    };
     return (
-        <div
-            class={`scalable-layout-${component.layoutNumber} scalable-card`}
-            style={CSSVariables}
-        >
+        <div class={`scalable-layout-${component.layoutNumber} scalable-card`}>
             <div class="scalable-element">
                 <div class="descr">
                     <div
@@ -73,15 +66,8 @@ export function create2(component: KupCard): VNode {
     const textArray: string[] = component.data['text']
         ? component.data['text']
         : [];
-    //Dynamic CSS variables
-    let CSSVariables = {
-        ['--kup_card_multiplier']: '1',
-    };
     return (
-        <div
-            class={`scalable-layout-${component.layoutNumber} scalable-card`}
-            style={CSSVariables}
-        >
+        <div class={`scalable-layout-${component.layoutNumber} scalable-card`}>
             <div class="scalable-element">
                 <div class="icon">
                     {imageArray[0] ? (
@@ -151,15 +137,8 @@ export function create3(component: KupCard): VNode {
     const textArray: string[] = component.data['text']
         ? component.data['text']
         : [];
-    //Dynamic CSS variables
-    let CSSVariables = {
-        ['--kup_card_multiplier']: '1',
-    };
     return (
-        <div
-            class={`scalable-layout-${component.layoutNumber} scalable-card`}
-            style={CSSVariables}
-        >
+        <div class={`scalable-layout-${component.layoutNumber} scalable-card`}>
             <div class="scalable-element">
                 <div class="value">
                     <div
@@ -201,15 +180,8 @@ export function create4(component: KupCard): VNode {
     const textArray: string[] = component.data['text']
         ? component.data['text']
         : [];
-    //Dynamic CSS variables
-    let CSSVariables = {
-        ['--kup_card_multiplier']: '1',
-    };
     return (
-        <div
-            class={`scalable-layout-${component.layoutNumber} scalable-card`}
-            style={CSSVariables}
-        >
+        <div class={`scalable-layout-${component.layoutNumber} scalable-card`}>
             <div class="scalable-element">
                 <div class="icon">
                     {imageArray[0] ? (
@@ -298,15 +270,8 @@ export function create5(component: KupCard): VNode {
     const textArray: string[] = component.data['text']
         ? component.data['text']
         : [];
-    //Dynamic CSS variables
-    let CSSVariables = {
-        ['--kup_card_multiplier']: '1',
-    };
     return (
-        <div
-            class={`scalable-layout-${component.layoutNumber} scalable-card`}
-            style={CSSVariables}
-        >
+        <div class={`scalable-layout-${component.layoutNumber} scalable-card`}>
             <div class="scalable-element">
                 <div class="text-wrapper">
                     <div class="descr">
@@ -371,15 +336,8 @@ export function create6(component: KupCard): VNode {
     const textArray: string[] = component.data['text']
         ? component.data['text']
         : [];
-    //Dynamic CSS variables
-    let CSSVariables = {
-        ['--kup_card_multiplier']: '1',
-    };
     return (
-        <div
-            class={`scalable-layout-${component.layoutNumber} scalable-card`}
-            style={CSSVariables}
-        >
+        <div class={`scalable-layout-${component.layoutNumber} scalable-card`}>
             <div class="scalable-element">
                 <div class="icon">
                     {imageArray[0] ? (
@@ -444,15 +402,8 @@ export function create7(component: KupCard): VNode {
     const textArray: string[] = component.data['text']
         ? component.data['text']
         : [];
-    //Dynamic CSS variables
-    let CSSVariables = {
-        ['--kup_card_multiplier']: '1',
-    };
     return (
-        <div
-            class={`scalable-layout-${component.layoutNumber} scalable-card`}
-            style={CSSVariables}
-        >
+        <div class={`scalable-layout-${component.layoutNumber} scalable-card`}>
             <div class="scalable-element">
                 <div class="text-wrapper">
                     <div class="value">
@@ -517,15 +468,8 @@ export function create8(component: KupCard): VNode {
     const textArray: string[] = component.data['text']
         ? component.data['text']
         : [];
-    //Dynamic CSS variables
-    let CSSVariables = {
-        ['--kup_card_multiplier']: '1',
-    };
     return (
-        <div
-            class={`scalable-layout-${component.layoutNumber} scalable-card`}
-            style={CSSVariables}
-        >
+        <div class={`scalable-layout-${component.layoutNumber} scalable-card`}>
             <div class="scalable-element">
                 <div class="icon">
                     {imageArray[0] ? (
@@ -613,10 +557,6 @@ export function create9(component: KupCard): VNode {
         ['--color-1']: componentBg,
         ['--color-2']: textFg,
     };
-    const CSSVariablesChild: GenericObject = {
-        ['--kup_card_multiplier']: '1',
-        ['box-shadow']: 'none',
-    };
     return (
         <div
             class={`scalable-layout-${component.layoutNumber}`}
@@ -624,7 +564,7 @@ export function create9(component: KupCard): VNode {
         >
             <div class="section-1"></div>
             <div class="section-2">
-                <div class="scalable-card" style={CSSVariablesChild}>
+                <div class="scalable-card">
                     <div class="text scalable-element">
                         <div class="value">{mainText}</div>
                         <div class="descr">{subText}</div>

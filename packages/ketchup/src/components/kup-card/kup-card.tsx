@@ -517,15 +517,16 @@ export class KupCard {
     /**
      * This method is invoked by the layout manager when the layout family is scalable.
      * The content of the card (.scalable-element) will be resized to fit the wrapper (.scalable-card).
-     * The scaling is performed by using a CSS variable (--kup_card_multiplier) which will impact the card's font-size.
+     * The scaling is performed by using a CSS variable (--kup_card_scalable_multiplier) which will impact the card's font-size.
      * When there is empty space, the multiplier will be increased, as will the content.
      * Viceversa, when the content exceeds the boundaries, the multiplier will be decreased.
      */
     scalable(): void {
+        debugger;
         this.scalingActive = true;
         const root: ShadowRoot = this.rootElement.shadowRoot;
         const el: HTMLElement = root.querySelector('.scalable-element');
-        const card: HTMLElement = root.querySelector('.scalable-card');
+        const card: HTMLElement = this.rootElement;
         const multiplierStep: number = 0.1;
         /**
          * cardHeight sets the maximum height of the content, when exceeded the multiplier will be reduced (90%).
@@ -537,9 +538,13 @@ export class KupCard {
         const cardWidthLow: number = (85 / 100) * card.clientWidth;
         const cardWidthHigh: number = (95 / 100) * card.clientWidth;
         let tooManyAttempts: number = 2000;
-        let multiplier: number = parseFloat(
-            card.style.getPropertyValue('--kup_card_multiplier')
-        );
+        let multiplier: number = card.style.getPropertyValue(
+            '--kup_card_scalable_multiplier'
+        )
+            ? parseFloat(
+                  card.style.getPropertyValue('--kup_card_scalable_multiplier')
+              )
+            : 1;
         if (multiplier < 0.1) {
             multiplier = 1;
         }
@@ -555,13 +560,13 @@ export class KupCard {
             if (el.clientWidth < cardWidthLow) {
                 multiplier = multiplier + multiplierStep;
                 card.style.setProperty(
-                    '--kup_card_multiplier',
+                    '--kup_card_scalable_multiplier',
                     multiplier + ''
                 );
             } else if (el.clientWidth > cardWidthHigh) {
                 multiplier = multiplier - multiplierStep;
                 card.style.setProperty(
-                    '--kup_card_multiplier',
+                    '--kup_card_scalable_multiplier',
                     multiplier + ''
                 );
             } else {
@@ -571,9 +576,15 @@ export class KupCard {
         /**
          * Cycle to adjust the height, in case it exceeds its boundaries after having adjusted width.
          */
-        while (el.clientHeight > cardHeight && multiplier > multiplierStep) {
+        while (
+            el.clientHeight * multiplier > cardHeight &&
+            multiplier > multiplierStep
+        ) {
             multiplier = multiplier - multiplierStep;
-            card.style.setProperty('--kup_card_multiplier', multiplier + '');
+            card.style.setProperty(
+                '--kup_card_scalable_multiplier',
+                multiplier + ''
+            );
         }
         this.scalingActive = false;
     }
