@@ -526,31 +526,18 @@ export class KupCard {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         const el: HTMLElement = root.querySelector('.scalable-element');
         const card: HTMLElement = this.rootElement;
-        const multiplierStep: number = 0.1;
         /**
          * cardHeight sets the maximum height of the content, when exceeded the multiplier will be reduced (90%).
          */
-        const cardHeight: number = (90 / 100) * card.clientHeight;
+        const cardHeight = (90 / 100) * card.clientHeight;
         /**
          * cardWidthLow and cardWidthHigh will set the boundaries in which the component must fit (85% - 95%).
          */
-        const cardWidthLow: number = (85 / 100) * card.clientWidth;
-        const cardWidthHigh: number = (95 / 100) * card.clientWidth;
-        let tooManyAttempts: number = 50;
-        let multiplier: number = card.style.getPropertyValue(
-            '--kup_card_scalable_multiplier'
-        )
-            ? parseFloat(
-                  parseFloat(
-                      card.style.getPropertyValue(
-                          '--kup_card_scalable_multiplier'
-                      )
-                  ).toFixed(1)
-              )
-            : 1;
-        if (multiplier < multiplierStep) {
-            multiplier = 1;
-        }
+        const cardWidthLow = (85 / 100) * card.clientWidth;
+        const cardWidthHigh = (95 / 100) * card.clientWidth;
+        const multiplierStep = 0.1;
+        let tooManyAttempts = 75;
+        let multiplier = 1;
         let redrawCount = 0;
         const redraw = async () => {
             card.style.setProperty(
@@ -566,9 +553,12 @@ export class KupCard {
         const roundMultiplier = (m: number) => {
             return parseFloat(m.toFixed(1));
         };
+        card.style.setProperty('opacity', '0');
+        card.style.setProperty('transition', 'opacity 125ms ease-in');
         /**
          * Cycle to adjust the width.
          */
+        await redraw();
         while (
             (el.clientWidth < cardWidthLow || el.clientWidth > cardWidthHigh) &&
             tooManyAttempts > 0 &&
@@ -588,6 +578,7 @@ export class KupCard {
                 tooManyAttempts = 0;
             }
         }
+        card.style.setProperty('opacity', '1');
         this.scalingActive = false;
     }
 
