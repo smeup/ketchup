@@ -553,8 +553,8 @@ export class KupCard {
         const roundMultiplier = (m: number) => {
             return parseFloat(m.toFixed(1));
         };
-        card.style.setProperty('opacity', '0');
-        card.style.setProperty('transition', 'opacity 125ms ease-in');
+        card.style.opacity = '0';
+        card.style.transition = 'opacity 125ms ease-in';
         /**
          * Cycle to adjust the width.
          */
@@ -578,7 +578,7 @@ export class KupCard {
                 tooManyAttempts = 0;
             }
         }
-        card.style.setProperty('opacity', '1');
+        card.style.opacity = '1';
         this.scalingActive = false;
     }
 
