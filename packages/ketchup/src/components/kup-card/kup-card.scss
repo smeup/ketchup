@@ -19,9 +19,16 @@
     --kup-card-ripple-color,
     var(--kup-primary-color)
   );
-  --kup_card_scalable_box_shadow: var(--kup-card-scalable-box-shadow, 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
-  0 1px 3px 0 rgba(0, 0, 0, 0.12));
-  --kup_card_scalable_starting_font_size: var(--kup-card-scalable-starting-font-size, 3em);
+  --kup_card_scalable_box_shadow: var(
+    --kup-card-scalable-box-shadow,
+    0 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12)
+  );
+  --kup_card_scalable_starting_font_size: var(
+    --kup-card-scalable-starting-font-size,
+    3em
+  );
 
   display: block;
   font-size: var(--kup-font-size);
