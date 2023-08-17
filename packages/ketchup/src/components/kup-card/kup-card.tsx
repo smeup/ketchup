@@ -530,7 +530,6 @@ export class KupCard {
         /**
          * cardHeight sets the maximum height of the content, when exceeded the multiplier will be reduced (90%).
          */
-        console.log('Fucker');
         const cardHeight: number = (90 / 100) * card.clientHeight;
         /**
          * cardWidthLow and cardWidthHigh will set the boundaries in which the component must fit (85% - 95%).
