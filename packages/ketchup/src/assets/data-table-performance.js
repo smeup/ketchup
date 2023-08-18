@@ -46,6 +46,7 @@ function refreshTables() {
         for (let index = 0; index < nTables; index++) {
             const table = document.createElement('kup-data-table');
             table.data = { ...data };
+            table.editableData = true;
             //table.lazyLoadRows = true;
             //table.rowsPerPage = 10;
             table.rowsPerPage = 100000;
@@ -61,6 +62,7 @@ function createCells(i) {
         const column = data.columns[index];
         cells[column.name] = {
             value: 'Row ' + i + '; Col ' + column.name,
+            isEditable: true,
         };
     }
     return cells;

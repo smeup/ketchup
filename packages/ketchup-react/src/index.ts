@@ -22,7 +22,6 @@ export const KupCheckbox = /*@__PURE__*/createReactComponent<JSX.KupCheckbox, HT
 export const KupChip = /*@__PURE__*/createReactComponent<JSX.KupChip, HTMLKupChipElement>('kup-chip');
 export const KupColorPicker = /*@__PURE__*/createReactComponent<JSX.KupColorPicker, HTMLKupColorPickerElement>('kup-color-picker');
 export const KupCombobox = /*@__PURE__*/createReactComponent<JSX.KupCombobox, HTMLKupComboboxElement>('kup-combobox');
-export const KupDash = /*@__PURE__*/createReactComponent<JSX.KupDash, HTMLKupDashElement>('kup-dash');
 export const KupDashList = /*@__PURE__*/createReactComponent<JSX.KupDashList, HTMLKupDashListElement>('kup-dash-list');
 export const KupDashboard = /*@__PURE__*/createReactComponent<JSX.KupDashboard, HTMLKupDashboardElement>('kup-dashboard');
 export const KupDataTable = /*@__PURE__*/createReactComponent<JSX.KupDataTable, HTMLKupDataTableElement>('kup-data-table');

@@ -104,10 +104,6 @@ export default {
               id: 'kup-combobox',
             },
             {
-              value: 'kup-dash',
-              id: 'kup-dash',
-            },
-            {
               value: 'kup-dash-list',
               id: 'kup-dash-list',
             },

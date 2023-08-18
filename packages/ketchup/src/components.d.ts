@@ -1031,24 +1031,6 @@ export namespace Components {
          */
         "showDropDownIcon": boolean;
     }
-    interface KupDash {
-        /**
-          * The component can be clicked.
-         */
-        "active": boolean;
-        /**
-          * Sets the font size of the component.
-         */
-        "fontsize": string;
-        /**
-          * No idea what this is about.
-         */
-        "index": number;
-        /**
-          * Sets the layout of the component.
-         */
-        "layout": string;
-    }
     interface KupDashList {
         /**
           * Sets the number of columns.
@@ -3560,10 +3542,6 @@ export interface KupComboboxCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupComboboxElement;
 }
-export interface KupDashCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLKupDashElement;
-}
 export interface KupDashListCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupDashListElement;
@@ -3760,12 +3738,6 @@ declare global {
     var HTMLKupComboboxElement: {
         prototype: HTMLKupComboboxElement;
         new (): HTMLKupComboboxElement;
-    };
-    interface HTMLKupDashElement extends Components.KupDash, HTMLStencilElement {
-    }
-    var HTMLKupDashElement: {
-        prototype: HTMLKupDashElement;
-        new (): HTMLKupDashElement;
     };
     interface HTMLKupDashListElement extends Components.KupDashList, HTMLStencilElement {
     }
@@ -3986,7 +3958,6 @@ declare global {
         "kup-chip": HTMLKupChipElement;
         "kup-color-picker": HTMLKupColorPickerElement;
         "kup-combobox": HTMLKupComboboxElement;
-        "kup-dash": HTMLKupDashElement;
         "kup-dash-list": HTMLKupDashListElement;
         "kup-dashboard": HTMLKupDashboardElement;
         "kup-data-table": HTMLKupDataTableElement;
@@ -4794,27 +4765,6 @@ declare namespace LocalJSX {
           * When true shows the drop-down icon, for open list.
          */
         "showDropDownIcon"?: boolean;
-    }
-    interface KupDash {
-        /**
-          * The component can be clicked.
-         */
-        "active"?: boolean;
-        /**
-          * Sets the font size of the component.
-         */
-        "fontsize"?: string;
-        /**
-          * No idea what this is about.
-         */
-        "index"?: number;
-        /**
-          * Sets the layout of the component.
-         */
-        "layout"?: string;
-        "onKup-dash-click"?: (event: KupDashCustomEvent<{
-        id: number;
-    }>) => void;
     }
     interface KupDashList {
         /**
@@ -6832,7 +6782,6 @@ declare namespace LocalJSX {
         "kup-chip": KupChip;
         "kup-color-picker": KupColorPicker;
         "kup-combobox": KupCombobox;
-        "kup-dash": KupDash;
         "kup-dash-list": KupDashList;
         "kup-dashboard": KupDashboard;
         "kup-data-table": KupDataTable;
@@ -6887,7 +6836,6 @@ declare module "@stencil/core" {
             "kup-chip": LocalJSX.KupChip & JSXBase.HTMLAttributes<HTMLKupChipElement>;
             "kup-color-picker": LocalJSX.KupColorPicker & JSXBase.HTMLAttributes<HTMLKupColorPickerElement>;
             "kup-combobox": LocalJSX.KupCombobox & JSXBase.HTMLAttributes<HTMLKupComboboxElement>;
-            "kup-dash": LocalJSX.KupDash & JSXBase.HTMLAttributes<HTMLKupDashElement>;
             "kup-dash-list": LocalJSX.KupDashList & JSXBase.HTMLAttributes<HTMLKupDashListElement>;
             "kup-dashboard": LocalJSX.KupDashboard & JSXBase.HTMLAttributes<HTMLKupDashboardElement>;
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;

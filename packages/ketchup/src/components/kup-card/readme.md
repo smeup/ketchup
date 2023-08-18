@@ -98,7 +98,6 @@ Type: `Promise<void>`
  - [kup-chip](../kup-chip)
  - [kup-color-picker](../kup-color-picker)
  - [kup-combobox](../kup-combobox)
- - [kup-dash](../kup-dash)
  - [kup-dash-list](../kup-dash-list)
  - [kup-dashboard](../kup-dashboard)
  - [kup-data-table](../kup-data-table)
@@ -196,7 +195,6 @@ graph TD;
   kup-box --> kup-card
   kup-calendar --> kup-card
   kup-cell --> kup-card
-  kup-dash --> kup-card
   kup-dash-list --> kup-card
   kup-dashboard --> kup-card
   kup-drawer --> kup-card
