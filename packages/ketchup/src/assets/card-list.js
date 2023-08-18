@@ -1,84 +1,124 @@
-const colors = ['rgb(0, 255, 0)', 'rgb(255, 0, 255)', 'rgb(0, 0, 255)'];
-
 const data = {
     columns: [
         {
             name: 'ICO',
             title: 'Icona',
+            cardListOption: 'icon',
         },
         {
             name: 'UM',
             title: 'Um',
+            cardListOption: 'measure',
         },
         {
             name: 'TEXT',
             title: 'Testo',
+            cardListOption: 'descr',
         },
         {
             name: 'VALUE',
             title: 'Valore',
-        },
-        {
-            name: 'GROUP',
-            title: 'Gruppo',
+            cardListOption: 'value',
         },
         {
             name: 'INTVAL',
             title: 'Valore parte intera',
+            cardListOption: 'intvalue',
         },
         {
             name: 'DECVAL',
             title: 'Valore parte decimale',
+            cardListOption: 'decvalue',
+        },
+        {
+            name: 'TEXTCOLOR',
+            title: 'Colore del testo',
+            cardListOption: 'textcolor',
+        },
+        {
+            name: 'VALUECOLOR',
+            title: 'Colore del valore',
+            cardListOption: 'valuecolor',
+        },
+        {
+            name: 'ICOCOLOR',
+            title: "Colore dell'icona",
+            cardListOption: 'iconcolor',
+        },
+        {
+            name: 'LAYOUT',
+            title: 'Layout della riga',
+            cardListOption: 'layout',
         },
     ],
     rows: [
         {
             cells: {
-                GROUP: {
+                TEXTCOLOR: {
                     obj: {
-                        k: 'DELGIO',
+                        k: '',
                     },
-                    value: 'DELGIO',
+                    value: '',
                 },
                 ICO: {
                     obj: {
-                        k: 'mdi mdi-star-circle',
+                        k: '',
                     },
-                    value: 'mdi mdi-star-circle',
+                    value: '',
+                },
+                ICOCOLOR: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
                 },
                 INTVAL: {
                     obj: {
-                        k: '2520,',
+                        k: '34',
                         p: '',
                         t: 'NR',
                     },
-                    value: '2,520',
+                    value: '34',
+                },
+                LAYOUT: {
+                    obj: {
+                        k: '1',
+                    },
+                    value: '1',
                 },
                 UM: {
                     obj: {
-                        k: '€',
+                        k: '',
                     },
-                    value: '€',
+                    value: '',
+                },
+                VALUECOLOR: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
                 },
                 TEXT: {
                     obj: {
-                        k: 'CESTANA GIULIETTO',
+                        k: 'Admissions Count',
                     },
-                    value: 'CESTANA GIULIETTO',
+                    value: 'Admissions Count',
+                    displayedValue: 'Admissions Count',
                 },
                 DECVAL: {
                     obj: {
-                        k: '0',
+                        k: '678',
                     },
-                    value: '0',
+                    value: '678',
                 },
                 VALUE: {
                     obj: {
-                        k: '2520,0',
+                        k: '34,678',
                         p: '',
                         t: 'NR',
                     },
-                    value: '2,520',
+                    value: '34.678',
+                    displayedValue: '34,678',
                 },
             },
             object: '',
@@ -86,51 +126,72 @@ const data = {
         },
         {
             cells: {
-                GROUP: {
+                TEXTCOLOR: {
                     obj: {
-                        k: 'GIAGIU',
+                        k: '',
                     },
-                    value: 'GIAGIU',
+                    value: '',
                 },
                 ICO: {
                     obj: {
-                        k: 'mdi mdi-star-circle',
+                        k: 'trending-up',
                     },
-                    value: 'mdi mdi-star-circle',
+                    value: 'trending-up',
+                },
+                ICOCOLOR: {
+                    obj: {
+                        k: 'rgb(0, 187, 45)',
+                    },
+                    value: 'rgb(0, 187, 45)',
                 },
                 INTVAL: {
                     obj: {
-                        k: '-2600,',
+                        k: '15',
                         p: '',
                         t: 'NR',
                     },
-                    value: '-2,600',
+                    value: '15',
+                    displayedValue: '15',
+                },
+                LAYOUT: {
+                    obj: {
+                        k: '2',
+                    },
+                    value: '2',
                 },
                 UM: {
                     obj: {
                         k: '%',
                     },
                     value: '%',
+                    displayedValue: '%',
+                },
+                VALUECOLOR: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
                 },
                 TEXT: {
                     obj: {
-                        k: 'Company Rossi Spa Napoli',
+                        k: '',
                     },
-                    value: 'Company Rossi Spa Napoli',
+                    value: '',
                 },
                 DECVAL: {
                     obj: {
-                        k: '0',
+                        k: '86',
                     },
-                    value: '0',
+                    value: '86',
+                    displayedValue: '86',
                 },
                 VALUE: {
                     obj: {
-                        k: '-2600,0',
+                        k: '15,86',
                         p: '',
                         t: 'NR',
                     },
-                    value: '-2,600',
+                    value: '15.86',
                 },
             },
             object: '',
@@ -138,51 +199,71 @@ const data = {
         },
         {
             cells: {
-                GROUP: {
+                TEXTCOLOR: {
                     obj: {
-                        k: 'MOSPAO',
+                        k: '',
                     },
-                    value: 'MOSPAO',
+                    value: '',
                 },
                 ICO: {
                     obj: {
-                        k: 'mdi mdi-star-circle',
+                        k: '',
                     },
-                    value: 'mdi mdi-star-circle',
+                    value: '',
+                },
+                ICOCOLOR: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
                 },
                 INTVAL: {
                     obj: {
-                        k: '-100,',
+                        k: '34',
                         p: '',
                         t: 'NR',
                     },
-                    value: '-100',
+                    value: '34',
+                },
+                LAYOUT: {
+                    obj: {
+                        k: '3',
+                    },
+                    value: '3',
                 },
                 UM: {
                     obj: {
-                        k: '£',
+                        k: '',
                     },
-                    value: '£',
+                    value: '',
+                },
+                VALUECOLOR: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
                 },
                 TEXT: {
                     obj: {
-                        k: 'MOSPAO',
+                        k: 'Admissions Count',
                     },
-                    value: 'MOSPAO',
+                    value: 'Admissions Count',
+                    displayedValue: 'Admissions Count',
                 },
                 DECVAL: {
                     obj: {
-                        k: '0',
+                        k: '678',
                     },
-                    value: '0',
+                    value: '678',
                 },
                 VALUE: {
                     obj: {
-                        k: '-100,0',
+                        k: '34,678',
                         p: '',
                         t: 'NR',
                     },
-                    value: '-100',
+                    value: '34.678',
+                    displayedValue: '34,678',
                 },
             },
             object: '',
@@ -190,51 +271,71 @@ const data = {
         },
         {
             cells: {
-                GROUP: {
+                TEXTCOLOR: {
                     obj: {
-                        k: 'PARFRA',
+                        k: '',
                     },
-                    value: 'PARFRA',
+                    value: '',
                 },
                 ICO: {
                     obj: {
-                        k: 'mdi mdi-star-circle',
+                        k: 'account',
                     },
-                    value: 'mdi mdi-star-circle',
+                    value: 'account',
+                },
+                ICOCOLOR: {
+                    obj: {
+                        k: 'rgb(220, 248, 100)',
+                    },
+                    value: 'rgb(220, 248, 100)',
                 },
                 INTVAL: {
                     obj: {
-                        k: '4000,',
+                        k: '12',
                         p: '',
                         t: 'NR',
                     },
-                    value: '4,000',
+                    value: '12',
+                },
+                LAYOUT: {
+                    obj: {
+                        k: '4',
+                    },
+                    value: '4',
                 },
                 UM: {
                     obj: {
-                        k: '£',
+                        k: '',
                     },
-                    value: '£',
+                    value: '',
+                },
+                VALUECOLOR: {
+                    obj: {
+                        k: 'rgb(220, 240, 100)',
+                    },
+                    value: 'rgb(220, 240, 100)',
                 },
                 TEXT: {
                     obj: {
-                        k: 'Company Bianchi Sas Palermo',
+                        k: 'Admissions Count',
                     },
-                    value: 'Company Bianchi Sas Palermo',
+                    value: 'Admissions Count',
+                    displayedValue: 'Admissions Count',
                 },
                 DECVAL: {
                     obj: {
-                        k: '0',
+                        k: '',
                     },
-                    value: '0',
+                    value: '',
                 },
                 VALUE: {
                     obj: {
-                        k: '4000,0',
+                        k: '12',
                         p: '',
                         t: 'NR',
                     },
-                    value: '4,000',
+                    value: '12',
+                    displayedValue: '12',
                 },
             },
             object: '',
@@ -242,63 +343,367 @@ const data = {
         },
         {
             cells: {
-                GROUP: {
+                TEXTCOLOR: {
                     obj: {
-                        k: 'VERFRA',
+                        k: '',
                     },
-                    value: 'VERFRA',
+                    value: '',
                 },
                 ICO: {
                     obj: {
-                        k: 'mdi mdi-star-circle',
+                        k: 'chart-bar',
                     },
-                    value: 'mdi mdi-star-circle',
+                    value: 'chart-bar',
+                },
+                ICOCOLOR: {
+                    obj: {
+                        k: 'rgb(252, 40, 200)',
+                    },
+                    value: 'rgb(252, 40, 200)',
                 },
                 INTVAL: {
                     obj: {
-                        k: '-228,',
+                        k: '34',
                         p: '',
                         t: 'NR',
                     },
-                    value: '-228',
+                    value: '34',
+                },
+                LAYOUT: {
+                    obj: {
+                        k: '5',
+                    },
+                    value: '5',
                 },
                 UM: {
                     obj: {
-                        k: '$',
+                        k: '',
                     },
-                    value: '$',
+                    value: '',
+                },
+                VALUECOLOR: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
                 },
                 TEXT: {
                     obj: {
-                        k: 'BRETTI PAOLO',
+                        k: 'Admissions Count',
                     },
-                    value: 'BRETTI PAOLO',
+                    value: 'Admissions Count',
+                    displayedValue: 'Admissions Count',
                 },
                 DECVAL: {
                     obj: {
-                        k: '1',
+                        k: '678',
                     },
-                    value: '1',
+                    value: '678',
                 },
                 VALUE: {
                     obj: {
-                        k: '-228,1',
+                        k: '34,678',
                         p: '',
                         t: 'NR',
                     },
-                    value: '-228.1',
+                    value: '34.678',
+                    displayedValue: '34,678',
+                },
+            },
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                TEXTCOLOR: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
+                },
+                ICO: {
+                    obj: {
+                        k: 'chart-bar',
+                    },
+                    value: 'chart-bar',
+                },
+                ICOCOLOR: {
+                    obj: {
+                        k: 'rgb(252, 40, 200)',
+                    },
+                    value: 'rgb(252, 40, 200)',
+                },
+                INTVAL: {
+                    obj: {
+                        k: '34',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '34',
+                },
+                LAYOUT: {
+                    obj: {
+                        k: '6',
+                    },
+                    value: '6',
+                },
+                UM: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
+                },
+                VALUECOLOR: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
+                },
+                TEXT: {
+                    obj: {
+                        k: 'Admissions Count',
+                    },
+                    value: 'Admissions Count',
+                    displayedValue: 'Admissions Count',
+                },
+                DECVAL: {
+                    obj: {
+                        k: '678',
+                    },
+                    value: '678',
+                },
+                VALUE: {
+                    obj: {
+                        k: '34,678',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '34.678',
+                    displayedValue: '34,678',
+                },
+            },
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                TEXTCOLOR: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
+                },
+                ICO: {
+                    obj: {
+                        k: 'star-circle',
+                    },
+                    value: 'star-circle',
+                },
+                ICOCOLOR: {
+                    obj: {
+                        k: 'rgb(0, 255, 0)',
+                    },
+                    value: 'rgb(0, 255, 0)',
+                },
+                INTVAL: {
+                    obj: {
+                        k: '35',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '35',
+                },
+                LAYOUT: {
+                    obj: {
+                        k: '7',
+                    },
+                    value: '7',
+                },
+                UM: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
+                },
+                VALUECOLOR: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
+                },
+                TEXT: {
+                    obj: {
+                        k: 'TASKS DONE',
+                    },
+                    value: 'TASKS DONE',
+                    displayedValue: 'TASKS DONE',
+                },
+                DECVAL: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
+                },
+                VALUE: {
+                    obj: {
+                        k: '35',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '35',
+                    displayedValue: '35',
+                },
+            },
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                TEXTCOLOR: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
+                },
+                ICO: {
+                    obj: {
+                        k: 'chart-bar',
+                    },
+                    value: 'chart-bar',
+                },
+                ICOCOLOR: {
+                    obj: {
+                        k: 'rgb(252, 40, 200)',
+                    },
+                    value: 'rgb(252, 40, 200)',
+                },
+                INTVAL: {
+                    obj: {
+                        k: '34',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '34',
+                },
+                LAYOUT: {
+                    obj: {
+                        k: '8',
+                    },
+                    value: '8',
+                },
+                UM: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
+                },
+                VALUECOLOR: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
+                },
+                TEXT: {
+                    obj: {
+                        k: 'Admissions Count',
+                    },
+                    value: 'Admissions Count',
+                    displayedValue: 'Admissions Count',
+                },
+                DECVAL: {
+                    obj: {
+                        k: '678',
+                    },
+                    value: '678',
+                },
+                VALUE: {
+                    obj: {
+                        k: '34,678',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '34.678',
+                    displayedValue: '34,678',
+                },
+            },
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                TEXTCOLOR: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
+                },
+                ICO: {
+                    obj: {
+                        k: 'star-circle',
+                    },
+                    value: 'star-circle',
+                },
+                ICOCOLOR: {
+                    obj: {
+                        k: 'rgb(0, 255, 0)',
+                    },
+                    value: 'rgb(0, 255, 0)',
+                },
+                INTVAL: {
+                    obj: {
+                        k: '35',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '35',
+                },
+                LAYOUT: {
+                    obj: {
+                        k: '8',
+                    },
+                    value: '8',
+                },
+                UM: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
+                },
+                VALUECOLOR: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
+                },
+                TEXT: {
+                    obj: {
+                        k: 'TASKS DONE',
+                    },
+                    value: 'TASKS DONE',
+                    displayedValue: 'TASKS DONE',
+                },
+                DECVAL: {
+                    obj: {
+                        k: '',
+                    },
+                    value: '',
+                },
+                VALUE: {
+                    obj: {
+                        k: '35',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '35',
+                    displayedValue: '35',
                 },
             },
             object: '',
             readOnly: true,
         },
     ],
-    layout: 2,
 };
 
-document.querySelectorAll('kup-card-list').forEach((comp) => {
-    comp.valueColor = colors;
-    comp.textColor = colors;
-    comp.iconColor = colors;
-    comp.data = data;
-});
+const list = document.createElement('kup-card-list');
+list.data = data;
+document.body.appendChild(list);

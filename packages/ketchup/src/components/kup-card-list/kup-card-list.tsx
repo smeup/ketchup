@@ -161,8 +161,8 @@ export class KupCardList {
 
         for (let index = 0; index < this.data.columns.length; index++) {
             const column = this.data.columns[index];
-            if (column.CardListOption) {
-                switch (column.CardListOption) {
+            if (column.cardListOption) {
+                switch (column.cardListOption) {
                     case 'decvalue':
                         decvalueCol = column;
                         break;

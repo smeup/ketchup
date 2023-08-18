@@ -34,7 +34,7 @@ export type KupCardListOptions =
  * Card list column.
  */
 export interface KupCardListColumn extends KupDataColumn {
-    CardListOption?: KupCardListOptions;
+    cardListOption?: KupCardListOptions;
 }
 /**
  * Dataset of the card list.

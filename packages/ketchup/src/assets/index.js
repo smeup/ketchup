@@ -47,6 +47,10 @@ components.data = [
         id: 'card.html',
     },
     {
+        value: 'Card list',
+        id: 'card-list.html',
+    },
+    {
         value: 'Cell',
         id: 'cell.html',
     },
@@ -69,10 +73,6 @@ components.data = [
     {
         value: 'Combobox',
         id: 'combobox.html',
-    },
-    {
-        value: 'Card list',
-        id: 'card-list.html',
     },
     {
         value: 'Dashboard',
