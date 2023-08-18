@@ -71,8 +71,8 @@ components.data = [
         id: 'combobox.html',
     },
     {
-        value: 'Dash list',
-        id: 'dash-list.html',
+        value: 'Card list',
+        id: 'card-list.html',
     },
     {
         value: 'Dashboard',

@@ -92,13 +92,13 @@ Type: `Promise<void>`
  - [kup-button-list](../kup-button-list)
  - [kup-calendar](../kup-calendar)
  - [kup-card](.)
+ - [kup-card-list](../kup-card-list)
  - [kup-cell](../kup-cell)
  - [kup-chart](../kup-chart)
  - [kup-checkbox](../kup-checkbox)
  - [kup-chip](../kup-chip)
  - [kup-color-picker](../kup-color-picker)
  - [kup-combobox](../kup-combobox)
- - [kup-dash-list](../kup-dash-list)
  - [kup-dashboard](../kup-dashboard)
  - [kup-data-table](../kup-data-table)
  - [kup-date-picker](../kup-date-picker)
@@ -194,8 +194,8 @@ graph TD;
   kup-accordion --> kup-card
   kup-box --> kup-card
   kup-calendar --> kup-card
+  kup-card-list --> kup-card
   kup-cell --> kup-card
-  kup-dash-list --> kup-card
   kup-dashboard --> kup-card
   kup-drawer --> kup-card
   kup-echart --> kup-card

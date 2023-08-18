@@ -1,6 +1,4 @@
-# kup-dash-list
-
-
+# kup-card-list
 
 <!-- Auto Generated Below -->
 
@@ -11,7 +9,7 @@
 | --------------- | ---------------- | -------------------------------------------------------------- | ----------------- | ------- |
 | `columnsNumber` | `columns-number` | Sets the number of columns.                                    | `number`          | `1`     |
 | `customStyle`   | `custom-style`   | Custom style of the component.                                 | `string`          | `''`    |
-| `data`          | --               | Sets the number of columns.                                    | `KupDashListData` | `null`  |
+| `data`          | --               | Sets the number of columns.                                    | `KupCardListData` | `null`  |
 | `fullWidth`     | `full-width`     | Sets whether the component occupies all available width.       | `boolean`         | `true`  |
 | `horizontal`    | `horizontal`     | Sets whether the dash elements are placed horizontally or not. | `boolean`         | `false` |
 | `isClickable`   | `is-clickable`   | Sets whether a single dash is clickable or not.                | `boolean`         | `false` |
@@ -21,7 +19,7 @@
 
 | Event                | Description | Type                                        |
 | -------------------- | ----------- | ------------------------------------------- |
-| `kup-dashlist-click` |             | `CustomEvent<KupDashListClickEventPayload>` |
+| `kup-CardList-click` |             | `CustomEvent<KupCardListClickEventPayload>` |
 
 
 ## Methods
@@ -61,10 +59,10 @@ Type: `Promise<void>`
 
 | Name                              | Description                       |
 | --------------------------------- | --------------------------------- |
-| `--kup-dashlist-cards-max-height` | Sets the max height of the cards. |
-| `--kup-dashlist-cards-max-width`  | Sets the max width of the cards.  |
-| `--kup-dashlist-cards-min-height` | Sets the min height of the cards. |
-| `--kup-dashlist-cards-min-width`  | Sets the min width of the cards.  |
+| `--kup-cardlist-cards-max-height` | Sets the max height of the cards. |
+| `--kup-cardlist-cards-max-width`  | Sets the max width of the cards.  |
+| `--kup-cardlist-cards-min-height` | Sets the min height of the cards. |
+| `--kup-cardlist-cards-min-width`  | Sets the min width of the cards.  |
 
 
 ## Dependencies
@@ -77,8 +75,8 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
-  kup-dash-list --> kup-card
-  kup-dash-list --> kup-grid
+  kup-card-list --> kup-card
+  kup-card-list --> kup-grid
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -203,7 +201,7 @@ graph TD;
   kup-tree --> kup-radio
   kup-tree --> kup-badge
   kup-grid --> kup-card
-  style kup-dash-list fill:#f9f,stroke:#333,stroke-width:4px
+  style kup-card-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

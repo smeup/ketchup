@@ -35,7 +35,7 @@
             slot="SD"
           ></kup-card>
           <kup-lazy
-            component-name="kup-dash-list"
+            component-name="kup-card-list"
             :data.prop="simpleSample.dashData"
             slot="SB"
           ></kup-lazy> </kup-dashboard
@@ -53,7 +53,7 @@ import {
   defaultValueColor,
   defaultTextColor,
   defaultIconColor,
-} from '@/mock/dashList';
+} from '@/mock/cardList';
 
 export default {
   name: 'DashboardStandard',

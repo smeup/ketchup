@@ -66,11 +66,11 @@ const data = [
                     {
                         cells: {
                             ROUTE: {
-                                value: 'dashlist',
+                                value: 'cardlist',
                             },
                         },
                         icon: 'recent_actors',
-                        value: 'Dash list',
+                        value: 'Card list',
                         visible: true,
                     },
                     {

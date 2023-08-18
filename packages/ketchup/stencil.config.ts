@@ -59,7 +59,7 @@ export const config: Config = {
                 { src: 'color-picker.html' },
                 { src: 'combobox.html' },
                 { src: 'css-grid.html' },
-                { src: 'dash-list.html' },
+                { src: 'card-list.html' },
                 { src: 'dashboard.html' },
                 { src: 'data-table.html' },
                 { src: 'data-table-performance.html' },

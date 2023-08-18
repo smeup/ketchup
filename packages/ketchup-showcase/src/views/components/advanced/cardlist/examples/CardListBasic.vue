@@ -2,9 +2,9 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">kup-dash-list</span> is under heavy
+        <span class="code-word">kup-card-list</span> is under heavy
         refactoring.<br /><br />
-        We will update this page when the time comes!
+        We will update this page when it will be production-ready!
       </p>
       <div class="demo-container">
         <div class="kup-container">
@@ -22,7 +22,7 @@
 
 <script lang="ts">
 export default {
-  name: 'KupDashListBasic',
+  name: 'KupCardListBasic',
   data() {
     return {};
   },

@@ -296,7 +296,7 @@ const data = {
     layout: 2,
 };
 
-document.querySelectorAll('kup-dash-list').forEach((comp) => {
+document.querySelectorAll('kup-card-list').forEach((comp) => {
     comp.valueColor = colors;
     comp.textColor = colors;
     comp.iconColor = colors;
