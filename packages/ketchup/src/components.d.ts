@@ -4503,7 +4503,7 @@ declare namespace LocalJSX {
           * @default false
          */
         "isClickable"?: boolean;
-        "onKup-CardList-click"?: (event: KupCardListCustomEvent<KupCardListClickEventPayload>) => void;
+        "onKup-cardlist-click"?: (event: KupCardListCustomEvent<KupCardListClickEventPayload>) => void;
     }
     interface KupCell {
         /**

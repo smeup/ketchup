@@ -19,7 +19,7 @@
 
 | Event                | Description | Type                                        |
 | -------------------- | ----------- | ------------------------------------------- |
-| `kup-CardList-click` |             | `CustomEvent<KupCardListClickEventPayload>` |
+| `kup-cardlist-click` |             | `CustomEvent<KupCardListClickEventPayload>` |
 
 
 ## Methods

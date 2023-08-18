@@ -89,7 +89,7 @@ export class KupCardList {
     /*-------------------------------------------------*/
 
     @Event({
-        eventName: 'kup-CardList-click',
+        eventName: 'kup-cardlist-click',
         composed: true,
         cancelable: true,
         bubbles: true,
