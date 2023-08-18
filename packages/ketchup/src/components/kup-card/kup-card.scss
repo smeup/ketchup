@@ -29,6 +29,9 @@
     --kup-card-scalable-starting-font-size,
     3em
   );
+  --kup_card_scalable_static_font_size: var(
+    --kup-card-scalable-static-font-size
+  );
 
   display: block;
   font-size: var(--kup-font-size);

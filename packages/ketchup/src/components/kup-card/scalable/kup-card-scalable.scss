@@ -13,9 +13,12 @@
   box-shadow: var(--kup_card_scalable_box_shadow);
   border-radius: 4px;
   display: flex;
-  font-size: calc(
-    var(--kup_card_scalable_starting_font_size) *
-      var(--kup_card_scalable_multiplier, 1)
+  font-size: var(
+    --kup_card_scalable_static_font_size,
+    calc(
+      var(--kup_card_scalable_starting_font_size) *
+        var(--kup_card_scalable_multiplier, 1)
+    )
   );
   height: 100%;
   justify-content: center;
