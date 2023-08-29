@@ -211,7 +211,7 @@ export class KupCardList {
             const card: VNode = (
                 <kup-card
                     class={this.isClickable ? 'is-clickable' : ''}
-                    customStyle="#kup-component, .scalable-card { min-height: var(--kup_CardList_cardsminheight) }"
+                    customStyle="#kup-component, .scalable-card { min-height: var(--kup_cardlist_cardsminheight) }"
                     data={data}
                     layoutFamily={KupCardFamily.SCALABLE}
                     layoutNumber={layout}
