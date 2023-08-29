@@ -452,7 +452,7 @@ export class KupMath {
      * @param {string} input number as string, formatted by locale US, decimal separator . (like java decimal numbers)
      * @param {number} decimals number of significant decimal digits for output
      * @param {string} type - type of number for calculate suffix
-     * @param {string} decSeparator decimal separator for outpu string
+     * @param {string} decSeparator decimal separator for output string
      * @returns {string} number as string, formatted by actual browser locale (or using decimal separator param), with suffix by type
      **/
     numberStringToFormattedString(

@@ -306,6 +306,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'cardlist',
+                  },
+                },
+                icon: 'recent_actors',
+                value: 'Card list',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'cell',
                   },
                 },
@@ -321,26 +331,6 @@ export default {
                 },
                 icon: 'chart-bar',
                 value: 'Chart',
-                visible: true,
-              },
-              {
-                cells: {
-                  ROUTE: {
-                    value: 'dash',
-                  },
-                },
-                icon: 'thermostat-box',
-                value: 'Dash',
-                visible: true,
-              },
-              {
-                cells: {
-                  ROUTE: {
-                    value: 'dashlist',
-                  },
-                },
-                icon: 'recent_actors',
-                value: 'Dash list',
                 visible: true,
               },
               {

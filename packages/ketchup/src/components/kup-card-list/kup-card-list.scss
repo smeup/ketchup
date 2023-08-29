@@ -1,0 +1,37 @@
+/**
+* @prop --kup-cardlist-cards-max-height: Sets the max height of the cards.
+* @prop --kup-cardlist-cards-min-height: Sets the min height of the cards.
+* @prop --kup-cardlist-cards-max-width: Sets the max width of the cards.
+* @prop --kup-cardlist-cards-min-width: Sets the min width of the cards.
+*/
+
+:host {
+  --kup_cardlist_cards_max_height: var(--kup-cardlist-cards-max-height, unset);
+  --kup_cardlist_cards_min_height: var(--kup-cardlist-cards-min-height, unset);
+  --kup_cardlist_cards_max_width: var(--kup-cardlist-cards-max-width, unset);
+  --kup_cardlist_cards_min_width: var(--kup-cardlist-cards-min-width, unset);
+
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+#kup-component {
+  height: 100%;
+  width: 100%;
+}
+
+kup-card {
+  max-height: var(--kup_cardlist_cards_max_height);
+  min-height: var(--kup_cardlist_cards_min_height);
+  max-width: var(--kup_cardlist_cards_max_width);
+  min-width: var(--kup_cardlist_cards_min_width);
+
+  &.is-clickable {
+    cursor: pointer;
+  }
+}
+
+kup-grid {
+  --kup-grid-padding: 0;
+}

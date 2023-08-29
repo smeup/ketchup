@@ -59,7 +59,7 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-dash-list](../kup-dash-list)
+ - [kup-card-list](../kup-card-list)
 
 ### Depends on
 
@@ -192,7 +192,7 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-badge
-  kup-dash-list --> kup-grid
+  kup-card-list --> kup-grid
   style kup-grid fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
