@@ -1,25 +1,68 @@
-# kup-dash
-
-
+# kup-card-list
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property   | Attribute  | Description                          | Type      | Default |
-| ---------- | ---------- | ------------------------------------ | --------- | ------- |
-| `active`   | `active`   | The component can be clicked.        | `boolean` | `false` |
-| `fontsize` | `fontsize` | Sets the font size of the component. | `string`  | `''`    |
-| `index`    | `index`    | No idea what this is about.          | `number`  | `0`     |
-| `layout`   | `layout`   | Sets the layout of the component.    | `string`  | `'1'`   |
+| Property        | Attribute        | Description                                                    | Type              | Default |
+| --------------- | ---------------- | -------------------------------------------------------------- | ----------------- | ------- |
+| `columnsNumber` | `columns-number` | Sets the number of columns.                                    | `number`          | `1`     |
+| `customStyle`   | `custom-style`   | Custom style of the component.                                 | `string`          | `''`    |
+| `data`          | --               | Sets the number of columns.                                    | `KupCardListData` | `null`  |
+| `fullWidth`     | `full-width`     | Sets whether the component occupies all available width.       | `boolean`         | `true`  |
+| `horizontal`    | `horizontal`     | Sets whether the dash elements are placed horizontally or not. | `boolean`         | `false` |
+| `isClickable`   | `is-clickable`   | Sets whether a single dash is clickable or not.                | `boolean`         | `false` |
 
 
 ## Events
 
-| Event            | Description | Type                           |
-| ---------------- | ----------- | ------------------------------ |
-| `kup-dash-click` |             | `CustomEvent<{ id: number; }>` |
+| Event                | Description | Type                                        |
+| -------------------- | ----------- | ------------------------------------------- |
+| `kup-cardlist-click` |             | `CustomEvent<KupCardListClickEventPayload>` |
+
+
+## Methods
+
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+List of props as object, each key will be a prop.
+
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
+## CSS Custom Properties
+
+| Name                              | Description                       |
+| --------------------------------- | --------------------------------- |
+| `--kup-cardlist-cards-max-height` | Sets the max height of the cards. |
+| `--kup-cardlist-cards-max-width`  | Sets the max width of the cards.  |
+| `--kup-cardlist-cards-min-height` | Sets the min height of the cards. |
+| `--kup-cardlist-cards-min-width`  | Sets the min width of the cards.  |
 
 
 ## Dependencies
@@ -27,11 +70,13 @@
 ### Depends on
 
 - [kup-card](../kup-card)
+- [kup-grid](../kup-grid)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-dash --> kup-card
+  kup-card-list --> kup-card
+  kup-card-list --> kup-grid
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -155,7 +200,8 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-badge
-  style kup-dash fill:#f9f,stroke:#333,stroke-width:4px
+  kup-grid --> kup-card
+  style kup-card-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

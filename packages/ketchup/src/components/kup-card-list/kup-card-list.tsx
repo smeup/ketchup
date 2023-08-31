@@ -15,11 +15,11 @@ import {
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import {
-    KupDashListColumn,
-    KupDashListData,
-    KupDashListClickEventPayload,
-    KupDashListProps,
-} from './kup-dash-list-declarations';
+    KupCardListColumn,
+    KupCardListData,
+    KupCardListClickEventPayload,
+    KupCardListProps,
+} from './kup-card-list-declarations';
 import { KupCardData, KupCardFamily } from '../kup-card/kup-card-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { componentWrapperId } from '../../variables/GenericVariables';
@@ -27,13 +27,13 @@ import { getCellValueForDisplay } from '../../utils/cell-utils';
 import { getProps, setProps } from '../../utils/utils';
 
 @Component({
-    tag: 'kup-dash-list',
-    styleUrl: 'kup-dash-list.scss',
+    tag: 'kup-card-list',
+    styleUrl: 'kup-card-list.scss',
     shadow: true,
 })
-export class KupDashList {
+export class KupCardList {
     /**
-     * References the root HTML element of the component (<kup-dash-list>).
+     * References the root HTML element of the component (<kup-card-list>).
      */
     @Element() rootElement: HTMLElement;
 
@@ -58,7 +58,7 @@ export class KupDashList {
      * @default 1
      */
     @Prop()
-    data: KupDashListData = null;
+    data: KupCardListData = null;
     /**
      * Sets whether the component occupies all available width.
      * @default true
@@ -89,12 +89,12 @@ export class KupDashList {
     /*-------------------------------------------------*/
 
     @Event({
-        eventName: 'kup-dashlist-click',
+        eventName: 'kup-cardlist-click',
         composed: true,
         cancelable: true,
         bubbles: true,
     })
-    kupDashListClickEvent: EventEmitter<KupDashListClickEventPayload>;
+    kupCardListClickEvent: EventEmitter<KupCardListClickEventPayload>;
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -107,7 +107,7 @@ export class KupDashList {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        return getProps(this, KupDashListProps, descriptions);
+        return getProps(this, KupCardListProps, descriptions);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -122,7 +122,7 @@ export class KupDashList {
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupDashListProps, props);
+        setProps(this, KupCardListProps, props);
     }
 
     /*-------------------------------------------------*/
@@ -148,21 +148,21 @@ export class KupDashList {
         }
         const content: VNode[] = [];
 
-        let decvalueCol: KupDashListColumn,
-            descrCol: KupDashListColumn,
-            iconCol: KupDashListColumn,
-            iconcolorCol: KupDashListColumn,
-            intvalueCol: KupDashListColumn,
-            layoutCol: KupDashListColumn,
-            measureCol: KupDashListColumn,
-            textcolorCol: KupDashListColumn,
-            valueCol: KupDashListColumn,
-            valuecolorCol: KupDashListColumn;
+        let decvalueCol: KupCardListColumn,
+            descrCol: KupCardListColumn,
+            iconCol: KupCardListColumn,
+            iconcolorCol: KupCardListColumn,
+            intvalueCol: KupCardListColumn,
+            layoutCol: KupCardListColumn,
+            measureCol: KupCardListColumn,
+            textcolorCol: KupCardListColumn,
+            valueCol: KupCardListColumn,
+            valuecolorCol: KupCardListColumn;
 
         for (let index = 0; index < this.data.columns.length; index++) {
             const column = this.data.columns[index];
-            if (column.dashListOption) {
-                switch (column.dashListOption) {
+            if (column.cardListOption) {
+                switch (column.cardListOption) {
                     case 'decvalue':
                         decvalueCol = column;
                         break;
@@ -211,14 +211,14 @@ export class KupDashList {
             const card: VNode = (
                 <kup-card
                     class={this.isClickable ? 'is-clickable' : ''}
-                    customStyle="#kup-component, .scalable-card { min-height: var(--kup_dashlist_cardsminheight) }"
+                    customStyle="#kup-component, .scalable-card { min-height: var(--kup_cardlist_cardsminheight) }"
                     data={data}
                     layoutFamily={KupCardFamily.SCALABLE}
                     layoutNumber={layout}
                     key={index}
                     onKup-card-click={() => {
                         if (this.isClickable) {
-                            this.kupDashListClickEvent.emit({
+                            this.kupCardListClickEvent.emit({
                                 comp: this,
                                 id: this.rootElement.id,
                                 index,
@@ -230,7 +230,7 @@ export class KupDashList {
                 ></kup-card>
             );
             const loadData = (
-                col: KupDashListColumn,
+                col: KupCardListColumn,
                 prop: string,
                 index: number
             ) => {

@@ -201,15 +201,10 @@ const advancedRoutes = [
     component: () => import(`@/views/components/advanced/chart/Chart.vue`),
   },
   {
-    path: `/dash`,
-    name: 'dash',
-    component: () => import(`@/views/components/advanced/dash/Dash.vue`),
-  },
-  {
-    path: `/dashlist`,
-    name: 'dashlist',
+    path: `/cardlist`,
+    name: 'cardlist',
     component: () =>
-      import(`@/views/components/advanced/dashlist/DashList.vue`),
+      import(`@/views/components/advanced/cardlist/CardList.vue`),
   },
   {
     path: `/dashboard`,

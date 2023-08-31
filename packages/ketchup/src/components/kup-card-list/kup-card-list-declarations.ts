@@ -5,10 +5,10 @@ import {
 } from '../../managers/kup-data/kup-data-declarations';
 
 /**
- * Props of the kup-dash-list component.
+ * Props of the kup-card-list component.
  * Used to export every prop in an object.
  */
-export enum KupDashListProps {
+export enum KupCardListProps {
     columnsNumber = 'Sets the number of columns.',
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the dash.',
@@ -19,7 +19,7 @@ export enum KupDashListProps {
 /**
  * Available column options.
  */
-export type KupDashListOptions =
+export type KupCardListOptions =
     | 'descr'
     | 'icon'
     | 'value'
@@ -31,20 +31,20 @@ export type KupDashListOptions =
     | 'iconcolor'
     | 'layout';
 /**
- * Dash list column.
+ * Card list column.
  */
-export interface KupDashListColumn extends KupDataColumn {
-    dashListOption?: KupDashListOptions;
+export interface KupCardListColumn extends KupDataColumn {
+    cardListOption?: KupCardListOptions;
 }
 /**
- * Dataset of the dash list.
+ * Dataset of the card list.
  */
-export interface KupDashListData {
-    columns: KupDashListColumn[];
+export interface KupCardListData {
+    columns: KupCardListColumn[];
     rows: KupDataRow[];
 }
 
-export interface KupDashListClickEventPayload extends KupEventPayload {
+export interface KupCardListClickEventPayload extends KupEventPayload {
     index: number;
     row: KupDataRow;
 }

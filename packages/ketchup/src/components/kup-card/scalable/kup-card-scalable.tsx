@@ -199,13 +199,14 @@ export function create4(component: KupCard): VNode {
                     ) : null}
                 </div>
                 <div class="value-and-unit">
-                    <div
-                        class="value-int"
-                        style={
-                            colorArray[1] ? { color: colorArray[1] } : undefined
-                        }
-                    >
-                        <div>
+                    <div class="value-int">
+                        <div
+                            style={
+                                colorArray[1]
+                                    ? { color: colorArray[1] }
+                                    : undefined
+                            }
+                        >
                             {textArray[0] ? textArray[0] : ''}
                             {textArray[1]
                                 ? dom.ketchup.math.decimalSeparator()
