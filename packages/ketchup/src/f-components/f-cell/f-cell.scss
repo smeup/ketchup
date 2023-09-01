@@ -91,6 +91,11 @@
     padding: 0px;
   }
 
+  .f-checkbox .checkbox .checkbox__native-control {
+    height: 18px;
+    width: 18px;
+  }
+
   kup-checkbox,
   kup-image {
     display: flex;
@@ -111,6 +116,16 @@
 
   kup-progress-bar {
     display: block;
+  }
+
+  .input-field {
+    background: none;
+    border: none;
+    border-bottom: 2px solid var(--kup-text-color);
+    height: 100%;
+    outline: none;
+    padding: 0 4px;
+    width: 100%;
   }
 
   &.clickable {

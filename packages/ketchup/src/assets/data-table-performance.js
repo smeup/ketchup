@@ -63,6 +63,10 @@ function createCells(i) {
         cells[column.name] = {
             value: 'Row ' + i + '; Col ' + column.name,
             isEditable: true,
+            shape: 'INF',
+            info: {
+                icon: 'warning',
+            },
         };
     }
     return cells;
