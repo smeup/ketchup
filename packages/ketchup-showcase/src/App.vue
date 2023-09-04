@@ -55,8 +55,8 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup/releases/tag/v8.3.3"
-            >v8.3.3</a
+          ><a href="https://github.com/smeup/ketchup/releases/tag/v9.0.0"
+            >v9.0.0</a
           ></div
         ></div
       >
@@ -308,6 +308,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'cardlist',
+                  },
+                },
+                icon: 'recent_actors',
+                value: 'Card list',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'cell',
                   },
                 },
@@ -323,26 +333,6 @@ export default {
                 },
                 icon: 'chart-bar',
                 value: 'Chart',
-                visible: true,
-              },
-              {
-                cells: {
-                  ROUTE: {
-                    value: 'dash',
-                  },
-                },
-                icon: 'thermostat-box',
-                value: 'Dash',
-                visible: true,
-              },
-              {
-                cells: {
-                  ROUTE: {
-                    value: 'dashlist',
-                  },
-                },
-                icon: 'recent_actors',
-                value: 'Dash list',
                 visible: true,
               },
               {

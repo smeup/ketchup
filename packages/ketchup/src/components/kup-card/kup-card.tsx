@@ -516,65 +516,69 @@ export class KupCard {
     }
     /**
      * This method is invoked by the layout manager when the layout family is scalable.
-     * The content of the card (.scalable-element) will be resized to fit the wrapper (.scalable-card).
-     * The scaling is performed by using a CSS variable (--kup_card_multiplier) which will impact the card's font-size.
+     * The content of the card (.scalable-element) will be resized to fit the wrapper (kup-card).
+     * The scaling is performed by using a CSS variable (--kup_card_scalable_multiplier) which will impact the card's font-size.
      * When there is empty space, the multiplier will be increased, as will the content.
      * Viceversa, when the content exceeds the boundaries, the multiplier will be decreased.
      */
-    scalable(): void {
+    async scalable() {
         this.scalingActive = true;
         const root: ShadowRoot = this.rootElement.shadowRoot;
         const el: HTMLElement = root.querySelector('.scalable-element');
-        const card: HTMLElement = root.querySelector('.scalable-card');
-        const multiplierStep: number = 0.1;
+        const card: HTMLElement = this.rootElement;
         /**
          * cardHeight sets the maximum height of the content, when exceeded the multiplier will be reduced (90%).
          */
-        const cardHeight: number = (90 / 100) * card.clientHeight;
+        const cardHeight = (90 / 100) * card.clientHeight;
         /**
          * cardWidthLow and cardWidthHigh will set the boundaries in which the component must fit (85% - 95%).
          */
-        const cardWidthLow: number = (85 / 100) * card.clientWidth;
-        const cardWidthHigh: number = (95 / 100) * card.clientWidth;
-        let tooManyAttempts: number = 2000;
-        let multiplier: number = parseFloat(
-            card.style.getPropertyValue('--kup_card_multiplier')
-        );
-        if (multiplier < 0.1) {
-            multiplier = 1;
-        }
+        const cardWidthLow = (85 / 100) * card.clientWidth;
+        const cardWidthHigh = (95 / 100) * card.clientWidth;
+        const multiplierStep = 0.1;
+        let tooManyAttempts = 75;
+        let multiplier = 1;
+        let redrawCount = 0;
+        const redraw = async () => {
+            card.style.setProperty(
+                '--kup_card_scalable_multiplier',
+                multiplier.toFixed(1) + ''
+            );
+            this.kupManager.debug.logMessage(
+                this,
+                'Redrawing scalable card (' + ++redrawCount + ').',
+                KupDebugCategory.INFO
+            );
+        };
+        const roundMultiplier = (m: number) => {
+            return parseFloat(m.toFixed(1));
+        };
+        card.style.opacity = '0';
+        card.style.transition = 'opacity 125ms ease-in';
         /**
          * Cycle to adjust the width.
          */
+        await redraw();
         while (
             (el.clientWidth < cardWidthLow || el.clientWidth > cardWidthHigh) &&
             tooManyAttempts > 0 &&
             multiplier > multiplierStep
         ) {
             tooManyAttempts--;
-            if (el.clientWidth < cardWidthLow) {
-                multiplier = multiplier + multiplierStep;
-                card.style.setProperty(
-                    '--kup_card_multiplier',
-                    multiplier + ''
-                );
+            if (
+                el.clientWidth < cardWidthLow &&
+                el.clientHeight <= cardHeight
+            ) {
+                multiplier = roundMultiplier(multiplier + multiplierStep);
+                await redraw();
             } else if (el.clientWidth > cardWidthHigh) {
-                multiplier = multiplier - multiplierStep;
-                card.style.setProperty(
-                    '--kup_card_multiplier',
-                    multiplier + ''
-                );
+                multiplier = roundMultiplier(multiplier - multiplierStep);
+                await redraw();
             } else {
                 tooManyAttempts = 0;
             }
         }
-        /**
-         * Cycle to adjust the height, in case it exceeds its boundaries after having adjusted width.
-         */
-        while (el.clientHeight > cardHeight && multiplier > multiplierStep) {
-            multiplier = multiplier - multiplierStep;
-            card.style.setProperty('--kup_card_multiplier', multiplier + '');
-        }
+        card.style.opacity = '1';
         this.scalingActive = false;
     }
 

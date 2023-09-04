@@ -17,14 +17,14 @@
     "devDependencies": {
         "@types/d3-shape": "^3.1.1",
         "@types/geojson": "^7946.0.10",
+        "@types/jest": "^27.0.3",
         "@types/node": "^20.2.5",
         "@types/numeral": "^2.0.2",
         "@types/react": "^18.2.7",
         "@types/react-dom": "^18.2.4",
-        "@types/jest": "^27.0.3",
-        "eslint": "^8.41.0",
-        "lerna": "^6.6.2",
-        "workbox-build": "^6.6.1"
+        "eslint": "^8.46.0",
+        "lerna": "^7.1.4",
+        "workbox-build": "^7.0.0"
     },
     "scripts": {
         "lerna": "lerna",
@@ -36,5 +36,11 @@
         "ksc:build": "lerna run build --scope @sme.up/ketchup-showcase --stream",
         "ksc:lint": "lerna run lint --scope @sme.up/ketchup-showcase --stream",
         "ksc:test:unit": "lerna run test:unit --scope @sme.up/ketchup-showcase --stream"
-    }
+    },
+    "workspaces": [
+        "packages/ketchup",
+        "packages/ketchup-react",
+        "packages/ketchup-showcase"
+    ],
+    "packageManager": "yarn@3.6.1"
 }
