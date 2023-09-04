@@ -865,6 +865,18 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">KUP-CARD-LIST</span>
+                </td>
+                <td class="text-cell">
+                  <kup-card-list
+                    text-area
+                    id="kup-card-list"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-card-list
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">KUP-CELL</span>
                 </td>
                 <td class="text-cell">
@@ -937,6 +949,18 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">KUP-DASHBOARD</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    id="kup-dashboard"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">KUP-DATA-TABLE</span>
                 </td>
                 <td class="text-cell">
@@ -955,6 +979,18 @@
                   <kup-text-field
                     text-area
                     id="kup-date-picker"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-DIALOG</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    id="kup-dialog"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
@@ -990,7 +1026,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-echart"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -1040,6 +1075,18 @@
                   <kup-text-field
                     text-area
                     id="kup-grid"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-IFRAME</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    id="kup-iframe"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
@@ -1136,6 +1183,18 @@
                   <kup-text-field
                     text-area
                     id="kup-photo-frame"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-PLANNER</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    id="kup-planner"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>

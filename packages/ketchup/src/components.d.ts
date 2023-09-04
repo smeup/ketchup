@@ -661,8 +661,8 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * Sets the number of columns.
-          * @default 1
+          * Actual data of the component.
+          * @default null
          */
         "data": KupCardListData;
         /**
@@ -677,12 +677,12 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * Sets whether the dash elements are placed horizontally or not.
+          * Sets whether the cards are placed horizontally or not.
           * @default false
          */
         "horizontal": boolean;
         /**
-          * Sets whether a single dash is clickable or not.
+          * Sets whether a single card is clickable or not.
           * @default false
          */
         "isClickable": boolean;
@@ -4484,8 +4484,8 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Sets the number of columns.
-          * @default 1
+          * Actual data of the component.
+          * @default null
          */
         "data"?: KupCardListData;
         /**
@@ -4494,12 +4494,12 @@ declare namespace LocalJSX {
          */
         "fullWidth"?: boolean;
         /**
-          * Sets whether the dash elements are placed horizontally or not.
+          * Sets whether the cards are placed horizontally or not.
           * @default false
          */
         "horizontal"?: boolean;
         /**
-          * Sets whether a single dash is clickable or not.
+          * Sets whether a single card is clickable or not.
           * @default false
          */
         "isClickable"?: boolean;
