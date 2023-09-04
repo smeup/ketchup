@@ -11,10 +11,10 @@ import {
 export enum KupCardListProps {
     columnsNumber = 'Sets the number of columns.',
     customStyle = 'Custom style of the component.',
-    data = 'Actual data of the dash.',
+    data = 'Actual data of the component.',
     fullWidth = 'Sets whether the component occupies all available width.',
-    horizontal = 'Sets whether the dash elements are placed horizontally or not.',
-    isClickable = 'Sets whether a single dash is clickable or not.',
+    horizontal = 'Sets whether the cards are placed horizontally or not.',
+    isClickable = 'Sets whether a single card is clickable or not.',
 }
 /**
  * Available column options.

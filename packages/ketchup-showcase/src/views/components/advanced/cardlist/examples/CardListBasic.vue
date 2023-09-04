@@ -1,30 +1,27 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <p>
-        <span class="code-word">kup-card-list</span> is under heavy
-        refactoring.<br /><br />
-        We will update this page when it will be production-ready!
-      </p>
-      <div class="demo-container">
-        <div class="kup-container">
-          <kup-image
-            resource="science"
-            size-x="128px"
-            size-y="128px"
-            title="Work in progress!"
-          ></kup-image>
-        </div>
-      </div>
+      <p
+        >Cards lists are a set of scalable
+        <a href="https://ketchup.smeup.com/ketchup-showcase/#/button"
+          >kup-card</a
+        >
+        elements. </p
+      ><br />
+      <p>For this reason, they inherit their style.</p>
+      <p class="centered">Sample markup</p>
+      <code class="flat">{{ markupBasic }}</code>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 export default {
-  name: 'KupCardListBasic',
+  name: 'CardListBasic',
   data() {
-    return {};
+    return {
+      markupBasic: '<kup-card-list></kup-card-list>',
+    };
   },
 };
 </script>

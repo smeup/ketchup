@@ -54,8 +54,8 @@ export class KupCardList {
      */
     @Prop() customStyle: string = '';
     /**
-     * Sets the number of columns.
-     * @default 1
+     * Actual data of the component.
+     * @default null
      */
     @Prop()
     data: KupCardListData = null;
@@ -66,13 +66,13 @@ export class KupCardList {
     @Prop()
     fullWidth = true;
     /**
-     * Sets whether the dash elements are placed horizontally or not.
+     * Sets whether the cards are placed horizontally or not.
      * @default false
      */
     @Prop()
     horizontal = false;
     /**
-     * Sets whether a single dash is clickable or not.
+     * Sets whether a single card is clickable or not.
      * @default false
      */
     @Prop()

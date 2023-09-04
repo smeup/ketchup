@@ -5,14 +5,14 @@
 
 ## Properties
 
-| Property        | Attribute        | Description                                                    | Type              | Default |
-| --------------- | ---------------- | -------------------------------------------------------------- | ----------------- | ------- |
-| `columnsNumber` | `columns-number` | Sets the number of columns.                                    | `number`          | `1`     |
-| `customStyle`   | `custom-style`   | Custom style of the component.                                 | `string`          | `''`    |
-| `data`          | --               | Sets the number of columns.                                    | `KupCardListData` | `null`  |
-| `fullWidth`     | `full-width`     | Sets whether the component occupies all available width.       | `boolean`         | `true`  |
-| `horizontal`    | `horizontal`     | Sets whether the dash elements are placed horizontally or not. | `boolean`         | `false` |
-| `isClickable`   | `is-clickable`   | Sets whether a single dash is clickable or not.                | `boolean`         | `false` |
+| Property        | Attribute        | Description                                              | Type              | Default |
+| --------------- | ---------------- | -------------------------------------------------------- | ----------------- | ------- |
+| `columnsNumber` | `columns-number` | Sets the number of columns.                              | `number`          | `1`     |
+| `customStyle`   | `custom-style`   | Custom style of the component.                           | `string`          | `''`    |
+| `data`          | --               | Actual data of the component.                            | `KupCardListData` | `null`  |
+| `fullWidth`     | `full-width`     | Sets whether the component occupies all available width. | `boolean`         | `true`  |
+| `horizontal`    | `horizontal`     | Sets whether the cards are placed horizontally or not.   | `boolean`         | `false` |
+| `isClickable`   | `is-clickable`   | Sets whether a single card is clickable or not.          | `boolean`         | `false` |
 
 
 ## Events
