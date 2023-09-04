@@ -22,6 +22,7 @@ import {
     FCellEvents,
     FCellInfo,
     FCellProps,
+    FCellShapes,
     FCellTypes,
     fullWidthFieldsComps,
     kupTypes,
@@ -492,38 +493,54 @@ function setEditableCell(
             classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
         case FCellTypes.LINK:
         case FCellTypes.STRING:
-            return (
-                <FTextField
-                    inputType={cellType === FCellTypes.NUMBER ? 'number' : null}
-                    fullWidth={isFullWidth(props) ? true : false}
-                    {...cell.data}
-                    icon={
-                        cell.data && cell.data.icon
-                            ? cell.data.icon
-                            : cell.icon
-                            ? cell.icon
-                            : column.icon
-                            ? column.icon
-                            : null
-                    }
-                    value={
-                        cellType === FCellTypes.NUMBER && cell.value
-                            ? dom.ketchup.math
-                                  .numberifySafe(cell.value)
-                                  .toString()
-                            : cell.value
-                    }
-                    onChange={(e: InputEvent) =>
-                        cellEvent(e, props, cellType, FCellEvents.UPDATE)
-                    }
-                    onInput={(e: InputEvent) =>
-                        cellEvent(e, props, cellType, FCellEvents.INPUT)
-                    }
-                    onIconClick={(e: MouseEvent) =>
-                        cellEvent(e, props, cellType, FCellEvents.ICON_CLICK)
-                    }
-                />
-            );
+            const onChange = (e: InputEvent) =>
+                cellEvent(e, props, cellType, FCellEvents.UPDATE);
+            const onInput = (e: InputEvent) =>
+                cellEvent(e, props, cellType, FCellEvents.INPUT);
+            const type = cellType === FCellTypes.NUMBER ? 'number' : null;
+            const value =
+                cellType === FCellTypes.NUMBER && cell.value
+                    ? dom.ketchup.math.numberifySafe(cell.value).toString()
+                    : cell.value;
+            if (cell.shape === FCellShapes.INPUT_FIELD) {
+                return (
+                    <input
+                        class={'input-field'}
+                        onChange={onChange}
+                        onInput={onInput}
+                        type={type}
+                        value={value}
+                    ></input>
+                );
+            } else {
+                return (
+                    <FTextField
+                        inputType={type}
+                        fullWidth={isFullWidth(props) ? true : false}
+                        {...cell.data}
+                        icon={
+                            cell.data && cell.data.icon
+                                ? cell.data.icon
+                                : cell.icon
+                                ? cell.icon
+                                : column.icon
+                                ? column.icon
+                                : null
+                        }
+                        value={value}
+                        onChange={onChange}
+                        onInput={onInput}
+                        onIconClick={(e: MouseEvent) =>
+                            cellEvent(
+                                e,
+                                props,
+                                cellType,
+                                FCellEvents.ICON_CLICK
+                            )
+                        }
+                    />
+                );
+            }
     }
 }
 

@@ -1,6 +1,6 @@
 {
     "name": "@sme.up/ketchup",
-    "version": "8.3.3",
+    "version": "9.0.0",
     "keywords": [
         "smeup",
         "KetchUP",
@@ -63,8 +63,8 @@
     },
     "devDependencies": {
         "@stencil/core": "^4.0.2",
-        "@stencil/sass": "^3.0.5",
         "@stencil/react-output-target": "0.5.3",
+        "@stencil/sass": "^3.0.5",
         "jest": "^27.4.5",
         "jest-cli": "^27.4.5",
         "jest-html-reporter": "^3.7.1",
@@ -76,5 +76,8 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/smeup/ketchup.git"
+    },
+    "installConfig": {
+        "hoistingLimits": "workspaces"
     }
 }

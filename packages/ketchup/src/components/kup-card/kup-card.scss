@@ -9,6 +9,8 @@
 /**
 * @prop --kup-card-backdrop: Backdrop of the component when is visible.
 * @prop --kup-card-ripple-color: Sets color of ripple effect (for Material layouts).
+* @prop --kup-card-scalable-box-shadow: Box shadow of the scalable layouts.
+* @prop --kup-card-scalable-starting-font-size: Starting font size for scalable cards.
 */
 
 :host {
@@ -16,6 +18,19 @@
   --kup_card_ripple_color: var(
     --kup-card-ripple-color,
     var(--kup-primary-color)
+  );
+  --kup_card_scalable_box_shadow: var(
+    --kup-card-scalable-box-shadow,
+    0 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12)
+  );
+  --kup_card_scalable_starting_font_size: var(
+    --kup-card-scalable-starting-font-size,
+    3em
+  );
+  --kup_card_scalable_static_font_size: var(
+    --kup-card-scalable-static-font-size
   );
 
   display: block;

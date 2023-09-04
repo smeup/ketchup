@@ -17,6 +17,7 @@ import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-d
 import { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
 import { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
+import { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
@@ -64,6 +65,7 @@ export { KupButtonClickEventPayload } from "./components/kup-button/kup-button-d
 export { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
 export { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 export { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
+export { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 export { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 export { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 export { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
@@ -646,6 +648,54 @@ export namespace Components {
          */
         "sizeY": string;
     }
+    interface KupCardList {
+        /**
+          * Sets the number of columns.
+          * @default 1
+         */
+        "columnsNumber": number;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Actual data of the component.
+          * @default null
+         */
+        "data": KupCardListData;
+        /**
+          * Sets whether the component occupies all available width.
+          * @default true
+         */
+        "fullWidth": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Sets whether the cards are placed horizontally or not.
+          * @default false
+         */
+        "horizontal": boolean;
+        /**
+          * Sets whether a single card is clickable or not.
+          * @default false
+         */
+        "isClickable": boolean;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
     interface KupCell {
         /**
           * Adds the given CSS classes to the cell's data.
@@ -1028,36 +1078,6 @@ export namespace Components {
           * When true shows the drop-down icon, for open list.
          */
         "showDropDownIcon": boolean;
-    }
-    interface KupDash {
-        /**
-          * The component can be clicked.
-         */
-        "active": boolean;
-        /**
-          * Sets the font size of the component.
-         */
-        "fontsize": string;
-        /**
-          * No idea what this is about.
-         */
-        "index": number;
-        /**
-          * Sets the layout of the component.
-         */
-        "layout": string;
-    }
-    interface KupDashList {
-        "active": boolean;
-        "columnsNumber": number;
-        "data": KupDataDataset;
-        "fontsize": string;
-        "fullWidth": boolean;
-        "horizontal": boolean;
-        "iconColor": Array<any>;
-        "layout": string;
-        "textColor": Array<any>;
-        "valueColor": Array<any>;
     }
     interface KupDashboard {
         /**
@@ -3502,6 +3522,10 @@ export interface KupCardCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupCardElement;
 }
+export interface KupCardListCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupCardListElement;
+}
 export interface KupChartCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupChartElement;
@@ -3521,14 +3545,6 @@ export interface KupColorPickerCustomEvent<T> extends CustomEvent<T> {
 export interface KupComboboxCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupComboboxElement;
-}
-export interface KupDashCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLKupDashElement;
-}
-export interface KupDashListCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLKupDashListElement;
 }
 export interface KupDashboardCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -3687,6 +3703,12 @@ declare global {
         prototype: HTMLKupCardElement;
         new (): HTMLKupCardElement;
     };
+    interface HTMLKupCardListElement extends Components.KupCardList, HTMLStencilElement {
+    }
+    var HTMLKupCardListElement: {
+        prototype: HTMLKupCardListElement;
+        new (): HTMLKupCardListElement;
+    };
     interface HTMLKupCellElement extends Components.KupCell, HTMLStencilElement {
     }
     var HTMLKupCellElement: {
@@ -3722,18 +3744,6 @@ declare global {
     var HTMLKupComboboxElement: {
         prototype: HTMLKupComboboxElement;
         new (): HTMLKupComboboxElement;
-    };
-    interface HTMLKupDashElement extends Components.KupDash, HTMLStencilElement {
-    }
-    var HTMLKupDashElement: {
-        prototype: HTMLKupDashElement;
-        new (): HTMLKupDashElement;
-    };
-    interface HTMLKupDashListElement extends Components.KupDashList, HTMLStencilElement {
-    }
-    var HTMLKupDashListElement: {
-        prototype: HTMLKupDashListElement;
-        new (): HTMLKupDashListElement;
     };
     interface HTMLKupDashboardElement extends Components.KupDashboard, HTMLStencilElement {
     }
@@ -3942,14 +3952,13 @@ declare global {
         "kup-button-list": HTMLKupButtonListElement;
         "kup-calendar": HTMLKupCalendarElement;
         "kup-card": HTMLKupCardElement;
+        "kup-card-list": HTMLKupCardListElement;
         "kup-cell": HTMLKupCellElement;
         "kup-chart": HTMLKupChartElement;
         "kup-checkbox": HTMLKupCheckboxElement;
         "kup-chip": HTMLKupChipElement;
         "kup-color-picker": HTMLKupColorPickerElement;
         "kup-combobox": HTMLKupComboboxElement;
-        "kup-dash": HTMLKupDashElement;
-        "kup-dash-list": HTMLKupDashListElement;
         "kup-dashboard": HTMLKupDashboardElement;
         "kup-data-table": HTMLKupDataTableElement;
         "kup-date-picker": HTMLKupDatePickerElement;
@@ -4462,6 +4471,40 @@ declare namespace LocalJSX {
          */
         "sizeY"?: string;
     }
+    interface KupCardList {
+        /**
+          * Sets the number of columns.
+          * @default 1
+         */
+        "columnsNumber"?: number;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Actual data of the component.
+          * @default null
+         */
+        "data"?: KupCardListData;
+        /**
+          * Sets whether the component occupies all available width.
+          * @default true
+         */
+        "fullWidth"?: boolean;
+        /**
+          * Sets whether the cards are placed horizontally or not.
+          * @default false
+         */
+        "horizontal"?: boolean;
+        /**
+          * Sets whether a single card is clickable or not.
+          * @default false
+         */
+        "isClickable"?: boolean;
+        "onKup-cardlist-click"?: (event: KupCardListCustomEvent<KupCardListClickEventPayload>) => void;
+    }
     interface KupCell {
         /**
           * Custom style of the component.
@@ -4756,42 +4799,6 @@ declare namespace LocalJSX {
           * When true shows the drop-down icon, for open list.
          */
         "showDropDownIcon"?: boolean;
-    }
-    interface KupDash {
-        /**
-          * The component can be clicked.
-         */
-        "active"?: boolean;
-        /**
-          * Sets the font size of the component.
-         */
-        "fontsize"?: string;
-        /**
-          * No idea what this is about.
-         */
-        "index"?: number;
-        /**
-          * Sets the layout of the component.
-         */
-        "layout"?: string;
-        "onKup-dash-click"?: (event: KupDashCustomEvent<{
-        id: number;
-    }>) => void;
-    }
-    interface KupDashList {
-        "active"?: boolean;
-        "columnsNumber"?: number;
-        "data"?: KupDataDataset;
-        "fontsize"?: string;
-        "fullWidth"?: boolean;
-        "horizontal"?: boolean;
-        "iconColor"?: Array<any>;
-        "layout"?: string;
-        "onKup-dash-click"?: (event: KupDashListCustomEvent<{
-        idx: number;
-    }>) => void;
-        "textColor"?: Array<any>;
-        "valueColor"?: Array<any>;
     }
     interface KupDashboard {
         /**
@@ -6769,14 +6776,13 @@ declare namespace LocalJSX {
         "kup-button-list": KupButtonList;
         "kup-calendar": KupCalendar;
         "kup-card": KupCard;
+        "kup-card-list": KupCardList;
         "kup-cell": KupCell;
         "kup-chart": KupChart;
         "kup-checkbox": KupCheckbox;
         "kup-chip": KupChip;
         "kup-color-picker": KupColorPicker;
         "kup-combobox": KupCombobox;
-        "kup-dash": KupDash;
-        "kup-dash-list": KupDashList;
         "kup-dashboard": KupDashboard;
         "kup-data-table": KupDataTable;
         "kup-date-picker": KupDatePicker;
@@ -6824,14 +6830,13 @@ declare module "@stencil/core" {
             "kup-button-list": LocalJSX.KupButtonList & JSXBase.HTMLAttributes<HTMLKupButtonListElement>;
             "kup-calendar": LocalJSX.KupCalendar & JSXBase.HTMLAttributes<HTMLKupCalendarElement>;
             "kup-card": LocalJSX.KupCard & JSXBase.HTMLAttributes<HTMLKupCardElement>;
+            "kup-card-list": LocalJSX.KupCardList & JSXBase.HTMLAttributes<HTMLKupCardListElement>;
             "kup-cell": LocalJSX.KupCell & JSXBase.HTMLAttributes<HTMLKupCellElement>;
             "kup-chart": LocalJSX.KupChart & JSXBase.HTMLAttributes<HTMLKupChartElement>;
             "kup-checkbox": LocalJSX.KupCheckbox & JSXBase.HTMLAttributes<HTMLKupCheckboxElement>;
             "kup-chip": LocalJSX.KupChip & JSXBase.HTMLAttributes<HTMLKupChipElement>;
             "kup-color-picker": LocalJSX.KupColorPicker & JSXBase.HTMLAttributes<HTMLKupColorPickerElement>;
             "kup-combobox": LocalJSX.KupCombobox & JSXBase.HTMLAttributes<HTMLKupComboboxElement>;
-            "kup-dash": LocalJSX.KupDash & JSXBase.HTMLAttributes<HTMLKupDashElement>;
-            "kup-dash-list": LocalJSX.KupDashList & JSXBase.HTMLAttributes<HTMLKupDashListElement>;
             "kup-dashboard": LocalJSX.KupDashboard & JSXBase.HTMLAttributes<HTMLKupDashboardElement>;
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
             "kup-date-picker": LocalJSX.KupDatePicker & JSXBase.HTMLAttributes<HTMLKupDatePickerElement>;

@@ -2,10 +2,10 @@
   <div>
     <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
       <template v-slot:0>
-        <dash-list-demo></dash-list-demo>
+        <card-list-demo></card-list-demo>
       </template>
       <template v-slot:1>
-        <dash-basic></dash-basic>
+        <card-list-basic></card-list-basic>
       </template>
     </comp>
   </div>
@@ -13,24 +13,24 @@
 
 <script>
 import Comp from '@/views/templates/Comp';
-import DashListDemo from './examples/DashListDemo';
-import DashBasic from './examples/DashListBasic';
+import CardListBasic from './examples/CardListBasic';
+import CardListDemo from './examples/CardListDemo';
 
 export default {
   components: {
-    DashListDemo,
-    DashBasic,
+    CardListBasic,
+    CardListDemo,
     Comp,
   },
 
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-dash-list',
-      headtitle: 'Dash List',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-card-list',
+      headtitle: 'Card List',
       titles: ['Playground', 'Basic Usage'],
     };
   },
-  title: 'Ketchup | Dash list',
+  title: 'Ketchup | Card list',
 };
 </script>

@@ -26,7 +26,7 @@ export enum KupCalendarViewTypes {
     WEEK = 'timeGridWeek',
 }
 /**
- * Available view types.
+ * Available column options.
  */
 export enum KupCalendarOptions {
     DATE = 'date',

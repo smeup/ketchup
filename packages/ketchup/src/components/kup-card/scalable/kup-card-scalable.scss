@@ -10,11 +10,16 @@
 
 .scalable-card {
   align-items: center;
-  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
-    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: var(--kup_card_scalable_box_shadow);
   border-radius: 4px;
   display: flex;
-  font-size: calc(var(--kup-font-size) * var(--kup_card_multiplier));
+  font-size: var(
+    --kup_card_scalable_static_font_size,
+    calc(
+      var(--kup_card_scalable_starting_font_size) *
+        var(--kup_card_scalable_multiplier, 1)
+    )
+  );
   height: 100%;
   justify-content: center;
   position: relative;

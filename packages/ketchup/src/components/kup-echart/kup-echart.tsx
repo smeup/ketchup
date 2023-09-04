@@ -293,7 +293,6 @@ export class KupEchart {
                 options = this.#candleChart();
                 break;
             case KupEchartTypes.CALENDAR:
-                console.log('virtual 0');
                 options = this.#calendarChart();
                 break;
             default:
@@ -704,7 +703,6 @@ export class KupEchart {
                 trigger: 'item',
                 formatter: (value: unknown) => {
                     const name = (value as GenericObject).data;
-                    console.log('data', name);
                     const data = keys.map((e, i) => {
                         return `<li>  ${e}: ${name[i]} </li>`;
                     });

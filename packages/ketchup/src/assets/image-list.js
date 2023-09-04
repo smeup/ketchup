@@ -66,21 +66,11 @@ const data = [
                     {
                         cells: {
                             ROUTE: {
-                                value: 'dash',
-                            },
-                        },
-                        icon: 'thermostat-box',
-                        value: 'Dash',
-                        visible: true,
-                    },
-                    {
-                        cells: {
-                            ROUTE: {
-                                value: 'dashlist',
+                                value: 'cardlist',
                             },
                         },
                         icon: 'recent_actors',
-                        value: 'Dash list',
+                        value: 'Card list',
                         visible: true,
                     },
                     {
