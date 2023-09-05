@@ -196,11 +196,64 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                 group: props.group,
                                 integer: props.integers,
                             };
-                            (e.target as HTMLInputElement).value = formatValue(
-                                (e.target as HTMLInputElement).value,
-                                options,
-                                true
-                            );
+                            if (
+                                props.min !== undefined &&
+                                props.min !== null &&
+                                props.min >
+                                    parseFloat(
+                                        (e.target as HTMLInputElement).value
+                                    )
+                            ) {
+                                (e.target as HTMLInputElement).value =
+                                    formatValue(
+                                        props.min.toString(),
+                                        options,
+                                        true
+                                    );
+                            } else if (
+                                props.max !== undefined &&
+                                props.max !== null &&
+                                props.max <
+                                    parseFloat(
+                                        (e.target as HTMLInputElement).value
+                                    )
+                            ) {
+                                (e.target as HTMLInputElement).value =
+                                    formatValue(
+                                        props.max.toString(),
+                                        options,
+                                        true
+                                    );
+                            } else {
+                                (e.target as HTMLInputElement).value =
+                                    formatValue(
+                                        (e.target as HTMLInputElement).value,
+                                        options,
+                                        true
+                                    );
+                            }
+                        } else {
+                            if (
+                                props.min !== undefined &&
+                                props.min !== null &&
+                                props.min >
+                                    parseFloat(
+                                        (e.target as HTMLInputElement).value
+                                    )
+                            ) {
+                                (e.target as HTMLInputElement).value =
+                                    props.min.toString();
+                            } else if (
+                                props.max !== undefined &&
+                                props.max !== null &&
+                                props.max <
+                                    parseFloat(
+                                        (e.target as HTMLInputElement).value
+                                    )
+                            ) {
+                                (e.target as HTMLInputElement).value =
+                                    props.max.toString();
+                            }
                         }
                         if (props.onChange) {
                             props.onChange(e);
