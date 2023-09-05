@@ -111,7 +111,10 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     let value = props.value;
     let inputType = props.inputType ?? 'text';
     let persManageForNumberFormat = false;
-    if (props.inputType === 'number' && props.decimals && props.decimals > 0) {
+    if (
+        props.inputType === 'number' &&
+        ((props.decimals && props.decimals > 0) || props.group)
+    ) {
         inputType = 'text';
         persManageForNumberFormat = true;
     }
