@@ -133,6 +133,12 @@
     }
   }
 
+  .input-checkbox {
+    &:checked {
+      accent-color: var(--kup-primary-color);
+    }
+  }
+
   &.clickable {
     cursor: pointer;
   }

@@ -315,14 +315,32 @@ function setEditableCell(
             if (isAutoCentered(props)) {
                 classObj[FCellClasses.C_CENTERED] = true;
             }
-            return (
-                <FCheckbox
-                    {...cell.data}
-                    onChange={(e: InputEvent) =>
-                        cellEvent(e, props, cellType, FCellEvents.UPDATE)
-                    }
-                />
-            );
+
+            if (cell.shape === FCellShapes.INPUT_CHECKBOX) {
+                return (
+                    <input
+                        checked={
+                            cell.value === 'on' || cell.value === '1'
+                                ? true
+                                : false
+                        }
+                        class="input-checkbox"
+                        onChange={(e: InputEvent) =>
+                            cellEvent(e, props, cellType, FCellEvents.UPDATE)
+                        }
+                        type="checkbox"
+                    ></input>
+                );
+            } else {
+                return (
+                    <FCheckbox
+                        {...cell.data}
+                        onChange={(e: InputEvent) =>
+                            cellEvent(e, props, cellType, FCellEvents.UPDATE)
+                        }
+                    />
+                );
+            }
         case FCellTypes.CHIP:
             return (
                 <kup-chip
@@ -818,10 +836,15 @@ function getValueFromEventTaget(
     e: InputEvent | CustomEvent | MouseEvent | KeyboardEvent,
     cellType: FCellTypes
 ): string {
+    debugger;
     const isInputEvent = !!((e.target as HTMLElement).tagName === 'INPUT');
     let value = isInputEvent
         ? (e.target as HTMLInputElement).value
         : e.detail.value;
+
+    if (cellType === FCellTypes.CHECKBOX && isInputEvent) {
+        value = (e.target as HTMLInputElement).checked ? 'off' : 'on';
+    }
 
     if (cellType === FCellTypes.NUMBER && isInputEvent) {
         value = dom.ketchup.math.formattedStringToNumberString(value, '');
