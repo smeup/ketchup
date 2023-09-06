@@ -44,6 +44,7 @@ import { FSwitch } from '../f-switch/f-switch';
 import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-declarations';
 import { FChipsProps, FChipType } from '../f-chip/f-chip-declarations';
 import { ItemsDisplayMode } from '../../components/kup-list/kup-list-declarations';
+import { FButton } from '../f-button/f-button';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -315,14 +316,32 @@ function setEditableCell(
             if (isAutoCentered(props)) {
                 classObj[FCellClasses.C_CENTERED] = true;
             }
-            return (
-                <FCheckbox
-                    {...cell.data}
-                    onChange={(e: InputEvent) =>
-                        cellEvent(e, props, cellType, FCellEvents.UPDATE)
-                    }
-                />
-            );
+
+            if (cell.shape === FCellShapes.INPUT_CHECKBOX) {
+                return (
+                    <input
+                        checked={
+                            cell.value === 'on' || cell.value === '1'
+                                ? true
+                                : false
+                        }
+                        class="input-checkbox"
+                        onChange={(e: InputEvent) =>
+                            cellEvent(e, props, cellType, FCellEvents.UPDATE)
+                        }
+                        type="checkbox"
+                    ></input>
+                );
+            } else {
+                return (
+                    <FCheckbox
+                        {...cell.data}
+                        onChange={(e: InputEvent) =>
+                            cellEvent(e, props, cellType, FCellEvents.UPDATE)
+                        }
+                    />
+                );
+            }
         case FCellTypes.CHIP:
             return (
                 <kup-chip
@@ -657,13 +676,12 @@ function setKupCell(
                 classObj[FCellClasses.C_CENTERED] = true;
             }
             return (
-                <kup-button
-                    key={column.name + props.row.id}
+                <FButton
                     {...subcomponentProps}
-                    onkup-button-click={(
-                        e: CustomEvent<KupButtonClickEventPayload>
-                    ) => cellEvent(e, props, cellType, FCellEvents.CLICK)}
-                ></kup-button>
+                    onClick={(e) =>
+                        cellEvent(e, props, cellType, FCellEvents.CLICK)
+                    }
+                ></FButton>
             );
         case FCellTypes.BUTTON_LIST:
             if (isAutoCentered(props)) {
@@ -822,6 +840,10 @@ function getValueFromEventTaget(
     let value = isInputEvent
         ? (e.target as HTMLInputElement).value
         : e.detail.value;
+
+    if (cellType === FCellTypes.CHECKBOX && isInputEvent) {
+        value = (e.target as HTMLInputElement).checked ? 'off' : 'on';
+    }
 
     if (cellType === FCellTypes.NUMBER && isInputEvent) {
         value = dom.ketchup.math.formattedStringToNumberString(value, '');
