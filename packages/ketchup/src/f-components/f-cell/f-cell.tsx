@@ -44,6 +44,7 @@ import { FSwitch } from '../f-switch/f-switch';
 import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-declarations';
 import { FChipsProps, FChipType } from '../f-chip/f-chip-declarations';
 import { ItemsDisplayMode } from '../../components/kup-list/kup-list-declarations';
+import { FButton } from '../f-button/f-button';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -675,13 +676,12 @@ function setKupCell(
                 classObj[FCellClasses.C_CENTERED] = true;
             }
             return (
-                <kup-button
-                    key={column.name + props.row.id}
+                <FButton
                     {...subcomponentProps}
-                    onkup-button-click={(
-                        e: CustomEvent<KupButtonClickEventPayload>
-                    ) => cellEvent(e, props, cellType, FCellEvents.CLICK)}
-                ></kup-button>
+                    onClick={(e) =>
+                        cellEvent(e, props, cellType, FCellEvents.CLICK)
+                    }
+                ></FButton>
             );
         case FCellTypes.BUTTON_LIST:
             if (isAutoCentered(props)) {
@@ -836,7 +836,6 @@ function getValueFromEventTaget(
     e: InputEvent | CustomEvent | MouseEvent | KeyboardEvent,
     cellType: FCellTypes
 ): string {
-    debugger;
     const isInputEvent = !!((e.target as HTMLElement).tagName === 'INPUT');
     let value = isInputEvent
         ? (e.target as HTMLInputElement).value
