@@ -121,11 +121,16 @@
   .input-field {
     background: none;
     border: none;
-    border-bottom: 2px solid var(--kup-text-color);
+    border-bottom: 2px solid var(--kup-border-color);
     height: 100%;
     outline: none;
     padding: 0 4px;
+    transition: border 125ms ease;
     width: 100%;
+
+    &:focus {
+      border-bottom: 2px solid var(--kup-primary-color);
+    }
   }
 
   &.clickable {
