@@ -117,12 +117,12 @@ graph TD;
   kup-time-picker --> kup-list
   kup-image --> kup-badge
   kup-spinner --> kup-card
-  kup-button --> kup-badge
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-badge
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
+  kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-data-table --> kup-badge
   kup-switch --> kup-card

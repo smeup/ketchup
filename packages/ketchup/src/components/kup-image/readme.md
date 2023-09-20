@@ -104,8 +104,6 @@ graph TD;
   kup-rating --> kup-card
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
-  kup-button --> kup-card
-  kup-button --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-badge
@@ -115,6 +113,8 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
+  kup-button --> kup-card
+  kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-data-table --> kup-image
   kup-switch --> kup-card

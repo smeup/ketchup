@@ -89,6 +89,17 @@ export const fImageUsers = [
  */
 export const fPaginatorUsers = [KupTagNames.BOX, KupTagNames.DATA_TABLE];
 /**
+ * Components using the FProgressBar functional component.
+ */
+export const fProgressBarUsers = [
+    KupTagNames.BOX,
+    KupTagNames.CELL,
+    KupTagNames.DATA_TABLE,
+    KupTagNames.FORM,
+    KupTagNames.PROGRESS_BAR,
+    KupTagNames.TREE,
+];
+/**
  * Components using the FSwitch functional component.
  */
 export const fSwitchUsers = [
