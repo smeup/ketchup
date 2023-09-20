@@ -8,6 +8,10 @@ import { FunctionalComponent, getAssetPath, h } from '@stencil/core';
 export const FProgressBar: FunctionalComponent<FProgressBarProps> = (
     props: FProgressBarProps
 ) => {
+    if (!props.centeredLabel && !props.centeredLabel !== false) {
+        props.centeredLabel = true;
+    }
+
     let componentClass = `f-progress-bar ${props.danger ? 'kup-danger' : ''} ${
         props.animated ? 'kup-animated' : ''
     } ${props.padded ? 'kup-padded' : ''} ${props.info ? 'kup-info' : ''} ${
