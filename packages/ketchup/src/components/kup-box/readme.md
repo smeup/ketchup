@@ -128,7 +128,6 @@ Type: `Promise<void>`
 - [kup-rating](../kup-rating)
 - [kup-time-picker](../kup-time-picker)
 - [kup-image](../kup-image)
-- [kup-button](../kup-button)
 - [kup-button-list](../kup-button-list)
 - [kup-chart](../kup-chart)
 - [kup-gauge](../kup-gauge)
@@ -150,7 +149,6 @@ graph TD;
   kup-box --> kup-rating
   kup-box --> kup-time-picker
   kup-box --> kup-image
-  kup-box --> kup-button
   kup-box --> kup-button-list
   kup-box --> kup-chart
   kup-box --> kup-gauge
@@ -165,7 +163,6 @@ graph TD;
   kup-card --> kup-rating
   kup-card --> kup-time-picker
   kup-card --> kup-image
-  kup-card --> kup-button
   kup-card --> kup-button-list
   kup-card --> kup-chart
   kup-card --> kup-gauge
@@ -173,6 +170,7 @@ graph TD;
   kup-card --> kup-radio
   kup-card --> kup-badge
   kup-card --> kup-card
+  kup-card --> kup-button
   kup-card --> kup-list
   kup-card --> kup-checkbox
   kup-card --> kup-data-table
@@ -204,8 +202,6 @@ graph TD;
   kup-image --> kup-card
   kup-image --> kup-badge
   kup-spinner --> kup-card
-  kup-button --> kup-card
-  kup-button --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-badge
@@ -215,6 +211,8 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
+  kup-button --> kup-card
+  kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-data-table --> kup-card
   kup-data-table --> kup-list
@@ -250,7 +248,6 @@ graph TD;
   kup-form --> kup-rating
   kup-form --> kup-time-picker
   kup-form --> kup-image
-  kup-form --> kup-button
   kup-form --> kup-button-list
   kup-form --> kup-chart
   kup-form --> kup-gauge
@@ -272,7 +269,6 @@ graph TD;
   kup-tree --> kup-rating
   kup-tree --> kup-time-picker
   kup-tree --> kup-image
-  kup-tree --> kup-button
   kup-tree --> kup-button-list
   kup-tree --> kup-chart
   kup-tree --> kup-gauge

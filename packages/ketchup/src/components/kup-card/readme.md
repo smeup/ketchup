@@ -144,7 +144,6 @@ Type: `Promise<void>`
 - [kup-rating](../kup-rating)
 - [kup-time-picker](../kup-time-picker)
 - [kup-image](../kup-image)
-- [kup-button](../kup-button)
 - [kup-button-list](../kup-button-list)
 - [kup-chart](../kup-chart)
 - [kup-gauge](../kup-gauge)
@@ -152,6 +151,7 @@ Type: `Promise<void>`
 - [kup-radio](../kup-radio)
 - [kup-badge](../kup-badge)
 - [kup-card](.)
+- [kup-button](../kup-button)
 - [kup-list](../kup-list)
 - [kup-checkbox](../kup-checkbox)
 - [kup-data-table](../kup-data-table)
@@ -178,12 +178,12 @@ graph TD;
   kup-time-picker --> kup-card
   kup-image --> kup-card
   kup-spinner --> kup-card
-  kup-button --> kup-card
   kup-button-list --> kup-card
   kup-dropdown-button --> kup-card
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
+  kup-button --> kup-card
   kup-checkbox --> kup-card
   kup-data-table --> kup-card
   kup-switch --> kup-card

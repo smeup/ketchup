@@ -45,6 +45,7 @@ import { KupChipChangeEventPayload } from '../../components/kup-chip/kup-chip-de
 import { FChipsProps, FChipType } from '../f-chip/f-chip-declarations';
 import { ItemsDisplayMode } from '../../components/kup-list/kup-list-declarations';
 import { FButton } from '../f-button/f-button';
+import { FProgressBar } from '../f-progress-bar/f-progress-bar';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -732,11 +733,13 @@ function setKupCell(
             );
         case FCellTypes.KNOB:
         case FCellTypes.PROGRESS_BAR:
-            return (
+            return subcomponentProps.customStyle ? (
                 <kup-progress-bar
                     key={column.name + props.row.id}
                     {...subcomponentProps}
                 ></kup-progress-bar>
+            ) : (
+                <FProgressBar {...subcomponentProps}></FProgressBar>
             );
         case FCellTypes.RADIO:
             if (isAutoCentered(props)) {

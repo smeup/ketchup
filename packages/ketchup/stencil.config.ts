@@ -85,6 +85,7 @@ export const config: Config = {
                 { src: 'numeric-picker.html' },
                 { src: 'planner.html' },
                 { src: 'probe.html' },
+                { src: 'progress-bar.html' },
                 { src: 'radio.html' },
                 { src: 'rating.html' },
                 { src: 'switch.html' },
