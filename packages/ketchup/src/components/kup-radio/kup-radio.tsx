@@ -9,7 +9,6 @@ import {
     Method,
     Prop,
     State,
-    VNode,
 } from '@stencil/core';
 import type {
     GenericObject,
@@ -22,11 +21,15 @@ import {
 } from '../../managers/kup-manager/kup-manager';
 import {
     KupRadioChangeEventPayload,
-    KupRadioData,
     KupRadioProps,
 } from './kup-radio-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { FRadio } from '../../f-components/f-radio/f-radio';
+import {
+    FRadioData,
+    FRadioProps,
+} from '../../f-components/f-radio/f-radio-declarations';
 
 @Component({
     tag: 'kup-radio',
@@ -68,7 +71,7 @@ export class KupRadio {
      * List of elements.
      * @default null
      */
-    @Prop() data: KupRadioData[] = null;
+    @Prop() data: FRadioData[] = null;
     /**
      * Defaults at false. When set to true, the component is disabled.
      * @default false
@@ -134,7 +137,7 @@ export class KupRadio {
     onKupChange(i: number) {
         this.value = this.data[i].value;
         for (let index = 0; index < this.data.length; index++) {
-            const radio: KupRadioData = this.data[index];
+            const radio: FRadioData = this.data[index];
             if (index === i) {
                 radio.checked = true;
             } else {
@@ -146,6 +149,7 @@ export class KupRadio {
             id: this.rootElement.id,
             value: this.value,
         });
+        this.refresh();
     }
 
     onKupFocus() {
@@ -210,69 +214,40 @@ export class KupRadio {
             return;
         }
 
-        const hasColumns: boolean = !!this.columns;
-        const radioList: Array<VNode> = [];
-
-        for (let i = 0; i < this.data.length; i++) {
-            const data: KupRadioData = this.data[i];
-            const classObj: GenericObject = {
-                radio: true,
-                'radio--checked': data.checked ? true : false,
-                'radio--disabled': this.disabled ? true : false,
-            };
-            const radioEl: VNode = (
-                <div
-                    class={`form-field ${
-                        this.leadingLabel ? ' form-field--align-end' : ''
-                    }`}
-                >
-                    <div class={classObj}>
-                        <input
-                            class="radio__native-control"
-                            type="radio"
-                            name="radio-element"
-                            value={data.value}
-                            checked={data.checked}
-                            disabled={this.disabled}
-                            onBlur={() => this.onKupBlur()}
-                            onChange={() => this.onKupChange(i)}
-                            onFocus={() => this.onKupFocus()}
-                        ></input>
-                        <div class="radio__background">
-                            <div class="radio__outer-circle"></div>
-                            <div class="radio__inner-circle"></div>
-                        </div>
-                    </div>
-                    <label
-                        htmlFor={'radio-element'}
-                        onClick={() => this.onKupChange(i)}
-                    >
-                        {data.label ? data.label : ''}
-                    </label>
-                </div>
-            );
-            radioList.push(radioEl);
-        }
-
-        const hostStyle: GenericObject = {
-            '--kup_radio_columns': hasColumns
-                ? `repeat(${this.columns}, 1fr)`
-                : '',
-        };
-        const classObj: GenericObject = {
-            'radio-wrapper': true,
-            'radio-wrapper--grid': hasColumns ? true : false,
+        const props: FRadioProps = {
+            columns: this.columns,
+            danger: this.rootElement.classList.contains('kup-danger')
+                ? true
+                : false,
+            data: this.data,
+            disabled: this.disabled,
+            info: this.rootElement.classList.contains('kup-info')
+                ? true
+                : false,
+            leadingLabel: this.leadingLabel,
+            secondary: this.rootElement.classList.contains('kup-secondary')
+                ? true
+                : false,
+            success: this.rootElement.classList.contains('kup-success')
+                ? true
+                : false,
+            warning: this.rootElement.classList.contains('kup-warning')
+                ? true
+                : false,
+            onBlur: () => this.onKupBlur(),
+            onChange: (i) => this.onKupChange(i),
+            onFocus: () => this.onKupFocus(),
         };
 
         return (
-            <Host style={hostStyle}>
+            <Host>
                 <style>
                     {this.kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
                     )}
                 </style>
                 <div id={componentWrapperId}>
-                    <div class={classObj}>{radioList}</div>
+                    <FRadio {...props}></FRadio>
                 </div>
             </Host>
         );

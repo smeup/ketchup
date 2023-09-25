@@ -148,7 +148,6 @@ Type: `Promise<void>`
 - [kup-chart](../kup-chart)
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
-- [kup-radio](../kup-radio)
 - [kup-badge](../kup-badge)
 - [kup-card](.)
 - [kup-button](../kup-button)

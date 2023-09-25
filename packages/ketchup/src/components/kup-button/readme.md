@@ -151,7 +151,6 @@ graph TD;
   kup-form --> kup-chart
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
-  kup-form --> kup-radio
   kup-form --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
@@ -172,7 +171,6 @@ graph TD;
   kup-tree --> kup-chart
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
-  kup-tree --> kup-radio
   kup-tree --> kup-badge
   kup-iframe --> kup-button
   kup-magic-box --> kup-button

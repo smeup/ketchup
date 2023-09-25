@@ -100,6 +100,17 @@ export const fProgressBarUsers = [
     KupTagNames.TREE,
 ];
 /**
+ * Components using the FRadio functional component.
+ */
+export const fRadioUsers = [
+    KupTagNames.BOX,
+    KupTagNames.CELL,
+    KupTagNames.DATA_TABLE,
+    KupTagNames.FORM,
+    KupTagNames.RADIO,
+    KupTagNames.TREE,
+];
+/**
  * Components using the FSwitch functional component.
  */
 export const fSwitchUsers = [
