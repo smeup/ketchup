@@ -333,15 +333,16 @@ function updateGroupTotal(
     }
 
     keys.forEach((key) => {
-        const currentTotalValue = dom.ketchup.math.numberify(
-            groupRow.group.totals[key] || 0
-        );
-
         const cell = addedRow.cells[key];
+        const _isNumber = dom.ketchup.objects.isNumber(cell.obj);
+        let currentTotalValue: number = null;
+        if (_isNumber) {
+            currentTotalValue = dom.ketchup.math.numberify(
+                groupRow.group.totals[key] || 0
+            );
+        }
 
         if (cell) {
-            let _isNumber = dom.ketchup.objects.isNumber(cell.obj);
-
             const totalMode = totals[key];
 
             switch (totalMode) {
