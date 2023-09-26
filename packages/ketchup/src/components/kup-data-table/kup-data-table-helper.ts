@@ -18,7 +18,10 @@ import {
 import { FiltersRows } from '../../utils/filters/filters-rows';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
-import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
+import {
+    KupDatesFormats,
+    KupDatesNormalize,
+} from '../../managers/kup-dates/kup-dates-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -335,27 +338,21 @@ function updateGroupTotal(
     keys.forEach((key) => {
         const cell = addedRow.cells[key];
         const _isNumber = dom.ketchup.objects.isNumber(cell.obj);
-        let currentTotalValue: number = null;
-        if (_isNumber) {
-            currentTotalValue = dom.ketchup.math.numberify(
-                groupRow.group.totals[key] || 0
-            );
-        }
 
         if (cell) {
             const totalMode = totals[key];
 
             switch (totalMode) {
                 case TotalMode.COUNT:
-                    groupRow.group.totals[key] = currentTotalValue + 1;
+                    let currentTotalValue: number =
+                        groupRow.group.totals[key] || 0;
+                    groupRow.group.totals[key] = ++currentTotalValue;
                     // updating parents
                     let parent = groupRow.group.parent;
                     while (parent != null) {
-                        const currentParentCount =
+                        let currentParentCount: number =
                             parent.group.totals[key] || 0;
-
-                        parent.group.totals[key] = currentParentCount + 1;
-
+                        parent.group.totals[key] = ++currentParentCount;
                         parent = parent.group.parent;
                     }
                     break;
@@ -416,11 +413,13 @@ function updateGroupTotal(
                     break;
                 case TotalMode.SUM:
                 case TotalMode.AVERAGE:
-                    if (_isNumber) {
+                    if (_isNumber && cell.value) {
                         const cellValue = dom.ketchup.math.numberify(
                             dom.ketchup.math.numberifySafe(cell.value)
                         );
 
+                        const currentTotalValue: number =
+                            groupRow.group.totals[key] || 0;
                         groupRow.group.totals[key] =
                             cellValue + currentTotalValue;
                         // updating parents
@@ -438,14 +437,14 @@ function updateGroupTotal(
                     break;
                 // TODO DRY the MIN and MAX functions
                 case TotalMode.MIN:
-                    if (_isNumber) {
-                        const currentTotalValue = groupRow.group.totals[key];
+                    if (_isNumber && cell.value) {
+                        const currentMinValue = groupRow.group.totals[key];
                         const cellValue = dom.ketchup.math.numberify(
                             dom.ketchup.math.numberifySafe(cell.value)
                         );
-                        if (currentTotalValue) {
+                        if (currentMinValue) {
                             groupRow.group.totals[key] = Math.min(
-                                currentTotalValue,
+                                currentMinValue,
                                 cellValue
                             );
                         } else {
@@ -467,27 +466,30 @@ function updateGroupTotal(
                             }
                             parent = parent.group.parent;
                         }
-                    } else if (dom.ketchup.objects.isDate(cell.obj)) {
-                        const momentValue = cell.obj
-                            ? dom.ketchup.objects.parseDate(cell.obj)
-                            : dom.ketchup.dates.toDayjs(cell.value);
-                        if (dom.ketchup.dates.isValid(momentValue)) {
-                            const cellValue =
-                                dom.ketchup.dates.toDate(momentValue);
-                            const currentTotalValue =
-                                groupRow.group.totals[key];
-                            if (currentTotalValue) {
+                    } else if (
+                        cell.value &&
+                        dom.ketchup.objects.isDate(cell.obj)
+                    ) {
+                        const cellValue = dom.ketchup.dates.toDayjs(cell.value);
+                        if (dom.ketchup.dates.isValid(cellValue)) {
+                            const currentMinValue = groupRow.group.totals[key];
+                            if (currentMinValue) {
                                 let moments = [];
                                 moments.push(cellValue);
                                 moments.push(
-                                    dom.ketchup.dates.format(currentTotalValue)
+                                    dom.ketchup.dates.toDayjs(currentMinValue)
                                 );
                                 groupRow.group.totals[key] =
                                     dom.ketchup.dates.format(
-                                        dom.ketchup.dates.min(moments)
+                                        dom.ketchup.dates.min(moments),
+                                        KupDatesFormats.ISO_DATE
                                     );
                             } else {
-                                groupRow.group.totals[key] = cellValue;
+                                groupRow.group.totals[key] =
+                                    dom.ketchup.dates.format(
+                                        cellValue,
+                                        KupDatesFormats.ISO_DATE
+                                    );
                             }
                             // updating parents
                             let parent = groupRow.group.parent;
@@ -498,17 +500,22 @@ function updateGroupTotal(
                                     let moments = [];
                                     moments.push(cellValue);
                                     moments.push(
-                                        dom.ketchup.dates.format(
+                                        dom.ketchup.dates.toDayjs(
                                             currentParentMin
                                         )
                                     );
                                     parent.group.totals[key] =
                                         dom.ketchup.dates.format(
-                                            dom.ketchup.dates.min(moments)
+                                            dom.ketchup.dates.min(moments),
+                                            KupDatesFormats.ISO_DATE
                                         );
                                 } else {
                                     // first round
-                                    parent.group.totals[key] = cellValue;
+                                    parent.group.totals[key] =
+                                        dom.ketchup.dates.format(
+                                            cellValue,
+                                            KupDatesFormats.ISO_DATE
+                                        );
                                 }
                                 parent = parent.group.parent;
                             }
@@ -517,14 +524,14 @@ function updateGroupTotal(
                     break;
                 // TODO DRY the MIN and MAX functions
                 case TotalMode.MAX:
-                    if (_isNumber) {
-                        const currentTotalValue = groupRow.group.totals[key];
+                    if (_isNumber && cell.value) {
+                        const currentMaxValue = groupRow.group.totals[key];
                         const cellValue = dom.ketchup.math.numberify(
                             dom.ketchup.math.numberifySafe(cell.value)
                         );
-                        if (currentTotalValue) {
+                        if (currentMaxValue) {
                             groupRow.group.totals[key] = Math.max(
-                                currentTotalValue,
+                                currentMaxValue,
                                 cellValue
                             );
                         } else {
@@ -546,48 +553,56 @@ function updateGroupTotal(
                             }
                             parent = parent.group.parent;
                         }
-                    } else if (dom.ketchup.objects.isDate(cell.obj)) {
-                        const momentValue = cell.obj
-                            ? dom.ketchup.objects.parseDate(cell.obj)
-                            : dom.ketchup.dates.toDayjs(cell.value);
-                        if (dom.ketchup.dates.isValid(momentValue)) {
-                            const cellValue =
-                                dom.ketchup.dates.toDate(momentValue);
-                            const currentTotalValue =
-                                groupRow.group.totals[key];
-                            if (currentTotalValue) {
+                    } else if (
+                        cell.value &&
+                        dom.ketchup.objects.isDate(cell.obj)
+                    ) {
+                        const cellValue = dom.ketchup.dates.toDayjs(cell.value);
+                        if (dom.ketchup.dates.isValid(cellValue)) {
+                            const currentMaxValue = groupRow.group.totals[key];
+                            if (currentMaxValue) {
                                 let moments = [];
                                 moments.push(cellValue);
                                 moments.push(
-                                    dom.ketchup.dates.format(currentTotalValue)
+                                    dom.ketchup.dates.toDayjs(currentMaxValue)
                                 );
                                 groupRow.group.totals[key] =
                                     dom.ketchup.dates.format(
-                                        dom.ketchup.dates.max(moments)
+                                        dom.ketchup.dates.max(moments),
+                                        KupDatesFormats.ISO_DATE
                                     );
                             } else {
-                                groupRow.group.totals[key] = cellValue;
+                                groupRow.group.totals[key] =
+                                    dom.ketchup.dates.format(
+                                        cellValue,
+                                        KupDatesFormats.ISO_DATE
+                                    );
                             }
                             // updating parents
                             let parent = groupRow.group.parent;
                             while (parent != null) {
-                                const currentParentMin =
+                                const currentParentMax =
                                     parent.group.totals[key];
-                                if (currentParentMin) {
+                                if (currentParentMax) {
                                     let moments = [];
                                     moments.push(cellValue);
                                     moments.push(
-                                        dom.ketchup.dates.format(
-                                            currentParentMin
+                                        dom.ketchup.dates.toDayjs(
+                                            currentParentMax
                                         )
                                     );
                                     parent.group.totals[key] =
                                         dom.ketchup.dates.format(
-                                            dom.ketchup.dates.max(moments)
+                                            dom.ketchup.dates.max(moments),
+                                            KupDatesFormats.ISO_DATE
                                         );
                                 } else {
                                     // first round
-                                    parent.group.totals[key] = cellValue;
+                                    parent.group.totals[key] =
+                                        dom.ketchup.dates.format(
+                                            cellValue,
+                                            KupDatesFormats.ISO_DATE
+                                        );
                                 }
                                 parent = parent.group.parent;
                             }
@@ -727,9 +742,7 @@ function adjustGroupAverageOrFormula(
     // adjust average/formulas
     toAdjustKeys.forEach((key) => {
         if (type == TotalMode.AVERAGE) {
-            row.group.totals[key] =
-                dom.ketchup.math.numberify(row.group.totals[key]) /
-                numberOfLeaf;
+            row.group.totals[key] = row.group.totals[key] / numberOfLeaf;
         }
         if (type == TotalMode.MATH) {
             let formula = totals[key].substring(TotalMode.MATH.length);
