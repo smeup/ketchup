@@ -190,7 +190,6 @@ graph TD;
   kup-form --> kup-chart
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
-  kup-form --> kup-radio
   kup-form --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card

@@ -132,7 +132,6 @@ graph TD;
   kup-box --> kup-chart
   kup-box --> kup-gauge
   kup-box --> kup-progress-bar
-  kup-box --> kup-radio
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -146,7 +145,6 @@ graph TD;
   kup-card --> kup-chart
   kup-card --> kup-gauge
   kup-card --> kup-progress-bar
-  kup-card --> kup-radio
   kup-card --> kup-badge
   kup-card --> kup-card
   kup-card --> kup-button
@@ -215,7 +213,6 @@ graph TD;
   kup-data-table --> kup-chart
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-radio
   kup-switch --> kup-card
   kup-form --> kup-card
   kup-form --> kup-autocomplete
@@ -231,7 +228,6 @@ graph TD;
   kup-form --> kup-chart
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
-  kup-form --> kup-radio
   kup-form --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
@@ -252,7 +248,6 @@ graph TD;
   kup-tree --> kup-chart
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
-  kup-tree --> kup-radio
   kup-tree --> kup-badge
   style kup-family-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```

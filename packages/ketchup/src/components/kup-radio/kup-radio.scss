@@ -1,2 +1,13 @@
-@import 'styles/kup-radio-main.scss';
-@import 'styles/kup-radio-classes.scss';
+/**
+* @prop --kup-radio-font-family: Sets font family of the radio's label.
+* @prop --kup-radio-font-size: Sets font size of the radio's label.
+* @prop --kup-radio-font-weight: Sets font weight of the radio's label.
+* @prop --kup-radio-outer-circle-color: Sets color of the outer circle.
+* @prop --kup-radio-primary-color: Sets primary color of the component.
+* @prop --kup-radio-primary-color-rgb: Sets primary color RGB values of the component.
+* @prop --kup-radio-text-color: Sets text color of the radio's label.
+*/
+
+:host {
+  display: block;
+}

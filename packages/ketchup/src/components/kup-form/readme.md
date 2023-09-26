@@ -102,7 +102,6 @@ Type: `Promise<void>`
 - [kup-chart](../kup-chart)
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
-- [kup-radio](../kup-radio)
 - [kup-badge](../kup-badge)
 
 ### Graph
@@ -122,7 +121,6 @@ graph TD;
   kup-form --> kup-chart
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
-  kup-form --> kup-radio
   kup-form --> kup-badge
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
@@ -137,7 +135,6 @@ graph TD;
   kup-card --> kup-chart
   kup-card --> kup-gauge
   kup-card --> kup-progress-bar
-  kup-card --> kup-radio
   kup-card --> kup-badge
   kup-card --> kup-card
   kup-card --> kup-button
@@ -205,7 +202,6 @@ graph TD;
   kup-tree --> kup-chart
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
-  kup-tree --> kup-radio
   kup-tree --> kup-badge
   style kup-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
