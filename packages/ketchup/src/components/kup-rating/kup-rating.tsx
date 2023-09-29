@@ -8,8 +8,6 @@ import {
     Host,
     Method,
     Prop,
-    State,
-    Watch,
 } from '@stencil/core';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
@@ -22,6 +20,8 @@ import {
     KupRatingClickEventPayload,
     KupRatingProps,
 } from './kup-rating-declarations';
+import { FRating } from '../../f-components/f-rating/f-rating';
+import { FRatingProps } from '../../f-components/f-rating/f-rating-declarations';
 
 @Component({
     tag: 'kup-rating',
@@ -33,12 +33,6 @@ export class KupRating {
      * References the root HTML element of the component (<kup-rating>).
      */
     @Element() rootElement: HTMLElement;
-
-    /*-------------------------------------------------*/
-    /*                   S t a t e s                   */
-    /*-------------------------------------------------*/
-
-    @State() stars: Array<object> = [];
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -85,28 +79,18 @@ export class KupRating {
         cancelable: false,
         bubbles: true,
     })
-    kupRatingClick: EventEmitter<KupRatingClickEventPayload>;
+    kupClick: EventEmitter<KupRatingClickEventPayload>;
 
-    onStarClick(newValue: number) {
+    onKupClick(newValue: number) {
         if (!this.disabled) {
             this.value = newValue;
-            this.buildStars(this.value);
-            this.kupRatingClick.emit({
+            this.kupClick.emit({
                 comp: this,
                 id: this.rootElement.id,
                 value: this.value,
             });
+            this.refresh();
         }
-    }
-
-    /*-------------------------------------------------*/
-    /*                  W a t c h e r s                */
-    /*-------------------------------------------------*/
-
-    @Watch('value')
-    @Watch('maxValue')
-    private onValueChanged() {
-        this.buildStars(this.value);
     }
 
     /*-------------------------------------------------*/
@@ -139,61 +123,12 @@ export class KupRating {
     }
 
     /*-------------------------------------------------*/
-    /*           P r i v a t e   M e t h o d s         */
-    /*-------------------------------------------------*/
-
-    onMouseOver(newValue: number) {
-        if (!this.disabled) {
-            this.buildStars(newValue);
-        }
-    }
-
-    onMouseOut() {
-        if (!this.disabled) {
-            this.buildStars(this.value);
-        }
-    }
-
-    buildStars(numberOfStars: number) {
-        let stars = [];
-
-        for (let i = 1; i <= this.maxValue; i++) {
-            if (i <= numberOfStars) {
-                stars.push(
-                    <span
-                        class="rating"
-                        onMouseOver={() => this.onMouseOver(i)}
-                        onMouseOut={() => this.onMouseOut()}
-                        onClick={() => this.onStarClick(i)}
-                    >
-                        &#x2605;
-                    </span>
-                );
-            } else {
-                stars.push(
-                    <span
-                        class="rating"
-                        onMouseOver={() => this.onMouseOver(i)}
-                        onMouseOut={() => this.onMouseOut()}
-                        onClick={() => this.onStarClick(i)}
-                    >
-                        &#x2606;
-                    </span>
-                );
-            }
-        }
-
-        this.stars = stars;
-    }
-
-    /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
-        this.onValueChanged();
     }
 
     componentDidLoad() {
@@ -209,6 +144,28 @@ export class KupRating {
     }
 
     render() {
+        const props: FRatingProps = {
+            danger: this.rootElement.classList.contains('kup-danger')
+                ? true
+                : false,
+            disabled: this.disabled,
+            info: this.rootElement.classList.contains('kup-info')
+                ? true
+                : false,
+            maxValue: this.maxValue,
+            secondary: this.rootElement.classList.contains('kup-secondary')
+                ? true
+                : false,
+            success: this.rootElement.classList.contains('kup-success')
+                ? true
+                : false,
+            value: this.value,
+            warning: this.rootElement.classList.contains('kup-warning')
+                ? true
+                : false,
+            onClick: (i) => this.onKupClick(i),
+        };
+
         return (
             <Host>
                 <style>
@@ -217,7 +174,7 @@ export class KupRating {
                     )}
                 </style>
                 <div id={componentWrapperId}>
-                    <div>{this.stars}</div>
+                    <FRating {...props}></FRating>
                 </div>
             </Host>
         );
