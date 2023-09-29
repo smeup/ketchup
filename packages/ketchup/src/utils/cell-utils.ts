@@ -180,23 +180,12 @@ export function compareValues(
             dom.ketchup.dates.format(s2, KupDatesFormats.ISO_DATE)
         );
     } else if (dom.ketchup.objects.isTime(obj1)) {
-        let manageSeconds = dom.ketchup.objects.isTimeWithSeconds(obj1);
-        v1 = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(
-                s1,
-                manageSeconds
-                    ? KupDatesFormats.ISO_TIME
-                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
-            )
-        );
-        v2 = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(
-                s2,
-                manageSeconds
-                    ? KupDatesFormats.ISO_TIME
-                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
-            )
-        );
+        // Previous code could not work because dayjs
+        // returns an invalid date when it tries to parse a time
+        // This solution is simpler and it works because the time format
+        // was assumed to be equals to HH:mm:ss or HH:mm
+        v1 = Number(s1.replace(/:/g, ''));
+        v2 = Number(s2.replace(/:/g, ''));
     } else if (dom.ketchup.objects.isTimestamp(obj1)) {
         v1 = dom.ketchup.dates.toDate(
             dom.ketchup.dates.format(s1, KupDatesFormats.ISO_DATE_TIME)
