@@ -47,6 +47,7 @@ import { ItemsDisplayMode } from '../../components/kup-list/kup-list-declaration
 import { FButton } from '../f-button/f-button';
 import { FProgressBar } from '../f-progress-bar/f-progress-bar';
 import { FRadio } from '../f-radio/f-radio';
+import { FRating } from '../f-rating/f-rating';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -749,13 +750,7 @@ function setKupCell(
             subcomponentProps['disabled'] = row.readOnly;
             return <FRadio {...subcomponentProps}></FRadio>;
         case FCellTypes.RATING:
-            return (
-                <kup-rating
-                    key={column.name + props.row.id}
-                    {...subcomponentProps}
-                    disabled
-                ></kup-rating>
-            );
+            return <FRating {...subcomponentProps} disabled={true}></FRating>;
     }
 }
 
