@@ -19,6 +19,15 @@
       width: 100%;
     }
 
+    .top {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .buttons {
+      display: flex;
+    }
+
     .sub-spinner {
       height: 88px;
       width: 88px;

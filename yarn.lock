@@ -2871,7 +2871,7 @@ __metadata:
     "@material/ripple": ^14.0.0
     "@material/textfield": ^14.0.0
     "@sme.up/gantt-component": ^1.3.30
-    "@stencil/core": ^4.0.2
+    "@stencil/core": ^4.3.0
     "@stencil/react-output-target": 0.5.3
     "@stencil/sass": ^3.0.5
     d3-shape: ^3.2.0
@@ -2923,12 +2923,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stencil/core@npm:^4.0.2":
-  version: 4.0.4
-  resolution: "@stencil/core@npm:4.0.4"
+"@stencil/core@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "@stencil/core@npm:4.3.0"
   bin:
     stencil: bin/stencil
-  checksum: 6a3ef9664eea29b7ed640bab5079fbeae7121c85752578fc57cc098845e79d2ffeeecead568c4ede0dfdde72215afaaa237132376ca44085d2a24d698564a98c
+  checksum: 83095ca3425b413b3ca968844b676d15fbe54301572e799f42efe9bfe58e7742e1b4487c037c1794bba7b437bc112bc80be7d5a85bef83bfa21975d6d6628246
   languageName: node
   linkType: hard
 
