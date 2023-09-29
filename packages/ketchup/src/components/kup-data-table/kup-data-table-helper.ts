@@ -337,9 +337,9 @@ function updateGroupTotal(
 
     keys.forEach((key) => {
         const cell = addedRow.cells[key];
-        const _isNumber = dom.ketchup.objects.isNumber(cell.obj);
 
         if (cell) {
+            const _isNumber = dom.ketchup.objects.isNumber(cell.obj);
             const totalMode = totals[key];
 
             switch (totalMode) {
