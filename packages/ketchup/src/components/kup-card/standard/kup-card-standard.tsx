@@ -1056,46 +1056,52 @@ export function create14(component: KupCard): VNode {
                         </div>
                     )}
                     <div class="sub-1">
-                        {textArray[0] ? (
-                            <div class="title">
-                                <span
-                                    class={`label ${KupCardCSSClasses.CLICKABLE_LINK}`}
-                                    id="title-link"
-                                >
-                                    {textArray[0]}
-                                </span>
+                        {textArray[0] ||
+                        buttonsIds.includes(
+                            KupColumnMenuIds.BUTTON_OPEN_IN_NEW
+                        ) ||
+                        buttonsIds.includes(KupColumnMenuIds.BUTTON_SEARCH) ? (
+                            <div class="top">
+                                {textArray[0] ? (
+                                    <div class="title">
+                                        <span
+                                            class={`label ${KupCardCSSClasses.CLICKABLE_LINK}`}
+                                            id="title-link"
+                                        >
+                                            {textArray[0]}
+                                        </span>
+                                    </div>
+                                ) : null}
                                 {buttonsIds.includes(
                                     KupColumnMenuIds.BUTTON_OPEN_IN_NEW
-                                ) ? (
-                                    <kup-button
-                                        {...buttonArray.find(
-                                            (x) =>
-                                                x.id ===
-                                                KupColumnMenuIds.BUTTON_OPEN_IN_NEW
-                                        )}
-                                    />
-                                ) : null}
-                                {buttonsIds.includes(
+                                ) ||
+                                buttonsIds.includes(
                                     KupColumnMenuIds.BUTTON_SEARCH
                                 ) ? (
-                                    <kup-button
-                                        {...buttonArray.find(
-                                            (x) =>
-                                                x.id ===
-                                                KupColumnMenuIds.BUTTON_SEARCH
-                                        )}
-                                    />
-                                ) : null}
-                                {buttonsIds.includes(
-                                    KupColumnMenuIds.BUTTON_NEW
-                                ) ? (
-                                    <kup-button
-                                        {...buttonArray.find(
-                                            (x) =>
-                                                x.id ===
-                                                KupColumnMenuIds.BUTTON_NEW
-                                        )}
-                                    />
+                                    <div class="buttons">
+                                        {buttonsIds.includes(
+                                            KupColumnMenuIds.BUTTON_SEARCH
+                                        ) ? (
+                                            <kup-button
+                                                {...buttonArray.find(
+                                                    (x) =>
+                                                        x.id ===
+                                                        KupColumnMenuIds.BUTTON_OPEN_IN_NEW
+                                                )}
+                                            />
+                                        ) : null}
+                                        {buttonsIds.includes(
+                                            KupColumnMenuIds.BUTTON_SEARCH
+                                        ) ? (
+                                            <kup-button
+                                                {...buttonArray.find(
+                                                    (x) =>
+                                                        x.id ===
+                                                        KupColumnMenuIds.BUTTON_SEARCH
+                                                )}
+                                            />
+                                        ) : null}
+                                    </div>
                                 ) : null}
                             </div>
                         ) : null}
@@ -1423,35 +1429,50 @@ export function create15(component: KupCard): VNode {
                     </div>
                 )}
                 <div class="sub-1">
-                    {textArray[0] ? (
-                        <div class="title">
-                            <span
-                                class={`label ${KupCardCSSClasses.CLICKABLE_LINK}`}
-                                id="title-link"
-                            >
-                                {textArray[0]}
-                            </span>
-                            {buttonsIds.includes(
-                                KupColumnMenuIds.BUTTON_OPEN_IN_NEW
-                            ) ? (
-                                <kup-button
-                                    {...buttonArray.find(
-                                        (x) =>
-                                            x.id ===
-                                            KupColumnMenuIds.BUTTON_OPEN_IN_NEW
-                                    )}
-                                />
+                    {textArray[0] ||
+                    buttonsIds.includes(KupColumnMenuIds.BUTTON_OPEN_IN_NEW) ||
+                    buttonsIds.includes(KupColumnMenuIds.BUTTON_SEARCH) ? (
+                        <div class="top">
+                            {textArray[0] ? (
+                                <div class="title">
+                                    <span
+                                        class={`label ${KupCardCSSClasses.CLICKABLE_LINK}`}
+                                        id="title-link"
+                                    >
+                                        {textArray[0]}
+                                    </span>
+                                </div>
                             ) : null}
                             {buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_OPEN_IN_NEW
+                            ) ||
+                            buttonsIds.includes(
                                 KupColumnMenuIds.BUTTON_SEARCH
                             ) ? (
-                                <kup-button
-                                    {...buttonArray.find(
-                                        (x) =>
-                                            x.id ===
-                                            KupColumnMenuIds.BUTTON_SEARCH
-                                    )}
-                                />
+                                <div class="buttons">
+                                    {buttonsIds.includes(
+                                        KupColumnMenuIds.BUTTON_SEARCH
+                                    ) ? (
+                                        <kup-button
+                                            {...buttonArray.find(
+                                                (x) =>
+                                                    x.id ===
+                                                    KupColumnMenuIds.BUTTON_OPEN_IN_NEW
+                                            )}
+                                        />
+                                    ) : null}
+                                    {buttonsIds.includes(
+                                        KupColumnMenuIds.BUTTON_SEARCH
+                                    ) ? (
+                                        <kup-button
+                                            {...buttonArray.find(
+                                                (x) =>
+                                                    x.id ===
+                                                    KupColumnMenuIds.BUTTON_SEARCH
+                                            )}
+                                        />
+                                    ) : null}
+                                </div>
                             ) : null}
                         </div>
                     ) : null}

@@ -163,6 +163,10 @@ components.data = [
         id: 'planner.html',
     },
     {
+        value: 'Progress Bar',
+        id: 'progress-bar.html',
+    },
+    {
         value: 'Radio',
         id: 'radio.html',
     },

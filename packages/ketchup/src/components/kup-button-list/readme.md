@@ -124,11 +124,11 @@ graph TD;
   kup-image --> kup-card
   kup-image --> kup-badge
   kup-spinner --> kup-card
-  kup-button --> kup-card
-  kup-button --> kup-badge
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
+  kup-button --> kup-card
+  kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-data-table --> kup-button-list
   kup-switch --> kup-card

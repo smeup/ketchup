@@ -593,16 +593,26 @@ export class KupBox {
         let sortedRows = rows;
 
         if (this.sortBy) {
-            // create 'fake' sortObject
-            const sortObject: SortObject = {
-                column: this.sortBy,
-                sortMode: SortMode.A,
-            };
-
-            sortedRows = sortRows(sortedRows, [sortObject]);
+            sortedRows = sortRows(sortedRows, this.toSortObjectList());
         }
 
         return sortedRows;
+    }
+
+    private toSortObjectList(): SortObject[] {
+        const sortByArray = this.sortBy.split('|').map((col) => {
+            const colNameAndSortMode = col.split(',');
+
+            const sortObject: SortObject = {
+                column: colNameAndSortMode[0],
+                sortMode:
+                    colNameAndSortMode.length > 1
+                        ? SortMode[colNameAndSortMode[1]]
+                        : SortMode.A,
+            };
+            return sortObject;
+        });
+        return sortByArray;
     }
 
     private checkScrollOnHover() {

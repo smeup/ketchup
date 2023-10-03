@@ -17,6 +17,8 @@ import {
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupProgressBarProps } from './kup-progress-bar-declarations';
+import { FProgressBar } from '../../f-components/f-progress-bar/f-progress-bar';
+import { FProgressBarProps } from '../../f-components/f-progress-bar/f-progress-bar-declarations';
 
 @Component({
     tag: 'kup-progress-bar',
@@ -109,37 +111,6 @@ export class KupProgressBar {
     }
 
     /*-------------------------------------------------*/
-    /*           P r i v a t e   M e t h o d s         */
-    /*-------------------------------------------------*/
-
-    private createIconElement() {
-        if (!this.icon) {
-            return undefined;
-        }
-
-        if (
-            this.icon.indexOf('.') > -1 ||
-            this.icon.indexOf('/') > -1 ||
-            this.icon.indexOf('\\') > -1
-        ) {
-            return (
-                <span class="label kup-icon is-image">
-                    <img src={this.icon}></img>
-                </span>
-            );
-        } else {
-            let svg: string = `url('${getAssetPath(
-                `./assets/svg/${this.icon}.svg`
-            )}') no-repeat center`;
-            let iconStyle = {
-                mask: svg,
-                webkitMask: svg,
-            };
-            return <span style={iconStyle} class="label kup-icon"></span>;
-        }
-    }
-
-    /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
@@ -170,89 +141,41 @@ export class KupProgressBar {
     }
 
     render() {
-        let componentClass: string = '';
-        let pieClass: string = 'pie';
-        let radialStyle = undefined;
-        if (this.isRadial) {
-            componentClass = 'pie-wrapper';
-        } else {
-            componentClass = 'progress-bar';
-        }
-
-        let labelStyle = undefined;
-
-        const valueStyle = {
-            width: `${this.value}%`,
+        const props: FProgressBarProps = {
+            animated: this.rootElement.classList.contains('kup-animated')
+                ? true
+                : false,
+            danger: this.rootElement.classList.contains('kup-danger')
+                ? true
+                : false,
+            centeredLabel: this.centeredLabel,
+            hideLabel: this.hideLabel,
+            icon: this.icon,
+            info: this.rootElement.classList.contains('kup-info')
+                ? true
+                : false,
+            isRadial: this.isRadial,
+            label: this.label,
+            padded: this.rootElement.classList.contains('kup-padded')
+                ? true
+                : false,
+            secondary: this.rootElement.classList.contains('kup-secondary')
+                ? true
+                : false,
+            slim: this.rootElement.classList.contains('kup-slim')
+                ? true
+                : false,
+            striped: this.rootElement.classList.contains('kup-striped')
+                ? true
+                : false,
+            success: this.rootElement.classList.contains('kup-success')
+                ? true
+                : false,
+            value: this.value,
+            warning: this.rootElement.classList.contains('kup-warning')
+                ? true
+                : false,
         };
-
-        if (!this.centeredLabel) {
-            labelStyle = valueStyle;
-            if (this.value > 2) {
-                componentClass += ' text-color-on-primary';
-            }
-        } else if (this.value > 49) {
-            componentClass += ' text-color-on-primary';
-        }
-
-        let label = null;
-        if (this.icon) {
-            label = this.createIconElement();
-        } else {
-            if (!this.hideLabel) {
-                if (this.isRadial) {
-                    if (this.label) {
-                        label = <span class="label">{this.label}</span>;
-                    } else {
-                        label = (
-                            <span class="label">
-                                {this.value}
-                                <span class="smaller">%</span>
-                            </span>
-                        );
-                    }
-                } else {
-                    if (this.label) {
-                        label = this.label;
-                    } else {
-                        label = this.value + '%';
-                    }
-                }
-            }
-        }
-
-        if (this.value > 0) {
-            pieClass += ' has-value';
-            if (this.value > 50) {
-                pieClass += ' is-more-than-half';
-            } else {
-                pieClass += ' is-less-than-half';
-            }
-        }
-
-        let el: HTMLElement;
-        if (this.isRadial) {
-            el = (
-                <div class={componentClass}>
-                    {label}
-                    <div class={pieClass}>
-                        <div
-                            style={radialStyle}
-                            class="left-side half-circle"
-                        ></div>
-                        <div class="right-side half-circle"></div>
-                    </div>
-                    <div class="shadow"></div>
-                </div>
-            );
-        } else {
-            el = (
-                <div class={componentClass}>
-                    <div class="progress-bar-percentage" style={valueStyle}>
-                        <span style={labelStyle}>{label}</span>
-                    </div>
-                </div>
-            );
-        }
 
         return (
             <Host>
@@ -261,7 +184,9 @@ export class KupProgressBar {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}>{el}</div>
+                <div id={componentWrapperId}>
+                    <FProgressBar {...props}></FProgressBar>
+                </div>
             </Host>
         );
     }

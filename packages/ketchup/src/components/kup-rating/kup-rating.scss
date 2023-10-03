@@ -4,14 +4,5 @@
 */
 
 :host {
-  --kup_rating_color: var(--kup-rating-color, orange);
-  --kup_rating_font_size: var(--kup-rating-font-size, 30px);
-
   display: block;
-}
-
-.rating {
-  color: var(--kup_rating_color);
-  cursor: pointer;
-  font-size: var(--kup_rating_font_size);
 }
