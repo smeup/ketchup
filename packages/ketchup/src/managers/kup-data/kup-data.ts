@@ -92,6 +92,8 @@ export class KupData {
                         return FCellTypes.GAUGE;
                     case FCellShapes.IMAGE:
                         return FCellTypes.IMAGE;
+                    case FCellShapes.INPUT_CHECKBOX:
+                        return FCellTypes.CHECKBOX;
                     case FCellShapes.KNOB:
                         return FCellTypes.KNOB;
                     case FCellShapes.MULTI_AUTOCOMPLETE:

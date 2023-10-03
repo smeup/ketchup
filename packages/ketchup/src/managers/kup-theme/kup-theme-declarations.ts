@@ -89,6 +89,39 @@ export const fImageUsers = [
  */
 export const fPaginatorUsers = [KupTagNames.BOX, KupTagNames.DATA_TABLE];
 /**
+ * Components using the FProgressBar functional component.
+ */
+export const fProgressBarUsers = [
+    KupTagNames.BOX,
+    KupTagNames.CELL,
+    KupTagNames.DATA_TABLE,
+    KupTagNames.FORM,
+    KupTagNames.PROGRESS_BAR,
+    KupTagNames.TREE,
+];
+/**
+ * Components using the FRadio functional component.
+ */
+export const fRadioUsers = [
+    KupTagNames.BOX,
+    KupTagNames.CELL,
+    KupTagNames.DATA_TABLE,
+    KupTagNames.FORM,
+    KupTagNames.RADIO,
+    KupTagNames.TREE,
+];
+/**
+ * Components using the FRating functional component.
+ */
+export const fRatingUsers = [
+    KupTagNames.BOX,
+    KupTagNames.CELL,
+    KupTagNames.DATA_TABLE,
+    KupTagNames.FORM,
+    KupTagNames.RATING,
+    KupTagNames.TREE,
+];
+/**
  * Components using the FSwitch functional component.
  */
 export const fSwitchUsers = [

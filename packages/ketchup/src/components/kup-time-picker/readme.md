@@ -138,8 +138,6 @@ graph TD;
   kup-image --> kup-card
   kup-image --> kup-badge
   kup-spinner --> kup-card
-  kup-button --> kup-card
-  kup-button --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-badge
@@ -149,6 +147,8 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
+  kup-button --> kup-card
+  kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-data-table --> kup-time-picker
   kup-switch --> kup-card

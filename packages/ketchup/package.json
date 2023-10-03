@@ -1,6 +1,6 @@
 {
     "name": "@sme.up/ketchup",
-    "version": "9.0.0",
+    "version": "9.1.0",
     "keywords": [
         "smeup",
         "KetchUP",
@@ -62,7 +62,7 @@
         "vanilla-picker": "^2.12.1"
     },
     "devDependencies": {
-        "@stencil/core": "^4.0.2",
+        "@stencil/core": "^4.3.0",
         "@stencil/react-output-target": "0.5.3",
         "@stencil/sass": "^3.0.5",
         "jest": "^27.4.5",

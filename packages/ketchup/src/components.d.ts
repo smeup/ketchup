@@ -47,7 +47,8 @@ import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/ku
 import { KupPlannerClickEventPayload, KupPlannerEventPayload, KupPlannerPhase, KupPlannerUnloadEventPayload, KupPlannerViewMode } from "./components/kup-planner/kup-planner-declarations";
 import { TaskType } from "@sme.up/gantt-component/dist/types/public-types";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
-import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
+import { FRadioData } from "./f-components/f-radio/f-radio-declarations";
+import { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
@@ -95,7 +96,8 @@ export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/ku
 export { KupPlannerClickEventPayload, KupPlannerEventPayload, KupPlannerPhase, KupPlannerUnloadEventPayload, KupPlannerViewMode } from "./components/kup-planner/kup-planner-declarations";
 export { TaskType } from "@sme.up/gantt-component/dist/types/public-types";
 export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
-export { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
+export { FRadioData } from "./f-components/f-radio/f-radio-declarations";
+export { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
 export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 export { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 export { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
@@ -2817,7 +2819,7 @@ export namespace Components {
           * List of elements.
           * @default null
          */
-        "data": KupRadioData[];
+        "data": FRadioData[];
         /**
           * Defaults at false. When set to true, the component is disabled.
           * @default false
@@ -6176,7 +6178,7 @@ declare namespace LocalJSX {
           * List of elements.
           * @default null
          */
-        "data"?: KupRadioData[];
+        "data"?: FRadioData[];
         /**
           * Defaults at false. When set to true, the component is disabled.
           * @default false

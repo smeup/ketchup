@@ -86,15 +86,10 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-box](../kup-box)
  - [kup-card](../kup-card)
- - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
- - [kup-form](../kup-form)
  - [kup-iframe](../kup-iframe)
- - [kup-image-list](../kup-image-list)
  - [kup-magic-box](../kup-magic-box)
- - [kup-tree](../kup-tree)
 
 ### Depends on
 
@@ -142,16 +137,42 @@ graph TD;
   kup-checkbox --> kup-card
   kup-data-table --> kup-button
   kup-switch --> kup-card
-  kup-form --> kup-button
+  kup-form --> kup-card
+  kup-form --> kup-autocomplete
+  kup-form --> kup-chip
+  kup-form --> kup-text-field
+  kup-form --> kup-color-picker
+  kup-form --> kup-combobox
+  kup-form --> kup-date-picker
+  kup-form --> kup-rating
+  kup-form --> kup-time-picker
+  kup-form --> kup-image
+  kup-form --> kup-button-list
+  kup-form --> kup-chart
+  kup-form --> kup-gauge
+  kup-form --> kup-progress-bar
+  kup-form --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
-  kup-tree --> kup-button
-  kup-box --> kup-button
-  kup-cell --> kup-button
+  kup-tree --> kup-card
+  kup-tree --> kup-list
+  kup-tree --> kup-text-field
+  kup-tree --> kup-autocomplete
+  kup-tree --> kup-chip
+  kup-tree --> kup-color-picker
+  kup-tree --> kup-combobox
+  kup-tree --> kup-date-picker
+  kup-tree --> kup-rating
+  kup-tree --> kup-time-picker
+  kup-tree --> kup-image
+  kup-tree --> kup-button-list
+  kup-tree --> kup-chart
+  kup-tree --> kup-gauge
+  kup-tree --> kup-progress-bar
+  kup-tree --> kup-badge
   kup-iframe --> kup-button
-  kup-image-list --> kup-button
   kup-magic-box --> kup-button
   style kup-button fill:#f9f,stroke:#333,stroke-width:4px
 ```

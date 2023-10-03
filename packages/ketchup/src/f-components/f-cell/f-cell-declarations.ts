@@ -117,6 +117,7 @@ export enum FCellShapes {
     EDITOR = 'EDT',
     GAUGE = 'GAU',
     IMAGE = 'IMG',
+    INPUT_CHECKBOX = 'INC',
     INPUT_FIELD = 'INF',
     KNOB = 'KNB',
     MULTI_AUTOCOMPLETE = 'AML',
