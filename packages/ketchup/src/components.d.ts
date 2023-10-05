@@ -668,6 +668,16 @@ export namespace Components {
          */
         "data": KupCardListData;
         /**
+          * Sets the decimal value column.
+          * @default ""
+         */
+        "decvalueCol": string;
+        /**
+          * Sets the description column.
+          * @default ""
+         */
+        "descrCol": string;
+        /**
           * Sets whether the component occupies all available width.
           * @default true
          */
@@ -684,10 +694,35 @@ export namespace Components {
          */
         "horizontal": boolean;
         /**
+          * Sets the icon column.
+          * @default ""
+         */
+        "iconCol": string;
+        /**
+          * Sets the icon color column.
+          * @default ""
+         */
+        "iconcolorCol": string;
+        /**
+          * Sets the integer value column.
+          * @default ""
+         */
+        "intvalueCol": string;
+        /**
           * Sets whether a single card is clickable or not.
           * @default false
          */
         "isClickable": boolean;
+        /**
+          * Sets the layout column.
+          * @default ""
+         */
+        "layoutCol": string;
+        /**
+          * Sets the unit of measure column.
+          * @default ""
+         */
+        "measureCol": string;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -697,6 +732,21 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the text color column.
+          * @default ""
+         */
+        "textcolorCol": string;
+        /**
+          * Sets the value column.
+          * @default ""
+         */
+        "valueCol": string;
+        /**
+          * Sets the value color column.
+          * @default ""
+         */
+        "valuecolorCol": string;
     }
     interface KupCell {
         /**
@@ -4491,6 +4541,16 @@ declare namespace LocalJSX {
          */
         "data"?: KupCardListData;
         /**
+          * Sets the decimal value column.
+          * @default ""
+         */
+        "decvalueCol"?: string;
+        /**
+          * Sets the description column.
+          * @default ""
+         */
+        "descrCol"?: string;
+        /**
           * Sets whether the component occupies all available width.
           * @default true
          */
@@ -4501,11 +4561,51 @@ declare namespace LocalJSX {
          */
         "horizontal"?: boolean;
         /**
+          * Sets the icon column.
+          * @default ""
+         */
+        "iconCol"?: string;
+        /**
+          * Sets the icon color column.
+          * @default ""
+         */
+        "iconcolorCol"?: string;
+        /**
+          * Sets the integer value column.
+          * @default ""
+         */
+        "intvalueCol"?: string;
+        /**
           * Sets whether a single card is clickable or not.
           * @default false
          */
         "isClickable"?: boolean;
+        /**
+          * Sets the layout column.
+          * @default ""
+         */
+        "layoutCol"?: string;
+        /**
+          * Sets the unit of measure column.
+          * @default ""
+         */
+        "measureCol"?: string;
         "onKup-cardlist-click"?: (event: KupCardListCustomEvent<KupCardListClickEventPayload>) => void;
+        /**
+          * Sets the text color column.
+          * @default ""
+         */
+        "textcolorCol"?: string;
+        /**
+          * Sets the value column.
+          * @default ""
+         */
+        "valueCol"?: string;
+        /**
+          * Sets the value color column.
+          * @default ""
+         */
+        "valuecolorCol"?: string;
     }
     interface KupCell {
         /**

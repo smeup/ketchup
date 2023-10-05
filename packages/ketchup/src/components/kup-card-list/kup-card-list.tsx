@@ -15,7 +15,6 @@ import {
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import {
-    KupCardListColumn,
     KupCardListData,
     KupCardListClickEventPayload,
     KupCardListProps,
@@ -25,6 +24,7 @@ import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { getCellValueForDisplay } from '../../utils/cell-utils';
 import { getProps, setProps } from '../../utils/utils';
+import { KupDataColumn } from '../../components';
 
 @Component({
     tag: 'kup-card-list',
@@ -71,6 +71,66 @@ export class KupCardList {
      */
     @Prop()
     horizontal = false;
+    /**
+     * Sets the description column.
+     * @default ""
+     */
+    @Prop()
+    descrCol = '';
+    /**
+     * Sets the icon column.
+     * @default ""
+     */
+    @Prop()
+    iconCol = '';
+    /**
+     * Sets the value column.
+     * @default ""
+     */
+    @Prop()
+    valueCol = '';
+    /**
+     * Sets the unit of measure column.
+     * @default ""
+     */
+    @Prop()
+    measureCol = '';
+    /**
+     * Sets the integer value column.
+     * @default ""
+     */
+    @Prop()
+    intvalueCol = '';
+    /**
+     * Sets the decimal value column.
+     * @default ""
+     */
+    @Prop()
+    decvalueCol = '';
+    /**
+     * Sets the text color column.
+     * @default ""
+     */
+    @Prop()
+    textcolorCol = '';
+    /**
+     * Sets the value color column.
+     * @default ""
+     */
+    @Prop()
+    valuecolorCol = '';
+    /**
+     * Sets the icon color column.
+     * @default ""
+     */
+    @Prop()
+    iconcolorCol = '';
+    /**
+     * Sets the layout column.
+     * @default ""
+     */
+    @Prop()
+    layoutCol = '';
     /**
      * Sets whether a single card is clickable or not.
      * @default false
@@ -148,49 +208,49 @@ export class KupCardList {
         }
         const content: VNode[] = [];
 
-        let decvalueCol: KupCardListColumn,
-            descrCol: KupCardListColumn,
-            iconCol: KupCardListColumn,
-            iconcolorCol: KupCardListColumn,
-            intvalueCol: KupCardListColumn,
-            layoutCol: KupCardListColumn,
-            measureCol: KupCardListColumn,
-            textcolorCol: KupCardListColumn,
-            valueCol: KupCardListColumn,
-            valuecolorCol: KupCardListColumn;
+        let decvalueCol: KupDataColumn,
+            descrCol: KupDataColumn,
+            iconCol: KupDataColumn,
+            iconcolorCol: KupDataColumn,
+            intvalueCol: KupDataColumn,
+            layoutCol: KupDataColumn,
+            measureCol: KupDataColumn,
+            textcolorCol: KupDataColumn,
+            valueCol: KupDataColumn,
+            valuecolorCol: KupDataColumn;
 
         for (let index = 0; index < this.data.columns.length; index++) {
             const column = this.data.columns[index];
-            if (column.cardListOption) {
-                switch (column.cardListOption) {
-                    case 'decvalue':
+            if (column.name) {
+                switch (column.name) {
+                    case this.decvalueCol:
                         decvalueCol = column;
                         break;
-                    case 'descr':
+                    case this.descrCol:
                         descrCol = column;
                         break;
-                    case 'icon':
+                    case this.iconCol:
                         iconCol = column;
                         break;
-                    case 'iconcolor':
+                    case this.iconcolorCol:
                         iconcolorCol = column;
                         break;
-                    case 'intvalue':
+                    case this.intvalueCol:
                         intvalueCol = column;
                         break;
-                    case 'layout':
+                    case this.layoutCol:
                         layoutCol = column;
                         break;
-                    case 'measure':
+                    case this.measureCol:
                         measureCol = column;
                         break;
-                    case 'textcolor':
+                    case this.textcolorCol:
                         textcolorCol = column;
                         break;
-                    case 'value':
+                    case this.valueCol:
                         valueCol = column;
                         break;
-                    case 'valuecolor':
+                    case this.valuecolorCol:
                         valuecolorCol = column;
                         break;
                 }
@@ -230,7 +290,7 @@ export class KupCardList {
                 ></kup-card>
             );
             const loadData = (
-                col: KupCardListColumn,
+                col: KupDataColumn,
                 prop: string,
                 index: number
             ) => {
