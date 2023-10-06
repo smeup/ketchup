@@ -52,6 +52,7 @@
         "d3-shape": "^3.2.0",
         "dayjs": "^1.11.7",
         "echarts": "^5.4.2",
+        "hex-to-css-filter": "^5.4.0",
         "html2canvas": "^1.4.1",
         "interactjs": "1.10.12",
         "jquery": "^3.7.0",

@@ -109,12 +109,25 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-planner-renderer](utils)
 - [kup-card](../kup-card)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-planner --> kup-planner-renderer
   kup-planner --> kup-card
+  kup-planner-renderer --> kup-switcher
+  kup-planner-renderer --> kup-gantt
+  kup-switcher --> kup-dropdown-button
+  kup-dropdown-button --> kup-list
+  kup-dropdown-button --> kup-card
+  kup-dropdown-button --> kup-badge
+  kup-list --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-card
+  kup-list --> kup-badge
+  kup-radio --> kup-card
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -142,15 +155,10 @@ graph TD;
   kup-card --> kup-dropdown-button
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
-  kup-list --> kup-list
-  kup-list --> kup-radio
-  kup-list --> kup-card
-  kup-list --> kup-badge
-  kup-radio --> kup-card
-  kup-badge --> kup-badge
-  kup-badge --> kup-card
   kup-chip --> kup-card
   kup-chip --> kup-badge
+  kup-badge --> kup-badge
+  kup-badge --> kup-card
   kup-text-field --> kup-card
   kup-color-picker --> kup-card
   kup-combobox --> kup-list
@@ -166,9 +174,6 @@ graph TD;
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
   kup-button-list --> kup-badge
-  kup-dropdown-button --> kup-list
-  kup-dropdown-button --> kup-card
-  kup-dropdown-button --> kup-badge
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
@@ -236,6 +241,18 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-badge
+  kup-gantt --> kup-standard-tooltip
+  kup-gantt --> kup-task-list-header
+  kup-gantt --> kup-task-list-table
+  kup-gantt --> kup-task-list
+  kup-gantt --> kup-task-gantt
+  kup-gantt --> kup-tooltip
+  kup-gantt --> kup-vertical-scroll
+  kup-gantt --> kup-horizontal-scroll
+  kup-task-list --> kup-custom-task-list-header
+  kup-task-list --> kup-custom-task-list-table
+  kup-task-gantt --> kup-gantt-calendar
+  kup-task-gantt --> kup-grid-renderer
   style kup-planner fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

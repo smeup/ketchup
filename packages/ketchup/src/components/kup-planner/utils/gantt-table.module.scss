@@ -1,0 +1,93 @@
+.container {
+    padding: 0 10px;
+    margin-right: 10px;
+}
+
+.project {
+    background: var(--kup-background-color, #ffffff);
+    border: 1px solid var(--kup-border-color, #acacac);
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: var(--kup-text-color, #595959);
+    cursor: pointer;
+    display: grid;
+    font-weight: 400;
+    grid-template-columns: var(--grid-project-columns, 1fr 1fr 1fr);
+    place-items: center;
+
+    &>* {
+        font-size: 14px;
+        line-height: 24px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+    }
+
+    & .main {
+        font-weight: 700;
+        width: 100%;
+        padding-left: 4px;
+    }
+}
+
+.subrow {
+    cursor: pointer;
+    display: grid;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #acacac;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    box-sizing: border-box;
+    grid-template-columns: var(--grid-fasi-columns, 1fr 1fr 1fr);
+    place-items: center;
+    background: #ffffff;
+    color: #595959;
+    font-weight: 400;
+
+    &>* {
+        font-size: 12px;
+        line-height: 14px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 100%;
+    }
+}
+
+.subrow:has(+ .subrow),
+.project:has(+ .subrow) {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.timeline {
+    cursor: pointer;
+    display: grid;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #cbcbcb;
+    border-radius: 4px;
+    grid-template-columns: var(--grid-fasi-columns, 1fr 1fr 1fr);
+    place-items: center;
+    background: #fff;
+    color: #595959;
+    font-weight: 400;
+    box-sizing: border-box;
+
+    &>* {
+        font-size: 14px;
+        line-height: 24px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+    }
+
+    & .main {
+        font-weight: 700;
+        width: 100%;
+        padding-left: 4px;
+    }
+}

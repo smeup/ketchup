@@ -6,16 +6,16 @@
     "eslint.validate": ["vue", "html", "javascript", "tipescript"],
     "eslint.run": "onSave",
     "[typescriptreact]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
+      "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "[typescript]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
+      "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "[vue]": {
       "editor.defaultFormatter": "octref.vetur"
     },
     "[html]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
+      "editor.defaultFormatter": "vscode.html-language-features"
     },
     "[javascript]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
