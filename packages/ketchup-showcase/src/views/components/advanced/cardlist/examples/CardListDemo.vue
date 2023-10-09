@@ -67,6 +67,20 @@ export default {
           try: 'json',
         },
         {
+          prop: 'decvalueCol',
+          description: 'Sets the decimal value column.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
+          prop: 'descrCol',
+          description: 'Sets the description column.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'fullWidth',
           description:
             'Sets whether the component occupies all available width.',
@@ -82,11 +96,67 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'iconCol',
+          description: 'Sets the icon column.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
+          prop: 'iconcolorCol',
+          description: 'Sets the icon color column.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
+          prop: 'intvalueCol',
+          description: 'Sets the integer value column.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'isClickable',
           description: 'Sets whether a single card is clickable or not.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'layoutCol',
+          description: 'Sets the layout column.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
+          prop: 'measureCol',
+          description: 'Sets the measure column.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
+          prop: 'textcolorCol',
+          description: 'Sets the text color column.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
+          prop: 'valueCol',
+          description: 'Sets the value column.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
+          prop: 'valuecolorCol',
+          description: 'Sets the value color column.',
+          type: 'string',
+          default: '""',
+          try: 'field',
         },
       ],
     };
@@ -101,52 +171,42 @@ function createComp() {
       {
         name: 'ICO',
         title: 'Icona',
-        cardListOption: 'icon',
       },
       {
         name: 'UM',
         title: 'Um',
-        cardListOption: 'measure',
       },
       {
         name: 'TEXT',
         title: 'Testo',
-        cardListOption: 'descr',
       },
       {
         name: 'VALUE',
         title: 'Valore',
-        cardListOption: 'value',
       },
       {
         name: 'INTVAL',
         title: 'Valore parte intera',
-        cardListOption: 'intvalue',
       },
       {
         name: 'DECVAL',
         title: 'Valore parte decimale',
-        cardListOption: 'decvalue',
       },
       {
         name: 'TEXTCOLOR',
         title: 'Colore del testo',
-        cardListOption: 'textcolor',
       },
       {
         name: 'VALUECOLOR',
         title: 'Colore del valore',
-        cardListOption: 'valuecolor',
       },
       {
         name: 'ICOCOLOR',
         title: "Colore dell'icona",
-        cardListOption: 'iconcolor',
       },
       {
         name: 'LAYOUT',
         title: 'Layout della riga',
-        cardListOption: 'layout',
       },
     ],
     rows: [
@@ -801,6 +861,16 @@ function createComp() {
       },
     ],
   };
+  comp.decvalueCol = 'DECVAL';
+  comp.descrCol = 'TEXT';
+  comp.iconCol = 'ICO';
+  comp.iconcolorCol = 'ICOCOLOR';
+  comp.intvalueCol = 'INTVAL';
+  comp.layoutCol = 'LAYOUT';
+  comp.measureCol = 'UM';
+  comp.textcolorCol = 'TEXTCOLOR';
+  comp.valueCol = 'VALUE';
+  comp.valuecolorCol = 'VALUECOLOR';
   return comp;
 }
 </script>
