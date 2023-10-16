@@ -460,6 +460,7 @@ export class KupPlannerRenderer {
                                     // />
                                 }
                                 TooltipContent={this.props.secondaryGantt.tooltipContent ?? CustomTooltipHOC() as any}
+                                projection={this.projection}
                                 barClick={(task: KupPlannerTask) => {
                                     if (this.props.secondaryGantt) {
                                         let row = getProjectById(

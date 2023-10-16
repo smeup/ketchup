@@ -1,4 +1,5 @@
-import { GanttPlannerDetailsProps, GanttPlannerProps, PlannerProps } from "../kup-planner-declarations";
+import { forceUpdate } from "@stencil/core";
+import { GanttPlannerDetailsProps, GanttPlannerProps, KupPlannerGanttRow, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerTaskType, PlannerProps } from "../kup-planner-declarations";
 
 function dummyFilter() {
     const filter = document.createElement("div");
@@ -17,7 +18,239 @@ const onScrollY = (value: number) => {
 const mainGanttDoubleViewHandler = (checked: boolean) => {
     console.log("Main Gantt double view slider event", checked);
 };
+
+let isClicked = false;
+const mainGanttClickHandler = (row: KupPlannerGanttRow) => {
+    console.log("Main Gantt click event", row);
+    // if (row.type === "project") {
+    //     if (isClicked) {
+    //         mainGanttPlanner1PropsMock.items = mainGanttPlaner1ItemsAfterClick;
+    //     } else {
+    //         mainGanttPlanner1PropsMock.items = mainGanttPlaner1Items;
+    //     }
+    //     isClicked = !isClicked;
+    // }
+};
 // // planner 1
+
+const mainGanttPlaner1Items: any = [
+    {
+        id: "1",
+        name: "G456",
+        startDate: "2021-10-25",
+        endDate: "2023-11-20",
+        secondaryStartDate: "2021-10-25",
+        secondaryEndDate: "2023-03-07",
+        type: "project",
+        phases: [],
+        details: [],
+        valuesToShow: ["G456", "#START#", "#END#"],
+        icon: {
+            color: "#FF0000",
+            url: "http://localhost:3000/assets/svg/alert-circle.svg",
+        },
+    },
+    {
+        id: "2",
+        name: "G460",
+        startDate: "2021-10-20",
+        endDate: "2023-04-07",
+        secondaryStartDate: "2021-10-20",
+        secondaryEndDate: "2022-12-16",
+        type: "project",
+        phases: [],
+        details: [],
+        valuesToShow: ["G460", "#START#", "#END#"],
+    },
+]
+
+const mainGanttPlaner1ItemsAfterClick: any = [
+    {
+        id: "1",
+        name: "G456",
+        startDate: "2021-10-25",
+        endDate: "2023-11-20",
+        secondaryStartDate: "2021-10-25",
+        secondaryEndDate: "2023-03-07",
+        type: "project",
+        valuesToShow: ["G456", "#START#", "#END#"],
+        icon: {
+            color: "#FF0000",
+            url: "http://localhost:3000/assets/svg/alert-circle.svg",
+        },
+        phases: [
+            {
+                id: "P410           ",
+                name: "P410           ",
+                startDate: "2023-03-10",
+                endDate: "2023-10-17",
+                secondaryStartDate: "2022-11-04",
+                secondaryEndDate: "2022-11-07",
+                color: "#ED7D31",
+                selectedColor: "#ED7D31",
+                valuesToShow: ["P410", "#START#", "#END#"],
+                dependencies: [],
+                type: "task",
+                icon: {
+                    color: "#FF0000",
+                    url: "http://localhost:3000/assets/svg/alert-circle.svg",
+                },
+            },
+            {
+                id: "P420           ",
+                name: "P420           ",
+                startDate: "2022-11-21",
+                endDate: "2023-03-10",
+                secondaryStartDate: "2023-01-13",
+                secondaryEndDate: "2022-11-11",
+                color: "#FF0000",
+                selectedColor: "#FF0000",
+                valuesToShow: ["P420", "#START#", "#END#"],
+                dependencies: [],
+                type: "task",
+            },
+            {
+                id: "P610           ",
+                name: "P610           ",
+                startDate: "2023-03-27",
+                endDate: "2023-04-14",
+                secondaryStartDate: "2023-03-01",
+                secondaryEndDate: "2023-01-02",
+                color: "#70AD47",
+                selectedColor: "#70AD47",
+                valuesToShow: ["P610", "#START#", "#END#"],
+                dependencies: ["P410           "],
+                type: "task",
+            },
+            {
+                id: "P620           ",
+                name: "P620           ",
+                startDate: "2023-03-27",
+                endDate: "2023-04-14",
+                secondaryStartDate: "2023-03-01",
+                secondaryEndDate: "2022-11-30",
+                color: "#C6E0B4",
+                selectedColor: "#C6E0B4",
+                valuesToShow: ["P620", "#START#", "#END#"],
+                dependencies: ["P410           "],
+                type: "task",
+            },
+            {
+                id: "P630           ",
+                name: "P630           ",
+                startDate: "2023-03-20",
+                endDate: "2023-04-07",
+                secondaryStartDate: "2023-03-01",
+                secondaryEndDate: "2022-12-21",
+                color: "#BDD7EE",
+                selectedColor: "#BDD7EE",
+                valuesToShow: ["P630", "#START#", "#END#"],
+                dependencies: ["P410           "],
+                type: "task",
+            },
+            {
+                id: "P710           ",
+                name: "P710           ",
+                startDate: "2023-04-17",
+                endDate: "2023-04-28",
+                secondaryStartDate: "2023-03-01",
+                secondaryEndDate: "2023-01-10",
+                color: "#FFFF00",
+                selectedColor: "#FFFF00",
+                valuesToShow: ["P710", "#START#", "#END#"],
+                dependencies: ["P610           "],
+                type: "task",
+            },
+            {
+                id: "P720           ",
+                name: "P720           ",
+                startDate: "2023-05-02",
+                endDate: "2023-05-10",
+                secondaryStartDate: "2023-03-01",
+                secondaryEndDate: "2023-01-17",
+                color: "#BDD7EE",
+                selectedColor: "#BDD7EE",
+                valuesToShow: ["P720", "#START#", "#END#"],
+                dependencies: ["P710           "],
+                type: "task",
+            },
+            {
+                id: "P730           ",
+                name: "P730           ",
+                startDate: "2023-05-17",
+                endDate: "2023-05-30",
+                secondaryStartDate: "2023-03-01",
+                secondaryEndDate: "2023-01-31",
+                color: "#F8CBAD",
+                selectedColor: "#F8CBAD",
+                valuesToShow: ["P730", "#START#", "#END#"],
+                dependencies: ["P720           "],
+                type: "task",
+            },
+            {
+                id: "P750           ",
+                name: "P750           ",
+                startDate: "2023-05-31",
+                endDate: "2023-07-04",
+                secondaryStartDate: "2023-03-01",
+                secondaryEndDate: "2023-03-07",
+                color: "#7030A0",
+                selectedColor: "#7030A0",
+                valuesToShow: ["P750", "#START#", "#END#"],
+                dependencies: ["P730           "],
+                type: "task",
+            },
+        ],
+    },
+    {
+        id: "2",
+        name: "G460",
+        startDate: "2021-10-20",
+        endDate: "2023-04-07",
+        secondaryStartDate: "2021-10-20",
+        secondaryEndDate: "2022-12-16",
+        type: "project",
+        valuesToShow: ["G460", "#START#", "#END#"],
+        phases: [
+            {
+                id: "G460_P410           ",
+                name: "FS - MONTAGGIO MECCANICO           ",
+                startDate: "2023-03-06",
+                endDate: "2023-06-30",
+                secondaryStartDate: "2022-06-13",
+                secondaryEndDate: "2022-11-04",
+                type: "task",
+                color: "#ED7D31",
+                selectedColor: "#ED7D31",
+                valuesToShow: ["#START#", "#END#"],
+            },
+            {
+                id: "G460_P420           ",
+                name: "FS - MONTAGGIO ELETTRICO           ",
+                startDate: "2022-11-21",
+                endDate: "2023-02-24",
+                secondaryStartDate: "2022-08-29",
+                secondaryEndDate: "2022-11-11",
+                type: "task",
+                color: "#FF0000",
+                selectedColor: "#FF0000",
+                valuesToShow: ["#START#", "#END#"],
+            },
+            {
+                id: "G460_P610           ",
+                name: "FS - MESSA IN SERVIZIO MECC.       ",
+                startDate: "2023-07-17",
+                endDate: "2023-08-04",
+                secondaryStartDate: "2022-11-21",
+                secondaryEndDate: "2023-01-02",
+                type: "task",
+                color: "#70AD47",
+                selectedColor: "#70AD47",
+                valuesToShow: ["#START#", "#END#"],
+            },
+        ],
+    },
+]
 const mainGanttPlanner1PropsMock: GanttPlannerProps = {
     readOnly: false,
     /*initialScrollX: 11,
@@ -256,7 +489,8 @@ const mainGanttPlanner1PropsMock: GanttPlannerProps = {
     ganttHeight: 200,
     hideDependencies: true,
     title: "Main",
-    initialScrollX: 12
+    initialScrollX: 12,
+    onClick: mainGanttClickHandler,
 };
 
 const secondaryGanttPlanner1PropsMock: GanttPlannerDetailsProps = {
@@ -1284,3 +1518,9 @@ export const planner4PropsMock: PlannerProps = {
     mainGantt: mainGanttPlanner4PropsMock,
     viewMode: "month",
 };
+
+
+export {
+    mainGanttPlaner1Items,
+    mainGanttPlaner1ItemsAfterClick
+}

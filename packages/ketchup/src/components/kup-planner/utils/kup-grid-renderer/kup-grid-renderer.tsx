@@ -338,22 +338,12 @@ export class KupGirdRenderer {
             );
             this.initEventX1Delta = cursor.x - task.x1;
             this.initEventXClick = event.clientX;
-            // this.ganttEvent = {
-            //     action,
-            //     changedTask: task,
-            //     originalSelectedTask: task,
-            // }
             this.setGanttEvent({
                 action,
                 changedTask: task,
                 originalSelectedTask: task
             })
         } else {
-            // this.ganttEvent = {
-            //     action,
-            //     changedTask: task,
-            //     originalSelectedTask: task,
-            // }
             this.setGanttEvent({
                 action,
                 changedTask: task,

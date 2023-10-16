@@ -1223,28 +1223,33 @@ export class KupPlanner {
         if (this.plannerProps?.mainGantt) {
             this.plannerProps.mainGantt.showSecondaryDates = checked;
         }
+        this.plannerProps?.onSetDoubleView?.(checked);
         this.persistState();
     }
 
     handleOnSetViewMode(value: KupPlannerViewMode) {
         this.#storedSettings.viewMode = value;
         this.plannerProps.viewMode = value;
+        this.plannerProps.onSetViewMode?.(value);
         this.persistState();
     }
 
     handleOnScrollX(x: number) {
         this.#storedSettings.taskInitialScrollX = x;
         this.#storedSettings.detailInitialScrollX = x;
+        this.plannerProps.onScrollX?.(x)
         this.persistState();
     }
 
     handleTaskGanttScrollY(y: number) {
         this.#storedSettings.taskInitialScrollY = y;
+        this.plannerProps.mainGantt.onScrollY?.(y)
         this.persistState();
     }
 
     handleDetailGanttScrollY(y: number) {
         this.#storedSettings.detailInitialScrollY = y;
+        this.plannerProps.secondaryGantt?.onScrollY?.(y)
         this.persistState();
     }
 
@@ -1342,12 +1347,28 @@ export class KupPlanner {
             );
         }
 
+        const plannerProps = {
+            ...this.plannerProps,
+            onSetDoubleView: this.handleOnSetDoubleView.bind(this),
+            onSetViewMode: this.handleOnSetViewMode.bind(this),
+            onScrollX: this.handleOnScrollX.bind(this),
+            mainGantt: {
+                ...this.plannerProps.mainGantt,
+                onScrollY: this.handleTaskGanttScrollY.bind(this)
+            }
+        }
+
+        if (this.plannerProps.secondaryGantt) {
+            plannerProps.secondaryGantt = {
+                ...this.plannerProps.secondaryGantt,
+                onScrollY: this.handleDetailGanttScrollY.bind(this)
+            }
+        }
         return (
             <kup-planner-renderer
-                props={this.plannerProps}
+                props={plannerProps}
                 selectedPlanner={this.selectedPlanner}
                 plannerChange={(props, selectedValue) => {
-                    console.log('selectedValue: ', selectedValue);
                     this.plannerProps = undefined;
                     this.selectedPlanner = selectedValue
                     setTimeout(() => {
