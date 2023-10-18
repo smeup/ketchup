@@ -1,6 +1,3 @@
-import { Detail, GanttTask } from '@sme.up/gantt-component';
-// import { Phase } from '@sme.up/gantt-component';
-import { GanttRow } from '@sme.up/gantt-component';
 import { KupEventPayload } from '../../components';
 import {
     KupDataColumn,
@@ -70,7 +67,7 @@ export enum KupPlannerTaskAction {
 }
 
 export interface KupPlannerEventPayload extends KupEventPayload {
-    value: GanttRow;
+    value: KupPlannerGanttRow;
     taskAction?: KupPlannerTaskAction;
 }
 export interface KupPlannerClickEventPayload extends KupPlannerEventPayload {
@@ -82,7 +79,7 @@ export interface KupPlannerUnloadEventPayload extends KupEventPayload {
 export interface KupPlannerEventHandlerDetails {
     cell: KupDataTableCell;
     column: KupDataColumn;
-    originalEvent: React.MouseEvent<Element, MouseEvent>;
+    originalEvent: UIEvent;
     row: KupDataRow;
 }
 
@@ -92,12 +89,12 @@ export enum KupPlannerGanttRowType {
     DETAIL = 'detail',
 }
 
-export interface KupPlannerGanttTask extends GanttTask {
+export interface KupPlannerGanttTask extends KupPlannerGanttTaskN {
     taskRowId: string;
     taskRow: KupDataRow;
     rowType: KupPlannerGanttRowType;
 }
-export interface KupPlannerDetail extends Detail {
+export interface KupPlannerDetail extends KupPlannerItemDetail {
     rowType: KupPlannerGanttRowType;
     detailRow: KupDataRow;
 }
@@ -111,16 +108,16 @@ export interface KupPlannerPhase extends KupPlannerPhaseGantt {
 }
 
 export class KupPlannerLastOnChangeReceived {
-    private event: GanttRow;
+    private event: KupPlannerGanttRow;
     private dateTime = new Date();
     private threshold;
 
-    constructor(event: GanttRow, threshold: number = 100) {
+    constructor(event: KupPlannerGanttRow, threshold: number = 100) {
         this.event = event;
         this.threshold = threshold;
     }
 
-    isEquivalent(newEvent: GanttRow): boolean {
+    isEquivalent(newEvent: KupPlannerGanttRow): boolean {
         const intervalTime = new Date().valueOf() - this.dateTime.valueOf();
         const equals = JSON.stringify(this.event) === JSON.stringify(newEvent);
         return equals && intervalTime < this.threshold;
@@ -395,7 +392,7 @@ export interface KupPlannerDisplayOption {
 
 export interface KupPlannerCustomOptions {
     /** Custom formatters for calendar headers */
-    dateTimeFormatters?: DateTimeFormatters;
+    dateTimeFormatters?: KupPlannerDateTimeFormatters;
     /** If true, show only one line of text in calendar headers */
     singleLineHeader?: boolean;
     /** If true, hide task labels in the diagram */
@@ -405,39 +402,39 @@ export interface KupPlannerCustomOptions {
     /** If true, do not show dependency arrows */
     hideDependencies?: boolean;
 }
-type DateTimeFormatter = (date: Date, locale: string) => string;
-export type DateTimeFormatters = {
+type KupPlannerDateTimeFormatter = (date: Date, locale: string) => string;
+export type KupPlannerDateTimeFormatters = {
     /** For top row in ViewMode.Month, bottom row in ViewMode.Year */
-    year?: DateTimeFormatter;
+    year?: KupPlannerDateTimeFormatter;
     /** For top row in ViewMode.Day, bottom row in ViewMode.Month */
-    month?: DateTimeFormatter;
+    month?: KupPlannerDateTimeFormatter;
     /** For top row in ViewMode.Week */
-    monthAndYear?: DateTimeFormatter;
+    monthAndYear?: KupPlannerDateTimeFormatter;
     /** For bottom row in ViewMode.Week */
-    week?: DateTimeFormatter;
+    week?: KupPlannerDateTimeFormatter;
     /** For bottom row in ViewMode.Day */
-    day?: DateTimeFormatter;
+    day?: KupPlannerDateTimeFormatter;
     /** For bottom row in ViewMode.Hour / HalfDay / QuarterDay */
-    hour?: DateTimeFormatter;
+    hour?: KupPlannerDateTimeFormatter;
     /** For top row in ViewMode.Hour / HalfDay / QuarterDay */
-    dayAndMonth?: DateTimeFormatter;
+    dayAndMonth?: KupPlannerDateTimeFormatter;
 };
 
 /**
  * Interface for current date indicator located into gantt content
  */
-export interface CurrentDateIndicator {
+export interface KupPlannerCurrentDateIndicator {
     color: string;
     x: number;
 }
 
-export interface DateSetup {
+export interface KupPlannerDateSetup {
     dates: Date[];
     viewMode: KupPlannerViewMode;
 }
 
 export type KupPlannerCalendarProps = {
-    dateSetup: DateSetup;
+    dateSetup: KupPlannerDateSetup;
     locale: string;
     viewMode: KupPlannerViewMode;
     rtl: boolean;
@@ -445,14 +442,14 @@ export type KupPlannerCalendarProps = {
     columnWidth: number;
     fontFamily: string;
     fontSize: string;
-    dateTimeFormatters?: DateTimeFormatters;
+    dateTimeFormatters?: KupPlannerDateTimeFormatters;
     singleLineHeader: boolean;
-    currentDateIndicator?: CurrentDateIndicator;
+    currentDateIndicator?: KupPlannerCurrentDateIndicator;
 };
 
 export interface KupPlannerBarTask extends KupPlannerTask {
     index: number;
-    typeInternal: TaskTypeInternal;
+    typeInternal: KupPlannerTaskTypeInternal;
     x1: number;
     x2: number;
     x1secondary?: number;
@@ -472,12 +469,12 @@ export interface KupPlannerBarTask extends KupPlannerTask {
     };
 }
 
-export type TaskTypeInternal = KupPlannerTaskType | "smalltask";
+export type KupPlannerTaskTypeInternal = KupPlannerTaskType | "smalltask";
 
 export type KupPlannerTaskGanttContentProps = {
     tasks: KupPlannerBarTask[];
     dates: Date[];
-    ganttEvent: GanttEvent;
+    ganttEvent: KupPlannerGanttEvent;
     selectedTask: KupPlannerBarTask | undefined;
     rowHeight: number;
     columnWidth: number;
@@ -493,20 +490,20 @@ export type KupPlannerTaskGanttContentProps = {
     ganttHeight: number;
     hideLabel?: boolean;
     showSecondaryDates?: boolean;
-    currentDateIndicator?: CurrentDateIndicator;
+    currentDateIndicator?: KupPlannerCurrentDateIndicator;
     projection?: {
         x0: number;
         xf: number;
         color: string;
     };
     readOnly: boolean;
-    setGanttEvent: (value: GanttEvent) => void;
+    setGanttEvent: (value: KupPlannerGanttEvent) => void;
     setFailedTask: (value: KupPlannerBarTask | null) => void;
     setSelectedTask: (taskId: string) => void;
 } & KupPlannerEventOption;
 
-export type BarMoveAction = "progress" | "end" | "start" | "move";
-export type GanttContentMoveAction =
+export type KupPlannerBarMoveAction = "progress" | "end" | "start" | "move";
+export type KupPlannerGanttContentMoveAction =
     | "mouseenter"
     | "mouseleave"
     | "delete"
@@ -515,12 +512,12 @@ export type GanttContentMoveAction =
     | "contextmenu"
     | "select"
     | ""
-    | BarMoveAction;
+    | KupPlannerBarMoveAction;
 
-export type GanttEvent = {
+export type KupPlannerGanttEvent = {
     changedTask?: KupPlannerBarTask;
     originalSelectedTask?: KupPlannerBarTask;
-    action: GanttContentMoveAction;
+    action: KupPlannerGanttContentMoveAction;
 };
 
 export type KupPlannerTaskListProps = {
@@ -598,7 +595,7 @@ export type KupPlannerTaskItemProps = {
     isSelected: boolean;
     rtl: boolean;
     onEventStart: (
-        action: GanttContentMoveAction,
+        action: KupPlannerGanttContentMoveAction,
         selectedTask: KupPlannerBarTask,
         event?: MouseEvent | KeyboardEvent
     ) => any;
@@ -642,7 +639,7 @@ export type KupPlannerBarProgressHandleProps = {
     onMouseDown: (event: MouseEvent) => void;
 };
 
-export interface TaskIconProps {
+export interface KupPlannerTaskIconProps {
     color: string;
     url: string;
     x?: string | number;
@@ -661,7 +658,7 @@ export interface KupPlannerSwitcherProps {
     onPlannerChange: (data: PlannerProps, selectedValue: string) => void;
 }
 
-export interface GanttPlannerProps {
+export interface KupGanttPlannerProps {
     items: KupPlannerGanttTaskN[] | KupPlannerItemDetail[];
     taskListHeaderProject?: TaskListHeaderComponent;
     taskListTableProject?: TaskListTableComponent;
@@ -681,13 +678,13 @@ export interface GanttPlannerProps {
     onDateChange?: (row: KupPlannerGanttRow) => void;
     onClick?: (row: KupPlannerGanttRow) => void;
     onContextMenu?: (
-        event: React.MouseEvent<Element, MouseEvent>,
+        event: MouseEvent,
         row: KupPlannerGanttRow
     ) => void;
     onScrollY?: (y: number) => void;
 }
 
-export interface GanttPlannerDetailsProps {
+export interface KupGanttPlannerDetailsProps {
     items: KupPlannerItemDetail[];
     taskListHeaderProject?: TaskListHeaderComponent;
     taskListTableProject?: TaskListTableComponent;
@@ -706,15 +703,15 @@ export interface GanttPlannerDetailsProps {
     onDateChange?: (row: KupPlannerGanttRow) => void;
     onClick?: (row: KupPlannerGanttRow) => void;
     onContextMenu?: (
-        event: React.MouseEvent<Element, MouseEvent>,
+        event: MouseEvent,
         row: KupPlannerGanttRow
     ) => void;
     onScrollY?: (y: number) => void;
 }
 
 export interface PlannerProps {
-    mainGantt: GanttPlannerProps;
-    secondaryGantt?: GanttPlannerDetailsProps;
+    mainGantt: KupGanttPlannerProps;
+    secondaryGantt?: KupGanttPlannerDetailsProps;
     preStepsCount?: number;
     viewMode: KupPlannerViewMode;
     onSetDoubleView?: (checked: boolean) => void;

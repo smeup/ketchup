@@ -1,5 +1,17 @@
 import { Component, h, Prop, State, Watch, Fragment } from '@stencil/core';
-import { BarMoveAction, GanttContentMoveAction, GanttEvent, KupPlannerBarDateHandleProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerEventOption, KupPlannerGridProps, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, TaskIconProps } from '../../kup-planner-declarations';
+import {
+    KupPlannerBarMoveAction,
+    KupPlannerGanttContentMoveAction,
+    KupPlannerGanttEvent,
+    KupPlannerBarDateHandleProps,
+    KupPlannerBarDisplayProps,
+    KupPlannerBarTask,
+    KupPlannerEventOption,
+    KupPlannerTaskGanttContentProps,
+    KupPlannerTaskGanttProps,
+    KupPlannerTaskItemProps,
+    KupPlannerTaskIconProps
+} from '../../kup-planner-declarations';
 import { addToDate } from "../kup-planner-renderer-helper";
 import { handleTaskBySVGMouseEvent, getProgressPoint } from '../helpers/bar.helpers';
 import { isKeyboardEvent } from '../helpers/other.helpers';
@@ -9,7 +21,7 @@ import { hexToCSSFilter } from 'hex-to-css-filter';
     styleUrl: 'kup-grid-renderer.scss',
     shadow: false, // Enable Shadow DOM
 })
-export class KupGirdRenderer {
+export class KupGridRenderer {
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
@@ -34,9 +46,6 @@ export class KupGirdRenderer {
 
     @Prop()
     timeStep: KupPlannerTaskGanttContentProps['timeStep'] = 0;
-
-    // @Prop()
-    //svg?: KupPlannerTaskGanttContentProps['svg'] = null;
 
     @Prop()
     taskHeight: KupPlannerTaskGanttContentProps['taskHeight'] = 0;
@@ -107,7 +116,7 @@ export class KupGirdRenderer {
     eMouseDown: KupPlannerBarDisplayProps['onMouseDown'];
 
     @Prop({ mutable: true })
-    setGanttEvent: (gantt: GanttEvent) => void;
+    setGanttEvent: (gantt: KupPlannerGanttEvent) => void;
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -166,7 +175,6 @@ export class KupGirdRenderer {
     @Watch('xStep')
     @Watch('timeStep')
     @Watch('svg')
-    // @Watch('isMoving')
     @Watch('initEventX1Delta')
     @Watch('point')
     @Watch('rtl')
@@ -182,7 +190,7 @@ export class KupGirdRenderer {
             );
             const { isChanged, changedTask } = handleTaskBySVGMouseEvent(
                 cursor.x,
-                this.ganttEvent.action as BarMoveAction,
+                this.ganttEvent.action as KupPlannerBarMoveAction,
                 this.ganttEvent.changedTask,
                 this.xStep,
                 this.timeStep,
@@ -211,7 +219,7 @@ export class KupGirdRenderer {
             );
             const { changedTask: newChangedTask } = handleTaskBySVGMouseEvent(
                 cursor.x,
-                action as BarMoveAction,
+                action as KupPlannerBarMoveAction,
                 changedTask,
                 this.xStep,
                 this.timeStep,
@@ -289,7 +297,7 @@ export class KupGirdRenderer {
         return this.initEventXClick !== event.clientX;
     }
 
-    handleBarEventStart(action: GanttContentMoveAction, task: KupPlannerBarTask, event?: MouseEvent | KeyboardEvent) {
+    handleBarEventStart(action: KupPlannerGanttContentMoveAction, task: KupPlannerBarTask, event?: MouseEvent | KeyboardEvent) {
         if (!event) {
             if (action === "select") {
                 this.setSelectedTask(task.id)
@@ -352,7 +360,7 @@ export class KupGirdRenderer {
         }
     }
 
-    getTaskIcon(bar: TaskIconProps) {
+    getTaskIcon(bar: KupPlannerTaskIconProps) {
         const cssFilter = hexToCSSFilter(bar.color);
         return (
             <image
@@ -528,7 +536,7 @@ export class KupGirdRenderer {
         height: KupPlannerBarDateHandleProps['height'],
         barCornerRadius: KupPlannerBarDateHandleProps['barCornerRadius'],
         task: KupPlannerBarTask,
-        eventType: GanttContentMoveAction
+        eventType: KupPlannerGanttContentMoveAction
     ) {
         return (
             <rect

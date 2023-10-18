@@ -115,7 +115,6 @@ export class KupPlannerRenderer {
             this.currentDetails,
             this.props.preStepsCount
         );
-        // this.displayedDates = dates;
         if (!this.viewDate) {
             const now = new Date();
             if (dates.displayedStartDate <= now && dates.displayedEndDate >= now) {
@@ -336,40 +335,8 @@ export class KupPlannerRenderer {
                             columnWidth={columnWidthForTimeUnit(this.timeUnit)}
                             viewMode={this.timeUnit}
                             {...this.props.mainGantt.stylingOptions}
-                            TaskListHeader={
-                                this.props.mainGantt.taskListHeaderProject
-                                // ??
-                                // <kup-custom-task-list-header
-                                //     label={this.props.mainGantt.title}
-                                //     doubleView={this.mainGanttDoubleView ?? false}
-                                //     setDoubleView={this.handleSetDoubleView.bind(this)}
-                                // />
-                            }
-                            TaskListTable={
-                                this.props.mainGantt.taskListTableProject
-                                // ??
-                                // <kup-custom-task-list-table
-                                //     onclickTaskList={(id) => {
-                                //         let row = getProjectById(id, this.currentTasks);
-                                //         if (!row) {
-                                //             row = getPhaseById(id, this.currentTasks);
-                                //         }
-                                //         if (row) {
-                                //             this.handleClick(row, this.props.mainGantt.onClick);
-                                //         }
-                                //     }}
-                                //     oncontextmenuTaskList={(event, id) => {
-                                //         let row = getProjectById(id, this.currentTasks);
-                                //         if (!row) {
-                                //             row = getPhaseById(id, this.currentTasks);
-                                //         }
-                                //         if (row) {
-                                //             this.handleContextMenu(event, row, this.props.mainGantt.onContextMenu);
-                                //         }
-                                //     }}
-                                //     id={KUP_PLANNER_MAIN_GANTT_ID}
-                                // />
-                            }
+                            TaskListHeader={this.props.mainGantt.taskListHeaderProject}
+                            TaskListTable={this.props.mainGantt.taskListTableProject}
                             TooltipContent={this.props.mainGantt.tooltipContent ?? CustomTooltipHOC() as any}
                             barClick={(task: KupPlannerTask) => {
                                 let row = getProjectById(task.id, this.currentTasks);
@@ -428,37 +395,8 @@ export class KupPlannerRenderer {
                                 columnWidth={columnWidthForTimeUnit(this.timeUnit)}
                                 viewMode={this.timeUnit}
                                 {...this.props.secondaryGantt.stylingOptions}
-                                TaskListHeader={
-                                    this.props.secondaryGantt.taskListHeaderProject
-                                    // ?? <kup-custom-task-list-header
-                                    //     label={this.props.secondaryGantt.title}
-                                    // />
-                                }
-                                TaskListTable={
-                                    this.props.secondaryGantt.taskListTableProject
-                                    // ??
-                                    // <kup-custom-task-list-table
-                                    //     onclickTaskList={(id) => {
-                                    //         let row = getProjectById(id, this.currentTasks);
-                                    //         if (!row) {
-                                    //             row = getPhaseById(id, this.currentTasks);
-                                    //         }
-                                    //         if (row) {
-                                    //             this.handleClick(row, this.props.secondaryGantt.onClick);
-                                    //         }
-                                    //     }}
-                                    //     oncontextmenuTaskList={(event, id) => {
-                                    //         let row = getProjectById(id, this.currentTasks);
-                                    //         if (!row) {
-                                    //             row = getPhaseById(id, this.currentTasks);
-                                    //         }
-                                    //         if (row) {
-                                    //             this.handleContextMenu(event, row, this.props.secondaryGantt.onContextMenu);
-                                    //         }
-                                    //     }}
-                                    //     id={KUP_PLANNER_MAIN_GANTT_ID}
-                                    // />
-                                }
+                                TaskListHeader={this.props.secondaryGantt.taskListHeaderProject}
+                                TaskListTable={this.props.secondaryGantt.taskListTableProject}
                                 TooltipContent={this.props.secondaryGantt.tooltipContent ?? CustomTooltipHOC() as any}
                                 projection={this.projection}
                                 barClick={(task: KupPlannerTask) => {

@@ -8,21 +8,21 @@ import {
     Listen
 } from '@stencil/core';
 import {
-    CurrentDateIndicator,
+    KupPlannerCurrentDateIndicator,
     KupPlannerGanttProps,
     KupPlannerTask,
     KupPlannerCalendarProps,
     KupPlannerBarTask,
     KupPlannerTaskListProps,
     KupPlannerGridProps,
-    DateSetup,
-    GanttEvent,
+    KupPlannerDateSetup,
+    KupPlannerGanttEvent,
     GanttSyncScrollEvent,
     KupPlannerTaskGanttContentProps,
     KupPlannerGanttTaskN,
     KupPlannerItemDetail,
     KupPlannerGanttRow,
-    GanttPlannerProps
+    KupGanttPlannerProps
 } from "../../kup-planner-declarations";
 import { ganttDateRangeFromTask, seedDates } from "../kup-planner-renderer-helper";
 import { removeHiddenTasks, sortTasks } from '../helpers/other.helpers';
@@ -215,10 +215,10 @@ export class KupGantt {
     handleContextMenu: (event: MouseEvent, row: KupPlannerGanttRow, onContextMenu: any) => void;
 
     @Prop()
-    ganttOnClick: GanttPlannerProps['onClick'];
+    ganttOnClick: KupGanttPlannerProps['onClick'];
 
     @Prop()
-    ganttonOnContextMenu: GanttPlannerProps['onContextMenu'];
+    ganttonOnContextMenu: KupGanttPlannerProps['onContextMenu'];
 
     @Prop()
     progressChange: KupPlannerGanttProps['progressChange'];
@@ -246,7 +246,7 @@ export class KupGantt {
     taskListRef: HTMLDivElement;
 
     @State()
-    dateSetup: DateSetup | undefined;
+    dateSetup: KupPlannerDateSetup | undefined;
 
     @State()
     taskListWidth: number = 0;
@@ -261,7 +261,7 @@ export class KupGantt {
     barTasks: KupPlannerBarTask[] = [];
 
     @State()
-    ganttEvent: GanttEvent = { action: '' };
+    ganttEvent: KupPlannerGanttEvent = { action: '' };
 
     @State()
     taskHeight: number = (this.rowHeight * this.barFill) / 100;
@@ -295,7 +295,7 @@ export class KupGantt {
     ignoreScrollEvent: boolean = false;
 
     @State()
-    currentDateIndicatorContent: CurrentDateIndicator | undefined;
+    currentDateIndicatorContent: KupPlannerCurrentDateIndicator | undefined;
 
     @State()
     projectionContent: {
@@ -409,7 +409,6 @@ export class KupGantt {
         } else {
             filteredTasks = this.tasks;
         }
-        // console.log('filteredTasks: ', filteredTasks);
         filteredTasks = filteredTasks.sort(sortTasks);
         const [startDate, endDate] = ganttDateRangeFromTask(
             filteredTasks,
@@ -490,7 +489,6 @@ export class KupGantt {
     }
 
     @Watch('ganttEvent')
-    // @Watch('barTasks')
     updateGanttEventAndBarTasks() {
         const { changedTask, action } = this.ganttEvent;
         if (changedTask) {
@@ -813,7 +811,7 @@ export class KupGantt {
         this.failedTask = task
     }
 
-    setGanttEvent(gantt: GanttEvent) {
+    setGanttEvent(gantt: KupPlannerGanttEvent) {
         this.ganttEvent = gantt
     }
 

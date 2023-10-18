@@ -1,5 +1,4 @@
-import { forceUpdate } from "@stencil/core";
-import { GanttPlannerDetailsProps, GanttPlannerProps, KupPlannerGanttRow, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerTaskType, PlannerProps } from "../kup-planner-declarations";
+import { KupGanttPlannerDetailsProps, KupGanttPlannerProps, KupPlannerGanttRow, PlannerProps } from "../kup-planner-declarations";
 
 function dummyFilter() {
     const filter = document.createElement("div");
@@ -19,21 +18,12 @@ const mainGanttDoubleViewHandler = (checked: boolean) => {
     console.log("Main Gantt double view slider event", checked);
 };
 
-let isClicked = false;
 const mainGanttClickHandler = (row: KupPlannerGanttRow) => {
     console.log("Main Gantt click event", row);
-    // if (row.type === "project") {
-    //     if (isClicked) {
-    //         mainGanttPlanner1PropsMock.items = mainGanttPlaner1ItemsAfterClick;
-    //     } else {
-    //         mainGanttPlanner1PropsMock.items = mainGanttPlaner1Items;
-    //     }
-    //     isClicked = !isClicked;
-    // }
 };
 // // planner 1
 
-const mainGanttPlaner1Items: any = [
+const mainGanttPlanner1Items: any = [
     {
         id: "1",
         name: "G456",
@@ -64,7 +54,7 @@ const mainGanttPlaner1Items: any = [
     },
 ]
 
-const mainGanttPlaner1ItemsAfterClick: any = [
+const mainGanttPlanner1ItemsAfterClick: any = [
     {
         id: "1",
         name: "G456",
@@ -251,7 +241,7 @@ const mainGanttPlaner1ItemsAfterClick: any = [
         ],
     },
 ]
-const mainGanttPlanner1PropsMock: GanttPlannerProps = {
+const mainGanttPlanner1PropsMock: KupGanttPlannerProps = {
     readOnly: false,
     /*initialScrollX: 11,
     initialScrollY: 210,*/
@@ -493,7 +483,7 @@ const mainGanttPlanner1PropsMock: GanttPlannerProps = {
     onClick: mainGanttClickHandler,
 };
 
-const secondaryGanttPlanner1PropsMock: GanttPlannerDetailsProps = {
+const secondaryGanttPlanner1PropsMock: KupGanttPlannerDetailsProps = {
     readOnly: true,
     initialScrollY: 220,
     items: [
@@ -625,7 +615,7 @@ const secondaryGanttPlanner1PropsMock: GanttPlannerDetailsProps = {
 };
 
 // planner 2
-const mainGanttPlanner2PropsMock: GanttPlannerProps = {
+const mainGanttPlanner2PropsMock: KupGanttPlannerProps = {
     filter: dummyFilter(),
     items: [
         {
@@ -673,7 +663,7 @@ const mainGanttPlanner2PropsMock: GanttPlannerProps = {
     title: "Secondary",
 };
 
-const secondaryGanttPlanner2PropsMock: GanttPlannerDetailsProps = {
+const secondaryGanttPlanner2PropsMock: KupGanttPlannerDetailsProps = {
     filter: dummyFilter(),
     items: [
         {
@@ -717,7 +707,7 @@ const secondaryGanttPlanner2PropsMock: GanttPlannerDetailsProps = {
 };
 
 // planner 3
-const mainGanttPlanner3PropsMock: GanttPlannerProps = {
+const mainGanttPlanner3PropsMock: KupGanttPlannerProps = {
     filter: dummyFilter(),
     items: [
         {
@@ -1227,7 +1217,7 @@ const mainGanttPlanner3PropsMock: GanttPlannerProps = {
     initialScrollY: 500,
 };
 
-const secondaryGanttPlanner3PropsMock: GanttPlannerDetailsProps = {
+const secondaryGanttPlanner3PropsMock: KupGanttPlannerDetailsProps = {
     filter: dummyFilter(),
     items: [
         {
@@ -1271,7 +1261,7 @@ const secondaryGanttPlanner3PropsMock: GanttPlannerDetailsProps = {
 };
 
 // planner 4
-const mainGanttPlanner4PropsMock: GanttPlannerProps = {
+const mainGanttPlanner4PropsMock: KupGanttPlannerProps = {
     filter: dummyFilter(),
     items: [
         {
@@ -1519,8 +1509,7 @@ export const planner4PropsMock: PlannerProps = {
     viewMode: "month",
 };
 
-
 export {
-    mainGanttPlaner1Items,
-    mainGanttPlaner1ItemsAfterClick
+    mainGanttPlanner1Items,
+    mainGanttPlanner1ItemsAfterClick
 }

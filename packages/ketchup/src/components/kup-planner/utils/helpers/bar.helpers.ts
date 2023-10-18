@@ -2,8 +2,8 @@ import {
     KupPlannerTask,
     KupPlannerTimeframe,
     KupPlannerBarTask,
-    TaskTypeInternal,
-    BarMoveAction
+    KupPlannerTaskTypeInternal,
+    KupPlannerBarMoveAction
 } from "../../kup-planner-declarations";
 
 export const convertToBarTasks = (
@@ -145,7 +145,7 @@ const convertToBarTask = (
 function computeTypeAndXs(
     start: Date,
     end: Date,
-    type: TaskTypeInternal,
+    type: KupPlannerTaskTypeInternal,
     dates: Date[],
     columnWidth: number,
     handleWidth: number,
@@ -160,7 +160,7 @@ function computeTypeAndXs(
         x1 = taskXCoordinate(start, dates, columnWidth);
         x2 = taskXCoordinate(end, dates, columnWidth);
     }
-    let typeInternal: TaskTypeInternal = type;
+    let typeInternal: KupPlannerTaskTypeInternal = type;
     if (typeInternal === "task" && x2 - x1 < handleWidth * 2) {
         typeInternal = "smalltask";
         x2 = x1 + handleWidth * 2;
@@ -475,7 +475,7 @@ const dateByX = (
  */
 export const handleTaskBySVGMouseEvent = (
     svgX: number,
-    action: BarMoveAction,
+    action: KupPlannerBarMoveAction,
     selectedTask: KupPlannerBarTask,
     xStep: number,
     timeStep: number,
@@ -494,7 +494,7 @@ export const handleTaskBySVGMouseEvent = (
 
 const handleTaskBySVGMouseEventForBar = (
     svgX: number,
-    action: BarMoveAction,
+    action: KupPlannerBarMoveAction,
     selectedTask: KupPlannerBarTask,
     xStep: number,
     timeStep: number,

@@ -7,7 +7,7 @@ import {
     KupPlannerItemDetail,
     KupPlannerTask,
     KupPlannerTaskListProps,
-    GanttPlannerProps
+    KupGanttPlannerProps
 } from '../../kup-planner-declarations';
 import { getPhaseById, getProjectById } from '../kup-planner-renderer-helper';
 
@@ -82,10 +82,10 @@ export class TaskList {
     handleContextMenu: (event: MouseEvent, row: KupPlannerGanttRow, onContextMenu: any) => void;
 
     @Prop()
-    ganttOnClick: GanttPlannerProps['onClick'];
+    ganttOnClick: KupGanttPlannerProps['onClick'];
 
     @Prop()
-    ganttonOnContextMenu: GanttPlannerProps['onContextMenu'];
+    ganttonOnContextMenu: KupGanttPlannerProps['onContextMenu'];
 
     @Prop()
     setSelectedTask: KupPlannerTaskListProps['setSelectedTask'];

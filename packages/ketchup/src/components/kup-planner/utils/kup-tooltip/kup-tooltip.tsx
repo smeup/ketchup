@@ -33,7 +33,6 @@ export class Tooltip {
         this.calculateTooltipPosition();
     }
 
-    //   @Watch('rootElement')
     @Watch('task')
     @Watch('arrowIndent')
     @Watch('scrollX')

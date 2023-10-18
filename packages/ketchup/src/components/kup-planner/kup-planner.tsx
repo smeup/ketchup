@@ -36,28 +36,18 @@ import {
 } from './kup-planner-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { createRoot } from 'react-dom/client';
-import React from 'react';
 import {
     KupDataCell,
     KupDataColumn,
     KupDataDataset,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
-// import {
-//     Detail,
-//     GanttRow,
-//     GanttTask,
-//     Planner,
-// PlannerProps,
-// } from '@sme.up/gantt-component';
 import { getCellValueForDisplay } from '../../utils/cell-utils';
 import {
     getValuesToShow,
     isAtLeastOneDateValid,
     sanitizeAllDates,
 } from './kup-planner-helper';
-// import { TaskType } from '@sme.up/gantt-component/dist/types/public-types';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
@@ -478,10 +468,10 @@ export class KupPlanner {
      * @default ""
      */
 
-    @State()
+    @Prop({ mutable: true })
     plannerProps: PlannerProps;
 
-    @State()
+    @Prop()
     selectedPlanner: string = "1";
 
     @Watch('data')
@@ -662,27 +652,11 @@ export class KupPlanner {
         this.plannerProps = { ...this.plannerProps };
     }
 
-    #renderReactPlannerElement() {
-        this.#rootPlanner?.unmount();
-
-        const componentWrapperElement =
-            this.rootElement.shadowRoot.getElementById(componentWrapperId);
-
-        if (componentWrapperElement) {
-            this.#rootPlanner = createRoot(componentWrapperElement);
-            // this.#rootPlanner.render(
-            //     React.createElement(Planner, this.plannerProps)
-            // );
-
-            this.#rootPlanner = createRoot(componentWrapperElement);
-        }
-    }
-
     #toTasks(data: KupDataDataset): KupPlannerGanttTask[] {
         if (!data || !data.rows) {
             return [];
         }
-        let tasks: any[] = data.rows
+        let tasks: KupPlannerGanttTask[] = data.rows
             ?.filter((row) =>
                 isAtLeastOneDateValid(
                     row.cells[this.taskDates[0]],
@@ -719,7 +693,7 @@ export class KupPlanner {
                 let iconUrl = this.#getIconUrl(row, this.taskIconCol);
                 let iconColor = this.#getIconColor(row, this.taskIconCol);
 
-                let task: any = {
+                let task: KupPlannerGanttTask = {
                     taskRow: row,
                     taskRowId: row.id,
                     id: row.cells[this.taskIdCol].value,
@@ -971,126 +945,12 @@ export class KupPlanner {
     }
 
     componentDidLoad() {
-        let details = this.#toDetails(
-            this.#getFilteredRows(this.#storedSettings.detailFilter, true)
-        );
-        const mainFilter: HTMLElement =
-            this.rootElement.shadowRoot.querySelector('#main-filter');
-        FTextFieldMDC(mainFilter);
-        const secondaryFilter: HTMLElement =
-            this.rootElement.shadowRoot.querySelector('#secondary-filter');
-        if (details) {
-            FTextFieldMDC(secondaryFilter);
-        }
-
-        // timeout for scroll events
-        let scrollXTimeout: number;
-        let taskScrollYTimeout: number;
-        let detailScrollYTimeout: number;
-        const scrollDelay = 500;
-
-        // this.plannerProps = {
-        //     mainGantt: {
-        //         title: this.titleMess,
-        //         items: this.#toTasks(
-        //             this.#getFilteredRows(
-        //                 this.#storedSettings.taskFilter,
-        //                 false
-        //             )
-        //         ),
-        //         stylingOptions: {
-        //             ...defaultStylingOptions,
-        //             listCellWidth: this.listCellWidth,
-        //         },
-        //         filter: mainFilter,
-        //         hideLabel: true,
-        //         ganttHeight: this.taskHeight,
-        //         showSecondaryDates: this.#storedSettings.showSecondaryDates,
-        //         onClick: (nativeEvent: KupPlannerGanttTask | KupPlannerPhase) =>
-        //             this.handleOnClick(nativeEvent),
-        //         onContextMenu: (
-        //             event: React.MouseEvent<Element, MouseEvent>,
-        //             row: KupPlannerGanttTask | KupPlannerPhase
-        //         ) => this.handleOnContextMenu(event, row),
-        //         onDateChange: (
-        //             nativeEvent: KupPlannerGanttTask | KupPlannerPhase
-        //         ) => this.handleOnDateChange(nativeEvent),
-        //         initialScrollX: this.taskInitialScrollX,
-        //         initialScrollY: this.taskInitialScrollY,
-        //         readOnly: this.readOnly,
-        //         onScrollY: (y: number) => {
-        //             window.clearTimeout(taskScrollYTimeout);
-        //             taskScrollYTimeout = window.setTimeout(
-        //                 () => this.handleTaskGanttScrollY(y),
-        //                 scrollDelay
-        //             );
-        //         },
-        //     },
-        //     secondaryGantt: details
-        //         ? {
-        //             title: '',
-        //             items: details,
-        //             stylingOptions: {
-        //                 ...defaultStylingOptions,
-        //                 listCellWidth: this.listCellWidth,
-        //             },
-        //             filter: secondaryFilter,
-        //             hideLabel: true,
-        //             ganttHeight: this.detailHeight,
-        //             onClick: (nativeEvent: KupPlannerDetail) =>
-        //                 this.handleOnClick(nativeEvent),
-        //             onContextMenu: (
-        //                 event: React.MouseEvent<Element, MouseEvent>,
-        //                 row: KupPlannerGanttTask | KupPlannerPhase
-        //             ) => this.handleOnContextMenu(event, row),
-        //             onDateChange: (nativeEvent: KupPlannerDetail) =>
-        //                 this.handleOnDateChange(nativeEvent),
-        //             initialScrollX: this.detailInitialScrollX,
-        //             initialScrollY: this.detailInitialScrollY,
-        //             readOnly: this.readOnly,
-        //             onScrollY: (y: number) => {
-        //                 window.clearTimeout(detailScrollYTimeout);
-        //                 detailScrollYTimeout = window.setTimeout(
-        //                     () => this.handleDetailGanttScrollY(y),
-        //                     scrollDelay
-        //                 );
-        //             },
-        //         }
-        //         : undefined,
-        //     onSetDoubleView: (checked: boolean) =>
-        //         this.handleOnSetDoubleView(checked),
-        //     onSetViewMode: (value: KupPlannerViewMode) =>
-        //         this.handleOnSetViewMode(value),
-        //     viewMode: this.viewMode,
-        //     onScrollX: (x: number) => {
-        //         window.clearTimeout(scrollXTimeout);
-        //         scrollXTimeout = window.setTimeout(
-        //             () => this.handleOnScrollX(x),
-        //             scrollDelay
-        //         );
-        //     },
-        // };
-        // this.#renderReactPlannerElement();
-        this.plannerProps = planner1PropsMock;
         this.kupReady.emit({
             comp: this,
             id: this.rootElement.id,
             value: undefined,
         });
-
-        if (this.taskFilter) {
-            this.#onFilter(this.taskFilter);
-        }
-
-        if (this.detailFilter) {
-            this.#onFilter(this.detailFilter, true);
-        }
-
         this.#kupManager.debug.logLoad(this, true);
-    }
-
-    componentWillRender() {
-        // this.#renderReactPlannerElement();
     }
 
     componentDidRender() {
@@ -1108,7 +968,7 @@ export class KupPlanner {
     }
 
     onKupContextMenu(
-        event: React.MouseEvent<Element, MouseEvent>,
+        event: UIEvent,
         ganttRow: KupPlannerGanttRow,
         taskAction?: KupPlannerTaskAction
     ) {
@@ -1184,7 +1044,7 @@ export class KupPlanner {
     }
 
     handleOnContextMenu(
-        event: React.MouseEvent<Element, MouseEvent>,
+        event: UIEvent,
         row: KupPlannerGanttTask | KupPlannerPhase | KupPlannerDetail
     ) {
         switch (row.rowType) {
@@ -1369,6 +1229,7 @@ export class KupPlanner {
                 props={plannerProps}
                 selectedPlanner={this.selectedPlanner}
                 plannerChange={(props, selectedValue) => {
+                    console.log('props: ', props);
                     this.plannerProps = undefined;
                     this.selectedPlanner = selectedValue
                     setTimeout(() => {

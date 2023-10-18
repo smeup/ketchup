@@ -45,11 +45,6 @@ export class TaskGantt {
     private horizontalContainerRef: HTMLDivElement;
     private verticalGanttContainerRef: HTMLDivElement;
 
-    // componentDidLoad() {
-    //     this.verticalGanttContainerRef.scrollLeft = this.scrollX;
-    //     this.horizontalContainerRef.scrollTop = this.scrollY;
-    // }
-
     /*-------------------------------------------------*/
     /*                   W A T C H E R S               */
     /*-------------------------------------------------*/
@@ -75,7 +70,6 @@ export class TaskGantt {
     render() {
         const newBarProps = { ...this.barProps, gridProps: this.gridProps };
         return (
-            // <div class="ganttContainer">
             <div
                 class="ganttVerticalContainer"
                 ref={el => (this.verticalGanttContainerRef = el)}
@@ -107,7 +101,6 @@ export class TaskGantt {
                     <kup-grid-renderer {...newBarProps} />
                 </div>
             </div >
-            // </div >
         );
     }
 }
