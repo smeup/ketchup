@@ -655,7 +655,6 @@ export interface GanttSyncScrollEvent {
 
 export interface KupPlannerSwitcherProps {
     onTimeUnitChange: (timeUnit: KupPlannerViewMode) => void;
-    onPlannerChange: (data: PlannerProps, selectedValue: string) => void;
 }
 
 export interface KupGanttPlannerProps {

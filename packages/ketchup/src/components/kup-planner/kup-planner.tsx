@@ -9,7 +9,6 @@ import {
     Host,
     Method,
     Prop,
-    State,
     Watch,
 } from '@stencil/core';
 import {
@@ -54,7 +53,6 @@ import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarati
 import { KupLanguageSearch } from '../../managers/kup-language/kup-language-declarations';
 import { KupPlannerState } from './kup-planner-state';
 import { KupStore } from '../kup-state/kup-store';
-import { planner1PropsMock } from './utils/kup-planner-renderer.data';
 
 @Component({
     tag: 'kup-planner',
@@ -1225,18 +1223,7 @@ export class KupPlanner {
             }
         }
         return (
-            <kup-planner-renderer
-                props={plannerProps}
-                selectedPlanner={this.selectedPlanner}
-                plannerChange={(props, selectedValue) => {
-                    console.log('props: ', props);
-                    this.plannerProps = undefined;
-                    this.selectedPlanner = selectedValue
-                    setTimeout(() => {
-                        this.plannerProps = props;
-                    }, 30);
-                }}>
-            </kup-planner-renderer>
+            <kup-planner-renderer props={plannerProps}></kup-planner-renderer>
         )
 
     }

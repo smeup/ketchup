@@ -2825,9 +2825,7 @@ export namespace Components {
         "viewMode": KupPlannerViewMode;
     }
     interface KupPlannerRenderer {
-        "plannerChange": KupPlannerSwitcherProps['onPlannerChange'];
         "props": PlannerProps;
-        "selectedPlanner": string;
     }
     interface KupProbe {
         /**
@@ -3189,8 +3187,6 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupSwitcher {
-        "plannerChange": KupPlannerSwitcherProps['onPlannerChange'];
-        "selectedPlanner": string;
         "timeUnitChange": KupPlannerSwitcherProps['onTimeUnitChange'];
     }
     interface KupTabBar {
@@ -6549,9 +6545,7 @@ declare namespace LocalJSX {
         "viewMode"?: KupPlannerViewMode;
     }
     interface KupPlannerRenderer {
-        "plannerChange"?: KupPlannerSwitcherProps['onPlannerChange'];
         "props"?: PlannerProps;
-        "selectedPlanner"?: string;
     }
     interface KupProbe {
         /**
@@ -6844,8 +6838,6 @@ declare namespace LocalJSX {
         "onKup-switch-focus"?: (event: KupSwitchCustomEvent<KupSwitchEventPayload>) => void;
     }
     interface KupSwitcher {
-        "plannerChange"?: KupPlannerSwitcherProps['onPlannerChange'];
-        "selectedPlanner"?: string;
         "timeUnitChange"?: KupPlannerSwitcherProps['onTimeUnitChange'];
     }
     interface KupTabBar {

@@ -44,11 +44,6 @@ export class KupPlannerRenderer {
     /*-------------------------------------------------*/
     @Prop({ mutable: true }) props: PlannerProps;
 
-    @Prop() selectedPlanner: string;
-
-    @Prop() plannerChange: KupPlannerSwitcherProps['onPlannerChange'];
-
-
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
     /*-------------------------------------------------*/
@@ -308,10 +303,6 @@ export class KupPlannerRenderer {
                         this.viewDate = undefined;
                         this.scrollX = -1
                     }}
-                    plannerChange={(props, selectedValue) => {
-                        this.plannerChange(props, selectedValue)
-                    }}
-                    selectedPlanner={this.selectedPlanner}
                 />
                 {this.props && (
                     <div
