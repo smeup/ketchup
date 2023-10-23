@@ -60,7 +60,6 @@ graph TD;
   kup-card --> kup-gauge
   kup-card --> kup-progress-bar
   kup-card --> kup-badge
-  kup-card --> kup-card
   kup-card --> kup-button
   kup-card --> kup-list
   kup-card --> kup-checkbox
@@ -70,6 +69,7 @@ graph TD;
   kup-card --> kup-tree
   kup-card --> kup-switch
   kup-card --> kup-dropdown-button
+  kup-card --> kup-card
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-list --> kup-list
