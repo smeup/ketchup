@@ -210,6 +210,9 @@ export const mockedProps = {
   phaseColorCol: 'PHASE_COL',
   phaseColumns: ['SEC_START', 'SEC_END'],
   showSecondaryDates: false,
+  mainFilter: dummyFilter(),
+  secondaryFilter: dummyFilter(),
+  detailHeight: 200,
 };
 
 export function getMockupTaskDatas() {
@@ -493,4 +496,10 @@ export function getMockupPhaseDatas(taskRowId) {
       },
     ],
   };
+}
+
+function dummyFilter() {
+  const filter = document.createElement('div');
+  filter.innerText = 'Filter placeholder';
+  return filter;
 }

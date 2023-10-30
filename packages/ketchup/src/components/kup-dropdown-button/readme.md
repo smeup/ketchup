@@ -92,7 +92,6 @@ Type: `Promise<void>`
 
  - [kup-button-list](../kup-button-list)
  - [kup-card](../kup-card)
- - [kup-switcher](../kup-planner/utils/kup-switcher)
 
 ### Depends on
 
@@ -198,7 +197,6 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-badge
-  kup-switcher --> kup-dropdown-button
   style kup-dropdown-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

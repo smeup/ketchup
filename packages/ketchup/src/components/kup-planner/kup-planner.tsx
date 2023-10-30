@@ -9,6 +9,7 @@ import {
     Host,
     Method,
     Prop,
+    State,
     Watch,
 } from '@stencil/core';
 import {
@@ -31,7 +32,8 @@ import {
     KupPlannerUnloadEventPayload,
     KupPlannerGanttRow,
     PlannerProps,
-    KupPlannerTaskType
+    KupPlannerTaskType,
+    defaultStylingOptions
 } from './kup-planner-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
@@ -457,6 +459,20 @@ export class KupPlanner {
     @Prop()
     viewMode: KupPlannerViewMode = 'month';
 
+    /**
+     * Sets the filter for main gantt.
+     * @default undefined
+     */
+    @Prop()
+    mainFilter: HTMLElement;
+
+    /**
+     * Sets the filter for secondary gantt.
+     * @default undefined
+     */
+    @Prop()
+    secondaryFilter: HTMLElement;
+
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
     /*-------------------------------------------------*/
@@ -466,11 +482,8 @@ export class KupPlanner {
      * @default ""
      */
 
-    @Prop({ mutable: true })
+    @State()
     plannerProps: PlannerProps;
-
-    @Prop()
-    selectedPlanner: string = "1";
 
     @Watch('data')
     dataChanged() {
@@ -943,11 +956,119 @@ export class KupPlanner {
     }
 
     componentDidLoad() {
+        let details = this.#toDetails(
+            this.#getFilteredRows(this.#storedSettings.detailFilter, true)
+        );
+        const mainFilter: HTMLElement =
+            this.rootElement.shadowRoot.querySelector('#main-filter');
+        FTextFieldMDC(mainFilter);
+        const secondaryFilter: HTMLElement =
+            this.rootElement.shadowRoot.querySelector('#secondary-filter');
+        if (details) {
+            FTextFieldMDC(secondaryFilter);
+        }
+
+        // timeout for scroll events
+        let scrollXTimeout: number;
+        let taskScrollYTimeout: number;
+        let detailScrollYTimeout: number;
+        const scrollDelay = 500;
+
+        this.plannerProps = {
+            mainGantt: {
+                title: this.titleMess,
+                items: this.#toTasks(
+                    this.#getFilteredRows(
+                        this.#storedSettings.taskFilter,
+                        false
+                    )
+                ),
+                stylingOptions: {
+                    ...defaultStylingOptions,
+                    listCellWidth: this.listCellWidth,
+                },
+                filter: this.mainFilter ? this.mainFilter : mainFilter,
+                hideLabel: true,
+                ganttHeight: this.taskHeight,
+                showSecondaryDates: this.#storedSettings.showSecondaryDates,
+                onClick: (nativeEvent: KupPlannerGanttTask | KupPlannerPhase) =>
+                    this.handleOnClick(nativeEvent),
+                onContextMenu: (
+                    event: UIEvent,
+                    row: KupPlannerGanttTask | KupPlannerPhase
+                ) => this.handleOnContextMenu(event, row),
+                onDateChange: (
+                    nativeEvent: KupPlannerGanttTask | KupPlannerPhase
+                ) => this.handleOnDateChange(nativeEvent),
+                initialScrollX: this.taskInitialScrollX,
+                initialScrollY: this.taskInitialScrollY,
+                readOnly: this.readOnly,
+                onScrollY: (y: number) => {
+                    window.clearTimeout(taskScrollYTimeout);
+                    taskScrollYTimeout = window.setTimeout(
+                        () => this.handleTaskGanttScrollY(y),
+                        scrollDelay
+                    );
+                },
+            },
+            secondaryGantt: details
+                ? {
+                      title: '',
+                      items: details,
+                      stylingOptions: {
+                          ...defaultStylingOptions,
+                          listCellWidth: this.listCellWidth,
+                      },
+                      filter: this.secondaryFilter ? this.secondaryFilter : secondaryFilter,
+                      hideLabel: true,
+                      ganttHeight: this.detailHeight,
+                      onClick: (nativeEvent: KupPlannerDetail) =>
+                          this.handleOnClick(nativeEvent),
+                      onContextMenu: (
+                          event: UIEvent,
+                          row: KupPlannerGanttTask | KupPlannerPhase
+                      ) => this.handleOnContextMenu(event, row),
+                      onDateChange: (nativeEvent: KupPlannerDetail) =>
+                          this.handleOnDateChange(nativeEvent),
+                      initialScrollX: this.detailInitialScrollX,
+                      initialScrollY: this.detailInitialScrollY,
+                      readOnly: this.readOnly,
+                      onScrollY: (y: number) => {
+                          window.clearTimeout(detailScrollYTimeout);
+                          detailScrollYTimeout = window.setTimeout(
+                              () => this.handleDetailGanttScrollY(y),
+                              scrollDelay
+                          );
+                      },
+                  }
+                : undefined,
+            onSetDoubleView: (checked: boolean) =>
+                this.handleOnSetDoubleView(checked),
+            onSetViewMode: (value: KupPlannerViewMode) =>
+                this.handleOnSetViewMode(value),
+            viewMode: this.viewMode,
+            onScrollX: (x: number) => {
+                window.clearTimeout(scrollXTimeout);
+                scrollXTimeout = window.setTimeout(
+                    () => this.handleOnScrollX(x),
+                    scrollDelay
+                );
+            },
+        };
         this.kupReady.emit({
             comp: this,
             id: this.rootElement.id,
             value: undefined,
         });
+
+        if (this.taskFilter) {
+            this.#onFilter(this.taskFilter);
+        }
+
+        if (this.detailFilter) {
+            this.#onFilter(this.detailFilter, true);
+        }
+
         this.#kupManager.debug.logLoad(this, true);
     }
 
@@ -1081,33 +1202,28 @@ export class KupPlanner {
         if (this.plannerProps?.mainGantt) {
             this.plannerProps.mainGantt.showSecondaryDates = checked;
         }
-        this.plannerProps?.onSetDoubleView?.(checked);
         this.persistState();
     }
 
     handleOnSetViewMode(value: KupPlannerViewMode) {
         this.#storedSettings.viewMode = value;
         this.plannerProps.viewMode = value;
-        this.plannerProps.onSetViewMode?.(value);
         this.persistState();
     }
 
     handleOnScrollX(x: number) {
         this.#storedSettings.taskInitialScrollX = x;
         this.#storedSettings.detailInitialScrollX = x;
-        this.plannerProps.onScrollX?.(x)
         this.persistState();
     }
 
     handleTaskGanttScrollY(y: number) {
         this.#storedSettings.taskInitialScrollY = y;
-        this.plannerProps.mainGantt.onScrollY?.(y)
         this.persistState();
     }
 
     handleDetailGanttScrollY(y: number) {
         this.#storedSettings.detailInitialScrollY = y;
-        this.plannerProps.secondaryGantt?.onScrollY?.(y)
         this.persistState();
     }
 
@@ -1225,7 +1341,6 @@ export class KupPlanner {
         return (
             <kup-planner-renderer props={plannerProps}></kup-planner-renderer>
         )
-
     }
 
     disconnectedCallback() {

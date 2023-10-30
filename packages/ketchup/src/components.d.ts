@@ -2692,6 +2692,11 @@ export namespace Components {
          */
         "listCellWidth": string;
         /**
+          * Sets the filter for main gantt.
+          * @default undefined
+         */
+        "mainFilter": HTMLElement;
+        /**
           * Max width for component
           * @default '90vw'
          */
@@ -2737,11 +2742,6 @@ export namespace Components {
          */
         "phasePrevDates": string[];
         /**
-          * The value of the component.
-          * @default ""
-         */
-        "plannerProps": PlannerProps;
-        /**
           * When true, the two gantts are not interactable.
           * @default false
          */
@@ -2750,7 +2750,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
-        "selectedPlanner": string;
+        /**
+          * Sets the filter for secondary gantt.
+          * @default undefined
+         */
+        "secondaryFilter": HTMLElement;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
@@ -3886,55 +3890,175 @@ export interface KupTreeCustomEvent<T> extends CustomEvent<T> {
     target: HTMLKupTreeElement;
 }
 declare global {
+    interface HTMLKupAccordionElementEventMap {
+        "kup-accordion-itemselected": KupAccordionItemSelectedEventPayload;
+    }
     interface HTMLKupAccordionElement extends Components.KupAccordion, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupAccordionElementEventMap>(type: K, listener: (this: HTMLKupAccordionElement, ev: KupAccordionCustomEvent<HTMLKupAccordionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupAccordionElementEventMap>(type: K, listener: (this: HTMLKupAccordionElement, ev: KupAccordionCustomEvent<HTMLKupAccordionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupAccordionElement: {
         prototype: HTMLKupAccordionElement;
         new (): HTMLKupAccordionElement;
     };
+    interface HTMLKupAutocompleteElementEventMap {
+        "kup-autocomplete-blur": KupAutocompleteEventPayload;
+        "kup-autocomplete-change": KupAutocompleteEventPayload;
+        "kup-autocomplete-click": KupAutocompleteEventPayload;
+        "kup-autocomplete-focus": KupAutocompleteEventPayload;
+        "kup-autocomplete-input": KupAutocompleteEventPayload;
+        "kup-autocomplete-iconclick": KupAutocompleteIconClickEventPayload;
+        "kup-autocomplete-itemclick": KupAutocompleteEventPayload;
+    }
     interface HTMLKupAutocompleteElement extends Components.KupAutocomplete, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupAutocompleteElementEventMap>(type: K, listener: (this: HTMLKupAutocompleteElement, ev: KupAutocompleteCustomEvent<HTMLKupAutocompleteElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupAutocompleteElementEventMap>(type: K, listener: (this: HTMLKupAutocompleteElement, ev: KupAutocompleteCustomEvent<HTMLKupAutocompleteElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupAutocompleteElement: {
         prototype: HTMLKupAutocompleteElement;
         new (): HTMLKupAutocompleteElement;
     };
+    interface HTMLKupBadgeElementEventMap {
+        "kup-badge-click": KupEventPayload;
+    }
     interface HTMLKupBadgeElement extends Components.KupBadge, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupBadgeElementEventMap>(type: K, listener: (this: HTMLKupBadgeElement, ev: KupBadgeCustomEvent<HTMLKupBadgeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupBadgeElementEventMap>(type: K, listener: (this: HTMLKupBadgeElement, ev: KupBadgeCustomEvent<HTMLKupBadgeElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupBadgeElement: {
         prototype: HTMLKupBadgeElement;
         new (): HTMLKupBadgeElement;
     };
+    interface HTMLKupBoxElementEventMap {
+        "kup-box-click": KupBoxClickEventPayload;
+        "kup-box-selected": KupBoxSelectedEventPayload;
+        "kup-box-autoselect": KupBoxAutoSelectEventPayload;
+        "kup-box-rowactionmenuclick": KupBoxAutoSelectEventPayload;
+        "kup-box-rowactionclick": KupBoxRowActionClickEventPayload;
+        "kup-box-didload": KupEventPayload;
+        "kup-box-didunload": KupEventPayload;
+        "kup-box-contextmenu": KupBoxContextMenuEventPayload;
+    }
     interface HTMLKupBoxElement extends Components.KupBox, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupBoxElementEventMap>(type: K, listener: (this: HTMLKupBoxElement, ev: KupBoxCustomEvent<HTMLKupBoxElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupBoxElementEventMap>(type: K, listener: (this: HTMLKupBoxElement, ev: KupBoxCustomEvent<HTMLKupBoxElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupBoxElement: {
         prototype: HTMLKupBoxElement;
         new (): HTMLKupBoxElement;
     };
+    interface HTMLKupButtonElementEventMap {
+        "kup-button-blur": KupButtonClickEventPayload;
+        "kup-button-click": KupButtonClickEventPayload;
+        "kup-button-focus": KupButtonClickEventPayload;
+    }
     interface HTMLKupButtonElement extends Components.KupButton, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupButtonElementEventMap>(type: K, listener: (this: HTMLKupButtonElement, ev: KupButtonCustomEvent<HTMLKupButtonElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupButtonElementEventMap>(type: K, listener: (this: HTMLKupButtonElement, ev: KupButtonCustomEvent<HTMLKupButtonElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupButtonElement: {
         prototype: HTMLKupButtonElement;
         new (): HTMLKupButtonElement;
     };
+    interface HTMLKupButtonListElementEventMap {
+        "kup-buttonlist-click": KupButtonListClickEventPayload;
+    }
     interface HTMLKupButtonListElement extends Components.KupButtonList, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupButtonListElementEventMap>(type: K, listener: (this: HTMLKupButtonListElement, ev: KupButtonListCustomEvent<HTMLKupButtonListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupButtonListElementEventMap>(type: K, listener: (this: HTMLKupButtonListElement, ev: KupButtonListCustomEvent<HTMLKupButtonListElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupButtonListElement: {
         prototype: HTMLKupButtonListElement;
         new (): HTMLKupButtonListElement;
     };
+    interface HTMLKupCalendarElementEventMap {
+        "kup-calendar-eventclick": KupCalendarEventClickEventPayload;
+        "kup-calendar-dateclick": KupCalendarDateClickEventPayload;
+        "kup-calendar-eventdrop": KupCalendarEventDropEventPayload;
+        "kup-calendar-viewchange": KupCalendarViewChangeEventPayload;
+    }
     interface HTMLKupCalendarElement extends Components.KupCalendar, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupCalendarElementEventMap>(type: K, listener: (this: HTMLKupCalendarElement, ev: KupCalendarCustomEvent<HTMLKupCalendarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupCalendarElementEventMap>(type: K, listener: (this: HTMLKupCalendarElement, ev: KupCalendarCustomEvent<HTMLKupCalendarElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupCalendarElement: {
         prototype: HTMLKupCalendarElement;
         new (): HTMLKupCalendarElement;
     };
+    interface HTMLKupCardElementEventMap {
+        "kup-card-click": KupCardClickPayload;
+        "kup-card-close": KupEventPayload;
+        "kup-card-event": KupCardEventPayload;
+        "kup-card-ready": KupEventPayload;
+    }
     interface HTMLKupCardElement extends Components.KupCard, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupCardElementEventMap>(type: K, listener: (this: HTMLKupCardElement, ev: KupCardCustomEvent<HTMLKupCardElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupCardElementEventMap>(type: K, listener: (this: HTMLKupCardElement, ev: KupCardCustomEvent<HTMLKupCardElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupCardElement: {
         prototype: HTMLKupCardElement;
         new (): HTMLKupCardElement;
     };
+    interface HTMLKupCardListElementEventMap {
+        "kup-cardlist-click": KupCardListClickEventPayload;
+    }
     interface HTMLKupCardListElement extends Components.KupCardList, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupCardListElementEventMap>(type: K, listener: (this: HTMLKupCardListElement, ev: KupCardListCustomEvent<HTMLKupCardListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupCardListElementEventMap>(type: K, listener: (this: HTMLKupCardListElement, ev: KupCardListCustomEvent<HTMLKupCardListElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupCardListElement: {
         prototype: HTMLKupCardListElement;
@@ -3946,31 +4070,98 @@ declare global {
         prototype: HTMLKupCellElement;
         new (): HTMLKupCellElement;
     };
+    interface HTMLKupChartElementEventMap {
+        "kup-chart-click": KupChartClickEvent;
+    }
     interface HTMLKupChartElement extends Components.KupChart, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupChartElementEventMap>(type: K, listener: (this: HTMLKupChartElement, ev: KupChartCustomEvent<HTMLKupChartElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupChartElementEventMap>(type: K, listener: (this: HTMLKupChartElement, ev: KupChartCustomEvent<HTMLKupChartElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupChartElement: {
         prototype: HTMLKupChartElement;
         new (): HTMLKupChartElement;
     };
+    interface HTMLKupCheckboxElementEventMap {
+        "kup-checkbox-blur": KupCheckboxEventPayload;
+        "kup-checkbox-change": KupCheckboxEventPayload;
+        "kup-checkbox-focus": KupCheckboxEventPayload;
+    }
     interface HTMLKupCheckboxElement extends Components.KupCheckbox, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupCheckboxElementEventMap>(type: K, listener: (this: HTMLKupCheckboxElement, ev: KupCheckboxCustomEvent<HTMLKupCheckboxElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupCheckboxElementEventMap>(type: K, listener: (this: HTMLKupCheckboxElement, ev: KupCheckboxCustomEvent<HTMLKupCheckboxElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupCheckboxElement: {
         prototype: HTMLKupCheckboxElement;
         new (): HTMLKupCheckboxElement;
     };
+    interface HTMLKupChipElementEventMap {
+        "kup-chip-blur": KupChipEventPayload;
+        "kup-chip-change": KupChipChangeEventPayload;
+        "kup-chip-click": KupChipEventPayload;
+        "kup-chip-focus": KupChipEventPayload;
+        "kup-chip-iconclick": KupChipEventPayload;
+    }
     interface HTMLKupChipElement extends Components.KupChip, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupChipElementEventMap>(type: K, listener: (this: HTMLKupChipElement, ev: KupChipCustomEvent<HTMLKupChipElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupChipElementEventMap>(type: K, listener: (this: HTMLKupChipElement, ev: KupChipCustomEvent<HTMLKupChipElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupChipElement: {
         prototype: HTMLKupChipElement;
         new (): HTMLKupChipElement;
     };
+    interface HTMLKupColorPickerElementEventMap {
+        "kup-colorpicker-change": KupColorPickerEventPayload;
+    }
     interface HTMLKupColorPickerElement extends Components.KupColorPicker, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupColorPickerElementEventMap>(type: K, listener: (this: HTMLKupColorPickerElement, ev: KupColorPickerCustomEvent<HTMLKupColorPickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupColorPickerElementEventMap>(type: K, listener: (this: HTMLKupColorPickerElement, ev: KupColorPickerCustomEvent<HTMLKupColorPickerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupColorPickerElement: {
         prototype: HTMLKupColorPickerElement;
         new (): HTMLKupColorPickerElement;
     };
+    interface HTMLKupComboboxElementEventMap {
+        "kup-combobox-blur": KupComboboxEventPayload;
+        "kup-combobox-change": KupComboboxEventPayload;
+        "kup-combobox-click": KupComboboxEventPayload;
+        "kup-combobox-focus": KupComboboxEventPayload;
+        "kup-combobox-input": KupComboboxEventPayload;
+        "kup-combobox-iconclick": KupComboboxIconClickEventPayload;
+        "kup-combobox-itemclick": KupComboboxEventPayload;
+    }
     interface HTMLKupComboboxElement extends Components.KupCombobox, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupComboboxElementEventMap>(type: K, listener: (this: HTMLKupComboboxElement, ev: KupComboboxCustomEvent<HTMLKupComboboxElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupComboboxElementEventMap>(type: K, listener: (this: HTMLKupComboboxElement, ev: KupComboboxCustomEvent<HTMLKupComboboxElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupComboboxElement: {
         prototype: HTMLKupComboboxElement;
@@ -3988,55 +4179,186 @@ declare global {
         prototype: HTMLKupCustomTaskListTableElement;
         new (): HTMLKupCustomTaskListTableElement;
     };
+    interface HTMLKupDashboardElementEventMap {
+        "kup-dashboard-save": KupDashboardEventPayload;
+    }
     interface HTMLKupDashboardElement extends Components.KupDashboard, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupDashboardElementEventMap>(type: K, listener: (this: HTMLKupDashboardElement, ev: KupDashboardCustomEvent<HTMLKupDashboardElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupDashboardElementEventMap>(type: K, listener: (this: HTMLKupDashboardElement, ev: KupDashboardCustomEvent<HTMLKupDashboardElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupDashboardElement: {
         prototype: HTMLKupDashboardElement;
         new (): HTMLKupDashboardElement;
     };
+    interface HTMLKupDataTableElementEventMap {
+        "kup-datatable-didunload": KupEventPayload;
+        "kup-datatable-didload": KupEventPayload;
+        "kup-datatable-resetselectedrows": KupEventPayload;
+        "kup-datatable-rowselected": KupDatatableRowSelectedEventPayload;
+        "kup-datatable-click": KupDatatableClickEventPayload;
+        "kup-datatable-contextmenu": KupDatatableClickEventPayload;
+        "kup-datatable-dblclick": KupDatatableClickEventPayload;
+        "kup-datatable-columnmenu": KupDatatableColumnMenuEventPayload;
+        "kup-datatable-rowactionclick": KupDatatableRowActionClickEventPayload;
+        "kup-datatable-loadmoreclick": KupDatatableLoadMoreClickEventPayload;
+        "kup-datatable-columnmove": KupDatatableColumnMoveEventPayload;
+        "kup-datatable-columnremove": KupDatatableColumnRemoveEventPayload;
+        "kup-datatable-delete-row": KupDatatableDeleteRowEventPayload;
+        "kup-datatable-save": KupDatatableInsertRowEventPayload;
+        "kup-datatable-insert-row": KupDatatableInsertRowEventPayload;
+        "kup-datatable-history": KupDatatableHistoryEventPayload;
+    }
     interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupDataTableElementEventMap>(type: K, listener: (this: HTMLKupDataTableElement, ev: KupDataTableCustomEvent<HTMLKupDataTableElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupDataTableElementEventMap>(type: K, listener: (this: HTMLKupDataTableElement, ev: KupDataTableCustomEvent<HTMLKupDataTableElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupDataTableElement: {
         prototype: HTMLKupDataTableElement;
         new (): HTMLKupDataTableElement;
     };
+    interface HTMLKupDatePickerElementEventMap {
+        "kup-datepicker-blur": KupDatePickerEventPayload;
+        "kup-datepicker-change": KupDatePickerEventPayload;
+        "kup-datepicker-click": KupDatePickerEventPayload;
+        "kup-datepicker-focus": KupDatePickerEventPayload;
+        "kup-datepicker-input": KupDatePickerEventPayload;
+        "kup-datepicker-iconclick": KupDatePickerEventPayload;
+        "kup-datepicker-itemclick": KupDatePickerEventPayload;
+        "kup-datepicker-textfieldsubmit": KupDatePickerEventPayload;
+        "kup-datepicker-cleariconclick": KupEventPayload;
+    }
     interface HTMLKupDatePickerElement extends Components.KupDatePicker, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupDatePickerElementEventMap>(type: K, listener: (this: HTMLKupDatePickerElement, ev: KupDatePickerCustomEvent<HTMLKupDatePickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupDatePickerElementEventMap>(type: K, listener: (this: HTMLKupDatePickerElement, ev: KupDatePickerCustomEvent<HTMLKupDatePickerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupDatePickerElement: {
         prototype: HTMLKupDatePickerElement;
         new (): HTMLKupDatePickerElement;
     };
+    interface HTMLKupDialogElementEventMap {
+        "kup-dialog-close": KupEventPayload;
+        "kup-dialog-ready": KupEventPayload;
+    }
     interface HTMLKupDialogElement extends Components.KupDialog, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupDialogElementEventMap>(type: K, listener: (this: HTMLKupDialogElement, ev: KupDialogCustomEvent<HTMLKupDialogElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupDialogElementEventMap>(type: K, listener: (this: HTMLKupDialogElement, ev: KupDialogCustomEvent<HTMLKupDialogElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupDialogElement: {
         prototype: HTMLKupDialogElement;
         new (): HTMLKupDialogElement;
     };
+    interface HTMLKupDrawerElementEventMap {
+        "kup-drawer-close": KupEventPayload;
+        "kup-drawer-open": KupEventPayload;
+        "kup-drawer-ready": KupEventPayload;
+    }
     interface HTMLKupDrawerElement extends Components.KupDrawer, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupDrawerElementEventMap>(type: K, listener: (this: HTMLKupDrawerElement, ev: KupDrawerCustomEvent<HTMLKupDrawerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupDrawerElementEventMap>(type: K, listener: (this: HTMLKupDrawerElement, ev: KupDrawerCustomEvent<HTMLKupDrawerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupDrawerElement: {
         prototype: HTMLKupDrawerElement;
         new (): HTMLKupDrawerElement;
     };
+    interface HTMLKupDropdownButtonElementEventMap {
+        "kup-dropdownbutton-blur": KupDropdownButtonEventPayload;
+        "kup-dropdownbutton-click": KupDropdownButtonEventPayload;
+        "kup-dropdownbutton-focus": KupDropdownButtonEventPayload;
+        "kup-dropdownbutton-change": KupDropdownButtonEventPayload;
+        "kup-dropdownbutton-itemclick": KupDropdownButtonEventPayload;
+    }
     interface HTMLKupDropdownButtonElement extends Components.KupDropdownButton, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupDropdownButtonElementEventMap>(type: K, listener: (this: HTMLKupDropdownButtonElement, ev: KupDropdownButtonCustomEvent<HTMLKupDropdownButtonElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupDropdownButtonElementEventMap>(type: K, listener: (this: HTMLKupDropdownButtonElement, ev: KupDropdownButtonCustomEvent<HTMLKupDropdownButtonElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupDropdownButtonElement: {
         prototype: HTMLKupDropdownButtonElement;
         new (): HTMLKupDropdownButtonElement;
     };
+    interface HTMLKupEchartElementEventMap {
+        "kup-echart-click": KupEchartClickEventPayload;
+    }
     interface HTMLKupEchartElement extends Components.KupEchart, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupEchartElementEventMap>(type: K, listener: (this: HTMLKupEchartElement, ev: KupEchartCustomEvent<HTMLKupEchartElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupEchartElementEventMap>(type: K, listener: (this: HTMLKupEchartElement, ev: KupEchartCustomEvent<HTMLKupEchartElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupEchartElement: {
         prototype: HTMLKupEchartElement;
         new (): HTMLKupEchartElement;
     };
+    interface HTMLKupFamilyTreeElementEventMap {
+        "kup-familytree-click": KupFamilyTreeEventPayload;
+        "kup-familytree-contextmenu": KupFamilyTreeEventPayload;
+        "kup-familytree-dblclick": KupFamilyTreeEventPayload;
+    }
     interface HTMLKupFamilyTreeElement extends Components.KupFamilyTree, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupFamilyTreeElementEventMap>(type: K, listener: (this: HTMLKupFamilyTreeElement, ev: KupFamilyTreeCustomEvent<HTMLKupFamilyTreeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupFamilyTreeElementEventMap>(type: K, listener: (this: HTMLKupFamilyTreeElement, ev: KupFamilyTreeCustomEvent<HTMLKupFamilyTreeElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupFamilyTreeElement: {
         prototype: HTMLKupFamilyTreeElement;
         new (): HTMLKupFamilyTreeElement;
     };
+    interface HTMLKupFormElementEventMap {
+        "kup-form-ready": KupEventPayload;
+    }
     interface HTMLKupFormElement extends Components.KupForm, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupFormElementEventMap>(type: K, listener: (this: HTMLKupFormElement, ev: KupFormCustomEvent<HTMLKupFormElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupFormElementEventMap>(type: K, listener: (this: HTMLKupFormElement, ev: KupFormCustomEvent<HTMLKupFormElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupFormElement: {
         prototype: HTMLKupFormElement;
@@ -4078,31 +4400,92 @@ declare global {
         prototype: HTMLKupHorizontalScrollElement;
         new (): HTMLKupHorizontalScrollElement;
     };
+    interface HTMLKupIframeElementEventMap {
+        "kup-iframe-error": KupEventPayload;
+        "kup-iframe-load": KupEventPayload;
+    }
     interface HTMLKupIframeElement extends Components.KupIframe, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupIframeElementEventMap>(type: K, listener: (this: HTMLKupIframeElement, ev: KupIframeCustomEvent<HTMLKupIframeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupIframeElementEventMap>(type: K, listener: (this: HTMLKupIframeElement, ev: KupIframeCustomEvent<HTMLKupIframeElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupIframeElement: {
         prototype: HTMLKupIframeElement;
         new (): HTMLKupIframeElement;
     };
+    interface HTMLKupImageElementEventMap {
+        "kup-image-click": KupImageClickEventPayload;
+        "kup-image-load": KupImageClickEventPayload;
+    }
     interface HTMLKupImageElement extends Components.KupImage, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupImageElementEventMap>(type: K, listener: (this: HTMLKupImageElement, ev: KupImageCustomEvent<HTMLKupImageElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupImageElementEventMap>(type: K, listener: (this: HTMLKupImageElement, ev: KupImageCustomEvent<HTMLKupImageElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupImageElement: {
         prototype: HTMLKupImageElement;
         new (): HTMLKupImageElement;
     };
+    interface HTMLKupImageListElementEventMap {
+        "kup-imagelist-click": KupImageListEventPayload;
+        "kup-imagelist-contextmenu": KupImageListEventPayload;
+        "kup-imagelist-dblclick": KupImageListEventPayload;
+    }
     interface HTMLKupImageListElement extends Components.KupImageList, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupImageListElementEventMap>(type: K, listener: (this: HTMLKupImageListElement, ev: KupImageListCustomEvent<HTMLKupImageListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupImageListElementEventMap>(type: K, listener: (this: HTMLKupImageListElement, ev: KupImageListCustomEvent<HTMLKupImageListElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupImageListElement: {
         prototype: HTMLKupImageListElement;
         new (): HTMLKupImageListElement;
     };
+    interface HTMLKupLazyElementEventMap {
+        "kup-lazy-loaded": KupEventPayload;
+    }
     interface HTMLKupLazyElement extends Components.KupLazy, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupLazyElementEventMap>(type: K, listener: (this: HTMLKupLazyElement, ev: KupLazyCustomEvent<HTMLKupLazyElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupLazyElementEventMap>(type: K, listener: (this: HTMLKupLazyElement, ev: KupLazyCustomEvent<HTMLKupLazyElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupLazyElement: {
         prototype: HTMLKupLazyElement;
         new (): HTMLKupLazyElement;
     };
+    interface HTMLKupListElementEventMap {
+        "kup-list-blur": KupEventPayload;
+        "kup-list-focus": KupEventPayload;
+        "kup-list-click": KupListEventPayload;
+    }
     interface HTMLKupListElement extends Components.KupList, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupListElementEventMap>(type: K, listener: (this: HTMLKupListElement, ev: KupListCustomEvent<HTMLKupListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupListElementEventMap>(type: K, listener: (this: HTMLKupListElement, ev: KupListCustomEvent<HTMLKupListElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupListElement: {
         prototype: HTMLKupListElement;
@@ -4114,25 +4497,83 @@ declare global {
         prototype: HTMLKupMagicBoxElement;
         new (): HTMLKupMagicBoxElement;
     };
+    interface HTMLKupNavBarElementEventMap {
+        "kup-navbar-ready": KupEventPayload;
+        "kup-navbar-resize": KupEventPayload;
+    }
     interface HTMLKupNavBarElement extends Components.KupNavBar, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupNavBarElementEventMap>(type: K, listener: (this: HTMLKupNavBarElement, ev: KupNavBarCustomEvent<HTMLKupNavBarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupNavBarElementEventMap>(type: K, listener: (this: HTMLKupNavBarElement, ev: KupNavBarCustomEvent<HTMLKupNavBarElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupNavBarElement: {
         prototype: HTMLKupNavBarElement;
         new (): HTMLKupNavBarElement;
     };
+    interface HTMLKupNumericPickerElementEventMap {
+        "kup-numericpicker-blur": KupNumericPickerEventPayload;
+        "kup-numericpicker-change": KupNumericPickerEventPayload;
+        "kup-numericpicker-click": KupNumericPickerEventPayload;
+        "kup-numericpicker-focus": KupNumericPickerEventPayload;
+        "kup-numericpicker-input": KupNumericPickerEventPayload;
+        "kup-numericpicker-iconclick": KupNumericPickerEventPayload;
+        "kup-numericpicker-itemclick": KupNumericPickerEventPayload;
+        "kup-numericpicker-textfieldsubmit": KupNumericPickerEventPayload;
+        "kup-numericpicker-cleariconclick": KupEventPayload;
+    }
     interface HTMLKupNumericPickerElement extends Components.KupNumericPicker, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupNumericPickerElementEventMap>(type: K, listener: (this: HTMLKupNumericPickerElement, ev: KupNumericPickerCustomEvent<HTMLKupNumericPickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupNumericPickerElementEventMap>(type: K, listener: (this: HTMLKupNumericPickerElement, ev: KupNumericPickerCustomEvent<HTMLKupNumericPickerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupNumericPickerElement: {
         prototype: HTMLKupNumericPickerElement;
         new (): HTMLKupNumericPickerElement;
     };
+    interface HTMLKupPhotoFrameElementEventMap {
+        "kup-photoframe-placeholderload": KupEventPayload;
+        "kup-photoframe-resourceload": KupEventPayload;
+    }
     interface HTMLKupPhotoFrameElement extends Components.KupPhotoFrame, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupPhotoFrameElementEventMap>(type: K, listener: (this: HTMLKupPhotoFrameElement, ev: KupPhotoFrameCustomEvent<HTMLKupPhotoFrameElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupPhotoFrameElementEventMap>(type: K, listener: (this: HTMLKupPhotoFrameElement, ev: KupPhotoFrameCustomEvent<HTMLKupPhotoFrameElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupPhotoFrameElement: {
         prototype: HTMLKupPhotoFrameElement;
         new (): HTMLKupPhotoFrameElement;
     };
+    interface HTMLKupPlannerElementEventMap {
+        "kup-planner-click": KupPlannerEventPayload;
+        "kup-planner-datechange": KupPlannerEventPayload;
+        "kup-planner-ready": KupPlannerEventPayload;
+        "kup-planner-contextmenu": KupPlannerClickEventPayload;
+        "kup-planner-didunload": KupPlannerUnloadEventPayload;
+    }
     interface HTMLKupPlannerElement extends Components.KupPlanner, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupPlannerElementEventMap>(type: K, listener: (this: HTMLKupPlannerElement, ev: KupPlannerCustomEvent<HTMLKupPlannerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupPlannerElementEventMap>(type: K, listener: (this: HTMLKupPlannerElement, ev: KupPlannerCustomEvent<HTMLKupPlannerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupPlannerElement: {
         prototype: HTMLKupPlannerElement;
@@ -4162,25 +4603,72 @@ declare global {
         prototype: HTMLKupQlikElement;
         new (): HTMLKupQlikElement;
     };
+    interface HTMLKupRadioElementEventMap {
+        "kup-radio-blur": KupEventPayload;
+        "kup-radio-change": KupRadioChangeEventPayload;
+        "kup-radio-focus": KupEventPayload;
+    }
     interface HTMLKupRadioElement extends Components.KupRadio, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupRadioElementEventMap>(type: K, listener: (this: HTMLKupRadioElement, ev: KupRadioCustomEvent<HTMLKupRadioElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupRadioElementEventMap>(type: K, listener: (this: HTMLKupRadioElement, ev: KupRadioCustomEvent<HTMLKupRadioElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupRadioElement: {
         prototype: HTMLKupRadioElement;
         new (): HTMLKupRadioElement;
     };
+    interface HTMLKupRatingElementEventMap {
+        "kup-rating-click": KupRatingClickEventPayload;
+    }
     interface HTMLKupRatingElement extends Components.KupRating, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupRatingElementEventMap>(type: K, listener: (this: HTMLKupRatingElement, ev: KupRatingCustomEvent<HTMLKupRatingElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupRatingElementEventMap>(type: K, listener: (this: HTMLKupRatingElement, ev: KupRatingCustomEvent<HTMLKupRatingElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupRatingElement: {
         prototype: HTMLKupRatingElement;
         new (): HTMLKupRatingElement;
     };
+    interface HTMLKupSnackbarElementEventMap {
+        "kup-snackbar-actionclick": KupEventPayload;
+        "kup-snackbar-timeoutcomplete": KupEventPayload;
+    }
     interface HTMLKupSnackbarElement extends Components.KupSnackbar, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupSnackbarElementEventMap>(type: K, listener: (this: HTMLKupSnackbarElement, ev: KupSnackbarCustomEvent<HTMLKupSnackbarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupSnackbarElementEventMap>(type: K, listener: (this: HTMLKupSnackbarElement, ev: KupSnackbarCustomEvent<HTMLKupSnackbarElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupSnackbarElement: {
         prototype: HTMLKupSnackbarElement;
         new (): HTMLKupSnackbarElement;
     };
+    interface HTMLKupSpinnerElementEventMap {
+        "kup-spinner-ready": KupEventPayload;
+    }
     interface HTMLKupSpinnerElement extends Components.KupSpinner, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupSpinnerElementEventMap>(type: K, listener: (this: HTMLKupSpinnerElement, ev: KupSpinnerCustomEvent<HTMLKupSpinnerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupSpinnerElementEventMap>(type: K, listener: (this: HTMLKupSpinnerElement, ev: KupSpinnerCustomEvent<HTMLKupSpinnerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupSpinnerElement: {
         prototype: HTMLKupSpinnerElement;
@@ -4192,7 +4680,20 @@ declare global {
         prototype: HTMLKupStandardTooltipElement;
         new (): HTMLKupStandardTooltipElement;
     };
+    interface HTMLKupSwitchElementEventMap {
+        "kup-switch-blur": KupSwitchEventPayload;
+        "kup-switch-change": KupSwitchEventPayload;
+        "kup-switch-focus": KupSwitchEventPayload;
+    }
     interface HTMLKupSwitchElement extends Components.KupSwitch, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupSwitchElementEventMap>(type: K, listener: (this: HTMLKupSwitchElement, ev: KupSwitchCustomEvent<HTMLKupSwitchElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupSwitchElementEventMap>(type: K, listener: (this: HTMLKupSwitchElement, ev: KupSwitchCustomEvent<HTMLKupSwitchElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupSwitchElement: {
         prototype: HTMLKupSwitchElement;
@@ -4204,7 +4705,20 @@ declare global {
         prototype: HTMLKupSwitcherElement;
         new (): HTMLKupSwitcherElement;
     };
+    interface HTMLKupTabBarElementEventMap {
+        "kup-tabbar-blur": KupTabBarEventPayload;
+        "kup-tabbar-click": KupTabBarEventPayload;
+        "kup-tabbar-focus": KupTabBarEventPayload;
+    }
     interface HTMLKupTabBarElement extends Components.KupTabBar, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupTabBarElementEventMap>(type: K, listener: (this: HTMLKupTabBarElement, ev: KupTabBarCustomEvent<HTMLKupTabBarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupTabBarElementEventMap>(type: K, listener: (this: HTMLKupTabBarElement, ev: KupTabBarCustomEvent<HTMLKupTabBarElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupTabBarElement: {
         prototype: HTMLKupTabBarElement;
@@ -4234,13 +4748,50 @@ declare global {
         prototype: HTMLKupTaskListTableElement;
         new (): HTMLKupTaskListTableElement;
     };
+    interface HTMLKupTextFieldElementEventMap {
+        "kup-textfield-blur": KupTextFieldEventPayload;
+        "kup-textfield-change": KupTextFieldEventPayload;
+        "kup-textfield-click": KupTextFieldEventPayload;
+        "kup-textfield-focus": KupTextFieldEventPayload;
+        "kup-textfield-input": KupTextFieldEventPayload;
+        "kup-textfield-iconclick": KupTextFieldEventPayload;
+        "kup-textfield-cleariconclick": KupEventPayload;
+        "kup-textfield-submit": KupTextFieldEventPayload;
+    }
     interface HTMLKupTextFieldElement extends Components.KupTextField, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupTextFieldElementEventMap>(type: K, listener: (this: HTMLKupTextFieldElement, ev: KupTextFieldCustomEvent<HTMLKupTextFieldElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupTextFieldElementEventMap>(type: K, listener: (this: HTMLKupTextFieldElement, ev: KupTextFieldCustomEvent<HTMLKupTextFieldElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupTextFieldElement: {
         prototype: HTMLKupTextFieldElement;
         new (): HTMLKupTextFieldElement;
     };
+    interface HTMLKupTimePickerElementEventMap {
+        "kup-timepicker-blur": KupTimePickerEventPayload;
+        "kup-timepicker-change": KupTimePickerEventPayload;
+        "kup-timepicker-click": KupTimePickerEventPayload;
+        "kup-timepicker-focus": KupTimePickerEventPayload;
+        "kup-timepicker-input": KupTimePickerEventPayload;
+        "kup-timepicker-iconclick": KupTimePickerEventPayload;
+        "kup-timepicker-itemclick": KupTimePickerEventPayload;
+        "kup-timepicker-textfieldsubmit": KupTimePickerEventPayload;
+        "kup-timepicker-cleariconclick": KupEventPayload;
+    }
     interface HTMLKupTimePickerElement extends Components.KupTimePicker, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupTimePickerElementEventMap>(type: K, listener: (this: HTMLKupTimePickerElement, ev: KupTimePickerCustomEvent<HTMLKupTimePickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupTimePickerElementEventMap>(type: K, listener: (this: HTMLKupTimePickerElement, ev: KupTimePickerCustomEvent<HTMLKupTimePickerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupTimePickerElement: {
         prototype: HTMLKupTimePickerElement;
@@ -4252,7 +4803,28 @@ declare global {
         prototype: HTMLKupTooltipElement;
         new (): HTMLKupTooltipElement;
     };
+    interface HTMLKupTreeElementEventMap {
+        "kup-tree-nodecollapse": KupTreeNodeCollapseEventPayload;
+        "kup-tree-nodeexpand": KupTreeNodeExpandEventPayload;
+        "kup-tree-nodeselected": KupTreeNodeSelectedEventPayload;
+        "kup-tree-buttonclick": KupTreeNodeButtonClickEventPayload;
+        "kup-tree-contextmenu": KupTreeContextMenuEventPayload;
+        "kup-tree-columnmenu": KupTreeColumnMenuEventPayload;
+        "kup-tree-didload": KupEventPayload;
+        "kup-tree-didunload": KupEventPayload;
+        "kup-tree-nodedblclick": KupTreeNodeCollapseEventPayload;
+        "kup-tree-dynamicmassexpansion": KupTreeDynamicMassExpansionEventPayload;
+        "kup-tree-columnremove": KupTreeColumnRemoveEventPayload;
+    }
     interface HTMLKupTreeElement extends Components.KupTree, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupTreeElementEventMap>(type: K, listener: (this: HTMLKupTreeElement, ev: KupTreeCustomEvent<HTMLKupTreeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupTreeElementEventMap>(type: K, listener: (this: HTMLKupTreeElement, ev: KupTreeCustomEvent<HTMLKupTreeElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupTreeElement: {
         prototype: HTMLKupTreeElement;
@@ -6410,6 +6982,11 @@ declare namespace LocalJSX {
          */
         "listCellWidth"?: string;
         /**
+          * Sets the filter for main gantt.
+          * @default undefined
+         */
+        "mainFilter"?: HTMLElement;
+        /**
           * Max width for component
           * @default '90vw'
          */
@@ -6466,16 +7043,15 @@ declare namespace LocalJSX {
          */
         "phasePrevDates"?: string[];
         /**
-          * The value of the component.
-          * @default ""
-         */
-        "plannerProps"?: PlannerProps;
-        /**
           * When true, the two gantts are not interactable.
           * @default false
          */
         "readOnly"?: boolean;
-        "selectedPlanner"?: string;
+        /**
+          * Sets the filter for secondary gantt.
+          * @default undefined
+         */
+        "secondaryFilter"?: HTMLElement;
         /**
           * Enable/disable display of secondary dates
           * @default false
