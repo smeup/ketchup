@@ -26,8 +26,7 @@ import {
     KupPlannerPhase,
     KupPlannerItemDetail,
     KupPlannerGanttTaskN,
-    PlannerProps,
-    KupPlannerSwitcherProps
+    PlannerProps
 } from "../kup-planner-declarations";
 import { KupDates } from '../../../managers/kup-dates/kup-dates';
 import { ganttDateTimeFormatters } from "./kup-planner-time-formatter";
@@ -119,6 +118,33 @@ export class KupPlannerRenderer {
             }
         }
     }
+
+    @Watch('currentTasks')
+    @Watch('currentDetails')
+    updateTasks() {
+        const kupDates: KupDates = new KupDates();
+        this.tasks = []
+        for (let i = 0; i < this.currentTasks?.length; i++) {
+            this.tasks.push(
+                ...convertProjectToTasks(
+                    this.currentTasks[i],
+                    kupDates.formatToIsoDate(this.displayedDates.displayedStartDate),
+                    kupDates.formatToIsoDate(this.displayedDates.displayedEndDate)
+                )
+            );
+        }
+
+        this.details = []
+        for (let i = 0; i < this.currentDetails?.length; i++) {
+            this.details.push(
+                ...convertProjectToTasks(
+                    this.currentDetails[i],
+                    kupDates.formatToIsoDate(this.displayedDates.displayedStartDate),
+                    kupDates.formatToIsoDate(this.displayedDates.displayedEndDate)
+                )
+            );
+        }
+    }
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -136,27 +162,7 @@ export class KupPlannerRenderer {
         );
         this.viewDate = undefined;
         this.projection = undefined;
-
-        const kupDates: KupDates = new KupDates();
-        for (let i = 0; i < this.currentTasks?.length; i++) {
-            this.tasks.push(
-                ...convertProjectToTasks(
-                    this.currentTasks[i],
-                    kupDates.formatToIsoDate(this.displayedDates.displayedStartDate),
-                    kupDates.formatToIsoDate(this.displayedDates.displayedEndDate)
-                )
-            );
-        }
-
-        for (let i = 0; i < this.currentDetails?.length; i++) {
-            this.details.push(
-                ...convertProjectToTasks(
-                    this.currentDetails[i],
-                    kupDates.formatToIsoDate(this.displayedDates.displayedStartDate),
-                    kupDates.formatToIsoDate(this.displayedDates.displayedEndDate)
-                )
-            );
-        }
+        this.updateTasks()
     }
 
     /*-------------------------------------------------*/
