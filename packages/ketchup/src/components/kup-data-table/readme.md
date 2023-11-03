@@ -372,7 +372,6 @@ Type: `Promise<void>`
 - [kup-chart](../kup-chart)
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
-- [kup-radio](../kup-radio)
 
 ### Graph
 ```mermaid
@@ -399,7 +398,6 @@ graph TD;
   kup-data-table --> kup-chart
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-radio
   kup-card --> kup-data-table
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
@@ -453,7 +451,6 @@ graph TD;
   kup-tree --> kup-chart
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
-  kup-tree --> kup-radio
   kup-tree --> kup-badge
   kup-switch --> kup-card
   kup-form --> kup-card
@@ -470,7 +467,6 @@ graph TD;
   kup-form --> kup-chart
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
-  kup-form --> kup-radio
   kup-form --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card

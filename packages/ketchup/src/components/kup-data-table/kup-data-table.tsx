@@ -1470,7 +1470,10 @@ export class KupDataTable {
         this.selectedRows = [];
         for (let index = 0; index < rowsIdentifiers.length; index++) {
             const id = rowsIdentifiers[index];
-            this.selectedRows.push(this.#getRow(id));
+            const row = this.#getRow(id);
+            if (row) {
+                this.selectedRows.push(row);
+            }
         }
 
         if (emitEvent !== false) {
@@ -1560,25 +1563,34 @@ export class KupDataTable {
     }
 
     #getRow(id: string | number): KupDataRow {
-        let row: KupDataTableRow = null;
-        const search = (rows: KupDataTableRow[]) => {
-            if (rows && rows.length > 0 && !row) {
-                test(rows);
-            }
-        };
-        const test = (rows: KupDataTableRow[]) => {
-            if (typeof id === 'number') {
-                row = rows[id];
-            } else {
-                row = rows.find((row) => row.id === id);
-            }
-        };
         if (this.#isGrouping() && typeof id === 'string') {
-            this.#paginatedRows.forEach((row) => search(row.group.children));
+            return this.#_getRow(id, this.#paginatedRows);
         } else {
-            test(this.#rows);
+            return this.#_getRow(id, this.#rows);
         }
-        return row;
+    }
+
+    #_getRow(id: string | number, rows: KupDataTableRow[]): KupDataTableRow {
+        if (!rows || rows.length == 0) {
+            return null;
+        }
+        if (typeof id === 'number') {
+            return rows[id];
+        } else {
+            for (let i = 0; i < rows.length; i++) {
+                let r = rows[i];
+                if (r.id === id) {
+                    return r;
+                }
+                if (r.group) {
+                    r = this.#_getRow(id, r.group.children);
+                    if (r) {
+                        return r;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     #getTransposedData(column?: string): KupDataDataset {
@@ -4342,7 +4354,7 @@ export class KupDataTable {
                     }
                     if (this.totals) {
                         const selectedItem: KupListNode = listData.find(
-                            (item) => item.value === this.totals[column.name]
+                            (item) => item.id === this.totals[column.name]
                         );
                         if (selectedItem) {
                             selectedItem.selected = true;
@@ -5675,8 +5687,20 @@ export class KupDataTable {
                                             const column =
                                                 this.data.columns[index];
                                             cells[column.name] = {
-                                                data: column.cellData ? JSON.parse(JSON.stringify(column.cellData)) : undefined,
-                                                slotData: column.cellSlotData ? JSON.parse(JSON.stringify(column.cellSlotData)) : undefined,
+                                                data: column.cellData
+                                                    ? JSON.parse(
+                                                          JSON.stringify(
+                                                              column.cellData
+                                                          )
+                                                      )
+                                                    : undefined,
+                                                slotData: column.cellSlotData
+                                                    ? JSON.parse(
+                                                          JSON.stringify(
+                                                              column.cellSlotData
+                                                          )
+                                                      )
+                                                    : undefined,
                                                 isEditable:
                                                     column.isKey ||
                                                     column.isEditable,

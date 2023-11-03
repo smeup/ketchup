@@ -15,6 +15,8 @@ import * as fChipCSS from '../../f-components/f-chip/f-chip.css';
 import * as fImageCSS from '../../f-components/f-image/f-image.css';
 import * as fPaginatorCSS from '../../f-components/f-paginator/f-paginator.css';
 import * as fProgressBarCSS from '../../f-components/f-progress-bar/f-progress-bar.css';
+import * as fRadioCSS from '../../f-components/f-radio/f-radio.css';
+import * as fRatingCSS from '../../f-components/f-rating/f-rating.css';
 import * as fSwitchCSS from '../../f-components/f-switch/f-switch.css';
 import * as fTextFieldCSS from '../../f-components/f-text-field/f-text-field.css';
 import * as rippleCSS from './mdc-ripple.css';
@@ -26,6 +28,8 @@ import {
     fImageUsers,
     fPaginatorUsers,
     fProgressBarUsers,
+    fRadioUsers,
+    fRatingUsers,
     fSwitchUsers,
     fTextFieldUsers,
     KupThemeColor,
@@ -272,6 +276,12 @@ export class KupTheme {
             }
             if (fProgressBarUsers.includes(tagName)) {
                 completeStyle += fProgressBarCSS['default'];
+            }
+            if (fRadioUsers.includes(tagName)) {
+                completeStyle += fRadioCSS['default'];
+            }
+            if (fRatingUsers.includes(tagName)) {
+                completeStyle += fRatingCSS['default'];
             }
             if (fSwitchUsers.includes(tagName)) {
                 completeStyle += fSwitchCSS['default'];

@@ -5,13 +5,13 @@
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                          | Type             | Default |
-| -------------- | --------------- | ------------------------------------------------------------------------------------ | ---------------- | ------- |
-| `columns`      | `columns`       | Number of columns. When null, radio fields will be displayed inline.                 | `number`         | `null`  |
-| `customStyle`  | `custom-style`  | Custom style of the component.                                                       | `string`         | `''`    |
-| `data`         | --              | List of elements.                                                                    | `KupRadioData[]` | `null`  |
-| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                      | `boolean`        | `false` |
-| `leadingLabel` | `leading-label` | Defaults at false. When set to true, the label will be on the left of the component. | `boolean`        | `false` |
+| Property       | Attribute       | Description                                                                          | Type           | Default |
+| -------------- | --------------- | ------------------------------------------------------------------------------------ | -------------- | ------- |
+| `columns`      | `columns`       | Number of columns. When null, radio fields will be displayed inline.                 | `number`       | `null`  |
+| `customStyle`  | `custom-style`  | Custom style of the component.                                                       | `string`       | `''`    |
+| `data`         | --              | List of elements.                                                                    | `FRadioData[]` | `null`  |
+| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                      | `boolean`      | `false` |
+| `leadingLabel` | `leading-label` | Defaults at false. When set to true, the label will be on the left of the component. | `boolean`      | `false` |
 
 
 ## Events
@@ -73,14 +73,7 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-box](../kup-box)
- - [kup-card](../kup-card)
- - [kup-cell](../kup-cell)
- - [kup-data-table](../kup-data-table)
- - [kup-form](../kup-form)
- - [kup-image-list](../kup-image-list)
  - [kup-list](../kup-list)
- - [kup-tree](../kup-tree)
 
 ### Depends on
 
@@ -90,7 +83,30 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-radio --> kup-card
-  kup-card --> kup-radio
+  kup-card --> kup-autocomplete
+  kup-card --> kup-chip
+  kup-card --> kup-text-field
+  kup-card --> kup-color-picker
+  kup-card --> kup-combobox
+  kup-card --> kup-date-picker
+  kup-card --> kup-rating
+  kup-card --> kup-time-picker
+  kup-card --> kup-image
+  kup-card --> kup-button-list
+  kup-card --> kup-chart
+  kup-card --> kup-gauge
+  kup-card --> kup-progress-bar
+  kup-card --> kup-badge
+  kup-card --> kup-button
+  kup-card --> kup-list
+  kup-card --> kup-checkbox
+  kup-card --> kup-data-table
+  kup-card --> kup-spinner
+  kup-card --> kup-tab-bar
+  kup-card --> kup-tree
+  kup-card --> kup-switch
+  kup-card --> kup-dropdown-button
+  kup-card --> kup-card
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-list --> kup-radio
@@ -122,17 +138,64 @@ graph TD;
   kup-button --> kup-card
   kup-button --> kup-badge
   kup-checkbox --> kup-card
-  kup-data-table --> kup-radio
+  kup-data-table --> kup-card
+  kup-data-table --> kup-list
+  kup-data-table --> kup-switch
+  kup-data-table --> kup-button
+  kup-data-table --> kup-spinner
+  kup-data-table --> kup-form
+  kup-data-table --> kup-image
+  kup-data-table --> kup-dialog
+  kup-data-table --> kup-checkbox
+  kup-data-table --> kup-combobox
+  kup-data-table --> kup-badge
+  kup-data-table --> kup-autocomplete
+  kup-data-table --> kup-chip
+  kup-data-table --> kup-text-field
+  kup-data-table --> kup-color-picker
+  kup-data-table --> kup-date-picker
+  kup-data-table --> kup-rating
+  kup-data-table --> kup-time-picker
+  kup-data-table --> kup-button-list
+  kup-data-table --> kup-chart
+  kup-data-table --> kup-gauge
+  kup-data-table --> kup-progress-bar
   kup-switch --> kup-card
-  kup-form --> kup-radio
+  kup-form --> kup-card
+  kup-form --> kup-autocomplete
+  kup-form --> kup-chip
+  kup-form --> kup-text-field
+  kup-form --> kup-color-picker
+  kup-form --> kup-combobox
+  kup-form --> kup-date-picker
+  kup-form --> kup-rating
+  kup-form --> kup-time-picker
+  kup-form --> kup-image
+  kup-form --> kup-button-list
+  kup-form --> kup-chart
+  kup-form --> kup-gauge
+  kup-form --> kup-progress-bar
+  kup-form --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
-  kup-tree --> kup-radio
-  kup-box --> kup-radio
-  kup-cell --> kup-radio
-  kup-image-list --> kup-radio
+  kup-tree --> kup-card
+  kup-tree --> kup-list
+  kup-tree --> kup-text-field
+  kup-tree --> kup-autocomplete
+  kup-tree --> kup-chip
+  kup-tree --> kup-color-picker
+  kup-tree --> kup-combobox
+  kup-tree --> kup-date-picker
+  kup-tree --> kup-rating
+  kup-tree --> kup-time-picker
+  kup-tree --> kup-image
+  kup-tree --> kup-button-list
+  kup-tree --> kup-chart
+  kup-tree --> kup-gauge
+  kup-tree --> kup-progress-bar
+  kup-tree --> kup-badge
   style kup-radio fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

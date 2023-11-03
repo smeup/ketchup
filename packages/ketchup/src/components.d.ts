@@ -46,7 +46,8 @@ import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
-import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
+import { FRadioData } from "./f-components/f-radio/f-radio-declarations";
+import { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
@@ -93,7 +94,8 @@ export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
 export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
-export { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
+export { FRadioData } from "./f-components/f-radio/f-radio-declarations";
+export { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
 export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 export { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 export { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
@@ -664,6 +666,16 @@ export namespace Components {
          */
         "data": KupCardListData;
         /**
+          * Sets the decimal value column.
+          * @default ""
+         */
+        "decvalueCol": string;
+        /**
+          * Sets the description column.
+          * @default ""
+         */
+        "descrCol": string;
+        /**
           * Sets whether the component occupies all available width.
           * @default true
          */
@@ -680,10 +692,35 @@ export namespace Components {
          */
         "horizontal": boolean;
         /**
+          * Sets the icon column.
+          * @default ""
+         */
+        "iconCol": string;
+        /**
+          * Sets the icon color column.
+          * @default ""
+         */
+        "iconcolorCol": string;
+        /**
+          * Sets the integer value column.
+          * @default ""
+         */
+        "intvalueCol": string;
+        /**
           * Sets whether a single card is clickable or not.
           * @default false
          */
         "isClickable": boolean;
+        /**
+          * Sets the layout column.
+          * @default ""
+         */
+        "layoutCol": string;
+        /**
+          * Sets the unit of measure column.
+          * @default ""
+         */
+        "measureCol": string;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -693,6 +730,21 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the text color column.
+          * @default ""
+         */
+        "textcolorCol": string;
+        /**
+          * Sets the value column.
+          * @default ""
+         */
+        "valueCol": string;
+        /**
+          * Sets the value color column.
+          * @default ""
+         */
+        "valuecolorCol": string;
     }
     interface KupCell {
         /**
@@ -2968,7 +3020,7 @@ export namespace Components {
           * List of elements.
           * @default null
          */
-        "data": KupRadioData[];
+        "data": FRadioData[];
         /**
           * Defaults at false. When set to true, the component is disabled.
           * @default false
@@ -5397,6 +5449,16 @@ declare namespace LocalJSX {
          */
         "data"?: KupCardListData;
         /**
+          * Sets the decimal value column.
+          * @default ""
+         */
+        "decvalueCol"?: string;
+        /**
+          * Sets the description column.
+          * @default ""
+         */
+        "descrCol"?: string;
+        /**
           * Sets whether the component occupies all available width.
           * @default true
          */
@@ -5407,11 +5469,51 @@ declare namespace LocalJSX {
          */
         "horizontal"?: boolean;
         /**
+          * Sets the icon column.
+          * @default ""
+         */
+        "iconCol"?: string;
+        /**
+          * Sets the icon color column.
+          * @default ""
+         */
+        "iconcolorCol"?: string;
+        /**
+          * Sets the integer value column.
+          * @default ""
+         */
+        "intvalueCol"?: string;
+        /**
           * Sets whether a single card is clickable or not.
           * @default false
          */
         "isClickable"?: boolean;
+        /**
+          * Sets the layout column.
+          * @default ""
+         */
+        "layoutCol"?: string;
+        /**
+          * Sets the unit of measure column.
+          * @default ""
+         */
+        "measureCol"?: string;
         "onKup-cardlist-click"?: (event: KupCardListCustomEvent<KupCardListClickEventPayload>) => void;
+        /**
+          * Sets the text color column.
+          * @default ""
+         */
+        "textcolorCol"?: string;
+        /**
+          * Sets the value column.
+          * @default ""
+         */
+        "valueCol"?: string;
+        /**
+          * Sets the value color column.
+          * @default ""
+         */
+        "valuecolorCol"?: string;
     }
     interface KupCell {
         /**
@@ -7237,7 +7339,7 @@ declare namespace LocalJSX {
           * List of elements.
           * @default null
          */
-        "data"?: KupRadioData[];
+        "data"?: FRadioData[];
         /**
           * Defaults at false. When set to true, the component is disabled.
           * @default false

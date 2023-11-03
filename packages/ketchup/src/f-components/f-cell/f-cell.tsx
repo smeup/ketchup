@@ -46,6 +46,8 @@ import { FChipsProps, FChipType } from '../f-chip/f-chip-declarations';
 import { ItemsDisplayMode } from '../../components/kup-list/kup-list-declarations';
 import { FButton } from '../f-button/f-button';
 import { FProgressBar } from '../f-progress-bar/f-progress-bar';
+import { FRadio } from '../f-radio/f-radio';
+import { FRating } from '../f-rating/f-rating';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -746,20 +748,9 @@ function setKupCell(
                 classObj[FCellClasses.C_CENTERED] = true;
             }
             subcomponentProps['disabled'] = row.readOnly;
-            return (
-                <kup-radio
-                    key={column.name + props.row.id}
-                    {...subcomponentProps}
-                ></kup-radio>
-            );
+            return <FRadio {...subcomponentProps}></FRadio>;
         case FCellTypes.RATING:
-            return (
-                <kup-rating
-                    key={column.name + props.row.id}
-                    {...subcomponentProps}
-                    disabled
-                ></kup-rating>
-            );
+            return <FRating {...subcomponentProps} disabled={true}></FRating>;
     }
 }
 
