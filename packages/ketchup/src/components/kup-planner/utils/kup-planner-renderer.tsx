@@ -95,6 +95,7 @@ export class KupPlannerRenderer {
         this.currentTasks = this.props.mainGantt.items;
         this.currentDetails = this.props.secondaryGantt?.items;
         this.projection = undefined;
+        this.updateTasks()
     }
 
     @Watch('timeUnit')

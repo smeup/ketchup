@@ -351,7 +351,7 @@ export class KupGantt {
 
     // initial scroll
     @Watch('initialScrollY')
-    @Watch('onScrollY')
+    @Watch('scrollYChange')
     updateInitialScrollY() {
         if (this.scrollYChange) {
             this.scrollYChange(this.initialScrollY);
@@ -360,15 +360,15 @@ export class KupGantt {
     }
 
     // sync scroll event
-    @Watch('id')
-    @Watch('onScrollX')
+    @Watch('initialScrollX')
+    @Watch('scrollXChange')
     updateInitialScrollX() {
         window.addEventListener("gantt-sync-scroll-event", function (e: any) {
             if (e.detail.id !== this.ganttId) {
                 this.scrollX = e.detail.scrollX;
                 // execute scroll x event
-                if (this.onScrollX) {
-                    this.onScrollX(e.detail.scrollX);
+                if (this.scrollXChange) {
+                    this.scrollXChange(e.detail.scrollX);
                 }
             }
         });
@@ -706,8 +706,8 @@ export class KupGantt {
     handleScrollX(event: UIEvent) {
         const currentTarget = event.currentTarget as HTMLDivElement;
         if (
-            this.scrollX !== currentTarget.scrollLeft &&
-            !this.ignoreScrollEvent
+            this.scrollX !== currentTarget.scrollLeft
+            //&& !this.ignoreScrollEvent
         ) {
             this.scrollX = currentTarget.scrollLeft;
             this.ignoreScrollEvent = true;

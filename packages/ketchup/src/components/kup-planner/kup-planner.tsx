@@ -247,7 +247,7 @@ export class KupPlanner {
      * @default null
      */
     @Prop()
-    detailHeight: number;
+    detailHeight: number = 300;
 
     /**
      * Column containing icon name to show, for detail
@@ -401,7 +401,7 @@ export class KupPlanner {
      * @default null
      */
     @Prop()
-    taskHeight: number;
+    taskHeight: number = 300;
 
     /**
      * Column containing icon name to show, for task

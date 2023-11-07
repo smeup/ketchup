@@ -10,3066 +10,2794 @@ document.addEventListener('kup-button-click', () => {
 });
 
 const props = {
-    customStyle: '',
-    data: {
-        columns: [
+    "customStyle": "",
+    "data": {
+        "columns": [
             {
-                isEditable: false,
-                isKey: false,
-                name: 'R§COMM',
-                obj: {
-                    k: '',
-                    p: '',
-                    t: 'CM',
+                "isEditable": false,
+                "isKey": false,
+                "name": "R§COMM",
+                "obj": {
+                    "k": "",
+                    "p": "",
+                    "t": "CM"
                 },
-                title: 'Commessa',
-                tooltip: true,
+                "title": "Commessa",
+                "tooltip": true
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: 'DATPRE',
-                obj: {
-                    k: '',
-                    p: '*YYMD',
-                    t: 'D8',
+                "isEditable": false,
+                "isKey": false,
+                "name": "DATPRE",
+                "obj": {
+                    "k": "",
+                    "p": "*YYMD",
+                    "t": "D8"
                 },
-                title: 'Data Cons.\nAttualizz.',
-                tooltip: true,
+                "title": "Data Cons.\nAttualizz.",
+                "tooltip": true
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: 'DATORD',
-                obj: {
-                    k: '',
-                    p: '*YYMD',
-                    t: 'D8',
+                "isEditable": false,
+                "isKey": false,
+                "name": "DATORD",
+                "obj": {
+                    "k": "",
+                    "p": "*YYMD",
+                    "t": "D8"
                 },
-                title: 'Data Cons.\nP.Ordine',
-                tooltip: true,
+                "title": "Data Cons.\nP.Ordine",
+                "tooltip": true
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: 'DATOPE',
-                obj: {
-                    k: '',
-                    p: '*YYMD',
-                    t: 'D8',
+                "isEditable": false,
+                "isKey": false,
+                "name": "DATOPE",
+                "obj": {
+                    "k": "",
+                    "p": "*YYMD",
+                    "t": "D8"
                 },
-                title: 'Data Fase\n',
-                tooltip: true,
+                "title": "Data Fase\nINSTALLAZIONE",
+                "tooltip": true
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: 'R£COMM',
-                title: 'Des.',
-                tooltip: false,
+                "isEditable": false,
+                "isKey": false,
+                "name": "R£COMM",
+                "title": "Des.",
+                "tooltip": false
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: 'R§CDCL',
-                objs: [
+                "isEditable": false,
+                "isKey": false,
+                "name": "R§CDCL",
+                "objs": [
                     {
-                        k: '',
-                        p: 'CLP',
-                        t: 'CN',
-                    },
+                        "k": "",
+                        "p": "CLP",
+                        "t": "CN"
+                    }
                 ],
-                title: 'Ente',
-                tooltip: true,
+                "title": "Ente",
+                "tooltip": true
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: 'R£CDCL',
-                title: 'Ente',
-                tooltip: false,
+                "isEditable": false,
+                "isKey": false,
+                "name": "R£CDCL",
+                "title": "Ente",
+                "tooltip": false
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: 'CODDOC',
-                objs: [
+                "isEditable": false,
+                "isKey": false,
+                "name": "CODDOC",
+                "objs": [
                     {
-                        k: '',
-                        p: 'MVE',
-                        t: 'DO',
-                    },
+                        "k": "",
+                        "p": "MVE",
+                        "t": "DO"
+                    }
                 ],
-                title: 'Doc.',
-                tooltip: true,
+                "title": "Doc.",
+                "tooltip": true
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: 'XXSEMA',
-                obj: {
-                    k: '',
-                    p: 'IMG',
-                    t: 'J4',
+                "isEditable": false,
+                "isKey": false,
+                "name": "XXSEMA",
+                "obj": {
+                    "k": "",
+                    "p": "IMG",
+                    "t": "J4"
                 },
-                title: 'KPI\nRitardo',
-                tooltip: false,
+                "title": "KPI\nRitardo",
+                "tooltip": false
             },
             {
-                decimals: 0,
-                isEditable: false,
-                isKey: false,
-                name: 'GIODIF',
-                obj: {
-                    k: '',
-                    p: '',
-                    t: 'NR',
+                "decimals": 0,
+                "isEditable": false,
+                "isKey": false,
+                "name": "GIODIF",
+                "obj": {
+                    "k": "",
+                    "p": "",
+                    "t": "NR"
                 },
-                title: 'Diff\nGio',
-                tooltip: false,
+                "title": "Diff\nGio",
+                "tooltip": false
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: 'TIPRIT',
-                obj: {
-                    k: '',
-                    p: '',
-                    t: '**',
+                "isEditable": false,
+                "isKey": false,
+                "name": "TIPRIT",
+                "obj": {
+                    "k": "",
+                    "p": "",
+                    "t": "**"
                 },
-                title: 'Tipo\nRitardo',
-                tooltip: false,
+                "title": "Tipo\nRitardo",
+                "tooltip": false
             },
             {
-                decimals: 0,
-                isEditable: false,
-                isKey: false,
-                name: 'DIFFGG',
-                obj: {
-                    k: '',
-                    p: '',
-                    t: 'NR',
+                "decimals": 0,
+                "isEditable": false,
+                "isKey": false,
+                "name": "DIFFGG",
+                "obj": {
+                    "k": "",
+                    "p": "",
+                    "t": "NR"
                 },
-                title: 'Delta GG',
-                tooltip: false,
+                "title": "Delta GG",
+                "tooltip": false
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: 'DATINZ',
-                obj: {
-                    k: '',
-                    p: '*YYMD',
-                    t: 'D8',
+                "isEditable": false,
+                "isKey": false,
+                "name": "DATINZ",
+                "obj": {
+                    "k": "",
+                    "p": "*YYMD",
+                    "t": "D8"
                 },
-                title: 'Data inizio\nAttualizz.',
-                tooltip: true,
+                "title": "Data inizio\nAttualizz.",
+                "tooltip": true
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: 'INZORD',
-                obj: {
-                    k: '',
-                    p: '*YYMD',
-                    t: 'D8',
+                "isEditable": false,
+                "isKey": false,
+                "name": "INZORD",
+                "obj": {
+                    "k": "",
+                    "p": "*YYMD",
+                    "t": "D8"
                 },
-                title: 'Data inizio\nP.Ordine',
-                tooltip: true,
+                "title": "Data inizio\nP.Ordine",
+                "tooltip": true
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: 'R§TDOC',
-                obj: {
-                    k: '',
-                    p: 'V5D',
-                    t: 'TA',
+                "isEditable": false,
+                "isKey": false,
+                "name": "R£TDOC",
+                "obj": {
+                    "k": "",
+                    "p": "V5D",
+                    "t": "TA"
                 },
-                title: 'Tp\nDo',
-                tooltip: true,
-                visible: false,
+                "title": "Tp\nDo",
+                "tooltip": true,
+                "visible": false
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: 'R§NDOC',
-                objs: [
+                "isEditable": false,
+                "isKey": false,
+                "name": "R£NDOC",
+                "objs": [
                     {
-                        k: '',
-                        p: 'MVE',
-                        t: 'DO',
-                    },
+                        "k": "",
+                        "p": "MVE",
+                        "t": "DO"
+                    }
                 ],
-                title: 'Nr\nDo',
-                tooltip: true,
-                visible: false,
+                "title": "Nr\nDo",
+                "tooltip": true,
+                "visible": false
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: 'R§TCCL',
-                obj: {
-                    k: '',
-                    p: 'BRE',
-                    t: 'TA',
+                "isEditable": false,
+                "isKey": false,
+                "name": "R£TCCL",
+                "obj": {
+                    "k": "",
+                    "p": "BRE",
+                    "t": "TA"
                 },
-                title: 'Tp\nEn',
-                tooltip: true,
-                visible: false,
+                "title": "Tp\nEn",
+                "tooltip": true,
+                "visible": false
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: 'R§TRIG',
-                obj: {
-                    k: '',
-                    p: 'V5B',
-                    t: 'TA',
+                "isEditable": false,
+                "isKey": false,
+                "name": "R£TRIG",
+                "obj": {
+                    "k": "",
+                    "p": "V5B",
+                    "t": "TA"
                 },
-                title: 'Tp\nRi',
-                tooltip: true,
-                visible: false,
+                "title": "Tp\nRi",
+                "tooltip": true,
+                "visible": false
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: 'CODRIG',
-                objs: [
+                "isEditable": false,
+                "isKey": false,
+                "name": "CODRIG",
+                "objs": [
                     {
-                        k: '',
-                        p: 'MVE',
-                        t: 'DR',
-                    },
+                        "k": "",
+                        "p": "MVE",
+                        "t": "DR"
+                    }
                 ],
-                title: 'Riga',
-                tooltip: true,
-                visible: false,
+                "title": "Riga",
+                "tooltip": true,
+                "visible": false
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: 'PREPLA',
-                obj: {
-                    k: '',
-                    p: 'SI/NO',
-                    t: 'V2',
+                "isEditable": false,
+                "isKey": false,
+                "name": "PREPLA",
+                "obj": {
+                    "k": "",
+                    "p": "SI/NO",
+                    "t": "V2"
                 },
-                title: 'Presenza Planning',
-                tooltip: false,
-                visible: false,
-            },
+                "title": "Presenza Planning",
+                "tooltip": false,
+                "visible": false
+            }
         ],
-        rows: [
+        "rows": [
             {
-                cells: {
-                    'R§CDCL': {
-                        isEditable: false,
-                        obj: {
-                            k: 'ISVAL',
-                            p: 'CLP',
-                            t: 'CN',
+                "cells": {
+                    "R£TRIG": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 3
                         },
-                        value: 'ISVAL',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "ACN",
+                            "p": "V5B",
+                            "t": "TA"
+                        },
+                        "value": "ACN"
                     },
-                    TIPRIT: {
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: '**',
+                    "R§CDCL": {
+                        "data": {
+                            "size": 15,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 15
                         },
-                        value: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "ISVAL",
+                            "p": "CLP",
+                            "t": "CN"
+                        },
+                        "value": "ISVAL"
                     },
-                    PREPLA: {
-                        data: {
-                            checked: true,
+                    "TIPRIT": {
+                        "data": {
+                            "size": 1,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 1
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '1',
-                            p: 'SI/NO',
-                            t: 'V2',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "",
+                            "p": "",
+                            "t": "**"
                         },
-                        value: '1',
+                        "value": ""
                     },
-                    GIODIF: {
-                        isEditable: false,
-                        obj: {
-                            k: '0',
-                            p: '',
-                            t: 'NR',
+                    "R£TCCL": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 3
                         },
-                        value: '',
-                    },
-                    DATPRE: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221107',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "CLP",
+                            "p": "BRE",
+                            "t": "TA"
                         },
-                        value: '2022-11-07',
+                        "value": "CLP"
                     },
-                    'R§TCCL': {
-                        isEditable: false,
-                        obj: {
-                            k: 'CLP',
-                            p: 'BRE',
-                            t: 'TA',
+                    "PREPLA": {
+                        "data": {
+                            "size": 2,
+                            "helperEnabled": false,
+                            "checked": true,
+                            "hiddenCounter": true,
+                            "maxLength": 2
                         },
-                        value: 'CLP',
-                    },
-                    DATOPE: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221107',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "1",
+                            "p": "SI/NO",
+                            "t": "V2"
                         },
-                        value: '2022-11-07',
+                        "value": "1"
                     },
-                    DIFFGG: {
-                        isEditable: false,
-                        obj: {
-                            k: '445',
-                            p: '',
-                            t: 'NR',
+                    "GIODIF": {
+                        "data": {
+                            "size": 5,
+                            "helperEnabled": false,
+                            "maxLength": 5,
+                            "integers": 5
                         },
-                        value: '445',
-                    },
-                    INZORD: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221017',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "",
+                            "p": "",
+                            "t": "NR"
                         },
-                        value: '2022-10-17',
+                        "value": ""
                     },
-                    CODDOC: {
-                        isEditable: false,
-                        obj: {
-                            k: 'G503      ',
-                            p: 'MVE',
-                            t: 'DO',
+                    "DATPRE": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        value: 'G503      ',
-                    },
-                    DATORD: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221107',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20231120",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '2022-11-07',
+                        "value": "2023-11-20"
                     },
-                    XXSEMA: {
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: 'IMG',
-                            t: 'J4',
+                    "DATOPE": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        value: '',
-                    },
-                    CODRIG: {
-                        isEditable: false,
-                        obj: {
-                            k: 'G503      0001',
-                            p: 'MVE',
-                            t: 'DR',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230307",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: 'G503      0001',
+                        "value": "2023-03-07"
                     },
-                    'R§TRIG': {
-                        isEditable: false,
-                        obj: {
-                            k: 'ACN',
-                            p: 'V5B',
-                            t: 'TA',
+                    "DIFFGG": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "maxLength": 3,
+                            "integers": 3
                         },
-                        value: 'ACN',
-                    },
-                    DATINZ: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221017',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "   178 ",
+                            "p": "",
+                            "t": "NR"
                         },
-                        value: '2022-10-17',
+                        "value": "178"
                     },
-                    'R£COMM': {
-                        isEditable: false,
-                        obj: {
-                            k: 'MAC.FMRSI-24-125-CNC',
-                            p: '',
-                            t: '',
+                    "INZORD": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        value: 'MAC.FMRSI-24-125-CNC',
-                        displayedValue: 'MAC.FMRSI-24-125-CNC',
-                    },
-                    'R§TDOC': {
-                        isEditable: false,
-                        obj: {
-                            k: 'MVE',
-                            p: 'V5D',
-                            t: 'TA',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20211025",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: 'MVE',
+                        "value": "2021-10-25"
                     },
-                    'R§NDOC': {
-                        isEditable: false,
-                        obj: {
-                            k: 'G503',
-                            p: 'MVE',
-                            t: 'DO',
+                    "CODDOC": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        value: 'G503',
-                    },
-                    'R£CDCL': {
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "G456      ",
+                            "p": "MVE",
+                            "t": "DO"
                         },
-                        value: '',
+                        "value": "G456      "
                     },
-                    'R§COMM': {
-                        isEditable: false,
-                        obj: {
-                            k: 'G503',
-                            p: '',
-                            t: 'CM',
+                    "DATORD": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        value: 'G503',
-                        displayedValue: 'G503',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230307",
+                            "p": "*YYMD",
+                            "t": "D8"
+                        },
+                        "value": "2023-03-07"
                     },
+                    "XXSEMA": {
+                        "data": {
+                            "size": 4,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 4
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "",
+                            "p": "IMG",
+                            "t": "J4"
+                        },
+                        "value": ""
+                    },
+                    "R£NDOC": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "G456",
+                            "p": "MVE",
+                            "t": "DO"
+                        },
+                        "value": "G456"
+                    },
+                    "CODRIG": {
+                        "data": {
+                            "size": 15,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 15
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "G456      0001",
+                            "p": "MVE",
+                            "t": "DR"
+                        },
+                        "value": "G456      0001"
+                    },
+                    "R£TDOC": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 3
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "MVE",
+                            "p": "V5D",
+                            "t": "TA"
+                        },
+                        "value": "MVE"
+                    },
+                    "DATINZ": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20211025",
+                            "p": "*YYMD",
+                            "t": "D8"
+                        },
+                        "value": "2021-10-25"
+                    },
+                    "R£COMM": {
+                        "data": {
+                            "size": 35,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 35
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "MAC.FMRSI-31-150-CNC",
+                            "p": "",
+                            "t": ""
+                        },
+                        "value": "MAC.FMRSI-31-150-CNC",
+                        "displayedValue": "MAC.FMRSI-31-150-CNC"
+                    },
+                    "R£CDCL": {
+                        "data": {
+                            "size": 35,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 35
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "ISVAL S.P.A",
+                            "p": "",
+                            "t": ""
+                        },
+                        "value": "ISVAL S.P.A"
+                    },
+                    "R§COMM": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "G456",
+                            "p": "",
+                            "t": "CM"
+                        },
+                        "value": "G456",
+                        "displayedValue": "G456"
+                    }
                 },
-                cssClass: 'clickable',
-                id: '1',
-                object: '',
-                readOnly: true,
+                "id": "1",
+                "object": "",
+                "readOnly": true
             },
             {
-                cells: {
-                    'R§CDCL': {
-                        isEditable: false,
-                        obj: {
-                            k: 'SWAGEL',
-                            p: 'CLP',
-                            t: 'CN',
+                "cells": {
+                    "R£TRIG": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 3
                         },
-                        value: 'SWAGEL',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "ACN",
+                            "p": "V5B",
+                            "t": "TA"
+                        },
+                        "value": "ACN"
                     },
-                    TIPRIT: {
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: '**',
+                    "R§CDCL": {
+                        "data": {
+                            "size": 15,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 15
                         },
-                        value: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "ALBAN",
+                            "p": "CLP",
+                            "t": "CN"
+                        },
+                        "value": "ALBAN"
                     },
-                    PREPLA: {
-                        data: {
-                            checked: true,
+                    "TIPRIT": {
+                        "data": {
+                            "size": 1,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 1
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '1',
-                            p: 'SI/NO',
-                            t: 'V2',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "",
+                            "p": "",
+                            "t": "**"
                         },
-                        value: '1',
+                        "value": ""
                     },
-                    GIODIF: {
-                        isEditable: false,
-                        obj: {
-                            k: '0',
-                            p: '',
-                            t: 'NR',
+                    "R£TCCL": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 3
                         },
-                        value: '',
-                    },
-                    DATPRE: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221116',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "CLP",
+                            "p": "BRE",
+                            "t": "TA"
                         },
-                        value: '2022-11-16',
+                        "value": "CLP"
                     },
-                    'R§TCCL': {
-                        isEditable: false,
-                        obj: {
-                            k: 'CLP',
-                            p: 'BRE',
-                            t: 'TA',
+                    "PREPLA": {
+                        "data": {
+                            "size": 2,
+                            "helperEnabled": false,
+                            "checked": true,
+                            "hiddenCounter": true,
+                            "maxLength": 2
                         },
-                        value: 'CLP',
-                    },
-                    DATOPE: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221116',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "1",
+                            "p": "SI/NO",
+                            "t": "V2"
                         },
-                        value: '2022-11-16',
+                        "value": "1"
                     },
-                    DIFFGG: {
-                        isEditable: false,
-                        obj: {
-                            k: '485',
-                            p: '',
-                            t: 'NR',
+                    "GIODIF": {
+                        "data": {
+                            "size": 5,
+                            "helperEnabled": false,
+                            "maxLength": 5,
+                            "integers": 5
                         },
-                        value: '485',
-                    },
-                    INZORD: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221020',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "",
+                            "p": "",
+                            "t": "NR"
                         },
-                        value: '2022-10-20',
+                        "value": ""
                     },
-                    CODDOC: {
-                        isEditable: false,
-                        obj: {
-                            k: 'G504      ',
-                            p: 'MVE',
-                            t: 'DO',
+                    "DATPRE": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        value: 'G504      ',
-                    },
-                    DATORD: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221116',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230407",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '2022-11-16',
+                        "value": "2023-04-07"
                     },
-                    XXSEMA: {
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: 'IMG',
-                            t: 'J4',
+                    "DATOPE": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        value: '',
-                    },
-                    CODRIG: {
-                        isEditable: false,
-                        obj: {
-                            k: 'G504      0001',
-                            p: 'MVE',
-                            t: 'DR',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20221216",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: 'G504      0001',
+                        "value": "2022-12-16"
                     },
-                    'R§TRIG': {
-                        isEditable: false,
-                        obj: {
-                            k: 'ACN',
-                            p: 'V5B',
-                            t: 'TA',
+                    "DIFFGG": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "maxLength": 3,
+                            "integers": 3
                         },
-                        value: 'ACN',
-                    },
-                    DATINZ: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221020',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "    21 ",
+                            "p": "",
+                            "t": "NR"
                         },
-                        value: '2022-10-20',
+                        "value": "21"
                     },
-                    'R£COMM': {
-                        isEditable: false,
-                        obj: {
-                            k: 'MAC.FMRSI-36-150-125-CNC',
-                            p: '',
-                            t: '',
+                    "INZORD": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        value: 'MAC.FMRSI-36-150-125-CNC',
-                        displayedValue: 'MAC.FMRSI-36-150-125-CNC',
-                    },
-                    'R§TDOC': {
-                        isEditable: false,
-                        obj: {
-                            k: 'MVE',
-                            p: 'V5D',
-                            t: 'TA',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20211020",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: 'MVE',
+                        "value": "2021-10-20"
                     },
-                    'R§NDOC': {
-                        isEditable: false,
-                        obj: {
-                            k: 'G504',
-                            p: 'MVE',
-                            t: 'DO',
+                    "CODDOC": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        value: 'G504',
-                    },
-                    'R£CDCL': {
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "G460      ",
+                            "p": "MVE",
+                            "t": "DO"
                         },
-                        value: '',
+                        "value": "G460      "
                     },
-                    'R§COMM': {
-                        isEditable: false,
-                        obj: {
-                            k: 'G504',
-                            p: '',
-                            t: 'CM',
+                    "DATORD": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        value: 'G504',
-                        displayedValue: 'G504',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20221216",
+                            "p": "*YYMD",
+                            "t": "D8"
+                        },
+                        "value": "2022-12-16"
                     },
+                    "XXSEMA": {
+                        "data": {
+                            "size": 4,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 4
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "",
+                            "p": "IMG",
+                            "t": "J4"
+                        },
+                        "value": ""
+                    },
+                    "R£NDOC": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "G460",
+                            "p": "MVE",
+                            "t": "DO"
+                        },
+                        "value": "G460"
+                    },
+                    "CODRIG": {
+                        "data": {
+                            "size": 15,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 15
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "G460      0001",
+                            "p": "MVE",
+                            "t": "DR"
+                        },
+                        "value": "G460      0001"
+                    },
+                    "R£TDOC": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 3
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "MVE",
+                            "p": "V5D",
+                            "t": "TA"
+                        },
+                        "value": "MVE"
+                    },
+                    "DATINZ": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20211020",
+                            "p": "*YYMD",
+                            "t": "D8"
+                        },
+                        "value": "2021-10-20"
+                    },
+                    "R£COMM": {
+                        "data": {
+                            "size": 35,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 35
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "MAC.FMF-7-120HS-CNC",
+                            "p": "",
+                            "t": ""
+                        },
+                        "value": "MAC.FMF-7-120HS-CNC",
+                        "displayedValue": "MAC.FMF-7-120HS-CNC"
+                    },
+                    "R£CDCL": {
+                        "data": {
+                            "size": 35,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 35
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "ALBAN GIACOMO SPA",
+                            "p": "",
+                            "t": ""
+                        },
+                        "value": "ALBAN GIACOMO SPA"
+                    },
+                    "R§COMM": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "G460",
+                            "p": "",
+                            "t": "CM"
+                        },
+                        "value": "G460",
+                        "displayedValue": "G460"
+                    }
                 },
-                cssClass: 'clickable',
-                id: '2',
-                object: '',
-                readOnly: true,
+                "id": "2",
+                "object": "",
+                "readOnly": true
             },
             {
-                cells: {
-                    'R§CDCL': {
-                        isEditable: false,
-                        obj: {
-                            k: 'CALEFF',
-                            p: 'CLP',
-                            t: 'CN',
+                "cells": {
+                    "R£TRIG": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 3
                         },
-                        value: 'CALEFF',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "ACN",
+                            "p": "V5B",
+                            "t": "TA"
+                        },
+                        "value": "ACN"
                     },
-                    TIPRIT: {
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: '**',
+                    "R§CDCL": {
+                        "data": {
+                            "size": 15,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 15
                         },
-                        value: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "RACCPE",
+                            "p": "CLP",
+                            "t": "CN"
+                        },
+                        "value": "RACCPE"
                     },
-                    PREPLA: {
-                        data: {
-                            checked: true,
+                    "TIPRIT": {
+                        "data": {
+                            "size": 1,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 1
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '1',
-                            p: 'SI/NO',
-                            t: 'V2',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "",
+                            "p": "",
+                            "t": "**"
                         },
-                        value: '1',
+                        "value": ""
                     },
-                    GIODIF: {
-                        isEditable: false,
-                        obj: {
-                            k: '0',
-                            p: '',
-                            t: 'NR',
+                    "R£TCCL": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 3
                         },
-                        value: '',
-                    },
-                    DATPRE: {
-                        isEditable: false,
-                        obj: {
-                            k: '20220823',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "CLP",
+                            "p": "BRE",
+                            "t": "TA"
                         },
-                        value: '2022-08-23',
+                        "value": "CLP"
                     },
-                    'R§TCCL': {
-                        isEditable: false,
-                        obj: {
-                            k: 'CLP',
-                            p: 'BRE',
-                            t: 'TA',
+                    "PREPLA": {
+                        "data": {
+                            "size": 2,
+                            "helperEnabled": false,
+                            "checked": true,
+                            "hiddenCounter": true,
+                            "maxLength": 2
                         },
-                        value: 'CLP',
-                    },
-                    DATOPE: {
-                        isEditable: false,
-                        obj: {
-                            k: '20220823',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "1",
+                            "p": "SI/NO",
+                            "t": "V2"
                         },
-                        value: '2022-08-23',
+                        "value": "1"
                     },
-                    DIFFGG: {
-                        isEditable: false,
-                        obj: {
-                            k: '633',
-                            p: '',
-                            t: 'NR',
+                    "GIODIF": {
+                        "data": {
+                            "size": 5,
+                            "helperEnabled": false,
+                            "maxLength": 5,
+                            "integers": 5
                         },
-                        value: '633',
-                    },
-                    INZORD: {
-                        isEditable: false,
-                        obj: {
-                            k: '20220802',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "",
+                            "p": "",
+                            "t": "NR"
                         },
-                        value: '2022-08-02',
+                        "value": ""
                     },
-                    CODDOC: {
-                        isEditable: false,
-                        obj: {
-                            k: 'G505      ',
-                            p: 'MVE',
-                            t: 'DO',
+                    "DATPRE": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        value: 'G505      ',
-                    },
-                    DATORD: {
-                        isEditable: false,
-                        obj: {
-                            k: '20220823',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230630",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '2022-08-23',
+                        "value": "2023-06-30"
                     },
-                    XXSEMA: {
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: 'IMG',
-                            t: 'J4',
+                    "DATOPE": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        value: '',
-                    },
-                    CODRIG: {
-                        isEditable: false,
-                        obj: {
-                            k: 'G505      0001',
-                            p: 'MVE',
-                            t: 'DR',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230306",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: 'G505      0001',
+                        "value": "2023-03-06"
                     },
-                    'R§TRIG': {
-                        isEditable: false,
-                        obj: {
-                            k: 'ACN',
-                            p: 'V5B',
-                            t: 'TA',
+                    "DIFFGG": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "maxLength": 3,
+                            "integers": 3
                         },
-                        value: 'ACN',
-                    },
-                    DATINZ: {
-                        isEditable: false,
-                        obj: {
-                            k: '20220802',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "    21 ",
+                            "p": "",
+                            "t": "NR"
                         },
-                        value: '2022-08-02',
+                        "value": "21"
                     },
-                    'R£COMM': {
-                        isEditable: false,
-                        obj: {
-                            k: 'MAC.FMRSI-30-150GT2-150GT4-CNC',
-                            p: '',
-                            t: '',
+                    "INZORD": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        value: 'MAC.FMRSI-30-150GT2-150GT4-CNC',
-                        displayedValue: 'MAC.FMRSI-30-150GT2-150GT4-CNC',
-                    },
-                    'R§TDOC': {
-                        isEditable: false,
-                        obj: {
-                            k: 'MVE',
-                            p: 'V5D',
-                            t: 'TA',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20220103",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: 'MVE',
+                        "value": "2022-01-03"
                     },
-                    'R§NDOC': {
-                        isEditable: false,
-                        obj: {
-                            k: 'G505',
-                            p: 'MVE',
-                            t: 'DO',
+                    "CODDOC": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        value: 'G505',
-                    },
-                    'R£CDCL': {
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "G452      ",
+                            "p": "MVE",
+                            "t": "DO"
                         },
-                        value: '',
+                        "value": "G452      "
                     },
-                    'R§COMM': {
-                        isEditable: false,
-                        obj: {
-                            k: 'G505',
-                            p: '',
-                            t: 'CM',
+                    "DATORD": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        value: 'G505',
-                        displayedValue: 'G505',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230306",
+                            "p": "*YYMD",
+                            "t": "D8"
+                        },
+                        "value": "2023-03-06"
                     },
+                    "XXSEMA": {
+                        "data": {
+                            "size": 4,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 4
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "",
+                            "p": "IMG",
+                            "t": "J4"
+                        },
+                        "value": ""
+                    },
+                    "R£NDOC": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "G452",
+                            "p": "MVE",
+                            "t": "DO"
+                        },
+                        "value": "G452"
+                    },
+                    "CODRIG": {
+                        "data": {
+                            "size": 15,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 15
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "G452      0001",
+                            "p": "MVE",
+                            "t": "DR"
+                        },
+                        "value": "G452      0001"
+                    },
+                    "R£TDOC": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 3
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "MVE",
+                            "p": "V5D",
+                            "t": "TA"
+                        },
+                        "value": "MVE"
+                    },
+                    "DATINZ": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20220103",
+                            "p": "*YYMD",
+                            "t": "D8"
+                        },
+                        "value": "2022-01-03"
+                    },
+                    "R£COMM": {
+                        "data": {
+                            "size": 35,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 35
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "MAC.FMF-12-125-150-CNC",
+                            "p": "",
+                            "t": ""
+                        },
+                        "value": "MAC.FMF-12-125-150-CNC",
+                        "displayedValue": "MAC.FMF-12-125-150-CNC"
+                    },
+                    "R£CDCL": {
+                        "data": {
+                            "size": 35,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 35
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "RACCORPE DI PE ANGELO & C SNC",
+                            "p": "",
+                            "t": ""
+                        },
+                        "value": "RACCORPE DI PE ANGELO & C SNC"
+                    },
+                    "R§COMM": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "G452",
+                            "p": "",
+                            "t": "CM"
+                        },
+                        "value": "G452",
+                        "displayedValue": "G452"
+                    }
                 },
-                cssClass: 'clickable',
-                id: '3',
-                object: '',
-                readOnly: true,
-            },
-            {
-                cells: {
-                    'R§CDCL': {
-                        isEditable: false,
-                        obj: {
-                            k: 'KARAUF',
-                            p: 'CLP',
-                            t: 'CN',
-                        },
-                        value: 'KARAUF',
-                    },
-                    TIPRIT: {
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: '**',
-                        },
-                        value: '',
-                    },
-                    PREPLA: {
-                        data: {
-                            checked: true,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '1',
-                            p: 'SI/NO',
-                            t: 'V2',
-                        },
-                        value: '1',
-                    },
-                    GIODIF: {
-                        isEditable: false,
-                        obj: {
-                            k: '0',
-                            p: '',
-                            t: 'NR',
-                        },
-                        value: '',
-                    },
-                    DATPRE: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221123',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-11-23',
-                    },
-                    'R§TCCL': {
-                        isEditable: false,
-                        obj: {
-                            k: 'CLP',
-                            p: 'BRE',
-                            t: 'TA',
-                        },
-                        value: 'CLP',
-                    },
-                    DATOPE: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221123',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-11-23',
-                    },
-                    DIFFGG: {
-                        isEditable: false,
-                        obj: {
-                            k: '373',
-                            p: '',
-                            t: 'NR',
-                        },
-                        value: '373',
-                    },
-                    INZORD: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221020',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-10-20',
-                    },
-                    CODDOC: {
-                        isEditable: false,
-                        obj: {
-                            k: 'G507      ',
-                            p: 'MVE',
-                            t: 'DO',
-                        },
-                        value: 'G507      ',
-                    },
-                    DATORD: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221123',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-11-23',
-                    },
-                    XXSEMA: {
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: 'IMG',
-                            t: 'J4',
-                        },
-                        value: '',
-                    },
-                    CODRIG: {
-                        isEditable: false,
-                        obj: {
-                            k: 'G507      0001',
-                            p: 'MVE',
-                            t: 'DR',
-                        },
-                        value: 'G507      0001',
-                    },
-                    'R§TRIG': {
-                        isEditable: false,
-                        obj: {
-                            k: 'ACN',
-                            p: 'V5B',
-                            t: 'TA',
-                        },
-                        value: 'ACN',
-                    },
-                    DATINZ: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221020',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-10-20',
-                    },
-                    'R£COMM': {
-                        isEditable: false,
-                        obj: {
-                            k: 'MAC.FMF-15-125-CNC',
-                            p: '',
-                            t: '',
-                        },
-                        value: 'MAC.FMF-15-125-CNC',
-                        displayedValue: 'MAC.FMF-15-125-CNC',
-                    },
-                    'R§TDOC': {
-                        isEditable: false,
-                        obj: {
-                            k: 'MVE',
-                            p: 'V5D',
-                            t: 'TA',
-                        },
-                        value: 'MVE',
-                    },
-                    'R§NDOC': {
-                        isEditable: false,
-                        obj: {
-                            k: 'G507',
-                            p: 'MVE',
-                            t: 'DO',
-                        },
-                        value: 'G507',
-                    },
-                    'R£CDCL': {
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: '',
-                        },
-                        value: '',
-                    },
-                    'R§COMM': {
-                        isEditable: false,
-                        obj: {
-                            k: 'G507',
-                            p: '',
-                            t: 'CM',
-                        },
-                        value: 'G507',
-                        displayedValue: 'G507',
-                    },
-                },
-                cssClass: 'clickable',
-                id: '4',
-                object: '',
-                readOnly: true,
-            },
-            {
-                cells: {
-                    'R§CDCL': {
-                        isEditable: false,
-                        obj: {
-                            k: 'WONDER',
-                            p: 'CLP',
-                            t: 'CN',
-                        },
-                        value: 'WONDER',
-                    },
-                    TIPRIT: {
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: '**',
-                        },
-                        value: '',
-                    },
-                    PREPLA: {
-                        data: {
-                            checked: true,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '1',
-                            p: 'SI/NO',
-                            t: 'V2',
-                        },
-                        value: '1',
-                    },
-                    GIODIF: {
-                        isEditable: false,
-                        obj: {
-                            k: '0',
-                            p: '',
-                            t: 'NR',
-                        },
-                        value: '',
-                    },
-                    DATPRE: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221202',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-12-02',
-                    },
-                    'R§TCCL': {
-                        isEditable: false,
-                        obj: {
-                            k: 'CLP',
-                            p: 'BRE',
-                            t: 'TA',
-                        },
-                        value: 'CLP',
-                    },
-                    DATOPE: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221202',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-12-02',
-                    },
-                    DIFFGG: {
-                        isEditable: false,
-                        obj: {
-                            k: '448',
-                            p: '',
-                            t: 'NR',
-                        },
-                        value: '448',
-                    },
-                    INZORD: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221114',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-11-14',
-                    },
-                    CODDOC: {
-                        isEditable: false,
-                        obj: {
-                            k: 'G508      ',
-                            p: 'MVE',
-                            t: 'DO',
-                        },
-                        value: 'G508      ',
-                    },
-                    DATORD: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221202',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-12-02',
-                    },
-                    XXSEMA: {
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: 'IMG',
-                            t: 'J4',
-                        },
-                        value: '',
-                    },
-                    CODRIG: {
-                        isEditable: false,
-                        obj: {
-                            k: 'G508      0001',
-                            p: 'MVE',
-                            t: 'DR',
-                        },
-                        value: 'G508      0001',
-                    },
-                    'R§TRIG': {
-                        isEditable: false,
-                        obj: {
-                            k: 'ACN',
-                            p: 'V5B',
-                            t: 'TA',
-                        },
-                        value: 'ACN',
-                    },
-                    DATINZ: {
-                        isEditable: false,
-                        obj: {
-                            k: '20221114',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-11-14',
-                    },
-                    'R£COMM': {
-                        isEditable: false,
-                        obj: {
-                            k: 'MAC.FMRSI-15-120HS-125-CNC',
-                            p: '',
-                            t: '',
-                        },
-                        value: 'MAC.FMRSI-15-120HS-125-CNC',
-                        displayedValue: 'MAC.FMRSI-15-120HS-125-CNC',
-                    },
-                    'R§TDOC': {
-                        isEditable: false,
-                        obj: {
-                            k: 'MVE',
-                            p: 'V5D',
-                            t: 'TA',
-                        },
-                        value: 'MVE',
-                    },
-                    'R§NDOC': {
-                        isEditable: false,
-                        obj: {
-                            k: 'G508',
-                            p: 'MVE',
-                            t: 'DO',
-                        },
-                        value: 'G508',
-                    },
-                    'R£CDCL': {
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: '',
-                        },
-                        value: '',
-                    },
-                    'R§COMM': {
-                        isEditable: false,
-                        obj: {
-                            k: 'G508',
-                            p: '',
-                            t: 'CM',
-                        },
-                        value: 'G508',
-                        displayedValue: 'G508',
-                    },
-                },
-                cssClass: 'clickable',
-                id: '5',
-                object: '',
-                readOnly: true,
-            },
-        ],
+                "id": "3",
+                "object": "",
+                "readOnly": true
+            }
+        ]
     },
-    detailData: {
-        columns: [
+    "detailData": {
+        "columns": [
             {
-                isEditable: false,
-                isKey: false,
-                name: '§§COMM',
-                obj: {
-                    k: '',
-                    p: '',
-                    t: 'CM',
+                "isEditable": false,
+                "isKey": false,
+                "name": "COD001",
+                "title": "Codice ricerca 1",
+                "tooltip": false
+            },
+            {
+                "isEditable": false,
+                "isKey": false,
+                "name": "DES001",
+                "title": "Descrizione ricerca 1",
+                "tooltip": false
+            },
+            {
+                "isEditable": false,
+                "isKey": false,
+                "name": "COD002",
+                "title": "Codice ricerca 2",
+                "tooltip": false
+            },
+            {
+                "isEditable": false,
+                "isKey": false,
+                "name": "DES002",
+                "title": "Descrizione ricerca 2",
+                "tooltip": false
+            },
+            {
+                "isEditable": false,
+                "isKey": false,
+                "name": "COD003",
+                "title": "Codice ricerca 3",
+                "tooltip": false
+            },
+            {
+                "isEditable": false,
+                "isKey": false,
+                "name": "DES003",
+                "title": "Descrizione ricerca 3",
+                "tooltip": false
+            },
+            {
+                "isEditable": false,
+                "isKey": false,
+                "name": "XXBACI",
+                "obj": {
+                    "k": "",
+                    "p": "XBA",
+                    "t": "TA"
                 },
-                title: 'Codice Commessa',
-                tooltip: true,
+                "title": "Bacino",
+                "tooltip": true
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: '§§OPER',
-                obj: {
-                    k: '',
-                    p: '',
-                    t: 'OP',
+                "isEditable": false,
+                "isKey": false,
+                "name": "XXSKIL",
+                "obj": {
+                    "k": "",
+                    "p": "X02SKI",
+                    "t": "V4"
                 },
-                title: 'Codice Fase',
-                tooltip: true,
+                "title": "Skill",
+                "tooltip": true
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: '§§DIPE',
-                obj: {
-                    k: '',
-                    p: '',
-                    t: 'DI',
+                "isEditable": false,
+                "isKey": false,
+                "name": "CODFAS",
+                "obj": {
+                    "k": "",
+                    "p": "XDP",
+                    "t": "TA"
                 },
-                title: 'Codice dipendente',
-                tooltip: true,
+                "title": "Dipendente",
+                "tooltip": true
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: '§§NOME',
-                title: 'Cognome Nome',
-                tooltip: false,
-            },
-            {
-                isEditable: false,
-                isKey: false,
-                name: '§SKIL1',
-                obj: {
-                    k: '',
-                    p: '',
-                    t: 'CC',
+                "decimals": 0,
+                "isEditable": false,
+                "isKey": false,
+                "name": "XXPRIO",
+                "obj": {
+                    "k": "",
+                    "p": "",
+                    "t": "NR"
                 },
-                title: 'Skill 1',
-                tooltip: true,
+                "title": "Priorità ",
+                "tooltip": false
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: '§SKIL2',
-                obj: {
-                    k: '',
-                    p: '',
-                    t: 'CC',
+                "isEditable": false,
+                "isKey": false,
+                "name": "DATINI",
+                "obj": {
+                    "k": "",
+                    "p": "*YYMD",
+                    "t": "D8"
                 },
-                title: 'Skill 2',
-                tooltip: true,
+                "title": "Data\nInizio",
+                "tooltip": true
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: '§SKIL3',
-                obj: {
-                    k: '',
-                    p: '',
-                    t: 'CC',
+                "isEditable": false,
+                "isKey": false,
+                "name": "DATFIN",
+                "obj": {
+                    "k": "",
+                    "p": "*YYMD",
+                    "t": "D8"
                 },
-                title: 'Skill 3',
-                tooltip: true,
+                "title": "Data\nFine",
+                "tooltip": true
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: '§SKIL4',
-                obj: {
-                    k: '',
-                    p: '',
-                    t: 'CC',
+                "isEditable": false,
+                "isKey": false,
+                "name": "DATPREI",
+                "obj": {
+                    "k": "",
+                    "p": "*YYMD",
+                    "t": "D8"
                 },
-                title: 'Skill 4',
-                tooltip: true,
+                "title": "Data Inizio\nPrevisione",
+                "tooltip": true
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: '§SKIL5',
-                obj: {
-                    k: '',
-                    p: '',
-                    t: 'CC',
+                "isEditable": false,
+                "isKey": false,
+                "name": "DATPREF",
+                "obj": {
+                    "k": "",
+                    "p": "*YYMD",
+                    "t": "D8"
                 },
-                title: 'Skill 5',
-                tooltip: true,
+                "title": "Data Fnizio\nPrevisione",
+                "tooltip": true
             },
             {
-                isEditable: false,
-                isKey: false,
-                name: '§SKIL6',
-                obj: {
-                    k: '',
-                    p: '',
-                    t: 'CC',
-                },
-                title: 'Skill 6',
-                tooltip: true,
-            },
-            {
-                isEditable: false,
-                isKey: false,
-                name: 'BACRIF',
-                title: 'Bacino di riferimento',
-                tooltip: false,
-            },
-            {
-                isEditable: false,
-                isKey: false,
-                name: 'INZFAS',
-                obj: {
-                    k: '',
-                    p: '*YYMD',
-                    t: 'D8',
-                },
-                title: 'Data Iniz.Fase',
-                tooltip: true,
-            },
-            {
-                isEditable: false,
-                isKey: false,
-                name: 'FINFAS',
-                obj: {
-                    k: '',
-                    p: '*YYMD',
-                    t: 'D8',
-                },
-                title: 'Data Fine Fase',
-                tooltip: true,
-            },
-            {
-                isEditable: false,
-                isKey: false,
-                name: 'INZRIS',
-                obj: {
-                    k: '',
-                    p: '*YYMD',
-                    t: 'D8',
-                },
-                title: 'Data inizio assegnazione',
-                tooltip: true,
-            },
-            {
-                isEditable: false,
-                isKey: false,
-                name: 'FINRIS',
-                obj: {
-                    k: '',
-                    p: '*YYMD',
-                    t: 'D8',
-                },
-                title: 'Data Fine assegnazione',
-                tooltip: true,
-            },
+                "isEditable": false,
+                "isKey": false,
+                "name": "COLDET",
+                "title": "Colore dettaglio",
+                "tooltip": false,
+                "visible": false
+            }
         ],
-        rows: [
+        "rows": [
             {
-                cells: {
-                    INZRIS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                "cells": {
+                    "XXPRIO": {
+                        "data": {
+                            "size": 1,
+                            "helperEnabled": false,
+                            "maxLength": 1,
+                            "integers": 1
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20220602',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "1",
+                            "p": "",
+                            "t": "NR"
                         },
-                        value: '2022-06-02',
+                        "value": "1"
                     },
-                    '§§OPER': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "DATPREF": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'OP',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230420",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '',
+                        "value": "2023-04-20"
                     },
-                    '§SKIL1': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COLDET": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'IEC',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "#ED7D31",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'IEC',
-                        displayedValue: 'IEC',
+                        "value": "#ED7D31"
                     },
-                    INZFAS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "DES001": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20220602',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Elettricista",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '2022-06-02',
+                        "value": "Elettricista"
                     },
-                    '§§COMM': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "XXBACI": {
+                        "data": {
+                            "size": 5,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 5
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CM',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "COLEL",
+                            "p": "XBA",
+                            "t": "TA"
                         },
-                        value: '',
+                        "value": "COLEL"
                     },
-                    FINRIS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "DATPREI": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20220801',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230310",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '2022-08-01',
+                        "value": "2023-03-10"
                     },
-                    '§§DIPE': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "DATINI": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '00152',
-                            p: '',
-                            t: 'DI',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230312",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '00152',
+                        "value": "2023-03-12",
+                        "displayedValue": "12/03/2023"
                     },
-                    FINFAS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "CODFAS": {
+                        "data": {
+                            "size": 15,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 15
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20221231',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "01040",
+                            "p": "XDP",
+                            "t": "TA"
                         },
-                        value: '2022-12-31',
+                        "value": "01040",
+                        "displayedValue": "01040"
                     },
-                    '§§NOME': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 35,
+                    "DATFIN": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'BERARDI MARCELLO',
-                            p: '',
-                            t: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230415",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: 'BERARDI MARCELLO',
-                        displayedValue: 'BERARDI MARCELLO',
+                        "value": "2023-04-15",
+                        "displayedValue": "15/04/2023"
                     },
-                    BACRIF: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 35,
+                    "XXSKIL": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 3
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'COLEL',
-                            p: '',
-                            t: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "IEC",
+                            "p": "X02SKI",
+                            "t": "V4"
                         },
-                        value: 'COLEL',
-                        displayedValue: 'COLEL',
+                        "value": "IEC"
                     },
-                    '§SKIL6': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD001": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "ET01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
+                        "value": "ET01"
                     },
-                    '§SKIL4': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD003": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'MSG',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "ID01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'MSG',
+                        "value": "ID01"
                     },
-                    '§SKIL5': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD002": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "SA01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
+                        "value": "SA01"
                     },
-                    '§SKIL2': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "DES002": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'MEC',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Saldatore",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'MEC',
+                        "value": "Saldatore"
                     },
-                    '§SKIL3': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "DES003": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Idraulico",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
-                    },
+                        "value": "Idraulico"
+                    }
                 },
-                id: '1',
-                object: '',
-                readOnly: true,
+                "id": "1",
+                "object": "",
+                "readOnly": true
             },
             {
-                cells: {
-                    INZRIS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                "cells": {
+                    "XXPRIO": {
+                        "data": {
+                            "size": 1,
+                            "helperEnabled": false,
+                            "maxLength": 1,
+                            "integers": 1
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20220812',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "1",
+                            "p": "",
+                            "t": "NR"
                         },
-                        value: '2022-08-12',
+                        "value": "1"
                     },
-                    '§§OPER': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "DATPREF": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'OP',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230420",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '',
+                        "value": "2023-04-20"
                     },
-                    '§SKIL1': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COLDET": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'IEC',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "#FF0000",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'IEC',
-                        displayedValue: 'IEC',
+                        "value": "#FF0000"
                     },
-                    INZFAS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "DES001": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20220602',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Idraulico",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '2022-06-02',
+                        "value": "Idraulico"
                     },
-                    '§§COMM': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "XXBACI": {
+                        "data": {
+                            "size": 5,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 5
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CM',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "COLEL",
+                            "p": "XBA",
+                            "t": "TA"
                         },
-                        value: '',
+                        "value": "COLEL"
                     },
-                    FINRIS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "DATPREI": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20221231',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230310",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '2022-12-31',
+                        "value": "2023-03-10"
                     },
-                    '§§DIPE': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "DATINI": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '00152',
-                            p: '',
-                            t: 'DI',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230312",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '00152',
+                        "value": "2023-03-12",
+                        "displayedValue": "12/03/2023"
                     },
-                    FINFAS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "CODFAS": {
+                        "data": {
+                            "size": 15,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 15
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20221231',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "01875",
+                            "p": "XDP",
+                            "t": "TA"
                         },
-                        value: '2022-12-31',
+                        "value": "01875",
+                        "displayedValue": "01875"
                     },
-                    '§§NOME': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 35,
+                    "DATFIN": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'BERARDI MARCELLO',
-                            p: '',
-                            t: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230415",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: 'BERARDI MARCELLO',
-                        displayedValue: 'BERARDI MARCELLO',
+                        "value": "2023-04-15",
+                        "displayedValue": "15/04/2023"
                     },
-                    BACRIF: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 35,
+                    "XXSKIL": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 3
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'COLEL',
-                            p: '',
-                            t: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "IEC",
+                            "p": "X02SKI",
+                            "t": "V4"
                         },
-                        value: 'COLEL',
-                        displayedValue: 'COLEL',
+                        "value": "IEC"
                     },
-                    '§SKIL6': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD001": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "ID01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
+                        "value": "ID01"
                     },
-                    '§SKIL4': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD003": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'MSG',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "SA01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'MSG',
+                        "value": "SA01"
                     },
-                    '§SKIL5': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD002": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "ET01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
+                        "value": "ET01"
                     },
-                    '§SKIL2': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "DES002": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'MEC',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Elettricista",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'MEC',
+                        "value": "Elettricista"
                     },
-                    '§SKIL3': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "DES003": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Saldatore",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
-                    },
+                        "value": "Saldatore"
+                    }
                 },
-                id: '2',
-                object: '',
-                readOnly: true,
+                "id": "2",
+                "object": "",
+                "readOnly": true
             },
             {
-                cells: {
-                    INZRIS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                "cells": {
+                    "XXPRIO": {
+                        "data": {
+                            "size": 1,
+                            "helperEnabled": false,
+                            "maxLength": 1,
+                            "integers": 1
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20220602',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "1",
+                            "p": "",
+                            "t": "NR"
                         },
-                        value: '2022-06-02',
+                        "value": "1"
                     },
-                    '§§OPER': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "DATPREF": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'OP',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230620",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '',
+                        "value": "2023-06-20"
                     },
-                    '§SKIL1': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COLDET": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'MSG',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "#ED7D31",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'MSG',
-                        displayedValue: 'MSG',
+                        "value": "#ED7D31"
                     },
-                    INZFAS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "DES001": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20220602',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Saldatore",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '2022-06-02',
+                        "value": "Saldatore"
                     },
-                    '§§COMM': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "XXBACI": {
+                        "data": {
+                            "size": 5,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 5
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CM',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "COLEL",
+                            "p": "XBA",
+                            "t": "TA"
                         },
-                        value: '',
+                        "value": "COLEL"
                     },
-                    FINRIS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "DATPREI": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20221231',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230510",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '2022-12-31',
+                        "value": "2023-05-10"
                     },
-                    '§§DIPE': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "DATINI": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '00328',
-                            p: '',
-                            t: 'DI',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230312",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '00328',
+                        "value": "2023-03-12",
+                        "displayedValue": "12/03/2023"
                     },
-                    FINFAS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "CODFAS": {
+                        "data": {
+                            "size": 15,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 15
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20221231',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "02241",
+                            "p": "XDP",
+                            "t": "TA"
                         },
-                        value: '2022-12-31',
+                        "value": "02241",
+                        "displayedValue": "02241"
                     },
-                    '§§NOME': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 35,
+                    "DATFIN": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'FATTORI FABIO',
-                            p: '',
-                            t: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230415",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: 'FATTORI FABIO',
-                        displayedValue: 'FATTORI FABIO',
+                        "value": "2023-04-15",
+                        "displayedValue": "15/04/2023"
                     },
-                    BACRIF: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 35,
+                    "XXSKIL": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 3
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'COLEL',
-                            p: '',
-                            t: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "IEC",
+                            "p": "X02SKI",
+                            "t": "V4"
                         },
-                        value: 'COLEL',
-                        displayedValue: 'COLEL',
+                        "value": "IEC"
                     },
-                    '§SKIL6': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD001": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "SA01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
+                        "value": "SA01"
                     },
-                    '§SKIL4': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD003": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'IEC',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "ET01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'IEC',
+                        "value": "ET01"
                     },
-                    '§SKIL5': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD002": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "ID01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
+                        "value": "ID01"
                     },
-                    '§SKIL2': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "DES002": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'MEC',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Idraulico",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'MEC',
+                        "value": "Idraulico"
                     },
-                    '§SKIL3': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "DES003": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Elettricista",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
-                    },
+                        "value": "Elettricista"
+                    }
                 },
-                id: '3',
-                object: '',
-                readOnly: true,
+                "id": "3",
+                "object": "",
+                "readOnly": true
             },
             {
-                cells: {
-                    INZRIS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                "cells": {
+                    "XXPRIO": {
+                        "data": {
+                            "size": 1,
+                            "helperEnabled": false,
+                            "maxLength": 1,
+                            "integers": 1
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20220602',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "2",
+                            "p": "",
+                            "t": "NR"
                         },
-                        value: '2022-06-02',
+                        "value": "2"
                     },
-                    '§§OPER': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "DATPREF": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'OP',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230620",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '',
+                        "value": "2023-06-20"
                     },
-                    '§SKIL1': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COLDET": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'MSG',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "#70AD47",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'MSG',
-                        displayedValue: 'MSG',
+                        "value": "#70AD47"
                     },
-                    INZFAS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "DES001": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20220602',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Attrezzista",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '2022-06-02',
+                        "value": "Attrezzista"
                     },
-                    '§§COMM': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "XXBACI": {
+                        "data": {
+                            "size": 5,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 5
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CM',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "COLEL",
+                            "p": "XBA",
+                            "t": "TA"
                         },
-                        value: '',
+                        "value": "COLEL"
                     },
-                    FINRIS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "DATPREI": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20221231',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230510",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '2022-12-31',
+                        "value": "2023-05-10"
                     },
-                    '§§DIPE': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "DATINI": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '00329',
-                            p: '',
-                            t: 'DI',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230512",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '00329',
+                        "value": "2023-05-12",
+                        "displayedValue": "12/05/2023"
                     },
-                    FINFAS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "CODFAS": {
+                        "data": {
+                            "size": 15,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 15
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20221231',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "01040",
+                            "p": "XDP",
+                            "t": "TA"
                         },
-                        value: '2022-12-31',
+                        "value": "01040",
+                        "displayedValue": "01040"
                     },
-                    '§§NOME': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 35,
+                    "DATFIN": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'FATTOR FABIO',
-                            p: '',
-                            t: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230615",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: 'FATTOR FABIO',
-                        displayedValue: 'FATTOR FABIO',
+                        "value": "2023-06-15",
+                        "displayedValue": "15/06/2023"
                     },
-                    BACRIF: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 35,
+                    "XXSKIL": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 3
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'COLEL',
-                            p: '',
-                            t: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "MEC",
+                            "p": "X02SKI",
+                            "t": "V4"
                         },
-                        value: 'COLEL',
-                        displayedValue: 'COLEL',
+                        "value": "MEC"
                     },
-                    '§SKIL6': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD001": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "AT01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
+                        "value": "AT01"
                     },
-                    '§SKIL4': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD003": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'IEC',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "ME01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'IEC',
+                        "value": "ME01"
                     },
-                    '§SKIL5': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD002": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "ID01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
+                        "value": "ID01"
                     },
-                    '§SKIL2': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "DES002": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'MEC',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Idraulico",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'MEC',
+                        "value": "Idraulico"
                     },
-                    '§SKIL3': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "DES003": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Meccanico",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
-                    },
+                        "value": "Meccanico"
+                    }
                 },
-                id: '4',
-                object: '',
-                readOnly: true,
+                "id": "4",
+                "object": "",
+                "readOnly": true
             },
             {
-                cells: {
-                    INZRIS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                "cells": {
+                    "XXPRIO": {
+                        "data": {
+                            "size": 1,
+                            "helperEnabled": false,
+                            "maxLength": 1,
+                            "integers": 1
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20220602',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "2",
+                            "p": "",
+                            "t": "NR"
                         },
-                        value: '2022-06-02',
+                        "value": "2"
                     },
-                    '§§OPER': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "DATPREF": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'OP',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230620",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '',
+                        "value": "2023-06-20"
                     },
-                    '§SKIL1': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COLDET": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'MSG',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "#ED7D31",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'MSG',
-                        displayedValue: 'MSG',
+                        "value": "#ED7D31"
                     },
-                    INZFAS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "DES001": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20220602',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Meccanico",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '2022-06-02',
+                        "value": "Meccanico"
                     },
-                    '§§COMM': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "XXBACI": {
+                        "data": {
+                            "size": 5,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 5
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CM',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "COLEL",
+                            "p": "XBA",
+                            "t": "TA"
                         },
-                        value: '',
+                        "value": "COLEL"
                     },
-                    FINRIS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "DATPREI": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20221231',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230510",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '2022-12-31',
+                        "value": "2023-05-10"
                     },
-                    '§§DIPE': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "DATINI": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '00330',
-                            p: '',
-                            t: 'DI',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230512",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '00330',
+                        "value": "2023-05-12",
+                        "displayedValue": "12/05/2023"
                     },
-                    FINFAS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "CODFAS": {
+                        "data": {
+                            "size": 15,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 15
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20221231',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "01875",
+                            "p": "XDP",
+                            "t": "TA"
                         },
-                        value: '2022-12-31',
+                        "value": "01875",
+                        "displayedValue": "01875"
                     },
-                    '§§NOME': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 35,
+                    "DATFIN": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'FATT FABIO',
-                            p: '',
-                            t: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230615",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: 'FATT FABIO',
-                        displayedValue: 'FATT FABIO',
+                        "value": "2023-06-15",
+                        "displayedValue": "15/06/2023"
                     },
-                    BACRIF: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 35,
+                    "XXSKIL": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 3
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'COLEL',
-                            p: '',
-                            t: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "MEC",
+                            "p": "X02SKI",
+                            "t": "V4"
                         },
-                        value: 'COLEL',
-                        displayedValue: 'COLEL',
+                        "value": "MEC"
                     },
-                    '§SKIL6': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD001": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "ME01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
+                        "value": "ME01"
                     },
-                    '§SKIL4': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD003": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'IEC',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "SA01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'IEC',
+                        "value": "SA01"
                     },
-                    '§SKIL5': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD002": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "AT01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
+                        "value": "AT01"
                     },
-                    '§SKIL2': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "DES002": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'MEC',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Attrezzista",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'MEC',
+                        "value": "Attrezzista"
                     },
-                    '§SKIL3': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "DES003": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Saldatore",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
-                    },
+                        "value": "Saldatore"
+                    }
                 },
-                id: '5',
-                object: '',
-                readOnly: true,
+                "id": "5",
+                "object": "",
+                "readOnly": true
             },
             {
-                cells: {
-                    INZRIS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                "cells": {
+                    "XXPRIO": {
+                        "data": {
+                            "size": 1,
+                            "helperEnabled": false,
+                            "maxLength": 1,
+                            "integers": 1
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20220602',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "2",
+                            "p": "",
+                            "t": "NR"
                         },
-                        value: '2022-06-02',
+                        "value": "2"
                     },
-                    '§§OPER': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "DATPREF": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'OP',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230720",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '',
+                        "value": "2023-07-20"
                     },
-                    '§SKIL1': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COLDET": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'MSG',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "#FF0000",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'MSG',
-                        displayedValue: 'MSG',
+                        "value": "#FF0000"
                     },
-                    INZFAS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "DES001": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20220602',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Manutentore",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '2022-06-02',
+                        "value": "Manutentore"
                     },
-                    '§§COMM': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "XXBACI": {
+                        "data": {
+                            "size": 5,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 5
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CM',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "COLEL",
+                            "p": "XBA",
+                            "t": "TA"
                         },
-                        value: '',
+                        "value": "COLEL"
                     },
-                    FINRIS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "DATPREI": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20221231',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230510",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '2022-12-31',
+                        "value": "2023-05-10"
                     },
-                    '§§DIPE': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
+                    "DATINI": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '00331',
-                            p: '',
-                            t: 'DI',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230612",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: '00331',
+                        "value": "2023-06-12",
+                        "displayedValue": "12/06/2023"
                     },
-                    FINFAS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
+                    "CODFAS": {
+                        "data": {
+                            "size": 15,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 15
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '20221231',
-                            p: '*YYMD',
-                            t: 'D8',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "02241",
+                            "p": "XDP",
+                            "t": "TA"
                         },
-                        value: '2022-12-31',
+                        "value": "02241",
+                        "displayedValue": "02241"
                     },
-                    '§§NOME': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 35,
+                    "DATFIN": {
+                        "data": {
+                            "size": 8,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 8
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'FAI FABIO',
-                            p: '',
-                            t: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "20230715",
+                            "p": "*YYMD",
+                            "t": "D8"
                         },
-                        value: 'FAI FABIO',
-                        displayedValue: 'FAI FABIO',
+                        "value": "2023-07-15",
+                        "displayedValue": "15/07/2023"
                     },
-                    BACRIF: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 35,
+                    "XXSKIL": {
+                        "data": {
+                            "size": 3,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 3
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'COLEL',
-                            p: '',
-                            t: '',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "MEC",
+                            "p": "X02SKI",
+                            "t": "V4"
                         },
-                        value: 'COLEL',
-                        displayedValue: 'COLEL',
+                        "value": "MEC"
                     },
-                    '§SKIL6': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD001": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "MA01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
+                        "value": "MA01"
                     },
-                    '§SKIL4': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD003": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'IEC',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "AT01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'IEC',
+                        "value": "AT01"
                     },
-                    '§SKIL5': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "COD002": {
+                        "data": {
+                            "size": 10,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 10
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "ME01",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
+                        "value": "ME01"
                     },
-                    '§SKIL2': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "DES002": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: 'MEC',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Meccanico",
+                            "p": "",
+                            "t": ""
                         },
-                        value: 'MEC',
+                        "value": "Meccanico"
                     },
-                    '§SKIL3': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
+                    "DES003": {
+                        "data": {
+                            "size": 30,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 30
                         },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
+                        "isEditable": false,
+                        "obj": {
+                            "k": "Attrezzista",
+                            "p": "",
+                            "t": ""
                         },
-                        value: '',
-                    },
+                        "value": "Attrezzista"
+                    }
                 },
-                id: '6',
-                object: '',
-                readOnly: true,
-            },
-            {
-                cells: {
-                    INZRIS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '20220602',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-06-02',
-                    },
-                    '§§OPER': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'OP',
-                        },
-                        value: '',
-                    },
-                    '§SKIL1': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: 'MSG',
-                            p: '',
-                            t: 'CC',
-                        },
-                        value: 'MSG',
-                        displayedValue: 'MSG',
-                    },
-                    INZFAS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '20220602',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-06-02',
-                    },
-                    '§§COMM': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CM',
-                        },
-                        value: '',
-                    },
-                    FINRIS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '20221231',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-12-31',
-                    },
-                    '§§DIPE': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '00332',
-                            p: '',
-                            t: 'DI',
-                        },
-                        value: '00332',
-                    },
-                    FINFAS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '20221231',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-12-31',
-                    },
-                    '§§NOME': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 35,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: 'FAB FABIO',
-                            p: '',
-                            t: '',
-                        },
-                        value: 'FAB FABIO',
-                        displayedValue: 'FAB FABIO',
-                    },
-                    BACRIF: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 35,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: 'COLEL',
-                            p: '',
-                            t: '',
-                        },
-                        value: 'COLEL',
-                        displayedValue: 'COLEL',
-                    },
-                    '§SKIL6': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
-                        },
-                        value: '',
-                    },
-                    '§SKIL4': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: 'IEC',
-                            p: '',
-                            t: 'CC',
-                        },
-                        value: 'IEC',
-                    },
-                    '§SKIL5': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
-                        },
-                        value: '',
-                    },
-                    '§SKIL2': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: 'MEC',
-                            p: '',
-                            t: 'CC',
-                        },
-                        value: 'MEC',
-                    },
-                    '§SKIL3': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
-                        },
-                        value: '',
-                    },
-                },
-                id: '7',
-                object: '',
-                readOnly: true,
-            },
-            {
-                cells: {
-                    INZRIS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '20220602',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-06-02',
-                    },
-                    '§§OPER': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'OP',
-                        },
-                        value: '',
-                    },
-                    '§SKIL1': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: 'MSG',
-                            p: '',
-                            t: 'CC',
-                        },
-                        value: 'MSG',
-                        displayedValue: 'MSG',
-                    },
-                    INZFAS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '20220602',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-06-02',
-                    },
-                    '§§COMM': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CM',
-                        },
-                        value: '',
-                    },
-                    FINRIS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '20221231',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-12-31',
-                    },
-                    '§§DIPE': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 5,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '00333',
-                            p: '',
-                            t: 'DI',
-                        },
-                        value: '00333',
-                    },
-                    FINFAS: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 8,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '20221231',
-                            p: '*YYMD',
-                            t: 'D8',
-                        },
-                        value: '2022-12-31',
-                    },
-                    '§§NOME': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 35,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: 'FAM FABIO',
-                            p: '',
-                            t: '',
-                        },
-                        value: 'FAM FABIO',
-                        displayedValue: 'FAM FABIO',
-                    },
-                    BACRIF: {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 35,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: 'COLEL',
-                            p: '',
-                            t: '',
-                        },
-                        value: 'COLEL',
-                        displayedValue: 'COLEL',
-                    },
-                    '§SKIL6': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
-                        },
-                        value: '',
-                    },
-                    '§SKIL4': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: 'IEC',
-                            p: '',
-                            t: 'CC',
-                        },
-                        value: 'IEC',
-                    },
-                    '§SKIL5': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
-                        },
-                        value: '',
-                    },
-                    '§SKIL2': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: 'MEC',
-                            p: '',
-                            t: 'CC',
-                        },
-                        value: 'MEC',
-                    },
-                    '§SKIL3': {
-                        data: {
-                            helperEnabled: false,
-                            maxLength: 6,
-                        },
-                        isEditable: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: 'CC',
-                        },
-                        value: '',
-                    },
-                },
-                id: '8',
-                object: '',
-                readOnly: true,
-            },
-        ],
+                "id": "6",
+                "object": "",
+                "readOnly": true
+            }
+        ]
     },
-    detailColorCol: '',
-    detailColumns: ['§§NOME', 'BACRIF', '§SKIL1'],
-    detailDates: ['INZRIS', 'FINRIS'],
-    detailHeight: 200,
-    detailIdCol: '§§DIPE',
-    detailNameCol: '§§DIPE',
-    detailPrevDates: ['INZFAS', 'FINFAS'],
-    listCellWidth: '300px',
-    maxWidth: '90vw',
-    phaseColorCol: 'COLFAS',
-    phaseColumns: ['DESFAS', 'DATINI', 'DATFIN'],
-    phaseDates: ['DATINI', 'DATFIN'],
-    phaseIdCol: 'CODFAS',
-    phaseNameCol: 'DESFAS',
-    phasePrevDates: ['DATINZ', 'DATFPO'],
-    showSecondaryDates: false,
-    taskColumns: ['R§COMM', 'R£COMM'],
-    taskDates: ['DATINZ', 'DATPRE'],
-    taskHeight: 300,
-    taskIdCol: 'R§COMM',
-    taskNameCol: 'R§COMM',
-    taskPrevDates: ['INZORD', 'DATORD'],
-    titleMess: 'Main Gantt',
-    viewMode: 'week',
-    mainFilter: dummyFilter(),
-    secondaryFilter: dummyFilter(),
+    "detailColorCol": "COLDET",
+    "detailColumns": [
+        "CODFAS",
+        "DATINI",
+        "DATFIN"
+    ],
+    "detailDates": [
+        "DATINI",
+        "DATFIN"
+    ],
+    "detailIdCol": "CODFAS",
+    "detailNameCol": "CODFAS",
+    "detailPrevDates": [],
+    "listCellWidth": "300px",
+    "maxWidth": "90vw",
+    "phaseColorCol": "COLFAS",
+    "phaseColumns": [
+        "DATINI",
+        "DATFIN"
+    ],
+    "phaseColParDep": "FASDIP",
+    "phaseDates": [
+        "DATINI",
+        "DATFIN"
+    ],
+    "phaseIdCol": "CODFAS",
+    "phaseNameCol": "DESFAS",
+    "phasePrevDates": [],
+    "readOnly": false,
+    "showSecondaryDates": false,
+    "taskColumns": [
+        "R§COMM",
+        "R£COMM"
+    ],
+    "taskDates": [
+        "DATINZ",
+        "DATPRE"
+    ],
+    "taskIdCol": "R§COMM",
+    "taskNameCol": "R£COMM",
+    "taskPrevDates": [],
+    "titleMess": ""
 };
 
 if (props) {
@@ -3079,5113 +2807,3740 @@ if (props) {
 }
 
 function onclick(event) {
-    console.log('planner.js onclick', event.detail.taskAction);
-    if (event.detail.taskAction == 'onTaskOpening') {
-        comp.addPhases('G503', phases);
+    if (event.detail.taskAction == 'onTaskOpening' && event.detail.value.id == 'G456') {
+        comp.addPhases('G456', phases);
+    }
+    if (event.detail.taskAction == 'onTaskClosing' && event.detail.value.id == 'G456') {
+        comp.addPhases('G456', []);
     }
 }
 
 const phases = {
-    columns: [
+    "columns": [
         {
-            isEditable: false,
-            isKey: false,
-            name: 'CODFAS',
-            obj: {
-                k: '',
-                p: '',
-                t: 'OP',
+            "isEditable": false,
+            "isKey": false,
+            "name": "CODFAS",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "OP"
             },
-            title: 'Fase',
-            tooltip: true,
+            "title": "Fase",
+            "tooltip": true
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'DESFAS',
-            title: 'Des\nFase',
-            tooltip: false,
+            "isEditable": false,
+            "isKey": false,
+            "name": "DESFAS",
+            "title": "Des\nFase",
+            "tooltip": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'GESNOT',
-            obj: {
-                k: '',
-                p: 'ICO',
-                t: 'J4',
+            "isEditable": false,
+            "isKey": false,
+            "name": "GESNOT",
+            "obj": {
+                "k": "",
+                "p": "ICO",
+                "t": "J4"
             },
-            title: 'Note',
-            tooltip: false,
+            "title": "Note",
+            "tooltip": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'DATINI',
-            obj: {
-                k: '',
-                p: '*YYMD',
-                t: 'D8',
+            "isEditable": false,
+            "isKey": false,
+            "name": "DATINI",
+            "obj": {
+                "k": "",
+                "p": "*YYMD",
+                "t": "D8"
             },
-            title: 'Data\nInizio',
-            tooltip: true,
+            "title": "Data\nInizio",
+            "tooltip": true
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'DATINZ',
-            obj: {
-                k: '',
-                p: '*YYMD',
-                t: 'D8',
+            "isEditable": false,
+            "isKey": false,
+            "name": "DATINZ",
+            "obj": {
+                "k": "",
+                "p": "*YYMD",
+                "t": "D8"
             },
-            title: 'Data\nInizio P.O',
-            tooltip: true,
+            "title": "Data\nInizio P.O",
+            "tooltip": true
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'SPOINI',
-            title: 'GG\nSpostamento',
-            tooltip: false,
+            "isEditable": false,
+            "isKey": false,
+            "name": "SPOINI",
+            "title": "GG\nSpostamento",
+            "tooltip": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'DATDIC',
-            obj: {
-                k: '',
-                p: '*YYMD',
-                t: 'D8',
+            "isEditable": false,
+            "isKey": false,
+            "name": "DATDIC",
+            "obj": {
+                "k": "",
+                "p": "*YYMD",
+                "t": "D8"
             },
-            title: 'Eff.\nInizio',
-            tooltip: true,
+            "title": "Eff.\nInizio",
+            "tooltip": true
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'DATFIN',
-            obj: {
-                k: '',
-                p: '*YYMD',
-                t: 'D8',
+            "isEditable": false,
+            "isKey": false,
+            "name": "DATFIN",
+            "obj": {
+                "k": "",
+                "p": "*YYMD",
+                "t": "D8"
             },
-            title: 'Data\nFine',
-            tooltip: true,
+            "title": "Data\nFine",
+            "tooltip": true
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'DATFPO',
-            obj: {
-                k: '',
-                p: '*YYMD',
-                t: 'D8',
+            "isEditable": false,
+            "isKey": false,
+            "name": "DATFPO",
+            "obj": {
+                "k": "",
+                "p": "*YYMD",
+                "t": "D8"
             },
-            title: 'Data\nFine\nPrev.Ordine',
-            tooltip: true,
+            "title": "Data\nFine\nPrev.Ordine",
+            "tooltip": true
         },
         {
-            decimals: 0,
-            isEditable: false,
-            isKey: false,
-            name: 'OREORD',
-            obj: {
-                k: '',
-                p: '',
-                t: 'NR',
+            "decimals": 0,
+            "isEditable": false,
+            "isKey": false,
+            "name": "OREORD",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "NR"
             },
-            title: 'Ore Prev.\nORDINE',
-            tooltip: false,
+            "title": "Ore Prev.\nORDINE",
+            "tooltip": false
         },
         {
-            decimals: 0,
-            isEditable: false,
-            isKey: false,
-            name: 'BDGORE',
-            obj: {
-                k: '',
-                p: '',
-                t: 'NR',
+            "decimals": 0,
+            "isEditable": false,
+            "isKey": false,
+            "name": "BDGORE",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "NR"
             },
-            title: 'Ore\nPrev.Tot',
-            tooltip: false,
+            "title": "Ore\nPrev.Tot",
+            "tooltip": false
         },
         {
-            decimals: 0,
-            isEditable: false,
-            isKey: false,
-            name: 'BDGAVOG',
-            obj: {
-                k: '',
-                p: '',
-                t: 'NR',
+            "decimals": 0,
+            "isEditable": false,
+            "isKey": false,
+            "name": "BDGAVOG",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "NR"
             },
-            title: 'Ore\nPrev.Oggi',
-            tooltip: false,
+            "title": "Ore\nPrev.Oggi",
+            "tooltip": false
         },
         {
-            decimals: 0,
-            isEditable: false,
-            isKey: false,
-            name: 'DICORE',
-            obj: {
-                k: '',
-                p: '',
-                t: 'NR',
+            "decimals": 0,
+            "isEditable": false,
+            "isKey": false,
+            "name": "DICORE",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "NR"
             },
-            title: 'Ore\nFatte',
-            tooltip: false,
+            "title": "Ore\nFatte",
+            "tooltip": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: '£BDGPERC',
-            title: '%\nRisp. Prev.',
-            tooltip: false,
+            "isEditable": false,
+            "isKey": false,
+            "name": "§BDGPERC",
+            "title": "%\nRisp. Prev.",
+            "tooltip": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: '£DICPERC',
-            title: '%\nFatte/Prev.Tot',
-            tooltip: false,
+            "isEditable": false,
+            "isKey": false,
+            "name": "§DICPERC",
+            "title": "%\nFatte/Prev.Tot",
+            "tooltip": false
         },
         {
-            decimals: 2,
-            isEditable: false,
-            isKey: false,
-            name: 'NUMRIS',
-            obj: {
-                k: '',
-                p: '',
-                t: 'NR',
+            "decimals": 2,
+            "isEditable": false,
+            "isKey": false,
+            "name": "NUMRIS",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "NR"
             },
-            title: 'Num.\nRis.',
-            tooltip: false,
+            "title": "Num.\nRis.",
+            "tooltip": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'MODPIA',
-            obj: {
-                k: '',
-                p: 'ICO',
-                t: 'J4',
+            "isEditable": false,
+            "isKey": false,
+            "name": "MODPIA",
+            "obj": {
+                "k": "",
+                "p": "ICO",
+                "t": "J4"
             },
-            title: 'Mod.',
-            tooltip: false,
+            "title": "Mod.",
+            "tooltip": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'ICOAVA',
-            obj: {
-                k: '',
-                p: 'ICO',
-                t: 'J4',
+            "isEditable": false,
+            "isKey": false,
+            "name": "ICOAVA",
+            "obj": {
+                "k": "",
+                "p": "ICO",
+                "t": "J4"
             },
-            title: 'Sposta',
-            tooltip: false,
+            "title": "Sposta",
+            "tooltip": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'COMPL',
-            obj: {
-                k: '',
-                p: 'SI/NO',
-                t: 'V2',
+            "isEditable": false,
+            "isKey": false,
+            "name": "COMPL",
+            "obj": {
+                "k": "",
+                "p": "SI/NO",
+                "t": "V2"
             },
-            title: 'Compl.',
-            tooltip: false,
+            "title": "Compl.",
+            "tooltip": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'DTARIL',
-            obj: {
-                k: '',
-                p: '*YYMD',
-                t: 'D8',
+            "isEditable": false,
+            "isKey": false,
+            "name": "DTARIL",
+            "obj": {
+                "k": "",
+                "p": "*YYMD",
+                "t": "D8"
             },
-            title: 'Data\nVincolo',
-            tooltip: true,
+            "title": "Data\nVincolo",
+            "tooltip": true
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'CDBASA',
-            obj: {
-                k: '',
-                p: '',
-                t: 'AR',
+            "isEditable": false,
+            "isKey": false,
+            "name": "CDBASA",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "AR"
             },
-            title: 'Basamento',
-            tooltip: true,
+            "title": "Basamento",
+            "tooltip": true
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'DATUFF',
-            obj: {
-                k: '',
-                p: '*YYMD',
-                t: 'D8',
+            "isEditable": false,
+            "isKey": false,
+            "name": "DATUFF",
+            "obj": {
+                "k": "",
+                "p": "*YYMD",
+                "t": "D8"
             },
-            title: 'Cons.\nDisegno',
-            tooltip: true,
+            "title": "Cons.\nDisegno",
+            "tooltip": true
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'TPDTUF',
-            title: 'Des',
-            tooltip: false,
+            "isEditable": false,
+            "isKey": false,
+            "name": "TPDTUF",
+            "title": "Des",
+            "tooltip": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'DTAFAB',
-            obj: {
-                k: '',
-                p: '*YYMD',
-                t: 'D8',
+            "isEditable": false,
+            "isKey": false,
+            "name": "DTAFAB",
+            "obj": {
+                "k": "",
+                "p": "*YYMD",
+                "t": "D8"
             },
-            title: 'Data\nBasamento',
-            tooltip: true,
+            "title": "Data\nBasamento",
+            "tooltip": true
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'CODDIP',
-            title: 'Cod.Fase\nDa cui Dip.',
-            tooltip: false,
+            "isEditable": false,
+            "isKey": false,
+            "name": "CODDIP",
+            "title": "Cod.Fase\nDa cui Dip.",
+            "tooltip": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'FASDIP',
-            title: 'Fase\nDa cui Dip.',
-            tooltip: false,
+            "isEditable": false,
+            "isKey": false,
+            "name": "FASDIP",
+            "title": "Fase\nDa cui Dip.",
+            "tooltip": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'FASDDT',
-            obj: {
-                k: '',
-                p: '*YYMD',
-                t: 'D8',
+            "isEditable": false,
+            "isKey": false,
+            "name": "FASDDT",
+            "obj": {
+                "k": "",
+                "p": "*YYMD",
+                "t": "D8"
             },
-            title: 'Data\nFine Fase Dip',
-            tooltip: true,
+            "title": "Data\nFine Fase Dip",
+            "tooltip": true
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'CODCOM',
-            obj: {
-                k: '',
-                p: 'MVE',
-                t: 'DO',
+            "isEditable": false,
+            "isKey": false,
+            "name": "ICOFAS",
+            "obj": {
+                "k": "",
+                "p": "ICO",
+                "t": "J4"
             },
-            title: 'Commessa',
-            tooltip: true,
-            visible: false,
+            "title": "Icona fase",
+            "tooltip": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'COLFAS',
-            title: 'Sty\nColore',
-            tooltip: false,
-            visible: false,
-        },
-        {
-            isEditable: false,
-            isKey: false,
-            name: '§§AUTN',
-            title: 'Aut.Note',
-            tooltip: false,
-            visible: false,
-        },
-        {
-            isEditable: false,
-            isKey: false,
-            name: 'N§TEVE',
-            obj: {
-                k: '',
-                p: 'P5D',
-                t: 'TA',
+            "isEditable": false,
+            "isKey": false,
+            "name": "CODCOM",
+            "obj": {
+                "k": "",
+                "p": "MVE",
+                "t": "DO"
             },
-            title: 'Tipo evento',
-            tooltip: true,
-            visible: false,
+            "title": "Commessa",
+            "tooltip": true,
+            "visible": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'N§NREV',
-            objs: [
+            "isEditable": false,
+            "isKey": false,
+            "name": "COLFAS",
+            "title": "Sty\nColore",
+            "tooltip": false,
+            "visible": false
+        },
+        {
+            "isEditable": false,
+            "isKey": false,
+            "name": "§§AUTN",
+            "title": "Aut.Note",
+            "tooltip": false,
+            "visible": false
+        },
+        {
+            "isEditable": false,
+            "isKey": false,
+            "name": "N§TEVE",
+            "obj": {
+                "k": "",
+                "p": "P5D",
+                "t": "TA"
+            },
+            "title": "Tipo evento",
+            "tooltip": true,
+            "visible": false
+        },
+        {
+            "isEditable": false,
+            "isKey": false,
+            "name": "N§NREV",
+            "objs": [
                 {
-                    k: '',
-                    p: '',
-                    t: 'E3',
-                },
+                    "k": "",
+                    "p": "",
+                    "t": "E3"
+                }
             ],
-            title: 'Numero reg. evento',
-            tooltip: true,
-            visible: false,
+            "title": "Numero reg. evento",
+            "tooltip": true,
+            "visible": false
         },
         {
-            decimals: 0,
-            isEditable: false,
-            isKey: false,
-            name: 'DLTINI',
-            obj: {
-                k: '',
-                p: '',
-                t: 'NR',
+            "decimals": 0,
+            "isEditable": false,
+            "isKey": false,
+            "name": "DLTINI",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "NR"
             },
-            title: 'Dif\nGio',
-            tooltip: false,
-            visible: false,
+            "title": "Dif\nGio",
+            "tooltip": false,
+            "visible": false
         },
         {
-            decimals: 0,
-            isEditable: false,
-            isKey: false,
-            name: 'DIFGIO',
-            obj: {
-                k: '',
-                p: '',
-                t: 'NR',
+            "decimals": 0,
+            "isEditable": false,
+            "isKey": false,
+            "name": "DIFGIO",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "NR"
             },
-            title: 'Giorni',
-            tooltip: false,
-            visible: false,
+            "title": "Giorni",
+            "tooltip": false,
+            "visible": false
         },
         {
-            decimals: 0,
-            isEditable: false,
-            isKey: false,
-            name: 'ORERES',
-            obj: {
-                k: '',
-                p: '',
-                t: 'NR',
+            "decimals": 0,
+            "isEditable": false,
+            "isKey": false,
+            "name": "ORERES",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "NR"
             },
-            title: 'Ore ancora\nDa fare',
-            tooltip: false,
-            visible: false,
+            "title": "Ore ancora\nDa fare",
+            "tooltip": false,
+            "visible": false
         },
         {
-            decimals: 0,
-            isEditable: false,
-            isKey: false,
-            name: 'BDGPERC',
-            obj: {
-                k: '',
-                p: '',
-                t: 'NR',
+            "decimals": 0,
+            "isEditable": false,
+            "isKey": false,
+            "name": "BDGPERC",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "NR"
             },
-            title: '%\nRisp. Prev.',
-            tooltip: false,
-            visible: false,
+            "title": "%\nRisp. Prev.",
+            "tooltip": false,
+            "visible": false
         },
         {
-            decimals: 0,
-            isEditable: false,
-            isKey: false,
-            name: 'DICPERC',
-            obj: {
-                k: '',
-                p: '',
-                t: 'NR',
+            "decimals": 0,
+            "isEditable": false,
+            "isKey": false,
+            "name": "DICPERC",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "NR"
             },
-            title: '%\nFatte/Prev.Tot',
-            tooltip: false,
-            visible: false,
+            "title": "%\nFatte/Prev.Tot",
+            "tooltip": false,
+            "visible": false
         },
         {
-            decimals: 0,
-            isEditable: false,
-            isKey: false,
-            name: 'DIFPER',
-            obj: {
-                k: '',
-                p: '',
-                t: 'NR',
+            "decimals": 0,
+            "isEditable": false,
+            "isKey": false,
+            "name": "DIFPER",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "NR"
             },
-            title: '%\nRitardo',
-            tooltip: false,
-            visible: false,
+            "title": "%\nRitardo",
+            "tooltip": false,
+            "visible": false
         },
         {
-            decimals: 0,
-            isEditable: false,
-            isKey: false,
-            name: 'STIPER',
-            obj: {
-                k: '',
-                p: '',
-                t: 'NR',
+            "decimals": 0,
+            "isEditable": false,
+            "isKey": false,
+            "name": "STIPER",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "NR"
             },
-            title: 'Stima\nAvanz. %',
-            tooltip: false,
-            visible: false,
+            "title": "Stima\nAvanz. %",
+            "tooltip": false,
+            "visible": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'AGGSTI',
-            obj: {
-                k: '',
-                p: '*YYMD',
-                t: 'D8',
+            "isEditable": false,
+            "isKey": false,
+            "name": "AGGSTI",
+            "obj": {
+                "k": "",
+                "p": "*YYMD",
+                "t": "D8"
             },
-            title: 'Data\nAgg. Stima',
-            tooltip: true,
-            visible: false,
+            "title": "Data\nAgg. Stima",
+            "tooltip": true,
+            "visible": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'STYAVA',
-            title: 'Sty\nSposta',
-            tooltip: false,
-            visible: false,
+            "isEditable": false,
+            "isKey": false,
+            "name": "STYAVA",
+            "title": "Sty\nSposta",
+            "tooltip": false,
+            "visible": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'CODPMA',
-            obj: {
-                k: '',
-                p: 'XDP',
-                t: 'TA',
+            "isEditable": false,
+            "isKey": false,
+            "name": "CODPMA",
+            "obj": {
+                "k": "",
+                "p": "XDP",
+                "t": "TA"
             },
-            title: 'PM\nAssociato',
-            tooltip: true,
-            visible: false,
+            "title": "PM\nAssociato",
+            "tooltip": true,
+            "visible": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'DESPMA',
-            title: 'PM\nAssociato',
-            tooltip: false,
-            visible: false,
+            "isEditable": false,
+            "isKey": false,
+            "name": "DESPMA",
+            "title": "PM\nAssociato",
+            "tooltip": false,
+            "visible": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'MESAUT',
-            obj: {
-                k: '',
-                p: '',
-                t: '**',
+            "isEditable": false,
+            "isKey": false,
+            "name": "MESAUT",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "**"
             },
-            title: 'Aut.',
-            tooltip: false,
-            visible: false,
+            "title": "Aut.",
+            "tooltip": false,
+            "visible": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'STILE',
-            obj: {
-                k: '',
-                p: '',
-                t: '**',
+            "isEditable": false,
+            "isKey": false,
+            "name": "STILE",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "**"
             },
-            title: 'Stile\nriga',
-            tooltip: false,
-            visible: false,
+            "title": "Stile\nriga",
+            "tooltip": false,
+            "visible": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: 'EDTDDT',
-            obj: {
-                k: '',
-                p: '',
-                t: '**',
+            "isEditable": false,
+            "isKey": false,
+            "name": "EDTDDT",
+            "obj": {
+                "k": "",
+                "p": "",
+                "t": "**"
             },
-            title: 'Data\nDecodificata',
-            tooltip: false,
-            visible: false,
+            "title": "Data\nDecodificata",
+            "tooltip": false,
+            "visible": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: '§§KNO1',
-            title: 'Chiave nota 1',
-            tooltip: false,
-            visible: false,
+            "isEditable": false,
+            "isKey": false,
+            "name": "§§KNO1",
+            "title": "Chiave nota 1",
+            "tooltip": false,
+            "visible": false
         },
         {
-            isEditable: false,
-            isKey: false,
-            name: '§§KNO2',
-            title: 'Chiave nota 2',
-            tooltip: false,
-            visible: false,
+            "isEditable": false,
+            "isKey": false,
+            "name": "§§KNO2",
+            "title": "Chiave nota 2",
+            "tooltip": false,
+            "visible": false
         },
+        {
+            "isEditable": false,
+            "isKey": false,
+            "name": "§§KNO3",
+            "title": "Chiave nota 3",
+            "tooltip": false,
+            "visible": false
+        }
     ],
-    rows: [
+    "rows": [
         {
-            cells: {
-                CODPMA: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+            "cells": {
+                "DIFGIO": {
+                    "data": {
+                        "size": 7,
+                        "helperEnabled": false,
+                        "maxLength": 7,
+                        "integers": 7
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'XDP',
-                        t: 'TA',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "80",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "80"
                 },
-                DATDIC: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "ICOFAS": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "sizeX": "18px",
+                        "color": "#0000ff",
+                        "size": 3,
+                        "resource": "error_outline",
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "sizeY": "18px",
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "I(VO;COD_SOS;000220) C(#0000ff)",
+                        "p": "ICO",
+                        "t": "J4"
                     },
-                    value: '',
+                    "value": "error_outline"
                 },
-                DIFGIO: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 7,
+                "§§KNO1": {
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '61',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "#ED7D31",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '61',
+                    "value": "#ED7D31"
                 },
-                TPDTUF: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
+                "DICORE": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '                                   ',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "        1.286,79000 ",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "1,287"
                 },
-                CODCOM: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 10,
+                "§§KNO3": {
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'G503',
-                        p: 'MVE',
-                        t: 'DO',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "CFC2  P410",
+                        "p": "",
+                        "t": ""
                     },
-                    value: 'G503',
+                    "value": "CFC2  P410"
                 },
-                GESNOT: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "N§TEVE": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 3,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "   ",
+                        "p": "P5D",
+                        "t": "TA"
                     },
+                    "value": ""
                 },
-                '§§AUTN': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 1,
+                "§§KNO2": {
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "G456      0001",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": "G456      0001"
                 },
-                COMPL: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        checked: false,
-                        maxLength: 1,
+                "ORERES": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'SI/NO',
-                        t: 'V2',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "              713 ",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "713"
                 },
-                '§§KNO1': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+                "STIPER": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "maxLength": 6,
+                        "integers": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '#ED7D31',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '#ED7D31',
+                    "value": ""
                 },
-                COLFAS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 10,
+                "MODPIA": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "sizeX": "18px",
+                        "size": 3,
+                        "resource": "pencil",
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "sizeY": "18px",
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '#ED7D31',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "VO;COD_VER;000112",
+                        "p": "ICO",
+                        "t": "J4"
                     },
-                    value: '#ED7D31',
+                    "value": "pencil"
                 },
-                DICORE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "CDBASA": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "               ",
+                        "p": "",
+                        "t": "AR"
                     },
-                    value: '',
+                    "value": ""
                 },
-                'N§TEVE': {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "BDGORE": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '   ',
-                        p: 'P5D',
-                        t: 'TA',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "        2.000,00000 ",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "2,000"
                 },
-                DICPERC: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "DLTINI": {
+                    "data": {
+                        "size": 5,
+                        "helperEnabled": false,
+                        "maxLength": 5,
+                        "integers": 5
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "78",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '0',
+                    "value": "78"
                 },
-                '§§KNO2': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+                "DATINI": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'G503      0001',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20230306",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: 'G503      0001',
+                    "value": "2023-03-06"
                 },
-                ORERES: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "DATFPO": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '1440',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20221104",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '1,440',
+                    "value": "2022-11-04"
                 },
-                OREORD: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "STILE": {
+                    "data": {
+                        "size": 3,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '1440',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": "**"
                     },
-                    value: '1,440',
+                    "value": ""
                 },
-                DESPMA: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 30,
+                "DESFAS": {
+                    "data": {
+                        "size": 35,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 35
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "FS - MONTAGGIO MECCANICO           ",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": "FS - MONTAGGIO MECCANICO           "
                 },
-                DATFIN: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "DATINZ": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '20230109',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20220613",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '2023-01-09',
+                    "value": "2022-06-13"
                 },
-                STIPER: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "NUMRIS": {
+                    "data": {
+                        "size": 5,
+                        "decimals": 2,
+                        "helperEnabled": false,
+                        "maxLength": 5,
+                        "integers": 5
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "1,11",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "1.11"
                 },
-                DTAFAB: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "DATUFF": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "00000000",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '',
+                    "value": ""
                 },
-                DIFPER: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "EDTDDT": {
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '100',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "15/07/22",
+                        "p": "",
+                        "t": "**"
                     },
-                    value: '100',
+                    "value": "15/07/22"
                 },
-                MODPIA: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "CODPMA": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "XDP",
+                        "t": "TA"
                     },
+                    "value": ""
                 },
-                BDGPERC: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "DATDIC": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '100',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20221107",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '100',
+                    "value": "2022-11-07"
                 },
-                SPOINI: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "TPDTUF": {
+                    "data": {
+                        "size": 35,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 35
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "                                   ",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": ""
                 },
-                MESAUT: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 50,
+                "CODCOM": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 10,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 10
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "G456",
+                        "p": "MVE",
+                        "t": "DO"
                     },
-                    value: '',
+                    "value": "G456"
                 },
-                CODDIP: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
+                "GESNOT": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "sizeX": "18px",
+                        "size": 3,
+                        "resource": "content-copy",
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "sizeY": "18px",
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "VO;COD_VER;000113",
+                        "p": "ICO",
+                        "t": "J4"
                     },
-                    value: '',
+                    "value": "content-copy"
                 },
-                FASDIP: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
+                "§§AUTN": {
+                    "data": {
+                        "size": 1,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 1
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '                                   ',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": ""
                 },
-                CDBASA: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+                "COMPL": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "size": 1,
+                        "helperEnabled": false,
+                        "checked": false,
+                        "hiddenCounter": true,
+                        "maxLength": 1
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '               ',
-                        p: '',
-                        t: 'AR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "SI/NO",
+                        "t": "V2"
                     },
-                    value: '',
+                    "value": ""
                 },
-                BDGORE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "COLFAS": {
+                    "data": {
+                        "size": 10,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 10
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '1440.00000',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "#ED7D31",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '1,440',
+                    "value": "#ED7D31"
                 },
-                DLTINI: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 5,
+                "DICPERC": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "maxLength": 6,
+                        "integers": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '-108',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "64",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '-108',
+                    "value": "64"
                 },
-                DATINI: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "OREORD": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '20221017',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "     2.080 ",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '2022-10-17',
+                    "value": "2,080"
                 },
-                DATFPO: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "§DICPERC": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '20230109',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "64%",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '2023-01-09',
+                    "value": "64%"
                 },
-                DTARIL: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "DESPMA": {
+                    "data": {
+                        "size": 30,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 30
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '        ',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": ""
                 },
-                CODFAS: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+                "DATFIN": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'P410           ',
-                        p: '',
-                        t: 'OP',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20230630",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: 'P410           ',
+                    "value": "2023-06-30"
                 },
-                '£DICPERC': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "DTAFAB": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0%',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "00000000",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '0%',
+                    "value": ""
                 },
-                ICOAVA: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "DIFPER": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "maxLength": 6,
+                        "integers": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "64-",
+                        "p": "",
+                        "t": "NR"
                     },
+                    "value": "-64"
                 },
-                FASDDT: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "BDGPERC": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "maxLength": 6,
+                        "integers": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "0",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "0"
                 },
-                AGGSTI: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "SPOINI": {
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "145",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": "145"
                 },
-                STILE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "MESAUT": {
+                    "data": {
+                        "size": 50,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 50
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "NON AUTORIZZATO",
+                        "p": "",
+                        "t": "**"
                     },
-                    value: '',
+                    "value": "NON AUTORIZZATO"
                 },
-                DESFAS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
+                "CODDIP": {
+                    "data": {
+                        "size": 35,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 35
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'MONTAGGIO MECCANICO                ',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "P110",
+                        "p": "",
+                        "t": ""
                     },
-                    value: 'MONTAGGIO MECCANICO                ',
-                    displayedValue: 'MONTAGGIO MECCANICO                ',
+                    "value": "P110"
                 },
-                DATINZ: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "FASDIP": {
+                    "data": {
+                        "size": 35,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 35
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '20221017',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "ML - FINE REALIZZ.BASAMENTO        ",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '2022-10-17',
+                    "value": "ML - FINE REALIZZ.BASAMENTO        "
                 },
-                '£BDGPERC': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "DTARIL": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '100%',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "        ",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '100%',
+                    "value": ""
                 },
-                NUMRIS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 5,
+                "CODFAS": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '3.75',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "P410           ",
+                        "p": "",
+                        "t": "OP"
                     },
-                    value: '3.75',
+                    "value": "P410           "
                 },
-                DATUFF: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "ICOAVA": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "size": 3,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "ICO",
+                        "t": "J4"
+                    }
                 },
-                EDTDDT: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "FASDDT": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20220715",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '',
+                    "value": "2022-07-15"
                 },
-                'N§NREV': {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 9,
+                "AGGSTI": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '000000000',
-                        p: '   ',
-                        t: 'E3',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "00000000",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '000000000',
+                    "value": ""
                 },
-                BDGAVOG: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "§BDGPERC": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '1440',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "0%",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '1,440',
+                    "value": "0%"
                 },
-                STYAVA: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "N§NREV": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 9,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 9
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'RED',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "000000000",
+                        "p": "[Nï¿½TEVE]",
+                        "t": "E3"
                     },
-                    value: 'RED',
+                    "value": "000000000"
                 },
+                "BDGAVOG": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
+                    },
+                    "isEditable": false,
+                    "obj": {
+                        "k": "       ",
+                        "p": "",
+                        "t": "NR"
+                    },
+                    "value": ""
+                },
+                "STYAVA": {
+                    "data": {
+                        "size": 3,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 3
+                    },
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": ""
+                    },
+                    "value": ""
+                }
             },
-            id: '1',
-            object: '',
-            readOnly: true,
+            "id": "1",
+            "object": "",
+            "readOnly": true
         },
         {
-            cells: {
-                CODPMA: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+            "cells": {
+                "DIFGIO": {
+                    "data": {
+                        "size": 7,
+                        "helperEnabled": false,
+                        "maxLength": 7,
+                        "integers": 7
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'XDP',
-                        t: 'TA',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "62",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "62"
                 },
-                DATDIC: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "ICOFAS": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "sizeX": "18px",
+                        "color": "rgb(0, 255, 0)",
+                        "size": 3,
+                        "resource": "error_outline",
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "sizeY": "18px",
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "I(VO;COD_SOS;000220) C(R000G255B000)",
+                        "p": "ICO",
+                        "t": "J4"
                     },
-                    value: '',
+                    "value": "error_outline"
                 },
-                DIFGIO: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 7,
+                "§§KNO1": {
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '46',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "#FF0000",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '46',
+                    "value": "#FF0000"
                 },
-                TPDTUF: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
+                "DICORE": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '                                   ',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "          718,14000 ",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "718"
                 },
-                CODCOM: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 10,
+                "§§KNO3": {
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'G503',
-                        p: 'MVE',
-                        t: 'DO',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "CFC2  P420",
+                        "p": "",
+                        "t": ""
                     },
-                    value: 'G503',
+                    "value": "CFC2  P420"
                 },
-                GESNOT: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "N§TEVE": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 3,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "   ",
+                        "p": "P5D",
+                        "t": "TA"
                     },
+                    "value": ""
                 },
-                '§§AUTN': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 1,
+                "§§KNO2": {
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "G456      0001",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": "G456      0001"
                 },
-                COMPL: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        checked: false,
-                        maxLength: 1,
+                "ORERES": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'SI/NO',
-                        t: 'V2',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "              241 ",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "241"
                 },
-                '§§KNO1': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+                "STIPER": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "maxLength": 6,
+                        "integers": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '#FF0000',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '#FF0000',
+                    "value": ""
                 },
-                COLFAS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 10,
+                "MODPIA": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "sizeX": "18px",
+                        "size": 3,
+                        "resource": "pencil",
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "sizeY": "18px",
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '#FF0000',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "VO;COD_VER;000112",
+                        "p": "ICO",
+                        "t": "J4"
                     },
-                    value: '#FF0000',
+                    "value": "pencil"
                 },
-                DICORE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "CDBASA": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "               ",
+                        "p": "",
+                        "t": "AR"
                     },
-                    value: '',
+                    "value": ""
                 },
-                'N§TEVE': {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "BDGORE": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '   ',
-                        p: 'P5D',
-                        t: 'TA',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "          960,00000 ",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "960"
                 },
-                DICPERC: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "DLTINI": {
+                    "data": {
+                        "size": 5,
+                        "helperEnabled": false,
+                        "maxLength": 5,
+                        "integers": 5
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "-32",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '0',
+                    "value": "-32"
                 },
-                '§§KNO2': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+                "DATINI": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'G503      0001',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20221121",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: 'G503      0001',
+                    "value": "2022-11-21"
                 },
-                ORERES: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "DATFPO": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '720',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20221111",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '720',
+                    "value": "2022-11-11"
                 },
-                OREORD: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "STILE": {
+                    "data": {
+                        "size": 3,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '720',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": "**"
                     },
-                    value: '720',
+                    "value": ""
                 },
-                DESPMA: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 30,
+                "DESFAS": {
+                    "data": {
+                        "size": 35,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 35
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "FS - MONTAGGIO ELETTRICO           ",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": "FS - MONTAGGIO ELETTRICO           "
                 },
-                DATFIN: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "DATINZ": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '20230109',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20220829",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '2023-01-09',
+                    "value": "2022-08-29"
                 },
-                STIPER: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "NUMRIS": {
+                    "data": {
+                        "size": 5,
+                        "decimals": 2,
+                        "helperEnabled": false,
+                        "maxLength": 5,
+                        "integers": 5
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "10,04",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "10.04"
                 },
-                DTAFAB: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "DATUFF": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "00000000",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '',
+                    "value": ""
                 },
-                DIFPER: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "EDTDDT": {
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '100',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "15/07/22",
+                        "p": "",
+                        "t": "**"
                     },
-                    value: '100',
+                    "value": "15/07/22"
                 },
-                MODPIA: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "CODPMA": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "XDP",
+                        "t": "TA"
                     },
+                    "value": ""
                 },
-                BDGPERC: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "DATDIC": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '100',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20230113",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '100',
+                    "value": "2023-01-13"
                 },
-                SPOINI: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "TPDTUF": {
+                    "data": {
+                        "size": 35,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 35
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '15',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "                                   ",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '15',
+                    "value": ""
                 },
-                MESAUT: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 50,
+                "CODCOM": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 10,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 10
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "G456",
+                        "p": "MVE",
+                        "t": "DO"
                     },
-                    value: '',
+                    "value": "G456"
                 },
-                CODDIP: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
+                "GESNOT": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "sizeX": "18px",
+                        "size": 3,
+                        "resource": "content-copy",
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "sizeY": "18px",
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "VO;COD_VER;000113",
+                        "p": "ICO",
+                        "t": "J4"
                     },
-                    value: '',
+                    "value": "content-copy"
                 },
-                FASDIP: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
+                "§§AUTN": {
+                    "data": {
+                        "size": 1,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 1
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '                                   ',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": ""
                 },
-                CDBASA: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+                "COMPL": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "size": 1,
+                        "helperEnabled": false,
+                        "checked": false,
+                        "hiddenCounter": true,
+                        "maxLength": 1
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '               ',
-                        p: '',
-                        t: 'AR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "SI/NO",
+                        "t": "V2"
                     },
-                    value: '',
+                    "value": ""
                 },
-                BDGORE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "COLFAS": {
+                    "data": {
+                        "size": 10,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 10
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '720.00000',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "#FF0000",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '720',
+                    "value": "#FF0000"
                 },
-                DLTINI: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 5,
+                "DICPERC": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "maxLength": 6,
+                        "integers": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '-93',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "74",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '-93',
+                    "value": "74"
                 },
-                DATINI: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "OREORD": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '20221107',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "       960 ",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '2022-11-07',
+                    "value": "960"
                 },
-                DATFPO: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "§DICPERC": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '20230109',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "74%",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '2023-01-09',
+                    "value": "74%"
                 },
-                DTARIL: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "DESPMA": {
+                    "data": {
+                        "size": 30,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 30
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '        ',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": ""
                 },
-                CODFAS: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+                "DATFIN": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'P420           ',
-                        p: '',
-                        t: 'OP',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20230224",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: 'P420           ',
+                    "value": "2023-02-24"
                 },
-                '£DICPERC': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "DTAFAB": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0%',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "00000000",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '0%',
+                    "value": ""
                 },
-                ICOAVA: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "DIFPER": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "maxLength": 6,
+                        "integers": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "22",
+                        "p": "",
+                        "t": "NR"
                     },
+                    "value": "22"
                 },
-                FASDDT: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "BDGPERC": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "maxLength": 6,
+                        "integers": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "96",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "96"
                 },
-                AGGSTI: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "SPOINI": {
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "78",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": "78"
                 },
-                STILE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "MESAUT": {
+                    "data": {
+                        "size": 50,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 50
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "NON AUTORIZZATO",
+                        "p": "",
+                        "t": "**"
                     },
-                    value: '',
+                    "value": "NON AUTORIZZATO"
                 },
-                DESFAS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
+                "CODDIP": {
+                    "data": {
+                        "size": 35,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 35
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'MONTAGGIO ELETTRICO                ',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "P110",
+                        "p": "",
+                        "t": ""
                     },
-                    value: 'MONTAGGIO ELETTRICO                ',
-                    displayedValue: 'MONTAGGIO ELETTRICO                ',
+                    "value": "P110"
                 },
-                DATINZ: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "FASDIP": {
+                    "data": {
+                        "size": 35,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 35
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '20221107',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "ML - FINE REALIZZ.BASAMENTO        ",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '2022-11-07',
+                    "value": "ML - FINE REALIZZ.BASAMENTO        "
                 },
-                '£BDGPERC': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "DTARIL": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '100%',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "        ",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '100%',
+                    "value": ""
                 },
-                NUMRIS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 5,
+                "CODFAS": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '1.87',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "P420           ",
+                        "p": "",
+                        "t": "OP"
                     },
-                    value: '1.87',
+                    "value": "P420           "
                 },
-                DATUFF: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "ICOAVA": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "size": 3,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "ICO",
+                        "t": "J4"
+                    }
                 },
-                EDTDDT: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "FASDDT": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20220715",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '',
+                    "value": "2022-07-15"
                 },
-                'N§NREV': {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 9,
+                "AGGSTI": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '000000000',
-                        p: '   ',
-                        t: 'E3',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "00000000",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '000000000',
+                    "value": ""
                 },
-                BDGAVOG: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "§BDGPERC": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '720',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "96%",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '720',
+                    "value": "96%"
                 },
-                STYAVA: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "N§NREV": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 9,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 9
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'RED',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "000000000",
+                        "p": "[Nï¿½TEVE]",
+                        "t": "E3"
                     },
-                    value: 'RED',
+                    "value": "000000000"
                 },
+                "BDGAVOG": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
+                    },
+                    "isEditable": false,
+                    "obj": {
+                        "k": "   928 ",
+                        "p": "",
+                        "t": "NR"
+                    },
+                    "value": "928"
+                },
+                "STYAVA": {
+                    "data": {
+                        "size": 3,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 3
+                    },
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": ""
+                    },
+                    "value": ""
+                }
             },
-            id: '2',
-            object: '',
-            readOnly: true,
+            "id": "2",
+            "object": "",
+            "readOnly": true
         },
         {
-            cells: {
-                CODPMA: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+            "cells": {
+                "DIFGIO": {
+                    "data": {
+                        "size": 7,
+                        "helperEnabled": false,
+                        "maxLength": 7,
+                        "integers": 7
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'XDP',
-                        t: 'TA',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "15",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "15"
                 },
-                DATDIC: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "ICOFAS": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "sizeX": "18px",
+                        "color": "#b71817",
+                        "size": 3,
+                        "resource": "brightness-1",
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "sizeY": "18px",
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "VO;COD_AGG;000011",
+                        "p": "ICO",
+                        "t": "J4"
                     },
-                    value: '',
+                    "value": "brightness-1"
                 },
-                DIFGIO: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 7,
+                "§§KNO1": {
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '30',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "#70AD47",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '30',
+                    "value": "#70AD47"
                 },
-                TPDTUF: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
+                "DICORE": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '                                   ',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "            9,00000 ",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "9"
                 },
-                CODCOM: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 10,
+                "§§KNO3": {
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'G503',
-                        p: 'MVE',
-                        t: 'DO',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "CFC2  P610",
+                        "p": "",
+                        "t": ""
                     },
-                    value: 'G503',
+                    "value": "CFC2  P610"
                 },
-                GESNOT: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "N§TEVE": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 3,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "   ",
+                        "p": "P5D",
+                        "t": "TA"
                     },
+                    "value": ""
                 },
-                '§§AUTN': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 1,
+                "§§KNO2": {
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "G456      0001",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": "G456      0001"
                 },
-                COMPL: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        checked: false,
-                        maxLength: 1,
+                "ORERES": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'SI/NO',
-                        t: 'V2',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "              111 ",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "111"
                 },
-                '§§KNO1': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+                "STIPER": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "maxLength": 6,
+                        "integers": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '#BDD7EE',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '#BDD7EE',
+                    "value": ""
                 },
-                COLFAS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 10,
+                "MODPIA": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "sizeX": "18px",
+                        "size": 3,
+                        "resource": "pencil",
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "sizeY": "18px",
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '#BDD7EE',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "VO;COD_VER;000112",
+                        "p": "ICO",
+                        "t": "J4"
                     },
-                    value: '#BDD7EE',
+                    "value": "pencil"
                 },
-                DICORE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "CDBASA": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "               ",
+                        "p": "",
+                        "t": "AR"
                     },
-                    value: '',
+                    "value": ""
                 },
-                'N§TEVE': {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "BDGORE": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '   ',
-                        p: 'P5D',
-                        t: 'TA',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "          120,00000 ",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "120"
                 },
-                DICPERC: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "DLTINI": {
+                    "data": {
+                        "size": 5,
+                        "helperEnabled": false,
+                        "maxLength": 5,
+                        "integers": 5
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '0',
+                    "value": ""
                 },
-                '§§KNO2': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+                "DATINI": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'G503      0001',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20230717",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: 'G503      0001',
+                    "value": "2023-07-17"
                 },
-                ORERES: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "DATFPO": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '40',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20230102",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '40',
+                    "value": "2023-01-02"
                 },
-                OREORD: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "STILE": {
+                    "data": {
+                        "size": 3,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '120',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": "**"
                     },
-                    value: '120',
+                    "value": ""
                 },
-                DESPMA: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 30,
+                "DESFAS": {
+                    "data": {
+                        "size": 35,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 35
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "FS - MESSA IN SERVIZIO MECC.       ",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": "FS - MESSA IN SERVIZIO MECC.       "
                 },
-                DATFIN: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "DATINZ": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '20221125',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20221121",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '2022-11-25',
+                    "value": "2022-11-21"
                 },
-                STIPER: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "NUMRIS": {
+                    "data": {
+                        "size": 5,
+                        "decimals": 2,
+                        "helperEnabled": false,
+                        "maxLength": 5,
+                        "integers": 5
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "0,92",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "0.92"
                 },
-                DTAFAB: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "DATUFF": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "00000000",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '',
+                    "value": ""
                 },
-                DIFPER: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "EDTDDT": {
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '100',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "30/06/23",
+                        "p": "",
+                        "t": "**"
                     },
-                    value: '100',
+                    "value": "30/06/23"
                 },
-                MODPIA: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "CODPMA": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "XDP",
+                        "t": "TA"
                     },
+                    "value": ""
                 },
-                BDGPERC: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "DATDIC": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '100',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "00000000",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '100',
+                    "value": ""
                 },
-                SPOINI: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "TPDTUF": {
+                    "data": {
+                        "size": 35,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 35
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "                                   ",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": ""
                 },
-                MESAUT: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 50,
+                "CODCOM": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 10,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 10
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "G456",
+                        "p": "MVE",
+                        "t": "DO"
                     },
-                    value: '',
+                    "value": "G456"
                 },
-                CODDIP: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
+                "GESNOT": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "sizeX": "18px",
+                        "size": 3,
+                        "resource": "content-copy",
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "sizeY": "18px",
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "VO;COD_VER;000113",
+                        "p": "ICO",
+                        "t": "J4"
                     },
-                    value: '',
+                    "value": "content-copy"
                 },
-                FASDIP: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
+                "§§AUTN": {
+                    "data": {
+                        "size": 1,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 1
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '                                   ',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": ""
                 },
-                CDBASA: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+                "COMPL": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "size": 1,
+                        "helperEnabled": false,
+                        "checked": false,
+                        "hiddenCounter": true,
+                        "maxLength": 1
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '               ',
-                        p: '',
-                        t: 'AR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "SI/NO",
+                        "t": "V2"
                     },
-                    value: '',
+                    "value": ""
                 },
-                BDGORE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "COLFAS": {
+                    "data": {
+                        "size": 10,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 10
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '40.00000',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "#70AD47",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '40',
+                    "value": "#70AD47"
                 },
-                DLTINI: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 5,
+                "DICPERC": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "maxLength": 6,
+                        "integers": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '-108',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "7",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '-108',
+                    "value": "7"
                 },
-                DATINI: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "OREORD": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '20221017',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "       160 ",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '2022-10-17',
+                    "value": "160"
                 },
-                DATFPO: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "§DICPERC": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '20221125',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "7%",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '2022-11-25',
+                    "value": "7%"
                 },
-                DTARIL: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "DESPMA": {
+                    "data": {
+                        "size": 30,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 30
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '        ',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": ""
                 },
-                CODFAS: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+                "DATFIN": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'P630           ',
-                        p: '',
-                        t: 'OP',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20230804",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: 'P630           ',
+                    "value": "2023-08-04"
                 },
-                '£DICPERC': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "DTAFAB": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0%',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "00000000",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '0%',
+                    "value": ""
                 },
-                ICOAVA: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "DIFPER": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "maxLength": 6,
+                        "integers": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "7-",
+                        "p": "",
+                        "t": "NR"
                     },
+                    "value": "-7"
                 },
-                FASDDT: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "BDGPERC": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "maxLength": 6,
+                        "integers": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "0",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "0"
                 },
-                AGGSTI: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "SPOINI": {
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "10",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": "10"
                 },
-                STILE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "MESAUT": {
+                    "data": {
+                        "size": 50,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 50
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "NON AUTORIZZATO",
+                        "p": "",
+                        "t": "**"
                     },
-                    value: '',
+                    "value": "NON AUTORIZZATO"
                 },
-                DESFAS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
+                "CODDIP": {
+                    "data": {
+                        "size": 35,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 35
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'MESSA IN SERV. SW 2                ',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "P410",
+                        "p": "",
+                        "t": ""
                     },
-                    value: 'MESSA IN SERV. SW 2                ',
-                    displayedValue: 'MESSA IN SERV. SW 2                ',
+                    "value": "P410"
                 },
-                DATINZ: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "FASDIP": {
+                    "data": {
+                        "size": 35,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 35
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '20221017',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "FS - MONTAGGIO MECCANICO           ",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '2022-10-17',
+                    "value": "FS - MONTAGGIO MECCANICO           "
                 },
-                '£BDGPERC': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "DTARIL": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '100%',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "        ",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '100%',
+                    "value": ""
                 },
-                NUMRIS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 5,
+                "CODFAS": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0.06',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "P610           ",
+                        "p": "",
+                        "t": "OP"
                     },
-                    value: '0.06',
+                    "value": "P610           "
                 },
-                DATUFF: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "ICOAVA": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "size": 3,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "ICO",
+                        "t": "J4"
+                    }
                 },
-                EDTDDT: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "FASDDT": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20230630",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '',
+                    "value": "2023-06-30"
                 },
-                'N§NREV': {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 9,
+                "AGGSTI": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '000000000',
-                        p: '   ',
-                        t: 'E3',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "00000000",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '000000000',
+                    "value": ""
                 },
-                BDGAVOG: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "§BDGPERC": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '120',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "0%",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '120',
+                    "value": "0%"
                 },
-                STYAVA: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "N§NREV": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 9,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 9
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'RED',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "000000000",
+                        "p": "[Nï¿½TEVE]",
+                        "t": "E3"
                     },
-                    value: 'RED',
+                    "value": "000000000"
                 },
+                "BDGAVOG": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
+                    },
+                    "isEditable": false,
+                    "obj": {
+                        "k": "       ",
+                        "p": "",
+                        "t": "NR"
+                    },
+                    "value": ""
+                },
+                "STYAVA": {
+                    "data": {
+                        "size": 3,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 3
+                    },
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": ""
+                    },
+                    "value": ""
+                }
             },
-            id: '3',
-            object: '',
-            readOnly: true,
+            "id": "3",
+            "object": "",
+            "readOnly": true
         },
         {
-            cells: {
-                CODPMA: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+            "cells": {
+                "DIFGIO": {
+                    "data": {
+                        "size": 7,
+                        "helperEnabled": false,
+                        "maxLength": 7,
+                        "integers": 7
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'XDP',
-                        t: 'TA',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "15",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "15"
                 },
-                DATDIC: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "ICOFAS": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "sizeX": "18px",
+                        "size": 3,
+                        "resource": "error_outline",
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "sizeY": "18px",
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "VO;COD_SOS;000220",
+                        "p": "ICO",
+                        "t": "J4"
                     },
-                    value: '',
+                    "value": "error_outline"
                 },
-                DIFGIO: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 7,
+                "§§KNO1": {
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '10',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "#70AD47",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '10',
+                    "value": "#70AD47"
                 },
-                TPDTUF: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
+                "DICORE": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '                                   ',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "            9,00000 ",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "9"
                 },
-                CODCOM: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 10,
+                "§§KNO3": {
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'G503',
-                        p: 'MVE',
-                        t: 'DO',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "CFC2  P611",
+                        "p": "",
+                        "t": ""
                     },
-                    value: 'G503',
+                    "value": "CFC2  P611"
                 },
-                GESNOT: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "N§TEVE": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 3,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "   ",
+                        "p": "P5D",
+                        "t": "TA"
                     },
+                    "value": ""
                 },
-                '§§AUTN': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 1,
+                "§§KNO2": {
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "G456      0001",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": "G456      0001"
                 },
-                COMPL: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        checked: false,
-                        maxLength: 1,
+                "ORERES": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'SI/NO',
-                        t: 'V2',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "              111 ",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "111"
                 },
-                '§§KNO1': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+                "STIPER": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "maxLength": 6,
+                        "integers": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '#FFFF00',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '#FFFF00',
+                    "value": ""
                 },
-                COLFAS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 10,
+                "MODPIA": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "sizeX": "18px",
+                        "size": 3,
+                        "resource": "pencil",
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "sizeY": "18px",
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '#FFFF00',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "VO;COD_VER;000112",
+                        "p": "ICO",
+                        "t": "J4"
                     },
-                    value: '#FFFF00',
+                    "value": "pencil"
                 },
-                DICORE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "CDBASA": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "               ",
+                        "p": "",
+                        "t": "AR"
                     },
-                    value: '',
+                    "value": ""
                 },
-                'N§TEVE': {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "BDGORE": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '   ',
-                        p: 'P5D',
-                        t: 'TA',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "          120,00000 ",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "120"
                 },
-                DICPERC: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "DLTINI": {
+                    "data": {
+                        "size": 5,
+                        "helperEnabled": false,
+                        "maxLength": 5,
+                        "integers": 5
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '0',
+                    "value": ""
                 },
-                '§§KNO2': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+                "DATINI": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'G503      0001',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20230717",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: 'G503      0001',
+                    "value": "2023-07-17"
                 },
-                ORERES: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "DATFPO": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '160',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20230102",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '160',
+                    "value": "2023-01-02"
                 },
-                OREORD: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "STILE": {
+                    "data": {
+                        "size": 3,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '80',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": "**"
                     },
-                    value: '80',
+                    "value": ""
                 },
-                DESPMA: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 30,
+                "DESFAS": {
+                    "data": {
+                        "size": 35,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 35
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "FS - MESSA IN SERVIZIO MECC.2      ",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": "FS - MESSA IN SERVIZIO MECC.2      "
                 },
-                DATFIN: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "DATINZ": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '20221028',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20221121",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '2022-10-28',
+                    "value": "2022-11-21"
                 },
-                STIPER: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "NUMRIS": {
+                    "data": {
+                        "size": 5,
+                        "decimals": 2,
+                        "helperEnabled": false,
+                        "maxLength": 5,
+                        "integers": 5
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "0,92",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "0.92"
                 },
-                DTAFAB: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "DATUFF": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "00000000",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '',
+                    "value": ""
                 },
-                DIFPER: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "EDTDDT": {
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '100',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "30/06/23",
+                        "p": "",
+                        "t": "**"
                     },
-                    value: '100',
+                    "value": "30/06/23"
                 },
-                MODPIA: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "CODPMA": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "XDP",
+                        "t": "TA"
                     },
+                    "value": ""
                 },
-                BDGPERC: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "DATDIC": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '100',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "00000000",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '100',
+                    "value": ""
                 },
-                SPOINI: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "TPDTUF": {
+                    "data": {
+                        "size": 35,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 35
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "                                   ",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": ""
                 },
-                MESAUT: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 50,
+                "CODCOM": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 10,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 10
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "G456",
+                        "p": "MVE",
+                        "t": "DO"
                     },
-                    value: '',
+                    "value": "G456"
                 },
-                CODDIP: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
+                "GESNOT": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "sizeX": "18px",
+                        "size": 3,
+                        "resource": "content-copy",
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "sizeY": "18px",
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "VO;COD_VER;000113",
+                        "p": "ICO",
+                        "t": "J4"
                     },
-                    value: '',
+                    "value": "content-copy"
                 },
-                FASDIP: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
+                "§§AUTN": {
+                    "data": {
+                        "size": 1,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 1
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '                                   ',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": ""
                 },
-                CDBASA: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+                "COMPL": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "size": 1,
+                        "helperEnabled": false,
+                        "checked": false,
+                        "hiddenCounter": true,
+                        "maxLength": 1
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '               ',
-                        p: '',
-                        t: 'AR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "SI/NO",
+                        "t": "V2"
                     },
-                    value: '',
+                    "value": ""
                 },
-                BDGORE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "COLFAS": {
+                    "data": {
+                        "size": 10,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 10
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '160.00000',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "#70AD47",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '160',
+                    "value": "#70AD47"
                 },
-                DLTINI: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 5,
+                "DICPERC": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "maxLength": 6,
+                        "integers": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '-108',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "7",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '-108',
+                    "value": "7"
                 },
-                DATINI: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "OREORD": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '20221017',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "       160 ",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '2022-10-17',
+                    "value": "160"
                 },
-                DATFPO: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "§DICPERC": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '20221028',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "7%",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '2022-10-28',
+                    "value": "7%"
                 },
-                DTARIL: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "DESPMA": {
+                    "data": {
+                        "size": 30,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 30
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '        ',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": ""
                 },
-                CODFAS: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
+                "DATFIN": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'P710           ',
-                        p: '',
-                        t: 'OP',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20230804",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: 'P710           ',
+                    "value": "2023-08-04"
                 },
-                '£DICPERC': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "DTAFAB": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0%',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "00000000",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '0%',
+                    "value": ""
                 },
-                ICOAVA: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "DIFPER": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "maxLength": 6,
+                        "integers": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "7-",
+                        "p": "",
+                        "t": "NR"
                     },
+                    "value": "-7"
                 },
-                FASDDT: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "BDGPERC": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "maxLength": 6,
+                        "integers": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "0",
+                        "p": "",
+                        "t": "NR"
                     },
-                    value: '',
+                    "value": "0"
                 },
-                AGGSTI: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "SPOINI": {
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "10",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '',
+                    "value": "10"
                 },
-                STILE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "MESAUT": {
+                    "data": {
+                        "size": 50,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 50
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "NON AUTORIZZATO",
+                        "p": "",
+                        "t": "**"
                     },
-                    value: '',
+                    "value": "NON AUTORIZZATO"
                 },
-                DESFAS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
+                "CODDIP": {
+                    "data": {
+                        "size": 35,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 35
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'PROVA DI LAVORAZIONE               ',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "P410",
+                        "p": "",
+                        "t": ""
                     },
-                    value: 'PROVA DI LAVORAZIONE               ',
-                    displayedValue: 'PROVA DI LAVORAZIONE               ',
+                    "value": "P410"
                 },
-                DATINZ: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "FASDIP": {
+                    "data": {
+                        "size": 35,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 35
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '20221017',
-                        p: '*YYMD',
-                        t: 'D8',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "FS - MONTAGGIO MECCANICO           ",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '2022-10-17',
+                    "value": "FS - MONTAGGIO MECCANICO           "
                 },
-                '£BDGPERC': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
+                "DTARIL": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '100%',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "        ",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '100%',
+                    "value": ""
                 },
-                NUMRIS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 5,
+                "CODFAS": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 15,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 15
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '0.20',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "P611           ",
+                        "p": "",
+                        "t": "OP"
                     },
-                    value: '0.20',
+                    "value": "P611           "
                 },
-                DATUFF: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "ICOAVA": {
+                    "cssClass": "strong-text",
+                    "data": {
+                        "size": 3,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 3
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "ICO",
+                        "t": "J4"
+                    }
                 },
-                EDTDDT: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
+                "FASDDT": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "20230630",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '',
+                    "value": "2023-06-30"
                 },
-                'N§NREV': {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 9,
+                "AGGSTI": {
+                    "cssClass": " top-right-indicator",
+                    "data": {
+                        "size": 8,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 8
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '000000000',
-                        p: '   ',
-                        t: 'E3',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "00000000",
+                        "p": "*YYMD",
+                        "t": "D8"
                     },
-                    value: '000000000',
+                    "value": ""
                 },
-                BDGAVOG: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
+                "§BDGPERC": {
+                    "data": {
+                        "size": 6,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 6
                     },
-                    isEditable: false,
-                    obj: {
-                        k: '80',
-                        p: '',
-                        t: 'NR',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "0%",
+                        "p": "",
+                        "t": ""
                     },
-                    value: '80',
+                    "value": "0%"
                 },
-                STYAVA: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
+                "N§NREV": {
+                    "cssClass": "strong-text top-right-indicator",
+                    "data": {
+                        "size": 9,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 9
                     },
-                    isEditable: false,
-                    obj: {
-                        k: 'RED',
-                        p: '',
-                        t: '',
+                    "isEditable": false,
+                    "obj": {
+                        "k": "000000000",
+                        "p": "[Nï¿½TEVE]",
+                        "t": "E3"
                     },
-                    value: 'RED',
+                    "value": "000000000"
                 },
+                "BDGAVOG": {
+                    "data": {
+                        "size": 13,
+                        "helperEnabled": false,
+                        "maxLength": 13,
+                        "integers": 13
+                    },
+                    "isEditable": false,
+                    "obj": {
+                        "k": "       ",
+                        "p": "",
+                        "t": "NR"
+                    },
+                    "value": ""
+                },
+                "STYAVA": {
+                    "data": {
+                        "size": 3,
+                        "helperEnabled": false,
+                        "hiddenCounter": true,
+                        "maxLength": 3
+                    },
+                    "isEditable": false,
+                    "obj": {
+                        "k": "",
+                        "p": "",
+                        "t": ""
+                    },
+                    "value": ""
+                }
             },
-            id: '4',
-            object: '',
-            readOnly: true,
-        },
-        {
-            cells: {
-                CODPMA: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'XDP',
-                        t: 'TA',
-                    },
-                    value: '',
-                },
-                DATDIC: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                DIFGIO: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 7,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '5',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '5',
-                },
-                TPDTUF: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '                                   ',
-                        p: '',
-                        t: '',
-                    },
-                    value: '',
-                },
-                CODCOM: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 10,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: 'G503',
-                        p: 'MVE',
-                        t: 'DO',
-                    },
-                    value: 'G503',
-                },
-                GESNOT: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
-                    },
-                },
-                '§§AUTN': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 1,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
-                    },
-                    value: '',
-                },
-                COMPL: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        checked: false,
-                        maxLength: 1,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'SI/NO',
-                        t: 'V2',
-                    },
-                    value: '',
-                },
-                '§§KNO1': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '#BDD7EE',
-                        p: '',
-                        t: '',
-                    },
-                    value: '#BDD7EE',
-                },
-                COLFAS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 10,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '#BDD7EE',
-                        p: '',
-                        t: '',
-                    },
-                    value: '#BDD7EE',
-                },
-                DICORE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '',
-                },
-                'N§TEVE': {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '   ',
-                        p: 'P5D',
-                        t: 'TA',
-                    },
-                    value: '',
-                },
-                DICPERC: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '0',
-                },
-                '§§KNO2': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: 'G503      0001',
-                        p: '',
-                        t: '',
-                    },
-                    value: 'G503      0001',
-                },
-                ORERES: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '40',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '40',
-                },
-                OREORD: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '40',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '40',
-                },
-                DESPMA: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 30,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
-                    },
-                    value: '',
-                },
-                DATFIN: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '20221021',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '2022-10-21',
-                },
-                STIPER: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '',
-                },
-                DTAFAB: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                DIFPER: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '100',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '100',
-                },
-                MODPIA: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
-                    },
-                },
-                BDGPERC: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '100',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '100',
-                },
-                SPOINI: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
-                    },
-                    value: '',
-                },
-                MESAUT: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 50,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
-                    },
-                    value: '',
-                },
-                CODDIP: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
-                    },
-                    value: '',
-                },
-                FASDIP: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '                                   ',
-                        p: '',
-                        t: '',
-                    },
-                    value: '',
-                },
-                CDBASA: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '               ',
-                        p: '',
-                        t: 'AR',
-                    },
-                    value: '',
-                },
-                BDGORE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '40.00000',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '40',
-                },
-                DLTINI: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 5,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '-108',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '-108',
-                },
-                DATINI: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '20221017',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '2022-10-17',
-                },
-                DATFPO: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '20221021',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '2022-10-21',
-                },
-                DTARIL: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '        ',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                CODFAS: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: 'P720           ',
-                        p: '',
-                        t: 'OP',
-                    },
-                    value: 'P720           ',
-                },
-                '£DICPERC': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '0%',
-                        p: '',
-                        t: '',
-                    },
-                    value: '0%',
-                },
-                ICOAVA: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
-                    },
-                },
-                FASDDT: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                AGGSTI: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                STILE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
-                    },
-                    value: '',
-                },
-                DESFAS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: 'COLLAUDO CLIENTE                   ',
-                        p: '',
-                        t: '',
-                    },
-                    value: 'COLLAUDO CLIENTE                   ',
-                    displayedValue: 'COLLAUDO CLIENTE                   ',
-                },
-                DATINZ: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '20221017',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '2022-10-17',
-                },
-                '£BDGPERC': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '100%',
-                        p: '',
-                        t: '',
-                    },
-                    value: '100%',
-                },
-                NUMRIS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 5,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '0.04',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '0.04',
-                },
-                DATUFF: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                EDTDDT: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
-                    },
-                    value: '',
-                },
-                'N§NREV': {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 9,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '000000000',
-                        p: '   ',
-                        t: 'E3',
-                    },
-                    value: '000000000',
-                },
-                BDGAVOG: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '40',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '40',
-                },
-                STYAVA: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: 'RED',
-                        p: '',
-                        t: '',
-                    },
-                    value: 'RED',
-                },
-            },
-            id: '5',
-            object: '',
-            readOnly: true,
-        },
-        {
-            cells: {
-                CODPMA: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'XDP',
-                        t: 'TA',
-                    },
-                    value: '',
-                },
-                DATDIC: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                DIFGIO: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 7,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '6',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '6',
-                },
-                TPDTUF: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '                                   ',
-                        p: '',
-                        t: '',
-                    },
-                    value: '',
-                },
-                CODCOM: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 10,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: 'G503',
-                        p: 'MVE',
-                        t: 'DO',
-                    },
-                    value: 'G503',
-                },
-                GESNOT: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
-                    },
-                },
-                '§§AUTN': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 1,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
-                    },
-                    value: '',
-                },
-                COMPL: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        checked: false,
-                        maxLength: 1,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'SI/NO',
-                        t: 'V2',
-                    },
-                    value: '',
-                },
-                '§§KNO1': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '#F8CBAD',
-                        p: '',
-                        t: '',
-                    },
-                    value: '#F8CBAD',
-                },
-                COLFAS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 10,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '#F8CBAD',
-                        p: '',
-                        t: '',
-                    },
-                    value: '#F8CBAD',
-                },
-                DICORE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '',
-                },
-                'N§TEVE': {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '   ',
-                        p: 'P5D',
-                        t: 'TA',
-                    },
-                    value: '',
-                },
-                DICPERC: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '0',
-                },
-                '§§KNO2': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: 'G503      0001',
-                        p: '',
-                        t: '',
-                    },
-                    value: 'G503      0001',
-                },
-                ORERES: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '200',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '200',
-                },
-                OREORD: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '160',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '160',
-                },
-                DESPMA: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 30,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
-                    },
-                    value: '',
-                },
-                DATFIN: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '20221027',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '2022-10-27',
-                },
-                STIPER: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '',
-                },
-                DTAFAB: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                DIFPER: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '100',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '100',
-                },
-                MODPIA: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
-                    },
-                },
-                BDGPERC: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '100',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '100',
-                },
-                SPOINI: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '3',
-                        p: '',
-                        t: '',
-                    },
-                    value: '3',
-                },
-                MESAUT: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 50,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
-                    },
-                    value: '',
-                },
-                CODDIP: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
-                    },
-                    value: '',
-                },
-                FASDIP: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '                                   ',
-                        p: '',
-                        t: '',
-                    },
-                    value: '',
-                },
-                CDBASA: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '               ',
-                        p: '',
-                        t: 'AR',
-                    },
-                    value: '',
-                },
-                BDGORE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '200.00000',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '200',
-                },
-                DLTINI: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 5,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '-105',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '-105',
-                },
-                DATINI: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '20221020',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '2022-10-20',
-                },
-                DATFPO: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '20221027',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '2022-10-27',
-                },
-                DTARIL: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '        ',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                CODFAS: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: 'P730           ',
-                        p: '',
-                        t: 'OP',
-                    },
-                    value: 'P730           ',
-                },
-                '£DICPERC': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '0%',
-                        p: '',
-                        t: '',
-                    },
-                    value: '0%',
-                },
-                ICOAVA: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
-                    },
-                },
-                FASDDT: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                AGGSTI: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                STILE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
-                    },
-                    value: '',
-                },
-                DESFAS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: 'SPEDIZIONE                         ',
-                        p: '',
-                        t: '',
-                    },
-                    value: 'SPEDIZIONE                         ',
-                    displayedValue: 'SPEDIZIONE                         ',
-                },
-                DATINZ: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '20221020',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '2022-10-20',
-                },
-                '£BDGPERC': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '100%',
-                        p: '',
-                        t: '',
-                    },
-                    value: '100%',
-                },
-                NUMRIS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 5,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '0.25',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '0.25',
-                },
-                DATUFF: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                EDTDDT: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
-                    },
-                    value: '',
-                },
-                'N§NREV': {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 9,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '000000000',
-                        p: '   ',
-                        t: 'E3',
-                    },
-                    value: '000000000',
-                },
-                BDGAVOG: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '160',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '160',
-                },
-                STYAVA: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: 'RED',
-                        p: '',
-                        t: '',
-                    },
-                    value: 'RED',
-                },
-            },
-            id: '6',
-            object: '',
-            readOnly: true,
-        },
-        {
-            cells: {
-                CODPMA: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'XDP',
-                        t: 'TA',
-                    },
-                    value: '',
-                },
-                DATDIC: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                DIFGIO: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 7,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '16',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '16',
-                },
-                TPDTUF: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '                                   ',
-                        p: '',
-                        t: '',
-                    },
-                    value: '',
-                },
-                CODCOM: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 10,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: 'G503',
-                        p: 'MVE',
-                        t: 'DO',
-                    },
-                    value: 'G503',
-                },
-                GESNOT: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
-                    },
-                },
-                '§§AUTN': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 1,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
-                    },
-                    value: '',
-                },
-                COMPL: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        checked: false,
-                        maxLength: 1,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'SI/NO',
-                        t: 'V2',
-                    },
-                    value: '',
-                },
-                '§§KNO1': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '#7030A0',
-                        p: '',
-                        t: '',
-                    },
-                    value: '#7030A0',
-                },
-                COLFAS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 10,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '#7030A0',
-                        p: '',
-                        t: '',
-                    },
-                    value: '#7030A0',
-                },
-                DICORE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '',
-                },
-                'N§TEVE': {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '   ',
-                        p: 'P5D',
-                        t: 'TA',
-                    },
-                    value: '',
-                },
-                DICPERC: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '0',
-                },
-                '§§KNO2': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: 'G503      0001',
-                        p: '',
-                        t: '',
-                    },
-                    value: 'G503      0001',
-                },
-                ORERES: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '320',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '320',
-                },
-                OREORD: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '320',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '320',
-                },
-                DESPMA: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 30,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
-                    },
-                    value: '',
-                },
-                DATFIN: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '20221107',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '2022-11-07',
-                },
-                STIPER: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '0',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '',
-                },
-                DTAFAB: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                DIFPER: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '100',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '100',
-                },
-                MODPIA: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
-                    },
-                },
-                BDGPERC: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '100',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '100',
-                },
-                SPOINI: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
-                    },
-                    value: '',
-                },
-                MESAUT: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 50,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
-                    },
-                    value: '',
-                },
-                CODDIP: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '',
-                    },
-                    value: '',
-                },
-                FASDIP: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '                                   ',
-                        p: '',
-                        t: '',
-                    },
-                    value: '',
-                },
-                CDBASA: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '               ',
-                        p: '',
-                        t: 'AR',
-                    },
-                    value: '',
-                },
-                BDGORE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '320.00000',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '320',
-                },
-                DLTINI: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 5,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '-108',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '-108',
-                },
-                DATINI: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '20221017',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '2022-10-17',
-                },
-                DATFPO: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '20221107',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '2022-11-07',
-                },
-                DTARIL: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '        ',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                CODFAS: {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 15,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: 'P750           ',
-                        p: '',
-                        t: 'OP',
-                    },
-                    value: 'P750           ',
-                },
-                '£DICPERC': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '0%',
-                        p: '',
-                        t: '',
-                    },
-                    value: '0%',
-                },
-                ICOAVA: {
-                    cssClass: 'strong-text',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: 'ICO',
-                        t: 'J4',
-                    },
-                },
-                FASDDT: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                AGGSTI: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                STILE: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
-                    },
-                    value: '',
-                },
-                DESFAS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 35,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: 'INSTALLAZIONE                      ',
-                        p: '',
-                        t: '',
-                    },
-                    value: 'INSTALLAZIONE                      ',
-                    displayedValue: 'INSTALLAZIONE                      ',
-                },
-                DATINZ: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '20221017',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '2022-10-17',
-                },
-                '£BDGPERC': {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 6,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '100%',
-                        p: '',
-                        t: '',
-                    },
-                    value: '100%',
-                },
-                NUMRIS: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 5,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '0.43',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '0.43',
-                },
-                DATUFF: {
-                    cssClass: ' top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '00000000',
-                        p: '*YYMD',
-                        t: 'D8',
-                    },
-                    value: '',
-                },
-                EDTDDT: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 8,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '',
-                        p: '',
-                        t: '**',
-                    },
-                    value: '',
-                },
-                'N§NREV': {
-                    cssClass: 'strong-text top-right-indicator',
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 9,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '000000000',
-                        p: '   ',
-                        t: 'E3',
-                    },
-                    value: '000000000',
-                },
-                BDGAVOG: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 13,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: '320',
-                        p: '',
-                        t: 'NR',
-                    },
-                    value: '320',
-                },
-                STYAVA: {
-                    data: {
-                        helperEnabled: false,
-                        maxLength: 3,
-                    },
-                    isEditable: false,
-                    obj: {
-                        k: 'RED',
-                        p: '',
-                        t: '',
-                    },
-                    value: 'RED',
-                },
-            },
-            id: '7',
-            object: '',
-            readOnly: true,
-        },
-    ],
+            "id": "4",
+            "object": "",
+            "readOnly": true
+        }
+    ]
 };
 
 function dummyFilter() {
