@@ -168,6 +168,10 @@ export default {
               id: 'kup-paginator',
             },
             {
+              value: 'kup-planner',
+              id: 'kup-planner',
+            },
+            {
               value: 'kup-progress-bar',
               id: 'kup-progress-bar',
             },
