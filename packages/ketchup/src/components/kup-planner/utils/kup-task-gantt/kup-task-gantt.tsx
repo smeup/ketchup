@@ -50,11 +50,13 @@ export class TaskGantt {
     /*-------------------------------------------------*/
 
     @Watch('scrollX')
+    @Watch('verticalGanttContainerRef')
     updateScrollX() {
         this.verticalGanttContainerRef && (this.verticalGanttContainerRef.scrollLeft = this.scrollX)
     }
 
     @Watch('scrollY')
+    @Watch('horizontalContainerRef')
     updateScrollY() {
         this.horizontalContainerRef && (this.horizontalContainerRef.scrollTop = this.scrollY)
     }
@@ -66,6 +68,13 @@ export class TaskGantt {
     handleVerticalScroll = (event: Event) => {
         this.scrollY = (event.target as HTMLDivElement).scrollTop;
     };
+
+    //---- Lifecycle hooks ----
+
+    componentDidLoad() {
+        this.updateScrollX()
+        this.updateScrollY()
+    }
 
     render() {
         const newBarProps = { ...this.barProps, gridProps: this.gridProps };

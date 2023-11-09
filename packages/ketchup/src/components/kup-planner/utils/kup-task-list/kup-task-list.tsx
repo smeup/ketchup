@@ -177,7 +177,7 @@ export class TaskList {
                 }
                 <div
                     class={this.horizontalContainerClass}
-                    style={{ height: this.ganttHeight + 'px' }}
+                    style={this.ganttHeight ? { height: this.ganttHeight + 'px' } : {}}
                     ref={el => (this.horizontalContainerRef = el)}
                 >
                     {

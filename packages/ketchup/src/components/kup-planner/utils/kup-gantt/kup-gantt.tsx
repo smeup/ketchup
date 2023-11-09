@@ -707,7 +707,7 @@ export class KupGantt {
         const currentTarget = event.currentTarget as HTMLDivElement;
         if (
             this.scrollX !== currentTarget.scrollLeft
-            //&& !this.ignoreScrollEvent
+            && !this.ignoreScrollEvent
         ) {
             this.scrollX = currentTarget.scrollLeft;
             this.ignoreScrollEvent = true;
@@ -930,8 +930,8 @@ export class KupGantt {
                             svgContainerWidth={this.svgContainerWidth}
                             fontFamily={this.fontFamily}
                             fontSize={this.fontSize}
-                            scrollX={scrollX}
-                            scrollY={scrollY}
+                            scrollX={this.scrollX}
+                            scrollY={this.scrollY}
                             task={this.ganttEvent.changedTask}
                             headerHeight={this.headerHeight}
                             taskListWidth={this.taskListWidth}
