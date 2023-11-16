@@ -170,10 +170,10 @@ export class KupGantt {
     displayedEndDate: KupPlannerGanttProps['displayedEndDate'];
 
     @Prop()
-    initialScrollX: KupPlannerGanttProps['initialScrollX'];
+    initialScrollX: KupPlannerGanttProps['initialScrollX'] = -1;
 
     @Prop()
-    initialScrollY: KupPlannerGanttProps['initialScrollY'] = -1;
+    initialScrollY: KupPlannerGanttProps['initialScrollY'] = 0;
 
     @Prop()
     readOnly: KupPlannerGanttProps['readOnly'];

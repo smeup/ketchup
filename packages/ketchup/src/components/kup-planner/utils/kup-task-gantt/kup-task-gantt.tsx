@@ -27,10 +27,10 @@ export class TaskGantt {
     ganttHeight: KupPlannerTaskGanttProps['ganttHeight'];
 
     @Prop({ mutable: true })
-    scrollY: KupPlannerTaskGanttProps['scrollY'] = 0;
+    scrollY: KupPlannerTaskGanttProps['scrollY'];
 
     @Prop({ mutable: true })
-    scrollX: KupPlannerTaskGanttProps['scrollX'] = 0;
+    scrollX: KupPlannerTaskGanttProps['scrollX'];
 
 
     /**
@@ -52,13 +52,17 @@ export class TaskGantt {
     @Watch('scrollX')
     @Watch('verticalGanttContainerRef')
     updateScrollX() {
-        this.verticalGanttContainerRef && (this.verticalGanttContainerRef.scrollLeft = this.scrollX)
+        setTimeout(() => {
+            this.verticalGanttContainerRef && (this.verticalGanttContainerRef.scrollLeft = this.scrollX)
+        }, 30);
     }
 
     @Watch('scrollY')
     @Watch('horizontalContainerRef')
     updateScrollY() {
-        this.horizontalContainerRef && (this.horizontalContainerRef.scrollTop = this.scrollY)
+        setTimeout(() => {
+            this.horizontalContainerRef && (this.horizontalContainerRef.scrollTop = this.scrollY)
+        }, 30);
     }
 
     handleHorizontalScroll = (event: Event) => {
