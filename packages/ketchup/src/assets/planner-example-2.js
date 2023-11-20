@@ -522,7 +522,9 @@ const props = {
     "taskIdCol": "R§DELI",
     "taskNameCol": "R£DESC",
     "taskPrevDates": [],
-    "titleMess": ""
+    "titleMess": "",
+    "taskHeight": 100,
+    "detailHeight": 70,
 };
 
 if (props) {
@@ -534,7 +536,7 @@ if (props) {
 function onclick(event) {
     console.log('planner.js onclick', event.detail.taskAction);
     if (event.detail.taskAction == 'onTaskOpening') {
-        comp.addPhases('G503', phases);
+        comp.addPhases('NW3000180', phases);
     }
 }
 
