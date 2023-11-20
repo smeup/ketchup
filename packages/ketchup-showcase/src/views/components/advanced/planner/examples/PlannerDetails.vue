@@ -30,6 +30,8 @@
             :taskNameCol.prop="plannerProps.taskNameCol"
             :taskPrevDates.prop="plannerProps.taskPrevDates"
             :titleMess.prop="plannerProps.titleMess"
+            :taskHeight.prop="plannerProps.taskHeight"
+            :detailHeight.prop="plannerProps.detailHeight"
           />
         </div>
       </div>
@@ -7919,6 +7921,8 @@ export default {
         taskNameCol: 'R£COMM',
         taskPrevDates: [],
         titleMess: '',
+        taskHeight: 100,
+        detailHeight: 70,
       },
     };
   },

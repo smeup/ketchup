@@ -38,7 +38,12 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-planner',
       headtitle: 'Planner',
-      titles: ['Playground', 'Basic Usage', 'With phases', 'With details'],
+      titles: [
+        'Playground',
+        'Basic Usage',
+        'With phases',
+        'With details & height set',
+      ],
     };
   },
   title: 'Ketchup | Planner',
