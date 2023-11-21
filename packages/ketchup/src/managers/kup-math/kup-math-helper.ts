@@ -32,7 +32,7 @@ export function customFormula(
         dom.ketchup.debug.logMessage(
             'kup-data',
             'Error while evaluating the following formula!(' + formula + ')',
-            KupDebugCategory.ERROR
+            KupDebugCategory.WARNING
         );
         return NaN;
     }

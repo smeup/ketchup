@@ -10,9 +10,19 @@
 | `columnsNumber` | `columns-number` | Sets the number of columns.                              | `number`          | `1`     |
 | `customStyle`   | `custom-style`   | Custom style of the component.                           | `string`          | `''`    |
 | `data`          | --               | Actual data of the component.                            | `KupCardListData` | `null`  |
+| `decvalueCol`   | `decvalue-col`   | Sets the decimal value column.                           | `string`          | `''`    |
+| `descrCol`      | `descr-col`      | Sets the description column.                             | `string`          | `''`    |
 | `fullWidth`     | `full-width`     | Sets whether the component occupies all available width. | `boolean`         | `true`  |
 | `horizontal`    | `horizontal`     | Sets whether the cards are placed horizontally or not.   | `boolean`         | `false` |
+| `iconCol`       | `icon-col`       | Sets the icon column.                                    | `string`          | `''`    |
+| `iconcolorCol`  | `iconcolor-col`  | Sets the icon color column.                              | `string`          | `''`    |
+| `intvalueCol`   | `intvalue-col`   | Sets the integer value column.                           | `string`          | `''`    |
 | `isClickable`   | `is-clickable`   | Sets whether a single card is clickable or not.          | `boolean`         | `false` |
+| `layoutCol`     | `layout-col`     | Sets the layout column.                                  | `string`          | `''`    |
+| `measureCol`    | `measure-col`    | Sets the unit of measure column.                         | `string`          | `''`    |
+| `textcolorCol`  | `textcolor-col`  | Sets the text color column.                              | `string`          | `''`    |
+| `valueCol`      | `value-col`      | Sets the value column.                                   | `string`          | `''`    |
+| `valuecolorCol` | `valuecolor-col` | Sets the value color column.                             | `string`          | `''`    |
 
 
 ## Events
@@ -91,7 +101,6 @@ graph TD;
   kup-card --> kup-gauge
   kup-card --> kup-progress-bar
   kup-card --> kup-badge
-  kup-card --> kup-card
   kup-card --> kup-button
   kup-card --> kup-list
   kup-card --> kup-checkbox
@@ -101,6 +110,7 @@ graph TD;
   kup-card --> kup-tree
   kup-card --> kup-switch
   kup-card --> kup-dropdown-button
+  kup-card --> kup-card
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-list --> kup-list
