@@ -12,35 +12,25 @@ export enum KupCardListProps {
     columnsNumber = 'Sets the number of columns.',
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the component.',
+    decvalueCol = 'Sets the decimal value column.',
+    descrCol = 'Sets the description column.',
     fullWidth = 'Sets whether the component occupies all available width.',
     horizontal = 'Sets whether the cards are placed horizontally or not.',
+    iconCol = 'Sets the icon column.',
+    iconcolorCol = 'Sets the icon color column.',
+    intvalueCol = 'Sets the integer value column.',
     isClickable = 'Sets whether a single card is clickable or not.',
-}
-/**
- * Available column options.
- */
-export type KupCardListOptions =
-    | 'descr'
-    | 'icon'
-    | 'value'
-    | 'measure'
-    | 'intvalue'
-    | 'decvalue'
-    | 'textcolor'
-    | 'valuecolor'
-    | 'iconcolor'
-    | 'layout';
-/**
- * Card list column.
- */
-export interface KupCardListColumn extends KupDataColumn {
-    cardListOption?: KupCardListOptions;
+    layoutCol = 'Sets the layout column.',
+    measureCol = 'Sets the unit of measure column.',
+    textcolorCol = 'Sets the text color column.',
+    valueCol = 'Sets the value column.',
+    valuecolorCol = 'Sets the value color column.',
 }
 /**
  * Dataset of the card list.
  */
 export interface KupCardListData {
-    columns: KupCardListColumn[];
+    columns: KupDataColumn[];
     rows: KupDataRow[];
 }
 

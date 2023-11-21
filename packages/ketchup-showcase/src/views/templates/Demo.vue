@@ -723,7 +723,7 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.ENUM,
   },
-  KupRadioData: {
+  FRadioData: {
     keys: {
       value: 'string',
       label: 'string',

@@ -3,17 +3,14 @@ const data = {
         {
             name: 'ICO',
             title: 'Icona',
-            cardListOption: 'icon',
         },
         {
             name: 'UM',
             title: 'Um',
-            cardListOption: 'measure',
         },
         {
             name: 'TEXT',
             title: 'Testo',
-            cardListOption: 'descr',
         },
         {
             name: 'VALUE',
@@ -23,32 +20,26 @@ const data = {
         {
             name: 'INTVAL',
             title: 'Valore parte intera',
-            cardListOption: 'intvalue',
         },
         {
             name: 'DECVAL',
             title: 'Valore parte decimale',
-            cardListOption: 'decvalue',
         },
         {
             name: 'TEXTCOLOR',
             title: 'Colore del testo',
-            cardListOption: 'textcolor',
         },
         {
             name: 'VALUECOLOR',
             title: 'Colore del valore',
-            cardListOption: 'valuecolor',
         },
         {
             name: 'ICOCOLOR',
             title: "Colore dell'icona",
-            cardListOption: 'iconcolor',
         },
         {
             name: 'LAYOUT',
             title: 'Layout della riga',
-            cardListOption: 'layout',
         },
     ],
     rows: [
@@ -705,5 +696,17 @@ const data = {
 };
 
 const list = document.createElement('kup-card-list');
+
 list.data = data;
+list.decvalueCol = 'DECVAL';
+list.descrCol = 'TEXT';
+list.iconCol = 'ICO';
+list.iconcolorCol = 'ICOCOLOR';
+list.intvalueCol = 'INTVAL';
+list.layoutCol = 'LAYOUT';
+list.measureCol = 'UM';
+list.textcolorCol = 'TEXTCOLOR';
+list.valueCol = 'VALUE';
+list.valuecolorCol = 'VALUECOLOR';
+
 document.body.appendChild(list);
