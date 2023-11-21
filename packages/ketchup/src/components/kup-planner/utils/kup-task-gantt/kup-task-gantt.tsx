@@ -65,14 +65,6 @@ export class TaskGantt {
         }, 30);
     }
 
-    handleHorizontalScroll = (event: Event) => {
-        this.scrollX = (event.target as HTMLDivElement).scrollLeft;
-    };
-
-    handleVerticalScroll = (event: Event) => {
-        this.scrollY = (event.target as HTMLDivElement).scrollTop;
-    };
-
     //---- Lifecycle hooks ----
 
     componentDidLoad() {
@@ -109,7 +101,6 @@ export class TaskGantt {
                             ? { height: `${this.ganttHeight}px`, width: `${this.gridProps.svgWidth}px` }
                             : { width: `${this.gridProps.svgWidth}px` }
                     }
-                    onScroll={this.handleHorizontalScroll.bind(this)}
                 >
                     <kup-grid-renderer {...newBarProps} />
                 </div>
