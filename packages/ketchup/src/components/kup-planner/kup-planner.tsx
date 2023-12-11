@@ -496,7 +496,6 @@ export class KupPlanner {
 
     #kupManager: KupManager = kupManagerInstance();
     #lastOnChangeReceived: KupPlannerLastOnChangeReceived;
-    #rootPlanner;
     #clickTimeout: ReturnType<typeof setTimeout>[] = [];
     #phases: GenericObject = {};
     // no re-render
@@ -813,21 +812,21 @@ export class KupPlanner {
 
     /**
      * @param nativeEvent
-     * @returns true if caller must call onKupClick
+     * @returns true if caller must call onKupDblClick
      */
     #handleOnDblClickOnTask(): boolean {
         return true;
     }
 
     /**
-     * @returns true if caller must call onKupClick
+     * @returns true if caller must call onKupDblClick
      */
     #handleOnDblClickOnPhase(): boolean {
         return true;
     }
 
     /**
-     * @returns true if caller must call onKupClick
+     * @returns true if caller must call onKupDblClick
      */
     #handleOnDblClickOnDetail(): boolean {
         return true;

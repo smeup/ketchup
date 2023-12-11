@@ -233,7 +233,7 @@ export class KupGantt {
     handleClick: (row: KupPlannerGanttRow, onClick: any) => void;
 
     @Prop()
-    handleDblClick: (row: KupPlannerGanttRow, onClick: any) => void;
+    handleDblClick: (row: KupPlannerGanttRow, onDblClick: any) => void;
 
     @Prop()
     handleContextMenu: (
