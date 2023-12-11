@@ -62,6 +62,7 @@ export enum KupPlannerTaskAction {
     onTaskOpening = 'onTaskOpening',
     onTaskClosing = 'onTaskClosing',
     onClick = 'onClick',
+    onDblClick = 'onDblClick',
     onResize = 'onResize',
     onRightClick = 'onRightClick',
 }
@@ -341,6 +342,10 @@ export interface KupPlannerEventOption {
      * Invokes on bar click.
      */
     barClick?: (task: KupPlannerTask) => void;
+    /**
+     * Invokes on bar dbl click.
+     */
+    barDblClick?: (task: KupPlannerTask) => void;
     /**
      * Invokes on bar context menu click.
      */
@@ -683,6 +688,7 @@ export interface KupGanttPlannerProps {
     /** Events */
     onDateChange?: (row: KupPlannerGanttRow) => void;
     onClick?: (row: KupPlannerGanttRow) => void;
+    onDblClick?: (row: KupPlannerGanttRow) => void;
     onContextMenu?: (event: MouseEvent, row: KupPlannerGanttRow) => void;
     onScrollY?: (y: number) => void;
 }
@@ -705,6 +711,7 @@ export interface KupGanttPlannerDetailsProps {
     /** Events */
     onDateChange?: (row: KupPlannerGanttRow) => void;
     onClick?: (row: KupPlannerGanttRow) => void;
+    onDblClick?: (row: KupPlannerGanttRow) => void;
     onContextMenu?: (event: MouseEvent, row: KupPlannerGanttRow) => void;
     onScrollY?: (y: number) => void;
 }

@@ -221,6 +221,9 @@ export class KupGantt {
     barClick: KupPlannerGanttProps['barClick'];
 
     @Prop()
+    barDblClick: KupPlannerGanttProps['barDblClick'];
+
+    @Prop()
     dateChange: KupPlannerGanttProps['dateChange'];
 
     @Prop()
@@ -228,6 +231,9 @@ export class KupGantt {
 
     @Prop()
     handleClick: (row: KupPlannerGanttRow, onClick: any) => void;
+
+    @Prop()
+    handleDblClick: (row: KupPlannerGanttRow, onClick: any) => void;
 
     @Prop()
     handleContextMenu: (
@@ -238,6 +244,9 @@ export class KupGantt {
 
     @Prop()
     ganttOnClick: KupGanttPlannerProps['onClick'];
+
+    @Prop()
+    ganttOnDblClick: KupGanttPlannerProps['onDblClick'];
 
     @Prop()
     ganttonOnContextMenu: KupGanttPlannerProps['onContextMenu'];
@@ -924,6 +933,7 @@ export class KupGantt {
             progressChange: this.progressChange,
             doubleClick: this.doubleClick,
             barClick: this.barClick,
+            barDblClick: this.barDblClick,
             barContextMenu: this.barContextMenu,
             delete: this.delete,
         };
@@ -960,8 +970,10 @@ export class KupGantt {
                         <kup-task-list
                             currentTasks={this.currentTasks}
                             handleClick={this.handleClick}
+                            handleDblClick={this.handleDblClick}
                             handleContextMenu={this.handleContextMenu}
                             ganttOnClick={this.ganttOnClick}
+                            ganttOnDblClick={this.ganttOnDblClick}
                             ganttonOnContextMenu={this.ganttonOnContextMenu}
                             label={this.label}
                             doubleView={this.doubleView}

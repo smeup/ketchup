@@ -78,6 +78,9 @@ export class TaskList {
     handleClick: (row: KupPlannerGanttRow, onClick: any) => void;
 
     @Prop()
+    handleDblClick: (row: KupPlannerGanttRow, onDblClick: any) => void;
+
+    @Prop()
     handleContextMenu: (
         event: MouseEvent,
         row: KupPlannerGanttRow,
@@ -86,6 +89,9 @@ export class TaskList {
 
     @Prop()
     ganttOnClick: KupGanttPlannerProps['onClick'];
+
+    @Prop()
+    ganttOnDblClick: KupGanttPlannerProps['onDblClick'];
 
     @Prop()
     ganttonOnContextMenu: KupGanttPlannerProps['onContextMenu'];
@@ -97,7 +103,7 @@ export class TaskList {
     expanderClick: KupPlannerTaskListProps['expanderClick'];
 
     /**
-     * References the root HTML element of the component (<kup-task-liss>).
+     * References the root HTML element of the component (<kup-task-list>).
      */
 
     @Element() element: HTMLElement;
@@ -201,6 +207,18 @@ export class TaskList {
                                 }
                                 if (row) {
                                     this.handleClick(row, this.ganttOnClick);
+                                }
+                            }}
+                            ondblclickTaskList={(id) => {
+                                let row = getProjectById(id, this.currentTasks);
+                                if (!row) {
+                                    row = getPhaseById(id, this.currentTasks);
+                                }
+                                if (row) {
+                                    this.handleDblClick(
+                                        row,
+                                        this.ganttOnDblClick
+                                    );
                                 }
                             }}
                             oncontextmenuTaskList={(event, id) => {

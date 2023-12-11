@@ -13,6 +13,7 @@
 | `arrowIndent`          | `arrow-indent`         |             | `number`                                                                                                                                  | `0`         |
 | `barClick`             | --                     |             | `(task: KupPlannerTask) => void`                                                                                                          | `undefined` |
 | `barContextMenu`       | --                     |             | `(event: UIEvent, task: KupPlannerTask) => void`                                                                                          | `undefined` |
+| `barDblClick`          | --                     |             | `(task: KupPlannerTask) => void`                                                                                                          | `undefined` |
 | `columnWidth`          | `column-width`         |             | `number`                                                                                                                                  | `0`         |
 | `currentDateIndicator` | --                     |             | `KupPlannerCurrentDateIndicator`                                                                                                          | `undefined` |
 | `dateChange`           | --                     |             | `(task: KupPlannerTask, children: KupPlannerTask[]) => boolean \| void \| Promise<boolean> \| Promise<void>`                              | `undefined` |
