@@ -35,9 +35,7 @@
         "test:speccov": "rimraf target && npm run build:setup && stencil test --spec --coverage",
         "test:e2e": "npm run build:setup && stencil test --e2e",
         "test": "npm run build:setup && stencil test --spec --e2e",
-        "test.watch": "npm run build:setup && stencil test --spec --e2e --watchAll",
-        "react:dev": "npx link ../../../gantt-component && cd ../../../gantt-component && npx link ../ketchup/packages/ketchup/node_modules/react ../ketchup/packages/ketchup/node_modules/react-dom && cd ../ketchup/packages/ketchup",
-        "jenkins:react:dev": "npx link ../../../GanttComponent-Develop-Continuum && cd ../../../GanttComponent-Develop-Continuum && npx link ../KetchUP-Develop-Continuum/packages/ketchup/node_modules/react ../KetchUP-Develop-Continuum/packages/ketchup/node_modules/react-dom && cd ../KetchUP-Develop-Continuum/packages/ketchup"
+        "test.watch": "npm run build:setup && stencil test --spec --e2e --watchAll"
     },
     "dependencies": {
         "@fullcalendar/core": "^6.1.8",
