@@ -753,4 +753,41 @@ export class KupDates {
             );
         }
     }
+    /**
+     * Formats a JS Date Object to ISO String
+     *
+     * @param {Date} date - The date to be formatted to ISO.
+     */
+    formatToIsoDate = (date: Date) => {
+        return dayjs(date).toISOString() ?? undefined;
+    };
+
+    /**
+     * Parses a Date string to JS Date Object
+     *
+     * @param {string} ymd - The string to be converted to Date.
+    */
+    parseToDayStart = (ymd: string) => dayjs(ymd).toDate();
+
+    parseToDayEnd = (endDate: string) =>
+        dayjs(endDate).add(23, 'hour').add(59, 'minute').add(59, 'second').toDate();
+
+    /**
+     * Returns Start and end date of given dates
+     *
+     * @param {string} startDate - The start date string.
+     * @param {string} endDate - The end date string.
+     * @param {string} _name
+    */
+    validDates = (startDate: string, endDate: string, _name: string) => {
+        let start = this.parseToDayStart(startDate);
+        const end = this.parseToDayEnd(endDate);
+        if (start?.getTime() > end?.getTime()) {
+            start = this.parseToDayStart(endDate);
+        }
+        return { start, end };
+    }
+
+    formatToLocaleSimple = (date: Date) =>
+        dayjs(date).format("DD/MM/YYYY");
 }

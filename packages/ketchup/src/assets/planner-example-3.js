@@ -2807,11 +2807,9 @@ if (props) {
 }
 
 function onclick(event) {
-    if (event.detail.taskAction == 'onTaskOpening' && event.detail.value.id == 'G456') {
-        comp.addPhases('G456', phases);
-    }
-    if (event.detail.taskAction == 'onTaskClosing' && event.detail.value.id == 'G456') {
-        comp.addPhases('G456', []);
+    console.log('planner.js onclick', event.detail.taskAction);
+    if (event.detail.taskAction == 'onTaskOpening') {
+        comp.addPhases('G503', phases);
     }
 }
 
