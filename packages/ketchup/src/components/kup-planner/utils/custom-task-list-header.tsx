@@ -25,11 +25,14 @@ export class KupCustomTaskListHeader {
 
     render() {
         return (
-            <div class="custom-task-list-wrapper" style={{
-                height: "50px",
-                fontFamily: this.fontFamily,
-                fontSize: this.fontSize,
-            }}>
+            <div
+                class="custom-task-list-wrapper"
+                style={{
+                    height: '50px',
+                    fontFamily: this.fontFamily,
+                    fontSize: this.fontSize,
+                }}
+            >
                 <div class="title">
                     <span>{this.label}</span>
                 </div>
@@ -41,7 +44,9 @@ export class KupCustomTaskListHeader {
                                 id="ch2"
                                 type="checkbox"
                                 checked={this.doubleView}
-                                onClick={() => this.setDoubleView(!this.doubleView)}
+                                onClick={() =>
+                                    this.setDoubleView(!this.doubleView)
+                                }
                             />
                             <span class="slider"></span>
                         </label>

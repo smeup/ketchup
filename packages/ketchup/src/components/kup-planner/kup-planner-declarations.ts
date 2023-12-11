@@ -9,7 +9,7 @@ import {
     TaskListHeaderComponent,
     TaskListTableComponent,
     TooltipContentComponent,
-} from "./utils/kup-planner-adapted-types";
+} from './utils/kup-planner-adapted-types';
 
 /**
  * Props of the kup-gantt component.
@@ -159,7 +159,7 @@ export interface KupPlannerStoredSettings {
     taskInitialScrollY: number;
     viewMode: KupPlannerViewMode;
 }
-export type KupPlannerTaskType = "task" | "project" | "timeline";
+export type KupPlannerTaskType = 'task' | 'project' | 'timeline';
 
 export interface KupPlannerTaskIcon {
     color: string;
@@ -221,7 +221,7 @@ export interface KupPlannerTask {
     timeline?: KupPlannerTimeframe[];
     /**
      * From 0 to 100
-    */
+     */
     progress: number;
     styles?: {
         backgroundColor?: string;
@@ -274,26 +274,30 @@ export interface KupPlannerStylingOption {
         fontSize: string;
         fontFamily: string;
     }) => JSX.Element;
-    TaskListHeader?: FunctionalComponent<{
-        headerHeight: number;
-        rowWidth: string;
-        fontFamily: string;
-        fontSize: string;
-    }> | JSX.Element,
-    TaskListTable?: FunctionalComponent<{
-        rowHeight: number;
-        rowWidth: string;
-        fontFamily: string;
-        fontSize: string;
-        locale: string;
-        tasks: KupPlannerTask[];
-        selectedTaskId: string;
-        /**
-         * Sets selected task by id
-         */
-        setSelectedTask: (taskId: string) => void;
-        onExpanderClick: (task: KupPlannerTask) => void;
-    }> | JSX.Element;
+    TaskListHeader?:
+        | FunctionalComponent<{
+              headerHeight: number;
+              rowWidth: string;
+              fontFamily: string;
+              fontSize: string;
+          }>
+        | JSX.Element;
+    TaskListTable?:
+        | FunctionalComponent<{
+              rowHeight: number;
+              rowWidth: string;
+              fontFamily: string;
+              fontSize: string;
+              locale: string;
+              tasks: KupPlannerTask[];
+              selectedTaskId: string;
+              /**
+               * Sets selected task by id
+               */
+              setSelectedTask: (taskId: string) => void;
+              onExpanderClick: (task: KupPlannerTask) => void;
+          }>
+        | JSX.Element;
 }
 
 /**
@@ -307,9 +311,9 @@ export interface KupPlannerGanttPhaseProjection {
 
 export interface KupPlannerGanttProps
     extends KupPlannerEventOption,
-    KupPlannerDisplayOption,
-    KupPlannerStylingOption,
-    KupPlannerCustomOptions {
+        KupPlannerDisplayOption,
+        KupPlannerStylingOption,
+        KupPlannerCustomOptions {
     id: string;
     tasks: KupPlannerTask[];
     projection?: KupPlannerGanttPhaseProjection;
@@ -340,10 +344,7 @@ export interface KupPlannerEventOption {
     /**
      * Invokes on bar context menu click.
      */
-    barContextMenu?: (
-        event: UIEvent,
-        task: KupPlannerTask
-    ) => void;
+    barContextMenu?: (event: UIEvent, task: KupPlannerTask) => void;
     /**
      * Invokes on end and start time change. Chart undoes operation if method return false or error.
      */
@@ -361,7 +362,9 @@ export interface KupPlannerEventOption {
     /**
      * Invokes on delete selected task. Chart undoes operation if method return false or error.
      */
-    delete?: (task: KupPlannerTask) => void | boolean | Promise<void> | Promise<boolean>;
+    delete?: (
+        task: KupPlannerTask
+    ) => void | boolean | Promise<void> | Promise<boolean>;
     /**
      * Invokes on expander on task list
      */
@@ -469,7 +472,7 @@ export interface KupPlannerBarTask extends KupPlannerTask {
     };
 }
 
-export type KupPlannerTaskTypeInternal = KupPlannerTaskType | "smalltask";
+export type KupPlannerTaskTypeInternal = KupPlannerTaskType | 'smalltask';
 
 export type KupPlannerTaskGanttContentProps = {
     tasks: KupPlannerBarTask[];
@@ -502,16 +505,16 @@ export type KupPlannerTaskGanttContentProps = {
     setSelectedTask: (taskId: string) => void;
 } & KupPlannerEventOption;
 
-export type KupPlannerBarMoveAction = "progress" | "end" | "start" | "move";
+export type KupPlannerBarMoveAction = 'progress' | 'end' | 'start' | 'move';
 export type KupPlannerGanttContentMoveAction =
-    | "mouseenter"
-    | "mouseleave"
-    | "delete"
-    | "dblclick"
-    | "click"
-    | "contextmenu"
-    | "select"
-    | ""
+    | 'mouseenter'
+    | 'mouseleave'
+    | 'delete'
+    | 'dblclick'
+    | 'click'
+    | 'contextmenu'
+    | 'select'
+    | ''
     | KupPlannerBarMoveAction;
 
 export type KupPlannerGanttEvent = {
@@ -535,23 +538,27 @@ export type KupPlannerTaskListProps = {
     selectedTask: KupPlannerBarTask | undefined;
     setSelectedTask: (task: string) => void;
     expanderClick: (task: KupPlannerTask) => void;
-    TaskListHeader: FunctionalComponent<{
-        headerHeight: number;
-        rowWidth: string;
-        fontFamily: string;
-        fontSize: string;
-    }> | JSX.Element;
-    TaskListTable: FunctionalComponent<{
-        rowHeight: number;
-        rowWidth: string;
-        fontFamily: string;
-        fontSize: string;
-        locale: string;
-        tasks: KupPlannerTask[];
-        selectedTaskId: string;
-        setSelectedTask: (taskId: string) => void;
-        onExpanderClick: (task: KupPlannerTask) => void;
-    }> | JSX.Element;
+    TaskListHeader:
+        | FunctionalComponent<{
+              headerHeight: number;
+              rowWidth: string;
+              fontFamily: string;
+              fontSize: string;
+          }>
+        | JSX.Element;
+    TaskListTable:
+        | FunctionalComponent<{
+              rowHeight: number;
+              rowWidth: string;
+              fontFamily: string;
+              fontSize: string;
+              locale: string;
+              tasks: KupPlannerTask[];
+              selectedTaskId: string;
+              setSelectedTask: (taskId: string) => void;
+              onExpanderClick: (task: KupPlannerTask) => void;
+          }>
+        | JSX.Element;
     filter: HTMLElement;
 };
 
@@ -676,10 +683,7 @@ export interface KupGanttPlannerProps {
     /** Events */
     onDateChange?: (row: KupPlannerGanttRow) => void;
     onClick?: (row: KupPlannerGanttRow) => void;
-    onContextMenu?: (
-        event: MouseEvent,
-        row: KupPlannerGanttRow
-    ) => void;
+    onContextMenu?: (event: MouseEvent, row: KupPlannerGanttRow) => void;
     onScrollY?: (y: number) => void;
 }
 
@@ -701,10 +705,7 @@ export interface KupGanttPlannerDetailsProps {
     /** Events */
     onDateChange?: (row: KupPlannerGanttRow) => void;
     onClick?: (row: KupPlannerGanttRow) => void;
-    onContextMenu?: (
-        event: MouseEvent,
-        row: KupPlannerGanttRow
-    ) => void;
+    onContextMenu?: (event: MouseEvent, row: KupPlannerGanttRow) => void;
     onScrollY?: (y: number) => void;
 }
 
@@ -718,5 +719,5 @@ export interface PlannerProps {
     onScrollX?: (x: number) => void;
 }
 
-export const KUP_PLANNER_MAIN_GANTT_ID = "main";
-export const KUP_PLANNER_SECONDARY_GANTT_ID = "secondary";
+export const KUP_PLANNER_MAIN_GANTT_ID = 'main';
+export const KUP_PLANNER_SECONDARY_GANTT_ID = 'secondary';

@@ -1,8 +1,9 @@
 import { Component, h, Prop, State } from '@stencil/core';
+import { KupPlannerCalendarProps } from '../../kup-planner-declarations';
 import {
-    KupPlannerCalendarProps
-} from "../../kup-planner-declarations";
-import { getDaysInMonth, defaultDateTimeFormatters } from '../kup-planner-time-formatter';
+    getDaysInMonth,
+    defaultDateTimeFormatters,
+} from '../kup-planner-time-formatter';
 
 @Component({
     tag: 'kup-gantt-calendar',
@@ -10,7 +11,6 @@ import { getDaysInMonth, defaultDateTimeFormatters } from '../kup-planner-time-f
     shadow: false, // Enable Shadow DOM
 })
 export class KupGanttCalendar {
-
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
@@ -57,27 +57,38 @@ export class KupGanttCalendar {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.simplifiedHeader = this.singleLineHeader && this.dateSetup.viewMode !== "year";
+        this.simplifiedHeader =
+            this.singleLineHeader && this.dateSetup.viewMode !== 'year';
     }
 
     formatYear(date: Date) {
-        return this.dateTimeFormatters?.year ? this.dateTimeFormatters?.year(date, this.locale) : defaultDateTimeFormatters.year(date, this.locale)
+        return this.dateTimeFormatters?.year
+            ? this.dateTimeFormatters?.year(date, this.locale)
+            : defaultDateTimeFormatters.year(date, this.locale);
     }
 
     formatMonth(date: Date) {
-        return this.dateTimeFormatters?.month ? this.dateTimeFormatters?.month(date, this.locale) : defaultDateTimeFormatters.month(date, this.locale);
+        return this.dateTimeFormatters?.month
+            ? this.dateTimeFormatters?.month(date, this.locale)
+            : defaultDateTimeFormatters.month(date, this.locale);
     }
 
     formatMonthAndYear(date: Date) {
-        return this.dateTimeFormatters?.monthAndYear ? this.dateTimeFormatters?.monthAndYear(date, this.locale) : defaultDateTimeFormatters.monthAndYear(date, this.locale);
+        return this.dateTimeFormatters?.monthAndYear
+            ? this.dateTimeFormatters?.monthAndYear(date, this.locale)
+            : defaultDateTimeFormatters.monthAndYear(date, this.locale);
     }
 
     formatWeek(date: Date) {
-        return this.dateTimeFormatters?.week ? this.dateTimeFormatters?.week(date, this.locale) : defaultDateTimeFormatters.week(date, this.locale);
+        return this.dateTimeFormatters?.week
+            ? this.dateTimeFormatters?.week(date, this.locale)
+            : defaultDateTimeFormatters.week(date, this.locale);
     }
 
     formatDay(date: Date) {
-        return this.dateTimeFormatters?.day ? this.dateTimeFormatters?.day(date, this.locale) : defaultDateTimeFormatters.day(date, this.locale);
+        return this.dateTimeFormatters?.day
+            ? this.dateTimeFormatters?.day(date, this.locale)
+            : defaultDateTimeFormatters.day(date, this.locale);
     }
 
     getCalendarValuesForYear() {
@@ -99,10 +110,7 @@ export class KupGanttCalendar {
                 </text>
             );
 
-            if (
-                i === 0 ||
-                date.getFullYear() !== dates[i - 1].getFullYear()
-            ) {
+            if (i === 0 || date.getFullYear() !== dates[i - 1].getFullYear()) {
                 const topValue = date.getFullYear().toString();
                 let xText: number;
                 if (this.rtl) {
@@ -134,7 +142,7 @@ export class KupGanttCalendar {
             const bottomValue = this.formatMonth(date);
             bottomValues.push(
                 <text
-                    key={bottomValue as string + date.getFullYear()}
+                    key={(bottomValue as string) + date.getFullYear()}
                     y={this.headerHeight * 0.8}
                     x={this.columnWidth * i + this.columnWidth * 0.5}
                     class="calendarBottomText"
@@ -142,10 +150,7 @@ export class KupGanttCalendar {
                     {bottomValue}
                 </text>
             );
-            if (
-                i === 0 ||
-                date.getFullYear() !== dates[i - 1].getFullYear()
-            ) {
+            if (i === 0 || date.getFullYear() !== dates[i - 1].getFullYear()) {
                 const topValue = this.formatYear(date);
                 let xText: number;
                 if (this.rtl) {
@@ -165,7 +170,7 @@ export class KupGanttCalendar {
             }
         }
         return [topValues, bottomValues];
-    };
+    }
 
     getCalendarValuesForWeek() {
         const topValues: any[] = [];
@@ -175,7 +180,7 @@ export class KupGanttCalendar {
         const dates = this.dateSetup.dates;
         for (let i = dates.length - 1; i >= 0; i--) {
             const date = dates[i];
-            let topValue = "";
+            let topValue = '';
             if (i === 0 || date.getMonth() !== dates[i - 1].getMonth()) {
                 // top
                 topValue = this.formatMonthAndYear(date) as string;
@@ -200,10 +205,14 @@ export class KupGanttCalendar {
                     topValues.push({
                         key: topValue,
                         value: topValue,
-                        x1Line: this.columnWidth * i + weeksCount * this.columnWidth,
+                        x1Line:
+                            this.columnWidth * i +
+                            weeksCount * this.columnWidth,
                         y1Line: 0,
                         y2Line: topDefaultHeight,
-                        xText: this.columnWidth * i + this.columnWidth * weeksCount * 0.5,
+                        xText:
+                            this.columnWidth * i +
+                            this.columnWidth * weeksCount * 0.5,
                         yText: topDefaultHeight * 0.9,
                     });
                 }
@@ -212,7 +221,7 @@ export class KupGanttCalendar {
             weeksCount++;
         }
         return [topValues, bottomValues];
-    };
+    }
 
     getCalendarValuesForDay() {
         const topValues: any[] = [];
@@ -240,44 +249,54 @@ export class KupGanttCalendar {
                 const topValue = this.formatMonth(date);
 
                 topValues.push({
-                    key: topValue as string + date.getFullYear(),
+                    key: (topValue as string) + date.getFullYear(),
                     value: topValue,
                     x1Line: this.columnWidth * (i + 1),
                     y1Line: 0,
                     y2Line: topDefaultHeight,
-                    xText: this.columnWidth * (i + 1) -
+                    xText:
+                        this.columnWidth * (i + 1) -
                         getDaysInMonth(date.getMonth(), date.getFullYear()) *
-                        this.columnWidth *
-                        0.5,
+                            this.columnWidth *
+                            0.5,
                     yText: topDefaultHeight * 0.9,
                 });
             }
         }
         return [topValues, bottomValues];
-    };
+    }
 
     getTopAndBottomValues() {
         switch (this.dateSetup.viewMode) {
-            case "day":
-                return this.getCalendarValuesForDay()
-            case "week":
-                return this.getCalendarValuesForWeek()
-            case "month":
-                return this.getCalendarValuesForMonth()
-            case "year":
-                return this.getCalendarValuesForYear()
+            case 'day':
+                return this.getCalendarValuesForDay();
+            case 'week':
+                return this.getCalendarValuesForWeek();
+            case 'month':
+                return this.getCalendarValuesForMonth();
+            case 'year':
+                return this.getCalendarValuesForYear();
             default:
                 break;
         }
     }
 
     render() {
-        this.simplifiedHeader = this.singleLineHeader && this.dateSetup.viewMode !== "year";
+        this.simplifiedHeader =
+            this.singleLineHeader && this.dateSetup.viewMode !== 'year';
         const [topValues, bottomValues] = this.getTopAndBottomValues();
 
         return (
-            <svg xmlns="http://www.w3.org/2000/svg" width={this.svgWidth} height={this.headerHeight}>
-                <g class="calendar" font-size={this.fontSize} font-family={this.fontFamily}>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={this.svgWidth}
+                height={this.headerHeight}
+            >
+                <g
+                    class="calendar"
+                    font-size={this.fontSize}
+                    font-family={this.fontFamily}
+                >
                     <rect
                         x={0}
                         y={0}
@@ -286,49 +305,47 @@ export class KupGanttCalendar {
                         class="calendarHeader"
                     />
                     {this.simplifiedHeader ? null : bottomValues}
-                    {this.simplifiedHeader ? (
-                        topValues.map(topValue => (
-                            <g class="calendarTop">
-                                <line
-                                    x1={topValue.x1Line}
-                                    y1={topValue.y2Line * 2}
-                                    x2={topValue.x1Line}
-                                    y2={topValue.y2Line}
-                                    class="calendarTopTick"
-                                    key={topValue.value + 'line'}
-                                />
-                                <text
-                                    key={topValue.value + 'text'}
-                                    y={topValue.yText}
-                                    x={topValue.xText}
-                                    class="calendarTopText"
-                                >
-                                    {topValue.value}
-                                </text>
-                            </g>
-                        ))
-                    ) : (
-                        topValues.map(topValue => (
-                            <g class="calendarTop">
-                                <line
-                                    x1={topValue.x1Line}
-                                    y1={topValue.y1Line}
-                                    x2={topValue.x1Line}
-                                    y2={topValue.y2Line}
-                                    class="calendarTopTick"
-                                    key={topValue.value + 'line'}
-                                />
-                                <text
-                                    key={topValue.value + 'text'}
-                                    y={topValue.yText}
-                                    x={topValue.xText}
-                                    class="calendarTopText"
-                                >
-                                    {topValue.value}
-                                </text>
-                            </g>
-                        ))
-                    )}
+                    {this.simplifiedHeader
+                        ? topValues.map((topValue) => (
+                              <g class="calendarTop">
+                                  <line
+                                      x1={topValue.x1Line}
+                                      y1={topValue.y2Line * 2}
+                                      x2={topValue.x1Line}
+                                      y2={topValue.y2Line}
+                                      class="calendarTopTick"
+                                      key={topValue.value + 'line'}
+                                  />
+                                  <text
+                                      key={topValue.value + 'text'}
+                                      y={topValue.yText}
+                                      x={topValue.xText}
+                                      class="calendarTopText"
+                                  >
+                                      {topValue.value}
+                                  </text>
+                              </g>
+                          ))
+                        : topValues.map((topValue) => (
+                              <g class="calendarTop">
+                                  <line
+                                      x1={topValue.x1Line}
+                                      y1={topValue.y1Line}
+                                      x2={topValue.x1Line}
+                                      y2={topValue.y2Line}
+                                      class="calendarTopTick"
+                                      key={topValue.value + 'line'}
+                                  />
+                                  <text
+                                      key={topValue.value + 'text'}
+                                      y={topValue.yText}
+                                      x={topValue.xText}
+                                      class="calendarTopText"
+                                  >
+                                      {topValue.value}
+                                  </text>
+                              </g>
+                          ))}
                     {this.currentDateIndicator && (
                         // current date indicator
                         <circle

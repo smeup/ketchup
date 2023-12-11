@@ -3,8 +3,8 @@ import {
     KupPlannerTimeframe,
     KupPlannerBarTask,
     KupPlannerTaskTypeInternal,
-    KupPlannerBarMoveAction
-} from "../../kup-planner-declarations";
+    KupPlannerBarMoveAction,
+} from '../../kup-planner-declarations';
 
 export const convertToBarTasks = (
     tasks: KupPlannerTask[],
@@ -53,11 +53,11 @@ export const convertToBarTasks = (
     });
 
     // set dependencies
-    barTasks = barTasks.map(task => {
+    barTasks = barTasks.map((task) => {
         const dependencies = task.dependencies || [];
         for (let j = 0; j < dependencies.length; j++) {
             const dependence = barTasks.findIndex(
-                value => value.id === dependencies[j]
+                (value) => value.id === dependencies[j]
             );
             if (dependence !== -1) barTasks[dependence].barChildren.push(task);
         }
@@ -90,7 +90,7 @@ const convertToBarTask = (
 ): KupPlannerBarTask => {
     let barTask: KupPlannerBarTask;
     switch (task.type) {
-        case "timeline":
+        case 'timeline':
             barTask = convertToTimeline(
                 task,
                 index,
@@ -102,7 +102,7 @@ const convertToBarTask = (
                 handleWidth
             );
             break;
-        case "project":
+        case 'project':
             barTask = convertToBar(
                 task,
                 index,
@@ -161,8 +161,8 @@ function computeTypeAndXs(
         x2 = taskXCoordinate(end, dates, columnWidth);
     }
     let typeInternal: KupPlannerTaskTypeInternal = type;
-    if (typeInternal === "task" && x2 - x1 < handleWidth * 2) {
-        typeInternal = "smalltask";
+    if (typeInternal === 'task' && x2 - x1 < handleWidth * 2) {
+        typeInternal = 'smalltask';
         x2 = x1 + handleWidth * 2;
     }
     return { x1, x2, typeInternal };
@@ -196,14 +196,14 @@ const convertToBar = (
     const { x1: x1secondary, x2: x2secondary } =
         showSecondaryDates && task.secondaryStart && task.secondaryEnd
             ? computeTypeAndXs(
-                task.secondaryStart,
-                task.secondaryEnd,
-                task.type,
-                dates,
-                columnWidth,
-                handleWidth,
-                rtl
-            )
+                  task.secondaryStart,
+                  task.secondaryEnd,
+                  task.type,
+                  dates,
+                  columnWidth,
+                  handleWidth,
+                  rtl
+              )
             : { x1: undefined, x2: undefined };
 
     const [progressWidth, progressX] = progressWithByParams(
@@ -213,7 +213,8 @@ const convertToBar = (
         rtl
     );
     const y = taskYCoordinate(index, rowHeight, taskHeight);
-    const hideChildren = task.type === "project" ? task.hideChildren : undefined;
+    const hideChildren =
+        task.type === 'project' ? task.hideChildren : undefined;
 
     const styles = {
         backgroundColor: barBackgroundColor,
@@ -243,10 +244,10 @@ const convertToBar = (
 };
 
 const defaultStyles = (styles: any) => ({
-    backgroundColor: styles?.backgroundColor ?? "#deadbeef",
-    backgroundSelectedColor: styles?.backgroundSelectedColor ?? "#cafebabe",
-    progressColor: styles?.progressColor ?? "#deadbeef",
-    progressSelectedColor: styles?.progressSelectedColor ?? "#cafebabe",
+    backgroundColor: styles?.backgroundColor ?? '#deadbeef',
+    backgroundSelectedColor: styles?.backgroundSelectedColor ?? '#cafebabe',
+    progressColor: styles?.progressColor ?? '#deadbeef',
+    progressSelectedColor: styles?.progressSelectedColor ?? '#cafebabe',
 });
 
 const convertToTimeline = (
@@ -261,11 +262,14 @@ const convertToTimeline = (
 ): KupPlannerBarTask => {
     const y = taskYCoordinate(index, rowHeight, taskHeight);
 
-    function convertFrameToTask(frame: KupPlannerTimeframe, j: number): KupPlannerBarTask {
+    function convertFrameToTask(
+        frame: KupPlannerTimeframe,
+        j: number
+    ): KupPlannerBarTask {
         const { x1, x2 } = computeTypeAndXs(
             frame.start,
             frame.end,
-            "task",
+            'task',
             dates,
             columnWidth,
             handleWidth,
@@ -284,7 +288,7 @@ const convertToTimeline = (
             height: taskHeight,
             id: `Frame-${task.id}-${j}`,
             index: n,
-            name: "",
+            name: '',
             valuesToShow: task.valuesToShow,
             progress: 0,
             progressWidth: 0,
@@ -296,8 +300,8 @@ const convertToTimeline = (
                 progressSelectedColor: selColor,
             },
             timeline: [],
-            type: "task",
-            typeInternal: "timeline",
+            type: 'task',
+            typeInternal: 'timeline',
             x1,
             x2,
             y,
@@ -336,7 +340,7 @@ const convertToTimeline = (
 };
 
 const taskXCoordinate = (xDate: Date, dates: Date[], columnWidth: number) => {
-    const index = dates.findIndex(d => d.getTime() >= xDate.getTime()) - 1;
+    const index = dates.findIndex((d) => d.getTime() >= xDate.getTime()) - 1;
 
     if (index < 0) {
         return 0;
@@ -424,7 +428,7 @@ export const getProgressPoint = (
         progressX,
         taskY + taskHeight - 8.66,
     ];
-    return point.join(",");
+    return point.join(',');
 };
 
 const startByX = (x: number, xStep: number, task: KupPlannerBarTask) => {
@@ -462,10 +466,12 @@ const dateByX = (
     xStep: number,
     timeStep: number
 ) => {
-    let newDate = new Date(((x - taskX) / xStep) * timeStep + taskDate.getTime());
+    let newDate = new Date(
+        ((x - taskX) / xStep) * timeStep + taskDate.getTime()
+    );
     newDate = new Date(
         newDate.getTime() +
-        (newDate.getTimezoneOffset() - taskDate.getTimezoneOffset()) * 60000
+            (newDate.getTimezoneOffset() - taskDate.getTimezoneOffset()) * 60000
     );
     return newDate;
 };
@@ -504,7 +510,7 @@ const handleTaskBySVGMouseEventForBar = (
     const changedTask: KupPlannerBarTask = { ...selectedTask };
     let isChanged = false;
     switch (action) {
-        case "progress":
+        case 'progress':
             if (rtl) {
                 changedTask.progress = progressByXRTL(svgX, selectedTask);
             } else {
@@ -522,7 +528,7 @@ const handleTaskBySVGMouseEventForBar = (
                 changedTask.progressX = progressX;
             }
             break;
-        case "start": {
+        case 'start': {
             const newX1 = startByX(svgX, xStep, selectedTask);
             changedTask.x1 = newX1;
             isChanged = changedTask.x1 !== selectedTask.x1;
@@ -555,7 +561,7 @@ const handleTaskBySVGMouseEventForBar = (
             }
             break;
         }
-        case "end": {
+        case 'end': {
             const newX2 = endByX(svgX, xStep, selectedTask);
             changedTask.x2 = newX2;
             isChanged = changedTask.x2 !== selectedTask.x2;
@@ -588,7 +594,7 @@ const handleTaskBySVGMouseEventForBar = (
             }
             break;
         }
-        case "move": {
+        case 'move': {
             const [newMoveX1, newMoveX2] = moveByX(
                 svgX - initEventX1Delta,
                 xStep,

@@ -5,7 +5,7 @@ import {
     Prop,
     State,
     Watch,
-    Listen
+    Listen,
 } from '@stencil/core';
 import {
     KupPlannerCurrentDateIndicator,
@@ -22,19 +22,24 @@ import {
     KupPlannerGanttTaskN,
     KupPlannerItemDetail,
     KupPlannerGanttRow,
-    KupGanttPlannerProps
-} from "../../kup-planner-declarations";
-import { ganttDateRangeFromTask, seedDates } from "../kup-planner-renderer-helper";
+    KupGanttPlannerProps,
+} from '../../kup-planner-declarations';
+import {
+    ganttDateRangeFromTask,
+    seedDates,
+} from '../kup-planner-renderer-helper';
 import { removeHiddenTasks, sortTasks } from '../helpers/other.helpers';
-import { calculateCurrentDateCalculator, calculateProjection, convertToBarTasks } from '../helpers/bar.helpers';
-
+import {
+    calculateCurrentDateCalculator,
+    calculateProjection,
+    convertToBarTasks,
+} from '../helpers/bar.helpers';
 
 @Component({
     tag: 'kup-gantt',
     styleUrl: 'kup-gantt.scss',
     shadow: false, // Enable Shadow DOM
 })
-
 export class KupGantt {
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -53,7 +58,7 @@ export class KupGantt {
     columnWidth: KupPlannerGanttProps['columnWidth'] = 60;
 
     @Prop()
-    listCellWidth: KupPlannerGanttProps['listCellWidth'] = "297px";
+    listCellWidth: KupPlannerGanttProps['listCellWidth'] = '297px';
 
     @Prop()
     rowHeight: KupPlannerGanttProps['rowHeight'] = 50;
@@ -65,13 +70,13 @@ export class KupGantt {
     ganttHeight: KupPlannerGanttProps['ganttHeight'] = 0;
 
     @Prop()
-    viewMode: KupPlannerGanttProps['viewMode'] = "month";
+    viewMode: KupPlannerGanttProps['viewMode'] = 'month';
 
     @Prop()
     preStepsCount: KupPlannerGanttProps['preStepsCount'] = 1;
 
     @Prop()
-    locale: KupPlannerGanttProps['locale'] = "en-GB";
+    locale: KupPlannerGanttProps['locale'] = 'en-GB';
 
     @Prop()
     barFill: KupPlannerGanttProps['barFill'] = 60;
@@ -86,28 +91,34 @@ export class KupGantt {
     barCornerRadius: KupPlannerGanttProps['barCornerRadius'] = 3;
 
     @Prop()
-    barProgressColor: KupPlannerGanttProps['barProgressColor'] = "#a3a3ff";
+    barProgressColor: KupPlannerGanttProps['barProgressColor'] = '#a3a3ff';
 
     @Prop()
-    barProgressSelectedColor: KupPlannerGanttProps['barProgressSelectedColor'] = "#8282f5";
+    barProgressSelectedColor: KupPlannerGanttProps['barProgressSelectedColor'] =
+        '#8282f5';
 
     @Prop()
-    barBackgroundColor: KupPlannerGanttProps['barBackgroundColor'] = "#b8c2cc";
+    barBackgroundColor: KupPlannerGanttProps['barBackgroundColor'] = '#b8c2cc';
 
     @Prop()
-    barBackgroundSelectedColor: KupPlannerGanttProps['barBackgroundSelectedColor'] = "#aeb8c2";
+    barBackgroundSelectedColor: KupPlannerGanttProps['barBackgroundSelectedColor'] =
+        '#aeb8c2';
 
     @Prop()
-    projectProgressColor: KupPlannerGanttProps['projectProgressColor'] = "#7db59a";
+    projectProgressColor: KupPlannerGanttProps['projectProgressColor'] =
+        '#7db59a';
 
     @Prop()
-    projectProgressSelectedColor: KupPlannerGanttProps['projectProgressSelectedColor'] = "#59a985";
+    projectProgressSelectedColor: KupPlannerGanttProps['projectProgressSelectedColor'] =
+        '#59a985';
 
     @Prop()
-    projectBackgroundColor: KupPlannerGanttProps['projectBackgroundColor'] = "#fac465";
+    projectBackgroundColor: KupPlannerGanttProps['projectBackgroundColor'] =
+        '#fac465';
 
     @Prop()
-    projectBackgroundSelectedColor: KupPlannerGanttProps['projectBackgroundSelectedColor'] = "#f7bb53";
+    projectBackgroundSelectedColor: KupPlannerGanttProps['projectBackgroundSelectedColor'] =
+        '#f7bb53';
 
     @Prop()
     rtl: KupPlannerGanttProps['rtl'] = false;
@@ -119,31 +130,38 @@ export class KupGantt {
     timeStep: KupPlannerGanttProps['timeStep'] = 300000;
 
     @Prop()
-    arrowColor: KupPlannerGanttProps['arrowColor'] = "grey";
+    arrowColor: KupPlannerGanttProps['arrowColor'] = 'grey';
 
     @Prop()
-    fontFamily: KupPlannerGanttProps['fontFamily'] = "Arial, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue";
+    fontFamily: KupPlannerGanttProps['fontFamily'] =
+        'Arial, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue';
 
     @Prop()
-    fontSize: KupPlannerGanttProps['fontSize'] = "14px";
+    fontSize: KupPlannerGanttProps['fontSize'] = '14px';
 
     @Prop()
     arrowIndent: KupPlannerGanttProps['arrowIndent'] = 20;
 
     @Prop()
-    todayColor: KupPlannerGanttProps['todayColor'] = "#ff0000";
+    todayColor: KupPlannerGanttProps['todayColor'] = '#ff0000';
 
     @Prop()
     viewDate: KupPlannerGanttProps['viewDate'];
 
     @Prop()
-    TooltipContent: KupPlannerGanttProps['TooltipContent'] = <kup-standard-tooltip />;
+    TooltipContent: KupPlannerGanttProps['TooltipContent'] = (
+        <kup-standard-tooltip />
+    );
 
     @Prop()
-    TaskListHeader: KupPlannerGanttProps['TaskListHeader'] = <kup-task-list-header />;
+    TaskListHeader: KupPlannerGanttProps['TaskListHeader'] = (
+        <kup-task-list-header />
+    );
 
     @Prop()
-    TaskListTable: KupPlannerGanttProps['TaskListTable'] = <kup-task-list-table />;
+    TaskListTable: KupPlannerGanttProps['TaskListTable'] = (
+        <kup-task-list-table />
+    );
 
     @Prop()
     dateTimeFormatters: KupPlannerGanttProps['dateTimeFormatters'];
@@ -212,7 +230,11 @@ export class KupGantt {
     handleClick: (row: KupPlannerGanttRow, onClick: any) => void;
 
     @Prop()
-    handleContextMenu: (event: MouseEvent, row: KupPlannerGanttRow, onContextMenu: any) => void;
+    handleContextMenu: (
+        event: MouseEvent,
+        row: KupPlannerGanttRow,
+        onContextMenu: any
+    ) => void;
 
     @Prop()
     ganttOnClick: KupGanttPlannerProps['onClick'];
@@ -268,7 +290,7 @@ export class KupGantt {
 
     // Define a computed property for projectHeight
     @State()
-    projectHeight = (this.rowHeight * this.projectFill) / 100
+    projectHeight = (this.rowHeight * this.projectFill) / 100;
 
     @State()
     timelineHeight = (this.rowHeight * this.timelineFill) / 100;
@@ -298,23 +320,25 @@ export class KupGantt {
     currentDateIndicatorContent: KupPlannerCurrentDateIndicator | undefined;
 
     @State()
-    projectionContent: {
-        x0: number;
-        xf: number;
-        color: string;
-    } | undefined;
+    projectionContent:
+        | {
+              x0: number;
+              xf: number;
+              color: string;
+          }
+        | undefined;
 
     /**
      * References the root HTML element of the component (<kup-gantt>).
-    */
+     */
 
     @Element() rootElement: HTMLElement;
 
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.updateGanttData()
-        this.loadStates()
+        this.updateGanttData();
+        this.loadStates();
     }
 
     loadStates() {
@@ -330,19 +354,24 @@ export class KupGantt {
         );
         this.dateSetup = {
             viewMode: this.viewMode,
-            dates: seedDates(startDate, endDate, this.viewMode)
-        }
+            dates: seedDates(startDate, endDate, this.viewMode),
+        };
         this.svgWidth = this.dateSetup?.dates?.length * this.columnWidth;
         this.ganttFullHeight = this.barTasks.length * this.rowHeight;
     }
 
     componentDidRender() {
-        this.taskGanttRef = this.rootElement.querySelector('kup-task-gantt').querySelector('.ganttVerticalContainer')
+        this.taskGanttRef = this.rootElement
+            .querySelector('kup-task-gantt')
+            .querySelector('.ganttVerticalContainer');
     }
 
     componentDidLoad() {
         this.updateScrollLeftAndScrollTop();
-        window.addEventListener("gantt-sync-scroll-event", this.onGanttSyncScrollEvent.bind(this));
+        window.addEventListener(
+            'gantt-sync-scroll-event',
+            this.onGanttSyncScrollEvent.bind(this)
+        );
     }
 
     /*-------------------------------------------------*/
@@ -363,7 +392,7 @@ export class KupGantt {
     @Watch('initialScrollX')
     @Watch('scrollXChange')
     updateInitialScrollX() {
-        window.addEventListener("gantt-sync-scroll-event", function (e: any) {
+        window.addEventListener('gantt-sync-scroll-event', function (e: any) {
             if (e.detail.id !== this.ganttId) {
                 this.scrollX = e.detail.scrollX;
                 // execute scroll x event
@@ -440,7 +469,7 @@ export class KupGantt {
             }
         }
         if (set) {
-            this.dateSetup = { dates: newDates, viewMode: this.viewMode }
+            this.dateSetup = { dates: newDates, viewMode: this.viewMode };
         }
         this.barTasks = convertToBarTasks(
             filteredTasks,
@@ -462,7 +491,7 @@ export class KupGantt {
             this.projectBackgroundColor,
             this.projectBackgroundSelectedColor,
             this.showSecondaryDates
-        )
+        );
     }
 
     @Watch('viewDate')
@@ -471,7 +500,11 @@ export class KupGantt {
     @Watch('viewMode')
     @Watch('initialScrollX')
     updateIgnoreScrollEvent() {
-        if (this.viewMode === this.dateSetup.viewMode && this.viewDate && this.initialScrollX < 1) {
+        if (
+            this.viewMode === this.dateSetup.viewMode &&
+            this.viewDate &&
+            this.initialScrollX < 1
+        ) {
             const dates = this.dateSetup.dates;
             const index = dates.findIndex(
                 (d, i) =>
@@ -492,24 +525,30 @@ export class KupGantt {
     updateGanttEventAndBarTasks() {
         const { changedTask, action } = this.ganttEvent;
         if (changedTask) {
-            if (action === "delete") {
-                this.ganttEvent = { action: "" }
-                this.barTasks = this.barTasks.filter(t => t.id !== changedTask.id)
+            if (action === 'delete') {
+                this.ganttEvent = { action: '' };
+                this.barTasks = this.barTasks.filter(
+                    (t) => t.id !== changedTask.id
+                );
             } else if (
-                action === "move" ||
-                action === "end" ||
-                action === "start" ||
-                action === "progress"
+                action === 'move' ||
+                action === 'end' ||
+                action === 'start' ||
+                action === 'progress'
             ) {
-                const prevStateTask = this.barTasks.find(t => t.id === changedTask.id);
+                const prevStateTask = this.barTasks.find(
+                    (t) => t.id === changedTask.id
+                );
                 if (
                     prevStateTask &&
-                    (prevStateTask.start.getTime() !== changedTask.start.getTime() ||
-                        prevStateTask.end.getTime() !== changedTask.end.getTime() ||
+                    (prevStateTask.start.getTime() !==
+                        changedTask.start.getTime() ||
+                        prevStateTask.end.getTime() !==
+                            changedTask.end.getTime() ||
                         prevStateTask.progress !== changedTask.progress)
                 ) {
                     // actions for change
-                    const newTaskList = this.barTasks.map(t =>
+                    const newTaskList = this.barTasks.map((t) =>
                         t.id === changedTask.id ? changedTask : t
                     );
                     this.barTasks = newTaskList;
@@ -522,7 +561,9 @@ export class KupGantt {
     @Watch('barTasks')
     updateFailedTasksAndBarChart() {
         if (this.failedTask) {
-            this.barTasks = this.barTasks.map(t => (t.id !== this.failedTask.id ? t : this.failedTask));
+            this.barTasks = this.barTasks.map((t) =>
+                t.id !== this.failedTask.id ? t : this.failedTask
+            );
             this.failedTask = null;
         }
     }
@@ -541,7 +582,8 @@ export class KupGantt {
     @Watch('wrapperRef')
     updateSvgContainerWidth() {
         if (this.wrapperRef) {
-            this.svgContainerWidth = this.wrapperRef.offsetWidth - this.taskListWidth
+            this.svgContainerWidth =
+                this.wrapperRef.offsetWidth - this.taskListWidth;
         }
     }
 
@@ -551,9 +593,10 @@ export class KupGantt {
     @Watch('rowHeight')
     updateSvgContainerHeight() {
         if (this.ganttHeight) {
-            this.svgContainerHeight = this.ganttHeight + this.headerHeight
+            this.svgContainerHeight = this.ganttHeight + this.headerHeight;
         } else {
-            this.svgContainerHeight = this.tasks.length * this.rowHeight + this.headerHeight
+            this.svgContainerHeight =
+                this.tasks.length * this.rowHeight + this.headerHeight;
         }
     }
 
@@ -570,7 +613,7 @@ export class KupGantt {
 
         if (!wrapperRefLocal) return;
 
-        if (event?.type !== "wheel") return;
+        if (event?.type !== 'wheel') return;
 
         if (event.shiftKey || event.deltaX) {
             const scrollMove = event.deltaX ? event.deltaX : event.deltaY;
@@ -582,19 +625,24 @@ export class KupGantt {
             }
             this.scrollX = newScrollX;
             window.dispatchEvent(
-                new CustomEvent<GanttSyncScrollEvent>('gantt-sync-scroll-event', {
-                    detail: {
-                        componentId: this.ganttId,
-                        scrollX: newScrollX,
-                    },
-                })
+                new CustomEvent<GanttSyncScrollEvent>(
+                    'gantt-sync-scroll-event',
+                    {
+                        detail: {
+                            componentId: this.ganttId,
+                            scrollX: newScrollX,
+                        },
+                    }
+                )
             );
             event.preventDefault();
         } else if (this.ganttHeight) {
             let newScrollY = this.scrollY + event.deltaY;
             if (newScrollY < 0) {
                 newScrollY = 0;
-            } else if (newScrollY > Math.abs(this.ganttFullHeight - this.ganttHeight)) {
+            } else if (
+                newScrollY > Math.abs(this.ganttFullHeight - this.ganttHeight)
+            ) {
                 newScrollY = Math.abs(this.ganttFullHeight - this.ganttHeight);
             }
             if (newScrollY !== this.scrollY) {
@@ -605,20 +653,22 @@ export class KupGantt {
                 event.preventDefault();
             }
         }
-        this.ignoreScrollEvent = true
-
+        this.ignoreScrollEvent = true;
     }
 
     @Watch('columnWidth')
     @Watch('dateSetup')
     @Watch('todayColor')
     updateCurrentDateIndicatorContent() {
-        const x = calculateCurrentDateCalculator(this.dateSetup.dates, this.columnWidth);
+        const x = calculateCurrentDateCalculator(
+            this.dateSetup.dates,
+            this.columnWidth
+        );
         if (x !== 0) {
             this.currentDateIndicatorContent = {
                 color: this.todayColor,
-                x
-            }
+                x,
+            };
         }
     }
 
@@ -637,9 +687,9 @@ export class KupGantt {
                 x0,
                 xf,
                 color: this.projection.color,
-            }
+            };
         } else {
-            this.projectionContent = undefined
+            this.projectionContent = undefined;
         }
     }
 
@@ -706,20 +756,23 @@ export class KupGantt {
     handleScrollX(event: UIEvent) {
         const currentTarget = event.currentTarget as HTMLDivElement;
         if (
-            this.scrollX !== currentTarget.scrollLeft
-            && !this.ignoreScrollEvent
+            this.scrollX !== currentTarget.scrollLeft &&
+            !this.ignoreScrollEvent
         ) {
             this.scrollX = currentTarget.scrollLeft;
             this.ignoreScrollEvent = true;
             // Emit event to sync scroll
             const id = this.ganttId;
             window.dispatchEvent(
-                new CustomEvent<GanttSyncScrollEvent>('gantt-sync-scroll-event', {
-                    detail: {
-                        componentId: id,
-                        scrollX: currentTarget.scrollLeft,
-                    },
-                })
+                new CustomEvent<GanttSyncScrollEvent>(
+                    'gantt-sync-scroll-event',
+                    {
+                        detail: {
+                            componentId: id,
+                            scrollX: currentTarget.scrollLeft,
+                        },
+                    }
+                )
             );
         } else {
             this.ignoreScrollEvent = false;
@@ -763,12 +816,15 @@ export class KupGantt {
             this.scrollX = newScrollX;
             // Emit event to sync scroll
             window.dispatchEvent(
-                new CustomEvent<GanttSyncScrollEvent>('gantt-sync-scroll-event', {
-                    detail: {
-                        componentId: this.ganttId,
-                        scrollX: newScrollX,
-                    },
-                })
+                new CustomEvent<GanttSyncScrollEvent>(
+                    'gantt-sync-scroll-event',
+                    {
+                        detail: {
+                            componentId: this.ganttId,
+                            scrollX: newScrollX,
+                        },
+                    }
+                )
             );
         } else {
             if (newScrollY < 0) {
@@ -786,9 +842,9 @@ export class KupGantt {
     }
 
     handleSelectedTask(taskId: string) {
-        const newSelectedTask = this.barTasks.find(t => t.id === taskId);
+        const newSelectedTask = this.barTasks.find((t) => t.id === taskId);
         const oldSelectedTask = this.barTasks.find(
-            t => !!this.selectedTask && t.id === this.selectedTask.id
+            (t) => !!this.selectedTask && t.id === this.selectedTask.id
         );
         if (this.select) {
             if (oldSelectedTask) {
@@ -798,21 +854,21 @@ export class KupGantt {
                 this.select(newSelectedTask, true);
             }
         }
-        this.selectedTask = newSelectedTask
-    };
+        this.selectedTask = newSelectedTask;
+    }
 
     handleExpanderClick(task: KupPlannerTask) {
         if (this.expanderClick && task.hideChildren !== undefined) {
             this.expanderClick({ ...task, hideChildren: !task.hideChildren });
         }
-    };
+    }
 
     setFailedTask(task: KupPlannerBarTask | null) {
-        this.failedTask = task
+        this.failedTask = task;
     }
 
     setGanttEvent(gantt: KupPlannerGanttEvent) {
-        this.ganttEvent = gantt
+        this.ganttEvent = gantt;
     }
 
     render() {
@@ -848,7 +904,7 @@ export class KupGantt {
             rowHeight: this.rowHeight,
             taskHeight: this.taskHeight,
             columnWidth: this.columnWidth,
-            arrowColor: this.hideDependencies ? "transparent" : this.arrowColor,
+            arrowColor: this.hideDependencies ? 'transparent' : this.arrowColor,
             timeStep: this.timeStep,
             fontFamily: this.fontFamily,
             fontSize: this.fontSize,
@@ -883,7 +939,7 @@ export class KupGantt {
             scrollY: this.scrollY,
             ganttHeight: this.ganttHeight,
             filter: this.filter,
-            horizontalContainerClass: "horizontalContainer",
+            horizontalContainerClass: 'horizontalContainer',
             selectedTask: this.selectedTask,
             taskListRef: this.taskListRef,
             setSelectedTask: this.handleSelectedTask.bind(this),
@@ -898,20 +954,22 @@ export class KupGantt {
                     class="wrapper"
                     onKeyDown={this.handleKeyDown.bind(this)}
                     tabIndex={0}
-                    ref={el => (this.wrapperRef = el)}
+                    ref={(el) => (this.wrapperRef = el)}
                 >
-                    {this.listCellWidth && <kup-task-list
-                        currentTasks={this.currentTasks}
-                        handleClick={this.handleClick}
-                        handleContextMenu={this.handleContextMenu}
-                        ganttOnClick={this.ganttOnClick}
-                        ganttonOnContextMenu={this.ganttonOnContextMenu}
-                        label={this.label}
-                        doubleView={this.doubleView}
-                        setDoubleView={this.setDoubleView}
-                        {...tableProps}
-                        class="tasks"
-                    />}
+                    {this.listCellWidth && (
+                        <kup-task-list
+                            currentTasks={this.currentTasks}
+                            handleClick={this.handleClick}
+                            handleContextMenu={this.handleContextMenu}
+                            ganttOnClick={this.ganttOnClick}
+                            ganttonOnContextMenu={this.ganttonOnContextMenu}
+                            label={this.label}
+                            doubleView={this.doubleView}
+                            setDoubleView={this.setDoubleView}
+                            {...tableProps}
+                            class="tasks"
+                        />
+                    )}
                     <kup-task-gantt
                         gridProps={gridProps}
                         calendarProps={calendarProps}
@@ -962,6 +1020,4 @@ export class KupGantt {
             </div>
         );
     }
-
-
 }

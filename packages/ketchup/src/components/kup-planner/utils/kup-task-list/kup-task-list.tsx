@@ -7,7 +7,7 @@ import {
     KupPlannerItemDetail,
     KupPlannerTask,
     KupPlannerTaskListProps,
-    KupGanttPlannerProps
+    KupGanttPlannerProps,
 } from '../../kup-planner-declarations';
 import { getPhaseById, getProjectById } from '../kup-planner-renderer-helper';
 
@@ -71,7 +71,6 @@ export class TaskList {
     @Prop()
     doubleView?: boolean;
 
-
     @Prop()
     setDoubleView?: (checked: boolean) => void;
 
@@ -79,7 +78,11 @@ export class TaskList {
     handleClick: (row: KupPlannerGanttRow, onClick: any) => void;
 
     @Prop()
-    handleContextMenu: (event: MouseEvent, row: KupPlannerGanttRow, onContextMenu: any) => void;
+    handleContextMenu: (
+        event: MouseEvent,
+        row: KupPlannerGanttRow,
+        onContextMenu: any
+    ) => void;
 
     @Prop()
     ganttOnClick: KupGanttPlannerProps['onClick'];
@@ -95,7 +98,7 @@ export class TaskList {
 
     /**
      * References the root HTML element of the component (<kup-task-liss>).
-    */
+     */
 
     @Element() element: HTMLElement;
 
@@ -127,7 +130,8 @@ export class TaskList {
 
     @Watch('scrollY')
     updateScrollY() {
-        this.horizontalContainerRef && (this.horizontalContainerRef.scrollTop = this.scrollY)
+        this.horizontalContainerRef &&
+            (this.horizontalContainerRef.scrollTop = this.scrollY);
     }
 
     render() {
@@ -166,46 +170,55 @@ export class TaskList {
 
         return (
             <div ref={(el) => (this.taskListRef = el)}>
-                {
-                    TaskListHeader && TaskListHeader['$attrs$'] ? TaskListHeader :
-                        <kup-custom-task-list-header
-                            label={this.label}
-                            doubleView={this.doubleView ?? false}
-                            setDoubleView={this.setDoubleView}
-                            {...headerProps}
-                        />
-                }
+                {TaskListHeader && TaskListHeader['$attrs$'] ? (
+                    TaskListHeader
+                ) : (
+                    <kup-custom-task-list-header
+                        label={this.label}
+                        doubleView={this.doubleView ?? false}
+                        setDoubleView={this.setDoubleView}
+                        {...headerProps}
+                    />
+                )}
                 <div
                     class={this.horizontalContainerClass}
-                    style={this.ganttHeight ? { height: this.ganttHeight + 'px' } : {}}
-                    ref={el => (this.horizontalContainerRef = el)}
-                >
-                    {
-                        TaskListTable && TaskListTable['$attrs$'] ? TaskListTable :
-                            <kup-custom-task-list-table
-                                {...tableProps}
-                                onclickTaskList={(id) => {
-                                    let row = getProjectById(id, this.currentTasks);
-                                    if (!row) {
-                                        row = getPhaseById(id, this.currentTasks);
-                                    }
-                                    if (row) {
-                                        this.handleClick(row, this.ganttOnClick);
-                                    }
-                                }}
-                                oncontextmenuTaskList={(event, id) => {
-                                    let row = getProjectById(id, this.currentTasks);
-                                    if (!row) {
-                                        row = getPhaseById(id, this.currentTasks);
-                                    }
-                                    if (row) {
-                                        this.handleContextMenu(event as any, row, this.ganttonOnContextMenu);
-                                    }
-                                }}
-                                ganttId={KUP_PLANNER_MAIN_GANTT_ID}
-                            />
+                    style={
+                        this.ganttHeight
+                            ? { height: this.ganttHeight + 'px' }
+                            : {}
                     }
-
+                    ref={(el) => (this.horizontalContainerRef = el)}
+                >
+                    {TaskListTable && TaskListTable['$attrs$'] ? (
+                        TaskListTable
+                    ) : (
+                        <kup-custom-task-list-table
+                            {...tableProps}
+                            onclickTaskList={(id) => {
+                                let row = getProjectById(id, this.currentTasks);
+                                if (!row) {
+                                    row = getPhaseById(id, this.currentTasks);
+                                }
+                                if (row) {
+                                    this.handleClick(row, this.ganttOnClick);
+                                }
+                            }}
+                            oncontextmenuTaskList={(event, id) => {
+                                let row = getProjectById(id, this.currentTasks);
+                                if (!row) {
+                                    row = getPhaseById(id, this.currentTasks);
+                                }
+                                if (row) {
+                                    this.handleContextMenu(
+                                        event as any,
+                                        row,
+                                        this.ganttonOnContextMenu
+                                    );
+                                }
+                            }}
+                            ganttId={KUP_PLANNER_MAIN_GANTT_ID}
+                        />
+                    )}
                 </div>
             </div>
         );

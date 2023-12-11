@@ -37,8 +37,8 @@ export class KupTaskListHeader {
                     <div
                         class="ganttTable_HeaderSeparator"
                         style={{
-                            height: `${(this.headerHeight * 0.5)}px`,
-                            marginTop: `${(this.headerHeight * 0.2)}px`,
+                            height: `${this.headerHeight * 0.5}px`,
+                            marginTop: `${this.headerHeight * 0.2}px`,
                         }}
                     />
                     <div
@@ -52,8 +52,8 @@ export class KupTaskListHeader {
                     <div
                         class="ganttTable_HeaderSeparator"
                         style={{
-                            height: `${(this.headerHeight * 0.5)}px`,
-                            marginTop: `${(this.headerHeight * 0.25)}px`,
+                            height: `${this.headerHeight * 0.5}px`,
+                            marginTop: `${this.headerHeight * 0.25}px`,
                         }}
                     />
                     <div

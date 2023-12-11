@@ -1141,10 +1141,7 @@ export namespace Components {
         "fontSize": string;
         "ganttId": string;
         "onclickTaskList": (id: string) => void;
-        "oncontextmenuTaskList": (
-        event: MouseEvent,
-        id: string
-    ) => void;
+        "oncontextmenuTaskList": (event: MouseEvent, id: string) => void;
         "rowHeight": number;
         "rowWidth": string;
         "setSelectedTask": (taskId: string) => void;
@@ -1990,7 +1987,11 @@ export namespace Components {
         "ganttOnClick": KupGanttPlannerProps['onClick'];
         "ganttonOnContextMenu": KupGanttPlannerProps['onContextMenu'];
         "handleClick": (row: KupPlannerGanttRow, onClick: any) => void;
-        "handleContextMenu": (event: MouseEvent, row: KupPlannerGanttRow, onContextMenu: any) => void;
+        "handleContextMenu": (
+        event: MouseEvent,
+        row: KupPlannerGanttRow,
+        onContextMenu: any
+    ) => void;
         "handleWidth": KupPlannerGanttProps['handleWidth'];
         "headerHeight": KupPlannerGanttProps['headerHeight'];
         "hideDependencies": KupPlannerGanttProps['hideDependencies'];
@@ -3305,7 +3306,11 @@ export namespace Components {
         "ganttOnClick": KupGanttPlannerProps['onClick'];
         "ganttonOnContextMenu": KupGanttPlannerProps['onContextMenu'];
         "handleClick": (row: KupPlannerGanttRow, onClick: any) => void;
-        "handleContextMenu": (event: MouseEvent, row: KupPlannerGanttRow, onContextMenu: any) => void;
+        "handleContextMenu": (
+        event: MouseEvent,
+        row: KupPlannerGanttRow,
+        onContextMenu: any
+    ) => void;
         "headerHeight": number;
         "horizontalContainerClass"?: string;
         "label": string;
@@ -5822,10 +5827,7 @@ declare namespace LocalJSX {
         "fontSize"?: string;
         "ganttId"?: string;
         "onclickTaskList"?: (id: string) => void;
-        "oncontextmenuTaskList"?: (
-        event: MouseEvent,
-        id: string
-    ) => void;
+        "oncontextmenuTaskList"?: (event: MouseEvent, id: string) => void;
         "rowHeight"?: number;
         "rowWidth"?: string;
         "setSelectedTask"?: (taskId: string) => void;
@@ -6504,7 +6506,11 @@ declare namespace LocalJSX {
         "ganttOnClick"?: KupGanttPlannerProps['onClick'];
         "ganttonOnContextMenu"?: KupGanttPlannerProps['onContextMenu'];
         "handleClick"?: (row: KupPlannerGanttRow, onClick: any) => void;
-        "handleContextMenu"?: (event: MouseEvent, row: KupPlannerGanttRow, onContextMenu: any) => void;
+        "handleContextMenu"?: (
+        event: MouseEvent,
+        row: KupPlannerGanttRow,
+        onContextMenu: any
+    ) => void;
         "handleWidth"?: KupPlannerGanttProps['handleWidth'];
         "headerHeight"?: KupPlannerGanttProps['headerHeight'];
         "hideDependencies"?: KupPlannerGanttProps['hideDependencies'];
@@ -7570,7 +7576,11 @@ declare namespace LocalJSX {
         "ganttOnClick"?: KupGanttPlannerProps['onClick'];
         "ganttonOnContextMenu"?: KupGanttPlannerProps['onContextMenu'];
         "handleClick"?: (row: KupPlannerGanttRow, onClick: any) => void;
-        "handleContextMenu"?: (event: MouseEvent, row: KupPlannerGanttRow, onContextMenu: any) => void;
+        "handleContextMenu"?: (
+        event: MouseEvent,
+        row: KupPlannerGanttRow,
+        onContextMenu: any
+    ) => void;
         "headerHeight"?: number;
         "horizontalContainerClass"?: string;
         "label"?: string;

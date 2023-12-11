@@ -10,10 +10,13 @@ import {
     KupPlannerTaskGanttContentProps,
     KupPlannerTaskGanttProps,
     KupPlannerTaskItemProps,
-    KupPlannerTaskIconProps
+    KupPlannerTaskIconProps,
 } from '../../kup-planner-declarations';
-import { addToDate } from "../kup-planner-renderer-helper";
-import { handleTaskBySVGMouseEvent, getProgressPoint } from '../helpers/bar.helpers';
+import { addToDate } from '../kup-planner-renderer-helper';
+import {
+    handleTaskBySVGMouseEvent,
+    getProgressPoint,
+} from '../helpers/bar.helpers';
 import { isKeyboardEvent } from '../helpers/other.helpers';
 import { hexToCSSFilter } from 'hex-to-css-filter';
 @Component({
@@ -69,7 +72,8 @@ export class KupGridRenderer {
     hideLabel?: KupPlannerTaskGanttContentProps['hideLabel'] = false;
 
     @Prop()
-    showSecondaryDates?: KupPlannerTaskGanttContentProps['showSecondaryDates'] = false;
+    showSecondaryDates?: KupPlannerTaskGanttContentProps['showSecondaryDates'] =
+        false;
 
     @Prop()
     currentDateIndicator?: KupPlannerTaskGanttContentProps['currentDateIndicator'];
@@ -79,7 +83,6 @@ export class KupGridRenderer {
 
     @Prop()
     readOnly: KupPlannerTaskGanttContentProps['readOnly'] = false;
-
 
     @Prop()
     gridProps: KupPlannerTaskGanttProps['gridProps'];
@@ -143,7 +146,7 @@ export class KupGridRenderer {
 
     componentDidLoad() {
         this.point = this.createSVGPoint();
-        this.updateXStep()
+        this.updateXStep();
     }
 
     createSVGPoint(): SVGPoint | undefined {
@@ -182,7 +185,8 @@ export class KupGridRenderer {
     @Watch('onDateChange')
     updateSvgMove() {
         const handleMouseMove = async (event: MouseEvent) => {
-            if (!this.ganttEvent.changedTask || !this.point || !this.svg) return;
+            if (!this.ganttEvent.changedTask || !this.point || !this.svg)
+                return;
             event.preventDefault();
             this.point.x = event.clientX;
             const cursor = this.point.matrixTransform(
@@ -203,13 +207,18 @@ export class KupGridRenderer {
                     action: this.ganttEvent.action,
                     changedTask,
                 });
-
             }
         };
 
         const handleMouseUp = async (event: MouseEvent) => {
-            const { action, originalSelectedTask, changedTask } = this.ganttEvent;
-            if (!changedTask || !this.point || !this.svg || !originalSelectedTask)
+            const { action, originalSelectedTask, changedTask } =
+                this.ganttEvent;
+            if (
+                !changedTask ||
+                !this.point ||
+                !this.svg ||
+                !originalSelectedTask
+            )
                 return;
             event.preventDefault();
 
@@ -233,15 +242,15 @@ export class KupGridRenderer {
                 originalSelectedTask.progress !== newChangedTask.progress;
 
             // remove listeners
-            this.svg.removeEventListener("mousemove", handleMouseMove);
-            this.svg.removeEventListener("mouseup", handleMouseUp);
-            this.setGanttEvent({ action: "" })
-            this.isMoving = false
+            this.svg.removeEventListener('mousemove', handleMouseMove);
+            this.svg.removeEventListener('mouseup', handleMouseUp);
+            this.setGanttEvent({ action: '' });
+            this.isMoving = false;
 
             // custom operation start
             let operationSuccess: any = true;
             if (
-                (action === "move" || action === "end" || action === "start") &&
+                (action === 'move' || action === 'end' || action === 'start') &&
                 this.dateChange &&
                 isNotLikeOriginal
             ) {
@@ -278,14 +287,14 @@ export class KupGridRenderer {
 
         if (
             !this.isMoving &&
-            (this.ganttEvent.action === "move" ||
-                this.ganttEvent.action === "end" ||
-                this.ganttEvent.action === "start" ||
-                this.ganttEvent.action === "progress") &&
+            (this.ganttEvent.action === 'move' ||
+                this.ganttEvent.action === 'end' ||
+                this.ganttEvent.action === 'start' ||
+                this.ganttEvent.action === 'progress') &&
             this.svg
         ) {
-            this.svg.addEventListener("mousemove", handleMouseMove);
-            this.svg.addEventListener("mouseup", handleMouseUp);
+            this.svg.addEventListener('mousemove', handleMouseMove);
+            this.svg.addEventListener('mouseup', handleMouseUp);
             this.isMoving = true;
         }
     }
@@ -297,48 +306,52 @@ export class KupGridRenderer {
         return this.initEventXClick !== event.clientX;
     }
 
-    handleBarEventStart(action: KupPlannerGanttContentMoveAction, task: KupPlannerBarTask, event?: MouseEvent | KeyboardEvent) {
+    handleBarEventStart(
+        action: KupPlannerGanttContentMoveAction,
+        task: KupPlannerBarTask,
+        event?: MouseEvent | KeyboardEvent
+    ) {
         if (!event) {
-            if (action === "select") {
-                this.setSelectedTask(task.id)
+            if (action === 'select') {
+                this.setSelectedTask(task.id);
             }
         } else if (isKeyboardEvent(event)) {
-            if (action === "delete") {
+            if (action === 'delete') {
                 if (this.delete) {
                     try {
                         const result = this.delete(task);
                         if (result !== undefined && result) {
-                            this.setGanttEvent({ action, changedTask: task })
+                            this.setGanttEvent({ action, changedTask: task });
                             // this.ganttEvent = { action, changedTask: task }
                         }
                     } catch (error) {
-                        console.error("Error on Delete. " + error);
+                        console.error('Error on Delete. ' + error);
                     }
                 }
             }
-        } else if (action === "mouseenter") {
+        } else if (action === 'mouseenter') {
             if (!this.ganttEvent.action) {
                 this.setGanttEvent({
                     action,
                     changedTask: task,
-                    originalSelectedTask: task
-                })
+                    originalSelectedTask: task,
+                });
             }
-        } else if (action === "mouseleave") {
-            if (this.ganttEvent.action === "mouseenter") {
+        } else if (action === 'mouseleave') {
+            if (this.ganttEvent.action === 'mouseenter') {
                 this.setGanttEvent({
-                    action: ""
-                })
+                    action: '',
+                });
             }
-        } else if (action === "dblclick") {
+        } else if (action === 'dblclick') {
             this.doubleClick && this.doubleClick(task);
-        } else if (action === "click") {
+        } else if (action === 'click') {
             const skipClick = this.hasMovedHorizontally(event);
             !skipClick && this.barClick && this.barClick(task);
-        } else if (action === "contextmenu") {
+        } else if (action === 'contextmenu') {
             event.preventDefault();
             this.barContextMenu && this.barContextMenu(event, task);
-        } else if (action === "move") {
+        } else if (action === 'move') {
             if (!this.svg || !this.point) return;
             this.point.x = event.clientX;
             const cursor = this.point.matrixTransform(
@@ -349,14 +362,14 @@ export class KupGridRenderer {
             this.setGanttEvent({
                 action,
                 changedTask: task,
-                originalSelectedTask: task
-            })
+                originalSelectedTask: task,
+            });
         } else {
             this.setGanttEvent({
                 action,
                 changedTask: task,
-                originalSelectedTask: task
-            })
+                originalSelectedTask: task,
+            });
         }
     }
 
@@ -365,13 +378,13 @@ export class KupGridRenderer {
         return (
             <image
                 href={bar.url}
-                filter={cssFilter.filter.replace(";", "")}
+                filter={cssFilter.filter.replace(';', '')}
                 x={bar.x}
                 y={bar.y}
                 width={bar.width}
                 height={bar.height}
             ></image>
-        )
+        );
     }
 
     renderKupBar(
@@ -395,7 +408,7 @@ export class KupGridRenderer {
                     !this.readOnly && !!this.dateChange && !task.isDisabled,
                     task,
                     task.x1secondary,
-                    ((task.x2secondary ?? 0) - (task.x1secondary ?? 0)),
+                    (task.x2secondary ?? 0) - (task.x1secondary ?? 0)
                 )}
                 <g class="handleGroup">
                     {isDateResizable && (
@@ -408,7 +421,7 @@ export class KupGridRenderer {
                                 task.height - 2,
                                 task.barCornerRadius,
                                 task,
-                                "start",
+                                'start'
                             )}
                             {/* right */}
                             {this.renderKupBarDateHandle(
@@ -418,7 +431,7 @@ export class KupGridRenderer {
                                 task.height - 2,
                                 task.barCornerRadius,
                                 task,
-                                "end"
+                                'end'
                             )}
                         </g>
                     )}
@@ -426,26 +439,27 @@ export class KupGridRenderer {
                         <polygon
                             class="barHandle"
                             points={this.calculateProgressPoint(task)}
-                            onMouseDown={e => {
-                                this.handleBarEventStart("progress", task, e);
+                            onMouseDown={(e) => {
+                                this.handleBarEventStart('progress', task, e);
                             }}
                         />
                     )}
                 </g>
-                {task.icon && task.icon.url && (
+                {task.icon &&
+                    task.icon.url &&
                     this.getTaskIcon({
-                        color: task.icon.color ?? "#000000",
+                        color: task.icon.color ?? '#000000',
                         url: task.icon.url,
-                        width: task.height / 2 + "px",
-                        height: task.height / 2 + "px",
+                        width: task.height / 2 + 'px',
+                        height: task.height / 2 + 'px',
                         x: task.x1 + (task.x2 - task.x1) - task.height / 2 / 2,
-                        y: task.y -
+                        y:
+                            task.y -
                             task.height / 2 / 2 / 2 +
-                            (this.showSecondaryDates ? task.height / 2 : 0)
-                    })
-                )}
+                            (this.showSecondaryDates ? task.height / 2 : 0),
+                    })}
             </g>
-        )
+        );
     }
 
     renderKupBarDisplay(
@@ -461,12 +475,17 @@ export class KupGridRenderer {
         isDateMovable: KupPlannerTaskItemProps['isDateMovable'],
         task: KupPlannerBarTask,
         xSecondary?: KupPlannerBarDisplayProps['xSecondary'],
-        widthSecondary?: KupPlannerBarDisplayProps['widthSecondary'],
+        widthSecondary?: KupPlannerBarDisplayProps['widthSecondary']
     ) {
-        if (this.showSecondaryDates && typeof xSecondary !== "undefined") {
+        if (this.showSecondaryDates && typeof xSecondary !== 'undefined') {
             const halfHeight = height / 2;
             return (
-                <g onMouseDown={e => isDateMovable && this.handleBarEventStart("move", task, e)}>
+                <g
+                    onMouseDown={(e) =>
+                        isDateMovable &&
+                        this.handleBarEventStart('move', task, e)
+                    }
+                >
                     <rect
                         key="top semi-transparent bar"
                         x={xSecondary}
@@ -477,7 +496,7 @@ export class KupGridRenderer {
                         rx={barCornerRadius}
                         fill={this.getBarColor(isSelected, styles)}
                         opacity={0.5}
-                        class={"barBackground"}
+                        class={'barBackground'}
                     />
                     <rect
                         key="main bar"
@@ -488,7 +507,7 @@ export class KupGridRenderer {
                         ry={barCornerRadius}
                         rx={barCornerRadius}
                         fill={this.getBarColor(isSelected, styles)}
-                        class={"barBackground"}
+                        class={'barBackground'}
                     />
                     <rect
                         key="progress bar"
@@ -501,11 +520,15 @@ export class KupGridRenderer {
                         fill={this.getProcessColor(isSelected, styles)}
                     />
                 </g>
-            )
+            );
         }
 
         return (
-            <g onMouseDown={e => { isDateMovable && this.handleBarEventStart("move", task, e) }}>
+            <g
+                onMouseDown={(e) => {
+                    isDateMovable && this.handleBarEventStart('move', task, e);
+                }}
+            >
                 <rect
                     x={x}
                     width={width}
@@ -514,7 +537,7 @@ export class KupGridRenderer {
                     ry={barCornerRadius}
                     rx={barCornerRadius}
                     fill={this.getBarColor(isSelected, styles)}
-                    class={"barBackground"}
+                    class={'barBackground'}
                 />
                 <rect
                     x={progressX}
@@ -544,10 +567,12 @@ export class KupGridRenderer {
                 y={y}
                 width={width}
                 height={height}
-                class={"barHandle"}
+                class={'barHandle'}
                 ry={barCornerRadius}
                 rx={barCornerRadius}
-                onMouseDown={e => this.handleBarEventStart(eventType, task, e)}
+                onMouseDown={(e) =>
+                    this.handleBarEventStart(eventType, task, e)
+                }
             />
         );
     }
@@ -559,7 +584,7 @@ export class KupGridRenderer {
         isProgressChangeable: boolean
     ) {
         return (
-            <g class={"barWrapper"} tab-index={0}>
+            <g class={'barWrapper'} tab-index={0}>
                 {this.renderKupBarDisplay(
                     task.x1,
                     task.y,
@@ -576,16 +601,16 @@ export class KupGridRenderer {
                 <g class="handleGroup">
                     {isProgressChangeable && (
                         <polygon
-                            class={"barHandle"}
+                            class={'barHandle'}
                             points={this.calculateProgressPoint(task, 'small')}
-                            onMouseDown={e => {
-                                this.handleBarEventStart("progress", task, e);
+                            onMouseDown={(e) => {
+                                this.handleBarEventStart('progress', task, e);
                             }}
                         />
                     )}
                 </g>
             </g>
-        )
+        );
     }
 
     renderKupBarTimeLine(task: KupPlannerBarTask, col: string) {
@@ -600,11 +625,11 @@ export class KupGridRenderer {
                     rx={0}
                     ry={0}
                 />
-                {task.barChildren.map(bar => {
+                {task.barChildren.map((bar) => {
                     return (
                         <Fragment>
                             <rect
-                                style={{ cursor: "pointer" }}
+                                style={{ cursor: 'pointer' }}
                                 key={bar.id}
                                 fill={bar.styles.backgroundColor}
                                 x={bar.x1}
@@ -614,16 +639,19 @@ export class KupGridRenderer {
                                 rx={bar.barCornerRadius}
                                 ry={bar.barCornerRadius}
                             />
-                            {bar.icon && bar.icon.url &&
+                            {bar.icon &&
+                                bar.icon.url &&
                                 this.getTaskIcon({
-                                    color: bar.icon.color ?? "#000000",
+                                    color: bar.icon.color ?? '#000000',
                                     url: bar.icon.url,
-                                    width: bar.height + "px",
-                                    height: bar.height + "px",
-                                    x: bar.x1 + (bar.x2 - bar.x1) - bar.height / 2,
-                                    y: bar.y - bar.height / 2 / 2
-                                })
-                            }
+                                    width: bar.height + 'px',
+                                    height: bar.height + 'px',
+                                    x:
+                                        bar.x1 +
+                                        (bar.x2 - bar.x1) -
+                                        bar.height / 2,
+                                    y: bar.y - bar.height / 2 / 2,
+                                })}
                         </Fragment>
                     );
                 })}
@@ -634,25 +662,25 @@ export class KupGridRenderer {
     renderKupArrow(task: KupPlannerBarTask, child: KupPlannerBarTask) {
         const [path, trianglePoints] = this.rtl
             ? this.drownPathAndTriangleRTL(
-                task,
-                this.tasks[child.index],
-                this.rowHeight,
-                this.taskHeight,
-                this.arrowIndent
-            )
+                  task,
+                  this.tasks[child.index],
+                  this.rowHeight,
+                  this.taskHeight,
+                  this.arrowIndent
+              )
             : this.drownPathAndTriangle(
-                task,
-                this.tasks[child.index],
-                this.rowHeight,
-                this.taskHeight,
-                this.arrowIndent
-            );
+                  task,
+                  this.tasks[child.index],
+                  this.rowHeight,
+                  this.taskHeight,
+                  this.arrowIndent
+              );
         return (
             <g class="arrow">
                 <path stroke-width="1.5" d={path} fill="none" />
                 <polygon points={trianglePoints} />
             </g>
-        )
+        );
     }
 
     drownPathAndTriangle(
@@ -666,7 +694,9 @@ export class KupGridRenderer {
         const taskToEndPosition = taskTo.y + taskHeight / 2;
         const taskFromEndPosition = taskFrom.x2 + arrowIndent * 2;
         const taskFromHorizontalOffsetValue =
-            taskFromEndPosition < taskTo.x1 ? "" : `H ${taskTo.x1 - arrowIndent}`;
+            taskFromEndPosition < taskTo.x1
+                ? ''
+                : `H ${taskTo.x1 - arrowIndent}`;
         const taskToHorizontalOffsetValue =
             taskFromEndPosition > taskTo.x1
                 ? arrowIndent
@@ -683,19 +713,22 @@ export class KupGridRenderer {
         ${taskTo.x1 - 5},${taskToEndPosition - 5}
         ${taskTo.x1 - 5},${taskToEndPosition + 5}`;
         return [path, trianglePoints];
-    };
+    }
 
     drownPathAndTriangleRTL(
         taskFrom: KupPlannerBarTask,
         taskTo: KupPlannerBarTask,
         rowHeight: number,
         taskHeight: number,
-        arrowIndent: number) {
+        arrowIndent: number
+    ) {
         const indexCompare = taskFrom.index > taskTo.index ? -1 : 1;
         const taskToEndPosition = taskTo.y + taskHeight / 2;
         const taskFromEndPosition = taskFrom.x1 - arrowIndent * 2;
         const taskFromHorizontalOffsetValue =
-            taskFromEndPosition > taskTo.x2 ? "" : `H ${taskTo.x2 + arrowIndent}`;
+            taskFromEndPosition > taskTo.x2
+                ? ''
+                : `H ${taskTo.x2 + arrowIndent}`;
         const taskToHorizontalOffsetValue =
             taskFromEndPosition < taskTo.x2
                 ? -arrowIndent
@@ -712,22 +745,26 @@ export class KupGridRenderer {
         ${taskTo.x2 + 5},${taskToEndPosition + 5}
         ${taskTo.x2 + 5},${taskToEndPosition - 5}`;
         return [path, trianglePoints];
-    };
+    }
 
     getBarColor(isSelected: boolean, styles: KupPlannerBarTask['styles']) {
-        return isSelected ? styles.backgroundSelectedColor : styles.backgroundColor;
-    };
+        return isSelected
+            ? styles.backgroundSelectedColor
+            : styles.backgroundColor;
+    }
 
     getProcessColor(isSelected: boolean, styles: KupPlannerBarTask['styles']) {
         return isSelected ? styles.progressSelectedColor : styles.progressColor;
-    };
+    }
 
     calculateProgressPoint(task: KupPlannerBarTask, type: string = 'bar') {
         return getProgressPoint(
-            type == 'bar' ? +!this.rtl * task.progressWidth + task.progressX : task.progressWidth + task.x1,
+            type == 'bar'
+                ? +!this.rtl * task.progressWidth + task.progressX
+                : task.progressWidth + task.x1,
             task.y,
             task.height
-        )
+        );
     }
 
     render() {
@@ -746,7 +783,7 @@ export class KupGridRenderer {
         for (const task of this.tasks) {
             gridRows.push(
                 <rect
-                    key={"Row" + task.id}
+                    key={'Row' + task.id}
                     x={0}
                     y={y}
                     width={this.gridProps.svgWidth}
@@ -756,7 +793,7 @@ export class KupGridRenderer {
             );
             rowLines.push(
                 <line
-                    key={"RowLine" + task.id}
+                    key={'RowLine' + task.id}
                     x1={0}
                     y1={y + this.rowHeight}
                     x2={this.gridProps.svgWidth}
@@ -804,9 +841,9 @@ export class KupGridRenderer {
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={this.gridProps.svgWidth}
-                height={`${(this.rowHeight * this.tasks.length)}px`}
+                height={`${this.rowHeight * this.tasks.length}px`}
                 font-family={this.fontFamily}
-                ref={el => (this.svg = el as SVGSVGElement)}
+                ref={(el) => (this.svg = el as SVGSVGElement)}
             >
                 <g class="grid">
                     <g class="rows">{gridRows}</g>
@@ -833,46 +870,82 @@ export class KupGridRenderer {
                             fill-opacity="0.35"
                         />
                     )}
-                    <g class="arrows" fill={this.arrowColor} stroke={this.arrowColor}>
+                    <g
+                        class="arrows"
+                        fill={this.arrowColor}
+                        stroke={this.arrowColor}
+                    >
                         {this.tasks.map((task) => {
                             return task.barChildren.map((child) => {
-                                if (task.type !== "timeline") {
-                                    this.renderKupArrow(task, child)
+                                if (task.type !== 'timeline') {
+                                    this.renderKupArrow(task, child);
                                 }
                             });
                         })}
                     </g>
-                    <g class="bar" font-family={this.fontFamily} font-size={this.fontSize}>
+                    <g
+                        class="bar"
+                        font-family={this.fontFamily}
+                        font-size={this.fontSize}
+                    >
                         {this.tasks.map((task) => {
-                            const forbidResize = task.type === "project";
+                            const forbidResize = task.type === 'project';
                             return (
                                 <g
-                                    onKeyDown={e => {
+                                    onKeyDown={(e) => {
                                         switch (e.key) {
-                                            case "Delete": {
-                                                if (!task.isDisabled) this.handleBarEventStart("delete", task, e);
+                                            case 'Delete': {
+                                                if (!task.isDisabled)
+                                                    this.handleBarEventStart(
+                                                        'delete',
+                                                        task,
+                                                        e
+                                                    );
                                                 break;
                                             }
                                         }
                                         e.stopPropagation();
                                     }}
-                                    onMouseEnter={e => {
-                                        this.handleBarEventStart("mouseenter", task, e);
+                                    onMouseEnter={(e) => {
+                                        this.handleBarEventStart(
+                                            'mouseenter',
+                                            task,
+                                            e
+                                        );
                                     }}
-                                    onMouseLeave={e => {
-                                        this.handleBarEventStart("mouseleave", task, e);
+                                    onMouseLeave={(e) => {
+                                        this.handleBarEventStart(
+                                            'mouseleave',
+                                            task,
+                                            e
+                                        );
                                     }}
-                                    onDblClick={e => {
-                                        this.handleBarEventStart("dblclick", task, e);
+                                    onDblClick={(e) => {
+                                        this.handleBarEventStart(
+                                            'dblclick',
+                                            task,
+                                            e
+                                        );
                                     }}
-                                    onClick={e => {
-                                        this.handleBarEventStart("click", task, e);
+                                    onClick={(e) => {
+                                        this.handleBarEventStart(
+                                            'click',
+                                            task,
+                                            e
+                                        );
                                     }}
-                                    onContextMenu={e => {
-                                        this.handleBarEventStart("contextmenu", task, e);
+                                    onContextMenu={(e) => {
+                                        this.handleBarEventStart(
+                                            'contextmenu',
+                                            task,
+                                            e
+                                        );
                                     }}
                                     onFocus={() => {
-                                        this.handleBarEventStart("select", task);
+                                        this.handleBarEventStart(
+                                            'select',
+                                            task
+                                        );
                                     }}
                                     class="task-wrapper"
                                 >
@@ -882,15 +955,30 @@ export class KupGridRenderer {
                                             arrowIndent: this.arrowIndent,
                                             isDelete: !task.isDisabled,
                                             taskHeight: this.taskHeight,
-                                            isSelected: !!this.selectedTask && task.id === this.selectedTask.id,
+                                            isSelected:
+                                                !!this.selectedTask &&
+                                                task.id ===
+                                                    this.selectedTask.id,
                                             rtl: this.rtl,
                                             hideLabel: this.hideLabel,
-                                        }
+                                        };
                                         const styles = task.styles;
-                                        const col = props.isSelected ? styles.backgroundSelectedColor : styles.backgroundColor;
-                                        const isDateResizable = !this.readOnly && !!this.dateChange && !task.isDisabled && !forbidResize
-                                        const isProgressChangeable = !this.readOnly && !!this.progressChange && !task.isDisabled
-                                        const isDateMovable = !this.readOnly && !!this.dateChange && !task.isDisabled
+                                        const col = props.isSelected
+                                            ? styles.backgroundSelectedColor
+                                            : styles.backgroundColor;
+                                        const isDateResizable =
+                                            !this.readOnly &&
+                                            !!this.dateChange &&
+                                            !task.isDisabled &&
+                                            !forbidResize;
+                                        const isProgressChangeable =
+                                            !this.readOnly &&
+                                            !!this.progressChange &&
+                                            !task.isDisabled;
+                                        const isDateMovable =
+                                            !this.readOnly &&
+                                            !!this.dateChange &&
+                                            !task.isDisabled;
                                         switch (task.typeInternal) {
                                             case 'project':
                                                 return this.renderKupBar(
@@ -905,9 +993,12 @@ export class KupGridRenderer {
                                                     props.isSelected,
                                                     isDateMovable,
                                                     isProgressChangeable
-                                                )
+                                                );
                                             case 'timeline':
-                                                return this.renderKupBarTimeLine(task, col)
+                                                return this.renderKupBarTimeLine(
+                                                    task,
+                                                    col
+                                                );
                                             default:
                                                 return this.renderKupBar(
                                                     task,

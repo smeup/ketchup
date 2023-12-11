@@ -29,7 +29,7 @@ export class HorizontalScroll {
 
     /**
      * References the root HTML element of the component (<kup-horizontal>).
-    */
+     */
     @Element() rootElement: HTMLElement;
 
     /*-------------------------------------------------*/
@@ -48,7 +48,7 @@ export class HorizontalScroll {
     /*-------------------------------------------------*/
     @Watch('scrollNumber')
     scrollLeft() {
-        clearTimeout(this.timeoutId)
+        clearTimeout(this.timeoutId);
         this.timeoutId = setTimeout(() => {
             this.setScrollLeft();
         }, 50);
@@ -56,7 +56,8 @@ export class HorizontalScroll {
 
     private setScrollLeft() {
         if (this.rootElement) {
-            this.rootElement.shadowRoot.querySelector('div').scrollLeft = this.scrollNumber;
+            this.rootElement.shadowRoot.querySelector('div').scrollLeft =
+                this.scrollNumber;
         }
     }
 
@@ -69,10 +70,10 @@ export class HorizontalScroll {
                 style={
                     rect
                         ? {
-                            margin: this.rtl
-                                ? `0px ${rect.x}px 0px 0px`
-                                : `0px 0px 0px ${rect.x}px`,
-                        }
+                              margin: this.rtl
+                                  ? `0px ${rect.x}px 0px 0px`
+                                  : `0px 0px 0px ${rect.x}px`,
+                          }
                         : undefined
                 }
                 class="scrollWrapper"

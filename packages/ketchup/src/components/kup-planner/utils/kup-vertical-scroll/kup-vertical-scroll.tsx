@@ -29,8 +29,8 @@ export class KupVerticalScroll {
     verticalScroll: (event: UIEvent) => void;
 
     /**
-    * References the root HTML element of the component (<kup-vertical-scroll>).
-    */
+     * References the root HTML element of the component (<kup-vertical-scroll>).
+     */
     @Element() rootElement: HTMLElement;
 
     /*-------------------------------------------------*/
@@ -62,7 +62,7 @@ export class KupVerticalScroll {
         }
         return () => {
             clearTimeout(id);
-        }
+        };
     }
 
     render() {
@@ -75,9 +75,14 @@ export class KupVerticalScroll {
                 }}
                 class="scroll"
                 onScroll={this.verticalScroll}
-                ref={el => (this.scrollRef = el)}
+                ref={(el) => (this.scrollRef = el)}
             >
-                <div style={{ height: `${this.ganttFullHeight}px`, width: '1px' }} />
+                <div
+                    style={{
+                        height: `${this.ganttFullHeight}px`,
+                        width: '1px',
+                    }}
+                />
             </div>
         );
     }

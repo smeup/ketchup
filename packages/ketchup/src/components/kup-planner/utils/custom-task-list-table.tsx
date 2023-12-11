@@ -34,10 +34,7 @@ export class KupCustomTaskListTable {
     onclickTaskList: (id: string) => void;
 
     @Prop()
-    oncontextmenuTaskList: (
-        event: MouseEvent,
-        id: string
-    ) => void;
+    oncontextmenuTaskList: (event: MouseEvent, id: string) => void;
 
     render() {
         const kupDates: KupDates = new KupDates();
@@ -72,10 +69,14 @@ export class KupCustomTaskListTable {
                                         key={`task_${task.id}_valuesToShow_${index}`}
                                     >
                                         {v === '#START#'
-                                            ? kupDates.formatToLocaleSimple(task.start)
+                                            ? kupDates.formatToLocaleSimple(
+                                                  task.start
+                                              )
                                             : v === '#END#'
-                                                ? kupDates.formatToLocaleSimple(task.end)
-                                                : v}
+                                            ? kupDates.formatToLocaleSimple(
+                                                  task.end
+                                              )
+                                            : v}
                                     </span>
                                 ))}
                             </div>
@@ -87,7 +88,9 @@ export class KupCustomTaskListTable {
                                     width: this.rowWidth,
                                     fontFamily: this.fontFamily,
                                     fontSize: this.fontSize,
-                                    gridTemplateColumns: `repeat(${task.valuesToShow.length + 1}, 1fr)`,
+                                    gridTemplateColumns: `repeat(${
+                                        task.valuesToShow.length + 1
+                                    }, 1fr)`,
                                 }}
                                 onClick={() => {
                                     this.setSelectedTask(task.id);
@@ -104,7 +107,8 @@ export class KupCustomTaskListTable {
                                     style={{
                                         height: '16px',
                                         width: '16px',
-                                        backgroundColor: task.styles?.backgroundColor,
+                                        backgroundColor:
+                                            task.styles?.backgroundColor,
                                     }}
                                 />
                                 {task.valuesToShow?.map((v, index) => (
@@ -114,18 +118,26 @@ export class KupCustomTaskListTable {
                                         key={`phase_${task.id}_valuesToShow_${index}`}
                                     >
                                         {v === '#START#'
-                                            ? kupDates.formatToLocaleSimple(task.start)
+                                            ? kupDates.formatToLocaleSimple(
+                                                  task.start
+                                              )
                                             : v === '#END#'
-                                                ? kupDates.formatToLocaleSimple(task.end)
-                                                : v}
+                                            ? kupDates.formatToLocaleSimple(
+                                                  task.end
+                                              )
+                                            : v}
                                     </span>
                                 ))}
                             </div>
                         ) : (
                             (() => {
-                                let str = "";
-                                for (let i = 0; i < task.valuesToShow.length; i++) {
-                                    str += "1fr ";
+                                let str = '';
+                                for (
+                                    let i = 0;
+                                    i < task.valuesToShow.length;
+                                    i++
+                                ) {
+                                    str += '1fr ';
                                 }
                                 return (
                                     <div
@@ -135,25 +147,36 @@ export class KupCustomTaskListTable {
                                             width: this.rowWidth,
                                             fontFamily: this.fontFamily,
                                             fontSize: this.fontSize,
-                                            "--grid-fasi-columns": str,
+                                            '--grid-fasi-columns': str,
                                         }}
                                         onContextMenu={(e) => {
                                             e.preventDefault();
                                             this.setSelectedTask(task.id);
-                                            this.oncontextmenuTaskList(e, task.id);
+                                            this.oncontextmenuTaskList(
+                                                e,
+                                                task.id
+                                            );
                                         }}
                                     >
                                         {task.valuesToShow?.map((v, index) => (
                                             <span
-                                                class={index === 0 ? 'main' : undefined}
-                                                title={v.length > 10 ? v : undefined}
+                                                class={
+                                                    index === 0
+                                                        ? 'main'
+                                                        : undefined
+                                                }
+                                                title={
+                                                    v.length > 10
+                                                        ? v
+                                                        : undefined
+                                                }
                                                 key={`detail_${task.id}_valuesToShow_${index}`}
                                             >
                                                 {v}
                                             </span>
                                         ))}
                                     </div>
-                                )
+                                );
                             })()
                         )}
                     </Fragment>

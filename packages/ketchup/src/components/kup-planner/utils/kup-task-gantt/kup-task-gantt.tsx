@@ -1,7 +1,5 @@
 import { Component, h, Prop, Element, Watch } from '@stencil/core';
-import {
-    KupPlannerTaskGanttProps
-} from '../../kup-planner-declarations';
+import { KupPlannerTaskGanttProps } from '../../kup-planner-declarations';
 @Component({
     tag: 'kup-task-gantt',
     styleUrl: '',
@@ -32,9 +30,8 @@ export class TaskGantt {
     @Prop({ mutable: true })
     scrollX: KupPlannerTaskGanttProps['scrollX'];
 
-
     /**
-      * References the root HTML element of the component (<kup-task-gantt>).
+     * References the root HTML element of the component (<kup-task-gantt>).
      */
     @Element() rootElement: HTMLElement;
 
@@ -53,7 +50,8 @@ export class TaskGantt {
     @Watch('verticalGanttContainerRef')
     updateScrollX() {
         setTimeout(() => {
-            this.verticalGanttContainerRef && (this.verticalGanttContainerRef.scrollLeft = this.scrollX)
+            this.verticalGanttContainerRef &&
+                (this.verticalGanttContainerRef.scrollLeft = this.scrollX);
         }, 30);
     }
 
@@ -61,15 +59,16 @@ export class TaskGantt {
     @Watch('horizontalContainerRef')
     updateScrollY() {
         setTimeout(() => {
-            this.horizontalContainerRef && (this.horizontalContainerRef.scrollTop = this.scrollY)
+            this.horizontalContainerRef &&
+                (this.horizontalContainerRef.scrollTop = this.scrollY);
         }, 30);
     }
 
     //---- Lifecycle hooks ----
 
     componentDidLoad() {
-        this.updateScrollX()
-        this.updateScrollY()
+        this.updateScrollX();
+        this.updateScrollY();
     }
 
     render() {
@@ -77,7 +76,7 @@ export class TaskGantt {
         return (
             <div
                 class="ganttVerticalContainer"
-                ref={el => (this.verticalGanttContainerRef = el)}
+                ref={(el) => (this.verticalGanttContainerRef = el)}
                 dir="ltr"
             >
                 <kup-gantt-calendar
@@ -90,21 +89,26 @@ export class TaskGantt {
                     fontSize={this.calendarProps.fontSize}
                     dateTimeFormatters={this.calendarProps.dateTimeFormatters}
                     singleLineHeader={this.calendarProps.singleLineHeader}
-                    currentDateIndicator={this.calendarProps.currentDateIndicator}
+                    currentDateIndicator={
+                        this.calendarProps.currentDateIndicator
+                    }
                     svgWidth={this.gridProps.svgWidth}
                 />
                 <div
-                    ref={el => (this.horizontalContainerRef = el)}
+                    ref={(el) => (this.horizontalContainerRef = el)}
                     class="horizontalContainer"
                     style={
                         this.ganttHeight
-                            ? { height: `${this.ganttHeight}px`, width: `${this.gridProps.svgWidth}px` }
+                            ? {
+                                  height: `${this.ganttHeight}px`,
+                                  width: `${this.gridProps.svgWidth}px`,
+                              }
                             : { width: `${this.gridProps.svgWidth}px` }
                     }
                 >
                     <kup-grid-renderer {...newBarProps} />
                 </div>
-            </div >
+            </div>
         );
     }
 }

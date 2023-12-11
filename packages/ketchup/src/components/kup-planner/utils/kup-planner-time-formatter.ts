@@ -4,7 +4,7 @@ const intlDTCache: { [key: string]: Intl.DateTimeFormat } = {};
 const cachedFormats: { [key: string]: Intl.DateTimeFormat } = {};
 
 const getOrBuildCachedFormat = (locale: string, options: any) => {
-    const key = locale + "#" + JSON.stringify(options);
+    const key = locale + '#' + JSON.stringify(options);
     const fmt = cachedFormats[key] ?? new Intl.DateTimeFormat(locale, options);
     return (cachedFormats[key] = fmt);
 };
@@ -14,21 +14,21 @@ const format = (date: Date, locale: string, options: object) => {
         const format1 = getOrBuildCachedFormat(locale, options).format(date);
         return format1;
     } catch (e) {
-        console.error("time-formatters.ts format", date, locale, options);
+        console.error('time-formatters.ts format', date, locale, options);
         console.error(e);
-        return "FORMAT-ERR";
+        return 'FORMAT-ERR';
     }
 };
 
 /** E.g. Monday 3 december 2023 => M 3, lunedì 3 dicembre 2023 => L 3 */
 const dayFormatter = (date: Date, locale: string) => {
-    const dayName = format(date, locale, { weekday: "narrow" })?.toUpperCase();
-    const dayNumber = format(date, locale, { day: "numeric" });
+    const dayName = format(date, locale, { weekday: 'narrow' })?.toUpperCase();
+    const dayNumber = format(date, locale, { day: 'numeric' });
     return `${dayName} ${dayNumber}`;
 };
 
 const monthFormatter = (date: Date, locale: string) => {
-    return format(date, locale, { month: "short" });
+    return format(date, locale, { month: 'short' });
 };
 
 export const ganttDateTimeFormatters = {
@@ -47,20 +47,22 @@ export const defaultDateTimeFormatters = {
         `${getLocaleMonth(date, locale)}, ${date.getFullYear()}`,
     week: (date: Date, _locale: string) => `W${getWeekNumberISO8601(date)}`,
     day: (date: Date, locale: string) =>
-        `${getLocalDayOfWeek(date, locale, "short")}, ${date.getDate().toString()}`,
+        `${getLocalDayOfWeek(date, locale, 'short')}, ${date
+            .getDate()
+            .toString()}`,
     hour: (date: Date, locale: string) =>
-        `${getCachedDateTimeFormat(locale, { hour: "numeric" }).format(date)}`,
+        `${getCachedDateTimeFormat(locale, { hour: 'numeric' }).format(date)}`,
     dayAndMonth: (date: Date, locale: string) =>
         `${getLocalDayOfWeek(
             date,
             locale,
-            "short"
+            'short'
         )}, ${date.getDate()} ${getLocaleMonth(date, locale)}`,
 };
 
 export const getLocaleMonth = (date: Date, locale: string) => {
     let bottomValue = getCachedDateTimeFormat(locale, {
-        month: "long",
+        month: 'long',
     }).format(date);
     bottomValue = bottomValue.replace(
         bottomValue[0],
@@ -72,7 +74,7 @@ export const getLocaleMonth = (date: Date, locale: string) => {
 export const getLocalDayOfWeek = (
     date: Date,
     locale: string,
-    format?: "long" | "short" | "narrow" | undefined
+    format?: 'long' | 'short' | 'narrow' | undefined
 ) => {
     let bottomValue = getCachedDateTimeFormat(locale, {
         weekday: format,

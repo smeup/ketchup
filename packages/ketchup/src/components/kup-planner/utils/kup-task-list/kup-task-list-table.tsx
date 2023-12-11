@@ -59,11 +59,15 @@ export class TaskListTableDefault {
                                 <div
                                     class={{
                                         taskListExpander: true,
-                                        expanded: this.expandedTasks.has(task.id),
+                                        expanded: this.expandedTasks.has(
+                                            task.id
+                                        ),
                                     }}
                                     onClick={() => this.expanderClick(task)}
                                 >
-                                    {this.expandedTasks.has(task.id) ? '▼' : '▶'}
+                                    {this.expandedTasks.has(task.id)
+                                        ? '▼'
+                                        : '▶'}
                                 </div>
                                 <div>{task.name}</div>
                             </div>

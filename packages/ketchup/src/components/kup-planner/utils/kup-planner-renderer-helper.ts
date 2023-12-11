@@ -8,22 +8,24 @@ import {
     KupPlannerScheduleItem,
     KupPlannerTask,
     KupPlannerTimeframe,
-    KupPlannerViewMode
+    KupPlannerViewMode,
 } from '../kup-planner-declarations';
 import { KupDates } from '../../../managers/kup-dates/kup-dates';
 
 type DateHelperScales =
-    | "year"
-    | "month"
-    | "day"
-    | "hour"
-    | "minute"
-    | "second"
-    | "millisecond";
+    | 'year'
+    | 'month'
+    | 'day'
+    | 'hour'
+    | 'minute'
+    | 'second'
+    | 'millisecond';
 
-export const columnWidthForTimeUnit = (timeUnit: KupPlannerViewMode): number => {
+export const columnWidthForTimeUnit = (
+    timeUnit: KupPlannerViewMode
+): number => {
     switch (timeUnit) {
-        case "year":
+        case 'year':
             return 60 * 2;
         default:
             return 60;
@@ -62,9 +64,13 @@ export const getPhaseById = (
     return undefined;
 };
 
-export const isDetail = (row: KupPlannerGanttTaskN | KupPlannerItemDetail): row is KupPlannerItemDetail => {
+export const isDetail = (
+    row: KupPlannerGanttTaskN | KupPlannerItemDetail
+): row is KupPlannerItemDetail => {
     return (
-        row && (row as KupPlannerItemDetail).schedule && (row as KupPlannerItemDetail).schedule.length !== 0
+        row &&
+        (row as KupPlannerItemDetail).schedule &&
+        (row as KupPlannerItemDetail).schedule.length !== 0
     );
 };
 
@@ -72,7 +78,7 @@ export const mergeTaskIntoProjects = (
     projects: KupPlannerGanttTask[],
     { id, start, end }: KupPlannerTask
 ): KupPlannerGanttTask[] =>
-    projects.map(project =>
+    projects.map((project) =>
         project.id === id ? withNewDates(project, start, end) : project
     );
 
@@ -81,7 +87,7 @@ export const mergeTaskIntoPhases = (
     { id, start, end }: KupPlannerTask
 ): KupPlannerPhaseGantt[] | undefined => {
     if (phases) {
-        return phases.map(phase =>
+        return phases.map((phase) =>
             phase.id === id ? withNewDates(phase, start, end) : phase
         );
     }
@@ -96,7 +102,11 @@ export const convertProjectToTasks = (
     if (!isDetail(item)) {
         const kupDates: KupDates = new KupDates();
         const row: KupPlannerGanttTaskN = item as KupPlannerGanttTaskN;
-        const { start, end } = kupDates.validDates(row.startDate, row.endDate, row.name);
+        const { start, end } = kupDates.validDates(
+            row.startDate,
+            row.endDate,
+            row.name
+        );
         const { start: start2, end: end2 } = kupDates.validDates(
             row.secondaryStartDate,
             row.secondaryEndDate,
@@ -135,7 +145,13 @@ export const convertProjectToTasks = (
     } else {
         const row: KupPlannerItemDetail = item as KupPlannerItemDetail;
         return [
-            { ...convertDetailToTimeline(row, mainGanttStartDate, mainGanttEndDate) },
+            {
+                ...convertDetailToTimeline(
+                    row,
+                    mainGanttStartDate,
+                    mainGanttEndDate
+                ),
+            },
         ];
     }
 };
@@ -154,7 +170,11 @@ export const convertPhaseToTask = (item: KupPlannerPhase): KupPlannerTask => {
         icon,
     }: KupPlannerPhase): KupPlannerTask => {
         const kupDates: KupDates = new KupDates();
-        const { start, end } = kupDates.validDates(phaseStart, phaseEnd, phaseName);
+        const { start, end } = kupDates.validDates(
+            phaseStart,
+            phaseEnd,
+            phaseName
+        );
         const { start: phaseStart2, end: phaseEnd2 } = kupDates.validDates(
             secondaryStartDate,
             secondaryEndDate,
@@ -168,7 +188,7 @@ export const convertPhaseToTask = (item: KupPlannerPhase): KupPlannerTask => {
             name: phaseName,
             valuesToShow: item.valuesToShow,
             id: phaseId,
-            type: "task",
+            type: 'task',
             progress: 100,
             dependencies,
             /**
@@ -176,11 +196,11 @@ export const convertPhaseToTask = (item: KupPlannerPhase): KupPlannerTask => {
              */
             styles: color
                 ? {
-                    backgroundColor: color,
-                    progressColor: color,
-                    backgroundSelectedColor: selectedColor,
-                    progressSelectedColor: selectedColor,
-                }
+                      backgroundColor: color,
+                      progressColor: color,
+                      backgroundSelectedColor: selectedColor,
+                      progressSelectedColor: selectedColor,
+                  }
                 : {},
             icon,
         };
@@ -197,9 +217,11 @@ const convertDetailToTimeline = (
     const kupDates: KupDates = new KupDates();
     const { id, name, schedule } = item;
 
-    const getDatesForTask = (item: KupPlannerItemDetail): { start: Date; end: Date } => {
-        let start = mainGanttStartDate ?? "";
-        let end = mainGanttEndDate ?? "";
+    const getDatesForTask = (
+        item: KupPlannerItemDetail
+    ): { start: Date; end: Date } => {
+        let start = mainGanttStartDate ?? '';
+        let end = mainGanttEndDate ?? '';
 
         for (let i = 0; i < item.schedule.length; i++) {
             const lstart = item.schedule[i].startDate;
@@ -212,27 +234,31 @@ const convertDetailToTimeline = (
             }
         }
 
-        return kupDates.validDates(start, end, "detail item");
+        return kupDates.validDates(start, end, 'detail item');
     };
 
     const { start, end } = getDatesForTask(item);
 
     const convertToFrame = (x: KupPlannerScheduleItem): KupPlannerTimeframe => {
         const { startDate, endDate, color, selectedColor, icon } = x;
-        const { start, end } = kupDates.validDates(startDate, endDate, "time frame");
+        const { start, end } = kupDates.validDates(
+            startDate,
+            endDate,
+            'time frame'
+        );
         return {
             start,
             end,
-            backgroundColor: color ?? "0xffffff",
+            backgroundColor: color ?? '0xffffff',
             backgroundSelectedColor: selectedColor ?? color,
             icon,
         };
     };
 
-    const defaultColor = "#595959";
+    const defaultColor = '#595959';
     return {
         id,
-        type: "timeline",
+        type: 'timeline',
         timeline: schedule.map(convertToFrame),
         name,
         valuesToShow: item.valuesToShow,
@@ -316,18 +342,20 @@ export const ganttDateRangeFromGanttTask = (
         secondaryEnd?: Date;
     }[] = [];
     const kupDates: KupDates = new KupDates();
-    tasks.forEach(item => {
+    tasks.forEach((item) => {
         dates.push({
             start: kupDates.parseToDayStart(item.startDate),
             end: kupDates.parseToDayEnd(item.endDate),
             secondaryStart: kupDates.parseToDayStart(item.secondaryStartDate),
             secondaryEnd: kupDates.parseToDayEnd(item.secondaryEndDate),
         });
-        item.phases?.forEach(phase => {
+        item.phases?.forEach((phase) => {
             dates.push({
                 start: kupDates.parseToDayStart(phase.startDate),
                 end: kupDates.parseToDayEnd(phase.endDate),
-                secondaryStart: kupDates.parseToDayStart(phase.secondaryStartDate),
+                secondaryStart: kupDates.parseToDayStart(
+                    phase.secondaryStartDate
+                ),
                 secondaryEnd: kupDates.parseToDayEnd(phase.secondaryEndDate),
             });
         });
@@ -340,7 +368,6 @@ export const ganttDateRangeFromGanttTask = (
         true
     );
 };
-
 
 export const ganttDateRangeGeneric = (
     dates: {
@@ -376,33 +403,33 @@ export const ganttDateRangeGeneric = (
         return [newStartDate, newEndDate];
     }
     switch (viewMode) {
-        case "year":
-            newStartDate = addToDate(newStartDate, -1, "year");
-            newStartDate = startOfDate(newStartDate, "year");
-            newEndDate = addToDate(newEndDate, 1, "year");
-            newEndDate = startOfDate(newEndDate, "year");
+        case 'year':
+            newStartDate = addToDate(newStartDate, -1, 'year');
+            newStartDate = startOfDate(newStartDate, 'year');
+            newEndDate = addToDate(newEndDate, 1, 'year');
+            newEndDate = startOfDate(newEndDate, 'year');
             break;
-        case "month":
-            newStartDate = addToDate(newStartDate, -1 * preStepsCount, "month");
-            newStartDate = startOfDate(newStartDate, "month");
-            newEndDate = addToDate(newEndDate, 1, "year");
-            newEndDate = startOfDate(newEndDate, "year");
+        case 'month':
+            newStartDate = addToDate(newStartDate, -1 * preStepsCount, 'month');
+            newStartDate = startOfDate(newStartDate, 'month');
+            newEndDate = addToDate(newEndDate, 1, 'year');
+            newEndDate = startOfDate(newEndDate, 'year');
             break;
-        case "week":
-            newStartDate = startOfDate(newStartDate, "day");
+        case 'week':
+            newStartDate = startOfDate(newStartDate, 'day');
             newStartDate = addToDate(
                 getMonday(newStartDate),
                 -7 * preStepsCount,
-                "day"
+                'day'
             );
-            newEndDate = startOfDate(newEndDate, "day");
-            newEndDate = addToDate(newEndDate, 1.5, "month");
+            newEndDate = startOfDate(newEndDate, 'day');
+            newEndDate = addToDate(newEndDate, 1.5, 'month');
             break;
-        case "day":
-            newStartDate = startOfDate(newStartDate, "day");
-            newStartDate = addToDate(newStartDate, -1 * preStepsCount, "day");
-            newEndDate = startOfDate(newEndDate, "day");
-            newEndDate = addToDate(newEndDate, 19, "day");
+        case 'day':
+            newStartDate = startOfDate(newStartDate, 'day');
+            newStartDate = addToDate(newStartDate, -1 * preStepsCount, 'day');
+            newEndDate = startOfDate(newEndDate, 'day');
+            newEndDate = addToDate(newEndDate, 19, 'day');
             break;
         /*
         case ViewMode.QuarterDay:
@@ -441,10 +468,10 @@ export const ganttDateRangeFromDetail = (
         secondaryEnd?: Date;
     }[] = [];
     const kupDates: KupDates = new KupDates();
-    details.forEach(item => {
+    details.forEach((item) => {
         const scheduleItems = item.schedule;
         if (scheduleItems) {
-            scheduleItems.forEach(item => {
+            scheduleItems.forEach((item) => {
                 dates.push({
                     start: kupDates.parseToDayStart(item.startDate),
                     end: kupDates.parseToDayEnd(item.endDate),
@@ -469,26 +496,26 @@ export const addToDate = (
     scale: DateHelperScales
 ) => {
     const newDate = new Date(
-        date.getFullYear() + (scale === "year" ? quantity : 0),
-        date.getMonth() + (scale === "month" ? quantity : 0),
-        date.getDate() + (scale === "day" ? quantity : 0),
-        date.getHours() + (scale === "hour" ? quantity : 0),
-        date.getMinutes() + (scale === "minute" ? quantity : 0),
-        date.getSeconds() + (scale === "second" ? quantity : 0),
-        date.getMilliseconds() + (scale === "millisecond" ? quantity : 0)
+        date.getFullYear() + (scale === 'year' ? quantity : 0),
+        date.getMonth() + (scale === 'month' ? quantity : 0),
+        date.getDate() + (scale === 'day' ? quantity : 0),
+        date.getHours() + (scale === 'hour' ? quantity : 0),
+        date.getMinutes() + (scale === 'minute' ? quantity : 0),
+        date.getSeconds() + (scale === 'second' ? quantity : 0),
+        date.getMilliseconds() + (scale === 'millisecond' ? quantity : 0)
     );
     return newDate;
 };
 
 export const startOfDate = (date: Date, scale: DateHelperScales) => {
     const scores = [
-        "millisecond",
-        "second",
-        "minute",
-        "hour",
-        "day",
-        "month",
-        "year",
+        'millisecond',
+        'second',
+        'minute',
+        'hour',
+        'day',
+        'month',
+        'year',
     ];
 
     const shouldReset = (_scale: DateHelperScales) => {
@@ -497,20 +524,20 @@ export const startOfDate = (date: Date, scale: DateHelperScales) => {
     };
     const newDate = new Date(
         date.getFullYear(),
-        shouldReset("year") ? 0 : date.getMonth(),
-        shouldReset("month") ? 1 : date.getDate(),
-        shouldReset("day") ? 0 : date.getHours(),
-        shouldReset("hour") ? 0 : date.getMinutes(),
-        shouldReset("minute") ? 0 : date.getSeconds(),
-        shouldReset("second") ? 0 : date.getMilliseconds()
+        shouldReset('year') ? 0 : date.getMonth(),
+        shouldReset('month') ? 1 : date.getDate(),
+        shouldReset('day') ? 0 : date.getHours(),
+        shouldReset('hour') ? 0 : date.getMinutes(),
+        shouldReset('minute') ? 0 : date.getSeconds(),
+        shouldReset('second') ? 0 : date.getMilliseconds()
     );
     return newDate;
 };
 
 /**
-* Returns monday of current week
-* @param date date for modify
-*/
+ * Returns monday of current week
+ * @param date date for modify
+ */
 const getMonday = (date: Date) => {
     const day = date.getDay();
     const diff = date.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
@@ -532,7 +559,7 @@ export const ganttDateRangeFromTask = (
         secondaryEnd?: Date;
     }[] = [];
 
-    tasks.forEach(item => {
+    tasks.forEach((item) => {
         dates.push({
             start: item.start,
             end: item.end,
@@ -556,7 +583,6 @@ export const ganttDateRangeFromTask = (
     );
 };
 
-
 export const seedDates = (
     startDate: Date,
     endDate: Date,
@@ -566,17 +592,17 @@ export const seedDates = (
     const dates: Date[] = [currentDate];
     while (currentDate < endDate) {
         switch (viewMode) {
-            case "year":
-                currentDate = addToDate(currentDate, 1, "year");
+            case 'year':
+                currentDate = addToDate(currentDate, 1, 'year');
                 break;
-            case "month":
-                currentDate = addToDate(currentDate, 1, "month");
+            case 'month':
+                currentDate = addToDate(currentDate, 1, 'month');
                 break;
-            case "week":
-                currentDate = addToDate(currentDate, 7, "day");
+            case 'week':
+                currentDate = addToDate(currentDate, 7, 'day');
                 break;
-            case "day":
-                currentDate = addToDate(currentDate, 1, "day");
+            case 'day':
+                currentDate = addToDate(currentDate, 1, 'day');
                 break;
             /*
             case ViewMode.HalfDay:
