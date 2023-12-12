@@ -34,6 +34,9 @@ export class KupCustomTaskListTable {
     onclickTaskList: (id: string) => void;
 
     @Prop()
+    ondblclickTaskList: (id: string) => void;
+
+    @Prop()
     oncontextmenuTaskList: (event: MouseEvent, id: string) => void;
 
     render() {
@@ -55,6 +58,10 @@ export class KupCustomTaskListTable {
                                 onClick={() => {
                                     this.setSelectedTask(task.id);
                                     this.onclickTaskList(task.id);
+                                }}
+                                onDblClick={() => {
+                                    this.setSelectedTask(task.id);
+                                    this.ondblclickTaskList(task.id);
                                 }}
                                 onContextMenu={(e) => {
                                     e.preventDefault();
@@ -95,6 +102,10 @@ export class KupCustomTaskListTable {
                                 onClick={() => {
                                     this.setSelectedTask(task.id);
                                     this.onclickTaskList(task.id);
+                                }}
+                                onDblClick={() => {
+                                    this.setSelectedTask(task.id);
+                                    this.ondblclickTaskList(task.id);
                                 }}
                                 onContextMenu={(e) => {
                                     e.preventDefault();

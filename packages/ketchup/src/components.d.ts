@@ -1142,6 +1142,7 @@ export namespace Components {
         "ganttId": string;
         "onclickTaskList": (id: string) => void;
         "oncontextmenuTaskList": (event: MouseEvent, id: string) => void;
+        "ondblclickTaskList": (id: string) => void;
         "rowHeight": number;
         "rowWidth": string;
         "setSelectedTask": (taskId: string) => void;
@@ -1966,6 +1967,7 @@ export namespace Components {
         "barClick": KupPlannerGanttProps['barClick'];
         "barContextMenu": KupPlannerGanttProps['barContextMenu'];
         "barCornerRadius": KupPlannerGanttProps['barCornerRadius'];
+        "barDblClick": KupPlannerGanttProps['barDblClick'];
         "barFill": KupPlannerGanttProps['barFill'];
         "barProgressColor": KupPlannerGanttProps['barProgressColor'];
         "barProgressSelectedColor": KupPlannerGanttProps['barProgressSelectedColor'];
@@ -1985,6 +1987,7 @@ export namespace Components {
         "ganttHeight": KupPlannerGanttProps['ganttHeight'];
         "ganttId": KupPlannerGanttProps['id'];
         "ganttOnClick": KupGanttPlannerProps['onClick'];
+        "ganttOnDblClick": KupGanttPlannerProps['onDblClick'];
         "ganttonOnContextMenu": KupGanttPlannerProps['onContextMenu'];
         "handleClick": (row: KupPlannerGanttRow, onClick: any) => void;
         "handleContextMenu": (
@@ -1992,6 +1995,7 @@ export namespace Components {
         row: KupPlannerGanttRow,
         onContextMenu: any
     ) => void;
+        "handleDblClick": (row: KupPlannerGanttRow, onClick: any) => void;
         "handleWidth": KupPlannerGanttProps['handleWidth'];
         "headerHeight": KupPlannerGanttProps['headerHeight'];
         "hideDependencies": KupPlannerGanttProps['hideDependencies'];
@@ -2175,6 +2179,7 @@ export namespace Components {
         "arrowIndent": KupPlannerTaskGanttContentProps['arrowIndent'];
         "barClick": KupPlannerEventOption['barClick'];
         "barContextMenu": KupPlannerEventOption['barContextMenu'];
+        "barDblClick": KupPlannerEventOption['barDblClick'];
         "columnWidth": KupPlannerTaskGanttContentProps['columnWidth'];
         "currentDateIndicator"?: KupPlannerTaskGanttContentProps['currentDateIndicator'];
         "dateChange": KupPlannerEventOption['dateChange'];
@@ -3304,6 +3309,7 @@ export namespace Components {
         "fontSize": string;
         "ganttHeight": number;
         "ganttOnClick": KupGanttPlannerProps['onClick'];
+        "ganttOnDblClick": KupGanttPlannerProps['onDblClick'];
         "ganttonOnContextMenu": KupGanttPlannerProps['onContextMenu'];
         "handleClick": (row: KupPlannerGanttRow, onClick: any) => void;
         "handleContextMenu": (
@@ -3311,6 +3317,7 @@ export namespace Components {
         row: KupPlannerGanttRow,
         onContextMenu: any
     ) => void;
+        "handleDblClick": (row: KupPlannerGanttRow, onDblClick: any) => void;
         "headerHeight": number;
         "horizontalContainerClass"?: string;
         "label": string;
@@ -4617,6 +4624,7 @@ declare global {
     };
     interface HTMLKupPlannerElementEventMap {
         "kup-planner-click": KupPlannerEventPayload;
+        "kup-planner-dblclick": KupPlannerEventPayload;
         "kup-planner-datechange": KupPlannerEventPayload;
         "kup-planner-ready": KupPlannerEventPayload;
         "kup-planner-contextmenu": KupPlannerClickEventPayload;
@@ -5828,6 +5836,7 @@ declare namespace LocalJSX {
         "ganttId"?: string;
         "onclickTaskList"?: (id: string) => void;
         "oncontextmenuTaskList"?: (event: MouseEvent, id: string) => void;
+        "ondblclickTaskList"?: (id: string) => void;
         "rowHeight"?: number;
         "rowWidth"?: string;
         "setSelectedTask"?: (taskId: string) => void;
@@ -6485,6 +6494,7 @@ declare namespace LocalJSX {
         "barClick"?: KupPlannerGanttProps['barClick'];
         "barContextMenu"?: KupPlannerGanttProps['barContextMenu'];
         "barCornerRadius"?: KupPlannerGanttProps['barCornerRadius'];
+        "barDblClick"?: KupPlannerGanttProps['barDblClick'];
         "barFill"?: KupPlannerGanttProps['barFill'];
         "barProgressColor"?: KupPlannerGanttProps['barProgressColor'];
         "barProgressSelectedColor"?: KupPlannerGanttProps['barProgressSelectedColor'];
@@ -6504,6 +6514,7 @@ declare namespace LocalJSX {
         "ganttHeight"?: KupPlannerGanttProps['ganttHeight'];
         "ganttId"?: KupPlannerGanttProps['id'];
         "ganttOnClick"?: KupGanttPlannerProps['onClick'];
+        "ganttOnDblClick"?: KupGanttPlannerProps['onDblClick'];
         "ganttonOnContextMenu"?: KupGanttPlannerProps['onContextMenu'];
         "handleClick"?: (row: KupPlannerGanttRow, onClick: any) => void;
         "handleContextMenu"?: (
@@ -6511,6 +6522,7 @@ declare namespace LocalJSX {
         row: KupPlannerGanttRow,
         onContextMenu: any
     ) => void;
+        "handleDblClick"?: (row: KupPlannerGanttRow, onClick: any) => void;
         "handleWidth"?: KupPlannerGanttProps['handleWidth'];
         "headerHeight"?: KupPlannerGanttProps['headerHeight'];
         "hideDependencies"?: KupPlannerGanttProps['hideDependencies'];
@@ -6664,6 +6676,7 @@ declare namespace LocalJSX {
         "arrowIndent"?: KupPlannerTaskGanttContentProps['arrowIndent'];
         "barClick"?: KupPlannerEventOption['barClick'];
         "barContextMenu"?: KupPlannerEventOption['barContextMenu'];
+        "barDblClick"?: KupPlannerEventOption['barDblClick'];
         "columnWidth"?: KupPlannerTaskGanttContentProps['columnWidth'];
         "currentDateIndicator"?: KupPlannerTaskGanttContentProps['currentDateIndicator'];
         "dateChange"?: KupPlannerEventOption['dateChange'];
@@ -7105,6 +7118,7 @@ declare namespace LocalJSX {
          */
         "onKup-planner-contextmenu"?: (event: KupPlannerCustomEvent<KupPlannerClickEventPayload>) => void;
         "onKup-planner-datechange"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
+        "onKup-planner-dblclick"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
         /**
           * When component unload is complete
          */
@@ -7574,6 +7588,7 @@ declare namespace LocalJSX {
         "fontSize"?: string;
         "ganttHeight"?: number;
         "ganttOnClick"?: KupGanttPlannerProps['onClick'];
+        "ganttOnDblClick"?: KupGanttPlannerProps['onDblClick'];
         "ganttonOnContextMenu"?: KupGanttPlannerProps['onContextMenu'];
         "handleClick"?: (row: KupPlannerGanttRow, onClick: any) => void;
         "handleContextMenu"?: (
@@ -7581,6 +7596,7 @@ declare namespace LocalJSX {
         row: KupPlannerGanttRow,
         onContextMenu: any
     ) => void;
+        "handleDblClick"?: (row: KupPlannerGanttRow, onDblClick: any) => void;
         "headerHeight"?: number;
         "horizontalContainerClass"?: string;
         "label"?: string;

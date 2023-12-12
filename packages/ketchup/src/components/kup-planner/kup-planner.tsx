@@ -496,7 +496,7 @@ export class KupPlanner {
 
     #kupManager: KupManager = kupManagerInstance();
     #lastOnChangeReceived: KupPlannerLastOnChangeReceived;
-    #rootPlanner;
+    #clickTimeout: ReturnType<typeof setTimeout>[] = [];
     #phases: GenericObject = {};
     // no re-render
     #storedSettings: KupPlannerStoredSettings;
@@ -512,6 +512,14 @@ export class KupPlanner {
         bubbles: true,
     })
     kupClick: EventEmitter<KupPlannerEventPayload>;
+
+    @Event({
+        eventName: 'kup-planner-dblclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDblClick: EventEmitter<KupPlannerEventPayload>;
 
     @Event({
         eventName: 'kup-planner-datechange',
@@ -804,6 +812,28 @@ export class KupPlanner {
 
     /**
      * @param nativeEvent
+     * @returns true if caller must call onKupDblClick
+     */
+    #handleOnDblClickOnTask(): boolean {
+        return true;
+    }
+
+    /**
+     * @returns true if caller must call onKupDblClick
+     */
+    #handleOnDblClickOnPhase(): boolean {
+        return true;
+    }
+
+    /**
+     * @returns true if caller must call onKupDblClick
+     */
+    #handleOnDblClickOnDetail(): boolean {
+        return true;
+    }
+
+    /**
+     * @param nativeEvent
      * @returns true if caller must call onKupClick
      */
     #handleOnClickOnTask(nativeEvent: KupPlannerGanttRow): boolean {
@@ -993,6 +1023,9 @@ export class KupPlanner {
                 showSecondaryDates: this.#storedSettings.showSecondaryDates,
                 onClick: (nativeEvent: KupPlannerGanttTask | KupPlannerPhase) =>
                     this.handleOnClick(nativeEvent),
+                onDblClick: (
+                    nativeEvent: KupPlannerGanttTask | KupPlannerPhase
+                ) => this.handleOnDblClick(nativeEvent),
                 onContextMenu: (
                     event: UIEvent,
                     row: KupPlannerGanttTask | KupPlannerPhase
@@ -1078,6 +1111,18 @@ export class KupPlanner {
         this.#kupManager.debug.logRender(this, true);
     }
 
+    onKupDblClick(
+        event: KupPlannerGanttRow,
+        taskAction?: KupPlannerTaskAction
+    ) {
+        this.kupDblClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: event,
+            taskAction: taskAction,
+        });
+    }
+
     onKupClick(event: KupPlannerGanttRow, taskAction?: KupPlannerTaskAction) {
         this.kupClick.emit({
             comp: this,
@@ -1141,29 +1186,79 @@ export class KupPlanner {
         });
     }
 
-    handleOnClick(
+    handleOnDblClick(
         nativeEvent: KupPlannerGanttTask | KupPlannerPhase | KupPlannerDetail
     ) {
         switch (nativeEvent.rowType) {
             case KupPlannerGanttRowType.TASK:
-                const taskAction = (nativeEvent as KupPlannerGanttTask).phases
-                    ? KupPlannerTaskAction.onTaskClosing
-                    : KupPlannerTaskAction.onTaskOpening;
-                if (this.#handleOnClickOnTask(nativeEvent)) {
-                    this.onKupClick(nativeEvent, taskAction);
+                if (this.#handleOnDblClickOnTask()) {
+                    this.onKupDblClick(
+                        nativeEvent,
+                        KupPlannerTaskAction.onDblClick
+                    );
                 }
                 break;
             case KupPlannerGanttRowType.PHASE:
-                if (this.#handleOnClickOnPhase()) {
-                    this.onKupClick(nativeEvent, KupPlannerTaskAction.onClick);
+                if (this.#handleOnDblClickOnPhase()) {
+                    this.onKupDblClick(
+                        nativeEvent,
+                        KupPlannerTaskAction.onDblClick
+                    );
                 }
                 break;
             case KupPlannerGanttRowType.DETAIL:
-                if (this.#handleOnClickOnDetail()) {
-                    this.onKupClick(nativeEvent, KupPlannerTaskAction.onClick);
+                if (this.#handleOnDblClickOnDetail()) {
+                    this.onKupDblClick(
+                        nativeEvent,
+                        KupPlannerTaskAction.onDblClick
+                    );
                 }
                 break;
         }
+        for (let index = 0; index < this.#clickTimeout.length; index++) {
+            clearTimeout(this.#clickTimeout[index]);
+            this.#kupManager.debug.logMessage(
+                this,
+                'Cleared click timeout(' + this.#clickTimeout[index] + ').'
+            );
+        }
+        this.#clickTimeout = [];
+    }
+
+    handleOnClick(
+        nativeEvent: KupPlannerGanttTask | KupPlannerPhase | KupPlannerDetail
+    ) {
+        this.#clickTimeout.push(
+            setTimeout(() => {
+                switch (nativeEvent.rowType) {
+                    case KupPlannerGanttRowType.TASK:
+                        const taskAction = (nativeEvent as KupPlannerGanttTask)
+                            .phases
+                            ? KupPlannerTaskAction.onTaskClosing
+                            : KupPlannerTaskAction.onTaskOpening;
+                        if (this.#handleOnClickOnTask(nativeEvent)) {
+                            this.onKupClick(nativeEvent, taskAction);
+                        }
+                        break;
+                    case KupPlannerGanttRowType.PHASE:
+                        if (this.#handleOnClickOnPhase()) {
+                            this.onKupClick(
+                                nativeEvent,
+                                KupPlannerTaskAction.onClick
+                            );
+                        }
+                        break;
+                    case KupPlannerGanttRowType.DETAIL:
+                        if (this.#handleOnClickOnDetail()) {
+                            this.onKupClick(
+                                nativeEvent,
+                                KupPlannerTaskAction.onClick
+                            );
+                        }
+                        break;
+                }
+            }, 300)
+        );
     }
 
     handleOnContextMenu(

@@ -195,6 +195,15 @@ export class KupPlannerRenderer {
         onClick?.(row);
     }
 
+    // Handle dbl click event
+    handleDblClick(row: KupPlannerGanttRow, onDblClick: any) {
+        if (!row) {
+            return;
+        }
+
+        onDblClick?.(row);
+    }
+
     // Handle context menu event
     handleContextMenu(
         event: UIEvent,
@@ -376,6 +385,24 @@ export class KupPlannerRenderer {
                                     );
                                 }
                             }}
+                            barDblClick={(task: KupPlannerTask) => {
+                                let row = getProjectById(
+                                    task.id,
+                                    this.currentTasks
+                                );
+                                if (!row) {
+                                    row = getPhaseById(
+                                        task.id,
+                                        this.currentTasks
+                                    );
+                                }
+                                if (row) {
+                                    this.handleDblClick(
+                                        row,
+                                        this.props.mainGantt.onDblClick
+                                    );
+                                }
+                            }}
                             barContextMenu={(event, task) => {
                                 let row = getProjectById(
                                     task.id,
@@ -411,10 +438,12 @@ export class KupPlannerRenderer {
                             scrollYChange={this.props.mainGantt.onScrollY}
                             currentTasks={this.currentTasks}
                             handleClick={this.handleClick.bind(this)}
+                            handleDblClick={this.handleDblClick.bind(this)}
                             handleContextMenu={this.handleContextMenu.bind(
                                 this
                             )}
                             ganttOnClick={this.props.mainGantt.onClick}
+                            ganttOnDblClick={this.props.mainGantt.onDblClick}
                             ganttonOnContextMenu={
                                 this.props.mainGantt.onContextMenu
                             }
@@ -477,6 +506,22 @@ export class KupPlannerRenderer {
                                         }
                                     }
                                 }}
+                                barDblClick={(task: KupPlannerTask) => {
+                                    if (this.props.secondaryGantt) {
+                                        let row = getProjectById(
+                                            task.id,
+                                            this
+                                                .currentDetails as KupPlannerItemDetail[]
+                                        );
+                                        if (row) {
+                                            this.handleDblClick(
+                                                row,
+                                                this.props.secondaryGantt
+                                                    .onDblClick
+                                            );
+                                        }
+                                    }
+                                }}
                                 barContextMenu={(event, task) => {
                                     if (this.props.secondaryGantt) {
                                         let row = getProjectById(
@@ -515,10 +560,14 @@ export class KupPlannerRenderer {
                                 }
                                 currentTasks={this.currentTasks}
                                 handleClick={this.handleClick.bind(this)}
+                                handleDblClick={this.handleDblClick.bind(this)}
                                 handleContextMenu={this.handleContextMenu.bind(
                                     this
                                 )}
                                 ganttOnClick={this.props.secondaryGantt.onClick}
+                                ganttOnDblClick={
+                                    this.props.secondaryGantt.onDblClick
+                                }
                                 ganttonOnContextMenu={
                                     this.props.secondaryGantt.onContextMenu
                                 }

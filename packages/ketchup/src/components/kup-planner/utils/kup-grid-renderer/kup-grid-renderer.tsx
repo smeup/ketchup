@@ -101,6 +101,9 @@ export class KupGridRenderer {
     barClick: KupPlannerEventOption['barClick'];
 
     @Prop()
+    barDblClick: KupPlannerEventOption['barDblClick'];
+
+    @Prop()
     barContextMenu: KupPlannerEventOption['barContextMenu'];
 
     @Prop()
@@ -920,12 +923,8 @@ export class KupGridRenderer {
                                             e
                                         );
                                     }}
-                                    onDblClick={(e) => {
-                                        this.handleBarEventStart(
-                                            'dblclick',
-                                            task,
-                                            e
-                                        );
+                                    onDblClick={() => {
+                                        this.barDblClick(task);
                                     }}
                                     onClick={(e) => {
                                         this.handleBarEventStart(
