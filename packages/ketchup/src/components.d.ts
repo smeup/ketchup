@@ -25,6 +25,7 @@ import { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./c
 import { FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
+import { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
 import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
@@ -44,8 +45,6 @@ import { KupImageListEventPayload } from "./components/kup-image-list/kup-image-
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
-import { KupPlannerClickEventPayload, KupPlannerEventPayload, KupPlannerPhase, KupPlannerUnloadEventPayload, KupPlannerViewMode } from "./components/kup-planner/kup-planner-declarations";
-import { TaskType } from "@sme.up/gantt-component/dist/types/public-types";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 import { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
@@ -74,6 +73,7 @@ export { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./c
 export { FChipType } from "./f-components/f-chip/f-chip-declarations";
 export { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 export { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
+export { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 export { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
 export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 export { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
@@ -93,8 +93,6 @@ export { KupImageListEventPayload } from "./components/kup-image-list/kup-image-
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
-export { KupPlannerClickEventPayload, KupPlannerEventPayload, KupPlannerPhase, KupPlannerUnloadEventPayload, KupPlannerViewMode } from "./components/kup-planner/kup-planner-declarations";
-export { TaskType } from "@sme.up/gantt-component/dist/types/public-types";
 export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 export { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 export { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
@@ -1131,6 +1129,25 @@ export namespace Components {
          */
         "showDropDownIcon": boolean;
     }
+    interface KupCustomTaskListHeader {
+        "doubleView"?: boolean;
+        "fontFamily": string;
+        "fontSize": string;
+        "label": string;
+        "setDoubleView"?: (checked: boolean) => void;
+    }
+    interface KupCustomTaskListTable {
+        "fontFamily": string;
+        "fontSize": string;
+        "ganttId": string;
+        "onclickTaskList": (id: string) => void;
+        "oncontextmenuTaskList": (event: MouseEvent, id: string) => void;
+        "ondblclickTaskList": (id: string) => void;
+        "rowHeight": number;
+        "rowWidth": string;
+        "setSelectedTask": (taskId: string) => void;
+        "tasks": KupPlannerTask[];
+    }
     interface KupDashboard {
         /**
           * Custom style of the component.
@@ -1939,6 +1956,92 @@ export namespace Components {
          */
         "submitCb": (e: SubmitEvent) => unknown;
     }
+    interface KupGantt {
+        "TaskListHeader": KupPlannerGanttProps['TaskListHeader'];
+        "TaskListTable": KupPlannerGanttProps['TaskListTable'];
+        "TooltipContent": KupPlannerGanttProps['TooltipContent'];
+        "arrowColor": KupPlannerGanttProps['arrowColor'];
+        "arrowIndent": KupPlannerGanttProps['arrowIndent'];
+        "barBackgroundColor": KupPlannerGanttProps['barBackgroundColor'];
+        "barBackgroundSelectedColor": KupPlannerGanttProps['barBackgroundSelectedColor'];
+        "barClick": KupPlannerGanttProps['barClick'];
+        "barContextMenu": KupPlannerGanttProps['barContextMenu'];
+        "barCornerRadius": KupPlannerGanttProps['barCornerRadius'];
+        "barDblClick": KupPlannerGanttProps['barDblClick'];
+        "barFill": KupPlannerGanttProps['barFill'];
+        "barProgressColor": KupPlannerGanttProps['barProgressColor'];
+        "barProgressSelectedColor": KupPlannerGanttProps['barProgressSelectedColor'];
+        "columnWidth": KupPlannerGanttProps['columnWidth'];
+        "currentTasks": KupPlannerGanttTaskN[] | KupPlannerItemDetail[];
+        "dateChange": KupPlannerGanttProps['dateChange'];
+        "dateTimeFormatters": KupPlannerGanttProps['dateTimeFormatters'];
+        "delete": KupPlannerGanttProps['delete'];
+        "displayedEndDate": KupPlannerGanttProps['displayedEndDate'];
+        "displayedStartDate": KupPlannerGanttProps['displayedStartDate'];
+        "doubleClick": KupPlannerGanttProps['doubleClick'];
+        "doubleView"?: boolean;
+        "expanderClick": KupPlannerGanttProps['expanderClick'];
+        "filter": KupPlannerGanttProps['filter'];
+        "fontFamily": KupPlannerGanttProps['fontFamily'];
+        "fontSize": KupPlannerGanttProps['fontSize'];
+        "ganttHeight": KupPlannerGanttProps['ganttHeight'];
+        "ganttId": KupPlannerGanttProps['id'];
+        "ganttOnClick": KupGanttPlannerProps['onClick'];
+        "ganttOnDblClick": KupGanttPlannerProps['onDblClick'];
+        "ganttonOnContextMenu": KupGanttPlannerProps['onContextMenu'];
+        "handleClick": (row: KupPlannerGanttRow, onClick: any) => void;
+        "handleContextMenu": (
+        event: MouseEvent,
+        row: KupPlannerGanttRow,
+        onContextMenu: any
+    ) => void;
+        "handleDblClick": (row: KupPlannerGanttRow, onDblClick: any) => void;
+        "handleWidth": KupPlannerGanttProps['handleWidth'];
+        "headerHeight": KupPlannerGanttProps['headerHeight'];
+        "hideDependencies": KupPlannerGanttProps['hideDependencies'];
+        "hideLabel": KupPlannerGanttProps['hideLabel'];
+        "initialScrollX": KupPlannerGanttProps['initialScrollX'];
+        "initialScrollY": KupPlannerGanttProps['initialScrollY'];
+        "label": string;
+        "listCellWidth": KupPlannerGanttProps['listCellWidth'];
+        "locale": KupPlannerGanttProps['locale'];
+        "preStepsCount": KupPlannerGanttProps['preStepsCount'];
+        "progressChange": KupPlannerGanttProps['progressChange'];
+        "projectBackgroundColor": KupPlannerGanttProps['projectBackgroundColor'];
+        "projectBackgroundSelectedColor": KupPlannerGanttProps['projectBackgroundSelectedColor'];
+        "projectFill": KupPlannerGanttProps['barFill'];
+        "projectProgressColor": KupPlannerGanttProps['projectProgressColor'];
+        "projectProgressSelectedColor": KupPlannerGanttProps['projectProgressSelectedColor'];
+        "projection": KupPlannerGanttProps['projection'];
+        "readOnly": KupPlannerGanttProps['readOnly'];
+        "rowHeight": KupPlannerGanttProps['rowHeight'];
+        "rtl": KupPlannerGanttProps['rtl'];
+        "scrollXChange": KupPlannerGanttProps['scrollXChange'];
+        "scrollYChange": KupPlannerGanttProps['scrollYChange'];
+        "select": KupPlannerGanttProps['select'];
+        "setDoubleView"?: (checked: boolean) => void;
+        "showSecondaryDates": KupPlannerGanttProps['showSecondaryDates'];
+        "singleLineHeader": KupPlannerGanttProps['singleLineHeader'];
+        "tasks": KupPlannerGanttProps['tasks'];
+        "timeStep": KupPlannerGanttProps['timeStep'];
+        "timelineFill": KupPlannerGanttProps['barFill'];
+        "todayColor": KupPlannerGanttProps['todayColor'];
+        "viewDate": KupPlannerGanttProps['viewDate'];
+        "viewMode": KupPlannerGanttProps['viewMode'];
+    }
+    interface KupGanttCalendar {
+        "columnWidth": KupPlannerCalendarProps['columnWidth'];
+        "currentDateIndicator": KupPlannerCalendarProps['currentDateIndicator'];
+        "dateSetup": KupPlannerCalendarProps['dateSetup'];
+        "dateTimeFormatters": KupPlannerCalendarProps['dateTimeFormatters'];
+        "fontFamily": KupPlannerCalendarProps['fontFamily'];
+        "fontSize": KupPlannerCalendarProps['fontSize'];
+        "headerHeight": KupPlannerCalendarProps['headerHeight'];
+        "locale": KupPlannerCalendarProps['locale'];
+        "rtl": KupPlannerCalendarProps['rtl'];
+        "singleLineHeader": KupPlannerCalendarProps['singleLineHeader'];
+        "svgWidth": number;
+    }
     interface KupGauge {
         /**
           * Sets how much the arc of the gauge should be thick.
@@ -2070,6 +2173,47 @@ export namespace Components {
           * @default false
          */
         "singleLine": boolean;
+    }
+    interface KupGridRenderer {
+        "arrowColor": KupPlannerTaskGanttContentProps['arrowColor'];
+        "arrowIndent": KupPlannerTaskGanttContentProps['arrowIndent'];
+        "barClick": KupPlannerEventOption['barClick'];
+        "barContextMenu": KupPlannerEventOption['barContextMenu'];
+        "barDblClick": KupPlannerEventOption['barDblClick'];
+        "columnWidth": KupPlannerTaskGanttContentProps['columnWidth'];
+        "currentDateIndicator"?: KupPlannerTaskGanttContentProps['currentDateIndicator'];
+        "dateChange": KupPlannerEventOption['dateChange'];
+        "dates": KupPlannerTaskGanttContentProps['dates'];
+        "delete": KupPlannerEventOption['delete'];
+        "doubleClick": KupPlannerEventOption['doubleClick'];
+        "eMouseDown": KupPlannerBarDisplayProps['onMouseDown'];
+        "eventStart": KupPlannerTaskItemProps['onEventStart'];
+        "fontFamily": KupPlannerTaskGanttContentProps['fontFamily'];
+        "fontSize": KupPlannerTaskGanttContentProps['fontSize'];
+        "ganttEvent": KupPlannerTaskGanttContentProps['ganttEvent'];
+        "gridProps": KupPlannerTaskGanttProps['gridProps'];
+        "hideLabel"?: KupPlannerTaskGanttContentProps['hideLabel'];
+        "progressChange": KupPlannerEventOption['progressChange'];
+        "projection"?: KupPlannerTaskGanttContentProps['projection'];
+        "readOnly": KupPlannerTaskGanttContentProps['readOnly'];
+        "rowHeight": KupPlannerTaskGanttContentProps['rowHeight'];
+        "rtl": KupPlannerTaskGanttContentProps['rtl'];
+        "selectedTask": KupPlannerTaskGanttContentProps['selectedTask'];
+        "setFailedTask": KupPlannerTaskGanttContentProps['setFailedTask'];
+        "setGanttEvent": (gantt: KupPlannerGanttEvent) => void;
+        "setSelectedTask": KupPlannerTaskGanttContentProps['setSelectedTask'];
+        "showSecondaryDates"?: KupPlannerTaskGanttContentProps['showSecondaryDates'];
+        "taskHeight": KupPlannerTaskGanttContentProps['taskHeight'];
+        "tasks": KupPlannerTaskGanttContentProps['tasks'];
+        "timeStep": KupPlannerTaskGanttContentProps['timeStep'];
+    }
+    interface KupHorizontalScroll {
+        "horizontalScroll": (event: UIEvent) => void;
+        "rtl": boolean;
+        "scrollNumber": number;
+        "svgWidth": number;
+        "taskGanttRef": HTMLDivElement;
+        "taskListWidth": number;
     }
     interface KupIframe {
         /**
@@ -2606,6 +2750,11 @@ export namespace Components {
          */
         "listCellWidth": string;
         /**
+          * Sets the filter for main gantt.
+          * @default undefined
+         */
+        "mainFilter": HTMLElement;
+        /**
           * Max width for component
           * @default '90vw'
          */
@@ -2659,6 +2808,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the filter for secondary gantt.
+          * @default undefined
+         */
+        "secondaryFilter": HTMLElement;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
@@ -2731,6 +2885,9 @@ export namespace Components {
           * @default 'month'
          */
         "viewMode": KupPlannerViewMode;
+    }
+    interface KupPlannerRenderer {
+        "props": PlannerProps;
     }
     interface KupProbe {
         /**
@@ -3043,6 +3200,11 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
     }
+    interface KupStandardTooltip {
+        "fontFamily": string;
+        "fontSize": string;
+        "task": KupPlannerTask;
+    }
     interface KupSwitch {
         /**
           * Defaults at false. When set to true, the component will be set to 'checked'.
@@ -3086,6 +3248,9 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
     }
+    interface KupSwitcher {
+        "timeUnitChange": KupPlannerSwitcherProps['onTimeUnitChange'];
+    }
     interface KupTabBar {
         /**
           * Custom style of the component.
@@ -3123,6 +3288,64 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+    }
+    interface KupTaskGantt {
+        "barProps": KupPlannerTaskGanttProps['barProps'];
+        "calendarProps": KupPlannerTaskGanttProps['calendarProps'];
+        "ganttHeight": KupPlannerTaskGanttProps['ganttHeight'];
+        "gridProps": KupPlannerTaskGanttProps['gridProps'];
+        "scrollX": KupPlannerTaskGanttProps['scrollX'];
+        "scrollY": KupPlannerTaskGanttProps['scrollY'];
+        "taskGanttRef": KupPlannerTaskGanttProps['taskGanttRef'];
+    }
+    interface KupTaskList {
+        "TaskListHeader": KupPlannerTaskListProps['TaskListHeader'];
+        "TaskListTable": KupPlannerTaskListProps['TaskListTable'];
+        "currentTasks": KupPlannerGanttTaskN[] | KupPlannerItemDetail[];
+        "doubleView"?: boolean;
+        "expanderClick": KupPlannerTaskListProps['expanderClick'];
+        "filter": HTMLElement;
+        "fontFamily": string;
+        "fontSize": string;
+        "ganttHeight": number;
+        "ganttOnClick": KupGanttPlannerProps['onClick'];
+        "ganttOnDblClick": KupGanttPlannerProps['onDblClick'];
+        "ganttonOnContextMenu": KupGanttPlannerProps['onContextMenu'];
+        "handleClick": (row: KupPlannerGanttRow, onClick: any) => void;
+        "handleContextMenu": (
+        event: MouseEvent,
+        row: KupPlannerGanttRow,
+        onContextMenu: any
+    ) => void;
+        "handleDblClick": (row: KupPlannerGanttRow, onDblClick: any) => void;
+        "headerHeight": number;
+        "horizontalContainerClass"?: string;
+        "label": string;
+        "locale": string;
+        "rowHeight": number;
+        "rowWidth": string;
+        "scrollY": number;
+        "selectedTask": KupPlannerBarTask | undefined;
+        "setDoubleView"?: (checked: boolean) => void;
+        "setSelectedTask": KupPlannerTaskListProps['setSelectedTask'];
+        "tasks": KupPlannerTask[];
+    }
+    interface KupTaskListHeader {
+        "fontFamily": string;
+        "fontSize": string;
+        "headerHeight": number;
+        "rowWidth": string;
+    }
+    interface KupTaskListTable {
+        "expanderClick": (task: KupPlannerTask) => void;
+        "fontFamily": string;
+        "fontSize": string;
+        "locale": string;
+        "rowHeight": number;
+        "rowWidth": string;
+        "selectedTaskId": string;
+        "setSelectedTask": (taskId: string) => void;
+        "tasks": KupPlannerTask[];
     }
     interface KupTextField {
         /**
@@ -3369,6 +3592,22 @@ export namespace Components {
          */
         "timeMinutesStep": number;
     }
+    interface KupTooltip {
+        "TooltipContent": any;
+        "arrowIndent": number;
+        "fontFamily": string;
+        "fontSize": string;
+        "headerHeight": number;
+        "rowHeight": number;
+        "rtl": boolean;
+        "scrollX": number;
+        "scrollY": number;
+        "svgContainerHeight": number;
+        "svgContainerWidth": number;
+        "svgWidth": number;
+        "task": KupPlannerBarTask;
+        "taskListWidth": number;
+    }
     interface KupTree {
         /**
           * When enabled, the first level of depth will give an accordion look to nodes.
@@ -3540,6 +3779,14 @@ export namespace Components {
           * @see dynamicExpansionCallback
          */
         "useDynamicExpansion": boolean;
+    }
+    interface KupVerticalScroll {
+        "ganttFullHeight": number;
+        "ganttHeight": number;
+        "headerHeight": number;
+        "rtl": boolean;
+        "scrollNumber": number;
+        "verticalScroll": (event: UIEvent) => void;
     }
 }
 export interface KupAccordionCustomEvent<T> extends CustomEvent<T> {
@@ -3984,6 +4231,18 @@ declare global {
         prototype: HTMLKupComboboxElement;
         new (): HTMLKupComboboxElement;
     };
+    interface HTMLKupCustomTaskListHeaderElement extends Components.KupCustomTaskListHeader, HTMLStencilElement {
+    }
+    var HTMLKupCustomTaskListHeaderElement: {
+        prototype: HTMLKupCustomTaskListHeaderElement;
+        new (): HTMLKupCustomTaskListHeaderElement;
+    };
+    interface HTMLKupCustomTaskListTableElement extends Components.KupCustomTaskListTable, HTMLStencilElement {
+    }
+    var HTMLKupCustomTaskListTableElement: {
+        prototype: HTMLKupCustomTaskListTableElement;
+        new (): HTMLKupCustomTaskListTableElement;
+    };
     interface HTMLKupDashboardElementEventMap {
         "kup-dashboard-save": KupDashboardEventPayload;
     }
@@ -4169,6 +4428,18 @@ declare global {
         prototype: HTMLKupFormElement;
         new (): HTMLKupFormElement;
     };
+    interface HTMLKupGanttElement extends Components.KupGantt, HTMLStencilElement {
+    }
+    var HTMLKupGanttElement: {
+        prototype: HTMLKupGanttElement;
+        new (): HTMLKupGanttElement;
+    };
+    interface HTMLKupGanttCalendarElement extends Components.KupGanttCalendar, HTMLStencilElement {
+    }
+    var HTMLKupGanttCalendarElement: {
+        prototype: HTMLKupGanttCalendarElement;
+        new (): HTMLKupGanttCalendarElement;
+    };
     interface HTMLKupGaugeElement extends Components.KupGauge, HTMLStencilElement {
     }
     var HTMLKupGaugeElement: {
@@ -4180,6 +4451,18 @@ declare global {
     var HTMLKupGridElement: {
         prototype: HTMLKupGridElement;
         new (): HTMLKupGridElement;
+    };
+    interface HTMLKupGridRendererElement extends Components.KupGridRenderer, HTMLStencilElement {
+    }
+    var HTMLKupGridRendererElement: {
+        prototype: HTMLKupGridRendererElement;
+        new (): HTMLKupGridRendererElement;
+    };
+    interface HTMLKupHorizontalScrollElement extends Components.KupHorizontalScroll, HTMLStencilElement {
+    }
+    var HTMLKupHorizontalScrollElement: {
+        prototype: HTMLKupHorizontalScrollElement;
+        new (): HTMLKupHorizontalScrollElement;
     };
     interface HTMLKupIframeElementEventMap {
         "kup-iframe-error": KupEventPayload;
@@ -4341,6 +4624,7 @@ declare global {
     };
     interface HTMLKupPlannerElementEventMap {
         "kup-planner-click": KupPlannerEventPayload;
+        "kup-planner-dblclick": KupPlannerEventPayload;
         "kup-planner-datechange": KupPlannerEventPayload;
         "kup-planner-ready": KupPlannerEventPayload;
         "kup-planner-contextmenu": KupPlannerClickEventPayload;
@@ -4359,6 +4643,12 @@ declare global {
     var HTMLKupPlannerElement: {
         prototype: HTMLKupPlannerElement;
         new (): HTMLKupPlannerElement;
+    };
+    interface HTMLKupPlannerRendererElement extends Components.KupPlannerRenderer, HTMLStencilElement {
+    }
+    var HTMLKupPlannerRendererElement: {
+        prototype: HTMLKupPlannerRendererElement;
+        new (): HTMLKupPlannerRendererElement;
     };
     interface HTMLKupProbeElement extends Components.KupProbe, HTMLStencilElement {
     }
@@ -4449,6 +4739,12 @@ declare global {
         prototype: HTMLKupSpinnerElement;
         new (): HTMLKupSpinnerElement;
     };
+    interface HTMLKupStandardTooltipElement extends Components.KupStandardTooltip, HTMLStencilElement {
+    }
+    var HTMLKupStandardTooltipElement: {
+        prototype: HTMLKupStandardTooltipElement;
+        new (): HTMLKupStandardTooltipElement;
+    };
     interface HTMLKupSwitchElementEventMap {
         "kup-switch-blur": KupSwitchEventPayload;
         "kup-switch-change": KupSwitchEventPayload;
@@ -4468,6 +4764,12 @@ declare global {
         prototype: HTMLKupSwitchElement;
         new (): HTMLKupSwitchElement;
     };
+    interface HTMLKupSwitcherElement extends Components.KupSwitcher, HTMLStencilElement {
+    }
+    var HTMLKupSwitcherElement: {
+        prototype: HTMLKupSwitcherElement;
+        new (): HTMLKupSwitcherElement;
+    };
     interface HTMLKupTabBarElementEventMap {
         "kup-tabbar-blur": KupTabBarEventPayload;
         "kup-tabbar-click": KupTabBarEventPayload;
@@ -4486,6 +4788,30 @@ declare global {
     var HTMLKupTabBarElement: {
         prototype: HTMLKupTabBarElement;
         new (): HTMLKupTabBarElement;
+    };
+    interface HTMLKupTaskGanttElement extends Components.KupTaskGantt, HTMLStencilElement {
+    }
+    var HTMLKupTaskGanttElement: {
+        prototype: HTMLKupTaskGanttElement;
+        new (): HTMLKupTaskGanttElement;
+    };
+    interface HTMLKupTaskListElement extends Components.KupTaskList, HTMLStencilElement {
+    }
+    var HTMLKupTaskListElement: {
+        prototype: HTMLKupTaskListElement;
+        new (): HTMLKupTaskListElement;
+    };
+    interface HTMLKupTaskListHeaderElement extends Components.KupTaskListHeader, HTMLStencilElement {
+    }
+    var HTMLKupTaskListHeaderElement: {
+        prototype: HTMLKupTaskListHeaderElement;
+        new (): HTMLKupTaskListHeaderElement;
+    };
+    interface HTMLKupTaskListTableElement extends Components.KupTaskListTable, HTMLStencilElement {
+    }
+    var HTMLKupTaskListTableElement: {
+        prototype: HTMLKupTaskListTableElement;
+        new (): HTMLKupTaskListTableElement;
     };
     interface HTMLKupTextFieldElementEventMap {
         "kup-textfield-blur": KupTextFieldEventPayload;
@@ -4536,6 +4862,12 @@ declare global {
         prototype: HTMLKupTimePickerElement;
         new (): HTMLKupTimePickerElement;
     };
+    interface HTMLKupTooltipElement extends Components.KupTooltip, HTMLStencilElement {
+    }
+    var HTMLKupTooltipElement: {
+        prototype: HTMLKupTooltipElement;
+        new (): HTMLKupTooltipElement;
+    };
     interface HTMLKupTreeElementEventMap {
         "kup-tree-nodecollapse": KupTreeNodeCollapseEventPayload;
         "kup-tree-nodeexpand": KupTreeNodeExpandEventPayload;
@@ -4563,6 +4895,12 @@ declare global {
         prototype: HTMLKupTreeElement;
         new (): HTMLKupTreeElement;
     };
+    interface HTMLKupVerticalScrollElement extends Components.KupVerticalScroll, HTMLStencilElement {
+    }
+    var HTMLKupVerticalScrollElement: {
+        prototype: HTMLKupVerticalScrollElement;
+        new (): HTMLKupVerticalScrollElement;
+    };
     interface HTMLElementTagNameMap {
         "kup-accordion": HTMLKupAccordionElement;
         "kup-autocomplete": HTMLKupAutocompleteElement;
@@ -4579,6 +4917,8 @@ declare global {
         "kup-chip": HTMLKupChipElement;
         "kup-color-picker": HTMLKupColorPickerElement;
         "kup-combobox": HTMLKupComboboxElement;
+        "kup-custom-task-list-header": HTMLKupCustomTaskListHeaderElement;
+        "kup-custom-task-list-table": HTMLKupCustomTaskListTableElement;
         "kup-dashboard": HTMLKupDashboardElement;
         "kup-data-table": HTMLKupDataTableElement;
         "kup-date-picker": HTMLKupDatePickerElement;
@@ -4588,8 +4928,12 @@ declare global {
         "kup-echart": HTMLKupEchartElement;
         "kup-family-tree": HTMLKupFamilyTreeElement;
         "kup-form": HTMLKupFormElement;
+        "kup-gantt": HTMLKupGanttElement;
+        "kup-gantt-calendar": HTMLKupGanttCalendarElement;
         "kup-gauge": HTMLKupGaugeElement;
         "kup-grid": HTMLKupGridElement;
+        "kup-grid-renderer": HTMLKupGridRendererElement;
+        "kup-horizontal-scroll": HTMLKupHorizontalScrollElement;
         "kup-iframe": HTMLKupIframeElement;
         "kup-image": HTMLKupImageElement;
         "kup-image-list": HTMLKupImageListElement;
@@ -4600,6 +4944,7 @@ declare global {
         "kup-numeric-picker": HTMLKupNumericPickerElement;
         "kup-photo-frame": HTMLKupPhotoFrameElement;
         "kup-planner": HTMLKupPlannerElement;
+        "kup-planner-renderer": HTMLKupPlannerRendererElement;
         "kup-probe": HTMLKupProbeElement;
         "kup-progress-bar": HTMLKupProgressBarElement;
         "kup-qlik": HTMLKupQlikElement;
@@ -4607,11 +4952,19 @@ declare global {
         "kup-rating": HTMLKupRatingElement;
         "kup-snackbar": HTMLKupSnackbarElement;
         "kup-spinner": HTMLKupSpinnerElement;
+        "kup-standard-tooltip": HTMLKupStandardTooltipElement;
         "kup-switch": HTMLKupSwitchElement;
+        "kup-switcher": HTMLKupSwitcherElement;
         "kup-tab-bar": HTMLKupTabBarElement;
+        "kup-task-gantt": HTMLKupTaskGanttElement;
+        "kup-task-list": HTMLKupTaskListElement;
+        "kup-task-list-header": HTMLKupTaskListHeaderElement;
+        "kup-task-list-table": HTMLKupTaskListTableElement;
         "kup-text-field": HTMLKupTextFieldElement;
         "kup-time-picker": HTMLKupTimePickerElement;
+        "kup-tooltip": HTMLKupTooltipElement;
         "kup-tree": HTMLKupTreeElement;
+        "kup-vertical-scroll": HTMLKupVerticalScrollElement;
     }
 }
 declare namespace LocalJSX {
@@ -5470,6 +5823,25 @@ declare namespace LocalJSX {
          */
         "showDropDownIcon"?: boolean;
     }
+    interface KupCustomTaskListHeader {
+        "doubleView"?: boolean;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "label"?: string;
+        "setDoubleView"?: (checked: boolean) => void;
+    }
+    interface KupCustomTaskListTable {
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "ganttId"?: string;
+        "onclickTaskList"?: (id: string) => void;
+        "oncontextmenuTaskList"?: (event: MouseEvent, id: string) => void;
+        "ondblclickTaskList"?: (id: string) => void;
+        "rowHeight"?: number;
+        "rowWidth"?: string;
+        "setSelectedTask"?: (taskId: string) => void;
+        "tasks"?: KupPlannerTask[];
+    }
     interface KupDashboard {
         /**
           * Custom style of the component.
@@ -6111,6 +6483,92 @@ declare namespace LocalJSX {
          */
         "submitCb"?: (e: SubmitEvent) => unknown;
     }
+    interface KupGantt {
+        "TaskListHeader"?: KupPlannerGanttProps['TaskListHeader'];
+        "TaskListTable"?: KupPlannerGanttProps['TaskListTable'];
+        "TooltipContent"?: KupPlannerGanttProps['TooltipContent'];
+        "arrowColor"?: KupPlannerGanttProps['arrowColor'];
+        "arrowIndent"?: KupPlannerGanttProps['arrowIndent'];
+        "barBackgroundColor"?: KupPlannerGanttProps['barBackgroundColor'];
+        "barBackgroundSelectedColor"?: KupPlannerGanttProps['barBackgroundSelectedColor'];
+        "barClick"?: KupPlannerGanttProps['barClick'];
+        "barContextMenu"?: KupPlannerGanttProps['barContextMenu'];
+        "barCornerRadius"?: KupPlannerGanttProps['barCornerRadius'];
+        "barDblClick"?: KupPlannerGanttProps['barDblClick'];
+        "barFill"?: KupPlannerGanttProps['barFill'];
+        "barProgressColor"?: KupPlannerGanttProps['barProgressColor'];
+        "barProgressSelectedColor"?: KupPlannerGanttProps['barProgressSelectedColor'];
+        "columnWidth"?: KupPlannerGanttProps['columnWidth'];
+        "currentTasks"?: KupPlannerGanttTaskN[] | KupPlannerItemDetail[];
+        "dateChange"?: KupPlannerGanttProps['dateChange'];
+        "dateTimeFormatters"?: KupPlannerGanttProps['dateTimeFormatters'];
+        "delete"?: KupPlannerGanttProps['delete'];
+        "displayedEndDate"?: KupPlannerGanttProps['displayedEndDate'];
+        "displayedStartDate"?: KupPlannerGanttProps['displayedStartDate'];
+        "doubleClick"?: KupPlannerGanttProps['doubleClick'];
+        "doubleView"?: boolean;
+        "expanderClick"?: KupPlannerGanttProps['expanderClick'];
+        "filter"?: KupPlannerGanttProps['filter'];
+        "fontFamily"?: KupPlannerGanttProps['fontFamily'];
+        "fontSize"?: KupPlannerGanttProps['fontSize'];
+        "ganttHeight"?: KupPlannerGanttProps['ganttHeight'];
+        "ganttId"?: KupPlannerGanttProps['id'];
+        "ganttOnClick"?: KupGanttPlannerProps['onClick'];
+        "ganttOnDblClick"?: KupGanttPlannerProps['onDblClick'];
+        "ganttonOnContextMenu"?: KupGanttPlannerProps['onContextMenu'];
+        "handleClick"?: (row: KupPlannerGanttRow, onClick: any) => void;
+        "handleContextMenu"?: (
+        event: MouseEvent,
+        row: KupPlannerGanttRow,
+        onContextMenu: any
+    ) => void;
+        "handleDblClick"?: (row: KupPlannerGanttRow, onDblClick: any) => void;
+        "handleWidth"?: KupPlannerGanttProps['handleWidth'];
+        "headerHeight"?: KupPlannerGanttProps['headerHeight'];
+        "hideDependencies"?: KupPlannerGanttProps['hideDependencies'];
+        "hideLabel"?: KupPlannerGanttProps['hideLabel'];
+        "initialScrollX"?: KupPlannerGanttProps['initialScrollX'];
+        "initialScrollY"?: KupPlannerGanttProps['initialScrollY'];
+        "label"?: string;
+        "listCellWidth"?: KupPlannerGanttProps['listCellWidth'];
+        "locale"?: KupPlannerGanttProps['locale'];
+        "preStepsCount"?: KupPlannerGanttProps['preStepsCount'];
+        "progressChange"?: KupPlannerGanttProps['progressChange'];
+        "projectBackgroundColor"?: KupPlannerGanttProps['projectBackgroundColor'];
+        "projectBackgroundSelectedColor"?: KupPlannerGanttProps['projectBackgroundSelectedColor'];
+        "projectFill"?: KupPlannerGanttProps['barFill'];
+        "projectProgressColor"?: KupPlannerGanttProps['projectProgressColor'];
+        "projectProgressSelectedColor"?: KupPlannerGanttProps['projectProgressSelectedColor'];
+        "projection"?: KupPlannerGanttProps['projection'];
+        "readOnly"?: KupPlannerGanttProps['readOnly'];
+        "rowHeight"?: KupPlannerGanttProps['rowHeight'];
+        "rtl"?: KupPlannerGanttProps['rtl'];
+        "scrollXChange"?: KupPlannerGanttProps['scrollXChange'];
+        "scrollYChange"?: KupPlannerGanttProps['scrollYChange'];
+        "select"?: KupPlannerGanttProps['select'];
+        "setDoubleView"?: (checked: boolean) => void;
+        "showSecondaryDates"?: KupPlannerGanttProps['showSecondaryDates'];
+        "singleLineHeader"?: KupPlannerGanttProps['singleLineHeader'];
+        "tasks"?: KupPlannerGanttProps['tasks'];
+        "timeStep"?: KupPlannerGanttProps['timeStep'];
+        "timelineFill"?: KupPlannerGanttProps['barFill'];
+        "todayColor"?: KupPlannerGanttProps['todayColor'];
+        "viewDate"?: KupPlannerGanttProps['viewDate'];
+        "viewMode"?: KupPlannerGanttProps['viewMode'];
+    }
+    interface KupGanttCalendar {
+        "columnWidth"?: KupPlannerCalendarProps['columnWidth'];
+        "currentDateIndicator"?: KupPlannerCalendarProps['currentDateIndicator'];
+        "dateSetup"?: KupPlannerCalendarProps['dateSetup'];
+        "dateTimeFormatters"?: KupPlannerCalendarProps['dateTimeFormatters'];
+        "fontFamily"?: KupPlannerCalendarProps['fontFamily'];
+        "fontSize"?: KupPlannerCalendarProps['fontSize'];
+        "headerHeight"?: KupPlannerCalendarProps['headerHeight'];
+        "locale"?: KupPlannerCalendarProps['locale'];
+        "rtl"?: KupPlannerCalendarProps['rtl'];
+        "singleLineHeader"?: KupPlannerCalendarProps['singleLineHeader'];
+        "svgWidth"?: number;
+    }
     interface KupGauge {
         /**
           * Sets how much the arc of the gauge should be thick.
@@ -6212,6 +6670,47 @@ declare namespace LocalJSX {
           * @default false
          */
         "singleLine"?: boolean;
+    }
+    interface KupGridRenderer {
+        "arrowColor"?: KupPlannerTaskGanttContentProps['arrowColor'];
+        "arrowIndent"?: KupPlannerTaskGanttContentProps['arrowIndent'];
+        "barClick"?: KupPlannerEventOption['barClick'];
+        "barContextMenu"?: KupPlannerEventOption['barContextMenu'];
+        "barDblClick"?: KupPlannerEventOption['barDblClick'];
+        "columnWidth"?: KupPlannerTaskGanttContentProps['columnWidth'];
+        "currentDateIndicator"?: KupPlannerTaskGanttContentProps['currentDateIndicator'];
+        "dateChange"?: KupPlannerEventOption['dateChange'];
+        "dates"?: KupPlannerTaskGanttContentProps['dates'];
+        "delete"?: KupPlannerEventOption['delete'];
+        "doubleClick"?: KupPlannerEventOption['doubleClick'];
+        "eMouseDown"?: KupPlannerBarDisplayProps['onMouseDown'];
+        "eventStart"?: KupPlannerTaskItemProps['onEventStart'];
+        "fontFamily"?: KupPlannerTaskGanttContentProps['fontFamily'];
+        "fontSize"?: KupPlannerTaskGanttContentProps['fontSize'];
+        "ganttEvent"?: KupPlannerTaskGanttContentProps['ganttEvent'];
+        "gridProps"?: KupPlannerTaskGanttProps['gridProps'];
+        "hideLabel"?: KupPlannerTaskGanttContentProps['hideLabel'];
+        "progressChange"?: KupPlannerEventOption['progressChange'];
+        "projection"?: KupPlannerTaskGanttContentProps['projection'];
+        "readOnly"?: KupPlannerTaskGanttContentProps['readOnly'];
+        "rowHeight"?: KupPlannerTaskGanttContentProps['rowHeight'];
+        "rtl"?: KupPlannerTaskGanttContentProps['rtl'];
+        "selectedTask"?: KupPlannerTaskGanttContentProps['selectedTask'];
+        "setFailedTask"?: KupPlannerTaskGanttContentProps['setFailedTask'];
+        "setGanttEvent"?: (gantt: KupPlannerGanttEvent) => void;
+        "setSelectedTask"?: KupPlannerTaskGanttContentProps['setSelectedTask'];
+        "showSecondaryDates"?: KupPlannerTaskGanttContentProps['showSecondaryDates'];
+        "taskHeight"?: KupPlannerTaskGanttContentProps['taskHeight'];
+        "tasks"?: KupPlannerTaskGanttContentProps['tasks'];
+        "timeStep"?: KupPlannerTaskGanttContentProps['timeStep'];
+    }
+    interface KupHorizontalScroll {
+        "horizontalScroll"?: (event: UIEvent) => void;
+        "rtl"?: boolean;
+        "scrollNumber"?: number;
+        "svgWidth"?: number;
+        "taskGanttRef"?: HTMLDivElement;
+        "taskListWidth"?: number;
     }
     interface KupIframe {
         /**
@@ -6604,6 +7103,11 @@ declare namespace LocalJSX {
          */
         "listCellWidth"?: string;
         /**
+          * Sets the filter for main gantt.
+          * @default undefined
+         */
+        "mainFilter"?: HTMLElement;
+        /**
           * Max width for component
           * @default '90vw'
          */
@@ -6614,6 +7118,7 @@ declare namespace LocalJSX {
          */
         "onKup-planner-contextmenu"?: (event: KupPlannerCustomEvent<KupPlannerClickEventPayload>) => void;
         "onKup-planner-datechange"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
+        "onKup-planner-dblclick"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
         /**
           * When component unload is complete
          */
@@ -6664,6 +7169,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "readOnly"?: boolean;
+        /**
+          * Sets the filter for secondary gantt.
+          * @default undefined
+         */
+        "secondaryFilter"?: HTMLElement;
         /**
           * Enable/disable display of secondary dates
           * @default false
@@ -6731,6 +7241,9 @@ declare namespace LocalJSX {
           * @default 'month'
          */
         "viewMode"?: KupPlannerViewMode;
+    }
+    interface KupPlannerRenderer {
+        "props"?: PlannerProps;
     }
     interface KupProbe {
         /**
@@ -6977,6 +7490,11 @@ declare namespace LocalJSX {
          */
         "onKup-spinner-ready"?: (event: KupSpinnerCustomEvent<KupEventPayload>) => void;
     }
+    interface KupStandardTooltip {
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "task"?: KupPlannerTask;
+    }
     interface KupSwitch {
         /**
           * Defaults at false. When set to true, the component will be set to 'checked'.
@@ -7017,6 +7535,9 @@ declare namespace LocalJSX {
          */
         "onKup-switch-focus"?: (event: KupSwitchCustomEvent<KupSwitchEventPayload>) => void;
     }
+    interface KupSwitcher {
+        "timeUnitChange"?: KupPlannerSwitcherProps['onTimeUnitChange'];
+    }
     interface KupTabBar {
         /**
           * Custom style of the component.
@@ -7046,6 +7567,64 @@ declare namespace LocalJSX {
           * @default true
          */
         "ripple"?: boolean;
+    }
+    interface KupTaskGantt {
+        "barProps"?: KupPlannerTaskGanttProps['barProps'];
+        "calendarProps"?: KupPlannerTaskGanttProps['calendarProps'];
+        "ganttHeight"?: KupPlannerTaskGanttProps['ganttHeight'];
+        "gridProps"?: KupPlannerTaskGanttProps['gridProps'];
+        "scrollX"?: KupPlannerTaskGanttProps['scrollX'];
+        "scrollY"?: KupPlannerTaskGanttProps['scrollY'];
+        "taskGanttRef"?: KupPlannerTaskGanttProps['taskGanttRef'];
+    }
+    interface KupTaskList {
+        "TaskListHeader"?: KupPlannerTaskListProps['TaskListHeader'];
+        "TaskListTable"?: KupPlannerTaskListProps['TaskListTable'];
+        "currentTasks"?: KupPlannerGanttTaskN[] | KupPlannerItemDetail[];
+        "doubleView"?: boolean;
+        "expanderClick"?: KupPlannerTaskListProps['expanderClick'];
+        "filter"?: HTMLElement;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "ganttHeight"?: number;
+        "ganttOnClick"?: KupGanttPlannerProps['onClick'];
+        "ganttOnDblClick"?: KupGanttPlannerProps['onDblClick'];
+        "ganttonOnContextMenu"?: KupGanttPlannerProps['onContextMenu'];
+        "handleClick"?: (row: KupPlannerGanttRow, onClick: any) => void;
+        "handleContextMenu"?: (
+        event: MouseEvent,
+        row: KupPlannerGanttRow,
+        onContextMenu: any
+    ) => void;
+        "handleDblClick"?: (row: KupPlannerGanttRow, onDblClick: any) => void;
+        "headerHeight"?: number;
+        "horizontalContainerClass"?: string;
+        "label"?: string;
+        "locale"?: string;
+        "rowHeight"?: number;
+        "rowWidth"?: string;
+        "scrollY"?: number;
+        "selectedTask"?: KupPlannerBarTask | undefined;
+        "setDoubleView"?: (checked: boolean) => void;
+        "setSelectedTask"?: KupPlannerTaskListProps['setSelectedTask'];
+        "tasks"?: KupPlannerTask[];
+    }
+    interface KupTaskListHeader {
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "headerHeight"?: number;
+        "rowWidth"?: string;
+    }
+    interface KupTaskListTable {
+        "expanderClick"?: (task: KupPlannerTask) => void;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "locale"?: string;
+        "rowHeight"?: number;
+        "rowWidth"?: string;
+        "selectedTaskId"?: string;
+        "setSelectedTask"?: (taskId: string) => void;
+        "tasks"?: KupPlannerTask[];
     }
     interface KupTextField {
         /**
@@ -7279,6 +7858,22 @@ declare namespace LocalJSX {
          */
         "timeMinutesStep"?: number;
     }
+    interface KupTooltip {
+        "TooltipContent"?: any;
+        "arrowIndent"?: number;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "headerHeight"?: number;
+        "rowHeight"?: number;
+        "rtl"?: boolean;
+        "scrollX"?: number;
+        "scrollY"?: number;
+        "svgContainerHeight"?: number;
+        "svgContainerWidth"?: number;
+        "svgWidth"?: number;
+        "task"?: KupPlannerBarTask;
+        "taskListWidth"?: number;
+    }
     interface KupTree {
         /**
           * When enabled, the first level of depth will give an accordion look to nodes.
@@ -7437,6 +8032,14 @@ declare namespace LocalJSX {
          */
         "useDynamicExpansion"?: boolean;
     }
+    interface KupVerticalScroll {
+        "ganttFullHeight"?: number;
+        "ganttHeight"?: number;
+        "headerHeight"?: number;
+        "rtl"?: boolean;
+        "scrollNumber"?: number;
+        "verticalScroll"?: (event: UIEvent) => void;
+    }
     interface IntrinsicElements {
         "kup-accordion": KupAccordion;
         "kup-autocomplete": KupAutocomplete;
@@ -7453,6 +8056,8 @@ declare namespace LocalJSX {
         "kup-chip": KupChip;
         "kup-color-picker": KupColorPicker;
         "kup-combobox": KupCombobox;
+        "kup-custom-task-list-header": KupCustomTaskListHeader;
+        "kup-custom-task-list-table": KupCustomTaskListTable;
         "kup-dashboard": KupDashboard;
         "kup-data-table": KupDataTable;
         "kup-date-picker": KupDatePicker;
@@ -7462,8 +8067,12 @@ declare namespace LocalJSX {
         "kup-echart": KupEchart;
         "kup-family-tree": KupFamilyTree;
         "kup-form": KupForm;
+        "kup-gantt": KupGantt;
+        "kup-gantt-calendar": KupGanttCalendar;
         "kup-gauge": KupGauge;
         "kup-grid": KupGrid;
+        "kup-grid-renderer": KupGridRenderer;
+        "kup-horizontal-scroll": KupHorizontalScroll;
         "kup-iframe": KupIframe;
         "kup-image": KupImage;
         "kup-image-list": KupImageList;
@@ -7474,6 +8083,7 @@ declare namespace LocalJSX {
         "kup-numeric-picker": KupNumericPicker;
         "kup-photo-frame": KupPhotoFrame;
         "kup-planner": KupPlanner;
+        "kup-planner-renderer": KupPlannerRenderer;
         "kup-probe": KupProbe;
         "kup-progress-bar": KupProgressBar;
         "kup-qlik": KupQlik;
@@ -7481,11 +8091,19 @@ declare namespace LocalJSX {
         "kup-rating": KupRating;
         "kup-snackbar": KupSnackbar;
         "kup-spinner": KupSpinner;
+        "kup-standard-tooltip": KupStandardTooltip;
         "kup-switch": KupSwitch;
+        "kup-switcher": KupSwitcher;
         "kup-tab-bar": KupTabBar;
+        "kup-task-gantt": KupTaskGantt;
+        "kup-task-list": KupTaskList;
+        "kup-task-list-header": KupTaskListHeader;
+        "kup-task-list-table": KupTaskListTable;
         "kup-text-field": KupTextField;
         "kup-time-picker": KupTimePicker;
+        "kup-tooltip": KupTooltip;
         "kup-tree": KupTree;
+        "kup-vertical-scroll": KupVerticalScroll;
     }
 }
 export { LocalJSX as JSX };
@@ -7507,6 +8125,8 @@ declare module "@stencil/core" {
             "kup-chip": LocalJSX.KupChip & JSXBase.HTMLAttributes<HTMLKupChipElement>;
             "kup-color-picker": LocalJSX.KupColorPicker & JSXBase.HTMLAttributes<HTMLKupColorPickerElement>;
             "kup-combobox": LocalJSX.KupCombobox & JSXBase.HTMLAttributes<HTMLKupComboboxElement>;
+            "kup-custom-task-list-header": LocalJSX.KupCustomTaskListHeader & JSXBase.HTMLAttributes<HTMLKupCustomTaskListHeaderElement>;
+            "kup-custom-task-list-table": LocalJSX.KupCustomTaskListTable & JSXBase.HTMLAttributes<HTMLKupCustomTaskListTableElement>;
             "kup-dashboard": LocalJSX.KupDashboard & JSXBase.HTMLAttributes<HTMLKupDashboardElement>;
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
             "kup-date-picker": LocalJSX.KupDatePicker & JSXBase.HTMLAttributes<HTMLKupDatePickerElement>;
@@ -7516,8 +8136,12 @@ declare module "@stencil/core" {
             "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
             "kup-family-tree": LocalJSX.KupFamilyTree & JSXBase.HTMLAttributes<HTMLKupFamilyTreeElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
+            "kup-gantt": LocalJSX.KupGantt & JSXBase.HTMLAttributes<HTMLKupGanttElement>;
+            "kup-gantt-calendar": LocalJSX.KupGanttCalendar & JSXBase.HTMLAttributes<HTMLKupGanttCalendarElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
             "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;
+            "kup-grid-renderer": LocalJSX.KupGridRenderer & JSXBase.HTMLAttributes<HTMLKupGridRendererElement>;
+            "kup-horizontal-scroll": LocalJSX.KupHorizontalScroll & JSXBase.HTMLAttributes<HTMLKupHorizontalScrollElement>;
             "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
             "kup-image-list": LocalJSX.KupImageList & JSXBase.HTMLAttributes<HTMLKupImageListElement>;
@@ -7528,6 +8152,7 @@ declare module "@stencil/core" {
             "kup-numeric-picker": LocalJSX.KupNumericPicker & JSXBase.HTMLAttributes<HTMLKupNumericPickerElement>;
             "kup-photo-frame": LocalJSX.KupPhotoFrame & JSXBase.HTMLAttributes<HTMLKupPhotoFrameElement>;
             "kup-planner": LocalJSX.KupPlanner & JSXBase.HTMLAttributes<HTMLKupPlannerElement>;
+            "kup-planner-renderer": LocalJSX.KupPlannerRenderer & JSXBase.HTMLAttributes<HTMLKupPlannerRendererElement>;
             "kup-probe": LocalJSX.KupProbe & JSXBase.HTMLAttributes<HTMLKupProbeElement>;
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;
             "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;
@@ -7535,11 +8160,19 @@ declare module "@stencil/core" {
             "kup-rating": LocalJSX.KupRating & JSXBase.HTMLAttributes<HTMLKupRatingElement>;
             "kup-snackbar": LocalJSX.KupSnackbar & JSXBase.HTMLAttributes<HTMLKupSnackbarElement>;
             "kup-spinner": LocalJSX.KupSpinner & JSXBase.HTMLAttributes<HTMLKupSpinnerElement>;
+            "kup-standard-tooltip": LocalJSX.KupStandardTooltip & JSXBase.HTMLAttributes<HTMLKupStandardTooltipElement>;
             "kup-switch": LocalJSX.KupSwitch & JSXBase.HTMLAttributes<HTMLKupSwitchElement>;
+            "kup-switcher": LocalJSX.KupSwitcher & JSXBase.HTMLAttributes<HTMLKupSwitcherElement>;
             "kup-tab-bar": LocalJSX.KupTabBar & JSXBase.HTMLAttributes<HTMLKupTabBarElement>;
+            "kup-task-gantt": LocalJSX.KupTaskGantt & JSXBase.HTMLAttributes<HTMLKupTaskGanttElement>;
+            "kup-task-list": LocalJSX.KupTaskList & JSXBase.HTMLAttributes<HTMLKupTaskListElement>;
+            "kup-task-list-header": LocalJSX.KupTaskListHeader & JSXBase.HTMLAttributes<HTMLKupTaskListHeaderElement>;
+            "kup-task-list-table": LocalJSX.KupTaskListTable & JSXBase.HTMLAttributes<HTMLKupTaskListTableElement>;
             "kup-text-field": LocalJSX.KupTextField & JSXBase.HTMLAttributes<HTMLKupTextFieldElement>;
             "kup-time-picker": LocalJSX.KupTimePicker & JSXBase.HTMLAttributes<HTMLKupTimePickerElement>;
+            "kup-tooltip": LocalJSX.KupTooltip & JSXBase.HTMLAttributes<HTMLKupTooltipElement>;
             "kup-tree": LocalJSX.KupTree & JSXBase.HTMLAttributes<HTMLKupTreeElement>;
+            "kup-vertical-scroll": LocalJSX.KupVerticalScroll & JSXBase.HTMLAttributes<HTMLKupVerticalScrollElement>;
         }
     }
 }
