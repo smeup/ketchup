@@ -24,6 +24,7 @@
 | `detailNameCol`        | `detail-name-col`         | Column containing detail name displayed                                              | `string`                               | `undefined` |
 | `detailPrevDates`      | --                        | Columns containing forecast detail duration, from (firstDate) to (secondDate)        | `string[]`                             | `undefined` |
 | `listCellWidth`        | `list-cell-width`         | Total size of the cells inside to the left box, near the gantt                       | `string`                               | `'300px'`   |
+| `mainFilter`           | --                        | Sets the filter for main gantt.                                                      | `HTMLElement`                          | `undefined` |
 | `maxWidth`             | `max-width`               | Max width for component                                                              | `string`                               | `'90vw'`    |
 | `phaseColParDep`       | `phase-col-par-dep`       | Column containing the name of the parent phases                                      | `string`                               | `undefined` |
 | `phaseColorCol`        | `phase-color-col`         | Column containing the phase color in hex format                                      | `string`                               | `undefined` |
@@ -34,6 +35,7 @@
 | `phaseNameCol`         | `phase-name-col`          | Column containing phase name displayed                                               | `string`                               | `undefined` |
 | `phasePrevDates`       | --                        | Columns containing forecast phase duration, from (firstDate) to (secondDate)         | `string[]`                             | `undefined` |
 | `readOnly`             | `read-only`               | When true, the two gantts are not interactable.                                      | `boolean`                              | `false`     |
+| `secondaryFilter`      | --                        | Sets the filter for secondary gantt.                                                 | `HTMLElement`                          | `undefined` |
 | `showSecondaryDates`   | `show-secondary-dates`    | Enable/disable display of secondary dates                                            | `boolean`                              | `false`     |
 | `stateId`              | `state-id`                |                                                                                      | `string`                               | `''`        |
 | `store`                | --                        |                                                                                      | `KupStore`                             | `undefined` |
@@ -58,6 +60,7 @@
 | `kup-planner-click`       |                                       | `CustomEvent<KupPlannerEventPayload>`       |
 | `kup-planner-contextmenu` | Generic right click event on planner. | `CustomEvent<KupPlannerClickEventPayload>`  |
 | `kup-planner-datechange`  |                                       | `CustomEvent<KupPlannerEventPayload>`       |
+| `kup-planner-dblclick`    |                                       | `CustomEvent<KupPlannerEventPayload>`       |
 | `kup-planner-didunload`   | When component unload is complete     | `CustomEvent<KupPlannerUnloadEventPayload>` |
 | `kup-planner-ready`       |                                       | `CustomEvent<KupPlannerEventPayload>`       |
 
@@ -109,12 +112,28 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-planner-renderer](utils)
 - [kup-card](../kup-card)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-planner --> kup-planner-renderer
   kup-planner --> kup-card
+  kup-planner-renderer --> kup-switcher
+  kup-planner-renderer --> kup-gantt
+  kup-gantt --> kup-standard-tooltip
+  kup-gantt --> kup-task-list-header
+  kup-gantt --> kup-task-list-table
+  kup-gantt --> kup-task-list
+  kup-gantt --> kup-task-gantt
+  kup-gantt --> kup-tooltip
+  kup-gantt --> kup-vertical-scroll
+  kup-gantt --> kup-horizontal-scroll
+  kup-task-list --> kup-custom-task-list-header
+  kup-task-list --> kup-custom-task-list-table
+  kup-task-gantt --> kup-gantt-calendar
+  kup-task-gantt --> kup-grid-renderer
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field

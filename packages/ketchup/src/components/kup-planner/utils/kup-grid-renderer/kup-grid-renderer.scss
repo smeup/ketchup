@@ -1,0 +1,60 @@
+.gridRow {
+  fill: #fff;
+}
+
+.gridRowLine {
+  stroke: transparent;
+}
+
+.gridTick {
+  stroke: #e6e4e4;
+}
+
+.barHandle {
+  fill: #ddd;
+  cursor: ew-resize;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.barBackground {
+  user-select: none;
+  stroke-width: 0;
+}
+
+.barWrapper {
+  cursor: pointer;
+  outline: none;
+}
+
+.task-wrapper {
+  outline: none !important;
+}
+
+.barWrapper:hover .barHandle {
+  visibility: visible;
+  opacity: 1;
+}
+
+.barLabel {
+  fill: #fff;
+  text-anchor: middle;
+  font-weight: lighter;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+}
+
+.barLabelOutside {
+  fill: #555;
+  text-anchor: start;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+}

@@ -210,6 +210,8 @@ export const mockedProps = {
   phaseColorCol: 'PHASE_COL',
   phaseColumns: ['SEC_START', 'SEC_END'],
   showSecondaryDates: false,
+  detailHeight: 200,
+  taskHeight: 200,
 };
 
 export function getMockupTaskDatas() {
@@ -268,7 +270,7 @@ export function getMockupTaskDatas() {
             value: '1',
           },
           NAME: {
-            value: 'G456',
+            value: 'G503',
           },
           START: {
             obj: {
@@ -311,7 +313,7 @@ export function getMockupTaskDatas() {
             value: '2',
           },
           NAME: {
-            value: 'G457',
+            value: 'G504',
           },
           START: {
             obj: {
@@ -344,6 +346,178 @@ export function getMockupTaskDatas() {
               k: '',
             },
             value: '2022-12-04',
+          },
+        },
+      },
+      {
+        id: '3',
+        cells: {
+          ID: {
+            value: '3',
+          },
+          NAME: {
+            value: 'G505',
+          },
+          START: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
+            value: '2022-11-03',
+          },
+          END: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
+            value: '2022-12-28',
+          },
+          SEC_START: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
+            value: '2022-11-03',
+          },
+          SEC_END: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
+            value: '2022-12-28',
+          },
+        },
+      },
+      {
+        id: '4',
+        cells: {
+          ID: {
+            value: '4',
+          },
+          NAME: {
+            value: 'G506',
+          },
+          START: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
+            value: '2022-05-19',
+          },
+          END: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
+            value: '2022-09-18',
+          },
+          SEC_START: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
+            value: '2022-05-19',
+          },
+          SEC_END: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
+            value: '2022-09-18',
+          },
+        },
+      },
+      {
+        id: '5',
+        cells: {
+          ID: {
+            value: '5',
+          },
+          NAME: {
+            value: 'G507',
+          },
+          START: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
+            value: '2022-10-19',
+          },
+          END: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
+            value: '2022-12-18',
+          },
+          SEC_START: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
+            value: '2022-10-19',
+          },
+          SEC_END: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
+            value: '2022-12-18',
+          },
+        },
+      },
+      {
+        id: '6',
+        cells: {
+          ID: {
+            value: '6',
+          },
+          NAME: {
+            value: 'G508',
+          },
+          START: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
+            value: '2022-11-15',
+          },
+          END: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
+            value: '2022-12-25',
+          },
+          SEC_START: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
+            value: '2022-11-15',
+          },
+          SEC_END: {
+            obj: {
+              t: 'D8',
+              p: '*YYMD',
+              k: '',
+            },
+            value: '2022-12-25',
           },
         },
       },
