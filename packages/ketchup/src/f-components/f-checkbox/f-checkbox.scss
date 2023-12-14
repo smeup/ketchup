@@ -1,39 +1,23 @@
 .f-checkbox {
-  --kup_checkbox_font_family: var(
-    --kup-checkbox-font-family,
-    var(--kup-font-family)
-  );
+  --kup_checkbox_font_family: var(--kup-checkbox-font-family,
+      var(--kup-font-family));
   --kup_checkbox_font_size: var(--kup-checkbox-font-size, var(--kup-font-size));
   --kup_checkbox_font_weight: var(--kup-checkbox-font-weight, 400);
-  --kup_checkbox_disabled_checkmark_color: var(
-    --kup-checkbox-disabled-checkmark-color,
-    var(--kup-background-color)
-  );
+  --kup_checkbox_disabled_checkmark_color: var(--kup-checkbox-disabled-checkmark-color,
+      var(--kup-background-color));
   --kup_checkbox_padding: var(--kup-checkbox-padding, 11px);
-  --kup_checkbox_primary_color: var(
-    --kup-checkbox-primary-color,
-    var(--kup-primary-color)
-  );
-  --kup_checkbox_primary_color_rgb: var(
-    --kup-checkbox-primary-color-rgb,
-    var(--kup-primary-color-rgb)
-  );
-  --kup_checkbox_text_color: var(
-    --kup-checkbox-text-color,
-    var(--kup-text-color)
-  );
-  --kup_checkbox_text_color_rgb: var(
-    --kup-checkbox-text-color-rgb,
-    var(--kup-text-color-rgb)
-  );
-  --kup_checkbox_text_on_primary_color: var(
-    --kup-checkbox-text-on-primary-color,
-    var(--kup-text-on-primary-color)
-  );
-  --kup_checkbox_text_on_primary_color_rgb: var(
-    --kup-checkbox-text-on-primary-color-rgb,
-    var(--kup-text-on-primary-color-rgb)
-  );
+  --kup_checkbox_primary_color: var(--kup-checkbox-primary-color,
+      var(--kup-primary-color));
+  --kup_checkbox_primary_color_rgb: var(--kup-checkbox-primary-color-rgb,
+      var(--kup-primary-color-rgb));
+  --kup_checkbox_text_color: var(--kup-checkbox-text-color,
+      var(--kup-text-color));
+  --kup_checkbox_text_color_rgb: var(--kup-checkbox-text-color-rgb,
+      var(--kup-text-color-rgb));
+  --kup_checkbox_text_on_primary_color: var(--kup-checkbox-text-on-primary-color,
+      var(--kup-text-on-primary-color));
+  --kup_checkbox_text_on_primary_color_rgb: var(--kup-checkbox-text-on-primary-color-rgb,
+      var(--kup-text-on-primary-color-rgb));
 
   font-family: var(--kup_checkbox_font_family);
   font-size: var(--kup_checkbox_font_size);
@@ -54,6 +38,11 @@
       margin-left: 0px;
       margin-right: auto;
       order: 0;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--kup_checkbox_primary_color);
+      }
     }
 
     &.form-field--align-end {
@@ -84,6 +73,10 @@
 
     &:hover {
       background: rgba(var(--kup_checkbox_primary_color_rgb), 0.125);
+
+      label {
+        color: var(--kup_checkbox_primary_color);
+      }
     }
 
     .checkbox__native-control {
@@ -98,7 +91,7 @@
       height: 40px;
       width: 40px;
 
-      &:checked ~ {
+      &:checked~ {
         .checkbox__background {
           .checkbox__checkmark {
             transition: opacity 180ms 0ms cubic-bezier(0, 0, 0.2, 1),
@@ -165,6 +158,7 @@
         border-color: var(--kup_checkbox_primary_color);
         opacity: 1;
       }
+
       .checkbox__checkmark-path {
         stroke-dashoffset: 0;
       }
@@ -175,11 +169,13 @@
         background-color: var(--kup_checkbox_primary_color);
         border-color: var(--kup_checkbox_primary_color);
       }
+
       .checkbox__mixedmark {
         border-color: var(--kup_checkbox_text_on_primary_color);
         transform: scaleX(1) rotate(0deg);
         opacity: 1;
       }
+
       .checkbox__checkmark-path {
         stroke-dashoffset: 0;
       }
@@ -188,7 +184,7 @@
     &.checkbox--disabled {
       pointer-events: none;
 
-      + label {
+      +label {
         pointer-events: none;
       }
 
@@ -202,9 +198,11 @@
           background-color: rgba(var(--kup_checkbox_text_color_rgb), 0.325);
           border-color: transparent;
         }
+
         .checkbox__checkmark {
           color: var(--kup_checkbox_disabled_checkmark_color);
         }
+
         .checkbox__mixedmark {
           color: var(--kup_checkbox_disabled_checkmark_color);
         }
@@ -230,9 +228,7 @@
     --kup-checkbox-primary-color: var(--kup-secondary-color);
     --kup-checkbox-primary-color-rgb: var(--kup-secondary-color-rgb);
     --kup-checkbox-text-on-primary-color: var(--kup-text-on-secondary-color);
-    --kup-checkbox-text-on-primary-color-rgb: var(
-      --kup-text-on-secondary-color-rgb
-    );
+    --kup-checkbox-text-on-primary-color-rgb: var(--kup-text-on-secondary-color-rgb);
   }
 
   &.#{$kup-class-success} {

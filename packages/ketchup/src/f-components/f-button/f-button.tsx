@@ -2,6 +2,7 @@ import { FunctionalComponent, h, VNode } from '@stencil/core';
 import { FButtonProps, FButtonStyling } from './f-button-declarations';
 import { FImage } from '../f-image/f-image';
 import { FImageProps } from '../f-image/f-image-declarations';
+import classNames from 'classnames';
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
@@ -25,19 +26,21 @@ export const FButton: FunctionalComponent<FButtonProps> = (
     );
     return (
         <div
-            class={`f-button ${props.danger ? 'kup-danger' : ''} ${
-                props.fullHeight ? 'kup-full-height' : ''
-            } ${props.fullWidth ? 'kup-full-width' : ''} ${
-                props.info ? 'kup-info' : ''
-            } ${props.large ? 'kup-large' : ''} ${
-                props.pulsating ? 'kup-pulsating' : ''
-            }  ${props.shaped ? 'kup-shaped' : ''} ${
-                props.secondary ? 'kup-secondary' : ''
-            } ${props.slim ? 'kup-slim' : ''} ${
-                props.success ? 'kup-success' : ''
-            } ${props.warning ? 'kup-warning' : ''} ${
-                props.wrapperClass ? props.wrapperClass : ''
-            }`}
+            class={classNames(
+                'f-button',
+                { 'kup-danger': props.danger },
+                { 'kup-full-height': props.fullHeight },
+                { 'kup-full-width': props.fullWidth },
+                { 'kup-info': props.info },
+                { 'kup-large': props.large },
+                { 'kup-pulsating': props.pulsating },
+                { 'kup-shaped': props.shaped },
+                { 'kup-secondary': props.secondary },
+                { 'kup-slim': props.slim },
+                { 'kup-success': props.success },
+                { 'kup-warning': props.warning },
+                { [props.wrapperClass]: !!props.wrapperClass }
+            )}
             {...props.dataSet}
             id={props.id}
             title={props.title}
@@ -84,6 +87,7 @@ function renderButton(props: FButtonProps): VNode {
         'button--no-label': !props.label || props.label === ' ' ? true : false,
         'button--with-spinner':
             props.showSpinner && !props.disabled ? true : false,
+        [`button--${props.size}`]: props.size ? true : false,
     };
 
     const classLabelObj: Record<string, boolean> = {
@@ -108,13 +112,13 @@ function renderButton(props: FButtonProps): VNode {
         >
             {props.trailingIcon
                 ? [
-                      <span class={classLabelObj}>{props.label}</span>,
-                      props.icon ? <FImage {...propsFImage} /> : undefined,
-                  ]
+                    <span class={classLabelObj}>{props.label}</span>,
+                    props.icon ? <FImage {...propsFImage} /> : undefined,
+                ]
                 : [
-                      props.icon ? <FImage {...propsFImage} /> : undefined,
-                      <span class={classLabelObj}>{props.label}</span>,
-                  ]}
+                    props.icon ? <FImage {...propsFImage} /> : undefined,
+                    <span class={classLabelObj}>{props.label}</span>,
+                ]}
             {props.showSpinner && !props.disabled ? (
                 <div class="button__spinner-container">
                     <slot name="spinner"></slot>

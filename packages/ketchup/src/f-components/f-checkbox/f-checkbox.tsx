@@ -61,8 +61,16 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
                         <div class="checkbox__mixedmark"></div>
                     </div>
                 </div>
-                {props.label ? <label>{props.label}</label> : undefined}
+                {props.label ? <label htmlFor={props.id} onClick={props.onChange}>{props.label}</label> : undefined}
             </div>
+            {/*
+                {props.error
+                    ? <div class="form-field__error">{props.error}</div>
+                    : props.warning
+                        ? <div class="form-field__warning">{props.warning}</div>
+                        : undefined
+                }
+            */}
         </div>
     );
 };

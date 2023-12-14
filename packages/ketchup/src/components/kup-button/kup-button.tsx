@@ -18,6 +18,7 @@ import {
 import { FButton } from '../../f-components/f-button/f-button';
 import {
     FButtonProps,
+    FButtonSizing,
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
 import {
@@ -109,6 +110,11 @@ export class KupButton {
      * @default false
      */
     @Prop() trailingIcon: boolean = false;
+    /**
+     * Sets the type of the button
+     * @default FButtonSizing.MEDIUM
+     */
+    @Prop() size: FButtonSizing = FButtonSizing.MEDIUM;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -286,6 +292,7 @@ export class KupButton {
             success: this.rootElement.classList.contains('kup-success')
                 ? true
                 : false,
+            size: this.size,
             styling: this.styling,
             showSpinner: this.showSpinner,
             title: this.rootElement.title,

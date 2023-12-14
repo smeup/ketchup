@@ -45,6 +45,7 @@ export const config: Config = {
             copy: [
                 { src: 'accordion.html' },
                 { src: 'autocomplete.html' },
+                { src: 'badge.html' },
                 { src: 'box.html' },
                 { src: 'box-performance.html' },
                 { src: 'button.html' },
