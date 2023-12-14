@@ -1995,7 +1995,7 @@ export namespace Components {
         row: KupPlannerGanttRow,
         onContextMenu: any
     ) => void;
-        "handleDblClick": (row: KupPlannerGanttRow, onClick: any) => void;
+        "handleDblClick": (row: KupPlannerGanttRow, onDblClick: any) => void;
         "handleWidth": KupPlannerGanttProps['handleWidth'];
         "headerHeight": KupPlannerGanttProps['headerHeight'];
         "hideDependencies": KupPlannerGanttProps['hideDependencies'];
@@ -6522,7 +6522,7 @@ declare namespace LocalJSX {
         row: KupPlannerGanttRow,
         onContextMenu: any
     ) => void;
-        "handleDblClick"?: (row: KupPlannerGanttRow, onClick: any) => void;
+        "handleDblClick"?: (row: KupPlannerGanttRow, onDblClick: any) => void;
         "handleWidth"?: KupPlannerGanttProps['handleWidth'];
         "headerHeight"?: KupPlannerGanttProps['headerHeight'];
         "hideDependencies"?: KupPlannerGanttProps['hideDependencies'];
