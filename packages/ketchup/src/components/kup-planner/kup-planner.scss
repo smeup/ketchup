@@ -1,5 +1,3 @@
-@import '~@sme.up/gantt-component/dist/index.css';
-
 :host {
   display: block;
 }
@@ -7,4 +5,8 @@
 .filter {
   margin: 12px 10px 12px 0;
   padding: 0 10px;
+}
+
+.planner-render {
+  padding-top: 40px;
 }
