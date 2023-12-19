@@ -87,7 +87,7 @@ function renderButton(props: FButtonProps): VNode {
         'button--no-label': !props.label || props.label === ' ' ? true : false,
         'button--with-spinner':
             props.showSpinner && !props.disabled ? true : false,
-        [`button--${props.size}`]: props.size ? true : false,
+        [`button--${props.sizing}`]: props.sizing ? true : false,
     };
 
     const classLabelObj: Record<string, boolean> = {

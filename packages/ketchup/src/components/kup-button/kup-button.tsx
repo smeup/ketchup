@@ -10,7 +10,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import type { GenericObject, KupComponent } from '../../types/GenericTypes';
+import { KupComponentSizing, type GenericObject, type KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -18,7 +18,6 @@ import {
 import { FButton } from '../../f-components/f-button/f-button';
 import {
     FButtonProps,
-    FButtonSizing,
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
 import {
@@ -112,9 +111,9 @@ export class KupButton {
     @Prop() trailingIcon: boolean = false;
     /**
      * Sets the type of the button
-     * @default FButtonSizing.MEDIUM
+     * @default KupComponentSizing.MEDIUM
      */
-    @Prop() size: FButtonSizing = FButtonSizing.MEDIUM;
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -292,7 +291,7 @@ export class KupButton {
             success: this.rootElement.classList.contains('kup-success')
                 ? true
                 : false,
-            size: this.size,
+            sizing: this.sizing,
             styling: this.styling,
             showSpinner: this.showSpinner,
             title: this.rootElement.title,

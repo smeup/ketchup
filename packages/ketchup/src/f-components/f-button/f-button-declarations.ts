@@ -1,4 +1,4 @@
-import type { FComponent } from '../../types/GenericTypes';
+import type { FComponent, KupComponentSizing } from '../../types/GenericTypes';
 /**
  * Props of the f-button component.
  */
@@ -18,7 +18,7 @@ export interface FButtonProps extends FComponent {
     pulsating?: boolean;
     shaped?: boolean;
     slim?: boolean;
-    size?: FButtonSizing;
+    sizing?: KupComponentSizing;
     styling?: FButtonStyling;
     showSpinner?: boolean;
     toggable?: boolean;
@@ -39,18 +39,4 @@ export enum FButtonStyling {
     ICON = 'icon',
     OUTLINED = 'outlined',
     RAISED = 'raised',
-}
-/**
- * Sizing options for the f-button component.
- * @enum {string}
- * @property {string} SMALL - Small size: height = 32px
- * @property {string} MEDIUM - Medium size: height = 40px
- * @property {string} LARGE - Large size: height = 48px
- * @property {string} MAX - Max large size: height = 64px
- */
-export enum FButtonSizing {
-    SMALL = 'small',
-    MEDIUM = 'medium',
-    LARGE = 'large',
-    MAX = 'max-large',
 }

@@ -3,6 +3,8 @@ import { FunctionalComponent, getAssetPath, h, VNode } from '@stencil/core';
 import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { NumericFieldFormatOptions } from '../../managers/kup-math/kup-math-declarations';
+import classNames from 'classnames';
+import { FImage } from '../f-image/f-image';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -16,15 +18,18 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
 ) => {
     return (
         <div
-            class={`f-text-field ${props.danger ? 'kup-danger' : ''} ${
-                props.fullHeight ? 'kup-full-height' : ''
-            } ${props.fullWidth ? 'kup-full-width' : ''}  ${
-                props.info ? 'kup-info' : ''
-            } ${props.secondary ? 'kup-secondary' : ''} ${
-                props.shaped ? 'kup-shaped' : ''
-            } ${props.success ? 'kup-success' : ''} ${
-                props.warning ? 'kup-warning' : ''
-            }  ${props.wrapperClass ? props.wrapperClass : ''}`}
+            class={classNames(
+                `f-text-field`,
+                { 'kup-danger': props.danger },
+                { 'kup-full-height': props.fullHeight },
+                { 'kup-full-width': props.fullWidth },
+                { 'kup-info': props.info },
+                { 'kup-secondary': props.secondary },
+                { 'kup-shaped': props.shaped },
+                { 'kup-success': props.success },
+                { 'kup-warning': props.warning },
+                { [props.wrapperClass]: !!props.wrapperClass }
+            )}
             {...props.dataSet}
             id={props.id}
             title={props.title}
@@ -57,6 +62,8 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     const isOutlined: boolean = props.textArea || props.outlined;
     let labelEl: HTMLElement;
     let iconEl: HTMLElement;
+    let minusEl: HTMLElement;
+    let plusEl: HTMLElement;
 
     if (props.label && !props.leadingLabel && !props.trailingLabel) {
         labelEl = (
@@ -95,6 +102,37 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         );
     }
 
+    if (props.quantityButtons) {
+        const minusSvg: string = `url('${getAssetPath(
+            `./assets/svg/minus.svg`
+        )}') no-repeat center`;
+        const plusSvg: string = `url('${getAssetPath(
+            `./assets/svg/plus.svg`
+        )}') no-repeat center`;
+
+        const minusStyle = {
+            mask: minusSvg,
+            webkitMask: minusSvg,
+        };
+        const plusStyle = {
+            mask: plusSvg,
+            webkitMask: plusSvg,
+        }
+
+        minusEl = (
+            <span
+                style={minusStyle}
+                class={`mdc-text-field__icon kup-icon action`}
+            ></span>
+        );
+        plusEl = (
+            <span
+                style={plusStyle}
+                class={`mdc-text-field__icon kup-icon action`}
+            ></span>
+        );
+    }
+
     const classObj: Record<string, boolean> = {
         'is-clearable': props.isClearable,
         'mdc-text-field': true,
@@ -106,10 +144,12 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         'mdc-text-field--textarea': props.textArea,
         'mdc-text-field--with-leading-icon': props.icon && !props.trailingIcon,
         'mdc-text-field--with-trailing-icon': props.icon && props.trailingIcon,
+        'mdc-text-field--with-quantity-buttons': props.quantityButtons,
+        [`mdc-text-field--${props.sizing}`]: props.sizing ? true : false,
     };
 
     let value = props.value;
-    let inputType = props.inputType ?? 'text';
+    let inputType = props.quantityButtons ? 'number' : props.inputType ?? 'text';
     let persManageForNumberFormat = false;
     if (
         props.inputType === 'number' &&
@@ -127,6 +167,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         };
         value = formatValue(value, options, false);
     }
+
     return (
         <div class={classObj}>
             {props.textArea && props.maxLength ? (
@@ -324,6 +365,26 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                 </div>
             ) : (
                 <span class="mdc-line-ripple"></span>
+            )}
+            {props.quantityButtons && (
+                <div class="mdc-quantity-buttons">
+                    <button
+                        onClick={(e) => {
+                            props.onMinusClick(e)
+                            console.log('minus')
+                        }}
+                    >
+                        {minusEl}
+                    </button>
+                    <button
+                        onClick={(e) => {
+                            props.onPlusClick(e)
+                            console.log('plus')
+                        }}
+                    >
+                        {plusEl}
+                    </button>
+                </div>
             )}
         </div>
     );

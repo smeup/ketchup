@@ -6,13 +6,13 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
-import { GenericObject, KupEventPayload } from "./types/GenericTypes";
+import { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 import { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
 import { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
-import { FButtonProps, FButtonSizing, FButtonStyling } from "./f-components/f-button/f-button-declarations";
+import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
 import { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
@@ -54,13 +54,13 @@ import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/k
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
-export { GenericObject, KupEventPayload } from "./types/GenericTypes";
+export { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 export { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 export { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 export { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 export { KupStore } from "./components/kup-state/kup-store";
 export { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
-export { FButtonProps, FButtonSizing, FButtonStyling } from "./f-components/f-button/f-button-declarations";
+export { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 export { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 export { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
 export { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
@@ -472,9 +472,9 @@ export namespace Components {
         "showSpinner": boolean;
         /**
           * Sets the type of the button
-          * @default FButtonSizing.MEDIUM
+          * @default KupComponentSizing.MEDIUM
          */
-        "size": FButtonSizing;
+        "sizing": KupComponentSizing;
         /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
@@ -3485,6 +3485,11 @@ export namespace Components {
          */
         "outlined": boolean;
         /**
+          * When set, appear 2 buttons to increment and decrement the value.
+          * @default false
+         */
+        "quantityButtons": boolean;
+        /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
          */
@@ -3511,6 +3516,11 @@ export namespace Components {
           * @default null
          */
         "size": number;
+        /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing": KupComponentSizing;
         /**
           * The HTML step of the input element. It has effect only with number input type.
           * @default null
@@ -4827,6 +4837,8 @@ declare global {
         "kup-textfield-iconclick": KupTextFieldEventPayload;
         "kup-textfield-cleariconclick": KupEventPayload;
         "kup-textfield-submit": KupTextFieldEventPayload;
+        "kup-textfield-minusclick": KupTextFieldEventPayload;
+        "kup-textfield-plusclick": KupTextFieldEventPayload;
     }
     interface HTMLKupTextFieldElement extends Components.KupTextField, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupTextFieldElementEventMap>(type: K, listener: (this: HTMLKupTextFieldElement, ev: KupTextFieldCustomEvent<HTMLKupTextFieldElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5293,9 +5305,9 @@ declare namespace LocalJSX {
         "showSpinner"?: boolean;
         /**
           * Sets the type of the button
-          * @default FButtonSizing.MEDIUM
+          * @default KupComponentSizing.MEDIUM
          */
-        "size"?: FButtonSizing;
+        "sizing"?: KupComponentSizing;
         /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
@@ -7782,6 +7794,14 @@ declare namespace LocalJSX {
          */
         "onKup-textfield-input"?: (event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) => void;
         /**
+          * Triggered when the - button of the number type component is pressed.
+         */
+        "onKup-textfield-minusclick"?: (event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) => void;
+        /**
+          * Triggered when the + button of the number type component is pressed.
+         */
+        "onKup-textfield-plusclick"?: (event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) => void;
+        /**
           * Triggered when the Enter key is pressed.
          */
         "onKup-textfield-submit"?: (event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) => void;
@@ -7790,6 +7810,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "outlined"?: boolean;
+        /**
+          * When set, appear 2 buttons to increment and decrement the value.
+          * @default false
+         */
+        "quantityButtons"?: boolean;
         /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
@@ -7800,6 +7825,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "size"?: number;
+        /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing"?: KupComponentSizing;
         /**
           * The HTML step of the input element. It has effect only with number input type.
           * @default null

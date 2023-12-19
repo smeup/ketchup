@@ -127,6 +127,32 @@
             label="I am a label"
             initial-value="yooooo"
         ></kup-text-field>
+
+        <h4>Size:</h4>
+        <kup-text-field
+            label="Size: Small"
+            sizing="small"
+        ></kup-text-field>
+        <kup-text-field
+            label="Size: Medium (Default)"
+            sizing="medium"
+        ></kup-text-field>
+        <kup-text-field
+            label="Size: Large"
+            sizing="large"
+        ></kup-text-field>
+        <kup-text-field
+            label="Size: Max Large"
+            sizing="max-large"
+        ></kup-text-field>
+
+        <h4>Input with + / - buttons</h4>
+        <kup-text-field
+            label="New input with + / - buttons"
+            input-type="number"
+            input-mode="decimal"
+            quantity-buttons
+        ></kup-text-field>
         <script>
             // For the password field
             const inPassword = document.querySelector(
