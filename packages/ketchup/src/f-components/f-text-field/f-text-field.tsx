@@ -369,18 +369,12 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
             {props.quantityButtons && (
                 <div class="mdc-quantity-buttons">
                     <button
-                        onClick={(e) => {
-                            props.onMinusClick(e)
-                            console.log('minus')
-                        }}
+                        onClick={props.onMinusClick}
                     >
                         {minusEl}
                     </button>
                     <button
-                        onClick={(e) => {
-                            props.onPlusClick(e)
-                            console.log('plus')
-                        }}
+                        onClick={props.onPlusClick}
                     >
                         {plusEl}
                     </button>
