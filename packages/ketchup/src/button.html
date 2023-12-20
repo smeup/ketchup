@@ -58,10 +58,10 @@
 
         <!-- -->
         <h4>Size:</h4>
-        <kup-button label="Small" sizing="small" disabled></kup-button>
-        <kup-button label="Medium" sizing="medium" disabled></kup-button>
-        <kup-button label="Large" sizing="large" disabled></kup-button>
-        <kup-button label="Max Large" sizing="max-large" disabled></kup-button>
+        <kup-button label="Small" sizing="small"></kup-button>
+        <kup-button label="Medium" sizing="medium"></kup-button>
+        <kup-button label="Large" sizing="large"></kup-button>
+        <kup-button label="Max Large" sizing="max-large"></kup-button>
 
         <h4>Styling:</h4>
         <kup-button label="Flat" styling="flat"></kup-button>
@@ -72,7 +72,11 @@
         <kup-button class="kup-slim" icon="favorite"></kup-button>
         <kup-button label="Floating" styling="floating"></kup-button>
         <kup-button icon="favorite" styling="floating"></kup-button>
-        <kup-button label="Flat & disabled" styling="flat" disabled></kup-button>
+        <kup-button
+            label="Flat & disabled"
+            styling="flat"
+            disabled
+        ></kup-button>
         <kup-button
             label="Outlined & disabled"
             disabled
@@ -106,50 +110,78 @@
             label="With tooltip"
             icon="favorite"
         ></kup-button>
-        <kup-button
-            label="With Spinner"
-            icon="favorite"
-            show-spinner="true">
-            <kup-spinner slot="spinner" dimensions="0.8em" layout="2" active="true"></kup-spinner>
+        <kup-button label="With Spinner" icon="favorite" show-spinner="true">
+            <kup-spinner
+                slot="spinner"
+                dimensions="0.8em"
+                layout="2"
+                active="true"
+            ></kup-spinner>
         </kup-button>
         <kup-button
             styling="outlined"
             label="With Spinner & Outlined"
             icon="favorite"
-            show-spinner="true">
-            <kup-spinner slot="spinner" dimensions="0.6em" layout="3" active="true"></kup-spinner>
+            show-spinner="true"
+        >
+            <kup-spinner
+                slot="spinner"
+                dimensions="0.6em"
+                layout="3"
+                active="true"
+            ></kup-spinner>
         </kup-button>
         <kup-button
             label="With Spinner & Disabled"
             icon="favorite"
             show-spinner="true"
-            disabled>
-            <kup-spinner slot="spinner" dimensions="0.8em" layout="2" active="true"></kup-spinner>
+            disabled
+        >
+            <kup-spinner
+                slot="spinner"
+                dimensions="0.8em"
+                layout="2"
+                active="true"
+            ></kup-spinner>
         </kup-button>
-        <kup-button
-            title="Only Spinner"
-            icon="favorite"
-            show-spinner="true">
-                <kup-spinner slot="spinner" dimensions="0.65em" layout="1" active="true"></kup-spinner>
+        <kup-button title="Only Spinner" icon="favorite" show-spinner="true">
+            <kup-spinner
+                slot="spinner"
+                dimensions="0.65em"
+                layout="1"
+                active="true"
+            ></kup-spinner>
         </kup-button>
         <kup-button
             title="Only Spinner & Floating"
             styling="floating"
             icon="favorite"
-            show-spinner="true">
-                <kup-spinner slot="spinner" dimensions="0.65em" layout="1" active="true"></kup-spinner>
+            show-spinner="true"
+        >
+            <kup-spinner
+                slot="spinner"
+                dimensions="0.65em"
+                layout="1"
+                active="true"
+            ></kup-spinner>
         </kup-button>
         <kup-button
             title="Only Spinner & Disabled"
             icon="favorite"
             show-spinner="true"
-            disabled>
-                <kup-spinner slot="spinner" dimensions="0.65em" layout="1" active="true"></kup-spinner>
+            disabled
+        >
+            <kup-spinner
+                slot="spinner"
+                dimensions="0.65em"
+                layout="1"
+                active="true"
+            ></kup-spinner>
         </kup-button>
         <script>
             document.addEventListener('kup-manager-ready', () => {
                 const kupManager = document.documentElement.ketchup;
-                kupManager.theme.set('octane')
+                kupManager.theme.set('octane');
             });
         </script>
     </body>

@@ -1,5 +1,5 @@
 .f-button {
-  --kup_button_border_radius: var(--kup-button-border-radius, 4px);
+  --kup_button_border_radius: var(--kup-button-border-radius, 0);
   --kup_button_disabled_color: var(
     --kup-button-disabled-color,
     var(--kup-disabled-color)
@@ -90,6 +90,10 @@
       box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
     vertical-align: middle;
+
+    &:not(> button > .f-image) {
+      justify-content: center;
+    }
 
     &:hover {
       background-color: hsl(

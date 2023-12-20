@@ -36,6 +36,12 @@
 
 Used to retrieve component's props values.
 
+#### Parameters
+
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
+
 #### Returns
 
 Type: `Promise<GenericObject>`
@@ -76,6 +82,12 @@ Type: `Promise<void>`
 
 Sets the props to the component.
 
+#### Parameters
+
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
+| `props` | `GenericObject` | - Object containing props that will be set to the component. |
+
 #### Returns
 
 Type: `Promise<void>`
@@ -85,6 +97,12 @@ Type: `Promise<void>`
 ### `setValue(value: string) => Promise<void>`
 
 Sets the component's value.
+
+#### Parameters
+
+| Name    | Type     | Description        |
+| ------- | -------- | ------------------ |
+| `value` | `string` | - Value to be set. |
 
 #### Returns
 
