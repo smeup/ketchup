@@ -10,18 +10,30 @@
 
 :host {
   --kup_buttonlist_grid_gap: var(--kup-buttonlist-grid-gap, 2px);
-  --kup_buttonlist_selected_primary_color: var(--kup-buttonlist-selected-primary-color,
-      var(--kup-secondary-color));
-  --kup_buttonlist_selected_primary_color_h: var(--kup-buttonlist-selected-primary-color-h,
-      var(--kup-secondary-color-h));
-  --kup_buttonlist_selected_primary_color_s: var(--kup-buttonlist-selected-primary-color-s,
-      var(--kup-secondary-color-s));
-  --kup_buttonlist_selected_primary_color_l: var(--kup-buttonlist-selected-primary-color-l,
-      var(--kup-secondary-color-l));
-  --kup_buttonlist_selected_primary_color_rgb: var(--kup-buttonlist-selected-primary-color-rgb,
-      var(--kup-secondary-color-rgb));
-  --kup_buttonlist_selected_text_on_primary_color: var(--kup-buttonlist-selected-text-on-primary-color,
-      var(--kup-text-on-secondary-color));
+  --kup_buttonlist_selected_primary_color: var(
+    --kup-buttonlist-selected-primary-color,
+    var(--kup-secondary-color)
+  );
+  --kup_buttonlist_selected_primary_color_h: var(
+    --kup-buttonlist-selected-primary-color-h,
+    var(--kup-secondary-color-h)
+  );
+  --kup_buttonlist_selected_primary_color_s: var(
+    --kup-buttonlist-selected-primary-color-s,
+    var(--kup-secondary-color-s)
+  );
+  --kup_buttonlist_selected_primary_color_l: var(
+    --kup-buttonlist-selected-primary-color-l,
+    var(--kup-secondary-color-l)
+  );
+  --kup_buttonlist_selected_primary_color_rgb: var(
+    --kup-buttonlist-selected-primary-color-rgb,
+    var(--kup-secondary-color-rgb)
+  );
+  --kup_buttonlist_selected_text_on_primary_color: var(
+    --kup-buttonlist-selected-text-on-primary-color,
+    var(--kup-text-on-secondary-color)
+  );
 
   display: block;
 }
@@ -35,11 +47,21 @@
   &.show-selection {
     .selected {
       --kup-button-primary-color: var(--kup_buttonlist_selected_primary_color);
-      --kup-button-primary-color-rgb: var(--kup_buttonlist_selected_primary_color_rgb);
-      --kup-button-primary-color-h: var(--kup_buttonlist_selected_primary_color_h);
-      --kup-button-primary-color-s: var(--kup_buttonlist_selected_primary_color_s);
-      --kup-button-primary-color-l: var(--kup_buttonlist_selected_primary_color_l);
-      --kup-button-text-on-primary-color: var(--kup_buttonlist_selected_text_on_primary_color);
+      --kup-button-primary-color-rgb: var(
+        --kup_buttonlist_selected_primary_color_rgb
+      );
+      --kup-button-primary-color-h: var(
+        --kup_buttonlist_selected_primary_color_h
+      );
+      --kup-button-primary-color-s: var(
+        --kup_buttonlist_selected_primary_color_s
+      );
+      --kup-button-primary-color-l: var(
+        --kup_buttonlist_selected_primary_color_l
+      );
+      --kup-button-text-on-primary-color: var(
+        --kup_buttonlist_selected_text_on_primary_color
+      );
     }
   }
 }

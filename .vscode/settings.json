@@ -1,9 +1,9 @@
 {
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit"
+        "source.fixAll.eslint": true
     },
-    "eslint.validate": ["vue", "html", "javascript", "typescript"],
+    "eslint.validate": ["vue", "html", "javascript", "tipescript"],
     "eslint.run": "onSave",
     "[typescriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"

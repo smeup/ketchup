@@ -6,33 +6,54 @@
 
 #kup-component {
   .f-text-field {
-    --kup_textfield_background_color_rgb: var(--kup-textfield-background-color-rgb,
-        var(--kup-background-color-rgb));
+    --kup_textfield_background_color_rgb: var(
+      --kup-textfield-background-color-rgb,
+      var(--kup-background-color-rgb)
+    );
     --kup_textfield_color: var(--kup-textfield-color, var(--kup-text-color));
-    --kup_textfield_color_rgb: var(--kup-textfield-color-rgb,
-        var(--kup-text-color-rgb));
-    --kup_textfield_font_family: var(--kup-textfield-font-family,
-        var(--kup-font-family));
+    --kup_textfield_color_rgb: var(
+      --kup-textfield-color-rgb,
+      var(--kup-text-color-rgb)
+    );
+    --kup_textfield_font_family: var(
+      --kup-textfield-font-family,
+      var(--kup-font-family)
+    );
     --kup_textfield_font_size: var(--kup-textfield-font-size, 1em);
     --kup_textfield_font_weight: var(--kup-textfield-font-weight, 400);
-    --kup_textfield_fullwidth_height: var(--kup-textfield-fullwidth-height,
-        40px);
+    --kup_textfield_fullwidth_height: var(
+      --kup-textfield-fullwidth-height,
+      40px
+    );
     --kup_textfield_small_height: var(--kup-textfield-small-height, 32px);
     --kup_textfield_medium_height: var(--kup-textfield-medium-height, 40px);
     --kup_textfield_large_height: var(--kup-textfield-large-height, 48px);
-    --kup_textfield_max_large_height: var(--kup-textfield-max-large-height, 64px);
-    --kup_textfield_fullwidth_padding: var(--kup-textfield-fullwidth-padding,
-        16px);
-    --kup_textfield_icon_color: var(--kup-textfield-icon-color,
-        var(--kup-icon-color));
-    --kup_textfield_primary_color: var(--kup-textfield-primary-color,
-        var(--kup-primary-color));
-    --kup_textfield_primary_color_rgb: var(--kup-textfield-primary-color-rgb,
-        var(--kup-primary-color-rgb));
+    --kup_textfield_max_large_height: var(
+      --kup-textfield-max-large-height,
+      64px
+    );
+    --kup_textfield_fullwidth_padding: var(
+      --kup-textfield-fullwidth-padding,
+      16px
+    );
+    --kup_textfield_icon_color: var(
+      --kup-textfield-icon-color,
+      var(--kup-icon-color)
+    );
+    --kup_textfield_primary_color: var(
+      --kup-textfield-primary-color,
+      var(--kup-primary-color)
+    );
+    --kup_textfield_primary_color_rgb: var(
+      --kup-textfield-primary-color-rgb,
+      var(--kup-primary-color-rgb)
+    );
     --kup_textfield_text_align: var(--kup-textfield-text-align, start);
     --kup_textfield_width: var(--kup-textfield-width, 100%);
-    --kup_disabled_background_color_rgb: var(--kup-disabled-background-color-rgb,
-        var(--kup-disabled-color-rgb));
+    --kup_disabled_background_color_rgb: var(
+      --kup-disabled-background-color-rgb,
+      var(--kup-disabled-color-rgb)
+    );
     --mdc-theme-primary: var(--kup_textfield_primary_color);
 
     font-family: var(--kup_textfield_font_family);
@@ -122,8 +143,10 @@
         height: var(--kup_textfield_max_large_height) !important;
       }
 
-      &.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple:before,
-      &.mdc-text-field--fullwidth:not(.mdc-text-field--disabled) .mdc-line-ripple:before {
+      &.mdc-text-field--filled:not(.mdc-text-field--disabled)
+        .mdc-line-ripple:before,
+      &.mdc-text-field--fullwidth:not(.mdc-text-field--disabled)
+        .mdc-line-ripple:before {
         border-bottom-color: rgba(var(--kup_textfield_color_rgb), 0.325);
 
         &:hover {
@@ -147,7 +170,7 @@
         transform: translateY(-50%);
       }
 
-      &.mdc-text-field--with-trailing-icon input~.#{$kup-icon-clear} {
+      &.mdc-text-field--with-trailing-icon input ~ .#{$kup-icon-clear} {
         right: 26px;
       }
 
@@ -168,7 +191,8 @@
       }
 
       &.mdc-text-field--outlined {
-        &.mdc-text-field--with-leading-icon label:not(.mdc-floating-label--float-above) {
+        &.mdc-text-field--with-leading-icon
+          label:not(.mdc-floating-label--float-above) {
           left: 20px;
         }
 
@@ -240,7 +264,6 @@
       }
 
       &.mdc-text-field--filled {
-
         &.mdc-text-field--with-leading-icon label,
         &.mdc-text-field--with-leading-icon input {
           left: 34px;
@@ -256,8 +279,10 @@
         }
 
         &:not(.mdc-text-field--disabled) {
-          background-color: rgba(var(--kup_textfield_background_color_rgb),
-              0.125);
+          background-color: rgba(
+            var(--kup_textfield_background_color_rgb),
+            0.125
+          );
         }
       }
 
@@ -266,21 +291,20 @@
       }
 
       &:not(.mdc-text-field--disabled) {
-
         & .mdc-text-field__input,
         & .mdc-floating-label,
         & .mdc-text-field__input::placeholder,
         & .mdc-text-field-character-counter,
-        &+.mdc-text-field-helper-line .mdc-text-field-character-counter,
-        &+.mdc-text-field-helper-line .mdc-text-field-helper-text {
+        & + .mdc-text-field-helper-line .mdc-text-field-character-counter,
+        & + .mdc-text-field-helper-line .mdc-text-field-helper-text {
           color: var(--kup_textfield_color);
         }
 
         & .mdc-floating-label,
         & .mdc-text-field__input::placeholder,
         & .mdc-text-field-character-counter,
-        &+.mdc-text-field-helper-line .mdc-text-field-character-counter,
-        &+.mdc-text-field-helper-line .mdc-text-field-helper-text {
+        & + .mdc-text-field-helper-line .mdc-text-field-character-counter,
+        & + .mdc-text-field-helper-line .mdc-text-field-helper-text {
           opacity: 0.7;
         }
 
@@ -308,17 +332,21 @@
         }
       }
 
-      &:not(.mdc-text-field--focused)+.mdc-text-field-helper-line .mdc-text-field-helper-text:not(.mdc-text-field-helper-text--persistent) {
+      &:not(.mdc-text-field--focused)
+        + .mdc-text-field-helper-line
+        .mdc-text-field-helper-text:not(
+          .mdc-text-field-helper-text--persistent
+        ) {
         opacity: 0;
       }
 
-      &.mdc-text-field--focused:not(.mdc-text-field-disabled) .mdc-floating-label--float-above {
+      &.mdc-text-field--focused:not(.mdc-text-field-disabled)
+        .mdc-floating-label--float-above {
         color: var(--kup_textfield_primary_color);
         opacity: 1;
       }
 
       &.mdc-text-field--with-quantity-buttons {
-
         input::-webkit-inner-spin-button,
         input::-webkit-outer-spin-button {
           -webkit-appearance: none;
@@ -360,7 +388,7 @@
           padding-left: 0;
         }
 
-        &.mdc-text-field--with-trailing-icon input~.kup-clear-icon {
+        &.mdc-text-field--with-trailing-icon input ~ .kup-clear-icon {
           right: 40px;
         }
       }
@@ -371,12 +399,16 @@
         border-radius: 16px 16px 0 0;
       }
 
-      .mdc-text-field.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {
+      .mdc-text-field.mdc-text-field--outlined
+        .mdc-notched-outline
+        .mdc-notched-outline__leading {
         border-radius: 28px 0 0 28px;
         width: 28px;
       }
 
-      .mdc-text-field.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing {
+      .mdc-text-field.mdc-text-field--outlined
+        .mdc-notched-outline
+        .mdc-notched-outline__trailing {
         border-radius: 0 28px 28px 0;
         width: 28px;
       }

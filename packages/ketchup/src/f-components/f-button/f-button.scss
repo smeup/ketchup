@@ -1,11 +1,17 @@
 .f-button {
   --kup_button_border_radius: var(--kup-button-border-radius, 4px);
-  --kup_button_disabled_color: var(--kup-button-disabled-color,
-      var(--kup-disabled-color));
-  --kup_button_disabled_color_rgb: var(--kup-button-disabled-color-rgb,
-      var(--kup-disabled-color-rgb));
-  --kup_button_font_family: var(--kup-button-font-family,
-      var(--kup-font-family));
+  --kup_button_disabled_color: var(
+    --kup-button-disabled-color,
+    var(--kup-disabled-color)
+  );
+  --kup_button_disabled_color_rgb: var(
+    --kup-button-disabled-color-rgb,
+    var(--kup-disabled-color-rgb)
+  );
+  --kup_button_font_family: var(
+    --kup-button-font-family,
+    var(--kup-font-family)
+  );
   --kup_button_font_size: var(--kup-button-font-size, var(--kup-font-size));
   --kup_button_font_weight: var(--kup-button-font-weight, 400);
   --kup_button_height: var(--kup-button-height, 3em);
@@ -14,22 +20,38 @@
   --kup_button_large_height: var(--kup-button-large-height, 48px);
   --kup_button_max_large_height: var(--kup-button-max-large-height, 64px);
   --kup_button_padding: var(--kup-button-padding, 0 1.25em);
-  --kup_button_primary_color: var(--kup-button-primary-color,
-      var(--kup-primary-color));
-  --kup_button_primary_color_h: var(--kup-button-primary-color-h,
-      var(--kup-primary-color-h));
-  --kup_button_primary_color_s: var(--kup-button-primary-color-s,
-      var(--kup-primary-color-s));
-  --kup_button_primary_color_l: var(--kup-button-primary-color-l,
-      var(--kup-primary-color-l));
-  --kup_button_primary_color_rgb: var(--kup-button-primary-color-rgb,
-      var(--kup-primary-color-rgb));
-  --kup_button_text_on_primary_color: var(--kup-button-text-on-primary-color,
-      var(--kup-text-on-primary-color));
-  --kup_button_text_on_primary_color_rgb: var(--kup-button-text-on-primary-color-rgb,
-      var(--kup-text-on-primary-color-rgb));
-  --kup_button_text_on_primary_color_disabled: var(--kup-button-text-on-primary-color,
-      var(--kup-text-on-primary-color));
+  --kup_button_primary_color: var(
+    --kup-button-primary-color,
+    var(--kup-primary-color)
+  );
+  --kup_button_primary_color_h: var(
+    --kup-button-primary-color-h,
+    var(--kup-primary-color-h)
+  );
+  --kup_button_primary_color_s: var(
+    --kup-button-primary-color-s,
+    var(--kup-primary-color-s)
+  );
+  --kup_button_primary_color_l: var(
+    --kup-button-primary-color-l,
+    var(--kup-primary-color-l)
+  );
+  --kup_button_primary_color_rgb: var(
+    --kup-button-primary-color-rgb,
+    var(--kup-primary-color-rgb)
+  );
+  --kup_button_text_on_primary_color: var(
+    --kup-button-text-on-primary-color,
+    var(--kup-text-on-primary-color)
+  );
+  --kup_button_text_on_primary_color_rgb: var(
+    --kup-button-text-on-primary-color-rgb,
+    var(--kup-text-on-primary-color-rgb)
+  );
+  --kup_button_text_on_primary_color_disabled: var(
+    --kup-button-text-on-primary-color,
+    var(--kup-text-on-primary-color)
+  );
   --kup_button_text_transform: var(--kup-button-text-transform, uppercase);
   --kup-spinner-color: var(--kup_button_primary_color);
 
@@ -70,9 +92,11 @@
     vertical-align: middle;
 
     &:hover {
-      background-color: hsl(var(--kup_button_primary_color_h),
-          calc(var(--kup_button_primary_color_s) * 0.7),
-          calc(var(--kup_button_primary_color_l) * 2));
+      background-color: hsl(
+        var(--kup_button_primary_color_h),
+        calc(var(--kup_button_primary_color_s) * 0.7),
+        calc(var(--kup_button_primary_color_l) * 2)
+      );
     }
 
     &:focus {
@@ -80,9 +104,11 @@
     }
 
     &:active {
-      background-color: hsl(var(--kup_button_primary_color_h),
-          calc(var(--kup_button_primary_color_s) * 0.5),
-          calc(var(--kup_button_primary_color_l) * 1.8));
+      background-color: hsl(
+        var(--kup_button_primary_color_h),
+        calc(var(--kup_button_primary_color_s) * 0.5),
+        calc(var(--kup_button_primary_color_l) * 1.8)
+      );
     }
 
     .button__icon {
@@ -90,7 +116,7 @@
       margin-right: 0.75em;
     }
 
-    .button__label+.button__icon {
+    .button__label + .button__icon {
       margin-left: 0.75em;
       margin-right: -0.25em;
     }
@@ -118,15 +144,19 @@
       color: var(--kup_button_text_on_primary_color);
 
       &:not(.button--disabled) {
-        --kup-spinner-border-color: hsl(var(--kup_button_primary_color_h),
-            calc(var(--kup_button_primary_color_s) * 0.75),
-            calc(var(--kup_button_primary_color_l) * 0.85));
+        --kup-spinner-border-color: hsl(
+          var(--kup_button_primary_color_h),
+          calc(var(--kup_button_primary_color_s) * 0.75),
+          calc(var(--kup_button_primary_color_l) * 0.85)
+        );
       }
 
       &:hover {
-        background-color: hsl(var(--kup_button_primary_color_h),
-            calc(var(--kup_button_primary_color_s) * 0.85),
-            calc(var(--kup_button_primary_color_l) * 0.82));
+        background-color: hsl(
+          var(--kup_button_primary_color_h),
+          calc(var(--kup_button_primary_color_s) * 0.85),
+          calc(var(--kup_button_primary_color_l) * 0.82)
+        );
       }
 
       &:focus {
@@ -135,15 +165,19 @@
         //   calc(var(--kup_button_primary_color_s) * 0.88),
         //   calc(var(--kup_button_primary_color_l) * 1.12)
         // );
-        border-color: hsl(var(--kup_button_primary_color_h),
-            calc(var(--kup_button_primary_color_s) * 1.92),
-            calc(var(--kup_button_primary_color_l) * 0.2));
+        border-color: hsl(
+          var(--kup_button_primary_color_h),
+          calc(var(--kup_button_primary_color_s) * 1.92),
+          calc(var(--kup_button_primary_color_l) * 0.2)
+        );
       }
 
       &:active {
-        background-color: hsl(var(--kup_button_primary_color_h),
-            calc(var(--kup_button_primary_color_s) * 1.92),
-            calc(var(--kup_button_primary_color_l) * 0.4));
+        background-color: hsl(
+          var(--kup_button_primary_color_h),
+          calc(var(--kup_button_primary_color_s) * 1.92),
+          calc(var(--kup_button_primary_color_l) * 0.4)
+        );
       }
 
       &.button--disabled {
@@ -214,23 +248,29 @@
 
       &:hover {
         background-color: var(--kup_button_primary_color);
-        color: hsl(var(--kup_button_primary_color_h),
-            calc(var(--kup_button_primary_color_s) * 2.25),
-            calc(var(--kup_button_primary_color_l) * 0.25));
+        color: hsl(
+          var(--kup_button_primary_color_h),
+          calc(var(--kup_button_primary_color_s) * 2.25),
+          calc(var(--kup_button_primary_color_l) * 0.25)
+        );
       }
 
       &:focus {
         background-color: var(--kup_button_primary_color);
-        border-color: hsl(var(--kup_button_primary_color_h),
-            calc(var(--kup_button_primary_color_s) * 0.96),
-            calc(var(--kup_button_primary_color_l) * 0.4));
-        color: var(--kup_button_text_on_secondary_color)
+        border-color: hsl(
+          var(--kup_button_primary_color_h),
+          calc(var(--kup_button_primary_color_s) * 0.96),
+          calc(var(--kup_button_primary_color_l) * 0.4)
+        );
+        color: var(--kup_button_text_on_secondary_color);
       }
 
       &:active {
-        background-color: hsl(var(--kup_button_primary_color_h),
-            calc(var(--kup_button_primary_color_s) * 0.96),
-            calc(var(--kup_button_primary_color_l) * 0.8));
+        background-color: hsl(
+          var(--kup_button_primary_color_h),
+          calc(var(--kup_button_primary_color_s) * 0.96),
+          calc(var(--kup_button_primary_color_l) * 0.8)
+        );
         color: var(--kup_button_text_on_primary_color);
       }
 

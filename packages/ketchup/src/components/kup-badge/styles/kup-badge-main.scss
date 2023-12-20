@@ -14,10 +14,14 @@
   --kup_badge_font_size: var(--kup-badge-font-size, var(--kup-font-size));
   --kup_badge_min_size: var(--kup-badge-min-size, 1.5em);
   --kup_badge_padding: var(--kup-badge-padding, 0.25em);
-  --kup_badge_primary_color: var(--kup-badge-primary-color,
-      var(--kup-primary-color));
-  --kup_badge_text_on_primary_color: var(--kup-badge-text-on-primary-color,
-      var(--kup-text-on-primary-color));
+  --kup_badge_primary_color: var(
+    --kup-badge-primary-color,
+    var(--kup-primary-color)
+  );
+  --kup_badge_text_on_primary_color: var(
+    --kup-badge-text-on-primary-color,
+    var(--kup-text-on-primary-color)
+  );
 
   display: block;
   font-family: var(--kup_badge_font_family);

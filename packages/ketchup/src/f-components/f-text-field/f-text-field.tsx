@@ -117,7 +117,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         const plusStyle = {
             mask: plusSvg,
             webkitMask: plusSvg,
-        }
+        };
 
         minusEl = (
             <span
@@ -149,7 +149,9 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     };
 
     let value = props.value;
-    let inputType = props.quantityButtons ? 'number' : props.inputType ?? 'text';
+    let inputType = props.quantityButtons
+        ? 'number'
+        : props.inputType ?? 'text';
     let persManageForNumberFormat = false;
     if (
         props.inputType === 'number' &&
@@ -368,16 +370,8 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
             )}
             {props.quantityButtons && (
                 <div class="mdc-quantity-buttons">
-                    <button
-                        onClick={props.onMinusClick}
-                    >
-                        {minusEl}
-                    </button>
-                    <button
-                        onClick={props.onPlusClick}
-                    >
-                        {plusEl}
-                    </button>
+                    <button onClick={props.onMinusClick}>{minusEl}</button>
+                    <button onClick={props.onPlusClick}>{plusEl}</button>
                 </div>
             )}
         </div>
