@@ -112,13 +112,17 @@ function renderButton(props: FButtonProps): VNode {
         >
             {props.trailingIcon
                 ? [
-                    <span class={classLabelObj}>{props.label}</span>,
-                    props.icon ? <FImage {...propsFImage} /> : undefined,
-                ]
+                      props.label ? (
+                          <span class={classLabelObj}>{props.label}</span>
+                      ) : undefined,
+                      props.icon ? <FImage {...propsFImage} /> : undefined,
+                  ]
                 : [
-                    props.icon ? <FImage {...propsFImage} /> : undefined,
-                    <span class={classLabelObj}>{props.label}</span>,
-                ]}
+                      props.icon ? <FImage {...propsFImage} /> : undefined,
+                      props.label ? (
+                          <span class={classLabelObj}>{props.label}</span>
+                      ) : undefined,
+                  ]}
             {props.showSpinner && !props.disabled ? (
                 <div class="button__spinner-container">
                     <slot name="spinner"></slot>
