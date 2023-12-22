@@ -82,6 +82,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-accordion](../kup-accordion)
+ - [kup-autocomplete](../kup-autocomplete)
  - [kup-badge](.)
  - [kup-box](../kup-box)
  - [kup-button](../kup-button)
@@ -89,9 +90,13 @@ Type: `Promise<void>`
  - [kup-calendar](../kup-calendar)
  - [kup-card](../kup-card)
  - [kup-cell](../kup-cell)
+ - [kup-checkbox](../kup-checkbox)
  - [kup-chip](../kup-chip)
+ - [kup-color-picker](../kup-color-picker)
+ - [kup-combobox](../kup-combobox)
  - [kup-dashboard](../kup-dashboard)
  - [kup-data-table](../kup-data-table)
+ - [kup-date-picker](../kup-date-picker)
  - [kup-dialog](../kup-dialog)
  - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-family-tree](../kup-family-tree)
@@ -100,8 +105,12 @@ Type: `Promise<void>`
  - [kup-image-list](../kup-image-list)
  - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
+ - [kup-numeric-picker](../kup-numeric-picker)
+ - [kup-planner](../kup-planner)
  - [kup-snackbar](../kup-snackbar)
  - [kup-tab-bar](../kup-tab-bar)
+ - [kup-text-field](../kup-text-field)
+ - [kup-time-picker](../kup-time-picker)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -114,19 +123,16 @@ Type: `Promise<void>`
 graph TD;
   kup-badge --> kup-badge
   kup-card --> kup-badge
-  kup-autocomplete --> kup-list
-  kup-autocomplete --> kup-card
+  kup-autocomplete --> kup-badge
   kup-list --> kup-badge
   kup-radio --> kup-card
   kup-chip --> kup-badge
-  kup-text-field --> kup-card
-  kup-color-picker --> kup-card
-  kup-combobox --> kup-list
-  kup-combobox --> kup-card
-  kup-date-picker --> kup-card
+  kup-text-field --> kup-badge
+  kup-color-picker --> kup-badge
+  kup-combobox --> kup-badge
+  kup-date-picker --> kup-badge
   kup-rating --> kup-card
-  kup-time-picker --> kup-card
-  kup-time-picker --> kup-list
+  kup-time-picker --> kup-badge
   kup-image --> kup-badge
   kup-spinner --> kup-card
   kup-button-list --> kup-badge
@@ -135,7 +141,7 @@ graph TD;
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
   kup-button --> kup-badge
-  kup-checkbox --> kup-card
+  kup-checkbox --> kup-badge
   kup-data-table --> kup-badge
   kup-switch --> kup-card
   kup-form --> kup-badge
@@ -150,6 +156,8 @@ graph TD;
   kup-family-tree --> kup-badge
   kup-image-list --> kup-badge
   kup-magic-box --> kup-badge
+  kup-numeric-picker --> kup-badge
+  kup-planner --> kup-badge
   kup-snackbar --> kup-badge
   style kup-badge fill:#f9f,stroke:#333,stroke-width:4px
 ```

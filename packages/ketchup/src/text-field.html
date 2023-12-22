@@ -87,7 +87,10 @@
             icon="favorite"
         ></kup-text-field>
         <kup-text-field trailing-icon icon="favorite"></kup-text-field>
-        <kup-text-field helper="I am a helper text"></kup-text-field>
+        <kup-text-field
+            label="I am a label"
+            helper="I am a helper text"
+        ></kup-text-field>
         <kup-text-field
             helper-when-focused
             helper="I am a helper text"
@@ -129,21 +132,27 @@
         ></kup-text-field>
 
         <h4>Size:</h4>
-        <kup-text-field
-            label="Size: Small"
-            sizing="small"
-        ></kup-text-field>
+        <kup-text-field label="Size: Small" sizing="small"></kup-text-field>
         <kup-text-field
             label="Size: Medium (Default)"
             sizing="medium"
         ></kup-text-field>
-        <kup-text-field
-            label="Size: Large"
-            sizing="large"
-        ></kup-text-field>
+        <kup-text-field label="Size: Large" sizing="large"></kup-text-field>
         <kup-text-field
             label="Size: Max Large"
             sizing="max-large"
+        ></kup-text-field>
+
+        <h4>Error and alert:</h4>
+        <kup-text-field
+            label="I am a label"
+            helper="I am a helper text"
+            error="Error message"
+        ></kup-text-field>
+        <kup-text-field
+            label="I am a label"
+            helper="I am a helper text"
+            alert="Alert message"
         ></kup-text-field>
 
         <h4>Input with + / - buttons</h4>
@@ -152,6 +161,14 @@
             input-type="number"
             input-mode="decimal"
             quantity-buttons
+            error="Error message"
+        ></kup-text-field>
+        <kup-text-field
+            label="New input with + / - buttons"
+            input-type="number"
+            input-mode="decimal"
+            quantity-buttons
+            alert="Alert message"
         ></kup-text-field>
         <script>
             // For the password field
@@ -167,6 +184,6 @@
             inPassword.addEventListener('ketchupTextInputUpdated', (e) => {
                 console.log('Password has been UPDATED', e);
             });
-        </script></body
-    >
+        </script>
+    </body>
 </html>

@@ -2800,18 +2800,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sme.up/gantt-component@npm:^1.3.30":
-  version: 1.3.30
-  resolution: "@sme.up/gantt-component@npm:1.3.30"
-  dependencies:
-    hex-to-css-filter: ^5.4.0
-    luxon: ^3.3.0
-  peerDependencies:
-    react: 18.2.0
-  checksum: 7aacea3c55299be0653526511791ed9f0b4c0242aac357f0fbf9308d762d52007159f2dbfab09d73cea3688b5e027d7e4653e3f090e389052051379a4d1f80cb
-  languageName: node
-  linkType: hard
-
 "@sme.up/ketchup-react@workspace:packages/ketchup-react":
   version: 0.0.0-use.local
   resolution: "@sme.up/ketchup-react@workspace:packages/ketchup-react"
@@ -2885,7 +2873,6 @@ __metadata:
     "@material/form-field": ^14.0.0
     "@material/ripple": ^14.0.0
     "@material/textfield": ^14.0.0
-    "@sme.up/gantt-component": ^1.3.30
     "@stencil/core": ^4.8.1
     "@stencil/react-output-target": 0.5.3
     "@stencil/sass": ^3.0.7
@@ -10351,13 +10338,6 @@ __metadata:
   version: 7.18.3
   resolution: "lru-cache@npm:7.18.3"
   checksum: e550d772384709deea3f141af34b6d4fa392e2e418c1498c078de0ee63670f1f46f5eee746e8ef7e69e1c895af0d4224e62ee33e66a543a14763b0f2e74c1356
-  languageName: node
-  linkType: hard
-
-"luxon@npm:^3.3.0":
-  version: 3.4.4
-  resolution: "luxon@npm:3.4.4"
-  checksum: 36c1f99c4796ee4bfddf7dc94fa87815add43ebc44c8934c924946260a58512f0fd2743a629302885df7f35ccbd2d13f178c15df046d0e3b6eb71db178f1c60c
   languageName: node
   linkType: hard
 

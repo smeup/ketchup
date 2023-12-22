@@ -923,6 +923,11 @@ export namespace Components {
     }
     interface KupCheckbox {
         /**
+          * Set alert message
+          * @default '''
+         */
+        "alert": string;
+        /**
           * Defaults at false. When set to true, the component will be set to 'checked'.
           * @default false
          */
@@ -938,6 +943,11 @@ export namespace Components {
           * @default false
          */
         "disabled": boolean;
+        /**
+          * Set error message
+          * @default '''
+         */
+        "error": string;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -3354,6 +3364,11 @@ export namespace Components {
     }
     interface KupTextField {
         /**
+          * Set alert message
+          * @default '''
+         */
+        "alert": string;
+        /**
           * When true, could be input negative numbers (should be used when inputType is number).
           * @default null
          */
@@ -3379,6 +3394,11 @@ export namespace Components {
           * @default true
          */
         "emitSubmitEventOnEnter": boolean;
+        /**
+          * Set error message
+          * @default '''
+         */
+        "error": string;
         /**
           * When set to true, the component will be rendered at full width.
           * @default false
@@ -5682,6 +5702,11 @@ declare namespace LocalJSX {
     }
     interface KupCheckbox {
         /**
+          * Set alert message
+          * @default '''
+         */
+        "alert"?: string;
+        /**
           * Defaults at false. When set to true, the component will be set to 'checked'.
           * @default false
          */
@@ -5697,6 +5722,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "disabled"?: boolean;
+        /**
+          * Set error message
+          * @default '''
+         */
+        "error"?: string;
         /**
           * When set to true, the component will be set to 'indeterminate'.
           * @default false
@@ -7650,6 +7680,11 @@ declare namespace LocalJSX {
     }
     interface KupTextField {
         /**
+          * Set alert message
+          * @default '''
+         */
+        "alert"?: string;
+        /**
           * When true, could be input negative numbers (should be used when inputType is number).
           * @default null
          */
@@ -7675,6 +7710,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "emitSubmitEventOnEnter"?: boolean;
+        /**
+          * Set error message
+          * @default '''
+         */
+        "error"?: string;
         /**
           * When set to true, the component will be rendered at full width.
           * @default false

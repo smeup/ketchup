@@ -7,11 +7,13 @@
 
 | Property                 | Attribute                    | Description                                                                                                                                                                | Type                                                                                                          | Default                     |
 | ------------------------ | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| `alert`                  | `alert`                      | Set alert message                                                                                                                                                          | `string`                                                                                                      | `''`                        |
 | `allowNegative`          | `allow-negative`             | When true, could be input negative numbers (should be used when inputType is number).                                                                                      | `boolean`                                                                                                     | `false`                     |
 | `customStyle`            | `custom-style`               | Custom style of the component.                                                                                                                                             | `string`                                                                                                      | `''`                        |
 | `decimals`               | `decimals`                   | Number of decimals (should be used when inputType is number).                                                                                                              | `number`                                                                                                      | `null`                      |
 | `disabled`               | `disabled`                   | When set to true, the component is disabled.                                                                                                                               | `boolean`                                                                                                     | `false`                     |
 | `emitSubmitEventOnEnter` | `emit-submit-event-on-enter` | When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.                                           | `boolean`                                                                                                     | `true`                      |
+| `error`                  | `error`                      | Set error message                                                                                                                                                          | `string`                                                                                                      | `''`                        |
 | `fullWidth`              | `full-width`                 | When set to true, the component will be rendered at full width.                                                                                                            | `boolean`                                                                                                     | `false`                     |
 | `group`                  | `group`                      | When true, the number will be formatted with group separator (should be used when inputType is number).                                                                    | `boolean`                                                                                                     | `false`                     |
 | `helper`                 | `helper`                     | When set, its content will be shown as a help text below the field.                                                                                                        | `string`                                                                                                      | `null`                      |
@@ -173,14 +175,17 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-card](../kup-card)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-text-field --> kup-card
+  kup-text-field --> kup-badge
   kup-card --> kup-text-field
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
+  kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-card
@@ -191,12 +196,16 @@ graph TD;
   kup-chip --> kup-card
   kup-chip --> kup-badge
   kup-color-picker --> kup-card
+  kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
+  kup-combobox --> kup-badge
   kup-date-picker --> kup-card
+  kup-date-picker --> kup-badge
   kup-rating --> kup-card
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
+  kup-time-picker --> kup-badge
   kup-image --> kup-spinner
   kup-image --> kup-card
   kup-image --> kup-badge
@@ -213,6 +222,7 @@ graph TD;
   kup-button --> kup-card
   kup-button --> kup-badge
   kup-checkbox --> kup-card
+  kup-checkbox --> kup-badge
   kup-data-table --> kup-text-field
   kup-switch --> kup-card
   kup-form --> kup-text-field

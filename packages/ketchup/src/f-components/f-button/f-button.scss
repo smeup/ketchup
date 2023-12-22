@@ -66,7 +66,6 @@
     border-width: 1px;
     border-style: solid;
     border-color: transparent;
-    border-radius: var(--kup_button_border_radius);
     box-sizing: border-box;
     color: var(--kup_button_primary_color);
     cursor: pointer;
@@ -90,10 +89,6 @@
       box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
     vertical-align: middle;
-
-    &:not(> button > .f-image) {
-      justify-content: center;
-    }
 
     &:hover {
       background-color: hsl(
@@ -192,7 +187,6 @@
     }
 
     &.button--floating {
-      border-radius: 24px;
       box-shadow: 0 0.215em 0.35em -1px rgba(var(--kup-text-color-rgb), 0.2),
         0 0.43em 0.71em 0 rgba(var(--kup-text-color-rgb), 0.14),
         0 0.07em 1.285em 0 rgba(var(--kup-text-color-rgb), 0.12);
@@ -204,7 +198,6 @@
       justify-content: center;
 
       &.button--no-label {
-        border-radius: 50%;
         height: 4em;
         padding: 0;
         width: 4em;
@@ -319,7 +312,6 @@
     cursor: pointer;
     user-select: none;
     padding: 0.75em;
-    border-radius: 50%;
 
     &:hover,
     &:focus {
@@ -377,15 +369,15 @@
     }
   }
 
-  &.#{$kup-class-shaped} {
-    .button {
-      border-radius: 18px;
+  // &.#{$kup-class-shaped} {
+  //   .button {
+  //     border-radius: 18px;
 
-      &.button--floating {
-        border-radius: 50% 0;
-      }
-    }
-  }
+  //     &.button--floating {
+  //       border-radius: 50% 0;
+  //     }
+  //   }
+  // }
 
   &.#{$kup-class-slim} {
     button {
@@ -402,7 +394,6 @@
       width: 2px;
       top: calc(50% - 1px);
       left: calc(50% - 1px);
-      border-radius: 50%;
     }
   }
 

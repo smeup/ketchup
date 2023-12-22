@@ -57,6 +57,11 @@ export class KupTextField {
     /*-------------------------------------------------*/
 
     /**
+     * Set alert message
+     * @default '''
+     */
+    @Prop() alert: string = '';
+    /**
      * When true, could be input negative numbers (should be used when inputType is number).
      * @default null
      */
@@ -82,6 +87,11 @@ export class KupTextField {
      * @default true
      */
     @Prop() emitSubmitEventOnEnter: boolean = true;
+    /**
+     * Set error message
+     * @default '''
+     */
+    @Prop() error: string = '';
     /**
      * When set to true, the component will be rendered at full width.
      * @default false
@@ -219,7 +229,6 @@ export class KupTextField {
      * @default false
      */
     @Prop() trailingLabel: boolean = false;
-
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -572,12 +581,14 @@ export class KupTextField {
 
     render() {
         const props: FTextFieldProps = {
+            alert: this.alert,
             allowNegative: this.allowNegative,
             danger: this.rootElement.classList.contains('kup-danger')
                 ? true
                 : false,
             decimals: this.decimals,
             disabled: this.disabled,
+            error: this.error,
             fullHeight: this.rootElement.classList.contains('kup-full-height')
                 ? true
                 : false,

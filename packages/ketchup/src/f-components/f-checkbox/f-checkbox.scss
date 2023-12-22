@@ -37,6 +37,8 @@
 
   font-family: var(--kup_checkbox_font_family);
   font-size: var(--kup_checkbox_font_size);
+  display: flex;
+  flex-direction: column;
 
   .form-field {
     color: var(--kup_checkbox_text_color);
@@ -50,7 +52,6 @@
     display: inline-flex;
 
     label {
-      font-size: 1em;
       margin-left: 0px;
       margin-right: auto;
       order: 0;
@@ -168,6 +169,13 @@
       }
     }
 
+    .checkbox__error-message {
+      color: var(--kup-danger-color);
+    }
+
+    .checkbox__alert-message {
+    }
+
     &.checkbox--checked {
       .checkbox__background {
         background-color: var(--kup_checkbox_primary_color);
@@ -223,6 +231,29 @@
           color: var(--kup_checkbox_disabled_checkmark_color);
         }
       }
+    }
+  }
+
+  .checkbox__error-message,
+  .checkbox__alert-message {
+    padding: 0 var(--kup_checkbox_padding);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85em;
+
+    .f-image {
+      margin: unset;
+    }
+  }
+
+  .checkbox__error-message {
+    color: var(--kup-danger-color);
+  }
+
+  &.checkbox--error {
+    .checkbox__background {
+      border-color: var(--kup-danger-color);
     }
   }
 

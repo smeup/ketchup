@@ -14,21 +14,21 @@
 
 :host(.#{$kup-class-shaped}) {
   #kup-component {
-    .mdc-text-field.mdc-text-field--filled {
-      border-radius: 16px 16px 0 0;
-    }
+    // .mdc-text-field.mdc-text-field--filled {
+    //   border-radius: 16px 16px 0 0;
+    // }
 
     .mdc-text-field.mdc-text-field--outlined
-    .mdc-notched-outline
-    .mdc-notched-outline__leading {
-      border-radius: 28px 0 0 28px;
+      .mdc-notched-outline
+      .mdc-notched-outline__leading {
+      // border-radius: 28px 0 0 28px;
       width: 28px;
     }
 
     .mdc-text-field.mdc-text-field--outlined
-    .mdc-notched-outline
-    .mdc-notched-outline__trailing {
-      border-radius: 0 28px 28px 0;
+      .mdc-notched-outline
+      .mdc-notched-outline__trailing {
+      // border-radius: 0 28px 28px 0;
       width: 28px;
     }
   }

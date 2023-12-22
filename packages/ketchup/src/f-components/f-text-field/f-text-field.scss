@@ -56,13 +56,22 @@
     );
     --mdc-theme-primary: var(--kup_textfield_primary_color);
 
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
     font-family: var(--kup_textfield_font_family);
     font-size: var(--kup_textfield_font_size);
+
+    .mdc-text-field-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
 
     .mdc-form-field {
       & label {
         color: var(--kup_textfield_color);
-        margin: auto;
+        margin: unset;
       }
 
       .mdc-text-field__input {
@@ -74,27 +83,41 @@
 
     .mdc-quantity-buttons {
       height: 100%;
-      right: 0;
-      position: absolute;
       display: flex;
 
       button {
         height: 100%;
         aspect-ratio: 1;
-        background: var(--kup_textfield_background_color_rgb);
+        background-color: rgb(var(--kup_textfield_background_color_rgb));
         border: unset;
         display: flex;
         justify-content: center;
         align-items: center;
 
         &:hover {
-          background-color: var(--kup_disabled_background_color_rgb);
+          background-color: rgb(var(--kup_disabled_background_color_rgb));
+        }
+      }
+
+      button:first-child {
+        position: relative;
+
+        &::before {
+          content: '';
+          width: 1px;
+          height: 50%;
+          background-color: rgb(var(--kup_disabled_background_color_rgb));
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
         }
       }
     }
 
     .mdc-text-field {
       width: var(--kup_textfield_width);
+      border-radius: unset !important;
 
       .#{$kup-icon} {
         background-color: var(--kup_textfield_icon_color);
@@ -275,7 +298,6 @@
 
         &:not(.mdc-text-field--no-label) input {
           box-sizing: border-box;
-          padding-top: 9px;
         }
 
         &:not(.mdc-text-field--disabled) {
@@ -353,6 +375,31 @@
           margin: 0;
         }
       }
+
+      &.mdc-text-field--error {
+        border: 2px solid var(--kup-danger-color);
+      }
+    }
+
+    .mdc-error-message,
+    .mdc-alert-message {
+      font-family: var(--kup_textfield_font_family);
+      font-size: 0.75em;
+    }
+
+    .mdc-error-icon,
+    .mdc-alert-icon {
+      height: 100%;
+      .kup-icon {
+        height: 100%;
+        background-color: unset;
+        display: inline-flex;
+        cursor: default;
+      }
+    }
+
+    .mdc-error-message {
+      color: var(--kup-danger-color);
     }
 
     div.mdc-text-field-helper-text {
@@ -381,7 +428,6 @@
       width: 100%;
 
       .mdc-text-field {
-        height: var(--kup_textfield_fullwidth_height) !important;
         padding: 0 var(--kup_textfield_fullwidth_padding);
 
         &.mdc-text-field--with-leading-icon {
@@ -391,25 +437,29 @@
         &.mdc-text-field--with-trailing-icon input ~ .kup-clear-icon {
           right: 40px;
         }
+
+        &:not(.mdc-text-field--textarea) {
+          height: var(--kup_textfield_fullwidth_height) !important;
+        }
       }
     }
 
     &.#{$kup-class-shaped} {
-      .mdc-text-field.mdc-text-field--filled {
-        border-radius: 16px 16px 0 0;
-      }
+      // .mdc-text-field.mdc-text-field--filled {
+      //   border-radius: 16px 16px 0 0;
+      // }
 
       .mdc-text-field.mdc-text-field--outlined
         .mdc-notched-outline
         .mdc-notched-outline__leading {
-        border-radius: 28px 0 0 28px;
+        // border-radius: 28px 0 0 28px;
         width: 28px;
       }
 
       .mdc-text-field.mdc-text-field--outlined
         .mdc-notched-outline
         .mdc-notched-outline__trailing {
-        border-radius: 0 28px 28px 0;
+        // border-radius: 0 28px 28px 0;
         width: 28px;
       }
     }

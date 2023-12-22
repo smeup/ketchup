@@ -5,6 +5,7 @@ import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { NumericFieldFormatOptions } from '../../managers/kup-math/kup-math-declarations';
 import classNames from 'classnames';
 import { FImage } from '../f-image/f-image';
+import { FImageProps } from '../f-image/f-image-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -67,7 +68,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
 
     if (props.label && !props.leadingLabel && !props.trailingLabel) {
         labelEl = (
-            <label class="mdc-floating-label" htmlFor="kup-input">
+            <label class="mdc-label" htmlFor="kup-input">
                 {props.label}
             </label>
         );
@@ -133,6 +134,16 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         );
     }
 
+    const propsFImage: FImageProps = {
+        color: props.error
+            ? `var(--kup-danger-color)`
+            : `var(--kup-warning-color)`,
+        resource: props.error ? 'error' : 'warning',
+        sizeX: '1.25em',
+        sizeY: '1.25em',
+        wrapperClass: 'kup-icon',
+    };
+
     const classObj: Record<string, boolean> = {
         'is-clearable': props.isClearable,
         'mdc-text-field': true,
@@ -145,6 +156,8 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         'mdc-text-field--with-leading-icon': props.icon && !props.trailingIcon,
         'mdc-text-field--with-trailing-icon': props.icon && props.trailingIcon,
         'mdc-text-field--with-quantity-buttons': props.quantityButtons,
+        'mdc-text-field--error': Boolean(props.error),
+        'mdc-text-field--alert': Boolean(props.alert),
         [`mdc-text-field--${props.sizing}`]: props.sizing ? true : false,
     };
 
@@ -171,103 +184,60 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     }
 
     return (
-        <div class={classObj}>
-            {props.textArea && props.maxLength ? (
-                <div class="mdc-text-field-character-counter">
-                    '0 / ' + {props.maxLength}
-                </div>
-            ) : undefined}
-            {!props.trailingIcon ? iconEl : undefined}
-            {props.textArea ? (
-                <span class="mdc-text-field__resizer">
-                    <textarea
+        <div class="mdc-text-field-container">
+            {!props.fullWidth ? labelEl : undefined}
+            <div class={classObj}>
+                {props.textArea && props.maxLength ? (
+                    <div class="mdc-text-field-character-counter">
+                        '0 / ' + {props.maxLength}
+                    </div>
+                ) : undefined}
+                {!props.trailingIcon ? iconEl : undefined}
+                {props.textArea ? (
+                    <span class="mdc-text-field__resizer">
+                        <textarea
+                            class="mdc-text-field__input"
+                            disabled={props.disabled}
+                            readOnly={props.readOnly}
+                            maxlength={props.maxLength}
+                            value={value}
+                            onBlur={props.onBlur}
+                            onClick={props.onClick}
+                            onChange={props.onChange}
+                            onFocus={props.onFocus}
+                            onInput={props.onInput}
+                            onKeyDown={props.onKeyDown}
+                        ></textarea>
+                    </span>
+                ) : (
+                    <input
+                        inputmode={
+                            props.inputMode ? props.inputMode : undefined
+                        }
+                        type={inputType}
+                        step={props.step}
+                        min={props.min}
+                        max={props.max}
+                        name={props.name}
                         class="mdc-text-field__input"
                         disabled={props.disabled}
                         readOnly={props.readOnly}
+                        placeholder={
+                            props.fullWidth && !props.outlined
+                                ? props.label
+                                : undefined
+                        }
                         maxlength={props.maxLength}
+                        size={props.size}
                         value={value}
-                        onBlur={props.onBlur}
-                        onClick={props.onClick}
-                        onChange={props.onChange}
-                        onFocus={props.onFocus}
-                        onInput={props.onInput}
-                        onKeyDown={props.onKeyDown}
-                    ></textarea>
-                </span>
-            ) : (
-                <input
-                    inputmode={props.inputMode ? props.inputMode : undefined}
-                    type={inputType}
-                    step={props.step}
-                    min={props.min}
-                    max={props.max}
-                    name={props.name}
-                    class="mdc-text-field__input"
-                    disabled={props.disabled}
-                    readOnly={props.readOnly}
-                    placeholder={
-                        props.fullWidth && !props.outlined
-                            ? props.label
-                            : undefined
-                    }
-                    maxlength={props.maxLength}
-                    size={props.size}
-                    value={value}
-                    onBlur={(e: FocusEvent) => {
-                        if (persManageForNumberFormat) {
-                            const options: NumericFieldFormatOptions = {
-                                allowNegative: props.allowNegative ?? true,
-                                decimal: props.decimals,
-                                group: props.group,
-                                integer: props.integers,
-                            };
-                            (e.target as HTMLInputElement).value = formatValue(
-                                (e.target as HTMLInputElement).value,
-                                options,
-                                true
-                            );
-                        }
-                        if (props.onBlur) {
-                            props.onBlur(e);
-                        }
-                    }}
-                    onChange={(e: InputEvent) => {
-                        if (persManageForNumberFormat) {
-                            const options: NumericFieldFormatOptions = {
-                                allowNegative: props.allowNegative ?? true,
-                                decimal: props.decimals,
-                                group: props.group,
-                                integer: props.integers,
-                            };
-                            if (
-                                props.min !== undefined &&
-                                props.min !== null &&
-                                props.min >
-                                    parseFloat(
-                                        (e.target as HTMLInputElement).value
-                                    )
-                            ) {
-                                (e.target as HTMLInputElement).value =
-                                    formatValue(
-                                        props.min.toString(),
-                                        options,
-                                        true
-                                    );
-                            } else if (
-                                props.max !== undefined &&
-                                props.max !== null &&
-                                props.max <
-                                    parseFloat(
-                                        (e.target as HTMLInputElement).value
-                                    )
-                            ) {
-                                (e.target as HTMLInputElement).value =
-                                    formatValue(
-                                        props.max.toString(),
-                                        options,
-                                        true
-                                    );
-                            } else {
+                        onBlur={(e: FocusEvent) => {
+                            if (persManageForNumberFormat) {
+                                const options: NumericFieldFormatOptions = {
+                                    allowNegative: props.allowNegative ?? true,
+                                    decimal: props.decimals,
+                                    group: props.group,
+                                    integer: props.integers,
+                                };
                                 (e.target as HTMLInputElement).value =
                                     formatValue(
                                         (e.target as HTMLInputElement).value,
@@ -275,111 +245,183 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                         true
                                     );
                             }
-                        } else {
-                            if (
-                                props.min !== undefined &&
-                                props.min !== null &&
-                                props.min >
-                                    parseFloat(
-                                        (e.target as HTMLInputElement).value
-                                    )
-                            ) {
-                                (e.target as HTMLInputElement).value =
-                                    props.min.toString();
-                            } else if (
-                                props.max !== undefined &&
-                                props.max !== null &&
-                                props.max <
-                                    parseFloat(
-                                        (e.target as HTMLInputElement).value
-                                    )
-                            ) {
-                                (e.target as HTMLInputElement).value =
-                                    props.max.toString();
+                            if (props.onBlur) {
+                                props.onBlur(e);
                             }
-                        }
-                        if (props.onChange) {
-                            props.onChange(e);
-                        }
-                    }}
-                    onClick={props.onClick}
-                    onFocus={props.onFocus}
-                    onInput={props.onInput}
-                    onKeyDown={props.onKeyDown}
-                    onKeyPress={(e: KeyboardEvent) => {
-                        if (!persManageForNumberFormat) {
-                            return;
-                        }
-                        if (e.ctrlKey) {
-                            return;
-                        }
+                        }}
+                        onChange={(e: InputEvent) => {
+                            if (persManageForNumberFormat) {
+                                const options: NumericFieldFormatOptions = {
+                                    allowNegative: props.allowNegative ?? true,
+                                    decimal: props.decimals,
+                                    group: props.group,
+                                    integer: props.integers,
+                                };
+                                if (
+                                    props.min !== undefined &&
+                                    props.min !== null &&
+                                    props.min >
+                                        parseFloat(
+                                            (e.target as HTMLInputElement).value
+                                        )
+                                ) {
+                                    (e.target as HTMLInputElement).value =
+                                        formatValue(
+                                            props.min.toString(),
+                                            options,
+                                            true
+                                        );
+                                } else if (
+                                    props.max !== undefined &&
+                                    props.max !== null &&
+                                    props.max <
+                                        parseFloat(
+                                            (e.target as HTMLInputElement).value
+                                        )
+                                ) {
+                                    (e.target as HTMLInputElement).value =
+                                        formatValue(
+                                            props.max.toString(),
+                                            options,
+                                            true
+                                        );
+                                } else {
+                                    (e.target as HTMLInputElement).value =
+                                        formatValue(
+                                            (e.target as HTMLInputElement)
+                                                .value,
+                                            options,
+                                            true
+                                        );
+                                }
+                            } else {
+                                if (
+                                    props.min !== undefined &&
+                                    props.min !== null &&
+                                    props.min >
+                                        parseFloat(
+                                            (e.target as HTMLInputElement).value
+                                        )
+                                ) {
+                                    (e.target as HTMLInputElement).value =
+                                        props.min.toString();
+                                } else if (
+                                    props.max !== undefined &&
+                                    props.max !== null &&
+                                    props.max <
+                                        parseFloat(
+                                            (e.target as HTMLInputElement).value
+                                        )
+                                ) {
+                                    (e.target as HTMLInputElement).value =
+                                        props.max.toString();
+                                }
+                            }
+                            if (props.onChange) {
+                                props.onChange(e);
+                            }
+                        }}
+                        onClick={props.onClick}
+                        onFocus={props.onFocus}
+                        onInput={props.onInput}
+                        onKeyDown={props.onKeyDown}
+                        onKeyPress={(e: KeyboardEvent) => {
+                            if (!persManageForNumberFormat) {
+                                return;
+                            }
+                            if (e.ctrlKey) {
+                                return;
+                            }
 
-                        if (e.key.length > 1) {
-                            return;
-                        }
+                            if (e.key.length > 1) {
+                                return;
+                            }
 
-                        const options: NumericFieldFormatOptions = {
-                            allowNegative: props.allowNegative ?? true,
-                            decimal: props.decimals,
-                            group: props.group,
-                            integer: props.integers,
-                        };
-                        let component = e.target as HTMLInputElement;
-                        let value = component.value;
+                            const options: NumericFieldFormatOptions = {
+                                allowNegative: props.allowNegative ?? true,
+                                decimal: props.decimals,
+                                group: props.group,
+                                integer: props.integers,
+                            };
+                            let component = e.target as HTMLInputElement;
+                            let value = component.value;
 
-                        let beginVal = value.substring(
-                            0,
-                            component.selectionStart
-                        );
-                        let endVal = value.substring(
-                            component.selectionEnd,
-                            component.selectionEnd + value.length - 1
-                        );
-                        let val = beginVal + e.key + endVal;
-                        if (
-                            !dom.ketchup.math.matchNumericValueWithOptions(
-                                val,
-                                options
-                            )
-                        ) {
-                            e.preventDefault();
-                            return;
-                        }
-                    }}
-                ></input>
-            )}
-            {props.isClearable ? (
-                <span
-                    class={`mdc-text-field__icon kup-icon ${KupThemeIconValues.CLEAR.replace(
-                        '--',
-                        ''
-                    )}`}
-                    onClick={props.onClearIconClick}
-                ></span>
-            ) : undefined}
-            {props.trailingIcon ? iconEl : undefined}
-            {!props.fullWidth && !isOutlined ? labelEl : undefined}
-            {isOutlined ? (
-                <div class="mdc-notched-outline">
-                    <div class="mdc-notched-outline__leading"></div>
-                    <div class="mdc-notched-outline__notch">{labelEl}</div>
-                    <div class="mdc-notched-outline__trailing"></div>
-                </div>
-            ) : (
-                <span class="mdc-line-ripple"></span>
-            )}
-            {props.quantityButtons && (
-                <div class="mdc-quantity-buttons">
-                    <button onClick={props.onMinusClick}>{minusEl}</button>
-                    <button onClick={props.onPlusClick}>{plusEl}</button>
-                </div>
-            )}
+                            let beginVal = value.substring(
+                                0,
+                                component.selectionStart
+                            );
+                            let endVal = value.substring(
+                                component.selectionEnd,
+                                component.selectionEnd + value.length - 1
+                            );
+                            let val = beginVal + e.key + endVal;
+                            if (
+                                !dom.ketchup.math.matchNumericValueWithOptions(
+                                    val,
+                                    options
+                                )
+                            ) {
+                                e.preventDefault();
+                                return;
+                            }
+                        }}
+                    ></input>
+                )}
+
+                {props.isClearable ? (
+                    <span
+                        class={`mdc-text-field__icon kup-icon ${KupThemeIconValues.CLEAR.replace(
+                            '--',
+                            ''
+                        )}`}
+                        onClick={props.onClearIconClick}
+                    ></span>
+                ) : undefined}
+
+                {props.trailingIcon ? iconEl : undefined}
+
+                {isOutlined ? (
+                    <div class="mdc-notched-outline">
+                        <div class="mdc-notched-outline__leading"></div>
+                        <div class="mdc-notched-outline__trailing"></div>
+                    </div>
+                ) : (
+                    <span class="mdc-line-ripple"></span>
+                )}
+
+                {props.error ? (
+                    <div class="mdc-error-icon">
+                        <FImage {...propsFImage} />
+                    </div>
+                ) : props.alert ? (
+                    <div class="mdc-alert-icon">
+                        <FImage {...propsFImage} />
+                    </div>
+                ) : undefined}
+
+                {props.quantityButtons && (
+                    <div class="mdc-quantity-buttons">
+                        <button onClick={props.onMinusClick}>{minusEl}</button>
+                        <button onClick={props.onPlusClick}>{plusEl}</button>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
 
 function setHelper(props: FTextFieldProps): HTMLDivElement {
-    if (props.helperEnabled !== false) {
+    if (props.error || props.alert) {
+        return (
+            <div class="mdc-text-field-helper-line">
+                {props.error ? (
+                    <span class="mdc-error-message">{props.error}</span>
+                ) : props.alert ? (
+                    <span class="mdc-alert-message">{props.alert}</span>
+                ) : undefined}
+            </div>
+        );
+    } else if (props.helperEnabled !== false) {
         if (props.helper) {
             const classObj: Record<string, boolean> = {
                 'mdc-text-field-helper-text': true,

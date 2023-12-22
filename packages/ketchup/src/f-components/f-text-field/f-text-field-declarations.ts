@@ -3,9 +3,11 @@ import type { FComponent, KupComponentSizing } from '../../types/GenericTypes';
  * Props of the f-text-field component.
  */
 export interface FTextFieldProps extends FComponent {
+    alert?: string;
     allowNegative?: boolean;
     decimals?: number;
     disabled?: boolean;
+    error?: string;
     fullHeight?: boolean;
     fullWidth?: boolean;
     group?: boolean;

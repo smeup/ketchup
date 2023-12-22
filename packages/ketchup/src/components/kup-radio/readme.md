@@ -121,19 +121,25 @@ graph TD;
   kup-card --> kup-card
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
+  kup-autocomplete --> kup-badge
   kup-list --> kup-radio
   kup-badge --> kup-badge
   kup-badge --> kup-card
   kup-chip --> kup-card
   kup-chip --> kup-badge
   kup-text-field --> kup-card
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
+  kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
+  kup-combobox --> kup-badge
   kup-date-picker --> kup-card
+  kup-date-picker --> kup-badge
   kup-rating --> kup-card
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
+  kup-time-picker --> kup-badge
   kup-image --> kup-spinner
   kup-image --> kup-card
   kup-image --> kup-badge
@@ -150,6 +156,7 @@ graph TD;
   kup-button --> kup-card
   kup-button --> kup-badge
   kup-checkbox --> kup-card
+  kup-checkbox --> kup-badge
   kup-data-table --> kup-card
   kup-data-table --> kup-list
   kup-data-table --> kup-switch
