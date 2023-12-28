@@ -170,10 +170,7 @@
     }
 
     .checkbox__error-message {
-      color: var(--kup-danger-color);
-    }
-
-    .checkbox__alert-message {
+      color: var(--kup-accent-red-color);
     }
 
     &.checkbox--checked {
@@ -210,6 +207,7 @@
 
       + label {
         pointer-events: none;
+        color: rgba(var(--kup_checkbox_text_color_rgb), 0.325);
       }
 
       .checkbox__background {
@@ -248,12 +246,12 @@
   }
 
   .checkbox__error-message {
-    color: var(--kup-danger-color);
+    color: var(--kup-accent-red-color);
   }
 
   &.checkbox--error {
     .checkbox__background {
-      border-color: var(--kup-danger-color);
+      border-color: var(--kup-accent-red-color);
     }
   }
 

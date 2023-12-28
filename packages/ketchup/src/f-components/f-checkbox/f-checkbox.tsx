@@ -24,8 +24,8 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
 
     const propsFImage: FImageProps = {
         color: props.error
-            ? `var(--kup-danger-color)`
-            : `var(--kup-warning-color)`,
+            ? `var(--kup-accent-red-color)`
+            : `var(--kup-accent-orange-color)`,
         resource: props.error ? 'error' : 'warning',
         sizeX: '1.15em',
         sizeY: '1.15em',
