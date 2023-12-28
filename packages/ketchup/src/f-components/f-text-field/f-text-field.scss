@@ -42,7 +42,7 @@
     );
     --kup_textfield_primary_color: var(
       --kup-textfield-primary-color,
-      var(--kup-primary-color)
+      var(--kup-primary-color-60)
     );
     --kup_textfield_primary_color_rgb: var(
       --kup-textfield-primary-color-rgb,
@@ -55,6 +55,7 @@
       var(--kup-disabled-color-rgb)
     );
     --mdc-theme-primary: var(--kup_textfield_primary_color);
+    --mdc-shape-small: 0px;
 
     display: flex;
     flex-direction: column;
@@ -96,6 +97,11 @@
 
         &:hover {
           background-color: rgb(var(--kup_disabled_background_color_rgb));
+        }
+
+        &:focus {
+          border: 2px solid var(--kup_textfield_primary_color);
+          outline: none;
         }
       }
 
@@ -378,6 +384,23 @@
 
       &.mdc-text-field--error {
         border: 2px solid var(--kup-danger-color);
+      }
+
+      &.mdc-text-field--textarea {
+        height: auto;
+
+        .mdc-error-icon,
+        .mdc-alert-icon {
+          width: 24px;
+          height: 18px;
+          position: absolute;
+          top: 4px;
+          right: 4px;
+
+          .kup-icon {
+            padding: unset;
+          }
+        }
       }
     }
 
