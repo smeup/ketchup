@@ -34,6 +34,32 @@
                 padding: 1rem;
             }
 
+            .spacing {
+                width: fit-content;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .spacing-item {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .space {
+                display: flex;
+
+                &::before,
+                &::after {
+                    content: '';
+                    width: 1px;
+                    height: 32px;
+                    background: var(--kup-primary-color);
+                }
+            }
+
             .colors {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -53,7 +79,7 @@
                 gap: 16px;
             }
 
-            .item {
+            .color-item {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -77,9 +103,9 @@
         </style>
     </head>
     <body>
-        <!-- <h3>Spacing</h3>
+        <h3>Spacing</h3>
 
-        <h3>Font sizes</h3> -->
+        <div class="spacing"></div>
 
         <h3>Colors</h3>
 
@@ -159,13 +185,36 @@
                 kupManager.theme.set('ketchup');
             });
 
+            console.log(document.styleSheets);
+
+            // Render spacing
+            const spacing = document.querySelector('.spacing');
+            for (let i = 1; i < 14; i++) {
+                const index = i < 10 ? '0' + i : i;
+                const item = document.createElement('div');
+                item.classList.add('spacing-item');
+
+                const space = document.createElement('div');
+                space.classList.add('space');
+                space.style.gap = 'var(--kup-space-' + index + ')';
+
+                const name = document.createElement('span');
+                name.classList.add('name');
+                name.innerHTML = `--kup-space-${index}`;
+
+                item.appendChild(space);
+                item.appendChild(name);
+
+                spacing.appendChild(item);
+            }
+
             // Render primary colors
             const primaryValues = [5, 10, 20, 30, 40, 50, 60, 70, 80, 90];
             // const primaryValues = [5, 50, 10, 60, 20, 70, 30, 80, 40, 90];
             const primaryColors = document.getElementById('primary-colors');
             primaryValues.forEach((value) => {
                 const item = document.createElement('div');
-                item.classList.add('item');
+                item.classList.add('color-item');
 
                 const color = document.createElement('div');
                 color.classList.add('color');
@@ -198,7 +247,7 @@
             const grayColors = document.getElementById('gray-colors');
             grayValues.forEach((value) => {
                 const item = document.createElement('div');
-                item.classList.add('item');
+                item.classList.add('color-item');
 
                 const color = document.createElement('div');
                 color.classList.add('color');
@@ -219,7 +268,7 @@
             const accentColors = document.getElementById('accent-colors');
             accentValues.forEach((value) => {
                 const item = document.createElement('div');
-                item.classList.add('item');
+                item.classList.add('color-item');
 
                 const color = document.createElement('div');
                 color.classList.add('color');
