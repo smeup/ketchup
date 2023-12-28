@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Design System</title>
+
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+
+        <link
+            href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
+            rel="stylesheet"
+            type="text/css"
+        />
+
+        <link
+            href="https://fonts.googleapis.com/css?family=Lato"
+            rel="stylesheet"
+        />
+
+        <script
+            type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"
+        ></script>
+
+        <style>
+            html {
+                background-color: var(--kup-background-color);
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
+                padding: 1rem;
+            }
+
+            .colors {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 24px;
+            }
+
+            .primary-colors-container {
+                display: grid;
+                grid-template-columns: 160px 90px;
+                gap: 16px;
+            }
+
+            .colors-container {
+                width: fit-content;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .color {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                border: 1px solid var(--kup-border-color);
+            }
+
+            .selector {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                flex-wrap: wrap;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <h3>Spacing</h3>
+
+        <h3>Font sizes</h3> -->
+
+        <h3>Colors</h3>
+
+        <div class="colors">
+            <div>
+                <h4>Primary colors</h4>
+                <div class="primary-colors-container">
+                    <div id="primary-colors" class="colors-container"> </div>
+
+                    <div class="selector">
+                        <kup-button
+                            label="Ketchup"
+                            data-theme="ketchup"
+                        ></kup-button>
+                        <kup-button
+                            label="Octane"
+                            data-theme="octane"
+                        ></kup-button>
+                        <kup-button
+                            label="Bubbles"
+                            data-theme="bubbles"
+                        ></kup-button>
+                        <kup-button
+                            label="Cobalt"
+                            data-theme="cobalt"
+                        ></kup-button>
+                        <kup-button label="Dark" data-theme="dark"></kup-button>
+                        <kup-button
+                            label="Flamingo"
+                            data-theme="flamingo"
+                        ></kup-button>
+                        <kup-button
+                            label="Graphite"
+                            data-theme="graphite"
+                        ></kup-button>
+                        <kup-button
+                            label="Obsidian"
+                            data-theme="obsidian"
+                        ></kup-button>
+                        <kup-button
+                            label="Ocean"
+                            data-theme="ocean"
+                        ></kup-button>
+                        <kup-button label="Raj" data-theme="raj"></kup-button>
+                        <kup-button label="Red" data-theme="red"></kup-button>
+                        <kup-button
+                            label="Sapphire"
+                            data-theme="sapphire"
+                        ></kup-button>
+                        <kup-button
+                            label="Silver"
+                            data-theme="silver"
+                        ></kup-button>
+                        <kup-button label="Teal" data-theme="teal"></kup-button>
+                        <kup-button
+                            label="Wildlife"
+                            data-theme="wildlife"
+                        ></kup-button>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h4>Gray colors</h4>
+                <div id="gray-colors" class="colors-container"> </div>
+            </div>
+
+            <div>
+                <h4>Accent colors</h4>
+                <div id="accent-colors" class="colors-container"> </div>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('kup-manager-ready', () => {
+                const kupManager = document.documentElement.ketchup;
+                kupManager.theme.set('ketchup');
+            });
+
+            // Render primary colors
+            const primaryValues = [5, 10, 20, 30, 40, 50, 60, 70, 80, 90];
+            // const primaryValues = [5, 50, 10, 60, 20, 70, 30, 80, 40, 90];
+            const primaryColors = document.getElementById('primary-colors');
+            primaryValues.forEach((value) => {
+                const item = document.createElement('div');
+                item.classList.add('item');
+
+                const color = document.createElement('div');
+                color.classList.add('color');
+                color.style.background = `var(--kup-primary-color-${value})`;
+
+                const name = document.createElement('span');
+                name.classList.add('name');
+                name.innerHTML = `--kup-primary-color-${value}`;
+
+                item.appendChild(color);
+                item.appendChild(name);
+
+                primaryColors.appendChild(item);
+            });
+
+            // Render theme buttons
+            const themeButtons = document.querySelectorAll(
+                '.selector kup-button'
+            );
+            themeButtons.forEach((button) => {
+                button.addEventListener('click', (e) => {
+                    const theme = e.target.dataset.theme;
+                    const kupManager = document.documentElement.ketchup;
+                    kupManager.theme.set(theme);
+                });
+            });
+
+            // Render gray colors
+            const grayValues = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+            const grayColors = document.getElementById('gray-colors');
+            grayValues.forEach((value) => {
+                const item = document.createElement('div');
+                item.classList.add('item');
+
+                const color = document.createElement('div');
+                color.classList.add('color');
+                color.style.background = `var(--kup-gray-color-${value})`;
+
+                const name = document.createElement('span');
+                name.classList.add('name');
+                name.innerHTML = `--kup-gray-color-${value}`;
+
+                item.appendChild(color);
+                item.appendChild(name);
+
+                grayColors.appendChild(item);
+            });
+
+            // Accent colors
+            const accentValues = ['red', 'orange', 'yellow', 'green', 'white'];
+            const accentColors = document.getElementById('accent-colors');
+            accentValues.forEach((value) => {
+                const item = document.createElement('div');
+                item.classList.add('item');
+
+                const color = document.createElement('div');
+                color.classList.add('color');
+                color.style.background = `var(--kup-accent-${value}-color)`;
+
+                const name = document.createElement('span');
+                name.classList.add('name');
+                name.innerHTML = `--kup-accent-${value}-color`;
+
+                item.appendChild(color);
+                item.appendChild(name);
+
+                accentColors.appendChild(item);
+            });
+        </script>
+    </body>
+</html>

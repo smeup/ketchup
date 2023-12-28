@@ -66,6 +66,7 @@ export const config: Config = {
                 { src: 'data-table-performance.html' },
                 { src: 'date-picker.html' },
                 { src: 'debug.html' },
+                { src: 'design-system.html' },
                 { src: 'dialog.html' },
                 { src: 'drawer.html' },
                 { src: 'dropdown-button.html' },
