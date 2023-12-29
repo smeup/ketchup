@@ -89,7 +89,7 @@ export class KupManager {
             tooltipFCellCallbacks: KupTooltipCallbacks = null;
 
         /** POI VIA */
-        this.openAIInterface = { url: 'http://172.16.2.160:3333' };
+        this.openAIInterface = { url: 'https://kokosstaging.smeup.com' };
         if (overrides) {
             const assetsPath = overrides.assetsPath;
             const dates = overrides.dates;
