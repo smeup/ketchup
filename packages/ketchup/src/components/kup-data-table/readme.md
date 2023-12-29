@@ -347,6 +347,7 @@ Type: `Promise<void>`
 
  - [kup-card](../kup-card)
  - [kup-magic-box](../kup-magic-box)
+ - [kup-openai-interface](../kup-openai-interface)
 
 ### Depends on
 
@@ -471,6 +472,7 @@ graph TD;
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-magic-box --> kup-data-table
+  kup-openai-interface --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

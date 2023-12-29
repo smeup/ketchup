@@ -146,6 +146,7 @@ Type: `Promise<void>`
  - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
  - [kup-magic-box](../kup-magic-box)
+ - [kup-openai-interface](../kup-openai-interface)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -203,6 +204,7 @@ graph TD;
   kup-cell --> kup-text-field
   kup-image-list --> kup-text-field
   kup-magic-box --> kup-text-field
+  kup-openai-interface --> kup-text-field
   style kup-text-field fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -5025,21 +5025,51 @@ export class KupDataTable {
                         (this.editableData = !this.editableData)
                     }
                 ></kup-switch>
-                <kup-button
-                    title={
-                        this.#kupManager.language.translate(
-                            KupLanguageGeneric.TOGGLE
-                        ) +
-                        ' Magic Box ' +
-                        '(' +
-                        this.#kupManager.language.translate(
-                            KupLanguageGeneric.EXPERIMENTAL_FEAT
-                        ) +
-                        ')'
-                    }
-                    icon="auto-fix"
-                    onkup-button-click={() => this.#kupManager.toggleMagicBox()}
-                />
+                <div
+                    style={{
+                        display: 'grid',
+                        'grid-template-columns': 'repeat(2, auto)',
+                        width: 'max-content',
+                    }}
+                >
+                    <kup-button
+                        title={
+                            this.#kupManager.language.translate(
+                                KupLanguageGeneric.TOGGLE
+                            ) +
+                            ' Magic Box ' +
+                            '(' +
+                            this.#kupManager.language.translate(
+                                KupLanguageGeneric.EXPERIMENTAL_FEAT
+                            ) +
+                            ')'
+                        }
+                        icon="auto-fix"
+                        onkup-button-click={() =>
+                            this.#kupManager.toggleMagicBox()
+                        }
+                    />
+                    {this.#kupManager.openAIInterface &&
+                    this.#kupManager.openAIInterface.url ? (
+                        <kup-button
+                            title={
+                                this.#kupManager.language.translate(
+                                    KupLanguageGeneric.TOGGLE
+                                ) +
+                                ' Open AI ' +
+                                '(' +
+                                this.#kupManager.language.translate(
+                                    KupLanguageGeneric.EXPERIMENTAL_FEAT
+                                ) +
+                                ')'
+                            }
+                            icon="open-ai"
+                            onkup-button-click={() =>
+                                this.#kupManager.toggleOpenAI(this.data)
+                            }
+                        />
+                    ) : null}
+                </div>
                 {totalsMatrix}
             </kup-card>
         );

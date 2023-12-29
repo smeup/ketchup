@@ -90,6 +90,7 @@ Type: `Promise<void>`
  - [kup-data-table](../kup-data-table)
  - [kup-iframe](../kup-iframe)
  - [kup-magic-box](../kup-magic-box)
+ - [kup-openai-interface](../kup-openai-interface)
 
 ### Depends on
 
@@ -174,6 +175,7 @@ graph TD;
   kup-tree --> kup-badge
   kup-iframe --> kup-button
   kup-magic-box --> kup-button
+  kup-openai-interface --> kup-button
   style kup-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
