@@ -1,0 +1,70 @@
+:host {
+    --kup_dialog_header_height: var(--kup-dialog-header-height, 2em);
+    background-color: var(--kup-background-color);
+    color: var(--kup-text-color);
+    display: block;
+    height: auto;
+    min-width: 500px;
+    width: 500px;
+}
+
+.header {
+    background-color: var(--kup-title-background-color);
+    color: var(--kup-title-color);
+    display: flex;
+    flex-direction: row;
+    height: var(--kup_dialog_header_height);
+    position: relative;
+    width: 100%;
+  
+    &__title {
+      font-weight: bold;
+      line-height: 2em;
+      padding-left: 0.5em;
+      padding-right: 2em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  
+    &__close.f-image {
+      --kup-icon-color: var(--kup-title-color);
+  
+      cursor: pointer;
+      margin-right: 0;
+      transition: opacity 0.25s;
+      position: absolute;
+      right: 0;
+      background: var(--kup-title-background-color);
+      height: var(--kup_image_height);
+      width: var(--kup_image_width);
+      
+      &:hover {
+        opacity: 0.5;
+      }
+
+      .f-image__icon {
+        height: var(--kup_image_height);
+        width: var(--kup_image_width);
+      }
+    }
+
+}
+
+kup-text-field {
+    padding-top: 12px;
+    padding-right: 3px;
+    padding-left: 3px;
+}
+
+kup-button {
+    padding-top: 8px;
+    padding-left: 3px;
+    padding-bottom: 2px;
+}
+
+kup-data-table {
+  padding-top: 8px;
+  padding-left: 3px;
+  padding-bottom: 2px;
+}

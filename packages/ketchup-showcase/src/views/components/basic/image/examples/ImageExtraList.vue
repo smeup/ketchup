@@ -1307,6 +1307,14 @@
             <kup-image size-x="48px" size-y="48px" resource="omega"></kup-image>
             <div class="icon-label">omega</div>
           </div>
+          <div class="icon-wrapper" title="open-ai">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="open-ai"
+            ></kup-image>
+            <div class="icon-label">open-ai</div>
+          </div>
           <div class="icon-wrapper" title="open-in-browser">
             <kup-image
               size-x="48px"
