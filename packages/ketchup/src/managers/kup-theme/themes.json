@@ -37,7 +37,8 @@
             "--kup-obj-cursor": "inherit",
             "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
-            "--kup-navbar-zindex": "900"
+            "--kup-navbar-zindex": "900",
+            "--kup-editor-height": "500px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -91,7 +92,8 @@
             "--kup-obj-cursor": "inherit",
             "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
-            "--kup-navbar-zindex": "900"
+            "--kup-navbar-zindex": "900",
+            "--kup-editor-height": "500px"
         },
         "icons": {
             "--kup-ascending-icon": "sort-ascending",
@@ -147,7 +149,8 @@
             "--kup-obj-cursor": "inherit",
             "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
-            "--kup-navbar-zindex": "900"
+            "--kup-navbar-zindex": "900",
+            "--kup-editor-height": "500px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -202,7 +205,8 @@
             "--kup-obj-cursor": "inherit",
             "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
-            "--kup-navbar-zindex": "900"
+            "--kup-navbar-zindex": "900",
+            "--kup-editor-height": "500px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -257,7 +261,8 @@
             "--kup-obj-cursor": "inherit",
             "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
-            "--kup-navbar-zindex": "900"
+            "--kup-navbar-zindex": "900",
+            "--kup-editor-height": "500px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -318,7 +323,8 @@
             "--kup-obj-cursor": "inherit",
             "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
-            "--kup-navbar-zindex": "900"
+            "--kup-navbar-zindex": "900",
+            "--kup-editor-height": "500px"
         },
         "customStyles": {
             "KUP-BUTTON": "#kup-component button {\ntext-transform: unset;\n}\n\n"
@@ -373,7 +379,8 @@
             "--kup-obj-cursor": "inherit",
             "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
-            "--kup-navbar-zindex": "900"
+            "--kup-navbar-zindex": "900",
+            "--kup-editor-height": "500px"
         },
         "icons": {
             "--kup-ascending-icon": "sort-ascending",
@@ -434,7 +441,8 @@
             "--kup-obj-cursor": "inherit",
             "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
-            "--kup-navbar-zindex": "900"
+            "--kup-navbar-zindex": "900",
+            "--kup-editor-height": "500px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -489,7 +497,8 @@
             "--kup-obj-cursor": "inherit",
             "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
-            "--kup-navbar-zindex": "900"
+            "--kup-navbar-zindex": "900",
+            "--kup-editor-height": "500px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -550,7 +559,8 @@
             "--kup-obj-cursor": "inherit",
             "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
-            "--kup-navbar-zindex": "900"
+            "--kup-navbar-zindex": "900",
+            "--kup-editor-height": "500px"
         },
         "customStyles": {
             "MASTER": "#kup-component #global-filter {\ndisplay: none;\n}\n\n",
@@ -612,7 +622,8 @@
             "--kup-obj-cursor": "inherit",
             "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
-            "--kup-navbar-zindex": "900"
+            "--kup-navbar-zindex": "900",
+            "--kup-editor-height": "500px"
         },
         "icons": {
             "--kup-ascending-icon": "sort-ascending",
@@ -673,7 +684,8 @@
             "--kup-obj-cursor": "inherit",
             "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
-            "--kup-navbar-zindex": "900"
+            "--kup-navbar-zindex": "900",
+            "--kup-editor-height": "500px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -735,7 +747,8 @@
             "--kup-obj-cursor": "inherit",
             "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
-            "--kup-navbar-zindex": "900"
+            "--kup-navbar-zindex": "900",
+            "--kup-editor-height": "500px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -793,7 +806,8 @@
             "--kup-obj-cursor": "inherit",
             "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
-            "--kup-navbar-zindex": "900"
+            "--kup-navbar-zindex": "900",
+            "--kup-editor-height": "500px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -855,7 +869,8 @@
             "--kup-obj-cursor": "inherit",
             "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
-            "--kup-navbar-zindex": "900"
+            "--kup-navbar-zindex": "900",
+            "--kup-editor-height": "500px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -907,7 +922,8 @@
             "--kup-obj-cursor": "inherit",
             "--kup-card-zindex": "900",
             "--kup-drawer-zindex": "900",
-            "--kup-navbar-zindex": "900"
+            "--kup-navbar-zindex": "900",
+            "--kup-editor-height": "500px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",

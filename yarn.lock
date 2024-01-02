@@ -3000,6 +3000,7 @@ __metadata:
     "@stencil/core": ^4.8.1
     "@stencil/react-output-target": 0.5.3
     "@stencil/sass": ^3.0.7
+    "@toast-ui/editor": ^2.5.4
     d3-shape: ^3.2.0
     dayjs: ^1.11.7
     echarts: ^5.4.2
@@ -3084,6 +3085,16 @@ __metadata:
     magic-string: ^0.25.0
     string.prototype.matchall: ^4.0.6
   checksum: 2c021349442e2e2cec96bb50fd82ec8bf8514d909bc73594f6cfc89b3b68f2feed909a8161d7d307d9455585c97e6b66853ce334db432626c7596836d4549c0c
+  languageName: node
+  linkType: hard
+
+"@toast-ui/editor@npm:^2.5.4":
+  version: 2.5.4
+  resolution: "@toast-ui/editor@npm:2.5.4"
+  dependencies:
+    "@types/codemirror": 0.0.71
+    codemirror: ^5.48.4
+  checksum: 3396e34f881c667fa3766f206266c131d5e4eb1d5aff7fb6815601e7b7fbb0af5d93949368d6bb8ca0c915ddf57060249715f892fb428d228234e22243955580
   languageName: node
   linkType: hard
 
@@ -3182,6 +3193,15 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: e827570e097bd7d625a673c9c208af2d1a22fa3885c0a1646533cf24394c839c3e5f60ac1bc60c0ddcc69c0615078c9fb2c01b42596c7c582d895d974f2409ee
+  languageName: node
+  linkType: hard
+
+"@types/codemirror@npm:0.0.71":
+  version: 0.0.71
+  resolution: "@types/codemirror@npm:0.0.71"
+  dependencies:
+    "@types/tern": "*"
+  checksum: 185d7f62935e6e7f806d07f2e4cb5201fd9f35b2a68d10a3aa399c96f46dc66dcea7ad9b02a4f43a6286fe4e5fc16a46408cc8500d4687a07553ccdaaec69d9c
   languageName: node
   linkType: hard
 
@@ -3540,6 +3560,15 @@ __metadata:
   version: 2.0.2
   resolution: "@types/stack-utils@npm:2.0.2"
   checksum: 777cc7ac0c1000c5a07561013bcf7bd8477a3d55f55f376ee2f0c586331f7b999f57788140cfbdb65f6d7d97c0c41fe8fe6c778fd3ed71859c9b681ea76fc621
+  languageName: node
+  linkType: hard
+
+"@types/tern@npm:*":
+  version: 0.23.9
+  resolution: "@types/tern@npm:0.23.9"
+  dependencies:
+    "@types/estree": "*"
+  checksum: 53f229c79edf9454011f5b37c8539e0e760a130beac953d4e2126823de1ac6b0e2a45612596679fb232ec861826584fcaa272e2254a890b410575683423d56a8
   languageName: node
   linkType: hard
 
@@ -5604,6 +5633,13 @@ __metadata:
   version: 4.6.0
   resolution: "co@npm:4.6.0"
   checksum: 5210d9223010eb95b29df06a91116f2cf7c8e0748a9013ed853b53f362ea0e822f1e5bb054fb3cefc645239a4cf966af1f6133a3b43f40d591f3b68ed6cf0510
+  languageName: node
+  linkType: hard
+
+"codemirror@npm:^5.48.4":
+  version: 5.65.16
+  resolution: "codemirror@npm:5.65.16"
+  checksum: 1c5036bfffcce19b1ff91d8b158dcb45faba27047c4093f55ea7ad1165975179eb47c9ef604baa9c4f4ea6bf9817886c767f33e72fa9c62710404029be3c4744
   languageName: node
   linkType: hard
 

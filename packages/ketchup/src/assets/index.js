@@ -103,6 +103,10 @@ components.data = [
         id: 'echart.html',
     },
     {
+        value: 'Editor',
+        id: 'editor.html',
+    },
+    {
         value: 'Family tree',
         id: 'family-tree.html',
     },

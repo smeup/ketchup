@@ -1,0 +1,13 @@
+@import '../../../node_modules/@toast-ui/editor/dist/toastui-editor.css';
+@import '../../../node_modules/@toast-ui/editor/dist/toastui-editor-viewer.css';
+
+.kup-editor-wrapper {
+  margin-top: 4rem;
+  min-width: 656px;
+}
+
+.kup-editor-save-button {
+  color: #585858 !important;
+  font-weight: 600;
+  margin-top: 6px !important;
+}
