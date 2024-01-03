@@ -121,6 +121,13 @@
       }
     }
 
+    label,
+    .mdc-text-field-helper-text,
+    .mdc-error-message,
+    .mdc-alert-message {
+      @include kup-label-01;
+    }
+
     .mdc-text-field {
       width: var(--kup_textfield_width);
       border-radius: unset !important;
@@ -145,11 +152,8 @@
         }
       }
 
-      input,
-      label {
-        font-family: var(--kup_textfield_font_family);
-        font-size: 1em;
-        font-weight: var(--kup_textfield_font_weight);
+      input {
+        @include kup-body-compact-01;
       }
 
       input {
@@ -404,12 +408,6 @@
       }
     }
 
-    .mdc-error-message,
-    .mdc-alert-message {
-      font-family: var(--kup_textfield_font_family);
-      font-size: 0.75em;
-    }
-
     .mdc-error-icon,
     .mdc-alert-icon {
       height: 100%;
@@ -423,11 +421,6 @@
 
     .mdc-error-message {
       color: var(--kup-danger-color);
-    }
-
-    div.mdc-text-field-helper-text {
-      font-family: var(--kup_textfield_font_family);
-      font-size: 0.75em;
     }
 
     &.#{$kup-class-full-height} {

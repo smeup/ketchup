@@ -122,7 +122,7 @@ export const config: Config = {
             includePaths: ['./node_modules', './src/f-components'],
             injectGlobalPaths: [
                 'src/style/global.scss',
-                'src/style/mixins.scss',
+                'src/style/fonts.scss',
             ],
         }),
     ],
