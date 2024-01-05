@@ -432,6 +432,19 @@ for (let index = 0; index < cards.length; index++) {
             },
             text: 'Are you sure?',
             data: {},
+            state: 'ready',
+            messages: [
+                { text: 'Can you lhep me?', type: 'request' },
+                {
+                    text: 'Hi! Did you mean if I can help you, perhaps?',
+                    type: 'response',
+                },
+                { text: 'Good bot.', type: 'request' },
+                {
+                    text: 'Thx. And no.',
+                    type: 'response',
+                },
+            ],
         },
         tabbar: [
             {

@@ -6,6 +6,7 @@ import { prepareClock } from './kup-card-clock';
 import { prepareColumnDropMenu } from './kup-card-column-drop-menu';
 import { prepareMessageBox } from './kup-card-message-box';
 import { prepareNumeric } from './kup-card-numeric';
+import { prepareOpenAIInterface } from './kup-card-openai';
 
 /**
  * 1st built-in layout, calendar view.
@@ -89,6 +90,21 @@ export function create6(component: KupCard): VNode {
             class={`built-in-layout-${component.layoutNumber} ${KupCardCSSClasses.BUILT_IN_CARD}`}
         >
             {prepareMessageBox(component)}
+        </div>
+    );
+}
+
+/**
+ * 7th built-in layout, Open AI interface.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 7th built-in layout virtual node.
+ */
+export function create7(component: KupCard): VNode {
+    return (
+        <div
+            class={`built-in-layout-${component.layoutNumber} ${KupCardCSSClasses.BUILT_IN_CARD}`}
+        >
+            {prepareOpenAIInterface(component)}
         </div>
     );
 }

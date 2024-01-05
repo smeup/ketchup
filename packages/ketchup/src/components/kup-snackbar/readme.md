@@ -108,9 +108,9 @@ graph TD;
   kup-card --> kup-badge
   kup-card --> kup-button
   kup-card --> kup-list
+  kup-card --> kup-spinner
   kup-card --> kup-checkbox
   kup-card --> kup-data-table
-  kup-card --> kup-spinner
   kup-card --> kup-tab-bar
   kup-card --> kup-tree
   kup-card --> kup-switch
