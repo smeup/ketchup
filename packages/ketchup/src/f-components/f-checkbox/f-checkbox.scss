@@ -1,10 +1,4 @@
 .f-checkbox {
-  --kup_checkbox_font_family: var(
-    --kup-checkbox-font-family,
-    var(--kup-font-family)
-  );
-  --kup_checkbox_font_size: var(--kup-checkbox-font-size, var(--kup-font-size));
-  --kup_checkbox_font_weight: var(--kup-checkbox-font-weight, 400);
   --kup_checkbox_disabled_checkmark_color: var(
     --kup-checkbox-disabled-checkmark-color,
     var(--kup-background-color)
@@ -35,17 +29,14 @@
     var(--kup-text-on-primary-color-rgb)
   );
 
-  font-family: var(--kup_checkbox_font_family);
-  font-size: var(--kup_checkbox_font_size);
+  @include kup-body-compact-01;
   display: flex;
   flex-direction: column;
 
   .form-field {
     color: var(--kup_checkbox_text_color);
-    line-height: 1.25em;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    letter-spacing: 0.0178571429em;
     text-decoration: inherit;
     align-items: center;
     vertical-align: middle;
@@ -237,7 +228,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-size: 0.85em;
+    @include kup-label-01;
 
     .f-image {
       margin: unset;
