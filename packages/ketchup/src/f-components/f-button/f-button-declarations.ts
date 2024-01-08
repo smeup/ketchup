@@ -12,6 +12,7 @@ export interface FButtonProps extends FComponent {
     iconOff?: string;
     label?: string;
     large?: boolean;
+    neutral?: boolean;
     onClick?: (event: MouseEvent) => void;
     onBlur?: (event: FocusEvent) => void;
     onFocus?: (event: FocusEvent) => void;

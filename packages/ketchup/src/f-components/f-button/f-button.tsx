@@ -39,6 +39,7 @@ export const FButton: FunctionalComponent<FButtonProps> = (
                 { 'kup-slim': props.slim },
                 { 'kup-success': props.success },
                 { 'kup-warning': props.warning },
+                { 'kup-neutral': props.neutral },
                 { [props.wrapperClass]: !!props.wrapperClass }
             )}
             {...props.dataSet}

@@ -10,7 +10,11 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { KupComponentSizing, type GenericObject, type KupComponent } from '../../types/GenericTypes';
+import {
+    KupComponentSizing,
+    type GenericObject,
+    type KupComponent,
+} from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -274,6 +278,9 @@ export class KupButton {
                 : false,
             label: this.label,
             large: this.rootElement.classList.contains('kup-large')
+                ? true
+                : false,
+            neutral: this.rootElement.classList.contains('kup-neutral')
                 ? true
                 : false,
             pulsating: this.rootElement.classList.contains('kup-pulsating')
