@@ -1,9 +1,14 @@
-import { KupDataTableDataset } from '../../components';
+import {
+    KupDataTableDataset,
+    KupTextFieldCustomEvent,
+    KupTextFieldEventPayload,
+} from '../../components';
 import { KupCardFamily } from '../../components/kup-card/kup-card-declarations';
 import {
     KupCardBuiltInOpenAIMessages,
     KupCardBuiltInOpenAIOptions,
 } from '../../components/kup-card/kup-card-declarations';
+import { KupTextField } from '../../components/kup-text-field/kup-text-field';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import { KupOpenAISessionInfo } from './kup-openai-declarations';
@@ -29,6 +34,25 @@ export class KupOpenAI {
         this.url = url;
     }
 
+    #setError(message: string, _this?: KupOpenAI, dontRefreshCard?: boolean) {
+        if (!_this) {
+            _this = this;
+        }
+        dom.ketchup.debug.logMessage(_this, message, KupDebugCategory.ERROR);
+        if (dontRefreshCard) {
+            return;
+        }
+        _this.getCardOptions().state = 'error';
+        _this.card.refresh();
+    }
+
+    #invalidPassword(event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) {
+        const field = event.detail.comp as KupTextField;
+        field.helper = 'Invalid password.';
+        field.rootElement.classList.add('kup-danger');
+        field.refresh();
+    }
+
     #create() {
         this.card = document.createElement('kup-card');
         this.card.layoutFamily = KupCardFamily.BUILT_IN;
@@ -52,7 +76,7 @@ export class KupOpenAI {
         if (!this.url) {
             this.getCardOptions().state = 'error';
         } else {
-            this.getCardOptions().state = 'connecting';
+            this.getCardOptions().state = 'authentication';
         }
     }
 
@@ -63,6 +87,7 @@ export class KupOpenAI {
         if (!this.card.data.options) {
             this.card.data.options = {
                 submitCb: this.chat,
+                authCb: this.auth,
             } as KupCardBuiltInOpenAIOptions;
         }
         return this.card.data.options as KupCardBuiltInOpenAIOptions;
@@ -82,19 +107,13 @@ export class KupOpenAI {
                 body: JSON.stringify({ data: this.data }),
             });
         } catch (e) {
-            console.log('kup-openai.connect() connect error', e);
+            this.#setError(e.message);
+            return;
         }
 
-        console.log('kup-openai.connect() response', response);
         if (response) {
             if (response.status != 200) {
-                dom.ketchup.debug.logMessage(
-                    this,
-                    await response.text(),
-                    KupDebugCategory.ERROR
-                );
-                this.getCardOptions().state = 'error';
-                this.card.refresh();
+                this.#setError(await response.text());
                 return;
             }
             const responseJson = await response.json();
@@ -130,19 +149,14 @@ export class KupOpenAI {
                 }),
             });
         } catch (e) {
-            console.log('kup-openai.disconnect() disconnect error', e);
+            this.#setError(e.message, undefined, true);
         }
 
         this.sessionInfo = null;
 
-        console.log('kup-openai.disconnect() response', response);
         if (response) {
             if (response.status != 200) {
-                dom.ketchup.debug.logMessage(
-                    this,
-                    await response.text(),
-                    KupDebugCategory.ERROR
-                );
+                this.#setError(await response.text(), undefined, true);
             }
         }
     }
@@ -157,7 +171,6 @@ export class KupOpenAI {
 
         // Creates the card or updates it with new options
         this.#create();
-        this.#connect();
     }
 
     /**
@@ -171,21 +184,49 @@ export class KupOpenAI {
         this.#disconnect();
     }
 
-    async chat(disableInteractivity, inputArea: HTMLKupTextFieldElement) {
-        const convertResponses = (responseArray: string[]) => {
-            const data: KupCardBuiltInOpenAIMessages[] = [];
-            if (responseArray) {
-                for (let i = 0; i < responseArray.length; i++) {
-                    const mess = responseArray[i];
-                    if (mess) {
-                        data.push({ type: 'response', text: mess });
-                    }
-                }
-            }
-            return data;
-        };
+    async auth(event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) {
+        console.log('cacca');
+        const openAI = dom.ketchup.openAI;
+        if (!openAI.url) {
+            return;
+        }
+        const pwd = await event.detail.comp.getValue();
+        let response = null;
+        try {
+            response = await fetch(openAI.url + '/api/auth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ data: pwd }),
+            });
+        } catch (e) {
+            openAI.#setError(e.message, openAI);
+            return;
+        }
 
-        const communicate = async (question: string) => {
+        if (response) {
+            if (response.status != 200) {
+                openAI.#invalidPassword(event);
+                //this.#setError(await response.text());
+                return;
+            }
+            const responseJson = await response.json();
+            if (responseJson.status == 'ok') {
+                openAI.getCardOptions().state = 'connecting';
+                openAI.card.refresh();
+                openAI.#connect();
+                return;
+            }
+        }
+        openAI.getCardOptions().state = 'error';
+        openAI.card.refresh();
+    }
+
+    async chat(disableInteractivity, inputArea: HTMLKupTextFieldElement) {
+        const communicate = async (
+            question: string
+        ): Promise<KupCardBuiltInOpenAIMessages[]> => {
             if (!openAI.url) {
                 return;
             }
@@ -193,7 +234,7 @@ export class KupOpenAI {
                 return;
             }
 
-            const responseArray: string[] = [];
+            const responseMessages: KupCardBuiltInOpenAIMessages[] = [];
             let response = null;
             try {
                 response = await fetch(openAI.url + '/api/chat', {
@@ -208,38 +249,30 @@ export class KupOpenAI {
                     }),
                 });
             } catch (e) {
-                console.log('kup-openai.interact() interact error', e);
+                this.#setError(e.message, openAI);
             }
 
-            console.log('kup-openai.interact() response', response);
             if (response) {
                 if (response.status != 200) {
-                    dom.ketchup.debug.logMessage(
-                        openAI,
-                        await response.text(),
-                        KupDebugCategory.ERROR
-                    );
-                    this.getCardOptions().state = 'error';
-                    this.card.refresh();
+                    this.#setError(await response.text(), openAI);
                     return;
                 }
                 const responseJson = await response.json();
                 if (responseJson && responseJson.messages) {
-                    responseArray.push(...responseJson.messages);
+                    responseMessages.push(...responseJson.messages);
                 }
             }
 
-            return responseArray;
+            return responseMessages;
         };
         const openAI = dom.ketchup.openAI;
         if (!openAI.card) {
             return;
         }
         disableInteractivity(true);
-        const responses: string[] = await communicate(
+        openAI.getCardOptions().messages = await communicate(
             await inputArea.getValue()
         );
-        openAI.getCardOptions().messages = convertResponses(responses);
         openAI.card.refresh();
         disableInteractivity(false);
     }
