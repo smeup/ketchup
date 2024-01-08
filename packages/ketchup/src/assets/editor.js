@@ -1,20 +1,20 @@
 const comp = document.getElementById('editor');
 
 comp.addEventListener('kup-editor-ready', (e) => {
-  console.log('Editor ready', e);
+    console.log('Editor ready', e);
 });
 
 comp.addEventListener('kup-editor-save', (e) => {
-  console.log('Editor saved', e);
+    console.log('Editor saved', e);
 });
 
 comp.addEventListener('kup-editor-autosave', (e) => {
-  console.log('Editor auto saved', e);
+    console.log('Editor auto saved', e);
 });
 
 const props = {
-  initialEditType: 'markdown',
-  initialValue: `<p><img src="https://uicdn.toast.com/toastui/img/tui-editor-bi.png" alt="image"></p>
+    initialEditType: 'markdown',
+    initialValue: `<p><img src="https://uicdn.toast.com/toastui/img/tui-editor-bi.png" alt="image"></p>
     <h1>Awesome Editor!</h1>
     <p>It has been <em>released as opensource in 2018</em> and has <del>continually</del> evolved to <strong>receive 10k GitHub ⭐️ Stars</strong>.</p>
     <h2>Create Instance</h2>
@@ -46,15 +46,15 @@ const props = {
     &gt;    3. [ ] Ember&lt;p&gt;My Custom value for editor&lt;/p&gt;
     </code></pre>
     `,
-  isReadOnly: false,
-  previewStyle: 'vertical',
-  showSaveButton: true,
-  showToolbar: true,
-  //   autosaveTimer: 2000
+    isReadOnly: false,
+    previewStyle: 'vertical',
+    showSaveButton: true,
+    showToolbar: true,
+    //   autosaveTimer: 2000
 };
 
 if (props) {
-  for (const key in props) {
-    comp[key] = props[key];
-  }
+    for (const key in props) {
+        comp[key] = props[key];
+    }
 }

@@ -7,16 +7,16 @@
 
 ## Properties
 
-| Property          | Attribute           | Description                                                                             | Type                      | Default      |
-| ----------------- | ------------------- | --------------------------------------------------------------------------------------- | ------------------------- | ------------ |
-| `autosaveTimer`   | `autosave-timer`    | When specified, the component will emit the kup-editor-save event at regular intervals. | `number`                  | `undefined`  |
-| `customStyle`     | `custom-style`      | Custom style of the component.                                                          | `string`                  | `''`         |
-| `initialEditType` | `initial-edit-type` | The editor type.                                                                        | `"markdown" \| "wysiwyg"` | `'markdown'` |
-| `initialValue`    | `initial-value`     | The initial editor value.                                                               | `string`                  | `''`         |
-| `isReadOnly`      | `is-read-only`      | Defines whether the editor is disabled or not.                                          | `boolean`                 | `false`      |
-| `previewStyle`    | `preview-style`     | The editor preview style.                                                               | `"tab" \| "vertical"`     | `'vertical'` |
-| `showSaveButton`  | `show-save-button`  | Defines whether to show the save button in editor's toolbar or not.                     | `boolean`                 | `true`       |
-| `showToolbar`     | `show-toolbar`      | Defines whether to show the editor's toolbar or not.                                    | `boolean`                 | `true`       |
+| Property          | Attribute           | Description                                                                                 | Type                      | Default      |
+| ----------------- | ------------------- | ------------------------------------------------------------------------------------------- | ------------------------- | ------------ |
+| `autosaveTimer`   | `autosave-timer`    | When specified, the component will emit the kup-editor-autosave event at regular intervals. | `number`                  | `undefined`  |
+| `customStyle`     | `custom-style`      | Custom style of the component.                                                              | `string`                  | `''`         |
+| `initialEditType` | `initial-edit-type` | The editor type.                                                                            | `"markdown" \| "wysiwyg"` | `'markdown'` |
+| `initialValue`    | `initial-value`     | The initial editor value.                                                                   | `string`                  | `''`         |
+| `isReadOnly`      | `is-read-only`      | Defines whether the editor is disabled or not.                                              | `boolean`                 | `false`      |
+| `previewStyle`    | `preview-style`     | The editor preview style.                                                                   | `"tab" \| "vertical"`     | `'vertical'` |
+| `showSaveButton`  | `show-save-button`  | Defines whether to show the save button in editor's toolbar or not.                         | `boolean`                 | `true`       |
+| `showToolbar`     | `show-toolbar`      | Defines whether to show the editor's toolbar or not.                                        | `boolean`                 | `true`       |
 
 
 ## Events
@@ -79,6 +79,13 @@ Sets the props to the component.
 Type: `Promise<void>`
 
 
+
+
+## CSS Custom Properties
+
+| Name                  | Description              |
+| --------------------- | ------------------------ |
+| `--kup-editor-height` | height of the component. |
 
 
 ## Dependencies

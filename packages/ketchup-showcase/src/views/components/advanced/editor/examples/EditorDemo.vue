@@ -22,10 +22,6 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kup-editor-save',
-          type: 'CustomEvent',
-        },
-        {
           name: 'kup-editor-autosave',
           type: 'CustomEvent',
         },
@@ -33,8 +29,17 @@ export default {
           name: 'kup-editor-ready',
           type: 'CustomEvent',
         },
+        {
+          name: 'kup-editor-save',
+          type: 'CustomEvent',
+        },
       ],
       demoMethods: [
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
         {
           name: 'getValueAsHTML',
           description: `Returns the component's internal value as html.`,
@@ -42,11 +47,6 @@ export default {
         {
           name: 'getValueAsMarkdown',
           description: `Returns the component's internal value as markdown.`,
-        },
-        {
-          name: 'getProps',
-          description:
-            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
         },
         {
           name: 'refresh',
@@ -60,6 +60,14 @@ export default {
       ],
       demoProps: [
         {
+          prop: 'autosaveTimer',
+          description:
+            'When specified, the component will emit the kup-editor-save event at regular intervals.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
@@ -69,8 +77,9 @@ export default {
         },
         {
           prop: 'initialEditType',
-          description: 'The editor type.',
-          type: 'string',
+          description:
+            'The editor type. Supported values: "markdown", "wysiwyg".',
+          type: 'KupEditorType',
           default: 'markdown',
           try: 'field',
         },
@@ -90,8 +99,9 @@ export default {
         },
         {
           prop: 'previewStyle',
-          description: 'The editor preview style.',
-          type: 'string',
+          description:
+            'The editor preview style. Supported values: "tab", "vertical".',
+          type: 'KupEditorPreview',
           default: 'vertical',
           try: 'field',
         },
@@ -108,14 +118,6 @@ export default {
           type: 'string',
           default: 'boolean',
           try: 'switch',
-        },
-        {
-          prop: 'autosaveTimer',
-          description:
-            'When specified, the component will emit the kup-editor-save event at regular intervals.',
-          type: 'number',
-          default: 'undefined',
-          try: 'field',
         },
       ],
     };
@@ -164,20 +166,6 @@ function createComp() {
   comp.showSaveButton = true;
   comp.showToolbar = true;
   // comp.autosaveTimer = 2000;
-
-  comp.addEventListener('kup-editor-ready', (e) => {
-    console.log('kup-editor-ready', e);
-  });
-
-  comp.addEventListener('kup-editor-save', (e) => {
-    const payload = e.detail.value;
-    console.log('kup-planner-save', payload);
-  });
-
-  comp.addEventListener('kup-editor-autosave', (e) => {
-    const payload = e.detail.value;
-    console.log('kup-planner-autosave', payload);
-  });
 
   return comp;
 }

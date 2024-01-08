@@ -1,13 +1,25 @@
 @import '../../../node_modules/@toast-ui/editor/dist/toastui-editor.css';
 @import '../../../node_modules/@toast-ui/editor/dist/toastui-editor-viewer.css';
 
-.kup-editor-wrapper {
-  margin-top: 4rem;
-  min-width: 656px;
+/**
+* @prop --kup-editor-height: height of the component.
+*/
+
+:root {
+  --kup_editor_height: var(--kup-editor-height, auto);
 }
 
 .kup-editor-save-button {
   color: #585858 !important;
   font-weight: 600;
-  margin-top: 6px !important;
+  margin-top: 5px !important;
+}
+
+.kup-editor-save-button:disabled {
+  opacity: 0.2;
+}
+
+.kup-editor,
+.tui-editor-defaultUI {
+  height: var(--kup_editor_height) !important;
 }

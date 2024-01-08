@@ -1836,7 +1836,7 @@ export namespace Components {
     }
     interface KupEditor {
         /**
-          * When specified, the component will emit the kup-editor-save event at regular intervals.
+          * When specified, the component will emit the kup-editor-autosave event at regular intervals.
           * @default null
          */
         "autosaveTimer": number;
@@ -6554,7 +6554,7 @@ declare namespace LocalJSX {
     }
     interface KupEditor {
         /**
-          * When specified, the component will emit the kup-editor-save event at regular intervals.
+          * When specified, the component will emit the kup-editor-autosave event at regular intervals.
           * @default null
          */
         "autosaveTimer"?: number;
