@@ -133,7 +133,7 @@ export function prepareOpenAIInterface(component: KupCard): VNode[] {
     }
 
     return (
-        <div class="wrapper">
+        <div class={`wrapper ${options.state}`}>
             {options.state === 'authentication'
                 ? authJsx()
                 : options.state === 'ready'
