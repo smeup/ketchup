@@ -10,7 +10,7 @@
   position: relative;
   width: 100%;
   overflow: auto;
-  padding: 2em 1em;
+  padding: 1.25em 1.25em;
 
   .wrapper {
     margin: auto;
@@ -28,6 +28,7 @@
     height: 30vh;
     overflow: auto;
     padding-top: 1.25em;
+    white-space: pre-line;
     word-break: normal;
   }
 

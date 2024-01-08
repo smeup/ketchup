@@ -435,7 +435,7 @@ for (let index = 0; index < cards.length; index++) {
             },
             text: 'Are you sure?',
             data: {},
-            state: 'authentication',
+            state: 'ready',
             messages: [
                 {
                     text: 'quante righe ci sono?',
