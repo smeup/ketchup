@@ -452,6 +452,14 @@ export class KupCard {
                     )
                 );
             }
+            const autoscroll = root.querySelectorAll(
+                '.' + KupCardCSSClasses.AUTOSCROLL
+            );
+            if (autoscroll && autoscroll.length) {
+                autoscroll.forEach((el) => {
+                    el.scrollTop = el.scrollHeight;
+                });
+            }
             switch (family) {
                 case KupCardFamily.COLLAPSIBLE:
                     this.collapsible();
