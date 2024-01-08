@@ -1,0 +1,103 @@
+.built-in-layout-7 {
+  background-color: var(--kup-background-color);
+  border-radius: 4px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 1px -1px rgba(128, 128, 128, 0.1),
+    0 1px 1px 0 rgba(128, 128, 128, 0.1), 0 1px 3px 0 rgba(128, 128, 128, 0.6);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  width: 100%;
+  overflow: auto;
+  padding: 1.25em 1.25em;
+
+  .wrapper {
+    margin: auto;
+
+    &.ready {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .password {
+    padding: 1.5em 0;
+  }
+
+  .query-area {
+    min-width: 250px;
+  }
+
+  .chat-area {
+    overflow: auto;
+    padding-top: 1.25em;
+    white-space: pre-line;
+    word-break: normal;
+  }
+
+  .spinner {
+    height: 48px;
+    margin: auto;
+    width: 48px;
+  }
+
+  .title {
+    text-align: center;
+    font-size: 2em;
+    padding: 0.75em 0 0.5em;
+  }
+
+  .empty,
+  .text {
+    font-size: 0.875em;
+    font-style: italic;
+    opacity: 0.5;
+    text-align: center;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1em 0;
+  }
+
+  .request,
+  .response {
+    padding: 0.5em 1em 1em 1em;
+  }
+
+  .request {
+    font-weight: bold;
+  }
+
+  .response {
+    margin-bottom: 1em;
+  }
+
+  .message-container {
+    background-color: var(--kup-background-color);
+    border-radius: 4px;
+    position: relative;
+
+    &:hover {
+      background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+
+      .copy {
+        opacity: 1;
+      }
+    }
+  }
+
+  .copy {
+    --kup-button-font-size: 0.75em;
+
+    bottom: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    transition: background-color 125ms ease, opacity 250ms ease;
+  }
+}

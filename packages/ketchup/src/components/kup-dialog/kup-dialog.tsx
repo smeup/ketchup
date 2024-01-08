@@ -24,6 +24,7 @@ import {
     KupDialogModal,
     KupDialogProps,
 } from './kup-dialog-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-dialog',
@@ -83,6 +84,7 @@ export class KupDialog {
 
     #header: HTMLElement = null;
     #kupManager = kupManagerInstance();
+    #recalcSafeguard = 0;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -134,10 +136,32 @@ export class KupDialog {
     @Method()
     async recalcPosition(): Promise<void> {
         const rect = this.rootElement.getBoundingClientRect();
+        if (!rect.x && !rect.y) {
+            this.#kupManager.debug.logMessage(
+                this,
+                `recalcPosition() ran before the component finished being drawn. Running again (attempt #${
+                    this.#recalcSafeguard
+                }).`,
+                KupDebugCategory.INFO
+            );
+            if (this.#recalcSafeguard < 50) {
+                this.#recalcSafeguard++;
+                setTimeout(async () => this.recalcPosition(), 50);
+                return;
+            } else {
+                this.#kupManager.debug.logMessage(
+                    this,
+                    `Too many attempts centering the dialog.`,
+                    KupDebugCategory.WARNING
+                );
+            }
+        }
+        this.#recalcSafeguard = 0;
         const left = window.innerWidth / 2 - rect.width / 2;
         const top = window.innerHeight / 2 - rect.height / 2;
         this.rootElement.style.setProperty('--kup_dialog_left', left + 'px');
         this.rootElement.style.setProperty('--kup_dialog_top', top + 'px');
+        this.rootElement.removeAttribute('fade-in');
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -171,9 +195,7 @@ export class KupDialog {
             !this.resizable
         );
         if (this.autoCenter?.onReady) {
-            this.recalcPosition().then(() => {
-                this.rootElement.removeAttribute('fade-in');
-            });
+            this.recalcPosition();
         } else {
             this.rootElement.removeAttribute('fade-in');
         }

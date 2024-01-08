@@ -22,11 +22,11 @@
   width: 100%;
 }
 
-[fade-in] {
+:host([fade-in]) {
   opacity: 0;
 
   ::slotted {
-    display: none;
+    opacity: 0;
   }
 }
 
