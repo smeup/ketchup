@@ -48,6 +48,7 @@ export const KupList = /*@__PURE__*/createReactComponent<JSX.KupList, HTMLKupLis
 export const KupMagicBox = /*@__PURE__*/createReactComponent<JSX.KupMagicBox, HTMLKupMagicBoxElement>('kup-magic-box');
 export const KupNavBar = /*@__PURE__*/createReactComponent<JSX.KupNavBar, HTMLKupNavBarElement>('kup-nav-bar');
 export const KupNumericPicker = /*@__PURE__*/createReactComponent<JSX.KupNumericPicker, HTMLKupNumericPickerElement>('kup-numeric-picker');
+export const KupOpenaiInterface = /*@__PURE__*/createReactComponent<JSX.KupOpenaiInterface, HTMLKupOpenaiInterfaceElement>('kup-openai-interface');
 export const KupPhotoFrame = /*@__PURE__*/createReactComponent<JSX.KupPhotoFrame, HTMLKupPhotoFrameElement>('kup-photo-frame');
 export const KupPlanner = /*@__PURE__*/createReactComponent<JSX.KupPlanner, HTMLKupPlannerElement>('kup-planner');
 export const KupPlannerRenderer = /*@__PURE__*/createReactComponent<JSX.KupPlannerRenderer, HTMLKupPlannerRendererElement>('kup-planner-renderer');

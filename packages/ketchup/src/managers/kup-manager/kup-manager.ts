@@ -5,6 +5,7 @@ import type {
     KupDom,
     KupManagerClickCb,
     KupManagerInitialization,
+    KupManagerOpenAIInterface,
     KupManagerStringFinderPayload,
     KupManagerUtilities,
 } from './kup-manager-declarations';
@@ -37,6 +38,7 @@ import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { setAssetPath } from '@stencil/core';
 import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
 import html2canvas, { Options } from 'html2canvas';
+import { KupDataTableDataset } from '../../components/kup-data-table/kup-data-table-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -52,6 +54,8 @@ export class KupManager {
     interact: KupInteract;
     language: KupLanguage;
     magicBox: HTMLKupMagicBoxElement;
+    openAI: HTMLKupOpenaiInterfaceElement;
+    openAIInterface: KupManagerOpenAIInterface;
     math: KupMath;
     objects: KupObjects;
     overrides?: KupManagerInitialization;
@@ -83,6 +87,9 @@ export class KupManager {
             themeName: string = null,
             tooltipDelay: number = null,
             tooltipFCellCallbacks: KupTooltipCallbacks = null;
+
+        /** POI VIA */
+        this.openAIInterface = { url: 'https://kokosstaging.smeup.com' };
         if (overrides) {
             const assetsPath = overrides.assetsPath;
             const dates = overrides.dates;
@@ -93,6 +100,7 @@ export class KupManager {
             const scrollOnHover = overrides.scrollOnHover;
             const theme = overrides.theme;
             const tooltip = overrides.tooltip;
+            const openAIUrl = overrides.openAIUrl;
             if (assetsPath) {
                 setAssetPath(assetsPath);
             }
@@ -135,6 +143,9 @@ export class KupManager {
                     ? tooltip.fCellCallbacks
                     : null;
             }
+            if (openAIUrl) {
+                this.openAIInterface = { url: openAIUrl };
+            }
         }
         this.data = new KupData();
         this.dates = new KupDates(datesLocale);
@@ -143,6 +154,7 @@ export class KupManager {
         this.interact = new KupInteract(dialogZIndex, dialogRestrictContainer);
         this.language = new KupLanguage(languageList, languageName);
         this.magicBox = null;
+        this.openAI = null;
         this.math = new KupMath();
         this.overrides = overrides ? overrides : null;
         this.objects = new KupObjects(objectsList);
@@ -270,6 +282,145 @@ export class KupManager {
         } else {
             this.hideMagicBox();
         }
+    }
+    /**
+     * Creates OpenAI component interface.
+     */
+    async showOpenAI(data: KupDataTableDataset): Promise<void> {
+        if (!this.openAIInterface || !this.openAIInterface.url) {
+            return;
+        }
+        if (this.openAI) {
+            return;
+        }
+        const response = await fetch(this.openAIInterface.url + '/api/init', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ data: data }),
+        });
+
+        console.log('kup-manager.showOpenAI() response', response);
+        if (response) {
+            if (response.status != 200) {
+                this.debug.logMessage(
+                    this,
+                    await response.text(),
+                    KupDebugCategory.ERROR
+                );
+                return;
+            }
+            const responseJson = await response.json();
+            this.openAIInterface.sessionInfo = {
+                fileId: responseJson.fileId,
+                threadId: responseJson.threadId,
+            };
+        }
+
+        this.openAI = document.createElement('kup-openai-interface');
+        this.openAI.id = 'kup-openai-interface';
+        this.openAI.style.position = 'fixed';
+        this.openAI.style.left = 'calc(50% - 250px)';
+        this.openAI.style.top = 'calc(50% - 85px)';
+        this.openAI.data = data;
+        document.body.appendChild(this.openAI);
+    }
+    /**
+     * Removes OpenAI component interface.
+     */
+    async hideOpenAI(): Promise<void> {
+        if (!this.openAI) {
+            return;
+        }
+        this.openAI.remove();
+        this.openAI = null;
+        if (!this.openAIInterface || !this.openAIInterface.url) {
+            return;
+        }
+        if (!this.openAIInterface.sessionInfo) {
+            return;
+        }
+
+        const response = await fetch(
+            this.openAIInterface.url + '/api/finalize',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    fileId: this.openAIInterface.sessionInfo.fileId,
+                    threadId: this.openAIInterface.sessionInfo.threadId,
+                }),
+            }
+        );
+
+        console.log('kup-manager.hideOpenAI() response', response);
+        if (response) {
+            if (response.status != 200) {
+                this.debug.logMessage(
+                    this,
+                    await response.text(),
+                    KupDebugCategory.ERROR
+                );
+                return;
+            }
+            this.openAIInterface.sessionInfo = null;
+        }
+    }
+    /**
+     * Creates or removes OpenAI component interface depending on its existence.
+     */
+    toggleOpenAI(data: KupDataTableDataset): void {
+        if (!this.openAI) {
+            this.showOpenAI(data);
+        } else {
+            this.hideOpenAI();
+        }
+    }
+
+    async interactOpenAI(question: string): Promise<string[]> {
+        if (!this.openAI) {
+            return;
+        }
+        if (!this.openAIInterface || !this.openAIInterface.url) {
+            return;
+        }
+        if (!this.openAIInterface.sessionInfo) {
+            return;
+        }
+
+        const responseArray: string[] = [];
+        const response = await fetch(this.openAIInterface.url + '/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                fileId: this.openAIInterface.sessionInfo.fileId,
+                threadId: this.openAIInterface.sessionInfo.threadId,
+                question: question,
+            }),
+        });
+
+        console.log('kup-manager.interactOpenAI() response', response);
+        if (response) {
+            if (response.status != 200) {
+                this.debug.logMessage(
+                    this,
+                    await response.text(),
+                    KupDebugCategory.ERROR
+                );
+                return;
+            }
+            const responseJson = await response.json();
+            if (responseJson && responseJson.messages) {
+                responseArray.push(...responseJson.messages);
+            }
+        }
+
+        return responseArray;
     }
     /**
      * Sets both locale and language library-wide.
