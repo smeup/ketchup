@@ -22,7 +22,7 @@ import type { ResizeObserver } from 'resize-observer';
 import { KupMathLocales } from '../kup-math/kup-math-declarations';
 import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
 import { Options } from 'html2canvas';
-import { KupDataTableDataset } from '../../components/kup-data-table/kup-data-table-declarations';
+import { KupOpenAI } from '../kup-openai/kup-openai';
 /**
  * Interface used to define the HTML element with Ketchup specific properties.
  */
@@ -41,8 +41,7 @@ export interface KupManager {
     interact: KupInteract;
     language: KupLanguage;
     magicBox: HTMLKupMagicBoxElement;
-    openAI: HTMLKupOpenaiInterfaceElement;
-    openAIInterface: KupManagerOpenAIInterface;
+    openAI: KupOpenAI;
     math: KupMath;
     objects: KupObjects;
     overrides?: KupManagerInitialization;
@@ -56,10 +55,6 @@ export interface KupManager {
     showMagicBox: () => void;
     hideMagicBox: () => void;
     toggleMagicBox: () => void;
-    showOpenAI: (data: KupDataTableDataset) => Promise<void>;
-    hideOpenAI: () => Promise<void>;
-    toggleOpenAI: (data: KupDataTableDataset) => void;
-    interactOpenAI(_question: string): Promise<string[]>;
     setLibraryLocalization: (locale: KupDatesLocales) => void;
     addClickCallback: (cb: KupManagerClickCb, async?: boolean) => void;
     getEventPath: (
@@ -171,9 +166,4 @@ export interface KupManagerTooltipSettings {
  */
 export interface KupManagerStringFinderPayload {
     string: string;
-}
-
-export interface KupManagerOpenAIInterface {
-    url?: string;
-    sessionInfo?: { fileId: string; threadId: string };
 }

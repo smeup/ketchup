@@ -134,6 +134,7 @@ export class KupDialog {
     @Method()
     async recalcPosition(): Promise<void> {
         const rect = this.rootElement.getBoundingClientRect();
+        console.log('reaclcPosition', rect);
         const left = window.innerWidth / 2 - rect.width / 2;
         const top = window.innerHeight / 2 - rect.height / 2;
         this.rootElement.style.setProperty('--kup_dialog_left', left + 'px');

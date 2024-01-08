@@ -88,7 +88,6 @@ Type: `Promise<void>`
  - [kup-image-list](../kup-image-list)
  - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
- - [kup-openai-interface](../kup-openai-interface)
  - [kup-snackbar](../kup-snackbar)
  - [kup-tab-bar](../kup-tab-bar)
  - [kup-tree](../kup-tree)
@@ -97,6 +96,7 @@ Type: `Promise<void>`
 
 - [kup-badge](.)
 - [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
 
 ### Graph
 ```mermaid
@@ -105,30 +105,44 @@ graph TD;
   kup-card --> kup-badge
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
+  kup-autocomplete --> kup-dialog
   kup-list --> kup-badge
   kup-radio --> kup-card
+  kup-radio --> kup-dialog
+  kup-dialog --> kup-badge
   kup-chip --> kup-badge
   kup-text-field --> kup-card
+  kup-text-field --> kup-dialog
   kup-color-picker --> kup-card
+  kup-color-picker --> kup-dialog
   kup-combobox --> kup-list
   kup-combobox --> kup-card
+  kup-combobox --> kup-dialog
   kup-date-picker --> kup-card
+  kup-date-picker --> kup-dialog
   kup-rating --> kup-card
+  kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
+  kup-time-picker --> kup-dialog
   kup-image --> kup-badge
   kup-spinner --> kup-card
+  kup-spinner --> kup-dialog
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-badge
   kup-chart --> kup-card
+  kup-chart --> kup-dialog
   kup-gauge --> kup-card
+  kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
+  kup-progress-bar --> kup-dialog
   kup-button --> kup-badge
   kup-checkbox --> kup-card
+  kup-checkbox --> kup-dialog
   kup-data-table --> kup-badge
   kup-switch --> kup-card
+  kup-switch --> kup-dialog
   kup-form --> kup-badge
-  kup-dialog --> kup-badge
   kup-tab-bar --> kup-badge
   kup-tree --> kup-badge
   kup-accordion --> kup-badge
@@ -139,7 +153,6 @@ graph TD;
   kup-family-tree --> kup-badge
   kup-image-list --> kup-badge
   kup-magic-box --> kup-badge
-  kup-openai-interface --> kup-badge
   kup-snackbar --> kup-badge
   style kup-badge fill:#f9f,stroke:#333,stroke-width:4px
 ```

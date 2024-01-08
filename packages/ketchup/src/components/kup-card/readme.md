@@ -118,7 +118,6 @@ Type: `Promise<void>`
  - [kup-magic-box](../kup-magic-box)
  - [kup-nav-bar](../kup-nav-bar)
  - [kup-numeric-picker](../kup-numeric-picker)
- - [kup-openai-interface](../kup-openai-interface)
  - [kup-photo-frame](../kup-photo-frame)
  - [kup-planner](../kup-planner)
  - [kup-probe](../kup-probe)
@@ -160,6 +159,7 @@ Type: `Promise<void>`
 - [kup-switch](../kup-switch)
 - [kup-dropdown-button](../kup-dropdown-button)
 - [kup-card](.)
+- [kup-dialog](../kup-dialog)
 
 ### Graph
 ```mermaid
@@ -168,6 +168,7 @@ graph TD;
   kup-autocomplete --> kup-card
   kup-list --> kup-card
   kup-radio --> kup-card
+  kup-dialog --> kup-card
   kup-badge --> kup-card
   kup-chip --> kup-card
   kup-text-field --> kup-card
@@ -188,7 +189,6 @@ graph TD;
   kup-data-table --> kup-card
   kup-switch --> kup-card
   kup-form --> kup-card
-  kup-dialog --> kup-card
   kup-tab-bar --> kup-card
   kup-tree --> kup-card
   kup-accordion --> kup-card
@@ -207,7 +207,6 @@ graph TD;
   kup-magic-box --> kup-card
   kup-nav-bar --> kup-card
   kup-numeric-picker --> kup-card
-  kup-openai-interface --> kup-card
   kup-photo-frame --> kup-card
   kup-planner --> kup-card
   kup-probe --> kup-card

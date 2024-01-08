@@ -182,7 +182,8 @@ export interface KupCardData {
         | KupCardColumnDropMenuOptions
         | KupCardColorPickerOptions
         | KupCardBuiltInNumericOptions
-        | KupCardBuiltInMessageBoxOptions;
+        | KupCardBuiltInMessageBoxOptions
+        | KupCardBuiltInOpenAIOptions;
     progressbar?: GenericObject[];
     switch?: GenericObject[];
     tabbar?: GenericObject[];
