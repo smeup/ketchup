@@ -38,6 +38,7 @@ export function prepareOpenAIInterface(component: KupCard): VNode[] {
                 class="password"
                 label="Password"
                 icon="key-variant"
+                inputType="password"
                 helperEnabled={true}
                 onKup-textfield-iconclick={options.authCb}
                 onKup-textfield-submit={options.authCb}
