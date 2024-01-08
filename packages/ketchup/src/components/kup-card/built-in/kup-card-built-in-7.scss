@@ -12,6 +12,10 @@
   overflow: auto;
   padding: 2em 1em;
 
+  .wrapper {
+    margin: auto;
+  }
+
   .query-area {
     min-width: 250px;
   }
@@ -35,8 +39,9 @@
     padding: 0.75em 0 0.5em;
   }
 
-  .empty {
-    font-size: 1.25em;
+  .empty,
+  .text {
+    font-size: 0.875em;
     font-style: italic;
     opacity: 0.5;
     text-align: center;

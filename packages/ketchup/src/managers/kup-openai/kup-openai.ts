@@ -11,50 +11,49 @@ import { KupOpenAISessionInfo } from './kup-openai-declarations';
 const dom: KupDom = document.documentElement as KupDom;
 
 export class KupOpenAI {
-    data: KupDataTableDataset = null;
     card: HTMLKupCardElement = null;
+    container: HTMLElement;
+    data: KupDataTableDataset = null;
     dialog: HTMLKupDialogElement = null;
     sessionInfo: KupOpenAISessionInfo = null;
     url: string = null;
+
     /**
      * Initializes KupOpenAI.
      */
     constructor(url: string) {
+        this.container = document.createElement('div');
+        this.container.setAttribute('kup-openai', '');
+        document.body.appendChild(this.container);
+
         this.url = url;
     }
 
     #create() {
+        this.card = document.createElement('kup-card');
+        this.card.layoutFamily = KupCardFamily.BUILT_IN;
+        this.card.layoutNumber = 7;
+        this.card.sizeX = '100%';
+        this.card.sizeY = '100%';
+
         this.dialog = document.createElement('kup-dialog');
         this.dialog.header = {
             title: 'Chat with Data',
             icons: { close: true },
         };
+        this.dialog.id = 'openai';
         this.dialog.modal = { closeOnBackdropClick: false };
-        this.dialog.sizeX = '300px';
-        this.dialog.sizeY = '300px';
-        this.card = document.createElement('kup-card');
-        this.card.id = 'kup-openai';
-        this.card.isMenu = true;
-        this.card.layoutFamily = KupCardFamily.BUILT_IN;
-        this.card.layoutNumber = 7;
-        this.card.sizeX = 'auto';
-        this.card.sizeY = 'auto';
+        this.dialog.sizeX = '50vw';
+        this.dialog.sizeY = '50vh';
+        this.dialog.addEventListener('kup-dialog-close', () => this.hide());
+        this.dialog.appendChild(this.card);
+        this.container.appendChild(this.dialog);
 
         if (!this.url) {
             this.getCardOptions().state = 'error';
         } else {
-            this.getCardOptions().state = 'ready';
+            this.getCardOptions().state = 'connecting';
         }
-        this.card.addEventListener('kup-card-ready', () => {
-            console.log('kup-card-ready');
-        });
-        this.dialog.addEventListener('kup-dialog-ready', () => {
-            console.log('kup-dialog-ready');
-            this.dialog.recalcPosition();
-        });
-        this.dialog.addEventListener('kup-dialog-close', () => this.hide());
-        this.dialog.appendChild(this.card);
-        document.body.appendChild(this.dialog);
     }
 
     getCardOptions(): KupCardBuiltInOpenAIOptions {
@@ -73,8 +72,6 @@ export class KupOpenAI {
         if (!this.url) {
             return;
         }
-        this.getCardOptions().state = 'connecting';
-        this.card.refresh();
         let response = null;
         try {
             response = await fetch(this.url + '/api/init', {
@@ -160,7 +157,6 @@ export class KupOpenAI {
 
         // Creates the card or updates it with new options
         this.#create();
-        this.card.menuVisible = true;
         this.#connect();
     }
 
@@ -237,9 +233,6 @@ export class KupOpenAI {
         };
         const openAI = dom.ketchup.openAI;
         if (!openAI.card) {
-            return;
-        }
-        if (!openAI.card.menuVisible) {
             return;
         }
         disableInteractivity(true);
