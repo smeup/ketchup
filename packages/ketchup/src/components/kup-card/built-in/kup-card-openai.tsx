@@ -31,6 +31,20 @@ export function prepareOpenAIInterface(component: KupCard): VNode[] {
         }
     };
 
+    const authJsx: () => VNode[] = () => {
+        return [
+            <div class="title">Authentication</div>,
+            <kup-text-field
+                class="password"
+                label="Password"
+                icon="key-variant"
+                helperEnabled={true}
+                onKup-textfield-iconclick={options.authCb}
+                onKup-textfield-submit={options.authCb}
+            ></kup-text-field>,
+        ];
+    };
+
     const connectingJsx: () => VNode[] = () => {
         return [
             <div class="spinner">
@@ -120,7 +134,9 @@ export function prepareOpenAIInterface(component: KupCard): VNode[] {
 
     return (
         <div class="wrapper">
-            {options.state === 'ready'
+            {options.state === 'authentication'
+                ? authJsx()
+                : options.state === 'ready'
                 ? readyJsx()
                 : options.state === 'connecting'
                 ? connectingJsx()

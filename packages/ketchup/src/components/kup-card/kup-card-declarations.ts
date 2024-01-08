@@ -6,7 +6,8 @@ import {
     KupDataColumn,
     KupDataDataset,
 } from '../../managers/kup-data/kup-data-declarations';
-import { KupCard } from './kup-card';
+import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
+import { KupTextFieldCustomEvent } from '../../components';
 /**
  * Props of the kup-card component.
  * Used to export every prop in an object.
@@ -68,8 +69,9 @@ export interface KupCardBuiltInMessageBoxOptions {
  * Options of the built-in Open AI interface.
  */
 export interface KupCardBuiltInOpenAIOptions {
+    authCb?: (event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) => void;
     messages?: KupCardBuiltInOpenAIMessages[];
-    state?: 'connecting' | 'error' | 'ready';
+    state?: 'authentication' | 'connecting' | 'error' | 'ready';
     submitCb?: (
         disableCb: (status: boolean) => void,
         inputArea?: HTMLKupTextFieldElement

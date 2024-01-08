@@ -16,6 +16,10 @@
     margin: auto;
   }
 
+  .password {
+    padding: 1.5em 0;
+  }
+
   .query-area {
     min-width: 250px;
   }
@@ -55,7 +59,7 @@
 
   .request,
   .response {
-    padding: 1em 1.5em 1.5em 2em;
+    padding: 0.5em 1em 1em 1em;
   }
 
   .request {
@@ -63,7 +67,7 @@
   }
 
   .response {
-    margin-bottom: 2em;
+    margin-bottom: 1em;
   }
 
   .message-container {
