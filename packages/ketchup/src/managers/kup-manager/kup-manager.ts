@@ -37,6 +37,7 @@ import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { setAssetPath } from '@stencil/core';
 import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
 import html2canvas, { Options } from 'html2canvas';
+import { KupOpenAI } from '../kup-openai/kup-openai';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -52,6 +53,7 @@ export class KupManager {
     interact: KupInteract;
     language: KupLanguage;
     magicBox: HTMLKupMagicBoxElement;
+    openAI: KupOpenAI;
     math: KupMath;
     objects: KupObjects;
     overrides?: KupManagerInitialization;
@@ -83,6 +85,10 @@ export class KupManager {
             themeName: string = null,
             tooltipDelay: number = null,
             tooltipFCellCallbacks: KupTooltipCallbacks = null;
+
+        /** POI VIA */
+        let openAIUrl = 'https://kokosstaging.smeup.com';
+
         if (overrides) {
             const assetsPath = overrides.assetsPath;
             const dates = overrides.dates;
@@ -93,6 +99,9 @@ export class KupManager {
             const scrollOnHover = overrides.scrollOnHover;
             const theme = overrides.theme;
             const tooltip = overrides.tooltip;
+            if (overrides.openAIUrl) {
+                openAIUrl = overrides.openAIUrl;
+            }
             if (assetsPath) {
                 setAssetPath(assetsPath);
             }
@@ -143,6 +152,7 @@ export class KupManager {
         this.interact = new KupInteract(dialogZIndex, dialogRestrictContainer);
         this.language = new KupLanguage(languageList, languageName);
         this.magicBox = null;
+        this.openAI = new KupOpenAI(openAIUrl);
         this.math = new KupMath();
         this.overrides = overrides ? overrides : null;
         this.objects = new KupObjects(objectsList);
@@ -271,6 +281,7 @@ export class KupManager {
             this.hideMagicBox();
         }
     }
+
     /**
      * Sets both locale and language library-wide.
      * @param {KupDatesLocales} locale - The supported locale.

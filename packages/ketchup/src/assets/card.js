@@ -424,6 +424,9 @@ for (let index = 0; index < cards.length; index++) {
             { k: 'OBJ KEY #9' },
         ],
         options: {
+            authCb: (e) => {
+                console.log('Auth callback', e);
+            },
             cancelCb: (e) => {
                 console.log('Cancel callback', e);
             },
@@ -432,6 +435,49 @@ for (let index = 0; index < cards.length; index++) {
             },
             text: 'Are you sure?',
             data: {},
+            state: 'ready',
+            messages: [
+                {
+                    text: 'quante righe ci sono?',
+                    type: 'request',
+                },
+                {
+                    text: 'Il file CSV contiene 14 righe.',
+                    type: 'response',
+                },
+                {
+                    text: 'quale record è il più recente?',
+                    type: 'request',
+                },
+                {
+                    text: 'Sembra che la colonna "Date" non sia presente nel file CSV. Verifichiamo il contenuto effettivo del file per determinare quali colonne siano presenti.',
+                    type: 'response',
+                },
+                {
+                    text: 'Le prime righe del file mostrano che le intestazioni delle colonne sono rappresentate all\'interno di una riga iniziale che termina con "SLA rispettato". Le informazioni relative alle colonne potrebbero essere contenute nella seconda riga. Procederò ad analizzare la seconda riga per identificare i nomi delle colonne effettivi.',
+                    type: 'response',
+                },
+                {
+                    text: "La seconda riga contiene i nomi delle colonne, tuttavia sembra che sia stata suddivisa su più linee. Procederò a leggere l'intera riga e a esaminare i nomi completi delle colonne per garantire un'analisi corretta.",
+                    type: 'response',
+                },
+                {
+                    text: 'I nomi delle colonne risultano essere i seguenti:\n\n"SLA rispettato";Data richiesta;Ora richiesta;Sottotipo;Unisci;Dettaglio;Stato;Stato;Sottostato;Tipo;Descrizione;SLA;"Tipo Richiedente";"Codice\n\nTuttavia, sembra che i nomi siano stati separati da un punto e virgola invece che da una virgola. Questa potrebbe essere la causa dell\'errore avuto in precedenza. Procederò a correggere la riga dei nomi delle colonne e a caricare il file nuovamente.',
+                    type: 'response',
+                },
+                {
+                    text: 'Sembra che ci siano nomi di colonne duplicati nel file CSV. Modificherò i nomi delle colonne per evitare duplicati e caricherò nuovamente il file.',
+                    type: 'response',
+                },
+                {
+                    text: 'Il caricamento del file è stato completato con successo e i dati sono visualizzati correttamente. Ora posso individuare il record più recente utilizzando la data di richiesta. Procederò a ordinare il dataframe in base alla data di richiesta per individuare il record più recente.',
+                    type: 'response',
+                },
+                {
+                    text: 'Il record più recente è il seguente:\n\nSLA rispettato: magnify-plus brightness-1 TKIC321317 Change release: Gestione java in dettaglio bolle a NaN nicoletta.moroni@smeup.com RDS SRL (Chiuso) NaN 19/12/2023 16:20:46 Media VANDELLI ANDREA 1 31/08/2023 10:58:14 NaN NaN NaN 20.30 Attesa risposta Attesa risposta NaN TKIC H NaN RN 84282 CNNOM 32262 NaN NaN H TACPGTI\n\nData richiesta: U5\n\nOra richiesta: Help RDS Java\n\nSLA: TKIC321317\n\nTipo Richiedente: 3\n\nCodice Richiedente: 0\n\nQuesto è il record più recente nel file.',
+                    type: 'response',
+                },
+            ],
         },
         tabbar: [
             {
