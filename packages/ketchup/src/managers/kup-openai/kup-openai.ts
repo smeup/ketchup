@@ -185,7 +185,6 @@ export class KupOpenAI {
     }
 
     async auth(event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) {
-        console.log('cacca');
         const openAI = dom.ketchup.openAI;
         if (!openAI.url) {
             return;
