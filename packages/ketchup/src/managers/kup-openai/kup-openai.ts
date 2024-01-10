@@ -169,19 +169,22 @@ export class KupOpenAI {
     show(data: KupDataTableDataset) {
         this.data = data;
 
-        // Creates the card or updates it with new options
-        this.#create();
+        if (!this.card) {
+            this.#create();
+        }
     }
 
     /**
      * Hides the component.
      */
     hide() {
-        this.card.remove();
-        this.card = null;
-        this.dialog.remove();
-        this.dialog = null;
-        this.#disconnect();
+        if (this.card) {
+            this.card.remove();
+            this.card = null;
+            this.dialog.remove();
+            this.dialog = null;
+            this.#disconnect();
+        }
     }
 
     async auth(event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) {
