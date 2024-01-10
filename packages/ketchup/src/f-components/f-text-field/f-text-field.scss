@@ -8,19 +8,30 @@
   .f-text-field {
     --kup_textfield_background_color_rgb: var(
       --kup-textfield-background-color-rgb,
-      var(--kup-background-color-rgb)
+      var(--kup-gray-color-10-rgb)
     );
-    --kup_textfield_color: var(--kup-textfield-color, var(--kup-text-color));
+    --kup_textfield_border_color: var(
+      --kup-textfield-border-color,
+      var(--kup-gray-color-50)
+    );
+    --kup_textfield_color: var(
+      --kup-textfield-color,
+      var(--kup-gray-color-100)
+    );
+    --kup_textfield_label_color: var(
+      --kup-textfield-label-color,
+      var(--kup-gray-color-70)
+    );
     --kup_textfield_color_rgb: var(
       --kup-textfield-color-rgb,
       var(--kup-text-color-rgb)
     );
-    --kup_textfield_font_family: var(
-      --kup-textfield-font-family,
-      var(--kup-font-family)
-    );
-    --kup_textfield_font_size: var(--kup-textfield-font-size, 1em);
-    --kup_textfield_font_weight: var(--kup-textfield-font-weight, 400);
+    // --kup_textfield_font_family: var(
+    //   --kup-textfield-font-family,
+    //   var(--kup-font-family)
+    // );
+    // --kup_textfield_font_size: var(--kup-textfield-font-size, 1em);
+    // --kup_textfield_font_weight: var(--kup-textfield-font-weight, 400);
     --kup_textfield_fullwidth_height: var(
       --kup-textfield-fullwidth-height,
       40px
@@ -60,24 +71,26 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    font-family: var(--kup_textfield_font_family);
-    font-size: var(--kup_textfield_font_size);
+    @include kup-body-compact-01;
 
     .mdc-text-field-container {
       display: flex;
       flex-direction: column;
       gap: 8px;
     }
+    .mdc-text-field-container--disabled {
+      opacity: 0.5;
+    }
 
     .mdc-form-field {
       & label {
-        color: var(--kup_textfield_color);
+        color: var(--kup_textfield_label_color);
         margin: unset;
       }
 
       .mdc-text-field__input {
         box-sizing: border-box;
-        font-family: var(--kup_textfield_font_family);
+        @include kup-body-compact-01;
         padding: 6px 0px;
       }
     }
@@ -89,14 +102,15 @@
       button {
         height: 100%;
         aspect-ratio: 1;
-        background-color: rgb(var(--kup_textfield_background_color_rgb));
+        // background-color: rgb(var(--kup_textfield_background_color_rgb));
+        background-color: transparent;
         border: unset;
         display: flex;
         justify-content: center;
         align-items: center;
 
         &:hover {
-          background-color: rgb(var(--kup_disabled_background_color_rgb));
+          background-color: var(--kup-gray-color-20);
         }
 
         &:focus {
@@ -112,11 +126,12 @@
           content: '';
           width: 1px;
           height: 50%;
-          background-color: rgb(var(--kup_disabled_background_color_rgb));
+          background-color: var(--kup-gray-color-20);
           position: absolute;
           top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
+          right: -0.5px;
+          z-index: -1;
+          transform: translateY(-50%);
         }
       }
     }
@@ -126,20 +141,31 @@
     .mdc-error-message,
     .mdc-alert-message {
       @include kup-label-01;
+      color: var(--kup_textfield_label_color);
     }
 
     .mdc-text-field {
       width: var(--kup_textfield_width);
       border-radius: unset !important;
+      border: 2px solid transparent;
+      border-bottom: 1px solid var(--kup_textfield_border_color);
+      padding-bottom: 1px;
+      background: rgb(var(--kup_textfield_background_color_rgb));
+      align-items: center;
+
+      input {
+        @include kup-body-compact-01;
+        text-align: var(--kup_textfield_text_align);
+      }
 
       .#{$kup-icon} {
         background-color: var(--kup_textfield_icon_color);
         cursor: pointer;
-        height: 24px;
+        height: 20px;
         outline: none;
         padding: 0 7px;
         pointer-events: all;
-        width: 24px;
+        width: 18px;
 
         &.#{$kup-icon-clear}:hover {
           background-color: var(--kup-danger-color);
@@ -147,17 +173,19 @@
       }
 
       &.mdc-text-field--disabled {
+        border: unset;
         .#{$kup-icon} {
           pointer-events: none;
         }
       }
 
-      input {
-        @include kup-body-compact-01;
-      }
-
-      input {
-        text-align: var(--kup_textfield_text_align);
+      &.mdc-text-field--read-only {
+        --kup_textfield_border_color: var(--kup-gray-color-30);
+        pointer-events: none;
+        .#{$kup-icon},
+        button {
+          pointer-events: none;
+        }
       }
 
       &.mdc-text-field--small {
@@ -174,6 +202,10 @@
 
       &.mdc-text-field--max-large {
         height: var(--kup_textfield_max_large_height) !important;
+      }
+
+      &.mdc-text-field--focused:not(.mdc-text-field--disabled) {
+        border: 2px solid var(--kup_textfield_primary_color);
       }
 
       &.mdc-text-field--filled:not(.mdc-text-field--disabled)
@@ -224,6 +256,10 @@
       }
 
       &.mdc-text-field--outlined {
+        border: 1px solid var(--kup_textfield_border_color);
+        // padding: 1px;
+        transition: border 0.15s;
+
         &.mdc-text-field--with-leading-icon
           label:not(.mdc-floating-label--float-above) {
           left: 20px;
@@ -252,17 +288,7 @@
         }
 
         &.mdc-text-field--disabled {
-          color: rgba(var(--kup_textfield_color_rgb), 0.5);
-          -webkit-text-fill-color: rgba(var(--kup_textfield_color_rgb), 0.5);
-          opacity: 1;
-
-          & .mdc-text-field__input {
-            color: rgba(var(--kup_textfield_color_rgb), 0.5);
-          }
-
-          & label {
-            color: rgba(var(--kup_textfield_color_rgb), 0.5);
-          }
+          border: unset;
         }
 
         &.mdc-text-field--textarea .mdc-floating-label--float-above {
@@ -311,10 +337,7 @@
         }
 
         &:not(.mdc-text-field--disabled) {
-          background-color: rgba(
-            var(--kup_textfield_background_color_rgb),
-            0.125
-          );
+          background-color: rgb(var(--kup_textfield_background_color_rgb));
         }
       }
 
@@ -337,7 +360,7 @@
         & .mdc-text-field-character-counter,
         & + .mdc-text-field-helper-line .mdc-text-field-character-counter,
         & + .mdc-text-field-helper-line .mdc-text-field-helper-text {
-          opacity: 0.7;
+          border: unset;
         }
 
         &.mdc-text-field--textarea .mdc-text-field-character-counter {
@@ -348,20 +371,7 @@
       }
 
       &.mdc-text-field--disabled:not(.mdc-text-field--outlined) {
-        background: var(--kup-disabled-background-color);
-        color: var(--kup-disabled-color);
-        -webkit-text-fill-color: var(--kup-disabled-color);
-        opacity: 1;
-
-        & .mdc-text-field__input {
-          color: var(--kup-disabled-color);
-          background: var(--kup-disabled-background-color);
-        }
-
-        & label {
-          color: var(--kup-disabled-color);
-          background: var(--kup-disabled-background-color);
-        }
+        border: unset;
       }
 
       &:not(.mdc-text-field--focused)
@@ -379,6 +389,7 @@
       }
 
       &.mdc-text-field--with-quantity-buttons {
+        padding: 0 0 0 16px;
         input::-webkit-inner-spin-button,
         input::-webkit-outer-spin-button {
           -webkit-appearance: none;
@@ -395,13 +406,17 @@
 
         .mdc-error-icon,
         .mdc-alert-icon {
-          width: 24px;
-          height: 18px;
+          width: 16px;
+          height: 16px;
           position: absolute;
-          top: 4px;
-          right: 4px;
+          top: 5px;
+          right: 5px;
+          display: inline-flex;
+          justify-content: center;
 
           .kup-icon {
+            --kup_image_height: 16px;
+            --kup_image_width: 16px;
             padding: unset;
           }
         }
@@ -417,10 +432,22 @@
         display: inline-flex;
         cursor: default;
       }
+      // .f-image {
+      //   .f-image__icon {
+      //     margin: unset;
+      //   }
+      // }
     }
 
     .mdc-error-message {
       color: var(--kup-danger-color);
+    }
+
+    .mdc-label-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 4px;
     }
 
     &.#{$kup-class-full-height} {

@@ -388,5 +388,11 @@
         </div>
 
         <script src="/assets/button-list.js"></script>
+        <script>
+            document.addEventListener('kup-manager-ready', () => {
+                const kupManager = document.documentElement.ketchup;
+                kupManager.theme.set('octane');
+            });
+        </script>
     </body>
 </html>

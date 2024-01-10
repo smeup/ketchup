@@ -37,15 +37,18 @@
     </head>
     <body>
         <h4>The Checkbox</h4>
-        <kup-checkbox
-            label="Label"
-            class="kup-danger"
-            indeterminate
-        ></kup-checkbox>
+        <kup-checkbox label="Label" indeterminate></kup-checkbox>
         <kup-checkbox label="Label" checked></kup-checkbox>
         <kup-checkbox label="Label" error="Error message"></kup-checkbox>
         <kup-checkbox label="Label" alert="Alert message"></kup-checkbox>
         <kup-checkbox label="Label" disabled></kup-checkbox>
         <kup-checkbox label="Label" disabled checked></kup-checkbox>
+
+        <script>
+            document.addEventListener('kup-manager-ready', () => {
+                const kupManager = document.documentElement.ketchup;
+                kupManager.theme.set('octane');
+            });
+        </script>
     </body>
 </html>

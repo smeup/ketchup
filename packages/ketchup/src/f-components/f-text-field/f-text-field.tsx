@@ -144,10 +144,16 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         wrapperClass: 'kup-icon',
     };
 
+    const classContainerObj: Record<string, boolean> = {
+        'mdc-text-field-container': true,
+        'mdc-text-field-container--disabled': props.disabled,
+    };
+
     const classObj: Record<string, boolean> = {
         'is-clearable': props.isClearable,
         'mdc-text-field': true,
         'mdc-text-field--disabled': props.disabled,
+        'mdc-text-field--read-only': props.readOnly,
         'mdc-text-field--filled': !props.fullWidth && !isOutlined,
         'mdc-text-field--no-label': !props.label,
         'mdc-text-field--fullwidth': props.fullWidth,
@@ -184,7 +190,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     }
 
     return (
-        <div class="mdc-text-field-container">
+        <div class={classContainerObj}>
             {!props.fullWidth ? labelEl : undefined}
             <div class={classObj}>
                 {props.textArea && props.maxLength ? (
@@ -380,14 +386,14 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
 
                 {props.trailingIcon ? iconEl : undefined}
 
-                {isOutlined ? (
+                {/* {isOutlined ? (
                     <div class="mdc-notched-outline">
                         <div class="mdc-notched-outline__leading"></div>
                         <div class="mdc-notched-outline__trailing"></div>
                     </div>
                 ) : (
                     <span class="mdc-line-ripple"></span>
-                )}
+                )} */}
 
                 {props.error ? (
                     <div class="mdc-error-icon">
