@@ -66,7 +66,7 @@ export class KupOpenAI {
             icons: { close: true },
         };
         this.dialog.id = 'openai';
-        this.dialog.modal = { closeOnBackdropClick: false };
+        this.dialog.modal = null;
         this.dialog.sizeX = '50vw';
         this.dialog.sizeY = '50vh';
         this.dialog.addEventListener('kup-dialog-close', () => this.hide());
