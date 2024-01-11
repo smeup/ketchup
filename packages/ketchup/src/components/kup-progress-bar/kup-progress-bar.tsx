@@ -2,7 +2,6 @@ import {
     Component,
     Element,
     forceUpdate,
-    getAssetPath,
     h,
     Host,
     Method,
