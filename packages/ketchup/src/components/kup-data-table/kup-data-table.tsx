@@ -4368,7 +4368,7 @@ export class KupDataTable {
                     totalMenu = (
                         <kup-list
                             class={`total-menu`}
-                            data={...listData}
+                            data={listData}
                             id="totals-menu"
                             is-menu
                             keyboardNavigation={true}
@@ -5048,7 +5048,9 @@ export class KupDataTable {
                             this.#kupManager.toggleMagicBox()
                         }
                     />
-                    {this.#kupManager.openAI && this.#kupManager.openAI.url ? (
+                    {this.#kupManager.enableExperimentalFeatures &&
+                    this.#kupManager.openAI &&
+                    this.#kupManager.openAI.url ? (
                         <kup-button
                             title={
                                 this.#kupManager.language.translate(

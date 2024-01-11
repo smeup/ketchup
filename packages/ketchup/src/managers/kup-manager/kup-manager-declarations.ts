@@ -38,6 +38,7 @@ export interface KupManager {
     dates: KupDates;
     debug: KupDebug;
     dynamicPosition: KupDynamicPosition;
+    enableExperimentalFeatures: boolean;
     interact: KupInteract;
     language: KupLanguage;
     magicBox: HTMLKupMagicBoxElement;
@@ -89,6 +90,7 @@ export interface KupManagerInitialization {
     autoSetLocalization?: boolean;
     dates?: KupManagerDatesSettings;
     debug?: KupManagerDebugSettings;
+    enableExperimentalFeatures?: boolean;
     interact?: KupManagerInteractSettings;
     language?: KupManagerLanguageSettings;
     math?: KupManagerMathSettings;
