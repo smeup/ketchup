@@ -34,32 +34,6 @@
                 padding: 1rem;
             }
 
-            .spacing {
-                width: fit-content;
-                display: flex;
-                flex-direction: column;
-                gap: 16px;
-            }
-
-            .spacing-item {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                gap: 8px;
-            }
-
-            .space {
-                display: flex;
-
-                &::before,
-                &::after {
-                    content: '';
-                    width: 1px;
-                    height: 32px;
-                    background: var(--kup-primary-color);
-                }
-            }
-
             .colors {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -100,18 +74,53 @@
                 gap: 16px;
                 flex-wrap: wrap;
             }
+
+            .spacing {
+                width: fit-content;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .spacing-item {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .space {
+                height: 32px;
+                display: flex;
+                background: var(--kup-primary-color-50);
+            }
+
+            .fonts {
+                width: fit-content;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+
+                h3 {
+                    margin: 0;
+                    text-decoration: underline;
+                }
+            }
+
+            .container {
+                padding-top: 2rem;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 24px;
+            }
         </style>
     </head>
     <body>
-        <h3>Spacing</h3>
-
-        <div class="spacing"></div>
-
-        <h3>Colors</h3>
+        <h2>Colors</h2>
 
         <div class="colors">
             <div>
-                <h4>Primary colors</h4>
+                <h3>Primary colors</h3>
                 <div class="primary-colors-container">
                     <div id="primary-colors" class="colors-container"> </div>
 
@@ -169,13 +178,27 @@
             </div>
 
             <div>
-                <h4>Gray colors</h4>
+                <h3>Gray colors</h3>
                 <div id="gray-colors" class="colors-container"> </div>
             </div>
 
             <div>
-                <h4>Accent colors</h4>
+                <h3>Accent colors</h3>
                 <div id="accent-colors" class="colors-container"> </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div>
+                <h2>Spacing</h2>
+
+                <div class="spacing"></div>
+            </div>
+
+            <div>
+                <h2>Fonts (sass mixins or CSS classes)</h2>
+
+                <div class="fonts"></div>
             </div>
         </div>
 
@@ -184,29 +207,6 @@
                 const kupManager = document.documentElement.ketchup;
                 kupManager.theme.set('ketchup');
             });
-
-            console.log(document.styleSheets);
-
-            // Render spacing
-            const spacing = document.querySelector('.spacing');
-            for (let i = 1; i < 14; i++) {
-                const index = i < 10 ? '0' + i : i;
-                const item = document.createElement('div');
-                item.classList.add('spacing-item');
-
-                const space = document.createElement('div');
-                space.classList.add('space');
-                space.style.gap = 'var(--kup-space-' + index + ')';
-
-                const name = document.createElement('span');
-                name.classList.add('name');
-                name.innerHTML = `--kup-space-${index}`;
-
-                item.appendChild(space);
-                item.appendChild(name);
-
-                spacing.appendChild(item);
-            }
 
             // Render primary colors
             const primaryValues = [5, 10, 20, 30, 40, 50, 60, 70, 80, 90];
@@ -282,6 +282,85 @@
                 item.appendChild(name);
 
                 accentColors.appendChild(item);
+            });
+
+            // Render spacing
+            const spacing = document.querySelector('.spacing');
+            for (let i = 0; i < 14; i++) {
+                const index = i < 10 ? '0' + i : i;
+                const item = document.createElement('div');
+                item.classList.add('spacing-item');
+
+                const space = document.createElement('div');
+                space.classList.add('space');
+                space.style.width = 'var(--kup-space-' + index + ')';
+
+                const name = document.createElement('span');
+                name.classList.add('name');
+                name.innerHTML = `--kup-space-${index}`;
+
+                item.appendChild(space);
+                item.appendChild(name);
+
+                spacing.appendChild(item);
+            }
+
+            // Render fonts
+            const fonts = document.querySelector('.fonts');
+            const generalTokens = [
+                'body-compact-01',
+                'body-01',
+                'code-01',
+                'label-01',
+                'caption-02',
+                'caption-01',
+                'small-label-01',
+            ];
+            const headingTokens = [
+                'heading-compact-01',
+                'heading-01',
+                'heading-02',
+                'heading-03',
+                'heading-04',
+                'heading-05',
+                'heading-06',
+                'heading-07',
+                'heading-08',
+            ];
+
+            fonts.appendChild(document.createElement('h3')).innerHTML =
+                'General';
+
+            generalTokens.forEach((item) => {
+                const font = document.createElement('div');
+                font.classList.add('font-item');
+                font.classList.add(`kup-${item}`);
+
+                const name = document.createElement('span');
+                name.classList.add('name');
+                name.innerHTML = `${item}`;
+
+                font.appendChild(name);
+
+                fonts.appendChild(font);
+            });
+
+            fonts.appendChild(document.createElement('hr')).style.width =
+                '100%';
+            fonts.appendChild(document.createElement('h3')).innerHTML =
+                'Heading';
+            headingTokens.forEach((item) => {
+                const font = document.createElement('div');
+                font.classList.add('font-item');
+                font.classList.add(`kup-${item}`);
+
+                const name = document.createElement('span');
+                name.classList.add('name');
+                name.innerHTML = `${item}`;
+
+                font.appendChild(name);
+
+                fonts.appendChild(font);
             });
         </script>
     </body>

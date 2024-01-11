@@ -20,6 +20,7 @@
 }
 
 @mixin kup-code-01 {
+  font-family: var(--kup-font-family-monospace);
   font-size: 12px;
   line-height: 16px;
   font-weight: 400;
@@ -39,16 +40,6 @@
   @include kup-label-01;
 }
 
-@mixin kup-caption-01 {
-  font-size: 10px;
-  line-height: 13px;
-  font-weight: 400;
-  letter-spacing: 1px;
-}
-.kup-caption-01 {
-  @include kup-caption-01;
-}
-
 @mixin kup-caption-02 {
   font-size: 12px;
   line-height: 15px;
@@ -57,6 +48,16 @@
 }
 .kup-caption-02 {
   @include kup-caption-02;
+}
+
+@mixin kup-caption-01 {
+  font-size: 10px;
+  line-height: 13px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+.kup-caption-01 {
+  @include kup-caption-01;
 }
 
 @mixin kup-small-label-01 {
