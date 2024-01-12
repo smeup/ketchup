@@ -214,6 +214,7 @@ export class KupButtonList {
             );
             return null;
         }
+
         const props: FButtonProps = {
             checked: data.checked,
             disabled: data.disabled,
@@ -225,13 +226,14 @@ export class KupButtonList {
             label: data.label,
             large: data.large,
             shaped: data.shaped,
-            styling: data.styling,
+            styling: index === Number(this.selected) ? 'raised' : data.styling,
             toggable: data.toggable,
             trailingIcon: data.trailingIcon,
             title: data.title,
             wrapperClass: this.rootElement.className + ' ' + data.wrapperClass,
             onClick: () => this.onKupClick(data.id, '-1'),
         };
+
         return <FButton {...props} />;
     }
 
@@ -356,6 +358,15 @@ export class KupButtonList {
         if (this.data == null || this.data.length < 1) {
             return null;
         }
+        if (this.styling === 'raised') {
+            this.kupManager.debug.logMessage(
+                this,
+                'styling="raised" is not allowed, please use "flat" or "outlined" instead.',
+                KupDebugCategory.WARNING
+            );
+            return null;
+        }
+
         const columns: VNode[] = [];
         for (let i = 0; i < this.data.length; i++) {
             const node: KupButtonListNode = this.data[i];

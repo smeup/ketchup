@@ -285,11 +285,11 @@
     box-sizing: border-box;
     border: none;
     outline: none;
-    font-size: var(--kup_button_font_size);
     text-decoration: none;
     cursor: pointer;
     user-select: none;
     padding: 0.75em;
+    @include kup-body-compact-01;
 
     &:hover,
     &:focus {
