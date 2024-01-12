@@ -61,7 +61,7 @@
     }
   }
 
-  * {
+  *:not(.progress-bar-percentage) {
     box-sizing: border-box;
   }
 
