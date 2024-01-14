@@ -124,6 +124,10 @@
     &:active {
       background-color: var(--kup_button_background_active_color);
       color: var(--kup_button_text_on_primary_color_active);
+
+      .f-image__icon {
+        background: var(--kup_button_text_on_primary_color_active) !important;
+      }
     }
 
     .button__icon {

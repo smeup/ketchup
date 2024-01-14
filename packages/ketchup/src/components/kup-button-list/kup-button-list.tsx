@@ -86,10 +86,10 @@ export class KupButtonList {
      */
     @Prop() showSelection: boolean = true;
     /**
-     * Defines the style of the buttons. Available styles are "flat", "outlined" and "raised" (which is the default).
-     * @default FButtonStyling.RAISED
+     * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
+     * @default FButtonStyling.FLAT
      */
-    @Prop({ reflect: true }) styling: FButtonStyling = FButtonStyling.RAISED;
+    @Prop({ reflect: true }) styling: FButtonStyling = FButtonStyling.FLAT;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -225,6 +225,9 @@ export class KupButtonList {
             id: data.id,
             label: data.label,
             large: data.large,
+            neutral: this.rootElement.classList.contains('kup-neutral')
+                ? true
+                : false,
             shaped: data.shaped,
             styling: index === Number(this.selected) ? 'raised' : data.styling,
             toggable: data.toggable,
@@ -365,6 +368,21 @@ export class KupButtonList {
                 KupDebugCategory.WARNING
             );
             return null;
+        }
+
+        const haveIcons: boolean = this.data.some((button) => button.icon);
+        if (haveIcons) {
+            const allButtonsHaveIconsOrDropdown: boolean = this.data.every(
+                (button) => button.icon || button.data.dropdownOnly
+            );
+            if (!allButtonsHaveIconsOrDropdown) {
+                this.kupManager.debug.logMessage(
+                    this,
+                    'Not all buttons have icons, please add icons to all buttons or remove them from all buttons.',
+                    KupDebugCategory.WARNING
+                );
+                return null;
+            }
         }
 
         const columns: VNode[] = [];

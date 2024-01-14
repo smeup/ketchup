@@ -534,8 +534,8 @@ export namespace Components {
          */
         "showSelection": boolean;
         /**
-          * Defines the style of the buttons. Available styles are "flat", "outlined" and "raised" (which is the default).
-          * @default FButtonStyling.RAISED
+          * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
+          * @default FButtonStyling.FLAT
          */
         "styling": FButtonStyling;
     }
@@ -5373,8 +5373,8 @@ declare namespace LocalJSX {
          */
         "showSelection"?: boolean;
         /**
-          * Defines the style of the buttons. Available styles are "flat", "outlined" and "raised" (which is the default).
-          * @default FButtonStyling.RAISED
+          * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
+          * @default FButtonStyling.FLAT
          */
         "styling"?: FButtonStyling;
     }
