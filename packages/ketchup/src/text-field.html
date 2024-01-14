@@ -62,19 +62,19 @@
             initial-value="22"
             step="0.01"
         ></kup-text-field>
-        <h4>Input text type number without decimals</h4>
+        <h3>Input text type number without decimals</h3>
         <kup-text-field
             id="number"
             input-type="number"
             input-mode="numeric"
         ></kup-text-field>
-        <h4>Input text type password</h4>
+        <h3>Input text type password</h3>
         <kup-text-field
             input-type="password"
             initial-value="pippo"
             is-clearable
         ></kup-text-field>
-        <h4>Material Text Field (widget)</h4>
+        <h3>Material Text Field (widget)</h3>
         <kup-text-field
             icon="favorite"
             outlined
@@ -137,20 +137,30 @@
             initial-value="yooooo"
         ></kup-text-field>
 
-        <h4>Size:</h4>
-        <kup-text-field label="Size: Small" sizing="small"></kup-text-field>
+        <h3>Size:</h3>
+        <kup-text-field
+            label="Size: Small"
+            initial-value="Small"
+            sizing="small"
+        ></kup-text-field>
         <kup-text-field
             label="Size: Medium (Default)"
+            initial-value="Medium"
             sizing="medium"
         ></kup-text-field>
-        <kup-text-field label="Size: Large" sizing="large"></kup-text-field>
+        <kup-text-field
+            label="Size: Large"
+            initial-value="Large"
+            sizing="large"
+        ></kup-text-field>
         <kup-text-field
             label="Size: Max Large"
+            initial-value="Max Large"
             sizing="max-large"
         ></kup-text-field>
 
-        <h4>Variants:</h4>
-        <h5>Simple text field:</h5>
+        <h3>Variants:</h3>
+        <h4>Simple text field:</h4>
         <kup-text-field label="Normal" initial-value="Normal"></kup-text-field>
         <kup-text-field
             label="Disabled"
@@ -162,10 +172,18 @@
             initial-value="Read Only"
             read-only
         ></kup-text-field>
-        <kup-text-field label="Error" error="Error message"></kup-text-field>
-        <kup-text-field label="Alert" alert="Alert message"></kup-text-field>
+        <kup-text-field
+            label="Error"
+            initial-value="Error"
+            error="Error message"
+        ></kup-text-field>
+        <kup-text-field
+            label="Alert"
+            initial-value="Alert"
+            alert="Alert message"
+        ></kup-text-field>
 
-        <h5>Outlined text field:</h5>
+        <h4>Outlined text field:</h4>
         <kup-text-field
             label="Normal"
             initial-value="Normal"
@@ -186,15 +204,17 @@
         <kup-text-field
             label="Error"
             error="Error message"
+            initial-value="Error"
             outlined
         ></kup-text-field>
         <kup-text-field
             label="Alert"
             alert="Alert message"
+            initial-value="Alert"
             outlined
         ></kup-text-field>
 
-        <h5>Textarea text field:</h5>
+        <h4>Textarea text field:</h4>
         <kup-text-field
             label="Normal"
             initial-value="Normal"
@@ -215,15 +235,17 @@
         <kup-text-field
             label="Error"
             error="Error message"
+            initial-value="Error"
             text-area
         ></kup-text-field>
         <kup-text-field
             label="Alert"
             alert="Alert message"
+            initial-value="Alert"
             text-area
         ></kup-text-field>
 
-        <h5>New text field with + / - buttons</h5>
+        <h4>New text field with + / - buttons</h4>
         <kup-text-field
             label="Normal"
             input-type="number"

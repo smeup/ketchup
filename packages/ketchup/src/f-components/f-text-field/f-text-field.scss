@@ -114,7 +114,7 @@
         }
 
         &:focus {
-          border: 2px solid var(--kup_textfield_primary_color);
+          border: 1px solid var(--kup_textfield_primary_color);
           outline: none;
         }
       }
@@ -147,9 +147,8 @@
     .mdc-text-field {
       width: var(--kup_textfield_width);
       border-radius: unset !important;
-      border: 2px solid transparent;
+      border: 1px solid transparent;
       border-bottom: 1px solid var(--kup_textfield_border_color);
-      padding-bottom: 1px;
       background: rgb(var(--kup_textfield_background_color_rgb));
       align-items: center;
 
@@ -161,11 +160,11 @@
       .#{$kup-icon} {
         background-color: var(--kup_textfield_icon_color);
         cursor: pointer;
-        height: 20px;
-        outline: none;
+        height: 16px;
+        width: 16px;
         padding: 0 7px;
+        outline: none;
         pointer-events: all;
-        width: 18px;
 
         &.#{$kup-icon-clear}:hover {
           background-color: var(--kup-danger-color);
@@ -205,7 +204,7 @@
       }
 
       &.mdc-text-field--focused:not(.mdc-text-field--disabled) {
-        border: 2px solid var(--kup_textfield_primary_color);
+        border: 1px solid var(--kup_textfield_primary_color);
       }
 
       &.mdc-text-field--filled:not(.mdc-text-field--disabled)
@@ -257,8 +256,11 @@
 
       &.mdc-text-field--outlined {
         border: 1px solid var(--kup_textfield_border_color);
-        // padding: 1px;
-        transition: border 0.15s;
+        padding: 0 16px;
+
+        &.mdc-text-field--focused:not(.mdc-text-field--disabled) {
+          border: 1px solid var(--kup_textfield_primary_color);
+        }
 
         &.mdc-text-field--with-leading-icon
           label:not(.mdc-floating-label--float-above) {
@@ -398,11 +400,32 @@
       }
 
       &.mdc-text-field--error {
-        border: 2px solid var(--kup-danger-color);
+        border: 1px solid var(--kup-danger-color);
       }
 
       &.mdc-text-field--textarea {
         height: auto;
+        padding: 0;
+
+        .mdc-text-field__input {
+          margin: 0;
+          padding: 16px;
+        }
+
+        &.mdc-text-field--focused:not(.mdc-text-field--disabled) {
+          border: 1px solid var(--kup_textfield_primary_color);
+          padding: 0;
+        }
+
+        &.mdc-text-field--error {
+          padding: 0;
+        }
+
+        &:not(.mdc-text-field--error) {
+          border-top-color: transparent;
+          border-left-color: transparent;
+          border-right-color: transparent;
+        }
 
         .mdc-error-icon,
         .mdc-alert-icon {
@@ -414,12 +437,28 @@
           display: inline-flex;
           justify-content: center;
 
-          .kup-icon {
+          .f-image .f-image__icon {
             --kup_image_height: 16px;
             --kup_image_width: 16px;
+          }
+          .kup-icon {
             padding: unset;
           }
         }
+
+        &.mdc-text-field--read-only {
+          --kup_textfield_border_color: var(--kup-gray-color-30);
+          pointer-events: none;
+          .#{$kup-icon},
+          button {
+            pointer-events: none;
+          }
+        }
+      }
+
+      .f-image .f-image__icon {
+        --kup_image_height: 16px;
+        --kup_image_width: 16px;
       }
     }
 
@@ -432,11 +471,6 @@
         display: inline-flex;
         cursor: default;
       }
-      // .f-image {
-      //   .f-image__icon {
-      //     margin: unset;
-      //   }
-      // }
     }
 
     .mdc-error-message {
