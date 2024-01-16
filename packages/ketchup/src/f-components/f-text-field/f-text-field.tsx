@@ -68,9 +68,16 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
 
     if (props.label && !props.leadingLabel && !props.trailingLabel) {
         labelEl = (
-            <label class="mdc-label" htmlFor="kup-input">
-                {props.label}
-            </label>
+            <div class="mdc-text-field__label-container">
+                <label class="mdc-label" htmlFor="kup-input">
+                    {props.label}
+                </label>
+                {props.maxLength ? (
+                    <div class="mdc-text-field-character-counter">
+                        {props.value.length} / {props.maxLength}
+                    </div>
+                ) : undefined}
+            </div>
         );
     }
 
@@ -193,11 +200,6 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         <div class={classContainerObj}>
             {!props.fullWidth ? labelEl : undefined}
             <div class={classObj}>
-                {props.textArea && props.maxLength ? (
-                    <div class="mdc-text-field-character-counter">
-                        '0 / ' + {props.maxLength}
-                    </div>
-                ) : undefined}
                 {!props.trailingIcon ? iconEl : undefined}
                 {props.textArea ? (
                     <span class="mdc-text-field__resizer">
@@ -437,29 +439,8 @@ function setHelper(props: FTextFieldProps): HTMLDivElement {
             return (
                 <div class="mdc-text-field-helper-line">
                     <div class={classObj}>{props.helper}</div>
-                    {props.hiddenCounter !== true &&
-                    props.maxLength &&
-                    !props.textArea ? (
-                        <div class="mdc-text-field-character-counter">
-                            '0 / ' + {props.maxLength.toString()}
-                        </div>
-                    ) : undefined}
                 </div>
             );
-        } else {
-            if (
-                props.hiddenCounter !== true &&
-                props.maxLength &&
-                !props.textArea
-            ) {
-                return (
-                    <div class="mdc-text-field-helper-line">
-                        <div class="mdc-text-field-character-counter">
-                            '0 / ' + {props.maxLength}
-                        </div>
-                    </div>
-                );
-            }
         }
     }
 }

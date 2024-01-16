@@ -82,6 +82,13 @@
       opacity: 0.5;
     }
 
+    .mdc-text-field__label-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 4px;
+    }
+
     .mdc-form-field {
       & label {
         color: var(--kup_textfield_label_color);
@@ -180,6 +187,7 @@
 
       &.mdc-text-field--read-only {
         --kup_textfield_border_color: var(--kup-gray-color-30);
+        --kup_textfield_background_color_rgb: var(--kup-accent-white-color-rgb);
         pointer-events: none;
         .#{$kup-icon},
         button {
@@ -505,7 +513,7 @@
       width: 100%;
 
       .mdc-text-field {
-        padding: 0 var(--kup_textfield_fullwidth_padding);
+        // padding: 0 var(--kup_textfield_fullwidth_padding);
 
         &.mdc-text-field--with-leading-icon {
           padding-left: 0;
