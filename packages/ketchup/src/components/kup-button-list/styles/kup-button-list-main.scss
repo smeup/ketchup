@@ -44,24 +44,24 @@
   grid-template-columns: var(--kup_buttonlist_grid_columns);
   width: max-content;
 
-  &.show-selection {
-    .selected {
-      --kup-button-primary-color: var(--kup_buttonlist_selected_primary_color);
-      --kup-button-primary-color-rgb: var(
-        --kup_buttonlist_selected_primary_color_rgb
-      );
-      --kup-button-primary-color-h: var(
-        --kup_buttonlist_selected_primary_color_h
-      );
-      --kup-button-primary-color-s: var(
-        --kup_buttonlist_selected_primary_color_s
-      );
-      --kup-button-primary-color-l: var(
-        --kup_buttonlist_selected_primary_color_l
-      );
-      --kup-button-text-on-primary-color: var(
-        --kup_buttonlist_selected_text_on_primary_color
-      );
-    }
-  }
+  // &.show-selection {
+  //   .selected {
+  //     --kup-button-primary-color: var(--kup_buttonlist_selected_primary_color);
+  //     --kup-button-primary-color-rgb: var(
+  //       --kup_buttonlist_selected_primary_color_rgb
+  //     );
+  //     --kup-button-primary-color-h: var(
+  //       --kup_buttonlist_selected_primary_color_h
+  //     );
+  //     --kup-button-primary-color-s: var(
+  //       --kup_buttonlist_selected_primary_color_s
+  //     );
+  //     --kup-button-primary-color-l: var(
+  //       --kup_buttonlist_selected_primary_color_l
+  //     );
+  //     --kup-button-text-on-primary-color: var(
+  //       --kup_buttonlist_selected_text_on_primary_color
+  //     );
+  //   }
+  // }
 }
