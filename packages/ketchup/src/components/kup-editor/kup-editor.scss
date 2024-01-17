@@ -1,9 +1,14 @@
 @import '../../../node_modules/@toast-ui/editor/dist/toastui-editor.css';
 @import '../../../node_modules/@toast-ui/editor/dist/toastui-editor-viewer.css';
+@import '../../../node_modules/codemirror/lib/codemirror.css';
 
 /**
 * @prop --kup-editor-height: height of the component.
 */
+
+:host {
+  --kup_editor_height: var(--kup-editor-height, auto);
+}
 
 :root {
   --kup_editor_height: var(--kup-editor-height, auto);
