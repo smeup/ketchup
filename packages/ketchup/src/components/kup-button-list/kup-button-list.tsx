@@ -267,6 +267,8 @@ export class KupButtonList {
                 showIcons: true,
             },
         };
+        data.styling =
+            index === Number(this.selected) ? 'raised' : data.styling;
         return (
             <kup-dropdown-button
                 class={this.rootElement.className + ' ' + data.wrapperClass}
