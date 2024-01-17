@@ -17,8 +17,9 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 
-    &.button--outlined {
-      border-right: none;
+    &.button--outlined,
+    &.button--raised {
+      border-right: 1px solid transparent;
     }
   }
 }
@@ -59,8 +60,9 @@
   }
 
   &:not(.dropdown-only) {
-    .button--outlined:not(.dropdown-only) {
-      border-left: none;
+    .button--outlined:not(.dropdown-only),
+    .button--raised:not(.dropdown-only) {
+      border-left: 1px solid transparent;
     }
   }
 }

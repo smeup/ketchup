@@ -80,7 +80,6 @@
   --kup_button_text_transform: var(--kup-button-text-transform, capitalize);
   --kup-spinner-color: var(--kup_button_primary_color);
 
-
   .button {
     -moz-osx-font-smoothing: grayscale;
     -webkit-appearance: none;
@@ -114,10 +113,18 @@
 
     &:hover {
       background-color: var(--kup_button_background_hover_color);
+
+      .f-image__icon {
+        background: var(--kup_button_text_on_primary_color) !important;
+      }
     }
 
     &:focus {
       border-color: var(--kup_button_border_focus_color);
+
+      .f-image__icon {
+        background: var(--kup_button_text_on_primary_color) !important;
+      }
     }
 
     &:active {

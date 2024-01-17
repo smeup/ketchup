@@ -223,6 +223,32 @@ const simpleData = [
             title: 'button flat 4 tooltip',
         },
         value: 'Button Flat 4',
+        children: [
+            {
+                value: 'first child',
+                obj: {
+                    t: '',
+                    p: '',
+                    k: 'child1',
+                },
+            },
+            {
+                value: 'second child',
+                obj: {
+                    t: '',
+                    p: '',
+                    k: 'child2',
+                },
+            },
+            {
+                value: 'third child',
+                obj: {
+                    t: '',
+                    p: '',
+                    k: 'child3',
+                },
+            },
+        ],
     },
     {
         data: {
@@ -268,6 +294,35 @@ const iconsData = [
         },
         icon: 'favorite',
         value: 'Button Flat 4',
+        children: [
+            {
+                value: 'first child',
+                obj: {
+                    t: '',
+                    p: '',
+                    k: 'child1',
+                },
+                icon: 'favorite',
+            },
+            {
+                value: 'second child',
+                obj: {
+                    t: '',
+                    p: '',
+                    k: 'child2',
+                },
+                icon: 'favorite',
+            },
+            {
+                value: 'third child',
+                obj: {
+                    t: '',
+                    p: '',
+                    k: 'child3',
+                },
+                icon: 'favorite',
+            },
+        ],
     },
     {
         data: {
