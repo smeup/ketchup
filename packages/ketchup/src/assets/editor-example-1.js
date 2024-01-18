@@ -16,7 +16,7 @@ let props = {
     autosaveTimer: 5000,
 };
 
-comp.style = '--kup-editor-height: 700px;';
+comp.style = '--kup-editor-height: 400px;';
 
 if (props) {
     for (const key in props) {
