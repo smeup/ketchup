@@ -474,6 +474,7 @@ export class KupEditor {
                 </style>
                 <div id={componentWrapperId}>
                     <div
+                        key={this.rootElement.id}
                         ref={(el) => (this.editorRef = el)}
                         class="kup-editor"
                     ></div>
