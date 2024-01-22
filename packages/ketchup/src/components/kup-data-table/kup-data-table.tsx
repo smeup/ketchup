@@ -166,7 +166,6 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupFormRow } from '../kup-form/kup-form-declarations';
 import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
-
 @Component({
     tag: 'kup-data-table',
     styleUrl: 'kup-data-table.scss',
@@ -4369,7 +4368,7 @@ export class KupDataTable {
                     totalMenu = (
                         <kup-list
                             class={`total-menu`}
-                            data={...listData}
+                            data={listData}
                             id="totals-menu"
                             is-menu
                             keyboardNavigation={true}
@@ -5025,21 +5024,52 @@ export class KupDataTable {
                         (this.editableData = !this.editableData)
                     }
                 ></kup-switch>
-                <kup-button
-                    title={
-                        this.#kupManager.language.translate(
-                            KupLanguageGeneric.TOGGLE
-                        ) +
-                        ' Magic Box ' +
-                        '(' +
-                        this.#kupManager.language.translate(
-                            KupLanguageGeneric.EXPERIMENTAL_FEAT
-                        ) +
-                        ')'
-                    }
-                    icon="auto-fix"
-                    onkup-button-click={() => this.#kupManager.toggleMagicBox()}
-                />
+                <div
+                    style={{
+                        display: 'grid',
+                        'grid-template-columns': 'repeat(2, auto)',
+                        width: 'max-content',
+                    }}
+                >
+                    <kup-button
+                        title={
+                            this.#kupManager.language.translate(
+                                KupLanguageGeneric.TOGGLE
+                            ) +
+                            ' Magic Box ' +
+                            '(' +
+                            this.#kupManager.language.translate(
+                                KupLanguageGeneric.EXPERIMENTAL_FEAT
+                            ) +
+                            ')'
+                        }
+                        icon="auto-fix"
+                        onkup-button-click={() =>
+                            this.#kupManager.toggleMagicBox()
+                        }
+                    />
+                    {this.#kupManager.enableExperimentalFeatures &&
+                    this.#kupManager.openAI &&
+                    this.#kupManager.openAI.url ? (
+                        <kup-button
+                            title={
+                                this.#kupManager.language.translate(
+                                    KupLanguageGeneric.TOGGLE
+                                ) +
+                                ' Open AI ' +
+                                '(' +
+                                this.#kupManager.language.translate(
+                                    KupLanguageGeneric.EXPERIMENTAL_FEAT
+                                ) +
+                                ')'
+                            }
+                            icon="open-ai"
+                            onkup-button-click={() =>
+                                this.#kupManager.openAI.show(this.data)
+                            }
+                        />
+                    ) : null}
+                </div>
                 {totalsMatrix}
             </kup-card>
         );

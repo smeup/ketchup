@@ -22,6 +22,7 @@ import type { ResizeObserver } from 'resize-observer';
 import { KupMathLocales } from '../kup-math/kup-math-declarations';
 import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
 import { Options } from 'html2canvas';
+import { KupOpenAI } from '../kup-openai/kup-openai';
 /**
  * Interface used to define the HTML element with Ketchup specific properties.
  */
@@ -37,9 +38,11 @@ export interface KupManager {
     dates: KupDates;
     debug: KupDebug;
     dynamicPosition: KupDynamicPosition;
+    enableExperimentalFeatures: boolean;
     interact: KupInteract;
     language: KupLanguage;
     magicBox: HTMLKupMagicBoxElement;
+    openAI: KupOpenAI;
     math: KupMath;
     objects: KupObjects;
     overrides?: KupManagerInitialization;
@@ -87,6 +90,7 @@ export interface KupManagerInitialization {
     autoSetLocalization?: boolean;
     dates?: KupManagerDatesSettings;
     debug?: KupManagerDebugSettings;
+    enableExperimentalFeatures?: boolean;
     interact?: KupManagerInteractSettings;
     language?: KupManagerLanguageSettings;
     math?: KupManagerMathSettings;
@@ -94,6 +98,7 @@ export interface KupManagerInitialization {
     scrollOnHover?: KupManagerScrollOnHoverSettings;
     theme?: KupManagerThemeSettings;
     tooltip?: KupManagerTooltipSettings;
+    openAIUrl?: string;
 }
 /**
  * KupDates initialization settings.

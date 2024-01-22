@@ -163,14 +163,15 @@ Type: `Promise<void>`
 - [kup-badge](../kup-badge)
 - [kup-button](../kup-button)
 - [kup-list](../kup-list)
+- [kup-spinner](../kup-spinner)
 - [kup-checkbox](../kup-checkbox)
 - [kup-data-table](../kup-data-table)
-- [kup-spinner](../kup-spinner)
 - [kup-tab-bar](../kup-tab-bar)
 - [kup-tree](../kup-tree)
 - [kup-switch](../kup-switch)
 - [kup-dropdown-button](../kup-dropdown-button)
 - [kup-card](.)
+- [kup-dialog](../kup-dialog)
 
 ### Graph
 ```mermaid
@@ -179,6 +180,7 @@ graph TD;
   kup-autocomplete --> kup-card
   kup-list --> kup-card
   kup-radio --> kup-card
+  kup-dialog --> kup-card
   kup-badge --> kup-card
   kup-chip --> kup-card
   kup-text-field --> kup-card
@@ -199,7 +201,6 @@ graph TD;
   kup-data-table --> kup-card
   kup-switch --> kup-card
   kup-form --> kup-card
-  kup-dialog --> kup-card
   kup-tab-bar --> kup-card
   kup-tree --> kup-card
   kup-accordion --> kup-card
