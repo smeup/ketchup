@@ -26,12 +26,6 @@
       --kup-textfield-color-rgb,
       var(--kup-text-color-rgb)
     );
-    // --kup_textfield_font_family: var(
-    //   --kup-textfield-font-family,
-    //   var(--kup-font-family)
-    // );
-    // --kup_textfield_font_size: var(--kup-textfield-font-size, 1em);
-    // --kup_textfield_font_weight: var(--kup-textfield-font-weight, 400);
     --kup_textfield_fullwidth_height: var(
       --kup-textfield-fullwidth-height,
       40px
@@ -109,7 +103,6 @@
       button {
         height: 100%;
         aspect-ratio: 1;
-        // background-color: rgb(var(--kup_textfield_background_color_rgb));
         background-color: transparent;
         border: unset;
         display: flex;
