@@ -68,7 +68,10 @@ Type: `Promise<void>`
 
 | Name                                | Description                              |
 | ----------------------------------- | ---------------------------------------- |
+| `--kup-badge-border-color`          | Sets border color of the badge.          |
 | `--kup-badge-border-radius`         | Sets border radius of the badge.         |
+| `--kup-badge-border-style`          | Sets border style of the badge.          |
+| `--kup-badge-border-width`          | Sets border width of the badge.          |
 | `--kup-badge-font-family`           | Sets font family of the badge.           |
 | `--kup-badge-font-size`             | Sets font size of the badge.             |
 | `--kup-badge-min-size`              | Sets minimum size of the badge.          |
