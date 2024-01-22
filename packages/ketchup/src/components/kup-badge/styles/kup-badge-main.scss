@@ -1,4 +1,7 @@
 /**
+* @prop --kup-badge-border-width: Sets border width of the badge.
+* @prop --kup-badge-border-style: Sets border style of the badge.
+* @prop --kup-badge-border-color: Sets border color of the badge.
 * @prop --kup-badge-border-radius: Sets border radius of the badge.
 * @prop --kup-badge-font-family: Sets font family of the badge.
 * @prop --kup-badge-font-size: Sets font size of the badge.
@@ -9,8 +12,10 @@
 */
 
 :host {
+  --kup_badge_border_width: var(--kup-badge-border-width, 1px);
+  --kup_badge_border_style: var(--kup-badge-border-style, solid);
+  --kup_badge_border_color: var(--kup-badge-border-color, transparent);
   --kup_badge_border_radius: var(--kup-badge-border-radius, 30px);
-  --kup_badge_border: 1px solid transparent;
   --kup_badge_font_family: var(--kup-badge-font-family, var(--kup-font-family));
   --kup_badge_font_size: var(--kup-badge-font-size, var(--kup-font-size));
   --kup_badge_min_size: var(--kup-badge-min-size, 1.5em);
@@ -35,8 +40,10 @@
 
 #kup-component {
   background-color: var(--kup_badge_primary_color);
+  border-width: var(--kup_badge_border_width);
+  border-style: var(--kup_badge_border_style);
+  border-color: var(--kup_badge_border_color);
   border-radius: var(--kup_badge_border_radius);
-  border: var(--kup_badge_border);
   color: var(--kup_badge_text_on_primary_color);
   font-size: 0.625em;
   min-height: var(--kup_badge_min_size);
