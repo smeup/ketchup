@@ -37,18 +37,6 @@ const defaultData = [
             k: 'b3',
         },
     },
-    // {
-    //     data: {
-    //         title: 'button 4 tooltip',
-    //     },
-    //     icon: 'favorite',
-    //     value: 'Raised favorite 4',
-    //     obj: {
-    //         t: '',
-    //         p: '',
-    //         k: 'b4',
-    //     },
-    // },
     {
         data: {
             trailingIcon: true,
@@ -187,9 +175,9 @@ const bottoniera2 = document.getElementById('button-list-verticale');
 bottoniera2.columns = 1;
 bottoniera2.data = defaultData;
 
-// const bottoniera3 = document.getElementById('button-list-3-col');
-// bottoniera3.columns = 3;
-// bottoniera3.data = defaultData;
+const bottoniera3 = document.getElementById('button-list-3-col');
+bottoniera3.columns = 3;
+bottoniera3.data = defaultData;
 
 const bottoniera4 = document.getElementById('button-list-collapsed');
 bottoniera4.data = defaultData;
