@@ -3,7 +3,6 @@ import { FunctionalComponent, getAssetPath, h, VNode } from '@stencil/core';
 import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { NumericFieldFormatOptions } from '../../managers/kup-math/kup-math-declarations';
-import classNames from 'classnames';
 import { FImage } from '../f-image/f-image';
 import { FImageProps } from '../f-image/f-image-declarations';
 
@@ -17,20 +16,21 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
     props: FTextFieldProps,
     children: VNode[]
 ) => {
+    const classObj: Record<string, boolean> = {
+        'f-text-field': true,
+        'kup-danger': props.danger,
+        'kup-full-height': props.fullHeight,
+        'kup-full-width': props.fullWidth,
+        'kup-info': props.info,
+        'kup-secondary': props.secondary,
+        'kup-shaped': props.shaped,
+        'kup-success': props.success,
+        'kup-warning': props.warning,
+        [props.wrapperClass]: !!props.wrapperClass,
+    }
     return (
         <div
-            class={classNames(
-                `f-text-field`,
-                { 'kup-danger': props.danger },
-                { 'kup-full-height': props.fullHeight },
-                { 'kup-full-width': props.fullWidth },
-                { 'kup-info': props.info },
-                { 'kup-secondary': props.secondary },
-                { 'kup-shaped': props.shaped },
-                { 'kup-success': props.success },
-                { 'kup-warning': props.warning },
-                { [props.wrapperClass]: !!props.wrapperClass }
-            )}
+            class={classObj}
             {...props.dataSet}
             id={props.id}
             title={props.title}

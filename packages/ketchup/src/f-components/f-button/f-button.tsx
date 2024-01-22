@@ -2,7 +2,6 @@ import { FunctionalComponent, h, VNode } from '@stencil/core';
 import { FButtonProps, FButtonStyling } from './f-button-declarations';
 import { FImage } from '../f-image/f-image';
 import { FImageProps } from '../f-image/f-image-declarations';
-import classNames from 'classnames';
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
@@ -24,24 +23,25 @@ export const FButton: FunctionalComponent<FButtonProps> = (
             props.icon &&
             (props.label === null || props.label === undefined))
     );
+    const classObj: Record<string, boolean> = {
+        'f-button': true,
+        'kup-danger': props.danger,
+        'kup-full-height': props.fullHeight,
+        'kup-full-width': props.fullWidth,
+        'kup-info': props.info,
+        'kup-large': props.large,
+        'kup-pulsating': props.pulsating,
+        'kup-shaped': props.shaped,
+        'kup-secondary': props.secondary,
+        'kup-slim': props.slim,
+        'kup-success': props.success,
+        'kup-warning': props.warning,
+        'kup-neutral': props.neutral,
+        [props.wrapperClass]: !!props.wrapperClass,
+    }
     return (
         <div
-            class={classNames(
-                'f-button',
-                { 'kup-danger': props.danger },
-                { 'kup-full-height': props.fullHeight },
-                { 'kup-full-width': props.fullWidth },
-                { 'kup-info': props.info },
-                { 'kup-large': props.large },
-                { 'kup-pulsating': props.pulsating },
-                { 'kup-shaped': props.shaped },
-                { 'kup-secondary': props.secondary },
-                { 'kup-slim': props.slim },
-                { 'kup-success': props.success },
-                { 'kup-warning': props.warning },
-                { 'kup-neutral': props.neutral },
-                { [props.wrapperClass]: !!props.wrapperClass }
-            )}
+            class={classObj}
             {...props.dataSet}
             id={props.id}
             title={props.title}
