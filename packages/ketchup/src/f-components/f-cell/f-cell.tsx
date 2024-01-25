@@ -532,6 +532,7 @@ function setEditableCell(
                         onInput={onInput}
                         type={type}
                         value={value}
+                        maxLength={column.cellData?.maxLength ?? -1}
                     ></input>
                 );
             } else {
