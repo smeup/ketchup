@@ -5,7 +5,8 @@
 #### Component
 
 1. Must be written following the kebab-case style;
-1. Must be prefixed with `kup-`.
+2. Must be prefixed with `kup-`.
+3. Being a web component, it must include a Shadow DOM.
 
 #### Interfaces and enums
 
