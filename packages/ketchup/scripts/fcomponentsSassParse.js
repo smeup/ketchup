@@ -78,6 +78,7 @@ for (const componentName of componentsFolders) {
                 const parsedStyle = sass.compileString(
                     `
                     @import 'global.scss';
+                    @import 'fonts.scss';
                     @import '${componentName}.scss';
                 `,
                     {
@@ -147,6 +148,7 @@ for (const fileName of KUP_THEME_FILES_TO_PARSE) {
             const parsedStyle = sass.compileString(
                 `
                     @import 'global.scss';
+                    @import 'fonts.scss';
                     @import '${fileName}.scss';
                 `,
                 sassParserOptions

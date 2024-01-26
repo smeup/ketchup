@@ -27,6 +27,10 @@ components.data = [
         id: 'autocomplete.html',
     },
     {
+        value: 'Badge',
+        id: 'badge.html',
+    },
+    {
         value: 'Box',
         id: 'box.html',
     },

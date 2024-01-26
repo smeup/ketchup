@@ -26,6 +26,13 @@
             body {
                 margin: 0;
             }
+            .grid-wrapper {
+                padding: 0 16px;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                justify-items: center;
+                gap: 16px;
+            }
             .flex-wrapper {
                 display: flex;
                 justify-content: space-evenly;
@@ -101,6 +108,18 @@
             }
             #dev-server-progress-bar {
                 background: var(--kup-spinner-color) !important;
+            }
+
+            @media screen and (max-width: 1300px) {
+                .grid-wrapper {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @media screen and (max-width: 600px) {
+                .grid-wrapper {
+                    grid-template-columns: 1fr;
+                }
             }
 
             @media screen and (min-width: 900px) {
@@ -188,7 +207,13 @@
             <div class="section">
                 <h2>Utilities</h2>
                 <p>Ctrl + Click to open the page in a new tab.</p>
-                <div class="flex-wrapper flex-wrapper--responsive">
+                <div class="grid-wrapper grid-wrapper--responsive">
+                    <kup-card
+                        data-description="Environment to see the tokens of the new design system."
+                        data-href="design-system.html"
+                        data-icon="pencil"
+                        data-title="Design System"
+                    ></kup-card>
                     <kup-card
                         data-description="Environment to test a single component's behavior. IMPORTANT: do not commit any change on this page!"
                         data-href="debug.html"

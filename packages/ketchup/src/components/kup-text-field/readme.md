@@ -5,52 +5,58 @@
 
 ## Properties
 
-| Property                 | Attribute                    | Description                                                                                                                                                                | Type      | Default  |
-| ------------------------ | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | -------- |
-| `allowNegative`          | `allow-negative`             | When true, could be input negative numbers (should be used when inputType is number).                                                                                      | `boolean` | `false`  |
-| `customStyle`            | `custom-style`               | Custom style of the component.                                                                                                                                             | `string`  | `''`     |
-| `decimals`               | `decimals`                   | Number of decimals (should be used when inputType is number).                                                                                                              | `number`  | `null`   |
-| `disabled`               | `disabled`                   | When set to true, the component is disabled.                                                                                                                               | `boolean` | `false`  |
-| `emitSubmitEventOnEnter` | `emit-submit-event-on-enter` | When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.                                           | `boolean` | `true`   |
-| `fullWidth`              | `full-width`                 | When set to true, the component will be rendered at full width.                                                                                                            | `boolean` | `false`  |
-| `group`                  | `group`                      | When true, the number will be formatted with group separator (should be used when inputType is number).                                                                    | `boolean` | `false`  |
-| `helper`                 | `helper`                     | When set, its content will be shown as a help text below the field.                                                                                                        | `string`  | `null`   |
-| `helperEnabled`          | `helper-enabled`             | When true, the helper will be displayed.                                                                                                                                   | `boolean` | `true`   |
-| `helperWhenFocused`      | `helper-when-focused`        | When set, the helper will be shown only when the field is focused.                                                                                                         | `boolean` | `false`  |
-| `hiddenCounter`          | `hidden-counter`             | Hides the character counter.                                                                                                                                               | `boolean` | `false`  |
-| `icon`                   | `icon`                       | When set, the text-field will show this icon.                                                                                                                              | `string`  | `null`   |
-| `initialValue`           | `initial-value`              | Sets the initial value of the component                                                                                                                                    | `string`  | `''`     |
-| `inputMode`              | `input-mode`                 | The HTML inputmode of the input element.                                                                                                                                   | `string`  | `null`   |
-| `inputType`              | `input-type`                 | The HTML type of the input element. It has no effect on text areas.                                                                                                        | `string`  | `'text'` |
-| `integers`               | `integers`                   | Number of integers (should be used when inputType is number).                                                                                                              | `number`  | `null`   |
-| `isClearable`            | `is-clearable`               | Enables a clear trailing icon.                                                                                                                                             | `boolean` | `false`  |
-| `label`                  | `label`                      | When set, its content will be shown as a label.                                                                                                                            | `string`  | `null`   |
-| `leadingLabel`           | `leading-label`              | When set to true, the label will be on the left of the component.                                                                                                          | `boolean` | `false`  |
-| `max`                    | `max`                        | The HTML max attribute specifies the maximum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week. | `number`  | `null`   |
-| `maxLength`              | `max-length`                 | When set, the helper will display a character counter.                                                                                                                     | `number`  | `null`   |
-| `min`                    | `min`                        | The HTML min attribute specifies the minimum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week. | `number`  | `null`   |
-| `name`                   | `name`                       | The HTML name attribute used for form autocomplete.                                                                                                                        | `string`  | `null`   |
-| `outlined`               | `outlined`                   | When set to true, the component will be rendered as an outlined field.                                                                                                     | `boolean` | `false`  |
-| `readOnly`               | `read-only`                  | Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.                                   | `boolean` | `false`  |
-| `size`                   | `size`                       | The HTML attribute size of the input element.                                                                                                                              | `number`  | `null`   |
-| `step`                   | `step`                       | The HTML step of the input element. It has effect only with number input type.                                                                                             | `number`  | `null`   |
-| `textArea`               | `text-area`                  | When set to true, the component will be rendered as a textarea.                                                                                                            | `boolean` | `false`  |
-| `trailingIcon`           | `trailing-icon`              | When set, the icon will be shown after the text.                                                                                                                           | `boolean` | `false`  |
-| `trailingLabel`          | `trailing-label`             | When set to true, the label will be on the right of the component.                                                                                                         | `boolean` | `false`  |
+| Property                 | Attribute                    | Description                                                                                                                                                                | Type                                                                                                          | Default                     |
+| ------------------------ | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| `alert`                  | `alert`                      | Set alert message                                                                                                                                                          | `string`                                                                                                      | `''`                        |
+| `allowNegative`          | `allow-negative`             | When true, could be input negative numbers (should be used when inputType is number).                                                                                      | `boolean`                                                                                                     | `false`                     |
+| `customStyle`            | `custom-style`               | Custom style of the component.                                                                                                                                             | `string`                                                                                                      | `''`                        |
+| `decimals`               | `decimals`                   | Number of decimals (should be used when inputType is number).                                                                                                              | `number`                                                                                                      | `null`                      |
+| `disabled`               | `disabled`                   | When set to true, the component is disabled.                                                                                                                               | `boolean`                                                                                                     | `false`                     |
+| `emitSubmitEventOnEnter` | `emit-submit-event-on-enter` | When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.                                           | `boolean`                                                                                                     | `true`                      |
+| `error`                  | `error`                      | Set error message                                                                                                                                                          | `string`                                                                                                      | `''`                        |
+| `fullWidth`              | `full-width`                 | When set to true, the component will be rendered at full width.                                                                                                            | `boolean`                                                                                                     | `false`                     |
+| `group`                  | `group`                      | When true, the number will be formatted with group separator (should be used when inputType is number).                                                                    | `boolean`                                                                                                     | `false`                     |
+| `helper`                 | `helper`                     | When set, its content will be shown as a help text below the field.                                                                                                        | `string`                                                                                                      | `null`                      |
+| `helperEnabled`          | `helper-enabled`             | When true, the helper will be displayed.                                                                                                                                   | `boolean`                                                                                                     | `true`                      |
+| `helperWhenFocused`      | `helper-when-focused`        | When set, the helper will be shown only when the field is focused.                                                                                                         | `boolean`                                                                                                     | `false`                     |
+| `hiddenCounter`          | `hidden-counter`             | Hides the character counter.                                                                                                                                               | `boolean`                                                                                                     | `false`                     |
+| `icon`                   | `icon`                       | When set, the text-field will show this icon.                                                                                                                              | `string`                                                                                                      | `null`                      |
+| `initialValue`           | `initial-value`              | Sets the initial value of the component                                                                                                                                    | `string`                                                                                                      | `''`                        |
+| `inputMode`              | `input-mode`                 | The HTML inputmode of the input element.                                                                                                                                   | `string`                                                                                                      | `null`                      |
+| `inputType`              | `input-type`                 | The HTML type of the input element. It has no effect on text areas.                                                                                                        | `string`                                                                                                      | `'text'`                    |
+| `integers`               | `integers`                   | Number of integers (should be used when inputType is number).                                                                                                              | `number`                                                                                                      | `null`                      |
+| `isClearable`            | `is-clearable`               | Enables a clear trailing icon.                                                                                                                                             | `boolean`                                                                                                     | `false`                     |
+| `label`                  | `label`                      | When set, its content will be shown as a label.                                                                                                                            | `string`                                                                                                      | `null`                      |
+| `leadingLabel`           | `leading-label`              | When set to true, the label will be on the left of the component.                                                                                                          | `boolean`                                                                                                     | `false`                     |
+| `max`                    | `max`                        | The HTML max attribute specifies the maximum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week. | `number`                                                                                                      | `null`                      |
+| `maxLength`              | `max-length`                 | When set, the helper will display a character counter.                                                                                                                     | `number`                                                                                                      | `null`                      |
+| `min`                    | `min`                        | The HTML min attribute specifies the minimum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week. | `number`                                                                                                      | `null`                      |
+| `name`                   | `name`                       | The HTML name attribute used for form autocomplete.                                                                                                                        | `string`                                                                                                      | `null`                      |
+| `outlined`               | `outlined`                   | When set to true, the component will be rendered as an outlined field.                                                                                                     | `boolean`                                                                                                     | `false`                     |
+| `quantityButtons`        | `quantity-buttons`           | When set, appear 2 buttons to increment and decrement the value.                                                                                                           | `boolean`                                                                                                     | `false`                     |
+| `readOnly`               | `read-only`                  | Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.                                   | `boolean`                                                                                                     | `false`                     |
+| `size`                   | `size`                       | The HTML attribute size of the input element.                                                                                                                              | `number`                                                                                                      | `null`                      |
+| `sizing`                 | `sizing`                     | Sets the type of the button                                                                                                                                                | `KupComponentSizing.LARGE \| KupComponentSizing.MAX \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.MEDIUM` |
+| `step`                   | `step`                       | The HTML step of the input element. It has effect only with number input type.                                                                                             | `number`                                                                                                      | `null`                      |
+| `textArea`               | `text-area`                  | When set to true, the component will be rendered as a textarea.                                                                                                            | `boolean`                                                                                                     | `false`                     |
+| `trailingIcon`           | `trailing-icon`              | When set, the icon will be shown after the text.                                                                                                                           | `boolean`                                                                                                     | `false`                     |
+| `trailingLabel`          | `trailing-label`             | When set to true, the label will be on the right of the component.                                                                                                         | `boolean`                                                                                                     | `false`                     |
 
 
 ## Events
 
-| Event                          | Description                                            | Type                                    |
-| ------------------------------ | ------------------------------------------------------ | --------------------------------------- |
-| `kup-textfield-blur`           | Triggered when the input element loses focus.          | `CustomEvent<KupTextFieldEventPayload>` |
-| `kup-textfield-change`         | Triggered when the input element changes.              | `CustomEvent<KupTextFieldEventPayload>` |
-| `kup-textfield-cleariconclick` | Triggered when the text field's clear icon is clicked. | `CustomEvent<KupEventPayload>`          |
-| `kup-textfield-click`          | Triggered when the input element is clicked.           | `CustomEvent<KupTextFieldEventPayload>` |
-| `kup-textfield-focus`          | Triggered when the input element gets focused.         | `CustomEvent<KupTextFieldEventPayload>` |
-| `kup-textfield-iconclick`      | Triggered when the text field's icon is clicked.       | `CustomEvent<KupTextFieldEventPayload>` |
-| `kup-textfield-input`          | Triggered when the input element receives an input.    | `CustomEvent<KupTextFieldEventPayload>` |
-| `kup-textfield-submit`         | Triggered when the Enter key is pressed.               | `CustomEvent<KupTextFieldEventPayload>` |
+| Event                          | Description                                                          | Type                                    |
+| ------------------------------ | -------------------------------------------------------------------- | --------------------------------------- |
+| `kup-textfield-blur`           | Triggered when the input element loses focus.                        | `CustomEvent<KupTextFieldEventPayload>` |
+| `kup-textfield-change`         | Triggered when the input element changes.                            | `CustomEvent<KupTextFieldEventPayload>` |
+| `kup-textfield-cleariconclick` | Triggered when the text field's clear icon is clicked.               | `CustomEvent<KupEventPayload>`          |
+| `kup-textfield-click`          | Triggered when the input element is clicked.                         | `CustomEvent<KupTextFieldEventPayload>` |
+| `kup-textfield-focus`          | Triggered when the input element gets focused.                       | `CustomEvent<KupTextFieldEventPayload>` |
+| `kup-textfield-iconclick`      | Triggered when the text field's icon is clicked.                     | `CustomEvent<KupTextFieldEventPayload>` |
+| `kup-textfield-input`          | Triggered when the input element receives an input.                  | `CustomEvent<KupTextFieldEventPayload>` |
+| `kup-textfield-minusclick`     | Triggered when the - button of the number type component is pressed. | `CustomEvent<KupTextFieldEventPayload>` |
+| `kup-textfield-plusclick`      | Triggered when the + button of the number type component is pressed. | `CustomEvent<KupTextFieldEventPayload>` |
+| `kup-textfield-submit`         | Triggered when the Enter key is pressed.                             | `CustomEvent<KupTextFieldEventPayload>` |
 
 
 ## Methods
@@ -58,6 +64,12 @@
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
 Used to retrieve component's props values.
+
+#### Parameters
+
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
 
@@ -99,6 +111,12 @@ Type: `Promise<void>`
 
 Sets the props to the component.
 
+#### Parameters
+
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
+| `props` | `GenericObject` | - Object containing props that will be set to the component. |
+
 #### Returns
 
 Type: `Promise<void>`
@@ -108,6 +126,12 @@ Type: `Promise<void>`
 ### `setValue(value: string) => Promise<void>`
 
 Sets the internal value of the component.
+
+#### Parameters
+
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| `value` | `string` |             |
 
 #### Returns
 
@@ -152,16 +176,19 @@ Type: `Promise<void>`
 
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-card --> kup-text-field
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
+  kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-card
@@ -180,16 +207,20 @@ graph TD;
   kup-chip --> kup-badge
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
+  kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
   kup-combobox --> kup-dialog
+  kup-combobox --> kup-badge
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
+  kup-date-picker --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
+  kup-time-picker --> kup-badge
   kup-image --> kup-spinner
   kup-image --> kup-card
   kup-image --> kup-dialog
@@ -215,6 +246,7 @@ graph TD;
   kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
+  kup-checkbox --> kup-badge
   kup-data-table --> kup-text-field
   kup-switch --> kup-card
   kup-switch --> kup-dialog

@@ -86,10 +86,10 @@ export class KupButtonList {
      */
     @Prop() showSelection: boolean = true;
     /**
-     * Defines the style of the buttons. Available styles are "flat", "outlined" and "raised" (which is the default).
-     * @default FButtonStyling.RAISED
+     * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
+     * @default FButtonStyling.FLAT
      */
-    @Prop({ reflect: true }) styling: FButtonStyling = FButtonStyling.RAISED;
+    @Prop({ reflect: true }) styling: FButtonStyling = FButtonStyling.FLAT;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -214,6 +214,7 @@ export class KupButtonList {
             );
             return null;
         }
+
         const props: FButtonProps = {
             checked: data.checked,
             disabled: data.disabled,
@@ -224,14 +225,18 @@ export class KupButtonList {
             id: data.id,
             label: data.label,
             large: data.large,
+            neutral: this.rootElement.classList.contains('kup-neutral')
+                ? true
+                : false,
             shaped: data.shaped,
-            styling: data.styling,
+            styling: index === Number(this.selected) ? 'raised' : data.styling,
             toggable: data.toggable,
             trailingIcon: data.trailingIcon,
             title: data.title,
             wrapperClass: this.rootElement.className + ' ' + data.wrapperClass,
             onClick: () => this.onKupClick(data.id, '-1'),
         };
+
         return <FButton {...props} />;
     }
 
@@ -262,6 +267,8 @@ export class KupButtonList {
                 showIcons: true,
             },
         };
+        data.styling =
+            index === Number(this.selected) ? 'raised' : data.styling;
         return (
             <kup-dropdown-button
                 class={this.rootElement.className + ' ' + data.wrapperClass}
@@ -356,6 +363,30 @@ export class KupButtonList {
         if (this.data == null || this.data.length < 1) {
             return null;
         }
+        if (this.styling === 'raised') {
+            this.kupManager.debug.logMessage(
+                this,
+                'styling="raised" is not allowed, please use "flat" or "outlined" instead.',
+                KupDebugCategory.WARNING
+            );
+            return null;
+        }
+
+        const haveIcons: boolean = this.data.some((button) => button.icon);
+        if (haveIcons) {
+            const allButtonsHaveIconsOrDropdown: boolean = this.data.every(
+                (button) => button.icon || button.data.dropdownOnly
+            );
+            if (!allButtonsHaveIconsOrDropdown) {
+                this.kupManager.debug.logMessage(
+                    this,
+                    'Not all buttons have icons, please add icons to all buttons or remove them from all buttons.',
+                    KupDebugCategory.WARNING
+                );
+                return null;
+            }
+        }
+
         const columns: VNode[] = [];
         for (let i = 0; i < this.data.length; i++) {
             const node: KupButtonListNode = this.data[i];

@@ -1,22 +1,18 @@
-
-
 # ketchup-btn
-
-
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property        | Attribute        | Description                                                                                                    | Type                                                                                                                        | Default                 |
-| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
-| `columns`       | `columns`        | Number of columns.                                                                                             | `number`                                                                                                                    | `0`                     |
-| `customStyle`   | `custom-style`   | Custom style of the component.                                                                                 | `string`                                                                                                                    | `''`                    |
-| `data`          | --               | Props of the sub-components.                                                                                   | `KupButtonListNode[]`                                                                                                       | `[]`                    |
-| `disabled`      | `disabled`       | When set to true, the sub-components are disabled.                                                             | `boolean`                                                                                                                   | `false`                 |
-| `showSelection` | `show-selection` | When set to true, highlights the selected button with the secondary color of KupTheme.                         | `boolean`                                                                                                                   | `true`                  |
-| `styling`       | `styling`        | Defines the style of the buttons. Available styles are "flat", "outlined" and "raised" (which is the default). | `FButtonStyling.FLAT \| FButtonStyling.FLOATING \| FButtonStyling.ICON \| FButtonStyling.OUTLINED \| FButtonStyling.RAISED` | `FButtonStyling.RAISED` |
+| Property        | Attribute        | Description                                                                                         | Type                                                                                                                        | Default               |
+| --------------- | ---------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| `columns`       | `columns`        | Number of columns.                                                                                  | `number`                                                                                                                    | `0`                   |
+| `customStyle`   | `custom-style`   | Custom style of the component.                                                                      | `string`                                                                                                                    | `''`                  |
+| `data`          | --               | Props of the sub-components.                                                                        | `KupButtonListNode[]`                                                                                                       | `[]`                  |
+| `disabled`      | `disabled`       | When set to true, the sub-components are disabled.                                                  | `boolean`                                                                                                                   | `false`               |
+| `showSelection` | `show-selection` | When set to true, highlights the selected button with the secondary color of KupTheme.              | `boolean`                                                                                                                   | `true`                |
+| `styling`       | `styling`        | Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default). | `FButtonStyling.FLAT \| FButtonStyling.FLOATING \| FButtonStyling.ICON \| FButtonStyling.OUTLINED \| FButtonStyling.RAISED` | `FButtonStyling.FLAT` |
 
 
 ## Events
@@ -31,6 +27,12 @@
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
 Used to retrieve component's props values.
+
+#### Parameters
+
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
 
@@ -51,6 +53,12 @@ Type: `Promise<void>`
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
+
+#### Parameters
+
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
+| `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
@@ -114,6 +122,7 @@ graph TD;
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
+  kup-autocomplete --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
@@ -125,18 +134,23 @@ graph TD;
   kup-chip --> kup-badge
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
+  kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
   kup-combobox --> kup-dialog
+  kup-combobox --> kup-badge
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
+  kup-date-picker --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
+  kup-time-picker --> kup-badge
   kup-image --> kup-spinner
   kup-image --> kup-card
   kup-image --> kup-dialog
@@ -154,6 +168,7 @@ graph TD;
   kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
+  kup-checkbox --> kup-badge
   kup-data-table --> kup-button-list
   kup-switch --> kup-card
   kup-switch --> kup-dialog

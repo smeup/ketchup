@@ -9,7 +9,7 @@
 */
 
 :host {
-  --kup_buttonlist_grid_gap: var(--kup-buttonlist-grid-gap, 1em);
+  --kup_buttonlist_grid_gap: var(--kup-buttonlist-grid-gap, 2px);
   --kup_buttonlist_selected_primary_color: var(
     --kup-buttonlist-selected-primary-color,
     var(--kup-secondary-color)
@@ -43,25 +43,4 @@
   grid-gap: var(--kup_buttonlist_grid_gap);
   grid-template-columns: var(--kup_buttonlist_grid_columns);
   width: max-content;
-
-  &.show-selection {
-    .selected {
-      --kup-button-primary-color: var(--kup_buttonlist_selected_primary_color);
-      --kup-button-primary-color-rgb: var(
-        --kup_buttonlist_selected_primary_color_rgb
-      );
-      --kup-button-primary-color-h: var(
-        --kup_buttonlist_selected_primary_color_h
-      );
-      --kup-button-primary-color-s: var(
-        --kup_buttonlist_selected_primary_color_s
-      );
-      --kup-button-primary-color-l: var(
-        --kup_buttonlist_selected_primary_color_l
-      );
-      --kup-button-text-on-primary-color: var(
-        --kup_buttonlist_selected_text_on_primary_color
-      );
-    }
-  }
 }

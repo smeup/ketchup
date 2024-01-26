@@ -160,6 +160,15 @@ Type: `Promise<void>`
 
 
 
+#### Parameters
+
+| Name                   | Type              | Description |
+| ---------------------- | ----------------- | ----------- |
+| `columns`              | `KupDataColumn[]` |             |
+| `receivingColumnIndex` | `number`          |             |
+| `sortedColumnIndex`    | `number`          |             |
+| `useNewObject`         | `boolean`         |             |
+
 #### Returns
 
 Type: `Promise<KupDataColumn[]>`
@@ -169,6 +178,12 @@ Type: `Promise<KupDataColumn[]>`
 ### `deleteRows(ids?: string[]) => Promise<Array<KupDataTableRow>>`
 
 This method will delete rows by id from the data table dataset.
+
+#### Parameters
+
+| Name  | Type       | Description                   |
+| ----- | ---------- | ----------------------------- |
+| `ids` | `string[]` | - Array of row ids to delete. |
 
 #### Returns
 
@@ -210,6 +225,12 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: KupDataTab
 
 Used to retrieve component's props values.
 
+#### Parameters
+
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
+
 #### Returns
 
 Type: `Promise<GenericObject>`
@@ -230,6 +251,12 @@ Type: `Promise<KupDataTableRow[]>`
 
 Hides the given column.
 
+#### Parameters
+
+| Name     | Type            | Description       |
+| -------- | --------------- | ----------------- |
+| `column` | `KupDataColumn` | - Column to hide. |
+
 #### Returns
 
 Type: `Promise<void>`
@@ -239,6 +266,12 @@ Type: `Promise<void>`
 ### `insertNewRow(row: KupDataTableRow) => Promise<void>`
 
 Adds a new row to the list data
+
+#### Parameters
+
+| Name  | Type              | Description |
+| ----- | ----------------- | ----------- |
+| `row` | `KupDataTableRow` | new row     |
 
 #### Returns
 
@@ -250,6 +283,13 @@ Type: `Promise<void>`
 
 Invokes the KupData API for column creation, then refreshes the component in case no errors were catched.
 
+#### Parameters
+
+| Name      | Type                      | Description                    |
+| --------- | ------------------------- | ------------------------------ |
+| `type`    | `KupDataNewColumnTypes`   | - Type of the column creation. |
+| `options` | `KupDataNewColumnOptions` | - Options of the creation.     |
+
 #### Returns
 
 Type: `Promise<string | KupDataColumn>`
@@ -260,6 +300,12 @@ Returns the new column created or a string containing the error message if somet
 
 Opens the column menu of the given column.
 
+#### Parameters
+
+| Name     | Type     | Description           |
+| -------- | -------- | --------------------- |
+| `column` | `string` | - Name of the column. |
+
 #### Returns
 
 Type: `Promise<void>`
@@ -269,6 +315,12 @@ Type: `Promise<void>`
 ### `refresh(recalcRows?: boolean) => Promise<void>`
 
 This method is used to trigger a new render of the component.
+
+#### Parameters
+
+| Name         | Type      | Description |
+| ------------ | --------- | ----------- |
+| `recalcRows` | `boolean` |             |
 
 #### Returns
 
@@ -290,6 +342,14 @@ Type: `Promise<void>`
 
 Sets the cell value in a table cell.
 
+#### Parameters
+
+| Name         | Type     | Description           |
+| ------------ | -------- | --------------------- |
+| `columnName` | `string` | - Name of the column. |
+| `rowId`      | `string` | - Id of the row.      |
+| `value`      | `string` | - Value to set.       |
+
 #### Returns
 
 Type: `Promise<void>`
@@ -299,6 +359,13 @@ Type: `Promise<void>`
 ### `setFocus(column: string, rowId: string) => Promise<void>`
 
 Sets the focus on an editable table cell.
+
+#### Parameters
+
+| Name     | Type     | Description           |
+| -------- | -------- | --------------------- |
+| `column` | `string` | - Name of the column. |
+| `rowId`  | `string` | - Id of the row.      |
 
 #### Returns
 
@@ -310,6 +377,12 @@ Type: `Promise<void>`
 
 Sets the props to the component.
 
+#### Parameters
+
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
+| `props` | `GenericObject` | - Object containing props that will be set to the component. |
+
 #### Returns
 
 Type: `Promise<void>`
@@ -319,6 +392,13 @@ Type: `Promise<void>`
 ### `setSelectedRows(rowsIdentifiers: string[] | number[], emitEvent?: boolean) => Promise<void>`
 
 This method will set the selected rows of the component.
+
+#### Parameters
+
+| Name              | Type                   | Description                                                          |
+| ----------------- | ---------------------- | -------------------------------------------------------------------- |
+| `rowsIdentifiers` | `string[] \| number[]` | - Array of ids (dataset) or indexes (rendered rows).                 |
+| `emitEvent`       | `boolean`              | - The event will always be emitted unless emitEvent is set to false. |
 
 #### Returns
 
@@ -402,6 +482,7 @@ graph TD;
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
+  kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-card
@@ -420,18 +501,23 @@ graph TD;
   kup-chip --> kup-badge
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
+  kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
   kup-combobox --> kup-dialog
+  kup-combobox --> kup-badge
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
+  kup-date-picker --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
+  kup-time-picker --> kup-badge
   kup-image --> kup-spinner
   kup-image --> kup-card
   kup-image --> kup-dialog
@@ -457,6 +543,7 @@ graph TD;
   kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
+  kup-checkbox --> kup-badge
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge

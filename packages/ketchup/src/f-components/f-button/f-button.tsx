@@ -23,21 +23,25 @@ export const FButton: FunctionalComponent<FButtonProps> = (
             props.icon &&
             (props.label === null || props.label === undefined))
     );
+    const classObj: Record<string, boolean> = {
+        'f-button': true,
+        'kup-danger': props.danger,
+        'kup-full-height': props.fullHeight,
+        'kup-full-width': props.fullWidth,
+        'kup-info': props.info,
+        'kup-large': props.large,
+        'kup-pulsating': props.pulsating,
+        'kup-shaped': props.shaped,
+        'kup-secondary': props.secondary,
+        'kup-slim': props.slim,
+        'kup-success': props.success,
+        'kup-warning': props.warning,
+        'kup-neutral': props.neutral,
+        [props.wrapperClass]: !!props.wrapperClass,
+    }
     return (
         <div
-            class={`f-button ${props.danger ? 'kup-danger' : ''} ${
-                props.fullHeight ? 'kup-full-height' : ''
-            } ${props.fullWidth ? 'kup-full-width' : ''} ${
-                props.info ? 'kup-info' : ''
-            } ${props.large ? 'kup-large' : ''} ${
-                props.pulsating ? 'kup-pulsating' : ''
-            }  ${props.shaped ? 'kup-shaped' : ''} ${
-                props.secondary ? 'kup-secondary' : ''
-            } ${props.slim ? 'kup-slim' : ''} ${
-                props.success ? 'kup-success' : ''
-            } ${props.warning ? 'kup-warning' : ''} ${
-                props.wrapperClass ? props.wrapperClass : ''
-            }`}
+            class={classObj}
             {...props.dataSet}
             id={props.id}
             title={props.title}
@@ -63,7 +67,9 @@ function renderButton(props: FButtonProps): VNode {
         !isFlat && !isFloating && !isOutlined && !isIcon ? true : false;
 
     const propsFImage: FImageProps = {
-        color: props.disabled
+        color: props.neutral
+            ? `var(--kup-gray-color-100)`
+            : props.disabled
             ? `var(--kup_button_disabled_color)`
             : isOutlined || isFlat
             ? `var(--kup_button_primary_color)`
@@ -84,6 +90,7 @@ function renderButton(props: FButtonProps): VNode {
         'button--no-label': !props.label || props.label === ' ' ? true : false,
         'button--with-spinner':
             props.showSpinner && !props.disabled ? true : false,
+        [`button--${props.sizing}`]: props.sizing ? true : false,
     };
 
     const classLabelObj: Record<string, boolean> = {
@@ -108,12 +115,16 @@ function renderButton(props: FButtonProps): VNode {
         >
             {props.trailingIcon
                 ? [
-                      <span class={classLabelObj}>{props.label}</span>,
+                      props.label ? (
+                          <span class={classLabelObj}>{props.label}</span>
+                      ) : undefined,
                       props.icon ? <FImage {...propsFImage} /> : undefined,
                   ]
                 : [
                       props.icon ? <FImage {...propsFImage} /> : undefined,
-                      <span class={classLabelObj}>{props.label}</span>,
+                      props.label ? (
+                          <span class={classLabelObj}>{props.label}</span>
+                      ) : undefined,
                   ]}
             {props.showSpinner && !props.disabled ? (
                 <div class="button__spinner-container">
@@ -126,7 +137,9 @@ function renderButton(props: FButtonProps): VNode {
 
 function renderIconButton(props: FButtonProps): VNode {
     const propsFImage: FImageProps = {
-        color: props.disabled
+        color: props.neutral
+            ? `var(--kup-gray-color-100)`
+            : props.disabled
             ? `var(--kup_button_disabled_color)`
             : `var(--kup_button_primary_color)`,
         sizeX: props.large ? 'calc(1.75em * 1.5)' : '1.75em',

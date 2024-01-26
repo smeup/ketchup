@@ -84,17 +84,46 @@
             };
         </script>
         <div class="data-examples">
-            <h1>Bottoniera orizzontale flat</h1>
+            <h1>Flat Button List</h1>
             <kup-button-list id="button-list-orizzontale" styling="flat" class="kup-full-width"></kup-button-list>
 
             <h1>Bottoniera verticale outlined</h1>
             <kup-button-list id="button-list-verticale" styling="outlined" class="kup-full-width"></kup-button-list>
 
             <h1>Bottoniera 3 colonne raised</h1>
-            <kup-button-list id="button-list-3-col" styling="raised" class="kup-shaped"></kup-button-list>
+            <kup-button-list id="button-list-3-col" styling="flat" class="kup-shaped"></kup-button-list>
 
             <h1>Bottoniera collapsed</h1>
-            <kup-button-list id="button-list-collapsed"></kup-button-list>
+            <kup-button-list id="button-list-collapsed" styling="outlined"></kup-button-list>
+
+            <h1>Flat Button List</h1>
+            <kup-button-list id="flat-button-list" styling="flat" class="kup-full-width"></kup-button-list>
+
+            <h1>Flat Button List with icons</h1>
+            <kup-button-list id="flat-button-list-icons" styling="flat" class="kup-full-width"></kup-button-list>
+
+            <h1>Flat Button List</h1>
+            <kup-button-list id="flat-button-list-neutral" styling="flat" class="kup-full-width kup-neutral"></kup-button-list>
+
+            <h1>Flat Button List with icons</h1>
+            <kup-button-list id="flat-button-list-icons-neutral" styling="flat" class="kup-full-width kup-neutral"></kup-button-list>
+
+            <h1>Outlined Button List</h1>
+            <kup-button-list id="outlined-button-list" styling="outlined" class="kup-full-width"></kup-button-list>
+
+            <h1>Outlined Button List with icons</h1>
+            <kup-button-list id="outlined-button-list-icons" styling="outlined" class="kup-full-width"></kup-button-list>
+
+            <h1>Outlined Button List</h1>
+            <kup-button-list id="outlined-button-list-neutral" styling="outlined" class="kup-full-width kup-neutral"></kup-button-list>
+
+            <h1>Outlined Button List with icons</h1>
+            <kup-button-list id="outlined-button-list-icons-neutral" styling="outlined" class="kup-full-width kup-neutral"></kup-button-list>
+
+            <h1>Button List with some icons</h1>
+            <h4>Only button lists that have a unique format (with icons or without icons) are rendered.</h4>
+            <kup-button-list id="error-button-list-icons" styling="flat" class="kup-full-width"></kup-button-list>
+
             <h4>Playground bottoniera</h4>
             <div class="button-list">
                 <div class="button-list-options">
@@ -113,7 +142,7 @@
                             togglebutton-listShowtext(e);
                         });
                     </script>
-    
+
                     <div>
                         <kup-checkbox
                             label="Fillspace"
@@ -370,7 +399,7 @@
                             <option value="Courier">Courier</option>
                         </select>
                     </div>
-    
+
                     <div>
                         <label for="button-list-fontsize">Font size</label>
                         <input
@@ -381,12 +410,18 @@
                         />
                     </div>
                 </div>
-    
+
                 <kup-button-list></kup-button-list>
-    
+
                 <p id="button-list-label"></p> </div>
         </div>
 
         <script src="/assets/button-list.js"></script>
+        <script>
+            document.addEventListener('kup-manager-ready', () => {
+                const kupManager = document.documentElement.ketchup;
+                kupManager.theme.set('octane');
+            });
+        </script>
     </body>
 </html>
