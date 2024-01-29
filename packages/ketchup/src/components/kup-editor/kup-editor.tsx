@@ -35,7 +35,6 @@ import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-editor',
-    styleUrl: '',
     shadow: false,
 })
 export class KupEditor {
