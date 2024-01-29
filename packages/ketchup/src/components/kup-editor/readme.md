@@ -81,13 +81,6 @@ Type: `Promise<void>`
 
 
 
-## CSS Custom Properties
-
-| Name                  | Description              |
-| --------------------- | ------------------------ |
-| `--kup-editor-height` | height of the component. |
-
-
 ## Dependencies
 
 ### Depends on
