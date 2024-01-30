@@ -2550,10 +2550,30 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
    the editor. You probably shouldn't touch them. */
 
 .CodeMirror {
-  position: relative;
-  overflow: hidden;
   background: white;
+  min-height: auto !important; // Search "PHINDFIX" for the explanation
+  overflow: hidden;
+  position: relative;
 }
+
+/*
+PHINDFIX
+ANSWER | PHIND V9 MODEL
+Yes, Toast UI Editor applies an inline style of min-height: 200px; to the .CodeMirror class. 
+This is set by default in the library's CSS and it's intended to ensure that the editor has a minimum height of 200 pixels.
+
+This inline style is applied by the library itself and is not something that you should normally need to change. 
+However, if you find that it's causing issues with your layout, you can override it in your own CSS.
+
+Here's how you can do it:
+
+.CodeMirror {
+    min-height: auto !important;
+}
+This will override the min-height property set by Toast UI Editor and set it to auto, which means the height will adjust based on the content of the editor.
+
+Please note that using !important should generally be avoided if possible, as it increases the specificity of a rule and can make debugging and maintenance more difficult. However, in this case, it may be necessary to override the inline style set by the library 3.
+*/
 
 .CodeMirror-scroll {
   overflow: scroll !important; /* Things will break if this is overridden */
@@ -2567,6 +2587,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   position: relative;
   z-index: 0;
 }
+
 .CodeMirror-sizer {
   position: relative;
   border-right: 50px solid transparent;
