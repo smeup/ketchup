@@ -98,7 +98,7 @@ export class KupEditor {
      * The initial editor value.
      * @default ''
      */
-    @Prop() initialValue: string = '';
+    @Prop({ mutable: false, reflect: false }) initialValue: string = '';
 
     /**
      * Defines whether the editor is disabled or not.
@@ -128,9 +128,19 @@ export class KupEditor {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
+    #autosaveInterval: NodeJS.Timeout;
+    #hasChanges: boolean = false;
+    #initialContent: string = '';
     #kupManager: KupManager = kupManagerInstance();
-
-    autosaveInterval: NodeJS.Timeout;
+    #unsavedChangesIndex = 0;
+    #unsavedChangesItem = {
+        options: {
+            className: 'kup-editor-unsaved-changes',
+            el: this.createUnsavedChanges(),
+            tooltip: 'There are unsaved changes.',
+        },
+        type: 'button',
+    };
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -305,7 +315,7 @@ export class KupEditor {
     @Watch('autosaveTimer')
     onAutosaveTimerChanged() {
         if (this.editor) {
-            this.autosaveInterval && clearInterval(this.autosaveInterval);
+            this.#autosaveInterval && clearInterval(this.#autosaveInterval);
             typeof this.autosaveTimer === 'number' &&
                 this.autosaveTimer > 0 &&
                 this.setAutosaveInterval();
@@ -340,6 +350,33 @@ export class KupEditor {
     createEditor() {
         const editorProps: EditorOptions = {
             el: this.editorRef,
+            events: {
+                change: () => {
+                    if (this.#initialContent !== this.editor.getMarkdown()) {
+                        if (!this.#hasChanges) {
+                            this.#unsavedChangesIndex =
+                                this.editor.getUI().getToolbar().getItems()
+                                    .length - 1;
+                            this.editor
+                                .getUI()
+                                .getToolbar()
+                                .insertItem(
+                                    this.#unsavedChangesIndex,
+                                    this.#unsavedChangesItem
+                                );
+                        }
+                        this.#hasChanges = true;
+                    } else {
+                        if (this.#hasChanges) {
+                            this.editor
+                                .getUI()
+                                .getToolbar()
+                                .removeItem(this.#unsavedChangesIndex);
+                        }
+                        this.#hasChanges = false;
+                    }
+                },
+            },
             height: this.editorHeight ?? 'auto',
             hideModeSwitch: true,
             initialEditType: this.initialEditType,
@@ -353,6 +390,7 @@ export class KupEditor {
         }
 
         this.editor = new Editor(editorProps);
+        this.#initialContent = this.editor.getMarkdown();
 
         if (!this.showToolbar) {
             this.updateToolbarVisiblity();
@@ -389,6 +427,13 @@ export class KupEditor {
         return button;
     }
 
+    createUnsavedChanges() {
+        const el: HTMLElement = document.createElement('span');
+        el.className = 'kup-editor-unsaved-changes';
+        el.innerText = 'Unsaved changes.';
+        return el;
+    }
+
     updateToolbarVisiblity() {
         const toolbarElement = this.editor.getUI().getToolbar().el;
         const toolbarParentElement = toolbarElement.parentElement;
@@ -408,7 +453,7 @@ export class KupEditor {
     }
 
     setAutosaveInterval() {
-        this.autosaveInterval = setInterval(() => {
+        this.#autosaveInterval = setInterval(() => {
             this.onEditorAutoSave();
         }, this.autosaveTimer);
     }
@@ -422,18 +467,20 @@ export class KupEditor {
     }
 
     getToolBarWithSaveButton(includeDefaultItems: boolean = true) {
-        const toolbarItems = [
-            {
-                options: {
-                    el: this.createSaveButton(),
-                    tooltip: 'Save',
+        const options: Partial<EditorOptions> = {
+            toolbarItems: [
+                {
+                    options: {
+                        el: this.createSaveButton(),
+                        tooltip: 'Save',
+                    },
+                    type: 'button',
                 },
-                type: 'button',
-            },
-            ...(includeDefaultItems ? this.getDefaultToolBarItems() : []),
-        ];
+                ...(includeDefaultItems ? this.getDefaultToolBarItems() : []),
+            ],
+        };
 
-        return toolbarItems;
+        return options.toolbarItems;
     }
 
     getDefaultToolBarItems() {
@@ -456,7 +503,9 @@ export class KupEditor {
             'codeblock',
         ];
 
-        if (this.initialEditType == 'markdown') toolBarItems.push('scrollSync');
+        if (this.initialEditType == 'markdown') {
+            toolBarItems.push('scrollSync');
+        }
         return toolBarItems;
     }
 
@@ -490,6 +539,6 @@ export class KupEditor {
 
     disconnectedCallback() {
         this.#kupManager.theme.unregister(this);
-        this.autosaveInterval && clearInterval(this.autosaveInterval);
+        this.#autosaveInterval && clearInterval(this.#autosaveInterval);
     }
 }

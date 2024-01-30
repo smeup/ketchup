@@ -18,6 +18,18 @@ kup-editor {
   opacity: 0.2;
 }
 
+.kup-editor-unsaved-changes {
+  animation: pulsealert 0.75s infinite;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: var(--kup-primary-color);
+  float: left;
+  height: 22px;
+  margin: 5px 3px;
+  padding: 3px;
+  width: max-content;
+}
+
 /*!
  * @toast-ui/editor
  * @version 2.5.4 | Tue Nov 30 2021
@@ -235,9 +247,18 @@ kup-editor {
   position: relative;
   border: 1px solid #e5e5e5;
   height: 100%;
-  font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial',
-    '나눔바른고딕', 'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic',
-    sans-serif;
+  font-family: var(
+    --kup-font-family,
+    'Open Sans',
+    'Helvetica Neue',
+    'Helvetica',
+    'Arial',
+    '나눔바른고딕',
+    'Nanum Barun Gothic',
+    '맑은고딕',
+    'Malgun Gothic',
+    sans-serif
+  );
 }
 
 .tui-editor-defaultUI button {
@@ -981,7 +1002,14 @@ kup-editor {
 
 .te-ww-block-overlay.code-block-header {
   text-align: right;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: var(
+    --kup-font-family,
+    'Open Sans',
+    'Helvetica Neue',
+    Helvetica,
+    Arial,
+    sans-serif
+  );
 }
 
 .te-ww-block-overlay.code-block-header span {
@@ -1047,7 +1075,14 @@ kup-editor {
 }
 
 .te-input-language input {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: var(
+    --kup-font-family,
+    'Open Sans',
+    'Helvetica Neue',
+    Helvetica,
+    Arial,
+    sans-serif
+  );
   font-size: 10px;
   padding: 3px 5px;
   border: 1px solid #dddddd;
@@ -1154,8 +1189,17 @@ kup-editor {
 }
 
 .tui-popup-code-block-editor .CodeMirror-line {
-  font-family: Consolas, Courier, 'Lucida Grande', '나눔바른고딕',
-    'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic', sans-serif;
+  font-family: var(
+    --kup-font-family,
+    Consolas,
+    Courier,
+    'Lucida Grande',
+    '나눔바른고딕',
+    'Nanum Barun Gothic',
+    '맑은고딕',
+    'Malgun Gothic',
+    sans-serif
+  );
   font-size: 13px;
   line-height: 160%;
   letter-spacing: -0.3px;
@@ -1293,9 +1337,18 @@ kup-editor {
   margin: 0;
   padding: 0;
   font-size: 13px;
-  font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial',
-    '나눔바른고딕', 'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic',
-    sans-serif;
+  font-family: var(
+    --kup-font-family,
+    'Open Sans',
+    'Helvetica Neue',
+    'Helvetica',
+    'Arial',
+    '나눔바른고딕',
+    'Nanum Barun Gothic',
+    '맑은고딕',
+    'Malgun Gothic',
+    sans-serif
+  );
 }
 
 .tui-editor-contents *:not(table) {
@@ -1408,9 +1461,21 @@ kup-editor {
 
 .tui-editor-contents pre,
 .tui-editor-contents code {
-  font-family: Consolas, Courier, 'Apple SD 산돌고딕 Neo', -apple-system,
-    'Lucida Grande', 'Apple SD Gothic Neo', '맑은 고딕', 'Malgun Gothic',
-    'Segoe UI', '돋움', dotum, sans-serif;
+  font-family: var(
+    --kup-font-family,
+    Consolas,
+    Courier,
+    'Apple SD 산돌고딕 Neo',
+    -apple-system,
+    'Lucida Grande',
+    'Apple SD Gothic Neo',
+    '맑은 고딕',
+    'Malgun Gothic',
+    'Segoe UI',
+    '돋움',
+    dotum,
+    sans-serif
+  );
   border: 0;
   border-radius: 0;
 }
@@ -1698,9 +1763,18 @@ kup-editor {
 }
 
 .te-md-container .CodeMirror {
-  font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial',
-    '나눔바른고딕', 'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic',
-    sans-serif;
+  font-family: var(
+    --kup-font-family,
+    'Open Sans',
+    'Helvetica Neue',
+    'Helvetica',
+    'Arial',
+    '나눔바른고딕',
+    'Nanum Barun Gothic',
+    '맑은고딕',
+    'Malgun Gothic',
+    sans-serif
+  );
   color: #222;
 }
 
@@ -1826,8 +1900,17 @@ kup-editor {
 
 .tui-md-code,
 .tui-md-code-block {
-  font-family: Consolas, Courier, 'Lucida Grande', '나눔바른고딕',
-    'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic', sans-serif;
+  font-family: var(
+    --kup-font-family,
+    Consolas,
+    Courier,
+    'Lucida Grande',
+    '나눔바른고딕',
+    'Nanum Barun Gothic',
+    '맑은고딕',
+    'Malgun Gothic',
+    sans-serif
+  );
 }
 /*!
  * @toast-ui/editor
@@ -1839,9 +1922,18 @@ kup-editor {
   margin: 0;
   padding: 0;
   font-size: 13px;
-  font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial',
-    '나눔바른고딕', 'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic',
-    sans-serif;
+  font-family: var(
+    --kup-font-family,
+    'Open Sans',
+    'Helvetica Neue',
+    'Helvetica',
+    'Arial',
+    '나눔바른고딕',
+    'Nanum Barun Gothic',
+    '맑은고딕',
+    'Malgun Gothic',
+    sans-serif
+  );
 }
 
 .tui-editor-contents *:not(table) {
@@ -1954,9 +2046,21 @@ kup-editor {
 
 .tui-editor-contents pre,
 .tui-editor-contents code {
-  font-family: Consolas, Courier, 'Apple SD 산돌고딕 Neo', -apple-system,
-    'Lucida Grande', 'Apple SD Gothic Neo', '맑은 고딕', 'Malgun Gothic',
-    'Segoe UI', '돋움', dotum, sans-serif;
+  font-family: var(
+    --kup-font-family-monospace,
+    Consolas,
+    Courier,
+    'Apple SD 산돌고딕 Neo',
+    -apple-system,
+    'Lucida Grande',
+    'Apple SD Gothic Neo',
+    '맑은 고딕',
+    'Malgun Gothic',
+    'Segoe UI',
+    '돋움',
+    dotum,
+    sans-serif
+  );
   border: 0;
   border-radius: 0;
 }
@@ -2210,7 +2314,7 @@ kup-editor {
 
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */
-  font-family: monospace;
+  font-family: var(--kup-font-family, monospace);
   height: 300px;
   color: black;
   direction: ltr;
@@ -2827,5 +2931,17 @@ span.CodeMirror-selectedtext {
   100% {
     opacity: 1;
     transform: translate(-10px, -10px);
+  }
+}
+
+@keyframes pulsealert {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
   }
 }
