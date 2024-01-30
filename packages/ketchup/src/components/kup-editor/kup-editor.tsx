@@ -83,6 +83,12 @@ export class KupEditor {
     @Prop() customStyle: string = '';
 
     /**
+     * Sets the height of the component.
+     * @default "auto"
+     */
+    @Prop() editorHeight: string = 'auto';
+
+    /**
      * The editor type.
      * @default 'markdown'
      */
@@ -334,11 +340,11 @@ export class KupEditor {
     createEditor() {
         const editorProps: EditorOptions = {
             el: this.editorRef,
-            height: 'auto',
-            initialEditType: this.initialEditType,
-            previewStyle: this.previewStyle,
-            initialValue: this.initialValue,
+            height: this.editorHeight ?? 'auto',
             hideModeSwitch: true,
+            initialEditType: this.initialEditType,
+            initialValue: this.initialValue,
+            previewStyle: this.previewStyle,
             usageStatistics: false,
         };
 

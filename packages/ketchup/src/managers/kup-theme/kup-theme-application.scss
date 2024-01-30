@@ -4,19 +4,18 @@
 * @prop --kup-editor-height: height of the component.
 */
 
+kup-editor {
+  display: block;
+}
+
 .kup-editor-save-button {
-  color: #585858 !important;
+  color: #585858;
   font-weight: 600;
-  margin-top: 5px !important;
+  margin-top: 5px;
 }
 
 .kup-editor-save-button:disabled {
   opacity: 0.2;
-}
-
-.kup-editor,
-.tui-editor-defaultUI {
-  height: var(--kup-editor-height, auto) !important;
 }
 
 /*!
@@ -267,6 +266,7 @@
 
 .tui-toolbar-divider {
   display: inline-block;
+  float: left;
   width: 1px;
   height: 14px;
   background-color: #ddd;
