@@ -143,6 +143,12 @@ Type: `Promise<void>`
 
 Used to retrieve component's props values.
 
+#### Parameters
+
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
+
 #### Returns
 
 Type: `Promise<GenericObject>`
@@ -163,6 +169,12 @@ Type: `Promise<TreeNodePath>`
 
 Hides the given column.
 
+#### Parameters
+
+| Name     | Type            | Description       |
+| -------- | --------------- | ----------------- |
+| `column` | `KupDataColumn` | - Column to hide. |
+
 #### Returns
 
 Type: `Promise<void>`
@@ -182,6 +194,12 @@ Type: `Promise<boolean>`
 ### `openColumnMenu(column: string) => Promise<void>`
 
 Opens the column menu of the given column.
+
+#### Parameters
+
+| Name     | Type     | Description           |
+| -------- | -------- | --------------------- |
+| `column` | `string` | - Name of the column. |
 
 #### Returns
 
@@ -213,6 +231,12 @@ Type: `Promise<void>`
 
 Sets the props to the component.
 
+#### Parameters
+
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
+| `props` | `GenericObject` | - Object containing props that will be set to the component. |
+
 #### Returns
 
 Type: `Promise<void>`
@@ -222,6 +246,13 @@ Type: `Promise<void>`
 ### `setSelectedNode(treeNodePath: string, emitEvent?: boolean) => Promise<void>`
 
 This method will set the selected rows of the component.
+
+#### Parameters
+
+| Name           | Type      | Description                                                          |
+| -------------- | --------- | -------------------------------------------------------------------- |
+| `treeNodePath` | `string`  |                                                                      |
+| `emitEvent`    | `boolean` | - The event will always be emitted unless emitEvent is set to false. |
 
 #### Returns
 
