@@ -250,6 +250,11 @@ const advancedRoutes = [
     name: 'planner',
     component: () => import(`@/views/components/advanced/planner/Planner.vue`),
   },
+  {
+    path: `/editor`,
+    name: 'editor',
+    component: () => import(`@/views/components/advanced/editor/Editor.vue`),
+  },
 ];
 
 const thirdPartiesRoutes = [

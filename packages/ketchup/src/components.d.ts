@@ -35,6 +35,7 @@ import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/
 import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 import { GeoJSON } from "geojson";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
+import { KupEditorEventPayload, KupEditorPreview, KupEditorType } from "./components/kup-editor/kup-editor-declarations";
 import { KupFamilyTreeData, KupFamilyTreeEventPayload, KupFamilyTreeLayout, KupFamilyTreeNode } from "./components/kup-family-tree/kup-family-tree-declarations";
 import { KupFormData, KupFormLabelPlacement, KupFormLayout } from "./components/kup-form/kup-form-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
@@ -83,6 +84,7 @@ export { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/
 export { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 export { GeoJSON } from "geojson";
 export { XAXisComponentOption, YAXisComponentOption } from "echarts";
+export { KupEditorEventPayload, KupEditorPreview, KupEditorType } from "./components/kup-editor/kup-editor-declarations";
 export { KupFamilyTreeData, KupFamilyTreeEventPayload, KupFamilyTreeLayout, KupFamilyTreeNode } from "./components/kup-family-tree/kup-family-tree-declarations";
 export { KupFormData, KupFormLabelPlacement, KupFormLayout } from "./components/kup-form/kup-form-declarations";
 export { KupBadge } from "./components/kup-badge/kup-badge";
@@ -1831,6 +1833,72 @@ export namespace Components {
           * @default null
          */
         "yAxis": YAXisComponentOption;
+    }
+    interface KupEditor {
+        /**
+          * When specified, the component will emit the kup-editor-autosave event at regular intervals.
+          * @default null
+         */
+        "autosaveTimer": number;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Returns the component's internal value as html.
+         */
+        "getValueAsHTML": () => Promise<string>;
+        /**
+          * Returns the component's internal value as markdown.
+         */
+        "getValueAsMarkdown": () => Promise<string>;
+        /**
+          * The editor type.
+          * @default 'markdown'
+         */
+        "initialEditType": KupEditorType;
+        /**
+          * The initial editor value.
+          * @default ''
+         */
+        "initialValue": string;
+        /**
+          * Defines whether the editor is disabled or not.
+          * @default false
+         */
+        "isReadOnly": boolean;
+        /**
+          * The editor preview style.
+          * @default 'vertical'
+         */
+        "previewStyle": KupEditorPreview;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Defines whether to show the save button in editor's toolbar or not.
+          * @default true
+         */
+        "showSaveButton": boolean;
+        /**
+          * Defines whether to show the editor's toolbar or not.
+          * @default true
+         */
+        "showToolbar": boolean;
     }
     interface KupFamilyTree {
         /**
@@ -3873,6 +3941,10 @@ export interface KupEchartCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupEchartElement;
 }
+export interface KupEditorCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupEditorElement;
+}
 export interface KupFamilyTreeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupFamilyTreeElement;
@@ -4391,6 +4463,25 @@ declare global {
     var HTMLKupEchartElement: {
         prototype: HTMLKupEchartElement;
         new (): HTMLKupEchartElement;
+    };
+    interface HTMLKupEditorElementEventMap {
+        "kup-editor-autosave": KupEditorEventPayload;
+        "kup-editor-ready": KupEventPayload;
+        "kup-editor-save": KupEditorEventPayload;
+    }
+    interface HTMLKupEditorElement extends Components.KupEditor, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupEditorElementEventMap>(type: K, listener: (this: HTMLKupEditorElement, ev: KupEditorCustomEvent<HTMLKupEditorElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupEditorElementEventMap>(type: K, listener: (this: HTMLKupEditorElement, ev: KupEditorCustomEvent<HTMLKupEditorElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKupEditorElement: {
+        prototype: HTMLKupEditorElement;
+        new (): HTMLKupEditorElement;
     };
     interface HTMLKupFamilyTreeElementEventMap {
         "kup-familytree-click": KupFamilyTreeEventPayload;
@@ -4926,6 +5017,7 @@ declare global {
         "kup-drawer": HTMLKupDrawerElement;
         "kup-dropdown-button": HTMLKupDropdownButtonElement;
         "kup-echart": HTMLKupEchartElement;
+        "kup-editor": HTMLKupEditorElement;
         "kup-family-tree": HTMLKupFamilyTreeElement;
         "kup-form": HTMLKupFormElement;
         "kup-gantt": HTMLKupGanttElement;
@@ -6399,6 +6491,61 @@ declare namespace LocalJSX {
           * @default null
          */
         "yAxis"?: YAXisComponentOption;
+    }
+    interface KupEditor {
+        /**
+          * When specified, the component will emit the kup-editor-autosave event at regular intervals.
+          * @default null
+         */
+        "autosaveTimer"?: number;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * The editor type.
+          * @default 'markdown'
+         */
+        "initialEditType"?: KupEditorType;
+        /**
+          * The initial editor value.
+          * @default ''
+         */
+        "initialValue"?: string;
+        /**
+          * Defines whether the editor is disabled or not.
+          * @default false
+         */
+        "isReadOnly"?: boolean;
+        /**
+          * Triggered at regular intervals if autosaveTimer prop is initialised.
+         */
+        "onKup-editor-autosave"?: (event: KupEditorCustomEvent<KupEditorEventPayload>) => void;
+        /**
+          * Triggered when the component is ready.
+         */
+        "onKup-editor-ready"?: (event: KupEditorCustomEvent<KupEventPayload>) => void;
+        /**
+          * Triggered when save button is clicked.
+         */
+        "onKup-editor-save"?: (event: KupEditorCustomEvent<KupEditorEventPayload>) => void;
+        /**
+          * The editor preview style.
+          * @default 'vertical'
+         */
+        "previewStyle"?: KupEditorPreview;
+        /**
+          * Defines whether to show the save button in editor's toolbar or not.
+          * @default true
+         */
+        "showSaveButton"?: boolean;
+        /**
+          * Defines whether to show the editor's toolbar or not.
+          * @default true
+         */
+        "showToolbar"?: boolean;
     }
     interface KupFamilyTree {
         /**
@@ -8065,6 +8212,7 @@ declare namespace LocalJSX {
         "kup-drawer": KupDrawer;
         "kup-dropdown-button": KupDropdownButton;
         "kup-echart": KupEchart;
+        "kup-editor": KupEditor;
         "kup-family-tree": KupFamilyTree;
         "kup-form": KupForm;
         "kup-gantt": KupGantt;
@@ -8134,6 +8282,7 @@ declare module "@stencil/core" {
             "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
             "kup-dropdown-button": LocalJSX.KupDropdownButton & JSXBase.HTMLAttributes<HTMLKupDropdownButtonElement>;
             "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
+            "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-family-tree": LocalJSX.KupFamilyTree & JSXBase.HTMLAttributes<HTMLKupFamilyTreeElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
             "kup-gantt": LocalJSX.KupGantt & JSXBase.HTMLAttributes<HTMLKupGanttElement>;
