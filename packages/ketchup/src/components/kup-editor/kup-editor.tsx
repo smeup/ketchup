@@ -133,7 +133,7 @@ export class KupEditor {
     #initialContent: string = '';
     #kupManager: KupManager = kupManagerInstance();
     #unsavedChangesIndex = 0;
-    #unsavedChangesItem = {
+    #unsavedChangesItem: toastui.ToolbarButton = {
         options: {
             className: 'kup-editor-unsaved-changes',
             el: this.createUnsavedChanges(),
@@ -178,49 +178,6 @@ export class KupEditor {
         bubbles: true,
     })
     kupSave: EventEmitter<KupEditorEventPayload>;
-
-    /*-------------------------------------------------*/
-    /*           P u b l i c   M e t h o d s           */
-    /*-------------------------------------------------*/
-
-    /**
-     * Used to retrieve component's props values.
-     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
-     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
-     */
-    @Method()
-    async getProps(descriptions?: boolean): Promise<GenericObject> {
-        return getProps(this, KupEditorProps, descriptions);
-    }
-    /**
-     * Returns the component's internal value as html.
-     */
-    @Method()
-    async getValueAsHTML(): Promise<string> {
-        return this.editor?.getHtml() ?? '';
-    }
-    /**
-     * Returns the component's internal value as markdown.
-     */
-    @Method()
-    async getValueAsMarkdown(): Promise<string> {
-        return this.editor?.getMarkdown() ?? '';
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
-    }
-    /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
-     */
-    @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupEditorProps, props);
-    }
 
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
@@ -323,29 +280,51 @@ export class KupEditor {
     }
 
     /*-------------------------------------------------*/
-    /*          L i f e c y c l e   H o o k s          */
+    /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
-    componentWillLoad() {
-        this.#kupManager.debug.logLoad(this, false);
-        this.#kupManager.theme.register(this);
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        return getProps(this, KupEditorProps, descriptions);
+    }
+    /**
+     * Returns the component's internal value as html.
+     */
+    @Method()
+    async getValueAsHTML(): Promise<string> {
+        return this.editor?.getHtml() ?? '';
+    }
+    /**
+     * Returns the component's internal value as markdown.
+     */
+    @Method()
+    async getValueAsMarkdown(): Promise<string> {
+        return this.editor?.getMarkdown() ?? '';
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupEditorProps, props);
     }
 
-    componentDidLoad() {
-        this.kupReady.emit({
-            comp: this,
-            id: this.rootElement.id,
-        });
-        this.#kupManager.debug.logLoad(this, true);
-    }
-
-    componentWillRender() {
-        this.#kupManager.debug.logRender(this, false);
-    }
-
-    componentDidRender() {
-        this.#kupManager.debug.logRender(this, true);
-    }
+    /*-------------------------------------------------*/
+    /*          P r i v a t e   M e t h o d s          */
+    /*-------------------------------------------------*/
 
     createEditor() {
         const editorProps: EditorOptions = {
@@ -427,6 +406,19 @@ export class KupEditor {
         return button;
     }
 
+    createDivider() {
+        const el: HTMLElement = document.createElement('div');
+        el.className = 'kup-editor-divider';
+        const divider: toastui.ToolbarButton = {
+            options: {
+                className: 'kup-editor-divider',
+                el,
+            },
+            type: 'button',
+        };
+        return divider;
+    }
+
     createUnsavedChanges() {
         const el: HTMLElement = document.createElement('span');
         el.className = 'kup-editor-unsaved-changes';
@@ -476,6 +468,7 @@ export class KupEditor {
                     },
                     type: 'button',
                 },
+                this.createDivider(),
                 ...(includeDefaultItems ? this.getDefaultToolBarItems() : []),
             ],
         };
@@ -489,16 +482,20 @@ export class KupEditor {
             'bold',
             'italic',
             'strike',
+            this.createDivider(),
             'hr',
             'quote',
+            this.createDivider(),
             'ul',
             'ol',
             'task',
             'indent',
             'outdent',
+            this.createDivider(),
             'table',
             'image',
             'link',
+            this.createDivider(),
             'code',
             'codeblock',
         ];
@@ -516,6 +513,31 @@ export class KupEditor {
             htmlValue: this.editor.getHtml() ?? '',
             markdownValue: this.editor.getMarkdown() ?? '',
         };
+    }
+
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
+
+    componentWillLoad() {
+        this.#kupManager.debug.logLoad(this, false);
+        this.#kupManager.theme.register(this);
+    }
+
+    componentDidLoad() {
+        this.kupReady.emit({
+            comp: this,
+            id: this.rootElement.id,
+        });
+        this.#kupManager.debug.logLoad(this, true);
+    }
+
+    componentWillRender() {
+        this.#kupManager.debug.logRender(this, false);
+    }
+
+    componentDidRender() {
+        this.#kupManager.debug.logRender(this, true);
     }
 
     render() {
