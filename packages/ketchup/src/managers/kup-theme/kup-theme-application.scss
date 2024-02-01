@@ -187,6 +187,7 @@ kup-editor {
   margin: 0px;
   padding: 16px 25px 0px 25px;
   height: inherit;
+  min-height: max-content !important; // Fix to prevent scrolling content even when there is nothing to scroll
 }
 
 .te-ww-container .tui-editor-contents:last-child {
