@@ -2997,9 +2997,9 @@ __metadata:
     "@material/form-field": ^14.0.0
     "@material/ripple": ^14.0.0
     "@material/textfield": ^14.0.0
-    "@stencil/core": ^4.8.1
+    "@stencil/core": ^4.12.0
     "@stencil/react-output-target": 0.5.3
-    "@stencil/sass": ^3.0.7
+    "@stencil/sass": ^3.0.9
     "@toast-ui/editor": ^2.5.4
     d3-shape: ^3.2.0
     dayjs: ^1.11.7
@@ -3049,12 +3049,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stencil/core@npm:^4.8.1":
-  version: 4.8.1
-  resolution: "@stencil/core@npm:4.8.1"
+"@stencil/core@npm:^4.12.0":
+  version: 4.12.0
+  resolution: "@stencil/core@npm:4.12.0"
   bin:
     stencil: bin/stencil
-  checksum: c4c61444fd89dff578651d9d85aab4c75e8e60e8f88f1ebdf4ddf0996f974c3ce24c67735a3f59925560ccac81339723d817c8bbe4b653c2aa7d77f9b428222f
+  checksum: 4a2087593c01f9d78d4dbe173195ef3a881aa139100788b160a5bbe931bc57f7245fffef00a509ea0938c3835acfb49e095f3523d3fefcde3e03b87e3d931e25
   languageName: node
   linkType: hard
 
@@ -3067,12 +3067,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stencil/sass@npm:^3.0.7":
-  version: 3.0.7
-  resolution: "@stencil/sass@npm:3.0.7"
+"@stencil/sass@npm:^3.0.9":
+  version: 3.0.9
+  resolution: "@stencil/sass@npm:3.0.9"
   peerDependencies:
     "@stencil/core": ">=2.0.0 || >=3.0.0-beta.0 || >= 4.0.0-beta.0 || >= 4.0.0"
-  checksum: 49930a1ac77375630a26ad20c35f0d91e90f961af47cc65adaa81f0d2e16eb60453076813663782bd095cc4ea2e0779222ca79879c62521e6a5b5af6d00f8f5f
+  checksum: 2265ac3af2db425b7be0b836ea52aabbd44f55cb97d869eceab5468e8a47dc1ff79e5ef19b2d40a99542f5c3d8a2f812f6829fef18b6f7d551ba6e886c333a3c
   languageName: node
   linkType: hard
 

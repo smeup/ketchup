@@ -1847,6 +1847,11 @@ export namespace Components {
          */
         "customStyle": string;
         /**
+          * Sets the height of the component.
+          * @default "auto"
+         */
+        "editorHeight": string;
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
@@ -6504,6 +6509,11 @@ declare namespace LocalJSX {
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
+        /**
+          * Sets the height of the component.
+          * @default "auto"
+         */
+        "editorHeight"?: string;
         /**
           * The editor type.
           * @default 'markdown'

@@ -6,17 +6,16 @@ comp.addEventListener('kup-editor-autosave', (e) => {
 
 let props = {
     customStyle: '',
+    editorHeight: '400px',
     initialEditType: 'wysiwyg',
     initialValue:
         '<div data-tomark-pass="">prova prova 123456 56<br></div><div data-tomark-pass=""><br></div><div data-tomark-pass="">e vado a capo<br></div><div data-tomark-pass=""><br></div><div data-tomark-pass="">ancora<br></div><div data-tomark-pass=""><br></div><div data-tomark-pass="">e ancora</div>',
     isReadOnly: false,
     previewStyle: 'tab',
-    showSaveButton: false,
+    showSaveButton: true,
     showToolbar: true,
     autosaveTimer: 5000,
 };
-
-comp.style = '--kup-editor-height: 400px;';
 
 if (props) {
     for (const key in props) {

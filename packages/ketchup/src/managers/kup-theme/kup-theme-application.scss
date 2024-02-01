@@ -4,19 +4,34 @@
 * @prop --kup-editor-height: height of the component.
 */
 
+kup-editor {
+  display: block;
+
+  pre {
+    white-space: pre-wrap;
+  }
+}
+
 .kup-editor-save-button {
-  color: #585858 !important;
+  color: #585858;
   font-weight: 600;
-  margin-top: 5px !important;
+  margin-top: 5px;
 }
 
 .kup-editor-save-button:disabled {
   opacity: 0.2;
 }
 
-.kup-editor,
-.tui-editor-defaultUI {
-  height: var(--kup-editor-height, auto) !important;
+.kup-editor-unsaved-changes {
+  animation: pulsealert 0.75s infinite;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: var(--kup-primary-color);
+  float: left;
+  height: 22px;
+  margin: 5px 3px;
+  padding: 3px;
+  width: max-content;
 }
 
 /*!
@@ -176,6 +191,7 @@
   margin: 0px;
   padding: 16px 25px 0px 25px;
   height: inherit;
+  min-height: max-content !important; // Fix to prevent scrolling content even when there is nothing to scroll
 }
 
 .te-ww-container .tui-editor-contents:last-child {
@@ -236,9 +252,18 @@
   position: relative;
   border: 1px solid #e5e5e5;
   height: 100%;
-  font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial',
-    '나눔바른고딕', 'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic',
-    sans-serif;
+  font-family: var(
+    --kup-font-family,
+    'Open Sans',
+    'Helvetica Neue',
+    'Helvetica',
+    'Arial',
+    '나눔바른고딕',
+    'Nanum Barun Gothic',
+    '맑은고딕',
+    'Malgun Gothic',
+    sans-serif
+  );
 }
 
 .tui-editor-defaultUI button {
@@ -265,8 +290,10 @@
   overflow: hidden;
 }
 
+.kup-editor-divider,
 .tui-toolbar-divider {
   display: inline-block;
+  float: left;
   width: 1px;
   height: 14px;
   background-color: #ddd;
@@ -981,7 +1008,14 @@
 
 .te-ww-block-overlay.code-block-header {
   text-align: right;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: var(
+    --kup-font-family,
+    'Open Sans',
+    'Helvetica Neue',
+    Helvetica,
+    Arial,
+    sans-serif
+  );
 }
 
 .te-ww-block-overlay.code-block-header span {
@@ -1047,7 +1081,14 @@
 }
 
 .te-input-language input {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: var(
+    --kup-font-family,
+    'Open Sans',
+    'Helvetica Neue',
+    Helvetica,
+    Arial,
+    sans-serif
+  );
   font-size: 10px;
   padding: 3px 5px;
   border: 1px solid #dddddd;
@@ -1154,8 +1195,17 @@
 }
 
 .tui-popup-code-block-editor .CodeMirror-line {
-  font-family: Consolas, Courier, 'Lucida Grande', '나눔바른고딕',
-    'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic', sans-serif;
+  font-family: var(
+    --kup-font-family,
+    Consolas,
+    Courier,
+    'Lucida Grande',
+    '나눔바른고딕',
+    'Nanum Barun Gothic',
+    '맑은고딕',
+    'Malgun Gothic',
+    sans-serif
+  );
   font-size: 13px;
   line-height: 160%;
   letter-spacing: -0.3px;
@@ -1293,9 +1343,18 @@
   margin: 0;
   padding: 0;
   font-size: 13px;
-  font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial',
-    '나눔바른고딕', 'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic',
-    sans-serif;
+  font-family: var(
+    --kup-font-family,
+    'Open Sans',
+    'Helvetica Neue',
+    'Helvetica',
+    'Arial',
+    '나눔바른고딕',
+    'Nanum Barun Gothic',
+    '맑은고딕',
+    'Malgun Gothic',
+    sans-serif
+  );
 }
 
 .tui-editor-contents *:not(table) {
@@ -1408,9 +1467,21 @@
 
 .tui-editor-contents pre,
 .tui-editor-contents code {
-  font-family: Consolas, Courier, 'Apple SD 산돌고딕 Neo', -apple-system,
-    'Lucida Grande', 'Apple SD Gothic Neo', '맑은 고딕', 'Malgun Gothic',
-    'Segoe UI', '돋움', dotum, sans-serif;
+  font-family: var(
+    --kup-font-family-monospace,
+    Consolas,
+    Courier,
+    'Apple SD 산돌고딕 Neo',
+    -apple-system,
+    'Lucida Grande',
+    'Apple SD Gothic Neo',
+    '맑은 고딕',
+    'Malgun Gothic',
+    'Segoe UI',
+    '돋움',
+    dotum,
+    sans-serif
+  );
   border: 0;
   border-radius: 0;
 }
@@ -1698,9 +1769,18 @@
 }
 
 .te-md-container .CodeMirror {
-  font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial',
-    '나눔바른고딕', 'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic',
-    sans-serif;
+  font-family: var(
+    --kup-font-family,
+    'Open Sans',
+    'Helvetica Neue',
+    'Helvetica',
+    'Arial',
+    '나눔바른고딕',
+    'Nanum Barun Gothic',
+    '맑은고딕',
+    'Malgun Gothic',
+    sans-serif
+  );
   color: #222;
 }
 
@@ -1826,8 +1906,17 @@
 
 .tui-md-code,
 .tui-md-code-block {
-  font-family: Consolas, Courier, 'Lucida Grande', '나눔바른고딕',
-    'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic', sans-serif;
+  font-family: var(
+    --kup-font-family,
+    Consolas,
+    Courier,
+    'Lucida Grande',
+    '나눔바른고딕',
+    'Nanum Barun Gothic',
+    '맑은고딕',
+    'Malgun Gothic',
+    sans-serif
+  );
 }
 /*!
  * @toast-ui/editor
@@ -1839,9 +1928,18 @@
   margin: 0;
   padding: 0;
   font-size: 13px;
-  font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial',
-    '나눔바른고딕', 'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic',
-    sans-serif;
+  font-family: var(
+    --kup-font-family,
+    'Open Sans',
+    'Helvetica Neue',
+    'Helvetica',
+    'Arial',
+    '나눔바른고딕',
+    'Nanum Barun Gothic',
+    '맑은고딕',
+    'Malgun Gothic',
+    sans-serif
+  );
 }
 
 .tui-editor-contents *:not(table) {
@@ -1950,15 +2048,6 @@
 
 .tui-editor-contents blockquote > :last-child {
   margin-bottom: 0;
-}
-
-.tui-editor-contents pre,
-.tui-editor-contents code {
-  font-family: Consolas, Courier, 'Apple SD 산돌고딕 Neo', -apple-system,
-    'Lucida Grande', 'Apple SD Gothic Neo', '맑은 고딕', 'Malgun Gothic',
-    'Segoe UI', '돋움', dotum, sans-serif;
-  border: 0;
-  border-radius: 0;
 }
 
 .tui-editor-contents pre {
@@ -2210,7 +2299,7 @@
 
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */
-  font-family: monospace;
+  font-family: var(--kup-font-family, monospace);
   height: 300px;
   color: black;
   direction: ltr;
@@ -2446,10 +2535,30 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
    the editor. You probably shouldn't touch them. */
 
 .CodeMirror {
-  position: relative;
-  overflow: hidden;
   background: white;
+  min-height: auto !important; // Search "PHINDFIX" for the explanation
+  overflow: hidden;
+  position: relative;
 }
+
+/*
+PHINDFIX
+ANSWER | PHIND V9 MODEL
+Yes, Toast UI Editor applies an inline style of min-height: 200px; to the .CodeMirror class. 
+This is set by default in the library's CSS and it's intended to ensure that the editor has a minimum height of 200 pixels.
+
+This inline style is applied by the library itself and is not something that you should normally need to change. 
+However, if you find that it's causing issues with your layout, you can override it in your own CSS.
+
+Here's how you can do it:
+
+.CodeMirror {
+    min-height: auto !important;
+}
+This will override the min-height property set by Toast UI Editor and set it to auto, which means the height will adjust based on the content of the editor.
+
+Please note that using !important should generally be avoided if possible, as it increases the specificity of a rule and can make debugging and maintenance more difficult. However, in this case, it may be necessary to override the inline style set by the library 3.
+*/
 
 .CodeMirror-scroll {
   overflow: scroll !important; /* Things will break if this is overridden */
@@ -2463,6 +2572,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   position: relative;
   z-index: 0;
 }
+
 .CodeMirror-sizer {
   position: relative;
   border-right: 50px solid transparent;
@@ -2827,5 +2937,17 @@ span.CodeMirror-selectedtext {
   100% {
     opacity: 1;
     transform: translate(-10px, -10px);
+  }
+}
+
+@keyframes pulsealert {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
   }
 }
