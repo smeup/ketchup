@@ -6,6 +6,10 @@
 
 kup-editor {
   display: block;
+
+  pre {
+    white-space: pre-wrap;
+  }
 }
 
 .kup-editor-save-button {
