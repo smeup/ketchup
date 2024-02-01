@@ -365,6 +365,7 @@ export class KupEditor {
             hideModeSwitch: true,
             initialEditType: this.initialEditType,
             initialValue: this.initialValue,
+            placeholder: 'Type your text here...',
             previewStyle: this.previewStyle,
             usageStatistics: false,
         };
