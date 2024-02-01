@@ -5,7 +5,7 @@ name: ketchup-outsourcing-release
 on:
   push:
     branches:
-      - staging-cicd
+      - staging
 
 jobs:
   run-cicd:
