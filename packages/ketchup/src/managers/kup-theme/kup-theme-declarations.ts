@@ -70,6 +70,7 @@ export const fImageUsers = [
     KupTagNames.CARD,
     KupTagNames.CELL,
     KupTagNames.CHIP,
+    KupTagNames.CHECKBOX,
     KupTagNames.DASHBOARD,
     KupTagNames.DATA_TABLE,
     KupTagNames.DIALOG,
@@ -82,6 +83,7 @@ export const fImageUsers = [
     KupTagNames.MAGIC_BOX,
     KupTagNames.SNACKBAR,
     KupTagNames.TAB_BAR,
+    KupTagNames.TEXT_FIELD,
     KupTagNames.TREE,
 ];
 /**

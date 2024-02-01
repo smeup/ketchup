@@ -45,6 +45,7 @@ export const config: Config = {
             copy: [
                 { src: 'accordion.html' },
                 { src: 'autocomplete.html' },
+                { src: 'badge.html' },
                 { src: 'box.html' },
                 { src: 'box-performance.html' },
                 { src: 'button.html' },
@@ -65,6 +66,7 @@ export const config: Config = {
                 { src: 'data-table-performance.html' },
                 { src: 'date-picker.html' },
                 { src: 'debug.html' },
+                { src: 'design-system.html' },
                 { src: 'dialog.html' },
                 { src: 'drawer.html' },
                 { src: 'dropdown-button.html' },
@@ -118,7 +120,10 @@ export const config: Config = {
     plugins: [
         sass({
             includePaths: ['./node_modules', './src/f-components'],
-            injectGlobalPaths: ['src/style/global.scss'],
+            injectGlobalPaths: [
+                'src/style/global.scss',
+                'src/style/fonts.scss',
+            ],
         }),
     ],
 };

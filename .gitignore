@@ -5,3 +5,4 @@ packages/ketchup/src/assets/debug.js
 target/
 .yarn/cache
 .yarn/install-state.gz
+.package-lock.json

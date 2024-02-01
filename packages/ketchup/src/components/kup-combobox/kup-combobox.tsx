@@ -523,7 +523,6 @@ export class KupCombobox {
                                 ? KupThemeIconValues.DROPDOWN
                                 : null
                         }
-                        readOnly={this.isSelect}
                         trailingIcon={true}
                         value={this.displayedValue}
                         onBlur={() => this.onKupBlur()}

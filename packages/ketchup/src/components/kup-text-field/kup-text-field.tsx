@@ -20,6 +20,7 @@ import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-de
 import {
     GenericObject,
     KupComponent,
+    KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import {
@@ -56,6 +57,11 @@ export class KupTextField {
     /*-------------------------------------------------*/
 
     /**
+     * Set alert message
+     * @default '''
+     */
+    @Prop() alert: string = '';
+    /**
      * When true, could be input negative numbers (should be used when inputType is number).
      * @default null
      */
@@ -81,6 +87,11 @@ export class KupTextField {
      * @default true
      */
     @Prop() emitSubmitEventOnEnter: boolean = true;
+    /**
+     * Set error message
+     * @default '''
+     */
+    @Prop() error: string = '';
     /**
      * When set to true, the component will be rendered at full width.
      * @default false
@@ -179,6 +190,11 @@ export class KupTextField {
      */
     @Prop() outlined: boolean = false;
     /**
+     * When set, appear 2 buttons to increment and decrement the value.
+     * @default false
+     */
+    @Prop() quantityButtons: boolean = false;
+    /**
      * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
      * @default false
      */
@@ -188,6 +204,11 @@ export class KupTextField {
      * @default null
      */
     @Prop() size: number = null;
+    /**
+     * Sets the type of the button
+     * @default KupComponentSizing.MEDIUM
+     */
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
     /**
      * The HTML step of the input element. It has effect only with number input type.
      * @default null
@@ -306,6 +327,26 @@ export class KupTextField {
         bubbles: true,
     })
     kupTextFieldSubmit: EventEmitter<KupTextFieldEventPayload>;
+    /**
+     * Triggered when the - button of the number type component is pressed.
+     */
+    @Event({
+        eventName: 'kup-textfield-minusclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupMinusClick: EventEmitter<KupTextFieldEventPayload>;
+    /**
+     * Triggered when the + button of the number type component is pressed.
+     */
+    @Event({
+        eventName: 'kup-textfield-plusclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupPlusClick: EventEmitter<KupTextFieldEventPayload>;
 
     onKupBlur(event: FocusEvent & { target: HTMLInputElement }) {
         const { target } = event;
@@ -384,6 +425,32 @@ export class KupTextField {
                 });
             }
         }
+    }
+
+    onKupMinusClick(event: MouseEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+
+        const value: number = Number(this.value) - 1;
+        this.value = value.toString();
+
+        this.kupMinusClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: this.value,
+        });
+    }
+
+    onKupPlusClick(event: MouseEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+
+        const value: number = Number(this.value) + 1;
+        this.value = value.toString();
+
+        this.kupMinusClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: this.value,
+        });
     }
 
     /*-------------------------------------------------*/
@@ -514,12 +581,14 @@ export class KupTextField {
 
     render() {
         const props: FTextFieldProps = {
+            alert: this.alert,
             allowNegative: this.allowNegative,
             danger: this.rootElement.classList.contains('kup-danger')
                 ? true
                 : false,
             decimals: this.decimals,
             disabled: this.disabled,
+            error: this.error,
             fullHeight: this.rootElement.classList.contains('kup-full-height')
                 ? true
                 : false,
@@ -544,6 +613,7 @@ export class KupTextField {
             min: this.min,
             name: this.name,
             outlined: this.outlined,
+            quantityButtons: this.quantityButtons,
             readOnly: this.readOnly,
             secondary: this.rootElement.classList.contains('kup-secondary')
                 ? true
@@ -552,6 +622,7 @@ export class KupTextField {
                 ? true
                 : false,
             size: this.size,
+            sizing: this.sizing,
             step: this.step,
             success: this.rootElement.classList.contains('kup-success')
                 ? true
@@ -578,6 +649,10 @@ export class KupTextField {
             onIconClick: (e: MouseEvent & { target: HTMLInputElement }) =>
                 this.onKupIconClick(e),
             onClearIconClick: () => this.onKupClearIconClick(),
+            onMinusClick: (e: MouseEvent & { target: HTMLInputElement }) =>
+                this.onKupMinusClick(e),
+            onPlusClick: (e: MouseEvent & { target: HTMLInputElement }) =>
+                this.onKupPlusClick(e),
         };
 
         return (

@@ -1,10 +1,4 @@
 .f-checkbox {
-  --kup_checkbox_font_family: var(
-    --kup-checkbox-font-family,
-    var(--kup-font-family)
-  );
-  --kup_checkbox_font_size: var(--kup-checkbox-font-size, var(--kup-font-size));
-  --kup_checkbox_font_weight: var(--kup-checkbox-font-weight, 400);
   --kup_checkbox_disabled_checkmark_color: var(
     --kup-checkbox-disabled-checkmark-color,
     var(--kup-background-color)
@@ -35,25 +29,28 @@
     var(--kup-text-on-primary-color-rgb)
   );
 
-  font-family: var(--kup_checkbox_font_family);
-  font-size: var(--kup_checkbox_font_size);
+  @include kup-body-compact-01;
+  display: flex;
+  flex-direction: column;
 
   .form-field {
     color: var(--kup_checkbox_text_color);
-    line-height: 1.25em;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    letter-spacing: 0.0178571429em;
     text-decoration: inherit;
     align-items: center;
     vertical-align: middle;
     display: inline-flex;
 
     label {
-      font-size: 0.875em;
       margin-left: 0px;
       margin-right: auto;
       order: 0;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--kup_checkbox_primary_color);
+      }
     }
 
     &.form-field--align-end {
@@ -66,7 +63,6 @@
   }
 
   .checkbox {
-    border-radius: 50%;
     display: inline-block;
     position: relative;
     flex: 0 0 18px;
@@ -84,6 +80,10 @@
 
     &:hover {
       background: rgba(var(--kup_checkbox_primary_color_rgb), 0.125);
+
+      label {
+        color: var(--kup_checkbox_primary_color);
+      }
     }
 
     .checkbox__native-control {
@@ -159,12 +159,17 @@
       }
     }
 
+    .checkbox__error-message {
+      color: var(--kup-accent-red-color);
+    }
+
     &.checkbox--checked {
       .checkbox__background {
         background-color: var(--kup_checkbox_primary_color);
         border-color: var(--kup_checkbox_primary_color);
         opacity: 1;
       }
+
       .checkbox__checkmark-path {
         stroke-dashoffset: 0;
       }
@@ -175,11 +180,13 @@
         background-color: var(--kup_checkbox_primary_color);
         border-color: var(--kup_checkbox_primary_color);
       }
+
       .checkbox__mixedmark {
         border-color: var(--kup_checkbox_text_on_primary_color);
         transform: scaleX(1) rotate(0deg);
         opacity: 1;
       }
+
       .checkbox__checkmark-path {
         stroke-dashoffset: 0;
       }
@@ -190,6 +197,7 @@
 
       + label {
         pointer-events: none;
+        color: rgba(var(--kup_checkbox_text_color_rgb), 0.325);
       }
 
       .checkbox__background {
@@ -202,13 +210,38 @@
           background-color: rgba(var(--kup_checkbox_text_color_rgb), 0.325);
           border-color: transparent;
         }
+
         .checkbox__checkmark {
           color: var(--kup_checkbox_disabled_checkmark_color);
         }
+
         .checkbox__mixedmark {
           color: var(--kup_checkbox_disabled_checkmark_color);
         }
       }
+    }
+  }
+
+  .checkbox__error-message,
+  .checkbox__alert-message {
+    padding: 0 var(--kup_checkbox_padding);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    @include kup-label-01;
+
+    .f-image {
+      margin: unset;
+    }
+  }
+
+  .checkbox__error-message {
+    color: var(--kup-accent-red-color);
+  }
+
+  &.checkbox--error {
+    .checkbox__background {
+      border-color: var(--kup-accent-red-color);
     }
   }
 

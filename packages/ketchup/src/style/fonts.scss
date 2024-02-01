@@ -1,0 +1,177 @@
+// New mixins for font sizes.
+@mixin kup-body-compact-01 {
+  font-family: var(--kup-font-family);
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: 0.16px;
+}
+.kup-body-compact-01 {
+  @include kup-body-compact-01;
+}
+
+@mixin kup-body-01 {
+  font-family: var(--kup-font-family);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0.16px;
+}
+.kup-body-01 {
+  @include kup-body-01;
+}
+
+@mixin kup-code-01 {
+  font-family: var(--kup-font-family-monospace);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0.32px;
+}
+.kup-code-01 {
+  @include kup-code-01;
+}
+
+@mixin kup-label-01 {
+  font-family: var(--kup-font-family);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0.32px;
+}
+.kup-label-01 {
+  @include kup-label-01;
+}
+
+@mixin kup-caption-02 {
+  font-family: var(--kup-font-family);
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.kup-caption-02 {
+  @include kup-caption-02;
+}
+
+@mixin kup-caption-01 {
+  font-family: var(--kup-font-family);
+  font-size: 10px;
+  line-height: 13px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+.kup-caption-01 {
+  @include kup-caption-01;
+}
+
+@mixin kup-small-label-01 {
+  font-family: var(--kup-font-family);
+  font-size: 6px;
+  line-height: 9px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+.kup-small-label-01 {
+  @include kup-small-label-01;
+}
+
+// New mixins for header sizes.
+@mixin kup-heading-compact-01 {
+  font-family: var(--kup-font-family);
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+  letter-spacing: 0.16px;
+}
+.kup-heading-compact-01 {
+  @include kup-heading-compact-01;
+}
+
+@mixin kup-heading-01 {
+  font-family: var(--kup-font-family);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  letter-spacing: 0.16px;
+}
+.kup-heading-01 {
+  @include kup-heading-01;
+}
+
+@mixin kup-heading-02 {
+  font-family: var(--kup-font-family);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.kup-heading-02 {
+  @include kup-heading-02;
+}
+
+@mixin kup-heading-03 {
+  font-family: var(--kup-font-family);
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.kup-heading-03 {
+  @include kup-heading-03;
+}
+
+@mixin kup-heading-04 {
+  font-family: var(--kup-font-family);
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.kup-heading-04 {
+  @include kup-heading-04;
+}
+
+@mixin kup-heading-05 {
+  font-family: var(--kup-font-family);
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 300;
+  letter-spacing: 0;
+}
+.kup-heading-05 {
+  @include kup-heading-05;
+}
+
+@mixin kup-heading-06 {
+  font-family: var(--kup-font-family);
+  font-size: 42px;
+  line-height: 50px;
+  font-weight: 300;
+  letter-spacing: 0;
+}
+.kup-heading-06 {
+  @include kup-heading-06;
+}
+
+@mixin kup-heading-07 {
+  font-family: var(--kup-font-family);
+  font-size: 54px;
+  line-height: 64px;
+  font-weight: 300;
+  letter-spacing: 0;
+}
+.kup-heading-07 {
+  @include kup-heading-07;
+}
+
+@mixin kup-heading-08 {
+  font-family: var(--kup-font-family);
+  font-size: 54px;
+  line-height: 64px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.kup-heading-08 {
+  @include kup-heading-08;
+}
