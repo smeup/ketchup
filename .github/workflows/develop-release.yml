@@ -1,0 +1,22 @@
+# Trigger jenkins workflow to build webup on 172.16.2.103 using ketchup.zip from branch staging
+
+name: ketchup-outsourcing-release
+
+on:
+  push:
+    branches:
+      - staging-cicd
+
+jobs:
+  run-cicd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Trigger jenkins workflow
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://webuptest.smeup.com/jenkins/job/WebupKetchupOutsourcingPipeline/build?token=${{ secrets.JENKINS_WEBHOOK_TOKEN }}'
+          method: 'GET'
+          username: ${{ secrets.JENKINS_WEBHOOK_USERNAME }}
+          password: ${{ secrets.JENKINS_WEBHOOK_PASSWORD }}
