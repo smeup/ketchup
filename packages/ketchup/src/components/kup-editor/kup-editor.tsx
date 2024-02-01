@@ -355,6 +355,11 @@ export class KupEditor {
                         this.#hasChanges = false;
                     }
                 },
+                focus: () => {
+                    if (!this.isReadOnly && !this.showToolbar) {
+                        this.showToolbar = true;
+                    }
+                },
             },
             height: this.editorHeight ?? 'auto',
             hideModeSwitch: true,
