@@ -10,7 +10,6 @@
 | Property          | Attribute           | Description                                                                                 | Type                      | Default      |
 | ----------------- | ------------------- | ------------------------------------------------------------------------------------------- | ------------------------- | ------------ |
 | `autosaveTimer`   | `autosave-timer`    | When specified, the component will emit the kup-editor-autosave event at regular intervals. | `number`                  | `undefined`  |
-| `customStyle`     | `custom-style`      | Custom style of the component.                                                              | `string`                  | `''`         |
 | `editorHeight`    | `editor-height`     | Sets the height of the component.                                                           | `string`                  | `'auto'`     |
 | `initialEditType` | `initial-edit-type` | The editor type.                                                                            | `"markdown" \| "wysiwyg"` | `'markdown'` |
 | `initialValue`    | `initial-value`     | The initial editor value.                                                                   | `string`                  | `''`         |

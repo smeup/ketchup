@@ -68,12 +68,11 @@ export default {
           try: 'field',
         },
         {
-          prop: 'customStyle',
-          description:
-            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+          prop: 'editorHeight',
+          description: 'Sets the height of the component.',
           type: 'string',
-          default: '""',
-          try: 'css',
+          default: '"auto"',
+          try: 'field',
         },
         {
           prop: 'initialEditType',
@@ -165,7 +164,6 @@ function createComp() {
   comp.previewStyle = 'vertical';
   comp.showSaveButton = true;
   comp.showToolbar = true;
-  // comp.autosaveTimer = 2000;
 
   return comp;
 }

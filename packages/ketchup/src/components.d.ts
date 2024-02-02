@@ -1841,12 +1841,6 @@ export namespace Components {
          */
         "autosaveTimer": number;
         /**
-          * Custom style of the component.
-          * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle": string;
-        /**
           * Sets the height of the component.
           * @default "auto"
          */
@@ -6503,12 +6497,6 @@ declare namespace LocalJSX {
           * @default null
          */
         "autosaveTimer"?: number;
-        /**
-          * Custom style of the component.
-          * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle"?: string;
         /**
           * Sets the height of the component.
           * @default "auto"
