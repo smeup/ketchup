@@ -76,13 +76,6 @@ export class KupEditor {
     @Prop() autosaveTimer: number;
 
     /**
-     * Custom style of the component.
-     * @default ""
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     */
-    @Prop() customStyle: string = '';
-
-    /**
      * Sets the height of the component.
      * @default "auto"
      */
@@ -549,11 +542,6 @@ export class KupEditor {
     render() {
         return (
             <Host>
-                <style>
-                    {this.#kupManager.theme.setKupStyle(
-                        this.rootElement as KupComponent
-                    )}
-                </style>
                 <div id={componentWrapperId}>
                     <div
                         key={this.rootElement.id}
