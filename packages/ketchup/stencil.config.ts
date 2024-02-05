@@ -71,6 +71,8 @@ export const config: Config = {
                 { src: 'drawer.html' },
                 { src: 'dropdown-button.html' },
                 { src: 'echart.html' },
+                { src: 'editor.html' },
+                { src: 'editor-example-1.html' },
                 { src: 'family-tree.html' },
                 { src: 'form.html' },
                 { src: 'gantt.html' },

@@ -1853,7 +1853,7 @@ export class KupTree {
                     totalMenu = (
                         <kup-list
                             class={`total-menu`}
-                            data={...listData}
+                            data={listData}
                             id="totals-menu"
                             is-menu
                             keyboardNavigation={true}
