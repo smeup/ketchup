@@ -32,8 +32,8 @@ export enum FChipType {
 /**
  * Types of the f-chip component.
  * @enum {string}
- * @property {string} SMALL - Small size: height = 18px
- * @property {string} MEDIUM - Medium size: height = 24px (default)
+ * @property {string} SMALL - Small size: height = 24px
+ * @property {string} MEDIUM - Medium size: height = 32px (default)
  */
 
 export enum FChipSize { // GenericTypes to be studied because small chips goes with small button/textfield but has different sizes

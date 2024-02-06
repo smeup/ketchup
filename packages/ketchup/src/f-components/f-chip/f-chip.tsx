@@ -97,8 +97,8 @@ function createChipList(
                                     : null
                             }
                             resource={`${KupThemeIconValues.DROPDOWN}`}
-                            sizeX="18px"
-                            sizeY="18px"
+                            sizeX="16px"
+                            sizeY="16px"
                             title={
                                 dom.ketchup.language.translate(
                                     KupLanguageGeneric.EXPAND
@@ -114,8 +114,8 @@ function createChipList(
                     ) : indent ? (
                         <FImage
                             resource="blank"
-                            sizeX="18px"
-                            sizeY="18px"
+                            sizeX="16px"
+                            sizeY="16px"
                             wrapperClass="dropdown-icon"
                         ></FImage>
                     ) : null}
@@ -155,8 +155,8 @@ function createChipList(
                             ? `var(${KupThemeColorValues.PRIMARY})`
                             : `var(${KupThemeColorValues.TEXT})`,
                     resource: chip.icon,
-                    sizeX: '18px',
-                    sizeY: '18px',
+                    sizeX: '16px',
+                    sizeY: '16px',
                     wrapperClass: iconClass,
                 };
                 iconEl.push(<FImage {...p} />);

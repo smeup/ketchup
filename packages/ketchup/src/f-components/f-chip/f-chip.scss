@@ -120,7 +120,7 @@
         color: var(--kup_chip_text_color);
 
         &:not(.chip__icon--leading-hidden) {
-          // margin-left: -4px;
+          margin: var(--kup-space-00);
           margin-right: var(--kup-space-03);
         }
 
@@ -172,8 +172,8 @@
       .#{$kup-icon} {
         background: var(--kup_chip_text_color);
         display: block;
-        width: 18px;
-        height: 18px;
+        width: 16px;
+        height: 16px;
       }
 
       .chip__primary-action {
