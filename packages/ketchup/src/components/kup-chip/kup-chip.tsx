@@ -17,6 +17,7 @@ import {
 } from '../../managers/kup-manager/kup-manager';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import {
+    FChipSize,
     FChipsProps,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
@@ -80,6 +81,11 @@ export class KupChip {
      * @default FChipType.STANDARD
      */
     @Prop() type: FChipType = FChipType.STANDARD;
+    /**
+     * Sets the type of the button
+     * @default FChipSize.MEDIUM
+     */
+    @Prop() sizing: FChipSize = FChipSize.MEDIUM;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -359,6 +365,7 @@ export class KupChip {
             secondary: this.rootElement.classList.contains('kup-secondary')
                 ? true
                 : false,
+            sizing: this.sizing,
             success: this.rootElement.classList.contains('kup-success')
                 ? true
                 : false,

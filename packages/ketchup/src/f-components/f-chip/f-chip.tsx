@@ -29,6 +29,7 @@ export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
         'chip-set--choice': isChoice ? true : false,
         'chip-set--filter': isFilter ? true : false,
         'chip-set--input': isInput ? true : false,
+        [`chip--${props.sizing}`]: props.sizing ? true : false,
     };
 
     return (

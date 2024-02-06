@@ -36,7 +36,7 @@
         </style>
     </head>
     <body>
-        <kup-chip type="input">
+        <kup-chip type="input" sizing="medium">
             <kup-autocomplete  slot="field" allow-inconsistent-values ></kup-autocomplete>
             <kup-text-field  slot="_field" ></kup-text-field>
             <input  slot="_field" type="text" ></input>
@@ -47,7 +47,6 @@
             chipList.data = [
                 {
                     checked: false,
-                    icon: 'favorite',
                     id: 'favorites',
                     value: 'Favorites',
                 },
@@ -56,6 +55,11 @@
                     icon: 'filter_2',
                     id: 'Set alarm clock',
                     value: 'Label 2',
+                },
+                {
+                    checked: false,
+                    id: 'favorites2',
+                    value: 'Favorites',
                 },
             ];
 

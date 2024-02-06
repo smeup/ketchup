@@ -12,6 +12,7 @@ export interface FChipsProps extends FComponent {
     onFocus?: ((chip: KupChipNode, e: FocusEvent) => void)[];
     onIconClick?: ((chip: KupChipNode, e: PointerEvent) => void)[];
     type?: FChipType;
+    sizing?: FChipSize;
 }
 /**
  * Types of the f-chip component.
@@ -26,4 +27,16 @@ export enum FChipType {
     FILTER = 'filter',
     INPUT = 'input',
     STANDARD = 'standard',
+}
+
+/**
+ * Types of the f-chip component.
+ * @enum {string}
+ * @property {string} SMALL - Small size: height = 18px
+ * @property {string} MEDIUM - Medium size: height = 24px (default)
+ */
+
+export enum FChipSize { // GenericTypes to be studied because small chips goes with small button/textfield but has different sizes
+    SMALL = 'small',
+    MEDIUM = 'medium',
 }
