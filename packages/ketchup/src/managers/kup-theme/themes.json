@@ -76,7 +76,8 @@
             "--kup-space-10": "64px",
             "--kup-space-11": "80px",
             "--kup-space-12": "96px",
-            "--kup-space-13": "160px"
+            "--kup-space-13": "160px",
+            "--kup-radius-00": "0px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
