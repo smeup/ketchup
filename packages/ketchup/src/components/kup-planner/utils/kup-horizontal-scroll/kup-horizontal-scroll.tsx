@@ -16,7 +16,7 @@ export class HorizontalScroll {
     svgWidth: number;
 
     @Prop()
-    taskGanttRef: HTMLDivElement;
+    taskListTrueRef: HTMLKupTaskListElement;
 
     @Prop()
     rtl: boolean;
@@ -62,20 +62,17 @@ export class HorizontalScroll {
     }
 
     render() {
-        const rect = this.taskGanttRef.getBoundingClientRect();
+        const w =
+            this.taskListTrueRef?.getBoundingClientRect().width + 24 * 1.5 ?? 0; // 24 * 2 is the sum of padding and margin for both list and gantt, multiplied by 1.5 cause we need to add the other half to the right
 
         return (
             <div
                 dir="ltr"
-                style={
-                    rect
-                        ? {
-                              margin: this.rtl
-                                  ? `0px ${rect.x}px 0px 0px`
-                                  : `0px 0px 0px ${rect.x}px`,
-                          }
-                        : undefined
-                }
+                style={{
+                    margin: this.rtl
+                        ? `0px ${w}px 0px 12px`
+                        : `0px 12px 0px ${w}px`,
+                }}
                 class="scrollWrapper"
                 data-scrollx="true"
                 onScroll={this.horizontalScroll}

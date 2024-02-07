@@ -2279,7 +2279,7 @@ export namespace Components {
         "rtl": boolean;
         "scrollNumber": number;
         "svgWidth": number;
-        "taskGanttRef": HTMLDivElement;
+        "taskListTrueRef": HTMLKupTaskListElement;
         "taskListWidth": number;
     }
     interface KupIframe {
@@ -6854,7 +6854,7 @@ declare namespace LocalJSX {
         "rtl"?: boolean;
         "scrollNumber"?: number;
         "svgWidth"?: number;
-        "taskGanttRef"?: HTMLDivElement;
+        "taskListTrueRef"?: HTMLKupTaskListElement;
         "taskListWidth"?: number;
     }
     interface KupIframe {
