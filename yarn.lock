@@ -2923,7 +2923,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sme.up/ketchup-react@workspace:packages/ketchup-react"
   dependencies:
-    "@sme.up/ketchup": ^9.5.2
+    "@sme.up/ketchup": ^9.6.0
     "@types/geojson": ^7946.0.10
     "@types/node": ^20.2.5
     "@types/react": ^18.2.7
@@ -2956,7 +2956,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sme.up/ketchup-showcase@workspace:packages/ketchup-showcase"
   dependencies:
-    "@sme.up/ketchup": ^9.5.2
+    "@sme.up/ketchup": ^9.6.0
     "@typescript-eslint/eslint-plugin": ^5.59.8
     "@typescript-eslint/parser": ^5.59.8
     "@vue/cli-plugin-babel": ~5.0.8
@@ -2980,7 +2980,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sme.up/ketchup@^9.5.2, @sme.up/ketchup@workspace:packages/ketchup":
+"@sme.up/ketchup@^9.6.0, @sme.up/ketchup@workspace:packages/ketchup":
   version: 0.0.0-use.local
   resolution: "@sme.up/ketchup@workspace:packages/ketchup"
   dependencies:
@@ -2992,9 +2992,10 @@ __metadata:
     "@material/form-field": ^14.0.0
     "@material/ripple": ^14.0.0
     "@material/textfield": ^14.0.0
-    "@stencil/core": ^4.8.1
+    "@stencil/core": ^4.12.0
     "@stencil/react-output-target": 0.5.3
-    "@stencil/sass": ^3.0.7
+    "@stencil/sass": ^3.0.9
+    "@toast-ui/editor": ^2.5.4
     d3-shape: ^3.2.0
     dayjs: ^1.11.7
     echarts: ^5.4.2
@@ -3043,12 +3044,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stencil/core@npm:^4.8.1":
-  version: 4.8.2
-  resolution: "@stencil/core@npm:4.8.2"
+"@stencil/core@npm:^4.12.0":
+  version: 4.12.1
+  resolution: "@stencil/core@npm:4.12.1"
   bin:
     stencil: bin/stencil
-  checksum: 74c89ceb40aa88756668e685303b0d3d8bc3ccee20c0fd91c857c68ddcbd1e13dd8c3a7e654f9ded95c722f1e678e8c51cc49c9a3eeee8c330ce2dba65274084
+  checksum: 5d19ba883b36599205cbdd0e4bc7aa7f69640a80fa22e9340e88a02a1531da0145783b8f77ae4bcb3885bed7ddd468a700f44465dbeb906397591dbb60e238ce
   languageName: node
   linkType: hard
 
@@ -3061,12 +3062,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stencil/sass@npm:^3.0.7":
-  version: 3.0.7
-  resolution: "@stencil/sass@npm:3.0.7"
+"@stencil/sass@npm:^3.0.9":
+  version: 3.0.9
+  resolution: "@stencil/sass@npm:3.0.9"
   peerDependencies:
     "@stencil/core": ">=2.0.0 || >=3.0.0-beta.0 || >= 4.0.0-beta.0 || >= 4.0.0"
-  checksum: 49930a1ac77375630a26ad20c35f0d91e90f961af47cc65adaa81f0d2e16eb60453076813663782bd095cc4ea2e0779222ca79879c62521e6a5b5af6d00f8f5f
+  checksum: 2265ac3af2db425b7be0b836ea52aabbd44f55cb97d869eceab5468e8a47dc1ff79e5ef19b2d40a99542f5c3d8a2f812f6829fef18b6f7d551ba6e886c333a3c
   languageName: node
   linkType: hard
 
@@ -3079,6 +3080,16 @@ __metadata:
     magic-string: ^0.25.0
     string.prototype.matchall: ^4.0.6
   checksum: 2c021349442e2e2cec96bb50fd82ec8bf8514d909bc73594f6cfc89b3b68f2feed909a8161d7d307d9455585c97e6b66853ce334db432626c7596836d4549c0c
+  languageName: node
+  linkType: hard
+
+"@toast-ui/editor@npm:^2.5.4":
+  version: 2.5.4
+  resolution: "@toast-ui/editor@npm:2.5.4"
+  dependencies:
+    "@types/codemirror": 0.0.71
+    codemirror: ^5.48.4
+  checksum: 3396e34f881c667fa3766f206266c131d5e4eb1d5aff7fb6815601e7b7fbb0af5d93949368d6bb8ca0c915ddf57060249715f892fb428d228234e22243955580
   languageName: node
   linkType: hard
 
@@ -3177,6 +3188,15 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: e827570e097bd7d625a673c9c208af2d1a22fa3885c0a1646533cf24394c839c3e5f60ac1bc60c0ddcc69c0615078c9fb2c01b42596c7c582d895d974f2409ee
+  languageName: node
+  linkType: hard
+
+"@types/codemirror@npm:0.0.71":
+  version: 0.0.71
+  resolution: "@types/codemirror@npm:0.0.71"
+  dependencies:
+    "@types/tern": "*"
+  checksum: 185d7f62935e6e7f806d07f2e4cb5201fd9f35b2a68d10a3aa399c96f46dc66dcea7ad9b02a4f43a6286fe4e5fc16a46408cc8500d4687a07553ccdaaec69d9c
   languageName: node
   linkType: hard
 
@@ -3535,6 +3555,15 @@ __metadata:
   version: 2.0.3
   resolution: "@types/stack-utils@npm:2.0.3"
   checksum: 72576cc1522090fe497337c2b99d9838e320659ac57fa5560fcbdcbafcf5d0216c6b3a0a8a4ee4fdb3b1f5e3420aa4f6223ab57b82fef3578bec3206425c6cf5
+  languageName: node
+  linkType: hard
+
+"@types/tern@npm:*":
+  version: 0.23.9
+  resolution: "@types/tern@npm:0.23.9"
+  dependencies:
+    "@types/estree": "*"
+  checksum: 53f229c79edf9454011f5b37c8539e0e760a130beac953d4e2126823de1ac6b0e2a45612596679fb232ec861826584fcaa272e2254a890b410575683423d56a8
   languageName: node
   linkType: hard
 
@@ -5620,6 +5649,13 @@ __metadata:
   version: 4.6.0
   resolution: "co@npm:4.6.0"
   checksum: 5210d9223010eb95b29df06a91116f2cf7c8e0748a9013ed853b53f362ea0e822f1e5bb054fb3cefc645239a4cf966af1f6133a3b43f40d591f3b68ed6cf0510
+  languageName: node
+  linkType: hard
+
+"codemirror@npm:^5.48.4":
+  version: 5.65.16
+  resolution: "codemirror@npm:5.65.16"
+  checksum: 1c5036bfffcce19b1ff91d8b158dcb45faba27047c4093f55ea7ad1165975179eb47c9ef604baa9c4f4ea6bf9817886c767f33e72fa9c62710404029be3c4744
   languageName: node
   linkType: hard
 
