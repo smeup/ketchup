@@ -136,7 +136,7 @@ export class KupDialog {
     @Method()
     async recalcPosition(): Promise<void> {
         const rect = this.rootElement.getBoundingClientRect();
-        if (!rect.x && !rect.y) {
+        if (!rect.x && !rect.y && !rect.height && !rect.width) {
             this.#kupManager.debug.logMessage(
                 this,
                 `recalcPosition() ran before the component finished being drawn. Running again (attempt #${
@@ -158,7 +158,7 @@ export class KupDialog {
         }
         this.#recalcSafeguard = 0;
         const left = window.innerWidth / 2 - rect.width / 2;
-        const top = window.innerHeight / 2 - rect.height / 2;
+        const top = window.innerHeight / 2 - rect.height / 2 + window.scrollY;
         this.rootElement.style.setProperty('--kup_dialog_left', left + 'px');
         this.rootElement.style.setProperty('--kup_dialog_top', top + 'px');
         this.rootElement.removeAttribute('fade-in');

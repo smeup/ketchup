@@ -8,11 +8,11 @@
   box-sizing: border-box;
   display: block;
   height: var(--kup_dialog_height);
-  left: var(--kup_dialog_left);
+  left: var(--kup_dialog_left, -100%);
   min-height: var(--kup_dialog_height);
   min-width: var(--kup_dialog_width);
   position: absolute;
-  top: var(--kup_dialog_top);
+  top: var(--kup_dialog_top, -100%);
   transition: opacity 0.25s ease-in;
   width: var(--kup_dialog_width);
 }

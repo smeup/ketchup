@@ -55,8 +55,8 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup/releases/tag/v9.5.2"
-            >v9.5.2</a
+          ><a href="https://github.com/smeup/ketchup/releases/tag/v9.6.0"
+            >v9.6.0</a
           ></div
         ></div
       >
@@ -363,6 +363,16 @@ export default {
                 },
                 icon: 'multiline_chart',
                 value: 'EChart',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'editor',
+                  },
+                },
+                icon: 'mode_edit',
+                value: 'Editor',
                 visible: true,
               },
               {

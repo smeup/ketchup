@@ -30,6 +30,12 @@
 
 Used to retrieve component's props values.
 
+#### Parameters
+
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
+
 #### Returns
 
 Type: `Promise<GenericObject>`
@@ -50,6 +56,13 @@ Type: `Promise<void>`
 
 Sets the focus on an editable table cell.
 
+#### Parameters
+
+| Name     | Type     | Description           |
+| -------- | -------- | --------------------- |
+| `column` | `string` | - Name of the column. |
+| `rowId`  | `string` | - Id of the row.      |
+
 #### Returns
 
 Type: `Promise<void>`
@@ -59,6 +72,12 @@ Type: `Promise<void>`
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
+
+#### Parameters
+
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
+| `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 

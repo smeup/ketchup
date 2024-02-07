@@ -55,6 +55,7 @@
   .progress-bar-percentage {
     background: var(--kup_progressbar_primary_color);
     border-radius: var(--kup_progressbar_border_radius);
+    box-sizing: content-box;
     color: var(--kup_progressbar_text_color);
     height: var(--kup_progressbar_height);
     padding: 0.5em 0;
