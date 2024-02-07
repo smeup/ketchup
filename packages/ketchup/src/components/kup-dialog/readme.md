@@ -42,6 +42,12 @@ Type: `Promise<void>`
 
 Used to retrieve component's props values.
 
+#### Parameters
+
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
+
 #### Returns
 
 Type: `Promise<GenericObject>`
@@ -71,6 +77,12 @@ Type: `Promise<void>`
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
+
+#### Parameters
+
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
+| `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
@@ -112,6 +124,7 @@ Type: `Promise<void>`
  - [kup-drawer](../kup-drawer)
  - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-echart](../kup-echart)
+ - [kup-editor](../kup-editor)
  - [kup-family-tree](../kup-family-tree)
  - [kup-form](../kup-form)
  - [kup-gauge](../kup-gauge)
@@ -183,6 +196,7 @@ graph TD;
   kup-dashboard --> kup-dialog
   kup-drawer --> kup-dialog
   kup-echart --> kup-dialog
+  kup-editor --> kup-dialog
   kup-family-tree --> kup-dialog
   kup-grid --> kup-dialog
   kup-iframe --> kup-dialog

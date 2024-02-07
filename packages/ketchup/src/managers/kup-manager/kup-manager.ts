@@ -50,6 +50,7 @@ export class KupManager {
     dates: KupDates;
     debug: KupDebug;
     dynamicPosition: KupDynamicPosition;
+    enableExperimentalFeatures: boolean;
     interact: KupInteract;
     language: KupLanguage;
     magicBox: HTMLKupMagicBoxElement;
@@ -86,6 +87,7 @@ export class KupManager {
             tooltipDelay: number = null,
             tooltipFCellCallbacks: KupTooltipCallbacks = null;
 
+        this.enableExperimentalFeatures = false;
         /** POI VIA */
         let openAIUrl = 'https://kokosstaging.smeup.com';
 
@@ -93,6 +95,8 @@ export class KupManager {
             const assetsPath = overrides.assetsPath;
             const dates = overrides.dates;
             const debug = overrides.debug;
+            const enableExperimentalFeatures =
+                overrides.enableExperimentalFeatures;
             const interact = overrides.interact;
             const language = overrides.language;
             const objects = overrides.objects;
@@ -112,6 +116,9 @@ export class KupManager {
                 debugActive = debug.active ? debug.active : null;
                 debugAutoprint = debug.autoPrint ? debug.autoPrint : null;
                 debugLogLimit = debug.logLimit ? debug.logLimit : null;
+            }
+            if (enableExperimentalFeatures) {
+                this.enableExperimentalFeatures = enableExperimentalFeatures;
             }
             if (interact) {
                 dialogRestrictContainer = interact.restrictContainer

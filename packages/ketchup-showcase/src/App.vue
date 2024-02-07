@@ -368,6 +368,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'editor',
+                  },
+                },
+                icon: 'mode_edit',
+                value: 'Editor',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'familytree',
                   },
                 },

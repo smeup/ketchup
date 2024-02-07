@@ -1,4 +1,4 @@
-# kup-numeric-picker
+# kup-editor
 
 
 
@@ -7,32 +7,25 @@
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                           | Type      | Default |
-| -------------- | --------------- | ----------------------------------------------------------------------------------------------------- | --------- | ------- |
-| `customStyle`  | `custom-style`  | Custom style of the component.                                                                        | `string`  | `''`    |
-| `data`         | --              | Props of the sub-components.                                                                          | `Object`  | `null`  |
-| `decimals`     | `decimals`      | Defaults at false. When set to true, the component has decimals.                                      | `boolean` | `false` |
-| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                       | `boolean` | `false` |
-| `initialValue` | `initial-value` | Sets the initial value of the component                                                               | `string`  | `''`    |
-| `maxDecimals`  | `max-decimals`  | when set, the component allows you to enter decimals with a maximum of characters.                    | `number`  | `null`  |
-| `maxIntegers`  | `max-integers`  | When set, the component allows you to enter integer numbers with a maximum of characters.             | `number`  | `null`  |
-| `maxLength`    | `max-length`    | When set, the component allows you to enter numbers with a maximum of characters, including decimals. | `number`  | `null`  |
-| `negative`     | `negative`      | Defaults at false. When set to true, the component has negative number.                               | `boolean` | `false` |
+| Property          | Attribute           | Description                                                                                 | Type                      | Default      |
+| ----------------- | ------------------- | ------------------------------------------------------------------------------------------- | ------------------------- | ------------ |
+| `autosaveTimer`   | `autosave-timer`    | When specified, the component will emit the kup-editor-autosave event at regular intervals. | `number`                  | `undefined`  |
+| `editorHeight`    | `editor-height`     | Sets the height of the component.                                                           | `string`                  | `'auto'`     |
+| `initialEditType` | `initial-edit-type` | The editor type.                                                                            | `"markdown" \| "wysiwyg"` | `'markdown'` |
+| `initialValue`    | `initial-value`     | The initial editor value.                                                                   | `string`                  | `''`         |
+| `isReadOnly`      | `is-read-only`      | Defines whether the editor is disabled or not.                                              | `boolean`                 | `false`      |
+| `previewStyle`    | `preview-style`     | The editor preview style.                                                                   | `"tab" \| "vertical"`     | `'vertical'` |
+| `showSaveButton`  | `show-save-button`  | Defines whether to show the save button in editor's toolbar or not.                         | `boolean`                 | `true`       |
+| `showToolbar`     | `show-toolbar`      | Defines whether to show the editor's toolbar or not.                                        | `boolean`                 | `true`       |
 
 
 ## Events
 
-| Event                               | Description | Type                                        |
-| ----------------------------------- | ----------- | ------------------------------------------- |
-| `kup-numericpicker-blur`            |             | `CustomEvent<KupNumericPickerEventPayload>` |
-| `kup-numericpicker-change`          |             | `CustomEvent<KupNumericPickerEventPayload>` |
-| `kup-numericpicker-cleariconclick`  |             | `CustomEvent<KupEventPayload>`              |
-| `kup-numericpicker-click`           |             | `CustomEvent<KupNumericPickerEventPayload>` |
-| `kup-numericpicker-focus`           |             | `CustomEvent<KupNumericPickerEventPayload>` |
-| `kup-numericpicker-iconclick`       |             | `CustomEvent<KupNumericPickerEventPayload>` |
-| `kup-numericpicker-input`           |             | `CustomEvent<KupNumericPickerEventPayload>` |
-| `kup-numericpicker-itemclick`       |             | `CustomEvent<KupNumericPickerEventPayload>` |
-| `kup-numericpicker-textfieldsubmit` |             | `CustomEvent<KupNumericPickerEventPayload>` |
+| Event                 | Description                                                          | Type                                 |
+| --------------------- | -------------------------------------------------------------------- | ------------------------------------ |
+| `kup-editor-autosave` | Triggered at regular intervals if autosaveTimer prop is initialised. | `CustomEvent<KupEditorEventPayload>` |
+| `kup-editor-ready`    | Triggered when the component is ready.                               | `CustomEvent<KupEventPayload>`       |
+| `kup-editor-save`     | Triggered when save button is clicked.                               | `CustomEvent<KupEditorEventPayload>` |
 
 
 ## Methods
@@ -53,15 +46,25 @@ Type: `Promise<GenericObject>`
 
 List of props as object, each key will be a prop.
 
-### `getValue() => Promise<string>`
+### `getValueAsHTML() => Promise<string>`
 
-Retrieves the component's value.
+Returns the component's internal value as html.
 
 #### Returns
 
 Type: `Promise<string>`
 
-Value of the component.
+
+
+### `getValueAsMarkdown() => Promise<string>`
+
+Returns the component's internal value as markdown.
+
+#### Returns
+
+Type: `Promise<string>`
+
+
 
 ### `refresh() => Promise<void>`
 
@@ -73,25 +76,15 @@ Type: `Promise<void>`
 
 
 
-### `setFocus() => Promise<void>`
+### `setProps(props: GenericObject) => Promise<void>`
 
-Sets the focus to the component.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-### `setValue(value: string) => Promise<void>`
-
-Sets the component's value.
+Sets the props to the component.
 
 #### Parameters
 
-| Name    | Type     | Description        |
-| ------- | -------- | ------------------ |
-| `value` | `string` | - Value to be set. |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
+| `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
@@ -110,8 +103,8 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
-  kup-numeric-picker --> kup-card
-  kup-numeric-picker --> kup-dialog
+  kup-editor --> kup-card
+  kup-editor --> kup-dialog
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -255,7 +248,7 @@ graph TD;
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
-  style kup-numeric-picker fill:#f9f,stroke:#333,stroke-width:4px
+  style kup-editor fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

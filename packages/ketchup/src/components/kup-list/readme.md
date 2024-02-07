@@ -56,6 +56,12 @@ Type: `Promise<void>`
 
 Used to retrieve component's props values.
 
+#### Parameters
+
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
+
 #### Returns
 
 Type: `Promise<GenericObject>`
@@ -86,6 +92,12 @@ Type: `Promise<void>`
 
 Calls handleSelection internal method to select the given item.
 
+#### Parameters
+
+| Name    | Type     | Description                                                                                                                  |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `index` | `number` | - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element. |
+
 #### Returns
 
 Type: `Promise<void>`
@@ -95,6 +107,12 @@ Type: `Promise<void>`
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
+
+#### Parameters
+
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
+| `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
