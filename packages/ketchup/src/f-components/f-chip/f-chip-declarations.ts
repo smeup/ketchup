@@ -11,8 +11,10 @@ export interface FChipsProps extends FComponent {
     onExpansionClick?: ((chip: KupChipNode, e: PointerEvent) => void)[];
     onFocus?: ((chip: KupChipNode, e: FocusEvent) => void)[];
     onIconClick?: ((chip: KupChipNode, e: PointerEvent) => void)[];
-    type?: FChipType;
+    primary?: boolean;
     sizing?: FChipSize;
+    styling?: FChipStyling;
+    type?: FChipType;
 }
 /**
  * Types of the f-chip component.
@@ -27,6 +29,16 @@ export enum FChipType {
     FILTER = 'filter',
     INPUT = 'input',
     STANDARD = 'standard',
+}
+/**
+ * Types of the f-chip component.
+ * @enum {string}
+ * @property {string} OUTLINED - Outlined style : no background with border.
+ * @property {string} RAISED - Raised style : no border with solid background.
+ */
+export enum FChipStyling {
+    OUTLINED = 'outlined',
+    RAISED = 'raised',
 }
 
 /**

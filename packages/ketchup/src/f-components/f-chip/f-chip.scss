@@ -3,6 +3,10 @@
     --kup-chip-background-color,
     var(--kup-gray-color-20)
   );
+  --kup_chip_border_color: var(
+    --kup-chip-border-color,
+    var(--kup-gray-color-80)
+  );
   --kup_chip_border_radius: var(
     --kup-chip-border-radius,
     var(--kup-radius-100)
@@ -21,13 +25,13 @@
   --kup_chip_padding: var(--kup-chip-padding, var(--kup-space-03));
   --kup_chip_primary_color: var(
     --kup-chip-primary-color,
-    var(--kup-primary-color)
+    var(--kup-gray-color-80)
   );
   --kup_chip_primary_color_rgb: var(
     --kup-chip-primary-color-rgb,
     var(--kup-primary-color-rgb)
   );
-  --kup_chip_text_color: var(--kup-chip-text-color, var(--kup-gray-color-70));
+  --kup_chip_text_color: var(--kup-chip-text-color, var(--kup-gray-color-80));
   --kup_chip_text_color_rgb: var(
     --kup-chip-text-color-rgb,
     var(--kup-text-color-rgb)
@@ -89,17 +93,22 @@
       height: var(--kup_chip_medium_height);
     }
 
+    &.chip--outlined .chip-set__item .chip-set__wrapper .chip {
+      background-color: transparent;
+      border-color: var(--kup_chip_border_color);
+    }
+
     .chip {
       align-items: center;
       background-color: var(--kup_chip_background_color);
-      background-image: linear-gradient(
-        to right,
-        rgba(var(--kup_chip_text_color_rgb), 0.1) 0%,
-        rgba(var(--kup_chip_text_color_rgb), 0.1) 0.1%,
-        rgba(var(--kup_chip_text_color_rgb), 0.1)
-      );
+      // background-image: linear-gradient(
+      //   to right,
+      //   rgba(var(--kup_chip_text_color_rgb), 0.1) 0%,
+      //   rgba(var(--kup_chip_text_color_rgb), 0.1) 0.1%,
+      //   rgba(var(--kup_chip_text_color_rgb), 0.1)
+      // );
       border-radius: var(--kup_chip_border_radius);
-      border-width: 0;
+      border: 1px solid transparent;
       box-sizing: border-box;
       color: var(--kup_chip_text_color);
       cursor: pointer;
@@ -146,6 +155,7 @@
         }
         .f-image__icon {
           margin: auto;
+          background: var(--kup_chip_text_color);
           height: var(--kup_image_height, 100%);
           width: var(--kup_image_width, 100%);
         }
@@ -187,13 +197,13 @@
     &.chip-set--choice {
       .chip--selected {
         background-color: var(--kup_chip_background_color);
-        background-image: linear-gradient(
-          to right,
-          rgba(var(--kup_chip_primary_color_rgb), 0.25) 0%,
-          rgba(var(--kup_chip_primary_color_rgb), 0.25) 0.1%,
-          rgba(var(--kup_chip_primary_color_rgb), 0.25)
-        );
-        color: var(--kup_chip_primary_color);
+        // background-image: linear-gradient(
+        //   to right,
+        //   rgba(var(--kup_chip_primary_color_rgb), 0.25) 0%,
+        //   rgba(var(--kup_chip_primary_color_rgb), 0.25) 0.1%,
+        //   rgba(var(--kup_chip_primary_color_rgb), 0.25)
+        // );
+        color: var(--kup_chip_gray_color);
       }
     }
 
@@ -257,6 +267,33 @@
 
   :not(svg) {
     transform-origin: 0px 0px;
+  }
+
+  &.#{$kup-class-primary} {
+    .chip--outlined .chip-set__item .chip-set__wrapper .chip {
+      --kup_chip_background_color: transparent;
+      --kup_chip_border_color: var(--kup-primary-color-80);
+      --kup_chip_primary_color: var(
+        --kup-chip-primary-color,
+        var(--kup-primary-color-80)
+      );
+      --kup_chip_text_color: var(
+        --kup-chip-text-color,
+        var(--kup-primary-color-80)
+      );
+    }
+    .chip--raised .chip-set__item .chip-set__wrapper .chip {
+      --kup_chip_background_color: var(--kup-primary-color-20);
+      --kup_chip_border_color: var(--kup-primary-color-20);
+      --kup_chip_primary_color: var(
+        --kup-chip-primary-color,
+        var(--kup-primary-color-80)
+      );
+      --kup_chip_text_color: var(
+        --kup-chip-text-color,
+        var(--kup-primary-color-80)
+      );
+    }
   }
 
   &.#{$kup-class-danger} {

@@ -19,6 +19,7 @@ import { FChip } from '../../f-components/f-chip/f-chip';
 import {
     FChipSize,
     FChipsProps,
+    FChipStyling,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
 import {
@@ -82,10 +83,15 @@ export class KupChip {
      */
     @Prop() type: FChipType = FChipType.STANDARD;
     /**
-     * Sets the type of the button
+     * Sets the type of the chip
      * @default FChipSize.MEDIUM
      */
     @Prop() sizing: FChipSize = FChipSize.MEDIUM;
+    /**
+     * Sets the style of the chip
+     * @default FChipStyling.RAISED
+     */
+    @Prop() styling: FChipStyling = FChipStyling.RAISED;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -362,10 +368,14 @@ export class KupChip {
             onExpansionClick: [],
             onFocus: [],
             onIconClick: [],
+            primary: this.rootElement.classList.contains('kup-primary')
+                ? true
+                : false,
             secondary: this.rootElement.classList.contains('kup-secondary')
                 ? true
                 : false,
             sizing: this.sizing,
+            styling: this.styling,
             success: this.rootElement.classList.contains('kup-success')
                 ? true
                 : false,

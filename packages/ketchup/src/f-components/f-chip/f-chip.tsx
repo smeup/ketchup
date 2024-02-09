@@ -1,5 +1,9 @@
 import { FunctionalComponent, h, VNode } from '@stencil/core';
-import { FChipsProps, FChipType } from '../f-chip/f-chip-declarations';
+import {
+    FChipsProps,
+    FChipStyling,
+    FChipType,
+} from '../f-chip/f-chip-declarations';
 import { FImage } from '../f-image/f-image';
 import { FImageProps } from '../f-image/f-image-declarations';
 import {
@@ -17,6 +21,9 @@ const dom: KupDom = document.documentElement as KupDom;
 /*-------------------------------------------------*/
 
 export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
+    if (!props.styling) {
+        props.styling = FChipStyling.RAISED;
+    }
     if (!props.type) {
         props.type = FChipType.STANDARD;
     }
@@ -24,11 +31,16 @@ export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
     const isChoice = props.type.toLowerCase() === FChipType.CHOICE;
     const isFilter = props.type.toLowerCase() === FChipType.FILTER;
     const isInput = props.type.toLowerCase() === FChipType.INPUT;
+    const isOutlined: boolean =
+        props.styling.toLowerCase() === FChipStyling.OUTLINED;
+    const isRaised: boolean = !isOutlined ? true : false;
     const classObj: Record<string, boolean> = {
         'chip-set': true,
         'chip-set--choice': isChoice ? true : false,
         'chip-set--filter': isFilter ? true : false,
         'chip-set--input': isInput ? true : false,
+        'chip--outlined': isOutlined ? true : false,
+        'chip--raised': isRaised ? true : false,
         [`chip--${props.sizing}`]: props.sizing ? true : false,
     };
 
@@ -40,7 +52,7 @@ export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
                 props.success ? 'kup-success' : ''
             } ${props.warning ? 'kup-warning' : ''} ${
                 props.wrapperClass ? props.wrapperClass : ''
-            }`}
+            } ${props.primary ? 'kup-primary' : ''}`}
             {...props.dataSet}
             id={props.id}
             title={props.title}
@@ -152,7 +164,7 @@ function createChipList(
                 const p: FImageProps = {
                     color:
                         isChoice && chip.checked
-                            ? `var(${KupThemeColorValues.PRIMARY})`
+                            ? `var(--kup_chip_primary_color)`
                             : `var(${KupThemeColorValues.TEXT})`,
                     resource: chip.icon,
                     sizeX: '16px',

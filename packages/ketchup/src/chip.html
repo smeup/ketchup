@@ -33,35 +33,90 @@
                 font-size: var(--kup-font-size);
                 padding: 1rem;
             }
+
+            body{
+                display: grid;
+            }
         </style>
     </head>
     <body>
-        <kup-chip type="input" sizing="medium">
+        <h1>Chip</h1>
+        <kup-chip type="input" id="chipList">
+            <input  slot="_field" type="text" ></input>
+        </kup-chip>
+        <h3>Sizing</h3>
+        <h5>Default ( Medium ) </h5>
+        <kup-chip type="input" sizing="medium" id="chipList2">
+            <input  slot="_field" type="text" ></input>
+        </kup-chip>
+        <h5>Small</h5>
+        <kup-chip type="input" sizing="small" id="chipList5">
+            <input  slot="_field" type="text" ></input>
+        </kup-chip>
+
+
+        <h3>Styling</h3>
+        <h5>Default ( Neutral ) </h5>
+
+        <kup-chip type="input" sizing="medium" id="chipList">
             <kup-autocomplete  slot="field" allow-inconsistent-values ></kup-autocomplete>
             <kup-text-field  slot="_field" ></kup-text-field>
             <input  slot="_field" type="text" ></input>
         </kup-chip>
 
+        <hr>
+
+        <kup-chip type="input" sizing="small" id="chipList2" styling="outlined">
+            <input  slot="_field" type="text" ></input>
+        </kup-chip>
+
+        <h3>Construction</h3>
+        <h5>Singular</h5>
+        <h5>Set construction </h5>
+
+        <h3>Type</h3>
+        <h5>Default ( Raised ) </h5>
+
+
+
+        <kup-chip type="input" sizing="medium"  id="chipList4" styling="raised" class="kup-primary">
+            <input  slot="_field" type="text" ></input>
+        </kup-chip>
+
+        <kup-chip type="input" sizing="small"  id="chipList3" styling="outlined" class="kup-primary">
+            <input  slot="_field" type="text" ></input>
+        </kup-chip>
+
         <script>
-            let chipList = document.getElementsByTagName('kup-chip')[0];
-            chipList.data = [
-                {
-                    checked: false,
-                    id: 'favorites',
-                    value: 'Favorites',
-                },
-                {
-                    checked: true,
-                    icon: 'filter_2',
-                    id: 'Set alarm clock',
-                    value: 'Label 2',
-                },
-                {
-                    checked: false,
-                    id: 'favorites2',
-                    value: 'Favorites',
-                },
-            ];
+        let chipList = document.getElementById('chipList');
+        let chipList2 = document.getElementById('chipList2');
+        let chipList3 = document.getElementById('chipList3');
+        let chipList4 = document.getElementById('chipList4');
+        let chipList5 = document.getElementById('chipList5');
+        const chipData = [
+            {
+                checked: false,
+                id: 'favorites',
+                value: 'Favorites',
+            },
+            {
+                checked: true,
+                icon: 'filter_2',
+                id: 'Set alarm clock',
+                value: 'Label 2',
+            },
+            {
+                checked: false,
+                id: 'favorites2',
+                value: 'Favorites',
+            },
+        ];
+
+        chipList.data = chipData;
+        chipList2.data = chipData;
+        chipList3.data = chipData;
+        chipList4.data = chipData;
+        chipList5.data = chipData;
 
             document.addEventListener("kup-chip-change", (e) => {console.log(e)});
         </script>
