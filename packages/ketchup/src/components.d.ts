@@ -22,7 +22,7 @@ import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
-import { FChipType } from "./f-components/f-chip/f-chip-declarations";
+import { FChipSize, FChipStyling, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
@@ -71,7 +71,7 @@ export { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 export { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 export { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 export { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
-export { FChipType } from "./f-components/f-chip/f-chip-declarations";
+export { FChipSize, FChipStyling, FChipType } from "./f-components/f-chip/f-chip-declarations";
 export { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 export { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 export { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
@@ -1019,6 +1019,16 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
+          * Sets the type of the chip
+          * @default FChipSize.MEDIUM
+         */
+        "sizing": FChipSize;
+        /**
+          * Sets the style of the chip
+          * @default FChipStyling.RAISED
+         */
+        "styling": FChipStyling;
+        /**
           * The type of chip. Available types: input, filter, choice or empty for default.
           * @default FChipType.STANDARD
          */
@@ -1083,6 +1093,11 @@ export namespace Components {
     }
     interface KupCombobox {
         /**
+          * Set alert message
+          * @default '''
+         */
+        "alert": string;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -1101,6 +1116,11 @@ export namespace Components {
          */
         "displayMode": ItemsDisplayMode;
         /**
+          * Set error message
+          * @default '''
+         */
+        "error": string;
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
@@ -1112,13 +1132,53 @@ export namespace Components {
          */
         "getValue": () => Promise<string>;
         /**
+          * When set, its content will be shown as a help text below the field.
+          * @default null
+         */
+        "helper": string;
+        /**
+          * When true, the helper will be displayed.
+          * @default true
+         */
+        "helperEnabled": boolean;
+        /**
+          * When set, the helper will be shown only when the field is focused.
+          * @default false
+         */
+        "helperWhenFocused": boolean;
+        /**
+          * When set, the text-field will show this icon.
+          * @default null
+         */
+        "icon": string;
+        /**
           * Sets the initial value of the component
          */
         "initialValue": string;
         /**
+          * Enables a clear trailing icon.
+          * @default false
+         */
+        "isClearable": boolean;
+        /**
           * Lets the combobox behave as a select element.
          */
         "isSelect": boolean;
+        /**
+          * When set, its content will be shown as a label.
+          * @default null
+         */
+        "label": string;
+        /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "leadingLabel": boolean;
+        /**
+          * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+          * @default false
+         */
+        "readOnly": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -1145,6 +1205,16 @@ export namespace Components {
           * When true shows the drop-down icon, for open list.
          */
         "showDropDownIcon": boolean;
+        /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing": KupComponentSizing;
+        /**
+          * When set, the icon will be shown after the text.
+          * @default false
+         */
+        "trailingIcon": boolean;
     }
     interface KupCustomTaskListHeader {
         "doubleView"?: boolean;
@@ -5889,6 +5959,16 @@ declare namespace LocalJSX {
          */
         "onKup-chip-iconclick"?: (event: KupChipCustomEvent<KupChipEventPayload>) => void;
         /**
+          * Sets the type of the chip
+          * @default FChipSize.MEDIUM
+         */
+        "sizing"?: FChipSize;
+        /**
+          * Sets the style of the chip
+          * @default FChipStyling.RAISED
+         */
+        "styling"?: FChipStyling;
+        /**
           * The type of chip. Available types: input, filter, choice or empty for default.
           * @default FChipType.STANDARD
          */
@@ -5925,6 +6005,11 @@ declare namespace LocalJSX {
     }
     interface KupCombobox {
         /**
+          * Set alert message
+          * @default '''
+         */
+        "alert"?: string;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -5943,13 +6028,53 @@ declare namespace LocalJSX {
          */
         "displayMode"?: ItemsDisplayMode;
         /**
+          * Set error message
+          * @default '''
+         */
+        "error"?: string;
+        /**
+          * When set, its content will be shown as a help text below the field.
+          * @default null
+         */
+        "helper"?: string;
+        /**
+          * When true, the helper will be displayed.
+          * @default true
+         */
+        "helperEnabled"?: boolean;
+        /**
+          * When set, the helper will be shown only when the field is focused.
+          * @default false
+         */
+        "helperWhenFocused"?: boolean;
+        /**
+          * When set, the text-field will show this icon.
+          * @default null
+         */
+        "icon"?: string;
+        /**
           * Sets the initial value of the component
          */
         "initialValue"?: string;
         /**
+          * Enables a clear trailing icon.
+          * @default false
+         */
+        "isClearable"?: boolean;
+        /**
           * Lets the combobox behave as a select element.
          */
         "isSelect"?: boolean;
+        /**
+          * When set, its content will be shown as a label.
+          * @default null
+         */
+        "label"?: string;
+        /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "leadingLabel"?: boolean;
         "onKup-combobox-blur"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-change"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-click"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
@@ -5958,6 +6083,11 @@ declare namespace LocalJSX {
         "onKup-combobox-input"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-itemclick"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
         /**
+          * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+          * @default false
+         */
+        "readOnly"?: boolean;
+        /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode"?: ItemsDisplayMode;
@@ -5965,6 +6095,16 @@ declare namespace LocalJSX {
           * When true shows the drop-down icon, for open list.
          */
         "showDropDownIcon"?: boolean;
+        /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing"?: KupComponentSizing;
+        /**
+          * When set, the icon will be shown after the text.
+          * @default false
+         */
+        "trailingIcon"?: boolean;
     }
     interface KupCustomTaskListHeader {
         "doubleView"?: boolean;

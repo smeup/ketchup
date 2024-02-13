@@ -227,24 +227,8 @@
         left: 36px;
       }
 
-      & .mdc-text-field__icon.#{$kup-icon-clear} {
-        right: 0px;
-        left: initial;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-
       &.mdc-text-field--with-trailing-icon input ~ .#{$kup-icon-clear} {
         right: 26px;
-      }
-
-      &.is-clearable .mdc-text-field__input {
-        padding-right: 48px;
-      }
-
-      &.mdc-text-field--with-trailing-icon.is-clearable .mdc-text-field__input {
-        padding-right: 72px;
       }
 
       &.mdc-text-field--fullwidth.mdc-text-field--focused {
@@ -441,6 +425,7 @@
           .f-image .f-image__icon {
             --kup_image_height: 16px;
             --kup_image_width: 16px;
+            width: 16px;
           }
           .kup-icon {
             padding: unset;
@@ -460,6 +445,7 @@
       .f-image .f-image__icon {
         --kup_image_height: 16px;
         --kup_image_width: 16px;
+        width: 16px;
       }
     }
 
@@ -510,8 +496,6 @@
       width: 100%;
 
       .mdc-text-field {
-        // padding: 0 var(--kup_textfield_fullwidth_padding);
-
         &.mdc-text-field--with-leading-icon {
           padding-left: 0;
         }
@@ -527,21 +511,15 @@
     }
 
     &.#{$kup-class-shaped} {
-      // .mdc-text-field.mdc-text-field--filled {
-      //   border-radius: 16px 16px 0 0;
-      // }
-
       .mdc-text-field.mdc-text-field--outlined
         .mdc-notched-outline
         .mdc-notched-outline__leading {
-        // border-radius: 28px 0 0 28px;
         width: 28px;
       }
 
       .mdc-text-field.mdc-text-field--outlined
         .mdc-notched-outline
         .mdc-notched-outline__trailing {
-        // border-radius: 0 28px 28px 0;
         width: 28px;
       }
     }

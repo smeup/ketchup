@@ -5,13 +5,15 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                                            | Type                                                                            | Default              |
-| ------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | -------------------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                                                                                         | `string`                                                                        | `''`                 |
-| `data`        | --             | List of elements.                                                                                                                      | `KupChipNode[]`                                                                 | `[]`                 |
-| `displayId`   | `display-id`   | When enabled, the chip's text will display both the id and the value.                                                                  | `boolean`                                                                       | `false`              |
-| `enableInput` | `enable-input` | When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field). | `boolean`                                                                       | `false`              |
-| `type`        | `type`         | The type of chip. Available types: input, filter, choice or empty for default.                                                         | `FChipType.CHOICE \| FChipType.FILTER \| FChipType.INPUT \| FChipType.STANDARD` | `FChipType.STANDARD` |
+| Property      | Attribute      | Description                                                                                                                            | Type                                                                            | Default               |
+| ------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | --------------------- |
+| `customStyle` | `custom-style` | Custom style of the component.                                                                                                         | `string`                                                                        | `''`                  |
+| `data`        | --             | List of elements.                                                                                                                      | `KupChipNode[]`                                                                 | `[]`                  |
+| `displayId`   | `display-id`   | When enabled, the chip's text will display both the id and the value.                                                                  | `boolean`                                                                       | `false`               |
+| `enableInput` | `enable-input` | When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field). | `boolean`                                                                       | `false`               |
+| `sizing`      | `sizing`       | Sets the type of the chip                                                                                                              | `FChipSize.MEDIUM \| FChipSize.SMALL`                                           | `FChipSize.MEDIUM`    |
+| `styling`     | `styling`      | Sets the style of the chip                                                                                                             | `FChipStyling.OUTLINED \| FChipStyling.RAISED`                                  | `FChipStyling.RAISED` |
+| `type`        | `type`         | The type of chip. Available types: input, filter, choice or empty for default.                                                         | `FChipType.CHOICE \| FChipType.FILTER \| FChipType.INPUT \| FChipType.STANDARD` | `FChipType.STANDARD`  |
 
 
 ## Events
