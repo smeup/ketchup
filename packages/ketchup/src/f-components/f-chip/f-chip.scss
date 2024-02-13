@@ -101,12 +101,6 @@
     .chip {
       align-items: center;
       background-color: var(--kup_chip_background_color);
-      // background-image: linear-gradient(
-      //   to right,
-      //   rgba(var(--kup_chip_text_color_rgb), 0.1) 0%,
-      //   rgba(var(--kup_chip_text_color_rgb), 0.1) 0.1%,
-      //   rgba(var(--kup_chip_text_color_rgb), 0.1)
-      // );
       border-radius: var(--kup_chip_border_radius);
       border: 1px solid transparent;
       box-sizing: border-box;
@@ -197,12 +191,6 @@
     &.chip-set--choice {
       .chip--selected {
         background-color: var(--kup_chip_background_color);
-        // background-image: linear-gradient(
-        //   to right,
-        //   rgba(var(--kup_chip_primary_color_rgb), 0.25) 0%,
-        //   rgba(var(--kup_chip_primary_color_rgb), 0.25) 0.1%,
-        //   rgba(var(--kup_chip_primary_color_rgb), 0.25)
-        // );
         color: var(--kup_chip_gray_color);
       }
     }
@@ -244,7 +232,6 @@
         }
 
         .chip__checkmark {
-          // margin-left: -4px;
           margin-right: var(--kup-space-03);
           .chip__checkmark-svg {
             height: 20px;
@@ -257,7 +244,6 @@
     &.chip-set--input {
       .#{$kup-icon-clear} {
         margin-left: var(--kup-space-03);
-        // margin-right: -4px;
         &:hover {
           opacity: 0.75;
         }

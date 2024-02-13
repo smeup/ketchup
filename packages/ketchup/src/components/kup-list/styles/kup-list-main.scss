@@ -218,7 +218,7 @@
 .kup-menu {
   animation: fade-in 0.25s ease-out;
   background-color: var(--kup_list_background);
-  box-shadow: var(--kup-box-shadow); // da sistemare
+  box-shadow: var(--kup-box-shadow); // box shadow to be fixed
   border: 1px solid var(--kup_list_focus_color);
   color: var(--kup-text-color);
   display: none;

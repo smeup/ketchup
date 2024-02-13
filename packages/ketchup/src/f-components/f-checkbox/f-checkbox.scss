@@ -162,7 +162,6 @@
     &.checkbox--checked {
       .checkbox__background {
         background-color: var(--kup_checkbox_primary_color);
-        // border-color: var(--kup_checkbox_primary_color);
         opacity: 1;
       }
 
@@ -174,7 +173,6 @@
     &.checkbox--indeterminate {
       .checkbox__background {
         background-color: var(--kup_checkbox_primary_color);
-        // border-color: var(--kup_checkbox_primary_color);
       }
 
       .checkbox__mixedmark {

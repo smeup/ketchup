@@ -7,10 +7,6 @@
 :host([is-select]) {
   #kup-component {
     transition: background-color 0.2s;
-
-    // &:hover {
-    //   background-color: rgba(var(--kup-text-color-rgb), 0.1);
-    // }
   }
 
   .mdc-text-field:not(.mdc-text-field--disabled) input {
