@@ -27,7 +27,7 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
         'kup-success': props.success,
         'kup-warning': props.warning,
         [props.wrapperClass]: !!props.wrapperClass,
-    }
+    };
     return (
         <div
             class={classObj}
@@ -376,16 +376,6 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                     ></input>
                 )}
 
-                {props.isClearable ? (
-                    <span
-                        class={`mdc-text-field__icon kup-icon ${KupThemeIconValues.CLEAR.replace(
-                            '--',
-                            ''
-                        )}`}
-                        onClick={props.onClearIconClick}
-                    ></span>
-                ) : undefined}
-
                 {props.trailingIcon ? iconEl : undefined}
 
                 {/* {isOutlined ? (
@@ -413,6 +403,15 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                         <button onClick={props.onPlusClick}>{plusEl}</button>
                     </div>
                 )}
+                {props.isClearable ? (
+                    <span
+                        class={`mdc-text-field__icon kup-icon ${KupThemeIconValues.CLEAR.replace(
+                            '--',
+                            ''
+                        )}`}
+                        onClick={props.onClearIconClick}
+                    ></span>
+                ) : undefined}
             </div>
         </div>
     );
