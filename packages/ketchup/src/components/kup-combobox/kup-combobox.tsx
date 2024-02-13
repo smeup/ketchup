@@ -12,7 +12,11 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import type { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupComponentSizing,
+} from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -35,6 +39,7 @@ import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
+import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
 
 @Component({
     tag: 'kup-combobox',
@@ -56,6 +61,11 @@ export class KupCombobox {
     /*-------------------------------------------------*/
 
     /**
+     * Set alert message
+     * @default '''
+     */
+    @Prop() alert: string = '';
+    /**
      * Custom style of the component.
      * @default ""
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -74,13 +84,58 @@ export class KupCombobox {
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
+     * Set error message
+     * @default '''
+     */
+    @Prop() error: string = '';
+    /**
+     * When set, its content will be shown as a help text below the field.
+     * @default null
+     */
+    @Prop() helper: string = null;
+    /**
+     * When true, the helper will be displayed.
+     * @default true
+     */
+    @Prop() helperEnabled: boolean = true;
+    /**
+     * When set, the helper will be shown only when the field is focused.
+     * @default false
+     */
+    @Prop() helperWhenFocused: boolean = false;
+    /**
+     * When set, the text-field will show this icon.
+     * @default null
+     */
+    @Prop() icon: string = null;
+    /**
      * Sets the initial value of the component
      */
     @Prop() initialValue: string = '';
     /**
+     * Enables a clear trailing icon.
+     * @default false
+     */
+    @Prop() isClearable: boolean = false;
+    /**
      * Lets the combobox behave as a select element.
      */
     @Prop({ reflect: true }) isSelect: boolean = false;
+    /**
+     * When set, its content will be shown as a label.
+     * @default null
+     */
+    @Prop() label: string = null;
+    /**
+     * When set to true, the label will be on the left of the component.
+     * @default false
+     */
+    @Prop() leadingLabel: boolean = false;
+    /**
+     * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+     * @default false
+     */
+    @Prop() readOnly: boolean = false;
     /**
      * Sets how to return the selected item value. Suported values: "code", "description", "both".
      */
@@ -89,6 +144,16 @@ export class KupCombobox {
      * When true shows the drop-down icon, for open list.
      */
     @Prop() showDropDownIcon: boolean = true;
+    /**
+     * Sets the type of the button
+     * @default KupComponentSizing.MEDIUM
+     */
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+    /**
+     * When set, the icon will be shown after the text.
+     * @default false
+     */
+    @Prop() trailingIcon: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -371,6 +436,10 @@ export class KupCombobox {
         if (this.#isListOpened()) {
             return;
         }
+        // Manage list open while helperline is displayed
+        const hasError = this.error.trim().length > 0;
+        const hasAlert = this.alert.trim().length > 0;
+        const topOffset = hasError || hasAlert ? -20 : 0;
         this.#textfieldWrapper.classList.add('toggled');
         this.#listEl.menuVisible = true;
         this.#listEl.filter = '';
@@ -386,7 +455,7 @@ export class KupCombobox {
             this.#kupManager.dynamicPosition.register(
                 this.#listEl,
                 this.#textfieldWrapper,
-                0,
+                topOffset,
                 KupDynamicPositionPlacement.AUTO,
                 true
             );
@@ -495,11 +564,35 @@ export class KupCombobox {
     }
 
     render() {
+        const props: FTextFieldProps = {
+            alert: this.alert,
+            danger: this.rootElement.classList.contains('kup-danger')
+                ? true
+                : false,
+            disabled: this.disabled,
+            error: this.error,
+            helper: this.helper,
+            icon: this.icon,
+            info: this.rootElement.classList.contains('kup-info')
+                ? true
+                : false,
+            isClearable: this.isClearable,
+            label: this.label,
+            leadingLabel: this.leadingLabel,
+            readOnly: this.readOnly,
+            sizing: this.sizing,
+            success: this.rootElement.classList.contains('kup-success')
+                ? true
+                : false,
+            value: this.value,
+            warning: this.rootElement.classList.contains('kup-warning')
+                ? true
+                : false,
+        };
         const fullHeight: boolean =
             this.rootElement.classList.contains('kup-full-height');
         const fullWidth: boolean =
             this.rootElement.classList.contains('kup-full-width');
-
         return (
             <Host
                 class={`${fullHeight ? 'kup-full-height' : ''} ${
@@ -514,16 +607,17 @@ export class KupCombobox {
                 </style>
                 <div id={componentWrapperId} style={this.#elStyle}>
                     <FTextField
+                        {...props}
                         {...this.data['kup-text-field']}
                         disabled={this.disabled}
                         fullHeight={fullHeight}
                         fullWidth={fullWidth}
+                        trailingIcon={true}
                         icon={
                             this.showDropDownIcon
                                 ? KupThemeIconValues.DROPDOWN
                                 : null
                         }
-                        trailingIcon={true}
                         value={this.displayedValue}
                         onBlur={() => this.onKupBlur()}
                         onClick={() => this.onKupClick()}

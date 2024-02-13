@@ -8,9 +8,9 @@
   #kup-component {
     transition: background-color 0.2s;
 
-    &:hover {
-      background-color: rgba(var(--kup-text-color-rgb), 0.1);
-    }
+    // &:hover {
+    //   background-color: rgba(var(--kup-text-color-rgb), 0.1);
+    // }
   }
 
   .mdc-text-field:not(.mdc-text-field--disabled) input {
@@ -29,6 +29,7 @@
 .#{$kup-icon}.#{$kup-icon-dropdown} {
   -webkit-mask: var(--kup-dropdown-icon);
   mask: var(--kup-dropdown-icon);
+  order: 2;
 }
 
 .f-text-field {
