@@ -146,9 +146,12 @@
       }
 
       &.radio--disabled {
+        --kup_radio_outer_circle_color: var(--kup-gray-color-30);
+        --kup_radio_text_color: var(--kup-gray-color-30);
         pointer-events: none;
 
         + label {
+          color: var(--kup_radio_text_color);
           pointer-events: none;
         }
 
