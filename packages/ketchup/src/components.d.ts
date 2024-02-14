@@ -1132,21 +1132,6 @@ export namespace Components {
          */
         "getValue": () => Promise<string>;
         /**
-          * When set, its content will be shown as a help text below the field.
-          * @default null
-         */
-        "helper": string;
-        /**
-          * When true, the helper will be displayed.
-          * @default true
-         */
-        "helperEnabled": boolean;
-        /**
-          * When set, the helper will be shown only when the field is focused.
-          * @default false
-         */
-        "helperWhenFocused": boolean;
-        /**
           * When set, the text-field will show this icon.
           * @default null
          */
@@ -3190,6 +3175,16 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Defaults at false. When set to true, the component is horizontal.
+          * @default false
+         */
+        "horizontal": boolean;
+        /**
+          * When set, its content will be shown as a label.
+          * @default null
+         */
+        "label": string;
         /**
           * Defaults at false. When set to true, the label will be on the left of the component.
           * @default false
@@ -6033,21 +6028,6 @@ declare namespace LocalJSX {
          */
         "error"?: string;
         /**
-          * When set, its content will be shown as a help text below the field.
-          * @default null
-         */
-        "helper"?: string;
-        /**
-          * When true, the helper will be displayed.
-          * @default true
-         */
-        "helperEnabled"?: boolean;
-        /**
-          * When set, the helper will be shown only when the field is focused.
-          * @default false
-         */
-        "helperWhenFocused"?: boolean;
-        /**
           * When set, the text-field will show this icon.
           * @default null
          */
@@ -7702,6 +7682,16 @@ declare namespace LocalJSX {
           * @default false
          */
         "disabled"?: boolean;
+        /**
+          * Defaults at false. When set to true, the component is horizontal.
+          * @default false
+         */
+        "horizontal"?: boolean;
+        /**
+          * When set, its content will be shown as a label.
+          * @default null
+         */
+        "label"?: string;
         /**
           * Defaults at false. When set to true, the label will be on the left of the component.
           * @default false

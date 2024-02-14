@@ -11,6 +11,8 @@
 | `customStyle`  | `custom-style`  | Custom style of the component.                                                       | `string`       | `''`    |
 | `data`         | --              | List of elements.                                                                    | `FRadioData[]` | `null`  |
 | `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                      | `boolean`      | `false` |
+| `isHorizontal` | `is-horizontal` | Defaults at false. When set to true, the component is horizontal.                    | `boolean`      | `false` |
+| `label`        | `label`         | When set, its content will be shown as a label.                                      | `string`       | `''`    |
 | `leadingLabel` | `leading-label` | Defaults at false. When set to true, the label will be on the left of the component. | `boolean`      | `false` |
 
 

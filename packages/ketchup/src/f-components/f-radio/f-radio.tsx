@@ -17,12 +17,13 @@ export const FRadio: FunctionalComponent<FRadioProps> = (
         const classObj: GenericObject = {
             radio: true,
             'radio--checked': data.checked ? true : false,
-            'radio--disabled': props.disabled ? true : false,
+            // 'radio--disabled': props.disabled ? true : false,
         };
         radioList.push(
             <div
-                class={`form-field ${
-                    props.leadingLabel ? ' form-field--align-end' : ''
+                class={`form-field 
+                  ${props.leadingLabel ? ' form-field--align-end' : ''} ${
+                    props.disabled ? 'radio--disabled' : ''
                 }`}
             >
                 <div class={classObj}>
@@ -68,14 +69,15 @@ export const FRadio: FunctionalComponent<FRadioProps> = (
 
     return (
         <div
-            class={`f-radio radio-wrapper ${
-                hasColumns ? 'radio-wrapper-grid' : ''
-            } ${props.danger ? 'kup-danger' : ''} ${
-                props.info ? 'kup-info' : ''
-            } ${props.secondary ? 'kup-secondary' : ''} ${
-                props.success ? 'kup-success' : ''
-            } ${props.warning ? 'kup-warning' : ''} ${
-                props.wrapperClass ? props.wrapperClass : ''
+            class={`f-radio radio-wrapper 
+             ${hasColumns ? 'radio-wrapper-grid' : ''} ${
+                props.danger ? 'kup-danger' : ''
+            } ${props.info ? 'kup-info' : ''} ${
+                props.secondary ? 'kup-secondary' : ''
+            } ${props.success ? 'kup-success' : ''} ${
+                props.warning ? 'kup-warning' : ''
+            } ${props.wrapperClass ? props.wrapperClass : ''} ${
+                props.horizontal ? 'kup-horizontal' : ''
             }`}
             style={styleObj}
         >

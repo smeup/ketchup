@@ -78,6 +78,16 @@ export class KupRadio {
      */
     @Prop() disabled: boolean = false;
     /**
+     * Defaults at false. When set to true, the component is horizontal.
+     * @default false
+     */
+    @Prop() horizontal: boolean = false;
+    /**
+     * When set, its content will be shown as a label.
+     * @default null
+     */
+    @Prop() label: string = '';
+    /**
      * Defaults at false. When set to true, the label will be on the left of the component.
      * @default false
      */
@@ -224,6 +234,9 @@ export class KupRadio {
             info: this.rootElement.classList.contains('kup-info')
                 ? true
                 : false,
+            horizontal: this.rootElement.classList.contains('kup-horizontal')
+                ? true
+                : false,
             leadingLabel: this.leadingLabel,
             secondary: this.rootElement.classList.contains('kup-secondary')
                 ? true
@@ -246,7 +259,12 @@ export class KupRadio {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}>
+                <div id={componentWrapperId} class="kup-radio-wrapper">
+                    {this.label && (
+                        <label class="kup-radio-group-label">
+                            {this.label}
+                        </label>
+                    )}
                     <FRadio {...props}></FRadio>
                 </div>
             </Host>
