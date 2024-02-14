@@ -17,7 +17,7 @@ export const FRadio: FunctionalComponent<FRadioProps> = (
         const classObj: GenericObject = {
             radio: true,
             'radio--checked': data.checked ? true : false,
-            // 'radio--disabled': props.disabled ? true : false,
+            'radio--disabled': props.disabled ? true : false,
         };
         radioList.push(
             <div
