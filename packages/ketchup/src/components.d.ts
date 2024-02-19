@@ -152,6 +152,11 @@ export namespace Components {
     }
     interface KupAutocomplete {
         /**
+          * Set alert message
+          * @default '''
+         */
+        "alert": string;
+        /**
           * When true, the autocomplete fires the change event even when the value typed isn't included in the autocomplete list.
           * @default false
          */
@@ -178,6 +183,11 @@ export namespace Components {
          */
         "displayMode": ItemsDisplayMode;
         /**
+          * Set error message
+          * @default '''
+         */
+        "error": string;
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
@@ -189,6 +199,11 @@ export namespace Components {
          */
         "getValue": () => Promise<string>;
         /**
+          * When set, the text-field will show this icon.
+          * @default null
+         */
+        "icon": string;
+        /**
           * Sets the initial value of the component.
           * @default ""
          */
@@ -199,10 +214,30 @@ export namespace Components {
          */
         "inputDelay": number;
         /**
+          * Enables a clear trailing icon.
+          * @default false
+         */
+        "isClearable": boolean;
+        /**
+          * When set, its content will be shown as a label.
+          * @default null
+         */
+        "label": string;
+        /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "leadingLabel": boolean;
+        /**
           * The minimum number of chars to trigger the autocomplete
           * @default 1
          */
         "minimumChars": number;
+        /**
+          * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+          * @default false
+         */
+        "readOnly": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -236,6 +271,16 @@ export namespace Components {
           * @default true
          */
         "showDropDownIcon": boolean;
+        /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing": KupComponentSizing;
+        /**
+          * When set, the icon will be shown after the text.
+          * @default false
+         */
+        "trailingIcon": boolean;
     }
     interface KupBadge {
         /**
@@ -2064,7 +2109,7 @@ export namespace Components {
         "hiddenSubmitButton": boolean;
         /**
           * Sets the label placement for 'all' fields in form
-          * @default KupFormLabelPlacement.LEFT
+          * @default KupFormLabelPlacement.TOP
          */
         "labelPlacement": KupFormLabelPlacement;
         /**
@@ -5185,6 +5230,11 @@ declare namespace LocalJSX {
     }
     interface KupAutocomplete {
         /**
+          * Set alert message
+          * @default '''
+         */
+        "alert"?: string;
+        /**
           * When true, the autocomplete fires the change event even when the value typed isn't included in the autocomplete list.
           * @default false
          */
@@ -5211,6 +5261,16 @@ declare namespace LocalJSX {
          */
         "displayMode"?: ItemsDisplayMode;
         /**
+          * Set error message
+          * @default '''
+         */
+        "error"?: string;
+        /**
+          * When set, the text-field will show this icon.
+          * @default null
+         */
+        "icon"?: string;
+        /**
           * Sets the initial value of the component.
           * @default ""
          */
@@ -5220,6 +5280,21 @@ declare namespace LocalJSX {
           * @default 300
          */
         "inputDelay"?: number;
+        /**
+          * Enables a clear trailing icon.
+          * @default false
+         */
+        "isClearable"?: boolean;
+        /**
+          * When set, its content will be shown as a label.
+          * @default null
+         */
+        "label"?: string;
+        /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "leadingLabel"?: boolean;
         /**
           * The minimum number of chars to trigger the autocomplete
           * @default 1
@@ -5232,6 +5307,11 @@ declare namespace LocalJSX {
         "onKup-autocomplete-iconclick"?: (event: KupAutocompleteCustomEvent<KupAutocompleteIconClickEventPayload>) => void;
         "onKup-autocomplete-input"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-itemclick"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
+        /**
+          * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+          * @default false
+         */
+        "readOnly"?: boolean;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
           * @default ItemsDisplayMode.CODE
@@ -5247,6 +5327,16 @@ declare namespace LocalJSX {
           * @default true
          */
         "showDropDownIcon"?: boolean;
+        /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing"?: KupComponentSizing;
+        /**
+          * When set, the icon will be shown after the text.
+          * @default false
+         */
+        "trailingIcon"?: boolean;
     }
     interface KupBadge {
         /**
@@ -6782,7 +6872,7 @@ declare namespace LocalJSX {
         "hiddenSubmitButton"?: boolean;
         /**
           * Sets the label placement for 'all' fields in form
-          * @default KupFormLabelPlacement.LEFT
+          * @default KupFormLabelPlacement.TOP
          */
         "labelPlacement"?: KupFormLabelPlacement;
         /**

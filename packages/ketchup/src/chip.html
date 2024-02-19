@@ -40,6 +40,11 @@
         </style>
     </head>
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true },
+            };
+        </script>
         <h1>Chip</h1>
         <kup-chip type="input" id="chipList">
             <input  slot="_field" type="text" ></input>

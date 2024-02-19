@@ -36,6 +36,11 @@
         </style>
     </head>
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true },
+            };
+        </script>
         <h3>Material Buttons (widget)</h3>
         <span>empty:</span>
         <kup-button></kup-button>
@@ -210,6 +215,9 @@
                 active="true"
             ></kup-spinner>
         </kup-button>
+        <hr />
+        <kup-button class="kup-danger" label="danger"></kup-button>
+        <kup-button class="kup-success" label="danger"></kup-button>
         <script>
             document.addEventListener('kup-manager-ready', () => {
                 const kupManager = document.documentElement.ketchup;

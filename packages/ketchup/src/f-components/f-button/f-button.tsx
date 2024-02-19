@@ -38,7 +38,7 @@ export const FButton: FunctionalComponent<FButtonProps> = (
         'kup-warning': props.warning,
         'kup-neutral': props.neutral,
         [props.wrapperClass]: !!props.wrapperClass,
-    }
+    };
     return (
         <div
             class={classObj}
@@ -70,10 +70,10 @@ function renderButton(props: FButtonProps): VNode {
         color: props.neutral
             ? `var(--kup-gray-color-100)`
             : props.disabled
-            ? `var(--kup_button_disabled_color)`
+            ? `var(--kup_button_text_color_disabled)`
             : isOutlined || isFlat
-            ? `var(--kup_button_primary_color)`
-            : `var(--kup_button_text_on_primary_color)`,
+            ? `var(--kup_button_background_color)` // metter colore per sfondo bianco
+            : `var(--kup_button_text_color)`,
         resource: props.icon,
         sizeX: isFloating ? '1.75em' : '1.475em',
         sizeY: isFloating ? '1.75em' : '1.475em',
@@ -140,8 +140,8 @@ function renderIconButton(props: FButtonProps): VNode {
         color: props.neutral
             ? `var(--kup-gray-color-100)`
             : props.disabled
-            ? `var(--kup_button_disabled_color)`
-            : `var(--kup_button_primary_color)`,
+            ? `var(--kup_button_text_color_disabled)`
+            : `var(--kup_button_background_color)`,
         sizeX: props.large ? 'calc(1.75em * 1.5)' : '1.75em',
         sizeY: props.large ? 'calc(1.75em * 1.5)' : '1.75em',
     };
