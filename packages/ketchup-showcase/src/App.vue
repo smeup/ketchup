@@ -130,7 +130,7 @@ export default {
     ) {
       dom.ketchupInit = {
         ...dom.ketchupInit,
-        theme: { name: 'dark' },
+        theme: { name: 'octane' },
       };
     }
     document.addEventListener('kup-theme-change', () => {
@@ -161,9 +161,9 @@ export default {
   methods: {
     changeTheme(e: CustomEvent<KupSwitchEventPayload>): void {
       if (e.detail.value === 'on') {
-        dom.ketchup.theme.set('dark');
+        dom.ketchup.theme.set('darkOctaneGray');
       } else {
-        dom.ketchup.theme.set('ketchup');
+        dom.ketchup.theme.set('octane');
       }
     },
     drawerReady(): void {
@@ -197,7 +197,7 @@ export default {
     },
     removeSpinner(): void {
       setTimeout(() => {
-        if (dom.ketchup.theme.name === 'dark') {
+        if (dom.ketchup.theme.name === 'darkOctaneGray') {
           theme.checked = true;
         }
         spinnerLabel.innerHTML = 'Ready!';
