@@ -5,7 +5,7 @@
   );
   --kup_switch_track_background_color: var(
     --kup-switch-background,
-    var(--kup-gray-color-70)
+    var(--kup-gray-color-50)
   );
   --kup_switch_font_size: var(--kup-switch-font-size, var(--kup-font-size));
   --kup_switch_font_weight: var(--kup-switch-font-weight, 400);
@@ -21,10 +21,7 @@
     --kup-switch-primary-color-rgb,
     var(--kup-primary-color-rgb)
   );
-  --kup_switch_thumb_color: var(
-    --kup-switch-thumb-color,
-    var(--kup-border-color)
-  );
+  --kup_switch_thumb_background_color: var(--kup-switch-thumb-color, #ffffff);
 
   font-family: var(--kup_switch_font_family);
   font-size: var(--kup_switch_font_size);
@@ -71,6 +68,7 @@
         width: 48px;
         height: 24px;
         border: 1px solid transparent;
+        outline: 1px solid transparent;
         border-radius: 24px;
         opacity: 1;
         transition: opacity 90ms cubic-bezier(0.4, 0, 0.2, 1),
@@ -131,7 +129,7 @@
           background-color: var(--kup_switch_track_background_color);
         }
         .switch__thumb {
-          background-color: var(--kup-gray-color-100);
+          background-color: var(--kup_switch_thumb_background_color);
         }
       }
 
@@ -143,16 +141,15 @@
 
       &.switch--checked {
         .switch__track {
-          background-color: var(--kup_switch_primary_color);
-          opacity: 0.54;
+          background-color: var(--kup-success-color);
         }
         .switch__thumb-underlay {
           transform: translateX(22px);
         }
 
         .switch__thumb {
-          background-color: var(--kup_switch_primary_color);
-          border-color: var(--kup_switch_primary_color);
+          background-color: var(--kup_switch_thumb_background_color);
+          border-color: var(--kup-success-color);
 
           .switch__native-control {
             transform: translateX(-16px);
