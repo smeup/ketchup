@@ -1,19 +1,19 @@
 .f-button {
   --kup_button_background_color: var(
     --kup-button-background-color,
-    var(--kup-primary-color-50)
+    var(--kup-primary-color-0)
   );
   --kup_button_background_color_rgb: var(
     --kup-button-background-color,
-    var(--kup-primary-color-50-rgb)
+    var(--kup-primary-color-0-rgb)
   );
   --kup_button_text_color: var(
     --kup-button-text-color,
-    var(--kup-primary-color-0)
+    var(--kup-primary-color-60)
   );
   --kup_button_border_color: var(
     --kup-button-border-color,
-    var(--kup-primary-color-50)
+    var(--kup-primary-color-60)
   );
   --kup_button_background_color_disabled: var(
     --kup-button-background-color-disabled,
@@ -29,15 +29,15 @@
   );
   --kup_button_background_color_hover: var(
     --kup-button-background-color-hover,
-    var(--kup-primary-color-60)
+    var(--kup-primary-color-50)
   );
   --kup_button_background_color_active: var(
     --kup-button-background-color-active,
-    var(--kup-primary-color-70)
+    var(--kup-primary-color-40)
   );
   --kup_button_border_color_focus: var(
     --kup-button-border-color-focus,
-    var(--kup-primary-color-80)
+    var(--kup-primary-color-30)
   );
   --kup_button_border_radius: var(
     --kup-button-border-radius,
@@ -158,7 +158,10 @@
     &.button--floating,
     &.button--raised {
       --kup-spinner-color: var(--kup_button_text_color);
+      --kup_button_background_color: var(--kup-primary-color-60);
+      --kup_button_text_color: var(--kup-primary-color-0);
       background-color: var(--kup_button_background_color);
+      color: var(--kup_button_text_color);
 
       &:not(.button--disabled) {
         // to be
@@ -181,12 +184,9 @@
       }
 
       &:active {
-        --kup_button_background_active_color: var(--kup-primary-color-60);
-        --kup_button_text_on_primary_color_active: var(
-          --kup-accent-white-color
-        );
+        --kup_button_background_active_color: var(--kup-primary-color-90);
         background-color: var(--kup_button_background_active_color);
-        color: var(--kup_button_text_on_primary_color_active);
+        color: var();
       }
 
       &.button--disabled {
@@ -330,22 +330,20 @@
 
   &.#{$kup-class-neutral} {
     .button {
-      --kup_button_background_color: var(--kup-gray-color-80);
-      --kup_button_border_color_focus: var(--kup-gray-color-10);
-      --kup_button_text_color: var(--kup-gray-color-80);
+      --kup_button_background_color: var(--kup-gray-color-70);
+      --kup_button_border_color_focus: var(--kup-gray-color-90);
+      --kup_button_text_color: var(--kup-gray-color-60);
 
       &:hover {
-        --kup_button_background_color_hover: var(--kup-gray-color-90);
-        --kup_button_text_color: var(--kup-gray-color-20);
+        --kup_button_background_color_hover: var(--kup-gray-color-80);
       }
 
       &:focus {
-        --kup_button_border_color_focus: var(--kup-gray-color-90);
+        --kup_button_border_color_focus: var(--kup-gray-color-40);
       }
 
       &:active {
-        --kup_button_background_color_active: var(--kup-gray-color-70);
-        --kup_button_text_color_active: var(--kup-gray-color-10);
+        --kup_button_background_color_active: var(--kup-gray-color-50);
       }
 
       &.button--floating,
@@ -369,7 +367,8 @@
       }
 
       &.button--outlined {
-        --kup_button_border_color: var(--kup-gray-color-80);
+        --kup_button_border_color: var(--kup-gray-color-70);
+        --kup_button_text_color: var(--kup-gray-color-70);
         &:hover {
           --kup_button_background_color_hover: var(--kup-gray-color-80);
           --kup_button_text_color_hover: var(--kup-gray-color-0);

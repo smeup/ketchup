@@ -141,7 +141,7 @@ function renderIconButton(props: FButtonProps): VNode {
             ? `var(--kup-gray-color-100)`
             : props.disabled
             ? `var(--kup_button_text_color_disabled)`
-            : `var(--kup_button_background_color)`,
+            : `var(--kup_button_text_color)`,
         sizeX: props.large ? 'calc(1.75em * 1.5)' : '1.75em',
         sizeY: props.large ? 'calc(1.75em * 1.5)' : '1.75em',
     };
