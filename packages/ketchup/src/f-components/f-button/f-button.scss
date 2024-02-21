@@ -11,6 +11,10 @@
     --kup-button-text-color,
     var(--kup-primary-color-60)
   );
+  --kup_button_text_color_rgb: var(
+    --kup-button-text-color,
+    var(--kup-primary-color-60-rgb)
+  );
   --kup_button_border_color: var(
     --kup-button-border-color,
     var(--kup-primary-color-60)
@@ -30,6 +34,10 @@
   --kup_button_background_color_hover: var(
     --kup-button-background-color-hover,
     var(--kup-primary-color-50)
+  );
+  --kup_button_background_color_focus: var(
+    --kup-button-background-color-focus,
+    var(--kup-primary-color-80)
   );
   --kup_button_background_color_active: var(
     --kup-button-background-color-active,
@@ -104,9 +112,11 @@
 
     &:hover {
       background-color: var(--kup_button_background_color_hover);
+      color: var(--kup-primary-color-0);
 
       .f-image__icon {
         background: var(--kup_button_text_color) !important;
+        color: var(--kup-primary-color-0);
       }
     }
 
@@ -115,6 +125,7 @@
 
       .f-image__icon {
         background: var(--kup_button_text_color) !important;
+        color: var(--kup-primary-color-0);
       }
     }
 
@@ -173,20 +184,19 @@
       }
 
       &:hover {
-        --kup_button_background_color_hover: var(--kup-primary-color-30);
+        --kup_button_background_color_hover: var(--kup-primary-color-70);
         background-color: var(--kup_button_background_color_hover);
       }
 
       &:focus {
-        --kup_button_border_focus_color: var(--kup-primary-color-90);
-        background-color: var(--kup_button_background_color);
-        border-color: var(--kup_button_border_focus_color);
+        --kup_button_border_color_focus: var(--kup-primary-color-90);
+        background-color: var(--kup-primary-color-80);
+        border-color: var(--kup_button_border_color_focus);
       }
 
       &:active {
-        --kup_button_background_active_color: var(--kup-primary-color-90);
-        background-color: var(--kup_button_background_active_color);
-        color: var();
+        --kup_button_background_color_active: var(--kup-primary-color-80);
+        background-color: var(--kup_button_background_color_active);
       }
 
       &.button--disabled {
@@ -233,24 +243,40 @@
       border-color: var(--kup_button_border_color);
 
       &:hover {
-        --kup_button_background_color_hover: var(--kup-primary-color-50);
+        --kup_button_background_color_hover: var(--kup-primary-color-60);
         --kup_button_text_color_hover: var(--kup-primary-color-0);
         color: var(--kup_button_text_color_hover);
         background-color: var(--kup_button_background_color_hover);
         border-color: transparent;
       }
 
+      &:hover .f-image .f-image__icon {
+        --kup_button_background_color_hover: var(--kup-primary-color-0);
+        background-color: var(--kup_button_background_color_hover) !important;
+      }
+
       &:focus {
-        --kup_button_text_color_hover: var(--kup-primary-color-0);
-        color: var(--kup_button_text_color_hover);
-        background-color: var(--kup_button_background_color);
+        --kup_button_background_color_focus: var(--kup-primary-color-70);
+        --kup_button_text_color_focus: var(--kup-primary-color-0);
+        color: var(--kup_button_text_color_focus);
+        background-color: var(--kup_button_background_color_focus);
+      }
+
+      &:focus .f-image .f-image__icon {
+        --kup_button_background_color_focus: var(--kup-primary-color-0);
+        background-color: var(--kup_button_background_color_focus) !important;
       }
 
       &:active {
-        --kup_button_text_color_hover: var(--kup-primary-color-0);
-        color: var(--kup_button_text_color_hover);
-        --kup_button_background_color_active: var(--kup-primary-color-60);
+        --kup_button_text_color_active: var(--kup-primary-color-0);
+        --kup_button_background_color_active: var(--kup-primary-color-70);
+        color: var(--kup_button_text_color_active);
         background-color: var(--kup_button_background_color_active);
+      }
+
+      &:active .f-image .f-image__icon {
+        --kup_button_background_color_active: var(--kup-primary-color-0);
+        background-color: var(--kup_button_background_color_active) !important;
       }
 
       &.button--disabled {
@@ -296,7 +322,7 @@
 
     &:hover,
     &:focus {
-      background-color: rgba(var(--kup_button_background_color_rgb), 0.125);
+      background-color: rgba(var(--kup_button_text_color_rgb), 0.125);
     }
 
     .icon-button__icon {
@@ -355,14 +381,15 @@
         }
 
         &:active {
-          --kup_button_background_color_active: var(--kup-gray-color-50);
-          // --kup_button_text_color_active: var(
-          //   --kup-accent-white-color
-          // );
+          --kup_button_background_color_active: var(--kup-gray-color-90);
+        }
+
+        &:focus {
+          --kup_button_background_color_focus: var(--kup-gray-color-90);
         }
 
         &.button--disabled {
-          --kup_button_text_color: var(--kup_button_background_color_disabled);
+          --kup_button_text_color: var(--kup_button_text_color_disabled);
         }
       }
 
@@ -380,10 +407,7 @@
         }
 
         &:active {
-          --kup_button_background_color_active: var(--kup-gray-color-50);
-          // --kup_button_text_color_active: var(
-          //   --kup-accent-white-color
-          // );
+          --kup_button_background_color_active: var(--kup-gray-color-90);
         }
 
         &.button--disabled {
@@ -444,24 +468,71 @@
     }
   }
 
+  // kup-danger --> TO BE DONE
+
   &.#{$kup-class-danger} {
     .button {
-      --kup_button_background_color: var(--kup-danger-color);
-      --kup_button_border_color_focus: var(--kup-danger-color);
-    }
-
-    &:hover {
-      --kup_button_background_color_hover: var(--kup-danger-color);
-      --kup_button_text_color: var(--kup-gray-color-20);
-    }
-
-    &:focus {
+      // ghost
+      --kup_button_background_color: transparent;
       --kup_button_border_color_focus: var(--kup-gray-color-90);
-    }
+      --kup_button_text_color: var(--kup-danger);
 
-    &:active {
-      --kup_button_background_color_active: var(--kup-gray-color-70);
-      --kup_button_text_color_active: var(--kup-gray-color-10);
+      &:hover {
+        --kup_button_background_color_hover: var(--kup-gray-color-80);
+      }
+
+      &:focus {
+        --kup_button_border_color_focus: var(--kup-gray-color-40);
+      }
+
+      &:active {
+        --kup_button_background_color_active: var(--kup-gray-color-50);
+      }
+
+      &.button--floating,
+      &.button--raised {
+        --kup_button_text_color: var(--kup-gray-color-0);
+
+        &:hover {
+          --kup_button_background_color_hover: var(--kup-gray-color-80);
+        }
+
+        &:active {
+          --kup_button_background_color_active: var(--kup-gray-color-90);
+        }
+
+        &:focus {
+          --kup_button_background_color_focus: var(--kup-gray-color-90);
+          background-color: var(--kup_button_background_color_focus);
+        }
+
+        &.button--disabled {
+          --kup_button_text_color: var(--kup_button_text_color_disabled);
+        }
+      }
+
+      &.button--outlined {
+        --kup_button_border_color: var(--kup-gray-color-70);
+        --kup_button_text_color: var(--kup-gray-color-70);
+        &:hover {
+          --kup_button_background_color_hover: var(--kup-gray-color-80);
+          --kup_button_text_color_hover: var(--kup-gray-color-0);
+        }
+
+        &:focus {
+          --kup_button_background_color_focus: var(--kup-gray-color-90);
+          --kup_button_text_color: var(--kup-gray-color-0);
+        }
+
+        &:active {
+          --kup_button_background_color_active: var(--kup-gray-color-90);
+        }
+
+        &.button--disabled {
+          --kup_button_text_color: var(--kup_button_text_color_disabled);
+          --kup_button_border_color: var(--kup-gray-color-40);
+        }
+      }
     }
   }
 
