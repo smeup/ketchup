@@ -14,10 +14,7 @@
       --kup-textfield-border-color,
       var(--kup-gray-color-50)
     );
-    --kup_textfield_color: var(
-      --kup-textfield-color,
-      var(--kup-gray-color-100)
-    );
+    --kup_textfield_color: var(--kup-textfield-color, var(--kup-gray-color-90));
     --kup_textfield_label_color: var(
       --kup-textfield-label-color,
       var(--kup-gray-color-70)

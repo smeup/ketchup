@@ -68,11 +68,11 @@ function renderButton(props: FButtonProps): VNode {
 
     const propsFImage: FImageProps = {
         color: props.neutral
-            ? `var(--kup-gray-color-100)`
+            ? `var(--kup-gray-color-90)`
             : props.disabled
             ? `var(--kup_button_text_color_disabled)`
             : isOutlined || isFlat
-            ? `var(--kup_button_background_color)` // metter colore per sfondo bianco
+            ? `var(--kup_button_text_color)` // metter colore per sfondo bianco
             : `var(--kup_button_text_color)`,
         resource: props.icon,
         sizeX: isFloating ? '1.75em' : '1.475em',
@@ -138,7 +138,7 @@ function renderButton(props: FButtonProps): VNode {
 function renderIconButton(props: FButtonProps): VNode {
     const propsFImage: FImageProps = {
         color: props.neutral
-            ? `var(--kup-gray-color-100)`
+            ? `var(--kup-gray-color-90)`
             : props.disabled
             ? `var(--kup_button_text_color_disabled)`
             : `var(--kup_button_text_color)`,
