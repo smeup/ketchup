@@ -83,7 +83,7 @@ export class KupChip {
      */
     @Prop() type: FChipType = FChipType.STANDARD;
     /**
-     * Sets the type of the chip
+     * Sets the size of the chip
      * @default FChipSize.MEDIUM
      */
     @Prop() sizing: FChipSize = FChipSize.MEDIUM;

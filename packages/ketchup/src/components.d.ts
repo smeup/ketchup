@@ -50,6 +50,7 @@ import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarat
 import { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 import { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
+import { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
@@ -99,6 +100,7 @@ export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarat
 export { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 export { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
 export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
+export { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 export { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 export { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 export { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
@@ -1064,7 +1066,7 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
-          * Sets the type of the chip
+          * Sets the size of the chip
           * @default FChipSize.MEDIUM
          */
         "sizing": FChipSize;
@@ -3439,6 +3441,11 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the size of the switch
+          * @default FSwitchSizing.MEDIUM
+         */
+        "sizing": FSwitchSizing;
     }
     interface KupSwitcher {
         "timeUnitChange": KupPlannerSwitcherProps['onTimeUnitChange'];
@@ -6044,7 +6051,7 @@ declare namespace LocalJSX {
          */
         "onKup-chip-iconclick"?: (event: KupChipCustomEvent<KupChipEventPayload>) => void;
         /**
-          * Sets the type of the chip
+          * Sets the size of the chip
           * @default FChipSize.MEDIUM
          */
         "sizing"?: FChipSize;
@@ -7951,6 +7958,11 @@ declare namespace LocalJSX {
           * Triggered when the input element gets focused.
          */
         "onKup-switch-focus"?: (event: KupSwitchCustomEvent<KupSwitchEventPayload>) => void;
+        /**
+          * Sets the size of the switch
+          * @default FSwitchSizing.MEDIUM
+         */
+        "sizing"?: FSwitchSizing;
     }
     interface KupSwitcher {
         "timeUnitChange"?: KupPlannerSwitcherProps['onTimeUnitChange'];

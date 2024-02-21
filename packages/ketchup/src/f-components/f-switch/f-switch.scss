@@ -22,6 +22,15 @@
     var(--kup-primary-color-rgb)
   );
   --kup_switch_thumb_background_color: var(--kup-switch-thumb-color, #ffffff);
+  --kup_switch_small_height: var(
+    --kup-switch-small-height,
+    var(--kup-space-05)
+  );
+  --kup_switch_small_width: var(--kup-switch-small-width, var(--kup-space-05));
+  --kup_switch_medium_height: var(
+    --kup-switch-medium-height,
+    var(--kup-space-06)
+  );
 
   font-family: var(--kup_switch_font_family);
   font-size: var(--kup_switch_font_size);
@@ -153,6 +162,21 @@
 
           .switch__native-control {
             transform: translateX(-16px);
+          }
+        }
+      }
+      &.switch--small {
+        .switch__track {
+          width: 36px;
+          height: 18px;
+        }
+        .switch__thumb-underlay {
+          left: -15px;
+          top: -15px;
+          transform: translate(17px);
+          .switch__thumb {
+            height: 13.5px;
+            width: 13.5px;
           }
         }
       }
