@@ -1,22 +1,22 @@
 .built-in-layout-1 {
-  --kup_card_l1_color: var(--kup-color-secondary, var(--kup-gray-color-90));
-  --kup_card_background: var(
+  --kup_card_text_color: var(--kup-card-text-color, var(--kup-gray-color-90));
+  --kup_card_background_color: var(
     --kup-card-background-color,
     var(--kup-gray-color-10)
   );
-  --kup_card_focus_color: var(
-    --kup-card-focus-color,
-    var(--kup-primary-color-50)
+  --kup_card_selected_color: var(
+    --kup-card-selected-color,
+    var(--kup-primary-color-60)
   );
-  --kup_card_hover_color: var(
-    --kup-card-hover-color,
+  --kup_card_selected_color_hover: var(
+    --kup-card-selected-color-hover,
     var(--kup-primary-color-30)
   );
   --kup_card_box_shadow: var(
     --kup-box-shadow,
     0px 3px 6px 0 rgba(0, 0, 0, 0.3)
   );
-  background-color: var(--kup_card_background);
+  background-color: var(--kup_card_background_color);
   border-radius: var(--kup-radius-00);
   box-sizing: border-box;
   box-shadow: 0 2px 1px -1px rgba(128, 128, 128, 0.1),
@@ -70,7 +70,7 @@
 
   .next-page .icon-button .f-image .f-image__icon,
   .prev-page .icon-button .f-image .f-image__icon {
-    background-color: var(--kup_card_l1_color) !important;
+    background-color: var(--kup_card_text_color) !important;
   }
 
   .calendar {
@@ -86,7 +86,7 @@
   }
 
   .item-text {
-    color: var(--kup_card_l1_color);
+    color: var(--kup_card_text_color);
     @include kup-body-compact-01;
   }
 
@@ -94,11 +94,11 @@
     text-align: center;
 
     &:not(.selected) .item-number:hover {
-      background-color: var(--kup_card_hover_color);
+      background-color: var(--kup_card_selected_color_hover);
     }
     &.selected .item-number,
     &.selected .item-number:hover {
-      background-color: var(--kup_card_focus_color);
+      background-color: var(--kup_card_selected_color);
       color: var(--kup-gray-color-0);
     }
   }
@@ -113,6 +113,6 @@
     text-transform: capitalize;
     @include kup-body-compact-01;
     line-height: 2.5em;
-    color: var(--kup_card_l1_color);
+    color: var(--kup_card_text_color);
   }
 }
