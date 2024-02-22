@@ -16,7 +16,7 @@ export const FSwitch: FunctionalComponent<FSwitchProps> = (
         switch: true,
         'switch--checked': props.checked,
         'switch--disabled': props.disabled,
-        'switch--small': isSmall ? true : false,
+        [`switch--${props.sizing}`]: props.sizing ? true : false,
     };
 
     return (
@@ -37,11 +37,7 @@ export const FSwitch: FunctionalComponent<FSwitchProps> = (
                     props.leadingLabel ? 'form-field--align-end' : ''
                 }`}
             >
-                <div
-                    class={`switch ${props.checked ? 'switch--checked' : ''} ${
-                        props.disabled ? 'switch--disabled' : ''
-                    } ${classObj}`}
-                >
+                <div class={classObj}>
                     <div class="switch__track"></div>
                     <div class="switch__thumb-underlay">
                         <div class="switch__thumb">
