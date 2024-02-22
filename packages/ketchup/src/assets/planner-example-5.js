@@ -1702,6 +1702,54 @@ const phases = {
             tooltip: false,
             visible: false,
         },
+        {
+            isEditable: false,
+            isKey: false,
+            name: 'INITHHMMSS',
+            obj: {
+                k: '',
+                p: '2',
+                t: 'I1',
+            },
+            title: 'Init hour (HH:mm:ss)',
+            tooltip: true,
+        },
+        {
+            isEditable: false,
+            isKey: false,
+            name: 'ENDHHMMSS',
+            obj: {
+                k: '',
+                p: '2',
+                t: 'I1',
+            },
+            title: 'End hour (HH:mm:ss)',
+            tooltip: true,
+        },
+        {
+            isEditable: false,
+            isKey: false,
+            name: 'INITHHMM',
+            obj: {
+                k: '',
+                p: '3',
+                t: 'I1',
+            },
+            title: 'Init hour (HH:mm)',
+            tooltip: true,
+        },
+        {
+            isEditable: false,
+            isKey: false,
+            name: 'ENDHHMM',
+            obj: {
+                k: '',
+                p: '3',
+                t: 'I1',
+            },
+            title: 'End hour (HH:mm)',
+            tooltip: true,
+        },
     ],
     rows: [
         {
@@ -1816,6 +1864,45 @@ const phases = {
                         t: 'D8',
                     },
                     value: '2023-05-22',
+                },
+                INITHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '113000',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '11:30:00',
+                },
+
+                ENDHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '164500',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '16:45:00',
+                },
+
+                INITHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '1130',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '11:30',
+                },
+
+                ENDHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '1645',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '16:45',
                 },
             },
             id: '1',
@@ -1935,6 +2022,45 @@ const phases = {
                     },
                     value: '2023-08-30',
                 },
+                INITHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '110000',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '11:00:00',
+                },
+
+                ENDHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '160000',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '16:00:00',
+                },
+
+                INITHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '1100',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '11:00',
+                },
+
+                ENDHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '1600',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '16:00',
+                },
             },
             id: '2',
             object: '',
@@ -2052,6 +2178,45 @@ const phases = {
                         t: 'D8',
                     },
                     value: '2023-09-05',
+                },
+                INITHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '083000',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '08:30:00',
+                },
+
+                ENDHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '104500',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '10:45:00',
+                },
+
+                INITHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '0830',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '08:30',
+                },
+
+                ENDHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '1045',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '10:45',
                 },
             },
             id: '3',
@@ -2171,6 +2336,45 @@ const phases = {
                     },
                     value: '2023-09-26',
                 },
+                INITHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '113000',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '11:30:00',
+                },
+
+                ENDHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '164500',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '16:45:00',
+                },
+
+                INITHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '1130',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '11:30',
+                },
+
+                ENDHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '1645',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '16:45',
+                },
             },
             id: '4',
             object: '',
@@ -2288,6 +2492,45 @@ const phases = {
                         t: 'D8',
                     },
                     value: '2023-09-26',
+                },
+                INITHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '083000',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '08:30:00',
+                },
+
+                ENDHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '104500',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '10:45:00',
+                },
+
+                INITHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '0830',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '08:30',
+                },
+
+                ENDHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '1045',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '10:45',
                 },
             },
             id: '5',
@@ -2407,6 +2650,45 @@ const phases = {
                     },
                     value: '2023-10-10',
                 },
+                INITHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '113000',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '11:30:00',
+                },
+
+                ENDHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '164500',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '16:45:00',
+                },
+
+                INITHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '1130',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '11:30',
+                },
+
+                ENDHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '1645',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '16:45',
+                },
             },
             id: '6',
             object: '',
@@ -2524,6 +2806,45 @@ const phases = {
                         t: 'D8',
                     },
                     value: '2023-12-13',
+                },
+                INITHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '163000',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '16:30:00',
+                },
+
+                ENDHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '184500',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '18:45:00',
+                },
+
+                INITHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '1630',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '16:30',
+                },
+
+                ENDHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '1845',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '18:45',
                 },
             },
             id: '7',
@@ -2643,6 +2964,45 @@ const phases = {
                     },
                     value: '2024-01-04',
                 },
+                INITHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '113000',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '11:30:00',
+                },
+
+                ENDHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '164500',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '16:45:00',
+                },
+
+                INITHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '1130',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '11:30',
+                },
+
+                ENDHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '1645',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '16:45',
+                },
             },
             id: '8',
             object: '',
@@ -2760,6 +3120,45 @@ const phases = {
                         t: 'D8',
                     },
                     value: '2024-01-31',
+                },
+                INITHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '073000',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '07:30:00',
+                },
+
+                ENDHHMMSS: {
+                    isEditable: false,
+                    obj: {
+                        k: '094500',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    value: '09:45:00',
+                },
+
+                INITHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '0730',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '07:30',
+                },
+
+                ENDHHMM: {
+                    isEditable: false,
+                    obj: {
+                        k: '0945',
+                        p: '3',
+                        t: 'I1',
+                    },
+                    value: '09:45',
                 },
             },
             id: '9',
