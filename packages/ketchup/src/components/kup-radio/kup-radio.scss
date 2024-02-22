@@ -10,17 +10,9 @@
 
 :host {
   display: block;
-  --kup_radio_group_label_color: var(
-    --kup-radio-group-label-color,
-    var(--kup-gray-color-70)
-  );
 }
 
 .kup-radio-wrapper {
   display: grid;
   gap: var(--kup-space-03);
-  .kup-radio-group-label {
-    color: var(--kup_radio_group_label_color);
-    @include kup-label-01;
-  }
 }

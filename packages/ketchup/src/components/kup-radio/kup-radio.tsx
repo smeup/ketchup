@@ -260,11 +260,6 @@ export class KupRadio {
                     )}
                 </style>
                 <div id={componentWrapperId} class="kup-radio-wrapper">
-                    {this.label && (
-                        <label class="kup-radio-group-label">
-                            {this.label}
-                        </label>
-                    )}
                     <FRadio {...props}></FRadio>
                 </div>
             </Host>

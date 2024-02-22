@@ -19,6 +19,10 @@
     var(--kup-gray-color-90-rgb)
   );
   --kup_radio_text_color: var(--kup-radio-text-color, var(--kup-gray-color-90));
+  --kup_radio_text_color_disabled: var(
+    --kup-radio-text-color-disabled,
+    var(--kup-gray-color-30)
+  );
 
   font-family: var(--kup_radio_font_family);
   font-size: var(--kup_radio_font_size);
@@ -148,7 +152,7 @@
         pointer-events: none;
 
         + label {
-          color: var(--kup_radio_text_color);
+          color: var(--kup_radio_text_color_disabled);
           pointer-events: none;
         }
 
