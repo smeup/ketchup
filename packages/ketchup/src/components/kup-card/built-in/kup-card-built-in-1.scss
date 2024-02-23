@@ -54,12 +54,11 @@
     width: 12em;
     text-align: center;
     button {
-      &:hover {
-        background-color: var(--kup-color-gray-30);
-      }
+      color: var(-kup_card_text_color);
+
       span {
         @include kup-heading-compact-01;
-        color: var(--kup_card_l1_color);
+        color: var(-kup_card_text_color);
       }
     }
   }
