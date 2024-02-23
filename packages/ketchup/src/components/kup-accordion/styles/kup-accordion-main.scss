@@ -96,13 +96,25 @@
       color var(--kup_accordion_transition);
     width: 100%;
     outline: 2px solid transparent;
+    outline-offset: -2px;
     padding-left: 16px;
     padding-right: 16px;
+
+    &:focus {
+      outline: 2px solid var(--kup_accordion_item_outline_color_active);
+    }
+
+    &.accordion-item--small {
+      height: var(--kup_accordion_item_small_height);
+    }
+    &.accordion-item--large {
+      height: var(--kup_accordion_item_large_height);
+    }
 
     &:hover:not(.accordion-item__header--selected) {
       background-color: var(--kup_accordion_header_background_color_hover);
     }
-    &:active:not(.accordion-item__header--selected) {
+    &:focus(.accordion-item__header--selected) {
       outline: 2px solid var(--kup_accordion_item_outline_color_active);
     }
 
@@ -112,10 +124,6 @@
       .accordion-item__dropdown {
         transform: rotate(-180deg);
       }
-    }
-
-    &--selected {
-      outline: 2px solid red;
     }
   }
 
