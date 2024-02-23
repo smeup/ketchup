@@ -880,6 +880,16 @@ export default {
           {
             cells: {
               ROUTE: {
+                value: 'kup-token',
+              },
+            },
+            icon: 'token',
+            value: 'KupToken',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
                 value: 'kup-toolbar',
               },
             },
