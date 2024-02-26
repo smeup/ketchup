@@ -9,22 +9,34 @@
 */
 
 :host {
-  --kup_tabbar_font_family: var(
-    --kup-tabbar-font-family,
-    var(--kup-font-family)
+  --kup_tabindicator_border_bottom_color: var(
+    --kup-tab-indicator-border-bottom-color,
+    var(--kup-gray-color-20)
   );
+  --kup_tabindicator_border_bottom_color_active: var(
+    --kup-tabindicator-border-bottom-color-active,
+    var(--kup-primary-color-60)
+  );
+  --kup_tabbar_text_color: var(
+    --kup-tabbar-text-color,
+    var(--kup-gray-color-70)
+  );
+  --kup_tabbar_text_color_active: var(
+    --kup-tabbar-text-color-active,
+    var(--kup-gray-color-90)
+  );
+  --kup_tabbar_border_color_dense: var(
+    --kup-tabbar-border-color-dense,
+    var(--kup-gray-color-50)
+  );
+
   --kup_tabbar_font_size: var(--kup-tabbar-font-size, var(--kup-font-size));
   --kup_tabbar_font_weight: var(--kup-tabbar-font-weight, 500);
   --kup_tabbar_height: var(--kup-tabbar-height, 36px);
-  --kup_tabbar_primary_color: var(
-    --kup-tabbar-primary-color,
-    var(--kup-primary-color)
+  --kup_tabbar_tab_padding: var(
+    --kup-tabbar-tab-padding,
+    0 var(--kup-space-05)
   );
-  --kup_tabbar_primary_color_rgb: var(
-    --kup-tabbar-primary-color-rgb,
-    var(--kup-primary-color-rgb)
-  );
-  --kup_tabbar_tab_padding: var(--kup-tabbar-tab-padding, 0 24px);
 
   display: block;
   font-size: var(--kup_tabbar_font_size);
@@ -48,63 +60,105 @@
         flex: 1 0 auto;
         transform: none;
         will-change: transform;
+        gap: 2px;
       }
     }
 
+    // add the disabled status on specific field
     .tab {
       -webkit-font-smoothing: antialiased;
       padding: var(--kup_tabbar_tab_padding);
-      min-width: 90px;
       position: relative;
       display: flex;
-      flex: 1 0 auto;
-      justify-content: center;
       box-sizing: border-box;
+      gap: 8px;
       margin: 0px;
       border: none;
-      outline: none;
+      outline: 2px solid transparent;
+      outline-offset: -2px;
       background: none;
-      text-align: center;
+      text-align: left;
       white-space: nowrap;
       cursor: pointer;
       appearance: none;
       z-index: 1;
       height: var(--kup_tabbar_height);
-      font-family: var(--kup_tabbar_font_family);
-      font-size: 0.875em;
-      font-weight: var(--kup_tabbar_font_weight);
-      letter-spacing: 0.0892857143em;
-      text-transform: uppercase;
+      &:focus {
+        outline: 2px solid var(--kup_tabindicator_border_bottom_color_active);
+      }
 
       .tab__icon + .tab__text-label {
         padding-left: 8px;
         padding-right: 0px;
+        @include kup-body-compact-01;
+      }
+
+      .tab__icon .f-image__icon {
+        background: var(--kup_tabbar_text_color) !important;
       }
 
       &:hover {
         background-color: rgba(var(--kup_tabbar_primary_color_rgb), 0.075);
+        .tab-indicator .tab-indicator__content--underline {
+          --kup_tabindicator_border_bottom_color: var(--kup-gray-color-50);
+        }
+      }
+      &.tab--active {
+        .tab__content {
+          .tab__icon {
+            transition-delay: 100ms;
+          }
+          .tab__text-label {
+            transition-delay: 100ms;
+            @include kup-heading-compact-01;
+          }
+        }
+      }
+      &[disabled] {
+        --kup_tabindicator_border_bottom_color: var(--kup-gray-color-30);
+        --kup_tabbar_text_color: var(--kup-gray-color-30);
+        pointer-events: none;
+      }
+      &.kup-dense {
+        background: var(--kup-gray-color-20);
+        border-right: 1px solid var(--kup_tabbar_border_color_dense);
+        &.tab--active {
+          background: var(--kup-gray-color-10);
+        }
+        &:hover {
+          background: var(--kup-gray-color-30);
+        }
+        .tab-indicator {
+          height: 2px;
+          border-color: transparent;
+        }
+        .tab-indicator--active .tab-indicator__content {
+          border-color: var(--kup_tabindicator_border_bottom_color_active);
+        }
       }
     }
 
     .tab__content {
       position: relative;
+      width: 100%;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       height: inherit;
       pointer-events: none;
+      gap: var(--kup-space-03);
 
       .tab__icon {
         transition: color 150ms linear 0s;
-        width: 24px;
-        height: 24px;
-        font-size: 24px;
+        width: 16px;
+        height: 16px;
+        font-size: 16px;
         z-index: 2;
+        margin: 0;
 
         &.#{$kup-icon} {
-          background-color: var(--kup_tabbar_primary_color);
-          height: 24px;
-          width: 24px;
+          height: 16px;
+          width: 16px;
         }
       }
 
@@ -113,7 +167,8 @@
         display: inline-block;
         line-height: 1;
         z-index: 2;
-        color: var(--kup_tabbar_primary_color);
+        color: var(--kup_tabbar_text_color);
+        min-width: 150px;
       }
     }
 
@@ -131,13 +186,12 @@
       &.tab-indicator--active {
         .tab-indicator__content {
           opacity: 1;
+          border-color: var(--kup_tabindicator_border_bottom_color_active);
         }
       }
 
       .tab-indicator__content {
-        border-color: var(--kup_tabbar_primary_color);
         transform-origin: left center;
-        opacity: 0;
 
         &.tab-indicator__content--underline {
           align-self: flex-end;
@@ -146,16 +200,8 @@
           border-top-style: solid;
           border-top-width: 2px;
           transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
+          color: var(--kup_tabindicator_border_bottom_color);
         }
-      }
-    }
-
-    &.tab--active {
-      .tab__icon {
-        transition-delay: 100ms;
-      }
-      .tab__text-label {
-        transition-delay: 100ms;
       }
     }
   }
