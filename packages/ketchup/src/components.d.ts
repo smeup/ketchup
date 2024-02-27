@@ -3314,6 +3314,11 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * Sets the textual content of the snackbar.
+          * @default ''
+         */
+        "header": string;
+        /**
           * Hides the snackbar.
          */
         "hide": () => Promise<void>;
@@ -7863,6 +7868,11 @@ declare namespace LocalJSX {
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
+        /**
+          * Sets the textual content of the snackbar.
+          * @default ''
+         */
+        "header"?: string;
         /**
           * Triggered when action button is clicked.
          */

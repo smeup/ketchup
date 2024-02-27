@@ -2,7 +2,8 @@ const bottomButton = document.getElementById('bottom');
 const topButton = document.getElementById('top');
 const snackbar = document.getElementById('snackbar');
 const props = {
-    text: 'This is a snackbar demo',
+    header: 'This is a snackbar title',
+    text: 'This is a snackbar text',
     actionButton: { label: 'Action', styling: 'flat' },
     closeButton: true,
     timeout: 2000,
