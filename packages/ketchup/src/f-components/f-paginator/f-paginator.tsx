@@ -64,14 +64,12 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
             id={props.id}
             title={props.title}
         >
-            {props.mode !== FPaginatorMode.SIMPLE ? (
-                <FButton
-                    icon="chevron_left"
-                    disabled={isPrevPageDisabled(props)}
-                    onClick={props.onPrevPage}
-                    wrapperClass="prev-page"
-                />
-            ) : null}
+            <kup-combobox
+                class="rows-selector"
+                data={dataRowsSelector}
+                initialValue={props.perPage.toString()}
+                onkup-combobox-change={props.onRowsChange}
+            />
             <kup-combobox
                 class="page-selector"
                 data={dataPageSelector}
@@ -80,18 +78,20 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
             />
             {props.mode !== FPaginatorMode.SIMPLE ? (
                 <FButton
+                    icon="chevron_left"
+                    disabled={isPrevPageDisabled(props)}
+                    onClick={props.onPrevPage}
+                    wrapperClass="kup-neutral prev-page"
+                />
+            ) : null}
+            {props.mode !== FPaginatorMode.SIMPLE ? (
+                <FButton
                     icon="chevron_right"
                     disabled={isNextPageDisabled(props)}
                     onClick={props.onNextPage}
-                    wrapperClass="next-page"
+                    wrapperClass="kup-neutral next-page"
                 />
             ) : null}
-            <kup-combobox
-                class="rows-selector"
-                data={dataRowsSelector}
-                initialValue={props.perPage.toString()}
-                onkup-combobox-change={props.onRowsChange}
-            />
             {props.onLoadMore ? (
                 <FButton
                     icon="plus"

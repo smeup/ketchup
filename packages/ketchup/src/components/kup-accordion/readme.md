@@ -5,11 +5,12 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                     | Type               | Default |
-| ------------- | -------------- | --------------------------------------------------------------- | ------------------ | ------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`           | `''`    |
-| `data`        | --             | Data of the accordion.                                          | `KupAccordionData` | `null`  |
-| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`          | `true`  |
+| Property      | Attribute      | Description                                                     | Type                                                                                                          | Default                     |
+| ------------- | -------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`                                                                                                      | `''`                        |
+| `data`        | --             | Data of the accordion.                                          | `KupAccordionData`                                                                                            | `null`                      |
+| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`                                                                                                     | `false`                     |
+| `sizing`      | `sizing`       | Sets the type of the button                                     | `KupComponentSizing.LARGE \| KupComponentSizing.MAX \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.MEDIUM` |
 
 
 ## Events

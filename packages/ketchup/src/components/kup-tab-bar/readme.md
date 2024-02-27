@@ -9,7 +9,8 @@
 | ------------- | -------------- | --------------------------------------------------------------- | ----------------- | ------- |
 | `customStyle` | `custom-style` | Custom style of the component.                                  | `string`          | `''`    |
 | `data`        | --             | List of elements.                                               | `KupTabBarNode[]` | `null`  |
-| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`         | `true`  |
+| `dense`       | `dense`        | Defaults at false. When set to true, the component is dense.    | `boolean`         | `false` |
+| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`         | `false` |
 
 
 ## Events
