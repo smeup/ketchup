@@ -65,6 +65,7 @@ export enum KupPlannerTaskAction {
     onDblClick = 'onDblClick',
     onResize = 'onResize',
     onRightClick = 'onRightClick',
+    onPhase = 'onPhase',
 }
 
 export interface KupPlannerEventPayload extends KupEventPayload {
@@ -146,9 +147,11 @@ export const defaultStylingOptions = {
 export interface KupPlannerDatesSanitized {
     dateValues: string[];
     secDateValues: string[];
+    hourValues: string[];
+    secHourValues: string[];
 }
 
-export type KupPlannerViewMode = 'day' | 'week' | 'month' | 'year';
+export type KupPlannerViewMode = 'hour' | 'day' | 'week' | 'month' | 'year';
 
 export interface KupPlannerStoredSettings {
     showSecondaryDates: boolean;
@@ -183,6 +186,10 @@ export interface KupPlannerGanttTaskN extends KupPlannerGanttRow {
     phases?: KupPlannerPhaseGantt[];
     details?: KupPlannerItemDetail[];
     icon?: KupPlannerTaskIcon;
+    startHour?: string;
+    endHour?: string;
+    secondaryStartHour?: string;
+    secondaryEndHour?: string;
 }
 
 /** Fase */
@@ -195,6 +202,10 @@ export interface KupPlannerPhaseGantt extends KupPlannerGanttRow {
     selectedColor?: string;
     dependencies?: string[];
     icon?: KupPlannerTaskIcon;
+    startHour?: string;
+    endHour?: string;
+    secondaryStartHour?: string;
+    secondaryEndHour?: string;
 }
 
 /** Risorsa */
@@ -208,6 +219,8 @@ export interface KupPlannerScheduleItem {
     color?: string;
     selectedColor?: string;
     icon?: KupPlannerTaskIcon;
+    startHour?: string;
+    endHour?: string;
 }
 
 export interface KupPlannerTask {
@@ -236,6 +249,10 @@ export interface KupPlannerTask {
     hideChildren?: boolean;
     displayOrder?: number;
     icon?: KupPlannerTaskIcon;
+    startHour?: string;
+    endHour?: string;
+    secondaryStartHour?: string;
+    secondaryEndHour?: string;
 }
 
 export interface KupPlannerTimeframe {
@@ -382,6 +399,13 @@ export interface KupPlannerEventOption {
      * Invokes on scroll Y
      */
     scrollYChange?: (y: number) => void;
+    /**
+     * Invokes on end and start time change. Chart undoes operation if method return false or error.
+     */
+    phaseDrop?: (
+        task: KupPlannerTask,
+        children: KupPlannerTask[]
+    ) => void | boolean | Promise<void> | Promise<boolean>;
 }
 
 export interface KupPlannerDisplayOption {
@@ -684,13 +708,13 @@ export interface KupGanttPlannerProps {
     initialScrollX?: number;
     initialScrollY?: number;
     readOnly?: boolean;
-
     /** Events */
     onDateChange?: (row: KupPlannerGanttRow) => void;
     onClick?: (row: KupPlannerGanttRow) => void;
     onDblClick?: (row: KupPlannerGanttRow) => void;
     onContextMenu?: (event: MouseEvent, row: KupPlannerGanttRow) => void;
     onScrollY?: (y: number) => void;
+    onPhaseDrop?: (row: KupPlannerGanttRow) => void;
 }
 
 export interface KupGanttPlannerDetailsProps {
@@ -721,6 +745,7 @@ export interface PlannerProps {
     secondaryGantt?: KupGanttPlannerDetailsProps;
     preStepsCount?: number;
     viewMode: KupPlannerViewMode;
+    scrollableTaskList?: boolean;
     onSetDoubleView?: (checked: boolean) => void;
     onSetViewMode?: (value: KupPlannerViewMode) => void;
     onScrollX?: (x: number) => void;

@@ -58,7 +58,7 @@ export class KupGantt {
     columnWidth: KupPlannerGanttProps['columnWidth'] = 60;
 
     @Prop()
-    listCellWidth: KupPlannerGanttProps['listCellWidth'] = '297px';
+    listCellWidth: KupPlannerGanttProps['listCellWidth'] = '300px';
 
     @Prop()
     rowHeight: KupPlannerGanttProps['rowHeight'] = 50;
@@ -206,6 +206,9 @@ export class KupGantt {
     doubleView?: boolean;
 
     @Prop()
+    scrollableTaskList?: boolean;
+
+    @Prop()
     setDoubleView?: (checked: boolean) => void;
 
     @Prop()
@@ -262,6 +265,9 @@ export class KupGantt {
 
     @Prop()
     expanderClick: KupPlannerGanttProps['expanderClick'];
+
+    @Prop()
+    phaseDrop: KupPlannerGanttProps['phaseDrop'];
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -336,6 +342,13 @@ export class KupGantt {
               color: string;
           }
         | undefined;
+    
+    
+    @State()
+    taskListScrollWidth: number;
+
+    @State()
+    taskListScrollX: number = 0;
 
     /**
      * References the root HTML element of the component (<kup-gantt>).
@@ -502,7 +515,7 @@ export class KupGantt {
             this.showSecondaryDates
         );
     }
-
+ 
     @Watch('viewDate')
     @Watch('columnWidth')
     @Watch('dateSetup')
@@ -872,6 +885,15 @@ export class KupGantt {
         }
     }
 
+    handleTaskListScrollX(event: UIEvent) {
+        const currentTarget = event.currentTarget as HTMLDivElement;
+        this.taskListScrollX = currentTarget.scrollLeft
+    }
+
+    handlePhaseDragScroll(scrollY: number) {
+        this.scrollY = scrollY
+    }
+
     setFailedTask(task: KupPlannerBarTask | null) {
         this.failedTask = task;
     }
@@ -936,6 +958,7 @@ export class KupGantt {
             barDblClick: this.barDblClick,
             barContextMenu: this.barContextMenu,
             delete: this.delete,
+            phaseDrop: this.phaseDrop
         };
 
         const tableProps: KupPlannerTaskListProps = {
@@ -955,7 +978,7 @@ export class KupGantt {
             setSelectedTask: this.handleSelectedTask.bind(this),
             expanderClick: this.handleExpanderClick.bind(this),
             TaskListHeader: this.TaskListHeader,
-            TaskListTable: this.TaskListTable,
+            TaskListTable: this.TaskListTable
         };
 
         return (
@@ -980,6 +1003,12 @@ export class KupGantt {
                             setDoubleView={this.setDoubleView}
                             {...tableProps}
                             class="tasks"
+                            scrollableTaskList={this.scrollableTaskList}
+                            updateTaskListScrollX={this.ignoreScrollEvent}
+                            ontaskListScrollWidth={(width) => {
+                                this.taskListScrollWidth = width
+                            }}
+                            taskListScrollX={this.taskListScrollX}
                         />
                     )}
                     <kup-task-gantt
@@ -990,6 +1019,7 @@ export class KupGantt {
                         taskGanttRef={this.taskGanttRef}
                         scrollY={this.scrollY}
                         scrollX={this.scrollX}
+                        phaseDragScroll={this.handlePhaseDragScroll.bind(this)}
                         class="ganttContainer"
                     />
                     {this.ganttEvent.changedTask && (
@@ -1027,6 +1057,10 @@ export class KupGantt {
                         scrollNumber={this.scrollX}
                         rtl={this.rtl}
                         horizontalScroll={this.handleScrollX.bind(this)}
+                        horizontalTaskListScroll={this.handleTaskListScrollX.bind(this)}
+                        listCellWidth={this.listCellWidth}
+                        scrollableTaskList={this.scrollableTaskList}
+                        taskListScrollWidth={this.taskListScrollWidth}
                     />
                 )}
             </div>

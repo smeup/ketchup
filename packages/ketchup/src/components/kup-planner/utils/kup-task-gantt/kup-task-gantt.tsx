@@ -30,6 +30,9 @@ export class TaskGantt {
     @Prop({ mutable: true })
     scrollX: KupPlannerTaskGanttProps['scrollX'];
 
+    @Prop()
+    phaseDragScroll: (scrollY: number) => void;
+
     /**
      * References the root HTML element of the component (<kup-task-gantt>).
      */
@@ -72,7 +75,7 @@ export class TaskGantt {
     }
 
     render() {
-        const newBarProps = { ...this.barProps, gridProps: this.gridProps };
+        const newBarProps = { ...this.barProps, gridProps: this.gridProps, phaseDragScroll: this.phaseDragScroll };
         return (
             <div
                 class="ganttVerticalContainer"

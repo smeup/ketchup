@@ -17,6 +17,7 @@ import { getPhaseById, getProjectById } from '../kup-planner-renderer-helper';
     shadow: false,
 })
 export class TaskList {
+    
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
@@ -72,6 +73,15 @@ export class TaskList {
     doubleView?: boolean;
 
     @Prop()
+    scrollableTaskList?: boolean;
+
+    @Prop()
+    updateTaskListScrollX: boolean = false;
+
+    @Prop()
+    taskListScrollX: number;
+
+    @Prop()
     setDoubleView?: (checked: boolean) => void;
 
     @Prop()
@@ -101,6 +111,9 @@ export class TaskList {
 
     @Prop()
     expanderClick: KupPlannerTaskListProps['expanderClick'];
+
+    @Prop()
+    ontaskListScrollWidth: (width: number) => void;
 
     /**
      * References the root HTML element of the component (<kup-task-list>).
@@ -160,6 +173,7 @@ export class TaskList {
             tasks: this.tasks,
             locale: this.locale,
             selectedTaskId: this.selectedTaskId,
+            scrollableTaskList: this.scrollableTaskList,
             setSelectedTask: this.setSelectedTask.bind(this),
             onExpanderClick: this.expanderClick,
         };
@@ -187,7 +201,7 @@ export class TaskList {
                     />
                 )}
                 <div
-                    class={this.horizontalContainerClass}
+                    class={`${this.horizontalContainerClass} ${this.scrollableTaskList ? 'horizontalContainerScrollable' : ''}`}
                     style={
                         this.ganttHeight
                             ? { height: this.ganttHeight + 'px' }
@@ -234,6 +248,10 @@ export class TaskList {
                                     );
                                 }
                             }}
+                            ontaskListScrollWidth={(width) => {
+                                this.ontaskListScrollWidth(width)
+                            }}
+                            taskListScrollX={this.taskListScrollX}
                             ganttId={KUP_PLANNER_MAIN_GANTT_ID}
                         />
                     )}

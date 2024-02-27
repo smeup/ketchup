@@ -14,12 +14,16 @@ export class KupSwitcher {
     timeUnitChange: KupPlannerSwitcherProps['onTimeUnitChange'];
 
     render() {
+        const hour = () => this.timeUnitChange('hour');
         const day = () => this.timeUnitChange('day');
         const week = () => this.timeUnitChange('week');
         const month = () => this.timeUnitChange('month');
         const year = () => this.timeUnitChange('year');
         return (
             <div class="switcher">
+                <button type="button" class="button" onClick={hour}>
+                    <span class="label">Hour</span>
+                </button>
                 <button type="button" class="button" onClick={day}>
                     <span class="label">Day</span>
                 </button>

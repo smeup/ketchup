@@ -28,6 +28,16 @@
   overflow: hidden;
 }
 
+.horizontalContainerScrollable {
+  overflow: auto !important;
+  scrollbar-width: 0;
+}
+
+.horizontalContainerScrollable::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 .task-gantt {
   overflow: hidden;
 }

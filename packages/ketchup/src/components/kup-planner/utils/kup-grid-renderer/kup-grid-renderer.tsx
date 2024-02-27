@@ -121,8 +121,14 @@ export class KupGridRenderer {
     @Prop()
     eMouseDown: KupPlannerBarDisplayProps['onMouseDown'];
 
+    @Prop()
+    phaseDrop: KupPlannerEventOption['phaseDrop'];
+
     @Prop({ mutable: true })
     setGanttEvent: (gantt: KupPlannerGanttEvent) => void;
+
+    @Prop()
+    phaseDragScroll: (scrollY: number) => void;
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -144,6 +150,12 @@ export class KupGridRenderer {
 
     @State()
     svg: SVGSVGElement;
+
+    @State()
+    currentTarget: HTMLElement | null;
+
+    @State()
+    currentClientY: number;
 
     //---- Lifecycle hooks ----
 
@@ -187,11 +199,13 @@ export class KupGridRenderer {
     @Watch('onProgressChange')
     @Watch('onDateChange')
     updateSvgMove() {
+        let interval: NodeJS.Timeout;
         const handleMouseMove = async (event: MouseEvent) => {
             if (!this.ganttEvent.changedTask || !this.point || !this.svg)
                 return;
             event.preventDefault();
             this.point.x = event.clientX;
+            this.point.y = event.clientY;
             const cursor = this.point.matrixTransform(
                 this.svg?.getScreenCTM()?.inverse()
             );
@@ -202,8 +216,15 @@ export class KupGridRenderer {
                 this.xStep,
                 this.timeStep,
                 this.initEventX1Delta,
-                this.rtl
+                this.rtl,
+                cursor.y
             );
+
+            if (this.currentTarget) {
+                this.addGhostPreview(event)        
+                interval = this.handleAutoScrollForPhaseDrag(event, interval)
+            }
+            
             if (isChanged) {
                 this.setGanttEvent({
                     ...this.ganttEvent,
@@ -214,8 +235,9 @@ export class KupGridRenderer {
         };
 
         const handleMouseUp = async (event: MouseEvent) => {
+            clearInterval(interval)
             const { action, originalSelectedTask, changedTask } =
-                this.ganttEvent;
+            this.ganttEvent;
             if (
                 !changedTask ||
                 !this.point ||
@@ -229,6 +251,7 @@ export class KupGridRenderer {
             const cursor = this.point.matrixTransform(
                 this.svg?.getScreenCTM()?.inverse()
             );
+            this.currentTarget = null;
             const { changedTask: newChangedTask } = handleTaskBySVGMouseEvent(
                 cursor.x,
                 action as KupPlannerBarMoveAction,
@@ -236,17 +259,20 @@ export class KupGridRenderer {
                 this.xStep,
                 this.timeStep,
                 this.initEventX1Delta,
-                this.rtl
+                this.rtl,
+                cursor.y
             );
 
             const isNotLikeOriginal =
                 originalSelectedTask.start !== newChangedTask.start ||
                 originalSelectedTask.end !== newChangedTask.end ||
-                originalSelectedTask.progress !== newChangedTask.progress;
+                originalSelectedTask.progress !== newChangedTask.progress || 
+                originalSelectedTask.y !== newChangedTask.y;
 
             // remove listeners
             this.svg.removeEventListener('mousemove', handleMouseMove);
             this.svg.removeEventListener('mouseup', handleMouseUp);
+            this.svg.querySelector('.ghost-preview')?.remove();
             this.setGanttEvent({ action: '' });
             this.isMoving = false;
 
@@ -279,7 +305,13 @@ export class KupGridRenderer {
                     }
                 } catch (error) {
                     operationSuccess = false;
-                }
+                } 
+            }
+
+            if (action === 'move' && isNotLikeOriginal && newChangedTask.type === 'task') {
+                const droppedOn = this.tasks.find(task => changedTask.y >= task.y && changedTask.y <= (task.y + task.height) && changedTask.id !== task.id);
+                console.log('droppedOn: ', droppedOn);
+                this.phaseDrop(droppedOn, this.tasks)
             }
 
             // If operation is failed - return old state
@@ -307,6 +339,38 @@ export class KupGridRenderer {
             return false;
         }
         return this.initEventXClick !== event.clientX;
+    }
+
+    addGhostPreview(event: MouseEvent) {
+        this.svg.querySelector('.ghost-preview')?.remove();
+        const mockEvent = {
+            ...event,
+            dataTransfer: new DataTransfer()
+        } as DragEvent;
+
+        const dragEle = this.currentTarget;
+        dragEle.classList.add('ghost-preview')
+        this.svg.appendChild(dragEle.cloneNode(true));
+
+        const nodeRect = dragEle.getBoundingClientRect();
+        mockEvent.dataTransfer.setDragImage(
+            dragEle,
+            mockEvent.clientX - nodeRect.left,
+            mockEvent.clientY - nodeRect.top
+        );
+    }
+
+    handleAutoScrollForPhaseDrag(event: MouseEvent, interval: NodeJS.Timeout): NodeJS.Timeout {
+        const list = this.svg.parentElement.parentElement;
+        const halfHeight = list.offsetHeight / 2;
+        const relativeY = event.clientY - list.getBoundingClientRect().top;
+        clearInterval(interval)
+        if (event.clientY >= this.currentClientY - 1 && event.clientY <= this.currentClientY + 1) {
+            const scrollY = list.scrollTop += relativeY > halfHeight ? 30 : -30
+            return setInterval(() => this.phaseDragScroll(scrollY), 10)
+        } else {
+            this.currentClientY = event.clientY 
+        }
     }
 
     handleBarEventStart(
@@ -360,7 +424,13 @@ export class KupGridRenderer {
             const cursor = this.point.matrixTransform(
                 this.svg.getScreenCTM()?.inverse()
             );
+            if (task.type === 'task') {
+                this.currentTarget = (event.currentTarget as HTMLElement).cloneNode(true) as HTMLElement;
+            } else {
+                this.currentTarget = null;
+            }
             this.initEventX1Delta = cursor.x - task.x1;
+            this.point.y = event.clientY
             this.initEventXClick = event.clientX;
             this.setGanttEvent({
                 action,
@@ -395,7 +465,7 @@ export class KupGridRenderer {
         isSelected: boolean,
         isDateResizable: boolean,
         isProgressChangeable: boolean
-    ) {
+        ) {
         return (
             <g class="barWrapper" tab-index={0}>
                 {this.renderKupBarDisplay(
@@ -524,7 +594,7 @@ export class KupGridRenderer {
                     />
                 </g>
             );
-        }
+        } 
 
         return (
             <g

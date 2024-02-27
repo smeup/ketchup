@@ -1,4 +1,12 @@
-import { Component, h, Element, Prop, State, Watch } from '@stencil/core';
+import {
+    Component,
+    h,
+    Element,
+    Prop,
+    State,
+    Watch,
+    Fragment,
+} from '@stencil/core';
 
 @Component({
     tag: 'kup-horizontal-scroll',
@@ -25,7 +33,19 @@ export class HorizontalScroll {
     taskListWidth: number;
 
     @Prop()
+    scrollableTaskList: boolean = false;
+
+    @Prop()
+    listCellWidth: string = '300px';
+
+    @Prop()
+    taskListScrollWidth: number;
+
+    @Prop()
     horizontalScroll: (event: UIEvent) => void;
+
+    @Prop()
+    horizontalTaskListScroll: (event: UIEvent) => void;
 
     /**
      * References the root HTML element of the component (<kup-horizontal>).
@@ -56,32 +76,83 @@ export class HorizontalScroll {
 
     private setScrollLeft() {
         if (this.rootElement) {
-            this.rootElement.shadowRoot.querySelector('div').scrollLeft =
-                this.scrollNumber;
+            const shadowElement =
+                this.rootElement.shadowRoot.querySelector('div');
+            const element =
+                shadowElement.children.length == 2
+                    ? shadowElement.children[1]
+                    : shadowElement.children[0];
+            element && (element.scrollLeft = this.scrollNumber);
         }
     }
 
     render() {
         const rect = this.taskGanttRef.getBoundingClientRect();
 
+        const width = +this.listCellWidth.replace('px', '');
+
         return (
-            <div
-                dir="ltr"
-                style={
-                    rect
-                        ? {
-                              margin: this.rtl
-                                  ? `0px ${rect.x}px 0px 0px`
-                                  : `0px 0px 0px ${rect.x}px`,
-                          }
-                        : undefined
-                }
-                class="scrollWrapper"
-                data-scrollx="true"
-                onScroll={this.horizontalScroll}
-            >
-                <div style={{ width: `${this.svgWidth}px` }} class="scroll" />
-            </div>
+            <Fragment>
+                <div class="scroll-container">
+                    {this.scrollableTaskList &&
+                        this.taskListScrollWidth > width && (
+                            <div
+                                dir="ltr"
+                                style={
+                                    rect
+                                        ? {
+                                              margin: this.rtl
+                                                  ? `0px 20px 0px 0px`
+                                                  : `0px 0px 0px 20px`,
+                                              maxWidth: `${width + 20}px`,
+                                              minWidth: `${width + 20}px`,
+                                          }
+                                        : undefined
+                                }
+                                class="scrollWrapper"
+                                data-scrollx="true"
+                                onScroll={this.horizontalTaskListScroll}
+                            >
+                                <div
+                                    style={{
+                                        width: `${this.taskListScrollWidth}px`,
+                                    }}
+                                    class="scroll"
+                                />
+                            </div>
+                        )}
+                    <div
+                        dir="ltr"
+                        style={
+                            rect
+                                ? {
+                                      margin: this.rtl
+                                          ? `0px ${
+                                                this.scrollableTaskList &&
+                                                this.taskListScrollWidth > width
+                                                    ? 65
+                                                    : rect.x
+                                            }px 0px 0px`
+                                          : `0px 0px 0px ${
+                                                this.scrollableTaskList &&
+                                                this.taskListScrollWidth > width
+                                                    ? 65
+                                                    : rect.x
+                                            }px`,
+                                  }
+                                : undefined
+                        }
+                        class="scrollWrapper"
+                        data-scrollx="true"
+                        onScroll={this.horizontalScroll}
+                    >
+                        <div
+                            style={{ width: `${this.svgWidth}px` }}
+                            class="scroll"
+                        />
+                    </div>
+                </div>
+            </Fragment>
         );
     }
 }

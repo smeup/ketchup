@@ -250,6 +250,13 @@ export class KupPlanner {
     detailHeight: number;
 
     /**
+     * Columns containing detail hour duration, from (firstDate) to (secondDate)
+     * @default null
+     */
+    @Prop()
+    detailHours: string[] = [];
+
+    /**
      * Column containing icon name to show, for detail
      * @default null
      */
@@ -334,6 +341,13 @@ export class KupPlanner {
     phaseDates: string[];
 
     /**
+     * Columns containing phase hour duration, from (firstDate) to (secondDate)
+     * @default null
+     */
+    @Prop()
+    phaseHours: string[] = [];
+
+    /**
      * Column containing icon name to show, for phase
      * @default null
      */
@@ -402,6 +416,13 @@ export class KupPlanner {
      */
     @Prop()
     taskHeight: number;
+
+    /**
+     * Columns containing task hours duration, from (firstDate) to (secondDate)
+     * @default null
+     */
+    @Prop()
+    taskHours: string[] = [];
 
     /**
      * Column containing icon name to show, for task
@@ -473,6 +494,13 @@ export class KupPlanner {
     @Prop()
     secondaryFilter: HTMLElement;
 
+    /**
+     * Sets the scroll bar for task list.
+     * @default false
+     */
+    @Prop()
+    scrollableTaskList: boolean = false;
+
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
     /*-------------------------------------------------*/
@@ -528,6 +556,14 @@ export class KupPlanner {
         bubbles: true,
     })
     kupDateChange: EventEmitter<KupPlannerEventPayload>;
+
+    @Event({
+        eventName: 'kup-planner-phasedrop',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupPhaseDrop: EventEmitter<KupPlannerEventPayload>;
 
     @Event({
         eventName: 'kup-planner-ready',
@@ -610,7 +646,9 @@ export class KupPlanner {
                         row.cells[this.phaseDates[0]],
                         row.cells[this.phaseDates[1]],
                         row.cells[this.phasePrevDates[0]],
-                        row.cells[this.phasePrevDates[1]]
+                        row.cells[this.phasePrevDates[1]],
+                        row.cells[this.phaseHours[0]],
+                        row.cells[this.phaseHours[1]],
                     );
                     const valuesToShow = getValuesToShow(
                         row,
@@ -654,6 +692,8 @@ export class KupPlanner {
                         icon: iconUrl
                             ? { url: iconUrl, color: iconColor ?? '#595959' }
                             : undefined,
+                        startHour: datesSanitized.hourValues[0],
+                        endHour: datesSanitized.hourValues[1],
                     };
                     return phase;
                 });
@@ -687,7 +727,9 @@ export class KupPlanner {
                     row.cells[this.taskDates[0]],
                     row.cells[this.taskDates[1]],
                     row.cells[this.taskPrevDates[0]],
-                    row.cells[this.taskPrevDates[1]]
+                    row.cells[this.taskPrevDates[1]],
+                    row.cells[this.taskHours[0]],
+                    row.cells[this.taskHours[1]],
                 );
                 const valuesToShow = getValuesToShow(
                     row,
@@ -727,6 +769,10 @@ export class KupPlanner {
                     icon: iconUrl
                         ? { url: iconUrl, color: iconColor ?? '#595959' }
                         : undefined,
+                    startHour: datesSanitized.hourValues[0],
+                    endHour: datesSanitized.hourValues[1],
+                    secondaryStartHour: datesSanitized.secHourValues[0],
+                    secondaryEndHour: datesSanitized.secHourValues[1]
                 };
                 return task;
             });
@@ -742,7 +788,7 @@ export class KupPlanner {
             .filter((row) =>
                 isAtLeastOneDateValid(
                     row.cells[this.detailDates[0]],
-                    row.cells[this.detailDates[1]]
+                    row.cells[this.detailDates[1]],
                 )
             )
             .forEach((row) => {
@@ -751,7 +797,11 @@ export class KupPlanner {
 
                 const datesSanitized = sanitizeAllDates(
                     row.cells[this.detailDates[0]],
-                    row.cells[this.detailDates[1]]
+                    row.cells[this.detailDates[1]],
+                    undefined,
+                    undefined,
+                    row.cells[this.detailHours[0]],
+                    row.cells[this.detailHours[1]],
                 );
 
                 const valuesToShow = getValuesToShow(
@@ -792,6 +842,8 @@ export class KupPlanner {
                     icon: iconUrl
                         ? { url: iconUrl, color: iconColor ?? '#595959' }
                         : undefined,
+                    startHour: datesSanitized.hourValues[0],
+                    endHour: datesSanitized.hourValues[1]
                 });
             });
 
@@ -1003,7 +1055,7 @@ export class KupPlanner {
         let taskScrollYTimeout: number;
         let detailScrollYTimeout: number;
         const scrollDelay = 500;
-
+        
         this.plannerProps = {
             mainGantt: {
                 title: this.titleMess,
@@ -1043,6 +1095,9 @@ export class KupPlanner {
                         scrollDelay
                     );
                 },
+                onPhaseDrop: (
+                    nativeEvent: KupPlannerGanttTask | KupPlannerPhase
+                ) => this.handleOnPhaseDrop(nativeEvent),
             },
             secondaryGantt: details
                 ? {
@@ -1080,6 +1135,7 @@ export class KupPlanner {
             onSetViewMode: (value: KupPlannerViewMode) =>
                 this.handleOnSetViewMode(value),
             viewMode: this.viewMode,
+            scrollableTaskList: this.scrollableTaskList,
             onScrollX: (x: number) => {
                 window.clearTimeout(scrollXTimeout);
                 scrollXTimeout = window.setTimeout(
@@ -1179,6 +1235,18 @@ export class KupPlanner {
         taskAction?: KupPlannerTaskAction
     ) {
         this.kupDateChange.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: event,
+            taskAction: taskAction,
+        });
+    }
+
+    onKupPhaseDrop(
+        event: KupPlannerGanttRow,
+        taskAction?: KupPlannerTaskAction
+    ) {
+        this.kupPhaseDrop.emit({
             comp: this,
             id: this.rootElement.id,
             value: event,
@@ -1337,6 +1405,15 @@ export class KupPlanner {
                 );
             }
         }
+    }
+
+    handleOnPhaseDrop(
+        nativeEvent: KupPlannerGanttTask | KupPlannerPhase | KupPlannerDetail
+    ) {
+        this.onKupPhaseDrop(
+            nativeEvent,
+            KupPlannerTaskAction.onPhase
+        );
     }
 
     //======== Utility methods ========
