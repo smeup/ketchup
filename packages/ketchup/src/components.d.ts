@@ -50,6 +50,7 @@ import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarat
 import { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 import { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
+import { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
@@ -99,6 +100,7 @@ export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarat
 export { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 export { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
 export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
+export { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 export { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 export { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 export { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
@@ -145,12 +147,22 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing": KupComponentSizing;
+        /**
           * This method activates or deactivates an item
           * @param itemName - Name of the item.
          */
         "toggleItem": (itemName: string) => Promise<void>;
     }
     interface KupAutocomplete {
+        /**
+          * Set alert message
+          * @default '''
+         */
+        "alert": string;
         /**
           * When true, the autocomplete fires the change event even when the value typed isn't included in the autocomplete list.
           * @default false
@@ -178,6 +190,11 @@ export namespace Components {
          */
         "displayMode": ItemsDisplayMode;
         /**
+          * Set error message
+          * @default '''
+         */
+        "error": string;
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
@@ -189,6 +206,11 @@ export namespace Components {
          */
         "getValue": () => Promise<string>;
         /**
+          * When set, the text-field will show this icon.
+          * @default null
+         */
+        "icon": string;
+        /**
           * Sets the initial value of the component.
           * @default ""
          */
@@ -199,10 +221,30 @@ export namespace Components {
          */
         "inputDelay": number;
         /**
+          * Enables a clear trailing icon.
+          * @default false
+         */
+        "isClearable": boolean;
+        /**
+          * When set, its content will be shown as a label.
+          * @default null
+         */
+        "label": string;
+        /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "leadingLabel": boolean;
+        /**
           * The minimum number of chars to trigger the autocomplete
           * @default 1
          */
         "minimumChars": number;
+        /**
+          * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+          * @default false
+         */
+        "readOnly": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -236,6 +278,16 @@ export namespace Components {
           * @default true
          */
         "showDropDownIcon": boolean;
+        /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing": KupComponentSizing;
+        /**
+          * When set, the icon will be shown after the text.
+          * @default false
+         */
+        "trailingIcon": boolean;
     }
     interface KupBadge {
         /**
@@ -1019,7 +1071,7 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
-          * Sets the type of the chip
+          * Sets the size of the chip
           * @default FChipSize.MEDIUM
          */
         "sizing": FChipSize;
@@ -1131,21 +1183,6 @@ export namespace Components {
           * @returns Value of the component.
          */
         "getValue": () => Promise<string>;
-        /**
-          * When set, its content will be shown as a help text below the field.
-          * @default null
-         */
-        "helper": string;
-        /**
-          * When true, the helper will be displayed.
-          * @default true
-         */
-        "helperEnabled": boolean;
-        /**
-          * When set, the helper will be shown only when the field is focused.
-          * @default false
-         */
-        "helperWhenFocused": boolean;
         /**
           * When set, the text-field will show this icon.
           * @default null
@@ -2079,7 +2116,7 @@ export namespace Components {
         "hiddenSubmitButton": boolean;
         /**
           * Sets the label placement for 'all' fields in form
-          * @default KupFormLabelPlacement.LEFT
+          * @default KupFormLabelPlacement.TOP
          */
         "labelPlacement": KupFormLabelPlacement;
         /**
@@ -3191,6 +3228,16 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * Defaults at false. When set to true, the component is horizontal.
+          * @default false
+         */
+        "horizontal": boolean;
+        /**
+          * When set, its content will be shown as a label.
+          * @default null
+         */
+        "label": string;
+        /**
           * Defaults at false. When set to true, the label will be on the left of the component.
           * @default false
          */
@@ -3399,6 +3446,11 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the size of the switch
+          * @default FSwitchSizing.MEDIUM
+         */
+        "sizing": FSwitchSizing;
     }
     interface KupSwitcher {
         "timeUnitChange": KupPlannerSwitcherProps['onTimeUnitChange'];
@@ -3415,6 +3467,11 @@ export namespace Components {
           * @default null
          */
         "data": KupTabBarNode[];
+        /**
+          * Defaults at false. When set to true, the component is dense.
+          * @default false
+         */
+        "dense": boolean;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -5187,8 +5244,18 @@ declare namespace LocalJSX {
           * @default true
          */
         "ripple"?: boolean;
+        /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing"?: KupComponentSizing;
     }
     interface KupAutocomplete {
+        /**
+          * Set alert message
+          * @default '''
+         */
+        "alert"?: string;
         /**
           * When true, the autocomplete fires the change event even when the value typed isn't included in the autocomplete list.
           * @default false
@@ -5216,6 +5283,16 @@ declare namespace LocalJSX {
          */
         "displayMode"?: ItemsDisplayMode;
         /**
+          * Set error message
+          * @default '''
+         */
+        "error"?: string;
+        /**
+          * When set, the text-field will show this icon.
+          * @default null
+         */
+        "icon"?: string;
+        /**
           * Sets the initial value of the component.
           * @default ""
          */
@@ -5225,6 +5302,21 @@ declare namespace LocalJSX {
           * @default 300
          */
         "inputDelay"?: number;
+        /**
+          * Enables a clear trailing icon.
+          * @default false
+         */
+        "isClearable"?: boolean;
+        /**
+          * When set, its content will be shown as a label.
+          * @default null
+         */
+        "label"?: string;
+        /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "leadingLabel"?: boolean;
         /**
           * The minimum number of chars to trigger the autocomplete
           * @default 1
@@ -5237,6 +5329,11 @@ declare namespace LocalJSX {
         "onKup-autocomplete-iconclick"?: (event: KupAutocompleteCustomEvent<KupAutocompleteIconClickEventPayload>) => void;
         "onKup-autocomplete-input"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-itemclick"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
+        /**
+          * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+          * @default false
+         */
+        "readOnly"?: boolean;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
           * @default ItemsDisplayMode.CODE
@@ -5252,6 +5349,16 @@ declare namespace LocalJSX {
           * @default true
          */
         "showDropDownIcon"?: boolean;
+        /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing"?: KupComponentSizing;
+        /**
+          * When set, the icon will be shown after the text.
+          * @default false
+         */
+        "trailingIcon"?: boolean;
     }
     interface KupBadge {
         /**
@@ -5959,7 +6066,7 @@ declare namespace LocalJSX {
          */
         "onKup-chip-iconclick"?: (event: KupChipCustomEvent<KupChipEventPayload>) => void;
         /**
-          * Sets the type of the chip
+          * Sets the size of the chip
           * @default FChipSize.MEDIUM
          */
         "sizing"?: FChipSize;
@@ -6032,21 +6139,6 @@ declare namespace LocalJSX {
           * @default '''
          */
         "error"?: string;
-        /**
-          * When set, its content will be shown as a help text below the field.
-          * @default null
-         */
-        "helper"?: string;
-        /**
-          * When true, the helper will be displayed.
-          * @default true
-         */
-        "helperEnabled"?: boolean;
-        /**
-          * When set, the helper will be shown only when the field is focused.
-          * @default false
-         */
-        "helperWhenFocused"?: boolean;
         /**
           * When set, the text-field will show this icon.
           * @default null
@@ -6802,7 +6894,7 @@ declare namespace LocalJSX {
         "hiddenSubmitButton"?: boolean;
         /**
           * Sets the label placement for 'all' fields in form
-          * @default KupFormLabelPlacement.LEFT
+          * @default KupFormLabelPlacement.TOP
          */
         "labelPlacement"?: KupFormLabelPlacement;
         /**
@@ -7703,6 +7795,16 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Defaults at false. When set to true, the component is horizontal.
+          * @default false
+         */
+        "horizontal"?: boolean;
+        /**
+          * When set, its content will be shown as a label.
+          * @default null
+         */
+        "label"?: string;
+        /**
           * Defaults at false. When set to true, the label will be on the left of the component.
           * @default false
          */
@@ -7871,6 +7973,11 @@ declare namespace LocalJSX {
           * Triggered when the input element gets focused.
          */
         "onKup-switch-focus"?: (event: KupSwitchCustomEvent<KupSwitchEventPayload>) => void;
+        /**
+          * Sets the size of the switch
+          * @default FSwitchSizing.MEDIUM
+         */
+        "sizing"?: FSwitchSizing;
     }
     interface KupSwitcher {
         "timeUnitChange"?: KupPlannerSwitcherProps['onTimeUnitChange'];
@@ -7887,6 +7994,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: KupTabBarNode[];
+        /**
+          * Defaults at false. When set to true, the component is dense.
+          * @default false
+         */
+        "dense"?: boolean;
         /**
           * Triggered when the tab loses focus.
          */

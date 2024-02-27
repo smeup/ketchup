@@ -38,26 +38,24 @@
 }
 
 code.flat {
-  background: none;
-  border-radius: 0;
-  box-shadow: 0 0 2px 0px rgb(128, 128, 128);
-  color: var(--kup-primary-color);
+  background: var(--kup-gray-color-10);
+  border-radius: var(--kup-radius-00);
+  border: 1px solid var(--kup-gray-color-30);
+  color: var(--kup-gray-color-90);
   display: flex;
   font-family: var(--kup-font-family-monospace);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   margin: auto;
   max-width: 100%;
-  padding: 20px 10px;
+  padding: var(--kup-space-04) var(--kup-space-03);
   width: max-content;
 }
 
 .code-word {
-  color: var(--kup-primary-color);
-  font-family: var(--kup-font-family-monospace);
-  font-size: 1.2em;
+  color: var(--kup-primary-color-60);
+  /* font-family: var(--kup-font-family-monospace); */
   font-weight: 600;
-  word-break: break-word;
 }
 
 .sample-section .code-word {

@@ -19,8 +19,13 @@
             }
         </style>
     </head>
-    <body
-        ><kup-radio></kup-radio>
+    <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true },
+            };</script
+        ><kup-radio label="Label kup"></kup-radio>
+        <kup-radio label="Label kup"></kup-radio>
         <script src="/assets/radio.js"></script>
     </body>
 </html>

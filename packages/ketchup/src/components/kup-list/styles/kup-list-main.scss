@@ -36,6 +36,10 @@
     --kup-list-item-padding,
     var(--kup-space-05)
   );
+  --kup_list_box_shadow: var(
+    --kup-box-shadow,
+    0px 3px 6px 0 rgba(0, 0, 0, 0.3)
+  );
   --kup_list_item_padding_right: var(--kup-list-item-padding, 0.75em);
   --kup_list_max_height_as_menu: var(--kup-list-max-height-as-menu, 33vh);
   --kup_list_primary_color: var(
@@ -218,7 +222,7 @@
 .kup-menu {
   animation: fade-in 0.25s ease-out;
   background-color: var(--kup_list_background);
-  box-shadow: var(--kup-box-shadow); // box shadow to be fixed
+  box-shadow: var(--kup_list_box_shadow);
   border: 1px solid var(--kup_list_focus_color);
   color: var(--kup-text-color);
   display: none;

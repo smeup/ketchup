@@ -165,7 +165,7 @@ function createChipList(
                     color:
                         isChoice && chip.checked
                             ? `var(--kup_chip_primary_color)`
-                            : `var(${KupThemeColorValues.TEXT})`,
+                            : `var(--kup_chip_text_color)`,
                     resource: chip.icon,
                     sizeX: '16px',
                     sizeY: '16px',

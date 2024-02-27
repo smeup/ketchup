@@ -14,10 +14,7 @@
       --kup-textfield-border-color,
       var(--kup-gray-color-50)
     );
-    --kup_textfield_color: var(
-      --kup-textfield-color,
-      var(--kup-gray-color-100)
-    );
+    --kup_textfield_color: var(--kup-textfield-color, var(--kup-gray-color-90));
     --kup_textfield_label_color: var(
       --kup-textfield-label-color,
       var(--kup-gray-color-70)
@@ -43,7 +40,7 @@
     );
     --kup_textfield_icon_color: var(
       --kup-textfield-icon-color,
-      var(--kup-icon-color)
+      var(--kup_textfield_color)
     );
     --kup_textfield_primary_color: var(
       --kup-textfield-primary-color,
@@ -147,10 +144,12 @@
     .mdc-text-field {
       width: var(--kup_textfield_width);
       border-radius: unset !important;
-      border: 1px solid transparent;
+      outline: 2px solid transparent;
+      outline-offset: -2px;
       border-bottom: 1px solid var(--kup_textfield_border_color);
       background: rgb(var(--kup_textfield_background_color_rgb));
       align-items: center;
+      padding: 0px var(--kup-space-05);
 
       input {
         @include kup-body-compact-01;
@@ -162,7 +161,7 @@
         cursor: pointer;
         height: 16px;
         width: 16px;
-        padding: 0 7px;
+        padding: 0 8px;
         outline: none;
         pointer-events: all;
 
@@ -180,7 +179,7 @@
 
       &.mdc-text-field--read-only {
         --kup_textfield_border_color: var(--kup-gray-color-30);
-        --kup_textfield_background_color_rgb: var(--kup-accent-white-color-rgb);
+        --kup_textfield_background_color_rgb: var(--kup-gray-color-0);
         pointer-events: none;
         .#{$kup-icon},
         button {
@@ -205,7 +204,8 @@
       }
 
       &.mdc-text-field--focused:not(.mdc-text-field--disabled) {
-        border: 1px solid var(--kup_textfield_primary_color);
+        // border: 1px solid var(--kup_textfield_primary_color);
+        outline: 2px solid var(--kup_textfield_primary_color);
       }
 
       &.mdc-text-field--filled:not(.mdc-text-field--disabled)
@@ -385,7 +385,8 @@
       }
 
       &.mdc-text-field--error {
-        border: 1px solid var(--kup-danger-color);
+        // border: 1px solid var(--kup-danger-color);
+        outline: 2px solid var(--kup-danger-color);
       }
 
       &.mdc-text-field--textarea {

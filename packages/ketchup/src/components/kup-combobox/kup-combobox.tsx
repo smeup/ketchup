@@ -89,21 +89,6 @@ export class KupCombobox {
      */
     @Prop() error: string = '';
     /**
-     * When set, its content will be shown as a help text below the field.
-     * @default null
-     */
-    @Prop() helper: string = null;
-    /**
-     * When true, the helper will be displayed.
-     * @default true
-     */
-    @Prop() helperEnabled: boolean = true;
-    /**
-     * When set, the helper will be shown only when the field is focused.
-     * @default false
-     */
-    @Prop() helperWhenFocused: boolean = false;
-    /**
      * When set, the text-field will show this icon.
      * @default null
      */
@@ -571,7 +556,6 @@ export class KupCombobox {
                 : false,
             disabled: this.disabled,
             error: this.error,
-            helper: this.helper,
             icon: this.icon,
             info: this.rootElement.classList.contains('kup-info')
                 ? true

@@ -337,6 +337,11 @@ const frameworkRoutes = [
     component: () => import(`@/views/framework/kup-theme/KupTheme.vue`),
   },
   {
+    path: `/kup-token`,
+    name: 'kup-token',
+    component: () => import(`@/views/framework/kup-token/KupToken.vue`),
+  },
+  {
     path: `/kup-toolbar`,
     name: 'kup-toolbar',
     component: () => import(`@/views/framework/kup-toolbar/KupToolbar.vue`),
