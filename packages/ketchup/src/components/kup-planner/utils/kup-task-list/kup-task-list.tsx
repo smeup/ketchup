@@ -136,6 +136,11 @@ export class TaskList {
 
     componentDidLoad() {
         this.taskListRef.prepend(this.filter);
+        setTimeout(() => {
+            if (this.horizontalContainerRef) {
+                this.horizontalContainerRef.scrollTop = this.scrollY;
+            }
+        }, 75);
     }
 
     componentDidUpdate() {

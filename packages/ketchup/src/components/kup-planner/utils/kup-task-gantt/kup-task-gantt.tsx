@@ -70,8 +70,10 @@ export class TaskGantt {
     //---- Lifecycle hooks ----
 
     componentDidLoad() {
-        this.updateScrollX();
-        this.updateScrollY();
+        setTimeout(() => {
+            this.updateScrollX();
+            this.updateScrollY();
+        }, 75);
     }
 
     render() {

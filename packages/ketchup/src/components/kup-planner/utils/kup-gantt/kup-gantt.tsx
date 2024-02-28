@@ -355,7 +355,7 @@ export class KupGantt {
      */
 
     @Element() rootElement: HTMLElement;
-
+    taskListTrueRef: HTMLKupTaskListElement = null;
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -1009,6 +1009,7 @@ export class KupGantt {
                                 this.taskListScrollWidth = width
                             }}
                             taskListScrollX={this.taskListScrollX}
+                            ref={(el) => (this.taskListTrueRef = el)}
                         />
                     )}
                     <kup-task-gantt
@@ -1052,7 +1053,7 @@ export class KupGantt {
                 {this.taskGanttRef && (
                     <kup-horizontal-scroll
                         svgWidth={this.svgWidth}
-                        taskGanttRef={this.taskGanttRef}
+                        taskListTrueRef={this.taskListTrueRef}
                         taskListWidth={this.taskListWidth}
                         scrollNumber={this.scrollX}
                         rtl={this.rtl}

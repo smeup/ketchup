@@ -33,6 +33,12 @@
 
 Used to retrieve component's props values.
 
+#### Parameters
+
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
+
 #### Returns
 
 Type: `Promise<GenericObject>`
@@ -62,6 +68,12 @@ Type: `Promise<void>`
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
+
+#### Parameters
+
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
+| `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
@@ -119,7 +131,6 @@ Type: `Promise<void>`
  - [kup-magic-box](../kup-magic-box)
  - [kup-nav-bar](../kup-nav-bar)
  - [kup-numeric-picker](../kup-numeric-picker)
- - [kup-openai-interface](../kup-openai-interface)
  - [kup-photo-frame](../kup-photo-frame)
  - [kup-planner](../kup-planner)
  - [kup-probe](../kup-probe)
@@ -153,14 +164,15 @@ Type: `Promise<void>`
 - [kup-badge](../kup-badge)
 - [kup-button](../kup-button)
 - [kup-list](../kup-list)
+- [kup-spinner](../kup-spinner)
 - [kup-checkbox](../kup-checkbox)
 - [kup-data-table](../kup-data-table)
-- [kup-spinner](../kup-spinner)
 - [kup-tab-bar](../kup-tab-bar)
 - [kup-tree](../kup-tree)
 - [kup-switch](../kup-switch)
 - [kup-dropdown-button](../kup-dropdown-button)
 - [kup-card](.)
+- [kup-dialog](../kup-dialog)
 
 ### Graph
 ```mermaid
@@ -169,6 +181,7 @@ graph TD;
   kup-autocomplete --> kup-card
   kup-list --> kup-card
   kup-radio --> kup-card
+  kup-dialog --> kup-card
   kup-badge --> kup-card
   kup-chip --> kup-card
   kup-text-field --> kup-card
@@ -189,7 +202,6 @@ graph TD;
   kup-data-table --> kup-card
   kup-switch --> kup-card
   kup-form --> kup-card
-  kup-dialog --> kup-card
   kup-tab-bar --> kup-card
   kup-tree --> kup-card
   kup-accordion --> kup-card
@@ -209,7 +221,6 @@ graph TD;
   kup-magic-box --> kup-card
   kup-nav-bar --> kup-card
   kup-numeric-picker --> kup-card
-  kup-openai-interface --> kup-card
   kup-photo-frame --> kup-card
   kup-planner --> kup-card
   kup-probe --> kup-card

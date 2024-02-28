@@ -1844,11 +1844,10 @@ export namespace Components {
          */
         "autosaveTimer": number;
         /**
-          * Custom style of the component.
-          * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Sets the height of the component.
+          * @default "auto"
          */
-        "customStyle": string;
+        "editorHeight": string;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -2292,6 +2291,7 @@ export namespace Components {
         "svgWidth": number;
         "taskGanttRef": HTMLDivElement;
         "taskListScrollWidth": number;
+        "taskListTrueRef": HTMLKupTaskListElement;
         "taskListWidth": number;
     }
     interface KupIframe {
@@ -2700,44 +2700,6 @@ export namespace Components {
           * @param value - Value to be set.
          */
         "setValue": (value: string) => Promise<void>;
-    }
-    interface KupOpenaiInterface {
-        /**
-          * Custom style of the component.
-          * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle": string;
-        /**
-          * Sets the data that will be used for OpenAI comunication.
-          * @default null
-         */
-        "data": KupDataDataset;
-        /**
-          * Sets the dialog title
-          * @default "Open AI integration"
-         */
-        "dialogTitle": string;
-        /**
-          * Used to retrieve component's props values.
-          * @param descriptions - When provided and true, the result will be the list of props with their description.
-          * @returns List of props as object, each key will be a prop.
-         */
-        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
-        /**
-          * Sets the text area label
-          * @default "Insert natural language request..."
-         */
-        "label": string;
-        /**
-          * This method is used to trigger a new render of the component.
-         */
-        "refresh": () => Promise<void>;
-        /**
-          * Sets the props to the component.
-          * @param props - Object containing props that will be set to the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupPhotoFrame {
         /**
@@ -4055,10 +4017,6 @@ export interface KupNumericPickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupNumericPickerElement;
 }
-export interface KupOpenaiInterfaceCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLKupOpenaiInterfaceElement;
-}
 export interface KupPhotoFrameCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupPhotoFrameElement;
@@ -4773,23 +4731,6 @@ declare global {
         prototype: HTMLKupNumericPickerElement;
         new (): HTMLKupNumericPickerElement;
     };
-    interface HTMLKupOpenaiInterfaceElementEventMap {
-        "kup-openai-interface-ready": KupEventPayload;
-    }
-    interface HTMLKupOpenaiInterfaceElement extends Components.KupOpenaiInterface, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLKupOpenaiInterfaceElementEventMap>(type: K, listener: (this: HTMLKupOpenaiInterfaceElement, ev: KupOpenaiInterfaceCustomEvent<HTMLKupOpenaiInterfaceElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLKupOpenaiInterfaceElementEventMap>(type: K, listener: (this: HTMLKupOpenaiInterfaceElement, ev: KupOpenaiInterfaceCustomEvent<HTMLKupOpenaiInterfaceElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLKupOpenaiInterfaceElement: {
-        prototype: HTMLKupOpenaiInterfaceElement;
-        new (): HTMLKupOpenaiInterfaceElement;
-    };
     interface HTMLKupPhotoFrameElementEventMap {
         "kup-photoframe-placeholderload": KupEventPayload;
         "kup-photoframe-resourceload": KupEventPayload;
@@ -5130,7 +5071,6 @@ declare global {
         "kup-magic-box": HTMLKupMagicBoxElement;
         "kup-nav-bar": HTMLKupNavBarElement;
         "kup-numeric-picker": HTMLKupNumericPickerElement;
-        "kup-openai-interface": HTMLKupOpenaiInterfaceElement;
         "kup-photo-frame": HTMLKupPhotoFrameElement;
         "kup-planner": HTMLKupPlannerElement;
         "kup-planner-renderer": HTMLKupPlannerRendererElement;
@@ -6599,11 +6539,10 @@ declare namespace LocalJSX {
          */
         "autosaveTimer"?: number;
         /**
-          * Custom style of the component.
-          * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Sets the height of the component.
+          * @default "auto"
          */
-        "customStyle"?: string;
+        "editorHeight"?: string;
         /**
           * The editor type.
           * @default 'markdown'
@@ -6965,6 +6904,7 @@ declare namespace LocalJSX {
         "svgWidth"?: number;
         "taskGanttRef"?: HTMLDivElement;
         "taskListScrollWidth"?: number;
+        "taskListTrueRef"?: HTMLKupTaskListElement;
         "taskListWidth"?: number;
     }
     interface KupIframe {
@@ -7248,30 +7188,6 @@ declare namespace LocalJSX {
         "onKup-numericpicker-input"?: (event: KupNumericPickerCustomEvent<KupNumericPickerEventPayload>) => void;
         "onKup-numericpicker-itemclick"?: (event: KupNumericPickerCustomEvent<KupNumericPickerEventPayload>) => void;
         "onKup-numericpicker-textfieldsubmit"?: (event: KupNumericPickerCustomEvent<KupNumericPickerEventPayload>) => void;
-    }
-    interface KupOpenaiInterface {
-        /**
-          * Custom style of the component.
-          * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle"?: string;
-        /**
-          * Sets the data that will be used for OpenAI comunication.
-          * @default null
-         */
-        "data"?: KupDataDataset;
-        /**
-          * Sets the dialog title
-          * @default "Open AI integration"
-         */
-        "dialogTitle"?: string;
-        /**
-          * Sets the text area label
-          * @default "Insert natural language request..."
-         */
-        "label"?: string;
-        "onKup-openai-interface-ready"?: (event: KupOpenaiInterfaceCustomEvent<KupEventPayload>) => void;
     }
     interface KupPhotoFrame {
         /**
@@ -8387,7 +8303,6 @@ declare namespace LocalJSX {
         "kup-magic-box": KupMagicBox;
         "kup-nav-bar": KupNavBar;
         "kup-numeric-picker": KupNumericPicker;
-        "kup-openai-interface": KupOpenaiInterface;
         "kup-photo-frame": KupPhotoFrame;
         "kup-planner": KupPlanner;
         "kup-planner-renderer": KupPlannerRenderer;
@@ -8458,7 +8373,6 @@ declare module "@stencil/core" {
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-numeric-picker": LocalJSX.KupNumericPicker & JSXBase.HTMLAttributes<HTMLKupNumericPickerElement>;
-            "kup-openai-interface": LocalJSX.KupOpenaiInterface & JSXBase.HTMLAttributes<HTMLKupOpenaiInterfaceElement>;
             "kup-photo-frame": LocalJSX.KupPhotoFrame & JSXBase.HTMLAttributes<HTMLKupPhotoFrameElement>;
             "kup-planner": LocalJSX.KupPlanner & JSXBase.HTMLAttributes<HTMLKupPlannerElement>;
             "kup-planner-renderer": LocalJSX.KupPlannerRenderer & JSXBase.HTMLAttributes<HTMLKupPlannerRendererElement>;

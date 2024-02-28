@@ -56,6 +56,12 @@ Type: `Promise<void>`
 
 Used to retrieve component's props values.
 
+#### Parameters
+
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
+
 #### Returns
 
 Type: `Promise<GenericObject>`
@@ -86,6 +92,12 @@ Type: `Promise<void>`
 
 Calls handleSelection internal method to select the given item.
 
+#### Parameters
+
+| Name    | Type     | Description                                                                                                                  |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `index` | `number` | - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element. |
+
 #### Returns
 
 Type: `Promise<void>`
@@ -95,6 +107,12 @@ Type: `Promise<void>`
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
+
+#### Parameters
+
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
+| `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
@@ -141,6 +159,7 @@ Type: `Promise<void>`
 - [kup-list](.)
 - [kup-radio](../kup-radio)
 - [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
 - [kup-badge](../kup-badge)
 
 ### Graph
@@ -148,35 +167,55 @@ Type: `Promise<void>`
 graph TD;
   kup-list --> kup-list
   kup-radio --> kup-card
+  kup-radio --> kup-dialog
   kup-card --> kup-list
   kup-autocomplete --> kup-list
-  kup-chip --> kup-card
-  kup-chip --> kup-badge
+  kup-dialog --> kup-badge
+  kup-dialog --> kup-card
+  kup-dialog --> kup-dialog
   kup-badge --> kup-badge
   kup-badge --> kup-card
+  kup-badge --> kup-dialog
+  kup-chip --> kup-card
+  kup-chip --> kup-dialog
+  kup-chip --> kup-badge
   kup-text-field --> kup-card
+  kup-text-field --> kup-dialog
   kup-color-picker --> kup-card
+  kup-color-picker --> kup-dialog
   kup-combobox --> kup-list
   kup-date-picker --> kup-card
+  kup-date-picker --> kup-dialog
   kup-rating --> kup-card
+  kup-rating --> kup-dialog
   kup-time-picker --> kup-list
   kup-image --> kup-spinner
   kup-image --> kup-card
+  kup-image --> kup-dialog
   kup-image --> kup-badge
   kup-spinner --> kup-card
+  kup-spinner --> kup-dialog
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-card
+  kup-button-list --> kup-dialog
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-chart --> kup-card
+  kup-chart --> kup-dialog
   kup-gauge --> kup-card
+  kup-gauge --> kup-dialog
   kup-progress-bar --> kup-card
+  kup-progress-bar --> kup-dialog
   kup-button --> kup-card
+  kup-button --> kup-dialog
   kup-button --> kup-badge
   kup-checkbox --> kup-card
+  kup-checkbox --> kup-dialog
   kup-data-table --> kup-list
   kup-switch --> kup-card
+  kup-switch --> kup-dialog
   kup-form --> kup-card
+  kup-form --> kup-dialog
   kup-form --> kup-autocomplete
   kup-form --> kup-chip
   kup-form --> kup-text-field
@@ -191,9 +230,8 @@ graph TD;
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
-  kup-dialog --> kup-badge
-  kup-dialog --> kup-card
   kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
   kup-tree --> kup-list
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px

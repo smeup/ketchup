@@ -76,11 +76,10 @@ export class KupEditor {
     @Prop() autosaveTimer: number;
 
     /**
-     * Custom style of the component.
-     * @default ""
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Sets the height of the component.
+     * @default "auto"
      */
-    @Prop() customStyle: string = '';
+    @Prop() editorHeight: string = 'auto';
 
     /**
      * The editor type.
@@ -92,7 +91,7 @@ export class KupEditor {
      * The initial editor value.
      * @default ''
      */
-    @Prop() initialValue: string = '';
+    @Prop({ mutable: false, reflect: false }) initialValue: string = '';
 
     /**
      * Defines whether the editor is disabled or not.
@@ -122,9 +121,19 @@ export class KupEditor {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
+    #autosaveInterval: NodeJS.Timeout;
+    #hasChanges: boolean = false;
+    #initialContent: string = '';
     #kupManager: KupManager = kupManagerInstance();
-
-    autosaveInterval: NodeJS.Timeout;
+    #unsavedChangesIndex = 0;
+    #unsavedChangesItem: toastui.ToolbarButton = {
+        options: {
+            className: 'kup-editor-unsaved-changes',
+            el: this.createUnsavedChanges(),
+            tooltip: 'There are unsaved changes.',
+        },
+        type: 'button',
+    };
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -162,49 +171,6 @@ export class KupEditor {
         bubbles: true,
     })
     kupSave: EventEmitter<KupEditorEventPayload>;
-
-    /*-------------------------------------------------*/
-    /*           P u b l i c   M e t h o d s           */
-    /*-------------------------------------------------*/
-
-    /**
-     * Used to retrieve component's props values.
-     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
-     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
-     */
-    @Method()
-    async getProps(descriptions?: boolean): Promise<GenericObject> {
-        return getProps(this, KupEditorProps, descriptions);
-    }
-    /**
-     * Returns the component's internal value as html.
-     */
-    @Method()
-    async getValueAsHTML(): Promise<string> {
-        return this.editor?.getHtml() ?? '';
-    }
-    /**
-     * Returns the component's internal value as markdown.
-     */
-    @Method()
-    async getValueAsMarkdown(): Promise<string> {
-        return this.editor?.getMarkdown() ?? '';
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
-    }
-    /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
-     */
-    @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupEditorProps, props);
-    }
 
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
@@ -299,7 +265,7 @@ export class KupEditor {
     @Watch('autosaveTimer')
     onAutosaveTimerChanged() {
         if (this.editor) {
-            this.autosaveInterval && clearInterval(this.autosaveInterval);
+            this.#autosaveInterval && clearInterval(this.#autosaveInterval);
             typeof this.autosaveTimer === 'number' &&
                 this.autosaveTimer > 0 &&
                 this.setAutosaveInterval();
@@ -307,38 +273,93 @@ export class KupEditor {
     }
 
     /*-------------------------------------------------*/
-    /*          L i f e c y c l e   H o o k s          */
+    /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
-    componentWillLoad() {
-        this.#kupManager.debug.logLoad(this, false);
-        this.#kupManager.theme.register(this);
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        return getProps(this, KupEditorProps, descriptions);
+    }
+    /**
+     * Returns the component's internal value as html.
+     */
+    @Method()
+    async getValueAsHTML(): Promise<string> {
+        return this.editor?.getHtml() ?? '';
+    }
+    /**
+     * Returns the component's internal value as markdown.
+     */
+    @Method()
+    async getValueAsMarkdown(): Promise<string> {
+        return this.editor?.getMarkdown() ?? '';
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupEditorProps, props);
     }
 
-    componentDidLoad() {
-        this.kupReady.emit({
-            comp: this,
-            id: this.rootElement.id,
-        });
-        this.#kupManager.debug.logLoad(this, true);
-    }
-
-    componentWillRender() {
-        this.#kupManager.debug.logRender(this, false);
-    }
-
-    componentDidRender() {
-        this.#kupManager.debug.logRender(this, true);
-    }
+    /*-------------------------------------------------*/
+    /*          P r i v a t e   M e t h o d s          */
+    /*-------------------------------------------------*/
 
     createEditor() {
         const editorProps: EditorOptions = {
             el: this.editorRef,
-            height: 'auto',
-            initialEditType: this.initialEditType,
-            previewStyle: this.previewStyle,
-            initialValue: this.initialValue,
+            events: {
+                change: () => {
+                    if (this.#initialContent !== this.editor.getMarkdown()) {
+                        if (!this.#hasChanges) {
+                            this.#unsavedChangesIndex =
+                                this.editor.getUI().getToolbar().getItems()
+                                    .length - 1;
+                            this.editor
+                                .getUI()
+                                .getToolbar()
+                                .insertItem(
+                                    this.#unsavedChangesIndex,
+                                    this.#unsavedChangesItem
+                                );
+                        }
+                        this.#hasChanges = true;
+                    } else {
+                        if (this.#hasChanges) {
+                            this.editor
+                                .getUI()
+                                .getToolbar()
+                                .removeItem(this.#unsavedChangesIndex);
+                        }
+                        this.#hasChanges = false;
+                    }
+                },
+                focus: () => {
+                    if (!this.isReadOnly && !this.showToolbar) {
+                        this.showToolbar = true;
+                    }
+                },
+            },
+            height: this.editorHeight ?? 'auto',
             hideModeSwitch: true,
+            initialEditType: this.initialEditType,
+            initialValue: this.initialValue,
+            placeholder: 'Type your text here...',
+            previewStyle: this.previewStyle,
             usageStatistics: false,
         };
 
@@ -347,6 +368,7 @@ export class KupEditor {
         }
 
         this.editor = new Editor(editorProps);
+        this.#initialContent = this.editor.getMarkdown();
 
         if (!this.showToolbar) {
             this.updateToolbarVisiblity();
@@ -383,6 +405,26 @@ export class KupEditor {
         return button;
     }
 
+    createDivider() {
+        const el: HTMLElement = document.createElement('div');
+        el.className = 'kup-editor-divider';
+        const divider: toastui.ToolbarButton = {
+            options: {
+                className: 'kup-editor-divider',
+                el,
+            },
+            type: 'button',
+        };
+        return divider;
+    }
+
+    createUnsavedChanges() {
+        const el: HTMLElement = document.createElement('span');
+        el.className = 'kup-editor-unsaved-changes';
+        el.innerText = 'Unsaved changes.';
+        return el;
+    }
+
     updateToolbarVisiblity() {
         const toolbarElement = this.editor.getUI().getToolbar().el;
         const toolbarParentElement = toolbarElement.parentElement;
@@ -402,7 +444,7 @@ export class KupEditor {
     }
 
     setAutosaveInterval() {
-        this.autosaveInterval = setInterval(() => {
+        this.#autosaveInterval = setInterval(() => {
             this.onEditorAutoSave();
         }, this.autosaveTimer);
     }
@@ -416,18 +458,21 @@ export class KupEditor {
     }
 
     getToolBarWithSaveButton(includeDefaultItems: boolean = true) {
-        const toolbarItems = [
-            {
-                options: {
-                    el: this.createSaveButton(),
-                    tooltip: 'Save',
+        const options: Partial<EditorOptions> = {
+            toolbarItems: [
+                {
+                    options: {
+                        el: this.createSaveButton(),
+                        tooltip: 'Save',
+                    },
+                    type: 'button',
                 },
-                type: 'button',
-            },
-            ...(includeDefaultItems ? this.getDefaultToolBarItems() : []),
-        ];
+                this.createDivider(),
+                ...(includeDefaultItems ? this.getDefaultToolBarItems() : []),
+            ],
+        };
 
-        return toolbarItems;
+        return options.toolbarItems;
     }
 
     getDefaultToolBarItems() {
@@ -436,21 +481,27 @@ export class KupEditor {
             'bold',
             'italic',
             'strike',
+            this.createDivider(),
             'hr',
             'quote',
+            this.createDivider(),
             'ul',
             'ol',
             'task',
             'indent',
             'outdent',
+            this.createDivider(),
             'table',
             'image',
             'link',
+            this.createDivider(),
             'code',
             'codeblock',
         ];
 
-        if (this.initialEditType == 'markdown') toolBarItems.push('scrollSync');
+        if (this.initialEditType == 'markdown') {
+            toolBarItems.push('scrollSync');
+        }
         return toolBarItems;
     }
 
@@ -463,14 +514,34 @@ export class KupEditor {
         };
     }
 
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
+
+    componentWillLoad() {
+        this.#kupManager.debug.logLoad(this, false);
+        this.#kupManager.theme.register(this);
+    }
+
+    componentDidLoad() {
+        this.kupReady.emit({
+            comp: this,
+            id: this.rootElement.id,
+        });
+        this.#kupManager.debug.logLoad(this, true);
+    }
+
+    componentWillRender() {
+        this.#kupManager.debug.logRender(this, false);
+    }
+
+    componentDidRender() {
+        this.#kupManager.debug.logRender(this, true);
+    }
+
     render() {
         return (
             <Host>
-                <style>
-                    {this.#kupManager.theme.setKupStyle(
-                        this.rootElement as KupComponent
-                    )}
-                </style>
                 <div id={componentWrapperId}>
                     <div
                         key={this.rootElement.id}
@@ -484,6 +555,6 @@ export class KupEditor {
 
     disconnectedCallback() {
         this.#kupManager.theme.unregister(this);
-        this.autosaveInterval && clearInterval(this.autosaveInterval);
+        this.#autosaveInterval && clearInterval(this.#autosaveInterval);
     }
 }

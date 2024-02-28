@@ -1611,7 +1611,7 @@ const props = {
     phaseNameCol: 'DESFAS',
     phasePrevDates: ['DATINZ', 'DATFPO'],
     readOnly: false,
-    showSecondaryDates: false,
+    showSecondaryDates: true,
     taskColumns: ['R§COMM', 'R§CDCL', 'DATINZ', 'DATPRE'],
     taskDates: ['DATINZ', 'DATPRE'],
     taskHeight: 400,

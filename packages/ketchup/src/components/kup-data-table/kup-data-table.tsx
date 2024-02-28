@@ -166,7 +166,6 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupFormRow } from '../kup-form/kup-form-declarations';
 import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
-
 @Component({
     tag: 'kup-data-table',
     styleUrl: 'kup-data-table.scss',
@@ -4369,7 +4368,7 @@ export class KupDataTable {
                     totalMenu = (
                         <kup-list
                             class={`total-menu`}
-                            data={...listData}
+                            data={listData}
                             id="totals-menu"
                             is-menu
                             keyboardNavigation={true}
@@ -5049,8 +5048,9 @@ export class KupDataTable {
                             this.#kupManager.toggleMagicBox()
                         }
                     />
-                    {this.#kupManager.openAIInterface &&
-                    this.#kupManager.openAIInterface.url ? (
+                    {this.#kupManager.enableExperimentalFeatures &&
+                    this.#kupManager.openAI &&
+                    this.#kupManager.openAI.url ? (
                         <kup-button
                             title={
                                 this.#kupManager.language.translate(
@@ -5065,7 +5065,7 @@ export class KupDataTable {
                             }
                             icon="open-ai"
                             onkup-button-click={() =>
-                                this.#kupManager.toggleOpenAI(this.data)
+                                this.#kupManager.openAI.show(this.data)
                             }
                         />
                     ) : null}

@@ -6,6 +6,8 @@ import {
     KupDataColumn,
     KupDataDataset,
 } from '../../managers/kup-data/kup-data-declarations';
+import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
+import { KupTextFieldCustomEvent } from '../../components';
 /**
  * Props of the kup-card component.
  * Used to export every prop in an object.
@@ -62,6 +64,25 @@ export interface KupCardBuiltInMessageBoxOptions {
     cancelCb?: (e: MouseEvent) => unknown;
     confirmCb?: (e: MouseEvent) => unknown;
     text?: string;
+}
+/**
+ * Options of the built-in Open AI interface.
+ */
+export interface KupCardBuiltInOpenAIOptions {
+    authCb?: (event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) => void;
+    messages?: KupCardBuiltInOpenAIMessages[];
+    state?: 'authentication' | 'connecting' | 'error' | 'ready';
+    submitCb?: (
+        disableCb: (status: boolean) => void,
+        inputArea?: HTMLKupTextFieldElement
+    ) => void;
+}
+/**
+ * Message interface of the Open AI interface.
+ */
+export interface KupCardBuiltInOpenAIMessages {
+    text: string;
+    type: 'request' | 'response';
 }
 /**
  * Options of the built-in column drop menu.
@@ -163,7 +184,8 @@ export interface KupCardData {
         | KupCardColumnDropMenuOptions
         | KupCardColorPickerOptions
         | KupCardBuiltInNumericOptions
-        | KupCardBuiltInMessageBoxOptions;
+        | KupCardBuiltInMessageBoxOptions
+        | KupCardBuiltInOpenAIOptions;
     progressbar?: GenericObject[];
     switch?: GenericObject[];
     tabbar?: GenericObject[];
@@ -210,6 +232,7 @@ export enum KupCardIds {
  * Recurring CSS classes.
  */
 export enum KupCardCSSClasses {
+    AUTOSCROLL = 'autoscroll',
     BUILT_IN_CARD = 'built-in-card',
     CARD_VIEW = 'card-view',
     CLICKABLE_LINK = 'clickable-link',
