@@ -66,6 +66,7 @@ import {
 import {
     GenericObject,
     KupComponent,
+    KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import { identify, getProps, setProps } from '../../utils/utils';
@@ -587,7 +588,7 @@ export class KupDataTable {
     /**
      * When set to true it activates the global filter.
      */
-    @Prop() globalFilter: boolean = false;
+    @Prop() globalFilter: boolean = true;
     /**
      * The value of the global filter.
      */
@@ -5709,7 +5710,8 @@ export class KupDataTable {
                                         selectedRows: this.selectedRows,
                                     });
                                 }}
-                                styling={FButtonStyling.ICON}
+                                styling={FButtonStyling.FLAT}
+                                sizing={KupComponentSizing.MEDIUM}
                                 title="Save"
                                 wrapperClass="save-button"
                             ></FButton>
@@ -5721,7 +5723,8 @@ export class KupDataTable {
                                 onClick={() => {
                                     this.#rowsDelete();
                                 }}
-                                styling={FButtonStyling.ICON}
+                                styling={FButtonStyling.FLAT}
+                                sizing={KupComponentSizing.MEDIUM}
                                 title="Delete selected rows"
                                 wrapperClass="delete-button"
                             ></FButton>
@@ -5736,14 +5739,16 @@ export class KupDataTable {
                                         selectedRows: this.selectedRows,
                                     });
                                 }}
-                                styling={FButtonStyling.ICON}
+                                styling={FButtonStyling.FLAT}
+                                sizing={KupComponentSizing.MEDIUM}
                                 title="History"
                                 wrapperClass="history-button"
                             ></FButton>
                         ) : null}
                         {this.insertMode !== '' ? (
                             <FButton
-                                icon="plus"
+                                label="Add new"
+                                // icon="plus"
                                 onClick={async () => {
                                     if (this.insertMode === 'form') {
                                         this.#rowInsertForm();
@@ -5790,6 +5795,7 @@ export class KupDataTable {
                                         await this.refresh(true);
                                     }
                                 }}
+                                sizing={KupComponentSizing.MEDIUM}
                                 styling={FButtonStyling.RAISED}
                                 title="Insert row"
                                 wrapperClass="insert-button"

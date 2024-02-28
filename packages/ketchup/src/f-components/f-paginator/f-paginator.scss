@@ -5,18 +5,23 @@
   align-items: center;
   justify-content: space-between;
 
+  .load-more-button {
+    padding: 0 var(--kup-space-05);
+    border-right: 1px solid var(--kup-gray-color-30);
+  }
+
   kup-combobox {
     display: inline-block;
     z-index: 0;
 
     &.page-selector {
-      padding: var(--kup-space-03) var(--kup-space-05);
+      padding: 0 var(--kup-space-05);
       border-right: 1px solid var(--kup-gray-color-30);
       flex: 1;
     }
 
     &.rows-selector {
-      padding: var(--kup-space-03) var(--kup-space-05);
+      padding: 0 var(--kup-space-05);
       border-right: 1px solid var(--kup-gray-color-30);
       flex: 2;
     }

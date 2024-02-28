@@ -9,6 +9,7 @@ import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { FButton } from '../f-button/f-button';
 import { FButtonStyling } from '../f-button/f-button-declarations';
 import { FPaginatorMode, FPaginatorProps } from './f-paginator-declarations';
+import { KupComponentSizing } from '../../types/GenericTypes';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -64,6 +65,18 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
             id={props.id}
             title={props.title}
         >
+            {props.onLoadMore ? (
+                <FButton
+                    icon="plus"
+                    onClick={props.onLoadMore}
+                    label={dom.ketchup.language.translate(
+                        KupLanguageGeneric.LOAD_MORE
+                    )}
+                    sizing={KupComponentSizing.MEDIUM}
+                    styling={FButtonStyling.FLAT}
+                    wrapperClass="load-more-button"
+                />
+            ) : null}
             <kup-combobox
                 class="rows-selector"
                 data={dataRowsSelector}
@@ -81,6 +94,8 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
                     icon="chevron_left"
                     disabled={isPrevPageDisabled(props)}
                     onClick={props.onPrevPage}
+                    sizing={KupComponentSizing.MEDIUM}
+                    styling={FButtonStyling.FLAT}
                     wrapperClass="kup-neutral prev-page"
                 />
             ) : null}
@@ -89,18 +104,9 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
                     icon="chevron_right"
                     disabled={isNextPageDisabled(props)}
                     onClick={props.onNextPage}
-                    wrapperClass="kup-neutral next-page"
-                />
-            ) : null}
-            {props.onLoadMore ? (
-                <FButton
-                    icon="plus"
-                    onClick={props.onLoadMore}
-                    label={dom.ketchup.language.translate(
-                        KupLanguageGeneric.LOAD_MORE
-                    )}
+                    sizing={KupComponentSizing.MEDIUM}
                     styling={FButtonStyling.FLAT}
-                    wrapperClass="load-more-button"
+                    wrapperClass="kup-neutral next-page"
                 />
             ) : null}
         </div>

@@ -90,7 +90,7 @@ table {
   background-color: var(--kup_datatable_background_color);
   border-spacing: 0; // [TFixed-1]
   border-collapse: separate; // [TFixed-1]
-  color: var(--kup_datatable_color);
+  color: var(--kup-gray-color-70);
   min-width: intrinsic; /* Safari/WebKit uses a non-standard name */
   min-width: -moz-max-content; /* Firefox/Gecko */
   min-width: -webkit-max-content; /* Chrome */
@@ -178,6 +178,9 @@ table {
 #global-filter {
   min-width: 140px;
   width: 100%;
+  .f-text-field .mdc-text-field-container .mdc-text-field {
+    border-bottom: none;
+  }
 }
 
 .#{$kup-icon}:not(.f-image) {
@@ -271,8 +274,8 @@ th {
   transition: background-color 0.25s ease;
   user-select: none;
   // The first cell must have border left to simulate table border.
-  &:first-of-type {
-    border-left: var(--kup_datatable_th_border);
+  &:last-of-type {
+    border-right: none;
   }
 }
 
@@ -371,7 +374,7 @@ tbody {
     &.group {
       background: var(--kup-gray-color-20);
       border-top: var(--kup_datatable_border);
-      color: var(--kup-gray-color-90);
+      color: var(--kup-gray-color-70);
       font-weight: bold;
       cursor: pointer;
 
@@ -399,7 +402,7 @@ tbody {
             @include kup-heading-compact-01;
           }
           & .kup-icon {
-            background-color: var(--kup-gray-color-90);
+            background-color: var(--kup-gray-color-70);
           }
         }
 
@@ -481,7 +484,7 @@ th.obj:hover span:not(.overlay-action) {
     text-overflow: ellipsis;
     transition: color 200ms;
     &:hover {
-      color: var(--kup_datatable_color);
+      color: var(--kup-gray-color-70);
     }
   }
 }
