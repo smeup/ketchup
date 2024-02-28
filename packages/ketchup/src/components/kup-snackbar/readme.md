@@ -15,6 +15,7 @@
 | `actionButton` | --             | Set of FButton props to set the action button.                                                                   | `FButtonProps` | `null`  |
 | `closeButton`  | `close-button` | When true, the hide button will be displayed.                                                                    | `boolean`      | `true`  |
 | `customStyle`  | `custom-style` | Custom style of the component.                                                                                   | `string`       | `''`    |
+| `header`       | `header`       | Sets the textual content of the snackbar.                                                                        | `string`       | `''`    |
 | `text`         | `text`         | Sets the textual content of the snackbar.                                                                        | `string`       | `''`    |
 | `timeout`      | `timeout`      | Defaults at null, when set the snackbar will automatically disappear after the specified amount of milliseconds. | `number`       | `null`  |
 

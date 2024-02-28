@@ -66,6 +66,7 @@ import {
 import {
     GenericObject,
     KupComponent,
+    KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import { identify, getProps, setProps } from '../../utils/utils';
@@ -587,7 +588,7 @@ export class KupDataTable {
     /**
      * When set to true it activates the global filter.
      */
-    @Prop() globalFilter: boolean = false;
+    @Prop() globalFilter: boolean = true;
     /**
      * The value of the global filter.
      */
@@ -651,7 +652,7 @@ export class KupDataTable {
     /**
      * Sets the position of the paginator. Available positions: top, bottom or both.
      */
-    @Prop() paginatorPos: PaginatorPos = PaginatorPos.TOP;
+    @Prop() paginatorPos: PaginatorPos = PaginatorPos.BOTTOM;
     /**
      * Sets the possibility to remove the selected column.
      */
@@ -5668,7 +5669,9 @@ export class KupDataTable {
                     )}
                 </style>
                 <div id={componentWrapperId}>
-                    <div class="above-wrapper">
+                    <div class="above-wrapper">{paginatorTop}</div>
+                    <div class="group-wrapper">{groupChips}</div>
+                    <div class="actions-wrapper">
                         {this.globalFilter ? (
                             <div id="global-filter">
                                 <FTextField
@@ -5696,13 +5699,56 @@ export class KupDataTable {
                                 />
                             </div>
                         ) : null}
-                        {paginatorTop}
-                    </div>
-                    <div class="group-wrapper">{groupChips}</div>
-                    <div class="actions-wrapper">
+                        {this.insertMode !== '' &&
+                        this.selectedRows.length > 0 ? (
+                            <FButton
+                                icon="save"
+                                onClick={() => {
+                                    this.kupSave.emit({
+                                        comp: this,
+                                        id: this.rootElement.id,
+                                        selectedRows: this.selectedRows,
+                                    });
+                                }}
+                                styling={FButtonStyling.FLAT}
+                                sizing={KupComponentSizing.MEDIUM}
+                                title="Save"
+                                wrapperClass="save-button"
+                            ></FButton>
+                        ) : null}
+                        {this.showDeleteButton &&
+                        this.selectedRows.length > 0 ? (
+                            <FButton
+                                icon="delete"
+                                onClick={() => {
+                                    this.#rowsDelete();
+                                }}
+                                styling={FButtonStyling.FLAT}
+                                sizing={KupComponentSizing.MEDIUM}
+                                title="Delete selected rows"
+                                wrapperClass="delete-button"
+                            ></FButton>
+                        ) : null}
+                        {this.showHistoryButton ? (
+                            <FButton
+                                icon="history"
+                                onClick={() => {
+                                    this.kupHistory.emit({
+                                        comp: this,
+                                        id: this.rootElement.id,
+                                        selectedRows: this.selectedRows,
+                                    });
+                                }}
+                                styling={FButtonStyling.FLAT}
+                                sizing={KupComponentSizing.MEDIUM}
+                                title="History"
+                                wrapperClass="history-button"
+                            ></FButton>
+                        ) : null}
                         {this.insertMode !== '' ? (
                             <FButton
-                                icon="plus"
+                                label="Add new"
+                                // icon="plus"
                                 onClick={async () => {
                                     if (this.insertMode === 'form') {
                                         this.#rowInsertForm();
@@ -5749,52 +5795,10 @@ export class KupDataTable {
                                         await this.refresh(true);
                                     }
                                 }}
-                                styling={FButtonStyling.OUTLINED}
+                                sizing={KupComponentSizing.MEDIUM}
+                                styling={FButtonStyling.RAISED}
                                 title="Insert row"
                                 wrapperClass="insert-button"
-                            ></FButton>
-                        ) : null}
-                        {this.insertMode !== '' &&
-                        this.selectedRows.length > 0 ? (
-                            <FButton
-                                icon="save"
-                                onClick={() => {
-                                    this.kupSave.emit({
-                                        comp: this,
-                                        id: this.rootElement.id,
-                                        selectedRows: this.selectedRows,
-                                    });
-                                }}
-                                styling={FButtonStyling.OUTLINED}
-                                title="Save"
-                                wrapperClass="save-button"
-                            ></FButton>
-                        ) : null}
-                        {this.showDeleteButton &&
-                        this.selectedRows.length > 0 ? (
-                            <FButton
-                                icon="delete"
-                                onClick={() => {
-                                    this.#rowsDelete();
-                                }}
-                                styling={FButtonStyling.OUTLINED}
-                                title="Delete selected rows"
-                                wrapperClass="delete-button"
-                            ></FButton>
-                        ) : null}
-                        {this.showHistoryButton ? (
-                            <FButton
-                                icon="history"
-                                onClick={() => {
-                                    this.kupHistory.emit({
-                                        comp: this,
-                                        id: this.rootElement.id,
-                                        selectedRows: this.selectedRows,
-                                    });
-                                }}
-                                styling={FButtonStyling.OUTLINED}
-                                title="History"
-                                wrapperClass="history-button"
                             ></FButton>
                         ) : null}
                     </div>

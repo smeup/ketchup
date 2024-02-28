@@ -4,8 +4,7 @@ sticky-header {
 
 .persistent-header {
   & ~ sticky-header {
-    background: var(--kup-title-background-color);
-    border-bottom: 2px solid var(--kup-border-color);
+    background: var(--kup-gray-color-20);
     box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
     color: var(--kup-title-color);
     display: block;
