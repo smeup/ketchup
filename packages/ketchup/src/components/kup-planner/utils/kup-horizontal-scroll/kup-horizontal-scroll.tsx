@@ -88,10 +88,10 @@ export class HorizontalScroll {
 
     render() {
         const w =
-            this.taskListTrueRef?.getBoundingClientRect().width + 24 * 1.5 ?? 0; // 24 * 2 is the sum of padding and margin for both list and gantt, multiplied by 1.5 cause we need to add the other half to the right
-
+        this.taskListTrueRef?.getBoundingClientRect().width + 24 * 1.5 ?? 0; // 24 * 2 is the sum of padding and margin for both list and gantt, multiplied by 1.5 cause we need to add the other half to the right
+        
         const width = +this.listCellWidth.replace('px', '');
-
+        
         return (
             <Fragment>
                 <div class="scroll-container">
@@ -101,8 +101,8 @@ export class HorizontalScroll {
                                 dir="ltr"
                                 style={{
                                     margin: this.rtl
-                                        ? `0px ${w}px 0px 12px`
-                                        : `0px 12px 0px ${w}px`,
+                                        ? `0px 20px 0px 12px`
+                                        : `0px 12px 0px 20px`,
                                     maxWidth: `${width + 20}px`,
                                     minWidth: `${width + 20}px`,
                                 }}
@@ -122,8 +122,8 @@ export class HorizontalScroll {
                         dir="ltr"
                         style={{
                             margin: this.rtl
-                                ? `0px ${this.scrollableTaskList && this.taskListScrollWidth > width ? 65 : w}px 0px 12px`
-                                : `0px 12px 0px ${this.scrollableTaskList && this.taskListScrollWidth > width ? 65 : w}pxpx`,
+                                ? `0px ${this.scrollableTaskList && this.taskListScrollWidth > width ? 40 : w}px 0px 12px`
+                                : `0px 12px 0px ${this.scrollableTaskList && this.taskListScrollWidth > width ? 40 : w}px`,
                             maxWidth: `${width + 20}px`,
                             minWidth: `${width + 20}px`,
                         }}
