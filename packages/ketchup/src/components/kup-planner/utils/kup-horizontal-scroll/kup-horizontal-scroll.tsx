@@ -154,19 +154,6 @@ export class HorizontalScroll {
                     </div>
                 </div>
             </Fragment>
-            <div
-                dir="ltr"
-                style={{
-                    margin: this.rtl
-                        ? `0px ${w}px 0px 12px`
-                        : `0px 12px 0px ${w}px`,
-                }}
-                class="scrollWrapper"
-                data-scrollx="true"
-                onScroll={this.horizontalScroll}
-            >
-                <div style={{ width: `${this.svgWidth}px` }} class="scroll" />
-            </div>
         );
     }
 }
