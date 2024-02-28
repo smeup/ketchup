@@ -881,6 +881,11 @@ export class KupGantt {
     }
 
     render() {
+        console.log(
+            'kup-gantt.tsx [' + this.ganttId + ']',
+            this.displayedStartDate,
+            this.displayedEndDate
+        );
         const gridProps: KupPlannerGridProps = {
             columnWidth: this.columnWidth,
             svgWidth: this.svgWidth,

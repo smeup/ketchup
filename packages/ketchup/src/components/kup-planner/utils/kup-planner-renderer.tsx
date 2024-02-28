@@ -338,7 +338,7 @@ export class KupPlannerRenderer {
                     >
                         <kup-gantt
                             ganttId={KUP_PLANNER_MAIN_GANTT_ID}
-                            key={KUP_PLANNER_SECONDARY_GANTT_ID}
+                            key={KUP_PLANNER_MAIN_GANTT_ID}
                             filter={this.props.mainGantt.filter}
                             hideLabel={this.props.mainGantt.hideLabel}
                             showSecondaryDates={this.mainGanttDoubleView}
