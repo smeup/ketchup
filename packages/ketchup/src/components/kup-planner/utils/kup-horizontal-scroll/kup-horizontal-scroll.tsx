@@ -99,17 +99,13 @@ export class HorizontalScroll {
                         this.taskListScrollWidth > width && (
                             <div
                                 dir="ltr"
-                                style={
-                                    rect
-                                        ? {
-                                              margin: this.rtl
-                                                  ? `0px 20px 0px 0px`
-                                                  : `0px 0px 0px 20px`,
-                                              maxWidth: `${width + 20}px`,
-                                              minWidth: `${width + 20}px`,
-                                          }
-                                        : undefined
-                                }
+                                style={{
+                                    margin: this.rtl
+                                        ? `0px ${w}px 0px 12px`
+                                        : `0px 12px 0px ${w}px`,
+                                    maxWidth: `${width + 20}px`,
+                                    minWidth: `${width + 20}px`,
+                                }}
                                 class="scrollWrapper"
                                 data-scrollx="true"
                                 onScroll={this.horizontalTaskListScroll}
@@ -124,25 +120,13 @@ export class HorizontalScroll {
                         )}
                     <div
                         dir="ltr"
-                        style={
-                            rect
-                                ? {
-                                      margin: this.rtl
-                                          ? `0px ${
-                                                this.scrollableTaskList &&
-                                                this.taskListScrollWidth > width
-                                                    ? 65
-                                                    : rect.x
-                                            }px 0px 0px`
-                                          : `0px 0px 0px ${
-                                                this.scrollableTaskList &&
-                                                this.taskListScrollWidth > width
-                                                    ? 65
-                                                    : rect.x
-                                            }px`,
-                                  }
-                                : undefined
-                        }
+                        style={{
+                            margin: this.rtl
+                                ? `0px ${this.scrollableTaskList && this.taskListScrollWidth > width ? 65 : w}px 0px 12px`
+                                : `0px 12px 0px ${this.scrollableTaskList && this.taskListScrollWidth > width ? 65 : w}pxpx`,
+                            maxWidth: `${width + 20}px`,
+                            minWidth: `${width + 20}px`,
+                        }}
                         class="scrollWrapper"
                         data-scrollx="true"
                         onScroll={this.horizontalScroll}
