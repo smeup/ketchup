@@ -1,5 +1,8 @@
 .f-progress-bar {
-  --kup_progressbar_border_radius: var(--kup-progressbar-border-radius, 4px);
+  --kup_progressbar_border_radius: var(
+    --kup-progressbar-border-radius,
+    var(--kup-radius-00)
+  );
   --kup_progressbar_font_family: var(
     --kup-progressbar-font-family,
     var(--kup-font-family)
@@ -9,25 +12,25 @@
     var(--kup-font-size)
   );
   --kup_progressbar_height: var(--kup-progressbar-height, 1.25em);
-  --kup_progressbar_primary_color: var(
-    --kup-progressbar-primary-color,
-    var(--kup-primary-color)
+  --kup_progressbar_activebar_color: var(
+    --kup-progressbar-activebar-color,
+    var(--kup-primary-color-60)
   );
   --kup_progressbar_text_color: var(
     --kup-progressbar-text-color,
-    var(--kup-text-color)
+    var(--kup-gray-color-70)
   );
   --kup_progressbar_text_color_rgb: var(
     --kup-progressbar-text-color-rgb,
-    var(--kup-text-color-rgb)
+    var(--kup-text-color-70-rgb)
   );
-  --kup_progressbar_text_on_primary_color: var(
+  --kup_progressbar_activebar_text_color: var(
     --kup-progressbar-text-on-primary-color,
-    var(--kup-text-on-primary-color)
+    var(--kup-gray-color-10)
   );
-  --kup_progressbar_track_color: var(
-    --kup-progressbar-track-color,
-    var(--kup-disabled-background-color)
+  --kup_progressbar_track_background_color: var(
+    --kup-progressbar-track-background-color,
+    var(--kup-gray-color-10)
   );
   --kup_progressbar_width: var(--kup-progressbar-width, 100%);
 
@@ -36,7 +39,7 @@
   width: var(--kup_progressbar_width);
 
   &.progress-bar {
-    background: var(--kup_progressbar_track_color);
+    background: var(--kup_progressbar_track_background_color);
     border-radius: var(--kup_progressbar_border_radius);
     overflow: hidden;
     position: relative;
@@ -44,21 +47,21 @@
 
     &.text-color-on-primary {
       & .progress-bar-percentage {
-        color: var(--kup_progressbar_text_on_primary_color);
+        color: var(--kup_progressbar_activebar_text_color);
         & span {
-          color: var(--kup_progressbar_text_on_primary_color);
+          color: var(--kup_progressbar_activebar_text_color);
+          @include kup-label-01;
         }
       }
     }
   }
 
   .progress-bar-percentage {
-    background: var(--kup_progressbar_primary_color);
+    background: var(--kup_progressbar_activebar_color);
     border-radius: var(--kup_progressbar_border_radius);
     box-sizing: content-box;
     color: var(--kup_progressbar_text_color);
     height: var(--kup_progressbar_height);
-    padding: 0.5em 0;
     text-align: center;
     transition: width 0.2s ease;
 
@@ -70,13 +73,14 @@
       line-height: var(--kup_progressbar_height);
       position: absolute;
       width: var(--kup_progressbar_width);
+      @include kup-label-01;
     }
 
     & .#{$kup-icon} {
       display: block;
       height: var(--kup_progressbar_height);
       &:not(.is-image) {
-        background-color: var(--kup_progressbar_text_on_primary_color);
+        background-color: var(--kup_progressbar_activebar_text_color);
       }
       img {
         width: auto;
@@ -112,7 +116,7 @@
 
         &.has-value {
           & .half-circle {
-            border-color: var(--kup_progressbar_primary_color);
+            border-color: var(--kup_progressbar_activebar_color);
             &.left-side {
               transition: transform 0.2s ease;
             }
@@ -136,7 +140,7 @@
         & .half-circle {
           height: 1em;
           width: 1em;
-          border: 0.1em solid var(--kup_progressbar_track_color);
+          border: 0.1em solid var(--kup_progressbar_track_background_color);
           border-radius: 50%;
           clip: rect(0, 0.5em, 1em, 0);
           left: 0;
@@ -166,7 +170,7 @@
           object-fit: cover;
           margin: auto;
           &:not(.is-image) {
-            background-color: var(--kup_progressbar_primary_color);
+            background-color: var(--kup_progressbar_activebar_color);
           }
           img {
             width: auto;
@@ -186,7 +190,7 @@
       & .shadow {
         height: 1em;
         width: 1em;
-        border: 0.1em solid var(--kup_progressbar_track_color);
+        border: 0.1em solid var(--kup_progressbar_track_background_color);
         border-radius: 50%;
       }
     }
