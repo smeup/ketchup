@@ -39,10 +39,9 @@
     var(--kup-gray-color-10)
   );
   --kup_datatable_border: var(
-    --kup-datatable-border,
-    1px solid var(--kup-gray-color-30)
+    --kup-datatable-border-color,
+    1px solid var(--kup-gray-color-20)
   );
-  --kup_datatable_color: var(--kup-datatable-color, var(--kup-text-color));
   --kup_datatable_font_family: var(
     --kup-datatable-font-family,
     var(--kup-font-family)
@@ -161,7 +160,7 @@ table {
       height: 36px;
       text-align: right;
       font-weight: bold;
-      padding: 0.5em 1.14em;
+      padding: 0.5em 0.6em;
       &:hover {
         background-color: var(--kup_datatable_background_color);
       }
@@ -178,6 +177,7 @@ table {
 #global-filter {
   min-width: 140px;
   width: 100%;
+  flex: 1;
   .f-text-field .mdc-text-field-container .mdc-text-field {
     border-bottom: none;
   }
@@ -284,7 +284,7 @@ th {
     color: var(--kup-gray-color-90);
     display: flex;
     justify-content: space-between;
-    padding: 0.5em 1.14em;
+    padding: 0.5em 0.6em;
     text-overflow: ellipsis;
     white-space: nowrap;
     @include kup-heading-compact-01;
@@ -342,6 +342,7 @@ tbody {
     height: 0; // Trick to let the cell' size to adapt to its content
     padding: 0;
     @include kup-body-compact-01;
+    font-size: 13px; // this for space performance
 
     & > * {
       border: none !important;
@@ -408,7 +409,7 @@ tbody {
 
         &.total {
           text-align: right;
-          padding: 0.5em 0.3125em;
+          padding: 0.5em 0.6em;
 
           &.negative-number {
             color: var(--kup-danger-color);
@@ -450,10 +451,9 @@ tbody {
   }
 }
 
-.above-wrapper {
-  display: flex;
-  width: 100%;
-}
+// .above-wrapper {
+//   width: 100%;
+// }
 
 .#{$kup-icon}.overlay-action {
   display: none;
@@ -541,6 +541,7 @@ th.obj:hover span:not(.overlay-action) {
   display: flex;
   justify-content: flex-end;
   background-color: var(--kup-gray-color-10);
+  margin-top: var(--kup-space-03);
   .insert-button,
   .delete-button,
   .history-button,
@@ -548,6 +549,9 @@ th.obj:hover span:not(.overlay-action) {
     .f-button .icon-button {
       padding: 0.55em;
     }
+  }
+  &.paginator-top {
+    border-left: var(--kup_datatable_border);
   }
 }
 
@@ -579,4 +583,16 @@ th.obj:hover span:not(.overlay-action) {
 .#{$kup-icon}.#{$kup-icon-key} {
   -webkit-mask: var(--kup-key-icon);
   mask: var(--kup-key-icon);
+}
+
+@media (max-width: 650px) {
+  .actions-wrapper {
+    flex-direction: column-reverse;
+  }
+}
+
+@media (max-width: 500px) {
+  .actions-wrapper {
+    flex-direction: column-reverse;
+  }
 }

@@ -593,3 +593,69 @@ export function create9(component: KupCard): VNode {
         </div>
     );
 }
+
+/**
+ * 9th scalable card layout, tile view.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 8th scalable layout virtual node.
+ */
+export function create10(component: KupCard): VNode {
+    // color line
+    const lineBg =
+        component.data.color && component.data.color.length > 0
+            ? component.data.color[0]
+            : `var(${KupThemeColorValues.PRIMARY})`;
+    // color component
+    const componentBg =
+        component.data.color && component.data.color.length > 1
+            ? component.data.color[1]
+            : `var(${KupThemeColorValues.BACKGROUND})`;
+    // color text
+    const textFg =
+        component.data.color && component.data.color.length > 2
+            ? component.data.color[2]
+            : `var(${KupThemeColorValues.TEXT})`;
+    // Main text
+    const mainText =
+        component.data.text && component.data.text.length > 0
+            ? component.data.text[0]
+            : null;
+    // Sub text
+    const subText =
+        component.data.text && component.data.text.length > 1
+            ? component.data.text[1]
+            : null;
+    // Buttons area
+    const buttons =
+        component.data.button && component.data.button.length > 0
+            ? (JSON.parse(JSON.stringify(component.data.button)) as [])
+            : [];
+    // Only 4 buttons supported
+    if (buttons.length > 4) {
+        buttons.splice(4, buttons.length - 4);
+    }
+    buttons.reverse();
+
+    //Dynamic CSS variables
+    const CSSVariables: GenericObject = {
+        ['--color-0']: lineBg,
+        ['--color-1']: componentBg,
+        ['--color-2']: textFg,
+    };
+    return (
+        <div
+            class={`scalable-layout-${component.layoutNumber}`}
+            style={CSSVariables}
+        >
+            <div class="section-1"></div>
+            <div class="section-2">
+                <div class="scalable-card">
+                    <div class="text scalable-element">
+                        <div class="value">{mainText}</div>
+                        <div class="descr">{subText}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}

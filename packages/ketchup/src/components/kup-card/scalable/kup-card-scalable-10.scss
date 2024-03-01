@@ -1,0 +1,45 @@
+.scalable-layout-9 {
+  background-color: var(--color-1);
+  color: var(--color-2);
+  height: 100%;
+  display: flex;
+  justify-content: unset;
+  overflow: auto;
+  border-radius: 4px;
+
+  .section-1 {
+    background-color: var(--color-0);
+    width: 20%;
+    height: 100%;
+  }
+
+  .section-2 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .text {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .descr {
+    font-size: 80%;
+  }
+
+  .value {
+    font-size: 220%;
+  }
+
+  .buttons { 
+    height: max-content;
+    margin-bottom: 2%;
+  }
+
+  .f-button {
+    float: right;
+  }
+}

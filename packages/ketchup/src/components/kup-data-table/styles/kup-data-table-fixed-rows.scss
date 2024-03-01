@@ -37,8 +37,7 @@ table.custom-size th {
 
 tr:hover .fixed-row,
 tr:hover .fixed-column {
-  color: var(--kup-hover-color);
-  background-color: var(--kup-hover-background-color);
+  background-color: var(--kup-gray-color-20);
 }
 
 tr.selected .fixed-column,
@@ -74,12 +73,10 @@ tr.selected .fixed-row {
 
 thead tr .fixed-column,
 thead tr:hover:not(.group):not(.selected) .fixed-column {
-  background-color: var(--kup-title-background-color);
-  color: var(--kup-title-color);
+  background-color: var(--kup-gray-color-20);
 }
 
 tfoot tr:hover:not(.group):not(.selected) .fixed-row,
 tfoot tr:hover:not(.group):not(.selected) .fixed-column {
-  color: var(--kup-text-color);
-  background-color: var(--kup_datatable_background_color);
+  background-color: var(--kup-gray-color-20);
 }
