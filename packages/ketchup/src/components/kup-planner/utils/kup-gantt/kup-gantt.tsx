@@ -6,6 +6,8 @@ import {
     State,
     Watch,
     Listen,
+    Method,
+    forceUpdate,
 } from '@stencil/core';
 import {
     KupPlannerCurrentDateIndicator,
@@ -381,6 +383,14 @@ export class KupGantt {
             'gantt-sync-scroll-event',
             this.onGanttSyncScrollEvent.bind(this)
         );
+    }
+
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     /*-------------------------------------------------*/

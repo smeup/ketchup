@@ -2081,6 +2081,10 @@ export namespace Components {
         "projectProgressSelectedColor": KupPlannerGanttProps['projectProgressSelectedColor'];
         "projection": KupPlannerGanttProps['projection'];
         "readOnly": KupPlannerGanttProps['readOnly'];
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         "rowHeight": KupPlannerGanttProps['rowHeight'];
         "rtl": KupPlannerGanttProps['rtl'];
         "scrollXChange": KupPlannerGanttProps['scrollXChange'];
@@ -2955,6 +2959,10 @@ export namespace Components {
     }
     interface KupPlannerRenderer {
         "props": PlannerProps;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
     }
     interface KupProbe {
         /**
