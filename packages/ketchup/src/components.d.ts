@@ -2289,7 +2289,7 @@ export namespace Components {
         "scrollNumber": number;
         "scrollableTaskList": boolean;
         "svgWidth": number;
-        "taskGanttRef": HTMLDivElement;
+        "taskListScrollNumber": number;
         "taskListScrollWidth": number;
         "taskListTrueRef": HTMLKupTaskListElement;
         "taskListWidth": number;
@@ -6902,7 +6902,7 @@ declare namespace LocalJSX {
         "scrollNumber"?: number;
         "scrollableTaskList"?: boolean;
         "svgWidth"?: number;
-        "taskGanttRef"?: HTMLDivElement;
+        "taskListScrollNumber"?: number;
         "taskListScrollWidth"?: number;
         "taskListTrueRef"?: HTMLKupTaskListElement;
         "taskListWidth"?: number;

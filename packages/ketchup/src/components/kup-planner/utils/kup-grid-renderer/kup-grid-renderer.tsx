@@ -155,7 +155,7 @@ export class KupGridRenderer {
     currentTarget: HTMLElement | null;
 
     @State()
-    currentClientY: number;
+    dragScrollInterval: NodeJS.Timeout;
 
     //---- Lifecycle hooks ----
 
@@ -199,7 +199,6 @@ export class KupGridRenderer {
     @Watch('onProgressChange')
     @Watch('onDateChange')
     updateSvgMove() {
-        let interval: NodeJS.Timeout;
         const handleMouseMove = async (event: MouseEvent) => {
             if (!this.ganttEvent.changedTask || !this.point || !this.svg)
                 return;
@@ -222,7 +221,7 @@ export class KupGridRenderer {
 
             if (this.currentTarget) {
                 this.addGhostPreview(event)        
-                interval = this.handleAutoScrollForPhaseDrag(event, interval)
+                this.handleAutoScrollForPhaseDrag(event)
             }
             
             if (isChanged) {
@@ -235,7 +234,7 @@ export class KupGridRenderer {
         };
 
         const handleMouseUp = async (event: MouseEvent) => {
-            clearInterval(interval)
+            clearInterval(this.dragScrollInterval)
             const { action, originalSelectedTask, changedTask } =
             this.ganttEvent;
             if (
@@ -310,8 +309,10 @@ export class KupGridRenderer {
 
             if (action === 'move' && isNotLikeOriginal && newChangedTask.type === 'task') {
                 const droppedOn = this.tasks.find(task => changedTask.y >= task.y && changedTask.y <= (task.y + task.height) && changedTask.id !== task.id);
-                console.log('droppedOn: ', droppedOn);
-                this.phaseDrop(droppedOn, this.tasks)
+                const originalTaskData = this.tasks.find(task => task.id == originalSelectedTask.id.split("_").shift());
+                if (droppedOn?.type === 'project' && originalTaskData?.id !== droppedOn.id) {
+                    this.phaseDrop(originalSelectedTask, originalTaskData, originalSelectedTask, droppedOn)
+                }
             }
 
             // If operation is failed - return old state
@@ -360,16 +361,35 @@ export class KupGridRenderer {
         );
     }
 
-    handleAutoScrollForPhaseDrag(event: MouseEvent, interval: NodeJS.Timeout): NodeJS.Timeout {
-        const list = this.svg.parentElement.parentElement;
-        const halfHeight = list.offsetHeight / 2;
-        const relativeY = event.clientY - list.getBoundingClientRect().top;
-        clearInterval(interval)
-        if (event.clientY >= this.currentClientY - 1 && event.clientY <= this.currentClientY + 1) {
-            const scrollY = list.scrollTop += relativeY > halfHeight ? 30 : -30
-            return setInterval(() => this.phaseDragScroll(scrollY), 10)
-        } else {
-            this.currentClientY = event.clientY 
+    handleAutoScrollForPhaseDrag(event: MouseEvent) {
+        const list = this.svg?.parentElement?.parentElement;
+        if (!list) return;
+        clearInterval(this.dragScrollInterval)
+        const isOverFlowing = list.clientHeight < list.scrollHeight;
+
+        if (isOverFlowing) { // if container is overflowing we need to scroll within the container 
+            const containerRect = list.getBoundingClientRect();
+            const offsetY = event.clientY - containerRect.top;
+            const diff = 5;
+            if (offsetY - 20 < diff) {
+                this.dragScrollInterval = setInterval(() => {
+                    this.phaseDragScroll(list.scrollTop -= diff)
+                }, 1); 
+            } else if (offsetY + 20 > containerRect.height - diff) {
+                this.dragScrollInterval = setInterval(() => {
+                    this.phaseDragScroll(list.scrollTop += diff)
+                }, 1);
+            }
+        } else { // else we need to scroll the window when viewport exceeds
+            const scrollOffset = 20;
+            const windowHeight = window.innerHeight;
+            const y = event.clientY;
+          
+            if (y < scrollOffset) {
+              window.scrollBy(0, -scrollOffset);
+            } else if (y > windowHeight - scrollOffset) {
+              window.scrollBy(0, scrollOffset); 
+            }
         }
     }
 
@@ -481,7 +501,8 @@ export class KupGridRenderer {
                     !this.readOnly && !!this.dateChange && !task.isDisabled,
                     task,
                     task.x1secondary,
-                    (task.x2secondary ?? 0) - (task.x1secondary ?? 0)
+                    (task.x2secondary ?? 0) - (task.x1secondary ?? 0),
+                    task.ySecondary
                 )}
                 <g class="handleGroup">
                     {isDateResizable && (
@@ -548,7 +569,8 @@ export class KupGridRenderer {
         isDateMovable: KupPlannerTaskItemProps['isDateMovable'],
         task: KupPlannerBarTask,
         xSecondary?: KupPlannerBarDisplayProps['xSecondary'],
-        widthSecondary?: KupPlannerBarDisplayProps['widthSecondary']
+        widthSecondary?: KupPlannerBarDisplayProps['widthSecondary'],
+        ySecondary?: KupPlannerBarDisplayProps['ySecondary']
     ) {
         if (this.showSecondaryDates && typeof xSecondary !== 'undefined') {
             const halfHeight = height / 2;
@@ -563,7 +585,7 @@ export class KupGridRenderer {
                         key="top semi-transparent bar"
                         x={xSecondary}
                         width={widthSecondary}
-                        y={y}
+                        y={ySecondary ?? y}
                         height={halfHeight}
                         ry={barCornerRadius}
                         rx={barCornerRadius}
@@ -669,7 +691,7 @@ export class KupGridRenderer {
                     task.styles,
                     isSelected,
                     isDateMovable,
-                    task
+                    task,
                 )}
                 <g class="handleGroup">
                     {isProgressChangeable && (
@@ -877,7 +899,7 @@ export class KupGridRenderer {
             y += this.rowHeight;
         }
 
-        const now = new Date();
+        // const now = new Date();
         let tickX = 0;
         const ticks = [];
         for (let i = 0; i < this.dates.length; i++) {
@@ -892,22 +914,22 @@ export class KupGridRenderer {
                     class="gridTick"
                 />
             );
-            if (
-                (i + 1 !== this.dates.length &&
-                    date.getTime() < now.getTime() &&
-                    this.dates[i + 1].getTime() >= now.getTime()) ||
-                // if current date is last
-                (i !== 0 &&
-                    i + 1 === this.dates.length &&
-                    date.getTime() < now.getTime() &&
-                    addToDate(
-                        date,
-                        date.getTime() - this.dates[i - 1].getTime(),
-                        'millisecond'
-                    ).getTime() >= now.getTime())
-            ) {
-                // Add custom logic here if needed
-            }
+            // if (
+            //     (i + 1 !== this.dates.length &&
+            //         date.getTime() < now.getTime() &&
+            //         this.dates[i + 1].getTime() >= now.getTime()) ||
+            //     // if current date is last
+            //     (i !== 0 &&
+            //         i + 1 === this.dates.length &&
+            //         date.getTime() < now.getTime() &&
+            //         addToDate(
+            //             date,
+            //             date.getTime() - this.dates[i - 1].getTime(),
+            //             'millisecond'
+            //         ).getTime() >= now.getTime())
+            // ) {
+            //     // Add custom logic here if needed
+            // }
             tickX += this.columnWidth;
         }
         return (

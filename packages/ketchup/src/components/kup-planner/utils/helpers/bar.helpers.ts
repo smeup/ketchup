@@ -247,6 +247,7 @@ const convertToBar = (
         height: taskHeight,
         barChildren: [],
         styles,
+        ySecondary: y
     };
 };
 

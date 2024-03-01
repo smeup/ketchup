@@ -14,7 +14,6 @@ document.addEventListener('kup-planner-datechange', (e) => {
 });
 
 document.addEventListener('kup-planner-phasedrop', (e) => {
-    console.log('phase dropped')
     console.log(e)
 });
 
@@ -1491,11 +1490,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20991231',
+                            k: '20241231',
                             p: '*YYMD',
                             t: 'D8',
                         },
-                        value: '2099-12-31',
+                        value: '2024-12-31',
                     },
 
                     DATORD: {
@@ -1507,11 +1506,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20991231',
+                            k: '20241231',
                             p: '*YYMD',
                             t: 'D8',
                         },
-                        value: '2099-12-31',
+                        value: '2024-12-31',
                     },
 
                     DATINZ: {
@@ -1523,11 +1522,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20991231',
+                            k: '20241231',
                             p: '*YYMD',
                             t: 'D8',
                         },
-                        value: '2099-12-31',
+                        value: '2024-12-31',
                     },
 
                     'R§COMM': {
@@ -1614,7 +1613,7 @@ const props = {
     showSecondaryDates: true,
     taskColumns: ['R§COMM', 'R§CDCL', 'DATINZ', 'DATPRE'],
     taskDates: ['DATINZ', 'DATPRE'],
-    taskHeight: 400,
+    taskHeight: 0,
     taskIdCol: 'R§COMM',
     taskNameCol: 'R§COMM',
     taskPrevDates: ['INZORD', 'DATORD'],

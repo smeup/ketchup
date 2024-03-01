@@ -646,6 +646,7 @@ export class KupGantt {
                 newScrollX = this.svgWidth;
             }
             this.scrollX = newScrollX;
+            // this.taskListScrollX = newScrollX;
             window.dispatchEvent(
                 new CustomEvent<GanttSyncScrollEvent>(
                     'gantt-sync-scroll-event',
@@ -1062,6 +1063,7 @@ export class KupGantt {
                         listCellWidth={this.listCellWidth}
                         scrollableTaskList={this.scrollableTaskList}
                         taskListScrollWidth={this.taskListScrollWidth}
+                        taskListScrollNumber={this.taskListScrollX}
                     />
                 )}
             </div>

@@ -66,6 +66,7 @@ export enum KupPlannerTaskAction {
     onResize = 'onResize',
     onRightClick = 'onRightClick',
     onPhase = 'onPhase',
+    onTask = 'onTask',
 }
 
 export interface KupPlannerEventPayload extends KupEventPayload {
@@ -403,8 +404,10 @@ export interface KupPlannerEventOption {
      * Invokes on end and start time change. Chart undoes operation if method return false or error.
      */
     phaseDrop?: (
-        task: KupPlannerTask,
-        children: KupPlannerTask[]
+        originalPhaseData: KupPlannerTask,
+        originalTaskData: KupPlannerTask,
+        finalPhaseData: KupPlannerTask,
+        destinationData: KupPlannerTask,
     ) => void | boolean | Promise<void> | Promise<boolean>;
 }
 
@@ -499,6 +502,7 @@ export interface KupPlannerBarTask extends KupPlannerTask {
         progressColor: string;
         progressSelectedColor: string;
     };
+    ySecondary?: number 
 }
 
 export type KupPlannerTaskTypeInternal = KupPlannerTaskType | 'smalltask';
@@ -659,6 +663,7 @@ export type KupPlannerBarDisplayProps = {
     xSecondary?: number;
     widthSecondary?: number;
     showSecondaryDates: boolean;
+    ySecondary?: number
 };
 
 export type KupPlannerBarDateHandleProps = {

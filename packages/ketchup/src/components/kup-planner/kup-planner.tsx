@@ -1412,7 +1412,7 @@ export class KupPlanner {
     ) {
         this.onKupPhaseDrop(
             nativeEvent,
-            KupPlannerTaskAction.onPhase
+            KupPlannerTaskAction.onTask
         );
     }
 

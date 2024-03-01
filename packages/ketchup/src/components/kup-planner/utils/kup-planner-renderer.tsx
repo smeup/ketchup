@@ -308,21 +308,21 @@ export class KupPlannerRenderer {
 
     // Handle phase drop
     handlePhaseDrop(
-        task: KupPlannerTask,
-        currentProjects: KupPlannerGanttTask[] | KupPlannerItemDetail[],
+        originalPhaseData: KupPlannerGanttTaskN,
+        // originalTaskData: KupPlannerGanttTaskN | KupPlannerItemDetail,
+        finalPhaseData: KupPlannerGanttTaskN,
+        destinationData: KupPlannerGanttTaskN | KupPlannerItemDetail,
         onPhaseDrop: any
         ) {
-        const id = task?.id;
-        if (!id) {
-            return;
-        }
-        let row = getProjectById(id, currentProjects);
-        if (!row) {
-            return;
-        }
-
         // Invoke callback
-        onPhaseDrop?.(row);
+
+        delete finalPhaseData['taskRow']
+        onPhaseDrop?.({
+            originalPhaseData,
+            // originalTaskData,
+            finalPhaseData,
+            destinationData,
+        });
 
         // Use setTimeout to ensure DOM updates
         setTimeout(this.getScrollX, 500);
@@ -474,12 +474,18 @@ export class KupPlannerRenderer {
                             doubleView={this.mainGanttDoubleView ?? false}
                             setDoubleView={this.handleSetDoubleView.bind(this)}
                             scrollableTaskList={this.props.scrollableTaskList}
-                            phaseDrop={(task) =>
+                            phaseDrop={(originalPhaseData, originalTaskData, finalPhaseData, destinationData) => {
+                                const originalPhase = getPhaseById(originalPhaseData.id, this.currentTasks);
+                                const originalTask = getProjectById(originalTaskData.id, this.currentTasks);
+                                const finalPhase = getPhaseById(finalPhaseData.id, this.currentTasks);
+                                const destinationTask = getProjectById(destinationData.id, this.currentTasks);
                                 this.handlePhaseDrop(
-                                    task,
-                                    this.currentTasks as KupPlannerGanttTask[],
+                                    originalPhase,
+                                    // originalTask,
+                                    finalPhase,
+                                    destinationTask,
                                     this.props.mainGantt.onPhaseDrop
-                                )
+                                )}
                             }
                         />
                         {this.props.secondaryGantt && (
