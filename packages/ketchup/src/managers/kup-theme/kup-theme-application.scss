@@ -2371,7 +2371,7 @@ Please note that using !important should generally be avoided if possible, as it
 /*                   D i a l o g                   */
 /*-------------------------------------------------*/
 [kup-dialog] {
-  border: 4px solid var(--kup-gray-color-70);
+  border-top: 4px solid var(--kup-gray-color-70);
   animation: fade-in-down 0.25s ease-out;
   background-color: var(--kup-gray-color-0);
   margin: 0;
