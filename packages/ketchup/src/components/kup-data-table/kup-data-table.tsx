@@ -588,7 +588,7 @@ export class KupDataTable {
     /**
      * When set to true it activates the global filter.
      */
-    @Prop() globalFilter: boolean = true;
+    @Prop() globalFilter: boolean = false;
     /**
      * The value of the global filter.
      */
