@@ -5669,7 +5669,6 @@ export class KupDataTable {
                     )}
                 </style>
                 <div id={componentWrapperId}>
-                    <div class="above-wrapper">{paginatorTop}</div>
                     <div class="group-wrapper">{groupChips}</div>
                     <div class="actions-wrapper">
                         {this.globalFilter ? (
@@ -5699,6 +5698,9 @@ export class KupDataTable {
                                 />
                             </div>
                         ) : null}
+                        <div class="above-wrapper paginator-top">
+                            {paginatorTop}
+                        </div>
                         {this.insertMode !== '' &&
                         this.selectedRows.length > 0 ? (
                             <FButton

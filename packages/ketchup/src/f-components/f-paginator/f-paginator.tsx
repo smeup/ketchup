@@ -74,7 +74,7 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
                     )}
                     sizing={KupComponentSizing.MEDIUM}
                     styling={FButtonStyling.FLAT}
-                    wrapperClass="load-more-button"
+                    wrapperClass="load-more-button kup-neutral"
                 />
             ) : null}
             <kup-combobox
@@ -89,26 +89,28 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
                 initialValue={props.currentPage.toString()}
                 onkup-combobox-change={props.onPageChange}
             />
-            {props.mode !== FPaginatorMode.SIMPLE ? (
-                <FButton
-                    icon="chevron_left"
-                    disabled={isPrevPageDisabled(props)}
-                    onClick={props.onPrevPage}
-                    sizing={KupComponentSizing.MEDIUM}
-                    styling={FButtonStyling.FLAT}
-                    wrapperClass="kup-neutral prev-page"
-                />
-            ) : null}
-            {props.mode !== FPaginatorMode.SIMPLE ? (
-                <FButton
-                    icon="chevron_right"
-                    disabled={isNextPageDisabled(props)}
-                    onClick={props.onNextPage}
-                    sizing={KupComponentSizing.MEDIUM}
-                    styling={FButtonStyling.FLAT}
-                    wrapperClass="kup-neutral next-page"
-                />
-            ) : null}
+            <div class="arrow-wrapper">
+                {props.mode !== FPaginatorMode.SIMPLE ? (
+                    <FButton
+                        icon="chevron_left"
+                        disabled={isPrevPageDisabled(props)}
+                        onClick={props.onPrevPage}
+                        sizing={KupComponentSizing.MEDIUM}
+                        styling={FButtonStyling.FLAT}
+                        wrapperClass="kup-neutral prev-page"
+                    />
+                ) : null}
+                {props.mode !== FPaginatorMode.SIMPLE ? (
+                    <FButton
+                        icon="chevron_right"
+                        disabled={isNextPageDisabled(props)}
+                        onClick={props.onNextPage}
+                        sizing={KupComponentSizing.MEDIUM}
+                        styling={FButtonStyling.FLAT}
+                        wrapperClass="kup-neutral next-page"
+                    />
+                ) : null}
+            </div>
         </div>
     );
 };

@@ -430,18 +430,18 @@
     --kup-textfield-fullwidth-padding: 0px;
     --kup-checkbox-padding: 0px;
     --kup-chip-margin: 0 4px;
-    padding: 0.2em 1.14em;
+    padding: 0.2em 0.6em;
   }
 
   &.medium {
     --kup-textfield-fullwidth-height: 36px;
     --kup-textfield-fullwidth-padding: 0px;
-    padding: 0.5em 0.3125em;
+    padding: 0.5em 0.6em;
   }
 
   &.wide {
     --kup-textfield-fullwidth-height: 50px;
     --kup-textfield-fullwidth-padding: 0px;
-    padding: 1em 0.3125em;
+    padding: 1em 0.6em;
   }
 }

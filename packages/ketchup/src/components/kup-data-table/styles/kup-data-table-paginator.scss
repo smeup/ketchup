@@ -1,7 +1,7 @@
 .paginator-wrapper {
   display: flex;
   flex-flow: wrap;
-  min-width: max-content;
+  // min-width: max-content;
 }
 
 .paginator-tabs {
@@ -16,5 +16,14 @@
     height: 100%;
     margin-left: 0.25em;
     float: right;
+  }
+}
+
+@media (max-width: 500px) {
+  .paginator-wrapper {
+    min-width: fit-content;
+  }
+  .above-wrapper.paginator-top {
+    border-bottom: 1px solid var(--kup-gray-color-20);
   }
 }
