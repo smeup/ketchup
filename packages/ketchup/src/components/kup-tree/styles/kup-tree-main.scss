@@ -169,7 +169,7 @@
       & .kup-tree__icon ~ .cell-content,
       & .kup-tree__icon + .cell-content {
         display: inline-block;
-        vertical-align: 0.3em;
+        vertical-align: 0.2em;
         @include kup-body-compact-01;
       }
     }
@@ -192,9 +192,9 @@
     &__icon {
       display: inline-block;
       margin-right: 0.4em;
-      height: 1.5em;
-      min-width: 1.5em;
-      width: 1.5em;
+      height: 16px;
+      min-width: 16px;
+      width: 16px;
     }
 
     &__node__expander {
