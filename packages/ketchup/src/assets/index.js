@@ -187,6 +187,10 @@ components.data = [
         id: 'planner-example-4.html',
     },
     {
+        value: 'Planner example 5',
+        id: 'planner-example-5.html',
+    },
+    {
         value: 'Progress Bar',
         id: 'progress-bar.html',
     },

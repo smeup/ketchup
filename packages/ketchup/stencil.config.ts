@@ -90,6 +90,7 @@ export const config: Config = {
                 { src: 'planner-example-2.html' },
                 { src: 'planner-example-3.html' },
                 { src: 'planner-example-4.html' },
+                { src: 'planner-example-5.html' },
                 { src: 'probe.html' },
                 { src: 'progress-bar.html' },
                 { src: 'radio.html' },

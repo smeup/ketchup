@@ -293,6 +293,7 @@ export class KupCalendar {
                         start: event.start,
                         end: event.end,
                     },
+                    row: oldEvent.extendedProps?.row,
                 });
             },
             events: this.getEvents(),

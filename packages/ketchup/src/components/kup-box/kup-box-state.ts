@@ -6,6 +6,8 @@ export class KupBoxState implements KupState {
     pageSelected: number = 1;
     rowsPerPage: number = 0;
     load: boolean = false;
+    loadMoreLimit: number = 1000;
+    showLoadMore: boolean = false;
 
     /*Add attribute*/
 
