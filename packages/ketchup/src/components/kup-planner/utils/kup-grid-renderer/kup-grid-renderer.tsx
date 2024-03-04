@@ -222,6 +222,7 @@ export class KupGridRenderer {
             if (this.currentTarget) {
                 this.addGhostPreview(event)        
                 this.handleAutoScrollForPhaseDrag(event)
+                this.handleDragCursor('no-drop')
             }
             
             if (isChanged) {
@@ -235,6 +236,7 @@ export class KupGridRenderer {
 
         const handleMouseUp = async (event: MouseEvent) => {
             clearInterval(this.dragScrollInterval)
+            this.handleDragCursor('default')
             const { action, originalSelectedTask, changedTask } =
             this.ganttEvent;
             if (
@@ -358,7 +360,7 @@ export class KupGridRenderer {
             dragEle,
             mockEvent.clientX - nodeRect.left,
             mockEvent.clientY - nodeRect.top
-        );
+        ); 
     }
 
     handleAutoScrollForPhaseDrag(event: MouseEvent) {
@@ -391,6 +393,57 @@ export class KupGridRenderer {
               window.scrollBy(0, scrollOffset); 
             }
         }
+    }
+
+    handleDragCursor(cursorType: string) {
+        const rows = this.svg.querySelectorAll('.gridRow');
+        const wrappers = this.svg.querySelectorAll('.content .barWrapper');
+
+        // remove all existing no-drop classes
+        rows.forEach(element => element.classList.remove('no-drop'))
+        wrappers.forEach(element => element.classList.remove('no-drop'))
+
+        if (cursorType == 'default') return; // if mouse up event fired we dont need to manage cursor
+
+        /* 
+            find the tasks where drop is not allowed, includes all phases (also current phase) and parent project task 
+            the reason current phase is also included is because if user drags the phase over another phase we need to show
+            no-drop cursor on the current draggable phase, so we will initially keep the phase in dropNotAllowedOn array and if
+            users drags the phase over a droppable area we will remove the current phase from dropNotAllowedOn array and it will also
+            remove the no-drop class
+        */
+        let dropNotAllowedOn = this.tasks.filter(task =>
+            task.type == 'task' || this.ganttEvent.originalSelectedTask?.id?.split('_')?.shift() == task.id
+        );
+
+        // find the tasks where drop is allowed, includes all projects except parent project also includes current phase
+        const dropAllowedOn = this.tasks.filter(task =>
+            (task.type == 'project' && this.ganttEvent.originalSelectedTask?.id?.split('_')?.shift() != task.id)
+            || task.id == this.ganttEvent.originalSelectedTask.id
+        )
+
+        // to determine whether the phase is over some another project y area
+        const inDropArea = dropAllowedOn.some(task => this.ganttEvent.changedTask.y >= task.ySecondary && this.ganttEvent.changedTask.y <= (task.ySecondary + task.height))
+   
+        // if phase is in drop area we need to remove phase object from dropNotAllowedOn array, otherwise the no-drop cursor will remain on it
+        if (inDropArea) {
+            dropNotAllowedOn = dropNotAllowedOn.filter(task => task.id != this.ganttEvent.originalSelectedTask.id)
+        }
+        
+        const dropNotAllowedOnY = dropNotAllowedOn.map(task => task.id != this.ganttEvent.originalSelectedTask.id ? task.ySecondary: task.y);
+        rows.forEach(element => {
+            const gap = +element.attributes['y'].value == 0 ? 4 : 2
+            if (dropNotAllowedOnY.includes(+element.attributes['y'].value + gap)) {
+                element.classList.add('no-drop')
+            }   
+        })
+
+        wrappers.forEach(element => {
+            const rect = element.querySelector('rect')
+            if (dropNotAllowedOnY.includes(+rect.attributes['y'].value)) {
+                element.classList.add('no-drop')
+            }
+        })
     }
 
     handleBarEventStart(
