@@ -24,7 +24,6 @@ import {
 import { KupDates } from '../../../managers/kup-dates/kup-dates';
 import { ganttDateTimeFormatters } from './kup-planner-time-formatter';
 import { CustomTooltipHOC } from './custom-tool-tip';
-
 @Component({
     tag: 'kup-planner-renderer',
     styleUrl: '',

@@ -2,31 +2,24 @@
   display: grid;
   grid-auto-flow: column;
   grid-gap: 8px;
-  margin-left: 12px;
   width: max-content;
+  margin-bottom: var(--kup-space-05);
 }
 
 .button {
-  background: transparent;
-  border-color: var(--kup-primary-color, #003b77);
-  border-radius: 4px;
-  border-width: 1px;
-  box-shadow: 0 3px 1px -2px rgba(var(--kup-text-color-rgb, 51 51 51), 0.2),
-    0 2px 2px 0 rgba(var(--kup-text-color-rgb, 51 51 51), 0.14),
-    0 1px 5px 0 rgba(var(--kup-text-color-rgb, 51 51 51), 0.12);
+  background-color: var(--kup-gray-color-70);
+  border: none;
+  text-align: left;
   box-sizing: border-box;
-  color: var(--kup-primary-color, #003b77);
+  color: var(--kup-gray-color-0);
   cursor: pointer;
-  font-size: 11px;
-  height: 32px;
-  min-width: 64px;
+  padding: var(--kup-space-03) var(--kup-space-05);
+  &:hover {
+    background-color: var(--kup-gray-color-90);
+  }
 }
 
 .label {
-  font-family: var(--kup-font-family, inherit);
-  font-size: 11px;
-  letter-spacing: 0.0892857143em;
   text-decoration: none;
-  text-transform: uppercase;
-  padding: 0 6px;
+  @include kup-body-compact-01;
 }

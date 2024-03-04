@@ -8,11 +8,10 @@
 }
 
 .ganttContainer {
-  background: #efefef;
-  border-radius: 8px;
-  margin: 12px;
+  background: var(--kup-gray-color-20);
+  border-radius: var(--kup-radius-00);
   overflow: hidden;
-  padding: 12px;
+  padding: var(--kup-space-05);
 }
 
 .ganttVerticalContainer {
@@ -30,11 +29,4 @@
 
 .task-gantt {
   overflow: hidden;
-}
-
-.tasks {
-  border-radius: 8px;
-  background: #efefef;
-  margin: 12px;
-  padding: 12px;
 }

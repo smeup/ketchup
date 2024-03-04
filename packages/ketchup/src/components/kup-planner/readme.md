@@ -143,18 +143,10 @@ graph TD;
   kup-planner --> kup-badge
   kup-planner-renderer --> kup-switcher
   kup-planner-renderer --> kup-gantt
-  kup-gantt --> kup-standard-tooltip
-  kup-gantt --> kup-task-list-header
-  kup-gantt --> kup-task-list-table
-  kup-gantt --> kup-task-list
-  kup-gantt --> kup-task-gantt
-  kup-gantt --> kup-tooltip
-  kup-gantt --> kup-vertical-scroll
-  kup-gantt --> kup-horizontal-scroll
-  kup-task-list --> kup-custom-task-list-header
-  kup-task-list --> kup-custom-task-list-table
-  kup-task-gantt --> kup-gantt-calendar
-  kup-task-gantt --> kup-grid-renderer
+  kup-switcher --> kup-badge
+  kup-badge --> kup-badge
+  kup-badge --> kup-card
+  kup-badge --> kup-dialog
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -194,9 +186,6 @@ graph TD;
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
-  kup-badge --> kup-badge
-  kup-badge --> kup-card
-  kup-badge --> kup-dialog
   kup-chip --> kup-card
   kup-chip --> kup-dialog
   kup-chip --> kup-badge
@@ -305,6 +294,18 @@ graph TD;
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
+  kup-gantt --> kup-standard-tooltip
+  kup-gantt --> kup-task-list-header
+  kup-gantt --> kup-task-list-table
+  kup-gantt --> kup-task-list
+  kup-gantt --> kup-task-gantt
+  kup-gantt --> kup-tooltip
+  kup-gantt --> kup-vertical-scroll
+  kup-gantt --> kup-horizontal-scroll
+  kup-task-list --> kup-custom-task-list-header
+  kup-task-list --> kup-custom-task-list-table
+  kup-task-gantt --> kup-gantt-calendar
+  kup-task-gantt --> kup-grid-renderer
   style kup-planner fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
