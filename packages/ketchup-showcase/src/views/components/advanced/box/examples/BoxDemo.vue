@@ -109,6 +109,10 @@ export default {
           type: 'CustomEvent',
         },
         {
+          name: 'kup-box-loadmoreclick',
+          type: 'click',
+        },
+        {
           name: 'kup-box-selected',
           type: 'CustomEvent',
         },
@@ -267,6 +271,30 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'loadMoreLimit',
+          description:
+            'Sets a maximum limit of new records which can be required by the load more functionality.',
+          type: 'number',
+          default: '1000',
+          try: 'field',
+        },
+        {
+          prop: 'loadMoreMode',
+          description:
+            'Establish the modality of how many new records will be downloaded.',
+          type: 'LoadMoreMode',
+          default: 'progressive_threshold',
+          try: 'field',
+        },
+        {
+          prop: 'loadMoreStep',
+          description:
+            'The number of records which will be requested to be downloaded when clicking on the load more button.',
+          type: 'number',
+          default: '60',
+          try: 'field',
+        },
+        {
           prop: 'multiSelection',
           description: 'Enable multi selection.',
           type: 'boolean',
@@ -316,6 +344,14 @@ export default {
           isArray: true,
           default: '[]',
           try: 'json',
+        },
+        {
+          prop: 'showLoadMore',
+          description:
+            'If set to true, displays the button to load more records.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'showSelection',

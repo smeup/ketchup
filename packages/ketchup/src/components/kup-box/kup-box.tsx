@@ -32,6 +32,8 @@ import {
     KupBoxContextMenuEventPayload,
     KupBoxData,
     KupBoxEventHandlerDetails,
+    LoadMoreMode,
+    KupBoxLoadMoreClickEventPayload,
 } from './kup-box-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -139,6 +141,8 @@ export class KupBox {
                 this.selectedRowsState = this.state.selectedRowsState;
                 this.pageSelected = this.state.pageSelected;
                 this.rowsPerPage = this.state.rowsPerPage;
+                this.loadMoreLimit = state.loadMoreLimit;
+                this.showLoadMore = state.showLoadMore;
             }
         }
     }
@@ -201,6 +205,25 @@ export class KupBox {
                 )
             ) {
                 this.state.selectedRowsState = selectedRowsState;
+                somethingChanged = true;
+            }
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.loadMoreLimit,
+                    this.loadMoreLimit
+                )
+            ) {
+                this.state.loadMoreLimit = this.loadMoreLimit;
+                somethingChanged = true;
+            }
+
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.showLoadMore,
+                    this.showLoadMore
+                )
+            ) {
+                this.state.showLoadMore = this.showLoadMore;
                 somethingChanged = true;
             }
 
@@ -298,6 +321,26 @@ export class KupBox {
      */
     @Prop() lazyLoadRows: boolean = false;
     /**
+     * Sets a maximum limit of new records which can be required by the load more functionality.
+     */
+    @Prop() loadMoreLimit: number = 1000;
+    /**
+     * Establish the modality of how many new records will be downloaded.
+     *
+     * This property is regulated also by loadMoreStep.
+     * @see loadMoreStep
+     * @see loadMoreLimit
+     */
+    @Prop() loadMoreMode: LoadMoreMode = LoadMoreMode.PROGRESSIVE_THRESHOLD;
+    /**
+     * The number of records which will be requested to be downloaded when clicking on the load more button.
+     *
+     * This property is regulated also by loadMoreMode.
+     * @see loadMoreMode
+     * @see loadMoreLimit
+     */
+    @Prop() loadMoreStep: number = 60;
+    /**
      * Enable multi selection
      * @default false
      */
@@ -332,6 +375,10 @@ export class KupBox {
      * @default undefined
      */
     @Prop({ mutable: true }) selectedRowsState: string;
+    /**
+     * If set to true, displays the button to load more records.
+     */
+    @Prop() showLoadMore: boolean = false;
     /**
      * If enabled, highlights the selected box/boxes
      * @default true
@@ -378,6 +425,9 @@ export class KupBox {
     #intObserver: IntersectionObserver = undefined;
     #rowsRefs: HTMLElement[] = [];
     #navBarHeight: number = 0;
+
+    #loadMoreEventCounter: number = 0;
+    #loadMoreEventPreviousQuantity: number = 0;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -467,6 +517,14 @@ export class KupBox {
     })
     kupBoxContextMenu: EventEmitter<KupBoxContextMenuEventPayload>;
 
+    @Event({
+        eventName: 'kup-box-loadmoreclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupLoadMoreClick: EventEmitter<KupBoxLoadMoreClickEventPayload>;
+
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
     /*-------------------------------------------------*/
@@ -517,6 +575,7 @@ export class KupBox {
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         return getProps(this, KupBoxProps, descriptions);
     }
+
     @Method()
     async loadRowActions(row: KupBoxRow, actions: KupDataRowAction[]) {
         row.actions = actions;
@@ -1769,10 +1828,10 @@ export class KupBox {
                     );
                     const delta =
                         this.data.rows.length - this.currentRowsPerPage;
-                    if (delta < 10) {
+                    if (delta < this.loadMoreStep) {
                         this.currentRowsPerPage += delta;
                     } else {
-                        this.currentRowsPerPage += 10;
+                        this.currentRowsPerPage += this.loadMoreStep;
                     }
                     entry.target.classList.remove('last-row');
                     this.#intObserver.unobserve(entry.target);
@@ -1784,6 +1843,41 @@ export class KupBox {
             rootMargin: '-' + this.#navBarHeight + 'px 0px 0px 0px',
         };
         this.#intObserver = new IntersectionObserver(callback, options);
+    }
+
+    // Handler for loadMore button is clicked.
+    #onLoadMoreClick() {
+        let loadItems: number = 0;
+
+        switch (this.loadMoreMode) {
+            case LoadMoreMode.CONSTANT:
+                loadItems = this.loadMoreStep;
+                break;
+            case LoadMoreMode.CONSTANT_INCREMENT:
+                loadItems =
+                    this.loadMoreStep * (this.#loadMoreEventCounter + 1);
+                break;
+            case LoadMoreMode.PROGRESSIVE_THRESHOLD:
+                loadItems =
+                    Math.max(
+                        this.#loadMoreEventPreviousQuantity,
+                        this.loadMoreStep
+                    ) * Math.min(this.#loadMoreEventCounter + 1, 2);
+                break;
+        }
+
+        if (loadItems > this.loadMoreLimit) {
+            loadItems = this.loadMoreLimit;
+        }
+
+        this.kupLoadMoreClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            loadItems: loadItems,
+        });
+
+        this.#loadMoreEventPreviousQuantity = loadItems;
+        this.#loadMoreEventCounter++;
     }
 
     /*-------------------------------------------------*/
@@ -1924,17 +2018,32 @@ export class KupBox {
         }
 
         let paginator = null;
-        if (!this.lazyLoadRows && this.pagination) {
+        // paginaltorPos prop not managed yet
+        const top: boolean = true;
+        if (this.showLoadMore || (!this.lazyLoadRows && this.pagination)) {
             paginator = (
                 <FPaginator
                     id={top ? 'top-paginator' : 'bottom-paginator'}
                     currentPage={this.currentPage}
                     max={this.filteredRows.length}
-                    mode={FPaginatorMode.SIMPLE}
+                    // mode={FPaginatorMode.SIMPLE}
                     perPage={
                         this.currentRowsPerPage
                             ? this.currentRowsPerPage
                             : this.rowsPerPage
+                    }
+                    onLoadMore={
+                        this.showLoadMore
+                            ? () => {
+                                  this.#onLoadMoreClick();
+                              }
+                            : null
+                    }
+                    onNextPage={() =>
+                        this.handlePageChange(this.currentPage + 1)
+                    }
+                    onPrevPage={() =>
+                        this.handlePageChange(this.currentPage - 1)
                     }
                     onPageChange={(e: CustomEvent<KupComboboxEventPayload>) =>
                         this.handlePageChange(e.detail.value)
