@@ -16,14 +16,21 @@
 */
 
 :host {
-  --kup_list_background: var(--kup-list-background, var(--kup-gray-color-10));
-  --kup_list_background_hover: var(
-    --kup-list-background-hover,
+  --kup_list_background_color: var(
+    --kup-list-background-color,
+    var(--kup-gray-color-10)
+  );
+  --kup_list_background_color_hover: var(
+    --kup-list-background-color-hover,
     var(--kup-gray-color-20)
   );
 
   --kup_list_focus_color: var(--kup-list-focus-color, var(--kup-primary-color));
-  --kup_list_color: var(--kup-list-color, var(--kup-gray-color-70));
+  --kup_list_text_color: var(--kup-list-text-color, var(--kup-gray-color-70));
+  --kup_list_text_color_hover: var(
+    --kup-list-text-color-hover,
+    var(--kup-gray-color-90)
+  );
   --kup_list_font_family: var(--kup-list-font-family, var(--kup-font-family));
   --kup_list_font_size: var(--kup-list-font-size, var(--kup-font-size));
   --kup_list_font_weight: var(--kup-list-font-weight, 400);
@@ -63,8 +70,8 @@
 }
 
 .list {
-  background: var(--kup_list_background);
-  color: var(--kup_list_color);
+  background: var(--kup_list_background_color);
+  color: var(--kup_list_text_color);
   font-weight: var(--kup_list_font_weight);
   letter-spacing: 0.009375em;
   line-height: 1.5em;
@@ -106,8 +113,8 @@
     &.list-item--activated .list-item__graphic,
     &.list-item--selected,
     &.list-item--selected .list-item__graphic {
-      background-color: var(--kup_list_background_hover);
-      color: var(--kup-hover-color);
+      background-color: var(--kup_list_background_color_hover);
+      color: var(--kup_list_text_color_hover);
     }
 
     .list-item__text {
@@ -160,7 +167,7 @@
       overflow: hidden;
       margin-top: 0;
       line-height: normal;
-      color: var(--kup_list_color);
+      color: var(--kup_list_text_color);
       opacity: 0.75;
     }
 
@@ -205,8 +212,8 @@
       &:not(.list-item--selected) {
         &:hover,
         &.list-item--focused {
-          background-color: var(--kup_list_background_hover);
-          color: var(--kup-hover-color);
+          background-color: var(--kup_list_background_color_hover);
+          color: var(--kup_list_text_color_hover);
         }
       }
     }
@@ -221,7 +228,7 @@
 
 .kup-menu {
   animation: fade-in 0.25s ease-out;
-  background-color: var(--kup_list_background);
+  background-color: var(--kup_list_background_color);
   box-shadow: var(--kup_list_box_shadow);
   border: 1px solid var(--kup_list_focus_color);
   color: var(--kup-text-color);

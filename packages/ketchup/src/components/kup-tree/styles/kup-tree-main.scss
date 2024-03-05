@@ -57,20 +57,11 @@
     var(--kup-font-family-monospace)
   );
   --kup_tree_font_size: var(--kup-tree-font-size, var(--kup-font-size));
-  --kup_tree_hover_color: var(--kup-tree-hover-color, var(--kup-hover-color));
+  --kup_tree_text_hover_color: var(
+    --kup-tree-text-hover-color,
+    var(--kup-gray-color-90)
+  );
   --kup_tree_icon_color: var(--kup-tree-icon-color, var(--kup-gray-color-70));
-  --kup_tree_primary_color: var(
-    --kup-tree-primary-color,
-    var(--kup-primary-color)
-  );
-  --kup_tree_primary_color_rgb: var(
-    --kup-tree-primary-color-rgb,
-    var(--kup-primary-color-rgb)
-  );
-  --kup_tree_text_on_primary_color: var(
-    --kup-tree-text-on-primary-color,
-    var(--kup-text-on-primary-color)
-  );
 
   display: block;
   font-family: var(--kup_tree_font_family);
@@ -240,10 +231,10 @@
 
       &:hover:not(.kup-tree__node--disabled):not(.kup-tree__node--selected) td {
         background-color: var(--kup_tree_tr_background_color_hover);
-        color: var(--kup_tree_hover_color);
+        color: var(--kup_tree_text_hover_color);
 
         .#{$kup-icon} {
-          background-color: var(--kup_tree_hover_color);
+          background-color: var(--kup_tree_text_hover_color);
         }
       }
 
@@ -384,11 +375,11 @@ tfoot {
       background-color: var(--kup_tree_tr_background_color_hover);
 
       .cell-content {
-        color: var(--kup_tree_hover_color);
+        color: var(--kup_tree_text_hover_color);
       }
 
       .#{$kup-icon} {
-        background-color: var(--kup_tree_hover_color);
+        background-color: var(--kup_tree_text_hover_color);
       }
     }
 
@@ -398,16 +389,6 @@ tfoot {
 
       .#{$kup-icon-dropdown} {
         transform: rotate(180deg);
-      }
-    }
-
-    &:first-of-type {
-      .first-node {
-      }
-    }
-
-    &:last-of-type {
-      .first-node {
       }
     }
 
@@ -457,7 +438,7 @@ tfoot {
   animation: fade-in 0.25s ease-out;
   background-color: var(--kup-background-color);
   box-shadow: var(--kup-box-shadow);
-  color: var(--kup-text-color);
+  color: var(kup_tree_text_color);
   display: none;
   max-height: 33vh;
   overflow: auto;

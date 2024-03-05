@@ -17,7 +17,7 @@
   --kup_box_color: var(--kup-box-color, var(--kup-text-color));
   --kup_box_font_family: var(--kup-box-font-family, var(--kup-font-family));
   --kup_box_font_size: var(--kup-box-font-size, var(--kup-font-size));
-  --kup_box_grid_gap: var(--kup-box-grid-gap, 1em);
+  --kup_box_grid_gap: var(--kup-box-grid-gap, var(--kup-space-05));
   --kup_box_hover_box_shadow: var(
     --kup-box-hover-box-shadow,
     0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
