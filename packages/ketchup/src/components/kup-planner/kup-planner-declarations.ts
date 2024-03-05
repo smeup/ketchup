@@ -143,6 +143,7 @@ export const defaultStylingOptions = {
     barProgressSelectedColor: '#A2A415',
     barBackgroundColor: '#A2A415',
     barBackgroundSelectedColor: '#A2A415',
+    barDropZoneColor: '#4d9f0240'
 };
 
 export interface KupPlannerDatesSanitized {

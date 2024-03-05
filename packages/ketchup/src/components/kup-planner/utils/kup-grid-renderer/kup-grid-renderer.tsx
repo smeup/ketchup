@@ -11,6 +11,7 @@ import {
     KupPlannerTaskGanttProps,
     KupPlannerTaskItemProps,
     KupPlannerTaskIconProps,
+    defaultStylingOptions,
 } from '../../kup-planner-declarations';
 import { addToDate } from '../kup-planner-renderer-helper';
 import {
@@ -157,6 +158,9 @@ export class KupGridRenderer {
     @State()
     dragScrollInterval: NodeJS.Timeout;
 
+    @State()
+    dropZoneTask: KupPlannerBarTask | null;
+
     //---- Lifecycle hooks ----
 
     componentDidLoad() {
@@ -222,7 +226,7 @@ export class KupGridRenderer {
             if (this.currentTarget) {
                 this.addGhostPreview(event)        
                 this.handleAutoScrollForPhaseDrag(event)
-                this.handleDragCursor('no-drop')
+                this.addDropzoneVisualization()
             }
             
             if (isChanged) {
@@ -236,7 +240,7 @@ export class KupGridRenderer {
 
         const handleMouseUp = async (event: MouseEvent) => {
             clearInterval(this.dragScrollInterval)
-            this.handleDragCursor('default')
+            this.resetDropzoneVisualization()
             const { action, originalSelectedTask, changedTask } =
             this.ganttEvent;
             if (
@@ -310,9 +314,9 @@ export class KupGridRenderer {
             }
 
             if (action === 'move' && isNotLikeOriginal && newChangedTask.type === 'task') {
-                const droppedOn = this.tasks.find(task => changedTask.y >= task.y && changedTask.y <= (task.y + task.height) && changedTask.id !== task.id);
+                const droppedOn = this.tasks.find(task => this.isPhaseWithinTaskArea(changedTask, task) && task.type === 'project');
                 const originalTaskData = this.tasks.find(task => task.id == originalSelectedTask.id.split("_").shift());
-                if (droppedOn?.type === 'project' && originalTaskData?.id !== droppedOn.id) {
+                if (droppedOn?.id && originalTaskData?.id !== droppedOn?.id) {
                     this.phaseDrop(originalSelectedTask, originalTaskData, originalSelectedTask, droppedOn)
                 }
             }
@@ -395,54 +399,39 @@ export class KupGridRenderer {
         }
     }
 
-    handleDragCursor(cursorType: string) {
-        const rows = this.svg.querySelectorAll('.gridRow');
-        const wrappers = this.svg.querySelectorAll('.content .barWrapper');
+    isPhaseWithinTaskArea(phase: KupPlannerBarTask, task: KupPlannerBarTask) {
+        return (phase.y + phase.height) >= task.ySecondary && phase.y <= (task.ySecondary + task.height)
+        && phase.x2 >= task.x1 && phase.x1 <= task.x2
+    }
 
-        // remove all existing no-drop classes
-        rows.forEach(element => element.classList.remove('no-drop'))
-        wrappers.forEach(element => element.classList.remove('no-drop'))
-
-        if (cursorType == 'default') return; // if mouse up event fired we dont need to manage cursor
-
-        /* 
-            find the tasks where drop is not allowed, includes all phases (also current phase) and parent project task 
-            the reason current phase is also included is because if user drags the phase over another phase we need to show
-            no-drop cursor on the current draggable phase, so we will initially keep the phase in dropNotAllowedOn array and if
-            users drags the phase over a droppable area we will remove the current phase from dropNotAllowedOn array and it will also
-            remove the no-drop class
-        */
-        let dropNotAllowedOn = this.tasks.filter(task =>
-            task.type == 'task' || this.ganttEvent.originalSelectedTask?.id?.split('_')?.shift() == task.id
-        );
-
+    addDropzoneVisualization() {
+        this.resetDropzoneVisualization()
         // find the tasks where drop is allowed, includes all projects except parent project also includes current phase
         const dropAllowedOn = this.tasks.filter(task =>
             (task.type == 'project' && this.ganttEvent.originalSelectedTask?.id?.split('_')?.shift() != task.id)
-            || task.id == this.ganttEvent.originalSelectedTask.id
         )
 
-        // to determine whether the phase is over some another project y area
-        const inDropArea = dropAllowedOn.some(task => this.ganttEvent.changedTask.y >= task.ySecondary && this.ganttEvent.changedTask.y <= (task.ySecondary + task.height))
-   
-        // if phase is in drop area we need to remove phase object from dropNotAllowedOn array, otherwise the no-drop cursor will remain on it
-        if (inDropArea) {
-            dropNotAllowedOn = dropNotAllowedOn.filter(task => task.id != this.ganttEvent.originalSelectedTask.id)
-        }
-        
-        const dropNotAllowedOnY = dropNotAllowedOn.map(task => task.id != this.ganttEvent.originalSelectedTask.id ? task.ySecondary: task.y);
-        rows.forEach(element => {
-            const gap = +element.attributes['y'].value == 0 ? 4 : 2
-            if (dropNotAllowedOnY.includes(+element.attributes['y'].value + gap)) {
-                element.classList.add('no-drop')
-            }   
-        })
+        const changedTask = this.ganttEvent.changedTask;
 
-        wrappers.forEach(element => {
-            const rect = element.querySelector('rect')
-            if (dropNotAllowedOnY.includes(+rect.attributes['y'].value)) {
-                element.classList.add('no-drop')
-            }
+        // to determine whether the phase is in some another project y and x area
+        this.dropZoneTask = dropAllowedOn.find(task =>  this.isPhaseWithinTaskArea(changedTask, task))
+
+        if (this.dropZoneTask?.ySecondary) {
+            const rects = this.svg.querySelectorAll(`.barWrapper[data-type="${this.dropZoneTask.type}"] rect[y='${this.dropZoneTask.ySecondary}']`)
+
+            rects.forEach(rect => {
+                rect.setAttribute('fill', defaultStylingOptions.barDropZoneColor)
+            })
+        }
+    }
+
+    resetDropzoneVisualization() {
+        if (!this.dropZoneTask) return;
+        const rects = this.svg.querySelectorAll(`.barWrapper[data-type="${this.dropZoneTask.type}"] rect[y='${this.dropZoneTask.ySecondary}']`)
+
+        const isSelected = !!this.selectedTask && this.dropZoneTask.id === this.selectedTask.id
+        rects.forEach(rect => {
+            rect.setAttribute('fill', this.getBarColor(isSelected, this.dropZoneTask.styles))
         })
     }
 
@@ -540,7 +529,7 @@ export class KupGridRenderer {
         isProgressChangeable: boolean
         ) {
         return (
-            <g class="barWrapper" tab-index={0}>
+            <g class="barWrapper" tab-index={0} data-type={task.type}>
                 {this.renderKupBarDisplay(
                     task.x1,
                     task.y,
