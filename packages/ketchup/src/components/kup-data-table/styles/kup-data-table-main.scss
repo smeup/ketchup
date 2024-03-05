@@ -38,6 +38,10 @@
     --kup-datatable-background-color,
     var(--kup-gray-color-10)
   );
+  --kup_datatable_background_color_active: var(
+    --kup-datatable-background-color-active,
+    var(--kup-gray-color-20)
+  );
   --kup_datatable_border: var(
     --kup-datatable-border-color,
     1px solid var(--kup-gray-color-20)
@@ -360,7 +364,7 @@ tbody {
 
     &.selected {
       td {
-        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+        background-color: var(--kup_datatable_background_color_active);
       }
     }
 
