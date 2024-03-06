@@ -25,7 +25,11 @@
   --kup_imagelist_image_min_height: var(--kup-imagelist-image-min-height, 64px);
   --kup_imagelist_item_border_radius: var(
     --kup-imagelist-item-border-radius,
-    8px
+    var(--kup-radius-00)
+  );
+  --kup_imagelist_box_shadow_hover: var(
+    --kup-box-box-shadow-hover,
+    0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
   );
   --kup_imagelist_item_height: var(--kup-imagelist-item-height, auto);
   --kup_imagelist_item_padding: var(--kup-imagelist-item-padding, 0);
@@ -38,6 +42,7 @@
     --kup-imagelist-navbar-background-color,
     transparent
   );
+
   --kup_imagelist_primary_color: var(
     --kup-imagelist-primary-color,
     var(--kup-primary-color)
@@ -48,7 +53,11 @@
   );
   --kup_imagelist_text_color: var(
     --kup-imagelist-text-color,
-    var(--kup-text-color)
+    var(--kup-gray-color-70)
+  );
+  --kup_imagelist_item_background_color: var(
+    --kup-imagelist-item-background-color,
+    var(--kup-gray-color-10)
   );
 
   display: block;
@@ -126,11 +135,15 @@
   }
 
   &__item {
+    background-color: var(--kup_imagelist_item_background_color);
     border-radius: var(--kup_imagelist_item_border_radius);
     cursor: pointer;
     height: var(--kup_imagelist_item_height);
     padding: var(--kup_imagelist_item_padding);
     width: var(--kup_imagelist_item_width);
+    &:hover {
+      box-shadow: var(--kup_imagelist_box_shadow_hover);
+    }
   }
 
   &__image.f-image {
@@ -148,14 +161,5 @@
     overflow: hidden;
     text-align: center;
     text-overflow: ellipsis;
-  }
-
-  .mdc-ripple-surface {
-    --mdc-ripple-fg-opacity: 0.24;
-
-    &:before,
-    &:after {
-      background-color: var(--kup_imagelist_primary_color);
-    }
   }
 }
