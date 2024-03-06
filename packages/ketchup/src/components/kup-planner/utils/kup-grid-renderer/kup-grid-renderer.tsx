@@ -417,9 +417,8 @@ export class KupGridRenderer {
         this.dropZoneTask = dropAllowedOn.find(task =>  this.isPhaseWithinTaskArea(changedTask, task))
 
         if (this.dropZoneTask?.ySecondary) {
-            const rects = this.svg.querySelectorAll(`.barWrapper[data-type="${this.dropZoneTask.type}"] rect[y='${this.dropZoneTask.ySecondary}']`)
-
-            rects.forEach(rect => {
+            const rects = this.getBarRectsForDropzoneVisualization();
+            rects.forEach((rect: Element) => {
                 rect.setAttribute('fill', defaultStylingOptions.barDropZoneColor)
             })
         }
@@ -427,12 +426,38 @@ export class KupGridRenderer {
 
     resetDropzoneVisualization() {
         if (!this.dropZoneTask) return;
-        const rects = this.svg.querySelectorAll(`.barWrapper[data-type="${this.dropZoneTask.type}"] rect[y='${this.dropZoneTask.ySecondary}']`)
+        const rects = this.getBarRectsForDropzoneVisualization();
 
         const isSelected = !!this.selectedTask && this.dropZoneTask.id === this.selectedTask.id
-        rects.forEach(rect => {
+        rects.forEach((rect: Element) => {
             rect.setAttribute('fill', this.getBarColor(isSelected, this.dropZoneTask.styles))
         })
+    }
+
+    getBarRectsForDropzoneVisualization(): Element[] | NodeListOf<Element> {
+        let rects: Element[] | NodeListOf<Element>;
+
+        if (!this.showSecondaryDates) {
+            rects = this.svg.querySelectorAll(`.barWrapper[data-type="${this.dropZoneTask.type}"] rect[y='${this.dropZoneTask.ySecondary}']`);
+        } else {
+            const rect = this.svg.querySelector(`.barWrapper[data-type="${this.dropZoneTask.type}"] rect[y='${this.dropZoneTask.ySecondary}']`);
+            const siblings = [rect];
+            let nextSibling = rect.nextElementSibling;
+            while (nextSibling !== null) {
+                siblings.push(nextSibling);
+                nextSibling = nextSibling.nextElementSibling;
+            }
+
+            let prevSibling = rect.previousElementSibling;
+            while (prevSibling !== null) {
+                siblings.unshift(prevSibling);
+                prevSibling = prevSibling.previousElementSibling;
+            }
+
+            rects = siblings;
+        }
+
+        return rects;
     }
 
     handleBarEventStart(
@@ -1144,6 +1169,18 @@ export class KupGridRenderer {
                                 </g>
                             );
                         })}
+                        {this.currentTarget && this.ganttEvent.changedTask && (
+                            <g class="task-wrapper">
+                                {
+                                    this.renderKupBar(
+                                        this.ganttEvent.changedTask,
+                                        false,
+                                        false,
+                                        false
+                                    )
+                                }
+                            </g>
+                        )}
                     </g>
                 </g>
             </svg>
