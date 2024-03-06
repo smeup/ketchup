@@ -18,9 +18,9 @@
     }
 
     .value {
-      font-size: 40px;
       @include kup-heading-08;
       color: var(--kup-dash-value-text-color, var(--kup_dash_value_text_color));
+      font-size: 130%;
     }
   }
 }
