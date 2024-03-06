@@ -18,5 +18,6 @@
   .value {
     font-weight: bold;
     padding: 0.5em;
+    @include kup-heading-compact-01;
   }
 }

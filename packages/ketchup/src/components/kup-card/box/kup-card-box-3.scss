@@ -35,7 +35,7 @@
 
   .value {
     padding: 0.5em;
-    font-weight: bold;
+    @include kup-heading-compact-01;
   }
 
   .f-cell .f-cell__text {

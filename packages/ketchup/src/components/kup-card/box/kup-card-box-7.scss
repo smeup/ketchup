@@ -28,7 +28,7 @@
   }
 
   .value {
-    font-weight: bold;
+    @include kup-heading-compact-01;
   }
 
   .table {

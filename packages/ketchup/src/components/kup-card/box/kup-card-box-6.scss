@@ -25,7 +25,7 @@
   }
 
   .value {
-    font-weight: bold;
+    @include kup-heading-compact-01;
     padding-bottom: 1.25em;
   }
 

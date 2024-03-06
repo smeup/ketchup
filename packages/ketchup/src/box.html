@@ -45,6 +45,11 @@
     </head>
 
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true, logLimit: 10000 },
+            };
+        </script>
         <h1> Kanban Box</h1>
         <kup-box id="kanban-box"></kup-box>
         <h1> Graphic Box</h1>
