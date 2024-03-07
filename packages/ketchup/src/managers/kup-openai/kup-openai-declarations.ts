@@ -6,6 +6,7 @@ export interface KupOpenAIParameters {
 }
 
 export interface KupOpenAISessionInfo {
+    context: string;
     fileId: string;
     threadId: string;
 }

@@ -125,6 +125,7 @@ export class KupOpenAI {
             }
             const responseJson = await response.json();
             this.sessionInfo = {
+                context: this.context,
                 fileId: responseJson.fileId,
                 threadId: responseJson.threadId,
             };
@@ -151,6 +152,7 @@ export class KupOpenAI {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    context: this.sessionInfo.context,
                     fileId: this.sessionInfo.fileId,
                     threadId: this.sessionInfo.threadId,
                 }),
@@ -168,22 +170,23 @@ export class KupOpenAI {
         }
     }
 
-    show(parameters: KupOpenAIParameters) {
+    async show(parameters: KupOpenAIParameters) {
         this.context = parameters.context;
         this.data = parameters.dataset;
 
-        if (!this.card) {
-            this.#create();
+        if (this.card) {
+            await this.hide();
         }
+        this.#create();
     }
 
-    hide() {
+    async hide() {
         if (this.card) {
             this.card.remove();
             this.card = null;
             this.dialog.remove();
             this.dialog = null;
-            this.#disconnect();
+            await this.#disconnect();
         }
     }
 
@@ -248,6 +251,7 @@ export class KupOpenAI {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
+                        context: openAI.sessionInfo.context,
                         fileId: openAI.sessionInfo.fileId,
                         threadId: openAI.sessionInfo.threadId,
                         question: question,
