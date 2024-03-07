@@ -5065,7 +5065,10 @@ export class KupDataTable {
                             }
                             icon="open-ai"
                             onkup-button-click={() =>
-                                this.#kupManager.openAI.show(this.data)
+                                this.#kupManager.openAI.show({
+                                    context: this.rootElement.tagName,
+                                    dataset: this.data,
+                                })
                             }
                         />
                     ) : null}

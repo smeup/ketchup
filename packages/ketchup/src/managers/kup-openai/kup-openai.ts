@@ -11,13 +11,17 @@ import {
 import { KupTextField } from '../../components/kup-text-field/kup-text-field';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
-import { KupOpenAISessionInfo } from './kup-openai-declarations';
+import {
+    KupOpenAIParameters,
+    KupOpenAISessionInfo,
+} from './kup-openai-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
 export class KupOpenAI {
     card: HTMLKupCardElement = null;
     container: HTMLElement;
+    context = '';
     data: KupDataTableDataset = null;
     dialog: HTMLKupDialogElement = null;
     sessionInfo: KupOpenAISessionInfo = null;
@@ -104,7 +108,10 @@ export class KupOpenAI {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ data: this.data }),
+                body: JSON.stringify({
+                    context: this.context,
+                    data: this.data,
+                }),
             });
         } catch (e) {
             this.#setError(e.message);
@@ -118,6 +125,7 @@ export class KupOpenAI {
             }
             const responseJson = await response.json();
             this.sessionInfo = {
+                context: this.context,
                 fileId: responseJson.fileId,
                 threadId: responseJson.threadId,
             };
@@ -144,6 +152,7 @@ export class KupOpenAI {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    context: this.sessionInfo.context,
                     fileId: this.sessionInfo.fileId,
                     threadId: this.sessionInfo.threadId,
                 }),
@@ -161,29 +170,23 @@ export class KupOpenAI {
         }
     }
 
-    /**
-     * Shows the component
-     * @param data
-     * @param options
-     */
-    show(data: KupDataTableDataset) {
-        this.data = data;
+    async show(parameters: KupOpenAIParameters) {
+        this.context = parameters.context;
+        this.data = parameters.dataset;
 
-        if (!this.card) {
-            this.#create();
+        if (this.card) {
+            await this.hide();
         }
+        this.#create();
     }
 
-    /**
-     * Hides the component.
-     */
-    hide() {
+    async hide() {
         if (this.card) {
             this.card.remove();
             this.card = null;
             this.dialog.remove();
             this.dialog = null;
-            this.#disconnect();
+            await this.#disconnect();
         }
     }
 
@@ -225,7 +228,10 @@ export class KupOpenAI {
         openAI.card.refresh();
     }
 
-    async chat(disableInteractivity, inputArea: HTMLKupTextFieldElement) {
+    async chat(
+        disableInteractivity: (status: boolean) => void,
+        inputArea: HTMLKupTextFieldElement
+    ) {
         const communicate = async (
             question: string
         ): Promise<KupCardBuiltInOpenAIMessages[]> => {
@@ -245,6 +251,7 @@ export class KupOpenAI {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
+                        context: openAI.sessionInfo.context,
                         fileId: openAI.sessionInfo.fileId,
                         threadId: openAI.sessionInfo.threadId,
                         question: question,
