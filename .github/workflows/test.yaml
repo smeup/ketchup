@@ -6,9 +6,6 @@ on:
     branches:
       - develop
       - master
-  push:
-    branches:
-      - gha-ci
 
 jobs:
   unit-test:
@@ -23,7 +20,7 @@ jobs:
         cache: "yarn"
 
     - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      run: yarn install --immutable
 
     - name: Run build
       run: npm run k:build
