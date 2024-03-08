@@ -1,4 +1,4 @@
-name: Ketchup test
+name: Ketchup Unit Test
 
 on:
   workflow_dispatch:
@@ -11,10 +11,10 @@ on:
       - gha-ci
 
 jobs:
-  test:
+  unit-test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -23,7 +23,7 @@ jobs:
         cache: "yarn"
 
     - name: Install dependencies
-      run: yarn install
+      run: yarn install --frozen-lockfile
 
     - name: Run build
       run: npm run k:build
