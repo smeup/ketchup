@@ -1,35 +1,32 @@
 name: Ketchup test
 
 on:
-    workflow_dispatch:
-    pull_request:
-        branches:
-            - develop
-            - master
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - develop
+      - master
+  push:
+    branches:
+      - gha-ci
 
 jobs:
-    test:
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                node-version: [18.16.0]
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
 
-        steps:
-            - uses: actions/checkout@v2
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: "18.16.0"
+        cache: "yarn"
 
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v2
-              with:
-                  node-version: ${{ matrix.node-version }}
+    - name: Install dependencies
+      run: yarn install
 
-            - name: Install yarn
-              run: npm install yarn -g
+    - name: Run build
+      run: npm run k:build
 
-            - name: Install dependencies
-              run: yarn install
-
-            - name: Run build
-              run: npm run k:build
-
-            - name: Execute tests
-              run: npm run k:test:unit
+    - name: Execute tests
+      run: npm run k:test:unit
