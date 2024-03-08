@@ -1,0 +1,36 @@
+name: Ketchup Release
+
+on:
+  push:
+    branches:
+      - develop
+      - master
+    tags:
+      - "*"
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: "18.16.0"
+        cache: "yarn"
+
+    - name: Install dependencies
+      run: yarn install --immutable
+
+    - name: Run Ketchup build
+      run: npm run k:build
+
+    - name: Zip artifacts
+      run: |
+        zip -qr ketchup.zip packages/ketchup/dist
+        ls -alh ketchup.zip
+        zip -qr ketchup-components.zip packages/ketchup/dist/ketchup
+        ls -alh ketchup-components.zip
+
+    # TODO: upload of zip files to remote repo

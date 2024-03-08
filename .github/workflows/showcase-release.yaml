@@ -1,0 +1,34 @@
+name: Ketchup Release
+
+on:
+  push:
+    branches:
+      - develop
+      - master
+    tags:
+      - "*"
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: "18.16.0"
+        cache: "yarn"
+
+    - name: Install dependencies
+      run: yarn install --immutable
+
+    - name: Run Ketchup build
+      run: npm run k:build
+
+    - name: Run Ketchup Showcase build
+      run: npm run ksc:build
+    
+    # TODO: deploy of packages/ketchup-showcase/dist/*
+
+    
