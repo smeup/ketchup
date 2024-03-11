@@ -1,0 +1,45 @@
+name: release
+
+on:
+  push:
+    tags: "*"
+
+jobs:
+  ketchup-release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: "18.16.0"
+        cache: "yarn"
+
+    - name: Install dependencies
+      run: yarn install --immutable
+
+    - name: Run Ketchup build
+      run: npm run k:build
+
+    - name: Run Ketchup Showcase build
+      run: npm run ksc:build
+
+    - name: Zip artifacts
+      run: |
+        zip -qr ketchup.zip packages/ketchup/dist
+        ls -alh ketchup.zip
+        zip -qr ketchup-components.zip packages/ketchup/dist/ketchup
+        ls -alh ketchup-components.zip
+
+    - name: Setup AWS
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Upload artifacts to AWS S3
+      run: |
+        aws s3 cp ketchup.zip s3://smeup-ketchup/npm-pub/ketchup-stencil/${{ github.ref_name }}/zip/ketchup.zip
+        aws s3 cp ketchup-components.zip s3://smeup-ketchup/npm-pub/ketchup-stencil/${{ github.ref_name }}/zip/ketchup-components.zip
