@@ -1,7 +1,6 @@
 name: Ketchup Unit Test
 
 on:
-  workflow_dispatch:
   pull_request:
     branches:
       - develop
@@ -10,6 +9,9 @@ on:
 jobs:
   unit-test:
     runs-on: ubuntu-latest
+    concurrency:
+      group: generate-docs-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     steps:
     - uses: actions/checkout@v4
 
