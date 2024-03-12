@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - develop
-      - feat/ci
 
 env:
   VERSION: 10.0.0-SNAPSHOT
@@ -86,6 +85,7 @@ jobs:
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.ROBBY_SMEUP_PAT }}" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
-          https://api.github.com/repos/smeup/webup-project/dispatches
+          https://api.github.com/repos/smeup/webup-project/dispatches \
+          -d '{"event_type": "ketchup-continuum-rebuild"}'
   
   # TODO: add webup.js triggers
