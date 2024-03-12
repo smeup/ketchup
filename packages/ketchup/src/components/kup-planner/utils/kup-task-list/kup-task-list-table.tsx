@@ -1,4 +1,4 @@
-import { Component, Event, h, Prop, State } from '@stencil/core';
+import { Component, h, Prop, State } from '@stencil/core';
 import { KupPlannerTask } from '../../kup-planner-declarations';
 
 @Component({

@@ -182,7 +182,7 @@ export class KupPlanner {
     //////////////////////////////
     // End state stuff
     //////////////////////////////
-
+    plannerRenderer: HTMLKupPlannerRendererElement = undefined;
     /**
      * References the root HTML element of the component (<kup-planner>).
      */
@@ -578,6 +578,7 @@ export class KupPlanner {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
+        this.plannerRenderer.refresh();
     }
     /**
      * Sets the props to the component.
@@ -669,6 +670,7 @@ export class KupPlanner {
                 this.#storedSettings.detailInitialScrollY;
         }
         this.plannerProps = { ...this.plannerProps };
+        this.refresh();
     }
 
     #toTasks(data: KupDataDataset): KupPlannerGanttTask[] {
@@ -1403,6 +1405,7 @@ export class KupPlanner {
                     {this.plannerProps && (
                         <kup-planner-renderer
                             props={plannerProps}
+                            ref={(el) => (this.plannerRenderer = el)}
                         ></kup-planner-renderer>
                     )}
                 </div>
