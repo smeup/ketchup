@@ -113,6 +113,11 @@ export class KupPlannerRenderer {
             this.currentDetails,
             this.props.preStepsCount
         );
+        console.log(
+            'RENDERER DATES PD',
+            dates.displayedStartDate,
+            dates.displayedEndDate
+        );
         if (!this.viewDate) {
             const now = new Date();
             if (
@@ -189,9 +194,13 @@ export class KupPlannerRenderer {
      */
     @Method()
     async refresh(): Promise<void> {
-        forceUpdate(this);
-        this.mainGantt?.refresh();
-        this.secondaryGantt?.refresh();
+        this.displayedDates = calculateDisplayedDateRange(
+            this.currentTasks as KupPlannerGanttTask[],
+            this.timeUnit,
+            this.mainGanttDoubleView,
+            this.currentDetails,
+            this.props?.preStepsCount
+        );
     }
 
     // Handle click event

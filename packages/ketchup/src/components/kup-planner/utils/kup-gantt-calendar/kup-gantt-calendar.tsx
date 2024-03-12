@@ -282,10 +282,14 @@ export class KupGanttCalendar {
     }
 
     render() {
+        console.log(
+            'SIAJSCIANVUOAIEVIEHOWVBEBLIEVUB',
+            this.currentDateIndicator
+        );
         this.simplifiedHeader =
             this.singleLineHeader && this.dateSetup.viewMode !== 'year';
         const [topValues, bottomValues] = this.getTopAndBottomValues();
-
+        console.log(topValues);
         return (
             <svg
                 xmlns="http://www.w3.org/2000/svg"

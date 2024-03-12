@@ -572,6 +572,11 @@ export const ganttDateRangeFromTask = (
             secondaryEnd: item.secondaryEnd,
         });
     });
+    console.log(
+        'OMGGGGGGGGGGGGGGGGGGGGGGGGGGGG',
+        mainGanttStartDate,
+        mainGanttEndDate
+    );
     if (mainGanttStartDate && mainGanttEndDate) {
         dates.push({
             start: mainGanttStartDate,
@@ -580,6 +585,7 @@ export const ganttDateRangeFromTask = (
             secondaryEnd: undefined,
         });
     }
+    console.log('DATESSSSSSSSSSS', dates);
     return ganttDateRangeGeneric(
         dates,
         viewMode,

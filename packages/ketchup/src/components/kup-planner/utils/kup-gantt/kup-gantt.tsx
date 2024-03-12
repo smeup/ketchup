@@ -367,6 +367,7 @@ export class KupGantt {
             viewMode: this.viewMode,
             dates: seedDates(startDate, endDate, this.viewMode),
         };
+        console.log('le seeded dates', this.dateSetup.dates);
         this.svgWidth = this.dateSetup?.dates?.length * this.columnWidth;
         this.ganttFullHeight = this.barTasks.length * this.rowHeight;
     }
@@ -466,6 +467,7 @@ export class KupGantt {
             this.displayedStartDate,
             this.displayedEndDate
         );
+        console.log('LE NEW DATES', startDate, endDate);
         let newDates = seedDates(startDate, endDate, this.viewMode);
         if (this.rtl) {
             newDates = newDates.reverse();
@@ -919,6 +921,7 @@ export class KupGantt {
             singleLineHeader: this.singleLineHeader,
             currentDateIndicator: this.currentDateIndicatorContent,
         };
+        console.log('le dates', this.ganttId, calendarProps.dateSetup);
 
         const barProps: KupPlannerTaskGanttContentProps = {
             tasks: this.barTasks,
