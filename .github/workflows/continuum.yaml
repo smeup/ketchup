@@ -32,9 +32,10 @@ jobs:
 
     - name: Zip artifacts
       run: |
-        zip -qr ketchup.zip packages/ketchup/dist
+        cd packages/ketchup/dist
+        zip -qr /tmp/ketchup.zip *
         ls -alh ketchup.zip
-        zip -qr ketchup-components.zip packages/ketchup/dist/ketchup
+        zip -qr /tmp/ketchup-components.zip ketchup/*
         ls -alh ketchup-components.zip
     
     - name: Setup AWS
@@ -46,8 +47,8 @@ jobs:
 
     - name: Upload artifacts to AWS S3
       run: |
-        aws s3 cp ketchup.zip s3://smeup-ketchup/npm-pub/ketchup-stencil/${{ env.VERSION }}/zip/ketchup.zip
-        aws s3 cp ketchup-components.zip s3://smeup-ketchup/npm-pub/ketchup-stencil/${{ env.VERSION }}/zip/ketchup-components.zip
+        aws s3 cp /tmp/ketchup.zip s3://smeup-ketchup/npm-pub/ketchup-stencil/${{ env.VERSION }}/zip/ketchup.zip
+        aws s3 cp /tmp/ketchup-components.zip s3://smeup-ketchup/npm-pub/ketchup-stencil/${{ env.VERSION }}/zip/ketchup-components.zip
 
     # Prepare GitHub Pages Showcase deployment
     - name: Setup GitHub Pages
