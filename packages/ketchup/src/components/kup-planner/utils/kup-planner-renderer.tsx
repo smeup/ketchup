@@ -113,11 +113,6 @@ export class KupPlannerRenderer {
             this.currentDetails,
             this.props.preStepsCount
         );
-        console.log(
-            'RENDERER DATES PD',
-            dates.displayedStartDate,
-            dates.displayedEndDate
-        );
         if (!this.viewDate) {
             const now = new Date();
             if (

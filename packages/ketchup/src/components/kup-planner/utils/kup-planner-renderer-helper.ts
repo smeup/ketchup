@@ -431,32 +431,7 @@ export const ganttDateRangeGeneric = (
             newEndDate = startOfDate(newEndDate, 'day');
             newEndDate = addToDate(newEndDate, 19, 'day');
             break;
-        /*
-        case ViewMode.QuarterDay:
-          newStartDate = startOfDate(newStartDate, "day");
-          newStartDate = addToDate(newStartDate, -1 * preStepsCount, "day");
-          newEndDate = startOfDate(newEndDate, "day");
-          newEndDate = addToDate(newEndDate, 66, "hour"); // 24(1 day)*3 - 6
-          break;
-        case ViewMode.HalfDay:
-          newStartDate = startOfDate(newStartDate, "day");
-          newStartDate = addToDate(newStartDate, -1 * preStepsCount, "day");
-          newEndDate = startOfDate(newEndDate, "day");
-          newEndDate = addToDate(newEndDate, 108, "hour"); // 24(1 day)*5 - 12
-          break;
-        case ViewMode.Hour:
-          newStartDate = startOfDate(newStartDate, "hour");
-          newStartDate = addToDate(newStartDate, -1 * preStepsCount, "hour");
-          newEndDate = startOfDate(newEndDate, "day");
-          newEndDate = addToDate(newEndDate, 1, "day");
-          break;
-          */
     }
-    console.log(
-        'kup-planner-renderer-helper.ts from-to',
-        newStartDate,
-        newEndDate
-    );
     return [newStartDate, newEndDate];
 };
 
@@ -572,11 +547,6 @@ export const ganttDateRangeFromTask = (
             secondaryEnd: item.secondaryEnd,
         });
     });
-    console.log(
-        'OMGGGGGGGGGGGGGGGGGGGGGGGGGGGG',
-        mainGanttStartDate,
-        mainGanttEndDate
-    );
     if (mainGanttStartDate && mainGanttEndDate) {
         dates.push({
             start: mainGanttStartDate,
@@ -585,7 +555,6 @@ export const ganttDateRangeFromTask = (
             secondaryEnd: undefined,
         });
     }
-    console.log('DATESSSSSSSSSSS', dates);
     return ganttDateRangeGeneric(
         dates,
         viewMode,
