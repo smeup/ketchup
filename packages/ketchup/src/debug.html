@@ -78,6 +78,7 @@
                 debug: { active: true, logLimit: 20000 },
                 autoSetLocalization: true,
                 enableExperimentalFeatures: true,
+                // openAIUrl: 'http://localhost:3100',
             };
         </script>
         <h1>Debug component</h1>
@@ -86,6 +87,14 @@
             bordered section below.</p
         >
         <div id="debug-wrapper"></div>
+        <br />
+        <a
+            href="#"
+            onclick="document.documentElement.ketchup.openAI.show({context: 'WEBUP', dataset: undefined, onFunClick: (text) => {
+            window.alert('launch fun fromketchup ' + text);
+        }})"
+            >A.I. assistant (no dataset)</a
+        >
     </body>
     <script src="/assets/debug.js"></script>
 </html>
