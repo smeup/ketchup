@@ -4,6 +4,9 @@ on:
   push:
     tags: "*"
 
+env:
+  AWS_REGION: eu-south-1
+
 jobs:
   ketchup-release:
     runs-on: ubuntu-latest
@@ -32,11 +35,14 @@ jobs:
         zip -qr ketchup-components.zip packages/ketchup/dist/ketchup
         ls -alh ketchup-components.zip
 
+    - name: Setup AWS
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
     - name: Upload artifacts to AWS S3
       run: |
         aws s3 cp ketchup.zip s3://smeup-ketchup/npm-pub/ketchup-stencil/${{ github.ref_name }}/zip/ketchup.zip
         aws s3 cp ketchup-components.zip s3://smeup-ketchup/npm-pub/ketchup-stencil/${{ github.ref_name }}/zip/ketchup-components.zip
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_DEFAULT_REGION: eu-south-1
