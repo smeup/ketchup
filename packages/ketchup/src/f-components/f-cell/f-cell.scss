@@ -316,6 +316,12 @@
     }
   }
 
+  &.c-pre {
+    .f-cell__content {
+      white-space: pre;
+    }
+  }
+
   &.c-centered {
     --kup-textfield-text-align: center;
     justify-content: center;

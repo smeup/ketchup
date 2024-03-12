@@ -2923,7 +2923,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sme.up/ketchup-react@workspace:packages/ketchup-react"
   dependencies:
-    "@sme.up/ketchup": ^9.6.1
+    "@sme.up/ketchup": ^9.6.2
     "@types/geojson": ^7946.0.10
     "@types/node": ^20.2.5
     "@types/react": ^18.2.7
@@ -2956,7 +2956,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sme.up/ketchup-showcase@workspace:packages/ketchup-showcase"
   dependencies:
-    "@sme.up/ketchup": ^9.6.1
+    "@sme.up/ketchup": ^9.6.2
     "@typescript-eslint/eslint-plugin": ^5.59.8
     "@typescript-eslint/parser": ^5.59.8
     "@vue/cli-plugin-babel": ~5.0.8
@@ -2980,7 +2980,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sme.up/ketchup@^9.6.1, @sme.up/ketchup@workspace:packages/ketchup":
+"@sme.up/ketchup@^9.6.2, @sme.up/ketchup@workspace:packages/ketchup":
   version: 0.0.0-use.local
   resolution: "@sme.up/ketchup@workspace:packages/ketchup"
   dependencies:
@@ -8821,9 +8821,9 @@ __metadata:
   linkType: hard
 
 "ip@npm:^1.1.8":
-  version: 1.1.8
-  resolution: "ip@npm:1.1.8"
-  checksum: a2ade53eb339fb0cbe9e69a44caab10d6e3784662285eb5d2677117ee4facc33a64679051c35e0dfdb1a3983a51ce2f5d2cb36446d52e10d01881789b76e28fb
+  version: 1.1.9
+  resolution: "ip@npm:1.1.9"
+  checksum: b6d91fd45a856e3bd6d4f601ea0619d90f3517638f6918ebd079f959a8a6308568d8db5ef4fdf037e0d9cfdcf264f46833dfeea81ca31309cf0a7eb4b1307b84
   languageName: node
   linkType: hard
 

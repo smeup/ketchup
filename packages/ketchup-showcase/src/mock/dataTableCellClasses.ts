@@ -755,6 +755,35 @@ export const cellClassesDataTable = {
             p: '',
             k: '',
           },
+          value: 'c-pre',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'Cell content will preserve whitespaces.',
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: '              c-pre',
+          cssClass: 'c-pre',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
           value: 'c-vertical-text',
         },
         DESCR: {
