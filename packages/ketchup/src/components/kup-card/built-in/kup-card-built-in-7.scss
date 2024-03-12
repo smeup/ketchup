@@ -100,4 +100,11 @@
     right: 0;
     transition: background-color 125ms ease, opacity 250ms ease;
   }
+
+  .fun {
+    font-weight: bold;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
