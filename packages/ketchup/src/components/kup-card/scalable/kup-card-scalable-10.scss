@@ -1,24 +1,11 @@
-.scalable-layout-9 {
-  background-color: var(--color-1);
-  color: var(--color-2);
+.scalable-layout-10 {
+  background-color: var(--kup-gray-color-10);
+  color: var(--kup-gray-color-70);
   height: 100%;
   display: flex;
   justify-content: unset;
   overflow: auto;
-  border-radius: 4px;
-
-  .section-1 {
-    background-color: var(--color-0);
-    width: 20%;
-    height: 100%;
-  }
-
-  .section-2 {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
+  width: 100%;
 
   .text {
     display: flex;
@@ -26,15 +13,16 @@
     flex-direction: column;
   }
 
-  .descr {
-    font-size: 80%;
+  .number {
+    display: flex;
+    justify-content: space-between;
   }
 
-  .value {
-    font-size: 220%;
+  .title {
+    font-size: 120%;
   }
 
-  .buttons { 
+  .buttons {
     height: max-content;
     margin-bottom: 2%;
   }
