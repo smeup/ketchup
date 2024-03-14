@@ -139,6 +139,10 @@ components.data = [
         id: 'image-list.html',
     },
     {
+        value: 'Input panel',
+        id: 'input-panel.html',
+    },
+    {
         value: 'KupData',
         id: 'kupdata.html',
     },
