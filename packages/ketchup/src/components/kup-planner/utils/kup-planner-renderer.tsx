@@ -1,4 +1,13 @@
-import { Component, Element, h, Prop, State, Watch } from '@stencil/core';
+import {
+    Component,
+    Element,
+    forceUpdate,
+    h,
+    Method,
+    Prop,
+    State,
+    Watch,
+} from '@stencil/core';
 import {
     calculateDisplayedDateRange,
     columnWidthForTimeUnit,
@@ -73,6 +82,8 @@ export class KupPlannerRenderer {
     @State()
     details: KupPlannerTask[] = [];
 
+    mainGantt: HTMLKupGanttElement;
+    secondaryGantt: HTMLKupGanttElement;
     /**
      * References the root HTML element of the component (<kup-planner-renderer>).
      */
@@ -173,6 +184,19 @@ export class KupPlannerRenderer {
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        this.displayedDates = calculateDisplayedDateRange(
+            this.currentTasks as KupPlannerGanttTask[],
+            this.timeUnit,
+            this.mainGanttDoubleView,
+            this.currentDetails,
+            this.props?.preStepsCount
+        );
+    }
 
     // Handle click event
     handleClick(row: KupPlannerGanttRow, onClick: any) {
@@ -360,8 +384,9 @@ export class KupPlannerRenderer {
                         }}
                     >
                         <kup-gantt
+                            ref={(el) => (this.mainGantt = el)}
                             ganttId={KUP_PLANNER_MAIN_GANTT_ID}
-                            key={KUP_PLANNER_SECONDARY_GANTT_ID}
+                            key={KUP_PLANNER_MAIN_GANTT_ID}
                             filter={this.props.mainGantt.filter}
                             hideLabel={this.props.mainGantt.hideLabel}
                             showSecondaryDates={this.mainGanttDoubleView}
@@ -490,6 +515,7 @@ export class KupPlannerRenderer {
                         />
                         {this.props.secondaryGantt && (
                             <kup-gantt
+                                ref={(el) => (this.secondaryGantt = el)}
                                 ganttId={KUP_PLANNER_SECONDARY_GANTT_ID}
                                 key={KUP_PLANNER_SECONDARY_GANTT_ID}
                                 filter={this.props.secondaryGantt.filter}

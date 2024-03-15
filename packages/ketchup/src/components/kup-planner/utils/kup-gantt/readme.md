@@ -80,6 +80,19 @@
 | `viewMode`                       | `view-mode`                         |             | `"day" \| "hour" \| "month" \| "week" \| "year"`                                                                                                                                                                                                                                 | `'month'`                                                                           |
 
 
+## Methods
+
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Used by

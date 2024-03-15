@@ -336,7 +336,6 @@ export class KupGanttCalendar {
         this.simplifiedHeader =
             this.singleLineHeader && this.dateSetup.viewMode !== 'year';
         const [topValues, bottomValues] = this.getTopAndBottomValues();
-
         return (
             <svg
                 xmlns="http://www.w3.org/2000/svg"

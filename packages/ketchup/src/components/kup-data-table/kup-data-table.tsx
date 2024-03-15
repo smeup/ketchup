@@ -2284,20 +2284,6 @@ export class KupDataTable {
         return count;
     }
 
-    #setDynPosElements() {
-        // Column menu
-        if (this.#columnMenuCard && this.#columnMenuCard.data) {
-            this.#columnMenuCard.data = this.#columnMenuInstance.prepData(
-                this,
-                getColumnByName(
-                    this.getVisibleColumns(),
-                    this.columnMenuAnchor
-                ),
-                this.#columnMenuCard.data
-            );
-        }
-    }
-
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -2371,7 +2357,6 @@ export class KupDataTable {
         this.#didRenderObservers();
         this.#didRenderInteractables();
         this.#hideShowColumnDropArea(false);
-        this.#setDynPosElements();
 
         if (
             this.headerIsPersistent &&
@@ -5065,7 +5050,10 @@ export class KupDataTable {
                             }
                             icon="open-ai"
                             onkup-button-click={() =>
-                                this.#kupManager.openAI.show(this.data)
+                                this.#kupManager.openAI.show({
+                                    context: this.rootElement.tagName,
+                                    dataset: this.data,
+                                })
                             }
                         />
                     ) : null}

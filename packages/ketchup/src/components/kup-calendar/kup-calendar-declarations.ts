@@ -68,6 +68,7 @@ export interface KupCalendarEventDropEventPayload extends KupEventPayload {
         start: Date;
         end: Date;
     };
+    row: KupDataRow;
 }
 export interface KupCalendarViewChangeEventPayload extends KupEventPayload {
     from: Date;
