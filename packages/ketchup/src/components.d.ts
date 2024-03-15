@@ -1365,6 +1365,10 @@ export namespace Components {
          */
         "lazyLoadRows": boolean;
         /**
+          * When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.
+         */
+        "legacyLook": boolean;
+        /**
           * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
          */
         "lineBreakCharacter": string;
@@ -6111,6 +6115,10 @@ declare namespace LocalJSX {
           * When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content. Paginator is disabled.
          */
         "lazyLoadRows"?: boolean;
+        /**
+          * When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.
+         */
+        "legacyLook"?: boolean;
         /**
           * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
          */

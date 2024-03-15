@@ -361,6 +361,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'legacyLook',
+          description:
+            'When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'lineBreakCharacter',
           description:
             'Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.',

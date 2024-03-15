@@ -564,3 +564,11 @@ th.obj:hover span:not(.overlay-action) {
   -webkit-mask: var(--kup-key-icon);
   mask: var(--kup-key-icon);
 }
+
+:host([legacy-look]) {
+  th .header-cell__content {
+    font-family: var(--kup-font-family-monospace);
+    white-space: pre !important;
+  }
+}
+
