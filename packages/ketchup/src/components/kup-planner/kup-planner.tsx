@@ -278,6 +278,13 @@ export class KupPlanner {
     detailNameCol: string;
 
     /**
+     * Columns containing forecast detail duration, from (firstHour) to (secondHour)
+     * @default null
+     */
+    @Prop()
+    detailPrevHours: string[] = [];
+
+    /**
      * Columns containing forecast detail duration, from (firstDate) to (secondDate)
      * @default null
      */
@@ -369,6 +376,13 @@ export class KupPlanner {
     phaseNameCol: string;
 
     /**
+     * Columns containing forecast phase duration, from (firstHour) to (secondHour)
+     * @default null
+     */
+    @Prop()
+    phasePrevHours: string[] = [];
+
+    /**
      * Columns containing forecast phase duration, from (firstDate) to (secondDate)
      * @default null
      */
@@ -458,6 +472,13 @@ export class KupPlanner {
      */
     @Prop()
     taskNameCol: string;
+
+    /**
+     * Columns containing forecast task duration, from (firstHour) to (secondHour)
+     * @default null
+    */
+    @Prop()
+    taskPrevHours: string[] = [];
 
     /**
      * Columns containing forecast task duration, from (firstDate) to (secondDate)
@@ -649,6 +670,8 @@ export class KupPlanner {
                         row.cells[this.phasePrevDates[1]],
                         row.cells[this.phaseHours[0]],
                         row.cells[this.phaseHours[1]],
+                        row.cells[this.phasePrevHours[0]],
+                        row.cells[this.phasePrevHours[1]],
                     );
                     const valuesToShow = getValuesToShow(
                         row,
@@ -694,6 +717,8 @@ export class KupPlanner {
                             : undefined,
                         startHour: datesSanitized.hourValues[0],
                         endHour: datesSanitized.hourValues[1],
+                        secondaryStartHour: datesSanitized.secHourValues[0],
+                        secondaryEndHour: datesSanitized.secHourValues[1],
                     };
                     return phase;
                 });
@@ -730,6 +755,8 @@ export class KupPlanner {
                     row.cells[this.taskPrevDates[1]],
                     row.cells[this.taskHours[0]],
                     row.cells[this.taskHours[1]],
+                    row.cells[this.taskPrevHours[0]],
+                    row.cells[this.taskPrevHours[1]],
                 );
                 const valuesToShow = getValuesToShow(
                     row,

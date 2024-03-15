@@ -58,7 +58,7 @@ export function sanitizeAllDates(
         dateValues: sanitizedDateValues,
         secDateValues: sanitizedSecDateValues,
         hourValues: sanitizedHourValues,
-        secHourValues: sanitizedHourValues
+        secHourValues: sanitizedSecHourValues
     };
 }
 

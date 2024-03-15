@@ -145,6 +145,15 @@ export default {
           try: 'field',
         },
         {
+          prop: 'detailPrevHours',
+          description:
+            'Columns containing fForecast detail duration, from (firstHour) to (secondHour)',
+          type: 'string',
+          default: 'undefined',
+          isArray: true,
+          try: 'field',
+        },
+        {
           prop: 'detailPrevDates',
           description:
             'Columns containing fForecast detail duration, from (firstDate) to (secondDate)',
@@ -229,6 +238,15 @@ export default {
           type: 'string',
           default: 'undefined',
           try: 'field',
+        },
+        {
+          prop: 'phasePrevHours',
+          description:
+            'Columns containing forecast phase duration, from (firstHour) to (secondHour)',
+          type: 'string',
+          default: 'undefined',
+          try: 'json',
+          isArray: true,
         },
         {
           prop: 'phasePrevDates',
@@ -321,6 +339,15 @@ export default {
           type: 'string',
           default: 'undefined',
           try: 'field',
+        },
+        {
+          prop: 'taskPrevHours',
+          description:
+            'Columns containing forecast task duration, from (firstHour) to (secondHour)',
+          type: 'string',
+          default: 'undefined',
+          try: 'json',
+          isArray: true,
         },
         {
           prop: 'taskPrevDates',
