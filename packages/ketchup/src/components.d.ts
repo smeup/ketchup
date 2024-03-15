@@ -2451,6 +2451,16 @@ export namespace Components {
           * @default null
          */
         "data": KupInputPanelData;
+        /**
+          * Creates a hidden submit button in order to submit the form with enter.
+          * @default false
+         */
+        "hiddenSubmitButton": boolean;
+        /**
+          * Sets the callback function on submit form
+          * @default null
+         */
+        "submitCb": (e: SubmitEvent) => unknown;
     }
     interface KupLazy {
         /**
@@ -7050,9 +7060,19 @@ declare namespace LocalJSX {
          */
         "data"?: KupInputPanelData;
         /**
+          * Creates a hidden submit button in order to submit the form with enter.
+          * @default false
+         */
+        "hiddenSubmitButton"?: boolean;
+        /**
           * When component load is complete
          */
         "onKup-input-panel-ready"?: (event: KupInputPanelCustomEvent<KupEventPayload>) => void;
+        /**
+          * Sets the callback function on submit form
+          * @default null
+         */
+        "submitCb"?: (e: SubmitEvent) => unknown;
     }
     interface KupLazy {
         /**

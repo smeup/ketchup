@@ -5,16 +5,22 @@ import {
     EventEmitter,
     Host,
     Prop,
+    VNode,
     Watch,
     h,
 } from '@stencil/core';
-import { KupInputPanelData } from './kup-input-panel-declarations';
+import {
+    KupInputPanelData,
+    KupInputPanelRow,
+} from './kup-input-panel-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { KupComponent, KupEventPayload } from '../../types/GenericTypes';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { FButton } from '../../f-components/f-button/f-button';
+import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-input-panel',
@@ -44,6 +50,18 @@ export class KupInputPanel {
      * @default null
      */
     @Prop() data: KupInputPanelData = null;
+
+    /**
+     * Creates a hidden submit button in order to submit the form with enter.
+     * @default false
+     */
+    @Prop() hiddenSubmitButton: boolean = false;
+
+    /**
+     * Sets the callback function on submit form
+     * @default null
+     */
+    @Prop() submitCb: (e: SubmitEvent) => unknown = null;
     //#endregion
 
     //#region VARIABLES
@@ -99,6 +117,47 @@ export class KupInputPanel {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
+    private renderRow(row: KupInputPanelRow) {
+        // todo layout
+        // todo sections
+        const horizontal = row.layout?.horizontal || false;
+
+        const rowContent: VNode[] = [];
+
+        this.data.columns.forEach((col) => {
+            // replace with `renderSection`
+            rowContent.push(
+                <p>
+                    {col.title}: {row.cells[col.name].value || 'no value'}
+                </p>
+            );
+        });
+
+        const classObj = {
+            form: true,
+            'form--column': !horizontal,
+        };
+
+        return (
+            <form
+                class={classObj}
+                name={this.rootElement.id}
+                onSubmit={this.submitCb}
+            >
+                {rowContent}
+                {this.hiddenSubmitButton ? (
+                    <FButton
+                        buttonType="submit"
+                        label={this.kupManager.language.translate(
+                            KupLanguageGeneric.CONFIRM
+                        )}
+                        wrapperClass="form__submit"
+                    ></FButton>
+                ) : null}
+            </form>
+        );
+    }
+
     // ADD PRIVATE METHODS HERE
     //#endregion
 
@@ -128,6 +187,22 @@ export class KupInputPanel {
     }
 
     render() {
+        const inputPanelContent: VNode[] = [];
+
+        this.data.rows?.forEach((row) =>
+            inputPanelContent.push(this.renderRow(row))
+        );
+
+        if (!this.data.rows?.length) {
+            inputPanelContent.push(
+                <p>
+                    {this.kupManager.language.translate(
+                        KupLanguageGeneric.EMPTY_DATA
+                    )}
+                </p>
+            );
+        }
+
         return (
             <Host>
                 <style>
@@ -135,7 +210,7 @@ export class KupInputPanel {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}>{JSON.stringify(this.data)}</div>
+                <div id={componentWrapperId}>{inputPanelContent}</div>
             </Host>
         );
     }
