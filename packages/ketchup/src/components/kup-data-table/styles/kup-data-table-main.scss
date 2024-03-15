@@ -566,8 +566,9 @@ th.obj:hover span:not(.overlay-action) {
 }
 
 :host([legacy-look]) {
-  th {
+  th .header-cell__content {
     font-family: var(--kup-font-family-monospace);
-    white-space: pre;
+    white-space: pre !important;
   }
 }
+
