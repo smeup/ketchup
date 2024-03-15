@@ -4007,6 +4007,10 @@ export interface KupImageListCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupImageListElement;
 }
+export interface KupInputPanelCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupInputPanelElement;
+}
 export interface KupLazyCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupLazyElement;
@@ -4653,7 +4657,18 @@ declare global {
         prototype: HTMLKupImageListElement;
         new (): HTMLKupImageListElement;
     };
+    interface HTMLKupInputPanelElementEventMap {
+        "kup-input-panel-ready": KupEventPayload;
+    }
     interface HTMLKupInputPanelElement extends Components.KupInputPanel, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupInputPanelElementEventMap>(type: K, listener: (this: HTMLKupInputPanelElement, ev: KupInputPanelCustomEvent<HTMLKupInputPanelElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupInputPanelElementEventMap>(type: K, listener: (this: HTMLKupInputPanelElement, ev: KupInputPanelCustomEvent<HTMLKupInputPanelElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupInputPanelElement: {
         prototype: HTMLKupInputPanelElement;
@@ -7034,6 +7049,10 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: KupInputPanelData;
+        /**
+          * When component load is complete
+         */
+        "onKup-input-panel-ready"?: (event: KupInputPanelCustomEvent<KupEventPayload>) => void;
     }
     interface KupLazy {
         /**

@@ -1,10 +1,20 @@
-import { Component, Element, Host, Prop, h } from '@stencil/core';
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    Host,
+    Prop,
+    Watch,
+    h,
+} from '@stencil/core';
 import { KupInputPanelData } from './kup-input-panel-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import { KupComponent } from '../../types/GenericTypes';
+import { KupComponent, KupEventPayload } from '../../types/GenericTypes';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-input-panel',
@@ -16,19 +26,27 @@ export class KupInputPanel {
      * References the root HTML element of the component (<kup-form>).
      */
     @Element() rootElement: HTMLElement;
+
+    //#region PROPS
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
+
     /**
      * Custom style of the component.
      * @default ""
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
+
     /**
      * Actual data of the form.
      * @default null
      */
     @Prop() data: KupInputPanelData = null;
+    //#endregion
 
-    //#region variables
+    //#region VARIABLES
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -38,15 +56,20 @@ export class KupInputPanel {
     // TODO ADD VARIABLES HERE
     //#endregion
 
-    //#region watchers
+    //#region WATCHERS
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
     /*-------------------------------------------------*/
 
+    @Watch('data')
+    onDataChanged() {
+        console.log('data changed', this.data);
+    }
+
     // TODO ADD WATCHERS ??
     //#endregion
 
-    //#region public methods
+    //#region PUBLIC METHODS
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
@@ -54,15 +77,24 @@ export class KupInputPanel {
     // TODO ADD METHODS HERE
     //#endregion
 
-    //#region events
+    //#region EVENTS
     /*-------------------------------------------------*/
     /*           Events                                */
     /*-------------------------------------------------*/
 
-    // ADD EVENTS HERE
+    /**
+     * When component load is complete
+     */
+    @Event({
+        eventName: 'kup-input-panel-ready',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupReady: EventEmitter<KupEventPayload>;
     //#endregion
 
-    //#region private methods
+    //#region PRIVATE METHODS
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
@@ -70,16 +102,20 @@ export class KupInputPanel {
     // ADD PRIVATE METHODS HERE
     //#endregion
 
-    //#region lifecycle hooks
+    //#region LIFECYCLE HOOKS
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
+        this.kupManager.language.register(this);
+        this.kupManager.theme.register(this);
+        this.onDataChanged();
     }
 
     componentDidLoad() {
+        this.kupReady.emit({ comp: this, id: this.rootElement.id });
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -99,7 +135,7 @@ export class KupInputPanel {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div>INPUT PANEL</div>
+                <div id={componentWrapperId}>{JSON.stringify(this.data)}</div>
             </Host>
         );
     }
