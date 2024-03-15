@@ -34,7 +34,6 @@ import { FTextField } from '../f-text-field/f-text-field';
 import { FImage } from '../f-image/f-image';
 import { FChip } from '../f-chip/f-chip';
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
-import { KupButtonClickEventPayload } from '../../components/kup-button/kup-button-declarations';
 import {
     KupDataCell,
     KupDataColumn,
@@ -48,6 +47,7 @@ import { FButton } from '../f-button/f-button';
 import { FProgressBar } from '../f-progress-bar/f-progress-bar';
 import { FRadio } from '../f-radio/f-radio';
 import { FRating } from '../f-rating/f-rating';
+import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -80,6 +80,9 @@ export const FCell: FunctionalComponent<FCellProps> = (
         : column.cssClass
         ? column.cssClass
         : '';
+    if ((props.component as KupDataTable).legacyLook) {
+        cssClasses += ' monospace c-pre';
+    }
     const classObj: Record<string, boolean> = {
         'f-cell': true,
         [FCellClasses.OBJ]: hasObj ? true : false,
