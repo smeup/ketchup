@@ -37,4 +37,4 @@ jobs:
         aws-region: ${{ env.AWS_REGION }}
 
     - name: Upload artifacts to AWS S3
-      run: aws s3 cp packages/ketchup-showcase/dist/ s3://smeup-ketchup/staging/ --recursive
+      run: aws s3 sync packages/ketchup-showcase/dist/ s3://smeup-ketchup/staging/ --delete
