@@ -9,7 +9,7 @@ import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./compon
 import { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 import { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
-import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
+import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxLoadMoreClickEventPayload, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, LoadMoreMode } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
 import { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
@@ -25,9 +25,9 @@ import { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./c
 import { FChipSize, FChipStyling, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
-import { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
+import { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
-import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
@@ -59,7 +59,7 @@ export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./compon
 export { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 export { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 export { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
-export { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
+export { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxLoadMoreClickEventPayload, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, LoadMoreMode } from "./components/kup-box/kup-box-declarations";
 export { KupStore } from "./components/kup-state/kup-store";
 export { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 export { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
@@ -75,9 +75,9 @@ export { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./c
 export { FChipSize, FChipStyling, FChipType } from "./f-components/f-chip/f-chip-declarations";
 export { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 export { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
-export { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
+export { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 export { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
-export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 export { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 export { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 export { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
@@ -399,6 +399,22 @@ export namespace Components {
           * When set to true, extra rows will be automatically loaded once the last row enters the viewport.
          */
         "lazyLoadRows": boolean;
+        /**
+          * Sets a maximum limit of new records which can be required by the load more functionality.
+         */
+        "loadMoreLimit": number;
+        /**
+          * Establish the modality of how many new records will be downloaded.  This property is regulated also by loadMoreStep.
+          * @see loadMoreStep *
+          * @see loadMoreLimit
+         */
+        "loadMoreMode": LoadMoreMode;
+        /**
+          * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
+          * @see loadMoreMode *
+          * @see loadMoreLimit
+         */
+        "loadMoreStep": number;
         "loadRowActions": (row: KupBoxRow, actions: KupDataRowAction[]) => Promise<void>;
         /**
           * Enable multi selection
@@ -444,6 +460,10 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * If set to true, displays the button to load more records.
+         */
+        "showLoadMore": boolean;
         /**
           * If enabled, highlights the selected box/boxes
           * @default true
@@ -1467,6 +1487,10 @@ export namespace Components {
          */
         "lazyLoadRows": boolean;
         /**
+          * When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.
+         */
+        "legacyLook": boolean;
+        /**
           * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
          */
         "lineBreakCharacter": string;
@@ -1479,7 +1503,7 @@ export namespace Components {
           * @see loadMoreStep *
           * @see loadMoreLimit
          */
-        "loadMoreMode": LoadMoreMode;
+        "loadMoreMode": LoadMoreMode1;
         /**
           * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
           * @see loadMoreMode *
@@ -2203,6 +2227,10 @@ export namespace Components {
         "projectProgressSelectedColor": KupPlannerGanttProps['projectProgressSelectedColor'];
         "projection": KupPlannerGanttProps['projection'];
         "readOnly": KupPlannerGanttProps['readOnly'];
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         "rowHeight": KupPlannerGanttProps['rowHeight'];
         "rtl": KupPlannerGanttProps['rtl'];
         "scrollXChange": KupPlannerGanttProps['scrollXChange'];
@@ -2401,7 +2429,7 @@ export namespace Components {
         "rtl": boolean;
         "scrollNumber": number;
         "svgWidth": number;
-        "taskGanttRef": HTMLDivElement;
+        "taskListTrueRef": HTMLKupTaskListElement;
         "taskListWidth": number;
     }
     interface KupIframe {
@@ -3077,6 +3105,10 @@ export namespace Components {
     }
     interface KupPlannerRenderer {
         "props": PlannerProps;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
     }
     interface KupProbe {
         /**
@@ -4258,6 +4290,7 @@ declare global {
         "kup-box-didload": KupEventPayload;
         "kup-box-didunload": KupEventPayload;
         "kup-box-contextmenu": KupBoxContextMenuEventPayload;
+        "kup-box-loadmoreclick": KupBoxLoadMoreClickEventPayload;
     }
     interface HTMLKupBoxElement extends Components.KupBox, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupBoxElementEventMap>(type: K, listener: (this: HTMLKupBoxElement, ev: KupBoxCustomEvent<HTMLKupBoxElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5456,6 +5489,22 @@ declare namespace LocalJSX {
          */
         "lazyLoadRows"?: boolean;
         /**
+          * Sets a maximum limit of new records which can be required by the load more functionality.
+         */
+        "loadMoreLimit"?: number;
+        /**
+          * Establish the modality of how many new records will be downloaded.  This property is regulated also by loadMoreStep.
+          * @see loadMoreStep *
+          * @see loadMoreLimit
+         */
+        "loadMoreMode"?: LoadMoreMode;
+        /**
+          * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
+          * @see loadMoreMode *
+          * @see loadMoreLimit
+         */
+        "loadMoreStep"?: number;
+        /**
           * Enable multi selection
           * @default false
          */
@@ -5477,6 +5526,7 @@ declare namespace LocalJSX {
           * Triggered when stop propagation event
          */
         "onKup-box-didunload"?: (event: KupBoxCustomEvent<KupEventPayload>) => void;
+        "onKup-box-loadmoreclick"?: (event: KupBoxCustomEvent<KupBoxLoadMoreClickEventPayload>) => void;
         /**
           * When the row menu action icon is click
          */
@@ -5519,6 +5569,10 @@ declare namespace LocalJSX {
           * @default undefined
          */
         "selectedRowsState"?: string;
+        /**
+          * If set to true, displays the button to load more records.
+         */
+        "showLoadMore"?: boolean;
         /**
           * If enabled, highlights the selected box/boxes
           * @default true
@@ -6351,6 +6405,10 @@ declare namespace LocalJSX {
          */
         "lazyLoadRows"?: boolean;
         /**
+          * When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.
+         */
+        "legacyLook"?: boolean;
+        /**
           * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
          */
         "lineBreakCharacter"?: string;
@@ -6363,7 +6421,7 @@ declare namespace LocalJSX {
           * @see loadMoreStep *
           * @see loadMoreLimit
          */
-        "loadMoreMode"?: LoadMoreMode;
+        "loadMoreMode"?: LoadMoreMode1;
         /**
           * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
           * @see loadMoreMode *
@@ -7143,7 +7201,7 @@ declare namespace LocalJSX {
         "rtl"?: boolean;
         "scrollNumber"?: number;
         "svgWidth"?: number;
-        "taskGanttRef"?: HTMLDivElement;
+        "taskListTrueRef"?: HTMLKupTaskListElement;
         "taskListWidth"?: number;
     }
     interface KupIframe {

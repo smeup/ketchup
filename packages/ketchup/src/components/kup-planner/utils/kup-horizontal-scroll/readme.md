@@ -13,7 +13,7 @@
 | `rtl`              | `rtl`             |             | `boolean`                  | `undefined` |
 | `scrollNumber`     | `scroll-number`   |             | `number`                   | `undefined` |
 | `svgWidth`         | `svg-width`       |             | `number`                   | `undefined` |
-| `taskGanttRef`     | --                |             | `HTMLDivElement`           | `undefined` |
+| `taskListTrueRef`  | --                |             | `HTMLKupTaskListElement`   | `undefined` |
 | `taskListWidth`    | `task-list-width` |             | `number`                   | `undefined` |
 
 

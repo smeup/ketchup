@@ -22101,11 +22101,11 @@ const phases = {
                     },
                     isEditable: false,
                     obj: {
-                        k: '20230904',
+                        k: '20210904',
                         p: '*YYMD',
                         t: 'D8',
                     },
-                    value: '2023-09-04',
+                    value: '2021-09-04',
                 },
                 STIPER: {
                     data: {
@@ -22297,11 +22297,11 @@ const phases = {
                     },
                     isEditable: false,
                     obj: {
-                        k: '20230522',
+                        k: '20210522',
                         p: '*YYMD',
                         t: 'D8',
                     },
-                    value: '2023-05-22',
+                    value: '2021-05-22',
                 },
                 DATFPO: {
                     data: {

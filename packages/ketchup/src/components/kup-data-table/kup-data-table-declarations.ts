@@ -39,6 +39,7 @@ export enum KupDataTableProps {
     insertMode = 'Enables insert mode.',
     isFocusable = 'When set to true, clicked-on rows will have a visual feedback.',
     lazyLoadRows = 'When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content. Paginator is disabled.',
+    legacyLook = 'When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.',
     lineBreakCharacter = 'Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.',
     loadMoreLimit = 'Sets a maximum limit of new records which can be required by the load more functionality.',
     loadMoreMode = 'Establish the modality of how many new records will be downloaded. This property is regulated also by loadMoreStep.',

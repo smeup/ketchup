@@ -265,7 +265,7 @@ export class KupImageList {
 
     #createItem(node: KupDataNode): VNode {
         const props: FImageProps = {
-            fit: true,
+            fit: false,
             resource: node.icon,
             title: node.title,
             wrapperClass: 'image-list__image',

@@ -6,6 +6,8 @@ import {
     State,
     Watch,
     Listen,
+    Method,
+    forceUpdate,
 } from '@stencil/core';
 import {
     KupPlannerCurrentDateIndicator,
@@ -342,7 +344,7 @@ export class KupGantt {
      */
 
     @Element() rootElement: HTMLElement;
-
+    taskListTrueRef: HTMLKupTaskListElement = null;
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -381,6 +383,14 @@ export class KupGantt {
             'gantt-sync-scroll-event',
             this.onGanttSyncScrollEvent.bind(this)
         );
+    }
+
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     /*-------------------------------------------------*/
@@ -980,6 +990,7 @@ export class KupGantt {
                             setDoubleView={this.setDoubleView}
                             {...tableProps}
                             class="tasks"
+                            ref={(el) => (this.taskListTrueRef = el)}
                         />
                     )}
                     <kup-task-gantt
@@ -1022,7 +1033,7 @@ export class KupGantt {
                 {this.taskGanttRef && (
                     <kup-horizontal-scroll
                         svgWidth={this.svgWidth}
-                        taskGanttRef={this.taskGanttRef}
+                        taskListTrueRef={this.taskListTrueRef}
                         taskListWidth={this.taskListWidth}
                         scrollNumber={this.scrollX}
                         rtl={this.rtl}

@@ -654,6 +654,10 @@ export class KupDataTable {
      */
     @Prop() paginatorPos: PaginatorPos = PaginatorPos.BOTTOM;
     /**
+     * When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.
+     */
+    @Prop({ reflect: true }) legacyLook = false;
+    /**
      * Sets the possibility to remove the selected column.
      */
     @Prop() removableColumns: boolean = false;
@@ -2285,20 +2289,6 @@ export class KupDataTable {
         return count;
     }
 
-    #setDynPosElements() {
-        // Column menu
-        if (this.#columnMenuCard && this.#columnMenuCard.data) {
-            this.#columnMenuCard.data = this.#columnMenuInstance.prepData(
-                this,
-                getColumnByName(
-                    this.getVisibleColumns(),
-                    this.columnMenuAnchor
-                ),
-                this.#columnMenuCard.data
-            );
-        }
-    }
-
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -2372,7 +2362,6 @@ export class KupDataTable {
         this.#didRenderObservers();
         this.#didRenderInteractables();
         this.#hideShowColumnDropArea(false);
-        this.#setDynPosElements();
 
         if (
             this.headerIsPersistent &&
@@ -5066,7 +5055,10 @@ export class KupDataTable {
                             }
                             icon="open-ai"
                             onkup-button-click={() =>
-                                this.#kupManager.openAI.show(this.data)
+                                this.#kupManager.openAI.show({
+                                    context: this.rootElement.tagName,
+                                    dataset: this.data,
+                                })
                             }
                         />
                     ) : null}
