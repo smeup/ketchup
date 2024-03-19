@@ -72,7 +72,7 @@ export class KupInputPanel {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    private kupManager: KupManager = kupManagerInstance();
+    #kupManager: KupManager = kupManagerInstance();
 
     // TODO ADD VARIABLES HERE
     //#endregion
@@ -120,17 +120,13 @@ export class KupInputPanel {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    private renderRow(row: KupInputPanelRow) {
+    #renderRow(row: KupInputPanelRow) {
         // todo layout
         const horizontal = row.layout?.horizontal || false;
 
-        const rowContent: VNode[] = [];
-
-        this.data.columns
+        const rowContent: VNode[] = this.data.columns
             .filter((col) => col.visible)
-            .forEach((col) => {
-                rowContent.push(this.renderCell(row.cells[col.name], col));
-            });
+            .map((col) => this.#renderCell(row.cells[col.name], col));
 
         const classObj = {
             form: true,
@@ -147,7 +143,7 @@ export class KupInputPanel {
                 {this.hiddenSubmitButton ? (
                     <FButton
                         buttonType="submit"
-                        label={this.kupManager.language.translate(
+                        label={this.#kupManager.language.translate(
                             KupLanguageGeneric.CONFIRM
                         )}
                         wrapperClass="form__submit"
@@ -157,7 +153,7 @@ export class KupInputPanel {
         );
     }
 
-    private renderCell(cell: KupInputPanelCell, column: KupInputPanelColumn) {
+    #renderCell(cell: KupInputPanelCell, column: KupInputPanelColumn) {
         switch (cell.shape) {
             case FCellShapes.TEXT_FIELD:
                 return (
@@ -194,46 +190,42 @@ export class KupInputPanel {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        this.kupManager.debug.logLoad(this, false);
-        this.kupManager.language.register(this);
-        this.kupManager.theme.register(this);
+        this.#kupManager.debug.logLoad(this, false);
+        this.#kupManager.language.register(this);
+        this.#kupManager.theme.register(this);
         this.onDataChanged();
     }
 
     componentDidLoad() {
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
-        this.kupManager.debug.logLoad(this, true);
+        this.#kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupManager.debug.logRender(this, false);
+        this.#kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        this.kupManager.debug.logRender(this, true);
+        this.#kupManager.debug.logRender(this, true);
     }
 
     render() {
-        const inputPanelContent: VNode[] = [];
+        const isEmptyData = Boolean(!this.data.rows?.length);
 
-        this.data.rows?.forEach((row) =>
-            inputPanelContent.push(this.renderRow(row))
-        );
-
-        if (!this.data.rows?.length) {
-            inputPanelContent.push(
-                <p>
-                    {this.kupManager.language.translate(
-                        KupLanguageGeneric.EMPTY_DATA
-                    )}
-                </p>
-            );
-        }
+        const inputPanelContent: VNode[] = isEmptyData
+            ? [
+                  <p>
+                      {this.#kupManager.language.translate(
+                          KupLanguageGeneric.EMPTY_DATA
+                      )}
+                  </p>,
+              ]
+            : this.data.rows?.map((row) => this.#renderRow(row));
 
         return (
             <Host>
                 <style>
-                    {this.kupManager.theme.setKupStyle(
+                    {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
                     )}
                 </style>
