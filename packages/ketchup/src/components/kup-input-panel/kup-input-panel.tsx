@@ -10,6 +10,8 @@ import {
     h,
 } from '@stencil/core';
 import {
+    KupInputPanelCell,
+    KupInputPanelColumn,
     KupInputPanelData,
     KupInputPanelRow,
 } from './kup-input-panel-declarations';
@@ -21,6 +23,7 @@ import { KupComponent, KupEventPayload } from '../../types/GenericTypes';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FButton } from '../../f-components/f-button/f-button';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
 
 @Component({
     tag: 'kup-input-panel',
@@ -119,19 +122,15 @@ export class KupInputPanel {
 
     private renderRow(row: KupInputPanelRow) {
         // todo layout
-        // todo sections
         const horizontal = row.layout?.horizontal || false;
 
         const rowContent: VNode[] = [];
 
-        this.data.columns.forEach((col) => {
-            // replace with `renderSection`
-            rowContent.push(
-                <p>
-                    {col.title}: {row.cells[col.name].value || 'no value'}
-                </p>
-            );
-        });
+        this.data.columns
+            .filter((col) => col.visible)
+            .forEach((col) => {
+                rowContent.push(this.renderCell(row.cells[col.name], col));
+            });
 
         const classObj = {
             form: true,
@@ -156,6 +155,29 @@ export class KupInputPanel {
                 ) : null}
             </form>
         );
+    }
+
+    private renderCell(cell: KupInputPanelCell, column: KupInputPanelColumn) {
+        switch (cell.shape) {
+            case FCellShapes.TEXT_FIELD:
+                return (
+                    <kup-text-field
+                        readOnly={!cell.editable}
+                        name={column.name}
+                        label={column.title}
+                        icon={cell.icon}
+                        initialValue={cell.value}
+                    />
+                );
+            case FCellShapes.COMBOBOX:
+                return <kup-combobox />;
+            default:
+                return (
+                    <p>
+                        {column.name}: {cell.value || 'no value'}
+                    </p>
+                );
+        }
     }
 
     // ADD PRIVATE METHODS HERE

@@ -3,14 +3,17 @@ const data = {
         {
             name: 'PNL',
             title: 'Input Panel',
+            visible: true,
         },
         {
             name: 'NAM',
             title: 'Name',
+            visible: true,
         },
         {
             name: 'SUR',
             title: 'Surname',
+            visible: true,
         },
     ],
     rows: [
@@ -35,6 +38,7 @@ const data = {
                     },
                     editable: true,
                     mandatory: true,
+                    shape: 'ITX',
                 },
                 SUR: {
                     value: 'Totti',
@@ -43,8 +47,9 @@ const data = {
                         p: 'COL',
                         k: '',
                     },
-                    editable: true,
+                    editable: false,
                     mandatory: true,
+                    shape: 'ITX',
                 },
             },
         },
