@@ -170,7 +170,12 @@ export class KupInputPanel {
                     />
                 );
             case FCellShapes.COMBOBOX:
-                return <kup-combobox />;
+                return (
+                    <kup-combobox
+                        initialValue={cell.value}
+                        disabled={!cell.editable}
+                    />
+                );
             default:
                 return (
                     <p>

@@ -15,6 +15,11 @@ const data = {
             title: 'Surname',
             visible: true,
         },
+        {
+            name: 'NAT',
+            title: 'Nation',
+            visible: true,
+        },
     ],
     rows: [
         {
@@ -50,6 +55,18 @@ const data = {
                     editable: false,
                     mandatory: true,
                     shape: 'ITX',
+                },
+                NAT: {
+                    value: 'CODE_2',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                    },
+                    editable: true,
+                    mandatory: true,
+                    options: false,
+                    shape: 'CMB',
                 },
             },
         },
