@@ -1,14 +1,16 @@
-import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
-import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
+import {
+    KupDataCell,
+    KupDataColumn,
+} from '../../managers/kup-data/kup-data-declarations';
 
 export interface KupInputPanelData {
-    columns?: KupInputPanelColumn[];
+    columns?: KupDataColumn[];
     rows?: KupInputPanelRow[];
 }
 
 export interface KupInputPanelColumn {
     name: string;
-    title?: string;
+    title: string;
     visible?: boolean;
 }
 
@@ -21,14 +23,14 @@ export interface KupInputPanelRowCells {
     [key: string]: KupInputPanelCell;
 }
 
-export interface KupInputPanelCell {
-    value?: string;
-    obj?: KupObj;
+export interface KupInputPanelCell extends KupDataCell {
+    // value?: string;
+    // obj?: KupObj;
     options?: string[];
-    icon?: string;
+    // icon?: string;
     editable?: boolean;
     mandatory?: boolean;
-    shape?: FCellShapes;
+    // shape?: FCellShapes;
     fun?: string;
 }
 

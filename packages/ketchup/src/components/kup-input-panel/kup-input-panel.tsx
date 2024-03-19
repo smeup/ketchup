@@ -23,7 +23,9 @@ import { KupComponent, KupEventPayload } from '../../types/GenericTypes';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FButton } from '../../f-components/f-button/f-button';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
-import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
+import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { FCell } from '../../f-components/f-cell/f-cell';
 
 @Component({
     tag: 'kup-input-panel',
@@ -126,7 +128,15 @@ export class KupInputPanel {
 
         const rowContent: VNode[] = this.data.columns
             .filter((col) => col.visible)
-            .map((col) => this.#renderCell(row.cells[col.name], col));
+            .map((col) => {
+                const mappedCell = {
+                    ...row.cells[col.name],
+                    data: { data: row.cells[col.name].options },
+                    isEditable: row.cells[col.name].editable,
+                };
+
+                return this.#renderCell(mappedCell, row, col);
+            });
 
         const classObj = {
             form: true,
@@ -153,40 +163,59 @@ export class KupInputPanel {
         );
     }
 
-    #renderCell(cell: KupInputPanelCell, column: KupInputPanelColumn) {
-        switch (cell.shape) {
-            case FCellShapes.TEXT_FIELD:
-                return (
-                    <kup-text-field
-                        readOnly={!cell.editable}
-                        name={column.name}
-                        label={column.title}
-                        icon={cell.icon}
-                        initialValue={cell.value}
-                    />
-                );
-            case FCellShapes.COMBOBOX:
-                return (
-                    <kup-combobox
-                        isSelect={true}
-                        initialValue={cell.value}
-                        disabled={!cell.editable}
-                    />
-                );
-            case FCellShapes.AUTOCOMPLETE:
-                return (
-                    <kup-autocomplete
-                        initialValue={cell.value}
-                        disabled={!cell.editable}
-                    />
-                );
-            default:
-                return (
-                    <p>
-                        {column.name}: {cell.value || 'no value'}
-                    </p>
-                );
-        }
+    #renderCell(
+        cell: KupInputPanelCell,
+        row: KupInputPanelRow,
+        column: KupInputPanelColumn
+    ) {
+        // switch (cell.shape) {
+        //     case FCellShapes.TEXT_FIELD:
+        //         return (
+        //             <FTextField
+        //                 readOnly={!cell.editable}
+        //                 name={column.name}
+        //                 label={column.title}
+        //                 icon={cell.icon}
+        //                 value={cell.value}
+        //             />
+        //         );
+        //     case FCellShapes.COMBOBOX:
+        //         return (
+        //             <kup-combobox
+        //                 isSelect={true}
+        //                 initialValue={cell.value}
+        //                 disabled={!cell.editable}
+        //                 data={cell.options}
+        //                 onKup-combobox-change={(ev) =>
+        //                     console.log('combo value change', ev.detail.value)
+        //                 }
+        //             />
+        //         );
+        //     case FCellShapes.AUTOCOMPLETE:
+        //         return (
+        //             <kup-autocomplete
+        //                 initialValue={cell.value}
+        //                 disabled={!cell.editable}
+        //                 data={cell.options}
+        //             />
+        //         );
+        //     default:
+        //         return (
+        //             <p>
+        //                 {column.name}: {cell.value || 'no value'}
+        //             </p>
+        //         );
+        // }
+        const cellProps: FCellProps = {
+            cell,
+            column,
+            row,
+            component: this,
+            editable: cell.editable,
+            renderKup: true,
+            setSizes: true,
+        };
+        return <FCell {...cellProps} />;
     }
 
     // ADD PRIVATE METHODS HERE
@@ -214,6 +243,14 @@ export class KupInputPanel {
     }
 
     componentDidRender() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const fs: NodeListOf<HTMLElement> =
+                root.querySelectorAll('.f-text-field');
+            for (let index = 0; index < fs.length; index++) {
+                FTextFieldMDC(fs[index]);
+            }
+        }
         this.#kupManager.debug.logRender(this, true);
     }
 
@@ -240,6 +277,11 @@ export class KupInputPanel {
                 <div id={componentWrapperId}>{inputPanelContent}</div>
             </Host>
         );
+    }
+
+    disconnectedCallback() {
+        this.#kupManager.language.unregister(this);
+        this.#kupManager.theme.unregister(this);
     }
     //#endregion
 }

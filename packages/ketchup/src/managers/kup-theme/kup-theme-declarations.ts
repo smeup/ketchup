@@ -145,6 +145,7 @@ export const fTextFieldUsers = [
     KupTagNames.DATA_TABLE,
     KupTagNames.DATE_PICKER,
     KupTagNames.FORM,
+    KupTagNames.INPUT_PANEL,
     KupTagNames.NUMERIC_PICKER,
     KupTagNames.PLANNER,
     KupTagNames.TEXT_FIELD,

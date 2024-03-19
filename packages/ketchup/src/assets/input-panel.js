@@ -1,11 +1,6 @@
 const data = {
     columns: [
         {
-            name: 'PNL',
-            title: 'Input Panel',
-            visible: true,
-        },
-        {
             name: 'NAM',
             title: 'Name',
             visible: true,
@@ -29,16 +24,6 @@ const data = {
     rows: [
         {
             cells: {
-                PNL: {
-                    value: '',
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: '',
-                    },
-                    editable: true,
-                    mandatory: true,
-                },
                 NAM: {
                     value: 'Francesco',
                     obj: {
@@ -63,10 +48,10 @@ const data = {
                 },
                 NAT: {
                     value: 'Italy',
-                    data: {
+                    options: {
                         'kup-text-field': {
                             trailingIcon: true,
-                            label: 'Label',
+                            label: 'Nation',
                             icon: 'arrow_drop_down',
                         },
                         'kup-list': {
@@ -92,7 +77,6 @@ const data = {
                     },
                     editable: true,
                     mandatory: true,
-                    options: false,
                     shape: 'CMB',
                 },
                 CIT: {
@@ -104,7 +88,38 @@ const data = {
                     },
                     editable: true,
                     mandatory: true,
-                    options: false,
+                    options: {
+                        'kup-text-field': {
+                            trailingIcon: true,
+                            label: 'City',
+                            icon: 'arrow_drop_down',
+                        },
+                        'kup-list': {
+                            data: [
+                                {
+                                    value: 'Roma',
+                                    id: 'Roma',
+                                    selected: true,
+                                },
+                                {
+                                    value: 'Flaminio',
+                                    id: 'Flaminio',
+                                    selected: false,
+                                },
+                                {
+                                    value: 'Porta Metronia',
+                                    id: 'Porta Metronia',
+                                    selected: false,
+                                },
+                                {
+                                    value: 'Garbatella',
+                                    id: 'Garbatella',
+                                    selected: false,
+                                },
+                            ],
+                            showIcons: true,
+                        },
+                    },
                     shape: 'ACP',
                 },
             },
