@@ -20,6 +20,11 @@ const data = {
             title: 'Nation',
             visible: true,
         },
+        {
+            name: 'CIT',
+            title: 'City',
+            visible: true,
+        },
     ],
     rows: [
         {
@@ -57,7 +62,29 @@ const data = {
                     shape: 'ITX',
                 },
                 NAT: {
-                    value: 'CODE_2',
+                    value: 'Italy',
+                    data: {
+                        'kup-text-field': {
+                            trailingIcon: true,
+                            label: 'Label',
+                            icon: 'arrow_drop_down',
+                        },
+                        'kup-list': {
+                            data: [
+                                {
+                                    value: 'Italy',
+                                    id: 'Italy',
+                                    selected: true,
+                                },
+                                {
+                                    value: 'Spain',
+                                    id: 'Spain',
+                                    selected: false,
+                                },
+                            ],
+                            showIcons: true,
+                        },
+                    },
                     obj: {
                         t: '',
                         p: '',
@@ -67,6 +94,18 @@ const data = {
                     mandatory: true,
                     options: false,
                     shape: 'CMB',
+                },
+                CIT: {
+                    value: 'Rome',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                    },
+                    editable: true,
+                    mandatory: true,
+                    options: false,
+                    shape: 'ACP',
                 },
             },
         },

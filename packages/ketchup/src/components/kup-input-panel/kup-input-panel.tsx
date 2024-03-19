@@ -168,6 +168,14 @@ export class KupInputPanel {
             case FCellShapes.COMBOBOX:
                 return (
                     <kup-combobox
+                        isSelect={true}
+                        initialValue={cell.value}
+                        disabled={!cell.editable}
+                    />
+                );
+            case FCellShapes.AUTOCOMPLETE:
+                return (
+                    <kup-autocomplete
                         initialValue={cell.value}
                         disabled={!cell.editable}
                     />
