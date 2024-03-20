@@ -40,7 +40,6 @@
     var(--kup-gray-color-30)
   );
 
-  --kup_tree_border: var(--kup-tree-border, 1px solid var(--kup-border-color));
   --kup_tree_text_color: var(--kup-tree-text-color, var(--kup-gray-color-70));
   --kup_tree_header_text_color: var(
     --kup-tree-header-text-color,
@@ -301,8 +300,8 @@
 
 tfoot {
   td {
-    border-bottom: var(--kup_tree_border);
-    border-right: var(--kup_tree_border);
+    border-bottom: solid 1px var(--kup_tree_border_color);
+    border-right: solid 1px var(--kup_tree_border_color);
     box-sizing: border-box;
     height: 36px;
     text-align: right;
@@ -313,7 +312,7 @@ tfoot {
     }
     &:first-of-type {
       border: none;
-      border-right: var(--kup_tree_border);
+      border-right: solid 1px var(--kup_tree_border_color);
     }
   }
 }
@@ -339,8 +338,8 @@ tfoot {
     display: table-header-group;
 
     tr {
-      border-left: var(--kup_tree_border);
-      border-right: var(--kup_tree_border);
+      border-left: solid 1px var(--kup_tree_border_color);
+      border-right: solid 1px var(--kup_tree_border_color);
       th span {
         @include kup-heading-compact-01;
       }

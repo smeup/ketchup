@@ -44,6 +44,11 @@
     </head>
 
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true },
+            };
+        </script>
         <div class="config-panel">
             <div class="field">
                 <label for="colors">Custom colors</label>
@@ -104,13 +109,11 @@
         <h1>Combo chart</h1>
         <kup-chart id="combo-chart"></kup-chart>
         <hr />
-        
+
         <h1>Timeline chart</h1>
         <kup-chart id="timeline-chart"></kup-chart>
         <hr />
 
-
-        
         <script src="/assets/chart.js"></script>
     </body>
 </html>
