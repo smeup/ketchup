@@ -30,7 +30,7 @@
   );
   --kup_progressbar_track_background_color: var(
     --kup-progressbar-track-background-color,
-    var(--kup-gray-color-10)
+    var(--kup-gray-color-20)
   );
   --kup_progressbar_width: var(--kup-progressbar-width, 100%);
 
@@ -156,8 +156,8 @@
         cursor: default;
         display: block;
         font-size: 0.25em;
-        left: 0.4em;
-        line-height: 2.75em;
+        left: 0.6em;
+        line-height: 3em;
         position: absolute;
         right: 0.4em;
         text-align: center;

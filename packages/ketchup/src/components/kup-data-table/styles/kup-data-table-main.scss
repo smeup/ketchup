@@ -67,6 +67,15 @@
     3px
   );
 
+  --kup_datatable_background_color_hover: var(
+    --kup-datatable-background-color-hover,
+    var(--kup-gray-color-20)
+  );
+  --kup_datatable_text_color_hover: var(
+    --kup-datatable-background-color-hover,
+    var(--kup-gray-color-80)
+  );
+
   display: block;
   font-family: var(--kup_datatable_font_family);
   font-size: var(--kup_datatable_font_size);
@@ -111,7 +120,7 @@ table {
     &[#{$kup-dd-drag-over}] {
       td {
         &:first-of-type {
-          box-shadow: inset 4px 0px 0px 0px var(--kup-secondary-color);
+          box-shadow: inset 4px 0px 0px 0px var(--kup-gray-color-30);
         }
       }
     }
@@ -157,22 +166,24 @@ table {
   }
 
   tfoot {
-    td {
-      border-bottom: var(--kup_datatable_border);
-      border-right: var(--kup_datatable_border);
-      box-sizing: border-box;
-      height: 36px;
-      text-align: right;
-      font-weight: bold;
-      padding: 0.5em 0.6em;
-      &:hover {
-        background-color: var(--kup_datatable_background_color);
-      }
-      &:first-of-type {
-        // border-left: var(--kup_datatable_border);
-      }
-      &:last-of-type {
-        border-right: none;
+    tr {
+      td {
+        border-bottom: var(--kup_datatable_border);
+        border-right: var(--kup_datatable_border);
+        box-sizing: border-box;
+        height: 36px;
+        text-align: right;
+        font-weight: bold;
+        padding: 0.5em 0.6em;
+        &:hover {
+          background-color: var(--kup_datatable_background_color);
+        }
+        &:first-of-type {
+          // border-left: var(--kup_datatable_border);
+        }
+        &:last-of-type {
+          border-right: none;
+        }
       }
     }
   }
@@ -370,8 +381,8 @@ tbody {
 
     &:hover:not(.group):not(.selected) {
       td {
-        color: var(--kup-hover-color);
-        background-color: var(--kup-hover-background-color);
+        color: var(--kup_datatable_text_color_hover);
+        background-color: var(--kup_datatable_background_color_hover);
       }
     }
 

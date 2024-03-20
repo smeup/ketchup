@@ -53,6 +53,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        @include kup-heading-02;
 
         &:hover {
           text-decoration: underline;
@@ -70,11 +71,13 @@
         margin-right: 0.75em;
         min-width: max-content;
         width: auto;
+        @include kup-body-compact-01;
       }
 
       .value {
         font-weight: 600;
         width: 100%;
+        @include kup-heading-compact-01;
       }
     }
   }
@@ -105,7 +108,7 @@
   }
 
   .sub-formula {
-    padding: 0.5em;
+    padding: 0.5em 0;
   }
 
   .sub-chip {
@@ -117,9 +120,10 @@
   .sub-field {
     display: flex;
     flex-direction: column;
+    gap: var(--kup-space-03);
     &.has-content {
       border-bottom: 1px solid var(--kup-border-color);
-      padding: 0.5em 0.5em;
+      padding: 0.5em 0;
     }
     kup-date-picker:first-of-type,
     kup-time-picker:first-of-type {

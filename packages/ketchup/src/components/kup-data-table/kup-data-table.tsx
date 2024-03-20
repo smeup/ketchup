@@ -5741,7 +5741,7 @@ export class KupDataTable {
                         ) : null}
                         {this.insertMode !== '' ? (
                             <FButton
-                                label="Add new"
+                                label="Crea nuovo"
                                 // icon="plus"
                                 onClick={async () => {
                                     if (this.insertMode === 'form') {

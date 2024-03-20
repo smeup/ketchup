@@ -1,4 +1,9 @@
 .f-checkbox {
+  --kup_danger_icon_color: var(--kup-danger-color, var(--kup-danger-color-50));
+  --kup_warning_icon_color: var(
+    --kup-warning-color,
+    var(--kup-warning-color-40)
+  );
   --kup_checkbox_disabled_checkmark_color: var(
     --kup-checkbox-disabled-checkmark-color,
     var(--kup-gray-color-10)
@@ -214,7 +219,7 @@
         }
       }
       .checkbox__error-message {
-        color: var(--kup-accent-red-color);
+        color: var(--kup_danger_icon_color);
       }
     }
   }
@@ -233,17 +238,17 @@
   }
 
   .checkbox__error-message {
-    color: var(--kup-accent-red-color);
+    color: var(--kup_danger_icon_color);
   }
 
   &.checkbox--error {
     .checkbox__background {
-      border-color: var(--kup-accent-red-color);
+      border-color: var(--kup_danger_icon_color);
     }
   }
 
   &.#{$kup-class-danger} {
-    --kup-checkbox-primary-color: var(--kup-danger-color);
+    --kup-checkbox-primary-color: var(--kup_danger_icon_color);
     --kup-checkbox-primary-color-rgb: var(--kup-danger-color-rgb);
     --kup-checkbox-text-on-primary-color: white;
     --kup-checkbox-text-on-primary-color-rgb: 255, 255, 255;

@@ -58,10 +58,10 @@
   .box-wrapper {
     display: flex;
     align-items: center;
-    background-color: var(--kup_box_background_color);
-    border-radius: var(--kup-radius-00);
 
     .box {
+      background-color: var(--kup_box_background_color);
+      border-radius: var(--kup-radius-00);
       flex-grow: 1;
       cursor: pointer;
       position: relative;
@@ -84,7 +84,7 @@
       }
 
       &.selected {
-        background-color: var(---kup_box_background_color_hover);
+        background-color: var(--kup_box_background_color_hover);
 
         & .box-section.titled > h3 {
           background-color: transparent;
