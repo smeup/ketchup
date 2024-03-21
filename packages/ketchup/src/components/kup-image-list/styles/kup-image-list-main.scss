@@ -128,7 +128,7 @@
     height: 100%;
     width: 100%;
     .f-cell__content .image-list__wrapper {
-      padding: var(--kup-space-03);
+      padding: var(--kup-space-03) var(--kup-space-02);
     }
   }
 
@@ -156,6 +156,7 @@
     overflow: hidden;
     text-align: center;
     text-overflow: ellipsis;
+    white-space: nowrap;
     @include kup-label-01;
   }
 }

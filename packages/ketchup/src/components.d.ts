@@ -2498,6 +2498,11 @@ export namespace Components {
     }
     interface KupImageList {
         /**
+          * Number of columns to display in the grid layout.
+          * @default 4
+         */
+        "columns": number;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -7213,6 +7218,11 @@ declare namespace LocalJSX {
         "sizeY"?: string;
     }
     interface KupImageList {
+        /**
+          * Number of columns to display in the grid layout.
+          * @default 4
+         */
+        "columns"?: number;
         /**
           * Custom style of the component.
           * @default ""
