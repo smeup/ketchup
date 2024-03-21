@@ -31,6 +31,11 @@ const data = {
             visible: true,
         },
         {
+            name: 'CHA',
+            title: 'Chart',
+            visible: true,
+        },
+        {
             name: 'BUT',
             title: 'Buttons list',
             visible: true,
@@ -114,6 +119,24 @@ const data = {
                     editable: true,
                     mandatory: true,
                     // shape: 'CHK',
+                },
+                CHA: {
+                    data: {
+                        sizeX: '50px',
+                        offlineMode: {
+                            value: '8;4;5',
+                        },
+                        id: 'i1012_GREF_0',
+                        cellId: 'i1012_GREF_0',
+                        sizeY: '50px',
+                    },
+                    obj: {
+                        k: '8;4;5',
+                        p: 'GRA_PIE',
+                        t: 'J4',
+                    },
+                    shape: 'Gra',
+                    value: '8;4;5',
                 },
                 BUT: {
                     cssClass: 'strong-text',

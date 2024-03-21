@@ -193,17 +193,33 @@ export class KupInputPanel {
 
         const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
             [FCellTypes.AUTOCOMPLETE, this.#CMBandACPAdapter],
+            [FCellTypes.BUTTON_LIST, this.#BTNAdapter],
+            [FCellTypes.CHART, this.#GRAAdapter],
             [FCellTypes.CHECKBOX, this.#CHKAdapter],
             [FCellTypes.COLOR_PICKER, this.#CLPAdapter],
             [FCellTypes.COMBOBOX, this.#CMBandACPAdapter],
             [FCellTypes.STRING, this.#ITXAdapter],
-            [FCellTypes.BUTTON_LIST, this.#BTNAdapter],
         ]);
 
         const adapter = dataAdapterMap.get(cellType);
-        console.log(cellType, cell.shape, adapter === null);
+        console.log(cellType, cell.shape, adapter === undefined);
 
         return adapter ? adapter(options, fieldLabel, currentValue) : null;
+    }
+
+    #GRAAdapter() {
+        //TODO: definire mapping
+        return {
+            data: {
+                sizeX: '50px',
+                offlineMode: {
+                    value: '8;4;5',
+                },
+                id: 'i1012_GREF_0',
+                cellId: 'i1012_GREF_0',
+                sizeY: '50px',
+            },
+        };
     }
 
     #BTNAdapter(
