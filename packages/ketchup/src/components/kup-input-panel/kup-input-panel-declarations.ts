@@ -56,3 +56,12 @@ export interface KupInputPanelLayoutField {
     rowStart?: number;
     rowEnd?: number;
 }
+
+export type DataAdapterFn = (
+    options: {
+        id: string;
+        label: string;
+    }[],
+    fieldLabel: string,
+    currentValue: string
+) => Object;

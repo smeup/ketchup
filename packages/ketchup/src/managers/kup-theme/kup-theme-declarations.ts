@@ -43,6 +43,7 @@ export const fCheckboxUsers = [
     KupTagNames.DASHBOARD,
     KupTagNames.DATA_TABLE,
     KupTagNames.FORM,
+    KupTagNames.INPUT_PANEL,
     KupTagNames.LIST,
     KupTagNames.TREE,
 ];

@@ -10,6 +10,7 @@ import {
     h,
 } from '@stencil/core';
 import {
+    DataAdapterFn,
     KupInputPanelCell,
     KupInputPanelColumn,
     KupInputPanelData,
@@ -132,10 +133,7 @@ export class KupInputPanel {
 
                 const mappedCell = {
                     ...cell,
-                    data: {
-                        data: this.#mapData(cell, col),
-                        label: col.title,
-                    },
+                    data: this.#mapData(cell, col),
                     isEditable: cell.editable,
                 };
 
@@ -144,6 +142,7 @@ export class KupInputPanel {
 
         const classObj = {
             form: true,
+            'input-panel': true,
             'form--column': !horizontal,
         };
 
@@ -189,20 +188,12 @@ export class KupInputPanel {
         const fieldLabel = col.title;
         const currentValue = cell.value;
 
-        const dataAdapterMap = new Map<
-            FCellShapes,
-            (
-                options: {
-                    id: string;
-                    label: string;
-                }[],
-                fieldLabel: string,
-                currentValue: string
-            ) => Object
-        >([
+        const dataAdapterMap = new Map<FCellShapes, DataAdapterFn>([
             [FCellShapes.AUTOCOMPLETE, this.#CMBandACPAdapter],
+            [FCellShapes.CHECKBOX, this.#CHKAdapter],
             [FCellShapes.COLOR_PICKER, this.#CLPAdapter],
             [FCellShapes.COMBOBOX, this.#CMBandACPAdapter],
+            [FCellShapes.TEXT_FIELD, this.#ITXAdapter],
         ]);
 
         const adapter = dataAdapterMap.get(cell.shape);
@@ -219,26 +210,29 @@ export class KupInputPanel {
         currentValue: string
     ) {
         return {
-            'kup-text-field': {
-                trailingIcon: true,
-                label: fieldLabel,
-                icon: 'arrow_drop_down',
+            data: {
+                'kup-text-field': {
+                    trailingIcon: true,
+                    label: fieldLabel,
+                    icon: 'arrow_drop_down',
+                },
+                'kup-list': {
+                    showIcons: true,
+                    data: options?.length
+                        ? options.map(({ id, label }) => ({
+                              value: label,
+                              id,
+                              selected: currentValue === id,
+                          }))
+                        : [],
+                },
             },
-            'kup-list': {
-                showIcons: true,
-                data: options?.length
-                    ? options.map(({ id, label }) => ({
-                          value: label,
-                          id,
-                          selected: currentValue === id,
-                      }))
-                    : [],
-            },
+            label: fieldLabel,
         };
     }
 
-    #CLPAdapter(
-        options: {
+    #CHKAdapter(
+        _options: {
             id: string;
             label: string;
         }[],
@@ -246,10 +240,37 @@ export class KupInputPanel {
         currentValue: string
     ) {
         return {
-            'kup-text-field': {
-                label: fieldLabel,
+            checked: currentValue === 'on' || currentValue === '1',
+            label: fieldLabel,
+        };
+    }
+
+    #CLPAdapter(
+        _options: {
+            id: string;
+            label: string;
+        }[],
+        fieldLabel: string,
+        _currentValue: string
+    ) {
+        return {
+            data: {
+                'kup-text-field': {
+                    label: fieldLabel,
+                },
             },
         };
+    }
+
+    #ITXAdapter(
+        _options: {
+            id: string;
+            label: string;
+        }[],
+        fieldLabel: string,
+        _currentValue: string
+    ) {
+        return { label: fieldLabel };
     }
 
     //#endregion

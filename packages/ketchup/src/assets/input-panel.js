@@ -25,6 +25,11 @@ const data = {
             title: 'City',
             visible: true,
         },
+        {
+            name: 'CAM',
+            title: 'Campionato vinto',
+            visible: true,
+        },
     ],
     rows: [
         {
@@ -93,6 +98,17 @@ const data = {
                         { id: 'Garbat', label: 'Garbatella' },
                     ],
                     shape: 'ACP',
+                },
+                CAM: {
+                    value: 'on',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                    },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'CHK',
                 },
             },
         },
