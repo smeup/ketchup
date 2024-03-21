@@ -37,8 +37,8 @@ const data = {
                 NAM: {
                     value: 'Francesco',
                     obj: {
-                        t: 'CN',
-                        p: 'COL',
+                        t: '',
+                        p: '',
                         k: '',
                     },
                     editable: true,
@@ -59,13 +59,13 @@ const data = {
                 COL: {
                     value: '#8E1F2F',
                     obj: {
-                        t: '',
-                        p: '',
+                        t: 'J1',
+                        p: 'COL',
                         k: '',
                     },
                     editable: true,
                     mandatory: true,
-                    shape: 'CLP',
+                    // shape: 'CLP',
                 },
                 NAT: {
                     value: 'It',
@@ -102,13 +102,13 @@ const data = {
                 CAM: {
                     value: 'on',
                     obj: {
-                        t: '',
-                        p: '',
+                        t: 'V2',
+                        p: 'SI/NO',
                         k: '',
                     },
                     editable: true,
                     mandatory: true,
-                    shape: 'CHK',
+                    // shape: 'CHK',
                 },
             },
         },

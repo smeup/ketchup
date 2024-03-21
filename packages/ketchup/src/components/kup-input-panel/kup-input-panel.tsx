@@ -26,11 +26,13 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import {
     FCellProps,
-    FCellShapes,
+    FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FCell } from '../../f-components/f-cell/f-cell';
+import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 
+const dom: KupDom = document.documentElement as KupDom;
 @Component({
     tag: 'kup-input-panel',
     styleUrl: 'kup-input-panel.scss',
@@ -187,16 +189,17 @@ export class KupInputPanel {
         const options = cell.options;
         const fieldLabel = col.title;
         const currentValue = cell.value;
+        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
-        const dataAdapterMap = new Map<FCellShapes, DataAdapterFn>([
-            [FCellShapes.AUTOCOMPLETE, this.#CMBandACPAdapter],
-            [FCellShapes.CHECKBOX, this.#CHKAdapter],
-            [FCellShapes.COLOR_PICKER, this.#CLPAdapter],
-            [FCellShapes.COMBOBOX, this.#CMBandACPAdapter],
-            [FCellShapes.TEXT_FIELD, this.#ITXAdapter],
+        const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
+            [FCellTypes.AUTOCOMPLETE, this.#CMBandACPAdapter],
+            [FCellTypes.CHECKBOX, this.#CHKAdapter],
+            [FCellTypes.COLOR_PICKER, this.#CLPAdapter],
+            [FCellTypes.COMBOBOX, this.#CMBandACPAdapter],
+            [FCellTypes.STRING, this.#ITXAdapter],
         ]);
 
-        const adapter = dataAdapterMap.get(cell.shape);
+        const adapter = dataAdapterMap.get(cellType);
 
         return adapter ? adapter(options, fieldLabel, currentValue) : null;
     }
