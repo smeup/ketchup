@@ -197,11 +197,48 @@ export class KupInputPanel {
             [FCellTypes.COLOR_PICKER, this.#CLPAdapter],
             [FCellTypes.COMBOBOX, this.#CMBandACPAdapter],
             [FCellTypes.STRING, this.#ITXAdapter],
+            [FCellTypes.BUTTON_LIST, this.#BTNAdapter],
         ]);
 
         const adapter = dataAdapterMap.get(cellType);
+        console.log(cellType, cell.shape, adapter === null);
 
         return adapter ? adapter(options, fieldLabel, currentValue) : null;
+    }
+
+    #BTNAdapter(
+        _options: {
+            id: string;
+            label: string;
+        }[],
+        _fieldLabel: string,
+        _currentValue: string
+    ) {
+        //TODO: come gestire i button list dal protocollo?
+        return {
+            data: [
+                {
+                    // children: [
+                    //     {
+                    //         children: [],
+                    //         disabled: false,
+                    //         expandable: false,
+                    //         icon: 'lightbulb-outline',
+                    //         isExpanded: false,
+                    //         obj: {
+                    //             k: '000050',
+                    //             p: 'COD_VER',
+                    //             t: 'VO',
+                    //         },
+                    //         options: false,
+                    //         value: 'Collaboratore',
+                    //     },
+                    // ],
+                    data: { dropdownOnly: false, label: 'Pier' },
+                },
+                { data: { dropdownOnly: false, label: 'Valerio' } },
+            ],
+        };
     }
 
     #CMBandACPAdapter(

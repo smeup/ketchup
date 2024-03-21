@@ -30,6 +30,11 @@ const data = {
             title: 'Campionato vinto',
             visible: true,
         },
+        {
+            name: 'BUT',
+            title: 'Buttons list',
+            visible: true,
+        },
     ],
     rows: [
         {
@@ -109,6 +114,64 @@ const data = {
                     editable: true,
                     mandatory: true,
                     // shape: 'CHK',
+                },
+                BUT: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                children: [
+                                    {
+                                        children: [],
+                                        disabled: false,
+                                        expandable: false,
+                                        icon: 'lightbulb-outline',
+                                        isExpanded: false,
+                                        obj: {
+                                            k: '000050',
+                                            p: 'COD_VER',
+                                            t: 'VO',
+                                        },
+                                        options: false,
+                                        value: 'Collaboratore',
+                                    },
+                                    {
+                                        children: [],
+                                        disabled: false,
+                                        expandable: false,
+                                        icon: 'briefcase',
+                                        isExpanded: false,
+                                        obj: {
+                                            k: '000050',
+                                            p: 'COD_VER',
+                                            t: 'VO',
+                                        },
+                                        options: false,
+                                        value: 'Azienda',
+                                    },
+                                ],
+                                data: {
+                                    dropdownOnly: true,
+                                },
+                                disabled: false,
+                                expandable: false,
+                                isExpanded: false,
+                                options: false,
+                            },
+                        ],
+                        customStyle:
+                            ' #kup-component button { padding: 0; font-size: 0.65em; } ',
+                        icon: 'settings',
+                        className: 'kup-slim',
+                    },
+                    editable: true,
+                    obj: {
+                        k: '000050',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    shape: 'BTN',
+                    value: '',
                 },
             },
         },
