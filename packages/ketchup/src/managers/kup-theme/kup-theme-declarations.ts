@@ -30,6 +30,7 @@ export const fCellUsers = [
     KupTagNames.CELL,
     KupTagNames.DATA_TABLE,
     KupTagNames.FORM,
+    KupTagNames.INPUT_PANEL,
     KupTagNames.TREE,
 ];
 /**

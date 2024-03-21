@@ -11,6 +11,11 @@ const data = {
             visible: true,
         },
         {
+            name: 'COL',
+            title: 'Color Shirt',
+            visible: true,
+        },
+        {
             name: 'NAT',
             title: 'Nation',
             visible: true,
@@ -38,13 +43,24 @@ const data = {
                 SUR: {
                     value: 'Totti',
                     obj: {
-                        t: 'CN',
-                        p: 'COL',
+                        t: '',
+                        p: '',
                         k: '',
                     },
-                    editable: false,
+                    editable: true,
                     mandatory: true,
-                    shape: 'ITX',
+                    shape: 'INF',
+                },
+                COL: {
+                    value: '#8E1F2F',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                    },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'CLP',
                 },
                 NAT: {
                     value: 'It',

@@ -23,7 +23,10 @@ import { KupComponent, KupEventPayload } from '../../types/GenericTypes';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FButton } from '../../f-components/f-button/f-button';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
-import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
+import {
+    FCellProps,
+    FCellShapes,
+} from '../../f-components/f-cell/f-cell-declarations';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FCell } from '../../f-components/f-cell/f-cell';
 
@@ -186,24 +189,67 @@ export class KupInputPanel {
         const fieldLabel = col.title;
         const currentValue = cell.value;
 
-        return options?.length
-            ? {
-                  'kup-text-field': {
-                      trailingIcon: true,
-                      label: fieldLabel,
-                      icon: 'arrow_drop_down',
-                  },
-                  'kup-list': {
-                      showIcons: true,
-                      data: options.map(({ id, label }) => ({
+        const dataAdapterMap = new Map<
+            FCellShapes,
+            (
+                options: {
+                    id: string;
+                    label: string;
+                }[],
+                fieldLabel: string,
+                currentValue: string
+            ) => Object
+        >([
+            [FCellShapes.AUTOCOMPLETE, this.#CMBandACPAdapter],
+            [FCellShapes.COLOR_PICKER, this.#CLPAdapter],
+            [FCellShapes.COMBOBOX, this.#CMBandACPAdapter],
+        ]);
+
+        const adapter = dataAdapterMap.get(cell.shape);
+
+        return adapter ? adapter(options, fieldLabel, currentValue) : null;
+    }
+
+    #CMBandACPAdapter(
+        options: {
+            id: string;
+            label: string;
+        }[],
+        fieldLabel: string,
+        currentValue: string
+    ) {
+        return {
+            'kup-text-field': {
+                trailingIcon: true,
+                label: fieldLabel,
+                icon: 'arrow_drop_down',
+            },
+            'kup-list': {
+                showIcons: true,
+                data: options?.length
+                    ? options.map(({ id, label }) => ({
                           value: label,
                           id,
                           selected: currentValue === id,
-                      })),
-                  },
-                  label: fieldLabel,
-              }
-            : null;
+                      }))
+                    : [],
+            },
+        };
+    }
+
+    #CLPAdapter(
+        options: {
+            id: string;
+            label: string;
+        }[],
+        fieldLabel: string,
+        currentValue: string
+    ) {
+        return {
+            'kup-text-field': {
+                label: fieldLabel,
+            },
+        };
     }
 
     //#endregion
