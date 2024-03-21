@@ -75,8 +75,6 @@ export class KupInputPanel {
     /*-------------------------------------------------*/
 
     #kupManager: KupManager = kupManagerInstance();
-
-    // TODO ADD VARIABLES HERE
     //#endregion
 
     //#region WATCHERS
@@ -88,8 +86,6 @@ export class KupInputPanel {
     onDataChanged() {
         console.log('data changed', this.data);
     }
-
-    // TODO ADD WATCHERS ??
     //#endregion
 
     //#region PUBLIC METHODS
@@ -129,10 +125,15 @@ export class KupInputPanel {
         const rowContent: VNode[] = this.data.columns
             .filter((col) => col.visible)
             .map((col) => {
+                const cell = row.cells[col.name];
+
                 const mappedCell = {
-                    ...row.cells[col.name],
-                    data: { data: row.cells[col.name].options },
-                    isEditable: row.cells[col.name].editable,
+                    ...cell,
+                    data: {
+                        data: this.#mapData(cell, col),
+                        label: col.title,
+                    },
+                    isEditable: cell.editable,
                 };
 
                 return this.#renderCell(mappedCell, row, col);
@@ -168,44 +169,6 @@ export class KupInputPanel {
         row: KupInputPanelRow,
         column: KupInputPanelColumn
     ) {
-        // switch (cell.shape) {
-        //     case FCellShapes.TEXT_FIELD:
-        //         return (
-        //             <FTextField
-        //                 readOnly={!cell.editable}
-        //                 name={column.name}
-        //                 label={column.title}
-        //                 icon={cell.icon}
-        //                 value={cell.value}
-        //             />
-        //         );
-        //     case FCellShapes.COMBOBOX:
-        //         return (
-        //             <kup-combobox
-        //                 isSelect={true}
-        //                 initialValue={cell.value}
-        //                 disabled={!cell.editable}
-        //                 data={cell.options}
-        //                 onKup-combobox-change={(ev) =>
-        //                     console.log('combo value change', ev.detail.value)
-        //                 }
-        //             />
-        //         );
-        //     case FCellShapes.AUTOCOMPLETE:
-        //         return (
-        //             <kup-autocomplete
-        //                 initialValue={cell.value}
-        //                 disabled={!cell.editable}
-        //                 data={cell.options}
-        //             />
-        //         );
-        //     default:
-        //         return (
-        //             <p>
-        //                 {column.name}: {cell.value || 'no value'}
-        //             </p>
-        //         );
-        // }
         const cellProps: FCellProps = {
             cell,
             column,
@@ -218,7 +181,31 @@ export class KupInputPanel {
         return <FCell {...cellProps} />;
     }
 
-    // ADD PRIVATE METHODS HERE
+    #mapData(cell: KupInputPanelCell, col: KupInputPanelColumn) {
+        const options = cell.options;
+        const fieldLabel = col.title;
+        const currentValue = cell.value;
+
+        return options?.length
+            ? {
+                  'kup-text-field': {
+                      trailingIcon: true,
+                      label: fieldLabel,
+                      icon: 'arrow_drop_down',
+                  },
+                  'kup-list': {
+                      showIcons: true,
+                      data: options.map(({ id, label }) => ({
+                          value: label,
+                          id,
+                          selected: currentValue === id,
+                      })),
+                  },
+                  label: fieldLabel,
+              }
+            : null;
+    }
+
     //#endregion
 
     //#region LIFECYCLE HOOKS

@@ -24,13 +24,10 @@ export interface KupInputPanelRowCells {
 }
 
 export interface KupInputPanelCell extends KupDataCell {
-    // value?: string;
-    // obj?: KupObj;
-    options?: string[];
-    // icon?: string;
+    // TODO tipizzare dopo validazione da SMEUP
+    options?: { id: string; label: string }[];
     editable?: boolean;
     mandatory?: boolean;
-    // shape?: FCellShapes;
     fun?: string;
 }
 

@@ -47,29 +47,11 @@ const data = {
                     shape: 'ITX',
                 },
                 NAT: {
-                    value: 'Italy',
-                    options: {
-                        'kup-text-field': {
-                            trailingIcon: true,
-                            label: 'Nation',
-                            icon: 'arrow_drop_down',
-                        },
-                        'kup-list': {
-                            data: [
-                                {
-                                    value: 'Italy',
-                                    id: 'Italy',
-                                    selected: true,
-                                },
-                                {
-                                    value: 'Spain',
-                                    id: 'Spain',
-                                    selected: false,
-                                },
-                            ],
-                            showIcons: true,
-                        },
-                    },
+                    value: 'It',
+                    options: [
+                        { id: 'It', label: 'Italy' },
+                        { id: 'Sp', label: 'Spain' },
+                    ],
                     obj: {
                         t: '',
                         p: '',
@@ -80,7 +62,7 @@ const data = {
                     shape: 'CMB',
                 },
                 CIT: {
-                    value: 'Rome',
+                    value: 'Rom',
                     obj: {
                         t: '',
                         p: '',
@@ -88,38 +70,12 @@ const data = {
                     },
                     editable: true,
                     mandatory: true,
-                    options: {
-                        'kup-text-field': {
-                            trailingIcon: true,
-                            label: 'City',
-                            icon: 'arrow_drop_down',
-                        },
-                        'kup-list': {
-                            data: [
-                                {
-                                    value: 'Roma',
-                                    id: 'Roma',
-                                    selected: true,
-                                },
-                                {
-                                    value: 'Flaminio',
-                                    id: 'Flaminio',
-                                    selected: false,
-                                },
-                                {
-                                    value: 'Porta Metronia',
-                                    id: 'Porta Metronia',
-                                    selected: false,
-                                },
-                                {
-                                    value: 'Garbatella',
-                                    id: 'Garbatella',
-                                    selected: false,
-                                },
-                            ],
-                            showIcons: true,
-                        },
-                    },
+                    options: [
+                        { id: 'Rom', label: 'Roma' },
+                        { id: 'Flam', label: 'Flaminio' },
+                        { id: 'PorMet', label: 'Porta Metronia' },
+                        { id: 'Garbat', label: 'Garbatella' },
+                    ],
                     shape: 'ACP',
                 },
             },
