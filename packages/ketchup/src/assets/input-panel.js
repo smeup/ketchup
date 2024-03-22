@@ -33,12 +33,17 @@ const data = {
         {
             name: 'CHA',
             title: 'Chart',
+            visible: false,
+        },
+        {
+            name: 'CHI',
+            title: 'Chip',
             visible: true,
         },
         {
             name: 'BUT',
             title: 'Buttons list',
-            visible: true,
+            visible: false,
         },
     ],
     rows: [
@@ -137,6 +142,11 @@ const data = {
                     },
                     shape: 'Gra',
                     value: '8;4;5',
+                },
+                CHI: {
+                    // data: {},
+                    shape: 'CHI',
+                    value: 'Chipp',
                 },
                 BUT: {
                     cssClass: 'strong-text',

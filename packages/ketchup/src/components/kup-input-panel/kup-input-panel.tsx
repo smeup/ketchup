@@ -195,6 +195,7 @@ export class KupInputPanel {
             [FCellTypes.AUTOCOMPLETE, this.#CMBandACPAdapter],
             [FCellTypes.BUTTON_LIST, this.#BTNAdapter],
             [FCellTypes.CHART, this.#GRAAdapter],
+            [FCellTypes.CHIP, this.#CHIAdapter],
             [FCellTypes.CHECKBOX, this.#CHKAdapter],
             [FCellTypes.COLOR_PICKER, this.#CLPAdapter],
             [FCellTypes.COMBOBOX, this.#CMBandACPAdapter],
@@ -205,6 +206,23 @@ export class KupInputPanel {
         console.log(cellType, cell.shape, adapter === undefined);
 
         return adapter ? adapter(options, fieldLabel, currentValue) : null;
+    }
+
+    #CHIAdapter(
+        _options: {
+            id: string;
+            label: string;
+        }[],
+        _fieldLabel: string,
+        _currentValue: string
+    ) {
+        return { data: [{ value: 'Valore1' }], title: 'Chippp' };
+        // return {
+        //     data: {
+        //         label: 'CHipp',
+        //     },
+        //     label: fieldLabel,
+        // };
     }
 
     #GRAAdapter() {
