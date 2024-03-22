@@ -101,11 +101,6 @@ export class KupImageList {
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
     /**
-     * Number of columns to display in the grid layout.
-     * @default 4
-     */
-    @Prop() columns: number = 4;
-    /**
      * Custom style of the component.
      * @default ""
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -358,9 +353,6 @@ export class KupImageList {
 
     render() {
         const hasNavigation = !!this.currentNode;
-        const gridColumnsStyle = {
-            'grid-template-columns': `repeat(${this.columns}, minmax(0px, 1fr))`,
-        };
         return (
             <Host>
                 <style>
@@ -411,9 +403,7 @@ export class KupImageList {
                             </div>
                         ) : null}
                     </div>
-                    <div class="image-list" style={gridColumnsStyle}>
-                        {...this.#createList()}
-                    </div>
+                    <div class="image-list">{...this.#createList()}</div>
                 </div>
             </Host>
         );
