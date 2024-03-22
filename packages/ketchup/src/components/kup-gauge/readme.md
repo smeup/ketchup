@@ -163,6 +163,7 @@ Type: `Promise<void>`
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
+ - [kup-input-panel](../kup-input-panel)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -243,6 +244,7 @@ graph TD;
   kup-box --> kup-gauge
   kup-cell --> kup-gauge
   kup-image-list --> kup-gauge
+  kup-input-panel --> kup-gauge
   style kup-gauge fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

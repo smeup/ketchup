@@ -18,6 +18,7 @@ export const fButtonUsers = [
     KupTagNames.DROPDOWN_BUTTON,
     KupTagNames.FAMILY_TREE,
     KupTagNames.FORM,
+    KupTagNames.INPUT_PANEL,
     KupTagNames.IMAGE_LIST,
     KupTagNames.SNACKBAR,
 ];
@@ -57,6 +58,7 @@ export const fChipUsers = [
     KupTagNames.CHIP,
     KupTagNames.DATA_TABLE,
     KupTagNames.FORM,
+    KupTagNames.INPUT_PANEL,
     KupTagNames.TREE,
 ];
 /**
@@ -131,6 +133,7 @@ export const fSwitchUsers = [
     KupTagNames.CELL,
     KupTagNames.DATA_TABLE,
     KupTagNames.FORM,
+    KupTagNames.INPUT_PANEL,
     KupTagNames.SWITCH,
     KupTagNames.TREE,
 ];

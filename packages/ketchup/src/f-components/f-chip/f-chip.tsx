@@ -17,6 +17,7 @@ const dom: KupDom = document.documentElement as KupDom;
 /*-------------------------------------------------*/
 
 export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
+    console.log('FChip props', props);
     if (!props.type) {
         props.type = FChipType.STANDARD;
     }
