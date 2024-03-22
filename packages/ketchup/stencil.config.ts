@@ -80,6 +80,7 @@ export const config: Config = {
                 { src: 'grid.html' },
                 { src: 'image.html' },
                 { src: 'image-list.html' },
+                { src: 'input-panel.html' },
                 { src: 'kupdata.html' },
                 { src: 'kupinteract.html' },
                 { src: 'kuptooltip.html' },
