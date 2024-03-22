@@ -7,10 +7,19 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                    | Type                | Default |
-| ------------- | -------------- | ------------------------------ | ------------------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string`            | `''`    |
-| `data`        | --             | Actual data of the form.       | `KupInputPanelData` | `null`  |
+| Property             | Attribute              | Description                                                            | Type                          | Default |
+| -------------------- | ---------------------- | ---------------------------------------------------------------------- | ----------------------------- | ------- |
+| `customStyle`        | `custom-style`         | Custom style of the component.                                         | `string`                      | `''`    |
+| `data`               | --                     | Actual data of the form.                                               | `KupInputPanelData`           | `null`  |
+| `hiddenSubmitButton` | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean`                     | `false` |
+| `submitCb`           | --                     | Sets the callback function on submit form                              | `(e: SubmitEvent) => unknown` | `null`  |
+
+
+## Events
+
+| Event                   | Description                     | Type                           |
+| ----------------------- | ------------------------------- | ------------------------------ |
+| `kup-input-panel-ready` | When component load is complete | `CustomEvent<KupEventPayload>` |
 
 
 ## Dependencies
@@ -19,12 +28,40 @@
 
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
+- [kup-autocomplete](../kup-autocomplete)
+- [kup-chip](../kup-chip)
+- [kup-text-field](../kup-text-field)
+- [kup-color-picker](../kup-color-picker)
+- [kup-combobox](../kup-combobox)
+- [kup-date-picker](../kup-date-picker)
+- [kup-rating](../kup-rating)
+- [kup-time-picker](../kup-time-picker)
+- [kup-image](../kup-image)
+- [kup-button-list](../kup-button-list)
+- [kup-chart](../kup-chart)
+- [kup-gauge](../kup-gauge)
+- [kup-progress-bar](../kup-progress-bar)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-input-panel --> kup-card
   kup-input-panel --> kup-dialog
+  kup-input-panel --> kup-badge
+  kup-input-panel --> kup-autocomplete
+  kup-input-panel --> kup-chip
+  kup-input-panel --> kup-text-field
+  kup-input-panel --> kup-color-picker
+  kup-input-panel --> kup-combobox
+  kup-input-panel --> kup-date-picker
+  kup-input-panel --> kup-rating
+  kup-input-panel --> kup-time-picker
+  kup-input-panel --> kup-image
+  kup-input-panel --> kup-button-list
+  kup-input-panel --> kup-chart
+  kup-input-panel --> kup-gauge
+  kup-input-panel --> kup-progress-bar
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field

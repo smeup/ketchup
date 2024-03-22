@@ -104,6 +104,7 @@ Type: `Promise<void>`
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
+ - [kup-input-panel](../kup-input-panel)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -192,6 +193,7 @@ graph TD;
   kup-box --> kup-date-picker
   kup-cell --> kup-date-picker
   kup-image-list --> kup-date-picker
+  kup-input-panel --> kup-date-picker
   style kup-date-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

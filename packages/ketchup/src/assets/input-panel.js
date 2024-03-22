@@ -43,7 +43,7 @@ const data = {
         {
             name: 'BUT',
             title: 'Buttons list',
-            visible: false,
+            visible: true,
         },
     ],
     rows: [
@@ -144,9 +144,10 @@ const data = {
                     value: '8;4;5',
                 },
                 CHI: {
-                    // data: {},
                     shape: 'CHI',
-                    value: 'Chipp',
+                    value: 'Chi',
+                    editable: true,
+                    options: [{ id: 'Chi', label: 'Chip' }],
                 },
                 BUT: {
                     cssClass: 'strong-text',

@@ -136,6 +136,7 @@ export class KupInputPanel {
                 const mappedCell = {
                     ...cell,
                     data: this.#mapData(cell, col),
+                    slotData: this.#slotData(cell, col),
                     isEditable: cell.editable,
                 };
 
@@ -203,26 +204,45 @@ export class KupInputPanel {
         ]);
 
         const adapter = dataAdapterMap.get(cellType);
-        console.log(cellType, cell.shape, adapter === undefined);
 
         return adapter ? adapter(options, fieldLabel, currentValue) : null;
     }
 
+    #slotData(cell: KupInputPanelCell, col: KupInputPanelColumn) {
+        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+
+        if (
+            cellType !== FCellTypes.CHIP &&
+            cellType !== FCellTypes.MULTI_AUTOCOMPLETE &&
+            cellType !== FCellTypes.MULTI_COMBOBOX &&
+            !cell.editable
+        ) {
+            return null;
+        }
+
+        return {
+            trailingIcon: true,
+            label: col.title,
+        };
+    }
+
     #CHIAdapter(
-        _options: {
+        options: {
             id: string;
             label: string;
         }[],
         _fieldLabel: string,
-        _currentValue: string
+        currentValue: string
     ) {
-        return { data: [{ value: 'Valore1' }], title: 'Chippp' };
-        // return {
-        //     data: {
-        //         label: 'CHipp',
-        //     },
-        //     label: fieldLabel,
-        // };
+        return {
+            data: options?.length
+                ? options.map(({ id, label }) => ({
+                      value: label,
+                      id,
+                      selected: currentValue === id,
+                  }))
+                : [{ id: currentValue, value: currentValue }],
+        };
     }
 
     #GRAAdapter() {
