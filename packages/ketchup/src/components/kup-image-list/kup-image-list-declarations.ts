@@ -6,6 +6,7 @@ import { KupEventPayload } from '../../types/GenericTypes';
  * Used to export every prop in an object.
  */
 export enum KupImageListProps {
+    columns = 'Can set a specific number of columns',
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the component',
     ripple = "When enabled displays Material's ripple effect on clicked items.",

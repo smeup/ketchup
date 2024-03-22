@@ -122,7 +122,10 @@ export const config: Config = {
     plugins: [
         sass({
             includePaths: ['./node_modules', './src/f-components'],
-            injectGlobalPaths: ['src/style/global.scss'],
+            injectGlobalPaths: [
+                'src/style/global.scss',
+                'src/style/fonts.scss',
+            ],
         }),
     ],
 };
