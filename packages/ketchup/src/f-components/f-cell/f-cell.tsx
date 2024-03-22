@@ -296,7 +296,6 @@ function setEditableCell(
     column: KupDataColumn,
     props: FCellProps
 ): unknown {
-    console.log('setEditableCell', cellType, cell.slotData);
     switch (cellType) {
         case FCellTypes.AUTOCOMPLETE:
             return (
