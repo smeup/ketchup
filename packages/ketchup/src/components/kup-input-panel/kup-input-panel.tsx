@@ -204,7 +204,6 @@ export class KupInputPanel {
         ]);
 
         const adapter = dataAdapterMap.get(cellType);
-        console.log(cellType, cell.shape, adapter === undefined);
 
         return adapter ? adapter(options, fieldLabel, currentValue) : null;
     }

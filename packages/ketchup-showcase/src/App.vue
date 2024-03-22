@@ -406,6 +406,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'inputpanel',
+                  },
+                },
+                icon: 'mode_edit',
+                value: 'Input Panel',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'planner',
                   },
                 },

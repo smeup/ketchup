@@ -347,7 +347,6 @@ function setEditableCell(
                 );
             }
         case FCellTypes.CHIP:
-            console.log('chip slotdata', cell.slotData);
             return (
                 <kup-chip
                     {...cell.data}
