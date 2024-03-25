@@ -1,4 +1,10 @@
-import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
+import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
+import {
+    KupDataCell,
+    KupDataColumn,
+    KupDataNode,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 import { KupEventPayload } from '../../types/GenericTypes';
 
 /**
@@ -14,4 +20,17 @@ export enum KupImageListProps {
 
 export interface KupImageListEventPayload extends KupEventPayload {
     node: KupDataNode;
+}
+
+export interface KupImageListContextMenuEventPayload extends KupEventPayload {
+    details: KupImageListEventHandlerDetails;
+}
+/**
+ * Contains all the data of an event.
+ */
+export interface KupImageListEventHandlerDetails {
+    cell: KupDataCell;
+    column: KupDataColumn;
+    originalEvent: PointerEvent;
+    row: KupDataRow;
 }

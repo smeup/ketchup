@@ -19,12 +19,19 @@ import {
 } from '../../managers/kup-manager/kup-manager';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
+    KupImageListContextMenuEventPayload,
+    KupImageListEventHandlerDetails,
     KupImageListEventPayload,
     KupImageListProps,
 } from './kup-image-list-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataCell,
+    KupDataColumn,
+    KupDataNode,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
@@ -34,10 +41,14 @@ import {
 } from '../../f-components/f-button/f-button-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
-import { FCellPadding } from '../../f-components/f-cell/f-cell-declarations';
+import {
+    FCellPadding,
+    FCellProps,
+} from '../../f-components/f-cell/f-cell-declarations';
 import { KupStore } from '../kup-state/kup-store';
 import { KupImageListState } from './kup-image-list-state';
 import { TreeNodePath } from '../kup-tree/kup-tree-declarations';
+import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 
 @Component({
     tag: 'kup-image-list',
@@ -64,7 +75,7 @@ export class KupImageList {
             const state = this.store.getState(this.stateId);
             if (state != null) {
                 this.currentNode =
-                    this.kupManager.data.node.findByStrTreeNodePath(
+                    this.#kupManager.data.node.findByStrTreeNodePath(
                         this.data,
                         state.selectedTreeNodePath
                     );
@@ -78,7 +89,7 @@ export class KupImageList {
             let cNodeRowId = this.currentNode ? this.currentNode.id : '';
 
             if (
-                !this.kupManager.objects.deepEqual(
+                !this.#kupManager.objects.deepEqual(
                     this.state.selectedTreeNodePath,
                     cNodeRowId
                 )
@@ -134,7 +145,6 @@ export class KupImageList {
     /**
      * Instance of the KupManager class.
      */
-    private kupManager: KupManager = kupManagerInstance();
 
     #clickTimeout: ReturnType<typeof setTimeout>[] = [];
     #kupManager: KupManager = kupManagerInstance();
@@ -161,6 +171,8 @@ export class KupImageList {
         styling: FButtonStyling.FLAT,
         wrapperClass: 'navigation-bar__top',
     };
+    #el: HTMLElement;
+    #hold: boolean = false;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -191,16 +203,7 @@ export class KupImageList {
         cancelable: false,
         bubbles: true,
     })
-    kupContextMenu: EventEmitter<KupImageListEventPayload>;
-
-    onKupContextMenu(e: MouseEvent, node: KupDataNode) {
-        e.preventDefault();
-        this.kupContextMenu.emit({
-            comp: this,
-            id: this.rootElement.id,
-            node: node,
-        });
-    }
+    kupContextMenu: EventEmitter<KupImageListContextMenuEventPayload>;
 
     @Event({
         eventName: 'kup-imagelist-dblclick',
@@ -231,7 +234,7 @@ export class KupImageList {
         if (!newData || newData.length == 0) {
             return;
         }
-        this.currentNode = this.kupManager.data.node.find(this.data, newData);
+        this.currentNode = this.#kupManager.data.node.find(this.data, newData);
     }
 
     /*-------------------------------------------------*/
@@ -308,7 +311,6 @@ export class KupImageList {
                             setTimeout(() => this.onKupClick(node), 300)
                         );
                     }}
-                    onContextMenu={(e) => this.onKupContextMenu(e, node)}
                     onDblClick={() => this.onKupDblClick(node)}
                     class={classObj}
                 >
@@ -318,6 +320,41 @@ export class KupImageList {
             nodes.push(item);
         }
         return nodes;
+    }
+
+    #getEventDetails(
+        path: HTMLElement[],
+        e?: PointerEvent
+    ): KupImageListEventHandlerDetails {
+        let cellProps: FCellProps;
+
+        if (path) {
+            for (let i = path.length - 1; i >= 0; i--) {
+                let p = path[i];
+                if (!p.tagName) {
+                    continue;
+                }
+                if (p.classList.contains('f-cell')) {
+                    cellProps = p['kup-get-cell-props']();
+                }
+            }
+        }
+
+        return {
+            cell: cellProps?.cell,
+            column: cellProps?.column,
+            originalEvent: e,
+            row: cellProps?.row,
+        };
+    }
+
+    #contextMenuHandler(e: PointerEvent): KupImageListEventHandlerDetails {
+        const details: KupImageListEventHandlerDetails = this.#getEventDetails(
+            this.#kupManager.getEventPath(e.target, this.rootElement),
+            e
+        );
+
+        return details;
     }
 
     /*-------------------------------------------------*/
@@ -331,6 +368,21 @@ export class KupImageList {
     }
 
     componentDidLoad() {
+        const holdCb = (e: PointerEvent) => {
+            if (e.pointerType === 'pen' || e.pointerType === 'touch') {
+                this.#hold = true;
+                this.kupContextMenu.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    details: this.#contextMenuHandler(e),
+                });
+            }
+        };
+        this.#kupManager.interact.on(
+            this.#el,
+            KupPointerEventTypes.HOLD,
+            holdCb
+        );
         this.#kupManager.debug.logLoad(this, true);
     }
 
@@ -368,7 +420,12 @@ export class KupImageList {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}>
+                <div
+                    id={componentWrapperId}
+                    ref={(el) => {
+                        this.#el = el;
+                    }}
+                >
                     <div class="navigation-bar">
                         {hasNavigation ? (
                             <div

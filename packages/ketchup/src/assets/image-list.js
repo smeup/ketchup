@@ -612,3 +612,7 @@ imageList.selectable = true;
 document.addEventListener('kup-imagelist-click', (e) => {
     console.log(e);
 });
+
+document.addEventListener('kup-imagelist-contextmenu', (e) => {
+    console.log(e);
+});

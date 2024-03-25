@@ -9,6 +9,7 @@
 
 | Property       | Attribute      | Description                                                      | Type            | Default     |
 | -------------- | -------------- | ---------------------------------------------------------------- | --------------- | ----------- |
+| `columns`      | `columns`      | Number of columns to display in the grid layout.                 | `number`        | `4`         |
 | `customStyle`  | `custom-style` | Custom style of the component.                                   | `string`        | `''`        |
 | `data`         | --             | Actual data of the component.                                    | `KupDataNode[]` | `[]`        |
 | `ripple`       | `ripple`       | When enabled displays Material's ripple effect on clicked items. | `boolean`       | `true`      |
@@ -19,11 +20,11 @@
 
 ## Events
 
-| Event                       | Description | Type                                    |
-| --------------------------- | ----------- | --------------------------------------- |
-| `kup-imagelist-click`       |             | `CustomEvent<KupImageListEventPayload>` |
-| `kup-imagelist-contextmenu` |             | `CustomEvent<KupImageListEventPayload>` |
-| `kup-imagelist-dblclick`    |             | `CustomEvent<KupImageListEventPayload>` |
+| Event                       | Description | Type                                               |
+| --------------------------- | ----------- | -------------------------------------------------- |
+| `kup-imagelist-click`       |             | `CustomEvent<KupImageListEventPayload>`            |
+| `kup-imagelist-contextmenu` |             | `CustomEvent<KupImageListContextMenuEventPayload>` |
+| `kup-imagelist-dblclick`    |             | `CustomEvent<KupImageListEventPayload>`            |
 
 
 ## Methods
