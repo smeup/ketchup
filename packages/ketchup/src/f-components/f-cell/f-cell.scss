@@ -206,8 +206,8 @@
   }
 
   &.success-text {
-    --kup-textfield-color: var(--kup-success-color) !important;
-    color: var(--kup-success-color) !important;
+    --kup-textfield-color: var(--kup-success-color-40) !important;
+    color: var(--kup-success-color-40) !important;
   }
 
   &.warning-text {
@@ -372,7 +372,7 @@
 
   &.c-success-bg {
     .f-cell__content {
-      background: var(--kup-success-color) !important;
+      background: var(--kup-success-color-40) !important;
       color: white !important;
     }
   }
