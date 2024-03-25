@@ -43,7 +43,7 @@
             "--kup-font-family": "IBM Plex Sans, sans-serif",
             "--kup-font-family-monospace": "IBM Plex Mono, monospace",
             "--kup-font-size": "14px",
-            "--kup-text-color": "#292929",
+            "--kup-text-color": "#525252",
             "--kup-text-on-primary-color": "#e8e8e8",
             "--kup-text-on-secondary-color": "#312c2c",
             "--kup-disabled-background-color": "#d1d1d1",

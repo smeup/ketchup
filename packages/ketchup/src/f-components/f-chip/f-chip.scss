@@ -18,10 +18,6 @@
   --kup_chip_small_height: var(--kup-chip-small-height, var(--kup-space-05));
   --kup_chip_medium_height: var(--kup-chip-medium-height, var(--kup-space-06));
   --kup_chip_indent_multiplier: var(--kup-chip-indent-multiplier, 10);
-  --kup_chip_margin: var(
-    --kup-chip-margin,
-    var(--kup-space-00)
-  ); // spacing is in the chip-set
   --kup_chip_padding: var(--kup-chip-padding, var(--kup-space-03));
   --kup_chip_primary_color: var(
     --kup-chip-primary-color,
@@ -43,11 +39,8 @@
 
   .chip-set {
     gap: var(--kup-space-03);
-    margin: var(
-      --kup-chip-margin,
-      var(--kup-space-00) var(--kup-space-00) var(--kup-space-03)
-        var(--kup-space-00)
-    );
+    margin: var(--kup-space-02) var(--kup-space-00) var(--kup-space-02)
+      var(--kup-space-00);
     display: flex;
     flex-wrap: wrap;
     box-sizing: border-box;
