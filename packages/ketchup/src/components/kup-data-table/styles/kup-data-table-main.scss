@@ -572,3 +572,8 @@ th.obj:hover span:not(.overlay-action) {
   }
 }
 
+@media screen and (max-width: 899px) {
+  .f-cell {
+    user-select: none;
+  }
+}
