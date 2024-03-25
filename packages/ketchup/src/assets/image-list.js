@@ -616,3 +616,7 @@ document.addEventListener('kup-imagelist-click', (e) => {
 document.addEventListener('kup-imagelist-contextmenu', (e) => {
     console.log(e);
 });
+
+document.addEventListener('kup-imagelist-dblclick', (e) => {
+    console.log(e);
+});

@@ -1,4 +1,3 @@
-import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
 import {
     KupDataCell,
     KupDataColumn,
@@ -19,10 +18,6 @@ export enum KupImageListProps {
 }
 
 export interface KupImageListEventPayload extends KupEventPayload {
-    node: KupDataNode;
-}
-
-export interface KupImageListContextMenuEventPayload extends KupEventPayload {
     details: KupImageListEventHandlerDetails;
 }
 /**

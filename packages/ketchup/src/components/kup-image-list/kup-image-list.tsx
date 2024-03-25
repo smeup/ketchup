@@ -19,7 +19,6 @@ import {
 } from '../../managers/kup-manager/kup-manager';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
-    KupImageListContextMenuEventPayload,
     KupImageListEventHandlerDetails,
     KupImageListEventPayload,
     KupImageListProps,
@@ -173,6 +172,7 @@ export class KupImageList {
     };
     #el: HTMLElement;
     #hold: boolean = false;
+    #interactableTouch: HTMLElement[] = [];
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -186,24 +186,13 @@ export class KupImageList {
     })
     kupClick: EventEmitter<KupImageListEventPayload>;
 
-    onKupClick(node: KupDataNode) {
-        if (node.children && node.children.length > 0) {
-            this.currentNode = node;
-        }
-        this.kupClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            node: node,
-        });
-    }
-
     @Event({
         eventName: 'kup-imagelist-contextmenu',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupContextMenu: EventEmitter<KupImageListContextMenuEventPayload>;
+    kupContextMenu: EventEmitter<KupImageListEventPayload>;
 
     @Event({
         eventName: 'kup-imagelist-dblclick',
@@ -212,18 +201,6 @@ export class KupImageList {
         bubbles: true,
     })
     kupDblClick: EventEmitter<KupImageListEventPayload>;
-
-    onKupDblClick(node: KupDataNode) {
-        for (let index = 0; index < this.#clickTimeout.length; index++) {
-            clearTimeout(this.#clickTimeout[index]);
-        }
-        this.#clickTimeout = [];
-        this.kupDblClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            node: node,
-        });
-    }
 
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
@@ -306,12 +283,9 @@ export class KupImageList {
             };
             const item: VNode = (
                 <div
-                    onClick={() => {
-                        this.#clickTimeout.push(
-                            setTimeout(() => this.onKupClick(node), 300)
-                        );
+                    onContextMenu={(e) => {
+                        e.preventDefault();
                     }}
-                    onDblClick={() => this.onKupDblClick(node)}
                     class={classObj}
                 >
                     {this.#createItem(node)}
@@ -348,6 +322,15 @@ export class KupImageList {
         };
     }
 
+    #clickHandler(e: PointerEvent): KupImageListEventHandlerDetails {
+        const details: KupImageListEventHandlerDetails = this.#getEventDetails(
+            this.#kupManager.getEventPath(e.target, this.rootElement),
+            e
+        );
+
+        return details;
+    }
+
     #contextMenuHandler(e: PointerEvent): KupImageListEventHandlerDetails {
         const details: KupImageListEventHandlerDetails = this.#getEventDetails(
             this.#kupManager.getEventPath(e.target, this.rootElement),
@@ -355,6 +338,102 @@ export class KupImageList {
         );
 
         return details;
+    }
+
+    #dblClickHandler(e: PointerEvent): KupImageListEventHandlerDetails {
+        const details: KupImageListEventHandlerDetails = this.#getEventDetails(
+            this.#kupManager.getEventPath(e.target, this.rootElement),
+            e
+        );
+
+        return details;
+    }
+
+    #didLoadInteractables() {
+        this.#interactableTouch.push(this.#el);
+        const tapCb = (e: PointerEvent) => {
+            if (this.#hold) {
+                this.#hold = false;
+                return;
+            }
+            switch (e.button) {
+                // left click
+                case 0:
+                    // Note: event must be cloned
+                    // otherwise inside setTimeout will be exiting the Shadow DOM scope(causing loss of information, including target).
+                    const clone: GenericObject = {};
+                    for (const key in e) {
+                        clone[key] = e[key];
+                    }
+                    this.#clickTimeout.push(
+                        setTimeout(() => {
+                            this.kupClick.emit({
+                                comp: this,
+                                id: this.rootElement.id,
+                                details: this.#clickHandler(
+                                    clone as PointerEvent
+                                ),
+                            });
+                        }, 300)
+                    );
+                    break;
+                // right click
+                case 2:
+                    this.kupContextMenu.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        details: this.#contextMenuHandler(e),
+                    });
+                    break;
+            }
+        };
+        const doubletapCb = (e: PointerEvent) => {
+            switch (e.button) {
+                // left click
+                case 0:
+                    for (
+                        let index = 0;
+                        index < this.#clickTimeout.length;
+                        index++
+                    ) {
+                        clearTimeout(this.#clickTimeout[index]);
+                        this.#kupManager.debug.logMessage(
+                            this,
+                            'Cleared clickHandler timeout(' +
+                                this.#clickTimeout[index] +
+                                ').'
+                        );
+                    }
+                    this.#clickTimeout = [];
+                    this.kupDblClick.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        details: this.#dblClickHandler(e),
+                    });
+                    break;
+            }
+        };
+        const holdCb = (e: PointerEvent) => {
+            if (e.pointerType === 'pen' || e.pointerType === 'touch') {
+                this.#hold = true;
+            }
+        };
+        this.#kupManager.interact.on(
+            this.#el,
+            KupPointerEventTypes.HOLD,
+            holdCb
+        );
+        this.#kupManager.interact.on(this.#el, KupPointerEventTypes.TAP, tapCb);
+        this.#kupManager.interact.on(
+            this.#el,
+            KupPointerEventTypes.DOUBLETAP,
+            doubletapCb
+        );
+        this.#kupManager.interact.on(
+            this.#el,
+            KupPointerEventTypes.HOLD,
+            holdCb
+        );
     }
 
     /*-------------------------------------------------*/
@@ -368,21 +447,7 @@ export class KupImageList {
     }
 
     componentDidLoad() {
-        const holdCb = (e: PointerEvent) => {
-            if (e.pointerType === 'pen' || e.pointerType === 'touch') {
-                this.#hold = true;
-                this.kupContextMenu.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    details: this.#contextMenuHandler(e),
-                });
-            }
-        };
-        this.#kupManager.interact.on(
-            this.#el,
-            KupPointerEventTypes.HOLD,
-            holdCb
-        );
+        this.#didLoadInteractables();
         this.#kupManager.debug.logLoad(this, true);
     }
 
@@ -477,6 +542,7 @@ export class KupImageList {
     }
 
     disconnectedCallback() {
+        this.#kupManager.interact.unregister(this.#interactableTouch);
         this.#kupManager.language.unregister(this);
         this.#kupManager.theme.unregister(this);
     }
