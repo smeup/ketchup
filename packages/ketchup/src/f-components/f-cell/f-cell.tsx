@@ -175,6 +175,13 @@ export const FCell: FunctionalComponent<FCellProps> = (
             kup-get-cell-props={() => {
                 return props;
             }}
+            onTouchStart={
+                dom.ketchup.interact.isMobileDevice()
+                    ? (e) => {
+                          e.preventDefault();
+                      }
+                    : null
+            }
             ref={(el) => (cell.element = el)}
             style={cell.style}
         >
