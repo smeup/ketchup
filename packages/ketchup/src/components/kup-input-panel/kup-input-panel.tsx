@@ -91,7 +91,7 @@ export class KupInputPanel {
 
     @Watch('data')
     onDataChanged() {
-        console.log('data changed', this.data);
+        // console.log('data changed', this.data);
         // this.render();
     }
     //#endregion
@@ -391,7 +391,7 @@ export class KupInputPanel {
     }
 
     render() {
-        const isEmptyData = Boolean(!this.data.rows?.length);
+        const isEmptyData = Boolean(!this.data?.rows?.length);
 
         const inputPanelContent: VNode[] = isEmptyData
             ? [
@@ -401,7 +401,7 @@ export class KupInputPanel {
                       )}
                   </p>,
               ]
-            : this.data.rows?.map((row) => this.#renderRow(row));
+            : this.data.rows.map((row) => this.#renderRow(row));
 
         return (
             <Host>
