@@ -123,6 +123,7 @@
   );
   margin-top: 1em;
   width: 100%;
+  grid-auto-flow: row;
 
   .f-cell {
     height: 100%;
