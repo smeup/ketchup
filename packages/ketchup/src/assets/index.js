@@ -163,6 +163,10 @@ components.data = [
         id: 'nav-bar.html',
     },
     {
+        value: 'Notification',
+        id: 'notification.html',
+    },
+    {
         value: 'Numeric picker',
         id: 'numeric-picker.html',
     },

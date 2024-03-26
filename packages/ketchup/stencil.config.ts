@@ -84,6 +84,7 @@ export const config: Config = {
                 { src: 'list.html' },
                 { src: 'magic-box.html' },
                 { src: 'nav-bar.html' },
+                { src: 'notification.html' },
                 { src: 'numeric-picker.html' },
                 { src: 'planner.html' },
                 { src: 'planner-example-1.html' },

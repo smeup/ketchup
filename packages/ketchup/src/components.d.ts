@@ -11,7 +11,7 @@ import { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from 
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxLoadMoreClickEventPayload, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, LoadMoreMode } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+import { KupDataCell, KupDataColumn, KupDataDataset, KupDataMessage, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
@@ -60,7 +60,7 @@ export { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from 
 export { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 export { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxLoadMoreClickEventPayload, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, LoadMoreMode } from "./components/kup-box/kup-box-declarations";
 export { KupStore } from "./components/kup-state/kup-store";
-export { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+export { KupDataCell, KupDataColumn, KupDataDataset, KupDataMessage, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 export { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 export { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 export { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
@@ -2655,6 +2655,17 @@ export namespace Components {
          */
         "styling": KupNavBarStyling;
     }
+    interface KupNotification {
+        /**
+          * List of notifications to display.
+          * @default null
+         */
+        "data": KupDataMessage[];
+        /**
+          * When true, the component is displayed.
+         */
+        "enabled": boolean;
+    }
     interface KupNumericPicker {
         /**
           * Custom style of the component.
@@ -4712,6 +4723,12 @@ declare global {
         prototype: HTMLKupNavBarElement;
         new (): HTMLKupNavBarElement;
     };
+    interface HTMLKupNotificationElement extends Components.KupNotification, HTMLStencilElement {
+    }
+    var HTMLKupNotificationElement: {
+        prototype: HTMLKupNotificationElement;
+        new (): HTMLKupNotificationElement;
+    };
     interface HTMLKupNumericPickerElementEventMap {
         "kup-numericpicker-blur": KupNumericPickerEventPayload;
         "kup-numericpicker-change": KupNumericPickerEventPayload;
@@ -5075,6 +5092,7 @@ declare global {
         "kup-list": HTMLKupListElement;
         "kup-magic-box": HTMLKupMagicBoxElement;
         "kup-nav-bar": HTMLKupNavBarElement;
+        "kup-notification": HTMLKupNotificationElement;
         "kup-numeric-picker": HTMLKupNumericPickerElement;
         "kup-photo-frame": HTMLKupPhotoFrameElement;
         "kup-planner": HTMLKupPlannerElement;
@@ -7160,6 +7178,17 @@ declare namespace LocalJSX {
          */
         "styling"?: KupNavBarStyling;
     }
+    interface KupNotification {
+        /**
+          * List of notifications to display.
+          * @default null
+         */
+        "data"?: KupDataMessage[];
+        /**
+          * When true, the component is displayed.
+         */
+        "enabled"?: boolean;
+    }
     interface KupNumericPicker {
         /**
           * Custom style of the component.
@@ -8304,6 +8333,7 @@ declare namespace LocalJSX {
         "kup-list": KupList;
         "kup-magic-box": KupMagicBox;
         "kup-nav-bar": KupNavBar;
+        "kup-notification": KupNotification;
         "kup-numeric-picker": KupNumericPicker;
         "kup-photo-frame": KupPhotoFrame;
         "kup-planner": KupPlanner;
@@ -8374,6 +8404,7 @@ declare module "@stencil/core" {
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
+            "kup-notification": LocalJSX.KupNotification & JSXBase.HTMLAttributes<HTMLKupNotificationElement>;
             "kup-numeric-picker": LocalJSX.KupNumericPicker & JSXBase.HTMLAttributes<HTMLKupNumericPickerElement>;
             "kup-photo-frame": LocalJSX.KupPhotoFrame & JSXBase.HTMLAttributes<HTMLKupPhotoFrameElement>;
             "kup-planner": LocalJSX.KupPlanner & JSXBase.HTMLAttributes<HTMLKupPlannerElement>;

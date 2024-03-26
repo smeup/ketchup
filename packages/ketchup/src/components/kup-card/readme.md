@@ -130,6 +130,7 @@ Type: `Promise<void>`
  - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
  - [kup-nav-bar](../kup-nav-bar)
+ - [kup-notification](../kup-notification)
  - [kup-numeric-picker](../kup-numeric-picker)
  - [kup-photo-frame](../kup-photo-frame)
  - [kup-planner](../kup-planner)
@@ -220,6 +221,7 @@ graph TD;
   kup-lazy --> kup-card
   kup-magic-box --> kup-card
   kup-nav-bar --> kup-card
+  kup-notification --> kup-card
   kup-numeric-picker --> kup-card
   kup-photo-frame --> kup-card
   kup-planner --> kup-card

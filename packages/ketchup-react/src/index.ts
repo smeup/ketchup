@@ -48,6 +48,7 @@ export const KupLazy = /*@__PURE__*/createReactComponent<JSX.KupLazy, HTMLKupLaz
 export const KupList = /*@__PURE__*/createReactComponent<JSX.KupList, HTMLKupListElement>('kup-list');
 export const KupMagicBox = /*@__PURE__*/createReactComponent<JSX.KupMagicBox, HTMLKupMagicBoxElement>('kup-magic-box');
 export const KupNavBar = /*@__PURE__*/createReactComponent<JSX.KupNavBar, HTMLKupNavBarElement>('kup-nav-bar');
+export const KupNotification = /*@__PURE__*/createReactComponent<JSX.KupNotification, HTMLKupNotificationElement>('kup-notification');
 export const KupNumericPicker = /*@__PURE__*/createReactComponent<JSX.KupNumericPicker, HTMLKupNumericPickerElement>('kup-numeric-picker');
 export const KupPhotoFrame = /*@__PURE__*/createReactComponent<JSX.KupPhotoFrame, HTMLKupPhotoFrameElement>('kup-photo-frame');
 export const KupPlanner = /*@__PURE__*/createReactComponent<JSX.KupPlanner, HTMLKupPlannerElement>('kup-planner');

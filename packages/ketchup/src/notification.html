@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+
+        <title>Ketchup notification</title>
+
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+    </head>
+
+    <body style="background-color: var(--kup-background-color)">
+        <script type="module">
+            function permamentNotification() {
+                const data = [
+                    {
+                        gravity: 'INFO',
+                        mode: 'PN',
+                        title: 'Info notification',
+                        message: 'Info notification message',
+                    },
+                    {
+                        gravity: 'ERROR',
+                        mode: 'PN',
+                        title: 'Error notification',
+                        message: 'Error notification message',
+                    },
+                    {
+                        gravity: 'WARN',
+                        mode: 'PN',
+                        title: 'Warining notification',
+                        message: 'Warning notification message',
+                    },
+                ];
+                document.getElementById('notification').data = data;
+            }
+        </script>
+        <div>
+            <kup-notification id="notification"></kup-notification>
+            <h1>Notification examples</h1>
+            <h2>Permanent Notification (PN)</h2>
+            <button onclick="permamentNotification">try it out</button>
+        </div>
+    </body>
+</html>

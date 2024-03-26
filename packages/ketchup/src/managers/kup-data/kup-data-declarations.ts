@@ -203,3 +203,34 @@ export enum KupDataNewColumnTypes {
     MATH = 'math',
     MERGE = 'merge',
 }
+/*
+ * Interface for notification object.
+ */
+export interface KupDataMessage {
+    gravity: KupDataMessageGravity;
+    mode: KupDataMessageMode;
+    title: string;
+    message: string;
+    obj?: KupObj;
+}
+/**
+ * Types of message gravity.
+ */
+export enum KupDataMessageGravity {
+    INFO = 'INFO',
+    WARN = 'WARN',
+    ERROR = 'ERROR',
+}
+/**
+ * Types of message.
+ */
+export enum KupDataMessageMode {
+    /** Temporary notification. Automatically closed after a while */
+    TN = 'TN',
+    /** Permanent notification. Closed by the user */
+    PN = 'PN',
+    /** Temporary message. Automatically closed after a while */
+    TM = 'TM',
+    /** Permanent message. Closed by the user */
+    PM = 'PM',
+}
