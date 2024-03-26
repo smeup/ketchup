@@ -15,6 +15,7 @@ export enum KupImageListProps {
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the component',
     ripple = "When enabled displays Material's ripple effect on clicked items.",
+    rows = 'Cam set a specific number of rows. It overwrite the columns flow into rows flow',
 }
 
 export interface KupImageListEventPayload extends KupEventPayload {

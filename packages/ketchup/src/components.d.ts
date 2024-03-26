@@ -2435,6 +2435,11 @@ export namespace Components {
          */
         "ripple": boolean;
         /**
+          * Number of rows to display in the grid layout.
+          * @default null
+         */
+        "rows": number;
+        /**
           * An array of integers containing the path to a selected child.\
          */
         "selectedNode": TreeNodePath;
@@ -7011,6 +7016,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "ripple"?: boolean;
+        /**
+          * Number of rows to display in the grid layout.
+          * @default null
+         */
+        "rows"?: number;
         /**
           * An array of integers containing the path to a selected child.\
          */
