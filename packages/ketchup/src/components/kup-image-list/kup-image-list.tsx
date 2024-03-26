@@ -372,12 +372,17 @@ export class KupImageList {
                     }
                     this.#clickTimeout.push(
                         setTimeout(() => {
+                            const details = this.#clickHandler(
+                                clone as PointerEvent
+                            );
+                            const node = details.row as KupDataNode;
+                            if (node.children && node.children.length > 0) {
+                                this.currentNode = node;
+                            }
                             this.kupClick.emit({
                                 comp: this,
                                 id: this.rootElement.id,
-                                details: this.#clickHandler(
-                                    clone as PointerEvent
-                                ),
+                                details,
                             });
                         }, 300)
                     );
