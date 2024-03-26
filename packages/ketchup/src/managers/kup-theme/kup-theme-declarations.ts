@@ -111,6 +111,7 @@ export const fRadioUsers = [
     KupTagNames.CELL,
     KupTagNames.DATA_TABLE,
     KupTagNames.FORM,
+    KupTagNames.INPUT_PANEL,
     KupTagNames.RADIO,
     KupTagNames.TREE,
 ];

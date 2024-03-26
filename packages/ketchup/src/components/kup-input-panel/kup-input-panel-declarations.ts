@@ -25,7 +25,7 @@ export interface KupInputPanelRowCells {
 
 export interface KupInputPanelCell extends KupDataCell {
     // TODO tipizzare dopo validazione da SMEUP
-    options?: { id: string; label: string }[];
+    options?: string[];
     editable?: boolean;
     mandatory?: boolean;
     fun?: string;
@@ -58,10 +58,7 @@ export interface KupInputPanelLayoutField {
 }
 
 export type DataAdapterFn = (
-    options: {
-        id: string;
-        label: string;
-    }[],
+    options: string[],
     fieldLabel: string,
     currentValue: string
 ) => Object;

@@ -79,11 +79,6 @@ function createComp() {
         visible: true,
       },
       {
-        name: 'COL',
-        title: 'Color Shirt',
-        visible: true,
-      },
-      {
         name: 'NAT',
         title: 'Nation',
         visible: true,
@@ -93,22 +88,12 @@ function createComp() {
         title: 'City',
         visible: true,
       },
-      {
-        name: 'CAM',
-        title: 'Campionato vinto',
-        visible: true,
-      },
-      {
-        name: 'CHI',
-        title: 'Chip',
-        visible: true,
-      },
     ],
     rows: [
       {
         cells: {
           NAM: {
-            value: 'Francesco',
+            value: '',
             obj: {
               t: '',
               p: '',
@@ -119,7 +104,7 @@ function createComp() {
             shape: 'ITX',
           },
           SUR: {
-            value: 'Totti',
+            value: '',
             obj: {
               t: '',
               p: '',
@@ -127,24 +112,17 @@ function createComp() {
             },
             editable: true,
             mandatory: true,
-            shape: 'INF',
-          },
-          COL: {
-            value: '#8E1F2F',
-            obj: {
-              t: 'J1',
-              p: 'COL',
-              k: '',
-            },
-            editable: true,
-            mandatory: true,
-            // shape: 'CLP',
+            shape: 'ITX',
           },
           NAT: {
-            value: 'It',
+            value: '',
             options: [
-              { id: 'It', label: 'Italy' },
-              { id: 'Sp', label: 'Spain' },
+              'Italy',
+              'Spain',
+              'Germany',
+              'France',
+              'Portugal',
+              'England',
             ],
             obj: {
               t: '',
@@ -156,7 +134,7 @@ function createComp() {
             shape: 'CMB',
           },
           CIT: {
-            value: 'Rom',
+            value: '',
             obj: {
               t: '',
               p: '',
@@ -165,31 +143,29 @@ function createComp() {
             editable: true,
             mandatory: true,
             options: [
-              { id: 'Rom', label: 'Roma' },
-              { id: 'Flam', label: 'Flaminio' },
-              { id: 'PorMet', label: 'Porta Metronia' },
-              { id: 'Garbat', label: 'Garbatella' },
+              'Rome',
+              'Florence',
+              'Venice',
+              'Madrid',
+              'Barcelona',
+              'Seville',
+              'Berlin',
+              'Munich',
+              'Hamburg',
+              'Paris',
+              'Marseille',
+              'Lyon',
+              'Lisbon',
+              'Porto',
+              'Faro',
+              'London',
+              'Manchester',
+              'Liverpool',
             ],
             shape: 'ACP',
           },
-          CAM: {
-            value: 'on',
-            obj: {
-              t: 'V2',
-              p: 'SI/NO',
-              k: '',
-            },
-            editable: true,
-            mandatory: true,
-            // shape: 'CHK',
-          },
-          CHI: {
-            shape: 'CHI',
-            value: 'Chi',
-            editable: true,
-            options: [{ id: 'Chi', label: 'Chip' }],
-          },
         },
+        layout: {},
       },
     ],
   };
