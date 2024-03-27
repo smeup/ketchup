@@ -19,18 +19,13 @@ import {
 } from '../../managers/kup-manager/kup-manager';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
+    KupImageListDataNode,
     KupImageListEventHandlerDetails,
     KupImageListEventPayload,
     KupImageListProps,
 } from './kup-image-list-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import {
-    KupDataCell,
-    KupDataColumn,
-    KupDataNode,
-    KupDataRow,
-} from '../../managers/kup-data/kup-data-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
@@ -66,7 +61,7 @@ export class KupImageList {
 
     state: KupImageListState = new KupImageListState();
 
-    @State() currentNode: KupDataNode = null;
+    @State() currentNode: KupImageListDataNode = null;
     @State() navigationBarToggled: boolean = false;
 
     initWithPersistedState(): void {
@@ -77,7 +72,7 @@ export class KupImageList {
                     this.#kupManager.data.node.findByStrTreeNodePath(
                         this.data,
                         state.selectedTreeNodePath
-                    );
+                    ) as KupImageListDataNode;
             }
         }
     }
@@ -125,7 +120,7 @@ export class KupImageList {
      * Actual data of the component.
      * @default []
      */
-    @Prop() data: KupDataNode[] = [];
+    @Prop() data: KupImageListDataNode[] = [];
     /**
      * When enabled displays Material's ripple effect on clicked items.
      * @default true
@@ -158,7 +153,7 @@ export class KupImageList {
             this.currentNode = this.#kupManager.data.node.getParent(
                 this.data,
                 this.currentNode
-            );
+            ) as KupImageListDataNode;
             if (!this.currentNode) {
                 this.navigationBarToggled = false;
             }
@@ -216,7 +211,10 @@ export class KupImageList {
         if (!newData || newData.length == 0) {
             return;
         }
-        this.currentNode = this.#kupManager.data.node.find(this.data, newData);
+        this.currentNode = this.#kupManager.data.node.find(
+            this.data,
+            newData
+        ) as KupImageListDataNode;
     }
 
     /*-------------------------------------------------*/
@@ -252,12 +250,13 @@ export class KupImageList {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    #createItem(node: KupDataNode): VNode {
+    #createItem(node: KupImageListDataNode): VNode {
         const props: FImageProps = {
             fit: true,
             resource: node.icon,
             title: node.title,
             wrapperClass: 'image-list__image',
+            badgeData: node.badgeData,
         };
         const image = <FImage {...props}></FImage>;
         const label = <div class="image-list__label">{node.value}</div>;
@@ -375,7 +374,7 @@ export class KupImageList {
                             const details = this.#clickHandler(
                                 clone as PointerEvent
                             );
-                            const node = details.row as KupDataNode;
+                            const node = details.row as KupImageListDataNode;
                             if (node.children && node.children.length > 0) {
                                 this.currentNode = node;
                             }
