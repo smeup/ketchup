@@ -31,6 +31,7 @@ import {
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
+import { FRadioData } from '../../components';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -90,7 +91,8 @@ export class KupInputPanel {
 
     @Watch('data')
     onDataChanged() {
-        console.log('data changed', this.data);
+        // console.log('data changed', this.data);
+        // this.render();
     }
     //#endregion
 
@@ -183,6 +185,14 @@ export class KupInputPanel {
             renderKup: true,
             setSizes: true,
         };
+
+        // if (
+        //     dom.ketchup.data.cell.getType(cell, cell.shape) === FCellTypes.RADIO
+        // ) {
+        //     // console.log('cell.data', cell.data);
+        //     return <kup-radio {...cell.data} />;
+        // }
+
         return <FCell {...cellProps} />;
     }
 
@@ -200,6 +210,7 @@ export class KupInputPanel {
             [FCellTypes.CHECKBOX, this.#CHKAdapter],
             [FCellTypes.COLOR_PICKER, this.#CLPAdapter],
             [FCellTypes.COMBOBOX, this.#CMBandACPAdapter],
+            [FCellTypes.RADIO, this.#RADAdapter],
             [FCellTypes.STRING, this.#ITXAdapter],
         ]);
 
@@ -226,20 +237,13 @@ export class KupInputPanel {
         };
     }
 
-    #CHIAdapter(
-        options: {
-            id: string;
-            label: string;
-        }[],
-        _fieldLabel: string,
-        currentValue: string
-    ) {
+    #CHIAdapter(options: string[], _fieldLabel: string, currentValue: string) {
         return {
             data: options?.length
-                ? options.map(({ id, label }) => ({
-                      value: label,
-                      id,
-                      selected: currentValue === id,
+                ? options.map((option) => ({
+                      value: option,
+                      id: option,
+                      selected: currentValue === option,
                   }))
                 : [{ id: currentValue, value: currentValue }],
         };
@@ -261,10 +265,7 @@ export class KupInputPanel {
     }
 
     #BTNAdapter(
-        _options: {
-            id: string;
-            label: string;
-        }[],
+        _options: string[],
         _fieldLabel: string,
         _currentValue: string
     ) {
@@ -272,22 +273,6 @@ export class KupInputPanel {
         return {
             data: [
                 {
-                    // children: [
-                    //     {
-                    //         children: [],
-                    //         disabled: false,
-                    //         expandable: false,
-                    //         icon: 'lightbulb-outline',
-                    //         isExpanded: false,
-                    //         obj: {
-                    //             k: '000050',
-                    //             p: 'COD_VER',
-                    //             t: 'VO',
-                    //         },
-                    //         options: false,
-                    //         value: 'Collaboratore',
-                    //     },
-                    // ],
                     data: { dropdownOnly: false, label: 'Pier' },
                 },
                 { data: { dropdownOnly: false, label: 'Valerio' } },
@@ -296,10 +281,7 @@ export class KupInputPanel {
     }
 
     #CMBandACPAdapter(
-        options: {
-            id: string;
-            label: string;
-        }[],
+        options: string[],
         fieldLabel: string,
         currentValue: string
     ) {
@@ -313,10 +295,10 @@ export class KupInputPanel {
                 'kup-list': {
                     showIcons: true,
                     data: options?.length
-                        ? options.map(({ id, label }) => ({
-                              value: label,
-                              id,
-                              selected: currentValue === id,
+                        ? options.map((option) => ({
+                              value: option,
+                              id: option,
+                              selected: currentValue === option,
                           }))
                         : [],
                 },
@@ -325,28 +307,14 @@ export class KupInputPanel {
         };
     }
 
-    #CHKAdapter(
-        _options: {
-            id: string;
-            label: string;
-        }[],
-        fieldLabel: string,
-        currentValue: string
-    ) {
+    #CHKAdapter(_options: string[], fieldLabel: string, currentValue: string) {
         return {
             checked: currentValue === 'on' || currentValue === '1',
             label: fieldLabel,
         };
     }
 
-    #CLPAdapter(
-        _options: {
-            id: string;
-            label: string;
-        }[],
-        fieldLabel: string,
-        _currentValue: string
-    ) {
+    #CLPAdapter(_options: string[], fieldLabel: string, _currentValue: string) {
         return {
             data: {
                 'kup-text-field': {
@@ -356,15 +324,35 @@ export class KupInputPanel {
         };
     }
 
-    #ITXAdapter(
-        _options: {
-            id: string;
-            label: string;
-        }[],
-        fieldLabel: string,
-        _currentValue: string
-    ) {
+    #ITXAdapter(_options: string[], fieldLabel: string, _currentValue: string) {
         return { label: fieldLabel };
+    }
+
+    #RADAdapter(options: string[], _fieldLabel: string, currentValue: string) {
+        // const onChange = (i) => {
+        //     this.data = {
+        //         ...this.data,
+        //         rows: this.data.rows.map((row) => ({
+        //             ...row,
+        //             cells: {
+        //                 ...row.cells,
+        //                 RAD: {
+        //                     ...row.cells['RAD'],
+        //                     value: options[i],
+        //                 },
+        //             },
+        //         })),
+        //     };
+        // };
+
+        return {
+            data: options.map((option) => ({
+                value: option,
+                label: option,
+                checked: option === currentValue,
+            })),
+            // onChange,
+        };
     }
 
     //#endregion
@@ -403,7 +391,7 @@ export class KupInputPanel {
     }
 
     render() {
-        const isEmptyData = Boolean(!this.data.rows?.length);
+        const isEmptyData = Boolean(!this.data?.rows?.length);
 
         const inputPanelContent: VNode[] = isEmptyData
             ? [
@@ -413,7 +401,7 @@ export class KupInputPanel {
                       )}
                   </p>,
               ]
-            : this.data.rows?.map((row) => this.#renderRow(row));
+            : this.data.rows.map((row) => this.#renderRow(row));
 
         return (
             <Host>

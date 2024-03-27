@@ -36,6 +36,8 @@ export const config: Config = {
             },
         },
         collectCoverageFrom: ['src/**/*.ts'],
+        browserHeadless: 'new',
+        //browserArgs: ['--no-sandbox', '--disable-setuid-sandbox'],
     },
     outputTargets: [
         /*{ type: 'dist' },*/
