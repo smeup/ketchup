@@ -123,7 +123,6 @@
   );
   margin-top: 1em;
   width: 100%;
-  grid-auto-flow: row;
 
   .f-cell {
     height: 100%;
@@ -159,5 +158,19 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     @include kup-label-01;
+  }
+}
+
+@media screen and (min-width: 678px) {
+  :host {
+    --kup_imagelist_columns: var(--kup-imagelist-columns, 8);
+  }
+
+  .image-list {
+    grid-template-columns: repeat(
+      var(--kup_imagelist_columns, 8),
+      minmax(0px, 1fr)
+    );
+    grid-gap: var(--kup-space-05);
   }
 }

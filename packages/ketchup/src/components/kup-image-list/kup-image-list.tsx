@@ -38,6 +38,7 @@ import { FCellPadding } from '../../f-components/f-cell/f-cell-declarations';
 import { KupStore } from '../kup-state/kup-store';
 import { KupImageListState } from './kup-image-list-state';
 import { TreeNodePath } from '../kup-tree/kup-tree-declarations';
+import { KupBadge } from '../kup-badge/kup-badge';
 
 @Component({
     tag: 'kup-image-list',
@@ -104,7 +105,7 @@ export class KupImageList {
      * Number of columns to display in the grid layout.
      * @default 4
      */
-    @Prop() columns: number = 4;
+    @Prop() columns: number = null;
     /**
      * Custom style of the component.
      * @default ""
