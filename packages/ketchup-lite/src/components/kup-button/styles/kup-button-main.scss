@@ -1,0 +1,311 @@
+/**
+* @prop --kup-button-border-radius: Sets border radius of the button.
+* @prop --kup-button-disabled-color: Sets disabled color of the button.
+* @prop --kup-button-font-family: Sets font family of the button.
+* @prop --kup-button-font-size: Sets font size of the button.
+* @prop --kup-button-font-weight: Sets font weight of the button.
+* @prop --kup-button-height: Sets height of the button.
+* @prop --kup-button-padding: Sets padding of the button.
+* @prop --kup-button-primary-color: Sets the primary color of the button.
+* @prop --kup-button-primary-color-h: Sets the primary color Hue value of the button (used for focus/hover effects).
+* @prop --kup-button-primary-color-s: Sets the primary color Saturation value of the button (used for focus/hover effects).
+* @prop --kup-button-primary-color-l: Sets the primary color Lightness value of the button (used for focus/hover effects).
+* @prop --kup-button-primary-color-rgb: Sets the primary color RGB values of the button (used for shaders).
+* @prop --kup-button-text-on-primary-color: Sets text and icon color for raised buttons.
+* @prop --kup-button-text-transform: Set the label case, default is uppercase.
+*/
+
+:host {
+  --kup_button_border_radius: var(--kup-button-border-radius, 4px);
+  --kup_button_disabled_color: var(
+    --kup-button-disabled-color,
+    var(--kup-disabled-color)
+  );
+  --kup_button_font_family: var(
+    --kup-button-font-family,
+    var(--kup-font-family)
+  );
+  --kup_button_font_size: var(--kup-button-font-size, var(--kup-font-size));
+  --kup_button_font_weight: var(--kup-button-font-weight, 400);
+  --kup_button_height: var(--kup-button-height, 3em);
+  --kup_button_padding: var(--kup-button-padding, 0 1.25em);
+  --kup_button_primary_color: var(
+    --kup-button-primary-color,
+    var(--kup-primary-color)
+  );
+  --kup_button_primary_color_h: var(
+    --kup-button-primary-color-h,
+    var(--kup-primary-color-h)
+  );
+  --kup_button_primary_color_s: var(
+    --kup-button-primary-color-s,
+    var(--kup-primary-color-s)
+  );
+  --kup_button_primary_color_l: var(
+    --kup-button-primary-color-l,
+    var(--kup-primary-color-l)
+  );
+  --kup_button_primary_color_rgb: var(
+    --kup-button-primary-color-rgb,
+    var(--kup-primary-color-rgb)
+  );
+  --kup_button_text_on_primary_color: var(
+    --kup-button-text-on-primary-color,
+    var(--kup-text-on-primary-color)
+  );
+  --kup_button_text_transform: var(--kup-button-text-transform, uppercase);
+  --kup-spinner-color: var(--kup_button_primary_color);
+
+  display: block;
+  font-size: var(--kup_button_font_size);
+  width: max-content;
+}
+
+.button {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--kup_button_border_radius);
+  box-sizing: border-box;
+  color: var(--kup_button_primary_color);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--kup_button_font_family);
+  font-size: 0.775em;
+  font-weight: var(--kup_button_font_weight);
+  height: var(--kup_button_height);
+  justify-content: center;
+  letter-spacing: 0.0892857143em;
+  line-height: inherit;
+  min-width: 64px;
+  outline: none;
+  overflow: visible;
+  padding: var(--kup_button_padding);
+  position: relative;
+  text-decoration: none;
+  text-transform: var(--kup_button_text_transform);
+  transition: background-color 80ms linear,
+    box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  vertical-align: middle;
+
+  &:hover {
+    background-color: rgba(var(--kup_button_primary_color_rgb), 0.125);
+  }
+
+  &:focus {
+    background-color: rgba(var(--kup_button_primary_color_rgb), 0.175);
+  }
+
+  .button__icon {
+    margin-left: -0.25em;
+    margin-right: 0.75em;
+  }
+
+  .button__label + .button__icon {
+    margin-left: 0.75em;
+    margin-right: -0.25em;
+  }
+
+  &.button--floating,
+  &.button--raised {
+    --kup-spinner-color: var(--kup_button_text_on_primary_color);
+
+    &:not(.button--disabled) {
+      --kup-spinner-border-color: hsl(
+        var(--kup_button_primary_color_h),
+        calc(var(--kup_button_primary_color_s) * 0.75),
+        calc(var(--kup_button_primary_color_l) * 0.85)
+      );
+
+      background-color: var(--kup_button_primary_color);
+      color: var(--kup_button_text_on_primary_color);
+    }
+
+    &:hover {
+      background-color: hsl(
+        var(--kup_button_primary_color_h),
+        calc(var(--kup_button_primary_color_s) * 0.93),
+        calc(var(--kup_button_primary_color_l) * 1.07)
+      );
+    }
+
+    &:focus {
+      background-color: hsl(
+        var(--kup_button_primary_color_h),
+        calc(var(--kup_button_primary_color_s) * 0.88),
+        calc(var(--kup_button_primary_color_l) * 1.12)
+      );
+    }
+
+    &.button--disabled {
+      background-color: var(--kup-disabled-background-color);
+      box-shadow: none;
+    }
+  }
+
+  &.button--floating {
+    border-radius: 24px;
+    box-shadow: 0 0.215em 0.35em -1px rgba(var(--kup-text-color-rgb), 0.2),
+      0 0.43em 0.71em 0 rgba(var(--kup-text-color-rgb), 0.14),
+      0 0.07em 1.285em 0 rgba(var(--kup-text-color-rgb), 0.12);
+    font-weight: 500;
+    font-size: 1em;
+    height: 3.4em;
+    width: auto;
+    padding: 0 1.5em;
+
+    &.button--no-label {
+      border-radius: 50%;
+      height: 4em;
+      padding: 0;
+      width: 4em;
+    }
+
+    &:hover,
+    &:focus {
+      box-shadow: 0 5px 5px -3px rgba(var(--kup-text-color-rgb), 0.2),
+        0 8px 10px 1px rgba(var(--kup-text-color-rgb), 0.14),
+        0 3px 14px 2px rgba(var(--kup-text-color-rgb), 0.12);
+    }
+
+    &:active {
+      box-shadow: 0 7px 8px -4px rgba(var(--kup-text-color-rgb), 0.2),
+        0 12px 17px 2px rgba(var(--kup-text-color-rgb), 0.14),
+        0 5px 22px 4px rgba(var(--kup-text-color-rgb), 0.12);
+    }
+  }
+
+  &.button--raised {
+    box-shadow: 0 3px 1px -2px rgba(var(--kup-text-color-rgb), 0.2),
+      0 2px 2px 0 rgba(var(--kup-text-color-rgb), 0.14),
+      0 1px 5px 0 rgba(var(--kup-text-color-rgb), 0.12);
+
+    &:focus,
+    &:hover {
+      box-shadow: 0 2px 4px -1px rgba(var(--kup-text-color-rgb), 0.2),
+        0 4px 5px 0 rgba(var(--kup-text-color-rgb), 0.14),
+        0 1px 10px 0 rgba(var(--kup-text-color-rgb), 0.12);
+    }
+
+    &:active {
+      box-shadow: 0 5px 5px -3px rgba(var(--kup-text-color-rgb), 0.2),
+        0 8px 10px 1px rgba(var(--kup-text-color-rgb), 0.14),
+        0 3px 14px 2px rgba(var(--kup-text-color-rgb), 0.12);
+    }
+  }
+
+  &.button--outlined {
+    border-width: 1px;
+    border-style: solid;
+
+    &:not(.button--disabled) {
+      border-color: var(--kup_button_primary_color);
+      background-color: transparent;
+      color: var(--kup_button_primary_color);
+    }
+
+    &:hover {
+      background-color: rgba(var(--kup_button_primary_color_rgb), 0.125);
+    }
+
+    &:focus {
+      background-color: rgba(var(--kup_button_primary_color_rgb), 0.175);
+    }
+
+    &.button--disabled {
+      opacity: 0.75;
+      border-color: var(--kup_button_disabled_color);
+    }
+  }
+
+  &.button--no-label {
+    min-width: unset;
+    padding: 0 0.5em;
+
+    .button__icon {
+      margin: 0;
+    }
+  }
+
+  &.button--disabled {
+    color: var(--kup_button_disabled_color);
+    cursor: auto;
+    opacity: 0.75;
+    pointer-events: none;
+  }
+
+  .button__spinner-container {
+    width: 100%;
+    height: var(--kup_button_spinner_height);
+    left: 0;
+    position: absolute;
+  }
+}
+
+.icon-button {
+  background-color: transparent;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  font-size: var(--kup_button_font_size);
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  padding: 0.75em;
+  border-radius: 50%;
+
+  &:hover,
+  &:focus {
+    background-color: rgba(var(--kup_button_primary_color_rgb), 0.125);
+  }
+
+  .icon-button__icon {
+    display: flex;
+    margin: auto;
+
+    &.icon-button__icon--on {
+      display: none;
+    }
+  }
+
+  &.button--disabled {
+    opacity: 0.75;
+    pointer-events: none;
+  }
+
+  .icon-button__spinner-container {
+    width: var(--kup_button_spinner_width);
+    height: var(--kup_button_spinner_height);
+  }
+}
+
+.button--with-spinner {
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.content--hidden {
+  visibility: hidden;
+}
+
+@keyframes pulsating {
+  0% {
+    transform: scale(2);
+    box-shadow: 0 0 0 0 rgba(var(--kup_button_primary_color_rgb), 0.7);
+  }
+
+  70% {
+    transform: scale(2.75);
+    box-shadow: 0 0 0 10px rgba(var(--kup_button_primary_color_rgb), 0);
+  }
+
+  100% {
+    transform: scale(2);
+    box-shadow: 0 0 0 0 rgba(var(--kup_button_primary_color_rgb), 0);
+  }
+}

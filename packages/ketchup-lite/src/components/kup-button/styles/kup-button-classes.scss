@@ -1,0 +1,123 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+/* $kup-class-large       => Defined in f-button.  */
+/* $kup-class-danger      => Defined in f-button.  */
+/* $kup-class-info        => Defined in f-button.  */
+/* $kup-class-warning     => Defined in f-button.  */
+/* $kup-class-secondary   => Defined in f-button.  */
+/* $kup-class-success     => Defined in f-button.  */
+/* $kup-class-pulsating   => Defined in f-button.  */
+/* $kup-class-shaped      => Defined in f-button.  */
+/* $kup-class-success     => Defined in f-button.  */
+/*-------------------------------------------------*/
+
+:host(.#{$kup-class-full-height}) {
+  height: 100%;
+  #kup-component {
+    height: 100%;
+  }
+}
+
+:host(.#{$kup-class-full-width}) {
+  width: 100%;
+  #kup-component {
+    width: 100%;
+  }
+}
+
+:host(.#{$kup-class-full-height}) {
+  height: 100%;
+
+  .button {
+    height: 100%;
+  }
+}
+
+:host(.#{$kup-class-full-width}) {
+  width: 100%;
+
+  .button {
+    width: 100%;
+  }
+}
+
+:host(.#{$kup-class-large}) {
+  button {
+    font-size: 1.25em;
+  }
+}
+
+:host(.#{$kup-class-shaped}) {
+  .button {
+    border-radius: 18px;
+
+    &.button--floating {
+      border-radius: 50% 0;
+    }
+  }
+}
+
+:host(.#{$kup-class-slim}) {
+  button {
+    font-size: 0.675em;
+  }
+}
+
+:host(.#{$kup-class-pulsating}) {
+  .icon-button--on:after {
+    content: '';
+    animation: pulsating 1250ms infinite;
+    position: absolute;
+    height: 2px;
+    width: 2px;
+    top: calc(50% - 1px);
+    left: calc(50% - 1px);
+    border-radius: 50%;
+  }
+}
+
+:host(.#{$kup-class-danger}) {
+  --kup-button-primary-color: var(--kup-danger-color);
+  --kup-button-primary-color-h: var(--kup-danger-color-h);
+  --kup-button-primary-color-s: var(--kup-danger-color-s);
+  --kup-button-primary-color-l: var(--kup-danger-color-l);
+  --kup-button-primary-color-rgb: var(--kup-danger-color-rgb);
+  --kup-button-text-on-primary-color: white;
+}
+
+:host(.#{$kup-class-info}) {
+  --kup-button-primary-color: var(--kup-info-color);
+  --kup-button-primary-color-h: var(--kup-info-color-h);
+  --kup-button-primary-color-s: var(--kup-info-color-s);
+  --kup-button-primary-color-l: var(--kup-info-color-l);
+  --kup-button-primary-color-rgb: var(--kup-info-color-rgb);
+  --kup-button-text-on-primary-color: white;
+}
+
+:host(.#{$kup-class-secondary}) {
+  --kup-button-primary-color: var(--kup-secondary-color);
+  --kup-button-primary-color-h: var(--kup-secondary-color-h);
+  --kup-button-primary-color-s: var(--kup-secondary-color-s);
+  --kup-button-primary-color-l: var(--kup-secondary-color-l);
+  --kup-button-primary-color-rgb: var(--kup-secondary-color-rgb);
+  --kup-button-text-on-primary-color: var(--kup-text-on-secondary-color);
+}
+
+:host(.#{$kup-class-success}) {
+  --kup-button-primary-color: var(--kup-success-color);
+  --kup-button-primary-color-h: var(--kup-success-color-h);
+  --kup-button-primary-color-s: var(--kup-success-color-s);
+  --kup-button-primary-color-l: var(--kup-success-color-l);
+  --kup-button-primary-color-rgb: var(--kup-success-color-rgb);
+  --kup-button-text-on-primary-color: white;
+}
+
+:host(.#{$kup-class-warning}) {
+  --kup-button-primary-color: var(--kup-warning-color);
+  --kup-button-primary-color-h: var(--kup-warning-color-h);
+  --kup-button-primary-color-s: var(--kup-warning-color-s);
+  --kup-button-primary-color-l: var(--kup-warning-color-l);
+  --kup-button-primary-color-rgb: var(--kup-warning-color-rgb);
+  --kup-button-text-on-primary-color: white;
+}

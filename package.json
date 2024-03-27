@@ -1,19 +1,17 @@
 {
-    "name": "@sme.up/ketchup-root",
+    "name": "ketchup-lite-root",
     "version": "1.0.0",
-    "description": "KetchUP Web Components, library and showcase monorepo by smeup.",
+    "description": "Ketchup Lite Web Components Library",
     "keywords": [
-        "smeup",
-        "ketchup",
+        "ketchup lite",
         "monorepo",
         "web components",
         "showcase",
-        "Stencil",
-        "Vue.js components"
+        "Stencil"
     ],
     "license": "Apache-2.0",
-    "author": "Gruppo Sme.UP <info@smeup.com> (https://www.smeup.com/)",
-    "repository": "https://github.com/smeup/ketchup",
+    "author": "Luca Foscili",
+    "repository": "https://github.com/lucafoscili/ketchup-lite",
     "devDependencies": {
         "@types/d3-shape": "^3.1.1",
         "@types/geojson": "^7946.0.10",
@@ -28,19 +26,13 @@
     },
     "scripts": {
         "lerna": "lerna",
-        "k:build": "lerna run build --scope @sme.up/ketchup --stream && lerna run build --scope @sme.up/ketchup-react --stream",
-        "k:start": "lerna run start --scope @sme.up/ketchup --stream",
-        "k:test:unit": "lerna run test:spec --scope @sme.up/ketchup --stream",
-        "k:test:unitcov": "lerna run test:speccov --scope @sme.up/ketchup --stream",
-        "ksc:serve": "lerna run serve --scope @sme.up/ketchup-showcase --stream",
-        "ksc:build": "lerna run build --scope @sme.up/ketchup-showcase --stream",
-        "ksc:lint": "lerna run lint --scope @sme.up/ketchup-showcase --stream",
-        "ksc:test:unit": "lerna run test:unit --scope @sme.up/ketchup-showcase --stream"
+        "k:build": "lerna run build --scope ketchup-lite --stream && lerna run build --scope ketchup-lite-react --stream",
+        "k:start": "lerna run start --scope ketchup-lite --stream",
+        "k:test:unit": "lerna run test:spec --scope ketchup-lite --stream"
     },
     "workspaces": [
-        "packages/ketchup",
-        "packages/ketchup-react",
-        "packages/ketchup-showcase"
+        "packages/ketchup-lite",
+        "packages/ketchup-lite-react"
     ],
     "packageManager": "yarn@3.6.1"
 }
