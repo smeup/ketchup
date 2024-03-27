@@ -33,7 +33,7 @@
 }
 
 :host(.#{$kup-class-success}) {
-  --kup-accordion-primary-color: var(--kup-success-color);
+  --kup-accordion-primary-color: var(--kup-success-color-40);
   --kup-accordion-primary-color-rgb: var(--kup-success-color-rgb);
   --kup-accordion-text-on-primary-color: white;
 }

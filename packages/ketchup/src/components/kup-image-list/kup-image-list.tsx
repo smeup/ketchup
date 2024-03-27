@@ -38,6 +38,7 @@ import { FCellPadding } from '../../f-components/f-cell/f-cell-declarations';
 import { KupStore } from '../kup-state/kup-store';
 import { KupImageListState } from './kup-image-list-state';
 import { TreeNodePath } from '../kup-tree/kup-tree-declarations';
+import { KupBadge } from '../kup-badge/kup-badge';
 
 @Component({
     tag: 'kup-image-list',
@@ -100,7 +101,11 @@ export class KupImageList {
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
-
+    /**
+     * Number of columns to display in the grid layout.
+     * @default 4
+     */
+    @Prop() columns: number = null;
     /**
      * Custom style of the component.
      * @default ""
@@ -117,6 +122,11 @@ export class KupImageList {
      * @default true
      */
     @Prop() ripple: boolean = true;
+    /**
+     * Number of rows to display in the grid layout.
+     * @default null
+     */
+    @Prop() rows: number = null;
 
     /**
      * An array of integers containing the path to a selected child.\
@@ -354,6 +364,21 @@ export class KupImageList {
 
     render() {
         const hasNavigation = !!this.currentNode;
+        const gridColumnsStyle = {
+            'grid-template-columns': `repeat(${this.columns}, minmax(0px, 1fr))`,
+        };
+        let combinedGridStyle: { [key: string]: string } = {
+            ...gridColumnsStyle,
+        };
+
+        if (this.rows !== null) {
+            const gridRowsStyle = {
+                'grid-template-rows': `repeat(${this.rows}, minmax(0px, 1fr))`,
+                'grid-auto-flow': `column`,
+            };
+            combinedGridStyle = { ...combinedGridStyle, ...gridRowsStyle };
+        }
+
         return (
             <Host>
                 <style>
@@ -404,7 +429,9 @@ export class KupImageList {
                             </div>
                         ) : null}
                     </div>
-                    <div class="image-list">{...this.#createList()}</div>
+                    <div class="image-list" style={combinedGridStyle}>
+                        {...this.#createList()}
+                    </div>
                 </div>
             </Host>
         );

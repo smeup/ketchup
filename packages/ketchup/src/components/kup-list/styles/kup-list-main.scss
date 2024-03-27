@@ -27,6 +27,10 @@
 
   --kup_list_focus_color: var(--kup-list-focus-color, var(--kup-primary-color));
   --kup_list_text_color: var(--kup-list-text-color, var(--kup-gray-color-70));
+  --kup_list_item_text_color: var(
+    --kup-list-item-text-color,
+    var(--kup-gray-color-70)
+  );
   --kup_list_text_color_hover: var(
     --kup-list-text-color-hover,
     var(--kup-gray-color-90)
@@ -122,6 +126,8 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+      color: var(--kup_list_item_text_color);
+      @include kup-body-compact-01;
     }
 
     .list-item__primary-text {
@@ -173,7 +179,7 @@
 
     .#{$kup-icon} {
       margin: 0;
-      margin-right: 0.75em;
+      margin-right: 8px;
     }
 
     kup-checkbox {

@@ -2528,6 +2528,11 @@ export namespace Components {
     }
     interface KupImageList {
         /**
+          * Number of columns to display in the grid layout.
+          * @default 4
+         */
+        "columns": number;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -2553,6 +2558,11 @@ export namespace Components {
           * @default true
          */
         "ripple": boolean;
+        /**
+          * Number of rows to display in the grid layout.
+          * @default null
+         */
+        "rows": number;
         /**
           * An array of integers containing the path to a selected child.\
          */
@@ -7319,6 +7329,11 @@ declare namespace LocalJSX {
     }
     interface KupImageList {
         /**
+          * Number of columns to display in the grid layout.
+          * @default 4
+         */
+        "columns"?: number;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -7337,6 +7352,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "ripple"?: boolean;
+        /**
+          * Number of rows to display in the grid layout.
+          * @default null
+         */
+        "rows"?: number;
         /**
           * An array of integers containing the path to a selected child.\
          */

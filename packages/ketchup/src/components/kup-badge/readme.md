@@ -112,7 +112,6 @@ Type: `Promise<void>`
  - [kup-numeric-picker](../kup-numeric-picker)
  - [kup-planner](../kup-planner)
  - [kup-snackbar](../kup-snackbar)
- - [kup-switcher](../kup-planner/utils/kup-switcher)
  - [kup-tab-bar](../kup-tab-bar)
  - [kup-text-field](../kup-text-field)
  - [kup-time-picker](../kup-time-picker)
@@ -173,7 +172,6 @@ graph TD;
   kup-numeric-picker --> kup-badge
   kup-planner --> kup-badge
   kup-snackbar --> kup-badge
-  kup-switcher --> kup-badge
   style kup-badge fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
