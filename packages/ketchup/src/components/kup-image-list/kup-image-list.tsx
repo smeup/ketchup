@@ -491,7 +491,7 @@ export class KupImageList {
             ...gridColumnsStyle,
         };
 
-        if (this.rows !== null) {
+        if (this.rows != null && this.rows > 0) {
             const gridRowsStyle = {
                 'grid-template-rows': `repeat(${this.rows}, minmax(0px, 1fr))`,
                 'grid-auto-flow': `column`,
