@@ -12,6 +12,18 @@ const data = [
                         icon: 'view-quilt',
                         value: 'Box',
                         visible: true,
+                        badgeData: [
+                            {
+                                imageData: {
+                                    resource:
+                                        'https://ketchup.smeup.com/ketchup-showcase/header_logo_dark.svg',
+                                    sizeX: '1.75rem',
+                                    sizeY: 'auto',
+                                    color: 'var(--kup-text-on-primary-color)',
+                                },
+                                position: 'BL',
+                            },
+                        ],
                     },
                     {
                         cells: {

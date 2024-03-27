@@ -4,7 +4,7 @@ import {
     KupDataNode,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
-import { KupEventPayload } from '../../types/GenericTypes';
+import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 
 /**
  * Props of the kup-image-list component.
@@ -29,4 +29,9 @@ export interface KupImageListEventHandlerDetails {
     column: KupDataColumn;
     originalEvent: PointerEvent;
     row: KupDataRow;
+}
+
+export interface KupImageListDataNode extends KupDataNode {
+    badgeData: GenericObject[];
+    children?: KupImageListDataNode[];
 }
