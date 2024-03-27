@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import minMax from 'dayjs/plugin/minMax';
@@ -31,6 +32,7 @@ export class KupDates {
         this.managedComponents = new Set();
         this.setLocale(locale);
         this.dayjs = dayjs;
+        dayjs.extend(utc);
         dayjs.extend(customParseFormat);
         dayjs.extend(localizedFormat);
         dayjs.extend(minMax);
@@ -168,7 +170,7 @@ export class KupDates {
         if (!format) {
             format = 'L'; // MM/DD/YYYY, DD/MM/YYYY depending on locale
         }
-        return dayjs(input).format(format);
+        return dayjs.utc(input).format(format);
     }
     /**
      * Gets the time formatted
@@ -225,9 +227,9 @@ export class KupDates {
      */
     toDate(input: dayjs.ConfigType, format?: string): Date {
         if (format && format != null) {
-            return dayjs(input, format).toDate();
+            return dayjs.utc(input, format).toDate();
         } else {
-            return dayjs(input).toDate();
+            return dayjs.utc(input).toDate();
         }
     }
     /**
