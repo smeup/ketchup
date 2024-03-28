@@ -3,6 +3,9 @@ import { KupPlannerCalendarProps } from '../../kup-planner-declarations';
 import {
     getDaysInMonth,
     defaultDateTimeFormatters,
+    getCachedDateTimeFormat,
+    getLocalDayOfWeek,
+    getLocaleMonth,
 } from '../kup-planner-time-formatter';
 
 @Component({
@@ -266,8 +269,56 @@ export class KupGanttCalendar {
         return [topValues, bottomValues];
     }
 
+    getCalendarValuesForHour() {
+        const topValues: any[] = [];
+        const bottomValues: JSX.Element[] = [];
+        const topDefaultHeight = this.headerHeight * 0.5;
+        const dates = this.dateSetup.dates;
+        for (let i = 0; i < dates.length; i++) {
+            const date = dates[i];
+            const bottomValue = getCachedDateTimeFormat(this.locale, {
+                hour: 'numeric',
+            }).format(date);
+
+            bottomValues.push(
+                <text
+                    key={date.getTime()}
+                    y={this.headerHeight * 0.8}
+                    x={this.columnWidth * (i + +this.rtl)}
+                    class="calendarBottomText"
+                >
+                    {bottomValue}
+                </text>
+            );
+            if (i !== 0 && date.getDate() !== dates[i - 1].getDate()) {
+                const displayDate = dates[i - 1];
+                const topValue = `${getLocalDayOfWeek(
+                    displayDate,
+                    this.locale,
+                    'long'
+                )}, ${displayDate.getDate()} ${getLocaleMonth(
+                    displayDate,
+                    this.locale
+                )}`;
+                const topPosition = (date.getHours() - 24) / 2;
+                topValues.push({
+                    key: (topValue as string) + date.getFullYear(),
+                    value: topValue,
+                    x1Line: this.columnWidth * i,
+                    y1Line: 0,
+                    y2Line: topDefaultHeight,
+                    xText: this.columnWidth * (i + topPosition),
+                    yText: topDefaultHeight * 0.9,
+                });
+            }
+        }
+        return [topValues, bottomValues];
+    }
+
     getTopAndBottomValues() {
         switch (this.dateSetup.viewMode) {
+            case 'hour':
+                return this.getCalendarValuesForHour();
             case 'day':
                 return this.getCalendarValuesForDay();
             case 'week':

@@ -396,6 +396,9 @@ const props = {
     detailHours: ['INITHHMM', 'ENDHHMM'],
     phaseHours: ['INITHHMMSS', 'ENDHHMMSS'],
     taskHours: ['INITHHMM', 'ENDHHMM'],
+    detailPrevHours: ['INPRHHMM', 'ENPRHHMM'],
+    phasePrevHours: ['INPRHHMMSS', 'ENPRHHMMSS'],
+    taskPrevHours: ['INPRHHMM', 'ENPRHHMM'],
     scrollableTaskList: true,
 };
 

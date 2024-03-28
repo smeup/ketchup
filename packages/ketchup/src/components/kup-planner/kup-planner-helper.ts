@@ -14,7 +14,11 @@ export function sanitizeAllDates(
     startDateCell: KupDataCell,
     endDateCell: KupDataCell,
     secStartDateCell?: KupDataCell,
-    secEndDateCell?: KupDataCell
+    secEndDateCell?: KupDataCell,
+    startHourCell?: KupDataCell,
+    endHourCell?: KupDataCell,
+    secStartHourCell?: KupDataCell,
+    secEndHourCell?: KupDataCell
 ): KupPlannerDatesSanitized {
     const sanitizedDateValues = sanitizeDates(startDateCell, endDateCell);
     let sanitizedSecDateValues = [];
@@ -28,9 +32,33 @@ export function sanitizeAllDates(
             sanitizedSecDateValues = [...sanitizedDateValues];
         }
     }
+    let sanitizedHourValues = [];
+    if (startHourCell && endHourCell) {
+        if (isAtLeastOneHourValid(startHourCell, endHourCell)) {
+            sanitizedHourValues = sanitizeHours(
+                startHourCell,
+                endHourCell
+            );
+        } else {
+            sanitizedSecDateValues = [...sanitizedDateValues];
+        }
+    }
+    let sanitizedSecHourValues = [];
+    if (secStartHourCell && secEndHourCell) {
+        if (isAtLeastOneHourValid(secStartHourCell, secEndHourCell)) {
+            sanitizedSecHourValues = sanitizeHours(
+                secStartHourCell,
+                secEndHourCell
+            );
+        } else {
+            sanitizedSecDateValues = [...sanitizedDateValues];
+        }
+    }
     return {
         dateValues: sanitizedDateValues,
         secDateValues: sanitizedSecDateValues,
+        hourValues: sanitizedHourValues,
+        secHourValues: sanitizedSecHourValues
     };
 }
 
@@ -50,10 +78,32 @@ function sanitizeDates(
     }
 }
 
+function sanitizeHours(
+    startHourCell: KupDataCell,
+    endHourCell: KupDataCell
+): string[] {
+    let returnValues = [startHourCell.value, endHourCell.value];
+    if (isHourValid(startHourCell) && isHourValid(endHourCell)) {
+        return returnValues;
+    } else if (isHourValid(startHourCell)) {
+        return [startHourCell.value, startHourCell.value];
+    } else if (isHourValid(endHourCell)) {
+        return [endHourCell.value, endHourCell.value];
+    } else {
+        return returnValues;
+    }
+}
+
 function isDateValid(dateCell: KupDataCell) {
     return (
         kupManager.objects.isDate(dateCell.obj) &&
         kupManager.dates.isValid(dateCell.value, KupDatesFormats.ISO_DATE)
+    );
+}
+
+function isHourValid(dateCell: KupDataCell) {
+    return (
+        kupManager.objects.isTime(dateCell.obj) || kupManager.objects.isTimeWithSeconds(dateCell.obj)
     );
 }
 
@@ -62,6 +112,13 @@ export function isAtLeastOneDateValid(
     endDateCell: KupDataCell
 ): boolean {
     return isDateValid(startDateCell) || isDateValid(endDateCell);
+}
+
+export function isAtLeastOneHourValid(
+    startHourCell: KupDataCell,
+    endHourCell: KupDataCell
+): boolean {
+    return isHourValid(startHourCell) || isHourValid(endHourCell);
 }
 
 export function getValuesToShow(
