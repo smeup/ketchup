@@ -3,6 +3,87 @@
   margin-right: 10px;
 }
 
+.scrollable {
+  overflow-x: auto;
+  scrollbar-width: 0;
+  .project-wrapper {
+    display: table;
+  }
+  .project {
+    width: 100% !important;
+    display: table-row;
+
+    & > * {
+      overflow: unset;
+      padding-right: 10px;
+      display: table-cell;
+      vertical-align: middle;
+      border-bottom: 1px solid var(--kup-border-color, #acacac);
+      border-top: 1px solid var(--kup-border-color, #acacac);
+      padding-left: 12px;
+      &:first-child {
+        border-left: 1px solid var(--kup-border-color, #acacac);
+        border-bottom-left-radius: 4px;
+        border-top-left-radius: 4px;
+      }
+      &:last-child {
+        border-right: 1px solid var(--kup-border-color, #acacac);
+        border-bottom-right-radius: 4px;
+        border-top-right-radius: 4px;
+      }
+    }
+  }
+  .subrow {
+    width: 100% !important;
+    display: table-row;
+    & > * {
+      overflow: unset;
+      padding-right: 10px;
+      display: table-cell;
+      vertical-align: middle;
+      border-bottom: 1px solid #acacac;
+      border-top: 1px solid #acacac;
+      padding-left: 12px;
+      &:first-child {
+        border-left: 1px solid #acacac;
+      }
+      &:last-child {
+        border-right: 1px solid #acacac;
+      }
+    }
+  }
+  .timeline {
+    width: 100% !important;
+    display: table-row;
+    & > * {
+      overflow: unset;
+      padding-right: 10px;
+      display: table-cell;
+      vertical-align: middle;
+      border-bottom: 1px solid #acacac;
+      border-top: 1px solid #acacac;
+      padding-left: 12px;
+      &:first-child {
+        border-left: 1px solid #acacac;
+      }
+      &:last-child {
+        border-right: 1px solid #acacac;
+      }
+    }
+  }
+  .project:has(+ .subrow) {
+    & > * {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 .project {
   background: var(--kup-background-color, #ffffff);
   border: 1px solid var(--kup-border-color, #acacac);
@@ -58,8 +139,8 @@
 
 .subrow:has(+ .subrow),
 .project:has(+ .subrow) {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 
 .timeline {

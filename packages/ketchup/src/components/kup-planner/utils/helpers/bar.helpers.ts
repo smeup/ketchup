@@ -1,3 +1,4 @@
+import { kupManagerInstance } from '../../../../managers/kup-manager/kup-manager';
 import {
     KupPlannerTask,
     KupPlannerTimeframe,
@@ -149,16 +150,18 @@ function computeTypeAndXs(
     dates: Date[],
     columnWidth: number,
     handleWidth: number,
-    rtl: boolean
+    rtl: boolean,
+    startHour?: string,
+    endHour?: string
 ) {
     let x1: number;
     let x2: number;
     if (rtl) {
-        x2 = taskXCoordinateRTL(start, dates, columnWidth);
-        x1 = taskXCoordinateRTL(end, dates, columnWidth);
+        x2 = taskXCoordinateRTL(start, dates, columnWidth, startHour);
+        x1 = taskXCoordinateRTL(end, dates, columnWidth, endHour);
     } else {
-        x1 = taskXCoordinate(start, dates, columnWidth);
-        x2 = taskXCoordinate(end, dates, columnWidth);
+        x1 = taskXCoordinate(start, dates, columnWidth, startHour);
+        x2 = taskXCoordinate(end, dates, columnWidth, endHour);
     }
     let typeInternal: KupPlannerTaskTypeInternal = type;
     if (typeInternal === 'task' && x2 - x1 < handleWidth * 2) {
@@ -191,7 +194,9 @@ const convertToBar = (
         dates,
         columnWidth,
         handleWidth,
-        rtl
+        rtl,
+        task.startHour,
+        task.endHour
     );
     const { x1: x1secondary, x2: x2secondary } =
         showSecondaryDates && task.secondaryStart && task.secondaryEnd
@@ -202,7 +207,9 @@ const convertToBar = (
                   dates,
                   columnWidth,
                   handleWidth,
-                  rtl
+                  rtl,
+                task.secondaryStartHour,
+                  task.secondaryEndHour
               )
             : { x1: undefined, x2: undefined };
 
@@ -240,6 +247,7 @@ const convertToBar = (
         height: taskHeight,
         barChildren: [],
         styles,
+        ySecondary: y
     };
 };
 
@@ -339,7 +347,13 @@ const convertToTimeline = (
     };
 };
 
-const taskXCoordinate = (xDate: Date, dates: Date[], columnWidth: number) => {
+const taskXCoordinate = (xDate: Date, dates: Date[], columnWidth: number, hourString?: string) => {
+    if (hourString) {
+        const [hours, minutes, seconds] = hourString.split(':').map(Number);
+        xDate.setHours(hours ?? 0);
+        xDate.setMinutes(minutes ?? 0);
+        xDate.setSeconds(seconds ?? 0);
+    }
     const index = dates.findIndex((d) => d.getTime() >= xDate.getTime()) - 1;
 
     if (index < 0) {
@@ -354,9 +368,10 @@ const taskXCoordinate = (xDate: Date, dates: Date[], columnWidth: number) => {
 const taskXCoordinateRTL = (
     xDate: Date,
     dates: Date[],
-    columnWidth: number
+    columnWidth: number,
+    hourString?: string
 ) => {
-    let x = taskXCoordinate(xDate, dates, columnWidth);
+    let x = taskXCoordinate(xDate, dates, columnWidth, hourString);
     x += columnWidth;
     return x;
 };
@@ -476,6 +491,30 @@ const dateByX = (
     return newDate;
 };
 
+const hourStringFromDate = (
+    date: Date,
+    withSeconds: boolean
+): string => {
+
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+
+    const formattedHours = hours < 10 ? '0' + hours : hours;
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+    const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
+
+    const hourString = withSeconds ? `${formattedHours}:${formattedMinutes}:${formattedSeconds}` : `${formattedHours}:${formattedMinutes}`;
+
+    return hourString;
+}
+
+const hasSeconds = (
+    hourString: string
+) : boolean => {
+    return hourString.split(":").length === 3;
+}
+ 
 /**
  * Method handles event in real time(mousemove) and on finish(mouseup)
  */
@@ -486,7 +525,8 @@ export const handleTaskBySVGMouseEvent = (
     xStep: number,
     timeStep: number,
     initEventX1Delta: number,
-    rtl: boolean
+    rtl: boolean,
+    svgY: number
 ): { isChanged: boolean; changedTask: KupPlannerBarTask } =>
     handleTaskBySVGMouseEventForBar(
         svgX,
@@ -495,7 +535,8 @@ export const handleTaskBySVGMouseEvent = (
         xStep,
         timeStep,
         initEventX1Delta,
-        rtl
+        rtl,
+        svgY
     );
 
 const handleTaskBySVGMouseEventForBar = (
@@ -505,7 +546,8 @@ const handleTaskBySVGMouseEventForBar = (
     xStep: number,
     timeStep: number,
     initEventX1Delta: number,
-    rtl: boolean
+    rtl: boolean,
+    svgY: number
 ): { isChanged: boolean; changedTask: KupPlannerBarTask } => {
     const changedTask: KupPlannerBarTask = { ...selectedTask };
     let isChanged = false;
@@ -541,6 +583,7 @@ const handleTaskBySVGMouseEventForBar = (
                         xStep,
                         timeStep
                     );
+                    changedTask.endHour && (changedTask.endHour = hourStringFromDate(changedTask.end, hasSeconds(changedTask.endHour)))
                 } else {
                     changedTask.start = dateByX(
                         newX1,
@@ -549,6 +592,7 @@ const handleTaskBySVGMouseEventForBar = (
                         xStep,
                         timeStep
                     );
+                    changedTask.startHour && (changedTask.startHour = hourStringFromDate(changedTask.start, hasSeconds(changedTask.startHour)))
                 }
                 const [progressWidth, progressX] = progressWithByParams(
                     changedTask.x1,
@@ -574,6 +618,7 @@ const handleTaskBySVGMouseEventForBar = (
                         xStep,
                         timeStep
                     );
+                    changedTask.startHour && (changedTask.startHour = hourStringFromDate(changedTask.start, hasSeconds(changedTask.startHour)))
                 } else {
                     changedTask.end = dateByX(
                         newX2,
@@ -582,6 +627,7 @@ const handleTaskBySVGMouseEventForBar = (
                         xStep,
                         timeStep
                     );
+                    changedTask.endHour && (changedTask.endHour = hourStringFromDate(changedTask.end, hasSeconds(changedTask.endHour))) 
                 }
                 const [progressWidth, progressX] = progressWithByParams(
                     changedTask.x1,
@@ -616,6 +662,8 @@ const handleTaskBySVGMouseEventForBar = (
                     xStep,
                     timeStep
                 );
+                changedTask.startHour && (changedTask.startHour = hourStringFromDate(changedTask.start, hasSeconds(changedTask.startHour))) 
+                changedTask.endHour && (changedTask.endHour = hourStringFromDate(changedTask.end, hasSeconds(changedTask.endHour))) 
                 changedTask.x1 = newMoveX1;
                 changedTask.x2 = newMoveX2;
                 const [progressWidth, progressX] = progressWithByParams(
@@ -626,6 +674,9 @@ const handleTaskBySVGMouseEventForBar = (
                 );
                 changedTask.progressWidth = progressWidth;
                 changedTask.progressX = progressX;
+                if (changedTask.type === 'task') {
+                    changedTask.y = svgY
+                }
             }
             break;
         }

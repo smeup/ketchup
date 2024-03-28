@@ -122,6 +122,15 @@ export default {
           try: 'field',
         },
         {
+          prop: 'detailHours',
+          description:
+            'Columns containing detail duration, from (firstHour) to (secondHour)',
+          type: 'string',
+          default: 'undefined',
+          isArray: true,
+          try: 'field',
+        },
+        {
           prop: 'detailIdCol',
           description: 'Column containing unique detail identifier',
           type: 'string',
@@ -133,6 +142,15 @@ export default {
           description: 'Column containing detail name displayed',
           type: 'string',
           default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'detailPrevHours',
+          description:
+            'Columns containing fForecast detail duration, from (firstHour) to (secondHour)',
+          type: 'string',
+          default: 'undefined',
+          isArray: true,
           try: 'field',
         },
         {
@@ -199,6 +217,15 @@ export default {
           isArray: true,
         },
         {
+          prop: 'phaseHours',
+          description:
+            'Columns containing phase duration, from (firstHour) to (secondHour)',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+          isArray: true,
+        },
+        {
           prop: 'phaseIdCol',
           description: 'Column containing unique phase identifier',
           type: 'string',
@@ -213,6 +240,15 @@ export default {
           try: 'field',
         },
         {
+          prop: 'phasePrevHours',
+          description:
+            'Columns containing forecast phase duration, from (firstHour) to (secondHour)',
+          type: 'string',
+          default: 'undefined',
+          try: 'json',
+          isArray: true,
+        },
+        {
           prop: 'phasePrevDates',
           description:
             'Columns containing forecast phase duration, from (firstDate) to (secondDate)',
@@ -224,6 +260,13 @@ export default {
         {
           prop: 'readOnly',
           description: 'When true, the two gantts are not interactable.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'scrollableTaskList',
+          description: 'Enable/disable scrollbar for task list',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -261,6 +304,15 @@ export default {
           try: 'field',
         },
         {
+          prop: 'taskHours',
+          description:
+            'Columns containing task duration, from (firstHour) to (secondHour)',
+          type: 'string',
+          default: 'undefined',
+          try: 'json',
+          isArray: true,
+        },
+        {
           prop: 'taskIdCol',
           description: 'Column containing unique task identifier',
           type: 'string',
@@ -287,6 +339,15 @@ export default {
           type: 'string',
           default: 'undefined',
           try: 'field',
+        },
+        {
+          prop: 'taskPrevHours',
+          description:
+            'Columns containing forecast task duration, from (firstHour) to (secondHour)',
+          type: 'string',
+          default: 'undefined',
+          try: 'json',
+          isArray: true,
         },
         {
           prop: 'taskPrevDates',
