@@ -2725,6 +2725,28 @@ export namespace Components {
          */
         "setValue": (value: string) => Promise<void>;
     }
+    interface KupPdf {
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * When specified, the component will emit the kup-editor-autosave event at regular intervals.
+          * @default null
+         */
+        "pdfPath": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
     interface KupPhotoFrame {
         /**
           * Custom style of the component.
@@ -2847,6 +2869,11 @@ export namespace Components {
          */
         "detailPrevDates": string[];
         /**
+          * Columns containing forecast detail duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "detailPrevHours": string[];
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
@@ -2912,6 +2939,11 @@ export namespace Components {
           * @default null
          */
         "phasePrevDates": string[];
+        /**
+          * Columns containing forecast phase duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "phasePrevHours": string[];
         /**
           * When true, the two gantts are not interactable.
           * @default false
@@ -2998,6 +3030,11 @@ export namespace Components {
           * @default null
          */
         "taskPrevDates": string[];
+        /**
+          * Columns containing forecast task duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "taskPrevHours": string[];
         /**
           * Message displayed on top
           * @default null
@@ -4045,6 +4082,10 @@ export interface KupNumericPickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupNumericPickerElement;
 }
+export interface KupPdfCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupPdfElement;
+}
 export interface KupPhotoFrameCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupPhotoFrameElement;
@@ -4760,6 +4801,23 @@ declare global {
         prototype: HTMLKupNumericPickerElement;
         new (): HTMLKupNumericPickerElement;
     };
+    interface HTMLKupPdfElementEventMap {
+        "kup-pdf-ready": KupEventPayload;
+    }
+    interface HTMLKupPdfElement extends Components.KupPdf, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupPdfElementEventMap>(type: K, listener: (this: HTMLKupPdfElement, ev: KupPdfCustomEvent<HTMLKupPdfElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupPdfElementEventMap>(type: K, listener: (this: HTMLKupPdfElement, ev: KupPdfCustomEvent<HTMLKupPdfElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKupPdfElement: {
+        prototype: HTMLKupPdfElement;
+        new (): HTMLKupPdfElement;
+    };
     interface HTMLKupPhotoFrameElementEventMap {
         "kup-photoframe-placeholderload": KupEventPayload;
         "kup-photoframe-resourceload": KupEventPayload;
@@ -5100,6 +5158,7 @@ declare global {
         "kup-magic-box": HTMLKupMagicBoxElement;
         "kup-nav-bar": HTMLKupNavBarElement;
         "kup-numeric-picker": HTMLKupNumericPickerElement;
+        "kup-pdf": HTMLKupPdfElement;
         "kup-photo-frame": HTMLKupPhotoFrameElement;
         "kup-planner": HTMLKupPlannerElement;
         "kup-planner-renderer": HTMLKupPlannerRendererElement;
@@ -7239,6 +7298,17 @@ declare namespace LocalJSX {
         "onKup-numericpicker-itemclick"?: (event: KupNumericPickerCustomEvent<KupNumericPickerEventPayload>) => void;
         "onKup-numericpicker-textfieldsubmit"?: (event: KupNumericPickerCustomEvent<KupNumericPickerEventPayload>) => void;
     }
+    interface KupPdf {
+        /**
+          * Triggered when the component is ready.
+         */
+        "onKup-pdf-ready"?: (event: KupPdfCustomEvent<KupEventPayload>) => void;
+        /**
+          * When specified, the component will emit the kup-editor-autosave event at regular intervals.
+          * @default null
+         */
+        "pdfPath"?: string;
+    }
     interface KupPhotoFrame {
         /**
           * Custom style of the component.
@@ -7348,6 +7418,11 @@ declare namespace LocalJSX {
          */
         "detailPrevDates"?: string[];
         /**
+          * Columns containing forecast detail duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "detailPrevHours"?: string[];
+        /**
           * Total size of the cells inside to the left box, near the gantt
           * @default '300px'
          */
@@ -7420,6 +7495,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "phasePrevDates"?: string[];
+        /**
+          * Columns containing forecast phase duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "phasePrevHours"?: string[];
         /**
           * When true, the two gantts are not interactable.
           * @default false
@@ -7497,6 +7577,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "taskPrevDates"?: string[];
+        /**
+          * Columns containing forecast task duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "taskPrevHours"?: string[];
         /**
           * Message displayed on top
           * @default null
@@ -8353,6 +8438,7 @@ declare namespace LocalJSX {
         "kup-magic-box": KupMagicBox;
         "kup-nav-bar": KupNavBar;
         "kup-numeric-picker": KupNumericPicker;
+        "kup-pdf": KupPdf;
         "kup-photo-frame": KupPhotoFrame;
         "kup-planner": KupPlanner;
         "kup-planner-renderer": KupPlannerRenderer;
@@ -8423,6 +8509,7 @@ declare module "@stencil/core" {
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-numeric-picker": LocalJSX.KupNumericPicker & JSXBase.HTMLAttributes<HTMLKupNumericPickerElement>;
+            "kup-pdf": LocalJSX.KupPdf & JSXBase.HTMLAttributes<HTMLKupPdfElement>;
             "kup-photo-frame": LocalJSX.KupPhotoFrame & JSXBase.HTMLAttributes<HTMLKupPhotoFrameElement>;
             "kup-planner": LocalJSX.KupPlanner & JSXBase.HTMLAttributes<HTMLKupPlannerElement>;
             "kup-planner-renderer": LocalJSX.KupPlannerRenderer & JSXBase.HTMLAttributes<HTMLKupPlannerRendererElement>;
