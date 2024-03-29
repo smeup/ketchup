@@ -270,4 +270,57 @@ describe('kup-input-panel', () => {
         const updatedValue = await input.getProperty('value');
         expect(updatedValue).toBe('Italy');
     });
+
+    it('renders checkbox', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
+        );
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'CHK',
+                    title: 'Checkbox',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        CHK: {
+                            value: 'off',
+                            editable: true,
+                            shape: 'CHK',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const checkboxCell = await inputPanelContent.find(
+            '.f-cell.checkbox-cell'
+        );
+        expect(checkboxCell).not.toBeNull();
+
+        const label = await checkboxCell.find('label');
+        expect(label).not.toBeNull();
+        expect(label).toEqualText(data.columns[0].title);
+
+        const input = await checkboxCell.find('input');
+        expect(input).not.toBeNull();
+
+        const value = await input.getProperty('value');
+        expect(value).toBe('off');
+    });
 });
