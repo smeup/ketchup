@@ -78,6 +78,7 @@ I also tried to use a file importer, but without much success and the `loadPaths
 const parsedStyle = sass.compileString(
     `
     @import 'global.scss';
+    @import 'fonts.scss';
     @import '${componentName}.scss';
 `,
     {

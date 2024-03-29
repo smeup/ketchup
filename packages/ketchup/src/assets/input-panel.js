@@ -108,13 +108,9 @@ const data = {
                 },
                 CHK: {
                     value: 'on',
-                    obj: {
-                        t: 'V2',
-                        p: 'SI/NO',
-                        k: '',
-                    },
                     editable: true,
                     mandatory: true,
+                    shape: 'CHK',
                 },
                 RAD: {
                     value: '1',

@@ -48,6 +48,8 @@ import { FProgressBar } from '../f-progress-bar/f-progress-bar';
 import { FRadio } from '../f-radio/f-radio';
 import { FRating } from '../f-rating/f-rating';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
+import { FRadioProps } from '../f-radio/f-radio-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -93,7 +95,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
         [cssClasses]: cssClasses ? true : false,
     };
     let content: unknown = valueToDisplay;
-
     if (isEditable && editableTypes.includes(cellType)) {
         content = setEditableCell(cellType, classObj, cell, column, props);
     } else if (cell.data && kupTypes.includes(cellType)) {
@@ -175,6 +176,13 @@ export const FCell: FunctionalComponent<FCellProps> = (
             kup-get-cell-props={() => {
                 return props;
             }}
+            onTouchStart={
+                dom.ketchup.interact.isMobileDevice()
+                    ? (e) => {
+                          e.preventDefault();
+                      }
+                    : null
+            }
             ref={(el) => (cell.element = el)}
             style={cell.style}
         >
@@ -477,6 +485,25 @@ function setEditableCell(
                         {...cell.slotData}
                     ></kup-combobox>
                 </kup-chip>
+            );
+        case FCellTypes.RADIO:
+            return (
+                <FRadio
+                    {...cell.data}
+                    disabled={false}
+                    onChange={(i: number, e: InputEvent) => {
+                        const radioData = (cell.data as FRadioProps).data;
+                        for (let index = 0; index < radioData.length; index++) {
+                            const radioEl = radioData[index];
+                            if (index === i) {
+                                radioEl.checked = true;
+                            } else {
+                                radioEl.checked = false;
+                            }
+                        }
+                        cellEvent(e, props, cellType, FCellEvents.UPDATE);
+                    }}
+                ></FRadio>
             );
         case FCellTypes.RATING:
             return (
@@ -787,6 +814,9 @@ function cellEvent(
                         value === '0' ? false : true;
                 }
                 break;
+            case FCellTypes.RADIO:
+                // data change handled outside this switchcase to avoid passing the index
+                break;
             case FCellTypes.CHIP:
             case FCellTypes.MULTI_AUTOCOMPLETE:
             case FCellTypes.MULTI_COMBOBOX:
@@ -825,7 +855,13 @@ function cellEvent(
         if (cellEventName === FCellEvents.UPDATE) {
             try {
                 (comp as KupComponent).refresh();
-            } catch (error) {}
+            } catch (error) {
+                dom.ketchup.debug.logMessage(
+                    comp,
+                    error,
+                    KupDebugCategory.ERROR
+                );
+            }
         }
     }
 }
