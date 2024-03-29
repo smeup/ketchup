@@ -66,7 +66,7 @@ describe('kup-input-panel', () => {
             expect(label).toEqualText(data.columns[i].title);
 
             const input = await textField.find('input');
-            expect(label).not.toBeNull();
+            expect(input).not.toBeNull();
             const value = await input.getProperty('value');
             expect(value).toBe('');
 
@@ -274,9 +274,7 @@ describe('kup-input-panel', () => {
     it('renders checkbox', async () => {
         const page = await newE2EPage();
 
-        await page.setContent(
-            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
-        );
+        await page.setContent('<kup-input-panel></kup-input-panel>');
         const inputPanel = await page.find('kup-input-panel');
         const data = {
             columns: [
@@ -322,5 +320,68 @@ describe('kup-input-panel', () => {
 
         const value = await input.getProperty('value');
         expect(value).toBe('off');
+    });
+
+    it('renders radio buttons', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'RAD',
+                    title: 'Radio Buttons',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        RAD: {
+                            value: '1',
+                            options: ['1', '2', '3', '4'],
+                            editable: true,
+                            shape: 'RAD',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const radioButtonsCell = await inputPanelContent.find(
+            '.f-cell.radio-cell'
+        );
+        expect(radioButtonsCell).not.toBeNull();
+
+        const radioOptions = data.rows[0].cells.RAD.options;
+        const radioButtons = await radioButtonsCell.findAll('div.form-field');
+        expect(radioButtons).toHaveLength(radioOptions.length);
+
+        for (const [i, radioButton] of radioButtons.entries()) {
+            const label = await radioButton.find('label');
+            expect(label).not.toBeNull();
+            expect(label).toEqualText(radioOptions[i]);
+
+            const input = await radioButton.find('input');
+            expect(input).not.toBeNull();
+
+            const value = await input.getProperty('value');
+            expect(value).toBe(radioOptions[i]);
+
+            if (data.rows[0].cells.RAD.value === radioOptions[i]) {
+                const radioButtonCircle = await radioButton.find('div.radio');
+                expect(radioButtonCircle).toHaveClass('radio--checked');
+            }
+        }
     });
 });
