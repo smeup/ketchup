@@ -807,6 +807,11 @@ export class KupBox {
         };
     }
 
+    private clickHandler(e: PointerEvent): KupBoxEventHandlerDetails {
+        const details = this.getEventDetails(e.target as HTMLElement, e);
+        return details;
+    }
+
     private contextMenuHandler(e: PointerEvent): KupBoxEventHandlerDetails {
         const details = this.getEventDetails(e.target as HTMLElement, e);
         return details;
@@ -1334,7 +1339,6 @@ export class KupBox {
             >
                 <div
                     class={boxClass}
-                    onClick={(e) => this.onBoxClick(e, row)}
                     ref={(el: HTMLElement) => this.rowsRefs.push(el)}
                 >
                     {multiSel}
@@ -1691,6 +1695,22 @@ export class KupBox {
                 return;
             }
             switch (e.button) {
+                // left click
+                case 0:
+                    // Note: event must be cloned
+                    // otherwise inside setTimeout will be exiting the Shadow DOM scope(causing loss of information, including target).
+                    const clone: GenericObject = {};
+                    for (const key in e) {
+                        clone[key] = e[key];
+                    }
+                    const details = this.clickHandler(clone as PointerEvent);
+                    this.kupBoxClick.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        row: details.row,
+                        column: details.column.name,
+                    });
+                    break;
                 case 2:
                     this.kupBoxContextMenu.emit({
                         comp: this,
