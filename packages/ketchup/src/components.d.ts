@@ -2733,7 +2733,7 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * When specified, the component will emit the kup-editor-autosave event at regular intervals.
+          * Path of the pdf document
           * @default null
          */
         "pdfPath": string;
@@ -7304,7 +7304,7 @@ declare namespace LocalJSX {
          */
         "onKup-pdf-ready"?: (event: KupPdfCustomEvent<KupEventPayload>) => void;
         /**
-          * When specified, the component will emit the kup-editor-autosave event at regular intervals.
+          * Path of the pdf document
           * @default null
          */
         "pdfPath"?: string;

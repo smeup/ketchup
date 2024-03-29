@@ -18,7 +18,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { getProps, setProps } from '../../utils/utils';
 import { KupPdfProps } from './kup-pdf-declarations';
 import * as pdfjsLib from 'pdfjs-dist';
-import * as pdfjsWorker from 'pdfjs-dist/build/pdf.worker.mjs';
+import * as pdfjsWorker from 'pdfjs-dist/build/pdf.worker.js';
 
 @Component({
     tag: 'kup-pdf',
@@ -27,7 +27,7 @@ import * as pdfjsWorker from 'pdfjs-dist/build/pdf.worker.mjs';
 })
 export class KupPdf {
     /**
-     * References the root HTML element of the component (<kup-editor>).
+     * References the root HTML element of the component (<kup-pdf>).
      */
     @Element() rootElement: HTMLElement;
 
@@ -36,7 +36,7 @@ export class KupPdf {
     /*-------------------------------------------------*/
 
     /**
-     * When specified, the component will emit the kup-editor-autosave event at regular intervals.
+     * Path of the pdf document
      * @default null
      */
     @Prop() pdfPath: string;
@@ -46,6 +46,7 @@ export class KupPdf {
     /*-------------------------------------------------*/
 
     #kupManager: KupManager = kupManagerInstance();
+    private wrapperRef: HTMLDivElement;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -105,10 +106,10 @@ export class KupPdf {
             comp: this,
             id: this.rootElement.id,
         });
-        this.#kupManager.debug.logLoad(this, true);
-
         pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
-        this.renderPdf();
+        this.renderPdf().then(() => {
+            this.#kupManager.debug.logLoad(this, true);
+        });
     }
 
     componentWillRender() {
@@ -125,8 +126,7 @@ export class KupPdf {
             withCredentials: true,
         });
         const pdf = await loadingPdfTask.promise;
-        const pdfContainer =
-            this.rootElement.shadowRoot.querySelector('#kup-pdf-container');
+        const pdfContainer = this.wrapperRef;
 
         for (let page = 1; page <= pdf.numPages; page++) {
             const canvas = document.createElement(
@@ -164,10 +164,15 @@ export class KupPdf {
     render() {
         return (
             <Host>
-                <div id={componentWrapperId}>
-                    <div id="kup-pdf-container"></div>
-                </div>
+                <div
+                    id={componentWrapperId}
+                    ref={(el) => (this.wrapperRef = el)}
+                ></div>
             </Host>
         );
+    }
+
+    disconnectedCallback() {
+        this.#kupManager.theme.unregister(this);
     }
 }
