@@ -185,4 +185,89 @@ describe('kup-input-panel', () => {
         const updatedValue = await input.getProperty('value');
         expect(updatedValue).toBe('Rome');
     });
+
+    it('renders combobox', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
+        );
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'NAT',
+                    title: 'Nation',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        NAT: {
+                            value: '',
+                            options: [
+                                'Italy',
+                                'Spain',
+                                'Germany',
+                                'France',
+                                'Portugal',
+                                'England',
+                            ],
+                            editable: true,
+                            shape: 'CMB',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const comboCell = await inputPanelContent.find('.f-cell.combobox-cell');
+        expect(comboCell).not.toBeNull();
+
+        const comboTextfield = await comboCell.find(
+            'kup-combobox >>> div.f-text-field'
+        );
+        expect(comboTextfield).not.toBeNull();
+
+        const label = await comboTextfield.find('label');
+        expect(label).not.toBeNull();
+        expect(label).toEqualText(data.columns[0].title);
+
+        const input = await comboTextfield.find('input');
+        expect(input).not.toBeNull();
+
+        const icon = await comboTextfield.find(
+            'span.kup-icon.kup-dropdown-icon'
+        );
+        expect(icon).not.toBeNull();
+
+        await icon.click();
+
+        await page.waitForChanges();
+        await page.waitForChanges();
+
+        const list = await page.find('div[kup-dynamic-position] kup-list');
+        expect(list).not.toBeNull();
+
+        const listOptions = await page.findAll('kup-list >>> ul.list li');
+        expect(listOptions).not.toBeNull();
+        expect(listOptions).toHaveLength(data.rows[0].cells.NAT.options.length);
+
+        const firstOptionValue = await listOptions[0].find('span');
+        expect(firstOptionValue).toEqualText('Italy');
+        await firstOptionValue.click();
+
+        const updatedValue = await input.getProperty('value');
+        expect(updatedValue).toBe('Italy');
+    });
 });
