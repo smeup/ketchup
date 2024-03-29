@@ -7,15 +7,16 @@
 
 ## Properties
 
-| Property       | Attribute      | Description                                                      | Type            | Default     |
-| -------------- | -------------- | ---------------------------------------------------------------- | --------------- | ----------- |
-| `columns`      | `columns`      | Number of columns to display in the grid layout.                 | `number`        | `4`         |
-| `customStyle`  | `custom-style` | Custom style of the component.                                   | `string`        | `''`        |
-| `data`         | --             | Actual data of the component.                                    | `KupDataNode[]` | `[]`        |
-| `ripple`       | `ripple`       | When enabled displays Material's ripple effect on clicked items. | `boolean`       | `true`      |
-| `selectedNode` | --             | An array of integers containing the path to a selected child.\   | `number[]`      | `[]`        |
-| `stateId`      | `state-id`     |                                                                  | `string`        | `''`        |
-| `store`        | --             |                                                                  | `KupStore`      | `undefined` |
+| Property       | Attribute      | Description                                                      | Type                     | Default     |
+| -------------- | -------------- | ---------------------------------------------------------------- | ------------------------ | ----------- |
+| `columns`      | `columns`      | Number of columns to display in the grid layout.                 | `number`                 | `4`         |
+| `customStyle`  | `custom-style` | Custom style of the component.                                   | `string`                 | `''`        |
+| `data`         | --             | Actual data of the component.                                    | `KupImageListDataNode[]` | `[]`        |
+| `ripple`       | `ripple`       | When enabled displays Material's ripple effect on clicked items. | `boolean`                | `true`      |
+| `rows`         | `rows`         | Number of rows to display in the grid layout.                    | `number`                 | `null`      |
+| `selectedNode` | --             | An array of integers containing the path to a selected child.\   | `number[]`               | `[]`        |
+| `stateId`      | `state-id`     |                                                                  | `string`                 | `''`        |
+| `store`        | --             |                                                                  | `KupStore`               | `undefined` |
 
 
 ## Events
