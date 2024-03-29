@@ -768,19 +768,33 @@ export class KupBox {
     }
 
     private getEventDetails(
-        el: HTMLElement,
+        path: HTMLElement[],
         e?: PointerEvent
     ): KupBoxEventHandlerDetails {
         let boxObject = null;
         let cell: KupDataCell = null;
         let row: KupBoxRow = null;
         let column: KupDataColumn = null;
-        if (el) {
-            boxObject =
-                el.closest('.box-object') ||
-                el.querySelector('.box-object') ||
-                el.closest('.f-cell');
+        if (path) {
+            for (let i = path.length - 1; i >= 0; i--) {
+                let p = path[i];
+                if (!p.tagName) {
+                    continue;
+                }
+                switch (p.tagName.toUpperCase()) {
+                    default: {
+                        if (p.classList.contains('box-object')) {
+                            boxObject = p;
+                        }
+                        if (!row && p['data-row']) {
+                            row = p['data-row'];
+                        }
+                        break;
+                    }
+                }
+            }
         }
+
         if (boxObject) {
             if (boxObject.classList.contains('f-cell')) {
                 const props = boxObject['kup-get-cell-props']();
@@ -808,12 +822,18 @@ export class KupBox {
     }
 
     private clickHandler(e: PointerEvent): KupBoxEventHandlerDetails {
-        const details = this.getEventDetails(e.target as HTMLElement, e);
+        const details = this.getEventDetails(
+            this.kupManager.getEventPath(e.target, this.rootElement),
+            e
+        );
         return details;
     }
 
     private contextMenuHandler(e: PointerEvent): KupBoxEventHandlerDetails {
-        const details = this.getEventDetails(e.target as HTMLElement, e);
+        const details = this.getEventDetails(
+            this.kupManager.getEventPath(e.target, this.rootElement),
+            e
+        );
         return details;
     }
 
@@ -1339,6 +1359,7 @@ export class KupBox {
             >
                 <div
                     class={boxClass}
+                    data-row={row}
                     ref={(el: HTMLElement) => this.rowsRefs.push(el)}
                 >
                     {multiSel}
@@ -1708,7 +1729,7 @@ export class KupBox {
                         comp: this,
                         id: this.rootElement.id,
                         row: details.row,
-                        column: details.column.name,
+                        column: details.column?.name,
                     });
                     break;
                 case 2:
@@ -1782,9 +1803,21 @@ export class KupBox {
         }
         if (this.dropEnabled) {
             const dataCb: KupDropDataTransferCallback = () => {
-                const receivingDetails = this.getEventDetails(
-                    this.rootElement.shadowRoot.querySelector('.box:hover')
+                const cell =
+                    this.rootElement.shadowRoot.querySelector('.box:hover');
+                if (!cell) {
+                    this.kupManager.debug.logMessage(
+                        this,
+                        "Couldn't find cell hovered to retrieve dropzone informations!",
+                        KupDebugCategory.WARNING
+                    );
+                    return;
+                }
+                const path = this.kupManager.getEventPath(
+                    cell,
+                    this.rootElement
                 );
+                const receivingDetails = this.getEventDetails(path);
                 return {
                     cell: receivingDetails.cell,
                     column: receivingDetails.column,
