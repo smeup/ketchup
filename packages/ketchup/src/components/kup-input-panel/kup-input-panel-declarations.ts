@@ -62,3 +62,15 @@ export type DataAdapterFn = (
     fieldLabel: string,
     currentValue: string
 ) => Object;
+
+export type InputPanelCells = {
+    cells: { cell: KupDataCell; column: KupDataColumn }[];
+    row?: KupInputPanelRow;
+};
+
+export enum KupInputPanelProps {
+    customStyle = 'Custom style of the component.',
+    data = 'Actual data of the input panel.',
+    hiddenSubmitButton = 'Creates a hidden submit button in order to submit the form with enter.',
+    submitCb = 'Sets the callback function on submit form',
+}

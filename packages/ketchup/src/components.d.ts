@@ -2471,6 +2471,10 @@ export namespace Components {
          */
         "hiddenSubmitButton": boolean;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * Sets the callback function on submit form
           * @default null
          */

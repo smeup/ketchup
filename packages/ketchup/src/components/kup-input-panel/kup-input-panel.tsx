@@ -4,23 +4,32 @@ import {
     Event,
     EventEmitter,
     Host,
+    Method,
     Prop,
+    State,
     VNode,
     Watch,
+    forceUpdate,
     h,
 } from '@stencil/core';
 import {
     DataAdapterFn,
+    InputPanelCells,
     KupInputPanelCell,
     KupInputPanelColumn,
     KupInputPanelData,
+    KupInputPanelProps,
     KupInputPanelRow,
 } from './kup-input-panel-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import { KupComponent, KupEventPayload } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FButton } from '../../f-components/f-button/f-button';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
@@ -31,7 +40,8 @@ import {
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
-import { FRadioData } from '../../components';
+import { KupDataCell } from '../../components';
+import { getProps, setProps } from '../../utils/utils';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -76,6 +86,18 @@ export class KupInputPanel {
     @Prop() submitCb: (e: SubmitEvent) => unknown = null;
     //#endregion
 
+    //#region STATES
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
+
+    /**
+     * Values to send as props to FCell
+     * @default []
+     */
+    @State() private inputPanelCells: InputPanelCells[] = [];
+    //#endregion
+
     //#region VARIABLES
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -91,8 +113,7 @@ export class KupInputPanel {
 
     @Watch('data')
     onDataChanged() {
-        // console.log('data changed', this.data);
-        // this.render();
+        this.#mapCells(this.data);
     }
     //#endregion
 
@@ -101,7 +122,30 @@ export class KupInputPanel {
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
-    // TODO ADD METHODS HERE
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        return getProps(this, KupInputPanelProps, descriptions);
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupInputPanelProps, props);
+    }
     //#endregion
 
     //#region EVENTS
@@ -126,24 +170,13 @@ export class KupInputPanel {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    #renderRow(row: KupInputPanelRow) {
+    #renderRow(inputPanelCell: InputPanelCells) {
         // todo layout
-        const horizontal = row.layout?.horizontal || false;
+        const horizontal = inputPanelCell.row.layout?.horizontal || false;
 
-        const rowContent: VNode[] = this.data.columns
-            .filter((col) => col.visible)
-            .map((col) => {
-                const cell = row.cells[col.name];
-
-                const mappedCell = {
-                    ...cell,
-                    data: this.#mapData(cell, col),
-                    slotData: this.#slotData(cell, col),
-                    isEditable: cell.editable,
-                };
-
-                return this.#renderCell(mappedCell, row, col);
-            });
+        const rowContent: VNode[] = inputPanelCell.cells.map((cell) =>
+            this.#renderCell(cell.cell, inputPanelCell.row, cell.column)
+        );
 
         const classObj = {
             form: true,
@@ -172,7 +205,7 @@ export class KupInputPanel {
     }
 
     #renderCell(
-        cell: KupInputPanelCell,
+        cell: KupDataCell,
         row: KupInputPanelRow,
         column: KupInputPanelColumn
     ) {
@@ -181,19 +214,35 @@ export class KupInputPanel {
             column,
             row,
             component: this,
-            editable: cell.editable,
+            editable: cell.isEditable,
             renderKup: true,
             setSizes: true,
         };
 
-        // if (
-        //     dom.ketchup.data.cell.getType(cell, cell.shape) === FCellTypes.RADIO
-        // ) {
-        //     // console.log('cell.data', cell.data);
-        //     return <kup-radio {...cell.data} />;
-        // }
-
         return <FCell {...cellProps} />;
+    }
+
+    #mapCells(data: KupInputPanelData) {
+        const inpuPanelCells = data?.rows?.length
+            ? data.rows.reduce((inpuPanelCells, row) => {
+                  const cells = data.columns
+                      .filter((column) => column.visible)
+                      .map((column) => {
+                          const cell = row.cells[column.name];
+                          const mappedCell = {
+                              ...cell,
+                              data: this.#mapData(cell, column),
+                              slotData: this.#slotData(cell, column),
+                              isEditable: cell.editable,
+                          };
+
+                          return { column, cell: mappedCell };
+                      });
+                  return [...inpuPanelCells, { cells, row }];
+              }, [])
+            : [];
+
+        this.inputPanelCells = inpuPanelCells;
     }
 
     #mapData(cell: KupInputPanelCell, col: KupInputPanelColumn) {
@@ -329,29 +378,12 @@ export class KupInputPanel {
     }
 
     #RADAdapter(options: string[], _fieldLabel: string, currentValue: string) {
-        // const onChange = (i) => {
-        //     this.data = {
-        //         ...this.data,
-        //         rows: this.data.rows.map((row) => ({
-        //             ...row,
-        //             cells: {
-        //                 ...row.cells,
-        //                 RAD: {
-        //                     ...row.cells['RAD'],
-        //                     value: options[i],
-        //                 },
-        //             },
-        //         })),
-        //     };
-        // };
-
         return {
             data: options.map((option) => ({
                 value: option,
                 label: option,
                 checked: option === currentValue,
             })),
-            // onChange,
         };
     }
 
@@ -391,7 +423,7 @@ export class KupInputPanel {
     }
 
     render() {
-        const isEmptyData = Boolean(!this.data?.rows?.length);
+        const isEmptyData = Boolean(!this.inputPanelCells.length);
 
         const inputPanelContent: VNode[] = isEmptyData
             ? [
@@ -401,7 +433,9 @@ export class KupInputPanel {
                       )}
                   </p>,
               ]
-            : this.data.rows.map((row) => this.#renderRow(row));
+            : this.inputPanelCells.map((inputPanelCell) =>
+                  this.#renderRow(inputPanelCell)
+              );
 
         return (
             <Host>

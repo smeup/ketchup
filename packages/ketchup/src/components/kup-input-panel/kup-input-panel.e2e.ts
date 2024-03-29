@@ -320,6 +320,11 @@ describe('kup-input-panel', () => {
 
         const value = await input.getProperty('value');
         expect(value).toBe('off');
+
+        await input.click();
+
+        const updatedValue = await input.getProperty('value');
+        expect(updatedValue).toBe('on');
     });
 
     it('renders radio buttons', async () => {
@@ -378,10 +383,24 @@ describe('kup-input-panel', () => {
             const value = await input.getProperty('value');
             expect(value).toBe(radioOptions[i]);
 
-            if (data.rows[0].cells.RAD.value === radioOptions[i]) {
+            if (data.rows[0].cells.RAD.value === value) {
                 const radioButtonCircle = await radioButton.find('div.radio');
                 expect(radioButtonCircle).toHaveClass('radio--checked');
             }
         }
+
+        const newRadioButtonChecked = await radioButtons[2].find('div.radio');
+
+        await newRadioButtonChecked.click();
+
+        await page.waitForChanges();
+
+        const updatedRadioButtons = await radioButtonsCell.findAll(
+            'div.form-field'
+        );
+        const updateRadioButtonChecked = await updatedRadioButtons[2].find(
+            'div.radio '
+        );
+        expect(updateRadioButtonChecked).toHaveClass('radio--checked');
     });
 });
