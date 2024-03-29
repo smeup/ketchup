@@ -1,0 +1,54 @@
+/**
+* @prop --kul-badge-border-radius: Sets border radius of the badge.
+* @prop --kul-badge-font-family: Sets font family of the badge.
+* @prop --kul-badge-font-size: Sets font size of the badge.
+* @prop --kul-badge-min-size: Sets minimum size of the badge.
+* @prop --kul-badge-padding: Sets padding of the badge.
+* @prop --kul-badge-primary-color: Sets primary color of the badge.
+* @prop --kul-badge-text-on-primary-color: Sets text on primary color of the badge.
+*/
+
+:host {
+  --kul_badge_border_radius: var(--kul-badge-border-radius, 30px);
+  --kul_badge_font_family: var(--kul-badge-font-family, var(--kul-font-family));
+  --kul_badge_font_size: var(--kul-badge-font-size, var(--kul-font-size));
+  --kul_badge_min_size: var(--kul-badge-min-size, 1.5em);
+  --kul_badge_padding: var(--kul-badge-padding, 0.25em);
+  --kul_badge_primary_color: var(
+    --kul-badge-primary-color,
+    var(--kul-primary-color)
+  );
+  --kul_badge_text_on_primary_color: var(
+    --kul-badge-text-on-primary-color,
+    var(--kul-text-on-primary-color)
+  );
+
+  display: block;
+  font-family: var(--kul_badge_font_family);
+  font-size: var(--kul_badge_font_size);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+
+#kul-component {
+  background-color: var(--kul_badge_primary_color);
+  border-radius: var(--kul_badge_border_radius);
+  color: var(--kul_badge_text_on_primary_color);
+  font-size: 0.875em;
+  min-height: var(--kul_badge_min_size);
+  min-width: var(--kul_badge_min_size);
+  padding: var(--kul_badge_padding);
+  text-align: center;
+}
+
+.f-image {
+  display: block;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: inherit;
+  width: inherit;
+}

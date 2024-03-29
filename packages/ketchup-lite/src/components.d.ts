@@ -5,37 +5,52 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { KupButtonEventPayload, KupButtonStates, KupButtonStyling } from "./components/kup-button/kup-button-declarations";
-import { GenericObject } from "./types/GenericTypes";
-export { KupButtonEventPayload, KupButtonStates, KupButtonStyling } from "./components/kup-button/kup-button-declarations";
-export { GenericObject } from "./types/GenericTypes";
+import { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
+import { GenericObject, KulEventPayload } from "./types/GenericTypes";
+import { KulButtonEventPayload, KulButtonStates, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
+import { KulDataDataset } from "./managers/kul-data/kul-data-declarations";
+import { KulCardFamily } from "./components/kul-card/kul-card-declarations";
+import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
+export { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
+export { GenericObject, KulEventPayload } from "./types/GenericTypes";
+export { KulButtonEventPayload, KulButtonStates, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
+export { KulDataDataset } from "./managers/kul-data/kul-data-declarations";
+export { KulCardFamily } from "./components/kul-card/kul-card-declarations";
+export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 export namespace Components {
-    interface KupButton {
+    interface KulBadge {
         /**
-          * Sets the type of the button.
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * The props of the image displayed inside the badge.
+          * @default null
+         */
+        "kulImageProps": KulImagePropsInterface;
+        /**
+          * The text displayed inside the badge.
           * @default ""
-          * @example // To set the button type to "submit" <kup-button buttonType="submit"></kup-button>
          */
-        "buttonType": string;
-        /**
-          * When set to true, the icon button state will be on.
-          * @default false
-          * @example // To set the initial button's checked state to true <kup-button checked={true}></kup-button>
-         */
-        "checked": boolean;
+        "kulLabel": string;
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @example // To apply a custom style to the button <kup-button customStyle="your-custom-style"></kup-button>
          */
-        "customStyle": string;
+        "kulStyle": string;
         /**
-          * Defaults at false. When set to true, the component is disabled.
-          * @default false
-          * @example // To disable the button <kup-button disabled={true}></kup-button>
+          * This method is used to trigger a new render of the component.
          */
-        "disabled": boolean;
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
+    interface KulButton {
         /**
           * Used to retrieve component's properties and descriptions.
           * @param descriptions - When true, includes descriptions for each property.
@@ -46,25 +61,65 @@ export namespace Components {
           * Used to retrieve component's current state.
           * @returns Promise resolved with the current state of the component.
          */
-        "getValue": () => Promise<KupButtonStates>;
+        "getValue": () => Promise<KulButtonStates>;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+          * @default false
+         */
+        "kulDisabled": boolean;
         /**
           * When set, the button will show this icon.
           * @default ""
-          * @example // To set an icon for the button <kup-button icon="your-icon-name"></kup-button>
          */
-        "icon": string;
+        "kulIcon": string;
         /**
           * When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
           * @default ""
-          * @example // To set a specific icon for the button's off state <kup-button iconOff="your-icon-name-off"></kup-button>
          */
-        "iconOff": string;
+        "kulIconOff": string;
         /**
           * When set, the button will show this text.
           * @default ""
-          * @example // To set text for the button <kup-button label="Click Me"></kup-button>
          */
-        "label": string;
+        "kulLabel": string;
+        /**
+          * When set to true, the button show a spinner received in slot.
+          * @default false
+         */
+        "kulShowSpinner": boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle": string;
+        /**
+          * Defines the style of the button. This property controls the visual appearance of the button.
+          * @default "raised"
+          * @see KulButtonStyling - For a list of available styles.
+         */
+        "kulStyling": KulButtonStyling;
+        /**
+          * When set to true, the icon button will be toggable on/off.
+          * @default false
+         */
+        "kulToggable": boolean;
+        /**
+          * When set, the icon will be shown after the text.
+          * @default false
+         */
+        "kulTrailingIcon": boolean;
+        /**
+          * Sets the type of the button.
+          * @default "button"
+         */
+        "kulType": | 'button'
+        | 'reset'
+        | 'submit';
+        /**
+          * When set to true, the icon button state will be on.
+          * @default false
+         */
+        "kulValue": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -79,144 +134,380 @@ export namespace Components {
           * @param value - The new state to be set on the component.
           * @returns
          */
-        "setValue": (value: KupButtonStates) => Promise<void>;
+        "setValue": (value: KulButtonStates) => Promise<void>;
+    }
+    interface KulCard {
         /**
-          * When set to true, the button show a spinner received in slot.
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * The actual data of the card.
+          * @default null
+         */
+        "kulData": KulDataDataset;
+        /**
+          * Sets the type of the card.
+          * @default KulCardFamily.STANDARD
+         */
+        "kulLayoutFamily": KulCardFamily;
+        /**
+          * Sets the number of the layout.
+          * @default 1
+         */
+        "kulLayoutNumber": number;
+        /**
+          * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+          * @default "100%"
+         */
+        "kulSizeX": string;
+        /**
+          * The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default "100%"
+         */
+        "kulSizeY": string;
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
+    interface KulImage {
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This property is used to attach a badge to the component.
+          * @default null
+         */
+        "kulBadgeProps": KulBadgePropsInterface;
+        /**
+          * Specifies the color of the icon using a CSS variable. This property is used to set the color of the component's icon.
+          * @default KulThemeColorValues.ICON
+          * @see KulThemeColorValues - For a list of available CSS variable names for color.
+         */
+        "kulColor": string;
+        /**
+          * Defines the source URL of the image. This property is used to set the image resource that the component should display.
+          * @default ""
+         */
+        "kulResource": string;
+        /**
+          * Controls the display of a loading indicator. When enabled, a spinner is shown until the image finishes loading. This property is not compatible with SVG images.
           * @default false
-          * @example // To show a spinner within the button <kup-button showSpinner={true}></kup-button>
          */
-        "showSpinner": boolean;
+        "kulShowSpinner": boolean;
         /**
-          * Defines the style of the button. This property controls the visual appearance of the button.
-          * @default "raised"
-          * @example // To set the button to have an outlined style <kup-button styling="outlined"></kup-button>
-          * @see KupButtonStyling - For a list of available styles.
+          * Sets the width of the icon. This property accepts any valid CSS measurement value (e.g., px, %, vh, etc.) and defaults to 100%.
+          * @default '100%'
          */
-        "styling": KupButtonStyling;
+        "kulSizeX": string;
         /**
-          * When set to true, the icon button will be toggable on/off.
-          * @default false
-          * @example // To make the button toggable <kup-button toggable={true}></kup-button>
+          * Sets the height of the icon. This property accepts any valid CSS measurement value (e.g., px, %, vh, etc.) and defaults to 100%.
+          * @default '100%'
          */
-        "toggable": boolean;
+        "kulSizeY": string;
         /**
-          * When set, the icon will be shown after the text.
-          * @default false
-          * @example // To set the icon to show after the text <kup-button trailingIcon={true}></kup-button>
+          * Customizes the style of the component. This property allows you to apply a custom CSS style to the component.
+          * @default ""
          */
-        "trailingIcon": boolean;
+        "kulStyle": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
 }
-export interface KupButtonCustomEvent<T> extends CustomEvent<T> {
+export interface KulBadgeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLKupButtonElement;
+    target: HTMLKulBadgeElement;
+}
+export interface KulButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKulButtonElement;
+}
+export interface KulCardCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKulCardElement;
+}
+export interface KulImageCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKulImageElement;
 }
 declare global {
-    interface HTMLKupButtonElementEventMap {
-        "kup-button-event": KupButtonEventPayload;
+    interface HTMLKulBadgeElementEventMap {
+        "kul-badge-event": KulEventPayload;
     }
-    interface HTMLKupButtonElement extends Components.KupButton, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLKupButtonElementEventMap>(type: K, listener: (this: HTMLKupButtonElement, ev: KupButtonCustomEvent<HTMLKupButtonElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+    interface HTMLKulBadgeElement extends Components.KulBadge, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulBadgeElementEventMap>(type: K, listener: (this: HTMLKulBadgeElement, ev: KulBadgeCustomEvent<HTMLKulBadgeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLKupButtonElementEventMap>(type: K, listener: (this: HTMLKupButtonElement, ev: KupButtonCustomEvent<HTMLKupButtonElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulBadgeElementEventMap>(type: K, listener: (this: HTMLKulBadgeElement, ev: KulBadgeCustomEvent<HTMLKulBadgeElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
-    var HTMLKupButtonElement: {
-        prototype: HTMLKupButtonElement;
-        new (): HTMLKupButtonElement;
+    var HTMLKulBadgeElement: {
+        prototype: HTMLKulBadgeElement;
+        new (): HTMLKulBadgeElement;
+    };
+    interface HTMLKulButtonElementEventMap {
+        "kul-button-event": KulButtonEventPayload;
+    }
+    interface HTMLKulButtonElement extends Components.KulButton, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulButtonElementEventMap>(type: K, listener: (this: HTMLKulButtonElement, ev: KulButtonCustomEvent<HTMLKulButtonElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulButtonElementEventMap>(type: K, listener: (this: HTMLKulButtonElement, ev: KulButtonCustomEvent<HTMLKulButtonElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKulButtonElement: {
+        prototype: HTMLKulButtonElement;
+        new (): HTMLKulButtonElement;
+    };
+    interface HTMLKulCardElementEventMap {
+        "kul-card-click": KulEventPayload;
+    }
+    interface HTMLKulCardElement extends Components.KulCard, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulCardElementEventMap>(type: K, listener: (this: HTMLKulCardElement, ev: KulCardCustomEvent<HTMLKulCardElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulCardElementEventMap>(type: K, listener: (this: HTMLKulCardElement, ev: KulCardCustomEvent<HTMLKulCardElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKulCardElement: {
+        prototype: HTMLKulCardElement;
+        new (): HTMLKulCardElement;
+    };
+    interface HTMLKulImageElementEventMap {
+        "kul-image-event": KulEventPayload;
+    }
+    interface HTMLKulImageElement extends Components.KulImage, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulImageElementEventMap>(type: K, listener: (this: HTMLKulImageElement, ev: KulImageCustomEvent<HTMLKulImageElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulImageElementEventMap>(type: K, listener: (this: HTMLKulImageElement, ev: KulImageCustomEvent<HTMLKulImageElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKulImageElement: {
+        prototype: HTMLKulImageElement;
+        new (): HTMLKulImageElement;
     };
     interface HTMLElementTagNameMap {
-        "kup-button": HTMLKupButtonElement;
+        "kul-badge": HTMLKulBadgeElement;
+        "kul-button": HTMLKulButtonElement;
+        "kul-card": HTMLKulCardElement;
+        "kul-image": HTMLKulImageElement;
     }
 }
 declare namespace LocalJSX {
-    interface KupButton {
+    interface KulBadge {
         /**
-          * Sets the type of the button.
+          * The props of the image displayed inside the badge.
+          * @default null
+         */
+        "kulImageProps"?: KulImagePropsInterface;
+        /**
+          * The text displayed inside the badge.
           * @default ""
-          * @example // To set the button type to "submit" <kup-button buttonType="submit"></kup-button>
          */
-        "buttonType"?: string;
-        /**
-          * When set to true, the icon button state will be on.
-          * @default false
-          * @example // To set the initial button's checked state to true <kup-button checked={true}></kup-button>
-         */
-        "checked"?: boolean;
+        "kulLabel"?: string;
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @example // To apply a custom style to the button <kup-button customStyle="your-custom-style"></kup-button>
          */
-        "customStyle"?: string;
+        "kulStyle"?: string;
+        /**
+          * Describes event emitted for various button interactions like click.
+         */
+        "onKul-badge-event"?: (event: KulBadgeCustomEvent<KulEventPayload>) => void;
+    }
+    interface KulButton {
         /**
           * Defaults at false. When set to true, the component is disabled.
           * @default false
-          * @example // To disable the button <kup-button disabled={true}></kup-button>
          */
-        "disabled"?: boolean;
+        "kulDisabled"?: boolean;
         /**
           * When set, the button will show this icon.
           * @default ""
-          * @example // To set an icon for the button <kup-button icon="your-icon-name"></kup-button>
          */
-        "icon"?: string;
+        "kulIcon"?: string;
         /**
           * When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
           * @default ""
-          * @example // To set a specific icon for the button's off state <kup-button iconOff="your-icon-name-off"></kup-button>
          */
-        "iconOff"?: string;
+        "kulIconOff"?: string;
         /**
           * When set, the button will show this text.
           * @default ""
-          * @example // To set text for the button <kup-button label="Click Me"></kup-button>
          */
-        "label"?: string;
-        /**
-          * Describes event emitted when button loses focus.
-         */
-        "onKup-button-event"?: (event: KupButtonCustomEvent<KupButtonEventPayload>) => void;
+        "kulLabel"?: string;
         /**
           * When set to true, the button show a spinner received in slot.
           * @default false
-          * @example // To show a spinner within the button <kup-button showSpinner={true}></kup-button>
          */
-        "showSpinner"?: boolean;
+        "kulShowSpinner"?: boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle"?: string;
         /**
           * Defines the style of the button. This property controls the visual appearance of the button.
           * @default "raised"
-          * @example // To set the button to have an outlined style <kup-button styling="outlined"></kup-button>
-          * @see KupButtonStyling - For a list of available styles.
+          * @see KulButtonStyling - For a list of available styles.
          */
-        "styling"?: KupButtonStyling;
+        "kulStyling"?: KulButtonStyling;
         /**
           * When set to true, the icon button will be toggable on/off.
           * @default false
-          * @example // To make the button toggable <kup-button toggable={true}></kup-button>
          */
-        "toggable"?: boolean;
+        "kulToggable"?: boolean;
         /**
           * When set, the icon will be shown after the text.
           * @default false
-          * @example // To set the icon to show after the text <kup-button trailingIcon={true}></kup-button>
          */
-        "trailingIcon"?: boolean;
+        "kulTrailingIcon"?: boolean;
+        /**
+          * Sets the type of the button.
+          * @default "button"
+         */
+        "kulType"?: | 'button'
+        | 'reset'
+        | 'submit';
+        /**
+          * When set to true, the icon button state will be on.
+          * @default false
+         */
+        "kulValue"?: boolean;
+        /**
+          * Describes event emitted for various button interactions like click, focus, blur.
+         */
+        "onKul-button-event"?: (event: KulButtonCustomEvent<KulButtonEventPayload>) => void;
+    }
+    interface KulCard {
+        /**
+          * The actual data of the card.
+          * @default null
+         */
+        "kulData"?: KulDataDataset;
+        /**
+          * Sets the type of the card.
+          * @default KulCardFamily.STANDARD
+         */
+        "kulLayoutFamily"?: KulCardFamily;
+        /**
+          * Sets the number of the layout.
+          * @default 1
+         */
+        "kulLayoutNumber"?: number;
+        /**
+          * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+          * @default "100%"
+         */
+        "kulSizeX"?: string;
+        /**
+          * The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default "100%"
+         */
+        "kulSizeY"?: string;
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle"?: string;
+        /**
+          * Triggered when the card is clicked.
+         */
+        "onKul-card-click"?: (event: KulCardCustomEvent<KulEventPayload>) => void;
+    }
+    interface KulImage {
+        /**
+          * This property is used to attach a badge to the component.
+          * @default null
+         */
+        "kulBadgeProps"?: KulBadgePropsInterface;
+        /**
+          * Specifies the color of the icon using a CSS variable. This property is used to set the color of the component's icon.
+          * @default KulThemeColorValues.ICON
+          * @see KulThemeColorValues - For a list of available CSS variable names for color.
+         */
+        "kulColor"?: string;
+        /**
+          * Defines the source URL of the image. This property is used to set the image resource that the component should display.
+          * @default ""
+         */
+        "kulResource"?: string;
+        /**
+          * Controls the display of a loading indicator. When enabled, a spinner is shown until the image finishes loading. This property is not compatible with SVG images.
+          * @default false
+         */
+        "kulShowSpinner"?: boolean;
+        /**
+          * Sets the width of the icon. This property accepts any valid CSS measurement value (e.g., px, %, vh, etc.) and defaults to 100%.
+          * @default '100%'
+         */
+        "kulSizeX"?: string;
+        /**
+          * Sets the height of the icon. This property accepts any valid CSS measurement value (e.g., px, %, vh, etc.) and defaults to 100%.
+          * @default '100%'
+         */
+        "kulSizeY"?: string;
+        /**
+          * Customizes the style of the component. This property allows you to apply a custom CSS style to the component.
+          * @default ""
+         */
+        "kulStyle"?: string;
+        /**
+          * Describes event emitted for various button interactions like click, load.
+         */
+        "onKul-image-event"?: (event: KulImageCustomEvent<KulEventPayload>) => void;
     }
     interface IntrinsicElements {
-        "kup-button": KupButton;
+        "kul-badge": KulBadge;
+        "kul-button": KulButton;
+        "kul-card": KulCard;
+        "kul-image": KulImage;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "kup-button": LocalJSX.KupButton & JSXBase.HTMLAttributes<HTMLKupButtonElement>;
+            "kul-badge": LocalJSX.KulBadge & JSXBase.HTMLAttributes<HTMLKulBadgeElement>;
+            "kul-button": LocalJSX.KulButton & JSXBase.HTMLAttributes<HTMLKulButtonElement>;
+            "kul-card": LocalJSX.KulCard & JSXBase.HTMLAttributes<HTMLKulCardElement>;
+            "kul-image": LocalJSX.KulImage & JSXBase.HTMLAttributes<HTMLKulImageElement>;
         }
     }
 }

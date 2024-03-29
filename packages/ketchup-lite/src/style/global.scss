@@ -3,72 +3,72 @@
 //-----------------------------------------------------//
 
 // Color related variables.
-$kup-class-danger: 'kup-danger'; // Sets the primary color to --kup-danger-color.
-$kup-class-info: 'kup-info'; // Sets the primary color to --kup-info-color.
-$kup-class-secondary: 'kup-secondary'; // Sets the primary color to --kup-secondary-color.
-$kup-class-success: 'kup-success'; // Sets the primary color to --kup-success-color.
-$kup-class-warning: 'kup-warning'; // Sets the primary color to --kup-warning-color.
+$kul-class-danger: 'kul-danger'; // Sets the primary color to --kul-danger-color.
+$kul-class-info: 'kul-info'; // Sets the primary color to --kul-info-color.
+$kul-class-secondary: 'kul-secondary'; // Sets the primary color to --kul-secondary-color.
+$kul-class-success: 'kul-success'; // Sets the primary color to --kul-success-color.
+$kul-class-warning: 'kul-warning'; // Sets the primary color to --kul-warning-color.
 
 // Position related variables.
-$kup-class-bottom-aligned: 'kup-bottom-aligned'; // Aligns the content of the component to the bottom.
-$kup-class-bottom-left: 'kup-bottom-left'; // Position the component to the bottom left.
-$kup-class-bottom-right: 'kup-bottom-right'; // Position the component to the bottom right.
-$kup-class-center-aligned: 'kup-center-aligned'; // Aligns the content of the component to the right.
-$kup-class-horizontal: 'kup-horizontal'; // Optimized style for a horizontally-flowing component.
-$kup-class-left-aligned: 'kup-left-aligned'; // Aligns the content of the component to the left.
-$kup-class-right: 'kup-right'; // Position the component to the right.
-$kup-class-right-aligned: 'kup-right-aligned'; // Aligns the content of the component to the right.
-$kup-class-top-right: 'kup-top-right'; // Position the component to the top right.
-$kup-class-top-aligned: 'kup-top-aligned'; // Aligns the content of the component to the top.
-$kup-class-top: 'kup-top'; // Position the component to the top.
-$kup-class-vertical: 'kup-vertical'; // Optimized style for a vertically-flowing component.
+$kul-class-bottom-aligned: 'kul-bottom-aligned'; // Aligns the content of the component to the bottom.
+$kul-class-bottom-left: 'kul-bottom-left'; // Position the component to the bottom left.
+$kul-class-bottom-right: 'kul-bottom-right'; // Position the component to the bottom right.
+$kul-class-center-aligned: 'kul-center-aligned'; // Aligns the content of the component to the right.
+$kul-class-horizontal: 'kul-horizontal'; // Optimized style for a horizontally-flowing component.
+$kul-class-left-aligned: 'kul-left-aligned'; // Aligns the content of the component to the left.
+$kul-class-right: 'kul-right'; // Position the component to the right.
+$kul-class-right-aligned: 'kul-right-aligned'; // Aligns the content of the component to the right.
+$kul-class-top-right: 'kul-top-right'; // Position the component to the top right.
+$kul-class-top-aligned: 'kul-top-aligned'; // Aligns the content of the component to the top.
+$kul-class-top: 'kul-top'; // Position the component to the top.
+$kul-class-vertical: 'kul-vertical'; // Optimized style for a vertically-flowing component.
 
 // Size related variables.
-$kup-class-fit: 'kup-fit'; // The component won't exceed its size in pixels.
-$kup-class-full-height: 'kup-full-height'; // The component will fill all the available vertical space.
-$kup-class-full-width: 'kup-full-width'; // The component will fill all the available horizontal space.
-$kup-class-large: 'kup-large'; // Increases the size of the component.
-$kup-class-layout-fixed: 'kup-layout-fixed'; // Tables' size will be fixed to improve fps (especially on Chrome).
-$kup-class-slim: 'kup-slim'; // Decreases the size of the component.
+$kul-class-fit: 'kul-fit'; // The component won't exceed its size in pixels.
+$kul-class-full-height: 'kul-full-height'; // The component will fill all the available vertical space.
+$kul-class-full-width: 'kul-full-width'; // The component will fill all the available horizontal space.
+$kul-class-large: 'kul-large'; // Increases the size of the component.
+$kul-class-layout-fixed: 'kul-layout-fixed'; // Tables' size will be fixed to improve fps (especially on Chrome).
+$kul-class-slim: 'kul-slim'; // Decreases the size of the component.
 
 // Misc variables.
-$kup-class-animated: 'kup-animated'; // The component will display animations.
-$kup-class-auto-grid: 'kup-auto-grid'; // The component will set a grid automatically.
-$kup-class-borderless: 'kup-borderless'; // The component's borders will be hidden.
-$kup-class-cross-selection: 'kup-cross-selection'; // Displays selection for both rows and columns.
-$kup-class-dashed-sections: 'kup-dashed-sections'; // Dashed borders will be displayed for every section of the component.
-$kup-class-flat-on-hover: 'kup-flat-on-hover'; // Disables box shadow.
-$kup-class-padded: 'kup-padded'; // The component will have additional padding.
-$kup-class-paddingless: 'kup-paddingless'; // The component's padding will be removed.
-$kup-class-permanent: 'kup-permanent'; // The component will always be visible.
-$kup-class-pulsating: 'kup-pulsating'; // The component will feature a pulsating effect.
-$kup-class-round: 'kup-round'; // Gives the component an exceedingly shaped look by rounding its borders (heavier effect than "kup-shaped").
-$kup-class-shaped: 'kup-shaped'; // Gives the component a shaped look by rounding its borders.
-$kup-class-striped: 'kup-striped'; // Displays a striped texture.
-$kup-class-unclickable: 'kup-unclickable'; // The component will be unclickable.
+$kul-class-animated: 'kul-animated'; // The component will display animations.
+$kul-class-auto-grid: 'kul-auto-grid'; // The component will set a grid automatically.
+$kul-class-borderless: 'kul-borderless'; // The component's borders will be hidden.
+$kul-class-cross-selection: 'kul-cross-selection'; // Displays selection for both rows and columns.
+$kul-class-dashed-sections: 'kul-dashed-sections'; // Dashed borders will be displayed for every section of the component.
+$kul-class-flat-on-hover: 'kul-flat-on-hover'; // Disables box shadow.
+$kul-class-padded: 'kul-padded'; // The component will have additional padding.
+$kul-class-paddingless: 'kul-paddingless'; // The component's padding will be removed.
+$kul-class-permanent: 'kul-permanent'; // The component will always be visible.
+$kul-class-pulsating: 'kul-pulsating'; // The component will feature a pulsating effect.
+$kul-class-round: 'kul-round'; // Gives the component an exceedingly shaped look by rounding its borders (heavier effect than "kul-shaped").
+$kul-class-shaped: 'kul-shaped'; // Gives the component a shaped look by rounding its borders.
+$kul-class-striped: 'kul-striped'; // Displays a striped texture.
+$kul-class-unclickable: 'kul-unclickable'; // The component will be unclickable.
 
 //-----------------------------------------------------//
 //                T h e m e   I c o n s                //
 //-----------------------------------------------------//
 
-$kup-icon: 'kup-icon'; // Class attached to every icon.
-$kup-icon-ascending: 'kup-ascending-icon'; // Used for ascending sorts.
-$kup-icon-descending: 'kup-descending-icon'; // Used for descending sorts.
-$kup-icon-expanded: 'kup-expanded-icon'; // Used when a node/group is expanded.
-$kup-icon-collapsed: 'kup-collapsed-icon'; // Used when a node/group is collapsed.
-$kup-icon-dropdown: 'kup-dropdown-icon'; // Used in dropdown fields/items.
-$kup-icon-clear: 'kup-clear-icon'; // Used when an element can be cleared or deleted.
-$kup-icon-filter-remove: 'kup-filter-remove-icon'; // Used as a button to clear filters previously set.
-$kup-icon-key: 'kup-key-icon'; // Used to identify a key.
-$kup-icon-search: 'kup-search-icon'; // Used in search-related fields.
+$kul-icon: 'kul-icon'; // Class attached to every icon.
+$kul-icon-ascending: 'kul-ascending-icon'; // Used for ascending sorts.
+$kul-icon-descending: 'kul-descending-icon'; // Used for descending sorts.
+$kul-icon-expanded: 'kul-expanded-icon'; // Used when a node/group is expanded.
+$kul-icon-collapsed: 'kul-collapsed-icon'; // Used when a node/group is collapsed.
+$kul-icon-dropdown: 'kul-dropdown-icon'; // Used in dropdown fields/items.
+$kul-icon-clear: 'kul-clear-icon'; // Used when an element can be cleared or deleted.
+$kul-icon-filter-remove: 'kul-filter-remove-icon'; // Used as a button to clear filters previously set.
+$kul-icon-key: 'kul-key-icon'; // Used to identify a key.
+$kul-icon-search: 'kul-search-icon'; // Used in search-related fields.
 
 //-----------------------------------------------------//
 //      D r a g   &   D r o p   A t t r i b u t e s    //
 //-----------------------------------------------------//
 
-$kup-dd-active: 'kup-drag-active'; // Attached to a parent of the dragged element
-$kup-dd-drag-over: 'kup-drag-over'; // Attached to the element on mouse over
-$kup-dd-draggable: 'kup-draggable'; // Attached to the element being dragged
-$kup-dd-draggable-cell: 'kup-draggable-cell'; // Attached to the element being dragged when a cell is present in the payload
-$kup-dd-draggable-column: 'kup-draggable-column'; // Attached to the element being dragged when a column is present in the payload
-$kup-dd-draggable-row: 'kup-draggable-row'; // Attached to the element being dragged when a row is present in the payload
+$kul-dd-active: 'kul-drag-active'; // Attached to a parent of the dragged element
+$kul-dd-drag-over: 'kul-drag-over'; // Attached to the element on mouse over
+$kul-dd-draggable: 'kul-draggable'; // Attached to the element being dragged
+$kul-dd-draggable-cell: 'kul-draggable-cell'; // Attached to the element being dragged when a cell is present in the payload
+$kul-dd-draggable-column: 'kul-draggable-column'; // Attached to the element being dragged when a column is present in the payload
+$kul-dd-draggable-row: 'kul-draggable-row'; // Attached to the element being dragged when a row is present in the payload

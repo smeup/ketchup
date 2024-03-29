@@ -1,10 +1,14 @@
 import { ComponentInterface } from '@stencil/core';
+import { KulButtonEvents } from '../components/kul-button/kul-button-declarations';
+import { KulImageEvents } from '../components/kul-image/kul-image-declarations';
+import { KulCardEvents } from '../components/kul-card/kul-card-declarations';
+import { KulBadgeEvents } from '../components/kul-badge/kul-badge-declarations';
 
 /**
- * Generic KupComponent.
+ * Generic KulComponent.
  */
-export interface KupComponent extends ComponentInterface {
-    customStyle: string;
+export interface KulComponent extends ComponentInterface {
+    kulStyle: string;
     debugInfo?: {
         endTime: number;
         renderCount: number;
@@ -17,9 +21,9 @@ export interface KupComponent extends ComponentInterface {
     refresh?: () => Promise<void>;
 }
 /**
- * Resizable KupComponent.
+ * Resizable KulComponent.
  */
-export interface ResizableKupComponent extends KupComponent {
+export interface ResizableKulComponent extends KulComponent {
     resizeCallback: () => {};
 }
 /**
@@ -45,20 +49,26 @@ export interface GenericMap {
 /**
  * Generic object.
  */
-export interface GenericObject {
-    [index: string]: any;
+export interface GenericObject<T = unknown> {
+    [index: string]: T;
 }
 /**
- * Generic payload of a kup event.
+ * Generic payload of a kul event.
  */
-export interface KupEventPayload {
-    comp: any;
+export interface KulEventPayload {
+    comp: unknown;
+    eventType:
+        | KulBadgeEvents
+        | KulButtonEvents
+        | KulCardEvents
+        | KulImageEvents;
     id: string;
+    originalEvent: Event;
 }
 /**
  * Ketchup elements tag names.
  */
-export enum KupTagNames {
+export enum KulTagNames {
     ACCORDION = 'KUP-ACCORDION',
     AUTOCOMPLETE = 'KUP-AUTOCOMPLETE',
     BADGE = 'KUP-BADGE',

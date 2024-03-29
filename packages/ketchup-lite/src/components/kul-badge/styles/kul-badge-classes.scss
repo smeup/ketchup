@@ -1,0 +1,59 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+/* $kul-class-top-right                            */
+/* $kul-class-bottom-right                         */
+/* $kul-class-bottom-left                          */
+/* $kul-class-danger                               */
+/* $kul-class-info                                 */
+/* $kul-class-secondary                            */
+/* $kul-class-success                              */
+/* $kul-class-warning                              */
+/*-------------------------------------------------*/
+
+:host(.#{$kul-class-top-right}) {
+  top: 0;
+  right: 0;
+  bottom: unset;
+}
+
+:host(.#{$kul-class-bottom-right}) {
+  bottom: unset;
+  left: unset;
+  right: 0;
+  top: 0;
+  transform: translate(50%, -50%);
+}
+
+:host(.#{$kul-class-bottom-left}) {
+  bottom: 0;
+  left: 0;
+  right: unset;
+  top: unset;
+  transform: translate(-50%, 50%);
+}
+
+:host(.#{$kul-class-danger}) {
+  --kul-badge-primary-color: var(--kul-danger-color);
+  --kul-badge-text-on-primary-color: white;
+}
+
+:host(.#{$kul-class-info}) {
+  --kul-badge-primary-color: var(--kul-info-color);
+  --kul-badge-text-on-primary-color: white;
+}
+
+:host(.#{$kul-class-secondary}) {
+  --kul-badge-primary-color: var(--kul-secondary-color);
+  --kul-badge-text-on-primary-color: var(--kul-text-on-secondary-color);
+}
+
+:host(.#{$kul-class-success}) {
+  --kul-badge-primary-color: var(--kul-success-color);
+  --kul-badge-text-on-primary-color: white;
+}
+
+:host(.#{$kul-class-warning}) {
+  --kul-badge-primary-color: var(--kul-warning-color);
+  --kul-badge-text-on-primary-color: white;
+}

@@ -1,4 +1,2 @@
-/**
- * Id of the wrapper element for every kup component.
- */
-export const componentWrapperId: string = 'kup-component';
+export const KUL_WRAPPER_ID = 'kul-component';
+export const CSS_VAR_PREFIX = '--kul';
