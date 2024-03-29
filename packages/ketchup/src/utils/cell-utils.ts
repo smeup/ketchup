@@ -188,10 +188,12 @@ export function compareValues(
         v2 = Number(s2.replace(/:/g, ''));
     } else if (dom.ketchup.objects.isTimestamp(obj1)) {
         v1 = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(s1, KupDatesFormats.ISO_DATE_TIME)
+            dom.ketchup.dates.format(s1, KupDatesFormats.ISO_DATE_TIME),
+            KupDatesFormats.ISO_DATE_TIME
         );
         v2 = dom.ketchup.dates.toDate(
-            dom.ketchup.dates.format(s2, KupDatesFormats.ISO_DATE_TIME)
+            dom.ketchup.dates.format(s2, KupDatesFormats.ISO_DATE_TIME),
+            KupDatesFormats.ISO_DATE_TIME
         );
     }
     if (v1 > v2) {

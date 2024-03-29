@@ -21,11 +21,13 @@
   );
   --kup_imagelist_columns: var(--kup-imagelist-columns, 4);
   --kup_imagelist_grid_gap: var(--kup-imagelist-grid-gap, 0.5em);
-  --kup_imagelist_image_margin: var(--kup-imagelist-image-margin, 1em auto);
-  --kup_imagelist_image_min_height: var(--kup-imagelist-image-min-height, 64px);
+  --kup_imagelist_image_min_height: var(
+    --kup-imagelist-image-min-height,
+    var(--kup-space-09)
+  );
   --kup_imagelist_item_border_radius: var(
     --kup-imagelist-item-border-radius,
-    8px
+    var(--kup-radius-00)
   );
   --kup_imagelist_item_height: var(--kup-imagelist-item-height, auto);
   --kup_imagelist_item_padding: var(--kup-imagelist-item-padding, 0);
@@ -38,6 +40,7 @@
     --kup-imagelist-navbar-background-color,
     transparent
   );
+
   --kup_imagelist_primary_color: var(
     --kup-imagelist-primary-color,
     var(--kup-primary-color)
@@ -48,7 +51,11 @@
   );
   --kup_imagelist_text_color: var(
     --kup-imagelist-text-color,
-    var(--kup-text-color)
+    var(--kup-gray-color-70)
+  );
+  --kup_imagelist_item_background_color: var(
+    --kup-imagelist-item-background-color,
+    var(--kup-gray-color-10)
   );
 
   display: block;
@@ -97,14 +104,11 @@
     }
 
     &__label {
-      font-size: 1.2em;
-      font-weight: bold;
-      letter-spacing: 0.12em;
       overflow: hidden;
-      padding: 0 0.5em;
       text-overflow: ellipsis;
       text-transform: uppercase;
       white-space: nowrap;
+      @include kup-body-compact-01;
     }
   }
 }
@@ -119,22 +123,30 @@
   );
   margin-top: 1em;
   width: 100%;
+  grid-auto-flow: row;
 
   .f-cell {
     height: 100%;
     width: 100%;
+    .f-cell__content .image-list__wrapper {
+      padding: var(--kup-space-03) var(--kup-space-02);
+    }
   }
 
   &__item {
+    background-color: var(--kup_imagelist_item_background_color);
     border-radius: var(--kup_imagelist_item_border_radius);
     cursor: pointer;
     height: var(--kup_imagelist_item_height);
     padding: var(--kup_imagelist_item_padding);
     width: var(--kup_imagelist_item_width);
+    &:hover {
+      background-color: var(--kup-gray-color-20);
+    }
   }
 
   &__image.f-image {
-    margin: var(--kup_imagelist_image_margin);
+    margin-bottom: var(--kup-space-03);
 
     .f-image__icon {
       min-height: var(--kup_imagelist_image_min_height);
@@ -142,20 +154,10 @@
   }
 
   &__label {
-    color: var(--kup_imagelist_text_color);
-    letter-spacing: 0.12em;
-    margin: var(--kup_imagelist_label_margin);
     overflow: hidden;
     text-align: center;
     text-overflow: ellipsis;
-  }
-
-  .mdc-ripple-surface {
-    --mdc-ripple-fg-opacity: 0.24;
-
-    &:before,
-    &:after {
-      background-color: var(--kup_imagelist_primary_color);
-    }
+    white-space: nowrap;
+    @include kup-label-01;
   }
 }

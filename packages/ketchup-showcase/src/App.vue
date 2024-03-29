@@ -80,7 +80,7 @@
           size-y="24px"
         ></kup-image>
       </a>
-      <span class="company-text">© Copyright 2022 - Sme.UP Spa</span>
+      <span class="company-text">© Copyright 2024 - Sme.UP Spa</span>
       <a
         class="footer__icon--trailing"
         target="_blank"
