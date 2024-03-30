@@ -9,13 +9,14 @@
   width: var(--kup_image_width, 100%);
 }
 
-#kup-component {
+#kul-component {
   height: 100%;
   margin: auto;
   position: relative;
   transition: color 0.2s ease;
   width: 100%;
 }
+
 .image {
   display: block;
   height: var(--kup_image_height, 100%);

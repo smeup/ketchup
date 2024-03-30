@@ -59,11 +59,6 @@ export class KulButton {
         | 'reset'
         | 'submit' = 'button';
     /**
-     * When set to true, the icon button state will be on.
-     * @default false
-     */
-    @Prop({ mutable: false }) kulValue = false;
-    /**
      * Defaults at false. When set to true, the component is disabled.
      * @default false
      */
@@ -112,6 +107,11 @@ export class KulButton {
      * @default false
      */
     @Prop({ mutable: true, reflect: true }) kulTrailingIcon = false;
+    /**
+     * When set to true, the icon button state will be on.
+     * @default false
+     */
+    @Prop({ mutable: false }) kulValue = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */

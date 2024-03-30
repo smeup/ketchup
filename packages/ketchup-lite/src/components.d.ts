@@ -8,13 +8,13 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
 import { GenericObject, KulEventPayload } from "./types/GenericTypes";
 import { KulButtonEventPayload, KulButtonStates, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
-import { KulDataDataset } from "./managers/kul-data/kul-data-declarations";
+import { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 import { KulCardFamily } from "./components/kul-card/kul-card-declarations";
 import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 export { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
 export { GenericObject, KulEventPayload } from "./types/GenericTypes";
 export { KulButtonEventPayload, KulButtonStates, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
-export { KulDataDataset } from "./managers/kul-data/kul-data-declarations";
+export { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 export { KulCardFamily } from "./components/kul-card/kul-card-declarations";
 export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 export namespace Components {
@@ -144,6 +144,11 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * Used to retrieve component's shapes.
+          * @returns Map of shapes.
+         */
+        "getShapes": () => Promise<KulDataShapesMap>;
+        /**
           * The actual data of the card.
           * @default null
          */
@@ -202,11 +207,6 @@ export namespace Components {
          */
         "kulColor": string;
         /**
-          * Defines the source URL of the image. This property is used to set the image resource that the component should display.
-          * @default ""
-         */
-        "kulResource": string;
-        /**
           * Controls the display of a loading indicator. When enabled, a spinner is shown until the image finishes loading. This property is not compatible with SVG images.
           * @default false
          */
@@ -226,6 +226,11 @@ export namespace Components {
           * @default ""
          */
         "kulStyle": string;
+        /**
+          * Defines the source URL of the image. This property is used to set the image resource that the component should display.
+          * @default ""
+         */
+        "kulValue": string;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -464,11 +469,6 @@ declare namespace LocalJSX {
          */
         "kulColor"?: string;
         /**
-          * Defines the source URL of the image. This property is used to set the image resource that the component should display.
-          * @default ""
-         */
-        "kulResource"?: string;
-        /**
           * Controls the display of a loading indicator. When enabled, a spinner is shown until the image finishes loading. This property is not compatible with SVG images.
           * @default false
          */
@@ -488,6 +488,11 @@ declare namespace LocalJSX {
           * @default ""
          */
         "kulStyle"?: string;
+        /**
+          * Defines the source URL of the image. This property is used to set the image resource that the component should display.
+          * @default ""
+         */
+        "kulValue"?: string;
         /**
           * Describes event emitted for various button interactions like click, load.
          */

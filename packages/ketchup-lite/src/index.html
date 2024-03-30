@@ -18,7 +18,7 @@
                 width: 100%;
             }
             html {
-                background-color: var(--kul-background-color);
+                background-color: var(--kul-background-color, black);
                 color: var(--kul-text-color);
                 font-family: var(--kul-font-family);
                 font-size: var(--kul-font-size);
@@ -66,11 +66,6 @@
             p {
                 margin-bottom: 20px;
             }
-            #debug,
-            #theme {
-                position: fixed;
-                z-index: 2;
-            }
             #landing-spinner-modal {
                 --kul-spinner-color: var(--kul-primary-color);
                 display: flex;
@@ -109,8 +104,8 @@
                     margin: 20px 72px;
                     border-radius: 5px;
                 }
-                kul-card:last-of-type {
-                    margin-bottom: 20px;
+                kul-card {
+                    margin: 20px 0;
                 }
             }
 
@@ -173,21 +168,57 @@
                         data-href="debug.html"
                         data-icon="bug"
                         data-title="Debug"
-                    ></kul-card>
-                    <kul-card
-                        data-description="Environment to test Ketchup Lite components inside a CSS grid."
-                        data-href="css-grid.html"
-                        data-icon="table"
-                        data-title="CSS Grid"
+                        id="debug"
                     ></kul-card>
                     <kul-card
                         data-description="Environment for performance testing through kul-probe."
                         data-href="probe.html"
                         data-icon="timer"
                         data-title="Probe"
+                        id="probe"
                     ></kul-card
                 ></div>
             </div>
         </div>
+        <script>
+            const debugCard = document.getElementById('debug');
+            const debugData = {
+                nodes: [
+                    {
+                        cells: {
+                            1: { value: debugCard.dataset.title },
+                            2: { value: '' },
+                            3: { value: debugCard.dataset.description },
+                            4: {
+                                shape: 'image',
+                                value: debugCard.dataset.icon,
+                            },
+                        },
+                    },
+                ],
+            };
+            debugCard.kulData = debugData;
+            debugCard.kulSizeX = '300px';
+            debugCard.kulSizeY = '300px';
+            const probeCard = document.getElementById('probe');
+            const probeData = {
+                nodes: [
+                    {
+                        cells: {
+                            1: { value: probeCard.dataset.title },
+                            2: { value: '' },
+                            3: { value: probeCard.dataset.description },
+                            4: {
+                                shape: 'image',
+                                value: probeCard.dataset.icon,
+                            },
+                        },
+                    },
+                ],
+            };
+            probeCard.kulData = probeData;
+            probeCard.kulSizeX = '300px';
+            probeCard.kulSizeY = '300px';
+        </script>
     </body>
 </html>

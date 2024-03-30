@@ -1,5 +1,26 @@
-import type { Interaction } from '@interactjs/core/Interaction';
+import html2canvas, { Options } from 'html2canvas';
+import { KulData } from '../kul-data/kul-data';
+import { KulDates } from '../kul-dates/kul-dates';
+import { KulDatesLocales } from '../kul-dates/kul-dates-declarations';
+import { KulDebug } from '../kul-debug/kul-debug';
+import { KulDebugCategory } from '../kul-debug/kul-debug-declarations';
+import { KulDynamicPosition } from '../kul-dynamic-position/kul-dynamic-position';
+import { KulDynamicPositionElement } from '../kul-dynamic-position/kul-dynamic-position-declarations';
+import { KulLanguage } from '../kul-language/kul-language';
+import {
+    KulLanguageDefaults,
+    KulLanguageJSON,
+} from '../kul-language/kul-language-declarations';
+import { KulMath } from '../kul-math/kul-math';
+import { KulMathLocales } from '../kul-math/kul-math-declarations';
+import { KulObjects } from '../kul-objects/kul-objects';
+import { KulObjectsJSON } from '../kul-objects/kul-objects-declarations';
+import { KulScrollOnHover } from '../kul-scroll-on-hover/kul-scroll-on-hover';
+import { KulTheme } from '../kul-theme/kul-theme';
+import { KulThemeJSON } from '../kul-theme/kul-theme-declarations';
+import { setAssetPath } from '@stencil/core';
 import type { ActionMap } from '@interactjs/core/scope';
+import type { Interaction } from '@interactjs/core/Interaction';
 import type { RectResolvable } from '@interactjs/types/index';
 import type {
     KulDom,
@@ -8,26 +29,6 @@ import type {
     KulManagerStringFinderPayload,
     KulManagerUtilities,
 } from './kul-manager-declarations';
-import { KulDebug } from '../kul-debug/kul-debug';
-import { KulDynamicPosition } from '../kul-dynamic-position/kul-dynamic-position';
-import { KulLanguage } from '../kul-language/kul-language';
-import { KulObjects } from '../kul-objects/kul-objects';
-import { KulScrollOnHover } from '../kul-scroll-on-hover/kul-scroll-on-hover';
-import { KulTheme } from '../kul-theme/kul-theme';
-import {
-    KulLanguageDefaults,
-    KulLanguageJSON,
-} from '../kul-language/kul-language-declarations';
-import { KulObjectsJSON } from '../kul-objects/kul-objects-declarations';
-import { KulThemeJSON } from '../kul-theme/kul-theme-declarations';
-import { KulDates } from '../kul-dates/kul-dates';
-import { KulDatesLocales } from '../kul-dates/kul-dates-declarations';
-import { KulDebugCategory } from '../kul-debug/kul-debug-declarations';
-import { KulDynamicPositionElement } from '../kul-dynamic-position/kul-dynamic-position-declarations';
-import { KulMathLocales } from '../kul-math/kul-math-declarations';
-import { KulMath } from '../kul-math/kul-math';
-import { setAssetPath } from '@stencil/core';
-import html2canvas, { Options } from 'html2canvas';
 
 const dom: KulDom = document.documentElement as KulDom;
 
@@ -36,6 +37,7 @@ const dom: KulDom = document.documentElement as KulDom;
  * @module KulManager
  */
 export class KulManager {
+    data: KulData;
     dates: KulDates;
     debug: KulDebug;
     dynamicPosition: KulDynamicPosition;
@@ -121,6 +123,7 @@ export class KulManager {
                 themeName = theme.name ? theme.name : null;
             }
         }
+        this.data = new KulData();
         this.dates = new KulDates(datesLocale);
         this.debug = new KulDebug(debugActive, debugAutoprint, debugLogLimit);
         this.dynamicPosition = new KulDynamicPosition();

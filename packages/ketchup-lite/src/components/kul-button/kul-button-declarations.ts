@@ -29,7 +29,7 @@ export interface KulButtonPropsInterface {
     kulStyle?: string;
     kulStyling?: KulButtonStyling;
     kulToggable?: boolean;
-    kulTrailingIcon?: string;
+    kulTrailingIcon?: boolean;
     kulType?: 'button' | 'submit' | 'reset';
     kulValue?: boolean;
 }

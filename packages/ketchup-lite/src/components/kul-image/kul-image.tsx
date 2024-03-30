@@ -26,6 +26,7 @@ import {
     KUL_WRAPPER_ID,
 } from '../../variables/GenericVariables';
 import { KulBadgePropsInterface } from '../kul-badge/kul-badge-declarations';
+import { KulDebugCategory } from '../../managers/kul-debug/kul-debug-declarations';
 
 @Component({
     tag: 'kul-image',
@@ -57,11 +58,6 @@ export class KulImage {
     @Prop({ mutable: true, reflect: true })
     kulColor = `var(${KulThemeColorValues.ICON})`;
     /**
-     * Defines the source URL of the image. This property is used to set the image resource that the component should display.
-     * @default ""
-     */
-    @Prop({ mutable: true, reflect: true }) kulResource = '';
-    /**
      * Controls the display of a loading indicator. When enabled, a spinner is shown until the image finishes loading. This property is not compatible with SVG images.
      * @default false
      */
@@ -81,6 +77,11 @@ export class KulImage {
      * @default ""
      */
     @Prop({ mutable: true, reflect: true }) kulStyle = '';
+    /**
+     * Defines the source URL of the image. This property is used to set the image resource that the component should display.
+     * @default ""
+     */
+    @Prop({ mutable: true, reflect: true }) kulValue = '';
 
     /*-------------------------------------------------*/
     /*        I n t e r n a l   V a r i a b l e s      */
@@ -147,7 +148,7 @@ export class KulImage {
 
     createIcon(): VNode {
         const classObj: GenericObject<boolean> = {
-            'f-image__icon': true,
+            image__icon: true,
         };
         const style: GenericMap = {
             background: this.kulColor
@@ -155,12 +156,12 @@ export class KulImage {
                 : `var(${KulThemeColorValues.ICON})`,
         };
 
-        if (this.kulResource.indexOf(CSS_VAR_PREFIX) > -1) {
-            let themeIcon = this.kulResource.replace('--', '');
+        if (this.kulValue.indexOf(CSS_VAR_PREFIX) > -1) {
+            let themeIcon = this.kulValue.replace('--', '');
             classObj['kup-icon'] = true;
             classObj[themeIcon] = true;
         } else {
-            const path = getAssetPath(`./assets/svg/${this.kulResource}.svg`);
+            const path = getAssetPath(`./assets/svg/${this.kulValue}.svg`);
             style.mask = `url('${path}') no-repeat center`;
             style.webkitMask = `url('${path}') no-repeat center`;
         }
@@ -174,17 +175,17 @@ export class KulImage {
                 onLoad={(e) => {
                     this.onKulEvent(e, 'load');
                 }}
-                src={this.kulResource}
+                src={this.kulValue}
             ></img>
         );
     }
 
     isResourceUrl(): boolean {
         return !!(
-            this.kulResource &&
-            (this.kulResource.indexOf('.') > -1 ||
-                this.kulResource.indexOf('/') > -1 ||
-                this.kulResource.indexOf('\\') > -1)
+            this.kulValue &&
+            (this.kulValue.indexOf('.') > -1 ||
+                this.kulValue.indexOf('/') > -1 ||
+                this.kulValue.indexOf('\\') > -1)
         );
     }
 
@@ -210,6 +211,15 @@ export class KulImage {
     }
 
     render() {
+        if (!this.kulValue) {
+            this.#kulManager.debug.logMessage(
+                this,
+                'Empty image.',
+                KulDebugCategory.WARNING
+            );
+            return;
+        }
+
         let el: VNode;
         let feedback: HTMLElement;
         const isUrl = this.isResourceUrl();

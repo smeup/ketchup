@@ -1,6 +1,6 @@
-import type { Interaction } from '@interactjs/core/Interaction';
 import type { ActionMap } from '@interactjs/core/scope';
-import type { RectResolvable } from '@interactjs/types/index';
+import type { Interaction } from '@interactjs/core/Interaction';
+import type { KulData } from '../kul-data/kul-data';
 import type { KulDates } from '../kul-dates/kul-dates';
 import type { KulDatesLocales } from '../kul-dates/kul-dates-declarations';
 import type { KulDebug } from '../kul-debug/kul-debug';
@@ -8,13 +8,14 @@ import type { KulDynamicPosition } from '../kul-dynamic-position/kul-dynamic-pos
 import type { KulLanguage } from '../kul-language/kul-language';
 import type { KulLanguageJSON } from '../kul-language/kul-language-declarations';
 import type { KulMath } from '../kul-math/kul-math';
+import type { KulMathLocales } from '../kul-math/kul-math-declarations';
 import type { KulObjects } from '../kul-objects/kul-objects';
 import type { KulObjectsJSON } from '../kul-objects/kul-objects-declarations';
 import type { KulScrollOnHover } from '../kul-scroll-on-hover/kul-scroll-on-hover';
 import type { KulTheme } from '../kul-theme/kul-theme';
 import type { KulThemeJSON } from '../kul-theme/kul-theme-declarations';
-import { KulMathLocales } from '../kul-math/kul-math-declarations';
-import { Options } from 'html2canvas';
+import type { Options } from 'html2canvas';
+import type { RectResolvable } from '@interactjs/types/index';
 /**
  * Interface used to define the HTML element with Ketchup specific properties.
  */
@@ -26,6 +27,7 @@ export interface KulDom extends HTMLHtmlElement {
  * Interface for the KulManager class
  */
 export interface KulManager {
+    data: KulData;
     dates: KulDates;
     debug: KulDebug;
     dynamicPosition: KulDynamicPosition;

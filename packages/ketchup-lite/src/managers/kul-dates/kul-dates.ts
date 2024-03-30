@@ -69,7 +69,6 @@ export class KulDates {
                 }
             }
             if (!found) {
-                console.log('set forced locale: en');
                 this.locale = KulDatesLocales.ENGLISH;
             }
         }

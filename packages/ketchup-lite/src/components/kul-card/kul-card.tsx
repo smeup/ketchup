@@ -8,6 +8,7 @@ import {
     Host,
     Method,
     Prop,
+    State,
     VNode,
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
@@ -28,7 +29,10 @@ import { KulDebugCategory } from '../../managers/kul-debug/kul-debug-declaration
 import { KulLanguageGeneric } from '../../managers/kul-language/kul-language-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
-import { KulDataDataset } from '../../managers/kul-data/kul-data-declarations';
+import {
+    KulDataDataset,
+    KulDataShapesMap,
+} from '../../managers/kul-data/kul-data-declarations';
 
 @Component({
     tag: 'kul-card',
@@ -40,6 +44,18 @@ export class KulCard {
      * References the root HTML element of the component (<kul-card>).
      */
     @Element() rootElement: HTMLKulCardElement;
+
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
+
+    /**
+     * The shapes of the component.
+     * @default ""
+     *
+     * @see KulDataShapesMap - For a list of possible shapes.
+     */
+    @State() shapes: KulDataShapesMap;
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -125,6 +141,14 @@ export class KulCard {
         return getProps(this, KulCardProps, descriptions);
     }
     /**
+     * Used to retrieve component's shapes.
+     * @returns {Promise<KulDataShapesMap>} Map of shapes.
+     */
+    @Method()
+    async getShapes(): Promise<KulDataShapesMap> {
+        return this.shapes;
+    }
+    /**
      * This method is used to trigger a new render of the component.
      */
     @Method()
@@ -148,16 +172,17 @@ export class KulCard {
      * This method will return the virtual node of the card, selecting the correct layout through layoutFamily and layoutNumber.
      * @returns {VNode} Virtual node of the card for the specified family layout and number.
      */
-    getLayout(): VNode {
-        const family: KulCardFamily =
-            this.kulLayoutFamily.toLowerCase() as KulCardFamily;
+    getLayout(): Promise<VNode> {
+        const family: KulCardFamily = this.kulLayoutFamily
+            ? (this.kulLayoutFamily.toLowerCase() as KulCardFamily)
+            : 'standard';
         const method: string = 'create' + this.kulLayoutNumber;
 
         try {
             switch (family) {
                 default:
                 case 'standard': {
-                    return standardLayouts[method](this);
+                    return standardLayouts[method](this, this.shapes);
                 }
             }
         } catch (error) {
@@ -196,6 +221,9 @@ export class KulCard {
         this.#kulManager.debug.logLoad(this, false);
         this.#kulManager.language.register(this);
         this.#kulManager.theme.register(this);
+        if (this.kulData) {
+            this.shapes = this.#kulManager.data.extract.shapes(this.kulData);
+        }
         this.registerListeners();
     }
 
@@ -206,7 +234,7 @@ export class KulCard {
         if (rippleEl) {
             MDCRipple.attachTo(rippleEl);
         }
-        this.#kulManager.resize.observe(this.rootElement);
+        // this.#kulManager.resize.observe(this.rootElement);
         this.onKulEvent(new CustomEvent('ready'), 'ready');
         this.#kulManager.debug.logLoad(this, true);
     }
