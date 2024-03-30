@@ -7,19 +7,19 @@
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                                                 | Type                                                       | Default    |
-| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ---------- |
-| `buttonType`   | `button-type`   | Sets the type of the button.                                                                                                | `string`                                                   | `''`       |
-| `checked`      | `checked`       | When set to true, the icon button state will be on.                                                                         | `boolean`                                                  | `false`    |
-| `customStyle`  | `custom-style`  | Custom style of the component.                                                                                              | `string`                                                   | `''`       |
-| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                                             | `boolean`                                                  | `false`    |
-| `icon`         | `icon`          | When set, the button will show this icon.                                                                                   | `string`                                                   | `''`       |
-| `iconOff`      | `icon-off`      | When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed. | `string`                                                   | `''`       |
-| `label`        | `label`         | When set, the button will show this text.                                                                                   | `string`                                                   | `''`       |
-| `showSpinner`  | `show-spinner`  | When set to true, the button show a spinner received in slot.                                                               | `boolean`                                                  | `false`    |
-| `styling`      | `styling`       | Defines the style of the button. This property controls the visual appearance of the button.                                | `"flat" \| "floating" \| "icon" \| "outlined" \| "raised"` | `'raised'` |
-| `toggable`     | `toggable`      | When set to true, the icon button will be toggable on/off.                                                                  | `boolean`                                                  | `false`    |
-| `trailingIcon` | `trailing-icon` | When set, the icon will be shown after the text.                                                                            | `boolean`                                                  | `false`    |
+| Property          | Attribute           | Description                                                                                                                 | Type                                                       | Default    |
+| ----------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ---------- |
+| `kulDisabled`     | `kul-disabled`      | Defaults at false. When set to true, the component is disabled.                                                             | `boolean`                                                  | `false`    |
+| `kulIcon`         | `kul-icon`          | When set, the button will show this icon.                                                                                   | `string`                                                   | `''`       |
+| `kulIconOff`      | `kul-icon-off`      | When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed. | `string`                                                   | `''`       |
+| `kulLabel`        | `kul-label`         | When set, the button will show this text.                                                                                   | `string`                                                   | `''`       |
+| `kulShowSpinner`  | `kul-show-spinner`  | When set to true, the button show a spinner received in slot.                                                               | `boolean`                                                  | `false`    |
+| `kulStyle`        | `kul-style`         | Custom style of the component.                                                                                              | `string`                                                   | `''`       |
+| `kulStyling`      | `kul-styling`       | Defines the style of the button. This property controls the visual appearance of the button.                                | `"flat" \| "floating" \| "icon" \| "outlined" \| "raised"` | `'raised'` |
+| `kulToggable`     | `kul-toggable`      | When set to true, the icon button will be toggable on/off.                                                                  | `boolean`                                                  | `false`    |
+| `kulTrailingIcon` | `kul-trailing-icon` | When set, the icon will be shown after the text.                                                                            | `boolean`                                                  | `false`    |
+| `kulType`         | `kul-type`          | Sets the type of the button.                                                                                                | `"button" \| "reset" \| "submit"`                          | `'button'` |
+| `kulValue`        | `kul-value`         | When set to true, the icon button state will be on.                                                                         | `boolean`                                                  | `false`    |
 
 
 ## Events
@@ -116,6 +116,10 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [kul-card](../kul-card)
+
 ### Depends on
 
 - [kul-image](../kul-image)
@@ -125,6 +129,7 @@ Type: `Promise<void>`
 graph TD;
   kul-button --> kul-image
   kul-image --> kul-badge
+  kul-card --> kul-button
   style kul-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -7,15 +7,15 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                                                                      | Type                     | Default                              |
-| ------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------------------------------ |
-| `badgeProps`  | --             | This property is used to attach a badge to the component.                                                                                                        | `KulBadgePropsInterface` | `null`                               |
-| `color`       | `color`        | Specifies the color of the icon using a CSS variable. This property is used to set the color of the component's icon.                                            | `string`                 | ``var(${KulThemeColorValues.ICON})`` |
-| `customStyle` | `custom-style` | Customizes the style of the component. This property allows you to apply a custom CSS style to the component.                                                    | `string`                 | `''`                                 |
-| `resource`    | `resource`     | Defines the source URL of the image. This property is used to set the image resource that the component should display.                                          | `string`                 | `''`                                 |
-| `showSpinner` | `show-spinner` | Controls the display of a loading indicator. When enabled, a spinner is shown until the image finishes loading. This property is not compatible with SVG images. | `boolean`                | `false`                              |
-| `sizeX`       | `size-x`       | Sets the width of the icon. This property accepts any valid CSS measurement value (e.g., px, %, vh, etc.) and defaults to 100%.                                  | `string`                 | `'100%'`                             |
-| `sizeY`       | `size-y`       | Sets the height of the icon. This property accepts any valid CSS measurement value (e.g., px, %, vh, etc.) and defaults to 100%.                                 | `string`                 | `'100%'`                             |
+| Property         | Attribute          | Description                                                                                                                                                      | Type                     | Default                              |
+| ---------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------------------------------ |
+| `kulBadgeProps`  | --                 | This property is used to attach a badge to the component.                                                                                                        | `KulBadgePropsInterface` | `null`                               |
+| `kulColor`       | `kul-color`        | Specifies the color of the icon using a CSS variable. This property is used to set the color of the component's icon.                                            | `string`                 | ``var(${KulThemeColorValues.ICON})`` |
+| `kulShowSpinner` | `kul-show-spinner` | Controls the display of a loading indicator. When enabled, a spinner is shown until the image finishes loading. This property is not compatible with SVG images. | `boolean`                | `false`                              |
+| `kulSizeX`       | `kul-size-x`       | Sets the width of the icon. This property accepts any valid CSS measurement value (e.g., px, %, vh, etc.) and defaults to 100%.                                  | `string`                 | `'100%'`                             |
+| `kulSizeY`       | `kul-size-y`       | Sets the height of the icon. This property accepts any valid CSS measurement value (e.g., px, %, vh, etc.) and defaults to 100%.                                 | `string`                 | `'100%'`                             |
+| `kulStyle`       | `kul-style`        | Customizes the style of the component. This property allows you to apply a custom CSS style to the component.                                                    | `string`                 | `''`                                 |
+| `kulValue`       | `kul-value`        | Defines the source URL of the image. This property is used to set the image resource that the component should display.                                          | `string`                 | `''`                                 |
 
 
 ## Events
@@ -75,6 +75,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kul-button](../kul-button)
+ - [kul-card](../kul-card)
 
 ### Depends on
 
@@ -85,6 +86,7 @@ Type: `Promise<void>`
 graph TD;
   kul-image --> kul-badge
   kul-button --> kul-image
+  kul-card --> kul-image
   style kul-image fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
