@@ -20,7 +20,7 @@ import { themesJson } from './kul-theme-values';
 const dom: KulDom = document.documentElement as KulDom;
 
 /**
- * Theme manager, handles everything about theming, customStyles and color utilities.
+ * Theme manager, handles everything about theming, kulStyles and color utilities.
  * @module KulTheme
  */
 export class KulTheme {
@@ -107,7 +107,7 @@ export class KulTheme {
         return css;
     }
     /**
-     * Refreshed managed components to apply theme customStyles.
+     * Refreshed managed components to apply theme kulStyles.
      */
     private customStyle(): void {
         this.managedComponents.forEach(function (comp) {
@@ -224,8 +224,8 @@ export class KulTheme {
         if (styles && styles[comp.tagName]) {
             completeStyle += ' ' + styles[comp.tagName];
         }
-        if (comp.customStyle) {
-            completeStyle += ' ' + comp.customStyle;
+        if (comp.kulStyle) {
+            completeStyle += ' ' + comp.kulStyle;
         }
         return completeStyle ? completeStyle : null;
     }
