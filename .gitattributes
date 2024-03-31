@@ -205,10 +205,6 @@ Procfile          text
 # Exclude all files by default
 * linguist-language=none
 
-# Include files in the specific directories
-src/** linguist-language=none
-
-# Reset the exclusion for TypeScript and SCSS files in the specific directories
 src/**/*.ts linguist-language=TypeScript
 src/**/*.tsx linguist-language=TypeScript
 src/**/*.scss linguist-language=SCSS
