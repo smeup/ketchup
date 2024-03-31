@@ -1,0 +1,123 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+/* $kul-class-large                                */
+/* $kul-class-danger                               */
+/* $kul-class-info                                 */
+/* $kul-class-warning                              */
+/* $kul-class-secondary                            */
+/* $kul-class-success                              */
+/* $kul-class-pulsating                            */
+/* $kul-class-shaped                               */
+/* $kul-class-success                              */
+/*-------------------------------------------------*/
+
+:host(.#{$kul-class-full-height}) {
+  height: 100%;
+  #kul-component {
+    height: 100%;
+  }
+}
+
+:host(.#{$kul-class-full-width}) {
+  width: 100%;
+  #kul-component {
+    width: 100%;
+  }
+}
+
+:host(.#{$kul-class-full-height}) {
+  height: 100%;
+
+  .button {
+    height: 100%;
+  }
+}
+
+:host(.#{$kul-class-full-width}) {
+  width: 100%;
+
+  .button {
+    width: 100%;
+  }
+}
+
+:host(.#{$kul-class-large}) {
+  button {
+    font-size: 1.25em;
+  }
+}
+
+:host(.#{$kul-class-shaped}) {
+  .button {
+    border-radius: 18px;
+
+    &.button--floating {
+      border-radius: 50% 0;
+    }
+  }
+}
+
+:host(.#{$kul-class-slim}) {
+  button {
+    font-size: 0.675em;
+  }
+}
+
+:host(.#{$kul-class-pulsating}) {
+  .icon-button--on:after {
+    content: '';
+    animation: pulsating 1250ms infinite;
+    position: absolute;
+    height: 2px;
+    width: 2px;
+    top: calc(50% - 1px);
+    left: calc(50% - 1px);
+    border-radius: 50%;
+  }
+}
+
+:host(.#{$kul-class-danger}) {
+  --kul-button-primary-color: var(--kul-danger-color);
+  --kul-button-primary-color-h: var(--kul-danger-color-h);
+  --kul-button-primary-color-s: var(--kul-danger-color-s);
+  --kul-button-primary-color-l: var(--kul-danger-color-l);
+  --kul-button-primary-color-rgb: var(--kul-danger-color-rgb);
+  --kul-button-text-on-primary-color: white;
+}
+
+:host(.#{$kul-class-info}) {
+  --kul-button-primary-color: var(--kul-info-color);
+  --kul-button-primary-color-h: var(--kul-info-color-h);
+  --kul-button-primary-color-s: var(--kul-info-color-s);
+  --kul-button-primary-color-l: var(--kul-info-color-l);
+  --kul-button-primary-color-rgb: var(--kul-info-color-rgb);
+  --kul-button-text-on-primary-color: white;
+}
+
+:host(.#{$kul-class-secondary}) {
+  --kul-button-primary-color: var(--kul-secondary-color);
+  --kul-button-primary-color-h: var(--kul-secondary-color-h);
+  --kul-button-primary-color-s: var(--kul-secondary-color-s);
+  --kul-button-primary-color-l: var(--kul-secondary-color-l);
+  --kul-button-primary-color-rgb: var(--kul-secondary-color-rgb);
+  --kul-button-text-on-primary-color: var(--kul-text-on-secondary-color);
+}
+
+:host(.#{$kul-class-success}) {
+  --kul-button-primary-color: var(--kul-success-color);
+  --kul-button-primary-color-h: var(--kul-success-color-h);
+  --kul-button-primary-color-s: var(--kul-success-color-s);
+  --kul-button-primary-color-l: var(--kul-success-color-l);
+  --kul-button-primary-color-rgb: var(--kul-success-color-rgb);
+  --kul-button-text-on-primary-color: white;
+}
+
+:host(.#{$kul-class-warning}) {
+  --kul-button-primary-color: var(--kul-warning-color);
+  --kul-button-primary-color-h: var(--kul-warning-color-h);
+  --kul-button-primary-color-s: var(--kul-warning-color-s);
+  --kul-button-primary-color-l: var(--kul-warning-color-l);
+  --kul-button-primary-color-rgb: var(--kul-warning-color-rgb);
+  --kul-button-text-on-primary-color: white;
+}

@@ -1,0 +1,95 @@
+# kul-image
+
+
+
+<!-- Auto Generated Below -->
+
+
+## Properties
+
+| Property         | Attribute          | Description                                                                                                                                                      | Type                     | Default                              |
+| ---------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------------------------------ |
+| `kulBadgeProps`  | --                 | This property is used to attach a badge to the component.                                                                                                        | `KulBadgePropsInterface` | `null`                               |
+| `kulColor`       | `kul-color`        | Specifies the color of the icon using a CSS variable. This property is used to set the color of the component's icon.                                            | `string`                 | ``var(${KulThemeColorValues.ICON})`` |
+| `kulShowSpinner` | `kul-show-spinner` | Controls the display of a loading indicator. When enabled, a spinner is shown until the image finishes loading. This property is not compatible with SVG images. | `boolean`                | `false`                              |
+| `kulSizeX`       | `kul-size-x`       | Sets the width of the icon. This property accepts any valid CSS measurement value (e.g., px, %, vh, etc.) and defaults to 100%.                                  | `string`                 | `'100%'`                             |
+| `kulSizeY`       | `kul-size-y`       | Sets the height of the icon. This property accepts any valid CSS measurement value (e.g., px, %, vh, etc.) and defaults to 100%.                                 | `string`                 | `'100%'`                             |
+| `kulStyle`       | `kul-style`        | Customizes the style of the component. This property allows you to apply a custom CSS style to the component.                                                    | `string`                 | `''`                                 |
+| `kulValue`       | `kul-value`        | Defines the source URL of the image. This property is used to set the image resource that the component should display.                                          | `string`                 | `''`                                 |
+
+
+## Events
+
+| Event             | Description                                                               | Type                           |
+| ----------------- | ------------------------------------------------------------------------- | ------------------------------ |
+| `kul-image-event` | Describes event emitted for various button interactions like click, load. | `CustomEvent<KulEventPayload>` |
+
+
+## Methods
+
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Parameters
+
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
+
+#### Returns
+
+Type: `Promise<GenericObject<unknown>>`
+
+List of props as object, each key will be a prop.
+
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
+
+#### Parameters
+
+| Name    | Type                     | Description                                                  |
+| ------- | ------------------------ | ------------------------------------------------------------ |
+| `props` | `GenericObject<unknown>` | - Object containing props that will be set to the component. |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
+## Dependencies
+
+### Used by
+
+ - [kul-button](../kul-button)
+ - [kul-card](../kul-card)
+
+### Depends on
+
+- [kul-badge](../kul-badge)
+
+### Graph
+```mermaid
+graph TD;
+  kul-image --> kul-badge
+  kul-button --> kul-image
+  kul-card --> kul-image
+  style kul-image fill:#f9f,stroke:#333,stroke-width:4px
+```
+
+----------------------------------------------
+
+*Built with [StencilJS](https://stenciljs.com/)*

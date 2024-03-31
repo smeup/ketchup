@@ -1,0 +1,38 @@
+{
+    "name": "ketchup-lite-react",
+    "version": "0.0.1",
+    "module": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "keywords": [
+        "letchup lite",
+        "react",
+        "pwa",
+        "custom elements",
+        "components"
+    ],
+    "files": [
+        "dist/"
+    ],
+    "scripts": {
+        "build": "npm run clean && tsc",
+        "clean": "rimraf dist"
+    },
+    "description": "Ketchup Lite React Components library",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "ketchup-lite": "^0.0.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "devDependencies": {
+        "@types/geojson": "^7946.0.10",
+        "@types/node": "^20.2.5",
+        "@types/react": "^18.2.7",
+        "@types/react-dom": "^18.2.4",
+        "rimraf": "^5.0.1",
+        "typescript": "5.0.4"
+    },
+    "installConfig": {
+        "hoistingLimits": "workspaces"
+    }
+}

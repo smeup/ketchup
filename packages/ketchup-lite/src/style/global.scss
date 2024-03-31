@@ -1,0 +1,74 @@
+//-----------------------------------------------------//
+//               Components CSS classes                //
+//-----------------------------------------------------//
+
+// Color related variables.
+$kul-class-danger: 'kul-danger'; // Sets the primary color to --kul-danger-color.
+$kul-class-info: 'kul-info'; // Sets the primary color to --kul-info-color.
+$kul-class-secondary: 'kul-secondary'; // Sets the primary color to --kul-secondary-color.
+$kul-class-success: 'kul-success'; // Sets the primary color to --kul-success-color.
+$kul-class-warning: 'kul-warning'; // Sets the primary color to --kul-warning-color.
+
+// Position related variables.
+$kul-class-bottom-aligned: 'kul-bottom-aligned'; // Aligns the content of the component to the bottom.
+$kul-class-bottom-left: 'kul-bottom-left'; // Position the component to the bottom left.
+$kul-class-bottom-right: 'kul-bottom-right'; // Position the component to the bottom right.
+$kul-class-center-aligned: 'kul-center-aligned'; // Aligns the content of the component to the right.
+$kul-class-horizontal: 'kul-horizontal'; // Optimized style for a horizontally-flowing component.
+$kul-class-left-aligned: 'kul-left-aligned'; // Aligns the content of the component to the left.
+$kul-class-right: 'kul-right'; // Position the component to the right.
+$kul-class-right-aligned: 'kul-right-aligned'; // Aligns the content of the component to the right.
+$kul-class-top-right: 'kul-top-right'; // Position the component to the top right.
+$kul-class-top-aligned: 'kul-top-aligned'; // Aligns the content of the component to the top.
+$kul-class-top: 'kul-top'; // Position the component to the top.
+$kul-class-vertical: 'kul-vertical'; // Optimized style for a vertically-flowing component.
+
+// Size related variables.
+$kul-class-fit: 'kul-fit'; // The component won't exceed its size in pixels.
+$kul-class-full-height: 'kul-full-height'; // The component will fill all the available vertical space.
+$kul-class-full-width: 'kul-full-width'; // The component will fill all the available horizontal space.
+$kul-class-large: 'kul-large'; // Increases the size of the component.
+$kul-class-layout-fixed: 'kul-layout-fixed'; // Tables' size will be fixed to improve fps (especially on Chrome).
+$kul-class-slim: 'kul-slim'; // Decreases the size of the component.
+
+// Misc variables.
+$kul-class-animated: 'kul-animated'; // The component will display animations.
+$kul-class-auto-grid: 'kul-auto-grid'; // The component will set a grid automatically.
+$kul-class-borderless: 'kul-borderless'; // The component's borders will be hidden.
+$kul-class-cross-selection: 'kul-cross-selection'; // Displays selection for both rows and columns.
+$kul-class-dashed-sections: 'kul-dashed-sections'; // Dashed borders will be displayed for every section of the component.
+$kul-class-flat-on-hover: 'kul-flat-on-hover'; // Disables box shadow.
+$kul-class-padded: 'kul-padded'; // The component will have additional padding.
+$kul-class-paddingless: 'kul-paddingless'; // The component's padding will be removed.
+$kul-class-permanent: 'kul-permanent'; // The component will always be visible.
+$kul-class-pulsating: 'kul-pulsating'; // The component will feature a pulsating effect.
+$kul-class-round: 'kul-round'; // Gives the component an exceedingly shaped look by rounding its borders (heavier effect than "kul-shaped").
+$kul-class-shaped: 'kul-shaped'; // Gives the component a shaped look by rounding its borders.
+$kul-class-striped: 'kul-striped'; // Displays a striped texture.
+$kul-class-unclickable: 'kul-unclickable'; // The component will be unclickable.
+
+//-----------------------------------------------------//
+//                T h e m e   I c o n s                //
+//-----------------------------------------------------//
+
+$kul-icon: 'kul-icon'; // Class attached to every icon.
+$kul-icon-ascending: 'kul-ascending-icon'; // Used for ascending sorts.
+$kul-icon-descending: 'kul-descending-icon'; // Used for descending sorts.
+$kul-icon-expanded: 'kul-expanded-icon'; // Used when a node/group is expanded.
+$kul-icon-collapsed: 'kul-collapsed-icon'; // Used when a node/group is collapsed.
+$kul-icon-dropdown: 'kul-dropdown-icon'; // Used in dropdown fields/items.
+$kul-icon-clear: 'kul-clear-icon'; // Used when an element can be cleared or deleted.
+$kul-icon-filter-remove: 'kul-filter-remove-icon'; // Used as a button to clear filters previously set.
+$kul-icon-key: 'kul-key-icon'; // Used to identify a key.
+$kul-icon-search: 'kul-search-icon'; // Used in search-related fields.
+
+//-----------------------------------------------------//
+//      D r a g   &   D r o p   A t t r i b u t e s    //
+//-----------------------------------------------------//
+
+$kul-dd-active: 'kul-drag-active'; // Attached to a parent of the dragged element
+$kul-dd-drag-over: 'kul-drag-over'; // Attached to the element on mouse over
+$kul-dd-draggable: 'kul-draggable'; // Attached to the element being dragged
+$kul-dd-draggable-cell: 'kul-draggable-cell'; // Attached to the element being dragged when a cell is present in the payload
+$kul-dd-draggable-column: 'kul-draggable-column'; // Attached to the element being dragged when a column is present in the payload
+$kul-dd-draggable-row: 'kul-draggable-row'; // Attached to the element being dragged when a row is present in the payload

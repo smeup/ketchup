@@ -1,0 +1,68 @@
+@import 'standard/kul-card-standard';
+@import '@material/ripple/mdc-ripple';
+
+/**
+* @prop --kul-card-backdrop: Backdrop of the component when is visible.
+* @prop --kul-card-ripple-color: Sets color of ripple effect (for Material layouts).
+* @prop --kul-card-scalable-box-shadow: Box shadow of the scalable layouts.
+* @prop --kul-card-scalable-starting-font-size: Starting font size for scalable cards.
+* @prop --kul-card-scalable-static-font-size: Static font size for scalable cards.
+*/
+
+:host {
+  --kul_card_backdrop: var(--kul-card-backdrop, rgba(0, 0, 0, 0.32));
+  --kul_card_ripple_color: var(
+    --kul-card-ripple-color,
+    var(--kul-primary-color)
+  );
+  --kul_card_scalable_box_shadow: var(
+    --kul-card-scalable-box-shadow,
+    0 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12)
+  );
+  --kul_card_scalable_starting_font_size: var(
+    --kul-card-scalable-starting-font-size,
+    3em
+  );
+  --kul_card_scalable_static_font_size: var(
+    --kul-card-scalable-static-font-size
+  );
+
+  display: block;
+  font-size: var(--kul-font-size);
+  height: var(--kul_card_height);
+  min-height: var(--kul_card_height);
+  min-width: var(--kul_card_width);
+  outline: none;
+  position: relative;
+  width: var(--kul_card_width);
+}
+
+:host([is-menu]) {
+  display: none;
+  animation: fade-in 0.25s ease-out;
+}
+
+:host([menu-visible]) {
+  box-shadow: var(--kul-box-shadow);
+  display: block;
+}
+
+#kul-component {
+  height: 100%;
+  width: 100%;
+}
+
+.mdc-ripple-surface {
+  cursor: pointer;
+  flex-direction: column;
+  display: flex;
+  height: 100%;
+  position: relative;
+
+  &:before,
+  &:after {
+    background-color: var(--kul_card_ripple_color);
+  }
+}
