@@ -294,7 +294,7 @@ declare global {
         new (): HTMLKulButtonElement;
     };
     interface HTMLKulCardElementEventMap {
-        "kul-card-click": KulEventPayload;
+        "kul-card-event": KulEventPayload;
     }
     interface HTMLKulCardElement extends Components.KulCard, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKulCardElementEventMap>(type: K, listener: (this: HTMLKulCardElement, ev: KulCardCustomEvent<HTMLKulCardElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -452,9 +452,9 @@ declare namespace LocalJSX {
          */
         "kulStyle"?: string;
         /**
-          * Triggered when the card is clicked.
+          * Triggered when an event is fired.
          */
-        "onKul-card-click"?: (event: KulCardCustomEvent<KulEventPayload>) => void;
+        "onKul-card-event"?: (event: KulCardCustomEvent<KulEventPayload>) => void;
     }
     interface KulImage {
         /**

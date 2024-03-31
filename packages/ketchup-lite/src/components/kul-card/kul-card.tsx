@@ -103,10 +103,10 @@ export class KulCard {
     /*-------------------------------------------------*/
 
     /**
-     * Triggered when the card is clicked.
+     * Triggered when an event is fired.
      */
     @Event({
-        eventName: 'kul-card-click',
+        eventName: 'kul-card-event',
         composed: true,
         cancelable: false,
         bubbles: true,
