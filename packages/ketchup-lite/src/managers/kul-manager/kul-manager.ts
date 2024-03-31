@@ -13,8 +13,6 @@ import {
 } from '../kul-language/kul-language-declarations';
 import { KulMath } from '../kul-math/kul-math';
 import { KulMathLocales } from '../kul-math/kul-math-declarations';
-import { KulObjects } from '../kul-objects/kul-objects';
-import { KulObjectsJSON } from '../kul-objects/kul-objects-declarations';
 import { KulScrollOnHover } from '../kul-scroll-on-hover/kul-scroll-on-hover';
 import { KulTheme } from '../kul-theme/kul-theme';
 import { KulThemeJSON } from '../kul-theme/kul-theme-declarations';
@@ -44,7 +42,6 @@ export class KulManager {
     enableExperimentalFeatures: boolean;
     language: KulLanguage;
     math: KulMath;
-    objects: KulObjects;
     overrides?: KulManagerInitialization;
     resize: ResizeObserver;
     scrollOnHover: KulScrollOnHover;
@@ -64,7 +61,6 @@ export class KulManager {
             dialogZIndex: number = null,
             languageList: KulLanguageJSON = null,
             languageName: string = null,
-            objectsList: KulObjectsJSON = null,
             scrollOnHoverDelay: number = null,
             scrollOnHoverStep: number = null,
             themeList: KulThemeJSON = null,
@@ -80,7 +76,6 @@ export class KulManager {
                 overrides.enableExperimentalFeatures;
             const interact = overrides.interact;
             const language = overrides.language;
-            const objects = overrides.objects;
             const scrollOnHover = overrides.scrollOnHover;
             const theme = overrides.theme;
             if (assetsPath) {
@@ -107,9 +102,6 @@ export class KulManager {
                 languageList = language.list ? language.list : null;
                 languageName = language.name ? language.name : null;
             }
-            if (objects) {
-                objectsList = objects.list ? objects.list : null;
-            }
             if (scrollOnHover) {
                 scrollOnHoverDelay = scrollOnHover.delay
                     ? scrollOnHover.delay
@@ -130,7 +122,6 @@ export class KulManager {
         this.language = new KulLanguage(languageList, languageName);
         this.math = new KulMath();
         this.overrides = overrides ? overrides : null;
-        this.objects = new KulObjects(objectsList);
         /*this.resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
             entries.forEach((entry) => {
                 if (entry.contentRect.height && entry.contentRect.width) {

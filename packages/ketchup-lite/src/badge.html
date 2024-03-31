@@ -12,8 +12,7 @@
         <script nomodule src="/build/ketchup-lite.js"></script>
 
         <style>
-            html,
-            .section--wrapper {
+            html {
                 height: 100%;
                 width: 100%;
             }
@@ -25,97 +24,6 @@
             }
             body {
                 margin: 0;
-            }
-            .flex-wrapper {
-                display: flex;
-                justify-content: space-evenly;
-            }
-            .flex-wrapper--column {
-                flex-direction: column;
-            }
-            .flex-wrapper--responsive {
-                flex-direction: row;
-            }
-            a {
-                background-color: transparent;
-                font-size: calc(var(--kul-font-size) * 2);
-                letter-spacing: 0.075em;
-                padding: 0.25em;
-                text-transform: uppercase;
-                width: max-content;
-                transition: background-color 80ms, color 80ms;
-            }
-            a:hover {
-                background-color: rgba(var(--kul-primary-color-rgb), 0.2);
-                color: var(--kul-primary-color);
-            }
-            h2,
-            p {
-                text-align: center;
-                width: 100%;
-            }
-            h2 {
-                margin: 0;
-                padding: 12px 0;
-                background-color: var(--kul-primary-color);
-                color: var(--kul-text-on-primary-color);
-                position: sticky;
-                top: 0;
-                z-index: 1;
-            }
-            p {
-                margin-bottom: 20px;
-            }
-            #landing-spinner-modal {
-                --kul-spinner-color: var(--kul-primary-color);
-                display: flex;
-                width: 100%;
-                height: 100%;
-                position: fixed;
-                background: var(--kul-background-color, white);
-                left: 0;
-                top: 0;
-                opacity: 1;
-                transition: opacity 0.5s ease-out;
-                z-index: 999;
-            }
-            #landing-spinner-wrapper {
-                margin: auto;
-            }
-            #landing-spinner-container {
-                height: 150px;
-                width: 150px;
-            }
-            #landing-spinner-label {
-                color: var(--kul-text-color, transparent);
-                font-family: 'Ubuntu', sans-serif;
-                font-size: 14px;
-                text-align: center;
-                font-weight: bold;
-                letter-spacing: 2px;
-            }
-            #dev-server-progress-bar {
-                background: var(--kul-spinner-color) !important;
-            }
-
-            @media screen and (min-width: 900px) {
-                .section {
-                    border: 2px solid var(--kul-primary-color);
-                    margin: 20px 72px;
-                    border-radius: 5px;
-                }
-                kul-card {
-                    margin: 20px 0;
-                }
-            }
-
-            @media screen and (max-width: 899px) {
-                .flex-wrapper--responsive {
-                    flex-direction: column;
-                }
-                kul-card {
-                    margin: 12px auto;
-                }
             }
         </style>
     </head>

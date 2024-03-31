@@ -1,5 +1,4 @@
 import type { KulDom } from '../kul-manager/kul-manager-declarations';
-import * as languagesJson from './languages.json';
 import { KulComponent } from '../../types/GenericTypes';
 import { KulDebugCategory } from '../kul-debug/kul-debug-declarations';
 import {
@@ -8,8 +7,9 @@ import {
     KulLanguageElement,
     KulLanguageJSON,
     KulLanguageKey,
-    LanguageKeys,
+    KulLanguageKeys,
 } from './kul-language-declarations';
+import { languagesJson } from './kul-language-values';
 
 const dom: KulDom = document.documentElement as KulDom;
 
@@ -27,7 +27,7 @@ export class KulLanguage {
      * @param {string} name - Starting language. Can be a combination of language and variant (separated by "_").
      */
     constructor(list?: KulLanguageJSON, name?: string) {
-        this.list = list ? list : languagesJson['default'];
+        this.list = list ? list : languagesJson;
         this.managedComponents = new Set();
         this.name = name ? name : KulLanguageDefaults.en;
     }
@@ -47,7 +47,7 @@ export class KulLanguage {
         try {
             let translatedString: string = null;
             if (variantName) {
-                const variants: { [key: string]: LanguageKeys } =
+                const variants: { [key: string]: KulLanguageKeys } =
                     this.list[name].variants;
                 if (
                     variants &&
@@ -56,10 +56,10 @@ export class KulLanguage {
                 ) {
                     translatedString = variants[variantName].keys[key];
                 } else {
-                    translatedString = this.list[name].keys[key];
+                    translatedString = this.list[name].keys[key] as string;
                 }
             } else {
-                translatedString = this.list[name].keys[key];
+                translatedString = this.list[name].keys[key] as string;
             }
             if (translatedString) {
                 return translatedString;

@@ -9,8 +9,6 @@ import type { KulLanguage } from '../kul-language/kul-language';
 import type { KulLanguageJSON } from '../kul-language/kul-language-declarations';
 import type { KulMath } from '../kul-math/kul-math';
 import type { KulMathLocales } from '../kul-math/kul-math-declarations';
-import type { KulObjects } from '../kul-objects/kul-objects';
-import type { KulObjectsJSON } from '../kul-objects/kul-objects-declarations';
 import type { KulScrollOnHover } from '../kul-scroll-on-hover/kul-scroll-on-hover';
 import type { KulTheme } from '../kul-theme/kul-theme';
 import type { KulThemeJSON } from '../kul-theme/kul-theme-declarations';
@@ -34,7 +32,6 @@ export interface KulManager {
     enableExperimentalFeatures: boolean;
     language: KulLanguage;
     math: KulMath;
-    objects: KulObjects;
     overrides?: KulManagerInitialization;
     resize: ResizeObserver;
     scrollOnHover: KulScrollOnHover;
@@ -78,7 +75,6 @@ export interface KulManagerInitialization {
     interact?: KulManagerInteractSettings;
     language?: KulManagerLanguageSettings;
     math?: KulManagerMathSettings;
-    objects?: KulManagerObjectsSettings;
     scrollOnHover?: KulManagerScrollOnHoverSettings;
     theme?: KulManagerThemeSettings;
     tooltip?: KulManagerTooltipSettings;
@@ -118,12 +114,6 @@ export interface KulManagerLanguageSettings {
  */
 export interface KulManagerMathSettings {
     locale?: KulMathLocales;
-}
-/**
- * KulObjects initialization settings.
- */
-export interface KulManagerObjectsSettings {
-    list?: KulObjectsJSON;
 }
 /**
  * KulScrollOnHover initialization settings.

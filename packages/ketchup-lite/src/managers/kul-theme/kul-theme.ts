@@ -3,12 +3,8 @@ import type {
     GenericMap,
     GenericObject,
     KulComponent,
-    KulTagNames,
 } from '../../types/GenericTypes';
 import { getAssetPath } from '@stencil/core';
-import * as themesJson from './themes.json';
-import * as applicationCSS from './kul-theme-application.css';
-import * as componentCSS from './kul-theme-component.css';
 import {
     KulThemeColor,
     KulThemeCSSVariables,
@@ -17,9 +13,9 @@ import {
     KulThemeJSON,
     KulThemeRGBValues,
     masterCustomStyle,
-    rippleUsers,
 } from './kul-theme-declarations';
 import { KulDebugCategory } from '../kul-debug/kul-debug-declarations';
+import { themesJson } from './kul-theme-values';
 
 const dom: KulDom = document.documentElement as KulDom;
 
@@ -38,7 +34,7 @@ export class KulTheme {
      */
     constructor(list?: KulThemeJSON, name?: string) {
         this.cssVars = {};
-        this.list = list ? list : themesJson['default'];
+        this.list = list ? list : themesJson;
         this.managedComponents = new Set();
         this.name = name ? name : 'ketchupLite';
         this.styleTag = dom
@@ -140,7 +136,7 @@ export class KulTheme {
                 'theme manager',
                 'Invalid theme name, falling back to default ("ketchupLite").'
             );
-            this.name = 'ketchupLite';
+            this.name = 'ketchup';
         }
 
         this.cssVars = {};
@@ -151,8 +147,7 @@ export class KulTheme {
             '"]{' +
             this.cssVariables() +
             this.icons() +
-            '}' +
-            applicationCSS['default'];
+            '}';
         this.customStyle();
 
         document.documentElement.setAttribute('kul-theme', this.name);
@@ -222,7 +217,7 @@ export class KulTheme {
      */
     setKulStyle(comp: KulComponent): string {
         const styles: GenericObject = this.list[this.name].customStyles;
-        let completeStyle = componentCSS['default'];
+        let completeStyle = '';
         if (styles && styles[masterCustomStyle]) {
             completeStyle += styles[masterCustomStyle];
         }

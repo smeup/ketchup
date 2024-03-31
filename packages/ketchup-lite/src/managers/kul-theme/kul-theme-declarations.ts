@@ -1,19 +1,9 @@
-import { GenericObject, KulTagNames } from '../../types/GenericTypes';
+import { GenericObject } from '../../types/GenericTypes';
 
 /**
  * Variable used to fetch the MASTER customStyle (used in every component).
  */
 export const masterCustomStyle = 'MASTER';
-/**
- * Components using the MDC ripple effect.
- */
-export const rippleUsers = [
-    KulTagNames.ACCORDION,
-    KulTagNames.CARD,
-    KulTagNames.IMAGE_LIST,
-    KulTagNames.TAB_BAR,
-    KulTagNames.TREE,
-];
 /**
  * Interface of the themes JSON.
  */
@@ -29,10 +19,18 @@ export interface KulThemeElement {
     customStyles?: GenericObject;
     imports?: string[];
 }
+// Represents a chart color key
+export type KulThemeChartColorKey = `--kul-chart-color-${number}`;
+// Define a type that represents all possible chart color keys
+export type KulThemeAllChartColorKeys = KulThemeChartColorKey[];
+// Represents the CSS variables for chart colors
+export type KulThemeChartColorCSSVariables = {
+    [K in KulThemeAllChartColorKeys[number]]: string;
+};
 /**
  * All CSS variables managed by KulTheme.
  */
-export interface KulThemeCSSVariables {
+export interface KulThemeCSSVariables extends KulThemeChartColorCSSVariables {
     [KulThemeColorValues.PRIMARY]: string;
     [KulThemeColorValues.SECONDARY]: string;
     [KulThemeColorValues.BACKGROUND]: string;
@@ -60,10 +58,6 @@ export interface KulThemeCSSVariables {
     [KulThemeColorValues.WARNING]: string;
     [KulThemeColorValues.DANGER]: string;
     [KulThemeColorValues.SPINNER]: string;
-    [KulThemeColorValues.CHART_1]: string;
-    [KulThemeColorValues.CHART_2]: string;
-    [KulThemeColorValues.CHART_3]: string;
-    [KulThemeColorValues.CHART_4]: string;
     '--kul-font-family-monospace': string;
     '--kul-obj-cursor': string;
     [KulThemeColorValues.TEXT_ON_SECONDARY]: string;
@@ -81,7 +75,9 @@ export interface KulThemeIcons {
     [KulThemeIconValues.DESCENDING]: string;
     [KulThemeIconValues.DROPDOWN]: string;
     [KulThemeIconValues.EXPANDED]: string;
+    [KulThemeIconValues.KEY]: string;
     [KulThemeIconValues.FILTER_REMOVE]: string;
+    [KulThemeIconValues.SEARCH]: string;
 }
 /**
  * Object returned by the colorCheck method, containing hex/rgb/hsl CSS colors and rgb/hsl values.

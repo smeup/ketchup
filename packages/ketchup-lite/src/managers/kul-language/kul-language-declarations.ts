@@ -15,25 +15,38 @@ export type KulLanguageKey =
     | KulLanguagePage
     | KulLanguageRow
     | KulLanguageSearch
-    | KulLanguageTotals;
+    | KulLanguageTotals
+    | 'keys';
+// Type that can be either a string or another LanguageKeys object
+export type KulLanguageValue = string | { [key: string]: KulLanguageValue };
+// Mapped type that enforces the structure
+export type KulLanguageKeys = Partial<{
+    [K in KulLanguageKey]: KulLanguageValue;
+}>;
+// Individual language element
+export interface LanguageElement {
+    keys: KulLanguageKeys;
+    variants?: {
+        [key: string]: KulLanguageKeys;
+    };
+}
+// Define the structure of the entire language data
+export interface LanguagesJson {
+    [language: string]: LanguageElement;
+}
 /**
  * Interface of the languages JSON.
  */
 export interface KulLanguageJSON {
     [index: string]: KulLanguageElement;
 }
-export type LanguageKey = string;
-export type LanguageValue = string;
-export type LanguageKeys = {
-    [key in LanguageKey]: LanguageValue;
-};
 /**
  * Interface of a single language.
  */
 export interface KulLanguageElement {
-    keys: LanguageKeys;
+    keys: KulLanguageKeys;
     variants?: {
-        [key: string]: LanguageKeys;
+        [key: string]: KulLanguageKeys;
     };
 }
 /**
