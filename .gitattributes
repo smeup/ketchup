@@ -202,30 +202,13 @@ Procfile          text
 # Exclude all files by default
 * linguist-language=none
 
+# Exclude all files by default
+* linguist-language=none
+
 # Include files in the specific directories
-src/components/** linguist-language=none
-src/managers/** linguist-language=none
-src/style/** linguist-language=none
-src/types/** linguist-language=none
-src/utils/** linguist-language=none
+src/** linguist-language=none
 
 # Reset the exclusion for TypeScript and SCSS files in the specific directories
-src/components/**/*.ts linguist-language=TypeScript
-src/components/**/*.tsx linguist-language=TypeScript
-src/components/**/*.scss linguist-language=SCSS
-
-src/managers/**/*.ts linguist-language=TypeScript
-src/managers/**/*.tsx linguist-language=TypeScript
-src/managers/**/*.scss linguist-language=SCSS
-
-src/style/**/*.ts linguist-language=TypeScript
-src/style/**/*.tsx linguist-language=TypeScript
-src/style/**/*.scss linguist-language=SCSS
-
-src/types/**/*.ts linguist-language=TypeScript
-src/types/**/*.tsx linguist-language=TypeScript
-src/types/**/*.scss linguist-language=SCSS
-
-src/utils/**/*.ts linguist-language=TypeScript
-src/utils/**/*.tsx linguist-language=TypeScript
-src/utils/**/*.scss linguist-language=SCSS
+src/**/*.ts linguist-language=TypeScript
+src/**/*.tsx linguist-language=TypeScript
+src/**/*.scss linguist-language=SCSS
