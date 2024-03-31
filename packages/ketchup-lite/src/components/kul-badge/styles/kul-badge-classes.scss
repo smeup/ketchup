@@ -12,17 +12,19 @@
 /*-------------------------------------------------*/
 
 :host(.#{$kul-class-top-right}) {
-  top: 0;
-  right: 0;
-  bottom: unset;
-}
-
-:host(.#{$kul-class-bottom-right}) {
   bottom: unset;
   left: unset;
   right: 0;
   top: 0;
   transform: translate(50%, -50%);
+}
+
+:host(.#{$kul-class-bottom-right}) {
+  bottom: 0;
+  left: unset;
+  right: 0;
+  top: unset;
+  transform: translate(50%, 50%);
 }
 
 :host(.#{$kul-class-bottom-left}) {

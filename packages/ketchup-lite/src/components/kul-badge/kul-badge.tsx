@@ -134,16 +134,10 @@ export class KulBadge {
     render() {
         let imageEl: HTMLElement = null;
         if (!this.kulLabel && this.kulImageProps) {
-            if (!this.kulImageProps.kulSizeX) {
-                this.kulImageProps.kulSizeX = '1em';
-            }
-            if (!this.kulImageProps.kulSizeY) {
-                this.kulImageProps.kulSizeY = '1em';
-            }
             if (!this.kulImageProps.kulColor) {
                 this.kulImageProps.kulColor = `var(${KulThemeColorValues.TEXT_ON_PRIMARY})`;
             }
-            imageEl = <kup-image {...this.kulImageProps}></kup-image>;
+            imageEl = <kul-image {...this.kulImageProps}></kul-image>;
         }
 
         return (
