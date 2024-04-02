@@ -2545,47 +2545,6 @@ export namespace Components {
         "stateId": string;
         "store": KupStore;
     }
-<<<<<<< Updated upstream
-=======
-    interface KupInputPanel {
-        /**
-          * Custom style of the component.
-          * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle": string;
-        /**
-          * Actual data of the form.
-          * @default null
-         */
-        "data": KupInputPanelData;
-        /**
-          * Used to retrieve component's props values.
-          * @param descriptions - When provided and true, the result will be the list of props with their description.
-          * @returns List of props as object, each key will be a prop.
-         */
-        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
-        /**
-          * Creates a hidden submit button in order to submit the form with enter.
-          * @default false
-         */
-        "hiddenSubmitButton": boolean;
-        /**
-          * This method is used to trigger a new render of the component.
-         */
-        "refresh": () => Promise<void>;
-        /**
-          * Sets the props to the component.
-          * @param props - Object containing props that will be set to the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
-        /**
-          * Sets the callback function on submit form
-          * @default null
-         */
-        "submitCb": (e: SubmitEvent) => unknown;
-    }
->>>>>>> Stashed changes
     interface KupLazy {
         /**
           * Sets the tag name of the component to be lazy loaded.
