@@ -68,6 +68,19 @@ export type InputPanelCells = {
     row?: KupInputPanelRow;
 };
 
+export type InputPanelEvent = {
+    state: { cell: KupDataCell; column: KupDataColumn }[];
+    data: {
+        field: string;
+        value: number | string | object;
+    };
+};
+
+export type InputPanelEventsCallback = {
+    eventName: string;
+    eventCallback: (e: InputPanelEvent) => unknown;
+};
+
 export enum KupInputPanelProps {
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the input panel.',

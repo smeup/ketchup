@@ -43,7 +43,7 @@ import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
-import { KupInputPanelData } from "./components/kup-input-panel/kup-input-panel-declarations";
+import { InputPanelEventsCallback, KupInputPanelData } from "./components/kup-input-panel/kup-input-panel-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -93,7 +93,7 @@ export { FImageData } from "./f-components/f-image/f-image-declarations";
 export { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 export { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 export { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
-export { KupInputPanelData } from "./components/kup-input-panel/kup-input-panel-declarations";
+export { InputPanelEventsCallback, KupInputPanelData } from "./components/kup-input-panel/kup-input-panel-declarations";
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -2466,6 +2466,12 @@ export namespace Components {
          */
         "data": KupInputPanelData;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * Creates a hidden submit button in order to submit the form with enter.
           * @default false
          */
@@ -2475,10 +2481,20 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * Sets the callback function on submit form
           * @default null
          */
         "submitCb": (e: SubmitEvent) => unknown;
+        /**
+          * Sets the callback function on value change event
+          * @default null
+         */
+        "valueChangeCb": InputPanelEventsCallback[];
     }
     interface KupLazy {
         /**
@@ -7105,6 +7121,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "submitCb"?: (e: SubmitEvent) => unknown;
+        /**
+          * Sets the callback function on value change event
+          * @default null
+         */
+        "valueChangeCb"?: InputPanelEventsCallback[];
     }
     interface KupLazy {
         /**

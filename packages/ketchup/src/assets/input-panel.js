@@ -1,4 +1,4 @@
-const data = {
+let data = {
     columns: [
         {
             name: 'NAM',
@@ -127,3 +127,34 @@ const data = {
 
 const inputPanel = document.getElementById('input-panel');
 inputPanel.data = data;
+
+const inputPanelCallback = [
+    {
+        eventName: 'kup-autocomplete-input',
+        eventCallback: (e) => {
+            const newdata = {
+                ...data,
+                rows: data.rows.map((row) => {
+                    const keys = Object.keys(row.cells);
+                    const updatedCells = keys.reduce((acc, key) => {
+                        let updatedValue = e.state.find(
+                            (state) => state.column.name === key
+                        ).cell.value;
+                        return {
+                            ...acc,
+                            [key]: {
+                                ...row.cells[key],
+                                value: updatedValue,
+                            },
+                        };
+                    }, {});
+                    return { ...row, cells: updatedCells };
+                }),
+            };
+            const inputPanel = document.getElementById('input-panel');
+            inputPanel.data = newdata;
+        },
+    },
+];
+
+inputPanel.valueChangeCb = inputPanelCallback;

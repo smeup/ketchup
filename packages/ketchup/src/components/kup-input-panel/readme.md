@@ -22,6 +22,51 @@
 | `kup-input-panel-ready` | When component load is complete | `CustomEvent<KupEventPayload>` |
 
 
+## Methods
+
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Parameters
+
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
+| `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+List of props as object, each key will be a prop.
+
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
+
+#### Parameters
+
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
+| `props` | `GenericObject` | - Object containing props that will be set to the component. |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Depends on

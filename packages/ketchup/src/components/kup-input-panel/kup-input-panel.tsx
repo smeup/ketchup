@@ -15,6 +15,8 @@ import {
 import {
     DataAdapterFn,
     InputPanelCells,
+    InputPanelEvent,
+    InputPanelEventsCallback,
     KupInputPanelCell,
     KupInputPanelColumn,
     KupInputPanelData,
@@ -42,14 +44,6 @@ import { FCell } from '../../f-components/f-cell/f-cell';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupDataCell } from '../../components';
 import { getProps, setProps } from '../../utils/utils';
-
-interface ValueChangeEvent {
-    data: {
-        [key: string]: number | string | object;
-        // field: string;
-        // value: number | string | object;
-    };
-}
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -97,7 +91,7 @@ export class KupInputPanel {
      * Sets the callback function on value change event
      * @default null
      */
-    @Prop() valueChangeCb: (e: ValueChangeEvent) => unknown = null;
+    @Prop() valueChangeCb: InputPanelEventsCallback[] = [];
     //#endregion
 
     //#region STATES
@@ -198,6 +192,7 @@ export class KupInputPanel {
             'form--column': !horizontal,
         };
 
+        // We create a form for each row in data
         return (
             <form
                 class={classObj}
@@ -245,7 +240,10 @@ export class KupInputPanel {
                           const cell = row.cells[column.name];
                           const mappedCell = {
                               ...cell,
-                              data: this.#mapData(cell, column),
+                              data: {
+                                  ...this.#mapData(cell, column),
+                                  id: column.name,
+                              },
                               slotData: this.#slotData(cell, column),
                               isEditable: cell.editable,
                           };
@@ -418,6 +416,24 @@ export class KupInputPanel {
     componentDidLoad() {
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
         this.#kupManager.debug.logLoad(this, true);
+
+        this.valueChangeCb.map((cbData) => {
+            this.rootElement.addEventListener(cbData.eventName, (e: any) => {
+                const inputPanelEvent: InputPanelEvent = {
+                    state: this.inputPanelCells.find((data) =>
+                        data.cells.find(
+                            (cell) => cell.column.name === e.detail.id
+                        )
+                    ).cells,
+                    data: {
+                        field: e.detail.id,
+                        value: e.detail.inputValue || e.detail.value,
+                    },
+                };
+
+                cbData.eventCallback(inputPanelEvent);
+            });
+        });
     }
 
     componentWillRender() {
