@@ -170,6 +170,7 @@ export const editableTypes = [
     FCellTypes.MULTI_AUTOCOMPLETE,
     FCellTypes.MULTI_COMBOBOX,
     FCellTypes.NUMBER,
+    FCellTypes.RADIO,
     FCellTypes.RATING,
     FCellTypes.STRING,
     FCellTypes.SWITCH,

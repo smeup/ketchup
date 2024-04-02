@@ -55,8 +55,8 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup/releases/tag/v9.6.2"
-            >v9.6.2</a
+          ><a href="https://github.com/smeup/ketchup/releases/tag/v9.6.3"
+            >v9.6.3</a
           ></div
         ></div
       >
@@ -82,7 +82,7 @@
           size-y="24px"
         ></kup-image>
       </a>
-      <span class="company-text">© Copyright 2022 - Sme.UP Spa</span>
+      <span class="company-text">© Copyright 2024 - Sme.UP Spa</span>
       <a
         class="footer__icon--trailing"
         target="_blank"

@@ -34,7 +34,6 @@ import { FTextField } from '../f-text-field/f-text-field';
 import { FImage } from '../f-image/f-image';
 import { FChip } from '../f-chip/f-chip';
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
-import { KupButtonClickEventPayload } from '../../components/kup-button/kup-button-declarations';
 import {
     KupDataCell,
     KupDataColumn,
@@ -48,8 +47,13 @@ import { FButton } from '../f-button/f-button';
 import { FProgressBar } from '../f-progress-bar/f-progress-bar';
 import { FRadio } from '../f-radio/f-radio';
 import { FRating } from '../f-rating/f-rating';
+import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
+import { FRadioProps } from '../f-radio/f-radio-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
+
+let touchEndTime = 0;
+let touchStartTime = 0;
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
@@ -80,6 +84,9 @@ export const FCell: FunctionalComponent<FCellProps> = (
         : column.cssClass
         ? column.cssClass
         : '';
+    if ((props.component as KupDataTable).legacyLook) {
+        cssClasses += ' monospace c-pre';
+    }
     const classObj: Record<string, boolean> = {
         'f-cell': true,
         [FCellClasses.OBJ]: hasObj ? true : false,
@@ -90,7 +97,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
         [cssClasses]: cssClasses ? true : false,
     };
     let content: unknown = valueToDisplay;
-
     if (isEditable && editableTypes.includes(cellType)) {
         content = setEditableCell(cellType, classObj, cell, column, props);
     } else if (cell.data && kupTypes.includes(cellType)) {
@@ -172,6 +178,38 @@ export const FCell: FunctionalComponent<FCellProps> = (
             kup-get-cell-props={() => {
                 return props;
             }}
+            onTouchEnd={
+                dom.ketchup.interact.isMobileDevice()
+                    ? () => {
+                          if (touchStartTime) {
+                              touchEndTime = performance.now();
+                              const delta = touchEndTime - touchStartTime;
+                              // 600ms is interact's default "hold" value
+                              if (delta < 600) {
+                                  const newEvt =
+                                      document.createEvent('MouseEvents');
+                                  cellEvent(
+                                      newEvt,
+                                      props,
+                                      cellType,
+                                      FCellEvents.CLICK
+                                  );
+                              }
+                              touchEndTime = 0;
+                              touchStartTime = 0;
+                          }
+                      }
+                    : null
+            }
+            onTouchStart={
+                dom.ketchup.interact.isMobileDevice()
+                    ? (e) => {
+                          touchEndTime = 0;
+                          touchStartTime = performance.now();
+                          e.preventDefault();
+                      }
+                    : null
+            }
             ref={(el) => (cell.element = el)}
             style={cell.style}
         >
@@ -475,6 +513,25 @@ function setEditableCell(
                     ></kup-combobox>
                 </kup-chip>
             );
+        case FCellTypes.RADIO:
+            return (
+                <FRadio
+                    {...cell.data}
+                    disabled={false}
+                    onChange={(i: number, e: InputEvent) => {
+                        const radioData = (cell.data as FRadioProps).data;
+                        for (let index = 0; index < radioData.length; index++) {
+                            const radioEl = radioData[index];
+                            if (index === i) {
+                                radioEl.checked = true;
+                            } else {
+                                radioEl.checked = false;
+                            }
+                        }
+                        cellEvent(e, props, cellType, FCellEvents.UPDATE);
+                    }}
+                ></FRadio>
+            );
         case FCellTypes.RATING:
             return (
                 <kup-rating
@@ -765,8 +822,8 @@ function cellEvent(
     const column = props.column;
     const comp = props.component;
     const row = props.row;
-    let value = getValueFromEventTaget(e, cellType);
     if (cellEventName === FCellEvents.UPDATE) {
+        let value = getValueFromEventTaget(e, cellType);
         switch (cellType) {
             case FCellTypes.AUTOCOMPLETE:
             case FCellTypes.COMBOBOX:
@@ -783,6 +840,9 @@ function cellEvent(
                     (cell.data as FCheckboxProps).checked =
                         value === '0' ? false : true;
                 }
+                break;
+            case FCellTypes.RADIO:
+                // data change handled outside this switchcase to avoid passing the index
                 break;
             case FCellTypes.CHIP:
             case FCellTypes.MULTI_AUTOCOMPLETE:
