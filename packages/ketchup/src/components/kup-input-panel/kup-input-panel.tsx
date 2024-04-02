@@ -43,6 +43,14 @@ import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupDataCell } from '../../components';
 import { getProps, setProps } from '../../utils/utils';
 
+interface ValueChangeEvent {
+    data: {
+        [key: string]: number | string | object;
+        // field: string;
+        // value: number | string | object;
+    };
+}
+
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
     tag: 'kup-input-panel',
@@ -84,6 +92,12 @@ export class KupInputPanel {
      * @default null
      */
     @Prop() submitCb: (e: SubmitEvent) => unknown = null;
+
+    /**
+     * Sets the callback function on value change event
+     * @default null
+     */
+    @Prop() valueChangeCb: (e: ValueChangeEvent) => unknown = null;
     //#endregion
 
     //#region STATES
