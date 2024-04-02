@@ -7,10 +7,7 @@
     --kup-dialogheader-text-color,
     var(--kup-gray-color-70)
   );
-  --kup_dialog_background_color: var(
-    --kup-header-text-color,
-    var(--kup-gray-color-0)
-  );
+  --kup_dialog_background_color: var(--kup-layer-0, var(--kup-gray-color-0));
   --kup_dialog_header_height: var(--kup-dialog-header-height, 2em);
 
   box-sizing: border-box;

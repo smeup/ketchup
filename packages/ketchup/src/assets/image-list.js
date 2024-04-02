@@ -583,6 +583,11 @@ const data = [
         isExpanded: false,
         value: 'Framework',
         visible: true,
+        badgeData: [
+            {
+                text: '2',
+            },
+        ],
     },
     {
         children: [

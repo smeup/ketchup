@@ -49,7 +49,7 @@
   );
   --kup_button_border_radius: var(
     --kup-button-border-radius,
-    var(--kup-radius-00)
+    var(--kup-radius-01)
   );
   --kup_button_font_family: var(
     --kup-button-font-family,
@@ -323,7 +323,10 @@
 
     &:hover,
     &:focus {
-      background-color: rgba(var(--kup_button_text_color_rgb), 0.125);
+      background-color: var(--kup-primary-color-60);
+      .icon-button__icon .f-image__icon {
+        background: var(--kup-primary-color-0) !important;
+      }
     }
 
     .icon-button__icon {

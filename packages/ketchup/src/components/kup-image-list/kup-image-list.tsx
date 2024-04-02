@@ -121,7 +121,7 @@ export class KupImageList {
      * When enabled displays Material's ripple effect on clicked items.
      * @default true
      */
-    @Prop() ripple: boolean = true;
+    @Prop() ripple: boolean = false;
     /**
      * Number of rows to display in the grid layout.
      * @default null

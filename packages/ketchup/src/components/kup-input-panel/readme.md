@@ -1,42 +1,25 @@
-# kup-image-list
+# kup-input-panel
+
+
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-<<<<<<< Updated upstream
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `columns` | `columns` | Number of columns to display in the grid layout. | `number` | `null` |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
-| `data` | -- | Actual data of the component. | `KupDataNode[]` | `[]` |
-| `ripple` | `ripple` | When enabled displays Material's ripple effect on clicked items. | `boolean` | `true` |
-| `rows` | `rows` | Number of rows to display in the grid layout. | `number` | `null` |
-| `selectedNode` | -- | An array of integers containing the path to a selected child.\  | `number[]` | `[]` |
-| `stateId` | `state-id` |  | `string` | `''` |
-| `store` | -- |  | `KupStore` | `undefined` |
-=======
-| Property       | Attribute      | Description                                                      | Type                     | Default     |
-| -------------- | -------------- | ---------------------------------------------------------------- | ------------------------ | ----------- |
-| `columns`      | `columns`      | Number of columns to display in the grid layout.                 | `number`                 | `null`      |
-| `customStyle`  | `custom-style` | Custom style of the component.                                   | `string`                 | `''`        |
-| `data`         | --             | Actual data of the component.                                    | `KupImageListDataNode[]` | `[]`        |
-| `ripple`       | `ripple`       | When enabled displays Material's ripple effect on clicked items. | `boolean`                | `true`      |
-| `rows`         | `rows`         | Number of rows to display in the grid layout.                    | `number`                 | `null`      |
-| `selectedNode` | --             | An array of integers containing the path to a selected child.\   | `number[]`               | `[]`        |
-| `stateId`      | `state-id`     |                                                                  | `string`                 | `''`        |
-| `store`        | --             |                                                                  | `KupStore`               | `undefined` |
+| Property             | Attribute              | Description                                                            | Type                          | Default |
+| -------------------- | ---------------------- | ---------------------------------------------------------------------- | ----------------------------- | ------- |
+| `customStyle`        | `custom-style`         | Custom style of the component.                                         | `string`                      | `''`    |
+| `data`               | --                     | Actual data of the form.                                               | `KupInputPanelData`           | `null`  |
+| `hiddenSubmitButton` | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean`                     | `false` |
+| `submitCb`           | --                     | Sets the callback function on submit form                              | `(e: SubmitEvent) => unknown` | `null`  |
 
->>>>>>> Stashed changes
 
 ## Events
 
-| Event                       | Description | Type                                    |
-| --------------------------- | ----------- | --------------------------------------- |
-| `kup-imagelist-click`       |             | `CustomEvent<KupImageListEventPayload>` |
-| `kup-imagelist-contextmenu` |             | `CustomEvent<KupImageListEventPayload>` |
-| `kup-imagelist-dblclick`    |             | `CustomEvent<KupImageListEventPayload>` |
+| Event                   | Description                     | Type                           |
+| ----------------------- | ------------------------------- | ------------------------------ |
+| `kup-input-panel-ready` | When component load is complete | `CustomEvent<KupEventPayload>` |
 
 
 ## Methods
@@ -84,25 +67,6 @@ Type: `Promise<void>`
 
 
 
-## CSS Custom Properties
-
-| Name                                 | Description                                               |
-| ------------------------------------ | --------------------------------------------------------- |
-| `--kup-imagelist-background-color`   | Sets the background color of the component.               |
-| `--kup-imagelist-columns`            | Sets the number of columns of the grid.                   |
-| `--kup-imagelist-grid-gap`           | Sets the gap of the grid.                                 |
-| `--kup-imagelist-image-margin`       | Sets the margin of the images.                            |
-| `--kup-imagelist-image-min-height`   | Sets the minimun height of the images (useful for icons). |
-| `--kup-imagelist-item-border-radius` | Sets the border radius of items.                          |
-| `--kup-imagelist-item-height`        | Sets the height of an item.                               |
-| `--kup-imagelist-item-padding`       | Sets the padding of an item.                              |
-| `--kup-imagelist-item-width`         | Sets the width of an item.                                |
-| `--kup-imagelist-label-margin`       | Sets the margin of the labels.                            |
-| `--kup-imagelist-primary-color`      | Sets the primary color of the component (ripple effect).  |
-| `--kup-imagelist-primary-color-rgb`  | Sets the RGB values of the primary color.                 |
-| `--kup-imagelist-text-color`         | Sets the text color of the labels.                        |
-
-
 ## Dependencies
 
 ### Depends on
@@ -127,22 +91,22 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
-  kup-image-list --> kup-card
-  kup-image-list --> kup-dialog
-  kup-image-list --> kup-badge
-  kup-image-list --> kup-autocomplete
-  kup-image-list --> kup-chip
-  kup-image-list --> kup-text-field
-  kup-image-list --> kup-color-picker
-  kup-image-list --> kup-combobox
-  kup-image-list --> kup-date-picker
-  kup-image-list --> kup-rating
-  kup-image-list --> kup-time-picker
-  kup-image-list --> kup-image
-  kup-image-list --> kup-button-list
-  kup-image-list --> kup-chart
-  kup-image-list --> kup-gauge
-  kup-image-list --> kup-progress-bar
+  kup-input-panel --> kup-card
+  kup-input-panel --> kup-dialog
+  kup-input-panel --> kup-badge
+  kup-input-panel --> kup-autocomplete
+  kup-input-panel --> kup-chip
+  kup-input-panel --> kup-text-field
+  kup-input-panel --> kup-color-picker
+  kup-input-panel --> kup-combobox
+  kup-input-panel --> kup-date-picker
+  kup-input-panel --> kup-rating
+  kup-input-panel --> kup-time-picker
+  kup-input-panel --> kup-image
+  kup-input-panel --> kup-button-list
+  kup-input-panel --> kup-chart
+  kup-input-panel --> kup-gauge
+  kup-input-panel --> kup-progress-bar
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -293,7 +257,7 @@ graph TD;
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
-  style kup-image-list fill:#f9f,stroke:#333,stroke-width:4px
+  style kup-input-panel fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
