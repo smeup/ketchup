@@ -91,6 +91,7 @@ export const config: Config = {
                 { src: 'planner-example-3.html' },
                 { src: 'planner-example-4.html' },
                 { src: 'planner-example-5.html' },
+                { src: 'planner-example-6.html' },
                 { src: 'probe.html' },
                 { src: 'progress-bar.html' },
                 { src: 'radio.html' },
@@ -121,7 +122,10 @@ export const config: Config = {
     plugins: [
         sass({
             includePaths: ['./node_modules', './src/f-components'],
-            injectGlobalPaths: ['src/style/global.scss'],
+            injectGlobalPaths: [
+                'src/style/global.scss',
+                'src/style/fonts.scss',
+            ],
         }),
     ],
 };

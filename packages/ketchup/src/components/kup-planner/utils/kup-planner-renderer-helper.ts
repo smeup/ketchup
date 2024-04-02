@@ -412,8 +412,8 @@ export const ganttDateRangeGeneric = (
         case 'month':
             newStartDate = addToDate(newStartDate, -1 * preStepsCount, 'month');
             newStartDate = startOfDate(newStartDate, 'month');
-            newEndDate = addToDate(newEndDate, 1, 'year');
-            newEndDate = startOfDate(newEndDate, 'year');
+            newEndDate = addToDate(newEndDate, 1, 'month');
+            newEndDate = startOfDate(newEndDate, 'month');
             break;
         case 'week':
             newStartDate = startOfDate(newStartDate, 'day');
@@ -431,26 +431,6 @@ export const ganttDateRangeGeneric = (
             newEndDate = startOfDate(newEndDate, 'day');
             newEndDate = addToDate(newEndDate, 19, 'day');
             break;
-        /*
-        case ViewMode.QuarterDay:
-          newStartDate = startOfDate(newStartDate, "day");
-          newStartDate = addToDate(newStartDate, -1 * preStepsCount, "day");
-          newEndDate = startOfDate(newEndDate, "day");
-          newEndDate = addToDate(newEndDate, 66, "hour"); // 24(1 day)*3 - 6
-          break;
-        case ViewMode.HalfDay:
-          newStartDate = startOfDate(newStartDate, "day");
-          newStartDate = addToDate(newStartDate, -1 * preStepsCount, "day");
-          newEndDate = startOfDate(newEndDate, "day");
-          newEndDate = addToDate(newEndDate, 108, "hour"); // 24(1 day)*5 - 12
-          break;
-        case ViewMode.Hour:
-          newStartDate = startOfDate(newStartDate, "hour");
-          newStartDate = addToDate(newStartDate, -1 * preStepsCount, "hour");
-          newEndDate = startOfDate(newEndDate, "day");
-          newEndDate = addToDate(newEndDate, 1, "day");
-          break;
-          */
     }
     return [newStartDate, newEndDate];
 };

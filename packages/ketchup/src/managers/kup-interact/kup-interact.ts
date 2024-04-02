@@ -309,6 +309,15 @@ export class KupInteract {
         this.managedElements.add(el);
     }
     /**
+     * Tests whether the current device is mobile or not.
+     * @returns {boolean} Returns true when it's a mobile device
+     */
+    isMobileDevice(): boolean {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent
+        );
+    }
+    /**
      * Sets up a new resizable element.
      * @param {HTMLElement} el - The resizable element.
      * @param {Partial<ResizableOptions>} options - Options of the resize action.

@@ -653,6 +653,10 @@ export class KupDataTable {
      */
     @Prop() paginatorPos: PaginatorPos = PaginatorPos.TOP;
     /**
+     * When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.
+     */
+    @Prop({ reflect: true }) legacyLook = false;
+    /**
      * Sets the possibility to remove the selected column.
      */
     @Prop() removableColumns: boolean = false;
