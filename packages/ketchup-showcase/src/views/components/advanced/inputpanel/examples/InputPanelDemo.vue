@@ -59,6 +59,14 @@ export default {
           default: 'null',
           try: 'field',
         },
+        {
+          prop: 'handleEventsCallbacks',
+          description: 'Sets the callbacks functions on ketchup events.',
+          type: 'InputPanelEventsCallback',
+          isArray: true,
+          default: '[]',
+          try: 'json',
+        },
       ],
     };
   },
@@ -117,12 +125,30 @@ function createComp() {
           NAT: {
             value: '',
             options: [
-              'Italy',
-              'Spain',
-              'Germany',
-              'France',
-              'Portugal',
-              'England',
+              {
+                id: 'ITA',
+                label: 'Italy',
+              },
+              {
+                id: 'SPA',
+                label: 'Spain',
+              },
+              {
+                id: 'GER',
+                label: 'Germany',
+              },
+              {
+                id: 'FRA',
+                label: 'France',
+              },
+              {
+                id: 'POR',
+                label: 'Portugal',
+              },
+              {
+                id: 'ENG',
+                label: 'England',
+              },
             ],
             obj: {
               t: '',
@@ -143,24 +169,78 @@ function createComp() {
             editable: true,
             mandatory: true,
             options: [
-              'Rome',
-              'Florence',
-              'Venice',
-              'Madrid',
-              'Barcelona',
-              'Seville',
-              'Berlin',
-              'Munich',
-              'Hamburg',
-              'Paris',
-              'Marseille',
-              'Lyon',
-              'Lisbon',
-              'Porto',
-              'Faro',
-              'London',
-              'Manchester',
-              'Liverpool',
+              {
+                id: 'ROM',
+                label: 'Rome',
+              },
+              {
+                id: 'FLO',
+                label: 'Florence',
+              },
+              {
+                id: 'VEN',
+                label: 'Venice',
+              },
+              {
+                id: 'MAD',
+                label: 'Madrid',
+              },
+              {
+                id: 'BAR',
+                label: 'Barcelona',
+              },
+              {
+                id: 'SEV',
+                label: 'Seville',
+              },
+              {
+                id: 'BER',
+                label: 'Berlin',
+              },
+              {
+                id: 'MUN',
+                label: 'Munich',
+              },
+              {
+                id: 'HAM',
+                label: 'Hamburg',
+              },
+              {
+                id: 'PAR',
+                label: 'Paris',
+              },
+              {
+                id: 'MAR',
+                label: 'Marseille',
+              },
+              {
+                id: 'LYO',
+                label: 'Lyon',
+              },
+              {
+                id: 'LIS',
+                label: 'Lisbon',
+              },
+              {
+                id: 'POR',
+                label: 'Porto',
+              },
+              {
+                id: 'FAR',
+                label: 'Faro',
+              },
+              {
+                id: 'LON',
+                label: 'London',
+              },
+              {
+                id: 'MAN',
+                label: 'Manchester',
+              },
+              {
+                id: 'LIV',
+                label: 'Liverpool',
+              },
             ],
             shape: 'ACP',
           },

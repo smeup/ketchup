@@ -59,12 +59,30 @@ let data = {
                 NAT: {
                     value: '',
                     options: [
-                        'Italy',
-                        'Spain',
-                        'Germany',
-                        'France',
-                        'Portugal',
-                        'England',
+                        {
+                            id: 'ITA',
+                            label: 'Italy',
+                        },
+                        {
+                            id: 'SPA',
+                            label: 'Spain',
+                        },
+                        {
+                            id: 'GER',
+                            label: 'Germany',
+                        },
+                        {
+                            id: 'FRA',
+                            label: 'France',
+                        },
+                        {
+                            id: 'POR',
+                            label: 'Portugal',
+                        },
+                        {
+                            id: 'ENG',
+                            label: 'England',
+                        },
                     ],
                     obj: {
                         t: '',
@@ -85,24 +103,78 @@ let data = {
                     editable: true,
                     mandatory: true,
                     options: [
-                        'Rome',
-                        'Florence',
-                        'Venice',
-                        'Madrid',
-                        'Barcelona',
-                        'Seville',
-                        'Berlin',
-                        'Munich',
-                        'Hamburg',
-                        'Paris',
-                        'Marseille',
-                        'Lyon',
-                        'Lisbon',
-                        'Porto',
-                        'Faro',
-                        'London',
-                        'Manchester',
-                        'Liverpool',
+                        {
+                            id: 'ROM',
+                            label: 'Rome',
+                        },
+                        {
+                            id: 'FLO',
+                            label: 'Florence',
+                        },
+                        {
+                            id: 'VEN',
+                            label: 'Venice',
+                        },
+                        {
+                            id: 'MAD',
+                            label: 'Madrid',
+                        },
+                        {
+                            id: 'BAR',
+                            label: 'Barcelona',
+                        },
+                        {
+                            id: 'SEV',
+                            label: 'Seville',
+                        },
+                        {
+                            id: 'BER',
+                            label: 'Berlin',
+                        },
+                        {
+                            id: 'MUN',
+                            label: 'Munich',
+                        },
+                        {
+                            id: 'HAM',
+                            label: 'Hamburg',
+                        },
+                        {
+                            id: 'PAR',
+                            label: 'Paris',
+                        },
+                        {
+                            id: 'MAR',
+                            label: 'Marseille',
+                        },
+                        {
+                            id: 'LYO',
+                            label: 'Lyon',
+                        },
+                        {
+                            id: 'LIS',
+                            label: 'Lisbon',
+                        },
+                        {
+                            id: 'POR',
+                            label: 'Porto',
+                        },
+                        {
+                            id: 'FAR',
+                            label: 'Faro',
+                        },
+                        {
+                            id: 'LON',
+                            label: 'London',
+                        },
+                        {
+                            id: 'MAN',
+                            label: 'Manchester',
+                        },
+                        {
+                            id: 'LIV',
+                            label: 'Liverpool',
+                        },
                     ],
                     shape: 'ACP',
                 },
@@ -113,8 +185,25 @@ let data = {
                     shape: 'CHK',
                 },
                 RAD: {
-                    value: '1',
-                    options: ['1', '2', '3', '4'],
+                    value: '3',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'One',
+                        },
+                        {
+                            id: '2',
+                            label: 'Two',
+                        },
+                        {
+                            id: '3',
+                            label: 'Three',
+                        },
+                        {
+                            id: '4',
+                            label: 'Four',
+                        },
+                    ],
                     editable: true,
                     mandatory: true,
                     shape: 'RAD',

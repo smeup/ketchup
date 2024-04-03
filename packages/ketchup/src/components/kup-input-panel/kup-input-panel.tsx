@@ -18,6 +18,7 @@ import {
     InputPanelEvent,
     InputPanelEventsCallback,
     KupInputPanelCell,
+    KupInputPanelCellOptions,
     KupInputPanelColumn,
     KupInputPanelData,
     KupInputPanelProps,
@@ -88,10 +89,10 @@ export class KupInputPanel {
     @Prop() submitCb: (e: SubmitEvent) => unknown = null;
 
     /**
-     * Sets the callback function on value change event
-     * @default null
+     * Sets the callbacks functions on ketchup events
+     * @default []
      */
-    @Prop() valueChangeCb: InputPanelEventsCallback[] = [];
+    @Prop() handleEventsCallbacks: InputPanelEventsCallback[] = [];
     //#endregion
 
     //#region STATES
@@ -298,13 +299,17 @@ export class KupInputPanel {
         };
     }
 
-    #CHIAdapter(options: string[], _fieldLabel: string, currentValue: string) {
+    #CHIAdapter(
+        options: KupInputPanelCellOptions[],
+        _fieldLabel: string,
+        currentValue: string
+    ) {
         return {
             data: options?.length
                 ? options.map((option) => ({
-                      value: option,
-                      id: option,
-                      selected: currentValue === option,
+                      value: option.label,
+                      id: option.id,
+                      selected: currentValue === option.id,
                   }))
                 : [{ id: currentValue, value: currentValue }],
         };
@@ -326,7 +331,7 @@ export class KupInputPanel {
     }
 
     #BTNAdapter(
-        _options: string[],
+        _options: KupInputPanelCellOptions[],
         _fieldLabel: string,
         _currentValue: string
     ) {
@@ -342,7 +347,7 @@ export class KupInputPanel {
     }
 
     #CMBandACPAdapter(
-        options: string[],
+        options: KupInputPanelCellOptions[],
         fieldLabel: string,
         currentValue: string
     ) {
@@ -357,9 +362,9 @@ export class KupInputPanel {
                     showIcons: true,
                     data: options?.length
                         ? options.map((option) => ({
-                              value: option,
-                              id: option,
-                              selected: currentValue === option,
+                              value: option.label,
+                              id: option.id,
+                              selected: currentValue === option.id,
                           }))
                         : [],
                 },
@@ -368,14 +373,22 @@ export class KupInputPanel {
         };
     }
 
-    #CHKAdapter(_options: string[], fieldLabel: string, currentValue: string) {
+    #CHKAdapter(
+        _options: KupInputPanelCellOptions[],
+        fieldLabel: string,
+        currentValue: string
+    ) {
         return {
             checked: currentValue === 'on' || currentValue === '1',
             label: fieldLabel,
         };
     }
 
-    #CLPAdapter(_options: string[], fieldLabel: string, _currentValue: string) {
+    #CLPAdapter(
+        _options: KupInputPanelCellOptions[],
+        fieldLabel: string,
+        _currentValue: string
+    ) {
         return {
             data: {
                 'kup-text-field': {
@@ -385,16 +398,24 @@ export class KupInputPanel {
         };
     }
 
-    #ITXAdapter(_options: string[], fieldLabel: string, _currentValue: string) {
+    #ITXAdapter(
+        _options: KupInputPanelCellOptions[],
+        fieldLabel: string,
+        _currentValue: string
+    ) {
         return { label: fieldLabel };
     }
 
-    #RADAdapter(options: string[], _fieldLabel: string, currentValue: string) {
+    #RADAdapter(
+        options: KupInputPanelCellOptions[],
+        _fieldLabel: string,
+        currentValue: string
+    ) {
         return {
             data: options.map((option) => ({
-                value: option,
-                label: option,
-                checked: option === currentValue,
+                value: option.id,
+                label: option.label,
+                checked: option.id === currentValue,
             })),
         };
     }
@@ -417,7 +438,7 @@ export class KupInputPanel {
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
         this.#kupManager.debug.logLoad(this, true);
 
-        this.valueChangeCb.map((cbData) => {
+        this.handleEventsCallbacks.map((cbData) => {
             this.rootElement.addEventListener(cbData.eventName, (e: any) => {
                 const inputPanelEvent: InputPanelEvent = {
                     state: this.inputPanelCells.find((data) =>

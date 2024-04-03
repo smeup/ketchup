@@ -2594,6 +2594,11 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * Sets the callbacks functions on ketchup events
+          * @default []
+         */
+        "handleEventsCallbacks": InputPanelEventsCallback[];
+        /**
           * Creates a hidden submit button in order to submit the form with enter.
           * @default false
          */
@@ -2612,11 +2617,6 @@ export namespace Components {
           * @default null
          */
         "submitCb": (e: SubmitEvent) => unknown;
-        /**
-          * Sets the callback function on value change event
-          * @default null
-         */
-        "valueChangeCb": InputPanelEventsCallback[];
     }
     interface KupLazy {
         /**
@@ -7397,6 +7397,11 @@ declare namespace LocalJSX {
          */
         "data"?: KupInputPanelData;
         /**
+          * Sets the callbacks functions on ketchup events
+          * @default []
+         */
+        "handleEventsCallbacks"?: InputPanelEventsCallback[];
+        /**
           * Creates a hidden submit button in order to submit the form with enter.
           * @default false
          */
@@ -7410,11 +7415,6 @@ declare namespace LocalJSX {
           * @default null
          */
         "submitCb"?: (e: SubmitEvent) => unknown;
-        /**
-          * Sets the callback function on value change event
-          * @default null
-         */
-        "valueChangeCb"?: InputPanelEventsCallback[];
     }
     interface KupLazy {
         /**
