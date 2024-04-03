@@ -43,6 +43,7 @@ import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
+import { InputPanelEventsCallback, KupInputPanelData } from "./components/kup-input-panel/kup-input-panel-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -92,6 +93,7 @@ export { FImageData } from "./f-components/f-image/f-image-declarations";
 export { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 export { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 export { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
+export { InputPanelEventsCallback, KupInputPanelData } from "./components/kup-input-panel/kup-input-panel-declarations";
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -2451,6 +2453,49 @@ export namespace Components {
         "stateId": string;
         "store": KupStore;
     }
+    interface KupInputPanel {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Actual data of the form.
+          * @default null
+         */
+        "data": KupInputPanelData;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Sets the callbacks functions on ketchup events
+          * @default []
+         */
+        "handleEventsCallbacks": InputPanelEventsCallback[];
+        /**
+          * Creates a hidden submit button in order to submit the form with enter.
+          * @default false
+         */
+        "hiddenSubmitButton": boolean;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the callback function on submit form
+          * @default null
+         */
+        "submitCb": (e: SubmitEvent) => unknown;
+    }
     interface KupLazy {
         /**
           * Sets the tag name of the component to be lazy loaded.
@@ -4028,6 +4073,10 @@ export interface KupImageListCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupImageListElement;
 }
+export interface KupInputPanelCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupInputPanelElement;
+}
 export interface KupLazyCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupLazyElement;
@@ -4678,6 +4727,23 @@ declare global {
         prototype: HTMLKupImageListElement;
         new (): HTMLKupImageListElement;
     };
+    interface HTMLKupInputPanelElementEventMap {
+        "kup-input-panel-ready": KupEventPayload;
+    }
+    interface HTMLKupInputPanelElement extends Components.KupInputPanel, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupInputPanelElementEventMap>(type: K, listener: (this: HTMLKupInputPanelElement, ev: KupInputPanelCustomEvent<HTMLKupInputPanelElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupInputPanelElementEventMap>(type: K, listener: (this: HTMLKupInputPanelElement, ev: KupInputPanelCustomEvent<HTMLKupInputPanelElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKupInputPanelElement: {
+        prototype: HTMLKupInputPanelElement;
+        new (): HTMLKupInputPanelElement;
+    };
     interface HTMLKupLazyElementEventMap {
         "kup-lazy-loaded": KupEventPayload;
     }
@@ -5114,6 +5180,7 @@ declare global {
         "kup-iframe": HTMLKupIframeElement;
         "kup-image": HTMLKupImageElement;
         "kup-image-list": HTMLKupImageListElement;
+        "kup-input-panel": HTMLKupInputPanelElement;
         "kup-lazy": HTMLKupLazyElement;
         "kup-list": HTMLKupListElement;
         "kup-magic-box": HTMLKupMagicBoxElement;
@@ -7072,6 +7139,38 @@ declare namespace LocalJSX {
         "stateId"?: string;
         "store"?: KupStore;
     }
+    interface KupInputPanel {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Actual data of the form.
+          * @default null
+         */
+        "data"?: KupInputPanelData;
+        /**
+          * Sets the callbacks functions on ketchup events
+          * @default []
+         */
+        "handleEventsCallbacks"?: InputPanelEventsCallback[];
+        /**
+          * Creates a hidden submit button in order to submit the form with enter.
+          * @default false
+         */
+        "hiddenSubmitButton"?: boolean;
+        /**
+          * When component load is complete
+         */
+        "onKup-input-panel-ready"?: (event: KupInputPanelCustomEvent<KupEventPayload>) => void;
+        /**
+          * Sets the callback function on submit form
+          * @default null
+         */
+        "submitCb"?: (e: SubmitEvent) => unknown;
+    }
     interface KupLazy {
         /**
           * Sets the tag name of the component to be lazy loaded.
@@ -8355,6 +8454,7 @@ declare namespace LocalJSX {
         "kup-iframe": KupIframe;
         "kup-image": KupImage;
         "kup-image-list": KupImageList;
+        "kup-input-panel": KupInputPanel;
         "kup-lazy": KupLazy;
         "kup-list": KupList;
         "kup-magic-box": KupMagicBox;
@@ -8426,6 +8526,7 @@ declare module "@stencil/core" {
             "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
             "kup-image-list": LocalJSX.KupImageList & JSXBase.HTMLAttributes<HTMLKupImageListElement>;
+            "kup-input-panel": LocalJSX.KupInputPanel & JSXBase.HTMLAttributes<HTMLKupInputPanelElement>;
             "kup-lazy": LocalJSX.KupLazy & JSXBase.HTMLAttributes<HTMLKupLazyElement>;
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;

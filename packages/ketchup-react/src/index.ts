@@ -44,6 +44,7 @@ export const KupHorizontalScroll = /*@__PURE__*/createReactComponent<JSX.KupHori
 export const KupIframe = /*@__PURE__*/createReactComponent<JSX.KupIframe, HTMLKupIframeElement>('kup-iframe');
 export const KupImage = /*@__PURE__*/createReactComponent<JSX.KupImage, HTMLKupImageElement>('kup-image');
 export const KupImageList = /*@__PURE__*/createReactComponent<JSX.KupImageList, HTMLKupImageListElement>('kup-image-list');
+export const KupInputPanel = /*@__PURE__*/createReactComponent<JSX.KupInputPanel, HTMLKupInputPanelElement>('kup-input-panel');
 export const KupLazy = /*@__PURE__*/createReactComponent<JSX.KupLazy, HTMLKupLazyElement>('kup-lazy');
 export const KupList = /*@__PURE__*/createReactComponent<JSX.KupList, HTMLKupListElement>('kup-list');
 export const KupMagicBox = /*@__PURE__*/createReactComponent<JSX.KupMagicBox, HTMLKupMagicBoxElement>('kup-magic-box');

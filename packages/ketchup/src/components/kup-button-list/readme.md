@@ -94,6 +94,7 @@ Type: `Promise<void>`
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
+ - [kup-input-panel](../kup-input-panel)
  - [kup-magic-box](../kup-magic-box)
  - [kup-tree](../kup-tree)
 
@@ -177,6 +178,7 @@ graph TD;
   kup-box --> kup-button-list
   kup-cell --> kup-button-list
   kup-image-list --> kup-button-list
+  kup-input-panel --> kup-button-list
   kup-magic-box --> kup-button-list
   style kup-button-list fill:#f9f,stroke:#333,stroke-width:4px
 ```

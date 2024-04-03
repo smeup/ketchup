@@ -36,6 +36,8 @@ export const config: Config = {
             },
         },
         collectCoverageFrom: ['src/**/*.ts'],
+        browserHeadless: 'new',
+        //browserArgs: ['--no-sandbox', '--disable-setuid-sandbox'],
     },
     outputTargets: [
         /*{ type: 'dist' },*/
@@ -78,6 +80,7 @@ export const config: Config = {
                 { src: 'grid.html' },
                 { src: 'image.html' },
                 { src: 'image-list.html' },
+                { src: 'input-panel.html' },
                 { src: 'kupdata.html' },
                 { src: 'kupinteract.html' },
                 { src: 'kuptooltip.html' },

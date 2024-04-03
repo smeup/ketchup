@@ -30,6 +30,8 @@
         "lerna": "lerna",
         "k:build": "lerna run build --scope @sme.up/ketchup --stream && lerna run build --scope @sme.up/ketchup-react --stream",
         "k:start": "lerna run start --scope @sme.up/ketchup --stream",
+        "k:test:all": "lerna run test --scope @sme.up/ketchup --stream",
+        "k:test:e2e": "lerna run test:e2e --scope @sme.up/ketchup --stream",
         "k:test:unit": "lerna run test:spec --scope @sme.up/ketchup --stream",
         "k:test:unitcov": "lerna run test:speccov --scope @sme.up/ketchup --stream",
         "ksc:serve": "lerna run serve --scope @sme.up/ketchup-showcase --stream",

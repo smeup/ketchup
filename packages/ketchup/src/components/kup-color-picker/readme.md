@@ -114,6 +114,7 @@ Type: `Promise<void>`
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
+ - [kup-input-panel](../kup-input-panel)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -194,6 +195,7 @@ graph TD;
   kup-box --> kup-color-picker
   kup-cell --> kup-color-picker
   kup-image-list --> kup-color-picker
+  kup-input-panel --> kup-color-picker
   style kup-color-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

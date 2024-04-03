@@ -132,6 +132,7 @@ Type: `Promise<void>`
  - [kup-iframe](../kup-iframe)
  - [kup-image](../kup-image)
  - [kup-image-list](../kup-image-list)
+ - [kup-input-panel](../kup-input-panel)
  - [kup-lazy](../kup-lazy)
  - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
@@ -202,6 +203,7 @@ graph TD;
   kup-grid --> kup-dialog
   kup-iframe --> kup-dialog
   kup-image-list --> kup-dialog
+  kup-input-panel --> kup-dialog
   kup-lazy --> kup-dialog
   kup-magic-box --> kup-dialog
   kup-nav-bar --> kup-dialog
