@@ -119,6 +119,11 @@ const basicRoutes = [
       import(`@/views/components/basic/numericpicker/NumericPicker.vue`),
   },
   {
+    path: `/pdf`,
+    name: 'pdf',
+    component: () => import(`@/views/components/basic/pdf/Pdf.vue`),
+  },
+  {
     path: `/progressbar`,
     name: 'progressbar',
     component: () =>
@@ -239,6 +244,12 @@ const advancedRoutes = [
     name: 'imagelist',
     component: () =>
       import(`@/views/components/advanced/imagelist/ImageList.vue`),
+  },
+  {
+    path: `/inputpanel`,
+    name: 'inputpanel',
+    component: () =>
+      import(`@/views/components/advanced/inputpanel/InputPanel.vue`),
   },
   {
     path: `/tree`,

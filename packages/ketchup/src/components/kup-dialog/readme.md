@@ -132,11 +132,13 @@ Type: `Promise<void>`
  - [kup-iframe](../kup-iframe)
  - [kup-image](../kup-image)
  - [kup-image-list](../kup-image-list)
+ - [kup-input-panel](../kup-input-panel)
  - [kup-lazy](../kup-lazy)
  - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
  - [kup-nav-bar](../kup-nav-bar)
  - [kup-numeric-picker](../kup-numeric-picker)
+ - [kup-pdf](../kup-pdf)
  - [kup-photo-frame](../kup-photo-frame)
  - [kup-planner](../kup-planner)
  - [kup-probe](../kup-probe)
@@ -201,10 +203,12 @@ graph TD;
   kup-grid --> kup-dialog
   kup-iframe --> kup-dialog
   kup-image-list --> kup-dialog
+  kup-input-panel --> kup-dialog
   kup-lazy --> kup-dialog
   kup-magic-box --> kup-dialog
   kup-nav-bar --> kup-dialog
   kup-numeric-picker --> kup-dialog
+  kup-pdf --> kup-dialog
   kup-photo-frame --> kup-dialog
   kup-planner --> kup-dialog
   kup-probe --> kup-dialog

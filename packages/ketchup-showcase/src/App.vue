@@ -408,6 +408,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'inputpanel',
+                  },
+                },
+                icon: 'mode_edit',
+                value: 'Input Panel',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'planner',
                   },
                 },
@@ -632,6 +642,16 @@ export default {
                 },
                 icon: 'calculator',
                 value: 'Numeric picker',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'pdf',
+                  },
+                },
+                icon: 'document',
+                value: 'Pdf',
                 visible: true,
               },
               {
