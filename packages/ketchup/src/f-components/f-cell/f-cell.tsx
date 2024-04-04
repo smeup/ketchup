@@ -53,9 +53,6 @@ import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declaration
 
 const dom: KupDom = document.documentElement as KupDom;
 
-let touchEndTime = 0;
-let touchStartTime = 0;
-
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
 /*-------------------------------------------------*/
@@ -179,38 +176,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
             kup-get-cell-props={() => {
                 return props;
             }}
-            onTouchEnd={
-                dom.ketchup.interact.isMobileDevice()
-                    ? () => {
-                          if (touchStartTime) {
-                              touchEndTime = performance.now();
-                              const delta = touchEndTime - touchStartTime;
-                              // 600ms is interact's default "hold" value
-                              if (delta < 600) {
-                                  const newEvt =
-                                      document.createEvent('MouseEvents');
-                                  cellEvent(
-                                      newEvt,
-                                      props,
-                                      cellType,
-                                      FCellEvents.CLICK
-                                  );
-                              }
-                              touchEndTime = 0;
-                              touchStartTime = 0;
-                          }
-                      }
-                    : null
-            }
-            onTouchStart={
-                dom.ketchup.interact.isMobileDevice()
-                    ? (e) => {
-                          touchEndTime = 0;
-                          touchStartTime = performance.now();
-                          e.preventDefault();
-                      }
-                    : null
-            }
             ref={(el) => (cell.element = el)}
             style={cell.style}
         >
