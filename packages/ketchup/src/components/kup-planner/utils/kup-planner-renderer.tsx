@@ -266,7 +266,7 @@ export class KupPlannerRenderer {
         task: KupPlannerTask,
         currentProjects: KupPlannerGanttTask[] | KupPlannerItemDetail[],
         onDateChange: any
-        ) {
+    ) {
         const id = task?.id;
         if (!id) {
             return;
@@ -334,20 +334,42 @@ export class KupPlannerRenderer {
     handlePhaseDrop(
         originalPhaseData: KupPlannerGanttTaskN,
         // originalTaskData: KupPlannerGanttTaskN | KupPlannerItemDetail,
-        finalPhaseData: KupPlannerGanttTaskN,
+        finalPhaseData: KupPlannerTask,
         destinationData: KupPlannerGanttTaskN | KupPlannerItemDetail,
         onPhaseDrop: any
-        ) {
+    ) {
         // Invoke callback
 
-        delete finalPhaseData['taskRow']
+        let row = undefined;
+
+        const currentProjects = this.currentTasks as KupPlannerGanttTask[];
+
+        const parentOfClickedPhase: KupPlannerGanttTaskN | undefined = (
+            currentProjects as KupPlannerGanttTaskN[]
+        ).find((p) => p.phases?.some((ph) => ph?.id === finalPhaseData.id));
+        if (parentOfClickedPhase) {
+            const phases = mergeTaskIntoPhases(
+                parentOfClickedPhase.phases,
+                finalPhaseData
+            );
+            const updatedProjects = (
+                currentProjects as KupPlannerGanttTaskN[]
+            ).map((p) =>
+                p.id === parentOfClickedPhase.id ? { ...p, phases } : p
+            );
+            row = getPhaseById(finalPhaseData.id, updatedProjects);
+        }
+
+        delete row?.['taskRow'];
         onPhaseDrop?.({
             originalPhaseData,
             // originalTaskData,
-            finalPhaseData,
+            finalPhaseData: row,
             destinationData,
         });
 
+        // to move the phase back to its original position
+        this.currentTasks = JSON.parse(JSON.stringify(this.currentTasks));
         // Use setTimeout to ensure DOM updates
         setTimeout(this.getScrollX, 500);
     }
@@ -365,7 +387,6 @@ export class KupPlannerRenderer {
     }
 
     render() {
-
         return (
             <div class="planner-render">
                 <kup-switcher
@@ -499,19 +520,36 @@ export class KupPlannerRenderer {
                             doubleView={this.mainGanttDoubleView ?? false}
                             setDoubleView={this.handleSetDoubleView.bind(this)}
                             scrollableTaskList={this.props.scrollableTaskList}
-                            phaseDrop={(originalPhaseData, originalTaskData, finalPhaseData, destinationData) => {
-                                const originalPhase = getPhaseById(originalPhaseData.id, this.currentTasks);
-                                const originalTask = getProjectById(originalTaskData.id, this.currentTasks);
-                                const finalPhase = getPhaseById(finalPhaseData.id, this.currentTasks);
-                                const destinationTask = getProjectById(destinationData.id, this.currentTasks);
+                            phaseDrop={(
+                                originalPhaseData,
+                                originalTaskData,
+                                finalPhaseData,
+                                destinationData
+                            ) => {
+                                const originalPhase = getPhaseById(
+                                    originalPhaseData.id,
+                                    this.currentTasks
+                                );
+                                const originalTask = getProjectById(
+                                    originalTaskData.id,
+                                    this.currentTasks
+                                );
+                                const finalPhase = getPhaseById(
+                                    finalPhaseData.id,
+                                    this.currentTasks
+                                );
+                                const destinationTask = getProjectById(
+                                    destinationData.id,
+                                    this.currentTasks
+                                );
                                 this.handlePhaseDrop(
                                     originalPhase,
                                     // originalTask,
-                                    finalPhase,
+                                    finalPhaseData,
                                     destinationTask,
                                     this.props.mainGantt.onPhaseDrop
-                                )}
-                            }
+                                );
+                            }}
                         />
                         {this.props.secondaryGantt && (
                             <kup-gantt
@@ -635,7 +673,9 @@ export class KupPlannerRenderer {
                                     this.props.secondaryGantt.onContextMenu
                                 }
                                 label={this.props.secondaryGantt.title}
-                                scrollableTaskList={this.props.scrollableTaskList}
+                                scrollableTaskList={
+                                    this.props.scrollableTaskList
+                                }
                             />
                         )}
                     </div>

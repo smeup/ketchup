@@ -2847,6 +2847,11 @@ export namespace Components {
          */
         "detailPrevDates": string[];
         /**
+          * Columns containing forecast detail duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "detailPrevHours": string[];
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
@@ -2912,6 +2917,11 @@ export namespace Components {
           * @default null
          */
         "phasePrevDates": string[];
+        /**
+          * Columns containing forecast phase duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "phasePrevHours": string[];
         /**
           * When true, the two gantts are not interactable.
           * @default false
@@ -2998,6 +3008,11 @@ export namespace Components {
           * @default null
          */
         "taskPrevDates": string[];
+        /**
+          * Columns containing forecast task duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "taskPrevHours": string[];
         /**
           * Message displayed on top
           * @default null
@@ -7348,6 +7363,11 @@ declare namespace LocalJSX {
          */
         "detailPrevDates"?: string[];
         /**
+          * Columns containing forecast detail duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "detailPrevHours"?: string[];
+        /**
           * Total size of the cells inside to the left box, near the gantt
           * @default '300px'
          */
@@ -7420,6 +7440,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "phasePrevDates"?: string[];
+        /**
+          * Columns containing forecast phase duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "phasePrevHours"?: string[];
         /**
           * When true, the two gantts are not interactable.
           * @default false
@@ -7497,6 +7522,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "taskPrevDates"?: string[];
+        /**
+          * Columns containing forecast task duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "taskPrevHours"?: string[];
         /**
           * Message displayed on top
           * @default null
