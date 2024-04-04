@@ -150,7 +150,7 @@
 
       &.switch--checked {
         .switch__track {
-          background-color: var(--kup-success-color);
+          background-color: var(--kup-success-color-60);
         }
         .switch__thumb-underlay {
           transform: translateX(23px);
@@ -158,7 +158,7 @@
 
         .switch__thumb {
           background-color: var(--kup_switch_thumb_background_color);
-          border-color: var(--kup-success-color);
+          border-color: var(--kup-success-color-60);
 
           .switch__native-control {
             transform: translateX(-16px);
@@ -204,8 +204,8 @@
   }
 
   &.#{$kup-class-success} {
-    --kup-switch-primary-color: var(--kup-success-color);
-    --kup-switch-primary-color-rgb: var(--kup-success-color-rgb);
+    --kup-switch-primary-color: var(--kup-success-color-60);
+    --kup-switch-primary-color-rgb: var(--kup-success-color-60-rgb);
   }
 
   &.#{$kup-class-warning} {

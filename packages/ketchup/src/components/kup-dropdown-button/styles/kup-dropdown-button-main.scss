@@ -26,15 +26,15 @@
 
 .f-button.dropdown-button__dropdown-action.dropdown-only {
   .button {
-    border-top-left-radius: var(--kup-radius-00);
-    border-bottom-left-radius: var(--kup-radius-00);
+    border-top-left-radius: var(--kup-radius-01);
+    border-bottom-left-radius: var(--kup-radius-01);
   }
 }
 
 .f-button.dropdown-button__dropdown-action {
   .button {
-    border-top-left-radius: var(--kup-radius-00);
-    border-bottom-left-radius: var(--kup-radius-00);
+    border-top-left-radius: var(--kup-radius-01);
+    border-bottom-left-radius: var(--kup-radius-01);
     box-shadow: var(--kup-primary-color) -2px 0px 2px -2px;
 
     .button__icon {

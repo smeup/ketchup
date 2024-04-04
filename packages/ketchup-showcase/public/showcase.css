@@ -39,7 +39,7 @@
 
 code.flat {
   background: var(--kup-gray-color-10);
-  border-radius: var(--kup-radius-00);
+  border-radius: var(--kup-radius-01);
   border: 1px solid var(--kup-gray-color-30);
   color: var(--kup-gray-color-90);
   display: flex;
