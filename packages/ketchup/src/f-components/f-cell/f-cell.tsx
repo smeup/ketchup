@@ -49,11 +49,9 @@ import { FRadio } from '../f-radio/f-radio';
 import { FRating } from '../f-rating/f-rating';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import { FRadioProps } from '../f-radio/f-radio-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
-
-let touchEndTime = 0;
-let touchStartTime = 0;
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
@@ -178,38 +176,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
             kup-get-cell-props={() => {
                 return props;
             }}
-            onTouchEnd={
-                dom.ketchup.interact.isMobileDevice()
-                    ? () => {
-                          if (touchStartTime) {
-                              touchEndTime = performance.now();
-                              const delta = touchEndTime - touchStartTime;
-                              // 600ms is interact's default "hold" value
-                              if (delta < 600) {
-                                  const newEvt =
-                                      document.createEvent('MouseEvents');
-                                  cellEvent(
-                                      newEvt,
-                                      props,
-                                      cellType,
-                                      FCellEvents.CLICK
-                                  );
-                              }
-                              touchEndTime = 0;
-                              touchStartTime = 0;
-                          }
-                      }
-                    : null
-            }
-            onTouchStart={
-                dom.ketchup.interact.isMobileDevice()
-                    ? (e) => {
-                          touchEndTime = 0;
-                          touchStartTime = performance.now();
-                          e.preventDefault();
-                      }
-                    : null
-            }
             ref={(el) => (cell.element = el)}
             style={cell.style}
         >
@@ -882,7 +848,13 @@ function cellEvent(
         if (cellEventName === FCellEvents.UPDATE) {
             try {
                 (comp as KupComponent).refresh();
-            } catch (error) {}
+            } catch (error) {
+                dom.ketchup.debug.logMessage(
+                    comp,
+                    error,
+                    KupDebugCategory.ERROR
+                );
+            }
         }
     }
 }

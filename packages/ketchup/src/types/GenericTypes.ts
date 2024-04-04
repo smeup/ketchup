@@ -87,6 +87,7 @@ export enum KupTagNames {
     IFRAME = 'KUP-IFRAME',
     IMAGE = 'KUP-IMAGE',
     IMAGE_LIST = 'KUP-IMAGE-LIST',
+    INPUT_PANEL = 'KUP-INPUT-PANEL',
     LAZY = 'KUP-LAZY',
     LIST = 'KUP-LIST',
     MAGIC_BOX = 'KUP-MAGIC-BOX',

@@ -1,6 +1,6 @@
 {
     "name": "@sme.up/ketchup",
-    "version": "9.6.3",
+    "version": "9.6.4",
     "keywords": [
         "smeup",
         "KetchUP",
@@ -55,6 +55,7 @@
         "interactjs": "1.10.12",
         "jquery": "^3.7.0",
         "numeral": "^2.0.6",
+        "pdfjs-dist": "^3.11.174",
         "resize-observer": "^1.0.4",
         "vanilla-picker": "^2.12.1"
     },

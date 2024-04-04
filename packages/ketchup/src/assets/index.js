@@ -139,6 +139,10 @@ components.data = [
         id: 'image-list.html',
     },
     {
+        value: 'Input panel',
+        id: 'input-panel.html',
+    },
+    {
         value: 'KupData',
         id: 'kupdata.html',
     },
@@ -165,6 +169,10 @@ components.data = [
     {
         value: 'Numeric picker',
         id: 'numeric-picker.html',
+    },
+    {
+        value: 'Pdf',
+        id: 'pdf.html',
     },
     {
         value: 'Planner',
