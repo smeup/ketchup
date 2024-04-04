@@ -20,6 +20,9 @@ const dom: KupDom = document.documentElement as KupDom;
 export const FPaginator: FunctionalComponent<FPaginatorProps> = (
     props: FPaginatorProps
 ) => {
+    if (!props.perPage) {
+        props.perPage = 10;
+    }
     const maxNumberOfPage = Math.ceil(props.max / props.perPage);
     const pageItems = getPageItems(props, maxNumberOfPage);
     const rowsPerPageItems = getRowsItems(props);

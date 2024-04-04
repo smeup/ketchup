@@ -1,10 +1,9 @@
-import type { KupBadge } from '../../components/kup-badge/kup-badge';
-import { FComponent } from '../../types/GenericTypes';
+import { FComponent, GenericObject } from '../../types/GenericTypes';
 /**
  * Props of the f-image component.
  */
 export interface FImageProps extends FComponent {
-    badgeData?: KupBadge[];
+    badgeData?: GenericObject[];
     color?: string;
     data?: FImageData[];
     fit?: boolean;
@@ -19,7 +18,7 @@ export interface FImageProps extends FComponent {
  * @property {string} shape - Defines the type of the step.
  * @property {string} color - Background color of the step.
  * @property {string} height - Height of the step.
- * @property {boolean} width - Width of the step
+ * @property {string} width - Width of the step
  */
 export interface FImageData {
     shape?: FImageShape;

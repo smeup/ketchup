@@ -130,6 +130,7 @@ Type: `Promise<void>`
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
  - [kup-image-list](../kup-image-list)
+ - [kup-input-panel](../kup-input-panel)
  - [kup-magic-box](../kup-magic-box)
  - [kup-tree](../kup-tree)
 
@@ -220,6 +221,7 @@ graph TD;
   kup-box --> kup-combobox
   kup-cell --> kup-combobox
   kup-image-list --> kup-combobox
+  kup-input-panel --> kup-combobox
   kup-magic-box --> kup-combobox
   style kup-combobox fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -106,6 +106,7 @@ Type: `Promise<void>`
  - [kup-form](../kup-form)
  - [kup-image](../kup-image)
  - [kup-image-list](../kup-image-list)
+ - [kup-input-panel](../kup-input-panel)
  - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
  - [kup-numeric-picker](../kup-numeric-picker)
@@ -166,6 +167,7 @@ graph TD;
   kup-dashboard --> kup-badge
   kup-family-tree --> kup-badge
   kup-image-list --> kup-badge
+  kup-input-panel --> kup-badge
   kup-magic-box --> kup-badge
   kup-numeric-picker --> kup-badge
   kup-planner --> kup-badge

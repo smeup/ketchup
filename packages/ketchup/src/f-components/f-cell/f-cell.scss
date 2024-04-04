@@ -316,6 +316,12 @@
     }
   }
 
+  &.c-pre {
+    .f-cell__content {
+      white-space: pre;
+    }
+  }
+
   &.c-centered {
     --kup-textfield-text-align: center;
     justify-content: center;
@@ -443,5 +449,16 @@
     --kup-textfield-fullwidth-height: 50px;
     --kup-textfield-fullwidth-padding: 0px;
     padding: 1em 0.6em;
+  }
+}
+
+@media screen and (max-width: 899px) {
+  .f-cell {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari, Chrome, Opera, Samsung */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Edge, IE */
+    user-select: none; /* Modern browsers */
   }
 }

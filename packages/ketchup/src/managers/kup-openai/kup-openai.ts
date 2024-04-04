@@ -11,17 +11,22 @@ import {
 import { KupTextField } from '../../components/kup-text-field/kup-text-field';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
-import { KupOpenAISessionInfo } from './kup-openai-declarations';
+import {
+    KupOpenAIParameters,
+    KupOpenAISessionInfo,
+} from './kup-openai-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
 export class KupOpenAI {
     card: HTMLKupCardElement = null;
     container: HTMLElement;
+    context = '';
     data: KupDataTableDataset = null;
     dialog: HTMLKupDialogElement = null;
     sessionInfo: KupOpenAISessionInfo = null;
     url: string = null;
+    onFunClick?: (fun: string) => void;
 
     /**
      * Initializes KupOpenAI.
@@ -34,7 +39,13 @@ export class KupOpenAI {
         this.url = url;
     }
 
-    #setError(message: string, _this?: KupOpenAI, dontRefreshCard?: boolean) {
+    getFunFromText = (text: string): RegExpMatchArray[] => {
+        const pattern =
+            /#\[(?:F|C|A)\(([^)]*)\)\s*(?:\d\(([^)]*)\)\s*)?(?:INPUT\(([^)]*)\)\s*)?(?:SP\(([^)]*)\)\s*)?(?:P\(([^]*)\)\s*)?(?:CRO\(([^)]*)\)\s*)?(?:SS\(([^)]*)\)\s*)?(?:SERVER\(([^)]*)\)\s*)?(?:SG\(([^)]*)\)\s*)?(?:G\(([^)]*)\)\s*)?(?:NOTIFY\(([^)]*)\)\s*)?]\#/g;
+        return [...text.matchAll(pattern)];
+    };
+
+    setError(message: string, _this?: KupOpenAI, dontRefreshCard?: boolean) {
         if (!_this) {
             _this = this;
         }
@@ -104,20 +115,24 @@ export class KupOpenAI {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ data: this.data }),
+                body: JSON.stringify({
+                    context: this.context,
+                    data: this.data,
+                }),
             });
         } catch (e) {
-            this.#setError(e.message);
+            this.setError(e.message);
             return;
         }
 
         if (response) {
             if (response.status != 200) {
-                this.#setError(await response.text());
+                this.setError(await response.text());
                 return;
             }
             const responseJson = await response.json();
             this.sessionInfo = {
+                context: this.context,
                 fileId: responseJson.fileId,
                 threadId: responseJson.threadId,
             };
@@ -144,46 +159,44 @@ export class KupOpenAI {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    context: this.sessionInfo.context,
                     fileId: this.sessionInfo.fileId,
                     threadId: this.sessionInfo.threadId,
                 }),
             });
         } catch (e) {
-            this.#setError(e.message, undefined, true);
+            this.setError(e.message, undefined, true);
         }
 
         this.sessionInfo = null;
 
         if (response) {
             if (response.status != 200) {
-                this.#setError(await response.text(), undefined, true);
+                this.setError(await response.text(), undefined, true);
             }
         }
     }
 
-    /**
-     * Shows the component
-     * @param data
-     * @param options
-     */
-    show(data: KupDataTableDataset) {
-        this.data = data;
-
-        if (!this.card) {
-            this.#create();
+    async show(parameters: KupOpenAIParameters) {
+        this.context = parameters.context;
+        this.data = parameters.dataset;
+        if (parameters.onFunClick) {
+            this.onFunClick = parameters.onFunClick;
         }
+
+        if (this.card) {
+            await this.hide();
+        }
+        this.#create();
     }
 
-    /**
-     * Hides the component.
-     */
-    hide() {
+    async hide() {
         if (this.card) {
             this.card.remove();
             this.card = null;
             this.dialog.remove();
             this.dialog = null;
-            this.#disconnect();
+            await this.#disconnect();
         }
     }
 
@@ -203,14 +216,14 @@ export class KupOpenAI {
                 body: JSON.stringify({ data: pwd }),
             });
         } catch (e) {
-            openAI.#setError(e.message, openAI);
+            openAI.setError(e.message, openAI);
             return;
         }
 
         if (response) {
             if (response.status != 200) {
                 openAI.#invalidPassword(event);
-                //this.#setError(await response.text());
+                //this.setError(await response.text());
                 return;
             }
             const responseJson = await response.json();
@@ -225,7 +238,15 @@ export class KupOpenAI {
         openAI.card.refresh();
     }
 
-    async chat(disableInteractivity, inputArea: HTMLKupTextFieldElement) {
+    async chat(
+        disableInteractivity: (status: boolean) => void,
+        inputArea: HTMLKupTextFieldElement
+    ) {
+        const openAI = dom.ketchup.openAI;
+        if (!openAI.card) {
+            return;
+        }
+
         const communicate = async (
             question: string
         ): Promise<KupCardBuiltInOpenAIMessages[]> => {
@@ -245,32 +266,35 @@ export class KupOpenAI {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
+                        context: openAI.sessionInfo.context,
                         fileId: openAI.sessionInfo.fileId,
                         threadId: openAI.sessionInfo.threadId,
                         question: question,
                     }),
                 });
             } catch (e) {
-                this.#setError(e.message, openAI);
+                openAI.setError(e.message, openAI);
             }
 
             if (response) {
                 if (response.status != 200) {
-                    this.#setError(await response.text(), openAI);
+                    openAI.setError(await response.text(), openAI);
                     return;
                 }
                 const responseJson = await response.json();
                 if (responseJson && responseJson.messages) {
-                    responseMessages.push(...responseJson.messages);
+                    for (let i = 0; i < responseJson.messages.length; i++) {
+                        const m: KupCardBuiltInOpenAIMessages =
+                            responseJson.messages[i];
+                        m.funs = openAI.getFunFromText(m.text);
+                        responseMessages.push(m);
+                    }
                 }
             }
 
             return responseMessages;
         };
-        const openAI = dom.ketchup.openAI;
-        if (!openAI.card) {
-            return;
-        }
+
         disableInteractivity(true);
         openAI.getCardOptions().messages = await communicate(
             await inputArea.getValue()

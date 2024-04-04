@@ -1,5 +1,6 @@
 import { h, VNode } from '@stencil/core';
 import {
+    KupCardBuiltInOpenAIMessages,
     KupCardBuiltInOpenAIOptions,
     KupCardCSSClasses,
 } from '../kup-card-declarations';
@@ -7,6 +8,9 @@ import { KupCard } from '../kup-card';
 import { FButtonStyling } from '../../../f-components/f-button/f-button-declarations';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { FButton } from '../../../f-components/f-button/f-button';
+import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
 
 let inputArea: HTMLKupTextFieldElement = null;
 let clearButton: HTMLKupButtonElement = null;
@@ -66,6 +70,47 @@ export function prepareOpenAIInterface(component: KupCard): VNode[] {
         ];
     };
 
+    const getTextFormatted = (m: KupCardBuiltInOpenAIMessages): VNode[] => {
+        if (m.type == 'request') {
+            return [<div class="paragraph">{m.text}</div>];
+        }
+        let result: VNode[] = [];
+        let matches = m.funs;
+        let text = m.text;
+
+        let lastIndex = 0;
+        for (const match of matches) {
+            result.push(
+                <div class="paragraph">
+                    {text.slice(lastIndex, match.index)}
+                </div>
+            );
+            let fun: string = match[0].trim();
+            if (fun.startsWith('#[')) {
+                fun = fun.replace('#[', '');
+            }
+            if (fun.endsWith(']#')) {
+                fun = fun.replace(']#', '');
+            }
+            result.push(
+                <div
+                    class="fun"
+                    title="Execute FUN."
+                    onClick={() => {
+                        if (dom.ketchup.openAI.onFunClick) {
+                            dom.ketchup.openAI.onFunClick(fun);
+                        }
+                    }}
+                >
+                    {fun}
+                </div>
+            );
+            lastIndex = match.index + match[0].length;
+        }
+        result.push(<div class="paragraph">{text.slice(lastIndex)}</div>);
+        return result;
+    };
+
     const readyJsx: () => VNode[] = () => {
         const genChat = () => {
             const nodes: VNode[] = [];
@@ -74,7 +119,7 @@ export function prepareOpenAIInterface(component: KupCard): VNode[] {
                 options.messages.forEach((m) => {
                     nodes.push(
                         <div class="message-container">
-                            <div class={m.type}>{m.text}</div>
+                            <div class={m.type}>{getTextFormatted(m)}</div>
                             <FButton
                                 icon="content-copy"
                                 onClick={() => {

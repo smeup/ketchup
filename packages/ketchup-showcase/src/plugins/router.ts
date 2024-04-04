@@ -241,6 +241,12 @@ const advancedRoutes = [
       import(`@/views/components/advanced/imagelist/ImageList.vue`),
   },
   {
+    path: `/inputpanel`,
+    name: 'inputpanel',
+    component: () =>
+      import(`@/views/components/advanced/inputpanel/InputPanel.vue`),
+  },
+  {
     path: `/tree`,
     name: 'tree',
     component: () => import(`@/views/components/advanced/tree/Tree.vue`),

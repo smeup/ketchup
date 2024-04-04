@@ -83,6 +83,7 @@ export interface KupCardBuiltInOpenAIOptions {
 export interface KupCardBuiltInOpenAIMessages {
     text: string;
     type: 'request' | 'response';
+    funs: RegExpMatchArray[];
 }
 /**
  * Options of the built-in column drop menu.

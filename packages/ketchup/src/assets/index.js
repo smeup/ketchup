@@ -143,6 +143,10 @@ components.data = [
         id: 'image-list.html',
     },
     {
+        value: 'Input panel',
+        id: 'input-panel.html',
+    },
+    {
         value: 'KupData',
         id: 'kupdata.html',
     },
@@ -189,6 +193,14 @@ components.data = [
     {
         value: 'Planner example 4',
         id: 'planner-example-4.html',
+    },
+    {
+        value: 'Planner example 5',
+        id: 'planner-example-5.html',
+    },
+    {
+        value: 'Planner example 6',
+        id: 'planner-example-6.html',
     },
     {
         value: 'Progress Bar',

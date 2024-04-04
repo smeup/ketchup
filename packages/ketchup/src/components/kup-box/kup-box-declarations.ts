@@ -26,6 +26,9 @@ export enum KupBoxProps {
     kanban = 'Displays the boxlist as a Kanban.',
     layout = 'How the field will be displayed. If not present, a default one will be created.',
     lazyLoadRows = 'When set to true, extra rows will be automatically loaded once the last row enters the viewport.',
+    loadMoreLimit = 'Sets a maximum limit of new records which can be required by the load more functionality.',
+    loadMoreMode = 'Establish the modality of how many new records will be downloaded. This property is regulated also by loadMoreStep.',
+    loadMoreStep = 'The number of records which will be requested to be downloaded when clicking on the load more button. This property is regulated also by loadMoreMode.',
     multiSelection = 'Enable multi selection.',
     pageSelected = 'Current page number.',
     pagination = 'Enables pagination.',
@@ -33,12 +36,20 @@ export enum KupBoxProps {
     scrollOnHover = 'Activates the scroll on hover function.',
     selectBox = 'Automatically selects the box at the specified index.',
     selectedRowsState = 'Multiple selection.',
+    showLoadMore = 'If set to true, displays the button to load more records.',
     showSelection = 'If enabled, highlights the selected box/boxes.',
     sortBy = 'If sorting is enabled, specifies which column to sort.',
     sortEnabled = 'Enable sorting.',
     stateId = '',
     store = '',
     swipeDisabled = 'Disable swipe.',
+}
+
+//---- *NEXT functionality AKA load more ----
+export enum LoadMoreMode {
+    CONSTANT = 'constant',
+    CONSTANT_INCREMENT = 'constant_increment',
+    PROGRESSIVE_THRESHOLD = 'progressive_threshold',
 }
 export interface KupBoxData {
     columns?: KupDataColumn[];
@@ -119,4 +130,8 @@ export interface KupBoxRowActionClickEventPayload extends KupEventPayload {
 }
 export interface KupBoxContextMenuEventPayload extends KupEventPayload {
     details: KupBoxEventHandlerDetails;
+}
+
+export interface KupBoxLoadMoreClickEventPayload extends KupEventPayload {
+    loadItems: number;
 }

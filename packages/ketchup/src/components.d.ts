@@ -9,9 +9,9 @@ import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./compon
 import { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 import { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
-import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
+import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxLoadMoreClickEventPayload, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, LoadMoreMode } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+import { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
@@ -25,9 +25,9 @@ import { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./c
 import { FChipSize, FChipStyling, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
-import { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
+import { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
-import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
@@ -41,8 +41,9 @@ import { KupFormData, KupFormLabelPlacement, KupFormLayout } from "./components/
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
+import { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
-import { KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
+import { InputPanelEventsCallback, KupInputPanelData } from "./components/kup-input-panel/kup-input-panel-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -59,9 +60,9 @@ export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./compon
 export { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 export { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 export { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
-export { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
+export { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxLoadMoreClickEventPayload, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, LoadMoreMode } from "./components/kup-box/kup-box-declarations";
 export { KupStore } from "./components/kup-state/kup-store";
-export { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+export { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 export { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 export { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 export { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
@@ -75,9 +76,9 @@ export { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./c
 export { FChipSize, FChipStyling, FChipType } from "./f-components/f-chip/f-chip-declarations";
 export { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 export { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
-export { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
+export { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 export { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
-export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 export { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 export { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 export { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
@@ -91,8 +92,9 @@ export { KupFormData, KupFormLabelPlacement, KupFormLayout } from "./components/
 export { KupBadge } from "./components/kup-badge/kup-badge";
 export { FImageData } from "./f-components/f-image/f-image-declarations";
 export { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
+export { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 export { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
-export { KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
+export { InputPanelEventsCallback, KupInputPanelData } from "./components/kup-input-panel/kup-input-panel-declarations";
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -399,6 +401,22 @@ export namespace Components {
           * When set to true, extra rows will be automatically loaded once the last row enters the viewport.
          */
         "lazyLoadRows": boolean;
+        /**
+          * Sets a maximum limit of new records which can be required by the load more functionality.
+         */
+        "loadMoreLimit": number;
+        /**
+          * Establish the modality of how many new records will be downloaded.  This property is regulated also by loadMoreStep.
+          * @see loadMoreStep *
+          * @see loadMoreLimit
+         */
+        "loadMoreMode": LoadMoreMode;
+        /**
+          * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
+          * @see loadMoreMode *
+          * @see loadMoreLimit
+         */
+        "loadMoreStep": number;
         "loadRowActions": (row: KupBoxRow, actions: KupDataRowAction[]) => Promise<void>;
         /**
           * Enable multi selection
@@ -444,6 +462,10 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * If set to true, displays the button to load more records.
+         */
+        "showLoadMore": boolean;
         /**
           * If enabled, highlights the selected box/boxes
           * @default true
@@ -1467,6 +1489,10 @@ export namespace Components {
          */
         "lazyLoadRows": boolean;
         /**
+          * When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.
+         */
+        "legacyLook": boolean;
+        /**
           * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
          */
         "lineBreakCharacter": string;
@@ -1479,7 +1505,7 @@ export namespace Components {
           * @see loadMoreStep *
           * @see loadMoreLimit
          */
-        "loadMoreMode": LoadMoreMode;
+        "loadMoreMode": LoadMoreMode1;
         /**
           * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
           * @see loadMoreMode *
@@ -2203,6 +2229,10 @@ export namespace Components {
         "projectProgressSelectedColor": KupPlannerGanttProps['projectProgressSelectedColor'];
         "projection": KupPlannerGanttProps['projection'];
         "readOnly": KupPlannerGanttProps['readOnly'];
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         "rowHeight": KupPlannerGanttProps['rowHeight'];
         "rtl": KupPlannerGanttProps['rtl'];
         "scrollXChange": KupPlannerGanttProps['scrollXChange'];
@@ -2401,7 +2431,7 @@ export namespace Components {
         "rtl": boolean;
         "scrollNumber": number;
         "svgWidth": number;
-        "taskGanttRef": HTMLDivElement;
+        "taskListTrueRef": HTMLKupTaskListElement;
         "taskListWidth": number;
     }
     interface KupIframe {
@@ -2512,7 +2542,7 @@ export namespace Components {
           * Actual data of the component.
           * @default []
          */
-        "data": KupDataNode[];
+        "data": KupImageListDataNode[];
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -2544,6 +2574,49 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         "stateId": string;
         "store": KupStore;
+    }
+    interface KupInputPanel {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Actual data of the form.
+          * @default null
+         */
+        "data": KupInputPanelData;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Sets the callbacks functions on ketchup events
+          * @default []
+         */
+        "handleEventsCallbacks": InputPanelEventsCallback[];
+        /**
+          * Creates a hidden submit button in order to submit the form with enter.
+          * @default false
+         */
+        "hiddenSubmitButton": boolean;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the callback function on submit form
+          * @default null
+         */
+        "submitCb": (e: SubmitEvent) => unknown;
     }
     interface KupLazy {
         /**
@@ -3087,6 +3160,10 @@ export namespace Components {
     }
     interface KupPlannerRenderer {
         "props": PlannerProps;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
     }
     interface KupProbe {
         /**
@@ -4141,6 +4218,10 @@ export interface KupImageListCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupImageListElement;
 }
+export interface KupInputPanelCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupInputPanelElement;
+}
 export interface KupLazyCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupLazyElement;
@@ -4268,6 +4349,7 @@ declare global {
         "kup-box-didload": KupEventPayload;
         "kup-box-didunload": KupEventPayload;
         "kup-box-contextmenu": KupBoxContextMenuEventPayload;
+        "kup-box-loadmoreclick": KupBoxLoadMoreClickEventPayload;
     }
     interface HTMLKupBoxElement extends Components.KupBox, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupBoxElementEventMap>(type: K, listener: (this: HTMLKupBoxElement, ev: KupBoxCustomEvent<HTMLKupBoxElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -4786,6 +4868,23 @@ declare global {
         prototype: HTMLKupImageListElement;
         new (): HTMLKupImageListElement;
     };
+    interface HTMLKupInputPanelElementEventMap {
+        "kup-input-panel-ready": KupEventPayload;
+    }
+    interface HTMLKupInputPanelElement extends Components.KupInputPanel, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupInputPanelElementEventMap>(type: K, listener: (this: HTMLKupInputPanelElement, ev: KupInputPanelCustomEvent<HTMLKupInputPanelElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupInputPanelElementEventMap>(type: K, listener: (this: HTMLKupInputPanelElement, ev: KupInputPanelCustomEvent<HTMLKupInputPanelElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKupInputPanelElement: {
+        prototype: HTMLKupInputPanelElement;
+        new (): HTMLKupInputPanelElement;
+    };
     interface HTMLKupLazyElementEventMap {
         "kup-lazy-loaded": KupEventPayload;
     }
@@ -5207,6 +5306,7 @@ declare global {
         "kup-iframe": HTMLKupIframeElement;
         "kup-image": HTMLKupImageElement;
         "kup-image-list": HTMLKupImageListElement;
+        "kup-input-panel": HTMLKupInputPanelElement;
         "kup-lazy": HTMLKupLazyElement;
         "kup-list": HTMLKupListElement;
         "kup-magic-box": HTMLKupMagicBoxElement;
@@ -5466,6 +5566,22 @@ declare namespace LocalJSX {
          */
         "lazyLoadRows"?: boolean;
         /**
+          * Sets a maximum limit of new records which can be required by the load more functionality.
+         */
+        "loadMoreLimit"?: number;
+        /**
+          * Establish the modality of how many new records will be downloaded.  This property is regulated also by loadMoreStep.
+          * @see loadMoreStep *
+          * @see loadMoreLimit
+         */
+        "loadMoreMode"?: LoadMoreMode;
+        /**
+          * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
+          * @see loadMoreMode *
+          * @see loadMoreLimit
+         */
+        "loadMoreStep"?: number;
+        /**
           * Enable multi selection
           * @default false
          */
@@ -5487,6 +5603,7 @@ declare namespace LocalJSX {
           * Triggered when stop propagation event
          */
         "onKup-box-didunload"?: (event: KupBoxCustomEvent<KupEventPayload>) => void;
+        "onKup-box-loadmoreclick"?: (event: KupBoxCustomEvent<KupBoxLoadMoreClickEventPayload>) => void;
         /**
           * When the row menu action icon is click
          */
@@ -5529,6 +5646,10 @@ declare namespace LocalJSX {
           * @default undefined
          */
         "selectedRowsState"?: string;
+        /**
+          * If set to true, displays the button to load more records.
+         */
+        "showLoadMore"?: boolean;
         /**
           * If enabled, highlights the selected box/boxes
           * @default true
@@ -6361,6 +6482,10 @@ declare namespace LocalJSX {
          */
         "lazyLoadRows"?: boolean;
         /**
+          * When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.
+         */
+        "legacyLook"?: boolean;
+        /**
           * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
          */
         "lineBreakCharacter"?: string;
@@ -6373,7 +6498,7 @@ declare namespace LocalJSX {
           * @see loadMoreStep *
           * @see loadMoreLimit
          */
-        "loadMoreMode"?: LoadMoreMode;
+        "loadMoreMode"?: LoadMoreMode1;
         /**
           * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
           * @see loadMoreMode *
@@ -7153,7 +7278,7 @@ declare namespace LocalJSX {
         "rtl"?: boolean;
         "scrollNumber"?: number;
         "svgWidth"?: number;
-        "taskGanttRef"?: HTMLDivElement;
+        "taskListTrueRef"?: HTMLKupTaskListElement;
         "taskListWidth"?: number;
     }
     interface KupIframe {
@@ -7238,7 +7363,7 @@ declare namespace LocalJSX {
           * Actual data of the component.
           * @default []
          */
-        "data"?: KupDataNode[];
+        "data"?: KupImageListDataNode[];
         "onKup-imagelist-click"?: (event: KupImageListCustomEvent<KupImageListEventPayload>) => void;
         "onKup-imagelist-contextmenu"?: (event: KupImageListCustomEvent<KupImageListEventPayload>) => void;
         "onKup-imagelist-dblclick"?: (event: KupImageListCustomEvent<KupImageListEventPayload>) => void;
@@ -7258,6 +7383,38 @@ declare namespace LocalJSX {
         "selectedNode"?: TreeNodePath;
         "stateId"?: string;
         "store"?: KupStore;
+    }
+    interface KupInputPanel {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Actual data of the form.
+          * @default null
+         */
+        "data"?: KupInputPanelData;
+        /**
+          * Sets the callbacks functions on ketchup events
+          * @default []
+         */
+        "handleEventsCallbacks"?: InputPanelEventsCallback[];
+        /**
+          * Creates a hidden submit button in order to submit the form with enter.
+          * @default false
+         */
+        "hiddenSubmitButton"?: boolean;
+        /**
+          * When component load is complete
+         */
+        "onKup-input-panel-ready"?: (event: KupInputPanelCustomEvent<KupEventPayload>) => void;
+        /**
+          * Sets the callback function on submit form
+          * @default null
+         */
+        "submitCb"?: (e: SubmitEvent) => unknown;
     }
     interface KupLazy {
         /**
@@ -8584,6 +8741,7 @@ declare namespace LocalJSX {
         "kup-iframe": KupIframe;
         "kup-image": KupImage;
         "kup-image-list": KupImageList;
+        "kup-input-panel": KupInputPanel;
         "kup-lazy": KupLazy;
         "kup-list": KupList;
         "kup-magic-box": KupMagicBox;
@@ -8654,6 +8812,7 @@ declare module "@stencil/core" {
             "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
             "kup-image-list": LocalJSX.KupImageList & JSXBase.HTMLAttributes<HTMLKupImageListElement>;
+            "kup-input-panel": LocalJSX.KupInputPanel & JSXBase.HTMLAttributes<HTMLKupInputPanelElement>;
             "kup-lazy": LocalJSX.KupLazy & JSXBase.HTMLAttributes<HTMLKupLazyElement>;
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;
