@@ -209,7 +209,60 @@ let data = {
                     shape: 'RAD',
                 },
             },
-            layout: {},
+            layout: {
+                sections: [
+                    {
+                        content: [
+                            {
+                                id: 'NAM',
+                                colStart: 1,
+                                colEnd: 1,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                            {
+                                id: 'SUR',
+                                colStart: 2,
+                                colEnd: 2,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                            {
+                                id: 'NAT',
+                                colStart: 1,
+                                colEnd: 1,
+                                rowStart: 2,
+                                rowEnd: 2,
+                            },
+                            {
+                                id: 'CIT',
+                                colStart: 2,
+                                colEnd: 2,
+                                rowStart: 2,
+                                rowEnd: 2,
+                            },
+                            {
+                                id: 'CHK',
+                                colStart: 1,
+                                colEnd: 1,
+                                rowStart: 3,
+                                rowEnd: 3,
+                            },
+                            {
+                                id: 'RAD',
+                                colSpan: 2,
+                                rowStart: 3,
+                                rowEnd: 3,
+                            },
+                        ],
+                        dim: '50%',
+                        gridCols: 3,
+                        gridRows: 3,
+                        gap: 2,
+                    },
+                ],
+                horizontal: true,
+            },
         },
     ],
 };

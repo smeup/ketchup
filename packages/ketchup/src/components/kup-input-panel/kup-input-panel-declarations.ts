@@ -48,14 +48,17 @@ export interface KupInputPanelLayoutSection {
     horizontal?: boolean;
     gridCols?: number;
     gridRows?: number;
+    // Gap is in rem
     gap?: number;
 }
 
 export interface KupInputPanelLayoutField {
     id: string;
+    // Span is referred to start
     colSpan?: number;
     colStart?: number;
     colEnd?: number;
+    // Span is referred to start
     rowSpan?: number;
     rowStart?: number;
     rowEnd?: number;
@@ -90,5 +93,5 @@ export enum KupInputPanelProps {
     data = 'Actual data of the input panel.',
     hiddenSubmitButton = 'Creates a hidden submit button in order to submit the form with enter.',
     submitCb = 'Sets the callback function on submit form',
-    valueChangeCb = 'Sets the callback function on value change event',
+    handleEventsCallbacks = 'Sets the callback function on value change event',
 }

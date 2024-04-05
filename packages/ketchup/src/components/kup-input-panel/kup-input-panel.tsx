@@ -21,6 +21,8 @@ import {
     KupInputPanelCellOptions,
     KupInputPanelColumn,
     KupInputPanelData,
+    KupInputPanelLayoutField,
+    KupInputPanelLayoutSection,
     KupInputPanelProps,
     KupInputPanelRow,
 } from './kup-input-panel-declarations';
@@ -180,17 +182,24 @@ export class KupInputPanel {
     /*-------------------------------------------------*/
 
     #renderRow(inputPanelCell: InputPanelCells) {
-        // todo layout
-        const horizontal = inputPanelCell.row.layout?.horizontal || false;
+        const layout = inputPanelCell.row.layout;
+        const horizontal = layout?.horizontal || false;
 
-        const rowContent: VNode[] = inputPanelCell.cells.map((cell) =>
-            this.#renderCell(cell.cell, inputPanelCell.row, cell.column)
-        );
+        let rowContent: VNode[];
+
+        if (!layout.sections?.length) {
+            rowContent = inputPanelCell.cells.map((cell) =>
+                this.#renderCell(cell.cell, inputPanelCell.row, cell.column)
+            );
+        } else {
+            rowContent = layout.sections.map((section) =>
+                this.#renderSection(inputPanelCell, section)
+            );
+        }
 
         const classObj = {
-            form: true,
             'input-panel': true,
-            'form--column': !horizontal,
+            'input-panel--column': !horizontal,
         };
 
         // We create a form for each row in data
@@ -230,6 +239,81 @@ export class KupInputPanel {
         };
 
         return <FCell {...cellProps} />;
+    }
+
+    #renderSection(
+        cells: InputPanelCells,
+        section: KupInputPanelLayoutSection
+    ) {
+        let content = [];
+
+        if (section.sections?.length) {
+            content = section.sections.map((innerSection) =>
+                this.#renderSection(cells, innerSection)
+            );
+        } else if (section.content?.length) {
+            content = section.content.map((field) =>
+                this.#renderField(cells, field)
+            );
+        }
+
+        const classObj = {
+            'input-panel__section': !section.horizontal,
+            'input-panel__horizontal-section': section.horizontal,
+        };
+
+        const styleObj: GenericObject = {
+            gap: section.gap ? `${section.gap}rem` : '',
+            'grid-template-columns': section.gridCols
+                ? `repeat(${section.gridCols}, 1fr)`
+                : '',
+            'grid-template-rows': section.gridRows
+                ? `repeat(${section.gridRows}, 1fr)`
+                : '',
+        };
+
+        if (cells.row?.layout?.horizontal) {
+            styleObj.maxWidth = section.dim;
+        } else {
+            styleObj.maxHeight = section.dim;
+        }
+
+        return (
+            <div class={classObj} style={styleObj}>
+                {content}
+            </div>
+        );
+    }
+
+    #renderField(cells: InputPanelCells, field: KupInputPanelLayoutField) {
+        const fieldCell = cells.cells.find(
+            (cell) => cell.column.name === field.id
+        );
+
+        const colStart = field.colSpan
+            ? `span ${field.colSpan}`
+            : `${field.colStart}`;
+
+        const colEnd = field.colEnd ? `${field.colEnd}` : '';
+
+        const rowStart = field.rowSpan
+            ? `span ${field.rowSpan}`
+            : `${field.rowStart}`;
+
+        const rowEnd = field.rowEnd ? `${field.rowEnd}` : '';
+
+        const styleObj = {
+            'grid-column-start': colStart,
+            'grid-column-end': colEnd,
+            'grid-row-start': rowStart,
+            'grid-row-end': rowEnd,
+        };
+
+        return (
+            <div style={styleObj}>
+                {this.#renderCell(fieldCell.cell, cells.row, fieldCell.column)}
+            </div>
+        );
     }
 
     #mapCells(data: KupInputPanelData) {
