@@ -136,6 +136,7 @@ Type: `Promise<void>`
  - [kup-magic-box](../kup-magic-box)
  - [kup-nav-bar](../kup-nav-bar)
  - [kup-numeric-picker](../kup-numeric-picker)
+ - [kup-pdf](../kup-pdf)
  - [kup-photo-frame](../kup-photo-frame)
  - [kup-planner](../kup-planner)
  - [kup-probe](../kup-probe)
@@ -205,6 +206,7 @@ graph TD;
   kup-magic-box --> kup-dialog
   kup-nav-bar --> kup-dialog
   kup-numeric-picker --> kup-dialog
+  kup-pdf --> kup-dialog
   kup-photo-frame --> kup-dialog
   kup-planner --> kup-dialog
   kup-probe --> kup-dialog

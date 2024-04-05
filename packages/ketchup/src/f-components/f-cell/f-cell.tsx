@@ -176,13 +176,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
             kup-get-cell-props={() => {
                 return props;
             }}
-            onTouchStart={
-                dom.ketchup.interact.isMobileDevice()
-                    ? (e) => {
-                          e.preventDefault();
-                      }
-                    : null
-            }
             ref={(el) => (cell.element = el)}
             style={cell.style}
         >
@@ -795,8 +788,8 @@ function cellEvent(
     const column = props.column;
     const comp = props.component;
     const row = props.row;
-    let value = getValueFromEventTaget(e, cellType);
     if (cellEventName === FCellEvents.UPDATE) {
+        let value = getValueFromEventTaget(e, cellType);
         switch (cellType) {
             case FCellTypes.AUTOCOMPLETE:
             case FCellTypes.COMBOBOX:

@@ -119,6 +119,11 @@ const basicRoutes = [
       import(`@/views/components/basic/numericpicker/NumericPicker.vue`),
   },
   {
+    path: `/pdf`,
+    name: 'pdf',
+    component: () => import(`@/views/components/basic/pdf/Pdf.vue`),
+  },
+  {
     path: `/progressbar`,
     name: 'progressbar',
     component: () =>

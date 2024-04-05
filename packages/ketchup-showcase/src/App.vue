@@ -645,6 +645,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'pdf',
+                  },
+                },
+                icon: 'document',
+                value: 'Pdf',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'progressbar',
                   },
                 },

@@ -175,6 +175,10 @@ components.data = [
         id: 'numeric-picker.html',
     },
     {
+        value: 'Pdf',
+        id: 'pdf.html',
+    },
+    {
         value: 'Planner',
         id: 'planner.html',
     },
