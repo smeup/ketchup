@@ -58,7 +58,7 @@ export default {
 function createComp() {
   const comp = document.createElement('kup-pdf');
   comp.id = 'demo-component';
-  comp.pdfPath = '/assets/kup-pdf-sample.pdf';
+  comp.pdfPath = 'assets/kup-pdf-sample.pdf';
   return comp;
 }
 </script>
