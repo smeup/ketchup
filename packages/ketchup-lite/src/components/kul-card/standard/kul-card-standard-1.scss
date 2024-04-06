@@ -1,5 +1,5 @@
 .standard-layout-1 {
-  background-color: var(--kup-background-color);
+  background-color: var(--kul-background-color);
   border-radius: 4px;
   box-sizing: border-box;
   box-shadow: 0 2px 1px -1px rgba(128, 128, 128, 0.1),
@@ -11,7 +11,7 @@
   width: 100%;
   overflow: auto;
 
-  kup-button {
+  kul-button {
     margin-right: 0;
   }
 
@@ -26,6 +26,10 @@
     }
   }
 
+  .surface {
+    height: 100%;
+  }
+
   .section-1 {
     height: 60%;
     width: 100%;
@@ -37,10 +41,10 @@
     overflow: auto;
 
     .sub-2.title {
-      color: var(--kup-text-color);
-      padding: 0 1em;
-      padding-top: 1em;
+      color: var(--kul-text-color);
+      padding: 1em;
       text-align: left;
+
       div {
         font-size: 1.25em;
         font-weight: 500;
@@ -53,6 +57,7 @@
       padding: 0 1em;
       padding-bottom: 1em;
       text-align: left;
+
       div {
         font-size: 0.875em;
         font-weight: 500;

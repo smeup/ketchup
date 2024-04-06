@@ -30,7 +30,7 @@ export const config: Config = {
     ],
     plugins: [
         sass({
-            includePaths: ['./node_modules'],
+            includePaths: ['./node_modules', './src/style'],
             injectGlobalPaths: ['src/style/global.scss'],
         }),
     ],

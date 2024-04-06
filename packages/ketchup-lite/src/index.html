@@ -9,74 +9,37 @@
         <title>Ketchup Lite Dev. Env.</title>
         <script type="module" src="/build/ketchup-lite.esm.js"></script>
         <script nomodule src="/build/ketchup-lite.js"></script>
-        <link rel="stylesheet" href="/assets/css/global.css" />
-        <link rel="stylesheet" href="/assets/css/index.css" />
         <script src="/assets/js/global.js"></script>
+        <style>
+            html {
+                background-color: var(--kul-background-color, black);
+                color: var(--kul-text-color);
+                font-family: var(--kul-font-family);
+                font-size: var(--kul-font-size);
+                height: 100%;
+                width: 100%;
+            }
+            body {
+                margin: 0;
+            }
+            #dev-server-progress-bar {
+                background: var(--kul-spinner-color) !important;
+            }
+        </style>
     </head>
 
     <body>
-        <div id="landing-spinner-modal"
-            ><div id="landing-spinner-wrapper">
-                <div id="landing-spinner-container"
-                    ><kul-spinner active layout="13"></kul-spinner
-                ></div>
-                <div id="landing-spinner-label">Loading...</div></div
-            >
-        </div>
-        <div class="section--wrapper">
-            <div class="section">
-                <h2>Utilities</h2>
-                <div class="flex-wrapper flex-wrapper--responsive">
-                    <kul-card
-                        data-description="Environment to test a single component's behavior. IMPORTANT: do not commit any change on this page!"
-                        data-href="pages/debug.html"
-                        data-icon="bug"
-                        data-title="Debug"
-                        id="debug"
-                    ></kul-card>
-                    <kul-card
-                        data-description="Environment for performance testing through kul-probe."
-                        data-href="pages/probe.html"
-                        data-icon="timer"
-                        data-title="Probe"
-                        id="probe"
-                    ></kul-card
-                ></div>
-            </div>
-            <div class="section">
-                <h2>Components</h2>
-                <div class="flex-wrapper flex-wrapper--responsive">
-                    <kul-card
-                        data-description=""
-                        data-href="pages/badge.html"
-                        data-icon="notifications"
-                        data-title="Badge"
-                        id="badge"
-                    ></kul-card>
-                    <kul-card
-                        data-description=""
-                        data-href="pages/button.html"
-                        data-icon="brightness-1"
-                        data-title="Button"
-                        id="button"
-                    ></kul-card>
-                    <kul-card
-                        data-description=""
-                        data-href="pages/card.html"
-                        data-icon="art_track"
-                        data-title="Card"
-                        id="card"
-                    ></kul-card
-                    ><kul-card
-                        data-description=""
-                        data-href="pages/image.html"
-                        data-icon="image"
-                        data-title="Image"
-                        id="image"
-                    ></kul-card
-                ></div>
-            </div>
-        </div>
-        <script src="/assets/js/index.js"></script>
+        <script>
+            console.log('Initializing index page...');
+
+            document.addEventListener('kul-manager-ready', (e) => {
+                console.log('KupManager ready!', e);
+                document.querySelector('kul-splash').unmount();
+                document.body.append(document.createElement('kul-showcase'));
+            });
+        </script>
+        <kul-splash id="splash">
+            <kul-spinner></kul-spinner>
+        </kul-splash>
     </body>
 </html>

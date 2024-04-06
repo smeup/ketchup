@@ -1,8 +1,5 @@
 console.log('Creating spinner...');
 
-let statesColorsIndex = 0;
-let cornerPositionIndex = 0;
-
 if (
     window.matchMedia &&
     window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -11,26 +8,8 @@ if (
         theme: { name: 'dark' },
     };
 }
-document.addEventListener('kul-manager-ready', (e) => {
-    const removeSpinner = () => {
-        setTimeout(() => {
-            const landingModal = document.querySelector(
-                '#landing-spinner-modal'
-            );
-            const landingLabel = document.querySelector(
-                '#landing-spinner-label'
-            );
-            landingLabel.innerHTML = 'Ready!';
-            landingModal.style.opacity = '0';
-            setTimeout(() => landingModal.remove(), 300);
-        }, 575);
-    };
-    console.log('KupManager ready!', e);
-    kulManager = document.documentElement.ketchupLite;
-    removeSpinner();
-});
 
-function statesColorsRandomizer() {
+function statesColorManager() {
     const styles = [
         '',
         'kul-secondary-color',
@@ -40,24 +19,26 @@ function statesColorsRandomizer() {
         'kul-danger',
     ];
 
-    return function () {
-        if (statesColorsIndex === styles.length) {
-            statesColorsIndex = 0;
-        }
-        const style = styles[statesColorsIndex++];
-        return style;
+    return {
+        getLength: function () {
+            return styles.length;
+        },
+        getStyle: function (index) {
+            return styles[index];
+        },
     };
 }
 
-function cornerPositionsRandomizer() {
+function cornerPositions() {
     const styles = ['', 'kul-top-right', 'kul-bottom-left', 'kul-bottom-right'];
 
-    return function () {
-        if (cornerPositionIndex === styles.length) {
-            cornerPositionIndex = 0;
-        }
-        const style = styles[cornerPositionIndex++];
-        return style;
+    return {
+        getLength: function () {
+            return styles.length;
+        },
+        getStyle: function (index) {
+            return styles[index];
+        },
     };
 }
 
@@ -66,12 +47,9 @@ function styleRandomizer() {
         1: '#kul-component { background-color: var(--kul-secondary-color)} ',
         2: '#kul-component { color: var(--kul-primary-color);} ',
         3: '#kul-component { border-radius: 8px;} ',
-        4: '#kul-component { font-size: 16px;} ',
-        5: '#kul-component { padding: 10px;} ',
-        6: '#kul-component { margin: 5px;} ',
         7: '#kul-component { box-shadow: 0px 0px 5px var(--kul-shadow-color);} ',
         8: '#kul-component { transition: all 0.3s ease;} ',
-        9: '#kul-component { opacity: 0.9;} ',
+        9: '#kul-component { opacity: 0.5;} ',
         10: '#kul-component { text-transform: uppercase;} ',
     };
 

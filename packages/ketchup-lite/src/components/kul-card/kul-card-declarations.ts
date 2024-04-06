@@ -5,7 +5,7 @@ export enum KulCardCSSClasses {
     HAS_CONTENT = 'has-content',
 }
 
-export type KulCardEvents = 'click' | 'kul-event' | 'ready';
+export type KulCardEvents = 'click' | 'kul-event' | 'pointerdown' | 'ready';
 
 export type KulCardFamily = 'standard';
 

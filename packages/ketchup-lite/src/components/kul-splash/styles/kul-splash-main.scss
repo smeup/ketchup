@@ -1,0 +1,64 @@
+/**
+* @prop --kul-splash-background-color: Sets the color of the spinner.
+* @prop --kul-splash-font-family: Sets the label's font family.
+* @prop --kul-splash-font-size: Sets the label's font size.
+* @prop --kul-splash-label-color: Sets the color of the label.
+* @prop --kul-splash-spinner-color: Sets the color of the background.
+*/
+
+:host {
+  --kul_splash_background_color: var(
+    --kul-splash-background-color,
+    var(--kul-background-color)
+  );
+  --kul_splash_font_family: var(
+    --kul-splash-font-family,
+    var(--kul-font-family)
+  );
+  --kul_splash_font_size: var(--kul-splash-font-size, var(--kul-font-size));
+  --kul_splash_label_color: var(
+    --kul-splash-label-color,
+    var(--kul-text-color)
+  );
+  --kul_splash_widget_color: var(
+    --kul-splash-widget-color,
+    var(--kul-primary-color)
+  );
+}
+
+.modal {
+  --kul-spinner-color: var(--kul_splash_widget_color);
+
+  background: var(--kul_splash_background_color);
+  display: flex;
+  height: 100%;
+  left: 0;
+  opacity: 1;
+  position: fixed;
+  top: 0;
+  transition: opacity 0.5s ease-out;
+  width: 100%;
+  z-index: 999;
+
+  &.active {
+    opacity: 0;
+  }
+}
+
+.wrapper {
+  margin: auto;
+}
+
+.widget {
+  height: 150px;
+  width: 150px;
+}
+
+.label {
+  color: var(--kul_splash_label_color);
+  font-family: var(--kul_splash_font_family);
+  font-size: var(--kul_splash_font_size);
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-align: center;
+}

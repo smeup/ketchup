@@ -9,26 +9,30 @@ import {
     Method,
     Prop,
     State,
+    VNode,
 } from '@stencil/core';
-import { KulBadgeEvents, KulBadgeProps } from './kul-badge-declarations';
-import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
-import { KulImagePropsInterface } from '../kul-image/kul-image-declarations';
-import { getProps, setProps } from '../../utils/componentUtils';
-import { KulThemeColorValues } from '../../managers/kul-theme/kul-theme-declarations';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
-import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
+import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
+import { getProps, setProps } from '../../utils/componentUtils';
+import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
+import {
+    KulShowcaseEvents,
+    KulShowcaseProps,
+} from './kul-showcase-declarations';
+import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_SHOWCASE_COMPONENTS } from './kul-showcase-data';
+import { KulCardCustomEvent, KulDataDataset } from '../../components';
 
 @Component({
-    tag: 'kul-badge',
-    styleUrl: 'kul-badge.scss',
+    tag: 'kul-showcase',
+    styleUrl: 'kul-showcase.scss',
     shadow: true,
 })
-export class KulBadge {
+export class KulShowcase {
     /**
-     * References the root HTML element of the component (<kul-badge>).
+     * References the root HTML element of the component (<kul-showcase>).
      */
-    @Element() rootElement: HTMLKulBadgeElement;
+    @Element() rootElement: HTMLKulShowcaseElement;
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -44,21 +48,16 @@ export class KulBadge {
         renderStart: 0,
         startTime: performance.now(),
     };
+    /**
+     * Array of strings keeping track of user navigation.
+     * @default ""
+     */
+    @State() history: string[] = [];
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
 
-    /**
-     * The props of the image displayed inside the badge.
-     * @default null
-     */
-    @Prop({ mutable: true }) kulImageProps: KulImagePropsInterface = null;
-    /**
-     * The text displayed inside the badge.
-     * @default ""
-     */
-    @Prop({ mutable: true, reflect: false }) kulLabel = '';
     /**
      * Custom style of the component.
      * @default ""
@@ -79,14 +78,14 @@ export class KulBadge {
      * Describes event emitted for various button interactions like click.
      */
     @Event({
-        eventName: 'kul-badge-event',
+        eventName: 'kul-showcase-event',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event, eventType: KulBadgeEvents) {
+    onKulEvent(e: Event, eventType: KulShowcaseEvents) {
         this.kulEvent.emit({
             comp: this,
             eventType,
@@ -114,7 +113,7 @@ export class KulBadge {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        return getProps(this, KulBadgeProps, descriptions);
+        return getProps(this, KulShowcaseProps, descriptions);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -129,7 +128,47 @@ export class KulBadge {
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KulBadgeProps, props);
+        setProps(this, KulShowcaseProps, props);
+    }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    #compCards(): VNode[] {
+        const cards: VNode[] = [];
+        KUL_SHOWCASE_COMPONENTS.nodes.forEach((node) => {
+            const kulData: KulDataDataset = {
+                nodes: [
+                    {
+                        cells: {
+                            icon: { shape: 'image', value: node.icon },
+                            text1: { value: node.value },
+                            text2: { value: '' },
+                            text3: { value: node.description },
+                        },
+                        id: node.id,
+                    },
+                ],
+            };
+            const onEvent: (
+                event: KulCardCustomEvent<KulEventPayload>
+            ) => void = (e) => {
+                if (e.detail.eventType === 'click') {
+                    this.history.push(node.id);
+                    console.log('History changed.', this.history);
+                }
+            };
+            cards.push(
+                <kul-card
+                    kulData={kulData}
+                    kulSizeX="300px"
+                    kulSizeY="300px"
+                    onKul-card-event={onEvent}
+                ></kul-card>
+            );
+        });
+        return cards;
     }
 
     /*-------------------------------------------------*/
@@ -153,14 +192,6 @@ export class KulBadge {
     }
 
     render() {
-        let imageEl: HTMLElement = null;
-        if (!this.kulLabel && this.kulImageProps) {
-            if (!this.kulImageProps.kulColor) {
-                this.kulImageProps.kulColor = `var(${KulThemeColorValues.TEXT_ON_PRIMARY})`;
-            }
-            imageEl = <kul-image {...this.kulImageProps}></kul-image>;
-        }
-
         return (
             <Host>
                 <style>{this.#kulManager.theme.setKulStyle(this)}</style>
@@ -168,8 +199,33 @@ export class KulBadge {
                     id={KUL_WRAPPER_ID}
                     onClick={(e) => this.onKulEvent(e, 'click')}
                 >
-                    {this.kulLabel}
-                    {imageEl}
+                    <div class="section--wrapper">
+                        <div class="section">
+                            <h2>Utilities</h2>
+                            <div class="flex-wrapper flex-wrapper--responsive">
+                                <kul-card
+                                    data-description="Environment to test a single component's behavior. IMPORTANT: do not commit any change on this page!"
+                                    data-href="pages/debug.html"
+                                    data-icon="bug"
+                                    data-title="Debug"
+                                    id="debug"
+                                ></kul-card>
+                                <kul-card
+                                    data-description="Environment for performance testing through kul-probe."
+                                    data-href="pages/probe.html"
+                                    data-icon="timer"
+                                    data-title="Probe"
+                                    id="probe"
+                                ></kul-card>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <h2>Components</h2>
+                            <div class="flex-wrapper flex-wrapper--responsive">
+                                {this.#compCards()}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </Host>
         );

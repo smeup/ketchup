@@ -7,13 +7,13 @@
         "jsx": "react",
         "jsxFactory": "h",
         "lib": ["dom", "es2017"],
-        "moduleResolution": "node",
         "module": "esnext",
+        "moduleResolution": "node",
         "noUnusedLocals": false,
         "noUnusedParameters": true,
         "resolveJsonModule": true,
         "target": "ES2022"
     },
-    "include": ["src", "types/jsx.d.ts", "../../bu/kup-badge"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules"],
+    "include": ["src"]
 }

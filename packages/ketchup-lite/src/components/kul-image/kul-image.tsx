@@ -9,6 +9,7 @@ import {
     Host,
     Method,
     Prop,
+    State,
     VNode,
 } from '@stencil/core';
 import type {
@@ -20,13 +21,13 @@ import type {
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { KulImageEvents, KulImageProps } from './kul-image-declarations';
 import { KulThemeColorValues } from '../../managers/kul-theme/kul-theme-declarations';
-import { getProps, setProps } from '../../utils/utils';
+import { getProps, setProps } from '../../utils/componentUtils';
 import {
     CSS_VAR_PREFIX,
     KUL_WRAPPER_ID,
 } from '../../variables/GenericVariables';
 import { KulBadgePropsInterface } from '../kul-badge/kul-badge-declarations';
-import { KulDebugCategory } from '../../managers/kul-debug/kul-debug-declarations';
+import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 
 @Component({
     tag: 'kul-image',
@@ -39,6 +40,21 @@ export class KulImage {
      * References the root HTML element of the component (<kul-image>).
      */
     @Element() rootElement: HTMLKulImageElement;
+
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
+
+    /**
+     * Debug information.
+     */
+    @State() debugInfo: KulDebugComponentInfo = {
+        endTime: 0,
+        renderCount: 0,
+        renderEnd: 0,
+        renderStart: 0,
+        startTime: performance.now(),
+    };
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -118,6 +134,14 @@ export class KulImage {
     /*-------------------------------------------------*/
 
     /**
+     * Fetches debug information of the component's current state.
+     * @returns {Promise<KulDebugComponentInfo>} A promise that resolves with the debug information object.
+     */
+    @Method()
+    async getDebugInfo(): Promise<KulDebugComponentInfo> {
+        return this.debugInfo;
+    }
+    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -194,29 +218,24 @@ export class KulImage {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        this.#kulManager.debug.logLoad(this, false);
         this.#kulManager.theme.register(this);
     }
 
     componentDidLoad() {
-        this.#kulManager.debug.logLoad(this, true);
+        this.#kulManager.debug.updateDebugInfo(this, 'did-load');
     }
 
     componentWillRender() {
-        this.#kulManager.debug.logRender(this, false);
+        this.#kulManager.debug.updateDebugInfo(this, 'will-render');
     }
 
     componentDidRender() {
-        this.#kulManager.debug.logRender(this, true);
+        this.#kulManager.debug.updateDebugInfo(this, 'did-render');
     }
 
     render() {
         if (!this.kulValue) {
-            this.#kulManager.debug.logMessage(
-                this,
-                'Empty image.',
-                KulDebugCategory.WARNING
-            );
+            this.#kulManager.debug.logMessage(this, 'Empty image.', 'warning');
             return;
         }
 
@@ -257,17 +276,12 @@ export class KulImage {
         }
 
         return (
-            <Host>
-                <style>
-                    {this.#kulManager.theme.setKulStyle(
-                        this.rootElement as KulComponent
-                    )}
-                </style>
+            <Host style={style}>
+                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
                 {feedback}
                 <div id={KUL_WRAPPER_ID}>
                     <div
                         class="image"
-                        style={style}
                         onClick={(e) => {
                             this.onKulEvent(e, 'click');
                         }}

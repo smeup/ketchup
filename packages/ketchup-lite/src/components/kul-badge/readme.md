@@ -23,6 +23,16 @@
 
 ## Methods
 
+### `getDebugInfo() => Promise<KulDebugComponentInfo>`
+
+Fetches debug information of the component's current state.
+
+#### Returns
+
+Type: `Promise<KulDebugComponentInfo>`
+
+A promise that resolves with the debug information object.
+
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
 Used to retrieve component's props values.
@@ -85,9 +95,14 @@ Type: `Promise<void>`
 
  - [kul-image](../kul-image)
 
+### Depends on
+
+- [kul-image](../kul-image)
+
 ### Graph
 ```mermaid
 graph TD;
+  kul-badge --> kul-image
   kul-image --> kul-badge
   style kul-badge fill:#f9f,stroke:#333,stroke-width:4px
 ```

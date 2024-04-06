@@ -10,25 +10,27 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { KulBadgeEvents, KulBadgeProps } from './kul-badge-declarations';
+import {
+    KulSplashEvents,
+    KulSplashProps,
+    KulSplashStates,
+} from './kul-splash-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
-import { KulImagePropsInterface } from '../kul-image/kul-image-declarations';
 import { getProps, setProps } from '../../utils/componentUtils';
-import { KulThemeColorValues } from '../../managers/kul-theme/kul-theme-declarations';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
 
 @Component({
-    tag: 'kul-badge',
-    styleUrl: 'kul-badge.scss',
+    tag: 'kul-splash',
+    styleUrl: 'kul-splash.scss',
     shadow: true,
 })
-export class KulBadge {
+export class KulSplash {
     /**
-     * References the root HTML element of the component (<kul-badge>).
+     * References the root HTML element of the component (<kul-splash>).
      */
-    @Element() rootElement: HTMLKulBadgeElement;
+    @Element() rootElement: HTMLKulSplashElement;
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -44,24 +46,26 @@ export class KulBadge {
         renderStart: 0,
         startTime: performance.now(),
     };
+    /**
+     * The value of the component ("on" or "off").
+     * @default ""
+     *
+     * @see KulButtonStates - For a list of possible states.
+     */
+    @State() state: KulSplashStates = 'initializing';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
 
     /**
-     * The props of the image displayed inside the badge.
-     * @default null
+     * Initial text displayed within the component, typically shown during loading.
+     * @default "Loading..." - Indicates that loading or initialization is in progress.
      */
-    @Prop({ mutable: true }) kulImageProps: KulImagePropsInterface = null;
+    @Prop({ mutable: true, reflect: false }) kulLabel = 'Loading...';
     /**
-     * The text displayed inside the badge.
-     * @default ""
-     */
-    @Prop({ mutable: true, reflect: false }) kulLabel = '';
-    /**
-     * Custom style of the component.
-     * @default ""
+     * Enables customization of the component's style.
+     * @default "" - No custom style applied by default.
      */
     @Prop({ mutable: true, reflect: true }) kulStyle = '';
 
@@ -79,14 +83,14 @@ export class KulBadge {
      * Describes event emitted for various button interactions like click.
      */
     @Event({
-        eventName: 'kul-badge-event',
+        eventName: 'kul-splash-event',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event, eventType: KulBadgeEvents) {
+    onKulEvent(e: Event, eventType: KulSplashEvents) {
         this.kulEvent.emit({
             comp: this,
             eventType,
@@ -100,36 +104,50 @@ export class KulBadge {
     /*-------------------------------------------------*/
 
     /**
-     * Fetches debug information of the component's current state.
-     * @returns {Promise<KulDebugComponentInfo>} A promise that resolves with the debug information object.
+     * Retrieves the debug information reflecting the current state of the component.
+     * @returns {Promise<KulDebugComponentInfo>} A promise that resolves to a KulDebugComponentInfo object containing debug information.
      */
     @Method()
     async getDebugInfo(): Promise<KulDebugComponentInfo> {
         return this.debugInfo;
     }
     /**
-     * Used to retrieve component's props values.
-     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
-     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     * Retrieves the properties of the component, with optional descriptions.
+     * @param {boolean} descriptions - If true, returns properties with descriptions; otherwise, returns properties only.
+     * @returns {Promise<GenericObject>} A promise that resolves to an object where each key is a property name, optionally with its description.
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        return getProps(this, KulBadgeProps, descriptions);
+        return getProps(this, KulSplashProps, descriptions);
     }
     /**
-     * This method is used to trigger a new render of the component.
+     * Triggers a re-render of the component to reflect any state changes.
      */
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
     }
     /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
+     * Assigns a set of properties to the component, triggering updates if necessary.
+     * @param {GenericObject} props - An object containing properties to be set on the component.
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KulBadgeProps, props);
+        setProps(this, KulSplashProps, props);
+    }
+    /**
+     * Initiates the unmount sequence, which removes the component from the DOM after a delay.
+     * @param {number} ms - Number of milliseconds
+     */
+    @Method()
+    async unmount(ms: number = 575): Promise<void> {
+        setTimeout(() => {
+            this.state = 'unmounting';
+            setTimeout(() => {
+                this.onKulEvent(new CustomEvent(''), 'unmount');
+                this.rootElement.remove();
+            }, 300);
+        }, ms);
     }
 
     /*-------------------------------------------------*/
@@ -153,23 +171,27 @@ export class KulBadge {
     }
 
     render() {
-        let imageEl: HTMLElement = null;
-        if (!this.kulLabel && this.kulImageProps) {
-            if (!this.kulImageProps.kulColor) {
-                this.kulImageProps.kulColor = `var(${KulThemeColorValues.TEXT_ON_PRIMARY})`;
-            }
-            imageEl = <kul-image {...this.kulImageProps}></kul-image>;
-        }
-
         return (
             <Host>
                 <style>{this.#kulManager.theme.setKulStyle(this)}</style>
-                <div
-                    id={KUL_WRAPPER_ID}
-                    onClick={(e) => this.onKulEvent(e, 'click')}
-                >
-                    {this.kulLabel}
-                    {imageEl}
+                <div id={KUL_WRAPPER_ID}>
+                    <div
+                        class={
+                            'modal' +
+                            (this.state === 'unmounting' ? ' active' : '')
+                        }
+                    >
+                        <div class="wrapper">
+                            <div class="widget">
+                                <slot></slot>
+                            </div>
+                            <div class="label">
+                                {this.state === 'unmounting'
+                                    ? 'Ready!'
+                                    : this.kulLabel}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </Host>
         );

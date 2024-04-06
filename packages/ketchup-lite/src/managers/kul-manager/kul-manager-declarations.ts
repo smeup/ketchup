@@ -1,5 +1,3 @@
-import type { ActionMap } from '@interactjs/core/scope';
-import type { Interaction } from '@interactjs/core/Interaction';
 import type { KulData } from '../kul-data/kul-data';
 import type { KulDates } from '../kul-dates/kul-dates';
 import type { KulDatesLocales } from '../kul-dates/kul-dates-declarations';
@@ -13,7 +11,6 @@ import type { KulScrollOnHover } from '../kul-scroll-on-hover/kul-scroll-on-hove
 import type { KulTheme } from '../kul-theme/kul-theme';
 import type { KulThemeJSON } from '../kul-theme/kul-theme-declarations';
 import type { Options } from 'html2canvas';
-import type { RectResolvable } from '@interactjs/types/index';
 /**
  * Interface used to define the HTML element with Ketchup specific properties.
  */
@@ -72,7 +69,6 @@ export interface KulManagerInitialization {
     dates?: KulManagerDatesSettings;
     debug?: KulManagerDebugSettings;
     enableExperimentalFeatures?: boolean;
-    interact?: KulManagerInteractSettings;
     language?: KulManagerLanguageSettings;
     math?: KulManagerMathSettings;
     scrollOnHover?: KulManagerScrollOnHoverSettings;
@@ -92,15 +88,6 @@ export interface KulManagerDebugSettings {
     active?: boolean;
     autoPrint?: boolean;
     logLimit?: number;
-}
-/**
- * KulDialog initialization settings.
- */
-export interface KulManagerInteractSettings {
-    restrictContainer?: RectResolvable<
-        [number, number, Interaction<keyof ActionMap>]
-    >;
-    zIndex?: number;
 }
 /**
  * KulLanguage initialization settings.

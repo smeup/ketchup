@@ -4,13 +4,14 @@ export interface KulButtonEventPayload extends KulEventPayload {
     value: string;
 }
 
-export type KulButtonEvents = 'blur' | 'click' | 'focus';
+export type KulButtonEvents = 'blur' | 'click' | 'focus' | 'pointerdown';
 
 export enum KulButtonProps {
     kulDisabled = 'When true, the component is disabled.',
     kulIcon = 'Specifies an icon to display.',
     kulIconOff = 'Icon to be used for the off state when the button is toggable.',
     kulLabel = 'Defines text to display on the button.',
+    kulRipple = 'When set to true, the pointerdown event will trigger a ripple effect.',
     kulShowSpinner = 'When true, a spinner will be shown on the button.',
     kulStyle = 'Sets a custom CSS style for the component.',
     kulStyling = 'Defines the button appearance. Possible values are "flat", "floating", "icon", "outlined", and "raised". The default is "raised".',
@@ -25,6 +26,7 @@ export interface KulButtonPropsInterface {
     kulIcon?: string;
     kulIconOff?: string;
     kulLabel?: string;
+    kulRipple?: boolean;
     kulShowSpinner?: boolean;
     kulStyle?: string;
     kulStyling?: KulButtonStyling;

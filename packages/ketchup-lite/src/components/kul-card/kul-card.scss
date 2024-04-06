@@ -1,5 +1,4 @@
 @import 'standard/kul-card-standard';
-@import '@material/ripple/mdc-ripple';
 
 /**
 * @prop --kul-card-backdrop: Backdrop of the component when is visible.
@@ -39,30 +38,7 @@
   width: var(--kul_card_width);
 }
 
-:host([is-menu]) {
-  display: none;
-  animation: fade-in 0.25s ease-out;
-}
-
-:host([menu-visible]) {
-  box-shadow: var(--kul-box-shadow);
-  display: block;
-}
-
 #kul-component {
   height: 100%;
   width: 100%;
-}
-
-.mdc-ripple-surface {
-  cursor: pointer;
-  flex-direction: column;
-  display: flex;
-  height: 100%;
-  position: relative;
-
-  &:before,
-  &:after {
-    background-color: var(--kul_card_ripple_color);
-  }
 }

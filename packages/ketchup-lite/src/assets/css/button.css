@@ -1,11 +1,3 @@
-html {
-    background-color: var(--kul-background-color, black);
-    color: var(--kul-text-color);
-    font-family: var(--kul-font-family);
-    font-size: var(--kul-font-size);
-    height: 100%;
-    width: 100%;
-}
-body {
-    margin: 0;
+.example {
+    padding: 24px;
 }

@@ -17,9 +17,6 @@ import { KulScrollOnHover } from '../kul-scroll-on-hover/kul-scroll-on-hover';
 import { KulTheme } from '../kul-theme/kul-theme';
 import { KulThemeJSON } from '../kul-theme/kul-theme-declarations';
 import { setAssetPath } from '@stencil/core';
-import type { ActionMap } from '@interactjs/core/scope';
-import type { Interaction } from '@interactjs/core/Interaction';
-import type { RectResolvable } from '@interactjs/types/index';
 import type {
     KulDom,
     KulManagerClickCb,
@@ -55,10 +52,6 @@ export class KulManager {
             debugActive: boolean = null,
             debugAutoprint: boolean = null,
             debugLogLimit: number = null,
-            dialogRestrictContainer: RectResolvable<
-                [number, number, Interaction<keyof ActionMap>]
-            > = null,
-            dialogZIndex: number = null,
             languageList: KulLanguageJSON = null,
             languageName: string = null,
             scrollOnHoverDelay: number = null,
@@ -74,7 +67,6 @@ export class KulManager {
             const debug = overrides.debug;
             const enableExperimentalFeatures =
                 overrides.enableExperimentalFeatures;
-            const interact = overrides.interact;
             const language = overrides.language;
             const scrollOnHover = overrides.scrollOnHover;
             const theme = overrides.theme;
@@ -91,12 +83,6 @@ export class KulManager {
             }
             if (enableExperimentalFeatures) {
                 this.enableExperimentalFeatures = enableExperimentalFeatures;
-            }
-            if (interact) {
-                dialogRestrictContainer = interact.restrictContainer
-                    ? dialogRestrictContainer
-                    : null;
-                dialogZIndex = interact.zIndex ? interact.zIndex : null;
             }
             if (language) {
                 languageList = language.list ? language.list : null;
@@ -219,7 +205,7 @@ export class KulManager {
             this.debug.logMessage(
                 'kul-manager',
                 'Missing locale (' + locale + ')!',
-                KulDebugCategory.ERROR
+                'error'
             );
             return;
         }
@@ -227,7 +213,7 @@ export class KulManager {
             this.debug.logMessage(
                 'kul-manager',
                 'Missing language for locale (' + locale + ')!',
-                KulDebugCategory.ERROR
+                'error'
             );
             return;
         }

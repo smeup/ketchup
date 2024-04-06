@@ -72,3 +72,30 @@ $kul-dd-draggable: 'kul-draggable'; // Attached to the element being dragged
 $kul-dd-draggable-cell: 'kul-draggable-cell'; // Attached to the element being dragged when a cell is present in the payload
 $kul-dd-draggable-column: 'kul-draggable-column'; // Attached to the element being dragged when a column is present in the payload
 $kul-dd-draggable-row: 'kul-draggable-row'; // Attached to the element being dragged when a row is present in the payload
+
+//-----------------------------------------------------//
+//               S h a r e d    S C S S                //
+//-----------------------------------------------------//
+
+.ripple-anchor {
+  cursor: pointer;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.ripple {
+  animation: ripple 0.675s ease-out;
+  background-color: rgba(var(--kul-primary-color-rgb), 0.375);
+  border-radius: 50%;
+  pointer-events: none;
+  position: absolute;
+  transform: scale(0);
+}
+
+@keyframes ripple {
+  to {
+    opacity: 0;
+    transform: scale(4);
+  }
+}
