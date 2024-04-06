@@ -20,7 +20,7 @@ import { themesJson } from './kul-theme-values';
 const dom: KulDom = document.documentElement as KulDom;
 
 /**
- * Theme manager, handles everything about theming, customStyles and color utilities.
+ * Theme manager, handles everything about theming, kulStyles and color utilities.
  * @module KulTheme
  */
 export class KulTheme {
@@ -107,7 +107,7 @@ export class KulTheme {
         return css;
     }
     /**
-     * Refreshed managed components to apply theme customStyles.
+     * Refreshed managed components to apply theme kulStyles.
      */
     private customStyle(): void {
         this.managedComponents.forEach(function (comp) {
@@ -188,9 +188,35 @@ export class KulTheme {
             dom.ketchupLite.debug.logMessage(
                 'kul-theme',
                 'Theme not refreshed.',
-                KulDebugCategory.WARNING
+                'warning'
             );
         }
+    }
+    /**
+     *
+     */
+    rippleify(e: PointerEvent, el: HTMLElement) {
+        const rect = el.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        el.classList.add('ripple-anchor');
+        ripple.className = 'ripple';
+        // Set the ripple's dimensions to match the button's dimensions
+        ripple.style.width = `${rect.width}px`;
+        ripple.style.height = `${rect.height}px`;
+
+        // Calculate the ripple's position relative to the button
+        const rippleX = e.clientX - rect.left - rect.width / 2 + window.scrollX;
+        const rippleY = e.clientY - rect.top - rect.height / 2 + window.scrollY;
+
+        ripple.style.left = `${rippleX}px`;
+        ripple.style.top = `${rippleY}px`;
+
+        el.appendChild(ripple);
+        void ripple.offsetWidth;
+
+        setTimeout(() => {
+            //  ripple.remove();
+        }, 500);
     }
     /**
      * Registers a KulComponent in KulTheme, in order to be properly refreshed whenever the theme changes.
@@ -224,8 +250,8 @@ export class KulTheme {
         if (styles && styles[comp.tagName]) {
             completeStyle += ' ' + styles[comp.tagName];
         }
-        if (comp.customStyle) {
-            completeStyle += ' ' + comp.customStyle;
+        if (comp.kulStyle) {
+            completeStyle += ' ' + comp.kulStyle;
         }
         return completeStyle ? completeStyle : null;
     }
@@ -286,7 +312,7 @@ export class KulTheme {
             dom.ketchupLite.debug.logMessage(
                 'kul-theme',
                 "Couldn't set a random theme: no themes available!",
-                KulDebugCategory.WARNING
+                'warning'
             );
         }
     }

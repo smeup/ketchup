@@ -6,7 +6,6 @@ import 'numeral/locales/it';
 import 'numeral/locales/pl';
 import 'numeral/locales/ru';
 import { KulComponent } from '../../types/GenericTypes';
-import { KulDebugCategory } from '../kul-debug/kul-debug-declarations';
 import { KulDom } from '../kul-manager/kul-manager-declarations';
 import {
     KulMathFormulas,
@@ -15,7 +14,7 @@ import {
     NumericFieldFormatOptions,
 } from './kul-math-declarations';
 import { customFormula, normalDistributionFormula } from './kul-math-helper';
-import { getRegExpFromString } from '../../utils/utils';
+import { getRegExpFromString } from '../../utils/stringUtils';
 
 const dom: KulDom = document.documentElement as KulDom;
 
@@ -68,7 +67,7 @@ export class KulMath {
             dom.ketchupLite.debug.logMessage(
                 'kul-math',
                 'Invalid locale (' + locale + ')! Defaulting to english.',
-                KulDebugCategory.WARNING
+                'warning'
             );
         }
         this.locale = locale;

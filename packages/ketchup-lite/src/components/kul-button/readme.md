@@ -13,6 +13,7 @@
 | `kulIcon`         | `kul-icon`          | When set, the button will show this icon.                                                                                   | `string`                                                   | `''`       |
 | `kulIconOff`      | `kul-icon-off`      | When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed. | `string`                                                   | `''`       |
 | `kulLabel`        | `kul-label`         | When set, the button will show this text.                                                                                   | `string`                                                   | `''`       |
+| `kulRipple`       | `kul-ripple`        | When set to true, the pointerdown event will trigger a ripple effect.                                                       | `boolean`                                                  | `true`     |
 | `kulShowSpinner`  | `kul-show-spinner`  | When set to true, the button show a spinner received in slot.                                                               | `boolean`                                                  | `false`    |
 | `kulStyle`        | `kul-style`         | Custom style of the component.                                                                                              | `string`                                                   | `''`       |
 | `kulStyling`      | `kul-styling`       | Defines the style of the button. This property controls the visual appearance of the button.                                | `"flat" \| "floating" \| "icon" \| "outlined" \| "raised"` | `'raised'` |
@@ -30,6 +31,16 @@
 
 
 ## Methods
+
+### `getDebugInfo() => Promise<KulDebugComponentInfo>`
+
+Fetches debug information of the component's current state.
+
+#### Returns
+
+Type: `Promise<KulDebugComponentInfo>`
+
+A promise that resolves with the debug information object.
 
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
@@ -67,9 +78,15 @@ Type: `Promise<void>`
 
 
 
-### `setProps(this: GenericObject) => Promise<void>`
+### `setProps(props: GenericObject) => Promise<void>`
 
-Sets the this to the component.
+Sets the props to the component.
+
+#### Parameters
+
+| Name    | Type                     | Description                                                  |
+| ------- | ------------------------ | ------------------------------------------------------------ |
+| `props` | `GenericObject<unknown>` | - Object containing props that will be set to the component. |
 
 #### Returns
 
@@ -129,6 +146,7 @@ Type: `Promise<void>`
 graph TD;
   kul-button --> kul-image
   kul-image --> kul-badge
+  kul-badge --> kul-image
   kul-card --> kul-button
   style kul-button fill:#f9f,stroke:#333,stroke-width:4px
 ```

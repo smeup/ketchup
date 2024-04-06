@@ -2,6 +2,7 @@ import { VNode, h } from '@stencil/core';
 import type { KulCard } from '../kul-card';
 import { KulCardCSSClasses } from '../kul-card-declarations';
 import { KulDataShapesMap } from '../../../components';
+import { kulManagerInstance } from '../../../managers/kul-manager/kul-manager';
 
 export function create1(component: KulCard, shapes: KulDataShapesMap) {
     // Button
@@ -49,7 +50,15 @@ export function create1(component: KulCard, shapes: KulDataShapesMap) {
                 hasButtons ? KulCardCSSClasses.HAS_ACTIONS : ''
             }`}
         >
-            <div class="mdc-ripple-surface">
+            <div
+                class="surface"
+                onPointerDown={(e) => {
+                    kulManagerInstance().theme.rippleify(
+                        e as PointerEvent,
+                        e.currentTarget as HTMLElement
+                    );
+                }}
+            >
                 {cover}
                 <div class="section-2">
                     {title}

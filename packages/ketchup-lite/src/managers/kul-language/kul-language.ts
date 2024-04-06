@@ -73,7 +73,7 @@ export class KulLanguage {
             dom.ketchupLite.debug.logMessage(
                 'kul-language',
                 'Invalid translation for key (' + key + ')!',
-                KulDebugCategory.WARNING
+                'warning'
             );
             return key;
         }
@@ -91,7 +91,7 @@ export class KulLanguage {
                 "Couldn't set language, invalid string received (" +
                     language +
                     ')!',
-                KulDebugCategory.WARNING
+                'warning'
             );
             return;
         }
@@ -104,7 +104,7 @@ export class KulLanguage {
                 dom.ketchupLite.debug.logMessage(
                     'kul-language',
                     'Variant not found (' + dVariant + ')!',
-                    KulDebugCategory.WARNING
+                    'warning'
                 );
                 return;
             }
@@ -112,7 +112,7 @@ export class KulLanguage {
             dom.ketchupLite.debug.logMessage(
                 'kul-language',
                 'Language not found (' + dLanguage + ')!',
-                KulDebugCategory.WARNING
+                'warning'
             );
             return;
         }

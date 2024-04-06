@@ -1,0 +1,6 @@
+.example {
+    border: 1px solid var(--kul-border-color);
+    margin: 25px;
+    padding: 12px;
+    position: relative;
+}

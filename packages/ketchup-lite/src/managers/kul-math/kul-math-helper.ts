@@ -32,7 +32,7 @@ export function customFormula(
         dom.ketchupLite.debug.logMessage(
             'kul-data',
             'Error while evaluating the following formula!(' + formula + ')',
-            KulDebugCategory.WARNING
+            'warning'
         );
         return NaN;
     }

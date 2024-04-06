@@ -1,24 +1,20 @@
 import { ComponentInterface } from '@stencil/core';
-import { KulButtonEvents } from '../components/kul-button/kul-button-declarations';
-import { KulImageEvents } from '../components/kul-image/kul-image-declarations';
-import { KulCardEvents } from '../components/kul-card/kul-card-declarations';
 import { KulBadgeEvents } from '../components/kul-badge/kul-badge-declarations';
+import { KulButtonEvents } from '../components/kul-button/kul-button-declarations';
+import { KulCardEvents } from '../components/kul-card/kul-card-declarations';
+import { KulImageEvents } from '../components/kul-image/kul-image-declarations';
+import { KulDebugComponentInfo } from '../components';
+import { KulSplashEvents } from '../components/kul-splash/kul-splash-declarations';
 
 /**
  * Generic KulComponent.
  */
 export interface KulComponent extends ComponentInterface {
+    getDebugInfo: () => Promise<KulDebugComponentInfo>;
+    getProps: (descriptions?: boolean) => Promise<GenericObject>;
     kulStyle: string;
-    debugInfo?: {
-        endTime: number;
-        renderCount: number;
-        renderEnd: number;
-        renderStart: number;
-        startTime: number;
-    };
-    rootElement?: unknown;
-    getProps?: (descriptions?: boolean) => Promise<GenericObject>;
-    refresh?: () => Promise<void>;
+    refresh: () => Promise<void>;
+    rootElement: unknown;
 }
 /**
  * Resizable KulComponent.
@@ -47,11 +43,17 @@ export interface KulEventPayload {
         | KulBadgeEvents
         | KulButtonEvents
         | KulCardEvents
-        | KulImageEvents;
+        | KulImageEvents
+        | KulSplashEvents;
     id: string;
     originalEvent: Event;
 }
 /**
  * Ketchup elements tag names.
  */
-export type KulTagNames = 'KUL-BADGE' | 'KUP-BUTTON' | 'KUP-CARD' | 'KUP-IMAGE';
+export type KulTagNames =
+    | 'KUL-BADGE'
+    | 'KUP-BUTTON'
+    | 'KUP-CARD'
+    | 'KUP-IMAGE'
+    | 'KUP-SPLASH';

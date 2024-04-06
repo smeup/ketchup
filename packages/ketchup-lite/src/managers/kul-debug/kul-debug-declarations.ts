@@ -1,16 +1,17 @@
-/**
- * Interface for the logs of KulDebug.
- */
+export interface KulDebugComponentInfo {
+    endTime: number;
+    renderCount: number;
+    renderEnd: number;
+    renderStart: number;
+    startTime: number;
+}
 export interface KulDebugLog {
     category: KulDebugCategory;
     date: Date;
-    id: string;
     element: string | Object;
+    id: string;
     message: string;
 }
-/**
- * Interface for printed logs.
- */
 export interface KulDebugLogPrint {
     [index: string]: {
         date: string;
@@ -18,21 +19,9 @@ export interface KulDebugLogPrint {
         message: string;
     }[];
 }
-/**
- * Category of debug logs.
- */
-export enum KulDebugCategory {
-    INFO = 'Informational',
-    WARNING = 'Warning',
-    ERROR = 'Error',
-}
-/**
- * Colors associated with every type of log to be printed.
- */
-export enum KulDebugLogColor {
-    'Load' = 'green',
-    'Render' = 'green',
-    'Resize' = 'green',
-    'Misc' = 'blue',
-    'Total' = 'teal',
-}
+export type KulDebugCategory = 'informational' | 'warning' | 'error';
+export type KulDebugLifecycles =
+    | 'custom'
+    | 'did-load'
+    | 'did-render'
+    | 'will-render';

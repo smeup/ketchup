@@ -1,10 +1,9 @@
 import type { KulDom } from '../kul-manager/kul-manager-declarations';
-import type { GenericObject, KulComponent } from '../../types/GenericTypes';
-import { KulLanguageDebug } from '../kul-language/kul-language-declarations';
+import type { KulComponent } from '../../types/GenericTypes';
 import {
     KulDebugCategory,
+    KulDebugLifecycles,
     KulDebugLog,
-    KulDebugLogColor,
     KulDebugLogPrint,
 } from './kul-debug-declarations';
 
@@ -472,9 +471,7 @@ export class KulDebug {
                         '(' +
                         printLog[key].length +
                         ')',
-                    'background-color: ' +
-                        KulDebugLogColor[key] +
-                        '; margin-right: 10px; border-radius: 50%',
+                    'background-color: green; margin-right: 10px; border-radius: 50%',
                     'background-color: transparent'
                 );
                 for (let index = 0; index < printLog[key].length; index++) {
@@ -490,9 +487,7 @@ export class KulDebug {
         if (this.logs.length > 0) {
             console.groupCollapsed(
                 '%c  %c' + 'All logs (' + this.logs.length + ')',
-                'background-color: ' +
-                    KulDebugLogColor['Total'] +
-                    '; margin-right: 10px; border-radius: 50%',
+                'background-color: blue; margin-right: 10px; border-radius: 50%',
                 'background-color: transparent'
             );
             console.table(this.logs);
@@ -619,25 +614,26 @@ export class KulDebug {
      * @param {string} message - The actual message that will be printed.
      * @param {KulDebugCategory} category - The type of console message, defaults to log but warning and error can be used as well.
      */
-    logMessage(comp: any, message: string, category?: KulDebugCategory): void {
-        if (
-            (!category || category === KulDebugCategory.INFO) &&
-            !this.isDebug()
-        ) {
+    logMessage(
+        comp: KulComponent | string,
+        message: string,
+        category?: KulDebugCategory
+    ): void {
+        if ((!category || category === 'informational') && !this.isDebug()) {
             return;
         }
         const date: Date = new Date();
         if (!category) {
-            category = KulDebugCategory.INFO;
+            category = 'informational';
         }
         let obj: object | string = null;
         let id: string = '';
-        if (comp.rootElement) {
+        if (typeof comp !== 'string') {
             id =
                 ' ' +
-                comp.rootElement.tagName +
+                (comp.rootElement as HTMLElement).tagName +
                 '#' +
-                comp.rootElement.id +
+                (comp.rootElement as HTMLElement).id +
                 ' => ';
             obj = comp;
         } else {
@@ -672,7 +668,7 @@ export class KulDebug {
         }
 
         switch (category) {
-            case KulDebugCategory.ERROR:
+            case 'error':
                 console.error(
                     dom.ketchupLite.dates.format(date, 'LLL:ms') + id + message,
                     obj
@@ -684,7 +680,7 @@ export class KulDebug {
                     })
                 );
                 break;
-            case KulDebugCategory.WARNING:
+            case 'warning':
                 console.warn(
                     dom.ketchupLite.dates.format(date, 'LLL:ms') + id + message,
                     obj
@@ -694,60 +690,54 @@ export class KulDebug {
     }
     /**
      * Function used to time the loading times of a component.
-     * @param {any} comp - The component calling this function or a string.
+     * @param {any} KulComponent - The component calling this function or a string.
      * @param {boolean} didLoad - Must be set to false when called inside a componentWillLoad() lifecycle hook and true when called inside componentDidLoad().
      */
-    logLoad(comp: any, didLoad: boolean): void {
-        if (!didLoad) {
-            comp['debugInfo'] = {
-                startTime: window.performance.now(),
-                endTime: 0,
-                renderCount: 0,
-                renderStart: 0,
-                renderEnd: 0,
-            };
-        } else {
-            comp.debugInfo.endTime = window.performance.now();
-            let timeDiff: number =
-                comp.debugInfo.endTime - comp.debugInfo.startTime;
-            if (this.isDebug()) {
+    async updateDebugInfo(
+        comp: KulComponent,
+        lifecycle: KulDebugLifecycles
+    ): Promise<void> {
+        switch (lifecycle) {
+            case 'custom':
+                if (this.isDebug()) {
+                    this.logMessage(
+                        comp,
+                        'Custom breakpoint ' +
+                            ' took ' +
+                            (window.performance.now() -
+                                comp.debugInfo.renderStart) +
+                            'ms.'
+                    );
+                }
+                break;
+            case 'did-render':
+                comp.debugInfo.renderEnd = window.performance.now();
+                if (this.isDebug()) {
+                    this.logMessage(
+                        comp,
+                        'Render #' +
+                            comp.debugInfo.renderCount +
+                            ' took ' +
+                            (comp.debugInfo.renderEnd -
+                                comp.debugInfo.renderStart) +
+                            'ms.'
+                    );
+                }
+                break;
+            case 'did-load':
+                comp.debugInfo.endTime = window.performance.now();
                 this.logMessage(
                     comp,
-                    'Component ready after ' + timeDiff + 'ms.'
-                );
-            }
-        }
-    }
-    /**
-     * Function used to time the render times of a component.
-     * @param {any} comp - The component calling this function or a string.
-     * @param {boolean} didRender - Must be set to false when called inside a componentWillRender() lifecycle hook and true when called inside componentDidRender().
-     * @param {string} breakpoint - When present, this log is supposedly between a willRender and didRender hook. Used to time single features of the render lifecycle.
-     */
-    logRender(comp: any, didRender: boolean, breakpoint?: string): void {
-        if (breakpoint) {
-            const timeDiff: number =
-                window.performance.now() - comp.debugInfo.renderStart;
-            if (this.isDebug()) {
-                this.logMessage(comp, breakpoint + ' took ' + timeDiff + 'ms.');
-            }
-        } else if (!didRender) {
-            comp.debugInfo.renderCount++;
-            comp.debugInfo.renderStart = window.performance.now();
-        } else {
-            comp.debugInfo.renderEnd = window.performance.now();
-            const timeDiff: number =
-                comp.debugInfo.renderEnd - comp.debugInfo.renderStart;
-            if (this.isDebug()) {
-                this.logMessage(
-                    comp,
-                    'Render #' +
-                        comp.debugInfo.renderCount +
-                        ' took ' +
-                        timeDiff +
+                    'Component ready after ' +
+                        (comp.debugInfo.endTime - comp.debugInfo.startTime) +
                         'ms.'
                 );
-            }
+                break;
+            case 'will-render':
+                comp.debugInfo.renderCount++;
+                comp.debugInfo.renderStart = window.performance.now();
+            default:
+                break;
         }
     }
 }

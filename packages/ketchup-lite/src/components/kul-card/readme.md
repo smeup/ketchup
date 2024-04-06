@@ -19,12 +19,22 @@
 
 ## Events
 
-| Event            | Description                         | Type                           |
-| ---------------- | ----------------------------------- | ------------------------------ |
-| `kul-card-click` | Triggered when the card is clicked. | `CustomEvent<KulEventPayload>` |
+| Event            | Description                       | Type                           |
+| ---------------- | --------------------------------- | ------------------------------ |
+| `kul-card-event` | Triggered when an event is fired. | `CustomEvent<KulEventPayload>` |
 
 
 ## Methods
+
+### `getDebugInfo() => Promise<KulDebugComponentInfo>`
+
+Fetches debug information of the component's current state.
+
+#### Returns
+
+Type: `Promise<KulDebugComponentInfo>`
+
+A promise that resolves with the debug information object.
 
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
@@ -92,6 +102,10 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [kul-showcase](../kul-showcase)
+
 ### Depends on
 
 - [kul-image](../kul-image)
@@ -103,7 +117,9 @@ graph TD;
   kul-card --> kul-image
   kul-card --> kul-button
   kul-image --> kul-badge
+  kul-badge --> kul-image
   kul-button --> kul-image
+  kul-showcase --> kul-card
   style kul-card fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

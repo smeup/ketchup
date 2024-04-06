@@ -20,9 +20,10 @@ import {
     KulButtonStates,
     KulButtonStyling,
 } from './kul-button-declarations';
-import { KulDebugCategory } from '../../managers/kul-debug/kul-debug-declarations';
-import { getProps, setProps } from '../../utils/utils';
+import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
+import { getProps, setProps } from '../../utils/componentUtils';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KulImagePropsInterface } from '../kul-image/kul-image-declarations';
 
 @Component({
     tag: 'kul-button',
@@ -40,6 +41,16 @@ export class KulButton {
     /*-------------------------------------------------*/
 
     /**
+     * Debug information.
+     */
+    @State() debugInfo: KulDebugComponentInfo = {
+        endTime: 0,
+        renderCount: 0,
+        renderEnd: 0,
+        renderStart: 0,
+        startTime: performance.now(),
+    };
+    /**
      * The value of the component ("on" or "off").
      * @default ""
      *
@@ -50,14 +61,7 @@ export class KulButton {
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
-    /**
-     * Sets the type of the button.
-     * @default "button"
-     */
-    @Prop({ mutable: true, reflect: true }) kulType:
-        | 'button'
-        | 'reset'
-        | 'submit' = 'button';
+
     /**
      * Defaults at false. When set to true, the component is disabled.
      * @default false
@@ -79,10 +83,20 @@ export class KulButton {
      */
     @Prop({ mutable: true, reflect: true }) kulLabel = '';
     /**
+     * When set to true, the pointerdown event will trigger a ripple effect.
+     * @default false
+     */
+    @Prop({ mutable: true, reflect: true }) kulRipple = true;
+    /**
      * Custom style of the component.
      * @default ""
      */
     @Prop({ mutable: true, reflect: true }) kulStyle = '';
+    /**
+     * When set to true, the button show a spinner received in slot.
+     * @default false
+     */
+    @Prop({ mutable: true, reflect: true }) kulShowSpinner = false;
     /**
      * Defines the style of the button. This property controls the visual appearance of the button.
      *
@@ -92,11 +106,6 @@ export class KulButton {
      */
     @Prop({ mutable: true, reflect: true }) kulStyling: KulButtonStyling =
         'raised';
-    /**
-     * When set to true, the button show a spinner received in slot.
-     * @default false
-     */
-    @Prop({ mutable: true, reflect: true }) kulShowSpinner = false;
     /**
      * When set to true, the icon button will be toggable on/off.
      * @default false
@@ -108,6 +117,14 @@ export class KulButton {
      */
     @Prop({ mutable: true, reflect: true }) kulTrailingIcon = false;
     /**
+     * Sets the type of the button.
+     * @default "button"
+     */
+    @Prop({ mutable: true, reflect: true }) kulType:
+        | 'button'
+        | 'reset'
+        | 'submit' = 'button';
+    /**
      * When set to true, the icon button state will be on.
      * @default false
      */
@@ -117,9 +134,7 @@ export class KulButton {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    /**
-     * Instance of the KulManager class.
-     */
+    #button: HTMLButtonElement;
     #kulManager = kulManagerInstance();
 
     /*-------------------------------------------------*/
@@ -138,11 +153,14 @@ export class KulButton {
     kulEvent: EventEmitter<KulButtonEventPayload>;
 
     onKulEvent(e: Event, eventType: KulButtonEvents) {
-        if (eventType === 'click' && this.kulToggable) {
-            if (this.value === 'on') {
-                this.value = 'off';
-            } else {
-                this.value = 'on';
+        if (this.kulRipple && eventType === 'pointerdown') {
+            this.#kulManager.theme.rippleify(e as PointerEvent, this.#button);
+            if (this.kulToggable) {
+                if (this.value === 'on') {
+                    this.value = 'off';
+                } else {
+                    this.value = 'on';
+                }
             }
         }
 
@@ -159,6 +177,14 @@ export class KulButton {
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
+    /**
+     * Fetches debug information of the component's current state.
+     * @returns {Promise<KulDebugComponentInfo>} A promise that resolves with the debug information object.
+     */
+    @Method()
+    async getDebugInfo(): Promise<KulDebugComponentInfo> {
+        return this.debugInfo;
+    }
     /**
      * Used to retrieve component's properties and descriptions.
      * @param {boolean} descriptions - When true, includes descriptions for each property.
@@ -177,6 +203,21 @@ export class KulButton {
         return this.value;
     }
     /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KulButtonProps, props);
+    }
+    /**
      * Sets the component's state.
      * @param {KulButtonStates} value - The new state to be set on the component.
      * @returns {Promise<void>}
@@ -187,28 +228,19 @@ export class KulButton {
             this.value = value;
         }
     }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
-    }
-    /**
-     * Sets the this to the component.
-     * @param {GenericObject} this - Object containing this that will be set to the component.
-     */
-    @Method()
-    async setProps(this: GenericObject): Promise<void> {
-        setProps(this, KulButtonProps, this);
-    }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
+    #normalizedStyling() {
+        return this.kulStyling
+            ? (this.kulStyling.toLowerCase() as KulButtonStyling)
+            : 'raised';
+    }
+
     renderButton(): VNode {
-        const buttonStyling = this.kulStyling.toLowerCase() as KulButtonStyling;
+        const buttonStyling = this.#normalizedStyling();
         const isFlat: boolean = buttonStyling === 'flat';
         const isFloating: boolean = buttonStyling === 'floating';
         const isIcon: boolean = buttonStyling === 'icon';
@@ -216,18 +248,17 @@ export class KulButton {
         const isRaised: boolean =
             !isFlat && !isFloating && !isOutlined && !isIcon ? true : false;
 
-        const imageProps = {
-            color: this.kulDisabled
+        const imageProps: KulImagePropsInterface = {
+            kulColor: this.kulDisabled
                 ? `var(--kul_button_disabled_color)`
                 : isOutlined || isFlat
                 ? `var(--kul_button_primary_color)`
                 : `var(--kul_button_text_on_primary_color)`,
-            resource: this.kulIcon,
-            sizeX: isFloating ? '1.75em' : '1.475em',
-            sizeY: isFloating ? '1.75em' : '1.475em',
-            wrapperClass: 'button__icon kul-icon',
+            kulValue: this.kulIcon,
+            kulSizeX: isFloating ? '1.75em' : '1.475em',
+            kulSizeY: isFloating ? '1.75em' : '1.475em',
         };
-        if (this.kulShowSpinner) imageProps.wrapperClass += ' content--hidden';
+        // if (this.kulShowSpinner) imageProps.wrapperClass += ' content--hidden';
 
         const classObj: Record<string, boolean> = {
             button: true,
@@ -248,7 +279,7 @@ export class KulButton {
         };
 
         const styleSpinnerContainer: Record<string, string> = {
-            '--kul_button_spinner_height': imageProps.sizeY,
+            '--kul_button_spinner_height': imageProps.kulSizeY,
         };
 
         return (
@@ -258,20 +289,28 @@ export class KulButton {
                 disabled={this.kulDisabled}
                 onBlur={(e) => this.onKulEvent(e, 'blur')}
                 onClick={(e) => this.onKulEvent(e, 'click')}
+                onPointerDown={(e) => this.onKulEvent(e, 'pointerdown')}
                 onFocus={(e) => this.onKulEvent(e, 'focus')}
                 style={styleSpinnerContainer}
                 aria-label={this.rootElement.title}
+                ref={(el) => (this.#button = el)}
             >
                 {this.kulTrailingIcon
                     ? [
                           <span class={classLabelObj}>{this.kulLabel}</span>,
                           this.kulIcon ? (
-                              <kul-image {...imageProps} />
+                              <kul-image
+                                  class="button__icon kul-icon"
+                                  {...imageProps}
+                              />
                           ) : undefined,
                       ]
                     : [
                           this.kulIcon ? (
-                              <kul-image {...imageProps} />
+                              <kul-image
+                                  class="button__icon kul-icon"
+                                  {...imageProps}
+                              />
                           ) : undefined,
                           <span class={classLabelObj}>{this.kulLabel}</span>,
                       ]}
@@ -321,6 +360,7 @@ export class KulButton {
                 style={styleSpinnerContainer}
                 value={this.value}
                 aria-label={this.rootElement.title}
+                ref={(el) => (this.#button = el)}
             >
                 {!this.kulShowSpinner || this.kulDisabled ? (
                     <kul-image
@@ -353,24 +393,23 @@ export class KulButton {
             this.value = 'on';
         }
 
-        this.#kulManager.debug.logLoad(this, false);
         this.#kulManager.theme.register(this);
     }
 
     componentDidLoad() {
-        this.#kulManager.debug.logLoad(this, true);
+        this.#kulManager.debug.updateDebugInfo(this, 'did-load');
     }
 
     componentWillRender() {
-        this.#kulManager.debug.logRender(this, false);
+        this.#kulManager.debug.updateDebugInfo(this, 'will-render');
     }
 
     componentDidRender() {
-        this.#kulManager.debug.logRender(this, true);
+        this.#kulManager.debug.updateDebugInfo(this, 'did-render');
     }
 
     render() {
-        const buttonStyling = this.kulStyling.toLowerCase() as KulButtonStyling;
+        const buttonStyling = this.#normalizedStyling();
 
         const isIconButton: boolean = !!(
             buttonStyling === 'icon' ||
@@ -383,25 +422,19 @@ export class KulButton {
             this.#kulManager.debug.logMessage(
                 this,
                 'Empty button.',
-                KulDebugCategory.WARNING
+                'informational'
             );
             return;
         }
 
         return (
             <Host>
-                <style>
-                    {this.#kulManager.theme.setKulStyle(
-                        this.rootElement as KulComponent
-                    )}
-                </style>
+                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
                 <div id={KUL_WRAPPER_ID}>
-                    <div class={`button`}>
-                        {isIconButton
-                            ? this.renderIconButton()
-                            : this.renderButton()}
-                        <slot></slot>
-                    </div>
+                    {isIconButton
+                        ? this.renderIconButton()
+                        : this.renderButton()}
+                    <slot></slot>
                 </div>
             </Host>
         );

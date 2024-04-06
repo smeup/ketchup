@@ -8,18 +8,16 @@ import {
     Host,
     Method,
     Prop,
+    State,
 } from '@stencil/core';
 import { KulBadgeEvents, KulBadgeProps } from './kul-badge-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { KulImagePropsInterface } from '../kul-image/kul-image-declarations';
-import {
-    GenericObject,
-    KulComponent,
-    KulEventPayload,
-} from '../../types/GenericTypes';
-import { getProps, setProps } from '../../utils/utils';
+import { getProps, setProps } from '../../utils/componentUtils';
 import { KulThemeColorValues } from '../../managers/kul-theme/kul-theme-declarations';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
+import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
 
 @Component({
     tag: 'kul-badge',
@@ -33,8 +31,24 @@ export class KulBadge {
     @Element() rootElement: HTMLKulBadgeElement;
 
     /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
+
+    /**
+     * Debug information.
+     */
+    @State() debugInfo: KulDebugComponentInfo = {
+        endTime: 0,
+        renderCount: 0,
+        renderEnd: 0,
+        renderStart: 0,
+        startTime: performance.now(),
+    };
+
+    /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
+
     /**
      * The props of the image displayed inside the badge.
      * @default null
@@ -86,6 +100,14 @@ export class KulBadge {
     /*-------------------------------------------------*/
 
     /**
+     * Fetches debug information of the component's current state.
+     * @returns {Promise<KulDebugComponentInfo>} A promise that resolves with the debug information object.
+     */
+    @Method()
+    async getDebugInfo(): Promise<KulDebugComponentInfo> {
+        return this.debugInfo;
+    }
+    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -115,44 +137,33 @@ export class KulBadge {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        this.#kulManager.debug.logLoad(this, false);
         this.#kulManager.theme.register(this);
     }
 
     componentDidLoad() {
-        this.#kulManager.debug.logLoad(this, true);
+        this.#kulManager.debug.updateDebugInfo(this, 'did-load');
     }
 
     componentWillRender() {
-        this.#kulManager.debug.logRender(this, false);
+        this.#kulManager.debug.updateDebugInfo(this, 'will-render');
     }
 
     componentDidRender() {
-        this.#kulManager.debug.logRender(this, true);
+        this.#kulManager.debug.updateDebugInfo(this, 'did-render');
     }
 
     render() {
         let imageEl: HTMLElement = null;
         if (!this.kulLabel && this.kulImageProps) {
-            if (!this.kulImageProps.kulSizeX) {
-                this.kulImageProps.kulSizeX = '1em';
-            }
-            if (!this.kulImageProps.kulSizeY) {
-                this.kulImageProps.kulSizeY = '1em';
-            }
             if (!this.kulImageProps.kulColor) {
                 this.kulImageProps.kulColor = `var(${KulThemeColorValues.TEXT_ON_PRIMARY})`;
             }
-            imageEl = <kup-image {...this.kulImageProps}></kup-image>;
+            imageEl = <kul-image {...this.kulImageProps}></kul-image>;
         }
 
         return (
             <Host>
-                <style>
-                    {this.#kulManager.theme.setKulStyle(
-                        this.rootElement as KulComponent
-                    )}
-                </style>
+                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
                 <div
                     id={KUL_WRAPPER_ID}
                     onClick={(e) => this.onKulEvent(e, 'click')}

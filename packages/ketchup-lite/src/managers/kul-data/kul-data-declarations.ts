@@ -5,9 +5,9 @@ import {
 import { KulButtonPropsInterface } from '../../components/kul-button/kul-button-declarations';
 
 export interface KulDataCell {
-    relatedProp: string;
-    shape: KulDataShapes;
     value: unknown;
+    relatedProp?: string;
+    shape?: KulDataShapes;
 }
 
 export interface KulDataCellContainer {

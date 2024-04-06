@@ -11,12 +11,10 @@ import {
     State,
     VNode,
 } from '@stencil/core';
-import { MDCRipple } from '@material/ripple';
 import * as standardLayouts from './standard/kul-card-standard';
 import type {
     GenericMap,
     GenericObject,
-    KulComponent,
     KulEventPayload,
 } from '../../types/GenericTypes';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
@@ -25,9 +23,9 @@ import {
     KulCardProps,
     KulCardEvents,
 } from './kul-card-declarations';
-import { KulDebugCategory } from '../../managers/kul-debug/kul-debug-declarations';
+import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { KulLanguageGeneric } from '../../managers/kul-language/kul-language-declarations';
-import { getProps, setProps } from '../../utils/utils';
+import { getProps, setProps } from '../../utils/componentUtils';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import {
     KulDataDataset,
@@ -49,6 +47,16 @@ export class KulCard {
     /*                   S t a t e s                   */
     /*-------------------------------------------------*/
 
+    /**
+     * Debug information.
+     */
+    @State() debugInfo: KulDebugComponentInfo = {
+        endTime: 0,
+        renderCount: 0,
+        renderEnd: 0,
+        renderStart: 0,
+        startTime: performance.now(),
+    };
     /**
      * The shapes of the component.
      * @default ""
@@ -103,10 +111,10 @@ export class KulCard {
     /*-------------------------------------------------*/
 
     /**
-     * Triggered when the card is clicked.
+     * Triggered when an event is fired.
      */
     @Event({
-        eventName: 'kul-card-click',
+        eventName: 'kul-card-event',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -131,6 +139,14 @@ export class KulCard {
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
+    /**
+     * Fetches debug information of the component's current state.
+     * @returns {Promise<KulDebugComponentInfo>} A promise that resolves with the debug information object.
+     */
+    @Method()
+    async getDebugInfo(): Promise<KulDebugComponentInfo> {
+        return this.debugInfo;
+    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -186,11 +202,7 @@ export class KulCard {
                 }
             }
         } catch (error) {
-            this.#kulManager.debug.logMessage(
-                this,
-                error,
-                KulDebugCategory.WARNING
-            );
+            this.#kulManager.debug.logMessage(this, error, 'warning');
             return (
                 <kul-image
                     resource="warning"
@@ -218,7 +230,6 @@ export class KulCard {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        this.#kulManager.debug.logLoad(this, false);
         this.#kulManager.language.register(this);
         this.#kulManager.theme.register(this);
         if (this.kulData) {
@@ -228,23 +239,17 @@ export class KulCard {
     }
 
     componentDidLoad() {
-        const rippleEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
-            '.mdc-ripple-surface'
-        );
-        if (rippleEl) {
-            MDCRipple.attachTo(rippleEl);
-        }
         // this.#kulManager.resize.observe(this.rootElement);
         this.onKulEvent(new CustomEvent('ready'), 'ready');
-        this.#kulManager.debug.logLoad(this, true);
+        this.#kulManager.debug.updateDebugInfo(this, 'did-load');
     }
 
     componentWillRender() {
-        this.#kulManager.debug.logRender(this, false);
+        this.#kulManager.debug.updateDebugInfo(this, 'will-render');
     }
 
     componentDidRender() {
-        this.#kulManager.debug.logRender(this, true);
+        this.#kulManager.debug.updateDebugInfo(this, 'did-render');
     }
 
     render() {
@@ -259,11 +264,7 @@ export class KulCard {
 
         return (
             <Host style={style}>
-                <style>
-                    {this.#kulManager.theme.setKulStyle(
-                        this.rootElement as KulComponent
-                    )}
-                </style>
+                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
                 <div
                     id={KUL_WRAPPER_ID}
                     onClick={(e) => this.onKulEvent(e, 'click')}

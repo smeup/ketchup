@@ -12,3 +12,5 @@ export const KulBadge = /*@__PURE__*/createReactComponent<JSX.KulBadge, HTMLKulB
 export const KulButton = /*@__PURE__*/createReactComponent<JSX.KulButton, HTMLKulButtonElement>('kul-button');
 export const KulCard = /*@__PURE__*/createReactComponent<JSX.KulCard, HTMLKulCardElement>('kul-card');
 export const KulImage = /*@__PURE__*/createReactComponent<JSX.KulImage, HTMLKulImageElement>('kul-image');
+export const KulShowcase = /*@__PURE__*/createReactComponent<JSX.KulShowcase, HTMLKulShowcaseElement>('kul-showcase');
+export const KulSplash = /*@__PURE__*/createReactComponent<JSX.KulSplash, HTMLKulSplashElement>('kul-splash');

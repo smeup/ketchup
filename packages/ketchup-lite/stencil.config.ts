@@ -10,6 +10,10 @@ export const config: Config = {
         {
             type: 'www',
             serviceWorker: null,
+            copy: [
+                { src: 'pages', dest: 'pages' },
+                { src: 'assets', dest: 'assets' },
+            ],
         },
         reactOutputTarget({
             componentCorePackage: 'ketchup-lite',
@@ -26,7 +30,7 @@ export const config: Config = {
     ],
     plugins: [
         sass({
-            includePaths: ['./node_modules'],
+            includePaths: ['./node_modules', './src/style'],
             injectGlobalPaths: ['src/style/global.scss'],
         }),
     ],

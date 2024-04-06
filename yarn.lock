@@ -1507,13 +1507,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@interactjs/types@npm:1.10.12":
-  version: 1.10.12
-  resolution: "@interactjs/types@npm:1.10.12"
-  checksum: d3d5e4e5405fd98df0ab14f357c792ebd7df666bd7f271940b080aa2337addcce6b7598e38ee972cde4a5935c3f67221e863a3cd4348f1074ce995801bf5f7f5
-  languageName: node
-  linkType: hard
-
 "@isaacs/cliui@npm:^8.0.2":
   version: 8.0.2
   resolution: "@isaacs/cliui@npm:8.0.2"
@@ -1911,78 +1904,6 @@ __metadata:
     yargs: 16.2.0
     yargs-parser: 20.2.4
   checksum: 1b8acfde0ffebcf092a48c8f73df4dda15d1d568f66ebb3c15d1004b68fe3996692a72fbe20d9aec35051cf071de8de6d595c9ce7f38718f9b8c8514efe44528
-  languageName: node
-  linkType: hard
-
-"@material/animation@npm:^14.0.0":
-  version: 14.0.0
-  resolution: "@material/animation@npm:14.0.0"
-  dependencies:
-    tslib: ^2.1.0
-  checksum: 8120bf924ff1c8fafb3fff6e7f9418c25f59fae9d7c62e1ed23a4982633da07d5cb66cef7469efacb689751e1636f64d19f6de94750974c47bf1d1f3285c9010
-  languageName: node
-  linkType: hard
-
-"@material/base@npm:^14.0.0":
-  version: 14.0.0
-  resolution: "@material/base@npm:14.0.0"
-  dependencies:
-    tslib: ^2.1.0
-  checksum: ab4c1ea9c8c391e0da130975d97a7eb26d743c6d140d7a3d0f673391850ad2fd37a3948264c05e6354a28d61c9be8d2f489f98dc9378f6617594eab59b591be1
-  languageName: node
-  linkType: hard
-
-"@material/dom@npm:^14.0.0":
-  version: 14.0.0
-  resolution: "@material/dom@npm:14.0.0"
-  dependencies:
-    "@material/feature-targeting": ^14.0.0
-    tslib: ^2.1.0
-  checksum: 7a89a721294e0f1c55d0c1c1e5164c1fcd13b4383758220a2dacb8831f1fb5c8d55c8ce3236e8a21df553ef147930ddb2bbe8b3aae80c593ff7e3caf16b0d101
-  languageName: node
-  linkType: hard
-
-"@material/feature-targeting@npm:^14.0.0":
-  version: 14.0.0
-  resolution: "@material/feature-targeting@npm:14.0.0"
-  dependencies:
-    tslib: ^2.1.0
-  checksum: 5fe6f44634d17074f4d19629e3dc7b391bdad03239ea1e3ef75917c94b3166fc6cec7c9869ed32c3db284a8e6f9a8c0b7127dae40eb21e3155ee759116167759
-  languageName: node
-  linkType: hard
-
-"@material/ripple@npm:^14.0.0":
-  version: 14.0.0
-  resolution: "@material/ripple@npm:14.0.0"
-  dependencies:
-    "@material/animation": ^14.0.0
-    "@material/base": ^14.0.0
-    "@material/dom": ^14.0.0
-    "@material/feature-targeting": ^14.0.0
-    "@material/rtl": ^14.0.0
-    "@material/theme": ^14.0.0
-    tslib: ^2.1.0
-  checksum: 04ba1213d205c9caed17ee32082551b43ce76b95b47d18de3552493a768ccfb5afbe53623250896ace892dc213f9fef721848903a962248c5a36c851bcb05791
-  languageName: node
-  linkType: hard
-
-"@material/rtl@npm:^14.0.0":
-  version: 14.0.0
-  resolution: "@material/rtl@npm:14.0.0"
-  dependencies:
-    "@material/theme": ^14.0.0
-    tslib: ^2.1.0
-  checksum: 2b3a1960c1f09170f1e62ed44e4d2a619ad70fcbb4e0c903be3c4b3193469edce91a02d4e59e987561818720b73c1abb19678ba4524715d563e00e9736ea2c79
-  languageName: node
-  linkType: hard
-
-"@material/theme@npm:^14.0.0":
-  version: 14.0.0
-  resolution: "@material/theme@npm:14.0.0"
-  dependencies:
-    "@material/feature-targeting": ^14.0.0
-    tslib: ^2.1.0
-  checksum: 9f20a074bd893352ca3a8e76caf043842233284577c4d54b8d4004d1ab5d1d3946e15efe60451417921a8855460c08996ba9e604b7c7f59e737968eb5ee79147
   languageName: node
   linkType: hard
 
@@ -2527,19 +2448,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sphinxxxx/color-conversion@npm:^2.2.2":
-  version: 2.2.2
-  resolution: "@sphinxxxx/color-conversion@npm:2.2.2"
-  checksum: 73d07e5b0d0039bd7176c8693320cadd375fce66adc9ee33326caa97a82847d39ab7ce9396dd7a6a0ccc568f72fc2acbbf94eca51945ee5c2c262ed417fc7617
-  languageName: node
-  linkType: hard
-
-"@stencil/core@npm:^4.13.0":
-  version: 4.13.0
-  resolution: "@stencil/core@npm:4.13.0"
+"@stencil/core@npm:^4.14.1":
+  version: 4.14.1
+  resolution: "@stencil/core@npm:4.14.1"
   bin:
     stencil: bin/stencil
-  checksum: a41b2fe8760936bfbcd6a57642cd97a640c22d0525671d6e447281339b3c1b116730ad001200eadd4580ee5210c95a15ce35cae0f343b6800aa4490da971fb38
+  checksum: a9231a5a07c752e5ab7a8a783092dc5a769714d9d02d92c2b0dac2766c175e7ea6f3679e781b56271ad07f46c8da67fa0b236226bcdd0dccac080695f65af477
   languageName: node
   linkType: hard
 
@@ -2642,22 +2556,6 @@ __metadata:
   dependencies:
     "@babel/types": ^7.20.7
   checksum: 608e0ab4fc31cd47011d98942e6241b34d461608c0c0e153377c5fd822c436c475f1ded76a56bfa76a1adf8d9266b727bbf9bfac90c4cb152c97f30dadc5b7e8
-  languageName: node
-  linkType: hard
-
-"@types/d3-path@npm:*":
-  version: 3.1.0
-  resolution: "@types/d3-path@npm:3.1.0"
-  checksum: 1e81b56ed33ba1ac954a8c42c78c3fcf2716927fe5d01b2003591193ad3b639572a3dfcedd9bf78b6b73215a5cfb01cede8f25c936e95ac18fbe3858f9b62f5c
-  languageName: node
-  linkType: hard
-
-"@types/d3-shape@npm:^3.1.1":
-  version: 3.1.6
-  resolution: "@types/d3-shape@npm:3.1.6"
-  dependencies:
-    "@types/d3-path": "*"
-  checksum: bd765be021019c43c8dca066a798a1de28a051d1213db6ca25f76c9e577da7ec40a592e3bda7628383ab48cb87164fe60b95eb5ec23761b2012bd0adb30c549a
   languageName: node
   linkType: hard
 
@@ -4084,22 +3982,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"d3-path@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "d3-path@npm:3.1.0"
-  checksum: 2306f1bd9191e1eac895ec13e3064f732a85f243d6e627d242a313f9777756838a2215ea11562f0c7630c7c3b16a19ec1fe0948b1c82f3317fac55882f6ee5d8
-  languageName: node
-  linkType: hard
-
-"d3-shape@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "d3-shape@npm:3.2.0"
-  dependencies:
-    d3-path: ^3.1.0
-  checksum: de2af5fc9a93036a7b68581ca0bfc4aca2d5a328aa7ba7064c11aedd44d24f310c20c40157cb654359d4c15c3ef369f95ee53d71221017276e34172c7b719cfa
-  languageName: node
-  linkType: hard
-
 "dargs@npm:^7.0.0":
   version: 7.0.0
   resolution: "dargs@npm:7.0.0"
@@ -4161,7 +4043,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.11.7":
+"dayjs@npm:^1.11.10":
   version: 1.11.10
   resolution: "dayjs@npm:1.11.10"
   checksum: a6b5a3813b8884f5cd557e2e6b7fa569f4c5d0c97aca9558e38534af4f2d60daafd3ff8c2000fed3435cfcec9e805bcebd99f90130c6d1c5ef524084ced588c4
@@ -5595,15 +5477,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hex-to-css-filter@npm:^5.4.0":
-  version: 5.4.0
-  resolution: "hex-to-css-filter@npm:5.4.0"
-  dependencies:
-    tslib: ^2.3.0
-  checksum: 716612938f9564953b3321b90b006bbfa3187fe59716f4c55a9b46cdb185c87be67f2cb2cebaed87e8c59736e71306df8e1237b2be7fadfff85cafba15d80796
-  languageName: node
-  linkType: hard
-
 "hosted-git-info@npm:^2.1.4":
   version: 2.8.9
   resolution: "hosted-git-info@npm:2.8.9"
@@ -5878,15 +5751,6 @@ __metadata:
     through: ^2.3.6
     wrap-ansi: ^6.0.1
   checksum: 387ffb0a513559cc7414eb42c57556a60e302f820d6960e89d376d092e257a919961cd485a1b4de693dbb5c0de8bc58320bfd6247dfd827a873aa82a4215a240
-  languageName: node
-  linkType: hard
-
-"interactjs@npm:1.10.12":
-  version: 1.10.12
-  resolution: "interactjs@npm:1.10.12"
-  dependencies:
-    "@interactjs/types": 1.10.12
-  checksum: f86f28f869053f022dd4894d63e865ea723cb6e61a2a4a911d145dcd8bab90f1a2abd099364b2530451d48f6931ee1ada7364f664b98a3c536d09fd7b1d19d31
   languageName: node
   linkType: hard
 
@@ -6866,13 +6730,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jquery@npm:^3.7.0":
-  version: 3.7.1
-  resolution: "jquery@npm:3.7.1"
-  checksum: 4370b8139d6ae82867eb6f7f21d1edccf1d1bdf41c0840920ea80d366c2cd5dbe1ceebb110ee9772aa839b04400faa1572c5c560b507c688ed7b61cea26c0e27
-  languageName: node
-  linkType: hard
-
 "js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -7054,13 +6911,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ketchup-lite-root@workspace:."
   dependencies:
-    "@types/d3-shape": ^3.1.1
-    "@types/geojson": ^7946.0.10
     "@types/jest": ^27.0.3
     "@types/node": ^20.2.5
     "@types/numeral": ^2.0.2
-    "@types/react": ^18.2.7
-    "@types/react-dom": ^18.2.4
     eslint: ^8.46.0
     lerna: ^7.1.4
     workbox-build: ^7.0.0
@@ -7076,26 +6929,19 @@ __metadata:
     "@fullcalendar/interaction": ^6.1.8
     "@fullcalendar/list": ^6.1.8
     "@fullcalendar/timegrid": ^6.1.8
-    "@material/ripple": ^14.0.0
-    "@stencil/core": ^4.13.0
+    "@stencil/core": ^4.14.1
     "@stencil/react-output-target": 0.5.3
     "@stencil/sass": ^3.0.11
-    d3-shape: ^3.2.0
-    dayjs: ^1.11.7
+    dayjs: ^1.11.10
     echarts: ^5.4.2
-    hex-to-css-filter: ^5.4.0
     html2canvas: ^1.4.1
-    interactjs: 1.10.12
     jest: ^29.7.0
     jest-cli: ^29.7.0
     jest-html-reporter: ^3.10.2
     jest-junit: ^16.0.0
-    jquery: ^3.7.0
     numeral: ^2.0.6
     puppeteer: ^21.6.0
-    resize-observer: ^1.0.4
     rimraf: ^5.0.5
-    vanilla-picker: ^2.12.1
   languageName: unknown
   linkType: soft
 
@@ -9192,13 +9038,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resize-observer@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "resize-observer@npm:1.0.4"
-  checksum: 43e2f45e40507279cad474f6bd2fe62e92de1fd1d67cd5285ece1fec6c1b664c4d3795b094b2be292244bf542b1b5402578670400beadc2cfedac8fb483a0976
-  languageName: node
-  linkType: hard
-
 "resolve-cwd@npm:^3.0.0":
   version: 3.0.0
   resolution: "resolve-cwd@npm:3.0.0"
@@ -10667,15 +10506,6 @@ __metadata:
   dependencies:
     builtins: ^1.0.3
   checksum: ce4c68207abfb22c05eedb09ff97adbcedc80304a235a0844f5344f1fd5086aa80e4dbec5684d6094e26e35065277b765c1caef68bcea66b9056761eddb22967
-  languageName: node
-  linkType: hard
-
-"vanilla-picker@npm:^2.12.1":
-  version: 2.12.3
-  resolution: "vanilla-picker@npm:2.12.3"
-  dependencies:
-    "@sphinxxxx/color-conversion": ^2.2.2
-  checksum: 2ca51d29a7a12f76c9af0ddee1b5d971366d0e9be9913f14bada91bd4828b86de7e7a44b0b032bd53faac20e52d6c31d2ec6b642c40fac5bf629c5c37ab9b913
   languageName: node
   linkType: hard
 
