@@ -10,10 +10,6 @@ export const config: Config = {
         {
             type: 'www',
             serviceWorker: null,
-            copy: [
-                { src: 'pages', dest: 'pages' },
-                { src: 'assets', dest: 'assets' },
-            ],
         },
         reactOutputTarget({
             componentCorePackage: 'ketchup-lite',
