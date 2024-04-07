@@ -15,7 +15,6 @@ import {
 import type {
     GenericMap,
     GenericObject,
-    KulComponent,
     KulEventPayload,
 } from '../../types/GenericTypes';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';

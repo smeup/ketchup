@@ -18,12 +18,14 @@ import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import {
     KulShowcaseEvents,
     KulShowcaseProps,
+    KulShowcaseTitle,
 } from './kul-showcase-declarations';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KUL_SHOWCASE_COMPONENTS } from './kul-showcase-data';
 import { KulCardCustomEvent, KulDataDataset } from '../../components';
 
 @Component({
+    assetsDirs: ['assets/media'],
     tag: 'kul-showcase',
     styleUrl: 'kul-showcase.scss',
     shadow: true,
@@ -49,10 +51,15 @@ export class KulShowcase {
         startTime: performance.now(),
     };
     /**
-     * Array of strings keeping track of user navigation.
+     * String keeping track of the current component being navigated by the user.
      * @default ""
      */
-    @State() history: string[] = [];
+    @State() currentComponent = '';
+    /**
+     * String keeping track of the current utility being accessed by the user.
+     * @default ""
+     */
+    @State() currentUtility = '';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -155,8 +162,8 @@ export class KulShowcase {
                 event: KulCardCustomEvent<KulEventPayload>
             ) => void = (e) => {
                 if (e.detail.eventType === 'click') {
-                    this.history.push(node.id);
-                    console.log('History changed.', this.history);
+                    this.currentComponent = node.id;
+                    console.log('Selected component: ', this.currentComponent);
                 }
             };
             cards.push(
@@ -169,6 +176,49 @@ export class KulShowcase {
             );
         });
         return cards;
+    }
+
+    #compExamples(): VNode {
+        switch (this.currentComponent) {
+            case 'kul-badge':
+                return <kul-showcase-badge></kul-showcase-badge>;
+            case 'kul-button':
+                return <kul-showcase-button></kul-showcase-button>;
+            case 'kul-card':
+                return <kul-showcase-card></kul-showcase-card>;
+            case 'kul-image':
+                return <kul-showcase-image></kul-showcase-image>;
+            case 'kul-splash':
+                return <kul-showcase-splash></kul-showcase-splash>;
+        }
+    }
+
+    #prepHeader(title: KulShowcaseTitle): VNode {
+        const current =
+            title === 'Components'
+                ? this.currentComponent
+                : this.currentUtility;
+        return (
+            <div class="header">
+                <h2>{title}</h2>
+                <div class={`navigation ${current ? 'active' : ''}`}>
+                    <kul-button
+                        class={'kul-full-height kul-full-width'}
+                        kulIcon="home"
+                        onClick={() => {
+                            switch (title) {
+                                case 'Components':
+                                    this.currentComponent = '';
+                                    break;
+                                case 'Utilities':
+                                    this.currentUtility = '';
+                                    break;
+                            }
+                        }}
+                    ></kul-button>
+                </div>
+            </div>
+        );
     }
 
     /*-------------------------------------------------*/
@@ -199,9 +249,9 @@ export class KulShowcase {
                     id={KUL_WRAPPER_ID}
                     onClick={(e) => this.onKulEvent(e, 'click')}
                 >
-                    <div class="section--wrapper">
+                    <div class="showcase">
                         <div class="section">
-                            <h2>Utilities</h2>
+                            {this.#prepHeader('Utilities')}
                             <div class="flex-wrapper flex-wrapper--responsive">
                                 <kul-card
                                     data-description="Environment to test a single component's behavior. IMPORTANT: do not commit any change on this page!"
@@ -220,9 +270,11 @@ export class KulShowcase {
                             </div>
                         </div>
                         <div class="section">
-                            <h2>Components</h2>
+                            {this.#prepHeader('Components')}
                             <div class="flex-wrapper flex-wrapper--responsive">
-                                {this.#compCards()}
+                                {this.currentComponent
+                                    ? this.#compExamples()
+                                    : this.#compCards()}
                             </div>
                         </div>
                     </div>

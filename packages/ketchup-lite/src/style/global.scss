@@ -24,7 +24,8 @@ $kul-class-top: 'kul-top'; // Position the component to the top.
 $kul-class-vertical: 'kul-vertical'; // Optimized style for a vertically-flowing component.
 
 // Size related variables.
-$kul-class-fit: 'kul-fit'; // The component won't exceed its size in pixels.
+$kul-class-cover: 'kul-cover'; // The component will behave as a cover, won't exceed its size in pixels.
+$kul-class-fit: 'kul-fit'; // The component won't stretch out, exceeding its size in pixels.
 $kul-class-full-height: 'kul-full-height'; // The component will fill all the available vertical space.
 $kul-class-full-width: 'kul-full-width'; // The component will fill all the available horizontal space.
 $kul-class-large: 'kul-large'; // Increases the size of the component.
@@ -77,16 +78,16 @@ $kul-dd-draggable-row: 'kul-draggable-row'; // Attached to the element being dra
 //               S h a r e d    S C S S                //
 //-----------------------------------------------------//
 
-.ripple-anchor {
+.ripple-surface {
   cursor: pointer;
   height: 100%;
   overflow: hidden;
-  position: relative;
+  position: absolute;
+  width: 100%;
 }
 
 .ripple {
   animation: ripple 0.675s ease-out;
-  background-color: rgba(var(--kul-primary-color-rgb), 0.375);
   border-radius: 50%;
   pointer-events: none;
   position: absolute;

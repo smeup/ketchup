@@ -1,3 +1,4 @@
+import { KulDataDataset } from '../../components';
 import { GenericObject } from '../../types/GenericTypes';
 
 export enum KulCardCSSClasses {
@@ -19,7 +20,7 @@ export enum KulCardProps {
 }
 
 export interface KulCardPropsInterface {
-    kulData?: GenericObject[];
+    kulData?: KulDataDataset;
     kulLayoutFamily?: 'standard';
     kulLayoutNumber?: number;
     kulSizeX?: string;

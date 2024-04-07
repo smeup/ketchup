@@ -198,13 +198,3 @@ Procfile          text
 
 # Ignore files (like .npmignore or .gitignore)
 *.*ignore         text
-
-# Exclude all files by default
-* linguist-language=none
-
-# Exclude all files by default
-* linguist-language=none
-
-src/**/*.ts linguist-language=TypeScript
-src/**/*.tsx linguist-language=TypeScript
-src/**/*.scss linguist-language=SCSS

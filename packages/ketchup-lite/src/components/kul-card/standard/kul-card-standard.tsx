@@ -3,6 +3,7 @@ import type { KulCard } from '../kul-card';
 import { KulCardCSSClasses } from '../kul-card-declarations';
 import { KulDataShapesMap } from '../../../components';
 import { kulManagerInstance } from '../../../managers/kul-manager/kul-manager';
+import { RIPPLE_SURFACE_CLASS } from '../../../variables/GenericVariables';
 
 export function create1(component: KulCard, shapes: KulDataShapesMap) {
     // Button
@@ -19,6 +20,7 @@ export function create1(component: KulCard, shapes: KulDataShapesMap) {
     const cover: VNode = hasImages ? (
         <div class="section-1">
             <kul-image
+                class={'kul-cover'}
                 id="image1"
                 {...shapes.image[0]}
                 kulSizeX="100%"
@@ -36,11 +38,13 @@ export function create1(component: KulCard, shapes: KulDataShapesMap) {
         ) : undefined;
     const subtitle =
         hasText && shapes.text[1] ? (
-            <div id="image2">{shapes.text[1]}</div>
+            <div class="sub-2 subtitle" id="text2">
+                <div>{shapes.text[1]}</div>
+            </div>
         ) : undefined;
     const description =
         hasText && shapes.text[2] ? (
-            <div class="sub-2 description" id="image3">
+            <div class="sub-2 description" id="text3">
                 <div>{shapes.text[2]}</div>
             </div>
         ) : undefined;
@@ -51,9 +55,9 @@ export function create1(component: KulCard, shapes: KulDataShapesMap) {
             }`}
         >
             <div
-                class="surface"
+                class={RIPPLE_SURFACE_CLASS}
                 onPointerDown={(e) => {
-                    kulManagerInstance().theme.rippleify(
+                    kulManagerInstance().theme.ripple.trigger(
                         e as PointerEvent,
                         e.currentTarget as HTMLElement
                     );

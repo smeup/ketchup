@@ -1,3 +1,8 @@
+export type KulShowcaseDynamicExampleType =
+    | 'custom'
+    | 'state-colors'
+    | 'positions';
+
 export type KulShowcaseEvents = 'click';
 
 export enum KulShowcaseProps {
@@ -7,3 +12,5 @@ export enum KulShowcaseProps {
 export interface KulShowcasePropsInterface {
     kulStyle: string;
 }
+
+export type KulShowcaseTitle = 'Components' | 'Utilities';
