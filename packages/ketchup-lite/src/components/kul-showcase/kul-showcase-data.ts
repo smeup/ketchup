@@ -1,5 +1,23 @@
 import { KulDataDataset } from '../../components';
 
+export const KUL_SHOWCASE_UTILITIES: KulDataDataset = {
+    nodes: [
+        {
+            description:
+                'A small count and labeling component that adds context to content.',
+            icon: 'notifications',
+            id: 'kul-badge',
+            value: 'Badge',
+        },
+        {
+            description: 'A reusable button component for user interactions.',
+            icon: 'brightness-1',
+            id: 'kul-button',
+            value: 'Button',
+        },
+    ],
+};
+
 export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
     nodes: [
         {
@@ -13,7 +31,7 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
             description: 'A reusable button component for user interactions.',
             icon: 'brightness-1',
             id: 'kul-button',
-            value: 'Badge',
+            value: 'Button',
         },
         {
             description:

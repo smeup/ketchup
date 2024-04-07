@@ -136,6 +136,8 @@ Type: `Promise<void>`
 ### Used by
 
  - [kul-card](../kul-card)
+ - [kul-showcase](../kul-showcase)
+ - [kul-showcase-button](../kul-showcase/examples/button)
 
 ### Depends on
 
@@ -148,6 +150,8 @@ graph TD;
   kul-image --> kul-badge
   kul-badge --> kul-image
   kul-card --> kul-button
+  kul-showcase --> kul-button
+  kul-showcase-button --> kul-button
   style kul-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

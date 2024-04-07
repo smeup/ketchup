@@ -295,6 +295,10 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
     }
+    interface KulShowcaseBadge {
+    }
+    interface KulShowcaseButton {
+    }
     interface KulSplash {
         /**
           * Retrieves the debug information reflecting the current state of the component.
@@ -443,6 +447,18 @@ declare global {
         prototype: HTMLKulShowcaseElement;
         new (): HTMLKulShowcaseElement;
     };
+    interface HTMLKulShowcaseBadgeElement extends Components.KulShowcaseBadge, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseBadgeElement: {
+        prototype: HTMLKulShowcaseBadgeElement;
+        new (): HTMLKulShowcaseBadgeElement;
+    };
+    interface HTMLKulShowcaseButtonElement extends Components.KulShowcaseButton, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseButtonElement: {
+        prototype: HTMLKulShowcaseButtonElement;
+        new (): HTMLKulShowcaseButtonElement;
+    };
     interface HTMLKulSplashElementEventMap {
         "kul-splash-event": KulEventPayload;
     }
@@ -466,6 +482,8 @@ declare global {
         "kul-card": HTMLKulCardElement;
         "kul-image": HTMLKulImageElement;
         "kul-showcase": HTMLKulShowcaseElement;
+        "kul-showcase-badge": HTMLKulShowcaseBadgeElement;
+        "kul-showcase-button": HTMLKulShowcaseButtonElement;
         "kul-splash": HTMLKulSplashElement;
     }
 }
@@ -649,6 +667,10 @@ declare namespace LocalJSX {
          */
         "onKul-showcase-event"?: (event: KulShowcaseCustomEvent<KulEventPayload>) => void;
     }
+    interface KulShowcaseBadge {
+    }
+    interface KulShowcaseButton {
+    }
     interface KulSplash {
         /**
           * Initial text displayed within the component, typically shown during loading.
@@ -671,6 +693,8 @@ declare namespace LocalJSX {
         "kul-card": KulCard;
         "kul-image": KulImage;
         "kul-showcase": KulShowcase;
+        "kul-showcase-badge": KulShowcaseBadge;
+        "kul-showcase-button": KulShowcaseButton;
         "kul-splash": KulSplash;
     }
 }
@@ -683,6 +707,8 @@ declare module "@stencil/core" {
             "kul-card": LocalJSX.KulCard & JSXBase.HTMLAttributes<HTMLKulCardElement>;
             "kul-image": LocalJSX.KulImage & JSXBase.HTMLAttributes<HTMLKulImageElement>;
             "kul-showcase": LocalJSX.KulShowcase & JSXBase.HTMLAttributes<HTMLKulShowcaseElement>;
+            "kul-showcase-badge": LocalJSX.KulShowcaseBadge & JSXBase.HTMLAttributes<HTMLKulShowcaseBadgeElement>;
+            "kul-showcase-button": LocalJSX.KulShowcaseButton & JSXBase.HTMLAttributes<HTMLKulShowcaseButtonElement>;
             "kul-splash": LocalJSX.KulSplash & JSXBase.HTMLAttributes<HTMLKulSplashElement>;
         }
     }

@@ -79,16 +79,21 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kul-card](../kul-card)
+- [kul-showcase-badge](./examples/badge)
+- [kul-button](../kul-button)
 
 ### Graph
 ```mermaid
 graph TD;
   kul-showcase --> kul-card
+  kul-showcase --> kul-showcase-badge
+  kul-showcase --> kul-button
   kul-card --> kul-image
   kul-card --> kul-button
   kul-image --> kul-badge
   kul-badge --> kul-image
   kul-button --> kul-image
+  kul-showcase-badge --> kul-badge
   style kul-showcase fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
