@@ -303,6 +303,8 @@ export namespace Components {
     }
     interface KulShowcaseImage {
     }
+    interface KulShowcaseSplash {
+    }
     interface KulSplash {
         /**
           * Retrieves the debug information reflecting the current state of the component.
@@ -475,6 +477,12 @@ declare global {
         prototype: HTMLKulShowcaseImageElement;
         new (): HTMLKulShowcaseImageElement;
     };
+    interface HTMLKulShowcaseSplashElement extends Components.KulShowcaseSplash, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseSplashElement: {
+        prototype: HTMLKulShowcaseSplashElement;
+        new (): HTMLKulShowcaseSplashElement;
+    };
     interface HTMLKulSplashElementEventMap {
         "kul-splash-event": KulEventPayload;
     }
@@ -502,6 +510,7 @@ declare global {
         "kul-showcase-button": HTMLKulShowcaseButtonElement;
         "kul-showcase-card": HTMLKulShowcaseCardElement;
         "kul-showcase-image": HTMLKulShowcaseImageElement;
+        "kul-showcase-splash": HTMLKulShowcaseSplashElement;
         "kul-splash": HTMLKulSplashElement;
     }
 }
@@ -693,6 +702,8 @@ declare namespace LocalJSX {
     }
     interface KulShowcaseImage {
     }
+    interface KulShowcaseSplash {
+    }
     interface KulSplash {
         /**
           * Initial text displayed within the component, typically shown during loading.
@@ -719,6 +730,7 @@ declare namespace LocalJSX {
         "kul-showcase-button": KulShowcaseButton;
         "kul-showcase-card": KulShowcaseCard;
         "kul-showcase-image": KulShowcaseImage;
+        "kul-showcase-splash": KulShowcaseSplash;
         "kul-splash": KulSplash;
     }
 }
@@ -735,6 +747,7 @@ declare module "@stencil/core" {
             "kul-showcase-button": LocalJSX.KulShowcaseButton & JSXBase.HTMLAttributes<HTMLKulShowcaseButtonElement>;
             "kul-showcase-card": LocalJSX.KulShowcaseCard & JSXBase.HTMLAttributes<HTMLKulShowcaseCardElement>;
             "kul-showcase-image": LocalJSX.KulShowcaseImage & JSXBase.HTMLAttributes<HTMLKulShowcaseImageElement>;
+            "kul-showcase-splash": LocalJSX.KulShowcaseSplash & JSXBase.HTMLAttributes<HTMLKulShowcaseSplashElement>;
             "kul-splash": LocalJSX.KulSplash & JSXBase.HTMLAttributes<HTMLKulSplashElement>;
         }
     }

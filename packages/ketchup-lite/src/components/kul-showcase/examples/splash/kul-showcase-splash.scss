@@ -1,0 +1,21 @@
+:host {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  padding: 12px 0;
+  height: 100%;
+  width: 100%;
+}
+
+.description {
+  padding-bottom: 12px;
+  text-align: center;
+}
+
+.example {
+  padding: 12px;
+  position: relative;
+}
+
+kul-button {
+  margin: auto;
+}

@@ -188,6 +188,8 @@ export class KulShowcase {
                 return <kul-showcase-card></kul-showcase-card>;
             case 'kul-image':
                 return <kul-showcase-image></kul-showcase-image>;
+            case 'kul-splash':
+                return <kul-showcase-splash></kul-showcase-splash>;
         }
     }
 

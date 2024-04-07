@@ -138,6 +138,7 @@ Type: `Promise<void>`
  - [kul-card](../kul-card)
  - [kul-showcase](../kul-showcase)
  - [kul-showcase-button](../kul-showcase/examples/button)
+ - [kul-showcase-splash](../kul-showcase/examples/splash)
 
 ### Depends on
 
@@ -152,6 +153,7 @@ graph TD;
   kul-card --> kul-button
   kul-showcase --> kul-button
   kul-showcase-button --> kul-button
+  kul-showcase-splash --> kul-button
   style kul-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
