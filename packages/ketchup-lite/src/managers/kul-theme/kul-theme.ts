@@ -14,8 +14,8 @@ import {
     KulThemeRGBValues,
     masterCustomStyle,
 } from './kul-theme-declarations';
-import { KulDebugCategory } from '../kul-debug/kul-debug-declarations';
 import { themesJson } from './kul-theme-values';
+import { RIPPLE_SURFACE_CLASS } from '../../variables/GenericVariables';
 
 const dom: KulDom = document.documentElement as KulDom;
 
@@ -193,31 +193,47 @@ export class KulTheme {
         }
     }
     /**
-     *
+     * Ripple effect utility for DOM elements. It allows the addition of the ripple effect on elements triggered by pointer events.
      */
-    rippleify(e: PointerEvent, el: HTMLElement) {
-        const rect = el.getBoundingClientRect();
-        const ripple = document.createElement('span');
-        el.classList.add('ripple-anchor');
-        ripple.className = 'ripple';
-        // Set the ripple's dimensions to match the button's dimensions
-        ripple.style.width = `${rect.width}px`;
-        ripple.style.height = `${rect.height}px`;
+    ripple = {
+        /**
+         * Adds a ripple effect to the specified HTML element by adding a specific class.
+         * @param {HTMLElement} el - The element to which the ripple effect will be applied.
+         */
+        setup: (el: HTMLElement) => {
+            el.classList.add(RIPPLE_SURFACE_CLASS);
+        },
+        /**
+         * Triggers the ripple effect on the specified element based on the location of a pointer event.
+         * @param {PointerEvent} e - The pointer event that triggers the ripple effect.
+         * @param {HTMLElement} el - The element on which the ripple effect is to be applied.
+         */
+        trigger: (e: PointerEvent, el: HTMLElement) => {
+            const rect = el.getBoundingClientRect();
+            const parent = el.parentElement;
+            const ripple = document.createElement('span');
+            const parentComputedStyle = getComputedStyle(parent);
 
-        // Calculate the ripple's position relative to the button
-        const rippleX = e.clientX - rect.left - rect.width / 2 + window.scrollX;
-        const rippleY = e.clientY - rect.top - rect.height / 2 + window.scrollY;
+            const rippleX = e.clientX - rect.left - rect.width / 2;
+            const rippleY = e.clientY - rect.top - rect.height / 2;
 
-        ripple.style.left = `${rippleX}px`;
-        ripple.style.top = `${rippleY}px`;
+            el.style.borderRadius = parentComputedStyle.borderRadius;
 
-        el.appendChild(ripple);
-        void ripple.offsetWidth;
+            ripple.classList.add('ripple');
+            ripple.style.width = `${rect.width}px`;
+            ripple.style.height = `${rect.height}px`;
+            ripple.style.background = parentComputedStyle.color;
+            ripple.style.opacity = '0.225';
+            ripple.style.left = `${rippleX}px`;
+            ripple.style.top = `${rippleY}px`;
 
-        setTimeout(() => {
-            //  ripple.remove();
-        }, 500);
-    }
+            el.appendChild(ripple);
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 500);
+        },
+    };
     /**
      * Registers a KulComponent in KulTheme, in order to be properly refreshed whenever the theme changes.
      * @param {any} comp - The component calling this function.

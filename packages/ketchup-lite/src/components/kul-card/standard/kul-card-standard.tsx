@@ -3,6 +3,7 @@ import type { KulCard } from '../kul-card';
 import { KulCardCSSClasses } from '../kul-card-declarations';
 import { KulDataShapesMap } from '../../../components';
 import { kulManagerInstance } from '../../../managers/kul-manager/kul-manager';
+import { RIPPLE_SURFACE_CLASS } from '../../../variables/GenericVariables';
 
 export function create1(component: KulCard, shapes: KulDataShapesMap) {
     // Button
@@ -51,9 +52,9 @@ export function create1(component: KulCard, shapes: KulDataShapesMap) {
             }`}
         >
             <div
-                class="surface"
+                class={RIPPLE_SURFACE_CLASS}
                 onPointerDown={(e) => {
-                    kulManagerInstance().theme.rippleify(
+                    kulManagerInstance().theme.ripple.trigger(
                         e as PointerEvent,
                         e.currentTarget as HTMLElement
                     );

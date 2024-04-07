@@ -77,16 +77,16 @@ $kul-dd-draggable-row: 'kul-draggable-row'; // Attached to the element being dra
 //               S h a r e d    S C S S                //
 //-----------------------------------------------------//
 
-.ripple-anchor {
+.ripple-surface {
   cursor: pointer;
   height: 100%;
   overflow: hidden;
-  position: relative;
+  position: absolute;
+  width: 100%;
 }
 
 .ripple {
   animation: ripple 0.675s ease-out;
-  background-color: rgba(var(--kul-primary-color-rgb), 0.375);
   border-radius: 50%;
   pointer-events: none;
   position: absolute;

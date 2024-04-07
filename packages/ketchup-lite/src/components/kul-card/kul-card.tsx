@@ -26,7 +26,10 @@ import {
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { KulLanguageGeneric } from '../../managers/kul-language/kul-language-declarations';
 import { getProps, setProps } from '../../utils/componentUtils';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import {
+    KUL_WRAPPER_ID,
+    RIPPLE_SURFACE_CLASS,
+} from '../../variables/GenericVariables';
 import {
     KulDataDataset,
     KulDataShapesMap,
@@ -239,7 +242,6 @@ export class KulCard {
     }
 
     componentDidLoad() {
-        // this.#kulManager.resize.observe(this.rootElement);
         this.onKulEvent(new CustomEvent('ready'), 'ready');
         this.#kulManager.debug.updateDebugInfo(this, 'did-load');
     }
@@ -277,7 +279,6 @@ export class KulCard {
 
     disconnectedCallback() {
         this.#kulManager.language.unregister(this);
-        this.#kulManager.resize.unobserve(this.rootElement);
         this.#kulManager.theme.unregister(this);
     }
 }

@@ -134,7 +134,7 @@ export class KulButton {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    #button: HTMLButtonElement;
+    #rippleSurface: HTMLElement;
     #kulManager = kulManagerInstance();
 
     /*-------------------------------------------------*/
@@ -154,7 +154,10 @@ export class KulButton {
 
     onKulEvent(e: Event, eventType: KulButtonEvents) {
         if (this.kulRipple && eventType === 'pointerdown') {
-            this.#kulManager.theme.rippleify(e as PointerEvent, this.#button);
+            this.#kulManager.theme.ripple.trigger(
+                e as PointerEvent,
+                this.#rippleSurface
+            );
             if (this.kulToggable) {
                 if (this.value === 'on') {
                     this.value = 'off';
@@ -293,8 +296,8 @@ export class KulButton {
                 onFocus={(e) => this.onKulEvent(e, 'focus')}
                 style={styleSpinnerContainer}
                 aria-label={this.rootElement.title}
-                ref={(el) => (this.#button = el)}
             >
+                <div ref={(el) => (this.#rippleSurface = el)}></div>
                 {this.kulTrailingIcon
                     ? [
                           <span class={classLabelObj}>{this.kulLabel}</span>,
@@ -360,8 +363,8 @@ export class KulButton {
                 style={styleSpinnerContainer}
                 value={this.value}
                 aria-label={this.rootElement.title}
-                ref={(el) => (this.#button = el)}
             >
+                <div ref={(el) => (this.#rippleSurface = el)}></div>
                 {!this.kulShowSpinner || this.kulDisabled ? (
                     <kul-image
                         {...imageProps}
@@ -397,6 +400,7 @@ export class KulButton {
     }
 
     componentDidLoad() {
+        this.#kulManager.theme.ripple.setup(this.#rippleSurface);
         this.#kulManager.debug.updateDebugInfo(this, 'did-load');
     }
 
