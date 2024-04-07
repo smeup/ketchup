@@ -87,6 +87,7 @@ Type: `Promise<void>`
  - [kul-badge](../kul-badge)
  - [kul-button](../kul-button)
  - [kul-card](../kul-card)
+ - [kul-showcase-image](../kul-showcase/examples/image)
 
 ### Depends on
 
@@ -99,6 +100,7 @@ graph TD;
   kul-badge --> kul-image
   kul-button --> kul-image
   kul-card --> kul-image
+  kul-showcase-image --> kul-image
   style kul-image fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -18,12 +18,14 @@ import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import {
     KulShowcaseEvents,
     KulShowcaseProps,
+    KulShowcaseTitle,
 } from './kul-showcase-declarations';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KUL_SHOWCASE_COMPONENTS } from './kul-showcase-data';
 import { KulCardCustomEvent, KulDataDataset } from '../../components';
 
 @Component({
+    assetsDirs: ['assets/media'],
     tag: 'kul-showcase',
     styleUrl: 'kul-showcase.scss',
     shadow: true,
@@ -182,23 +184,34 @@ export class KulShowcase {
                 return <kul-showcase-badge></kul-showcase-badge>;
             case 'kul-button':
                 return <kul-showcase-button></kul-showcase-button>;
+            case 'kul-card':
+                return <kul-showcase-card></kul-showcase-card>;
+            case 'kul-image':
+                return <kul-showcase-image></kul-showcase-image>;
         }
     }
 
-    #prepHeader(title: string): VNode {
+    #prepHeader(title: KulShowcaseTitle): VNode {
+        const current =
+            title === 'Components'
+                ? this.currentComponent
+                : this.currentUtility;
         return (
             <div class="header">
                 <h2>{title}</h2>
-                <div
-                    class={`navigation ${
-                        this.currentComponent ? 'active' : ''
-                    }`}
-                >
+                <div class={`navigation ${current ? 'active' : ''}`}>
                     <kul-button
                         class={'kul-full-height kul-full-width'}
                         kulIcon="home"
                         onClick={() => {
-                            this.currentComponent = '';
+                            switch (title) {
+                                case 'Components':
+                                    this.currentComponent = '';
+                                    break;
+                                case 'Utilities':
+                                    this.currentUtility = '';
+                                    break;
+                            }
                         }}
                     ></kul-button>
                 </div>

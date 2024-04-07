@@ -12,3 +12,5 @@ export enum KulShowcaseProps {
 export interface KulShowcasePropsInterface {
     kulStyle: string;
 }
+
+export type KulShowcaseTitle = 'Components' | 'Utilities';
