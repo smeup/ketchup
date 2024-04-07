@@ -10,3 +10,9 @@
     object-fit: contain;
   }
 }
+
+:host(.#{$kul-class-cover}) {
+  img {
+    object-fit: cover;
+  }
+}
