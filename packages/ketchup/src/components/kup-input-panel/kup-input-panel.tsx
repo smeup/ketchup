@@ -504,7 +504,10 @@ export class KupInputPanel {
         const optionsAdapterMap = new Map<
             string,
             (options: any, currentValue: string) => GenericObject[]
-        >([['SmeupTree', this.#treeNodeAdapter.bind(this)]]);
+        >([
+            ['SmeupTree', this.#treeOptionsNodeAdapter.bind(this)],
+            ['SmeupTable', this.#tableOptionsAdapter.bind(this)],
+        ]);
 
         const adapter = optionsAdapterMap.get(options.type);
 
@@ -519,15 +522,33 @@ export class KupInputPanel {
         }
     }
 
-    #treeNodeAdapter(options: any, currentValue: string): GenericObject[] {
+    #treeOptionsNodeAdapter(
+        options: any,
+        currentValue: string
+    ): GenericObject[] {
         return options.children.map((child) => ({
             id: child.content.codice,
             value: child.content.testo,
             selected: currentValue === child.content.codice,
             children: child.children?.length
-                ? this.#treeNodeAdapter(child, currentValue)
+                ? this.#treeOptionsNodeAdapter(child, currentValue)
                 : [],
         }));
+    }
+
+    #tableOptionsAdapter(options: any, currentValue: string): GenericObject[] {
+        return options.rows
+            .filter((row) => row.fields)
+            .map(({ fields }) => {
+                const keys = Object.keys(fields);
+
+                return keys.map((key) => ({
+                    id: fields[key].smeupObject.codice,
+                    value: fields[key].smeupObject.testo,
+                    selected: currentValue === fields[key].smeupObject.codice,
+                }));
+            })
+            .flat();
     }
 
     //#endregion

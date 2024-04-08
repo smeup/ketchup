@@ -17,7 +17,12 @@ let data = {
         },
         {
             name: 'CIT',
-            title: 'City',
+            title: 'Tree Options',
+            visible: true,
+        },
+        {
+            name: 'LIS',
+            title: 'Table Options',
             visible: true,
         },
         {
@@ -235,6 +240,89 @@ let data = {
                     },
                     shape: 'ACP',
                 },
+                LIS: {
+                    value: '',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                    },
+                    editable: true,
+                    mandatory: true,
+                    options: {
+                        type: 'SmeupTable',
+                        messages: [],
+                        rows: [
+                            {
+                                fields: {
+                                    E1: {
+                                        smeupObject: {
+                                            codice: 'E1',
+                                            testo: 'Element 1',
+                                        },
+                                    },
+                                    E2: {
+                                        smeupObject: {
+                                            codice: 'E2',
+                                            testo: 'Element 2',
+                                        },
+                                    },
+                                    E3: {
+                                        smeupObject: {
+                                            codice: 'E3',
+                                            testo: 'Element 3',
+                                        },
+                                    },
+                                },
+                            },
+                            {
+                                fields: {
+                                    E4: {
+                                        smeupObject: {
+                                            codice: 'E4',
+                                            testo: 'Element 4',
+                                        },
+                                    },
+                                    E5: {
+                                        smeupObject: {
+                                            codice: 'E5',
+                                            testo: 'Element 5',
+                                        },
+                                    },
+                                    E6: {
+                                        smeupObject: {
+                                            codice: 'E6',
+                                            testo: 'Element 6',
+                                        },
+                                    },
+                                },
+                            },
+                            {
+                                fields: {
+                                    E14: {
+                                        smeupObject: {
+                                            codice: 'E14',
+                                            testo: 'Element 14',
+                                        },
+                                    },
+                                    E15: {
+                                        smeupObject: {
+                                            codice: 'E15',
+                                            testo: 'Element 15',
+                                        },
+                                    },
+                                    E16: {
+                                        smeupObject: {
+                                            codice: 'E16',
+                                            testo: 'Element 16',
+                                        },
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                    shape: 'ACP',
+                },
                 CHK: {
                     value: 'on',
                     editable: true,
@@ -310,6 +398,13 @@ let data = {
                                 colSpan: 2,
                                 rowStart: 3,
                                 rowEnd: 3,
+                            },
+                            {
+                                id: 'LIS',
+                                colStart: 3,
+                                colEnd: 3,
+                                rowStart: 2,
+                                rowEnd: 2,
                             },
                         ],
                         dim: '50%',
