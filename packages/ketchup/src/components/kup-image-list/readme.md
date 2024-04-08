@@ -2,26 +2,29 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `columns` | `columns` | Number of columns to display in the grid layout. | `number` | `4` |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
-| `data` | -- | Actual data of the component. | `KupImageListDataNode[]` | `[]` |
-| `ripple` | `ripple` | When enabled displays Material's ripple effect on clicked items. | `boolean` | `true` |
-| `rows` | `rows` | Number of rows to display in the grid layout. | `number` | `null` |
-| `selectedNode` | -- | An array of integers containing the path to a selected child.\  | `number[]` | `[]` |
-| `stateId` | `state-id` |  | `string` | `''` |
-| `store` | -- |  | `KupStore` | `undefined` |
+| Property       | Attribute      | Description                                                      | Type                     | Default     |
+| -------------- | -------------- | ---------------------------------------------------------------- | ------------------------ | ----------- |
+| `columns`      | `columns`      | Number of columns to display in the grid layout.                 | `number`                 | `null`      |
+| `customStyle`  | `custom-style` | Custom style of the component.                                   | `string`                 | `''`        |
+| `data`         | --             | Actual data of the component.                                    | `KupImageListDataNode[]` | `[]`        |
+| `ripple`       | `ripple`       | When enabled displays Material's ripple effect on clicked items. | `boolean`                | `false`     |
+| `rows`         | `rows`         | Number of rows to display in the grid layout.                    | `number`                 | `null`      |
+| `selectedNode` | --             | An array of integers containing the path to a selected child.\   | `number[]`               | `[]`        |
+| `stateId`      | `state-id`     |                                                                  | `string`                 | `''`        |
+| `store`        | --             |                                                                  | `KupStore`               | `undefined` |
+
 
 ## Events
 
-| Event | Description | Type |
-| --- | --- | --- |
-| `kup-imagelist-click` |  | `CustomEvent<KupImageListEventPayload>` |
-| `kup-imagelist-contextmenu` |  | `CustomEvent<KupImageListEventPayload>` |
-| `kup-imagelist-dblclick` |  | `CustomEvent<KupImageListEventPayload>` |
+| Event                       | Description | Type                                    |
+| --------------------------- | ----------- | --------------------------------------- |
+| `kup-imagelist-click`       |             | `CustomEvent<KupImageListEventPayload>` |
+| `kup-imagelist-contextmenu` |             | `CustomEvent<KupImageListEventPayload>` |
+| `kup-imagelist-dblclick`    |             | `CustomEvent<KupImageListEventPayload>` |
+
 
 ## Methods
 
@@ -31,8 +34,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -49,61 +52,66 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name    | Type            | Description                                                  |
+| ------- | --------------- | ------------------------------------------------------------ |
 | `props` | `GenericObject` | - Object containing props that will be set to the component. |
 
 #### Returns
 
 Type: `Promise<void>`
 
+
+
+
 ## CSS Custom Properties
 
-| Name | Description |
-| --- | --- |
-| `--kup-imagelist-background-color` | Sets the background color of the component. |
-| `--kup-imagelist-columns` | Sets the number of columns of the grid. |
-| `--kup-imagelist-grid-gap` | Sets the gap of the grid. |
-| `--kup-imagelist-image-margin` | Sets the margin of the images. |
-| `--kup-imagelist-image-min-height` | Sets the minimun height of the images (useful for icons). |
-| `--kup-imagelist-item-border-radius` | Sets the border radius of items. |
-| `--kup-imagelist-item-height` | Sets the height of an item. |
-| `--kup-imagelist-item-padding` | Sets the padding of an item. |
-| `--kup-imagelist-item-width` | Sets the width of an item. |
-| `--kup-imagelist-label-margin` | Sets the margin of the labels. |
-| `--kup-imagelist-primary-color` | Sets the primary color of the component (ripple effect). |
-| `--kup-imagelist-primary-color-rgb` | Sets the RGB values of the primary color. |
-| `--kup-imagelist-text-color` | Sets the text color of the labels. |
+| Name                                 | Description                                               |
+| ------------------------------------ | --------------------------------------------------------- |
+| `--kup-imagelist-background-color`   | Sets the background color of the component.               |
+| `--kup-imagelist-columns`            | Sets the number of columns of the grid.                   |
+| `--kup-imagelist-grid-gap`           | Sets the gap of the grid.                                 |
+| `--kup-imagelist-image-margin`       | Sets the margin of the images.                            |
+| `--kup-imagelist-image-min-height`   | Sets the minimun height of the images (useful for icons). |
+| `--kup-imagelist-item-border-radius` | Sets the border radius of items.                          |
+| `--kup-imagelist-item-height`        | Sets the height of an item.                               |
+| `--kup-imagelist-item-padding`       | Sets the padding of an item.                              |
+| `--kup-imagelist-item-width`         | Sets the width of an item.                                |
+| `--kup-imagelist-label-margin`       | Sets the margin of the labels.                            |
+| `--kup-imagelist-primary-color`      | Sets the primary color of the component (ripple effect).  |
+| `--kup-imagelist-primary-color-rgb`  | Sets the RGB values of the primary color.                 |
+| `--kup-imagelist-text-color`         | Sets the text color of the labels.                        |
+
 
 ## Dependencies
 
 ### Depends on
 
--   [kup-card](../kup-card)
--   [kup-dialog](../kup-dialog)
--   [kup-badge](../kup-badge)
--   [kup-autocomplete](../kup-autocomplete)
--   [kup-chip](../kup-chip)
--   [kup-text-field](../kup-text-field)
--   [kup-color-picker](../kup-color-picker)
--   [kup-combobox](../kup-combobox)
--   [kup-date-picker](../kup-date-picker)
--   [kup-rating](../kup-rating)
--   [kup-time-picker](../kup-time-picker)
--   [kup-image](../kup-image)
--   [kup-button-list](../kup-button-list)
--   [kup-chart](../kup-chart)
--   [kup-gauge](../kup-gauge)
--   [kup-progress-bar](../kup-progress-bar)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
+- [kup-autocomplete](../kup-autocomplete)
+- [kup-chip](../kup-chip)
+- [kup-text-field](../kup-text-field)
+- [kup-color-picker](../kup-color-picker)
+- [kup-combobox](../kup-combobox)
+- [kup-date-picker](../kup-date-picker)
+- [kup-rating](../kup-rating)
+- [kup-time-picker](../kup-time-picker)
+- [kup-image](../kup-image)
+- [kup-button-list](../kup-button-list)
+- [kup-chart](../kup-chart)
+- [kup-gauge](../kup-gauge)
+- [kup-progress-bar](../kup-progress-bar)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-image-list --> kup-card
@@ -275,6 +283,6 @@ graph TD;
   style kup-image-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*
