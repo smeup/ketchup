@@ -903,7 +903,7 @@ export default {
                 value: 'kup-token',
               },
             },
-            icon: 'token',
+            icon: 'dns',
             value: 'KupToken',
             visible: true,
           },
