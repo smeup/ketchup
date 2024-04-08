@@ -116,7 +116,7 @@
       color: var(--kup-primary-color-0);
 
       .f-image__icon {
-        background: var(--kup-primary-color-0) !important;
+        background: var(--kup-gray-color-0) !important;
         color: var(--kup-primary-color-0);
       }
     }
@@ -252,7 +252,7 @@
       }
 
       &:hover .f-image .f-image__icon {
-        --kup_button_background_color_hover: var(--kup-primary-color-0);
+        --kup_button_background_color_hover: var(--kup-gray-color-0);
         background-color: var(--kup_button_background_color_hover) !important;
       }
 
@@ -366,14 +366,20 @@
 
       &:hover {
         --kup_button_background_color_hover: var(--kup-gray-color-80);
+        --kup_button_text_color: var(--kup-gray-color-0);
+        .button__label {
+          color: var(--kup_button_text_color);
+        }
       }
 
       &:focus {
         --kup_button_border_color_focus: var(--kup-gray-color-80);
+        --kup_button_text_color: var(--kup-gray-color-0);
       }
 
       &:active {
         --kup_button_background_color_active: var(--kup-gray-color-70);
+        --kup_button_text_color: var(--kup-gray-color-0);
       }
 
       &.button--floating,
@@ -382,14 +388,17 @@
 
         &:hover {
           --kup_button_background_color_hover: var(--kup-gray-color-80);
+          --kup_button_text_color: var(--kup-gray-color-0);
         }
 
         &:active {
           --kup_button_background_color_active: var(--kup-gray-color-90);
+          --kup_button_text_color: var(--kup-gray-color-0);
         }
 
         &:focus {
           --kup_button_background_color_focus: var(--kup-gray-color-90);
+          --kup_button_text_color: var(--kup-gray-color-0);
         }
 
         &.button--disabled {
@@ -401,17 +410,17 @@
         --kup_button_border_color: var(--kup-gray-color-70);
         --kup_button_text_color: var(--kup-gray-color-70);
         &:hover {
+          --kup_button_text_color: var(--kup-gray-color-0);
           --kup_button_background_color_hover: var(--kup-gray-color-80);
-          --kup_button_text_color_hover: var(--kup-gray-color-0);
         }
 
         &:focus {
-          --kup_button_background_color_focus: var(--kup-gray-color-90);
-          --kup_button_text_color: var(--kup-gray-color-0);
+          background-color: var(--kup-gray-color-90);
+          color: var(--kup-gray-color-0);
         }
 
         &:active {
-          --kup_button_background_color_active: var(--kup-gray-color-90);
+          background-color: var(--kup-gray-color-90);
         }
 
         &.button--disabled {
@@ -514,22 +523,22 @@
 
       &:hover {
         --kup_button_background_color_hover: var(--kup-danger-color-70);
-        --kup_button_text_color: var(--kup-gray-color-0);
+        --kup_button_text_color: var(--kup-primary-color-0);
       }
 
       &:focus {
         --kup_button_border_color_focus: var(--kup-danger-color-80);
-        --kup_button_text_color: var(--kup-gray-color-0);
+        --kup_button_text_color: var(--kup-primary-color-0);
       }
 
       &:active {
         --kup_button_background_color_active: var(--kup-danger-color-80);
-        --kup_button_text_color: var(--kup-gray-color-0);
+        --kup_button_text_color: var(--kup-primary-color-0);
       }
 
       &.button--floating,
       &.button--raised {
-        --kup_button_text_color: var(--kup-gray-color-0);
+        --kup_button_text_color: var(--kup-primary-color-0);
         --kup_button_background_color: var(--kup-danger-color-60);
 
         &:hover {
@@ -555,12 +564,12 @@
         --kup_button_text_color: var(--kup-danger-color-60);
         &:hover {
           --kup_button_background_color_hover: var(--kup-danger-color-70);
-          --kup_button_text_color_hover: var(--kup-gray-color-0);
+          --kup_button_text_color_hover: var(--kup-primary-color-0);
         }
 
         &:focus {
           --kup_button_background_color_focus: var(--kup-danger-color-80);
-          --kup_button_text_color: var(--kup-gray-color-0);
+          --kup_button_text_color: var(--kup-primary-color-0);
         }
 
         &:active {
