@@ -5,15 +5,15 @@
 :host(.#{$kup-class-shaped}) {
   .dropdown-button__primary-action {
     .button {
-      border-top-left-radius: var(--kup-radius-01);
-      border-bottom-left-radius: var(--kup-radius-01);
+      border-top-left-radius: var(--kup-radius-00);
+      border-bottom-left-radius: var(--kup-radius-00);
     }
   }
 
   .dropdown-button__dropdown-action {
     .button {
-      border-top-right-radius: var(--kup-radius-01);
-      border-bottom-right-radius: var(--kup-radius-01);
+      border-top-right-radius: var(--kup-radius-00);
+      border-bottom-right-radius: var(--kup-radius-00);
     }
   }
 }
