@@ -1,3 +1,4 @@
+import { GenericObject } from '../../components';
 import {
     KupDataCell,
     KupDataColumn,
@@ -24,7 +25,7 @@ export interface KupInputPanelRowCells {
 }
 
 export interface KupInputPanelCell extends KupDataCell {
-    options?: KupInputPanelCellOptions[];
+    options?: GenericObject | GenericObject[];
     editable?: boolean;
     mandatory?: boolean;
     fun?: string;
@@ -65,7 +66,7 @@ export interface KupInputPanelLayoutField {
 }
 
 export type DataAdapterFn = (
-    options: KupInputPanelCellOptions[],
+    options: GenericObject,
     fieldLabel: string,
     currentValue: string
 ) => Object;

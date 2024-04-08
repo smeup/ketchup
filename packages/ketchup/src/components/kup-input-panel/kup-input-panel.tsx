@@ -349,15 +349,15 @@ export class KupInputPanel {
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
         const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
-            [FCellTypes.AUTOCOMPLETE, this.#CMBandACPAdapter],
-            [FCellTypes.BUTTON_LIST, this.#BTNAdapter],
-            [FCellTypes.CHART, this.#GRAAdapter],
-            [FCellTypes.CHIP, this.#CHIAdapter],
-            [FCellTypes.CHECKBOX, this.#CHKAdapter],
-            [FCellTypes.COLOR_PICKER, this.#CLPAdapter],
-            [FCellTypes.COMBOBOX, this.#CMBandACPAdapter],
-            [FCellTypes.RADIO, this.#RADAdapter],
-            [FCellTypes.STRING, this.#ITXAdapter],
+            [FCellTypes.AUTOCOMPLETE, this.#CMBandACPAdapter.bind(this)],
+            [FCellTypes.BUTTON_LIST, this.#BTNAdapter.bind(this)],
+            [FCellTypes.CHART, this.#GRAAdapter.bind(this)],
+            [FCellTypes.CHIP, this.#CHIAdapter.bind(this)],
+            [FCellTypes.CHECKBOX, this.#CHKAdapter.bind(this)],
+            [FCellTypes.COLOR_PICKER, this.#CLPAdapter.bind(this)],
+            [FCellTypes.COMBOBOX, this.#CMBandACPAdapter.bind(this)],
+            [FCellTypes.RADIO, this.#RADAdapter.bind(this)],
+            [FCellTypes.STRING, this.#ITXAdapter.bind(this)],
         ]);
 
         const adapter = dataAdapterMap.get(cellType);
@@ -384,7 +384,7 @@ export class KupInputPanel {
     }
 
     #CHIAdapter(
-        options: KupInputPanelCellOptions[],
+        options: GenericObject,
         _fieldLabel: string,
         currentValue: string
     ) {
@@ -415,7 +415,7 @@ export class KupInputPanel {
     }
 
     #BTNAdapter(
-        _options: KupInputPanelCellOptions[],
+        _options: GenericObject,
         _fieldLabel: string,
         _currentValue: string
     ) {
@@ -431,7 +431,7 @@ export class KupInputPanel {
     }
 
     #CMBandACPAdapter(
-        options: KupInputPanelCellOptions[],
+        options: GenericObject,
         fieldLabel: string,
         currentValue: string
     ) {
@@ -444,13 +444,9 @@ export class KupInputPanel {
                 },
                 'kup-list': {
                     showIcons: true,
-                    data: options?.length
-                        ? options.map((option) => ({
-                              value: option.label,
-                              id: option.id,
-                              selected: currentValue === option.id,
-                          }))
-                        : [],
+                    data: !options
+                        ? []
+                        : this.#optionsTreeComboAdapter(options, currentValue),
                 },
             },
             label: fieldLabel,
@@ -458,7 +454,7 @@ export class KupInputPanel {
     }
 
     #CHKAdapter(
-        _options: KupInputPanelCellOptions[],
+        _options: GenericObject,
         fieldLabel: string,
         currentValue: string
     ) {
@@ -469,7 +465,7 @@ export class KupInputPanel {
     }
 
     #CLPAdapter(
-        _options: KupInputPanelCellOptions[],
+        _options: GenericObject,
         fieldLabel: string,
         _currentValue: string
     ) {
@@ -483,7 +479,7 @@ export class KupInputPanel {
     }
 
     #ITXAdapter(
-        _options: KupInputPanelCellOptions[],
+        _options: GenericObject,
         fieldLabel: string,
         _currentValue: string
     ) {
@@ -491,7 +487,7 @@ export class KupInputPanel {
     }
 
     #RADAdapter(
-        options: KupInputPanelCellOptions[],
+        options: GenericObject,
         _fieldLabel: string,
         currentValue: string
     ) {
@@ -502,6 +498,36 @@ export class KupInputPanel {
                 checked: option.id === currentValue,
             })),
         };
+    }
+
+    #optionsTreeComboAdapter(options: any, currentValue: string) {
+        const optionsAdapterMap = new Map<
+            string,
+            (options: any, currentValue: string) => GenericObject[]
+        >([['SmeupTree', this.#treeNodeAdapter.bind(this)]]);
+
+        const adapter = optionsAdapterMap.get(options.type);
+
+        if (adapter) {
+            return adapter(options, currentValue);
+        } else {
+            return options.map((option) => ({
+                value: option.label,
+                id: option.id,
+                selected: currentValue === option.id,
+            }));
+        }
+    }
+
+    #treeNodeAdapter(options: any, currentValue: string): GenericObject[] {
+        return options.children.map((child) => ({
+            id: child.content.codice,
+            value: child.content.testo,
+            selected: currentValue === child.content.codice,
+            children: child.children?.length
+                ? this.#treeNodeAdapter(child, currentValue)
+                : [],
+        }));
     }
 
     //#endregion

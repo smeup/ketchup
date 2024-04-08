@@ -102,80 +102,137 @@ let data = {
                     },
                     editable: true,
                     mandatory: true,
-                    options: [
-                        {
-                            id: 'ROM',
-                            label: 'Rome',
-                        },
-                        {
-                            id: 'FLO',
-                            label: 'Florence',
-                        },
-                        {
-                            id: 'VEN',
-                            label: 'Venice',
-                        },
-                        {
-                            id: 'MAD',
-                            label: 'Madrid',
-                        },
-                        {
-                            id: 'BAR',
-                            label: 'Barcelona',
-                        },
-                        {
-                            id: 'SEV',
-                            label: 'Seville',
-                        },
-                        {
-                            id: 'BER',
-                            label: 'Berlin',
-                        },
-                        {
-                            id: 'MUN',
-                            label: 'Munich',
-                        },
-                        {
-                            id: 'HAM',
-                            label: 'Hamburg',
-                        },
-                        {
-                            id: 'PAR',
-                            label: 'Paris',
-                        },
-                        {
-                            id: 'MAR',
-                            label: 'Marseille',
-                        },
-                        {
-                            id: 'LYO',
-                            label: 'Lyon',
-                        },
-                        {
-                            id: 'LIS',
-                            label: 'Lisbon',
-                        },
-                        {
-                            id: 'POR',
-                            label: 'Porto',
-                        },
-                        {
-                            id: 'FAR',
-                            label: 'Faro',
-                        },
-                        {
-                            id: 'LON',
-                            label: 'London',
-                        },
-                        {
-                            id: 'MAN',
-                            label: 'Manchester',
-                        },
-                        {
-                            id: 'LIV',
-                            label: 'Liverpool',
-                        },
-                    ],
+                    options: {
+                        type: 'SmeupTree',
+                        messages: [],
+                        children: [
+                            {
+                                content: {
+                                    codice: 'ROM',
+                                    testo: 'Rome',
+                                },
+                                children: [
+                                    {
+                                        content: {
+                                            codice: 'ROS',
+                                            testo: 'Rome Sud',
+                                        },
+                                        children: [],
+                                    },
+                                    {
+                                        content: {
+                                            codice: 'RON',
+                                            testo: 'Rome Nord',
+                                        },
+                                        children: [],
+                                    },
+                                ],
+                            },
+                            {
+                                content: {
+                                    codice: 'FLO',
+                                    testo: 'Florence',
+                                },
+                                children: [],
+                            },
+                            {
+                                content: {
+                                    codice: 'VEN',
+                                    testo: 'Venice',
+                                },
+                            },
+                            {
+                                content: {
+                                    codice: 'MAD',
+                                    testo: 'Madrid',
+                                },
+                            },
+                            {
+                                content: {
+                                    codice: 'BAR',
+                                    testo: 'Barcelona',
+                                },
+                            },
+                            {
+                                content: {
+                                    codice: 'SEV',
+                                    testo: 'Seville',
+                                },
+                            },
+                            {
+                                content: {
+                                    codice: 'BER',
+                                    testo: 'Berlin',
+                                },
+                            },
+                            {
+                                content: {
+                                    codice: 'MUN',
+                                    testo: 'Munich',
+                                },
+                            },
+                            {
+                                content: {
+                                    codice: 'HAM',
+                                    testo: 'Hamburg',
+                                },
+                            },
+                            {
+                                content: {
+                                    codice: 'PAR',
+                                    testo: 'Paris',
+                                },
+                            },
+                            {
+                                content: {
+                                    codice: 'MAR',
+                                    testo: 'Marseille',
+                                },
+                            },
+                            {
+                                content: {
+                                    codice: 'LYO',
+                                    testo: 'Lyon',
+                                },
+                            },
+                            {
+                                content: {
+                                    codice: 'LIS',
+                                    testo: 'Lisbon',
+                                },
+                            },
+                            {
+                                content: {
+                                    codice: 'POR',
+                                    testo: 'Porto',
+                                },
+                            },
+                            {
+                                content: {
+                                    codice: 'FAR',
+                                    testo: 'Faro',
+                                },
+                            },
+                            {
+                                content: {
+                                    codice: 'LON',
+                                    testo: 'London',
+                                },
+                            },
+                            {
+                                content: {
+                                    codice: 'MAN',
+                                    testo: 'Manchester',
+                                },
+                            },
+                            {
+                                content: {
+                                    codice: 'LIV',
+                                    testo: 'Liverpool',
+                                },
+                            },
+                        ],
+                    },
                     shape: 'ACP',
                 },
                 CHK: {
