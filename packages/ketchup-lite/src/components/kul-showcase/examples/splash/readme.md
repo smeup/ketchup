@@ -22,6 +22,7 @@ graph TD;
   kul-showcase-splash --> kul-button
   kul-showcase-splash --> kul-splash
   kul-button --> kul-image
+  kul-image --> kul-spinner
   kul-image --> kul-badge
   kul-badge --> kul-image
   kul-showcase --> kul-showcase-splash

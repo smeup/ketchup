@@ -19,6 +19,7 @@
 ```mermaid
 graph TD;
   kul-showcase-image --> kul-image
+  kul-image --> kul-spinner
   kul-image --> kul-badge
   kul-badge --> kul-image
   kul-showcase --> kul-showcase-image

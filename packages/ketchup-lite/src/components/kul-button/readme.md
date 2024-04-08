@@ -148,6 +148,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kul-button --> kul-image
+  kul-image --> kul-spinner
   kul-image --> kul-badge
   kul-badge --> kul-image
   kul-card --> kul-button

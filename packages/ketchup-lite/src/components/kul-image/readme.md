@@ -91,11 +91,13 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kul-spinner](../kul-spinner)
 - [kul-badge](../kul-badge)
 
 ### Graph
 ```mermaid
 graph TD;
+  kul-image --> kul-spinner
   kul-image --> kul-badge
   kul-badge --> kul-image
   kul-button --> kul-image

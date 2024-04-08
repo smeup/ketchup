@@ -54,5 +54,12 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
             id: 'kul-splash',
             value: 'Splash',
         },
+        {
+            description:
+                'A component that indicates a loading state, often used during content or page loading.',
+            icon: 'vanish',
+            id: 'kul-spinner',
+            value: 'Spinner',
+        },
     ],
 };
