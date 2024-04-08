@@ -26,10 +26,6 @@
                 font-size: var(--kup-font-size);
             }
 
-            kup-switch {
-                --kup-primary-color: var(--kup-secondary-color);
-            }
-
             kup-dropdown-button {
                 bottom: 10px;
                 position: fixed;
@@ -60,7 +56,11 @@
                     icon="bug"
                 ></kup-button
                 ><kup-button slot="right" icon="magnify"></kup-button
-                ><kup-button slot="left" id="drawer-button" icon="menu"></kup-button
+                ><kup-button
+                    slot="left"
+                    id="drawer-button"
+                    icon="menu"
+                ></kup-button
                 ><span slot="left">Nav bar</span></kup-nav-bar
             >
             <kup-drawer class="kup-permanent"></kup-drawer>
