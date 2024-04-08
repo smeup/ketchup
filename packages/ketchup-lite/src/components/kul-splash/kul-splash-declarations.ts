@@ -1,4 +1,4 @@
-export type KulSplashEvents = 'unmount';
+export type KulSplashEvents = 'ready' | 'unmount';
 
 export enum KulSplashProps {
     kulLabel = 'The text displayed inside the badge.',

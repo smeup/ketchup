@@ -12,6 +12,7 @@ import { KulButtonEventPayload, KulButtonStates, KulButtonStyling } from "./comp
 import { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 import { KulCardFamily } from "./components/kul-card/kul-card-declarations";
 import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
+import { KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 export { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
 export { GenericObject, KulEventPayload } from "./types/GenericTypes";
 export { KulDebugComponentInfo } from "./managers/kul-debug/kul-debug-declarations";
@@ -19,6 +20,7 @@ export { KulButtonEventPayload, KulButtonStates, KulButtonStyling } from "./comp
 export { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 export { KulCardFamily } from "./components/kul-card/kul-card-declarations";
 export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
+export { KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 export namespace Components {
     interface KulBadge {
         /**
@@ -303,7 +305,71 @@ export namespace Components {
     }
     interface KulShowcaseImage {
     }
+    interface KulShowcaseSpinner {
+    }
     interface KulShowcaseSplash {
+    }
+    interface KulSpinner {
+        /**
+          * Fetches debug information of the component's current state.
+          * @returns A promise that resolves with the debug information object.
+         */
+        "getDebugInfo": () => Promise<KulDebugComponentInfo1>;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Specifies if the spinner is animating.
+          * @default false
+         */
+        "kulActive": boolean;
+        /**
+          * Controls if the component displays as a bar or a spinner.
+          * @default false
+         */
+        "kulBarVariant": boolean;
+        /**
+          * Defines the width and height of the spinner. In the bar variant, it specifies only the height.
+          * @default ""
+         */
+        "kulDimensions": string;
+        /**
+          * Applies a blending modal over the component to darken or lighten the view, based on the theme.
+          * @default false
+         */
+        "kulFader": boolean;
+        /**
+          * Duration needed for the fader to become active.
+          * @default 3500
+         */
+        "kulFaderTimeout": number;
+        /**
+          * Fills the entire viewport when enabled.
+          * @default false
+         */
+        "kulFullScreen": boolean;
+        /**
+          * Selects the spinner layout.
+          * @default 1
+         */
+        "kulLayout": number;
+        /**
+          * Sets a custom style for the component.
+          * @default ""
+         */
+        "kulStyle": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KulSplash {
         /**
@@ -362,6 +428,10 @@ export interface KulImageCustomEvent<T> extends CustomEvent<T> {
 export interface KulShowcaseCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulShowcaseElement;
+}
+export interface KulSpinnerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKulSpinnerElement;
 }
 export interface KulSplashCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -477,11 +547,34 @@ declare global {
         prototype: HTMLKulShowcaseImageElement;
         new (): HTMLKulShowcaseImageElement;
     };
+    interface HTMLKulShowcaseSpinnerElement extends Components.KulShowcaseSpinner, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseSpinnerElement: {
+        prototype: HTMLKulShowcaseSpinnerElement;
+        new (): HTMLKulShowcaseSpinnerElement;
+    };
     interface HTMLKulShowcaseSplashElement extends Components.KulShowcaseSplash, HTMLStencilElement {
     }
     var HTMLKulShowcaseSplashElement: {
         prototype: HTMLKulShowcaseSplashElement;
         new (): HTMLKulShowcaseSplashElement;
+    };
+    interface HTMLKulSpinnerElementEventMap {
+        "kul-spinner-event": KulEventPayload;
+    }
+    interface HTMLKulSpinnerElement extends Components.KulSpinner, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulSpinnerElementEventMap>(type: K, listener: (this: HTMLKulSpinnerElement, ev: KulSpinnerCustomEvent<HTMLKulSpinnerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulSpinnerElementEventMap>(type: K, listener: (this: HTMLKulSpinnerElement, ev: KulSpinnerCustomEvent<HTMLKulSpinnerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKulSpinnerElement: {
+        prototype: HTMLKulSpinnerElement;
+        new (): HTMLKulSpinnerElement;
     };
     interface HTMLKulSplashElementEventMap {
         "kul-splash-event": KulEventPayload;
@@ -510,7 +603,9 @@ declare global {
         "kul-showcase-button": HTMLKulShowcaseButtonElement;
         "kul-showcase-card": HTMLKulShowcaseCardElement;
         "kul-showcase-image": HTMLKulShowcaseImageElement;
+        "kul-showcase-spinner": HTMLKulShowcaseSpinnerElement;
         "kul-showcase-splash": HTMLKulShowcaseSplashElement;
+        "kul-spinner": HTMLKulSpinnerElement;
         "kul-splash": HTMLKulSplashElement;
     }
 }
@@ -702,7 +797,52 @@ declare namespace LocalJSX {
     }
     interface KulShowcaseImage {
     }
+    interface KulShowcaseSpinner {
+    }
     interface KulShowcaseSplash {
+    }
+    interface KulSpinner {
+        /**
+          * Specifies if the spinner is animating.
+          * @default false
+         */
+        "kulActive"?: boolean;
+        /**
+          * Controls if the component displays as a bar or a spinner.
+          * @default false
+         */
+        "kulBarVariant"?: boolean;
+        /**
+          * Defines the width and height of the spinner. In the bar variant, it specifies only the height.
+          * @default ""
+         */
+        "kulDimensions"?: string;
+        /**
+          * Applies a blending modal over the component to darken or lighten the view, based on the theme.
+          * @default false
+         */
+        "kulFader"?: boolean;
+        /**
+          * Duration needed for the fader to become active.
+          * @default 3500
+         */
+        "kulFaderTimeout"?: number;
+        /**
+          * Fills the entire viewport when enabled.
+          * @default false
+         */
+        "kulFullScreen"?: boolean;
+        /**
+          * Selects the spinner layout.
+          * @default 1
+         */
+        "kulLayout"?: number;
+        /**
+          * Sets a custom style for the component.
+          * @default ""
+         */
+        "kulStyle"?: string;
+        "onKul-spinner-event"?: (event: KulSpinnerCustomEvent<KulEventPayload>) => void;
     }
     interface KulSplash {
         /**
@@ -730,7 +870,9 @@ declare namespace LocalJSX {
         "kul-showcase-button": KulShowcaseButton;
         "kul-showcase-card": KulShowcaseCard;
         "kul-showcase-image": KulShowcaseImage;
+        "kul-showcase-spinner": KulShowcaseSpinner;
         "kul-showcase-splash": KulShowcaseSplash;
+        "kul-spinner": KulSpinner;
         "kul-splash": KulSplash;
     }
 }
@@ -747,7 +889,9 @@ declare module "@stencil/core" {
             "kul-showcase-button": LocalJSX.KulShowcaseButton & JSXBase.HTMLAttributes<HTMLKulShowcaseButtonElement>;
             "kul-showcase-card": LocalJSX.KulShowcaseCard & JSXBase.HTMLAttributes<HTMLKulShowcaseCardElement>;
             "kul-showcase-image": LocalJSX.KulShowcaseImage & JSXBase.HTMLAttributes<HTMLKulShowcaseImageElement>;
+            "kul-showcase-spinner": LocalJSX.KulShowcaseSpinner & JSXBase.HTMLAttributes<HTMLKulShowcaseSpinnerElement>;
             "kul-showcase-splash": LocalJSX.KulShowcaseSplash & JSXBase.HTMLAttributes<HTMLKulShowcaseSplashElement>;
+            "kul-spinner": LocalJSX.KulSpinner & JSXBase.HTMLAttributes<HTMLKulSpinnerElement>;
             "kul-splash": LocalJSX.KulSplash & JSXBase.HTMLAttributes<HTMLKulSplashElement>;
         }
     }

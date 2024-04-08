@@ -221,6 +221,7 @@ export class KulImage {
     }
 
     componentDidLoad() {
+        this.onKulEvent(new CustomEvent('ready'), 'ready');
         this.#kulManager.debug.updateDebugInfo(this, 'did-load');
     }
 
@@ -266,9 +267,9 @@ export class KulImage {
             feedback = (
                 <div class="spinner" title="Image not loaded yet...">
                     <kul-spinner
-                        active
-                        dimensions="3px"
-                        layout={spinnerLayout}
+                        kulActive={true}
+                        kulDimensions="3px"
+                        kulLayout={spinnerLayout}
                     ></kul-spinner>
                 </div>
             );

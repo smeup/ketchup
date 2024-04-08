@@ -1,4 +1,4 @@
-export type KulImageEvents = 'click' | 'load';
+export type KulImageEvents = 'click' | 'load' | 'ready';
 
 export enum KulImageProps {
     kulBadgeData = 'Sets the data of badges.',

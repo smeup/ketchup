@@ -4,7 +4,12 @@ export interface KulButtonEventPayload extends KulEventPayload {
     value: string;
 }
 
-export type KulButtonEvents = 'blur' | 'click' | 'focus' | 'pointerdown';
+export type KulButtonEvents =
+    | 'blur'
+    | 'click'
+    | 'focus'
+    | 'pointerdown'
+    | 'ready';
 
 export enum KulButtonProps {
     kulDisabled = 'When true, the component is disabled.',

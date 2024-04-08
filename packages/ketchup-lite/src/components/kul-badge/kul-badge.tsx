@@ -141,6 +141,7 @@ export class KulBadge {
     }
 
     componentDidLoad() {
+        this.onKulEvent(new CustomEvent('ready'), 'ready');
         this.#kulManager.debug.updateDebugInfo(this, 'did-load');
     }
 

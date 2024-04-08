@@ -1,0 +1,10 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+
+:host(.#{$kul-class-unclickable}) {
+  #loading-wrapper-master {
+    cursor: wait;
+    pointer-events: all;
+  }
+}

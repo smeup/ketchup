@@ -84,6 +84,7 @@ Type: `Promise<void>`
 - [kul-showcase-card](./examples/card)
 - [kul-showcase-image](./examples/image)
 - [kul-showcase-splash](./examples/splash)
+- [kul-showcase-spinner](./examples/spinner)
 - [kul-button](../kul-button)
 
 ### Graph
@@ -95,9 +96,11 @@ graph TD;
   kul-showcase --> kul-showcase-card
   kul-showcase --> kul-showcase-image
   kul-showcase --> kul-showcase-splash
+  kul-showcase --> kul-showcase-spinner
   kul-showcase --> kul-button
   kul-card --> kul-image
   kul-card --> kul-button
+  kul-image --> kul-spinner
   kul-image --> kul-badge
   kul-badge --> kul-image
   kul-button --> kul-image
@@ -107,6 +110,7 @@ graph TD;
   kul-showcase-image --> kul-image
   kul-showcase-splash --> kul-button
   kul-showcase-splash --> kul-splash
+  kul-showcase-spinner --> kul-spinner
   style kul-showcase fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

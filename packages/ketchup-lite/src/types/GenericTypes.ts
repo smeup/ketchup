@@ -56,4 +56,5 @@ export type KulTagNames =
     | 'KUP-BUTTON'
     | 'KUP-CARD'
     | 'KUP-IMAGE'
-    | 'KUP-SPLASH';
+    | 'KUP-SPLASH'
+    | 'KUP-SPINNER';

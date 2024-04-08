@@ -401,6 +401,7 @@ export class KulButton {
 
     componentDidLoad() {
         this.#kulManager.theme.ripple.setup(this.#rippleSurface);
+        this.onKulEvent(new CustomEvent('ready'), 'ready');
         this.#kulManager.debug.updateDebugInfo(this, 'did-load');
     }
 
