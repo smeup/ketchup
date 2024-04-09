@@ -93,12 +93,14 @@ Type: `Promise<void>`
 ### Used by
 
  - [kul-image](../kul-image)
+ - [kul-showcase-button](../kul-showcase/examples/button)
  - [kul-showcase-spinner](../kul-showcase/examples/spinner)
 
 ### Graph
 ```mermaid
 graph TD;
   kul-image --> kul-spinner
+  kul-showcase-button --> kul-spinner
   kul-showcase-spinner --> kul-spinner
   style kul-spinner fill:#f9f,stroke:#333,stroke-width:4px
 ```
