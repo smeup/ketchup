@@ -343,7 +343,7 @@ export class KupInputPanel {
                   const cells = data.columns
                       .filter((column) => column.visible)
                       .map((column) => {
-                          const cell = row.cells[column.name];
+                          const cell = structuredClone(row.cells[column.name]);
                           const mappedCell = {
                               ...cell,
                               data: {
