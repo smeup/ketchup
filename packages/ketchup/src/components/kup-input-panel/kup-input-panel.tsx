@@ -135,7 +135,9 @@ export class KupInputPanel {
     @Watch('data')
     onDataChanged() {
         //TODO: Pier è il luogo giusto per fare questo cloning?
-        this.#originalData = structuredClone(this.data);
+        if (!this.#originalData) {
+            this.#originalData = structuredClone(this.data);
+        }
         this.#mapCells(this.data);
     }
     //#endregion
@@ -224,7 +226,7 @@ export class KupInputPanel {
                     e.preventDefault();
                     this.submitCb({
                         before: { ...this.#originalData },
-                        after: structuredClone(this.data),
+                        after: this.#reverseMapCells(),
                     });
                 }}
             >
@@ -359,6 +361,48 @@ export class KupInputPanel {
             : [];
 
         this.inputPanelCells = inpuPanelCells;
+    }
+
+    #reverseMapCells(): KupInputPanelData {
+        return this.inputPanelCells.reduce(
+            (data, curr) => {
+                const updatedCells = Object.keys(curr.row.cells).reduce(
+                    (cells, key) => {
+                        const cellState = curr.cells.find(
+                            (c) => c.column.name === key
+                        ).cell;
+
+                        return {
+                            ...cells,
+                            [key]: {
+                                ...curr.row.cells[key],
+                                value: cellState.value,
+                                obj: cellState.obj,
+                            },
+                        };
+                    },
+                    {}
+                );
+
+                return {
+                    columns: [
+                        ...data.columns,
+                        ...curr.cells.map((cell) => cell.column),
+                    ],
+                    rows: [
+                        ...data.rows,
+                        {
+                            cells: updatedCells,
+                            layout: curr.row.layout,
+                        },
+                    ],
+                };
+            },
+            {
+                columns: [],
+                rows: [],
+            }
+        );
     }
 
     #mapData(cell: KupInputPanelCell, col: KupInputPanelColumn) {
