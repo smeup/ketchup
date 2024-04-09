@@ -12,13 +12,33 @@ import {
     forceUpdate,
     h,
 } from '@stencil/core';
+import { KupDataCell } from '../../components';
+import { FButton } from '../../f-components/f-button/f-button';
+import { FCell } from '../../f-components/f-cell/f-cell';
+import {
+    FCellProps,
+    FCellTypes,
+} from '../../f-components/f-cell/f-cell-declarations';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../managers/kup-manager/kup-manager';
+import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
+import {
+    GenericObject,
+    KupComponent,
+    KupEventPayload,
+} from '../../types/GenericTypes';
+import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 import {
     DataAdapterFn,
     InputPanelCells,
     InputPanelEvent,
     InputPanelEventsCallback,
     KupInputPanelCell,
-    KupInputPanelCellOptions,
     KupInputPanelColumn,
     KupInputPanelData,
     KupInputPanelLayoutField,
@@ -26,27 +46,6 @@ import {
     KupInputPanelProps,
     KupInputPanelRow,
 } from './kup-input-panel-declarations';
-import {
-    KupManager,
-    kupManagerInstance,
-} from '../../managers/kup-manager/kup-manager';
-import {
-    GenericObject,
-    KupComponent,
-    KupEventPayload,
-} from '../../types/GenericTypes';
-import { componentWrapperId } from '../../variables/GenericVariables';
-import { FButton } from '../../f-components/f-button/f-button';
-import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
-import {
-    FCellProps,
-    FCellTypes,
-} from '../../f-components/f-cell/f-cell-declarations';
-import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
-import { FCell } from '../../f-components/f-cell/f-cell';
-import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
-import { KupDataCell } from '../../components';
-import { getProps, setProps } from '../../utils/utils';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
