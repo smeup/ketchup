@@ -452,3 +452,4 @@ const inputPanelCallback = [
 ];
 
 inputPanel.valueChangeCb = inputPanelCallback;
+inputPanel.submitCb = (e) => console.log(e);

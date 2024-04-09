@@ -45,6 +45,7 @@ import {
     KupInputPanelLayoutSection,
     KupInputPanelProps,
     KupInputPanelRow,
+    KupInputPanelSubmit,
 } from './kup-input-panel-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -87,7 +88,7 @@ export class KupInputPanel {
      * Sets the callback function on submit form
      * @default null
      */
-    @Prop() submitCb: (e: SubmitEvent) => unknown = null;
+    @Prop() submitCb: (e: KupInputPanelSubmit) => unknown = null;
 
     /**
      * Sets the callbacks functions on ketchup events
@@ -122,6 +123,8 @@ export class KupInputPanel {
         ['SmeupTree', this.#treeOptionsNodeAdapter.bind(this)],
         ['SmeupTable', this.#tableOptionsAdapter.bind(this)],
     ]);
+
+    #originalData: KupInputPanelData = null;
     //#endregion
 
     //#region WATCHERS
@@ -131,6 +134,8 @@ export class KupInputPanel {
 
     @Watch('data')
     onDataChanged() {
+        //TODO: Pier è il luogo giusto per fare questo cloning?
+        this.#originalData = structuredClone(this.data);
         this.#mapCells(this.data);
     }
     //#endregion
@@ -210,14 +215,21 @@ export class KupInputPanel {
         };
 
         // We create a form for each row in data
+        //TODO: Pier la condizione di hiddenSubmitButton era inversa. come mai?
         return (
             <form
                 class={classObj}
                 name={this.rootElement.id}
-                onSubmit={this.submitCb}
+                onSubmit={(e: SubmitEvent) => {
+                    e.preventDefault();
+                    this.submitCb({
+                        before: { ...this.#originalData },
+                        after: structuredClone(this.data),
+                    });
+                }}
             >
                 {rowContent}
-                {this.hiddenSubmitButton ? (
+                {!this.hiddenSubmitButton ? (
                     <FButton
                         buttonType="submit"
                         label={this.#kupManager.language.translate(

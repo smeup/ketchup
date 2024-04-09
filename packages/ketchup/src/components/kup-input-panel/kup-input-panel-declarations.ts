@@ -4,6 +4,11 @@ import {
     KupDataColumn,
 } from '../../managers/kup-data/kup-data-declarations';
 
+export interface KupInputPanelSubmit {
+    after: KupInputPanelData;
+    before: KupInputPanelData;
+}
+
 export interface KupInputPanelData {
     columns?: KupDataColumn[];
     rows?: KupInputPanelRow[];
