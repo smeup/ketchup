@@ -115,6 +115,14 @@ export class KupInputPanel {
     /*-------------------------------------------------*/
 
     #kupManager: KupManager = kupManagerInstance();
+
+    #optionsAdapterMap = new Map<
+        string,
+        (options: any, currentValue: string) => GenericObject[]
+    >([
+        ['SmeupTree', this.#treeOptionsNodeAdapter.bind(this)],
+        ['SmeupTable', this.#tableOptionsAdapter.bind(this)],
+    ]);
     //#endregion
 
     //#region WATCHERS
@@ -501,15 +509,7 @@ export class KupInputPanel {
     }
 
     #optionsTreeComboAdapter(options: any, currentValue: string) {
-        const optionsAdapterMap = new Map<
-            string,
-            (options: any, currentValue: string) => GenericObject[]
-        >([
-            ['SmeupTree', this.#treeOptionsNodeAdapter.bind(this)],
-            ['SmeupTable', this.#tableOptionsAdapter.bind(this)],
-        ]);
-
-        const adapter = optionsAdapterMap.get(options.type);
+        const adapter = this.#optionsAdapterMap.get(options.type);
 
         if (adapter) {
             return adapter(options, currentValue);
