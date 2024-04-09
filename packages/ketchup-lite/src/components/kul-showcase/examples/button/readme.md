@@ -14,11 +14,13 @@
 ### Depends on
 
 - [kul-button](../../../kul-button)
+- [kul-spinner](../../../kul-spinner)
 
 ### Graph
 ```mermaid
 graph TD;
   kul-showcase-button --> kul-button
+  kul-showcase-button --> kul-spinner
   kul-button --> kul-image
   kul-image --> kul-spinner
   kul-image --> kul-badge

@@ -26,10 +26,7 @@ import {
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { KulLanguageGeneric } from '../../managers/kul-language/kul-language-declarations';
 import { getProps, setProps } from '../../utils/componentUtils';
-import {
-    KUL_WRAPPER_ID,
-    RIPPLE_SURFACE_CLASS,
-} from '../../variables/GenericVariables';
+import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import {
     KulDataDataset,
     KulDataShapesMap,

@@ -11,7 +11,7 @@ import {
     State,
     VNode,
 } from '@stencil/core';
-import type { GenericObject, KulComponent } from '../../types/GenericTypes';
+import type { GenericObject } from '../../types/GenericTypes';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import {
     KulButtonEventPayload,
@@ -153,11 +153,13 @@ export class KulButton {
     kulEvent: EventEmitter<KulButtonEventPayload>;
 
     onKulEvent(e: Event, eventType: KulButtonEvents) {
-        if (this.kulRipple && eventType === 'pointerdown') {
-            this.#kulManager.theme.ripple.trigger(
-                e as PointerEvent,
-                this.#rippleSurface
-            );
+        if (eventType === 'pointerdown') {
+            if (this.kulRipple && this.kulStyling !== 'icon') {
+                this.#kulManager.theme.ripple.trigger(
+                    e as PointerEvent,
+                    this.#rippleSurface
+                );
+            }
             if (this.kulToggable) {
                 if (this.value === 'on') {
                     this.value = 'off';
@@ -297,7 +299,13 @@ export class KulButton {
                 style={styleSpinnerContainer}
                 aria-label={this.rootElement.title}
             >
-                <div ref={(el) => (this.#rippleSurface = el)}></div>
+                <div
+                    ref={(el) => {
+                        if (this.kulRipple) {
+                            this.#rippleSurface = el;
+                        }
+                    }}
+                ></div>
                 {this.kulTrailingIcon
                     ? [
                           <span class={classLabelObj}>{this.kulLabel}</span>,
@@ -328,26 +336,27 @@ export class KulButton {
 
     renderIconButton(): VNode {
         const isLarge = this.rootElement.classList.contains('large');
-        const imageProps = {
-            color: this.kulDisabled
+        const isOn = this.value === 'on';
+        const imageProps: KulImagePropsInterface = {
+            kulColor: this.kulDisabled
                 ? `var(--kul_button_disabled_color)`
                 : `var(--kul_button_primary_color)`,
-            sizeX: isLarge ? 'calc(1.75em * 1.5)' : '1.75em',
-            sizeY: isLarge ? 'calc(1.75em * 1.5)' : '1.75em',
+            kulSizeX: isLarge ? 'calc(1.75em * 1.5)' : '1.75em',
+            kulSizeY: isLarge ? 'calc(1.75em * 1.5)' : '1.75em',
         };
 
         const classObj: Record<string, boolean> = {
             'icon-button': true,
             'button--disabled': this.kulDisabled ? true : false,
-            'icon-button--on': this.kulToggable && this.kulValue ? true : false,
+            'icon-button--on': this.kulToggable && isOn ? true : false,
             toggable: this.kulToggable ? true : false,
             'button--with-spinner':
                 this.kulShowSpinner && !this.kulDisabled ? true : false,
         };
 
         const styleSpinnerContainer: Record<string, string> = {
-            '--kul_button_spinner_height': imageProps.sizeY,
-            '--kul_button_spinner_width': imageProps.sizeX,
+            '--kul_button_spinner_height': imageProps.kulSizeY,
+            '--kul_button_spinner_width': imageProps.kulSizeX,
         };
 
         const iconOff: string = this.kulIconOff
@@ -359,19 +368,18 @@ export class KulButton {
                 type={this.kulType ? this.kulType : 'button'}
                 class={classObj}
                 disabled={this.kulDisabled}
+                onBlur={(e) => this.onKulEvent(e, 'click')}
                 onClick={(e) => this.onKulEvent(e, 'click')}
+                onPointerDown={(e) => this.onKulEvent(e, 'pointerdown')}
                 style={styleSpinnerContainer}
                 value={this.value}
                 aria-label={this.rootElement.title}
             >
-                <div ref={(el) => (this.#rippleSurface = el)}></div>
                 {!this.kulShowSpinner || this.kulDisabled ? (
                     <kul-image
                         {...imageProps}
-                        resource={
-                            this.kulToggable && !this.kulValue
-                                ? iconOff
-                                : this.kulIcon
+                        kulValue={
+                            this.kulToggable && !isOn ? iconOff : this.kulIcon
                         }
                     />
                 ) : null}
@@ -400,7 +408,9 @@ export class KulButton {
     }
 
     componentDidLoad() {
-        this.#kulManager.theme.ripple.setup(this.#rippleSurface);
+        if (this.#rippleSurface) {
+            this.#kulManager.theme.ripple.setup(this.#rippleSurface);
+        }
         this.onKulEvent(new CustomEvent('ready'), 'ready');
         this.#kulManager.debug.updateDebugInfo(this, 'did-load');
     }

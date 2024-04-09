@@ -10,7 +10,7 @@
 
 .group {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columns for mobile */
+  grid-template-columns: repeat(1, 1fr); /* 1 columns for mobile */
   padding: 12px 0;
 }
 
@@ -35,9 +35,9 @@ kul-button {
 @media (orientation: landscape) {
   .group {
     grid-template-columns: repeat(
-      3,
+      2,
       1fr
-    ); /* 3 columns for mobile in landscape */
+    ); /* 2 columns for mobile in landscape */
   }
 }
 
