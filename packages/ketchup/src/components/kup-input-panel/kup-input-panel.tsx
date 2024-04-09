@@ -134,7 +134,6 @@ export class KupInputPanel {
 
     @Watch('data')
     onDataChanged() {
-        //TODO: Pier è il luogo giusto per fare questo cloning?
         if (!this.#originalData) {
             this.#originalData = structuredClone(this.data);
         }
@@ -217,7 +216,6 @@ export class KupInputPanel {
         };
 
         // We create a form for each row in data
-        //TODO: Pier la condizione di hiddenSubmitButton era inversa. come mai?
         return (
             <form
                 class={classObj}
