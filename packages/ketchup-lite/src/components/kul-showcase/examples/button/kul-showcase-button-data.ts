@@ -4,6 +4,7 @@ import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 interface ButtonExample extends KulButtonPropsInterface {
     ['data-description']: string;
     ['data-dynamic']?: KulShowcaseDynamicExampleType;
+    className: string;
 }
 
 interface ButtonData {
@@ -16,35 +17,55 @@ export const BUTTON_EXAMPLES: ButtonData = {
             ['data-description']: 'Button states colors',
             ['data-dynamic']: 'state-colors',
             kulLabel: 'States colors',
-            kulStyling: 'flat',
         },
         buttonDisabled: {
             ['data-description']: 'Disabled button',
             kulDisabled: true,
             kulLabel: 'Disabled',
-            kulStyling: 'flat',
         },
         buttonIcon: {
             ['data-description']: 'Icon button',
-            kulIcon: 'bug',
-            kulStyling: 'flat',
+            kulIcon: 'widgets',
         },
         buttonLabel: {
             ['data-description']: 'With label',
             kulLabel: 'With label',
-            kulStyling: 'flat',
         },
         buttonLabelIcon: {
             ['data-description']: 'With label and icon',
             kulIcon: 'widgets',
             kulLabel: 'With label and icon',
-            kulStyling: 'flat',
+        },
+        buttonLarge: {
+            className: 'kul-large',
+            ['data-description']: 'Large button',
+            kulLabel: 'Large',
+        },
+        buttonShaped: {
+            className: 'kul-shaped',
+            ['data-description']: 'Shaped button',
+            kulLabel: 'Shaped',
+        },
+        buttonSlim: {
+            className: 'kul-slim',
+            ['data-description']: 'Slim button',
+            kulLabel: 'Slim',
+        },
+        buttonSpinner: {
+            ['data-description']: 'Button with spinner',
+            kulLabel: 'With spinner',
+            kulShowSpinner: true,
         },
         buttonStyle: {
             ['data-description']: 'Button with custom style',
             ['data-dynamic']: 'custom',
             kulLabel: 'With custom style',
-            kulStyling: 'flat',
+        },
+        buttonTrailingIcon: {
+            ['data-description']: 'With label and trailing icon',
+            kulIcon: 'widgets',
+            kulLabel: 'With label and trailing icon',
+            kulTrailingIcon: true,
         },
     },
     floating: {
@@ -52,35 +73,100 @@ export const BUTTON_EXAMPLES: ButtonData = {
             ['data-description']: 'Button states colors',
             ['data-dynamic']: 'state-colors',
             kulLabel: 'States colors',
-            kulStyling: 'floating',
         },
         buttonDisabled: {
             ['data-description']: 'Disabled button',
             kulDisabled: true,
             kulLabel: 'Disabled',
-            kulStyling: 'floating',
         },
         buttonIcon: {
             ['data-description']: 'Icon button',
-            kulIcon: 'bug',
-            kulStyling: 'floating',
+            kulIcon: 'widgets',
         },
         buttonLabel: {
             ['data-description']: 'With label',
             kulLabel: 'With label',
-            kulStyling: 'floating',
         },
         buttonLabelIcon: {
             ['data-description']: 'With label and icon',
             kulIcon: 'widgets',
             kulLabel: 'With label and icon',
-            kulStyling: 'floating',
+        },
+        buttonLarge: {
+            className: 'kul-large',
+            ['data-description']: 'Large button',
+            kulLabel: 'Large',
+        },
+        buttonShaped: {
+            className: 'kul-shaped',
+            ['data-description']: 'Shaped button',
+            kulLabel: 'Shaped',
+        },
+        buttonSlim: {
+            className: 'kul-slim',
+            ['data-description']: 'Slim button',
+            kulLabel: 'Slim',
+        },
+        buttonSpinner: {
+            ['data-description']: 'Button with spinner',
+            kulLabel: 'With spinner',
+            kulShowSpinner: true,
         },
         buttonStyle: {
             ['data-description']: 'Button with custom style',
             ['data-dynamic']: 'custom',
             kulLabel: 'With custom style',
-            kulStyling: 'floating',
+        },
+        buttonTrailingIcon: {
+            ['data-description']: 'With label and trailing icon',
+            kulIcon: 'widgets',
+            kulLabel: 'With label and trailing icon',
+            kulTrailingIcon: true,
+        },
+    },
+    icon: {
+        buttonColors: {
+            ['data-description']: 'Button states colors',
+            ['data-dynamic']: 'state-colors',
+            kulIcon: 'widgets',
+        },
+        buttonDisabled: {
+            ['data-description']: 'Disabled button',
+            kulDisabled: true,
+            kulIcon: 'widgets',
+        },
+        buttonIcon: {
+            ['data-description']: 'Icon button',
+            kulIcon: 'widgets',
+        },
+        buttonLarge: {
+            className: 'kul-large',
+            ['data-description']: 'Large button',
+            kulIcon: 'widgets',
+        },
+        buttonPulsating: {
+            className: 'kul-pulsating',
+            ['data-description']:
+                'Toggable button with pulsating and kulIconOff',
+            kulIcon: 'remove_red_eye',
+            kulIconOff: 'eye-off',
+            kulToggable: true,
+            kulValue: true,
+        },
+        buttonSpinner: {
+            ['data-description']: 'Button with spinner',
+            kulIcon: 'widgets',
+            kulShowSpinner: true,
+        },
+        buttonSlim: {
+            className: 'kul-slim',
+            ['data-description']: 'Slim button',
+            kulIcon: 'widgets',
+        },
+        buttonStyle: {
+            ['data-description']: 'Button with custom style',
+            ['data-dynamic']: 'custom',
+            kulIcon: 'widgets',
         },
     },
     outlined: {
@@ -88,35 +174,55 @@ export const BUTTON_EXAMPLES: ButtonData = {
             ['data-description']: 'Button states colors',
             ['data-dynamic']: 'state-colors',
             kulLabel: 'States colors',
-            kulStyling: 'outlined',
         },
         buttonDisabled: {
             ['data-description']: 'Disabled button',
             kulDisabled: true,
             kulLabel: 'Disabled',
-            kulStyling: 'outlined',
         },
         buttonIcon: {
             ['data-description']: 'Icon button',
-            kulIcon: 'bug',
-            kulStyling: 'outlined',
+            kulIcon: 'widgets',
         },
         buttonLabel: {
             ['data-description']: 'With label',
             kulLabel: 'With label',
-            kulStyling: 'outlined',
         },
         buttonLabelIcon: {
             ['data-description']: 'With label and icon',
             kulIcon: 'widgets',
             kulLabel: 'With label and icon',
-            kulStyling: 'outlined',
+        },
+        buttonLarge: {
+            className: 'kul-large',
+            ['data-description']: 'Large button',
+            kulLabel: 'Large',
+        },
+        buttonShaped: {
+            className: 'kul-shaped',
+            ['data-description']: 'Shaped button',
+            kulLabel: 'Shaped',
+        },
+        buttonSlim: {
+            className: 'kul-slim',
+            ['data-description']: 'Slim button',
+            kulLabel: 'Slim',
+        },
+        buttonSpinner: {
+            ['data-description']: 'Button with spinner',
+            kulLabel: 'With spinner',
+            kulShowSpinner: true,
         },
         buttonStyle: {
             ['data-description']: 'Button with custom style',
             ['data-dynamic']: 'custom',
             kulLabel: 'With custom style',
-            kulStyling: 'outlined',
+        },
+        buttonTrailingIcon: {
+            ['data-description']: 'With label and trailing icon',
+            kulIcon: 'widgets',
+            kulLabel: 'With label and trailing icon',
+            kulTrailingIcon: true,
         },
     },
     raised: {
@@ -132,7 +238,7 @@ export const BUTTON_EXAMPLES: ButtonData = {
         },
         buttonIcon: {
             ['data-description']: 'Icon button',
-            kulIcon: 'bug',
+            kulIcon: 'widgets',
         },
         buttonLabel: {
             ['data-description']: 'With label',
@@ -143,10 +249,36 @@ export const BUTTON_EXAMPLES: ButtonData = {
             kulIcon: 'widgets',
             kulLabel: 'With label and icon',
         },
+        buttonLarge: {
+            className: 'kul-large',
+            ['data-description']: 'Large button',
+            kulLabel: 'Large',
+        },
+        buttonShaped: {
+            className: 'kul-shaped',
+            ['data-description']: 'Shaped button',
+            kulLabel: 'Shaped',
+        },
+        buttonSlim: {
+            className: 'kul-slim',
+            ['data-description']: 'Slim button',
+            kulLabel: 'Slim',
+        },
+        buttonSpinner: {
+            ['data-description']: 'Button with spinner',
+            kulLabel: 'With spinner',
+            kulShowSpinner: true,
+        },
         buttonStyle: {
             ['data-description']: 'Button with custom style',
             ['data-dynamic']: 'custom',
             kulLabel: 'With custom style',
+        },
+        buttonTrailingIcon: {
+            ['data-description']: 'With label and trailing icon',
+            kulIcon: 'widgets',
+            kulLabel: 'With label and trailing icon',
+            kulTrailingIcon: true,
         },
     },
 };

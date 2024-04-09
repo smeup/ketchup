@@ -2,6 +2,7 @@ import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { BUTTON_EXAMPLES } from './kul-showcase-button-data';
 import { DynamicExampleManager } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
+import { KulButtonStyling } from '../../../kul-button/kul-button-declarations';
 
 @Component({
     tag: 'kul-showcase-button',
@@ -28,29 +29,38 @@ export class KulShowcaseButton {
 
     #prepExamples() {
         const elements: VNode[] = [];
-        for (const key in BUTTON_EXAMPLES) {
-            if (Object.prototype.hasOwnProperty.call(BUTTON_EXAMPLES, key)) {
-                const category = BUTTON_EXAMPLES[key];
+        for (const k1 in BUTTON_EXAMPLES) {
+            if (Object.prototype.hasOwnProperty.call(BUTTON_EXAMPLES, k1)) {
+                const category = BUTTON_EXAMPLES[k1];
                 const group: VNode[] = [];
 
-                for (const key in category) {
-                    if (Object.prototype.hasOwnProperty.call(category, key)) {
-                        const props = category[key];
+                for (const k2 in category) {
+                    if (Object.prototype.hasOwnProperty.call(category, k2)) {
+                        const props = category[k2];
                         group.push(
                             <div class="example">
                                 <div class="description">
                                     {props['data-description']}
                                 </div>
                                 <kul-button
-                                    key={key}
-                                    id={key}
+                                    key={k2}
+                                    id={k2}
                                     ref={(el) => {
                                         if (props['data-dynamic']) {
                                             this.#dynamicExamples.push(el);
                                         }
                                     }}
                                     {...props}
-                                ></kul-button>
+                                    kulStyling={k1 as KulButtonStyling}
+                                >
+                                    {props.kulShowSpinner ? (
+                                        <kul-spinner
+                                            kulDimensions="2px"
+                                            kul-active={true}
+                                            slot="spinner"
+                                        ></kul-spinner>
+                                    ) : undefined}
+                                </kul-button>
                             </div>
                         );
                     }
@@ -58,7 +68,7 @@ export class KulShowcaseButton {
 
                 elements.push(
                     <div class="group-container">
-                        <div class="group-title">{key}</div>
+                        <div class="group-title">{k1}</div>
                         <div class="group">{group}</div>
                     </div>
                 );
