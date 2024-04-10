@@ -23,3 +23,7 @@
   text-decoration: none;
   @include kup-body-compact-01;
 }
+
+.buttonActive {
+  background-color: var(--kup-primary-color-60);
+}
