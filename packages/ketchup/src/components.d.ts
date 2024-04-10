@@ -2419,7 +2419,7 @@ export namespace Components {
     interface KupImageList {
         /**
           * Number of columns to display in the grid layout.
-          * @default 4
+          * @default null
          */
         "columns": number;
         /**
@@ -7170,7 +7170,7 @@ declare namespace LocalJSX {
     interface KupImageList {
         /**
           * Number of columns to display in the grid layout.
-          * @default 4
+          * @default null
          */
         "columns"?: number;
         /**
