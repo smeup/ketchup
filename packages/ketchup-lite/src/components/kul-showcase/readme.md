@@ -79,18 +79,22 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kul-card](../kul-card)
-- [kul-showcase-badge](./examples/badge)
-- [kul-showcase-button](./examples/button)
-- [kul-showcase-card](./examples/card)
-- [kul-showcase-image](./examples/image)
-- [kul-showcase-splash](./examples/splash)
-- [kul-showcase-spinner](./examples/spinner)
+- [kul-showcase-debug](./utilities/debug)
+- [kul-showcase-probe](./utilities/probe)
+- [kul-showcase-badge](./components/badge)
+- [kul-showcase-button](./components/button)
+- [kul-showcase-card](./components/card)
+- [kul-showcase-image](./components/image)
+- [kul-showcase-splash](./components/splash)
+- [kul-showcase-spinner](./components/spinner)
 - [kul-button](../kul-button)
 
 ### Graph
 ```mermaid
 graph TD;
   kul-showcase --> kul-card
+  kul-showcase --> kul-showcase-debug
+  kul-showcase --> kul-showcase-probe
   kul-showcase --> kul-showcase-badge
   kul-showcase --> kul-showcase-button
   kul-showcase --> kul-showcase-card

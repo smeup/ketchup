@@ -105,7 +105,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kul-showcase](../kul-showcase)
- - [kul-showcase-card](../kul-showcase/examples/card)
+ - [kul-showcase-card](../kul-showcase/components/card)
 
 ### Depends on
 

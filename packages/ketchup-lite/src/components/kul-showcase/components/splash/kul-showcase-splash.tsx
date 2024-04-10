@@ -8,7 +8,7 @@ import { SPLASH_EXAMPLES } from './kul-showcase-splash-data';
 })
 export class KulShowcaseSplash {
     /**
-     * References the root HTML element of the component (<kul-splash-showcase>).
+     * References the root HTML element of the component (<kul-showcase-splash>).
      */
     @Element() rootElement: HTMLKulShowcaseSplashElement;
 

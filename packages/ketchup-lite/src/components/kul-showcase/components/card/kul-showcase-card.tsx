@@ -10,7 +10,7 @@ import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 })
 export class KulShowcaseCard {
     /**
-     * References the root HTML element of the component (<kul-card-showcase>).
+     * References the root HTML element of the component (<kul-showcase-card>).
      */
     @Element() rootElement: HTMLKulShowcaseCardElement;
 

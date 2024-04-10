@@ -137,8 +137,8 @@ Type: `Promise<void>`
 
  - [kul-card](../kul-card)
  - [kul-showcase](../kul-showcase)
- - [kul-showcase-button](../kul-showcase/examples/button)
- - [kul-showcase-splash](../kul-showcase/examples/splash)
+ - [kul-showcase-button](../kul-showcase/components/button)
+ - [kul-showcase-splash](../kul-showcase/components/splash)
 
 ### Depends on
 

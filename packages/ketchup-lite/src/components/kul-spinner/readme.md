@@ -93,8 +93,8 @@ Type: `Promise<void>`
 ### Used by
 
  - [kul-image](../kul-image)
- - [kul-showcase-button](../kul-showcase/examples/button)
- - [kul-showcase-spinner](../kul-showcase/examples/spinner)
+ - [kul-showcase-button](../kul-showcase/components/button)
+ - [kul-showcase-spinner](../kul-showcase/components/spinner)
 
 ### Graph
 ```mermaid

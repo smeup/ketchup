@@ -21,7 +21,10 @@ import {
     KulShowcaseTitle,
 } from './kul-showcase-declarations';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
-import { KUL_SHOWCASE_COMPONENTS } from './kul-showcase-data';
+import {
+    KUL_SHOWCASE_COMPONENTS,
+    KUL_SHOWCASE_UTILITIES,
+} from './kul-showcase-data';
 import { KulCardCustomEvent, KulDataDataset } from '../../components';
 
 @Component({
@@ -142,7 +145,52 @@ export class KulShowcase {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    #compCards(): VNode[] {
+    #utilsCards(): VNode[] {
+        const cards: VNode[] = [];
+        KUL_SHOWCASE_UTILITIES.nodes.forEach((node) => {
+            const kulData: KulDataDataset = {
+                nodes: [
+                    {
+                        cells: {
+                            icon: { shape: 'image', value: node.icon },
+                            text1: { value: node.value },
+                            text2: { value: '' },
+                            text3: { value: node.description },
+                        },
+                        id: node.id,
+                    },
+                ],
+            };
+            const onEvent: (
+                event: KulCardCustomEvent<KulEventPayload>
+            ) => void = (e) => {
+                if (e.detail.eventType === 'click') {
+                    this.currentUtility = node.id;
+                    console.log('Selected utility: ', this.currentUtility);
+                }
+            };
+            cards.push(
+                <kul-card
+                    kulData={kulData}
+                    kulSizeX="300px"
+                    kulSizeY="300px"
+                    onKul-card-event={onEvent}
+                ></kul-card>
+            );
+        });
+        return cards;
+    }
+
+    #utils(): VNode {
+        switch (this.currentUtility) {
+            case 'kul-debug':
+                return <kul-showcase-debug></kul-showcase-debug>;
+            case 'kul-probe':
+                return <kul-showcase-probe></kul-showcase-probe>;
+        }
+    }
+
+    #compsCards(): VNode[] {
         const cards: VNode[] = [];
         KUL_SHOWCASE_COMPONENTS.nodes.forEach((node) => {
             const kulData: KulDataDataset = {
@@ -178,7 +226,7 @@ export class KulShowcase {
         return cards;
     }
 
-    #compExamples(): VNode {
+    #comps(): VNode {
         switch (this.currentComponent) {
             case 'kul-badge':
                 return <kul-showcase-badge></kul-showcase-badge>;
@@ -255,28 +303,17 @@ export class KulShowcase {
                         <div class="section">
                             {this.#prepHeader('Utilities')}
                             <div class="flex-wrapper flex-wrapper--responsive">
-                                <kul-card
-                                    data-description="Environment to test a single component's behavior. IMPORTANT: do not commit any change on this page!"
-                                    data-href="pages/debug.html"
-                                    data-icon="bug"
-                                    data-title="Debug"
-                                    id="debug"
-                                ></kul-card>
-                                <kul-card
-                                    data-description="Environment for performance testing through kul-probe."
-                                    data-href="pages/probe.html"
-                                    data-icon="timer"
-                                    data-title="Probe"
-                                    id="probe"
-                                ></kul-card>
+                                {this.currentUtility
+                                    ? this.#utils()
+                                    : this.#utilsCards()}
                             </div>
                         </div>
                         <div class="section">
                             {this.#prepHeader('Components')}
                             <div class="flex-wrapper flex-wrapper--responsive">
                                 {this.currentComponent
-                                    ? this.#compExamples()
-                                    : this.#compCards()}
+                                    ? this.#comps()
+                                    : this.#compsCards()}
                             </div>
                         </div>
                     </div>
