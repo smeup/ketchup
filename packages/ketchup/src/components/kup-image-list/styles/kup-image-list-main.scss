@@ -20,7 +20,7 @@
     transparent
   );
   --kup_imagelist_columns: var(--kup-imagelist-columns, 4);
-  --kup_imagelist_grid_gap: var(--kup-imagelist-grid-gap, 0.5em);
+  --kup_imagelist_grid_gap: var(--kup-imagelist-grid-gap, var(--kup-space-03));
   --kup_imagelist_image_min_height: var(
     --kup-imagelist-image-min-height,
     var(--kup-space-09)
