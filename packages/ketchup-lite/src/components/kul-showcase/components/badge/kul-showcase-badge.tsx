@@ -1,24 +1,24 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
-import { IMAGE_EXAMPLES } from './kul-showcase-image-data';
+import { BADGE_EXAMPLES } from './kul-showcase-badge-data';
 import { DynamicExampleManager } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 
 @Component({
-    tag: 'kul-showcase-image',
-    styleUrl: 'kul-showcase-image.scss',
+    tag: 'kul-showcase-badge',
+    styleUrl: 'kul-showcase-badge.scss',
     shadow: true,
 })
-export class KulShowcaseImage {
+export class KulShowcaseBadge {
     /**
-     * References the root HTML element of the component (<kul-image-showcase>).
+     * References the root HTML element of the component (<kul-showcase-badge>).
      */
-    @Element() rootElement: HTMLKulShowcaseImageElement;
+    @Element() rootElement: HTMLKulShowcaseBadgeElement;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    #dynamicExamples: HTMLKulImageElement[] = [];
+    #dynamicExamples: HTMLKulBadgeElement[] = [];
     #dynamicExampleManager = new DynamicExampleManager();
     #interval: NodeJS.Timeout;
 
@@ -28,15 +28,15 @@ export class KulShowcaseImage {
 
     #prepExamples() {
         const elements: VNode[] = [];
-        for (const key in IMAGE_EXAMPLES) {
-            if (Object.prototype.hasOwnProperty.call(IMAGE_EXAMPLES, key)) {
-                const props = IMAGE_EXAMPLES[key];
+        for (const key in BADGE_EXAMPLES) {
+            if (Object.prototype.hasOwnProperty.call(BADGE_EXAMPLES, key)) {
+                const props = BADGE_EXAMPLES[key];
                 elements.push(
                     <div class="example">
                         <div class="description">
                             {props['data-description']}
                         </div>
-                        <kul-image
+                        <kul-badge
                             key={key}
                             id={key}
                             ref={(el) => {
@@ -45,7 +45,7 @@ export class KulShowcaseImage {
                                 }
                             }}
                             {...props}
-                        ></kul-image>
+                        ></kul-badge>
                     </div>
                 );
             }

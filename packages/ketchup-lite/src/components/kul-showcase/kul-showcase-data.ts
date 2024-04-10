@@ -3,17 +3,17 @@ import { KulDataDataset } from '../../components';
 export const KUL_SHOWCASE_UTILITIES: KulDataDataset = {
     nodes: [
         {
-            description:
-                'A small count and labeling component that adds context to content.',
-            icon: 'notifications',
-            id: 'kul-badge',
-            value: 'Badge',
+            description: "Environment to test a single component's behavior.",
+            icon: 'bug',
+            id: 'kul-debug',
+            value: 'Debug',
         },
         {
-            description: 'A reusable button component for user interactions.',
-            icon: 'brightness-1',
-            id: 'kul-button',
-            value: 'Button',
+            description:
+                'Environment for performance testing through kul-probe.',
+            icon: 'timer',
+            id: 'kul-probe',
+            value: 'Probe',
         },
     ],
 };

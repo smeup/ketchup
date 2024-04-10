@@ -8,7 +8,7 @@ import { SPINNER_EXAMPLES } from './kul-showcase-spinner-data';
 })
 export class KulShowcaseSpinner {
     /**
-     * References the root HTML element of the component (<kul-spinner-showcase>).
+     * References the root HTML element of the component (<kul-showcase-spinner>).
      */
     @Element() rootElement: HTMLKulShowcaseSpinnerElement;
 

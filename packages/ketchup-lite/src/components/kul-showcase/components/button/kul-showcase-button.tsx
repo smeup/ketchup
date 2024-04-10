@@ -11,7 +11,7 @@ import { KulButtonStyling } from '../../../kul-button/kul-button-declarations';
 })
 export class KulShowcaseButton {
     /**
-     * References the root HTML element of the component (<kul-button-showcase>).
+     * References the root HTML element of the component (<kul-showcase-button>).
      */
     @Element() rootElement: HTMLKulShowcaseButtonElement;
 

@@ -87,7 +87,7 @@ Type: `Promise<void>`
  - [kul-badge](../kul-badge)
  - [kul-button](../kul-button)
  - [kul-card](../kul-card)
- - [kul-showcase-image](../kul-showcase/examples/image)
+ - [kul-showcase-image](../kul-showcase/components/image)
 
 ### Depends on
 

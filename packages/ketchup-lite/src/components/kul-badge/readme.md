@@ -94,7 +94,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kul-image](../kul-image)
- - [kul-showcase-badge](../kul-showcase/examples/badge)
+ - [kul-showcase-badge](../kul-showcase/components/badge)
 
 ### Depends on
 

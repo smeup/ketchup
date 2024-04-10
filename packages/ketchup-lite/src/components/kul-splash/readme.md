@@ -106,7 +106,7 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kul-showcase-splash](../kul-showcase/examples/splash)
+ - [kul-showcase-splash](../kul-showcase/components/splash)
 
 ### Graph
 ```mermaid
