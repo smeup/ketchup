@@ -426,6 +426,11 @@ export class KupImageList {
         const holdCb = (e: PointerEvent) => {
             if (e.pointerType === 'pen' || e.pointerType === 'touch') {
                 this.#hold = true;
+                this.kupContextMenu.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    details: this.#contextMenuHandler(e),
+                });
             }
         };
         this.#kupManager.interact.on(
