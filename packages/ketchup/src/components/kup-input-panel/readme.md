@@ -7,13 +7,13 @@
 
 ## Properties
 
-| Property                | Attribute              | Description                                                            | Type                          | Default |
-| ----------------------- | ---------------------- | ---------------------------------------------------------------------- | ----------------------------- | ------- |
-| `customStyle`           | `custom-style`         | Custom style of the component.                                         | `string`                      | `''`    |
-| `data`                  | --                     | Actual data of the form.                                               | `KupInputPanelData`           | `null`  |
-| `handleEventsCallbacks` | --                     | Sets the callbacks functions on ketchup events                         | `InputPanelEventsCallback[]`  | `[]`    |
-| `hiddenSubmitButton`    | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean`                     | `false` |
-| `submitCb`              | --                     | Sets the callback function on submit form                              | `(e: SubmitEvent) => unknown` | `null`  |
+| Property                | Attribute              | Description                                                            | Type                                  | Default |
+| ----------------------- | ---------------------- | ---------------------------------------------------------------------- | ------------------------------------- | ------- |
+| `customStyle`           | `custom-style`         | Custom style of the component.                                         | `string`                              | `''`    |
+| `data`                  | --                     | Actual data of the form.                                               | `KupInputPanelData`                   | `null`  |
+| `handleEventsCallbacks` | --                     | Sets the callbacks functions on ketchup events                         | `InputPanelEventsCallback[]`          | `[]`    |
+| `hiddenSubmitButton`    | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean`                             | `false` |
+| `submitCb`              | --                     | Sets the callback function on submit form                              | `(e: KupInputPanelSubmit) => unknown` | `null`  |
 
 
 ## Events
@@ -68,12 +68,23 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                                 | Description                          |
+| ------------------------------------ | ------------------------------------ |
+| `--kup-input-panel-background-color` | Sets background of the component.    |
+| `--kup-input-panel-color`            | Sets text color of the component.    |
+| `--kup-input-panel-font-family`      | Sets font family of the component.   |
+| `--kup-input-panel-font-size`        | Sets font size of the component.     |
+| `--kup-input-panel-label-alignment`  | Sets the text alignment of labels.   |
+| `--kup-input-panel-label-width`      | Sets the width of labels.            |
+| `--kup-input-panel-padding`          | Sets the padding of the input panel. |
+
+
 ## Dependencies
 
 ### Depends on
 
-- [kup-card](../kup-card)
-- [kup-dialog](../kup-dialog)
 - [kup-badge](../kup-badge)
 - [kup-autocomplete](../kup-autocomplete)
 - [kup-chip](../kup-chip)
@@ -88,12 +99,12 @@ Type: `Promise<void>`
 - [kup-chart](../kup-chart)
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-input-panel --> kup-card
-  kup-input-panel --> kup-dialog
   kup-input-panel --> kup-badge
   kup-input-panel --> kup-autocomplete
   kup-input-panel --> kup-chip
@@ -108,6 +119,11 @@ graph TD;
   kup-input-panel --> kup-chart
   kup-input-panel --> kup-gauge
   kup-input-panel --> kup-progress-bar
+  kup-input-panel --> kup-card
+  kup-input-panel --> kup-dialog
+  kup-badge --> kup-badge
+  kup-badge --> kup-card
+  kup-badge --> kup-dialog
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -146,9 +162,6 @@ graph TD;
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
-  kup-badge --> kup-badge
-  kup-badge --> kup-card
-  kup-badge --> kup-dialog
   kup-chip --> kup-card
   kup-chip --> kup-dialog
   kup-chip --> kup-badge
