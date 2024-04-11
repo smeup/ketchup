@@ -444,11 +444,6 @@ export class KupImageList {
             KupPointerEventTypes.DOUBLETAP,
             doubletapCb
         );
-        this.#kupManager.interact.on(
-            this.#el,
-            KupPointerEventTypes.HOLD,
-            holdCb
-        );
     }
 
     /*-------------------------------------------------*/
