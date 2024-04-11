@@ -90,7 +90,7 @@ export type InputPanelEvent = {
     };
 };
 
-export type InputPanelOptionsHandler = (fun: string) => GenericObject;
+export type InputPanelOptionsHandler = (fun: string) => Promise<GenericObject>;
 
 export enum KupInputPanelProps {
     customStyle = 'Custom style of the component.',

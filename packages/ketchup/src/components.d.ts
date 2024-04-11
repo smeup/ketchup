@@ -2489,7 +2489,7 @@ export namespace Components {
          */
         "hiddenSubmitButton": boolean;
         /**
-          * Sets the callbacks functions on ketchup events
+          * Sets the callback function on loading options via FUN
           * @default []
          */
         "optionsHandler": InputPanelOptionsHandler;
@@ -7226,7 +7226,7 @@ declare namespace LocalJSX {
          */
         "onKup-input-panel-ready"?: (event: KupInputPanelCustomEvent<KupEventPayload>) => void;
         /**
-          * Sets the callbacks functions on ketchup events
+          * Sets the callback function on loading options via FUN
           * @default []
          */
         "optionsHandler"?: InputPanelOptionsHandler;

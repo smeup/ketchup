@@ -91,7 +91,7 @@ export class KupInputPanel {
     @Prop() submitCb: (e: KupInputPanelSubmit) => unknown = null;
 
     /**
-     * Sets the callbacks functions on ketchup events
+     * Sets the callback function on loading options via FUN
      * @default []
      */
     @Prop() optionsHandler: InputPanelOptionsHandler = null;
@@ -499,10 +499,7 @@ export class KupInputPanel {
         currentValue: string,
         fun: string
     ) {
-        // TODO Questa options handler ci dobbiamo aspettare che sia asincrona o sincrona??
-        const options = fun ? this.optionsHandler(fun) : rawOptions;
-
-        return {
+        const configCMandACP = {
             data: {
                 'kup-text-field': {
                     trailingIcon: true,
@@ -511,13 +508,26 @@ export class KupInputPanel {
                 },
                 'kup-list': {
                     showIcons: true,
-                    data: !options
-                        ? []
-                        : this.#optionsTreeComboAdapter(options, currentValue),
+                    data: [],
                 },
             },
             label: fieldLabel,
         };
+
+        const options = fun ? this.optionsHandler(fun) : rawOptions;
+
+        if (options instanceof Promise) {
+            options.then(
+                (data) =>
+                    (configCMandACP.data['kup-list'].data =
+                        this.#optionsTreeComboAdapter(data, currentValue) ?? [])
+            );
+        } else if (options) {
+            configCMandACP.data['kup-list'].data =
+                this.#optionsTreeComboAdapter(options, currentValue);
+        }
+
+        return configCMandACP;
     }
 
     #CHKAdapter(
