@@ -200,7 +200,7 @@ export class KupInputPanel {
 
         let rowContent: VNode[];
 
-        if (!layout.sections?.length) {
+        if (!layout?.sections?.length) {
             rowContent = inputPanelCell.cells.map((cell) =>
                 this.#renderCell(cell.cell, inputPanelCell.row, cell.column)
             );
