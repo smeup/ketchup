@@ -21,6 +21,7 @@ export class KupSwitcher {
     @State() activeButton: KupPlannerViewMode = 'day'; // Impostato su 'day' inizialmente
 
     private buttonLabels: KupPlannerViewMode[] = [
+        'hour',
         'day',
         'week',
         'month',
