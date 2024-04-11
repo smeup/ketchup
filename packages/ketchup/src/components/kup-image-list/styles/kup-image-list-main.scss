@@ -20,7 +20,7 @@
     transparent
   );
   --kup_imagelist_columns: var(--kup-imagelist-columns, 4);
-  --kup_imagelist_grid_gap: var(--kup-imagelist-grid-gap, 0.5em);
+  --kup_imagelist_grid_gap: var(--kup-imagelist-grid-gap, var(--kup-space-03));
   --kup_imagelist_image_min_height: var(
     --kup-imagelist-image-min-height,
     var(--kup-space-09)
@@ -159,5 +159,19 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     @include kup-label-01;
+  }
+}
+
+@media screen and (min-width: 678px) {
+  :host {
+    --kup_imagelist_columns: var(--kup-imagelist-columns, 8);
+  }
+
+  .image-list {
+    grid-template-columns: repeat(
+      var(--kup_imagelist_columns, 8),
+      minmax(0px, 1fr)
+    );
+    grid-gap: var(--kup-space-05);
   }
 }

@@ -42,6 +42,7 @@ import {
 import { KupStore } from '../kup-state/kup-store';
 import { KupImageListState } from './kup-image-list-state';
 import { TreeNodePath } from '../kup-tree/kup-tree-declarations';
+import { KupBadge } from '../kup-badge/kup-badge';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 
 @Component({
@@ -107,9 +108,9 @@ export class KupImageList {
     /*-------------------------------------------------*/
     /**
      * Number of columns to display in the grid layout.
-     * @default 4
+     * @default null
      */
-    @Prop() columns: number = 4;
+    @Prop() columns: number = null;
     /**
      * Custom style of the component.
      * @default ""
@@ -425,6 +426,11 @@ export class KupImageList {
         const holdCb = (e: PointerEvent) => {
             if (e.pointerType === 'pen' || e.pointerType === 'touch') {
                 this.#hold = true;
+                this.kupContextMenu.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    details: this.#contextMenuHandler(e),
+                });
             }
         };
         this.#kupManager.interact.on(
@@ -437,11 +443,6 @@ export class KupImageList {
             this.#el,
             KupPointerEventTypes.DOUBLETAP,
             doubletapCb
-        );
-        this.#kupManager.interact.on(
-            this.#el,
-            KupPointerEventTypes.HOLD,
-            holdCb
         );
     }
 

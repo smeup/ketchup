@@ -7,14 +7,18 @@
 
 ## Properties
 
-| Property           | Attribute         | Description | Type                       | Default     |
-| ------------------ | ----------------- | ----------- | -------------------------- | ----------- |
-| `horizontalScroll` | --                |             | `(event: UIEvent) => void` | `undefined` |
-| `rtl`              | `rtl`             |             | `boolean`                  | `undefined` |
-| `scrollNumber`     | `scroll-number`   |             | `number`                   | `undefined` |
-| `svgWidth`         | `svg-width`       |             | `number`                   | `undefined` |
-| `taskListTrueRef`  | --                |             | `HTMLKupTaskListElement`   | `undefined` |
-| `taskListWidth`    | `task-list-width` |             | `number`                   | `undefined` |
+| Property                   | Attribute                | Description | Type                       | Default     |
+| -------------------------- | ------------------------ | ----------- | -------------------------- | ----------- |
+| `horizontalScroll`         | --                       |             | `(event: UIEvent) => void` | `undefined` |
+| `horizontalTaskListScroll` | --                       |             | `(event: UIEvent) => void` | `undefined` |
+| `listCellWidth`            | `list-cell-width`        |             | `string`                   | `"300px"`   |
+| `rtl`                      | `rtl`                    |             | `boolean`                  | `undefined` |
+| `scrollNumber`             | `scroll-number`          |             | `number`                   | `undefined` |
+| `scrollableTaskList`       | `scrollable-task-list`   |             | `boolean`                  | `false`     |
+| `svgWidth`                 | `svg-width`              |             | `number`                   | `undefined` |
+| `taskGanttRef`             | --                       |             | `HTMLDivElement`           | `undefined` |
+| `taskListScrollWidth`      | `task-list-scroll-width` |             | `number`                   | `undefined` |
+| `taskListWidth`            | `task-list-width`        |             | `number`                   | `undefined` |
 
 
 ## Dependencies
