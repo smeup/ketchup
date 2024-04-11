@@ -73,7 +73,8 @@ export interface KupInputPanelLayoutField {
 export type DataAdapterFn = (
     options: GenericObject,
     fieldLabel: string,
-    currentValue: string
+    currentValue: string,
+    fun?: string
 ) => Object;
 
 export type InputPanelCells = {
@@ -89,15 +90,12 @@ export type InputPanelEvent = {
     };
 };
 
-export type InputPanelEventsCallback = {
-    eventName: string;
-    eventCallback: (e: InputPanelEvent) => unknown;
-};
+export type InputPanelOptionsHandler = (fun: string) => GenericObject;
 
 export enum KupInputPanelProps {
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the input panel.',
     hiddenSubmitButton = 'Creates a hidden submit button in order to submit the form with enter.',
     submitCb = 'Sets the callback function on submit form',
-    handleEventsCallbacks = 'Sets the callback function on value change event',
+    optionsHandler = 'Sets the callback function to recieve options',
 }

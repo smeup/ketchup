@@ -7,13 +7,13 @@
 
 ## Properties
 
-| Property                | Attribute              | Description                                                            | Type                                  | Default |
-| ----------------------- | ---------------------- | ---------------------------------------------------------------------- | ------------------------------------- | ------- |
-| `customStyle`           | `custom-style`         | Custom style of the component.                                         | `string`                              | `''`    |
-| `data`                  | --                     | Actual data of the form.                                               | `KupInputPanelData`                   | `null`  |
-| `handleEventsCallbacks` | --                     | Sets the callbacks functions on ketchup events                         | `InputPanelEventsCallback[]`          | `[]`    |
-| `hiddenSubmitButton`    | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean`                             | `false` |
-| `submitCb`              | --                     | Sets the callback function on submit form                              | `(e: KupInputPanelSubmit) => unknown` | `null`  |
+| Property             | Attribute              | Description                                                            | Type                                  | Default |
+| -------------------- | ---------------------- | ---------------------------------------------------------------------- | ------------------------------------- | ------- |
+| `customStyle`        | `custom-style`         | Custom style of the component.                                         | `string`                              | `''`    |
+| `data`               | --                     | Actual data of the form.                                               | `KupInputPanelData`                   | `null`  |
+| `hiddenSubmitButton` | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean`                             | `false` |
+| `optionsHandler`     | --                     | Sets the callbacks functions on ketchup events                         | `(fun: string) => GenericObject`      | `null`  |
+| `submitCb`           | --                     | Sets the callback function on submit form                              | `(e: KupInputPanelSubmit) => unknown` | `null`  |
 
 
 ## Events
