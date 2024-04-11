@@ -110,24 +110,30 @@ describe('kup-input-panel', () => {
                             editable: true,
                             mandatory: true,
                             options: [
-                                'Florence',
-                                'Venice',
-                                'Rome',
-                                'Madrid',
-                                'Barcelona',
-                                'Seville',
-                                'Berlin',
-                                'Munich',
-                                'Hamburg',
-                                'Paris',
-                                'Marseille',
-                                'Lyon',
-                                'Lisbon',
-                                'Porto',
-                                'Faro',
-                                'London',
-                                'Manchester',
-                                'Liverpool',
+                                {
+                                    id: 'FLO',
+                                    label: 'Florence',
+                                },
+                                {
+                                    id: 'VEN',
+                                    label: 'Venice',
+                                },
+                                {
+                                    id: 'ROM',
+                                    label: 'Rome',
+                                },
+                                {
+                                    id: 'MAD',
+                                    label: 'Madrid',
+                                },
+                                {
+                                    id: 'BAR',
+                                    label: 'Barcelona',
+                                },
+                                {
+                                    id: 'SEV',
+                                    label: 'Seville',
+                                },
                             ],
                             shape: 'ACP',
                         },
@@ -176,7 +182,7 @@ describe('kup-input-panel', () => {
 
         const listOptions = await page.findAll('kup-list >>> ul.list li');
         expect(listOptions).not.toBeNull();
-        expect(listOptions).toHaveLength(2);
+        expect(listOptions).toHaveLength(1);
 
         const firstOptionValue = await listOptions[0].find('span');
         expect(firstOptionValue).toEqualText('Rome');
@@ -207,12 +213,30 @@ describe('kup-input-panel', () => {
                         NAT: {
                             value: '',
                             options: [
-                                'Italy',
-                                'Spain',
-                                'Germany',
-                                'France',
-                                'Portugal',
-                                'England',
+                                {
+                                    id: 'ITA',
+                                    label: 'Italy',
+                                },
+                                {
+                                    id: 'SPA',
+                                    label: 'Spain',
+                                },
+                                {
+                                    id: 'GER',
+                                    label: 'Germany',
+                                },
+                                {
+                                    id: 'FRA',
+                                    label: 'France',
+                                },
+                                {
+                                    id: 'POR',
+                                    label: 'Portugal',
+                                },
+                                {
+                                    id: 'ENG',
+                                    label: 'England',
+                                },
                             ],
                             editable: true,
                             shape: 'CMB',
@@ -345,7 +369,24 @@ describe('kup-input-panel', () => {
                     cells: {
                         RAD: {
                             value: '1',
-                            options: ['1', '2', '3', '4'],
+                            options: [
+                                {
+                                    id: '1',
+                                    label: 'One',
+                                },
+                                {
+                                    id: '2',
+                                    label: 'Two',
+                                },
+                                {
+                                    id: '3',
+                                    label: 'Three',
+                                },
+                                {
+                                    id: '4',
+                                    label: 'Four',
+                                },
+                            ],
                             editable: true,
                             shape: 'RAD',
                         },
@@ -375,13 +416,13 @@ describe('kup-input-panel', () => {
         for (const [i, radioButton] of radioButtons.entries()) {
             const label = await radioButton.find('label');
             expect(label).not.toBeNull();
-            expect(label).toEqualText(radioOptions[i]);
+            expect(label).toEqualText(radioOptions[i].label);
 
             const input = await radioButton.find('input');
             expect(input).not.toBeNull();
 
             const value = await input.getProperty('value');
-            expect(value).toBe(radioOptions[i]);
+            expect(value).toBe(radioOptions[i].id);
 
             if (data.rows[0].cells.RAD.value === value) {
                 const radioButtonCircle = await radioButton.find('div.radio');
