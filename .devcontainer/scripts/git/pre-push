@@ -1,4 +1,4 @@
 #!/bin/sh
 
 yarn run k:build
-yarn run k:testl:all
+yarn run k:test:all
