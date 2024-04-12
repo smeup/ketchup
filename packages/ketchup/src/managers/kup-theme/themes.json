@@ -121,6 +121,9 @@
             "--kup-gray-color-70": "#525252",
             "--kup-gray-color-80": "#393939",
             "--kup-gray-color-90": "#262626",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-accent-red-color": "#A6192E",
             "--kup-accent-orange-color": "#DE8906",
             "--kup-accent-yellow-color": "#FDDC69",
@@ -259,6 +262,9 @@
             "--kup-danger-color-60": "#da1e28",
             "--kup-danger-color-70": "#ba1b23",
             "--kup-danger-color-80": "#750e13",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-spinner-color": "#fddc69",
             "--kup-chart-color-1": "#60c3fc",
             "--kup-chart-color-2": "#e268d8",
@@ -362,6 +368,9 @@
             "--kup-danger-color-60": "#da1e28",
             "--kup-danger-color-70": "#ba1b23",
             "--kup-danger-color-80": "#750e13",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-spinner-color": "#fddc69",
             "--kup-chart-color-1": "#60c3fc",
             "--kup-chart-color-2": "#e268d8",
@@ -409,6 +418,7 @@
     "bubbles": {
         "cssVariables": {
             "--kup-primary-color": "#c18f00",
+            "--kup-primary-color-0": "#ffffff",
             "--kup-primary-color-5": "#e0c780",
             "--kup-primary-color-10": "#dabc66",
             "--kup-primary-color-20": "#d4b14d",
@@ -420,6 +430,7 @@
             "--kup-primary-color-80": "#614800",
             "--kup-primary-color-90": "#3a2b00",
             "--kup-secondary-color": "#1d1d1d",
+            "--kup-gray-color-0": "#ffffff",
             "--kup-gray-color-10": "#e8e8e8",
             "--kup-gray-color-20": "#d1d1d1",
             "--kup-gray-color-30": "#b5b5b5",
@@ -463,6 +474,9 @@
             "--kup-danger-color-60": "#da1e28",
             "--kup-danger-color-70": "#ba1b23",
             "--kup-danger-color-80": "#750e13",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-spinner-color": "#1D1D1B",
             "--kup-chart-color-1": "#ff5959",
             "--kup-chart-color-2": "#e0a0a0",
@@ -485,7 +499,10 @@
             "--kup-space-10": "64px",
             "--kup-space-11": "80px",
             "--kup-space-12": "96px",
-            "--kup-space-13": "160px"
+            "--kup-space-13": "160px",
+            "--kup-radius-00": "0px",
+            "--kup-radius-01": "2px",
+            "--kup-radius-100": "100px"
         },
         "icons": {
             "--kup-ascending-icon": "sort-ascending",
@@ -506,6 +523,7 @@
     "cobalt": {
         "cssVariables": {
             "--kup-primary-color": "#248aff",
+            "--kup-primary-color-0": "#ffffff",
             "--kup-primary-color-5": "#92c5ff",
             "--kup-primary-color-10": "#7cb9ff",
             "--kup-primary-color-20": "#66adff",
@@ -517,6 +535,7 @@
             "--kup-primary-color-80": "#124580",
             "--kup-primary-color-90": "#0b294c",
             "--kup-secondary-color": "#65cbe9",
+            "--kup-gray-color-0": "#ffffff",
             "--kup-gray-color-10": "#e8e8e8",
             "--kup-gray-color-20": "#d1d1d1",
             "--kup-gray-color-30": "#b5b5b5",
@@ -526,6 +545,10 @@
             "--kup-gray-color-70": "#636363",
             "--kup-gray-color-80": "#474747",
             "--kup-gray-color-90": "#333333",
+            "--kup-danger-color-50": "#fa4d56",
+            "--kup-danger-color-60": "#da1e28",
+            "--kup-danger-color-70": "#ba1b23",
+            "--kup-danger-color-80": "#750e13",
             "--kup-accent-red-color": "#A6192E",
             "--kup-accent-orange-color": "#DE8906",
             "--kup-accent-yellow-color": "#FDDC69",
@@ -557,6 +580,9 @@
             "--kup-success-color": "#4d9f02",
             "--kup-warning-color": "#ffc107",
             "--kup-danger-color": "#d91e18",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-spinner-color": "#a4d9f7",
             "--kup-chart-color-1": "#308aff",
             "--kup-chart-color-2": "#5eb6d1",
@@ -579,7 +605,10 @@
             "--kup-space-10": "64px",
             "--kup-space-11": "80px",
             "--kup-space-12": "96px",
-            "--kup-space-13": "160px"
+            "--kup-space-13": "160px",
+            "--kup-radius-00": "0px",
+            "--kup-radius-01": "2px",
+            "--kup-radius-100": "100px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -599,6 +628,7 @@
     "dark": {
         "cssVariables": {
             "--kup-primary-color": "#82f0e2",
+            "--kup-primary-color-0": "#ffffff",
             "--kup-primary-color-5": "#dafbf6",
             "--kup-primary-color-10": "#cdf9f3",
             "--kup-primary-color-20": "#c1f8f1",
@@ -610,6 +640,7 @@
             "--kup-primary-color-80": "#417871",
             "--kup-primary-color-90": "#274844",
             "--kup-secondary-color": "#f9ff00",
+            "--kup-gray-color-0": "#ffffff",
             "--kup-gray-color-10": "#e8e8e8",
             "--kup-gray-color-20": "#d1d1d1",
             "--kup-gray-color-30": "#b5b5b5",
@@ -619,6 +650,13 @@
             "--kup-gray-color-70": "#636363",
             "--kup-gray-color-80": "#474747",
             "--kup-gray-color-90": "#333333",
+            "--kup-danger-color-50": "#fa4d56",
+            "--kup-danger-color-60": "#da1e28",
+            "--kup-danger-color-70": "#ba1b23",
+            "--kup-danger-color-80": "#750e13",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-accent-red-color": "#A6192E",
             "--kup-accent-orange-color": "#DE8906",
             "--kup-accent-yellow-color": "#FDDC69",
@@ -672,7 +710,10 @@
             "--kup-space-10": "64px",
             "--kup-space-11": "80px",
             "--kup-space-12": "96px",
-            "--kup-space-13": "160px"
+            "--kup-space-13": "160px",
+            "--kup-radius-00": "0px",
+            "--kup-radius-01": "2px",
+            "--kup-radius-100": "100px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -692,6 +733,7 @@
     "flamingo": {
         "cssVariables": {
             "--kup-primary-color": "#e88aab",
+            "--kup-primary-color-0": "#ffffff",
             "--kup-primary-color-5": "#f8dce6",
             "--kup-primary-color-10": "#f4c5d5",
             "--kup-primary-color-20": "#f1b9cd",
@@ -703,6 +745,7 @@
             "--kup-primary-color-80": "#744556",
             "--kup-primary-color-90": "#462933",
             "--kup-secondary-color": "#7f00e7",
+            "--kup-gray-color-0": "#ffffff",
             "--kup-gray-color-10": "#e8e8e8",
             "--kup-gray-color-20": "#d1d1d1",
             "--kup-gray-color-30": "#b5b5b5",
@@ -712,6 +755,13 @@
             "--kup-gray-color-70": "#636363",
             "--kup-gray-color-80": "#474747",
             "--kup-gray-color-90": "#333333",
+            "--kup-danger-color-50": "#fa4d56",
+            "--kup-danger-color-60": "#da1e28",
+            "--kup-danger-color-70": "#ba1b23",
+            "--kup-danger-color-80": "#750e13",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-accent-red-color": "#A6192E",
             "--kup-accent-orange-color": "#DE8906",
             "--kup-accent-yellow-color": "#FDDC69",
@@ -765,7 +815,10 @@
             "--kup-space-10": "64px",
             "--kup-space-11": "80px",
             "--kup-space-12": "96px",
-            "--kup-space-13": "160px"
+            "--kup-space-13": "160px",
+            "--kup-radius-00": "0px",
+            "--kup-radius-01": "2px",
+            "--kup-radius-100": "100px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -785,6 +838,7 @@
     "graphite": {
         "cssVariables": {
             "--kup-primary-color": "#888888",
+            "--kup-primary-color-0": "#ffffff",
             "--kup-primary-color-5": "#e7e7e7",
             "--kup-primary-color-10": "#cfcfcf",
             "--kup-primary-color-20": "#b8b8b8",
@@ -796,6 +850,7 @@
             "--kup-primary-color-80": "#444444",
             "--kup-primary-color-90": "#292929",
             "--kup-secondary-color": "#d91e18",
+            "--kup-gray-color-0": "#ffffff",
             "--kup-gray-color-10": "#e8e8e8",
             "--kup-gray-color-20": "#d1d1d1",
             "--kup-gray-color-30": "#b5b5b5",
@@ -805,6 +860,13 @@
             "--kup-gray-color-70": "#636363",
             "--kup-gray-color-80": "#474747",
             "--kup-gray-color-90": "#333333",
+            "--kup-danger-color-50": "#fa4d56",
+            "--kup-danger-color-60": "#da1e28",
+            "--kup-danger-color-70": "#ba1b23",
+            "--kup-danger-color-80": "#750e13",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-accent-red-color": "#A6192E",
             "--kup-accent-orange-color": "#DE8906",
             "--kup-accent-yellow-color": "#FDDC69",
@@ -864,7 +926,10 @@
             "--kup-space-10": "64px",
             "--kup-space-11": "80px",
             "--kup-space-12": "96px",
-            "--kup-space-13": "160px"
+            "--kup-space-13": "160px",
+            "--kup-radius-00": "0px",
+            "--kup-radius-01": "2px",
+            "--kup-radius-100": "100px"
         },
         "customStyles": {
             "KUP-BUTTON": "#kup-component button {\ntext-transform: unset;\n}\n\n"
@@ -884,6 +949,7 @@
     "ketchup": {
         "cssVariables": {
             "--kup-primary-color": "#d64325",
+            "--kup-primary-color-0": "#ffffff",
             "--kup-primary-color-5": "#e68e7c",
             "--kup-primary-color-10": "#e68e7c",
             "--kup-primary-color-20": "#e27b66",
@@ -895,6 +961,7 @@
             "--kup-primary-color-80": "#6b2213",
             "--kup-primary-color-90": "#40140b",
             "--kup-secondary-color": "#a6192e",
+            "--kup-gray-color-0": "#ffffff",
             "--kup-gray-color-10": "#e8e8e8",
             "--kup-gray-color-20": "#d1d1d1",
             "--kup-gray-color-30": "#b5b5b5",
@@ -904,6 +971,13 @@
             "--kup-gray-color-70": "#636363",
             "--kup-gray-color-80": "#474747",
             "--kup-gray-color-90": "#333333",
+            "--kup-danger-color-50": "#fa4d56",
+            "--kup-danger-color-60": "#da1e28",
+            "--kup-danger-color-70": "#ba1b23",
+            "--kup-danger-color-80": "#750e13",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-accent-red-color": "#A6192E",
             "--kup-accent-orange-color": "#DE8906",
             "--kup-accent-yellow-color": "#FDDC69",
@@ -957,7 +1031,10 @@
             "--kup-space-10": "64px",
             "--kup-space-11": "80px",
             "--kup-space-12": "96px",
-            "--kup-space-13": "160px"
+            "--kup-space-13": "160px",
+            "--kup-radius-00": "0px",
+            "--kup-radius-01": "2px",
+            "--kup-radius-100": "100px"
         },
         "icons": {
             "--kup-ascending-icon": "sort-ascending",
@@ -977,6 +1054,7 @@
     "obsidian": {
         "cssVariables": {
             "--kup-primary-color": "#a6192e",
+            "--kup-primary-color-0": "#ffffff",
             "--kup-primary-color-5": "#dba3ab",
             "--kup-primary-color-10": "#ca7582",
             "--kup-primary-color-20": "#c15e6d",
@@ -988,6 +1066,7 @@
             "--kup-primary-color-80": "#530d17",
             "--kup-primary-color-90": "#32070e",
             "--kup-secondary-color": "#f5f4f4",
+            "--kup-gray-color-0": "#ffffff",
             "--kup-gray-color-10": "#e8e8e8",
             "--kup-gray-color-20": "#d1d1d1",
             "--kup-gray-color-30": "#b5b5b5",
@@ -997,6 +1076,13 @@
             "--kup-gray-color-70": "#636363",
             "--kup-gray-color-80": "#474747",
             "--kup-gray-color-90": "#333333",
+            "--kup-danger-color-50": "#fa4d56",
+            "--kup-danger-color-60": "#da1e28",
+            "--kup-danger-color-70": "#ba1b23",
+            "--kup-danger-color-80": "#750e13",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-accent-red-color": "#A6192E",
             "--kup-accent-orange-color": "#DE8906",
             "--kup-accent-yellow-color": "#FDDC69",
@@ -1056,7 +1142,10 @@
             "--kup-space-10": "64px",
             "--kup-space-11": "80px",
             "--kup-space-12": "96px",
-            "--kup-space-13": "160px"
+            "--kup-space-13": "160px",
+            "--kup-radius-00": "0px",
+            "--kup-radius-01": "2px",
+            "--kup-radius-100": "100px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -1076,6 +1165,7 @@
     "ocean": {
         "cssVariables": {
             "--kup-primary-color": "#0081c5",
+            "--kup-primary-color-0": "#ffffff",
             "--kup-primary-color-5": "#99cde8",
             "--kup-primary-color-10": "#66b3dc",
             "--kup-primary-color-20": "#4da7d6",
@@ -1087,6 +1177,7 @@
             "--kup-primary-color-80": "#004163",
             "--kup-primary-color-90": "#00273b",
             "--kup-secondary-color": "#3a8ede",
+            "--kup-gray-color-0": "#ffffff",
             "--kup-gray-color-10": "#e8e8e8",
             "--kup-gray-color-20": "#d1d1d1",
             "--kup-gray-color-30": "#b5b5b5",
@@ -1096,6 +1187,13 @@
             "--kup-gray-color-70": "#636363",
             "--kup-gray-color-80": "#474747",
             "--kup-gray-color-90": "#333333",
+            "--kup-danger-color-50": "#fa4d56",
+            "--kup-danger-color-60": "#da1e28",
+            "--kup-danger-color-70": "#ba1b23",
+            "--kup-danger-color-80": "#750e13",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-accent-red-color": "#A6192E",
             "--kup-accent-orange-color": "#DE8906",
             "--kup-accent-yellow-color": "#FDDC69",
@@ -1149,7 +1247,10 @@
             "--kup-space-10": "64px",
             "--kup-space-11": "80px",
             "--kup-space-12": "96px",
-            "--kup-space-13": "160px"
+            "--kup-space-13": "160px",
+            "--kup-radius-00": "0px",
+            "--kup-radius-01": "2px",
+            "--kup-radius-100": "100px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -1169,6 +1270,7 @@
     "print": {
         "cssVariables": {
             "--kup-primary-color": "#000000",
+            "--kup-primary-color-0": "#ffffff",
             "--kup-primary-color-5": "#000000",
             "--kup-primary-color-10": "#000000",
             "--kup-primary-color-20": "#000000",
@@ -1180,6 +1282,7 @@
             "--kup-primary-color-80": "#000000",
             "--kup-primary-color-90": "#000000",
             "--kup-secondary-color": "#cccccc",
+            "--kup-gray-color-0": "#ffffff",
             "--kup-gray-color-10": "#e8e8e8",
             "--kup-gray-color-20": "#d1d1d1",
             "--kup-gray-color-30": "#b5b5b5",
@@ -1189,6 +1292,13 @@
             "--kup-gray-color-70": "#636363",
             "--kup-gray-color-80": "#474747",
             "--kup-gray-color-90": "#333333",
+            "--kup-danger-color-50": "#fa4d56",
+            "--kup-danger-color-60": "#da1e28",
+            "--kup-danger-color-70": "#ba1b23",
+            "--kup-danger-color-80": "#750e13",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-accent-red-color": "#A6192E",
             "--kup-accent-orange-color": "#DE8906",
             "--kup-accent-yellow-color": "#FDDC69",
@@ -1248,7 +1358,10 @@
             "--kup-space-10": "64px",
             "--kup-space-11": "80px",
             "--kup-space-12": "96px",
-            "--kup-space-13": "160px"
+            "--kup-space-13": "160px",
+            "--kup-radius-00": "0px",
+            "--kup-radius-01": "2px",
+            "--kup-radius-100": "100px"
         },
         "customStyles": {
             "MASTER": "#kup-component #global-filter {\ndisplay: none;\n}\n\n",
@@ -1275,6 +1388,7 @@
     "raj": {
         "cssVariables": {
             "--kup-primary-color": "rgb(187, 198, 5)",
+            "--kup-primary-color-0": "#ffffff",
             "--kup-primary-color-5": "#ebeeb4",
             "--kup-primary-color-10": "#e4e89b",
             "--kup-primary-color-20": "#dde382",
@@ -1286,6 +1400,7 @@
             "--kup-primary-color-80": "#4b4f02",
             "--kup-primary-color-90": "#252801",
             "--kup-secondary-color": "#ffe600",
+            "--kup-gray-color-0": "#ffffff",
             "--kup-gray-color-10": "#e8e8e8",
             "--kup-gray-color-20": "#d1d1d1",
             "--kup-gray-color-30": "#b5b5b5",
@@ -1295,6 +1410,13 @@
             "--kup-gray-color-70": "#636363",
             "--kup-gray-color-80": "#474747",
             "--kup-gray-color-90": "#333333",
+            "--kup-danger-color-50": "#fa4d56",
+            "--kup-danger-color-60": "#da1e28",
+            "--kup-danger-color-70": "#ba1b23",
+            "--kup-danger-color-80": "#750e13",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-accent-red-color": "#A6192E",
             "--kup-accent-orange-color": "#DE8906",
             "--kup-accent-yellow-color": "#FDDC69",
@@ -1348,7 +1470,10 @@
             "--kup-space-10": "64px",
             "--kup-space-11": "80px",
             "--kup-space-12": "96px",
-            "--kup-space-13": "160px"
+            "--kup-space-13": "160px",
+            "--kup-radius-00": "0px",
+            "--kup-radius-01": "2px",
+            "--kup-radius-100": "100px"
         },
         "icons": {
             "--kup-ascending-icon": "sort-ascending",
@@ -1368,6 +1493,7 @@
     "red": {
         "cssVariables": {
             "--kup-primary-color": "#a6192e",
+            "--kup-primary-color-0": "#ffffff",
             "--kup-primary-color-5": "#e4bac0",
             "--kup-primary-color-10": "#dba3ab",
             "--kup-primary-color-20": "#d38c97",
@@ -1379,6 +1505,7 @@
             "--kup-primary-color-80": "#420a12",
             "--kup-primary-color-90": "#32070e",
             "--kup-secondary-color": "#ffc107",
+            "--kup-gray-color-0": "#ffffff",
             "--kup-gray-color-10": "#e8e8e8",
             "--kup-gray-color-20": "#d1d1d1",
             "--kup-gray-color-30": "#b5b5b5",
@@ -1388,6 +1515,13 @@
             "--kup-gray-color-70": "#636363",
             "--kup-gray-color-80": "#474747",
             "--kup-gray-color-90": "#333333",
+            "--kup-danger-color-50": "#fa4d56",
+            "--kup-danger-color-60": "#da1e28",
+            "--kup-danger-color-70": "#ba1b23",
+            "--kup-danger-color-80": "#750e13",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-accent-red-color": "#A6192E",
             "--kup-accent-orange-color": "#DE8906",
             "--kup-accent-yellow-color": "#FDDC69",
@@ -1447,7 +1581,10 @@
             "--kup-space-10": "64px",
             "--kup-space-11": "80px",
             "--kup-space-12": "96px",
-            "--kup-space-13": "160px"
+            "--kup-space-13": "160px",
+            "--kup-radius-00": "0px",
+            "--kup-radius-01": "2px",
+            "--kup-radius-100": "100px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -1468,6 +1605,7 @@
     "sapphire": {
         "cssVariables": {
             "--kup-primary-color": "#003b77",
+            "--kup-primary-color-0": "#ffffff",
             "--kup-primary-color-5": "#b3c4d6",
             "--kup-primary-color-10": "#809dbb",
             "--kup-primary-color-20": "#6689ad",
@@ -1479,6 +1617,7 @@
             "--kup-primary-color-80": "#001830",
             "--kup-primary-color-90": "#001224",
             "--kup-secondary-color": "#ff1414",
+            "--kup-gray-color-0": "#ffffff",
             "--kup-gray-color-10": "#e8e8e8",
             "--kup-gray-color-20": "#d1d1d1",
             "--kup-gray-color-30": "#b5b5b5",
@@ -1488,6 +1627,13 @@
             "--kup-gray-color-70": "#636363",
             "--kup-gray-color-80": "#474747",
             "--kup-gray-color-90": "#333333",
+            "--kup-danger-color-50": "#fa4d56",
+            "--kup-danger-color-60": "#da1e28",
+            "--kup-danger-color-70": "#ba1b23",
+            "--kup-danger-color-80": "#750e13",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-accent-red-color": "#A6192E",
             "--kup-accent-orange-color": "#DE8906",
             "--kup-accent-yellow-color": "#FDDC69",
@@ -1547,7 +1693,10 @@
             "--kup-space-10": "64px",
             "--kup-space-11": "80px",
             "--kup-space-12": "96px",
-            "--kup-space-13": "160px"
+            "--kup-space-13": "160px",
+            "--kup-radius-00": "0px",
+            "--kup-radius-01": "2px",
+            "--kup-radius-100": "100px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -1567,6 +1716,7 @@
     "silver": {
         "cssVariables": {
             "--kup-primary-color": "#c0c0c0",
+            "--kup-primary-color-0": "#ffffff",
             "--kup-primary-color-5": "#f2f2f2",
             "--kup-primary-color-10": "#ececec",
             "--kup-primary-color-20": "#e6e6e6",
@@ -1578,6 +1728,7 @@
             "--kup-primary-color-80": "#4d4d4d",
             "--kup-primary-color-90": "#262626",
             "--kup-secondary-color": "#c0c0c0",
+            "--kup-gray-color-0": "#ffffff",
             "--kup-gray-color-10": "#e8e8e8",
             "--kup-gray-color-20": "#d1d1d1",
             "--kup-gray-color-30": "#b5b5b5",
@@ -1587,6 +1738,13 @@
             "--kup-gray-color-70": "#636363",
             "--kup-gray-color-80": "#474747",
             "--kup-gray-color-90": "#333333",
+            "--kup-danger-color-50": "#fa4d56",
+            "--kup-danger-color-60": "#da1e28",
+            "--kup-danger-color-70": "#ba1b23",
+            "--kup-danger-color-80": "#750e13",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-accent-red-color": "#A6192E",
             "--kup-accent-orange-color": "#DE8906",
             "--kup-accent-yellow-color": "#FDDC69",
@@ -1643,7 +1801,10 @@
             "--kup-space-10": "64px",
             "--kup-space-11": "80px",
             "--kup-space-12": "96px",
-            "--kup-space-13": "160px"
+            "--kup-space-13": "160px",
+            "--kup-radius-00": "0px",
+            "--kup-radius-01": "2px",
+            "--kup-radius-100": "100px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -1664,6 +1825,7 @@
     "teal": {
         "cssVariables": {
             "--kup-primary-color": "#068A9C",
+            "--kup-primary-color-0": "#ffffff",
             "--kup-primary-color-5": "#cde8eb",
             "--kup-primary-color-10": "#b4dce1",
             "--kup-primary-color-20": "#9bd0d7",
@@ -1675,6 +1837,7 @@
             "--kup-primary-color-80": "#02373e",
             "--kup-primary-color-90": "#011c1f",
             "--kup-secondary-color": "#ffc107",
+            "--kup-gray-color-0": "#ffffff",
             "--kup-gray-color-10": "#e8e8e8",
             "--kup-gray-color-20": "#d1d1d1",
             "--kup-gray-color-30": "#b5b5b5",
@@ -1684,6 +1847,13 @@
             "--kup-gray-color-70": "#636363",
             "--kup-gray-color-80": "#474747",
             "--kup-gray-color-90": "#333333",
+            "--kup-danger-color-50": "#fa4d56",
+            "--kup-danger-color-60": "#da1e28",
+            "--kup-danger-color-70": "#ba1b23",
+            "--kup-danger-color-80": "#750e13",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-accent-red-color": "#A6192E",
             "--kup-accent-orange-color": "#DE8906",
             "--kup-accent-yellow-color": "#FDDC69",
@@ -1743,7 +1913,10 @@
             "--kup-space-10": "64px",
             "--kup-space-11": "80px",
             "--kup-space-12": "96px",
-            "--kup-space-13": "160px"
+            "--kup-space-13": "160px",
+            "--kup-radius-00": "0px",
+            "--kup-radius-01": "2px",
+            "--kup-radius-100": "100px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -1760,6 +1933,7 @@
     "wildlife": {
         "cssVariables": {
             "--kup-primary-color": "#0fa918",
+            "--kup-primary-color-0": "#ffffff",
             "--kup-primary-color-5": "#cfeed1",
             "--kup-primary-color-10": "#b7e5ba",
             "--kup-primary-color-20": "#9fdda3",
@@ -1771,6 +1945,7 @@
             "--kup-primary-color-80": "#06440a",
             "--kup-primary-color-90": "#032205",
             "--kup-secondary-color": "#739f5a",
+            "--kup-gray-color-0": "#ffffff",
             "--kup-gray-color-10": "#e8e8e8",
             "--kup-gray-color-20": "#d1d1d1",
             "--kup-gray-color-30": "#b5b5b5",
@@ -1780,6 +1955,13 @@
             "--kup-gray-color-70": "#636363",
             "--kup-gray-color-80": "#474747",
             "--kup-gray-color-90": "#333333",
+            "--kup-danger-color-50": "#fa4d56",
+            "--kup-danger-color-60": "#da1e28",
+            "--kup-danger-color-70": "#ba1b23",
+            "--kup-danger-color-80": "#750e13",
+            "--kup-info-color-50": "#4589ff",
+            "--kup-info-color-70": "#0043ce",
+            "--kup-warning-color-40": "#f1c21b",
             "--kup-accent-red-color": "#A6192E",
             "--kup-accent-orange-color": "#DE8906",
             "--kup-accent-yellow-color": "#FDDC69",
@@ -1833,7 +2015,10 @@
             "--kup-space-10": "64px",
             "--kup-space-11": "80px",
             "--kup-space-12": "96px",
-            "--kup-space-13": "160px"
+            "--kup-space-13": "160px",
+            "--kup-radius-00": "0px",
+            "--kup-radius-01": "2px",
+            "--kup-radius-100": "100px"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
