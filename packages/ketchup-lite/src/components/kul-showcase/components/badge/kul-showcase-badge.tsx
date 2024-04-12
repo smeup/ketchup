@@ -32,20 +32,25 @@ export class KulShowcaseBadge {
             if (Object.prototype.hasOwnProperty.call(BADGE_EXAMPLES, key)) {
                 const props = BADGE_EXAMPLES[key];
                 elements.push(
-                    <div class="example">
-                        <div class="description">
+                    <div class="example" part="example">
+                        <div class="description" part="description">
                             {props['data-description']}
                         </div>
-                        <kul-badge
-                            key={key}
-                            id={key}
-                            ref={(el) => {
-                                if (props['data-dynamic']) {
-                                    this.#dynamicExamples.push(el);
-                                }
-                            }}
-                            {...props}
-                        ></kul-badge>
+                        <div class="comp-wrapper" part="comp-wrapper">
+                            <div class="badge-wrapper">
+                                <div class="badge-anchor">Simple div</div>
+                                <kul-badge
+                                    key={key}
+                                    id={key}
+                                    ref={(el) => {
+                                        if (props['data-dynamic']) {
+                                            this.#dynamicExamples.push(el);
+                                        }
+                                    }}
+                                    {...props}
+                                ></kul-badge>
+                            </div>
+                        </div>
                     </div>
                 );
             }
@@ -89,7 +94,13 @@ export class KulShowcaseBadge {
     }
 
     render() {
-        return <Fragment>{this.#prepExamples()}</Fragment>;
+        return (
+            <Fragment>
+                <div class="grid" part="grid">
+                    {this.#prepExamples()}
+                </div>
+            </Fragment>
+        );
     }
 
     disconnectedCallback() {

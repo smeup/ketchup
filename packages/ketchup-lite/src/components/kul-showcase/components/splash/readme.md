@@ -5,6 +5,16 @@
 <!-- Auto Generated Below -->
 
 
+## Shadow Parts
+
+| Part             | Description |
+| ---------------- | ----------- |
+| `"comp-wrapper"` |             |
+| `"description"`  |             |
+| `"example"`      |             |
+| `"grid"`         |             |
+
+
 ## Dependencies
 
 ### Used by
@@ -15,12 +25,14 @@
 
 - [kul-button](../../../kul-button)
 - [kul-splash](../../../kul-splash)
+- [kul-spinner](../../../kul-spinner)
 
 ### Graph
 ```mermaid
 graph TD;
   kul-showcase-splash --> kul-button
   kul-showcase-splash --> kul-splash
+  kul-showcase-splash --> kul-spinner
   kul-button --> kul-image
   kul-image --> kul-spinner
   kul-image --> kul-badge

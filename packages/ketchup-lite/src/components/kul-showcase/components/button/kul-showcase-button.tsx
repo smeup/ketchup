@@ -38,38 +38,44 @@ export class KulShowcaseButton {
                     if (Object.prototype.hasOwnProperty.call(category, k2)) {
                         const props = category[k2];
                         group.push(
-                            <div class="example">
-                                <div class="description">
+                            <div class="example" part="example">
+                                <div class="description" part="description">
                                     {props['data-description']}
                                 </div>
-                                <kul-button
-                                    key={k2}
-                                    id={k2}
-                                    ref={(el) => {
-                                        if (props['data-dynamic']) {
-                                            this.#dynamicExamples.push(el);
-                                        }
-                                    }}
-                                    {...props}
-                                    kulStyling={k1 as KulButtonStyling}
-                                >
-                                    {props.kulShowSpinner ? (
-                                        <kul-spinner
-                                            kulDimensions="2px"
-                                            kul-active={true}
-                                            slot="spinner"
-                                        ></kul-spinner>
-                                    ) : undefined}
-                                </kul-button>
+                                <div class="comp-wrapper" part="comp-wrapper">
+                                    <kul-button
+                                        key={k2}
+                                        id={k2}
+                                        ref={(el) => {
+                                            if (props['data-dynamic']) {
+                                                this.#dynamicExamples.push(el);
+                                            }
+                                        }}
+                                        {...props}
+                                        kulStyling={k1 as KulButtonStyling}
+                                    >
+                                        {props.kulShowSpinner ? (
+                                            <kul-spinner
+                                                kulDimensions="2px"
+                                                kul-active={true}
+                                                slot="spinner"
+                                            ></kul-spinner>
+                                        ) : undefined}
+                                    </kul-button>
+                                </div>
                             </div>
                         );
                     }
                 }
 
                 elements.push(
-                    <div class="group-container">
-                        <div class="group-title">{k1}</div>
-                        <div class="group">{group}</div>
+                    <div class="grid-container" part="grid-container">
+                        <div class="grid-title" part="grid-title">
+                            {k1}
+                        </div>
+                        <div class="grid" part="grid">
+                            {group}
+                        </div>
                     </div>
                 );
             }

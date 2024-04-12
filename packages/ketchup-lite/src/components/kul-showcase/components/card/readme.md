@@ -5,6 +5,18 @@
 <!-- Auto Generated Below -->
 
 
+## Shadow Parts
+
+| Part               | Description |
+| ------------------ | ----------- |
+| `"comp-wrapper"`   |             |
+| `"description"`    |             |
+| `"example"`        |             |
+| `"grid"`           |             |
+| `"grid-container"` |             |
+| `"grid-title"`     |             |
+
+
 ## Dependencies
 
 ### Used by

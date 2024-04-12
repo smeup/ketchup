@@ -41,11 +41,17 @@ export class KulShowcaseSpinner {
                             ) {
                                 const props = layout[k3];
                                 layoutWrapper.push(
-                                    <div class="example">
-                                        <div class="description">
+                                    <div class="example" part="example">
+                                        <div
+                                            class="description"
+                                            part="description"
+                                        >
                                             {props['data-description']}
                                         </div>
-                                        <div class="comp-wrapper">
+                                        <div
+                                            class="comp-wrapper"
+                                            part="comp-wrapper"
+                                        >
                                             <kul-spinner
                                                 key={k3}
                                                 id={k3}
@@ -57,11 +63,13 @@ export class KulShowcaseSpinner {
                             }
                         }
                         elements.push(
-                            <div class="group-container">
-                                <div class="group-title">
+                            <div class="grid-container" part="grid-container">
+                                <div class="grid-title" part="grid-title">
                                     {k1} (Layout {k2})
                                 </div>
-                                <div class="group">{layoutWrapper}</div>
+                                <div class="grid" part="grid">
+                                    {layoutWrapper}
+                                </div>
                             </div>
                         );
                     }
