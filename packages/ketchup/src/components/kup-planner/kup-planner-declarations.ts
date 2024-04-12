@@ -148,7 +148,7 @@ export interface KupPlannerDatesSanitized {
     secDateValues: string[];
 }
 
-export type KupPlannerViewMode = 'day' | 'week' | 'month' | 'year';
+export type KupPlannerViewMode = 'hour' | 'day' | 'week' | 'month' | 'year';
 
 export interface KupPlannerStoredSettings {
     showSecondaryDates: boolean;
