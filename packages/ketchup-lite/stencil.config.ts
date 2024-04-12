@@ -8,6 +8,7 @@ export const config: Config = {
     outputTargets: [
         { type: 'docs-readme' },
         {
+            copy: [{ src: 'assets' }],
             type: 'www',
             serviceWorker: null,
         },

@@ -53,6 +53,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
         },
+        isDark: false,
         customStyles: {},
         imports: [
             "@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap')",
@@ -109,11 +110,12 @@ export const themesJson: KulThemeJSON = {
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
         },
+        isDark: true,
         imports: [
             "url('https://fonts.googleapis.com/css2?family=Blinker:wght@200;300;600&display=swap')",
         ],
     },
-    dark: {
+    night: {
         cssVariables: {
             '--kul-primary-color': '#82f0e2',
             '--kul-secondary-color': '#f9ff00',
@@ -164,6 +166,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
         },
+        isDark: true,
         imports: [
             "@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap')",
         ],
@@ -219,6 +222,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
         },
+        isDark: true,
         imports: [
             "url('https://fonts.googleapis.com/css2?family=Mali:wght@300&display=swap')",
         ],
@@ -273,6 +277,7 @@ export const themesJson: KulThemeJSON = {
             'kul-BUTTON':
                 '#kul-component button {\ntext-transform: unset;\n}\n\n',
         },
+        isDark: false,
         icons: {
             '--kul-ascending-icon': 'arrow_drop_up',
             '--kul-descending-icon': 'arrow_drop_down',
@@ -326,6 +331,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-drawer-zindex': 900,
             '--kul-navbar-zindex': 900,
         },
+        isDark: false,
         icons: {
             '--kul-ascending-icon': 'sort-ascending',
             '--kul-descending-icon': 'sort-descending',
@@ -388,6 +394,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-drawer-zindex': 900,
             '--kul-navbar-zindex': 900,
         },
+        isDark: false,
         icons: {
             '--kul-ascending-icon': 'arrow_drop_up',
             '--kul-descending-icon': 'arrow_drop_down',
@@ -443,6 +450,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-drawer-zindex': 900,
             '--kul-navbar-zindex': 900,
         },
+        isDark: false,
         icons: {
             '--kul-ascending-icon': 'arrow_drop_up',
             '--kul-descending-icon': 'arrow_drop_down',
@@ -505,6 +513,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-drawer-zindex': 900,
             '--kul-navbar-zindex': 900,
         },
+        isDark: false,
         customStyles: {
             MASTER: '#kul-component #global-filter {\ndisplay: none;\n}\n\n',
             'kul-BOX':
@@ -572,6 +581,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-drawer-zindex': 900,
             '--kul-navbar-zindex': 900,
         },
+        isDark: true,
         icons: {
             '--kul-ascending-icon': 'sort-ascending',
             '--kul-descending-icon': 'sort-descending',
@@ -634,6 +644,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-drawer-zindex': 900,
             '--kul-navbar-zindex': 900,
         },
+        isDark: false,
         icons: {
             '--kul-ascending-icon': 'arrow_drop_up',
             '--kul-descending-icon': 'arrow_drop_down',
@@ -697,6 +708,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-drawer-zindex': 900,
             '--kul-navbar-zindex': 900,
         },
+        isDark: false,
         icons: {
             '--kul-ascending-icon': 'arrow_drop_up',
             '--kul-descending-icon': 'arrow_drop_down',
@@ -756,6 +768,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-drawer-zindex': 900,
             '--kul-navbar-zindex': 900,
         },
+        isDark: true,
         icons: {
             '--kul-ascending-icon': 'arrow_drop_up',
             '--kul-descending-icon': 'arrow_drop_down',
@@ -819,6 +832,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-drawer-zindex': 900,
             '--kul-navbar-zindex': 900,
         },
+        isDark: false,
         icons: {
             '--kul-ascending-icon': 'arrow_drop_up',
             '--kul-descending-icon': 'arrow_drop_down',
@@ -871,6 +885,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-drawer-zindex': 900,
             '--kul-navbar-zindex': 900,
         },
+        isDark: false,
         icons: {
             '--kul-ascending-icon': 'arrow_drop_up',
             '--kul-descending-icon': 'arrow_drop_down',
