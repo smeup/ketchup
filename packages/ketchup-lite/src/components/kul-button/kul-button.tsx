@@ -88,15 +88,15 @@ export class KulButton {
      */
     @Prop({ mutable: true, reflect: true }) kulRipple = true;
     /**
-     * Custom style of the component.
-     * @default ""
-     */
-    @Prop({ mutable: true, reflect: true }) kulStyle = '';
-    /**
      * When set to true, the button show a spinner received in slot.
      * @default false
      */
     @Prop({ mutable: true, reflect: true }) kulShowSpinner = false;
+    /**
+     * Custom style of the component.
+     * @default ""
+     */
+    @Prop({ mutable: true, reflect: true }) kulStyle = '';
     /**
      * Defines the style of the button. This property controls the visual appearance of the button.
      *
@@ -256,14 +256,11 @@ export class KulButton {
         const imageProps: KulImagePropsInterface = {
             kulColor: this.kulDisabled
                 ? `var(--kul_button_disabled_color)`
-                : isOutlined || isFlat
-                ? `var(--kul_button_primary_color)`
-                : `var(--kul_button_text_on_primary_color)`,
+                : `var(--kul_button_primary_color)`,
             kulValue: this.kulIcon,
             kulSizeX: isFloating ? '1.75em' : '1.475em',
             kulSizeY: isFloating ? '1.75em' : '1.475em',
         };
-        // if (this.kulShowSpinner) imageProps.wrapperClass += ' content--hidden';
 
         const classObj: Record<string, boolean> = {
             button: true,

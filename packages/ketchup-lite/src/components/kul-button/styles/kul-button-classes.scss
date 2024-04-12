@@ -15,21 +15,8 @@
 
 :host(.#{$kul-class-full-height}) {
   height: 100%;
-  #kul-component {
-    height: 100%;
-  }
-}
 
-:host(.#{$kul-class-full-width}) {
-  width: 100%;
-  #kul-component {
-    width: 100%;
-  }
-}
-
-:host(.#{$kul-class-full-height}) {
-  height: 100%;
-
+  #kul-component,
   .button {
     height: 100%;
   }
@@ -38,6 +25,7 @@
 :host(.#{$kul-class-full-width}) {
   width: 100%;
 
+  #kul-component,
   .button {
     width: 100%;
   }

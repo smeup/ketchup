@@ -1,4 +1,6 @@
 /**
+* @prop --kul-button-backdrop-filter: Sets the backdrop filter of buttons.
+* @prop --kul-button-backdrop-filter-hover: Sets the backdrop filter of buttons when hovering.
 * @prop --kul-button-border-radius: Sets border radius of the button.
 * @prop --kul-button-disabled-color: Sets disabled color of the button.
 * @prop --kul-button-font-family: Sets font family of the button.
@@ -16,6 +18,11 @@
 */
 
 :host {
+  --kul_button_backdrop_filter: var(--kul-button-backdrop-filter, blur(3.5px));
+  --kul_button_backdrop_filter_hover: var(
+    --kul-button-backdrop-filter-hover,
+    blur(5px)
+  );
   --kul_button_border_radius: var(--kul-button-border-radius, 4px);
   --kul_button_disabled_color: var(
     --kul-button-disabled-color,
@@ -62,8 +69,6 @@
 }
 
 .button {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
   align-items: center;
   background-color: transparent;
   border: none;
@@ -96,7 +101,7 @@
   }
 
   &:focus {
-    background-color: rgba(var(--kul_button_primary_color_rgb), 0.175);
+    background-color: rgba(var(--kul_button_primary_color_rgb), 0.375);
   }
 
   .button__icon {
@@ -110,8 +115,14 @@
   }
 
   &.button--floating,
+  &.button--raised,
+  &.button--outlined {
+    backdrop-filter: var(--kul_button_backdrop_filter);
+  }
+
+  &.button--floating,
   &.button--raised {
-    --kul-spinner-color: var(--kul_button_text_on_primary_color);
+    --kul-spinner-color: var(--kul-text-color);
 
     &:not(.button--disabled) {
       --kul-spinner-border-color: hsl(
@@ -120,24 +131,12 @@
         calc(var(--kul_button_primary_color_l) * 0.85)
       );
 
-      background-color: var(--kul_button_primary_color);
-      color: var(--kul_button_text_on_primary_color);
+      background-color: rgba(var(--kul_button_primary_color_rgb), 0.15);
     }
 
+    &:focus,
     &:hover {
-      background-color: hsl(
-        var(--kul_button_primary_color_h),
-        calc(var(--kul_button_primary_color_s) * 0.93),
-        calc(var(--kul_button_primary_color_l) * 1.07)
-      );
-    }
-
-    &:focus {
-      background-color: hsl(
-        var(--kul_button_primary_color_h),
-        calc(var(--kul_button_primary_color_s) * 0.88),
-        calc(var(--kul_button_primary_color_l) * 1.12)
-      );
+      backdrop-filter: var(--kul_button_backdrop_filter);
     }
 
     &.button--disabled {
@@ -166,9 +165,9 @@
 
     &:hover,
     &:focus {
-      box-shadow: 0 5px 5px -3px rgba(var(--kul-text-color-rgb), 0.2),
-        0 8px 10px 1px rgba(var(--kul-text-color-rgb), 0.14),
-        0 3px 14px 2px rgba(var(--kul-text-color-rgb), 0.12);
+      box-shadow: 0 5px 5px -3px rgba(var(--kul-text-color-rgb), 0.25),
+        0 8px 10px 1px rgba(var(--kul-text-color-rgb), 0.18),
+        0 3px 14px 2px rgba(var(--kul-text-color-rgb), 0.15);
     }
 
     &:active {
@@ -185,9 +184,9 @@
 
     &:focus,
     &:hover {
-      box-shadow: 0 2px 4px -1px rgba(var(--kul-text-color-rgb), 0.2),
-        0 4px 5px 0 rgba(var(--kul-text-color-rgb), 0.14),
-        0 1px 10px 0 rgba(var(--kul-text-color-rgb), 0.12);
+      box-shadow: 0 2px 4px -1px rgba(var(--kul-text-color-rgb), 0.25),
+        0 4px 5px 0 rgba(var(--kul-text-color-rgb), 0.18),
+        0 1px 10px 0 rgba(var(--kul-text-color-rgb), 0.15);
     }
 
     &:active {
@@ -208,10 +207,12 @@
     }
 
     &:hover {
+      backdrop-filter: blur(5px);
       background-color: rgba(var(--kul_button_primary_color_rgb), 0.125);
     }
 
     &:focus {
+      backdrop-filter: blur(5px);
       background-color: rgba(var(--kul_button_primary_color_rgb), 0.175);
     }
 
@@ -261,6 +262,7 @@
 
   &:hover,
   &:focus {
+    backdrop-filter: blur(5px);
     background-color: rgba(var(--kul_button_primary_color_rgb), 0.125);
   }
 
