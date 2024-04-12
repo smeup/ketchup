@@ -9,6 +9,7 @@ import {
     Method,
     Prop,
     State,
+    VNode,
 } from '@stencil/core';
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
@@ -197,11 +198,10 @@ export class KulSpinner {
         let masterClass = '';
         let wrapperClass = '';
         let spinnerClass = '';
-        let spinnerEl: any = '';
+        let spinnerEl: VNode[] = [];
         let elStyle = undefined;
 
         if (this.kulBarVariant) {
-            masterClass += ' bar-version';
             wrapperClass = 'loading-wrapper-master-bar';
             spinnerClass = 'spinner-bar-v' + this.kulLayout;
         } else {

@@ -32,20 +32,22 @@ export class KulShowcaseImage {
             if (Object.prototype.hasOwnProperty.call(IMAGE_EXAMPLES, key)) {
                 const props = IMAGE_EXAMPLES[key];
                 elements.push(
-                    <div class="example">
-                        <div class="description">
+                    <div class="example" part="example">
+                        <div class="description" part="description">
                             {props['data-description']}
                         </div>
-                        <kul-image
-                            key={key}
-                            id={key}
-                            ref={(el) => {
-                                if (props['data-dynamic']) {
-                                    this.#dynamicExamples.push(el);
-                                }
-                            }}
-                            {...props}
-                        ></kul-image>
+                        <div class="comp-wrapper" part="comp-wrapper">
+                            <kul-image
+                                key={key}
+                                id={key}
+                                ref={(el) => {
+                                    if (props['data-dynamic']) {
+                                        this.#dynamicExamples.push(el);
+                                    }
+                                }}
+                                {...props}
+                            ></kul-image>
+                        </div>
                     </div>
                 );
             }
@@ -68,20 +70,6 @@ export class KulShowcaseImage {
                             comp.kulStyle =
                                 this.#dynamicExampleManager.custom.get(comp.id);
                             break;
-                        case 'positions':
-                            comp.className =
-                                'hydrated ' +
-                                this.#dynamicExampleManager.position.get(
-                                    comp.id
-                                );
-                            break;
-                        case 'state-colors':
-                            comp.className =
-                                'hydrated ' +
-                                this.#dynamicExampleManager.stateColors.get(
-                                    comp.id
-                                );
-                            break;
                     }
                 });
             }, 500);
@@ -89,7 +77,13 @@ export class KulShowcaseImage {
     }
 
     render() {
-        return <Fragment>{this.#prepExamples()}</Fragment>;
+        return (
+            <Fragment>
+                <div class="grid" part="grid">
+                    {this.#prepExamples()}
+                </div>
+            </Fragment>
+        );
     }
 
     disconnectedCallback() {

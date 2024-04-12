@@ -16,6 +16,7 @@ export interface KulThemeJSON {
 export interface KulThemeElement {
     cssVariables: KulThemeCSSVariables;
     icons: KulThemeIcons;
+    isDark: boolean;
     customStyles?: GenericObject;
     imports?: string[];
 }

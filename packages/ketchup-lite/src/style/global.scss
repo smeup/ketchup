@@ -100,3 +100,17 @@ $kul-dd-draggable-row: 'kul-draggable-row'; // Attached to the element being dra
     transform: scale(4);
   }
 }
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--kul-primary-color);
+  -webkit-transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--kul-background-color);
+}

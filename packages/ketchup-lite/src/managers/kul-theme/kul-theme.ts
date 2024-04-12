@@ -25,6 +25,7 @@ const dom: KulDom = document.documentElement as KulDom;
  */
 export class KulTheme {
     cssVars: Partial<KulThemeCSSVariables>;
+    isDarkTheme: boolean;
     list: KulThemeJSON;
     managedComponents: Set<KulComponent>;
     name: string;
@@ -36,7 +37,7 @@ export class KulTheme {
         this.cssVars = {};
         this.list = list ? list : themesJson;
         this.managedComponents = new Set();
-        this.name = name ? name : 'ketchupLite';
+        this.name = name ? name : 'silver';
         this.styleTag = dom
             .querySelector('head')
             .appendChild(document.createElement('style'));
@@ -134,11 +135,12 @@ export class KulTheme {
         if (!this.list[this.name]) {
             dom.ketchupLite.debug.logMessage(
                 'theme manager',
-                'Invalid theme name, falling back to default ("ketchupLite").'
+                'Invalid theme name, falling back to default ("silver").'
             );
-            this.name = 'ketchup';
+            this.name = 'silver';
         }
 
+        this.isDarkTheme = this.list[this.name].isDark;
         this.cssVars = {};
         this.styleTag.innerText =
             this.imports() +
@@ -151,6 +153,13 @@ export class KulTheme {
         this.customStyle();
 
         document.documentElement.setAttribute('kul-theme', this.name);
+        if (this.isDarkTheme) {
+            document.documentElement.removeAttribute('kul-light-theme');
+            document.documentElement.setAttribute('kul-dark-theme', '');
+        } else {
+            document.documentElement.removeAttribute('kul-dark-theme');
+            document.documentElement.setAttribute('kul-light-theme', '');
+        }
         document.dispatchEvent(new CustomEvent('kul-theme-change'));
     }
     /**

@@ -42,7 +42,7 @@
       overflow: hidden;
     }
 
-    &.bar-version > #loading-wrapper-master-bar {
+    &[kul-bar-variant] > #loading-wrapper-master-bar {
       opacity: 1;
 
       & div.spinner-bar-v2 {

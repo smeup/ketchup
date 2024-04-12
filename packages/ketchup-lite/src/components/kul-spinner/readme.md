@@ -95,6 +95,7 @@ Type: `Promise<void>`
  - [kul-image](../kul-image)
  - [kul-showcase-button](../kul-showcase/components/button)
  - [kul-showcase-spinner](../kul-showcase/components/spinner)
+ - [kul-showcase-splash](../kul-showcase/components/splash)
 
 ### Graph
 ```mermaid
@@ -102,6 +103,7 @@ graph TD;
   kul-image --> kul-spinner
   kul-showcase-button --> kul-spinner
   kul-showcase-spinner --> kul-spinner
+  kul-showcase-splash --> kul-spinner
   style kul-spinner fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

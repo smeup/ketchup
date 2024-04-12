@@ -19,8 +19,8 @@ export const CARD_EXAMPLES: CardData = {
             cardStyle: {
                 ['data-description']: 'Card with custom style',
                 ['data-dynamic']: 'custom',
-                kulSizeX: '300px',
-                kulSizeY: '300px',
+                kulSizeX: '320px',
+                kulSizeY: '320px',
                 kulData: {
                     nodes: [
                         {
@@ -40,8 +40,8 @@ export const CARD_EXAMPLES: CardData = {
             },
             cardImage: {
                 ['data-description']: 'Card with custom style',
-                kulSizeX: '300px',
-                kulSizeY: '300px',
+                kulSizeX: '320px',
+                kulSizeY: '320px',
                 kulData: {
                     nodes: [
                         {

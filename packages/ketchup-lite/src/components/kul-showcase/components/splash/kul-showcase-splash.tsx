@@ -22,22 +22,30 @@ export class KulShowcaseSplash {
             if (Object.prototype.hasOwnProperty.call(SPLASH_EXAMPLES, key)) {
                 const props = SPLASH_EXAMPLES[key];
                 elements.push(
-                    <div class="example">
-                        <div class="description">
+                    <div class="example" part="example">
+                        <div class="description" part="description">
                             {props['data-description']}
                         </div>
-                        <kul-button
-                            kulLabel="Splash!"
-                            onClick={() => {
-                                const splash =
-                                    document.createElement('kul-splash');
-                                splash.kulLabel = 'Click to close...';
-                                splash.addEventListener('click', () => {
-                                    splash.remove();
-                                });
-                                document.body.appendChild(splash);
-                            }}
-                        ></kul-button>
+                        <div class="comp-wrapper" part="comp-wrapper">
+                            <kul-button
+                                kulLabel="Splash!"
+                                onClick={() => {
+                                    const splash =
+                                        document.createElement('kul-splash');
+                                    splash.kulLabel = 'Click to close...';
+                                    splash.addEventListener('click', () => {
+                                        splash.remove();
+                                    });
+                                    const spinner =
+                                        document.createElement('kul-spinner');
+                                    spinner.kulActive = true;
+                                    spinner.kulDimensions = '7px';
+                                    spinner.kulLayout = 7;
+                                    splash.appendChild(spinner);
+                                    document.body.appendChild(splash);
+                                }}
+                            ></kul-button>
+                        </div>
                     </div>
                 );
             }
@@ -50,6 +58,12 @@ export class KulShowcaseSplash {
     /*-------------------------------------------------*/
 
     render() {
-        return <Fragment>{this.#prepExamples()}</Fragment>;
+        return (
+            <Fragment>
+                <div class="grid" part="grid">
+                    {this.#prepExamples()}
+                </div>
+            </Fragment>
+        );
     }
 }

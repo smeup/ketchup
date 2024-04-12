@@ -9,7 +9,7 @@ export enum KulBadgeProps {
 }
 
 export interface KulBadgePropsInterface {
-    kulImageProps: KulImagePropsInterface;
-    kulLabel: string;
-    kulStyle: string;
+    kulImageProps?: KulImagePropsInterface;
+    kulLabel?: string;
+    kulStyle?: string;
 }

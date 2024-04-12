@@ -1,40 +1,19 @@
 :host {
-  display: grid;
-  grid-template-columns: 1fr; /* 1 column for mobile */
+  display: block;
   height: 100%;
   width: 100%;
 }
 
-.example {
+.badge-wrapper {
   border: 1px solid var(--kul-border-color);
-  margin: 25px;
-  padding: 12px;
+  height: 72px;
+  margin: auto;
   position: relative;
+  text-align: center;
+  width: 72px;
 }
 
-@media (orientation: landscape) {
-  :host {
-    grid-template-columns: repeat(
-      2,
-      1fr
-    ); /* 2 columns for mobile in landscape */
-  }
-}
-
-@media (min-width: 768px) {
-  :host {
-    grid-template-columns: repeat(4, 1fr); /* 4 columns for tablet */
-  }
-}
-
-@media (min-width: 1024px) {
-  :host {
-    grid-template-columns: repeat(6, 1fr); /* 6 columns for desktop */
-  }
-}
-
-@media (min-width: 1440px) {
-  :host {
-    grid-template-columns: repeat(8, 1fr); /* 8 columns for large screens */
-  }
+.badge-anchor {
+  backdrop-filter: blur(3.5px);
+  line-height: 72px;
 }

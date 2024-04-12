@@ -115,6 +115,8 @@ Type: `Promise<void>`
 
 | Name                                 | Description                                                                           |
 | ------------------------------------ | ------------------------------------------------------------------------------------- |
+| `--kul-button-backdrop-filter`       | Sets the backdrop filter of buttons.                                                  |
+| `--kul-button-backdrop-filter-hover` | Sets the backdrop filter of buttons when hovering.                                    |
 | `--kul-button-border-radius`         | Sets border radius of the button.                                                     |
 | `--kul-button-disabled-color`        | Sets disabled color of the button.                                                    |
 | `--kul-button-font-family`           | Sets font family of the button.                                                       |

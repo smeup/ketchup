@@ -250,7 +250,7 @@ export class KulShowcase {
                 : this.currentUtility;
         return (
             <div class="header">
-                <h2>{title}</h2>
+                <h2>{current ? current : title}</h2>
                 <div class={`navigation ${current ? 'active' : ''}`}>
                     <kul-button
                         class={'kul-full-height kul-full-width'}

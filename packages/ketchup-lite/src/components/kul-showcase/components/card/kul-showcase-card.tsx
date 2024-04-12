@@ -46,32 +46,42 @@ export class KulShowcaseCard {
                             ) {
                                 const props = layout[k3];
                                 layoutWrapper.push(
-                                    <div class="example">
-                                        <div class="description">
+                                    <div class="example" part="example">
+                                        <div
+                                            class="description"
+                                            part="description"
+                                        >
                                             {props['data-description']}
                                         </div>
-                                        <kul-card
-                                            key={k3}
-                                            id={k3}
-                                            ref={(el) => {
-                                                if (props['data-dynamic']) {
-                                                    this.#dynamicExamples.push(
-                                                        el
-                                                    );
-                                                }
-                                            }}
-                                            {...props}
-                                        ></kul-card>
+                                        <div
+                                            class="comp-wrapper"
+                                            part="comp-wrapper"
+                                        >
+                                            <kul-card
+                                                key={k3}
+                                                id={k3}
+                                                ref={(el) => {
+                                                    if (props['data-dynamic']) {
+                                                        this.#dynamicExamples.push(
+                                                            el
+                                                        );
+                                                    }
+                                                }}
+                                                {...props}
+                                            ></kul-card>
+                                        </div>
                                     </div>
                                 );
                             }
                         }
                         elements.push(
-                            <div class="group-container">
-                                <div class="group-title">
+                            <div class="grid-container" part="grid-container">
+                                <div class="grid-title" part="grid-title">
                                     Layout {k1} {k2}
                                 </div>
-                                <div class="group">{layoutWrapper}</div>
+                                <div class="grid" part="grid">
+                                    {layoutWrapper}
+                                </div>
                             </div>
                         );
                     }
