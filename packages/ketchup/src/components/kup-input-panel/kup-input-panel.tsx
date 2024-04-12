@@ -4,6 +4,7 @@ import {
     Event,
     EventEmitter,
     Host,
+    Listen,
     Method,
     Prop,
     State,
@@ -12,7 +13,7 @@ import {
     forceUpdate,
     h,
 } from '@stencil/core';
-import { KupDataCell } from '../../components';
+import { KupAutocompleteEventPayload, KupDataCell } from '../../components';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import {
@@ -36,8 +37,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import {
     DataAdapterFn,
     InputPanelCells,
-    InputPanelEvent,
-    InputPanelEventsCallback,
+    InputPanelOptionsHandler,
     KupInputPanelCell,
     KupInputPanelColumn,
     KupInputPanelData,
@@ -91,10 +91,10 @@ export class KupInputPanel {
     @Prop() submitCb: (e: KupInputPanelSubmit) => unknown = null;
 
     /**
-     * Sets the callbacks functions on ketchup events
+     * Sets the callback function on loading options via FUN
      * @default []
      */
-    @Prop() handleEventsCallbacks: InputPanelEventsCallback[] = [];
+    @Prop() optionsHandler: InputPanelOptionsHandler = null;
     //#endregion
 
     //#region STATES
@@ -423,7 +423,9 @@ export class KupInputPanel {
 
         const adapter = dataAdapterMap.get(cellType);
 
-        return adapter ? adapter(options, fieldLabel, currentValue) : null;
+        return adapter
+            ? adapter(options, fieldLabel, currentValue, cell.fun)
+            : null;
     }
 
     #slotData(cell: KupInputPanelCell, col: KupInputPanelColumn) {
@@ -492,11 +494,12 @@ export class KupInputPanel {
     }
 
     #CMBandACPAdapter(
-        options: GenericObject,
+        rawOptions: GenericObject,
         fieldLabel: string,
-        currentValue: string
+        currentValue: string,
+        fun: string
     ) {
-        return {
+        const configCMandACP = {
             data: {
                 'kup-text-field': {
                     trailingIcon: true,
@@ -505,13 +508,26 @@ export class KupInputPanel {
                 },
                 'kup-list': {
                     showIcons: true,
-                    data: !options
-                        ? []
-                        : this.#optionsTreeComboAdapter(options, currentValue),
+                    data: [],
                 },
             },
             label: fieldLabel,
         };
+
+        const options = fun ? this.optionsHandler(fun) : rawOptions;
+
+        if (options instanceof Promise) {
+            options.then(
+                (data) =>
+                    (configCMandACP.data['kup-list'].data =
+                        this.#optionsTreeComboAdapter(data, currentValue) ?? [])
+            );
+        } else if (options) {
+            configCMandACP.data['kup-list'].data =
+                this.#optionsTreeComboAdapter(options, currentValue);
+        }
+
+        return configCMandACP;
     }
 
     #CHKAdapter(
@@ -622,23 +638,23 @@ export class KupInputPanel {
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
         this.#kupManager.debug.logLoad(this, true);
 
-        this.handleEventsCallbacks.map((cbData) => {
-            this.rootElement.addEventListener(cbData.eventName, (e: any) => {
-                const inputPanelEvent: InputPanelEvent = {
-                    state: this.inputPanelCells.find((data) =>
-                        data.cells.find(
-                            (cell) => cell.column.name === e.detail.id
-                        )
-                    ).cells,
-                    data: {
-                        field: e.detail.id,
-                        value: e.detail.inputValue || e.detail.value,
-                    },
-                };
+        // this.handleEventsCallbacks.map((cbData) => {
+        //     this.rootElement.addEventListener(cbData.eventName, (e: any) => {
+        //         const inputPanelEvent: InputPanelEvent = {
+        //             state: this.inputPanelCells.find((data) =>
+        //                 data.cells.find(
+        //                     (cell) => cell.column.name === e.detail.id
+        //                 )
+        //             ).cells,
+        //             data: {
+        //                 field: e.detail.id,
+        //                 value: e.detail.inputValue || e.detail.value,
+        //             },
+        //         };
 
-                cbData.eventCallback(inputPanelEvent);
-            });
-        });
+        //         cbData.eventCallback(inputPanelEvent);
+        //     });
+        // });
     }
 
     componentWillRender() {

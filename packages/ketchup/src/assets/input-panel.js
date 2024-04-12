@@ -238,6 +238,7 @@ let data = {
                             },
                         ],
                     },
+                    fun: 'FUN ',
                     shape: 'ACP',
                 },
                 LIS: {
@@ -451,5 +452,29 @@ const inputPanelCallback = [
     },
 ];
 
+const optionsHandlerCallback = () => {
+    return Promise.resolve({
+        type: 'SmeupTree',
+        messages: [],
+        children: [
+            {
+                content: {
+                    codice: 'ROM',
+                    testo: 'Rome',
+                },
+                children: [],
+            },
+            {
+                content: {
+                    codice: 'TAR',
+                    testo: 'Taranto',
+                },
+                children: [],
+            },
+        ],
+    });
+};
+
 inputPanel.valueChangeCb = inputPanelCallback;
+inputPanel.optionsHandler = optionsHandlerCallback;
 inputPanel.submitCb = (e) => console.log(e);
