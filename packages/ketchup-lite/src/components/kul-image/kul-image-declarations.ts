@@ -1,7 +1,9 @@
+import { KulBadgePropsInterface } from '../kul-badge/kul-badge-declarations';
+
 export type KulImageEvents = 'click' | 'load' | 'ready';
 
 export enum KulImageProps {
-    kulBadgeData = 'Sets the data of badges.',
+    kulBadgeProps = 'Sets the props to show a badge.',
     kulColor = 'The color of the icon, defaults to the CSS variable --kup-icon-color.',
     kulShowSpinner = 'When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.',
     kulSizeX = 'The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
@@ -11,7 +13,7 @@ export enum KulImageProps {
 }
 
 export interface KulImagePropsInterface {
-    kulBadgeData?: unknown[];
+    kulBadgeProps?: KulBadgePropsInterface;
     kulColor?: string;
     kulShowSpinner?: boolean;
     kulSizeX?: string;
