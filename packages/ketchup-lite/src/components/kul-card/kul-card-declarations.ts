@@ -1,5 +1,4 @@
 import { KulDataDataset } from '../../components';
-import { GenericObject } from '../../types/GenericTypes';
 
 export enum KulCardCSSClasses {
     HAS_ACTIONS = 'has-actions',

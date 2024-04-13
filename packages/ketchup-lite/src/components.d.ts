@@ -5,23 +5,55 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
+import { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 import { GenericObject, KulEventPayload } from "./types/GenericTypes";
 import { KulDebugComponentInfo } from "./managers/kul-debug/kul-debug-declarations";
+import { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
 import { KulButtonEventPayload, KulButtonStates, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
-import { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 import { KulCardFamily } from "./components/kul-card/kul-card-declarations";
 import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 import { KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
-export { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
+export { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 export { GenericObject, KulEventPayload } from "./types/GenericTypes";
 export { KulDebugComponentInfo } from "./managers/kul-debug/kul-debug-declarations";
+export { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
 export { KulButtonEventPayload, KulButtonStates, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
-export { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 export { KulCardFamily } from "./components/kul-card/kul-card-declarations";
 export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 export { KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 export namespace Components {
+    interface KulArticle {
+        /**
+          * Retrieves the debug information reflecting the current state of the component.
+          * @returns A promise that resolves to a KulDebugComponentInfo object containing debug information.
+         */
+        "getDebugInfo": () => Promise<KulDebugComponentInfo>;
+        /**
+          * Retrieves the properties of the component, with optional descriptions.
+          * @param descriptions - If true, returns properties with descriptions; otherwise, returns properties only.
+          * @returns A promise that resolves to an object where each key is a property name, optionally with its description.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * The actual data of the article.
+          * @default null
+         */
+        "kulData": KulDataDataset;
+        /**
+          * Enables customization of the component's style.
+          * @default "" - No custom style applied by default.
+         */
+        "kulStyle": string;
+        /**
+          * Triggers a re-render of the component to reflect any state changes.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Assigns a set of properties to the component, triggering updates if necessary.
+          * @param props - An object containing properties to be set on the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
     interface KulBadge {
         /**
           * Fetches debug information of the component's current state.
@@ -415,6 +447,10 @@ export namespace Components {
         "unmount": (ms?: number) => Promise<void>;
     }
 }
+export interface KulArticleCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKulArticleElement;
+}
 export interface KulBadgeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulBadgeElement;
@@ -444,6 +480,23 @@ export interface KulSplashCustomEvent<T> extends CustomEvent<T> {
     target: HTMLKulSplashElement;
 }
 declare global {
+    interface HTMLKulArticleElementEventMap {
+        "kul-article-event": KulEventPayload;
+    }
+    interface HTMLKulArticleElement extends Components.KulArticle, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulArticleElementEventMap>(type: K, listener: (this: HTMLKulArticleElement, ev: KulArticleCustomEvent<HTMLKulArticleElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulArticleElementEventMap>(type: K, listener: (this: HTMLKulArticleElement, ev: KulArticleCustomEvent<HTMLKulArticleElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKulArticleElement: {
+        prototype: HTMLKulArticleElement;
+        new (): HTMLKulArticleElement;
+    };
     interface HTMLKulBadgeElementEventMap {
         "kul-badge-event": KulEventPayload;
     }
@@ -618,6 +671,7 @@ declare global {
         new (): HTMLKulSplashElement;
     };
     interface HTMLElementTagNameMap {
+        "kul-article": HTMLKulArticleElement;
         "kul-badge": HTMLKulBadgeElement;
         "kul-button": HTMLKulButtonElement;
         "kul-card": HTMLKulCardElement;
@@ -637,6 +691,22 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface KulArticle {
+        /**
+          * The actual data of the article.
+          * @default null
+         */
+        "kulData"?: KulDataDataset;
+        /**
+          * Enables customization of the component's style.
+          * @default "" - No custom style applied by default.
+         */
+        "kulStyle"?: string;
+        /**
+          * Describes event emitted for various button interactions like click.
+         */
+        "onKul-article-event"?: (event: KulArticleCustomEvent<KulEventPayload>) => void;
+    }
     interface KulBadge {
         /**
           * The props of the image displayed inside the badge.
@@ -894,6 +964,7 @@ declare namespace LocalJSX {
         "onKul-splash-event"?: (event: KulSplashCustomEvent<KulEventPayload>) => void;
     }
     interface IntrinsicElements {
+        "kul-article": KulArticle;
         "kul-badge": KulBadge;
         "kul-button": KulButton;
         "kul-card": KulCard;
@@ -916,6 +987,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "kul-article": LocalJSX.KulArticle & JSXBase.HTMLAttributes<HTMLKulArticleElement>;
             "kul-badge": LocalJSX.KulBadge & JSXBase.HTMLAttributes<HTMLKulBadgeElement>;
             "kul-button": LocalJSX.KulButton & JSXBase.HTMLAttributes<HTMLKulButtonElement>;
             "kul-card": LocalJSX.KulCard & JSXBase.HTMLAttributes<HTMLKulCardElement>;

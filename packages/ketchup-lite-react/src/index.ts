@@ -8,6 +8,7 @@ import type { JSX } from 'ketchup-lite';
 import { defineCustomElements } from 'ketchup-lite/dist/loader';
 
 defineCustomElements();
+export const KulArticle = /*@__PURE__*/createReactComponent<JSX.KulArticle, HTMLKulArticleElement>('kul-article');
 export const KulBadge = /*@__PURE__*/createReactComponent<JSX.KulBadge, HTMLKulBadgeElement>('kul-badge');
 export const KulButton = /*@__PURE__*/createReactComponent<JSX.KulButton, HTMLKulButtonElement>('kul-button');
 export const KulCard = /*@__PURE__*/createReactComponent<JSX.KulCard, HTMLKulCardElement>('kul-card');
