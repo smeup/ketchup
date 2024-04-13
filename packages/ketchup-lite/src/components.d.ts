@@ -307,6 +307,8 @@ export namespace Components {
     }
     interface KulShowcaseImage {
     }
+    interface KulShowcaseKulmanager {
+    }
     interface KulShowcaseProbe {
     }
     interface KulShowcaseSpinner {
@@ -557,6 +559,12 @@ declare global {
         prototype: HTMLKulShowcaseImageElement;
         new (): HTMLKulShowcaseImageElement;
     };
+    interface HTMLKulShowcaseKulmanagerElement extends Components.KulShowcaseKulmanager, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseKulmanagerElement: {
+        prototype: HTMLKulShowcaseKulmanagerElement;
+        new (): HTMLKulShowcaseKulmanagerElement;
+    };
     interface HTMLKulShowcaseProbeElement extends Components.KulShowcaseProbe, HTMLStencilElement {
     }
     var HTMLKulShowcaseProbeElement: {
@@ -620,6 +628,7 @@ declare global {
         "kul-showcase-card": HTMLKulShowcaseCardElement;
         "kul-showcase-debug": HTMLKulShowcaseDebugElement;
         "kul-showcase-image": HTMLKulShowcaseImageElement;
+        "kul-showcase-kulmanager": HTMLKulShowcaseKulmanagerElement;
         "kul-showcase-probe": HTMLKulShowcaseProbeElement;
         "kul-showcase-spinner": HTMLKulShowcaseSpinnerElement;
         "kul-showcase-splash": HTMLKulShowcaseSplashElement;
@@ -817,6 +826,8 @@ declare namespace LocalJSX {
     }
     interface KulShowcaseImage {
     }
+    interface KulShowcaseKulmanager {
+    }
     interface KulShowcaseProbe {
     }
     interface KulShowcaseSpinner {
@@ -893,6 +904,7 @@ declare namespace LocalJSX {
         "kul-showcase-card": KulShowcaseCard;
         "kul-showcase-debug": KulShowcaseDebug;
         "kul-showcase-image": KulShowcaseImage;
+        "kul-showcase-kulmanager": KulShowcaseKulmanager;
         "kul-showcase-probe": KulShowcaseProbe;
         "kul-showcase-spinner": KulShowcaseSpinner;
         "kul-showcase-splash": KulShowcaseSplash;
@@ -914,6 +926,7 @@ declare module "@stencil/core" {
             "kul-showcase-card": LocalJSX.KulShowcaseCard & JSXBase.HTMLAttributes<HTMLKulShowcaseCardElement>;
             "kul-showcase-debug": LocalJSX.KulShowcaseDebug & JSXBase.HTMLAttributes<HTMLKulShowcaseDebugElement>;
             "kul-showcase-image": LocalJSX.KulShowcaseImage & JSXBase.HTMLAttributes<HTMLKulShowcaseImageElement>;
+            "kul-showcase-kulmanager": LocalJSX.KulShowcaseKulmanager & JSXBase.HTMLAttributes<HTMLKulShowcaseKulmanagerElement>;
             "kul-showcase-probe": LocalJSX.KulShowcaseProbe & JSXBase.HTMLAttributes<HTMLKulShowcaseProbeElement>;
             "kul-showcase-spinner": LocalJSX.KulShowcaseSpinner & JSXBase.HTMLAttributes<HTMLKulShowcaseSpinnerElement>;
             "kul-showcase-splash": LocalJSX.KulShowcaseSplash & JSXBase.HTMLAttributes<HTMLKulShowcaseSplashElement>;

@@ -1,5 +1,4 @@
 :host {
-  background-color: var(--kul-background-color, black);
   color: var(--kul-text-color);
   display: block;
   font-family: var(--kul-font-family);
@@ -14,11 +13,11 @@
 }
 
 .showcase {
+  --text-wrapper-padding: 0 24px 24px 24px;
   --template-columns: repeat(1, 1fr);
 
   box-sizing: border-box;
-  height: 100%;
-  padding: 20px 36px;
+  padding: 20px 0;
   width: 100%;
 }
 
@@ -33,6 +32,10 @@
   &--responsive {
     flex-direction: row;
     flex-wrap: wrap;
+  }
+
+  kul-card:first-child {
+    padding: 20px;
   }
 }
 
@@ -133,11 +136,35 @@ p {
   width: 100%;
 }
 
+::part(code-word) {
+  color: var(--kul-primary-color);
+  font-family: var(--kul-font-family-monospace);
+  font-size: 1.2em;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+::part(text-section) {
+  padding: var(--text-wrapper-padding);
+}
+
+::part(text-wrapper) {
+  backdrop-filter: blur(8px);
+  background-color: rgba(var(--kul-background-color-rgb), 0.375);
+  padding-top: 40px;
+}
+
 @media (min-width: 768px) {
   .showcase {
     --template-columns: repeat(2, 1fr);
 
     padding: 20px 72px;
+  }
+
+  .flex-wrapper {
+    kul-card:first-child {
+      padding: 0;
+    }
   }
 
   .section {
@@ -152,6 +179,7 @@ p {
 
 @media (min-width: 1023px) {
   .showcase {
+    --text-wrapper-padding: 0 120px 24px 120px;
     --template-columns: repeat(4, 1fr);
 
     padding: 20px 72px;
@@ -164,12 +192,7 @@ p {
 
 @media (min-width: 1535px) {
   .showcase {
+    --text-wrapper-padding: 0 144px 24px 144px;
     --template-columns: repeat(6, 1fr);
-
-    padding: 20px 72px;
-  }
-
-  kul-card {
-    margin: 12px auto;
   }
 }

@@ -5,14 +5,14 @@ export const KUL_SHOWCASE_UTILITIES: KulDataDataset = {
         {
             description: "Environment to test a single component's behavior.",
             icon: 'bug',
-            id: 'kul-debug',
-            value: 'Debug',
+            id: 'Debugging',
+            value: 'Debugging',
         },
         {
             description:
                 'Environment for performance testing through kul-probe.',
             icon: 'timer',
-            id: 'kul-probe',
+            id: 'Probe',
             value: 'Probe',
         },
     ],
@@ -24,42 +24,53 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
             description:
                 'A small count and labeling component that adds context to content.',
             icon: 'notifications',
-            id: 'kul-badge',
+            id: 'Badge',
             value: 'Badge',
         },
         {
             description: 'A reusable button component for user interactions.',
             icon: 'brightness-1',
-            id: 'kul-button',
+            id: 'Button',
             value: 'Button',
         },
         {
             description:
                 'A card component for displaying content and actions on a single topic.',
             icon: 'art_track',
-            id: 'kul-card',
+            id: 'Card',
             value: 'Card',
         },
         {
             description:
                 'A component for displaying images with support for different resolutions.',
             icon: 'image',
-            id: 'kul-image',
+            id: 'Image',
             value: 'Image',
         },
         {
             description:
                 'A full-screen component designed to display prominent app branding or introductory content.',
             icon: 'water',
-            id: 'kul-splash',
+            id: 'Splash',
             value: 'Splash',
         },
         {
             description:
                 'A component that indicates a loading state, often used during content or page loading.',
             icon: 'vanish',
-            id: 'kul-spinner',
+            id: 'Spinner',
             value: 'Spinner',
+        },
+    ],
+};
+
+export const KUL_SHOWCASE_FRAMEWORK: KulDataDataset = {
+    nodes: [
+        {
+            description: 'Manages various aspects of the library.',
+            icon: 'settings',
+            id: 'Manager',
+            value: 'Manager',
         },
     ],
 };
