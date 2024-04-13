@@ -3,3 +3,48 @@
   height: 100%;
   width: 100%;
 }
+
+.text-section {
+  line-height: 1.6;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  max-width: 800px;
+}
+
+.text-paragraph {
+  margin-bottom: 10px;
+}
+
+.text-sub {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1.275em;
+}
+
+.code-word {
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+code.flat {
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+code.flat {
+  background: none;
+  border-radius: 0;
+  box-shadow: 0 0 2px 0px rgb(128, 128, 128);
+  color: var(--kul-primary-color);
+  display: flex;
+  font-family: var(--kul-font-family-monospace);
+  font-size: 16px;
+  font-weight: 500;
+  margin: 40px auto;
+  max-width: 100%;
+  padding: 20px 10px;
+  width: max-content;
+}

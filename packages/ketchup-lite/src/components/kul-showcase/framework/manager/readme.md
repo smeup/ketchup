@@ -5,6 +5,17 @@
 <!-- Auto Generated Below -->
 
 
+## Shadow Parts
+
+| Part               | Description |
+| ------------------ | ----------- |
+| `"code-word"`      |             |
+| `"text-container"` |             |
+| `"text-paragraph"` |             |
+| `"text-section"`   |             |
+| `"text-wrapper"`   |             |
+
+
 ## Dependencies
 
 ### Used by
