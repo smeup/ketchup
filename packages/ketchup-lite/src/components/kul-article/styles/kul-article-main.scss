@@ -1,0 +1,52 @@
+/**
+* @prop --kul-article-margin: Margin of the article.
+* @prop --kul-article-max-width: Max width of the article.
+*/
+
+:host {
+  --kul_article_margin: var(--kul-article-max-width, auto);
+  --kul_article_max_width: var(--kul-article-max-width, 1200px);
+
+  backdrop-filter: blur(8px);
+  background-color: rgba(var(--kul-background-color-rgb), 0.375);
+  padding: 40px 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.article {
+  margin: var(--kul_article_margin);
+  max-width: var(--kul_article_max_width);
+}
+
+.content--kul-code {
+  max-width: max-content;
+  margin: auto;
+  padding: 1.75em 0;
+}
+
+h1 {
+  font-size: 2.375em;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 2em;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-top: 0.5em;
+}
+
+h3 {
+  font-size: 1.75em;
+  font-weight: 300;
+  line-height: 1.2;
+  margin-top: 0.5em;
+}
+
+h1 {
+  margin-bottom: 2em;
+  word-break: break-word;
+}

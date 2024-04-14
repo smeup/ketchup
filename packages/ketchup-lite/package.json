@@ -32,15 +32,12 @@
         "test.watch": "rimraf target && stencil test --spec --e2e --watchAll"
     },
     "dependencies": {
-        "@fullcalendar/core": "^6.1.8",
-        "@fullcalendar/daygrid": "^6.1.8",
-        "@fullcalendar/interaction": "^6.1.8",
-        "@fullcalendar/list": "^6.1.8",
-        "@fullcalendar/timegrid": "^6.1.8",
+        "@types/prismjs": "^1.26.3",
         "dayjs": "^1.11.10",
         "echarts": "^5.4.2",
         "html2canvas": "^1.4.1",
-        "numeral": "^2.0.6"
+        "numeral": "^2.0.6",
+        "prismjs": "^1.29.0"
     },
     "devDependencies": {
         "@stencil/core": "^4.14.1",

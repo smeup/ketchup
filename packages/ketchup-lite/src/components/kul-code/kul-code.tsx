@@ -9,28 +9,27 @@ import {
     Method,
     Prop,
     State,
+    VNode,
 } from '@stencil/core';
-import {
-    KulSplashEvents,
-    KulSplashProps,
-    KulSplashStates,
-} from './kul-splash-declarations';
+import { KulCodeEvents, KulCodeProps } from './kul-code-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps, setProps } from '../../utils/componentUtils';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
+import Prism from 'prismjs';
+import { KulButton } from '../kul-button/kul-button';
 
 @Component({
-    tag: 'kul-splash',
-    styleUrl: 'kul-splash.scss',
+    tag: 'kul-code',
+    styleUrl: 'kul-code.scss',
     shadow: true,
 })
-export class KulSplash {
+export class KulCode {
     /**
-     * References the root HTML element of the component (<kul-splash>).
+     * References the root HTML element of the component (<kul-code>).
      */
-    @Element() rootElement: HTMLKulSplashElement;
+    @Element() rootElement: HTMLKulCodeElement;
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -46,28 +45,28 @@ export class KulSplash {
         renderStart: 0,
         startTime: performance.now(),
     };
-    /**
-     * The value of the component ("on" or "off").
-     * @default ""
-     *
-     * @see KulButtonStates - For a list of possible states.
-     */
-    @State() state: KulSplashStates = 'initializing';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
 
     /**
-     * Initial text displayed within the component, typically shown during loading.
-     * @default "Loading..." - Indicates that loading or initialization is in progress.
+     * Sets the language of the snippet.
+     * @default "javascript"
      */
-    @Prop({ mutable: true, reflect: false }) kulLabel = 'Loading...';
+    @Prop({ mutable: true, reflect: true }) kulLanguage = 'javascript';
+
     /**
      * Enables customization of the component's style.
      * @default "" - No custom style applied by default.
      */
     @Prop({ mutable: true, reflect: true }) kulStyle = '';
+
+    /**
+     * String containing the snippet of code to display.
+     * @default ""
+     */
+    @Prop({ mutable: true, reflect: true }) kulValue = '';
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -83,14 +82,14 @@ export class KulSplash {
      * Describes event emitted.
      */
     @Event({
-        eventName: 'kul-splash-event',
+        eventName: 'kul-code-event',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event, eventType: KulSplashEvents) {
+    onKulEvent(e: Event, eventType: KulCodeEvents) {
         this.kulEvent.emit({
             comp: this,
             eventType,
@@ -118,7 +117,7 @@ export class KulSplash {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        return getProps(this, KulSplashProps, descriptions);
+        return getProps(this, KulCodeProps, descriptions);
     }
     /**
      * Triggers a re-render of the component to reflect any state changes.
@@ -133,23 +132,13 @@ export class KulSplash {
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KulSplashProps, props);
-    }
-    /**
-     * Initiates the unmount sequence, which removes the component from the DOM after a delay.
-     * @param {number} ms - Number of milliseconds
-     */
-    @Method()
-    async unmount(ms: number = 575): Promise<void> {
-        setTimeout(() => {
-            this.state = 'unmounting';
-            setTimeout(() => {
-                this.onKulEvent(new CustomEvent(''), 'unmount');
-                this.rootElement.remove();
-            }, 300);
-        }, ms);
+        setProps(this, KulCodeProps, props);
     }
 
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+    #el: HTMLPreElement;
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -168,6 +157,7 @@ export class KulSplash {
     }
 
     componentDidRender() {
+        Prism.highlightElement(this.#el);
         this.#kulManager.debug.updateDebugInfo(this, 'did-render');
     }
 
@@ -176,23 +166,36 @@ export class KulSplash {
             <Host>
                 <style>{this.#kulManager.theme.setKulStyle(this)}</style>
                 <div id={KUL_WRAPPER_ID}>
-                    <div
-                        class={
-                            'modal' +
-                            (this.state === 'unmounting' ? ' active' : '')
-                        }
-                    >
-                        <div class="wrapper">
-                            <div class="widget">
-                                <slot></slot>
-                            </div>
-                            <div class="label">
-                                {this.state === 'unmounting'
-                                    ? 'Ready!'
-                                    : this.kulLabel}
-                            </div>
+                    {
+                        <div class="header">
+                            <span class="title">{this.kulLanguage}</span>
+                            <kul-button
+                                class={'kul-slim'}
+                                kulIcon="content_copy"
+                                kulLabel="Copy"
+                                kulStyling="flat"
+                                onKul-button-event={(e) => {
+                                    if (e.detail.eventType === 'pointerdown') {
+                                        const button = e.detail
+                                            .comp as KulButton;
+                                        navigator.clipboard.writeText(
+                                            this.kulValue
+                                        );
+                                        button.kulLabel = 'Copied!';
+                                        button.kulIcon = 'check';
+                                    }
+                                }}
+                            ></kul-button>
                         </div>
-                    </div>
+                    }
+                    <pre
+                        class={'language-' + this.kulLanguage}
+                        ref={(el) => {
+                            this.#el = el;
+                        }}
+                    >
+                        <code>{this.kulValue}</code>
+                    </pre>
                 </div>
             </Host>
         );

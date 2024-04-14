@@ -1,5 +1,4 @@
 :host {
-  background-color: var(--kul-background-color, black);
   color: var(--kul-text-color);
   display: block;
   font-family: var(--kul-font-family);
@@ -17,8 +16,7 @@
   --template-columns: repeat(1, 1fr);
 
   box-sizing: border-box;
-  height: 100%;
-  padding: 20px 36px;
+  padding: 20px 0;
   width: 100%;
 }
 
@@ -33,6 +31,10 @@
   &--responsive {
     flex-direction: row;
     flex-wrap: wrap;
+  }
+
+  kul-card:first-child {
+    padding: 20px;
   }
 }
 
@@ -133,11 +135,24 @@ p {
   width: 100%;
 }
 
+::part(code-word) {
+  color: var(--kul-primary-color);
+  font-family: var(--kul-font-family-monospace);
+  font-weight: 600;
+  word-break: break-word;
+}
+
 @media (min-width: 768px) {
   .showcase {
     --template-columns: repeat(2, 1fr);
 
     padding: 20px 72px;
+  }
+
+  .flex-wrapper {
+    kul-card:first-child {
+      padding: 0;
+    }
   }
 
   .section {
@@ -165,11 +180,5 @@ p {
 @media (min-width: 1535px) {
   .showcase {
     --template-columns: repeat(6, 1fr);
-
-    padding: 20px 72px;
-  }
-
-  kul-card {
-    margin: 12px auto;
   }
 }

@@ -13,4 +13,4 @@ export interface KulShowcasePropsInterface {
     kulStyle: string;
 }
 
-export type KulShowcaseTitle = 'Components' | 'Utilities';
+export type KulShowcaseTitle = 'Components' | 'Framework' | 'Utilities';

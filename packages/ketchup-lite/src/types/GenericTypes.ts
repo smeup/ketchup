@@ -1,9 +1,12 @@
 import { ComponentInterface } from '@stencil/core';
+import { KulArticleEvents } from '../components/kul-article/kul-article-declarations';
 import { KulBadgeEvents } from '../components/kul-badge/kul-badge-declarations';
 import { KulButtonEvents } from '../components/kul-button/kul-button-declarations';
 import { KulCardEvents } from '../components/kul-card/kul-card-declarations';
-import { KulImageEvents } from '../components/kul-image/kul-image-declarations';
+import { KulCodeEvents } from '../components/kul-code/kul-code-declarations';
 import { KulDebugComponentInfo } from '../components';
+import { KulImageEvents } from '../components/kul-image/kul-image-declarations';
+import { KulSpinnerEvents } from '../components/kul-spinner/kul-spinner-declarations';
 import { KulSplashEvents } from '../components/kul-splash/kul-splash-declarations';
 
 /**
@@ -40,21 +43,14 @@ export interface GenericObject<T = unknown> {
 export interface KulEventPayload {
     comp: unknown;
     eventType:
+        | KulArticleEvents
+        | KulCodeEvents
         | KulBadgeEvents
         | KulButtonEvents
         | KulCardEvents
         | KulImageEvents
+        | KulSpinnerEvents
         | KulSplashEvents;
     id: string;
     originalEvent: Event;
 }
-/**
- * Ketchup elements tag names.
- */
-export type KulTagNames =
-    | 'KUL-BADGE'
-    | 'KUP-BUTTON'
-    | 'KUP-CARD'
-    | 'KUP-IMAGE'
-    | 'KUP-SPLASH'
-    | 'KUP-SPINNER';

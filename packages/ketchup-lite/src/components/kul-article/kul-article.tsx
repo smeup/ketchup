@@ -4,17 +4,20 @@ import {
     Event,
     EventEmitter,
     forceUpdate,
+    Fragment,
     h,
     Host,
     Method,
     Prop,
     State,
+    VNode,
 } from '@stencil/core';
 import {
-    KulSplashEvents,
-    KulSplashProps,
-    KulSplashStates,
-} from './kul-splash-declarations';
+    KulArticleDataset,
+    KulArticleEvents,
+    KulArticleNode,
+    KulArticleProps,
+} from './kul-article-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps, setProps } from '../../utils/componentUtils';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
@@ -22,15 +25,15 @@ import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declar
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
 
 @Component({
-    tag: 'kul-splash',
-    styleUrl: 'kul-splash.scss',
+    tag: 'kul-article',
+    styleUrl: 'kul-article.scss',
     shadow: true,
 })
-export class KulSplash {
+export class KulArticle {
     /**
-     * References the root HTML element of the component (<kul-splash>).
+     * References the root HTML element of the component (<kul-article>).
      */
-    @Element() rootElement: HTMLKulSplashElement;
+    @Element() rootElement: HTMLKulArticleElement;
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -46,23 +49,16 @@ export class KulSplash {
         renderStart: 0,
         startTime: performance.now(),
     };
-    /**
-     * The value of the component ("on" or "off").
-     * @default ""
-     *
-     * @see KulButtonStates - For a list of possible states.
-     */
-    @State() state: KulSplashStates = 'initializing';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
 
     /**
-     * Initial text displayed within the component, typically shown during loading.
-     * @default "Loading..." - Indicates that loading or initialization is in progress.
+     * The actual data of the article.
+     * @default null
      */
-    @Prop({ mutable: true, reflect: false }) kulLabel = 'Loading...';
+    @Prop({ mutable: true }) kulData: KulArticleDataset = null;
     /**
      * Enables customization of the component's style.
      * @default "" - No custom style applied by default.
@@ -83,14 +79,14 @@ export class KulSplash {
      * Describes event emitted.
      */
     @Event({
-        eventName: 'kul-splash-event',
+        eventName: 'kul-article-event',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event, eventType: KulSplashEvents) {
+    onKulEvent(e: Event, eventType: KulArticleEvents) {
         this.kulEvent.emit({
             comp: this,
             eventType,
@@ -118,7 +114,7 @@ export class KulSplash {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        return getProps(this, KulSplashProps, descriptions);
+        return getProps(this, KulArticleProps, descriptions);
     }
     /**
      * Triggers a re-render of the component to reflect any state changes.
@@ -133,21 +129,112 @@ export class KulSplash {
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KulSplashProps, props);
+        setProps(this, KulArticleProps, props);
     }
-    /**
-     * Initiates the unmount sequence, which removes the component from the DOM after a delay.
-     * @param {number} ms - Number of milliseconds
-     */
-    @Method()
-    async unmount(ms: number = 575): Promise<void> {
-        setTimeout(() => {
-            this.state = 'unmounting';
-            setTimeout(() => {
-                this.onKulEvent(new CustomEvent(''), 'unmount');
-                this.rootElement.remove();
-            }, 300);
-        }, ms);
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    #recursive(node: KulArticleNode, depth: number) {
+        switch (depth) {
+            case 0:
+                return this.#articleTemplate(node, depth);
+            case 1:
+                return this.#sectionTemplate(node, depth);
+            case 2:
+                return this.#paragraphTemplate(node, depth);
+            default:
+                return node.children?.length
+                    ? this.#paragraphTemplate(node, depth)
+                    : this.#contentTemplate(node, depth);
+        }
+    }
+
+    #articleTemplate(node: KulArticleNode, depth: number): VNode {
+        return (
+            <Fragment>
+                <article class="article" data-depth={depth.toString()}>
+                    {node.value ? <h1>{node.value}</h1> : undefined}
+                    {node.children
+                        ? node.children.map((child) =>
+                              this.#recursive(child, depth + 1)
+                          )
+                        : null}
+                </article>
+            </Fragment>
+        );
+    }
+
+    #sectionTemplate(node: KulArticleNode, depth: number): VNode {
+        return (
+            <Fragment>
+                <section class="section" data-depth={depth.toString()}>
+                    {node.value ? <h2>{node.value}</h2> : undefined}
+                    {node.children
+                        ? node.children.map((child) =>
+                              this.#recursive(child, depth + 1)
+                          )
+                        : null}
+                </section>
+            </Fragment>
+        );
+    }
+
+    #paragraphTemplate(node: KulArticleNode, depth: number): VNode {
+        return (
+            <Fragment>
+                <p class="paragraph" data-depth={depth.toString()}>
+                    {node.value ? <h3>{node.value}</h3> : undefined}
+                    {node.children
+                        ? node.children.map((child) =>
+                              this.#recursive(child, depth + 1)
+                          )
+                        : null}
+                </p>
+            </Fragment>
+        );
+    }
+
+    #contentTemplate(node: KulArticleNode, depth: number): VNode {
+        const key = node?.cells && Object.keys(node.cells)[0];
+        const cell = node?.cells?.[key];
+        const ComponentTag = cell
+            ? 'kul-' + cell.shape
+            : node.tagName
+            ? node.tagName
+            : 'span';
+
+        if (cell) {
+            return (
+                <ComponentTag
+                    class={`content content--${ComponentTag}`}
+                    data-depth={depth.toString()}
+                    {...this.#kulManager.data.extract.singleShape(cell)}
+                >
+                    {node.value}
+                </ComponentTag>
+            );
+        } else {
+            return (
+                <ComponentTag
+                    class={`content content--${ComponentTag}`}
+                    data-depth={depth.toString()}
+                >
+                    {node.value}
+                </ComponentTag>
+            );
+        }
+    }
+
+    #prepArticle(): VNode[] {
+        const elements: VNode[] = [];
+        const nodes = this.kulData.nodes;
+        for (let index = 0; index < nodes.length; index++) {
+            const node = nodes[index];
+            elements.push(this.#recursive(node, 0));
+        }
+        return <Fragment>{elements}</Fragment>;
     }
 
     /*-------------------------------------------------*/
@@ -175,25 +262,7 @@ export class KulSplash {
         return (
             <Host>
                 <style>{this.#kulManager.theme.setKulStyle(this)}</style>
-                <div id={KUL_WRAPPER_ID}>
-                    <div
-                        class={
-                            'modal' +
-                            (this.state === 'unmounting' ? ' active' : '')
-                        }
-                    >
-                        <div class="wrapper">
-                            <div class="widget">
-                                <slot></slot>
-                            </div>
-                            <div class="label">
-                                {this.state === 'unmounting'
-                                    ? 'Ready!'
-                                    : this.kulLabel}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id={KUL_WRAPPER_ID}>{this.#prepArticle()}</div>
             </Host>
         );
     }

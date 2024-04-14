@@ -7,17 +7,17 @@
 
 ## Properties
 
-| Property   | Attribute   | Description                                                                  | Type     | Default        |
-| ---------- | ----------- | ---------------------------------------------------------------------------- | -------- | -------------- |
-| `kulLabel` | `kul-label` | Initial text displayed within the component, typically shown during loading. | `string` | `'Loading...'` |
-| `kulStyle` | `kul-style` | Enables customization of the component's style.                              | `string` | `''`           |
+| Property   | Attribute   | Description                                     | Type                | Default |
+| ---------- | ----------- | ----------------------------------------------- | ------------------- | ------- |
+| `kulData`  | --          | The actual data of the article.                 | `KulArticleDataset` | `null`  |
+| `kulStyle` | `kul-style` | Enables customization of the component's style. | `string`            | `''`    |
 
 
 ## Events
 
-| Event              | Description              | Type                           |
-| ------------------ | ------------------------ | ------------------------------ |
-| `kul-splash-event` | Describes event emitted. | `CustomEvent<KulEventPayload>` |
+| Event               | Description              | Type                           |
+| ------------------- | ------------------------ | ------------------------------ |
+| `kul-article-event` | Describes event emitted. | `CustomEvent<KulEventPayload>` |
 
 
 ## Methods
@@ -74,45 +74,26 @@ Type: `Promise<void>`
 
 
 
-### `unmount(ms?: number) => Promise<void>`
-
-Initiates the unmount sequence, which removes the component from the DOM after a delay.
-
-#### Parameters
-
-| Name | Type     | Description              |
-| ---- | -------- | ------------------------ |
-| `ms` | `number` | - Number of milliseconds |
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
 
 ## CSS Custom Properties
 
-| Name                            | Description                       |
-| ------------------------------- | --------------------------------- |
-| `--kul-splash-background-color` | Sets the color of the spinner.    |
-| `--kul-splash-font-family`      | Sets the label's font family.     |
-| `--kul-splash-font-size`        | Sets the label's font size.       |
-| `--kul-splash-label-color`      | Sets the color of the label.      |
-| `--kul-splash-spinner-color`    | Sets the color of the background. |
+| Name                            | Description                  |
+| ------------------------------- | ---------------------------- |
+| `--kul-article-article-padding` | Padding of the article tag.  |
+| `--kul-article-section-padding` | Padding of the section tags. |
 
 
 ## Dependencies
 
 ### Used by
 
- - [kul-showcase-splash](../kul-showcase/components/splash)
+ - [kul-showcase-article](../kul-showcase/components/article)
 
 ### Graph
 ```mermaid
 graph TD;
-  kul-showcase-splash --> kul-splash
-  style kul-splash fill:#f9f,stroke:#333,stroke-width:4px
+  kul-showcase-article --> kul-article
+  style kul-article fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
