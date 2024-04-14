@@ -80,7 +80,7 @@ export class KulSplash {
     /*-------------------------------------------------*/
 
     /**
-     * Describes event emitted for various button interactions like click.
+     * Describes event emitted.
      */
     @Event({
         eventName: 'kul-splash-event',

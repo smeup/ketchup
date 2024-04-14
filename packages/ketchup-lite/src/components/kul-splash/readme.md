@@ -15,9 +15,9 @@
 
 ## Events
 
-| Event              | Description                                                         | Type                           |
-| ------------------ | ------------------------------------------------------------------- | ------------------------------ |
-| `kul-splash-event` | Describes event emitted for various button interactions like click. | `CustomEvent<KulEventPayload>` |
+| Event              | Description              | Type                           |
+| ------------------ | ------------------------ | ------------------------------ |
+| `kul-splash-event` | Describes event emitted. | `CustomEvent<KulEventPayload>` |
 
 
 ## Methods

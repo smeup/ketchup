@@ -14,9 +14,9 @@
 
 ## Events
 
-| Event                | Description                                                         | Type                           |
-| -------------------- | ------------------------------------------------------------------- | ------------------------------ |
-| `kul-showcase-event` | Describes event emitted for various button interactions like click. | `CustomEvent<KulEventPayload>` |
+| Event                | Description              | Type                           |
+| -------------------- | ------------------------ | ------------------------------ |
+| `kul-showcase-event` | Describes event emitted. | `CustomEvent<KulEventPayload>` |
 
 
 ## Methods
@@ -83,6 +83,7 @@ Type: `Promise<void>`
 - [kul-showcase-badge](./components/badge)
 - [kul-showcase-button](./components/button)
 - [kul-showcase-card](./components/card)
+- [kul-showcase-code](./components/code)
 - [kul-showcase-image](./components/image)
 - [kul-showcase-splash](./components/splash)
 - [kul-showcase-spinner](./components/spinner)
@@ -99,6 +100,7 @@ graph TD;
   kul-showcase --> kul-showcase-badge
   kul-showcase --> kul-showcase-button
   kul-showcase --> kul-showcase-card
+  kul-showcase --> kul-showcase-code
   kul-showcase --> kul-showcase-image
   kul-showcase --> kul-showcase-splash
   kul-showcase --> kul-showcase-spinner
@@ -117,6 +119,8 @@ graph TD;
   kul-showcase-button --> kul-button
   kul-showcase-button --> kul-spinner
   kul-showcase-card --> kul-card
+  kul-showcase-code --> kul-code
+  kul-code --> kul-button
   kul-showcase-image --> kul-image
   kul-showcase-splash --> kul-button
   kul-showcase-splash --> kul-splash

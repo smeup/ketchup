@@ -91,7 +91,7 @@ export class KulShowcase {
     /*-------------------------------------------------*/
 
     /**
-     * Describes event emitted for various button interactions like click.
+     * Describes event emitted.
      */
     @Event({
         eventName: 'kul-showcase-event',
@@ -197,6 +197,8 @@ export class KulShowcase {
                 return <kul-showcase-button></kul-showcase-button>;
             case 'Card':
                 return <kul-showcase-card></kul-showcase-card>;
+            case 'Code':
+                return <kul-showcase-code></kul-showcase-code>;
             case 'Image':
                 return <kul-showcase-image></kul-showcase-image>;
             case 'Splash':

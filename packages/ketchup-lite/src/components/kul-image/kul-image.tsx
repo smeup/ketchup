@@ -109,7 +109,7 @@ export class KulImage {
     /*-------------------------------------------------*/
 
     /**
-     * Describes event emitted for various button interactions like click, load.
+     * Describes event emitted.
      */
     @Event({
         eventName: 'kul-image-event',

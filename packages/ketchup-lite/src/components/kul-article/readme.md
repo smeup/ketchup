@@ -7,17 +7,17 @@
 
 ## Properties
 
-| Property   | Attribute   | Description                                     | Type             | Default |
-| ---------- | ----------- | ----------------------------------------------- | ---------------- | ------- |
-| `kulData`  | --          | The actual data of the article.                 | `KulDataDataset` | `null`  |
-| `kulStyle` | `kul-style` | Enables customization of the component's style. | `string`         | `''`    |
+| Property   | Attribute   | Description                                     | Type                | Default |
+| ---------- | ----------- | ----------------------------------------------- | ------------------- | ------- |
+| `kulData`  | --          | The actual data of the article.                 | `KulArticleDataset` | `null`  |
+| `kulStyle` | `kul-style` | Enables customization of the component's style. | `string`            | `''`    |
 
 
 ## Events
 
-| Event               | Description                                                         | Type                           |
-| ------------------- | ------------------------------------------------------------------- | ------------------------------ |
-| `kul-article-event` | Describes event emitted for various button interactions like click. | `CustomEvent<KulEventPayload>` |
+| Event               | Description              | Type                           |
+| ------------------- | ------------------------ | ------------------------------ |
+| `kul-article-event` | Describes event emitted. | `CustomEvent<KulEventPayload>` |
 
 
 ## Methods
@@ -73,6 +73,14 @@ Assigns a set of properties to the component, triggering updates if necessary.
 Type: `Promise<void>`
 
 
+
+
+## CSS Custom Properties
+
+| Name                            | Description                  |
+| ------------------------------- | ---------------------------- |
+| `--kul-article-article-padding` | Padding of the article tag.  |
+| `--kul-article-section-padding` | Padding of the section tags. |
 
 
 ## Dependencies

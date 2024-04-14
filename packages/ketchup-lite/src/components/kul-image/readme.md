@@ -20,9 +20,9 @@
 
 ## Events
 
-| Event             | Description                                                               | Type                           |
-| ----------------- | ------------------------------------------------------------------------- | ------------------------------ |
-| `kul-image-event` | Describes event emitted for various button interactions like click, load. | `CustomEvent<KulEventPayload>` |
+| Event             | Description              | Type                           |
+| ----------------- | ------------------------ | ------------------------------ |
+| `kul-image-event` | Describes event emitted. | `CustomEvent<KulEventPayload>` |
 
 
 ## Methods

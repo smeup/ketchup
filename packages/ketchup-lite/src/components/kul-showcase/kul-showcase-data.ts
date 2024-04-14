@@ -48,6 +48,12 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
             value: 'Card',
         },
         {
+            description: 'A simple code visualizer.',
+            icon: 'code',
+            id: 'Code',
+            value: 'Code',
+        },
+        {
             description:
                 'A component for displaying images with support for different resolutions.',
             icon: 'image',
