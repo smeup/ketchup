@@ -75,6 +75,19 @@ Type: `Promise<void>`
 
 
 
+## Dependencies
+
+### Used by
+
+ - [kul-showcase-article](../kul-showcase/components/article)
+
+### Graph
+```mermaid
+graph TD;
+  kul-showcase-article --> kul-article
+  style kul-article fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

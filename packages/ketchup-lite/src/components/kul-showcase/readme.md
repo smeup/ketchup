@@ -79,6 +79,7 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kul-card](../kul-card)
+- [kul-showcase-article](./components/article)
 - [kul-showcase-badge](./components/badge)
 - [kul-showcase-button](./components/button)
 - [kul-showcase-card](./components/card)
@@ -94,6 +95,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kul-showcase --> kul-card
+  kul-showcase --> kul-showcase-article
   kul-showcase --> kul-showcase-badge
   kul-showcase --> kul-showcase-button
   kul-showcase --> kul-showcase-card
@@ -110,6 +112,7 @@ graph TD;
   kul-image --> kul-badge
   kul-badge --> kul-image
   kul-button --> kul-image
+  kul-showcase-article --> kul-article
   kul-showcase-badge --> kul-badge
   kul-showcase-button --> kul-button
   kul-showcase-button --> kul-spinner

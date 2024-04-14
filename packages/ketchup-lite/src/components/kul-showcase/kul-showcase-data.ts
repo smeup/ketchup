@@ -22,6 +22,13 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
     nodes: [
         {
             description:
+                'A component that writes semantic article-related HTML from a JSON dataset.',
+            icon: 'document',
+            id: 'Article',
+            value: 'Article',
+        },
+        {
+            description:
                 'A small count and labeling component that adds context to content.',
             icon: 'notifications',
             id: 'Badge',

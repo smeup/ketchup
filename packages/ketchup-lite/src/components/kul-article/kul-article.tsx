@@ -4,6 +4,7 @@ import {
     Event,
     EventEmitter,
     forceUpdate,
+    Fragment,
     h,
     Host,
     Method,
@@ -11,16 +12,17 @@ import {
     State,
     VNode,
 } from '@stencil/core';
-import { KulArticleEvents, KulArticleProps } from './kul-article-declarations';
+import {
+    KulArticleDataset,
+    KulArticleEvents,
+    KulArticleNode,
+    KulArticleProps,
+} from './kul-article-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps, setProps } from '../../utils/componentUtils';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
-import {
-    KulDataDataset,
-    KulDataNode,
-} from '../../managers/kul-data/kul-data-declarations';
 
 @Component({
     tag: 'kul-article',
@@ -56,7 +58,7 @@ export class KulArticle {
      * The actual data of the article.
      * @default null
      */
-    @Prop({ mutable: true }) kulData: KulDataDataset = null;
+    @Prop({ mutable: true }) kulData: KulArticleDataset = null;
     /**
      * Enables customization of the component's style.
      * @default "" - No custom style applied by default.
@@ -134,38 +136,86 @@ export class KulArticle {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    #prepArticle() {
+    #recursive(node: KulArticleNode, depth: number) {
+        switch (depth) {
+            case 0:
+                return this.#articleTemplate(node, depth);
+            case 1:
+                return this.#sectionTemplate(node, depth);
+            case 2:
+                return this.#paragraphTemplate(node, depth);
+            default:
+                return node.children?.length
+                    ? this.#paragraphTemplate(node, depth)
+                    : this.#contentTemplate(node, depth);
+        }
+    }
+
+    #articleTemplate(node: KulArticleNode, depth: number): VNode {
+        return (
+            <Fragment>
+                <article class="article" data-depth={depth.toString()}>
+                    {node.value ? <h1>{node.value}</h1> : undefined}
+                    {node.children
+                        ? node.children.map((child) =>
+                              this.#recursive(child, depth + 1)
+                          )
+                        : null}
+                </article>
+            </Fragment>
+        );
+    }
+
+    #sectionTemplate(node: KulArticleNode, depth: number): VNode {
+        return (
+            <Fragment>
+                <section class="section" data-depth={depth.toString()}>
+                    {node.value ? <h2>{node.value}</h2> : undefined}
+                    {node.children
+                        ? node.children.map((child) =>
+                              this.#recursive(child, depth + 1)
+                          )
+                        : null}
+                </section>
+            </Fragment>
+        );
+    }
+
+    #paragraphTemplate(node: KulArticleNode, depth: number): VNode {
+        return (
+            <Fragment>
+                <p class="paragraph" data-depth={depth.toString()}>
+                    {node.value ? <h3>{node.value}</h3> : undefined}
+                    {node.children
+                        ? node.children.map((child) =>
+                              this.#recursive(child, depth + 1)
+                          )
+                        : null}
+                </p>
+            </Fragment>
+        );
+    }
+
+    #contentTemplate(node: KulArticleNode, depth: number): VNode {
+        const ComponentTag = node.tagName || 'span';
+        return (
+            <ComponentTag
+                class={`content content--${ComponentTag}`}
+                data-depth={depth.toString()}
+            >
+                {node.value}
+            </ComponentTag>
+        );
+    }
+
+    #prepArticle(): VNode[] {
         const elements: VNode[] = [];
         const nodes = this.kulData.nodes;
-        const recursive = (node: KulDataNode, depth: number) => {
-            switch (depth) {
-                case 0:
-                    elements.push(
-                        <article class="article">{node.value}</article>
-                    );
-                    break;
-                case 1:
-                    elements.push(
-                        <section class="section">{node.value}</section>
-                    );
-                    break;
-                default:
-                    elements.push(<p class="paragraph">{node.value}</p>);
-                    break;
-            }
-            for (
-                let index = 0;
-                node.children && index < node.children.length;
-                index++
-            ) {
-                recursive(node.children[index], ++depth);
-            }
-        };
         for (let index = 0; index < nodes.length; index++) {
             const node = nodes[index];
-            recursive(node, 0);
+            elements.push(this.#recursive(node, 0));
         }
-        return elements;
+        return <Fragment>{elements}</Fragment>;
     }
 
     /*-------------------------------------------------*/
@@ -193,7 +243,7 @@ export class KulArticle {
         return (
             <Host>
                 <style>{this.#kulManager.theme.setKulStyle(this)}</style>
-                <div id={KUL_WRAPPER_ID}></div>
+                <div id={KUL_WRAPPER_ID}>{this.#prepArticle()}</div>
             </Host>
         );
     }

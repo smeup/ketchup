@@ -189,6 +189,8 @@ export class KulShowcase {
 
     #comps(): VNode {
         switch (this.currentComponent) {
+            case 'Article':
+                return <kul-showcase-article></kul-showcase-article>;
             case 'Badge':
                 return <kul-showcase-badge></kul-showcase-badge>;
             case 'Button':

@@ -14,6 +14,7 @@ export const KulButton = /*@__PURE__*/createReactComponent<JSX.KulButton, HTMLKu
 export const KulCard = /*@__PURE__*/createReactComponent<JSX.KulCard, HTMLKulCardElement>('kul-card');
 export const KulImage = /*@__PURE__*/createReactComponent<JSX.KulImage, HTMLKulImageElement>('kul-image');
 export const KulShowcase = /*@__PURE__*/createReactComponent<JSX.KulShowcase, HTMLKulShowcaseElement>('kul-showcase');
+export const KulShowcaseArticle = /*@__PURE__*/createReactComponent<JSX.KulShowcaseArticle, HTMLKulShowcaseArticleElement>('kul-showcase-article');
 export const KulShowcaseBadge = /*@__PURE__*/createReactComponent<JSX.KulShowcaseBadge, HTMLKulShowcaseBadgeElement>('kul-showcase-badge');
 export const KulShowcaseButton = /*@__PURE__*/createReactComponent<JSX.KulShowcaseButton, HTMLKulShowcaseButtonElement>('kul-showcase-button');
 export const KulShowcaseCard = /*@__PURE__*/createReactComponent<JSX.KulShowcaseCard, HTMLKulShowcaseCardElement>('kul-showcase-card');

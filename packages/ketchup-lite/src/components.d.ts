@@ -5,19 +5,21 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
+import { KulArticleDataset } from "./components/kul-article/kul-article-declarations";
 import { GenericObject, KulEventPayload } from "./types/GenericTypes";
 import { KulDebugComponentInfo } from "./managers/kul-debug/kul-debug-declarations";
 import { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
 import { KulButtonEventPayload, KulButtonStates, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
+import { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 import { KulCardFamily } from "./components/kul-card/kul-card-declarations";
 import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 import { KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
-export { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
+export { KulArticleDataset } from "./components/kul-article/kul-article-declarations";
 export { GenericObject, KulEventPayload } from "./types/GenericTypes";
 export { KulDebugComponentInfo } from "./managers/kul-debug/kul-debug-declarations";
 export { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
 export { KulButtonEventPayload, KulButtonStates, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
+export { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 export { KulCardFamily } from "./components/kul-card/kul-card-declarations";
 export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 export { KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
@@ -38,7 +40,7 @@ export namespace Components {
           * The actual data of the article.
           * @default null
          */
-        "kulData": KulDataDataset;
+        "kulData": KulArticleDataset;
         /**
           * Enables customization of the component's style.
           * @default "" - No custom style applied by default.
@@ -329,6 +331,8 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
     }
+    interface KulShowcaseArticle {
+    }
     interface KulShowcaseBadge {
     }
     interface KulShowcaseButton {
@@ -582,6 +586,12 @@ declare global {
         prototype: HTMLKulShowcaseElement;
         new (): HTMLKulShowcaseElement;
     };
+    interface HTMLKulShowcaseArticleElement extends Components.KulShowcaseArticle, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseArticleElement: {
+        prototype: HTMLKulShowcaseArticleElement;
+        new (): HTMLKulShowcaseArticleElement;
+    };
     interface HTMLKulShowcaseBadgeElement extends Components.KulShowcaseBadge, HTMLStencilElement {
     }
     var HTMLKulShowcaseBadgeElement: {
@@ -677,6 +687,7 @@ declare global {
         "kul-card": HTMLKulCardElement;
         "kul-image": HTMLKulImageElement;
         "kul-showcase": HTMLKulShowcaseElement;
+        "kul-showcase-article": HTMLKulShowcaseArticleElement;
         "kul-showcase-badge": HTMLKulShowcaseBadgeElement;
         "kul-showcase-button": HTMLKulShowcaseButtonElement;
         "kul-showcase-card": HTMLKulShowcaseCardElement;
@@ -696,7 +707,7 @@ declare namespace LocalJSX {
           * The actual data of the article.
           * @default null
          */
-        "kulData"?: KulDataDataset;
+        "kulData"?: KulArticleDataset;
         /**
           * Enables customization of the component's style.
           * @default "" - No custom style applied by default.
@@ -886,6 +897,8 @@ declare namespace LocalJSX {
          */
         "onKul-showcase-event"?: (event: KulShowcaseCustomEvent<KulEventPayload>) => void;
     }
+    interface KulShowcaseArticle {
+    }
     interface KulShowcaseBadge {
     }
     interface KulShowcaseButton {
@@ -970,6 +983,7 @@ declare namespace LocalJSX {
         "kul-card": KulCard;
         "kul-image": KulImage;
         "kul-showcase": KulShowcase;
+        "kul-showcase-article": KulShowcaseArticle;
         "kul-showcase-badge": KulShowcaseBadge;
         "kul-showcase-button": KulShowcaseButton;
         "kul-showcase-card": KulShowcaseCard;
@@ -993,6 +1007,7 @@ declare module "@stencil/core" {
             "kul-card": LocalJSX.KulCard & JSXBase.HTMLAttributes<HTMLKulCardElement>;
             "kul-image": LocalJSX.KulImage & JSXBase.HTMLAttributes<HTMLKulImageElement>;
             "kul-showcase": LocalJSX.KulShowcase & JSXBase.HTMLAttributes<HTMLKulShowcaseElement>;
+            "kul-showcase-article": LocalJSX.KulShowcaseArticle & JSXBase.HTMLAttributes<HTMLKulShowcaseArticleElement>;
             "kul-showcase-badge": LocalJSX.KulShowcaseBadge & JSXBase.HTMLAttributes<HTMLKulShowcaseBadgeElement>;
             "kul-showcase-button": LocalJSX.KulShowcaseButton & JSXBase.HTMLAttributes<HTMLKulShowcaseButtonElement>;
             "kul-showcase-card": LocalJSX.KulShowcaseCard & JSXBase.HTMLAttributes<HTMLKulShowcaseCardElement>;
