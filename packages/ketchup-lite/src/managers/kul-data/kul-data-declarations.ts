@@ -3,6 +3,7 @@ import {
     KulImagePropsInterface,
 } from '../../components';
 import { KulButtonPropsInterface } from '../../components/kul-button/kul-button-declarations';
+import { KulCodePropsInterface } from '../../components/kul-code/kul-code-declarations';
 
 export interface KulDataCell {
     value: unknown;
@@ -41,7 +42,7 @@ export interface KulDataNode {
     value?: unknown;
 }
 
-export type KulDataShapes = 'badge' | 'button' | 'image' | 'text';
+export type KulDataShapes = 'badge' | 'button' | 'code' | 'image' | 'text';
 
 export type KulDataShapesMap = {
     [K in KulDataShapes]?: Array<
@@ -50,6 +51,8 @@ export type KulDataShapesMap = {
                 ? Partial<KulBadgePropsInterface>
                 : K extends 'button'
                 ? Partial<KulButtonPropsInterface>
+                : K extends 'code'
+                ? Partial<KulCodePropsInterface>
                 : K extends 'image'
                 ? Partial<KulImagePropsInterface>
                 : string;

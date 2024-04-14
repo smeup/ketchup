@@ -197,15 +197,34 @@ export class KulArticle {
     }
 
     #contentTemplate(node: KulArticleNode, depth: number): VNode {
-        const ComponentTag = node.tagName || 'span';
-        return (
-            <ComponentTag
-                class={`content content--${ComponentTag}`}
-                data-depth={depth.toString()}
-            >
-                {node.value}
-            </ComponentTag>
-        );
+        const key = node?.cells && Object.keys(node.cells)[0];
+        const cell = node?.cells?.[key];
+        const ComponentTag = cell
+            ? 'kul-' + cell.shape
+            : node.tagName
+            ? node.tagName
+            : 'span';
+
+        if (cell) {
+            return (
+                <ComponentTag
+                    class={`content content--${ComponentTag}`}
+                    data-depth={depth.toString()}
+                    {...this.#kulManager.data.extract.singleShape(cell)}
+                >
+                    {node.value}
+                </ComponentTag>
+            );
+        } else {
+            return (
+                <ComponentTag
+                    class={`content content--${ComponentTag}`}
+                    data-depth={depth.toString()}
+                >
+                    {node.value}
+                </ComponentTag>
+            );
+        }
     }
 
     #prepArticle(): VNode[] {

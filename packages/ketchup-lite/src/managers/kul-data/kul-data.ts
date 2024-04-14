@@ -1,5 +1,6 @@
 import { GenericObject } from '../../components';
 import {
+    KulDataCell,
     KulDataDataset,
     KulDataNode,
     KulDataShapesMap,
@@ -70,17 +71,9 @@ export class KulData {
                             if (!shapes[cell.shape]) {
                                 shapes[cell.shape] = [];
                             }
-                            for (const prop in cell) {
-                                if (prop === 'shape') {
-                                    continue;
-                                }
-                                const prefixedProp =
-                                    'kul' +
-                                    prop.charAt(0).toUpperCase() +
-                                    prop.slice(1);
-                                shapeProps[prefixedProp] = cell[prop];
-                            }
-                            shapes[cell.shape].push(shapeProps);
+                            shapes[cell.shape].push(
+                                this.extract.singleShape(cell)
+                            );
                         } else {
                             if (!shapes.text) {
                                 shapes.text = [];
@@ -107,6 +100,18 @@ export class KulData {
                 recursive(node);
             }
             return shapes;
+        },
+        singleShape: (cell: KulDataCell) => {
+            const shapeProps = {};
+            for (const prop in cell) {
+                if (prop === 'shape') {
+                    continue;
+                }
+                const prefixedProp =
+                    'kul' + prop.charAt(0).toUpperCase() + prop.slice(1);
+                shapeProps[prefixedProp] = cell[prop];
+            }
+            return shapeProps;
         },
     };
     node = {
