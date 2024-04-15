@@ -262,7 +262,11 @@ export class KulArticle {
         return (
             <Host>
                 <style>{this.#kulManager.theme.setKulStyle(this)}</style>
-                <div id={KUL_WRAPPER_ID}>{this.#prepArticle()}</div>
+                <div id={KUL_WRAPPER_ID}>
+                    {this.kulData?.nodes?.length
+                        ? this.#prepArticle()
+                        : 'Empty data'}
+                </div>
             </Host>
         );
     }
