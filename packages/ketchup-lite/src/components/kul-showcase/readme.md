@@ -126,6 +126,7 @@ graph TD;
   kul-showcase-splash --> kul-splash
   kul-showcase-splash --> kul-spinner
   kul-showcase-spinner --> kul-spinner
+  kul-showcase-kulmanager --> kul-article
   style kul-showcase fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
