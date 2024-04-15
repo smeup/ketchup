@@ -24,7 +24,7 @@
         "lerna": "lerna",
         "build": "lerna run build --scope ketchup-lite --stream && lerna run build --scope ketchup-lite-react --stream",
         "dev": "lerna run dev --scope ketchup-lite --stream",
-        "test:unit": "lerna run test:spec --scope ketchup-lite --stream"
+        "test:spec": "lerna run test:spec --scope ketchup-lite --stream"
     },
     "workspaces": [
         "packages/ketchup-lite",
