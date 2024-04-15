@@ -77,10 +77,10 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                            | Description                  |
-| ------------------------------- | ---------------------------- |
-| `--kul-article-article-padding` | Padding of the article tag.  |
-| `--kul-article-section-padding` | Padding of the section tags. |
+| Name                      | Description               |
+| ------------------------- | ------------------------- |
+| `--kul-article-margin`    | Margin of the article.    |
+| `--kul-article-max-width` | Max width of the article. |
 
 
 ## Dependencies
@@ -88,11 +88,13 @@ Type: `Promise<void>`
 ### Used by
 
  - [kul-showcase-article](../kul-showcase/components/article)
+ - [kul-showcase-kulmanager](../kul-showcase/framework/manager)
 
 ### Graph
 ```mermaid
 graph TD;
   kul-showcase-article --> kul-article
+  kul-showcase-kulmanager --> kul-article
   style kul-article fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
