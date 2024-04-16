@@ -1,3 +1,10 @@
+:root {
+  --kup-layer-0: var(--kup-gray-color-0);
+  --kup-layer-1: var(--kup-gray-color-10);
+  --kup-layer-2: var(--kup-gray-color-20);
+  --kup-layer-3: var(--kup-gray-color-30);
+}
+
 /*-------------------------------------------------*/
 /*                   E d i t o r                   */
 /*-------------------------------------------------*/
@@ -2371,22 +2378,19 @@ Please note that using !important should generally be avoided if possible, as it
 /*                   D i a l o g                   */
 /*-------------------------------------------------*/
 [kup-dialog] {
-  animation: fade-in 0.25s ease-out;
-  background-color: var(--kup-background-color);
+  border-top: 4px solid var(--kup-gray-color-70);
+  animation: fade-in-down 0.25s ease-out;
+  background-color: var(--kup-gray-color-0);
   margin: 0;
   position: absolute;
   -ms-touch-action: none;
   touch-action: none;
   transition: none;
   will-change: transform;
-
-  &.kup-resizable {
-    border: 3px outset var(--kup-title-background-color);
-  }
 }
 
 [kup-modal-backdrop] {
-  animation: fade-in 0.25s ease-out;
+  animation: fade-in-down 0.25s ease-out;
   background: rgba(0, 0, 0, 0.32);
   display: none;
   height: 100vh;
@@ -2414,6 +2418,22 @@ Please note that using !important should generally be avoided if possible, as it
   100% {
     display: block;
     opacity: 1;
+  }
+}
+
+@keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  1% {
+    opacity: 0;
+    transform: translateY(-9%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 /*-------------------------------------------------*/

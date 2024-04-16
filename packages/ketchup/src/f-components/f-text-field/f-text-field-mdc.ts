@@ -14,11 +14,13 @@ import { MDCFormField } from '@material/form-field';
 export function FTextFieldMDC(el: HTMLElement): void {
     const component = new MDCTextField(el.querySelector('.mdc-text-field'));
     const form: HTMLElement = el.querySelector('.mdc-form-field');
+    const input: HTMLInputElement = el.querySelector('.mdc-text-field__input');
     const helper: HTMLElement = el.querySelector('.mdc-text-field-helper-text');
     const counter: HTMLElement = el.querySelector(
         '.mdc-text-field-character-counter'
     );
     const icon: HTMLElement = el.querySelector('.mdc-text-field-icon');
+
     if (form) {
         const formField = MDCFormField.attachTo(form);
         if (formField) {
@@ -29,7 +31,10 @@ export function FTextFieldMDC(el: HTMLElement): void {
         new MDCTextFieldHelperText(helper);
     }
     if (counter) {
-        new MDCTextFieldCharacterCounter(counter);
+        input.addEventListener('input', () => {
+            const valueLength = input.value.length;
+            counter.textContent = `${valueLength} / ${input.maxLength}`;
+        });
     }
     if (icon) {
         new MDCTextFieldIcon(icon);

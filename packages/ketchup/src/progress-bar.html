@@ -20,9 +20,15 @@
         </style>
     </head>
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true, logLimit: 10000 },
+            };
+        </script>
         <div class="wrapper">
-            <kup-progress-bar value="100"></kup-progress-bar
-        ></div>
+            <kup-progress-bar value="100"></kup-progress-bar>
+            <kup-progress-bar value="100" is-radial></kup-progress-bar>
+        </div>
     </body>
     <script src="/assets/progress-bar.js"></script>
 </html>

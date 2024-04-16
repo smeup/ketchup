@@ -11,6 +11,7 @@ export interface FRadioProps extends FComponent {
     onBlur?: (event: FocusEvent) => void;
     onChange?: (i: number, event: Event) => void;
     onFocus?: (event: FocusEvent) => void;
+    horizontal?: boolean;
 }
 /**
  * The object of a single radio.

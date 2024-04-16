@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Badge</title>
+
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+
+        <link
+            href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
+            rel="stylesheet"
+            type="text/css"
+        />
+
+        <link
+            href="https://fonts.googleapis.com/css?family=Lato"
+            rel="stylesheet"
+        />
+
+        <script
+            type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"
+        ></script>
+
+        <style>
+            html {
+                background-color: var(--kup-background-color);
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
+                padding: 1rem;
+            }
+
+            .badge-container {
+                width: 200px;
+                height: 50px;
+                position: relative;
+                border: 1px solid var(--kup-primary-color);
+            }
+
+            span {
+              display: block;
+              margin: 6px 0 12px;
+            }
+        </style>
+    </head>
+    <body>
+      <script>
+        document.documentElement['ketchupInit'] = {
+            debug: { active: true },
+        };
+    </script>
+        <h3>Badge</h3>
+
+        <h4>Status:</h4>
+
+        <span>default</span>
+        <div class="badge-container">
+          <kup-badge text="demo"></kup-badge>
+        </div>
+
+        <span>accent red</span>
+        <div class="badge-container">
+          <kup-badge text="demo" class="kup-accent-red"></kup-badge>
+        </div>
+        <span>accent orange</span>
+        <div class="badge-container">
+          <kup-badge text="demo" class="kup-accent-orange"></kup-badge>
+        </div>
+        <span>accent yellow</span>
+        <div class="badge-container">
+          <kup-badge text="demo" class="kup-accent-yellow"></kup-badge>
+        </div>
+        <span>accent green</span>
+        <div class="badge-container">
+          <kup-badge text="demo" class="kup-accent-green"></kup-badge>
+        </div>
+        <span>accent white</span>
+        <div class="badge-container">
+          <kup-badge text="demo" class="kup-accent-white"></kup-badge>
+        </div>
+
+        <h4>Position:</h4>
+
+        <span>top right (default)</span>
+        <div class="badge-container">
+          <kup-badge text="demo"></kup-badge>
+        </div>
+        <span>top left</span>
+        <div class="badge-container">
+          <kup-badge text="demo" class="kup-top-left"></kup-badge>
+        </div>
+        <span>bottom right</span>
+        <div class="badge-container">
+          <kup-badge text="demo" class="kup-bottom-right"></kup-badge>
+        </div>
+        <span>bottom left</span>
+        <div class="badge-container">
+          <kup-badge text="demo" class="kup-bottom-left"></kup-badge>
+        </div>
+      </div>
+
+        <script>
+          document.addEventListener('kup-manager-ready', () => {
+              const kupManager = document.documentElement.ketchup;
+              kupManager.theme.set('teal')
+          });
+        </script>
+    </body>
+</html>

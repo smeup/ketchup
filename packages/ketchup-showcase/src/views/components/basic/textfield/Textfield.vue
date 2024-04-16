@@ -21,6 +21,15 @@
     <template v-slot:6>
       <textfield-number></textfield-number>
     </template>
+    <template v-slot:7>
+      <textfield-sizing></textfield-sizing>
+    </template>
+    <template v-slot:8>
+      <textfield-helper></textfield-helper>
+    </template>
+    <template v-slot:9>
+      <textfield-readonly></textfield-readonly>
+    </template>
   </comp>
 </template>
 
@@ -32,6 +41,9 @@ import TextfieldLabels from '@/views/components/basic/textfield/examples/Textfie
 import TextfieldDisabled from '@/views/components/basic/textfield/examples/TextfieldDisabled';
 import TextfieldTextareaVariant from '@/views/components/basic/textfield/examples/TextfieldTextareaVariant';
 import TextfieldNumber from '@/views/components/basic/textfield/examples/TextfieldNumber';
+import TextfieldSizing from '@/views/components/basic/textfield/examples/TextfieldSizing';
+import TextfieldHelper from '@/views/components/basic/textfield/examples/TextfieldHelper';
+import TextfieldReadonly from '@/views/components/basic/textfield/examples/TextfieldReadonly';
 import Comp from '@/views/templates/Comp';
 export default {
   components: {
@@ -42,6 +54,9 @@ export default {
     TextfieldDisabled,
     TextfieldTextareaVariant,
     TextfieldNumber,
+    TextfieldSizing,
+    TextfieldHelper,
+    TextfieldReadonly,
     Comp,
   },
   data() {
@@ -57,6 +72,9 @@ export default {
         'Text area variant',
         'Disabled',
         'Number',
+        'Sizing',
+        'Helper',
+        'Readonly',
       ],
     };
   },

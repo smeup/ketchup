@@ -108,3 +108,18 @@ export enum KupTagNames {
     TOOLTIP = 'KUP-TOOLTIP',
     TREE = 'KUP-TREE',
 }
+
+/**
+ * Sizing options for the button/text-field components.
+ * @enum {string}
+ * @property {string} SMALL - Small size: height = 32px
+ * @property {string} MEDIUM - Medium size: height = 40px (default)
+ * @property {string} LARGE - Large size: height = 48px
+ * @property {string} MAX - Max large size: height = 64px
+ */
+export enum KupComponentSizing {
+    SMALL = 'small',
+    MEDIUM = 'medium',
+    LARGE = 'large',
+    MAX = 'max-large',
+}

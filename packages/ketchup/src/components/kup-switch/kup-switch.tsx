@@ -15,7 +15,10 @@ import {
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { FSwitch } from '../../f-components/f-switch/f-switch';
-import { FSwitchProps } from '../../f-components/f-switch/f-switch-declarations';
+import {
+    FSwitchProps,
+    FSwitchSizing,
+} from '../../f-components/f-switch/f-switch-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupSwitchEventPayload,
@@ -75,6 +78,11 @@ export class KupSwitch {
      * @default false
      */
     @Prop() leadingLabel: boolean = false;
+    /**
+     * Sets the size of the switch
+     * @default FSwitchSizing.MEDIUM
+     */
+    @Prop() sizing: FSwitchSizing = FSwitchSizing.MEDIUM;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -221,6 +229,7 @@ export class KupSwitch {
             secondary: this.rootElement.classList.contains('kup-secondary')
                 ? true
                 : false,
+            sizing: this.sizing,
             success: this.rootElement.classList.contains('kup-success')
                 ? true
                 : false,

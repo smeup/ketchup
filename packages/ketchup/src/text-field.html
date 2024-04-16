@@ -36,11 +36,22 @@
         </style>
     </head>
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true },
+            };
+        </script>
         <h1>Simple text field</h1>
         <kup-text-field
             id="int1"
             is-clearable
             initial-value="ciao"
+        ></kup-text-field>
+        <kup-text-field
+            id="int1"
+            is-clearable
+            initial-value="ciao"
+            disabled
         ></kup-text-field>
         <h4>Input text type number with decimals</h4>
         <kup-text-field
@@ -56,19 +67,19 @@
             initial-value="22"
             step="0.01"
         ></kup-text-field>
-        <h4>Input text type number without decimals</h4>
+        <h3>Input text type number without decimals</h3>
         <kup-text-field
             id="number"
             input-type="number"
             input-mode="numeric"
         ></kup-text-field>
-        <h4>Input text type password</h4>
+        <h3>Input text type password</h3>
         <kup-text-field
             input-type="password"
             initial-value="pippo"
             is-clearable
         ></kup-text-field>
-        <h4>Material Text Field (widget)</h4>
+        <h3>Material Text Field (widget)</h3>
         <kup-text-field
             icon="favorite"
             outlined
@@ -87,7 +98,10 @@
             icon="favorite"
         ></kup-text-field>
         <kup-text-field trailing-icon icon="favorite"></kup-text-field>
-        <kup-text-field helper="I am a helper text"></kup-text-field>
+        <kup-text-field
+            label="I am a label"
+            helper="I am a helper text"
+        ></kup-text-field>
         <kup-text-field
             helper-when-focused
             helper="I am a helper text"
@@ -127,6 +141,167 @@
             label="I am a label"
             initial-value="yooooo"
         ></kup-text-field>
+
+        <h3>Size:</h3>
+        <kup-text-field
+            label="Size: Small"
+            initial-value="Small"
+            sizing="small"
+        ></kup-text-field>
+        <kup-text-field
+            label="Size: Medium (Default)"
+            initial-value="Medium"
+            sizing="medium"
+        ></kup-text-field>
+        <kup-text-field
+            label="Size: Large"
+            initial-value="Large"
+            sizing="large"
+        ></kup-text-field>
+        <kup-text-field
+            label="Size: Max Large"
+            initial-value="Max Large"
+            sizing="max-large"
+        ></kup-text-field>
+
+        <h3>Variants:</h3>
+        <h4>Simple text field:</h4>
+        <kup-text-field
+            label="Normal"
+            initial-value="Normal"
+            max-length="10"
+        ></kup-text-field>
+        <kup-text-field
+            label="Disabled"
+            initial-value="Disabled"
+            disabled
+            max-length="10"
+        ></kup-text-field>
+        <kup-text-field
+            label="Read Only"
+            initial-value="Read Only"
+            read-only
+            max-length="10"
+        ></kup-text-field>
+        <kup-text-field
+            is-clearable
+            label="Error"
+            initial-value="Error initial value"
+            error="Error message for initial value"
+            max-length="10"
+        ></kup-text-field>
+        <kup-text-field
+            is-clearable
+            label="Alert"
+            initial-value="Alert"
+            alert="Alert message"
+            max-length="10"
+        ></kup-text-field>
+
+        <h4>Outlined text field:</h4>
+        <kup-text-field
+            label="Normal"
+            initial-value="Normal"
+            outlined
+        ></kup-text-field>
+        <kup-text-field
+            label="Disabled"
+            initial-value="Disabled"
+            outlined
+            disabled
+        ></kup-text-field>
+        <kup-text-field
+            label="Read Only"
+            initial-value="Read Only"
+            outlined
+            read-only
+        ></kup-text-field>
+        <kup-text-field
+            label="Error"
+            error="Error message"
+            initial-value="Error"
+            outlined
+        ></kup-text-field>
+        <kup-text-field
+            label="Alert"
+            alert="Alert message"
+            initial-value="Alert"
+            outlined
+        ></kup-text-field>
+
+        <h4>Textarea text field:</h4>
+        <kup-text-field
+            label="Normal"
+            initial-value="Normal"
+            text-area
+            max-length="10"
+        ></kup-text-field>
+        <kup-text-field
+            label="Disabled"
+            initial-value="Disabled"
+            text-area
+            disabled
+            max-length="10"
+        ></kup-text-field>
+        <kup-text-field
+            label="Read Only"
+            initial-value="Read Only"
+            text-area
+            read-only
+            max-length="10"
+        ></kup-text-field>
+        <kup-text-field
+            label="Error"
+            error="Error message"
+            initial-value="Error"
+            text-area
+            max-length="10"
+        ></kup-text-field>
+        <kup-text-field
+            is-clearable
+            label="Alert"
+            alert="Alert message"
+            initial-value="Alert"
+            text-area
+            max-length="10"
+        ></kup-text-field>
+
+        <h4>New text field with + / - buttons</h4>
+        <kup-text-field
+            label="Normal"
+            input-type="number"
+            input-mode="decimal"
+            quantity-buttons
+        ></kup-text-field>
+        <kup-text-field
+            label="Disabled"
+            input-type="number"
+            input-mode="decimal"
+            quantity-buttons
+            disabled
+        ></kup-text-field>
+        <kup-text-field
+            label="Read Only"
+            input-type="number"
+            input-mode="decimal"
+            quantity-buttons
+            read-only
+        ></kup-text-field>
+        <kup-text-field
+            label="Error"
+            input-type="number"
+            input-mode="decimal"
+            quantity-buttons
+            error="Error message"
+        ></kup-text-field>
+        <kup-text-field
+            label="Alert"
+            input-type="number"
+            input-mode="decimal"
+            quantity-buttons
+            alert="Alert message"
+        ></kup-text-field>
+
         <script>
             // For the password field
             const inPassword = document.querySelector(
@@ -141,6 +316,12 @@
             inPassword.addEventListener('ketchupTextInputUpdated', (e) => {
                 console.log('Password has been UPDATED', e);
             });
-        </script></body
-    >
+        </script>
+        <script>
+            document.addEventListener('kup-manager-ready', () => {
+                const kupManager = document.documentElement.ketchup;
+                kupManager.theme.set('octane');
+            });
+        </script>
+    </body>
 </html>

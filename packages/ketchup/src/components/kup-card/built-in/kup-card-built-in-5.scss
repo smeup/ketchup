@@ -1,41 +1,52 @@
 .built-in-layout-5 {
-    background: var(--kup-background-color);
-    box-shadow: var(--kup-box-shadow);
-    box-sizing: border-box;
-    overflow: auto;
-    padding: 0.5em;
-  
-    > table {
-        width: 100%;
-        
-        > tr > td {
-        > div.value {
-            text-align: right;
-            color: var(--kup-primary-color);
-            border-bottom: 1px solid var(--kup-border-color);
-            min-height: 1.5em;
+  --kup_card_background_color: var(
+    --kup-card-background-color,
+    var(--kup-gray-color-10)
+  );
+  --kup_card_box_shadow: var(
+    --kup-box-shadow,
+    0px 3px 6px 0 rgba(0, 0, 0, 0.3)
+  );
+  --kup-card_border_color: var(
+    --kup-card-border-color,
+    var(--kup-gray-color-20)
+  );
+  background: var(--kup_card_background_color);
+  box-shadow: var(--kup_card_box_shadow);
+  box-sizing: border-box;
+  overflow: auto;
+  padding: var(--kup-space-03);
+
+  > table {
+    width: 100%;
+
+    > tr > td {
+      > div.value {
+        text-align: right;
+        color: var(--kup-text-color, var(--kup-gray-color-70));
+        border-bottom: 1px solid var(--kup-card_border_color);
+        min-height: 1.5em;
+      }
+
+      > .f-button {
+        display: flex;
+        justify-content: center;
+      }
+
+      > div.number {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        line-height: 2.5em;
+        margin: auto;
+        width: 2.5em;
+        transition: background-color 0.25s;
+        text-transform: capitalize;
+
+        &:hover {
+          background-color: var(--kup-gray-color-30);
         }
-    
-        > .f-button {
-            display: flex;
-            justify-content: center;
-        }
-    
-        > div.number {
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            line-height: 2.5em;
-            margin: auto;
-            width: 2.5em;
-            transition: background-color 0.25s;
-            text-transform: capitalize;
-    
-            &:hover {
-                background-color: var(--kup-hover-background-color);
-            }
-        }
-        }
+      }
     }
   }
+}

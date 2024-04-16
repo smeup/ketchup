@@ -18,15 +18,15 @@
 :host {
   --kup_calendar_background_color: var(
     --kup-calendar-background-color,
-    var(--kup-background-color)
+    var(--kup-gray-color-10)
   );
   --kup_calendar_border_color: var(
     --kup-calendar-border-color,
-    var(--kup-border-color)
+    var(--kup-gray-color-20)
   );
   --kup_calendar_event_background_color: var(
     --kup-calendar-event-background-color,
-    var(--kup-primary-color)
+    var(--kup-gray-color-30)
   );
   --kup_calendar_event_border_radius: var(
     --kup-calendar-event-border-radius,
@@ -34,7 +34,7 @@
   );
   --kup_calendar_event_color: var(
     --kup-calendar-event-color,
-    var(--kup-text-on-primary-color)
+    var(--kup-gray-color-70)
   );
   --kup_calendar_font_family: var(
     --kup-calendar-font-family,
@@ -43,15 +43,15 @@
   --kup_calendar_font_size: var(--kup-calendar-font-size, var(--kup-font-size));
   --kup_calendar_header_background_color: var(
     --kup-calendar-header-background-color,
-    var(--kup-title-background-color)
+    var(--kup-gray-color-20)
   );
   --kup_calendar_header_color: var(
     --kup-calendar-header-color,
-    var(--kup-title-color)
+    var(--kup-gray-color-70)
   );
   --kup_calendar_navigator_border: var(
     --kup-calendar-navigator-border,
-    2px solid var(--kup-border-color)
+    1px solid var(--kup-gray-color-20)
   );
   --kup_calendar_no_work_day_background_color: var(
     --kup-calendar-no-work-day-background-color,
@@ -59,11 +59,11 @@
   );
   --kup_calendar_no_work_day_color: var(
     --kup-calendar-no-work-day-color,
-    var(--kup-disabled-color)
+    var(--kup-gray-color-30)
   );
   --kup_calendar_today_background_color: var(
     --kup-calendar-today-background-color,
-    rgba(var(--kup-primary-color-rgb), 0.125)
+    var(--kup-gray-color-30)
   );
 
   background-color: var(--kup_calendar_background_color);
@@ -76,27 +76,23 @@
 
 .navigation {
   align-items: center;
-  border-left: var(--kup_calendar_navigator_border);
-  border-right: var(--kup_calendar_navigator_border);
-  border-top: var(--kup_calendar_navigator_border);
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
   display: flex;
   justify-content: space-between;
+  background-color: var(--kup_calendar_background_color);
 
   &__left {
     --kup-font-size: 0.875em;
     display: flex;
+    margin-left: var(--kup-space-03);
   }
 
   &__right {
     display: flex;
+    margin-right: var(--kup-space-03);
   }
 
   &__title {
-    font-size: 1.25em;
-    font-weight: 400;
-    letter-spacing: 0.1892857em;
+    @include kup-heading-02;
     margin: 0px;
     padding: 0px 0.5em;
 
@@ -178,6 +174,7 @@
   .fc-list-day-cushion {
     background: var(--kup_calendar_header_background_color);
     color: var(--kup_calendar_header_color);
+    @include kup-heading-01;
   }
 
   .fc-list-event:hover td {
@@ -188,7 +185,6 @@
   .fc-daygrid-event,
   .fc-timegrid-event {
     background: var(--kup_calendar_event_background_color);
-    border-radius: var(--kup_calendar_event_border_radius);
     border: none;
     border-color: var(--kup_calendar_event_background_color);
     color: var(--kup_calendar_event_color);
@@ -217,18 +213,18 @@
   .navigation {
     flex-direction: column;
   }
-  .calendar{
+  .calendar {
     height: 100%;
-    .fc-view-harness{
+    .fc-view-harness {
       min-height: 450px;
     }
   }
-  
-  .navigation .navigation__left{
+
+  .navigation .navigation__left {
     font-size: 20px;
     gap: 8px;
   }
-  .navigation .navigation__right .f-chip .chip-set .chip-set__item{
+  .navigation .navigation__right .f-chip .chip-set .chip-set__item {
     font-size: 16px;
   }
 }

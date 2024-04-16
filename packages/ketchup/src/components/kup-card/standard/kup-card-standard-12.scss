@@ -21,7 +21,7 @@
     flex-direction: column;
     &.has-content {
       border-bottom: 1px solid var(--kup-border-color);
-      padding: 0.5em 0.5em;
+      padding: var(--kup-space-05);
     }
     kup-date-picker:first-of-type,
     kup-time-picker:first-of-type {
@@ -35,6 +35,7 @@
     flex-direction: column;
     max-height: 20vh;
     overflow: auto;
+    padding: var(--kup-space-05);
     kup-checkbox {
       margin-left: 0;
       margin-right: auto;

@@ -36,13 +36,16 @@
 :host {
   --kup_datatable_background_color: var(
     --kup-datatable-background-color,
-    var(--kup-background-color)
+    var(--kup-gray-color-10)
+  );
+  --kup_datatable_background_color_active: var(
+    --kup-datatable-background-color-active,
+    var(--kup-gray-color-20)
   );
   --kup_datatable_border: var(
-    --kup-datatable-border,
-    1px solid var(--kup-border-color)
+    --kup-datatable-border-color,
+    1px solid var(--kup-gray-color-20)
   );
-  --kup_datatable_color: var(--kup-datatable-color, var(--kup-text-color));
   --kup_datatable_font_family: var(
     --kup-datatable-font-family,
     var(--kup-font-family)
@@ -57,11 +60,20 @@
   );
   --kup_datatable_th_border: var(
     --kup-datatable-th-border,
-    1px solid var(--kup-border-color)
+    1px solid var(--kup-gray-color-30)
   );
   --kup_datatable_th_resize_handle_width: var(
     --kup-datatable-th-resize-handle-width,
     3px
+  );
+
+  --kup_datatable_background_color_hover: var(
+    --kup-datatable-background-color-hover,
+    var(--kup-gray-color-20)
+  );
+  --kup_datatable_text_color_hover: var(
+    --kup-datatable-background-color-hover,
+    var(--kup-gray-color-80)
   );
 
   display: block;
@@ -90,7 +102,7 @@ table {
   background-color: var(--kup_datatable_background_color);
   border-spacing: 0; // [TFixed-1]
   border-collapse: separate; // [TFixed-1]
-  color: var(--kup_datatable_color);
+  color: var(--kup-gray-color-70);
   min-width: intrinsic; /* Safari/WebKit uses a non-standard name */
   min-width: -moz-max-content; /* Firefox/Gecko */
   min-width: -webkit-max-content; /* Chrome */
@@ -108,7 +120,7 @@ table {
     &[#{$kup-dd-drag-over}] {
       td {
         &:first-of-type {
-          box-shadow: inset 4px 0px 0px 0px var(--kup-secondary-color);
+          box-shadow: inset 4px 0px 0px 0px var(--kup-gray-color-30);
         }
       }
     }
@@ -116,11 +128,11 @@ table {
     > td {
       &:first-of-type,
       &.placeholder ~ td:not(.placeholder) {
-        border-left: var(--kup_datatable_border);
+        // border-left: var(--kup_datatable_border);
       }
 
       &:last-of-type {
-        border-right: var(--kup_datatable_border);
+        // border-right: var(--kup_datatable_border);
       }
     }
 
@@ -154,28 +166,36 @@ table {
   }
 
   tfoot {
-    td {
-      border-bottom: var(--kup_datatable_border);
-      border-right: var(--kup_datatable_border);
-      box-sizing: border-box;
-      height: 36px;
-      text-align: right;
-      font-weight: bold;
-      padding: 0.5em 0.3125em;
-      &:hover {
-        background-color: var(--kup_datatable_background_color);
-      }
-      &:first-of-type {
-        border-left: var(--kup_datatable_border);
+    tr {
+      td {
+        border-bottom: var(--kup_datatable_border);
+        border-right: var(--kup_datatable_border);
+        box-sizing: border-box;
+        height: 36px;
+        text-align: right;
+        font-weight: bold;
+        padding: 0.5em 0.6em;
+        &:hover {
+          background-color: var(--kup_datatable_background_color);
+        }
+        &:first-of-type {
+          // border-left: var(--kup_datatable_border);
+        }
+        &:last-of-type {
+          border-right: none;
+        }
       }
     }
   }
 }
 
 #global-filter {
-  margin: 0.5em 0px;
   min-width: 140px;
   width: 100%;
+  flex: 1;
+  .f-text-field .mdc-text-field-container .mdc-text-field {
+    border-bottom: none;
+  }
 }
 
 .#{$kup-icon}:not(.f-image) {
@@ -260,29 +280,29 @@ table {
 }
 
 th {
-  background-color: var(--kup-title-background-color);
+  background-color: var(--kup-gray-color-20);
   border: var(--kup_datatable_th_border);
   border-left: 0 none; // Important: only the first cell must have the border left, otherwise the th will have a visual 2px border between each other.
-  border-bottom-width: 2px;
   box-sizing: border-box;
   top: 0;
   touch-action: none;
   transition: background-color 0.25s ease;
   user-select: none;
   // The first cell must have border left to simulate table border.
-  &:first-of-type {
-    border-left: var(--kup_datatable_th_border);
+  &:last-of-type {
+    border-right: none;
   }
 }
 
 .header-cell {
   &__content {
-    color: var(--kup-title-color);
+    color: var(--kup-gray-color-90);
     display: flex;
     justify-content: space-between;
-    padding: 0.5em 0.3125em;
+    padding: 0.5em 0.6em;
     text-overflow: ellipsis;
     white-space: nowrap;
+    @include kup-heading-compact-01;
 
     .header-cell--centered & {
       justify-content: center;
@@ -301,6 +321,9 @@ th {
 
   &__icons {
     display: flex;
+    .kup-icon {
+      background-color: var(--kup-gray-color-90);
+    }
   }
 
   &__drag-handler {
@@ -333,6 +356,8 @@ tbody {
   td {
     height: 0; // Trick to let the cell' size to adapt to its content
     padding: 0;
+    @include kup-body-compact-01;
+    font-size: 13px; // this for space performance
 
     & > * {
       border: none !important;
@@ -350,22 +375,22 @@ tbody {
 
     &.selected {
       td {
-        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+        background-color: var(--kup_datatable_background_color_active);
       }
     }
 
     &:hover:not(.group):not(.selected) {
       td {
-        color: var(--kup-hover-color);
-        background-color: var(--kup-hover-background-color);
+        color: var(--kup_datatable_text_color_hover);
+        background-color: var(--kup_datatable_background_color_hover);
       }
     }
 
     // grouping
     &.group {
-      background: var(--kup-title-background-color);
+      background: var(--kup-gray-color-20);
       border-top: var(--kup_datatable_border);
-      color: var(--kup-title-color);
+      color: var(--kup-gray-color-70);
       font-weight: bold;
       cursor: pointer;
 
@@ -390,12 +415,16 @@ tbody {
             display: inline-flex;
             outline: none;
             margin-left: 0.25em;
+            @include kup-heading-compact-01;
+          }
+          & .kup-icon {
+            background-color: var(--kup-gray-color-70);
           }
         }
 
         &.total {
           text-align: right;
-          padding: 0.5em 0.3125em;
+          padding: 0.5em 0.6em;
 
           &.negative-number {
             color: var(--kup-danger-color);
@@ -437,10 +466,9 @@ tbody {
   }
 }
 
-.above-wrapper {
-  display: flex;
-  width: 100%;
-}
+// .above-wrapper {
+//   width: 100%;
+// }
 
 .#{$kup-icon}.overlay-action {
   display: none;
@@ -471,7 +499,7 @@ th.obj:hover span:not(.overlay-action) {
     text-overflow: ellipsis;
     transition: color 200ms;
     &:hover {
-      color: var(--kup_datatable_color);
+      color: var(--kup-gray-color-70);
     }
   }
 }
@@ -526,13 +554,20 @@ th.obj:hover span:not(.overlay-action) {
 
 .actions-wrapper {
   display: flex;
-}
-
-.insert-button,
-.delete-button,
-.history-button,
-.save-button {
-  padding: 1em 0.5em;
+  justify-content: flex-end;
+  background-color: var(--kup-gray-color-10);
+  margin-top: var(--kup-space-03);
+  .insert-button,
+  .delete-button,
+  .history-button,
+  .save-button {
+    .f-button .icon-button {
+      padding: 0.55em;
+    }
+  }
+  &.paginator-top {
+    border-left: var(--kup_datatable_border);
+  }
 }
 
 .#{$kup-icon}.#{$kup-icon-ascending} {
@@ -563,6 +598,18 @@ th.obj:hover span:not(.overlay-action) {
 .#{$kup-icon}.#{$kup-icon-key} {
   -webkit-mask: var(--kup-key-icon);
   mask: var(--kup-key-icon);
+}
+
+@media (max-width: 650px) {
+  .actions-wrapper {
+    flex-direction: column-reverse;
+  }
+}
+
+@media (max-width: 500px) {
+  .actions-wrapper {
+    flex-direction: column-reverse;
+  }
 }
 
 :host([legacy-look]) {
