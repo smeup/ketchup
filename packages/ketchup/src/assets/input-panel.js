@@ -666,6 +666,144 @@ const ergonForm = {
             title: '',
             visible: true,
         },
+        {
+            // ORDINE CODICE
+            name: 'OCD',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE MARCA
+            name: 'OMR',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE FAMIGLIA
+            name: 'OFM',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE TIPO ARTICOLO
+            name: 'OTA',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE GRUPPO MERCI
+            name: 'OGM',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE CLASSE ABC
+            name: 'OCL',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE MODELLI
+            name: 'OMD',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE CAT SC ARTICOLO
+            name: 'OCA',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE TRATT ARTICOLO
+            name: 'OTR',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE CLIENTE FORNITORE
+            name: 'OCF',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE CATEG C/F
+            name: 'OCT',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE ZONA
+            name: 'OZN',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE COMUNE
+            name: 'OCM',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE PROVINCIA
+            name: 'OPR',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE AGENTE
+            name: 'OAG',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE REGIONE
+            name: 'ORG',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE NAZIONE
+            name: 'ONZ',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE RAGGRUPP C/F
+            name: 'ORF',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE ATTIVITA
+            name: 'OAT',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE CAUSALE
+            name: 'OCS',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE GRUPPO LIST
+            name: 'OGL',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE TIPO DOCUMENTO
+            name: 'OTD',
+            title: 'Modalità',
+            visible: true,
+        },
+        {
+            // ORDINE DATA
+            name: 'ODT',
+            title: 'Modalità',
+            visible: true,
+        },
     ],
     rows: [
         {
@@ -1418,6 +1556,2007 @@ const ergonForm = {
                         },
                     ],
                 },
+                OCD: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OMR: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OFM: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OTA: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OGM: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OCL: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OMD: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OCA: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OTR: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OCF: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OCT: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OZN: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OCM: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OPR: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OAG: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                ORG: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                ONZ: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                ORF: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OAT: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OCS: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OGL: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                OTD: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
+                ODT: {
+                    value: '',
+                    editable: true,
+                    shape: 'CMB',
+                    options: [
+                        {
+                            id: '1',
+                            label: 'Uguale',
+                        },
+                        {
+                            id: '2',
+                            label: 'Diverso',
+                        },
+                        {
+                            id: '3',
+                            label: 'Maggiore',
+                        },
+                        {
+                            id: '4',
+                            label: 'Minore',
+                        },
+                        {
+                            id: '5',
+                            label: 'Maggiore Uguale',
+                        },
+                        {
+                            id: '6',
+                            label: 'Minore Uguale',
+                        },
+                        {
+                            id: '7',
+                            label: 'Inizia con',
+                        },
+                        {
+                            id: '8',
+                            label: 'Non inizia con',
+                        },
+                        {
+                            id: '9',
+                            label: 'Termina con',
+                        },
+                        {
+                            id: '10',
+                            label: 'Non termina con',
+                        },
+                        {
+                            id: '11',
+                            label: 'Contiene',
+                        },
+                        {
+                            id: '12',
+                            label: 'Non contiene',
+                        },
+                        {
+                            id: '13',
+                            label: 'Incluso in',
+                        },
+                        {
+                            id: '14',
+                            label: 'Escluso da',
+                        },
+                        {
+                            id: '15',
+                            label: 'In elenco',
+                        },
+                        {
+                            id: '16',
+                            label: 'Non in elenco',
+                        },
+                        {
+                            id: '17',
+                            label: 'Simile',
+                        },
+                        {
+                            id: '18',
+                            label: 'Non simile',
+                        },
+                        {
+                            id: '19',
+                            label: 'Nullo',
+                        },
+                        {
+                            id: '20',
+                            label: 'Non nullo',
+                        },
+                    ],
+                },
             },
             layout: {
                 sections: [
@@ -1505,10 +3644,33 @@ const ergonForm = {
                         gridRows: 6,
                         gap: 2,
                     },
+                    // ONE COL
                     {
                         content: [
                             {
+                                id: 'OCD',
+                                colStart: 1,
+                                colEnd: 1,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                            {
                                 id: 'COD',
+                                colStart: 2,
+                                colEnd: 4,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                        ],
+                        gridCols: 6,
+                        gridRows: 1,
+                        gap: 0.5,
+                    },
+                    // TWO COL
+                    {
+                        content: [
+                            {
+                                id: 'OMR',
                                 colStart: 1,
                                 colEnd: 1,
                                 rowStart: 1,
@@ -1516,183 +3678,403 @@ const ergonForm = {
                             },
                             {
                                 id: 'MAR',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 2,
-                                rowEnd: 2,
+                                colStart: 2,
+                                colEnd: 4,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                            {
+                                id: 'OFM',
+                                colStart: 6,
+                                colEnd: 6,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'FAM',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 2,
-                                rowEnd: 2,
+                                colStart: 7,
+                                colEnd: 9,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                        ],
+                        gridCols: 9,
+                        gridRows: 1,
+                        gap: 0.5,
+                    },
+                    // TWO COL
+                    {
+                        content: [
+                            {
+                                id: 'OTA',
+                                colStart: 1,
+                                colEnd: 1,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'TAR',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 3,
-                                rowEnd: 3,
+                                colStart: 2,
+                                colEnd: 4,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                            {
+                                id: 'OGM',
+                                colStart: 6,
+                                colEnd: 6,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'GRM',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 3,
-                                rowEnd: 3,
+                                colStart: 7,
+                                colEnd: 9,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                        ],
+                        gridCols: 9,
+                        gridRows: 1,
+                        gap: 0.5,
+                    },
+                    // TWO COL
+                    {
+                        content: [
+                            {
+                                id: 'OCL',
+                                colStart: 1,
+                                colEnd: 1,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'ABC',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 4,
-                                rowEnd: 4,
+                                colStart: 2,
+                                colEnd: 4,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                            {
+                                id: 'OMD',
+                                colStart: 6,
+                                colEnd: 6,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'MDL',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 4,
-                                rowEnd: 4,
+                                colStart: 7,
+                                colEnd: 9,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                        ],
+                        gridCols: 9,
+                        gridRows: 1,
+                        gap: 0.5,
+                    },
+                    // TWO COL
+                    {
+                        content: [
+                            {
+                                id: 'OCA',
+                                colStart: 1,
+                                colEnd: 1,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'CSA',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 5,
-                                rowEnd: 5,
+                                colStart: 2,
+                                colEnd: 4,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                            {
+                                id: 'OTR',
+                                colStart: 6,
+                                colEnd: 6,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'TRA',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 5,
-                                rowEnd: 5,
+                                colStart: 7,
+                                colEnd: 9,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                        ],
+                        gridCols: 9,
+                        gridRows: 1,
+                        gap: 0.5,
+                    },
+                    // TWO COL
+                    {
+                        content: [
+                            {
+                                id: 'OCF',
+                                colStart: 1,
+                                colEnd: 1,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'FOR',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 6,
-                                rowEnd: 6,
+                                colStart: 2,
+                                colEnd: 4,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                            {
+                                id: 'OCT',
+                                colStart: 6,
+                                colEnd: 6,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'CCF',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 6,
-                                rowEnd: 6,
+                                colStart: 7,
+                                colEnd: 9,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                        ],
+                        gridCols: 9,
+                        gridRows: 1,
+                        gap: 0.5,
+                    },
+                    // THREE COL
+                    {
+                        content: [
+                            {
+                                id: 'OZN',
+                                colStart: 1,
+                                colEnd: 1,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'ZON',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 7,
-                                rowEnd: 7,
+                                colSpan: 2,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                            {
+                                id: 'OCM',
+                                colStart: 5,
+                                colEnd: 5,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'COM',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 7,
-                                rowEnd: 7,
+                                colSpan: 2,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                            {
+                                id: 'OPR',
+                                colStart: 9,
+                                colEnd: 9,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'PRO',
-                                colStart: 3,
-                                colEnd: 3,
-                                rowStart: 7,
-                                rowEnd: 7,
+                                colSpan: 2,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                        ],
+                        gridCols: 11,
+                        gridRows: 1,
+                        gap: 0.5,
+                    },
+                    // THREE COL
+                    {
+                        content: [
+                            {
+                                id: 'OAG',
+                                colStart: 1,
+                                colEnd: 1,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'AGE',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 8,
-                                rowEnd: 8,
+                                colSpan: 2,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                            {
+                                id: 'ORG',
+                                colStart: 5,
+                                colEnd: 5,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'REG',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 8,
-                                rowEnd: 8,
+                                colSpan: 2,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                            {
+                                id: 'ONZ',
+                                colStart: 9,
+                                colEnd: 9,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'NAT',
-                                colStart: 3,
-                                colEnd: 3,
-                                rowStart: 8,
-                                rowEnd: 8,
+                                colSpan: 2,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                        ],
+                        gridCols: 11,
+                        gridRows: 1,
+                        gap: 0.5,
+                    },
+                    // TWO COL
+                    {
+                        content: [
+                            {
+                                id: 'ORF',
+                                colStart: 1,
+                                colEnd: 1,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'RCF',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 9,
-                                rowEnd: 9,
+                                colStart: 2,
+                                colEnd: 4,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                            {
+                                id: 'OAT',
+                                colStart: 6,
+                                colEnd: 6,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'ATT',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 9,
-                                rowEnd: 9,
+                                colStart: 7,
+                                colEnd: 9,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                        ],
+                        gridCols: 9,
+                        gridRows: 1,
+                        gap: 0.5,
+                    },
+                    // TWO COL
+                    {
+                        content: [
+                            {
+                                id: 'OCS',
+                                colStart: 1,
+                                colEnd: 1,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'CAU',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 10,
-                                rowEnd: 10,
+                                colStart: 2,
+                                colEnd: 4,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                            {
+                                id: 'OGL',
+                                colStart: 6,
+                                colEnd: 6,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'LST',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 10,
-                                rowEnd: 10,
+                                colStart: 7,
+                                colEnd: 9,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                        ],
+                        gridCols: 9,
+                        gridRows: 1,
+                        gap: 0.5,
+                    },
+                    // THREE COL
+                    {
+                        content: [
+                            {
+                                id: 'OTD',
+                                colStart: 1,
+                                colEnd: 1,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'DOC',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 11,
-                                rowEnd: 11,
+                                colSpan: 2,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'LDO',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 11,
-                                rowEnd: 11,
+                                colStart: 5,
+                                colEnd: 7,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'TDO',
-                                colStart: 3,
-                                colEnd: 3,
-                                rowStart: 11,
-                                rowEnd: 11,
+                                colStart: 8,
+                                colEnd: 11,
+                                rowStart: 1,
+                                rowEnd: 1,
+                            },
+                        ],
+                        gridCols: 11,
+                        gridRows: 1,
+                        gap: 0.5,
+                    },
+                    // TWO COL
+                    {
+                        content: [
+                            {
+                                id: 'ODT',
+                                colStart: 1,
+                                colEnd: 1,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'DAT',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 12,
-                                rowEnd: 12,
+                                colStart: 2,
+                                colEnd: 4,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                             {
                                 id: 'TDA',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 12,
-                                rowEnd: 12,
+                                colStart: 5,
+                                colEnd: 8,
+                                rowStart: 1,
+                                rowEnd: 1,
                             },
                         ],
-                        gridCols: 3,
-                        gridRows: 12,
-                        gap: 2,
+                        gridCols: 9,
+                        gridRows: 1,
+                        gap: 0.5,
                     },
                 ],
             },
