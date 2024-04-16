@@ -10,15 +10,6 @@
   transform: translate(-15%, 15%);
 }
 
-
-:host(.#{$kup-class-top-left}) {
-  top: 0;
-  left: 0;
-  bottom: unset;
-  right: unset;
-  transform: translate(15%, 15%);
-}
-
 :host(.#{$kup-class-bottom-right}) {
   top: unset;
   right: 0;
