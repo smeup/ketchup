@@ -43,7 +43,7 @@ import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
-import { InputPanelEventsCallback, KupInputPanelData } from "./components/kup-input-panel/kup-input-panel-declarations";
+import { InputPanelOptionsHandler, KupInputPanelData, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -94,7 +94,7 @@ export { FImageData } from "./f-components/f-image/f-image-declarations";
 export { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 export { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 export { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
-export { InputPanelEventsCallback, KupInputPanelData } from "./components/kup-input-panel/kup-input-panel-declarations";
+export { InputPanelOptionsHandler, KupInputPanelData, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -1289,9 +1289,12 @@ export namespace Components {
         "onclickTaskList": (id: string) => void;
         "oncontextmenuTaskList": (event: MouseEvent, id: string) => void;
         "ondblclickTaskList": (id: string) => void;
+        "ontaskListScrollWidth": (width: number) => void;
         "rowHeight": number;
         "rowWidth": string;
+        "scrollableTaskList": boolean;
         "setSelectedTask": (taskId: string) => void;
+        "taskListScrollX": number;
         "tasks": KupPlannerTask[];
     }
     interface KupDashboard {
@@ -2220,6 +2223,7 @@ export namespace Components {
         "label": string;
         "listCellWidth": KupPlannerGanttProps['listCellWidth'];
         "locale": KupPlannerGanttProps['locale'];
+        "phaseDrop": KupPlannerGanttProps['phaseDrop'];
         "preStepsCount": KupPlannerGanttProps['preStepsCount'];
         "progressChange": KupPlannerGanttProps['progressChange'];
         "projectBackgroundColor": KupPlannerGanttProps['projectBackgroundColor'];
@@ -2237,6 +2241,7 @@ export namespace Components {
         "rtl": KupPlannerGanttProps['rtl'];
         "scrollXChange": KupPlannerGanttProps['scrollXChange'];
         "scrollYChange": KupPlannerGanttProps['scrollYChange'];
+        "scrollableTaskList"?: boolean;
         "select": KupPlannerGanttProps['select'];
         "setDoubleView"?: (checked: boolean) => void;
         "showSecondaryDates": KupPlannerGanttProps['showSecondaryDates'];
@@ -2412,6 +2417,8 @@ export namespace Components {
         "ganttEvent": KupPlannerTaskGanttContentProps['ganttEvent'];
         "gridProps": KupPlannerTaskGanttProps['gridProps'];
         "hideLabel"?: KupPlannerTaskGanttContentProps['hideLabel'];
+        "phaseDragScroll": (scrollY: number) => void;
+        "phaseDrop": KupPlannerEventOption['phaseDrop'];
         "progressChange": KupPlannerEventOption['progressChange'];
         "projection"?: KupPlannerTaskGanttContentProps['projection'];
         "readOnly": KupPlannerTaskGanttContentProps['readOnly'];
@@ -2428,9 +2435,14 @@ export namespace Components {
     }
     interface KupHorizontalScroll {
         "horizontalScroll": (event: UIEvent) => void;
+        "horizontalTaskListScroll": (event: UIEvent) => void;
+        "listCellWidth": string;
         "rtl": boolean;
         "scrollNumber": number;
+        "scrollableTaskList": boolean;
         "svgWidth": number;
+        "taskListScrollNumber": number;
+        "taskListScrollWidth": number;
         "taskListTrueRef": HTMLKupTaskListElement;
         "taskListWidth": number;
     }
@@ -2529,7 +2541,7 @@ export namespace Components {
     interface KupImageList {
         /**
           * Number of columns to display in the grid layout.
-          * @default 4
+          * @default null
          */
         "columns": number;
         /**
@@ -2594,15 +2606,15 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * Sets the callbacks functions on ketchup events
-          * @default []
-         */
-        "handleEventsCallbacks": InputPanelEventsCallback[];
-        /**
           * Creates a hidden submit button in order to submit the form with enter.
           * @default false
          */
         "hiddenSubmitButton": boolean;
+        /**
+          * Sets the callback function on loading options via FUN
+          * @default []
+         */
+        "optionsHandler": InputPanelOptionsHandler;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -2616,7 +2628,7 @@ export namespace Components {
           * Sets the callback function on submit form
           * @default null
          */
-        "submitCb": (e: SubmitEvent) => unknown;
+        "submitCb": (e: KupInputPanelSubmit) => unknown;
     }
     interface KupLazy {
         /**
@@ -3003,6 +3015,11 @@ export namespace Components {
          */
         "detailHeight": number;
         /**
+          * Columns containing detail hour duration, from (firstDate) to (secondDate)
+          * @default null
+         */
+        "detailHours": string[];
+        /**
           * Column containing icon name to show, for detail
           * @default null
          */
@@ -3032,6 +3049,11 @@ export namespace Components {
           * @default null
          */
         "detailPrevDates": string[];
+        /**
+          * Columns containing forecast detail duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "detailPrevHours": string[];
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -3074,6 +3096,11 @@ export namespace Components {
          */
         "phaseDates": string[];
         /**
+          * Columns containing phase hour duration, from (firstDate) to (secondDate)
+          * @default null
+         */
+        "phaseHours": string[];
+        /**
           * Column containing icon name to show, for phase
           * @default null
          */
@@ -3094,6 +3121,11 @@ export namespace Components {
          */
         "phasePrevDates": string[];
         /**
+          * Columns containing forecast phase duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "phasePrevHours": string[];
+        /**
           * When true, the two gantts are not interactable.
           * @default false
          */
@@ -3102,6 +3134,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the scroll bar for task list.
+          * @default false
+         */
+        "scrollableTaskList": boolean;
         /**
           * Sets the filter for secondary gantt.
           * @default undefined
@@ -3140,6 +3177,11 @@ export namespace Components {
          */
         "taskHeight": number;
         /**
+          * Columns containing task hours duration, from (firstDate) to (secondDate)
+          * @default null
+         */
+        "taskHours": string[];
+        /**
           * Column containing icon name to show, for task
           * @default null
          */
@@ -3169,6 +3211,11 @@ export namespace Components {
           * @default null
          */
         "taskPrevDates": string[];
+        /**
+          * Columns containing forecast task duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "taskPrevHours": string[];
         /**
           * Message displayed on top
           * @default null
@@ -3617,6 +3664,7 @@ export namespace Components {
         "calendarProps": KupPlannerTaskGanttProps['calendarProps'];
         "ganttHeight": KupPlannerTaskGanttProps['ganttHeight'];
         "gridProps": KupPlannerTaskGanttProps['gridProps'];
+        "phaseDragScroll": (scrollY: number) => void;
         "scrollX": KupPlannerTaskGanttProps['scrollX'];
         "scrollY": KupPlannerTaskGanttProps['scrollY'];
         "taskGanttRef": KupPlannerTaskGanttProps['taskGanttRef'];
@@ -3645,13 +3693,17 @@ export namespace Components {
         "horizontalContainerClass"?: string;
         "label": string;
         "locale": string;
+        "ontaskListScrollWidth": (width: number) => void;
         "rowHeight": number;
         "rowWidth": string;
         "scrollY": number;
+        "scrollableTaskList"?: boolean;
         "selectedTask": KupPlannerBarTask | undefined;
         "setDoubleView"?: (checked: boolean) => void;
         "setSelectedTask": KupPlannerTaskListProps['setSelectedTask'];
+        "taskListScrollX": number;
         "tasks": KupPlannerTask[];
+        "updateTaskListScrollX": boolean;
     }
     interface KupTaskListHeader {
         "fontFamily": string;
@@ -5035,6 +5087,7 @@ declare global {
         "kup-planner-click": KupPlannerEventPayload;
         "kup-planner-dblclick": KupPlannerEventPayload;
         "kup-planner-datechange": KupPlannerEventPayload;
+        "kup-planner-phasedrop": KupPlannerEventPayload;
         "kup-planner-ready": KupPlannerEventPayload;
         "kup-planner-contextmenu": KupPlannerClickEventPayload;
         "kup-planner-didunload": KupPlannerUnloadEventPayload;
@@ -6392,9 +6445,12 @@ declare namespace LocalJSX {
         "onclickTaskList"?: (id: string) => void;
         "oncontextmenuTaskList"?: (event: MouseEvent, id: string) => void;
         "ondblclickTaskList"?: (id: string) => void;
+        "ontaskListScrollWidth"?: (width: number) => void;
         "rowHeight"?: number;
         "rowWidth"?: string;
+        "scrollableTaskList"?: boolean;
         "setSelectedTask"?: (taskId: string) => void;
+        "taskListScrollX"?: number;
         "tasks"?: KupPlannerTask[];
     }
     interface KupDashboard {
@@ -7145,6 +7201,7 @@ declare namespace LocalJSX {
         "label"?: string;
         "listCellWidth"?: KupPlannerGanttProps['listCellWidth'];
         "locale"?: KupPlannerGanttProps['locale'];
+        "phaseDrop"?: KupPlannerGanttProps['phaseDrop'];
         "preStepsCount"?: KupPlannerGanttProps['preStepsCount'];
         "progressChange"?: KupPlannerGanttProps['progressChange'];
         "projectBackgroundColor"?: KupPlannerGanttProps['projectBackgroundColor'];
@@ -7158,6 +7215,7 @@ declare namespace LocalJSX {
         "rtl"?: KupPlannerGanttProps['rtl'];
         "scrollXChange"?: KupPlannerGanttProps['scrollXChange'];
         "scrollYChange"?: KupPlannerGanttProps['scrollYChange'];
+        "scrollableTaskList"?: boolean;
         "select"?: KupPlannerGanttProps['select'];
         "setDoubleView"?: (checked: boolean) => void;
         "showSecondaryDates"?: KupPlannerGanttProps['showSecondaryDates'];
@@ -7303,6 +7361,8 @@ declare namespace LocalJSX {
         "ganttEvent"?: KupPlannerTaskGanttContentProps['ganttEvent'];
         "gridProps"?: KupPlannerTaskGanttProps['gridProps'];
         "hideLabel"?: KupPlannerTaskGanttContentProps['hideLabel'];
+        "phaseDragScroll"?: (scrollY: number) => void;
+        "phaseDrop"?: KupPlannerEventOption['phaseDrop'];
         "progressChange"?: KupPlannerEventOption['progressChange'];
         "projection"?: KupPlannerTaskGanttContentProps['projection'];
         "readOnly"?: KupPlannerTaskGanttContentProps['readOnly'];
@@ -7319,9 +7379,14 @@ declare namespace LocalJSX {
     }
     interface KupHorizontalScroll {
         "horizontalScroll"?: (event: UIEvent) => void;
+        "horizontalTaskListScroll"?: (event: UIEvent) => void;
+        "listCellWidth"?: string;
         "rtl"?: boolean;
         "scrollNumber"?: number;
+        "scrollableTaskList"?: boolean;
         "svgWidth"?: number;
+        "taskListScrollNumber"?: number;
+        "taskListScrollWidth"?: number;
         "taskListTrueRef"?: HTMLKupTaskListElement;
         "taskListWidth"?: number;
     }
@@ -7394,7 +7459,7 @@ declare namespace LocalJSX {
     interface KupImageList {
         /**
           * Number of columns to display in the grid layout.
-          * @default 4
+          * @default null
          */
         "columns"?: number;
         /**
@@ -7441,11 +7506,6 @@ declare namespace LocalJSX {
          */
         "data"?: KupInputPanelData;
         /**
-          * Sets the callbacks functions on ketchup events
-          * @default []
-         */
-        "handleEventsCallbacks"?: InputPanelEventsCallback[];
-        /**
           * Creates a hidden submit button in order to submit the form with enter.
           * @default false
          */
@@ -7455,10 +7515,15 @@ declare namespace LocalJSX {
          */
         "onKup-input-panel-ready"?: (event: KupInputPanelCustomEvent<KupEventPayload>) => void;
         /**
+          * Sets the callback function on loading options via FUN
+          * @default []
+         */
+        "optionsHandler"?: InputPanelOptionsHandler;
+        /**
           * Sets the callback function on submit form
           * @default null
          */
-        "submitCb"?: (e: SubmitEvent) => unknown;
+        "submitCb"?: (e: KupInputPanelSubmit) => unknown;
     }
     interface KupLazy {
         /**
@@ -7734,6 +7799,11 @@ declare namespace LocalJSX {
          */
         "detailHeight"?: number;
         /**
+          * Columns containing detail hour duration, from (firstDate) to (secondDate)
+          * @default null
+         */
+        "detailHours"?: string[];
+        /**
           * Column containing icon name to show, for detail
           * @default null
          */
@@ -7764,6 +7834,11 @@ declare namespace LocalJSX {
          */
         "detailPrevDates"?: string[];
         /**
+          * Columns containing forecast detail duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "detailPrevHours"?: string[];
+        /**
           * Total size of the cells inside to the left box, near the gantt
           * @default '300px'
          */
@@ -7789,6 +7864,7 @@ declare namespace LocalJSX {
           * When component unload is complete
          */
         "onKup-planner-didunload"?: (event: KupPlannerCustomEvent<KupPlannerUnloadEventPayload>) => void;
+        "onKup-planner-phasedrop"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
         "onKup-planner-ready"?: (event: KupPlannerCustomEvent<KupPlannerEventPayload>) => void;
         /**
           * Column containing the name of the parent phases
@@ -7811,6 +7887,11 @@ declare namespace LocalJSX {
          */
         "phaseDates"?: string[];
         /**
+          * Columns containing phase hour duration, from (firstDate) to (secondDate)
+          * @default null
+         */
+        "phaseHours"?: string[];
+        /**
           * Column containing icon name to show, for phase
           * @default null
          */
@@ -7831,10 +7912,20 @@ declare namespace LocalJSX {
          */
         "phasePrevDates"?: string[];
         /**
+          * Columns containing forecast phase duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "phasePrevHours"?: string[];
+        /**
           * When true, the two gantts are not interactable.
           * @default false
          */
         "readOnly"?: boolean;
+        /**
+          * Sets the scroll bar for task list.
+          * @default false
+         */
+        "scrollableTaskList"?: boolean;
         /**
           * Sets the filter for secondary gantt.
           * @default undefined
@@ -7868,6 +7959,11 @@ declare namespace LocalJSX {
          */
         "taskHeight"?: number;
         /**
+          * Columns containing task hours duration, from (firstDate) to (secondDate)
+          * @default null
+         */
+        "taskHours"?: string[];
+        /**
           * Column containing icon name to show, for task
           * @default null
          */
@@ -7897,6 +7993,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "taskPrevDates"?: string[];
+        /**
+          * Columns containing forecast task duration, from (firstHour) to (secondHour)
+          * @default null
+         */
+        "taskPrevHours"?: string[];
         /**
           * Message displayed on top
           * @default null
@@ -8264,6 +8365,7 @@ declare namespace LocalJSX {
         "calendarProps"?: KupPlannerTaskGanttProps['calendarProps'];
         "ganttHeight"?: KupPlannerTaskGanttProps['ganttHeight'];
         "gridProps"?: KupPlannerTaskGanttProps['gridProps'];
+        "phaseDragScroll"?: (scrollY: number) => void;
         "scrollX"?: KupPlannerTaskGanttProps['scrollX'];
         "scrollY"?: KupPlannerTaskGanttProps['scrollY'];
         "taskGanttRef"?: KupPlannerTaskGanttProps['taskGanttRef'];
@@ -8292,13 +8394,17 @@ declare namespace LocalJSX {
         "horizontalContainerClass"?: string;
         "label"?: string;
         "locale"?: string;
+        "ontaskListScrollWidth"?: (width: number) => void;
         "rowHeight"?: number;
         "rowWidth"?: string;
         "scrollY"?: number;
+        "scrollableTaskList"?: boolean;
         "selectedTask"?: KupPlannerBarTask | undefined;
         "setDoubleView"?: (checked: boolean) => void;
         "setSelectedTask"?: KupPlannerTaskListProps['setSelectedTask'];
+        "taskListScrollX"?: number;
         "tasks"?: KupPlannerTask[];
+        "updateTaskListScrollX"?: boolean;
     }
     interface KupTaskListHeader {
         "fontFamily"?: string;

@@ -7,7 +7,7 @@
   right: 0;
   bottom: unset;
   left: unset;
-  transform: translate(50%, -50%);
+  transform: translate(-15%, 15%);
 }
 
 :host(.#{$kup-class-top-left}) {
@@ -23,7 +23,7 @@
   right: 0;
   bottom: 0;
   left: unset;
-  transform: translate(50%, 50%);
+  transform: translate(-15%, -15%);
 }
 
 :host(.#{$kup-class-bottom-left}) {
@@ -31,7 +31,7 @@
   right: unset;
   bottom: 0;
   left: 0;
-  transform: translate(-50%, 50%);
+  transform: translate(15%, -15%);
 }
 
 :host(.#{$kup-class-red}) {

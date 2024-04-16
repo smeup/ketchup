@@ -108,7 +108,7 @@ export class KupImageList {
     /*-------------------------------------------------*/
     /**
      * Number of columns to display in the grid layout.
-     * @default 4
+     * @default null
      */
     @Prop() columns: number = null;
     /**
@@ -270,6 +270,11 @@ export class KupImageList {
                 row={{ ...node }}
             >
                 <div class="image-list__wrapper">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        version="1.1"
+                        viewBox="0 0 24 24"
+                    ></svg>
                     {image}
                     {label}
                 </div>
@@ -426,6 +431,11 @@ export class KupImageList {
         const holdCb = (e: PointerEvent) => {
             if (e.pointerType === 'pen' || e.pointerType === 'touch') {
                 this.#hold = true;
+                this.kupContextMenu.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    details: this.#contextMenuHandler(e),
+                });
             }
         };
         this.#kupManager.interact.on(
@@ -438,11 +448,6 @@ export class KupImageList {
             this.#el,
             KupPointerEventTypes.DOUBLETAP,
             doubletapCb
-        );
-        this.#kupManager.interact.on(
-            this.#el,
-            KupPointerEventTypes.HOLD,
-            holdCb
         );
     }
 

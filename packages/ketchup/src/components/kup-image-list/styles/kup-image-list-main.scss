@@ -128,8 +128,15 @@
   .f-cell {
     height: 100%;
     width: 100%;
+    .f-cell__content{
+      height: 100%;
+    }
     .f-cell__content .image-list__wrapper {
-      padding: var(--kup-space-03) var(--kup-space-02);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-sizing: border-box;
+      position: relative;
     }
   }
 
@@ -146,10 +153,17 @@
   }
 
   &__image.f-image {
-    margin-bottom: var(--kup-space-03);
+    position: absolute;
+    padding: var(--kup-space-03);
+    padding-bottom: 0px;
+    box-sizing: border-box;
+    width: 100%;
+    height: calc(100% - 16px - var(--kup-space-03)*2);
+    overflow: hidden;
+
 
     .f-image__icon {
-      min-height: var(--kup_imagelist_image_min_height);
+      mask-size: 100%!important;
     }
   }
 
@@ -158,6 +172,7 @@
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
+    padding: var(--kup-space-03);
     @include kup-label-01;
   }
 }

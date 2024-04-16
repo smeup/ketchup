@@ -4,6 +4,7 @@
   grid-gap: 8px;
   width: max-content;
   margin-bottom: var(--kup-space-05);
+  margin-left: var(--kup-space-04);
 }
 
 .button {
@@ -11,11 +12,14 @@
   border: none;
   text-align: left;
   box-sizing: border-box;
-  color: var(--kup-layer-0);
+  color: var(--kup-gray-color-0);
   cursor: pointer;
   padding: var(--kup-space-03) var(--kup-space-05);
   &:hover {
     background-color: var(--kup-gray-color-90);
+  }
+  &:focus{
+    background-color: var(--kup-primary-color-60);
   }
 }
 

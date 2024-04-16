@@ -165,7 +165,7 @@ export class KupPlannerRenderer {
         this.timeUnit = this.props?.viewMode;
         this.currentTasks = this.props?.mainGantt.items || [];
         this.currentDetails = this.props?.secondaryGantt?.items;
-        this.scrollX = this.props?.mainGantt?.initialScrollX || -1;
+        this.scrollX = this.props?.mainGantt?.initialScrollX ?? -1;
         this.mainGanttDoubleView =
             this.props?.mainGantt?.showSecondaryDates ?? false;
         this.displayedDates = calculateDisplayedDateRange(
@@ -329,6 +329,50 @@ export class KupPlannerRenderer {
         setTimeout(this.getScrollX, 500);
     }
 
+    // Handle phase drop
+    handlePhaseDrop(
+        originalPhaseData: KupPlannerGanttTaskN,
+        // originalTaskData: KupPlannerGanttTaskN | KupPlannerItemDetail,
+        finalPhaseData: KupPlannerTask,
+        destinationData: KupPlannerGanttTaskN | KupPlannerItemDetail,
+        onPhaseDrop: any
+    ) {
+        // Invoke callback
+
+        let row = undefined;
+
+        const currentProjects = this.currentTasks as KupPlannerGanttTask[];
+
+        const parentOfClickedPhase: KupPlannerGanttTaskN | undefined = (
+            currentProjects as KupPlannerGanttTaskN[]
+        ).find((p) => p.phases?.some((ph) => ph?.id === finalPhaseData.id));
+        if (parentOfClickedPhase) {
+            const phases = mergeTaskIntoPhases(
+                parentOfClickedPhase.phases,
+                finalPhaseData
+            );
+            const updatedProjects = (
+                currentProjects as KupPlannerGanttTaskN[]
+            ).map((p) =>
+                p.id === parentOfClickedPhase.id ? { ...p, phases } : p
+            );
+            row = getPhaseById(finalPhaseData.id, updatedProjects);
+        }
+
+        delete row?.['taskRow'];
+        onPhaseDrop?.({
+            originalPhaseData,
+            // originalTaskData,
+            finalPhaseData: row,
+            destinationData,
+        });
+
+        // to move the phase back to its original position
+        this.currentTasks = JSON.parse(JSON.stringify(this.currentTasks));
+        // Use setTimeout to ensure DOM updates
+        setTimeout(this.getScrollX, 500);
+    }
+
     // Get scrollX
     getScrollX() {
         if (this.rootElement) {
@@ -474,6 +518,37 @@ export class KupPlannerRenderer {
                             label={this.props.mainGantt.title}
                             doubleView={this.mainGanttDoubleView ?? false}
                             setDoubleView={this.handleSetDoubleView.bind(this)}
+                            scrollableTaskList={this.props.scrollableTaskList}
+                            phaseDrop={(
+                                originalPhaseData,
+                                originalTaskData,
+                                finalPhaseData,
+                                destinationData
+                            ) => {
+                                const originalPhase = getPhaseById(
+                                    originalPhaseData.id,
+                                    this.currentTasks
+                                );
+                                const originalTask = getProjectById(
+                                    originalTaskData.id,
+                                    this.currentTasks
+                                );
+                                const finalPhase = getPhaseById(
+                                    finalPhaseData.id,
+                                    this.currentTasks
+                                );
+                                const destinationTask = getProjectById(
+                                    destinationData.id,
+                                    this.currentTasks
+                                );
+                                this.handlePhaseDrop(
+                                    originalPhase,
+                                    // originalTask,
+                                    finalPhaseData,
+                                    destinationTask,
+                                    this.props.mainGantt.onPhaseDrop
+                                );
+                            }}
                         />
                         {this.props.secondaryGantt && (
                             <kup-gantt
@@ -597,6 +672,9 @@ export class KupPlannerRenderer {
                                     this.props.secondaryGantt.onContextMenu
                                 }
                                 label={this.props.secondaryGantt.title}
+                                scrollableTaskList={
+                                    this.props.scrollableTaskList
+                                }
                             />
                         )}
                     </div>
