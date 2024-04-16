@@ -248,6 +248,7 @@ export class KupColumnMenu {
                         value: null,
                     },
                     id: KupColumnMenuIds.CHECKBOX_GLOBAL,
+                    key: KupColumnMenuIds.CHECKBOX_GLOBAL + column.name,
                     label: dom.ketchup.language.translate(
                         KupLanguageCheckbox.ALL
                     ),
@@ -358,6 +359,7 @@ export class KupColumnMenu {
                         columnName: column.name,
                     },
                     checked: column.isKey ? true : false,
+                    key: KupColumnMenuIds.SWITCH_KEY + column.name,
                     id: KupColumnMenuIds.SWITCH_KEY,
                     label: dom.ketchup.language.translate(KupLanguageRow.KEY),
                     leadingLabel: true,
@@ -370,6 +372,7 @@ export class KupColumnMenu {
                     'data-storage': {
                         columnName: column.name,
                     },
+                    key: KupColumnMenuIds.SWITCH_GROUP + column.name,
                     checked: isGroupActive ? true : false,
                     id: KupColumnMenuIds.SWITCH_GROUP,
                     label: dom.ketchup.language.translate(
@@ -466,6 +469,7 @@ export class KupColumnMenu {
                     id: KupColumnMenuIds.TEXTFIELD_FILTER,
                     initialValue: filterInitialValue,
                     isClearable: true,
+                    key: KupColumnMenuIds.TEXTFIELD_FILTER + column.name,
                     label: dom.ketchup.language.translate(
                         KupLanguageSearch.SEARCH
                     ),
@@ -482,6 +486,7 @@ export class KupColumnMenu {
                     fullWidth: true,
                     icon: 'functions',
                     id: KupColumnMenuIds.TEXTFIELD_FORMULA,
+                    key: KupColumnMenuIds.TEXTFIELD_FORMULA + column.name,
                     helper: `i.e.: [${column.name}] * 2`,
                     label: dom.ketchup.language.translate(
                         KupLanguageTotals.FORMULA
@@ -528,6 +533,7 @@ export class KupColumnMenu {
             fullWidth: true,
             helperWhenFocused: true,
             id: KupColumnMenuIds.TEXTFIELD_FROM,
+            key: KupColumnMenuIds.TEXTFIELD_FROM + column.name,
             initialValue: initialValueFrom,
             isClearable: true,
             label: dom.ketchup.language.translate(KupLanguageSearch.FROM),
@@ -543,6 +549,7 @@ export class KupColumnMenu {
             fullWidth: true,
             helperWhenFocused: true,
             id: KupColumnMenuIds.TEXTFIELD_TO,
+            key: KupColumnMenuIds.TEXTFIELD_TO + column.name,
             initialValue: initialValueTo,
             isClearable: true,
             label: dom.ketchup.language.translate(KupLanguageSearch.TO),
@@ -589,6 +596,7 @@ export class KupColumnMenu {
                     fullWidth: true,
                     helperWhenFocused: true,
                     id: KupColumnMenuIds.TEXTFIELD_FROM,
+                    key: KupColumnMenuIds.TEXTFIELD_FROM + column.name,
                     isClearable: true,
                     label: dom.ketchup.language.translate(
                         KupLanguageSearch.FROM
@@ -609,6 +617,7 @@ export class KupColumnMenu {
                     fullWidth: true,
                     helperWhenFocused: true,
                     id: KupColumnMenuIds.TEXTFIELD_TO,
+                    key: KupColumnMenuIds.TEXTFIELD_TO + column.name,
                     isClearable: true,
                     label: dom.ketchup.language.translate(KupLanguageSearch.TO),
                 },
@@ -677,6 +686,7 @@ export class KupColumnMenu {
                     fullWidth: true,
                     helperWhenFocused: true,
                     id: KupColumnMenuIds.TEXTFIELD_FROM,
+                    key: KupColumnMenuIds.TEXTFIELD_FROM + column.name,
                     isClearable: true,
                     label: dom.ketchup.language.translate(
                         KupLanguageSearch.FROM
@@ -697,6 +707,7 @@ export class KupColumnMenu {
                     fullWidth: true,
                     helperWhenFocused: true,
                     id: KupColumnMenuIds.TEXTFIELD_TO,
+                    key: KupColumnMenuIds.TEXTFIELD_TO + column.name,
                     isClearable: true,
                     label: dom.ketchup.language.translate(KupLanguageSearch.TO),
                 },
