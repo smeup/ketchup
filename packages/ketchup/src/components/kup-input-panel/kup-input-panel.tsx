@@ -252,12 +252,37 @@ export class KupInputPanel {
             column,
             row,
             component: this,
-            editable: cell.isEditable,
+            editable: true,
             renderKup: true,
             setSizes: true,
         };
 
+        const label = this.#getLabelComponent(cell, column.title);
+
+        if (label) {
+            return (
+                <div class={{ 'input-panel__label_container': true }}>
+                    {label}
+                    <FCell {...cellProps} />
+                </div>
+            );
+        }
+
         return <FCell {...cellProps} />;
+    }
+
+    #getLabelComponent(cell: KupDataCell, label: string) {
+        if (!label) {
+            return null;
+        }
+
+        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+
+        if (cellType === FCellTypes.RADIO) {
+            return <span>{label}</span>;
+        }
+
+        return null;
     }
 
     #renderSection(
@@ -346,10 +371,11 @@ export class KupInputPanel {
                               ...cell,
                               data: {
                                   ...this.#mapData(cell, column),
+                                  disabled: !cell.editable,
                                   id: column.name,
                               },
                               slotData: this.#slotData(cell, column),
-                              isEditable: cell.editable,
+                              isEditable: true,
                           };
 
                           return { column, cell: mappedCell };
