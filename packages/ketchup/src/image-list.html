@@ -27,5 +27,11 @@
     <body>
         <kup-image-list></kup-image-list>
     </body>
+    <script>
+        document.documentElement['ketchupInit'] = {
+            debug: { active: true, logLimit: 20000 },
+            autoSetLocalization: true,
+        };
+    </script>
     <script src="/assets/image-list.js"></script>
 </html>
