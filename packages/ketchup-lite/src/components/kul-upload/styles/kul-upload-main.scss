@@ -1,0 +1,66 @@
+:host {
+  --kul_upload_backdrop_filter: var(--kul-upload-backdrop-filter, blur(3.5px));
+  --kul_upload_backdrop_filter_hover: var(
+    --kul-upload-backdrop-filter-hover,
+    blur(5px)
+  );
+
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.wrapper {
+  box-sizing: border-box;
+  display: grid;
+  padding: 1em;
+  width: 100%;
+}
+
+.upload-container {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.file-info,
+.upload-label {
+  background-color: rgba(var(--kul-background-color-rgb), 0.375);
+  transition: background-color 0.3s ease;
+}
+
+.file-upload {
+  display: none;
+}
+
+.upload-label {
+  border: 1px solid var(--kul-border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  display: block;
+  text-align: center;
+
+  :hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.file-name,
+.file-size {
+  display: flex;
+}
+
+.file-info {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 1.25em;
+
+  p {
+    margin: 5px 0;
+  }
+}

@@ -8,6 +8,7 @@ import { KulDebugComponentInfo } from '../components';
 import { KulImageEvents } from '../components/kul-image/kul-image-declarations';
 import { KulSpinnerEvents } from '../components/kul-spinner/kul-spinner-declarations';
 import { KulSplashEvents } from '../components/kul-splash/kul-splash-declarations';
+import { KulUploadEvents } from '../components/kul-upload/kul-upload-declarations';
 
 /**
  * Generic KulComponent.
@@ -50,7 +51,8 @@ export interface KulEventPayload {
         | KulCardEvents
         | KulImageEvents
         | KulSpinnerEvents
-        | KulSplashEvents;
+        | KulSplashEvents
+        | KulUploadEvents;
     id: string;
     originalEvent: Event;
 }

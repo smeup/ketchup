@@ -26,5 +26,7 @@ export const KulShowcaseKulmanager = /*@__PURE__*/createReactComponent<JSX.KulSh
 export const KulShowcaseProbe = /*@__PURE__*/createReactComponent<JSX.KulShowcaseProbe, HTMLKulShowcaseProbeElement>('kul-showcase-probe');
 export const KulShowcaseSpinner = /*@__PURE__*/createReactComponent<JSX.KulShowcaseSpinner, HTMLKulShowcaseSpinnerElement>('kul-showcase-spinner');
 export const KulShowcaseSplash = /*@__PURE__*/createReactComponent<JSX.KulShowcaseSplash, HTMLKulShowcaseSplashElement>('kul-showcase-splash');
+export const KulShowcaseUpload = /*@__PURE__*/createReactComponent<JSX.KulShowcaseUpload, HTMLKulShowcaseUploadElement>('kul-showcase-upload');
 export const KulSpinner = /*@__PURE__*/createReactComponent<JSX.KulSpinner, HTMLKulSpinnerElement>('kul-spinner');
 export const KulSplash = /*@__PURE__*/createReactComponent<JSX.KulSplash, HTMLKulSplashElement>('kul-splash');
+export const KulUpload = /*@__PURE__*/createReactComponent<JSX.KulUpload, HTMLKulUploadElement>('kul-upload');

@@ -142,6 +142,7 @@ Type: `Promise<void>`
  - [kul-showcase](../kul-showcase)
  - [kul-showcase-button](../kul-showcase/components/button)
  - [kul-showcase-splash](../kul-showcase/components/splash)
+ - [kul-upload](../kul-upload)
 
 ### Depends on
 
@@ -159,6 +160,7 @@ graph TD;
   kul-showcase --> kul-button
   kul-showcase-button --> kul-button
   kul-showcase-splash --> kul-button
+  kul-upload --> kul-button
   style kul-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
