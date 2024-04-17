@@ -259,8 +259,15 @@ export class KupImageList {
             wrapperClass: 'image-list__image',
             badgeData: node.badgeData,
         };
+
         const image = <FImage {...props}></FImage>;
         const label = <div class="image-list__label">{node.value}</div>;
+
+        const hasExternalResource =
+            props.resource.indexOf('.') > -1 ||
+            props.resource.indexOf('/') > -1 ||
+            props.resource.indexOf('\\') > -1;
+
         return (
             <FCell
                 cell={{ value: node.value, icon: node.icon, obj: node.obj }}
@@ -269,12 +276,18 @@ export class KupImageList {
                 density={FCellPadding.NONE}
                 row={{ ...node }}
             >
-                <div class="image-list__wrapper">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        version="1.1"
-                        viewBox="0 0 24 24"
-                    ></svg>
+                <div
+                    class={`image-list__wrapper${
+                        hasExternalResource ? ' images' : ''
+                    }`}
+                >
+                    {!hasExternalResource && (
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            version="1.1"
+                            viewBox="0 0 24 24"
+                        ></svg>
+                    )}
                     {image}
                     {label}
                 </div>

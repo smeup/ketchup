@@ -840,6 +840,111 @@ const data = [
         value: 'Accordion',
         visible: true,
     },
+    {
+        cells: {
+            ROUTE: {
+                value: 'accordion',
+            },
+        },
+        icon: 'view-sequential',
+        value: 'Accordion',
+        visible: true,
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://c8.alamy.com/compit/f4j1rh/verticale-di-tronchi-di-alberi-di-boschi-guardando-verso-l-alto-da-terra-con-il-sole-che-splende-attraverso-foglie-f4j1rh.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://c8.alamy.com/compit/f4j1rh/verticale-di-tronchi-di-alberi-di-boschi-guardando-verso-l-alto-da-terra-con-il-sole-che-splende-attraverso-foglie-f4j1rh.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://c8.alamy.com/compit/f4j1rh/verticale-di-tronchi-di-alberi-di-boschi-guardando-verso-l-alto-da-terra-con-il-sole-che-splende-attraverso-foglie-f4j1rh.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://c8.alamy.com/compit/f4j1rh/verticale-di-tronchi-di-alberi-di-boschi-guardando-verso-l-alto-da-terra-con-il-sole-che-splende-attraverso-foglie-f4j1rh.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://c8.alamy.com/compit/f4j1rh/verticale-di-tronchi-di-alberi-di-boschi-guardando-verso-l-alto-da-terra-con-il-sole-che-splende-attraverso-foglie-f4j1rh.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+    },
 ];
 
 const imageList = document.querySelector('kup-image-list');
