@@ -1,10 +1,26 @@
-.scalable-layout-1 {
-  .descr {
-    font-size: 70%;
-    width: 100%;
-  }
+:host {
+  --kup_dash_value_text_color: var(
+    --kup-dash-value-text-color,
+    var(--kup-gray-color-90)
+  );
+  --kup_dash_label_text_color: var(
+    --kup-dash-label-text-color,
+    var(--kup-gray-color-70)
+  );
+}
 
-  .value {
-    font-size: 220%;
+.scalable-layout-1 {
+  .scalable-element {
+    padding: var(--kup-space-05);
+    .descr {
+      width: 100%;
+      @include kup-body-compact-01;
+    }
+
+    .value {
+      @include kup-heading-08;
+      color: var(--kup-dash-value-text-color, var(--kup_dash_value_text_color));
+      font-size: 130%;
+    }
   }
 }

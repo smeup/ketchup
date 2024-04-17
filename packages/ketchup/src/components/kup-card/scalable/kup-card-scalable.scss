@@ -7,11 +7,12 @@
 @import 'kup-card-scalable-7.scss';
 @import 'kup-card-scalable-8.scss';
 @import 'kup-card-scalable-9.scss';
+@import 'kup-card-scalable-10.scss';
 
 .scalable-card {
+  background-color: var(--kup-gray-color-10);
   align-items: center;
-  box-shadow: var(--kup_card_scalable_box_shadow);
-  border-radius: 4px;
+  border-radius: var(--kup-space-00);
   display: flex;
   font-size: var(
     --kup_card_scalable_static_font_size,

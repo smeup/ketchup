@@ -1,8 +1,8 @@
 .box-layout-3 {
-  background-color: var(--kup-background-color);
-  color: var(--kup-text-color);
-  font-size: var(--kup-font-size);
-  padding: 0.5em;
+  background-color: var(--kup-gray-color-10);
+  color: var(--kup-gray-color-70);
+  padding: var(--kup-space-05);
+  @include kup-body-compact-01;
 
   .container {
     display: flex;
@@ -35,7 +35,7 @@
 
   .value {
     padding: 0.5em;
-    font-weight: bold;
+    @include kup-heading-compact-01;
   }
 
   .f-cell .f-cell__text {

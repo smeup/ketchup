@@ -36,7 +36,12 @@
         </style>
     </head>
     <body>
-        <h4>Material Buttons (widget)</h4>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true },
+            };
+        </script>
+        <h3>Material Buttons (widget)</h3>
         <span>empty:</span>
         <kup-button></kup-button>
         <span>icon:</span>
@@ -56,29 +61,125 @@
         <span>icon+tooltip:</span>
         <kup-button icon="favorite"></kup-button>
 
+        <div style="display: flex">
+            <kup-button
+                label="Small"
+                sizing="small"
+                class="kup-neutral"
+                icon="favorite"
+                styling="outlined"
+            ></kup-button>
+            <kup-button label="Small" sizing="small"></kup-button>
+        </div>
         <!-- -->
-        <kup-button label="Flat" styling="flat"></kup-button>
+        <h4>Size:</h4>
+        <kup-button label="Small" sizing="small"></kup-button>
+        <kup-button label="Medium" sizing="medium"></kup-button>
+        <kup-button label="Large" sizing="large"></kup-button>
+        <kup-button label="Max Large" sizing="max-large"></kup-button>
+
+        <h4>Neutral:</h4>
+        <kup-button label="Raised" class="kup-neutral"></kup-button>
+        <kup-button
+            label="Raised & Disabled"
+            class="kup-neutral"
+            disabled
+        ></kup-button>
+        <kup-button
+            label="Outlined"
+            class="kup-neutral"
+            styling="outlined"
+        ></kup-button>
+        <kup-button
+            label="Outlined & Disabled"
+            class="kup-neutral"
+            styling="outlined"
+            disabled
+        ></kup-button>
+        <kup-button
+            label="Flat"
+            class="kup-neutral"
+            styling="flat"
+        ></kup-button>
+        <kup-button
+            label="Flat"
+            class="kup-neutral"
+            styling="flat"
+            icon="favorite"
+        ></kup-button>
+        <kup-button
+            label="Flat & Disabled"
+            class="kup-neutral"
+            styling="flat"
+            disabled
+        ></kup-button>
+
+        <h4>Danger:</h4>
+        <kup-button label="Raised" class="kup-danger"></kup-button>
+        <kup-button
+            label="Raised & Disabled"
+            class="kup-danger"
+            disabled
+        ></kup-button>
+        <kup-button
+            label="Outlined"
+            class="kup-danger"
+            styling="outlined"
+        ></kup-button>
+        <kup-button
+            label="Outlined & Disabled"
+            class="kup-danger"
+            styling="outlined"
+            disabled
+        ></kup-button>
+        <kup-button label="Flat" class="kup-danger" styling="flat"></kup-button>
+        <kup-button
+            label="Flat"
+            class="kup-danger"
+            styling="flat"
+            icon="favorite"
+        ></kup-button>
+        <kup-button
+            label="Flat & Disabled"
+            class="kup-danger"
+            styling="flat"
+            disabled
+        ></kup-button>
+
+        <h4>Styling:</h4>
         <kup-button label="Raised"></kup-button>
+        <kup-button label="Raised & disabled" disabled></kup-button>
+        <kup-button
+            label="Outlined"
+            styling="outlined"
+            icon="favorite"
+        ></kup-button>
+        <kup-button
+            label="Outlined & Disabled"
+            styling="outlined"
+            disabled
+        ></kup-button>
+        <kup-button label="Flat" styling="flat"></kup-button>
+        <kup-button label="Flat" icon="favorite" styling="flat"></kup-button>
+        <kup-button
+            label="Flat & Disabled"
+            styling="flat"
+            disabled
+        ></kup-button>
+
+        <h4>All variants:</h4>
         <kup-button class="kup-large" label="Raised & large"></kup-button>
         <kup-button class="kup-large" icon="favorite"></kup-button>
         <kup-button class="kup-slim" label="Raised & slim"></kup-button>
         <kup-button class="kup-slim" icon="favorite"></kup-button>
         <kup-button label="Floating" styling="floating"></kup-button>
         <kup-button icon="favorite" styling="floating"></kup-button>
-        <kup-button label="Flat & disabled" styling="flat" disabled></kup-button>
-        <kup-button
-            label="Outlined & disabled"
-            disabled
-            styling="outlined"
-        ></kup-button>
-        <kup-button disabled label="Raised & disabled"></kup-button>
         <kup-button icon="favorite" label="Raised favorite"></kup-button>
         <kup-button
             trailing-icon
             icon="favorite"
             label="Raised trailing favorite"
         ></kup-button>
-        <kup-button styling="outlined" label="Outlined"></kup-button>
         <kup-button
             class="shaped"
             disabled
@@ -99,45 +200,81 @@
             label="With tooltip"
             icon="favorite"
         ></kup-button>
-        <kup-button
-            label="With Spinner"
-            icon="favorite"
-            show-spinner="true">
-            <kup-spinner slot="spinner" dimensions="0.8em" layout="2" active="true"></kup-spinner>
+        <kup-button label="With Spinner" icon="favorite" show-spinner="true">
+            <kup-spinner
+                slot="spinner"
+                dimensions="0.8em"
+                layout="2"
+                active="true"
+            ></kup-spinner>
         </kup-button>
         <kup-button
             styling="outlined"
             label="With Spinner & Outlined"
             icon="favorite"
-            show-spinner="true">
-            <kup-spinner slot="spinner" dimensions="0.6em" layout="3" active="true"></kup-spinner>
+            show-spinner="true"
+        >
+            <kup-spinner
+                slot="spinner"
+                dimensions="0.6em"
+                layout="3"
+                active="true"
+            ></kup-spinner>
         </kup-button>
         <kup-button
             label="With Spinner & Disabled"
             icon="favorite"
             show-spinner="true"
-            disabled>
-            <kup-spinner slot="spinner" dimensions="0.8em" layout="2" active="true"></kup-spinner>
+            disabled
+        >
+            <kup-spinner
+                slot="spinner"
+                dimensions="0.8em"
+                layout="2"
+                active="true"
+            ></kup-spinner>
         </kup-button>
-        <kup-button
-            title="Only Spinner"
-            icon="favorite"
-            show-spinner="true">
-                <kup-spinner slot="spinner" dimensions="0.65em" layout="1" active="true"></kup-spinner>
+        <kup-button title="Only Spinner" icon="favorite" show-spinner="true">
+            <kup-spinner
+                slot="spinner"
+                dimensions="0.65em"
+                layout="1"
+                active="true"
+            ></kup-spinner>
         </kup-button>
         <kup-button
             title="Only Spinner & Floating"
             styling="floating"
             icon="favorite"
-            show-spinner="true">
-                <kup-spinner slot="spinner" dimensions="0.65em" layout="1" active="true"></kup-spinner>
+            show-spinner="true"
+        >
+            <kup-spinner
+                slot="spinner"
+                dimensions="0.65em"
+                layout="1"
+                active="true"
+            ></kup-spinner>
         </kup-button>
         <kup-button
             title="Only Spinner & Disabled"
             icon="favorite"
             show-spinner="true"
-            disabled>
-                <kup-spinner slot="spinner" dimensions="0.65em" layout="1" active="true"></kup-spinner>
+            disabled
+        >
+            <kup-spinner
+                slot="spinner"
+                dimensions="0.65em"
+                layout="1"
+                active="true"
+            ></kup-spinner>
         </kup-button>
+        <hr />
+
+        <script>
+            document.addEventListener('kup-manager-ready', () => {
+                const kupManager = document.documentElement.ketchup;
+                kupManager.theme.set('octane');
+            });
+        </script>
     </body>
 </html>

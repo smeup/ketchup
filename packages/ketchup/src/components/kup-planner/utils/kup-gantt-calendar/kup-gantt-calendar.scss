@@ -1,31 +1,34 @@
 .calendarBottomText {
   text-anchor: middle;
-  fill: #333;
+  fill: var(--kup-gray-color-70);
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   pointer-events: none;
+  @include kup-body-compact-01;
 }
 
 .calendarTopTick {
-  stroke: #e6e4e4;
+  stroke: var(--kup-gray-color-20);
 }
 
 .calendarTopText {
   text-anchor: middle;
-  fill: #555;
+  fill: var(--kup-gray-color-70);
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   pointer-events: none;
+  @include kup-body-compact-01;
 }
 
 .calendarHeader {
-  fill: #ffffff;
-  stroke: #e0e0e0;
+  fill: var(--kup-gray-color-10);
+  stroke: var(--kup-gray-color-20);
   stroke-width: 1.4;
+  @include kup-heading-compact-01;
 }

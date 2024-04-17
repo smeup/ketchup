@@ -74,6 +74,7 @@ export const fImageUsers = [
     KupTagNames.CARD,
     KupTagNames.CELL,
     KupTagNames.CHIP,
+    KupTagNames.CHECKBOX,
     KupTagNames.DASHBOARD,
     KupTagNames.DATA_TABLE,
     KupTagNames.DIALOG,
@@ -86,6 +87,7 @@ export const fImageUsers = [
     KupTagNames.MAGIC_BOX,
     KupTagNames.SNACKBAR,
     KupTagNames.TAB_BAR,
+    KupTagNames.TEXT_FIELD,
     KupTagNames.TREE,
 ];
 /**
@@ -289,9 +291,9 @@ export enum KupThemeColorValues {
     ICON = '--kup-icon-color',
     BORDER = '--kup-border-color',
     INFO = '--kup-info-color',
-    SUCCESS = '--kup-success-color',
-    WARNING = '--kup-warning-color',
-    DANGER = '--kup-danger-color',
+    SUCCESS = '--kup-success-color-40',
+    WARNING = '--kup-warning-color-40',
+    DANGER = '--kup-danger-color-50',
     SPINNER = '--kup-spinner-color',
     CHART_1 = '--kup-chart-color-1',
     CHART_2 = '--kup-chart-color-2',

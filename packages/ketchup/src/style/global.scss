@@ -9,6 +9,13 @@ $kup-class-secondary: 'kup-secondary'; // Sets the primary color to --kup-second
 $kup-class-success: 'kup-success'; // Sets the primary color to --kup-success-color.
 $kup-class-warning: 'kup-warning'; // Sets the primary color to --kup-warning-color.
 
+// New color related variables.
+$kup-class-red: 'kup-accent-red'; // Sets the primary color to --kup-accent-red-color.
+$kup-class-orange: 'kup-accent-orange'; // Sets the primary color to --kup-accent-orange-color.
+$kup-class-yellow: 'kup-accent-yellow'; // Sets the primary color to --kup-accent-yellow-color.
+$kup-class-green: 'kup-accent-green'; // Sets the primary color to --kup-accent-green-color.
+$kup-class-white: 'kup-accent-white'; // Sets the primary color to --kup-accent-white-color.
+
 // Position related variables.
 $kup-class-bottom-aligned: 'kup-bottom-aligned'; // Aligns the content of the component to the bottom.
 $kup-class-bottom-left: 'kup-bottom-left'; // Position the component to the bottom left.
@@ -19,6 +26,7 @@ $kup-class-left-aligned: 'kup-left-aligned'; // Aligns the content of the compon
 $kup-class-right: 'kup-right'; // Position the component to the right.
 $kup-class-right-aligned: 'kup-right-aligned'; // Aligns the content of the component to the right.
 $kup-class-top-right: 'kup-top-right'; // Position the component to the top right.
+$kup-class-top-left: 'kup-top-left'; // Position the component to the top left.
 $kup-class-top-aligned: 'kup-top-aligned'; // Aligns the content of the component to the top.
 $kup-class-top: 'kup-top'; // Position the component to the top.
 $kup-class-vertical: 'kup-vertical'; // Optimized style for a vertically-flowing component.
@@ -46,6 +54,8 @@ $kup-class-round: 'kup-round'; // Gives the component an exceedingly shaped look
 $kup-class-shaped: 'kup-shaped'; // Gives the component a shaped look by rounding its borders.
 $kup-class-striped: 'kup-striped'; // Displays a striped texture.
 $kup-class-unclickable: 'kup-unclickable'; // The component will be unclickable.
+$kup-class-neutral: 'kup-neutral'; // The component will have a neutral styling.
+$kup-class-primary: 'kup-primary'; // The component will have a neutral styling.
 
 //-----------------------------------------------------//
 //                T h e m e   I c o n s                //

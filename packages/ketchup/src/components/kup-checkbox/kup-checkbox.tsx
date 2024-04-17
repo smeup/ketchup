@@ -50,6 +50,11 @@ export class KupCheckbox {
     /*-------------------------------------------------*/
 
     /**
+     * Set alert message
+     * @default '''
+     */
+    @Prop() alert: string = '';
+    /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
      * @default false
      */
@@ -65,6 +70,11 @@ export class KupCheckbox {
      * @default false
      */
     @Prop() disabled: boolean = false;
+    /**
+     * Set error message
+     * @default '''
+     */
+    @Prop() error: string = '';
     /**
      * When set to true, the component will be set to 'indeterminate'.
      * @default false
@@ -240,6 +250,8 @@ export class KupCheckbox {
             warning: this.rootElement.classList.contains('kup-warning')
                 ? true
                 : false,
+            alert: this.alert,
+            error: this.error,
             onBlur: () => this.onKupBlur(),
             onChange: () => this.onKupChange(),
             onFocus: () => this.onKupFocus(),

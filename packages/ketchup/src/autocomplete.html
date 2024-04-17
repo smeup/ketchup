@@ -14,6 +14,11 @@
     </head>
 
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true },
+            };
+        </script>
         <div>
             <kup-autocomplete id="ac"></kup-autocomplete>
             <kup-text-field id="tf"></kup-text-field>

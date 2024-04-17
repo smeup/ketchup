@@ -1,0 +1,33 @@
+.scalable-layout-10 {
+  background-color: var(--kup-gray-color-10);
+  color: var(--kup-gray-color-70);
+  height: 100%;
+  display: flex;
+  justify-content: unset;
+  overflow: auto;
+  width: 100%;
+
+  .text {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .number {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .title {
+    font-size: 120%;
+  }
+
+  .buttons {
+    height: max-content;
+    margin-bottom: 2%;
+  }
+
+  .f-button {
+    float: right;
+  }
+}
