@@ -177,6 +177,7 @@ export class KulShowcase {
             };
             cards.push(
                 <kul-card
+                    id={node.id}
                     kulData={kulData}
                     kulSizeX="300px"
                     kulSizeY="300px"

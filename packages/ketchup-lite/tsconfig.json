@@ -6,13 +6,14 @@
         "experimentalDecorators": true,
         "jsx": "react",
         "jsxFactory": "h",
-        "lib": ["dom", "es2017"],
+        "lib": ["dom", "es2020"],
         "module": "esnext",
         "moduleResolution": "node",
         "noUnusedLocals": false,
         "noUnusedParameters": true,
         "resolveJsonModule": true,
-        "target": "ES2022"
+        "target": "ES2022",
+        "types": ["cypress", "node", "numeral", "prismjs"]
     },
     "exclude": ["node_modules"],
     "include": ["src"]
