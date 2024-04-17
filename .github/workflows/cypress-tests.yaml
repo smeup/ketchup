@@ -1,0 +1,51 @@
+name: Cypress tests
+
+on:
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    cypress-test:
+        runs-on: ubuntu-latest
+        concurrency:
+            group: generate-docs-${{ github.workflow }}-${{ github.ref }}
+            cancel-in-progress: true
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '18.16.0'
+                  cache: 'yarn'
+
+            - name: Install dependencies
+              run: yarn install --immutable
+
+            - name: Cache Node Modules
+              uses: actions/cache@v2
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-modules-
+
+            - name: Cache Cypress Binary
+              uses: actions/cache@v2
+              with:
+                  path: ~/.cache/Cypress
+                  key: ${{ runner.os }}-cypress-${{ hashFiles('**/yarn.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-cypress-
+
+            - name: Start Stencil Development Server
+              run: |
+                  cd packages/ketchup-lite
+                  yarn dev &
+                  sleep 10 # Wait for the server to start
+
+            - name: Cypress Run
+              run: |
+                  cd packages/ketchup-lite
+                  npx cypress run

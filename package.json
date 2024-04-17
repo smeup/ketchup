@@ -13,9 +13,6 @@
     "author": "Luca Foscili",
     "repository": "https://github.com/lucafoscili/ketchup-lite",
     "devDependencies": {
-        "@types/jest": "^27.0.3",
-        "@types/node": "^20.2.5",
-        "@types/numeral": "^2.0.2",
         "eslint": "^8.46.0",
         "lerna": "^7.1.4",
         "workbox-build": "^7.0.0"
@@ -24,7 +21,8 @@
         "lerna": "lerna",
         "build": "lerna run build --scope ketchup-lite --stream && lerna run build --scope ketchup-lite-react --stream",
         "dev": "lerna run dev --scope ketchup-lite --stream",
-        "test:spec": "lerna run test:spec --scope ketchup-lite --stream"
+        "test": "lerna run test --scope ketchup-lite --stream",
+        "test:open": "lerna run test:open --scope ketchup-lite --stream"
     },
     "workspaces": [
         "packages/ketchup-lite",

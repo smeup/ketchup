@@ -72,7 +72,7 @@ describe('kul-article', () => {
         componentInstance.kulData = kulData;
         const callback = () => {
             expect(component.shadowRoot.querySelector('article')).toContain(
-                'This is an article'
+                'This is pojopijoihihkugkjgan '
             );
         };
         onReadyCallback(component, callback);
