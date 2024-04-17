@@ -138,6 +138,17 @@
       box-sizing: border-box;
       position: relative;
     }
+    .f-cell__content .image-list__wrapper.images{
+      height: 100%;
+      justify-content: flex-end;
+
+      .f-image{
+        position: unset;
+        overflow: auto;
+        height: 100%;
+        display: flex;
+      }
+    }
   }
 
   &__item {
@@ -176,6 +187,7 @@
     @include kup-label-01;
   }
 }
+
 
 @media screen and (min-width: 678px) {
   :host {
