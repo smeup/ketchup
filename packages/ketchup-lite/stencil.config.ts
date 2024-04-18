@@ -9,7 +9,6 @@ export const config: Config = {
         { type: 'docs-readme' },
         {
             copy: [{ src: 'assets' }],
-            empty: false,
             type: 'www',
             serviceWorker: null,
         },
