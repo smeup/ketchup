@@ -86,7 +86,7 @@ export class KulArticle {
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event, eventType: KulArticleEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulArticleEvents) {
         this.kulEvent.emit({
             comp: this,
             eventType,

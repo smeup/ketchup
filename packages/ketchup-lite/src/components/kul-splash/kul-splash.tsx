@@ -90,7 +90,7 @@ export class KulSplash {
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event, eventType: KulSplashEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulSplashEvents) {
         this.kulEvent.emit({
             comp: this,
             eventType,

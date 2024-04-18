@@ -86,7 +86,7 @@ export class KulBadge {
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event, eventType: KulBadgeEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulBadgeEvents) {
         this.kulEvent.emit({
             comp: this,
             eventType,

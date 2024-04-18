@@ -101,7 +101,7 @@ export class KulShowcase {
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event, eventType: KulShowcaseEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulShowcaseEvents) {
         this.kulEvent.emit({
             comp: this,
             eventType,

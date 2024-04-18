@@ -119,7 +119,7 @@ export class KulImage {
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event, eventType: KulImageEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulImageEvents) {
         this.kulEvent.emit({
             comp: this,
             id: this.rootElement.id,

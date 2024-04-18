@@ -134,7 +134,7 @@ export namespace Components {
         "kulLabel": string;
         /**
           * When set to true, the pointerdown event will trigger a ripple effect.
-          * @default false
+          * @default true
          */
         "kulRipple": boolean;
         /**
@@ -505,6 +505,15 @@ export namespace Components {
           * @returns A promise that resolves to an object where each key is a property name, optionally with its description.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Returns the component's internal value.
+         */
+        "getValue": () => Promise<File[]>;
+        /**
+          * When set to true, the pointerdown event will trigger a ripple effect.
+          * @default true
+         */
+        "kulRipple": boolean;
         /**
           * Enables customization of the component's style.
           * @default "" - No custom style applied by default.
@@ -895,7 +904,7 @@ declare namespace LocalJSX {
         "kulLabel"?: string;
         /**
           * When set to true, the pointerdown event will trigger a ripple effect.
-          * @default false
+          * @default true
          */
         "kulRipple"?: boolean;
         /**
@@ -1135,6 +1144,11 @@ declare namespace LocalJSX {
         "onKul-splash-event"?: (event: KulSplashCustomEvent<KulEventPayload>) => void;
     }
     interface KulUpload {
+        /**
+          * When set to true, the pointerdown event will trigger a ripple effect.
+          * @default true
+         */
+        "kulRipple"?: boolean;
         /**
           * Enables customization of the component's style.
           * @default "" - No custom style applied by default.
