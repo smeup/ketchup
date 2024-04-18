@@ -591,7 +591,7 @@ const data = [
             },
         ],
         expandable: true,
-        icon: 'web',
+        icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Square_-_black_simple.svg/768px-Square_-_black_simple.svg.png',
         isExpanded: false,
         value: 'Framework',
         visible: true,
@@ -610,7 +610,337 @@ const data = [
             },
         ],
         expandable: true,
-        icon: 'library_books',
+        icon: 'https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+        badgeData: [
+            {
+                imageData: {
+                    resource:
+                        'https://ketchup.smeup.com/ketchup-showcase/header_logo_dark.svg',
+                    sizeX: '1.75rem',
+                    sizeY: 'auto',
+                    color: 'var(--kup-text-on-primary-color)',
+                },
+                position: 'BL',
+            },
+        ],
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+        badgeData: [
+            {
+                imageData: {
+                    resource:
+                        'https://ketchup.smeup.com/ketchup-showcase/header_logo_dark.svg',
+                    sizeX: '1.75rem',
+                    sizeY: 'auto',
+                    color: 'var(--kup-text-on-primary-color)',
+                },
+                position: 'BL',
+            },
+        ],
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://c8.alamy.com/compit/f4j1rh/verticale-di-tronchi-di-alberi-di-boschi-guardando-verso-l-alto-da-terra-con-il-sole-che-splende-attraverso-foglie-f4j1rh.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+    },
+    {
+        cells: {
+            ROUTE: {
+                value: 'accordion',
+            },
+        },
+        icon: 'view-sequential',
+        value: 'Accordion',
+        visible: true,
+    },
+    {
+        cells: {
+            ROUTE: {
+                value: 'accordion',
+            },
+        },
+        icon: 'view-sequential',
+        value: 'Accordion',
+        visible: true,
+    },
+    {
+        cells: {
+            ROUTE: {
+                value: 'accordion',
+            },
+        },
+        icon: 'view-sequential',
+        value: 'Accordion',
+        visible: true,
+    },
+    {
+        cells: {
+            ROUTE: {
+                value: 'accordion',
+            },
+        },
+        icon: 'view-sequential',
+        value: 'Accordion',
+        visible: true,
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://c8.alamy.com/compit/f4j1rh/verticale-di-tronchi-di-alberi-di-boschi-guardando-verso-l-alto-da-terra-con-il-sole-che-splende-attraverso-foglie-f4j1rh.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://c8.alamy.com/compit/f4j1rh/verticale-di-tronchi-di-alberi-di-boschi-guardando-verso-l-alto-da-terra-con-il-sole-che-splende-attraverso-foglie-f4j1rh.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://c8.alamy.com/compit/f4j1rh/verticale-di-tronchi-di-alberi-di-boschi-guardando-verso-l-alto-da-terra-con-il-sole-che-splende-attraverso-foglie-f4j1rh.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://c8.alamy.com/compit/f4j1rh/verticale-di-tronchi-di-alberi-di-boschi-guardando-verso-l-alto-da-terra-con-il-sole-che-splende-attraverso-foglie-f4j1rh.jpg',
+        isExpanded: false,
+        value: 'Guides',
+        visible: true,
+    },
+    {
+        children: [
+            {
+                cells: {
+                    ROUTE: {
+                        value: 'customization',
+                    },
+                },
+                icon: 'style',
+                value: 'Style customization',
+                visible: true,
+            },
+        ],
+        expandable: true,
+        icon: 'https://c8.alamy.com/compit/f4j1rh/verticale-di-tronchi-di-alberi-di-boschi-guardando-verso-l-alto-da-terra-con-il-sole-che-splende-attraverso-foglie-f4j1rh.jpg',
         isExpanded: false,
         value: 'Guides',
         visible: true,

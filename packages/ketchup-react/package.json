@@ -1,6 +1,6 @@
 {
     "name": "@sme.up/ketchup-react",
-    "version": "9.6.4",
+    "version": "9.6.5",
     "module": "dist/index.js",
     "typings": "dist/index.d.ts",
     "keywords": [
@@ -20,7 +20,7 @@
     "description": "Ketchup React Components library by smeup",
     "license": "Apache-2.0",
     "dependencies": {
-        "@sme.up/ketchup": "^9.6.4",
+        "@sme.up/ketchup": "^9.6.5",
         "react": "^18.2.0",
         "react-dom": "^18.2.0"
     },
