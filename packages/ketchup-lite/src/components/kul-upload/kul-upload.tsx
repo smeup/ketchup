@@ -19,7 +19,6 @@ import {
     KulUploadEventPayload,
     KulUploadEvents,
     KulUploadProps,
-    KulUploadState,
 } from './kul-upload-declarations';
 
 @Component({
@@ -48,21 +47,25 @@ export class KulUpload {
         startTime: performance.now(),
     };
     /**
-     *State to hold the selected files
-     * @default null - No custom style applied by default.
+     *State holding the selected files
+     * @default []
      */
-    @State() selectedFiles: KulUploadState[] = [];
+    @State() selectedFiles: File[] = [];
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
 
     /**
+     * When set to true, the pointerdown event will trigger a ripple effect.
+     * @default true
+     */
+    @Prop({ mutable: true, reflect: true }) kulRipple = true;
+    /**
      * Enables customization of the component's style.
      * @default "" - No custom style applied by default.
      */
     @Prop({ mutable: true, reflect: true }) kulStyle = '';
-
     /**
      * Initializes the component with these files.
      * @default null
@@ -75,6 +78,7 @@ export class KulUpload {
 
     #input: HTMLInputElement;
     #kulManager = kulManagerInstance();
+    #rippleSurface: HTMLElement;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -91,7 +95,15 @@ export class KulUpload {
     })
     kulEvent: EventEmitter<KulUploadEventPayload>;
 
-    onKulEvent(e: Event, eventType: KulUploadEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulUploadEvents) {
+        if (eventType === 'pointerdown') {
+            if (this.kulRipple) {
+                this.#kulManager.theme.ripple.trigger(
+                    e as PointerEvent,
+                    this.#rippleSurface
+                );
+            }
+        }
         this.kulEvent.emit({
             comp: this,
             eventType,
@@ -123,6 +135,13 @@ export class KulUpload {
         return getProps(this, KulUploadProps, descriptions);
     }
     /**
+     * Returns the component's internal value.
+     */
+    @Method()
+    async getValue(): Promise<File[]> {
+        return this.selectedFiles;
+    }
+    /**
      * Triggers a re-render of the component to reflect any state changes.
      */
     @Method()
@@ -142,18 +161,70 @@ export class KulUpload {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    handleFileChange() {
+    #formatFileSize(size: number): string {
+        const units = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        let unitIndex = 0;
+
+        if (size > 10000) {
+            size /= 1024;
+            size /= 1024;
+            unitIndex = 2;
+        } else {
+            while (size >= 1024 && unitIndex < units.length - 1) {
+                size /= 1024;
+                unitIndex++;
+            }
+        }
+
+        return `${size.toFixed(2)} ${units[unitIndex]}`;
+    }
+
+    #handleFileChange() {
         if (this.#input.files) {
-            const files = Array.from(this.#input.files);
-            this.selectedFiles = files.map((file) => ({
-                file: file,
-                name: file.name,
-                size: file.size,
-            }));
+            this.selectedFiles = Array.from(this.#input.files);
         } else {
             this.selectedFiles = [];
         }
         this.onKulEvent(new CustomEvent('upload'), 'upload');
+    }
+
+    #prepFileInfo() {
+        return this.selectedFiles.map((file, index) => (
+            <div class="file-info__item" key={index}>
+                <kul-image
+                    class="file-info__type"
+                    kulValue={
+                        file.type.includes('image')
+                            ? 'image'
+                            : file.type.includes('audio')
+                            ? 'audiotrack'
+                            : file.type.includes('video')
+                            ? 'movie'
+                            : 'file'
+                    }
+                    kulSizeX="24px"
+                    kulSizeY="24px"
+                    title={file.type}
+                ></kul-image>
+                <span class="file-info__name" title={file.name}>
+                    {file.name}
+                </span>
+                <span class="file-info__size" title={file.size.toString()}>
+                    {this.#formatFileSize(file.size)}
+                </span>
+                <kul-button
+                    class="file-info__clear"
+                    kulIcon={'clear'}
+                    kulStyling="flat"
+                    onClick={() => {
+                        this.selectedFiles = this.selectedFiles.filter(
+                            (f) => f !== file
+                        );
+                    }}
+                    title="Remove"
+                ></kul-button>
+            </div>
+        ));
     }
 
     /*-------------------------------------------------*/
@@ -162,10 +233,16 @@ export class KulUpload {
 
     componentWillLoad() {
         this.#kulManager.theme.register(this);
+        if (Array.isArray(this.kulValue)) {
+            this.selectedFiles = this.kulValue;
+        }
     }
 
     componentDidLoad() {
         this.onKulEvent(new CustomEvent('ready'), 'ready');
+        if (this.#rippleSurface) {
+            this.#kulManager.theme.ripple.setup(this.#rippleSurface);
+        }
         this.#kulManager.debug.updateDebugInfo(this, 'did-load');
     }
 
@@ -178,44 +255,51 @@ export class KulUpload {
     }
 
     render() {
+        const hasSelectedFiles =
+            this.selectedFiles && this.selectedFiles.length;
         return (
             <Host>
                 <style>{this.#kulManager.theme.setKulStyle(this)}</style>
                 <div id={KUL_WRAPPER_ID}>
-                    <div class="wrapper">
-                        <div class="upload-container">
+                    <div
+                        class={`wrapper ${
+                            this.selectedFiles && this.selectedFiles.length
+                                ? 'wrapper--with-info'
+                                : ''
+                        }`}
+                    >
+                        <div
+                            class="file-upload"
+                            onPointerDown={(e) =>
+                                this.onKulEvent(e, 'pointerdown')
+                            }
+                        >
                             <input
-                                class="file-upload"
+                                class="file-upload__input"
                                 id="file-upload"
                                 multiple
-                                onChange={() => this.handleFileChange()}
+                                onChange={() => this.#handleFileChange()}
                                 ref={(el) => {
                                     this.#input = el;
                                 }}
                                 type="file"
                             />
-                            <label htmlFor="file-upload" class="upload-label">
-                                Upload File
+                            <label
+                                class="file-upload__label"
+                                htmlFor="file-upload"
+                                ref={(el) => {
+                                    if (this.kulRipple) {
+                                        this.#rippleSurface = el;
+                                    }
+                                }}
+                            >
+                                <div>Upload File</div>
                             </label>
                         </div>
                         <div class="file-info">
-                            {this.selectedFiles.map((fileInfo, index) => (
-                                <div class="file-info__item" key={index}>
-                                    <div class="file-info__name">
-                                        <label class="file__label">Name</label>
-                                        <span class="file__value">
-                                            {fileInfo.name}
-                                        </span>
-                                    </div>
-                                    <div class="file-info__">
-                                        <label class="file__label">Size</label>:
-                                        <span class="file__value">
-                                            {(fileInfo.size / 1024).toFixed(2)}
-                                            KB
-                                        </span>
-                                    </div>
-                                </div>
-                            ))}
+                            {hasSelectedFiles
+                                ? this.#prepFileInfo()
+                                : undefined}
                         </div>
                     </div>
                 </div>

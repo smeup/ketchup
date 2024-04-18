@@ -1,10 +1,10 @@
 import { KulEventPayload } from '../../components';
 
 export interface KulUploadEventPayload extends KulEventPayload {
-    selectedFiles: KulUploadState[];
+    selectedFiles: File[];
 }
 
-export type KulUploadEvents = 'ready' | 'upload';
+export type KulUploadEvents = 'pointerdown' | 'ready' | 'upload';
 
 export enum KulUploadProps {
     kulStyle = 'Custom style of the component.',
@@ -12,10 +12,4 @@ export enum KulUploadProps {
 
 export interface KulUploadPropsInterface {
     kulStyle: string;
-}
-
-export interface KulUploadState {
-    file: File;
-    name: string;
-    size: number;
 }
