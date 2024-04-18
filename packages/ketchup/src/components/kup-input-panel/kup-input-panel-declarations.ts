@@ -1,7 +1,13 @@
+import { GenericObject } from '../../components';
 import {
     KupDataCell,
     KupDataColumn,
 } from '../../managers/kup-data/kup-data-declarations';
+
+export interface KupInputPanelSubmit {
+    after: KupInputPanelData;
+    before: KupInputPanelData;
+}
 
 export interface KupInputPanelData {
     columns?: KupDataColumn[];
@@ -24,7 +30,7 @@ export interface KupInputPanelRowCells {
 }
 
 export interface KupInputPanelCell extends KupDataCell {
-    options?: KupInputPanelCellOptions[];
+    options?: GenericObject | GenericObject[];
     editable?: boolean;
     mandatory?: boolean;
     fun?: string;
@@ -48,23 +54,27 @@ export interface KupInputPanelLayoutSection {
     horizontal?: boolean;
     gridCols?: number;
     gridRows?: number;
+    // Gap is in rem
     gap?: number;
 }
 
 export interface KupInputPanelLayoutField {
     id: string;
+    // Span is referred to start
     colSpan?: number;
     colStart?: number;
     colEnd?: number;
+    // Span is referred to start
     rowSpan?: number;
     rowStart?: number;
     rowEnd?: number;
 }
 
 export type DataAdapterFn = (
-    options: KupInputPanelCellOptions[],
+    options: GenericObject,
     fieldLabel: string,
-    currentValue: string
+    currentValue: string,
+    fun?: string
 ) => Object;
 
 export type InputPanelCells = {
@@ -80,15 +90,12 @@ export type InputPanelEvent = {
     };
 };
 
-export type InputPanelEventsCallback = {
-    eventName: string;
-    eventCallback: (e: InputPanelEvent) => unknown;
-};
+export type InputPanelOptionsHandler = (fun: string) => Promise<GenericObject>;
 
 export enum KupInputPanelProps {
     customStyle = 'Custom style of the component.',
     data = 'Actual data of the input panel.',
     hiddenSubmitButton = 'Creates a hidden submit button in order to submit the form with enter.',
     submitCb = 'Sets the callback function on submit form',
-    valueChangeCb = 'Sets the callback function on value change event',
+    optionsHandler = 'Sets the callback function to recieve options',
 }

@@ -11,6 +11,7 @@ import {
     KupPlannerTaskGanttProps,
     KupPlannerTaskItemProps,
     KupPlannerTaskIconProps,
+    defaultStylingOptions,
 } from '../../kup-planner-declarations';
 import { addToDate } from '../kup-planner-renderer-helper';
 import {
@@ -121,8 +122,14 @@ export class KupGridRenderer {
     @Prop()
     eMouseDown: KupPlannerBarDisplayProps['onMouseDown'];
 
+    @Prop()
+    phaseDrop: KupPlannerEventOption['phaseDrop'];
+
     @Prop({ mutable: true })
     setGanttEvent: (gantt: KupPlannerGanttEvent) => void;
+
+    @Prop()
+    phaseDragScroll: (scrollY: number) => void;
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -144,6 +151,15 @@ export class KupGridRenderer {
 
     @State()
     svg: SVGSVGElement;
+
+    @State()
+    currentTarget: HTMLElement | null;
+
+    @State()
+    dragScrollInterval: NodeJS.Timeout;
+
+    @State()
+    dropZoneTask: KupPlannerBarTask | null;
 
     //---- Lifecycle hooks ----
 
@@ -192,6 +208,7 @@ export class KupGridRenderer {
                 return;
             event.preventDefault();
             this.point.x = event.clientX;
+            this.point.y = event.clientY;
             const cursor = this.point.matrixTransform(
                 this.svg?.getScreenCTM()?.inverse()
             );
@@ -202,8 +219,16 @@ export class KupGridRenderer {
                 this.xStep,
                 this.timeStep,
                 this.initEventX1Delta,
-                this.rtl
+                this.rtl,
+                cursor.y
             );
+
+            if (this.currentTarget) {
+                this.addGhostPreview(event);
+                this.handleAutoScrollForPhaseDrag(event);
+                this.addDropzoneVisualization();
+            }
+
             if (isChanged) {
                 this.setGanttEvent({
                     ...this.ganttEvent,
@@ -214,6 +239,8 @@ export class KupGridRenderer {
         };
 
         const handleMouseUp = async (event: MouseEvent) => {
+            clearInterval(this.dragScrollInterval);
+            this.resetDropzoneVisualization();
             const { action, originalSelectedTask, changedTask } =
                 this.ganttEvent;
             if (
@@ -229,6 +256,7 @@ export class KupGridRenderer {
             const cursor = this.point.matrixTransform(
                 this.svg?.getScreenCTM()?.inverse()
             );
+            this.currentTarget = null;
             const { changedTask: newChangedTask } = handleTaskBySVGMouseEvent(
                 cursor.x,
                 action as KupPlannerBarMoveAction,
@@ -236,23 +264,53 @@ export class KupGridRenderer {
                 this.xStep,
                 this.timeStep,
                 this.initEventX1Delta,
-                this.rtl
+                this.rtl,
+                cursor.y
             );
 
             const isNotLikeOriginal =
                 originalSelectedTask.start !== newChangedTask.start ||
                 originalSelectedTask.end !== newChangedTask.end ||
-                originalSelectedTask.progress !== newChangedTask.progress;
+                originalSelectedTask.progress !== newChangedTask.progress ||
+                originalSelectedTask.y !== newChangedTask.y;
 
             // remove listeners
             this.svg.removeEventListener('mousemove', handleMouseMove);
             this.svg.removeEventListener('mouseup', handleMouseUp);
+            this.svg.querySelector('.ghost-preview')?.remove();
             this.setGanttEvent({ action: '' });
             this.isMoving = false;
 
             // custom operation start
             let operationSuccess: any = true;
+
+            let droppedOn = undefined;
+            let originalTaskData = undefined;
+
             if (
+                action === 'move' &&
+                isNotLikeOriginal &&
+                newChangedTask.type === 'task'
+            ) {
+                droppedOn = this.tasks.find(
+                    (task) =>
+                        this.isPhaseWithinTaskArea(changedTask, task) &&
+                        task.type === 'project'
+                );
+                originalTaskData = this.tasks.find(
+                    (task) =>
+                        task.id == originalSelectedTask.id.split('_').shift()
+                );
+            }
+
+            if (droppedOn?.id && originalTaskData?.id !== droppedOn?.id) {
+                this.phaseDrop(
+                    originalSelectedTask,
+                    originalTaskData,
+                    newChangedTask,
+                    droppedOn
+                );
+            } else if (
                 (action === 'move' || action === 'end' || action === 'start') &&
                 this.dateChange &&
                 isNotLikeOriginal
@@ -309,6 +367,141 @@ export class KupGridRenderer {
         return this.initEventXClick !== event.clientX;
     }
 
+    addGhostPreview(event: MouseEvent) {
+        this.svg.querySelector('.ghost-preview')?.remove();
+        const mockEvent = {
+            ...event,
+            dataTransfer: new DataTransfer(),
+        } as DragEvent;
+
+        const dragEle = this.currentTarget;
+        dragEle.classList.add('ghost-preview');
+        this.svg.appendChild(dragEle.cloneNode(true));
+
+        const nodeRect = dragEle.getBoundingClientRect();
+        mockEvent.dataTransfer.setDragImage(
+            dragEle,
+            mockEvent.clientX - nodeRect.left,
+            mockEvent.clientY - nodeRect.top
+        );
+    }
+
+    handleAutoScrollForPhaseDrag(event: MouseEvent) {
+        const list = this.svg?.parentElement?.parentElement;
+        if (!list) return;
+        clearInterval(this.dragScrollInterval);
+        const isOverFlowing = list.clientHeight < list.scrollHeight;
+
+        if (isOverFlowing) {
+            // if container is overflowing we need to scroll within the container
+            const containerRect = list.getBoundingClientRect();
+            const offsetY = event.clientY - containerRect.top;
+            const diff = 5;
+            if (offsetY - 20 < diff) {
+                this.dragScrollInterval = setInterval(() => {
+                    this.phaseDragScroll((list.scrollTop -= diff));
+                }, 1);
+            } else if (offsetY + 20 > containerRect.height - diff) {
+                this.dragScrollInterval = setInterval(() => {
+                    this.phaseDragScroll((list.scrollTop += diff));
+                }, 1);
+            }
+        } else {
+            // else we need to scroll the window when viewport exceeds
+            const scrollOffset = 20;
+            const windowHeight = window.innerHeight;
+            const y = event.clientY;
+
+            if (y < scrollOffset) {
+                window.scrollBy(0, -scrollOffset);
+            } else if (y > windowHeight - scrollOffset) {
+                window.scrollBy(0, scrollOffset);
+            }
+        }
+    }
+
+    isPhaseWithinTaskArea(phase: KupPlannerBarTask, task: KupPlannerBarTask) {
+        return (
+            phase.y + phase.height >= task.ySecondary &&
+            phase.y <= task.ySecondary + task.height &&
+            phase.x2 >= task.x1 &&
+            phase.x1 <= task.x2
+        );
+    }
+
+    addDropzoneVisualization() {
+        this.resetDropzoneVisualization();
+        // find the tasks where drop is allowed, includes all projects except parent project also includes current phase
+        const dropAllowedOn = this.tasks.filter(
+            (task) =>
+                task.type == 'project' &&
+                this.ganttEvent.originalSelectedTask?.id?.split('_')?.shift() !=
+                    task.id
+        );
+
+        const changedTask = this.ganttEvent.changedTask;
+
+        // to determine whether the phase is in some another project y and x area
+        this.dropZoneTask = dropAllowedOn.find((task) =>
+            this.isPhaseWithinTaskArea(changedTask, task)
+        );
+
+        if (this.dropZoneTask?.ySecondary) {
+            const rects = this.getBarRectsForDropzoneVisualization();
+            rects.forEach((rect: Element) => {
+                rect.setAttribute(
+                    'fill',
+                    defaultStylingOptions.barDropZoneColor
+                );
+            });
+        }
+    }
+
+    resetDropzoneVisualization() {
+        if (!this.dropZoneTask) return;
+        const rects = this.getBarRectsForDropzoneVisualization();
+
+        const isSelected =
+            !!this.selectedTask &&
+            this.dropZoneTask.id === this.selectedTask.id;
+        rects.forEach((rect: Element) => {
+            rect.setAttribute(
+                'fill',
+                this.getBarColor(isSelected, this.dropZoneTask.styles)
+            );
+        });
+    }
+
+    getBarRectsForDropzoneVisualization(): Element[] | NodeListOf<Element> {
+        let rects: Element[] | NodeListOf<Element>;
+
+        if (!this.showSecondaryDates) {
+            rects = this.svg.querySelectorAll(
+                `.barWrapper[data-type="${this.dropZoneTask.type}"] rect[y='${this.dropZoneTask.ySecondary}']`
+            );
+        } else {
+            const rect = this.svg.querySelector(
+                `.barWrapper[data-type="${this.dropZoneTask.type}"] rect[y='${this.dropZoneTask.ySecondary}']`
+            );
+            const siblings = [rect];
+            let nextSibling = rect.nextElementSibling;
+            while (nextSibling !== null) {
+                siblings.push(nextSibling);
+                nextSibling = nextSibling.nextElementSibling;
+            }
+
+            let prevSibling = rect.previousElementSibling;
+            while (prevSibling !== null) {
+                siblings.unshift(prevSibling);
+                prevSibling = prevSibling.previousElementSibling;
+            }
+
+            rects = siblings;
+        }
+
+        return rects;
+    }
+
     handleBarEventStart(
         action: KupPlannerGanttContentMoveAction,
         task: KupPlannerBarTask,
@@ -360,7 +553,15 @@ export class KupGridRenderer {
             const cursor = this.point.matrixTransform(
                 this.svg.getScreenCTM()?.inverse()
             );
+            if (task.type === 'task') {
+                this.currentTarget = (
+                    event.currentTarget as HTMLElement
+                ).cloneNode(true) as HTMLElement;
+            } else {
+                this.currentTarget = null;
+            }
             this.initEventX1Delta = cursor.x - task.x1;
+            this.point.y = event.clientY;
             this.initEventXClick = event.clientX;
             this.setGanttEvent({
                 action,
@@ -397,7 +598,7 @@ export class KupGridRenderer {
         isProgressChangeable: boolean
     ) {
         return (
-            <g class="barWrapper" tab-index={0}>
+            <g class="barWrapper" tab-index={0} data-type={task.type}>
                 {this.renderKupBarDisplay(
                     task.x1,
                     task.y,
@@ -411,7 +612,8 @@ export class KupGridRenderer {
                     !this.readOnly && !!this.dateChange && !task.isDisabled,
                     task,
                     task.x1secondary,
-                    (task.x2secondary ?? 0) - (task.x1secondary ?? 0)
+                    (task.x2secondary ?? 0) - (task.x1secondary ?? 0),
+                    task.ySecondary
                 )}
                 <g class="handleGroup">
                     {isDateResizable && (
@@ -478,7 +680,8 @@ export class KupGridRenderer {
         isDateMovable: KupPlannerTaskItemProps['isDateMovable'],
         task: KupPlannerBarTask,
         xSecondary?: KupPlannerBarDisplayProps['xSecondary'],
-        widthSecondary?: KupPlannerBarDisplayProps['widthSecondary']
+        widthSecondary?: KupPlannerBarDisplayProps['widthSecondary'],
+        ySecondary?: KupPlannerBarDisplayProps['ySecondary']
     ) {
         if (this.showSecondaryDates && typeof xSecondary !== 'undefined') {
             const halfHeight = height / 2;
@@ -493,7 +696,7 @@ export class KupGridRenderer {
                         key="top semi-transparent bar"
                         x={xSecondary}
                         width={widthSecondary}
-                        y={y}
+                        y={ySecondary ?? y}
                         height={halfHeight}
                         ry={barCornerRadius}
                         rx={barCornerRadius}
@@ -807,7 +1010,7 @@ export class KupGridRenderer {
             y += this.rowHeight;
         }
 
-        const now = new Date();
+        // const now = new Date();
         let tickX = 0;
         const ticks = [];
         for (let i = 0; i < this.dates.length; i++) {
@@ -822,22 +1025,22 @@ export class KupGridRenderer {
                     class="gridTick"
                 />
             );
-            if (
-                (i + 1 !== this.dates.length &&
-                    date.getTime() < now.getTime() &&
-                    this.dates[i + 1].getTime() >= now.getTime()) ||
-                // if current date is last
-                (i !== 0 &&
-                    i + 1 === this.dates.length &&
-                    date.getTime() < now.getTime() &&
-                    addToDate(
-                        date,
-                        date.getTime() - this.dates[i - 1].getTime(),
-                        'millisecond'
-                    ).getTime() >= now.getTime())
-            ) {
-                // Add custom logic here if needed
-            }
+            // if (
+            //     (i + 1 !== this.dates.length &&
+            //         date.getTime() < now.getTime() &&
+            //         this.dates[i + 1].getTime() >= now.getTime()) ||
+            //     // if current date is last
+            //     (i !== 0 &&
+            //         i + 1 === this.dates.length &&
+            //         date.getTime() < now.getTime() &&
+            //         addToDate(
+            //             date,
+            //             date.getTime() - this.dates[i - 1].getTime(),
+            //             'millisecond'
+            //         ).getTime() >= now.getTime())
+            // ) {
+            //     // Add custom logic here if needed
+            // }
             tickX += this.columnWidth;
         }
         return (
@@ -1010,6 +1213,16 @@ export class KupGridRenderer {
                                 </g>
                             );
                         })}
+                        {this.currentTarget && this.ganttEvent.changedTask && (
+                            <g class="task-wrapper">
+                                {this.renderKupBar(
+                                    this.ganttEvent.changedTask,
+                                    false,
+                                    false,
+                                    false
+                                )}
+                            </g>
+                        )}
                     </g>
                 </g>
             </svg>

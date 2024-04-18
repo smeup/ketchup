@@ -52,9 +52,7 @@ export const FImage: FunctionalComponent<FImageProps> = (
 
     return (
         <div
-            class={`f-image ${props.wrapperClass ? props.wrapperClass : ''} ${
-                props.fit ? 'kup-fit' : ''
-            }`}
+            class={`f-image ${props.wrapperClass ? props.wrapperClass : ''} `}
             {...props.dataSet}
             id={props.id}
             style={style}
@@ -76,9 +74,7 @@ function createIcon(props: FImageProps): HTMLDivElement {
         'f-image__icon': true,
     };
     const style: GenericObject = {
-        background: props.color
-            ? props.color
-            : `var(${KupThemeColorValues.ICON})`,
+        background: props.color ? props.color : `var(--kup-gray-color-70)`,
     };
     if (props.resource.indexOf('--kup') > -1) {
         let themeIcon: string = props.resource.replace('--', '');

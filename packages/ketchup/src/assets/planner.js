@@ -529,12 +529,12 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: 'MAC.FMRSI-31-150-CNC',
+                            k: 'MAC.FMRSI-31-150-CNCMAC.FMRSI-31-150-CNCMAC.FMRSI-31-150-CNC',
                             p: '',
                             t: '',
                         },
-                        value: 'MAC.FMRSI-31-150-CNC',
-                        displayedValue: 'MAC.FMRSI-31-150-CNC',
+                        value: 'MAC.FMRSI-31-150-CNCMAC.FMRSI-31-150-CNCMAC.FMRSI-31-150-CNC',
+                        displayedValue: 'MAC.FMRSI-31-150-CNCMAC.FMRSI-31-150-CNCMAC.FMRSI-31-150-CNC',
                     },
                     'R£CDCL': {
                         data: {
@@ -2780,6 +2780,7 @@ const props = {
     taskNameCol: 'R£COMM',
     taskPrevDates: [],
     titleMess: '',
+    scrollableTaskList: true
 };
 
 if (props) {

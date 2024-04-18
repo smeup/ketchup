@@ -42,6 +42,7 @@ import {
 import { KupStore } from '../kup-state/kup-store';
 import { KupImageListState } from './kup-image-list-state';
 import { TreeNodePath } from '../kup-tree/kup-tree-declarations';
+import { KupBadge } from '../kup-badge/kup-badge';
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 
 @Component({
@@ -107,9 +108,9 @@ export class KupImageList {
     /*-------------------------------------------------*/
     /**
      * Number of columns to display in the grid layout.
-     * @default 4
+     * @default null
      */
-    @Prop() columns: number = 4;
+    @Prop() columns: number = null;
     /**
      * Custom style of the component.
      * @default ""
@@ -258,8 +259,15 @@ export class KupImageList {
             wrapperClass: 'image-list__image',
             badgeData: node.badgeData,
         };
+
         const image = <FImage {...props}></FImage>;
         const label = <div class="image-list__label">{node.value}</div>;
+
+        const hasExternalResource =
+            props.resource.indexOf('.') > -1 ||
+            props.resource.indexOf('/') > -1 ||
+            props.resource.indexOf('\\') > -1;
+
         return (
             <FCell
                 cell={{ value: node.value, icon: node.icon, obj: node.obj }}
@@ -268,7 +276,18 @@ export class KupImageList {
                 density={FCellPadding.NONE}
                 row={{ ...node }}
             >
-                <div class="image-list__wrapper">
+                <div
+                    class={`image-list__wrapper${
+                        hasExternalResource ? ' images' : ''
+                    }`}
+                >
+                    {!hasExternalResource && (
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            version="1.1"
+                            viewBox="0 0 24 24"
+                        ></svg>
+                    )}
                     {image}
                     {label}
                 </div>
@@ -425,6 +444,11 @@ export class KupImageList {
         const holdCb = (e: PointerEvent) => {
             if (e.pointerType === 'pen' || e.pointerType === 'touch') {
                 this.#hold = true;
+                this.kupContextMenu.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    details: this.#contextMenuHandler(e),
+                });
             }
         };
         this.#kupManager.interact.on(
@@ -437,11 +461,6 @@ export class KupImageList {
             this.#el,
             KupPointerEventTypes.DOUBLETAP,
             doubletapCb
-        );
-        this.#kupManager.interact.on(
-            this.#el,
-            KupPointerEventTypes.HOLD,
-            holdCb
         );
     }
 

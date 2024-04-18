@@ -1,6 +1,49 @@
-.input-panel {
-  .f-cell .f-checkbox .checkbox .checkbox__native-control {
-    height: 40px;
-    width: 40px;
+/**
+* @prop --kup-input-panel-background-color: Sets background of the component.
+* @prop --kup-input-panel-color: Sets text color of the component.
+* @prop --kup-input-panel-font-family: Sets font family of the component.
+* @prop --kup-input-panel-font-size: Sets font size of the component.
+* @prop --kup-input-panel-label-alignment: Sets the text alignment of labels.
+* @prop --kup-input-panel-label-width: Sets the width of labels.
+* @prop --kup-input-panel-padding: Sets the padding of the input panel.
+*/
+
+:host {
+  --kup_input_panel_background_color: var(--kup-input-panel-background-color,
+      var(--kup-background-color));
+  --kup_input_panel_color: var(--kup-input-panel-color, var(--kup-text-color));
+  --kup_input_panel_font_family: var(--kup-input-panel-font-family, var(--kup-font-family));
+  --kup_input_panel_font_size: var(--kup-input-panel-font-size, var(--kup-font-size));
+  --kup_input_panel_label_alignment: var(--kup-input-panel-label-alignment);
+  --kup_input_panel_label_width: var(--kup-input-panel-label-width);
+  --kup_input_panel_padding: var(--kup-input-panel-padding, 1em 0);
+
+  .input-panel {
+    background: var(--kup_input_panel_background_color);
+    color: var(--kup_input_panel_color);
+    display: flex;
+    flex-grow: 1;
+    overflow: auto;
+    padding: var(--kup_input_panel_padding);
+    position: relative;
+
+    &--column {
+      flex-direction: column;
+    }
+
+    &__section {
+      display: grid;
+    }
+
+    &__horizontal-section {
+      display: inline-grid;
+    }
+
+    .f-cell .f-checkbox .checkbox .checkbox__native-control {
+      height: 40px;
+      width: 40px;
+    }
+
+
   }
 }

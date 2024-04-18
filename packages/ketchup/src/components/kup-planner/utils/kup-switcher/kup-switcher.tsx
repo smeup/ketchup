@@ -1,5 +1,9 @@
-import { Component, h, Prop } from '@stencil/core';
-import { KupPlannerSwitcherProps } from '../../kup-planner-declarations';
+import { Component, h, Prop, State } from '@stencil/core';
+import {
+    KupPlannerSwitcherProps,
+    KupPlannerViewMode,
+} from '../../kup-planner-declarations';
+
 @Component({
     tag: 'kup-switcher',
     styleUrl: 'kup-switcher.scss',
@@ -9,29 +13,43 @@ export class KupSwitcher {
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
+    @Prop() timeUnitChange: KupPlannerSwitcherProps['onTimeUnitChange'];
 
-    @Prop()
-    timeUnitChange: KupPlannerSwitcherProps['onTimeUnitChange'];
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
+    @State() activeButton: KupPlannerViewMode = 'day'; // Impostato su 'day' inizialmente
+
+    private buttonLabels: KupPlannerViewMode[] = [
+        'hour',
+        'day',
+        'week',
+        'month',
+        'year',
+    ];
 
     render() {
-        const day = () => this.timeUnitChange('day');
-        const week = () => this.timeUnitChange('week');
-        const month = () => this.timeUnitChange('month');
-        const year = () => this.timeUnitChange('year');
+        const handleButtonClick = (mode: KupPlannerViewMode) => {
+            this.activeButton = mode;
+            this.timeUnitChange(mode);
+        };
+
         return (
             <div class="switcher">
-                <button type="button" class="button" onClick={day}>
-                    <span class="label">Day</span>
-                </button>
-                <button type="button" class="button" onClick={week}>
-                    <span class="label">Week</span>
-                </button>
-                <button type="button" class="button" onClick={month}>
-                    <span class="label">Month</span>
-                </button>
-                <button type="button" class="button" onClick={year}>
-                    <span class="label">Year</span>
-                </button>
+                {this.buttonLabels.map((label) => (
+                    <button
+                        type="button"
+                        class={{
+                            button: true,
+                            buttonActive: this.activeButton === label,
+                        }}
+                        onClick={() => handleButtonClick(label)}
+                    >
+                        <span class="label">
+                            {label.charAt(0).toUpperCase() + label.slice(1)}
+                        </span>
+                    </button>
+                ))}
             </div>
         );
     }

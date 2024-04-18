@@ -9,6 +9,14 @@ document.addEventListener('kup-button-click', () => {
     comp.remove();
 });
 
+document.addEventListener('kup-planner-datechange', (e) => {
+    console.log(e)
+});
+
+document.addEventListener('kup-planner-phasedrop', (e) => {
+    console.log(e)
+});
+
 const props = {
     customStyle: '',
     data: {
@@ -1482,11 +1490,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20991231',
+                            k: '20241231',
                             p: '*YYMD',
                             t: 'D8',
                         },
-                        value: '2099-12-31',
+                        value: '2024-12-31',
                     },
 
                     DATORD: {
@@ -1498,11 +1506,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20991231',
+                            k: '20241231',
                             p: '*YYMD',
                             t: 'D8',
                         },
-                        value: '2099-12-31',
+                        value: '2024-12-31',
                     },
 
                     DATINZ: {
@@ -1514,11 +1522,11 @@ const props = {
                         },
                         isEditable: false,
                         obj: {
-                            k: '20991231',
+                            k: '20241231',
                             p: '*YYMD',
                             t: 'D8',
                         },
-                        value: '2099-12-31',
+                        value: '2024-12-31',
                     },
 
                     'R§COMM': {
@@ -1602,7 +1610,7 @@ const props = {
     phaseNameCol: 'DESFAS',
     phasePrevDates: ['DATINZ', 'DATFPO'],
     readOnly: false,
-    showSecondaryDates: true,
+    showSecondaryDates: false,
     taskColumns: ['R§COMM', 'R§CDCL', 'DATINZ', 'DATPRE'],
     taskDates: ['DATINZ', 'DATPRE'],
     taskHeight: 400,
@@ -1610,6 +1618,10 @@ const props = {
     taskNameCol: 'R§COMM',
     taskPrevDates: ['INZORD', 'DATORD'],
     titleMess: '',
+    detailHours: ['INITHHMM', 'ENDHHMM'],
+    phaseHours: ['INITHHMMSS', 'ENDHHMMSS'],
+    taskHours: ['INITHHMM', 'ENDHHMM'],
+    scrollableTaskList: true
 };
 
 if (props) {
