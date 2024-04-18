@@ -510,6 +510,11 @@ export namespace Components {
          */
         "getValue": () => Promise<File[]>;
         /**
+          * Sets the button's label.
+          * @default "Upload files..."
+         */
+        "kulLabel": string;
+        /**
           * When set to true, the pointerdown event will trigger a ripple effect.
           * @default true
          */
@@ -1144,6 +1149,11 @@ declare namespace LocalJSX {
         "onKul-splash-event"?: (event: KulSplashCustomEvent<KulEventPayload>) => void;
     }
     interface KulUpload {
+        /**
+          * Sets the button's label.
+          * @default "Upload files..."
+         */
+        "kulLabel"?: string;
         /**
           * When set to true, the pointerdown event will trigger a ripple effect.
           * @default true
