@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
@@ -35,3 +36,33 @@
 //     }
 //   }
 // }
+// cypress/support/commands.js or cypress/support/commands.ts
+
+export {};
+
+declare global {
+    namespace Cypress {
+        interface Chainable {
+            navigate(component: string): Chainable;
+        }
+    }
+}
+
+Cypress.Commands.add('navigate', (component) => {
+    // Navigate to the application's homepage before each test
+    cy.visit('http://localhost:3333');
+    // Verify the presence of the kul-showcase component
+    cy.get('kul-showcase').should('exist').as('kulShowcase');
+    // Click on the article within the kul-showcase to navigate to the *component* page
+    cy.get('@kulShowcase')
+        .shadow()
+        .find('#' + component.charAt(0).toUpperCase() + component.slice(1))
+        .should('exist')
+        .click();
+    // Verify the presence of the kul-showcase-*component*
+    cy.get('@kulShowcase')
+        .shadow()
+        .find('kul-showcase-' + component)
+        .should('exist')
+        .as('kulArticleShowcase');
+});
