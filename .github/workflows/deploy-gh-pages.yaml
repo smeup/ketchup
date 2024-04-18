@@ -18,6 +18,9 @@ jobs:
             - name: Build
               run: npm run build
 
+            - name: List build output
+              run: ls -la ./packages/ketchup-lite/www
+
     deploy:
         needs: build
         runs-on: ubuntu-latest
