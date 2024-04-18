@@ -1,0 +1,161 @@
+:host {
+  /**
+   * @prop --kul_upload_backdrop_filter: Sets the backdrop filter for the upload component.
+   * Defaults to a blur effect of 5px.
+   */
+  --kul_upload_backdrop_filter: var(--kul-upload-backdrop-filter, blur(5px));
+  /**
+   * @prop --kul_upload_backdrop_filter_hover: Sets the backdrop filter for the upload component on hover.
+   * Defaults to a blur effect of 10px.
+   */
+  --kul_upload_backdrop_filter_hover: var(
+    --kul-upload-backdrop-filter-hover,
+    blur(10px)
+  );
+  /**
+   * @prop --kul_upload_border: Sets the border for the upload component.
+   * Defaults to a 1px solid border with a color defined by --kul-border-color-rgb.
+   */
+  --kul_upload_border: var(
+    --kul-upload-border,
+    1px solid rgba(var(--kul-border-color-rgb), 0.2)
+  );
+  /**
+   * @prop --kul_upload_border_radius: Sets the border radius for the upload component.
+   * Defaults to 4px.
+   */
+  --kul_upload_border_radius: var(--kul-upload-border-radius, 4px);
+  /**
+   * @prop --kul_upload_button_height: Sets the height of the upload button.
+   * Defaults to 42px.
+   */
+  --kul_upload_button_height: var(--kul-upload-button-height, 42px);
+  /**
+   * @prop --kul_upload_button_text_transform: Sets the text transformation for the upload button.
+   * Defaults to uppercase.
+   */
+  --kul_upload_button_text_transform: var(
+    --kul-upload-button_text-transform,
+    uppercase
+  );
+  /**
+   * @prop --kul_upload_grid_gap: Sets the grid gap for the upload component.
+   * Defaults to 20px.
+   */
+  --kul_upload_grid_gap: var(--kul-upload-grid-gap, 20px);
+  /**
+   * @prop --kul_upload_info_height: Sets the height of the info section in the upload component.
+   * Defaults to 1fr.
+   */
+  --kul_upload_info_height: var(--kul-upload-info-height, minmax(auto, 25vh));
+  /**
+   * @prop --kul_upload_info_height: Sets the padding for each uploaded item.
+   * Defaults to 0.75em.
+   */
+  --kul_upload_item_padding: var(--kul-upload-item-padding, 0.75em);
+  /**
+   * @prop --kul_upload_padding: Sets the padding for the upload component.
+   * Defaults to 1em.
+   */
+  --kul_upload_padding: var(--kul-upload-backdrop-filter, 1em);
+
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+#kul-component {
+  height: 100%;
+  width: 100%;
+}
+
+.wrapper {
+  backdrop-filter: var(--kul_upload_backdrop_filter);
+  background: rgba(255, 255, 255, 0.1);
+  border: var(--kul_upload_border);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: 1fr;
+  height: 100%;
+  padding: var(--kul_upload_padding);
+  width: 100%;
+
+  &--with-info {
+    grid-gap: var(--kul_upload_grid_gap);
+    grid-template-rows: var(--kul_upload_button_height) var(
+        --kul_upload_info_height
+      );
+
+    .file-info {
+      padding: var(--kul_upload_item_padding);
+    }
+  }
+}
+
+.file-upload {
+  backdrop-filter: var(--kul_upload_backdrop_filter);
+  border: var(--kul_upload_border);
+  border-radius: var(--kul_upload_border_radius);
+  display: flex;
+  transition: backdrop-filter 80ms ease,
+    box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &__input {
+    display: none;
+  }
+
+  &__label {
+    align-content: center;
+    border-radius: var(--kul_upload_border_radius);
+    cursor: pointer;
+    display: block;
+    font-size: 0.875em;
+    height: 100%;
+    letter-spacing: 0.0892857143em;
+    margin: auto;
+    text-align: center;
+    text-transform: var(--kul_upload_button_text_transform);
+    width: 100%;
+  }
+
+  &:hover {
+    backdrop-filter: var(--kul_upload_backdrop_filter_hover);
+    box-shadow: 0 5px 5px -3px rgba(var(--kul-text-color-rgb), 0.25),
+      0 8px 10px 1px rgba(var(--kul-text-color-rgb), 0.18),
+      0 3px 14px 2px rgba(var(--kul-text-color-rgb), 0.15);
+  }
+}
+
+.file-info {
+  background-color: rgba(var(--kul-background-color-rgb), 0.375);
+  border-radius: var(--kul_upload_border_radius);
+  max-height: 25vh;
+  overflow: auto;
+  transition: background-color 0.3s ease;
+
+  &__item {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__name,
+  &__size {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__name {
+    padding: 0 0.5em;
+  }
+
+  &__size {
+    min-width: max-content;
+  }
+
+  &__clear {
+    padding-left: 0.5em;
+  }
+}

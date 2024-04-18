@@ -89,7 +89,7 @@ export class KulCode {
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event, eventType: KulCodeEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulCodeEvents) {
         this.kulEvent.emit({
             comp: this,
             eventType,

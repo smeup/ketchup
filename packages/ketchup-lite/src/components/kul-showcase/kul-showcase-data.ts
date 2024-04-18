@@ -74,6 +74,12 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
             id: 'Spinner',
             value: 'Spinner',
         },
+        {
+            description: 'A simple component useful to upload files.',
+            icon: 'upload',
+            id: 'Upload',
+            value: 'Upload',
+        },
     ],
 };
 

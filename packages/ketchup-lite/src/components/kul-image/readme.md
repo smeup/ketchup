@@ -88,6 +88,7 @@ Type: `Promise<void>`
  - [kul-button](../kul-button)
  - [kul-card](../kul-card)
  - [kul-showcase-image](../kul-showcase/components/image)
+ - [kul-upload](../kul-upload)
 
 ### Depends on
 
@@ -103,6 +104,7 @@ graph TD;
   kul-button --> kul-image
   kul-card --> kul-image
   kul-showcase-image --> kul-image
+  kul-upload --> kul-image
   style kul-image fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

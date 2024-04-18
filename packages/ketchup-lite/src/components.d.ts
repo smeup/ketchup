@@ -14,6 +14,7 @@ import { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-d
 import { KulCardFamily } from "./components/kul-card/kul-card-declarations";
 import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 import { KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
+import { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
 export { KulArticleDataset } from "./components/kul-article/kul-article-declarations";
 export { GenericObject, KulEventPayload } from "./types/GenericTypes";
 export { KulDebugComponentInfo } from "./managers/kul-debug/kul-debug-declarations";
@@ -23,6 +24,7 @@ export { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-d
 export { KulCardFamily } from "./components/kul-card/kul-card-declarations";
 export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 export { KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
+export { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
 export namespace Components {
     interface KulArticle {
         /**
@@ -132,7 +134,7 @@ export namespace Components {
         "kulLabel": string;
         /**
           * When set to true, the pointerdown event will trigger a ripple effect.
-          * @default false
+          * @default true
          */
         "kulRipple": boolean;
         /**
@@ -390,6 +392,8 @@ export namespace Components {
     }
     interface KulShowcaseSplash {
     }
+    interface KulShowcaseUpload {
+    }
     interface KulSpinner {
         /**
           * Fetches debug information of the component's current state.
@@ -489,6 +493,52 @@ export namespace Components {
          */
         "unmount": (ms?: number) => Promise<void>;
     }
+    interface KulUpload {
+        /**
+          * Retrieves the debug information reflecting the current state of the component.
+          * @returns A promise that resolves to a KulDebugComponentInfo object containing debug information.
+         */
+        "getDebugInfo": () => Promise<KulDebugComponentInfo>;
+        /**
+          * Retrieves the properties of the component, with optional descriptions.
+          * @param descriptions - If true, returns properties with descriptions; otherwise, returns properties only.
+          * @returns A promise that resolves to an object where each key is a property name, optionally with its description.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Returns the component's internal value.
+         */
+        "getValue": () => Promise<File[]>;
+        /**
+          * Sets the button's label.
+          * @default "Upload files..."
+         */
+        "kulLabel": string;
+        /**
+          * When set to true, the pointerdown event will trigger a ripple effect.
+          * @default true
+         */
+        "kulRipple": boolean;
+        /**
+          * Enables customization of the component's style.
+          * @default "" - No custom style applied by default.
+         */
+        "kulStyle": string;
+        /**
+          * Initializes the component with these files.
+          * @default null
+         */
+        "kulValue": any;
+        /**
+          * Triggers a re-render of the component to reflect any state changes.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Assigns a set of properties to the component, triggering updates if necessary.
+          * @param props - An object containing properties to be set on the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
 }
 export interface KulArticleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -525,6 +575,10 @@ export interface KulSpinnerCustomEvent<T> extends CustomEvent<T> {
 export interface KulSplashCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulSplashElement;
+}
+export interface KulUploadCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKulUploadElement;
 }
 declare global {
     interface HTMLKulArticleElementEventMap {
@@ -712,6 +766,12 @@ declare global {
         prototype: HTMLKulShowcaseSplashElement;
         new (): HTMLKulShowcaseSplashElement;
     };
+    interface HTMLKulShowcaseUploadElement extends Components.KulShowcaseUpload, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseUploadElement: {
+        prototype: HTMLKulShowcaseUploadElement;
+        new (): HTMLKulShowcaseUploadElement;
+    };
     interface HTMLKulSpinnerElementEventMap {
         "kul-spinner-event": KulEventPayload;
     }
@@ -746,6 +806,23 @@ declare global {
         prototype: HTMLKulSplashElement;
         new (): HTMLKulSplashElement;
     };
+    interface HTMLKulUploadElementEventMap {
+        "kul-upload-event": KulUploadEventPayload;
+    }
+    interface HTMLKulUploadElement extends Components.KulUpload, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulUploadElementEventMap>(type: K, listener: (this: HTMLKulUploadElement, ev: KulUploadCustomEvent<HTMLKulUploadElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulUploadElementEventMap>(type: K, listener: (this: HTMLKulUploadElement, ev: KulUploadCustomEvent<HTMLKulUploadElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKulUploadElement: {
+        prototype: HTMLKulUploadElement;
+        new (): HTMLKulUploadElement;
+    };
     interface HTMLElementTagNameMap {
         "kul-article": HTMLKulArticleElement;
         "kul-badge": HTMLKulBadgeElement;
@@ -765,8 +842,10 @@ declare global {
         "kul-showcase-probe": HTMLKulShowcaseProbeElement;
         "kul-showcase-spinner": HTMLKulShowcaseSpinnerElement;
         "kul-showcase-splash": HTMLKulShowcaseSplashElement;
+        "kul-showcase-upload": HTMLKulShowcaseUploadElement;
         "kul-spinner": HTMLKulSpinnerElement;
         "kul-splash": HTMLKulSplashElement;
+        "kul-upload": HTMLKulUploadElement;
     }
 }
 declare namespace LocalJSX {
@@ -830,7 +909,7 @@ declare namespace LocalJSX {
         "kulLabel"?: string;
         /**
           * When set to true, the pointerdown event will trigger a ripple effect.
-          * @default false
+          * @default true
          */
         "kulRipple"?: boolean;
         /**
@@ -1008,6 +1087,8 @@ declare namespace LocalJSX {
     }
     interface KulShowcaseSplash {
     }
+    interface KulShowcaseUpload {
+    }
     interface KulSpinner {
         /**
           * Specifies if the spinner is animating.
@@ -1067,6 +1148,32 @@ declare namespace LocalJSX {
          */
         "onKul-splash-event"?: (event: KulSplashCustomEvent<KulEventPayload>) => void;
     }
+    interface KulUpload {
+        /**
+          * Sets the button's label.
+          * @default "Upload files..."
+         */
+        "kulLabel"?: string;
+        /**
+          * When set to true, the pointerdown event will trigger a ripple effect.
+          * @default true
+         */
+        "kulRipple"?: boolean;
+        /**
+          * Enables customization of the component's style.
+          * @default "" - No custom style applied by default.
+         */
+        "kulStyle"?: string;
+        /**
+          * Initializes the component with these files.
+          * @default null
+         */
+        "kulValue"?: any;
+        /**
+          * Describes event emitted.
+         */
+        "onKul-upload-event"?: (event: KulUploadCustomEvent<KulUploadEventPayload>) => void;
+    }
     interface IntrinsicElements {
         "kul-article": KulArticle;
         "kul-badge": KulBadge;
@@ -1086,8 +1193,10 @@ declare namespace LocalJSX {
         "kul-showcase-probe": KulShowcaseProbe;
         "kul-showcase-spinner": KulShowcaseSpinner;
         "kul-showcase-splash": KulShowcaseSplash;
+        "kul-showcase-upload": KulShowcaseUpload;
         "kul-spinner": KulSpinner;
         "kul-splash": KulSplash;
+        "kul-upload": KulUpload;
     }
 }
 export { LocalJSX as JSX };
@@ -1112,8 +1221,10 @@ declare module "@stencil/core" {
             "kul-showcase-probe": LocalJSX.KulShowcaseProbe & JSXBase.HTMLAttributes<HTMLKulShowcaseProbeElement>;
             "kul-showcase-spinner": LocalJSX.KulShowcaseSpinner & JSXBase.HTMLAttributes<HTMLKulShowcaseSpinnerElement>;
             "kul-showcase-splash": LocalJSX.KulShowcaseSplash & JSXBase.HTMLAttributes<HTMLKulShowcaseSplashElement>;
+            "kul-showcase-upload": LocalJSX.KulShowcaseUpload & JSXBase.HTMLAttributes<HTMLKulShowcaseUploadElement>;
             "kul-spinner": LocalJSX.KulSpinner & JSXBase.HTMLAttributes<HTMLKulSpinnerElement>;
             "kul-splash": LocalJSX.KulSplash & JSXBase.HTMLAttributes<HTMLKulSplashElement>;
+            "kul-upload": LocalJSX.KulUpload & JSXBase.HTMLAttributes<HTMLKulUploadElement>;
         }
     }
 }

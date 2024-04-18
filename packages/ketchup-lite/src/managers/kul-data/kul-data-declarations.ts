@@ -1,4 +1,5 @@
 import {
+    GenericObject,
     KulBadgePropsInterface,
     KulImagePropsInterface,
 } from '../../components';
@@ -9,6 +10,7 @@ export interface KulDataCell {
     value: unknown;
     relatedProp?: string;
     shape?: KulDataShapes;
+    shapeProps?: GenericObject;
 }
 
 export interface KulDataCellContainer {

@@ -84,7 +84,7 @@ export class KulButton {
     @Prop({ mutable: true, reflect: true }) kulLabel = '';
     /**
      * When set to true, the pointerdown event will trigger a ripple effect.
-     * @default false
+     * @default true
      */
     @Prop({ mutable: true, reflect: true }) kulRipple = true;
     /**
@@ -152,7 +152,7 @@ export class KulButton {
     })
     kulEvent: EventEmitter<KulButtonEventPayload>;
 
-    onKulEvent(e: Event, eventType: KulButtonEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulButtonEvents) {
         if (eventType === 'pointerdown') {
             if (this.kulRipple && this.kulStyling !== 'icon') {
                 this.#kulManager.theme.ripple.trigger(

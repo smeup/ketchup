@@ -107,7 +107,7 @@ export class KulSpinner {
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event, eventType: KulSpinnerEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulSpinnerEvents) {
         this.kulEvent.emit({
             comp: this,
             id: this.rootElement.id,

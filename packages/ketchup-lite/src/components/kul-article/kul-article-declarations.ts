@@ -11,7 +11,7 @@ export type KulArticleEvents = 'ready';
 
 export interface KulArticleNode extends KulDataNode {
     children?: KulArticleNode[];
-    tagName?: 'br' | 'p' | 'strong';
+    tagName?: 'br' | 'pre' | 'strong';
 }
 
 export enum KulArticleProps {

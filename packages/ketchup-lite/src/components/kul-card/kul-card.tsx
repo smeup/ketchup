@@ -122,7 +122,7 @@ export class KulCard {
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event, eventType: KulCardEvents): void {
+    onKulEvent(e: Event | CustomEvent, eventType: KulCardEvents): void {
         this.kulEvent.emit({
             comp: this,
             id: this.rootElement.id,
