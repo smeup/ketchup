@@ -17,6 +17,10 @@
 
 ## Dependencies
 
+### Used by
+
+ - [kul-showcase](../..)
+
 ### Depends on
 
 - [kul-upload](../../../kul-upload)
@@ -25,11 +29,13 @@
 ```mermaid
 graph TD;
   kul-showcase-upload --> kul-upload
+  kul-upload --> kul-image
   kul-upload --> kul-button
-  kul-button --> kul-image
   kul-image --> kul-spinner
   kul-image --> kul-badge
   kul-badge --> kul-image
+  kul-button --> kul-image
+  kul-showcase --> kul-showcase-upload
   style kul-showcase-upload fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
