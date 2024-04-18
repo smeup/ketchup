@@ -102,7 +102,7 @@ export class KulData {
             return shapes;
         },
         singleShape: (cell: KulDataCell) => {
-            const shapeProps = {};
+            const shapeProps = { ...cell.shapeProps };
             for (const prop in cell) {
                 if (prop === 'shape') {
                     continue;
