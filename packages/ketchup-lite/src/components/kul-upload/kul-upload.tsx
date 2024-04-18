@@ -57,6 +57,11 @@ export class KulUpload {
     /*-------------------------------------------------*/
 
     /**
+     * Sets the button's label.
+     * @default "Upload files..."
+     */
+    @Prop({ mutable: true, reflect: true }) kulLabel = 'Upload files...';
+    /**
      * When set to true, the pointerdown event will trigger a ripple effect.
      * @default true
      */
@@ -276,7 +281,7 @@ export class KulUpload {
                         >
                             <input
                                 class="file-upload__input"
-                                id="file-upload"
+                                id="upload-input"
                                 multiple
                                 onChange={() => this.#handleFileChange()}
                                 ref={(el) => {
@@ -286,14 +291,16 @@ export class KulUpload {
                             />
                             <label
                                 class="file-upload__label"
-                                htmlFor="file-upload"
+                                htmlFor="upload-input"
                                 ref={(el) => {
                                     if (this.kulRipple) {
                                         this.#rippleSurface = el;
                                     }
                                 }}
                             >
-                                <div>Upload File</div>
+                                <div class="file-upload__text">
+                                    {this.kulLabel}
+                                </div>
                             </label>
                         </div>
                         <div class="file-info">
