@@ -77,10 +77,10 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                      | Description               |
-| ------------------------- | ------------------------- |
-| `--kul-article-margin`    | Margin of the article.    |
-| `--kul-article-max-width` | Max width of the article. |
+| Name                      | Description                                                |
+| ------------------------- | ---------------------------------------------------------- |
+| `--kul-article-margin`    | Sets the margin of the article tag. Defaults to automatic. |
+| `--kul-article-max-width` | Sets the max-width of the article tag. Defaults to 1200px. |
 
 
 ## Dependencies
