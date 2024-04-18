@@ -7,11 +7,12 @@
 
 ## Properties
 
-| Property    | Attribute    | Description                                                           | Type      | Default |
-| ----------- | ------------ | --------------------------------------------------------------------- | --------- | ------- |
-| `kulRipple` | `kul-ripple` | When set to true, the pointerdown event will trigger a ripple effect. | `boolean` | `true`  |
-| `kulStyle`  | `kul-style`  | Enables customization of the component's style.                       | `string`  | `''`    |
-| `kulValue`  | `kul-value`  | Initializes the component with these files.                           | `any`     | `null`  |
+| Property    | Attribute    | Description                                                           | Type      | Default             |
+| ----------- | ------------ | --------------------------------------------------------------------- | --------- | ------------------- |
+| `kulLabel`  | `kul-label`  | Sets the button's label.                                              | `string`  | `'Upload files...'` |
+| `kulRipple` | `kul-ripple` | When set to true, the pointerdown event will trigger a ripple effect. | `boolean` | `true`              |
+| `kulStyle`  | `kul-style`  | Enables customization of the component's style.                       | `string`  | `''`                |
+| `kulValue`  | `kul-value`  | Initializes the component with these files.                           | `any`     | `null`              |
 
 
 ## Events
