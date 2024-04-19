@@ -109,6 +109,7 @@ describe('kul-article', () => {
             .find('#style')
             .shadow()
             .find('style')
-            .should('have.length.at.least', 2);
+            .eq(1)
+            .should('not.be.empty');
     });
 });

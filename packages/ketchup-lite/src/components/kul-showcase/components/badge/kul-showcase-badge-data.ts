@@ -1,15 +1,5 @@
-import { KulBadgePropsInterface } from '../../../kul-badge/kul-badge-declarations';
-import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { random2digitsNumber } from '../../kul-showcase-utils';
-
-interface BadgeExample extends KulBadgePropsInterface {
-    ['data-description']: string;
-    ['data-dynamic']?: KulShowcaseDynamicExampleType;
-}
-
-interface BadgeData {
-    [index: string]: Partial<BadgeExample>;
-}
+import { BadgeData } from './kul-showcase-badge-declarations';
 
 export const BADGE_EXAMPLES: BadgeData = {
     colors: {

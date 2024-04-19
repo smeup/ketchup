@@ -2,29 +2,20 @@ import { KUL_WRAPPER_ID } from '../../../src/variables/GenericVariables';
 import { KulBadgeProps } from '../../../src/components/kul-badge/kul-badge-declarations';
 import { DynamicExampleManager } from '../../../src/components/kul-showcase/kul-showcase-utils';
 import { KulImagePropsInterface } from '../../../src/components';
-
-const badgeExamples = [
-    'colors',
-    'empty',
-    'icon',
-    'image',
-    'label',
-    'position',
-    'style',
-];
+import { BADGE_EXAMPLES_KEYS } from './../../../src/components/kul-showcase/components/badge/kul-showcase-badge-declarations';
 
 describe('kul-badge', () => {
     beforeEach(() => {
         cy.navigate('badge');
     });
 
-    it('generic: should check that all badges exist', () => {
-        cy.wrap(badgeExamples).each((badgeId) => {
+    it('common: should check that all badges exist', () => {
+        cy.wrap(BADGE_EXAMPLES_KEYS).each((badgeId) => {
             cy.get(`#${badgeId}`).should('exist');
         });
     });
 
-    it('generic: should call getProps() and check keys against KulBadgeProps enum', () => {
+    it('common: should call getProps() and check keys against KulBadgeProps enum', () => {
         cy.get('kul-badge')
             .first()
             .then(($badge) => {
@@ -35,8 +26,8 @@ describe('kul-badge', () => {
             });
     });
 
-    it('generic: should check that the number of <kul-badge> elements matches the number of badgeExamples', () => {
-        cy.get('kul-badge').should('have.length', badgeExamples.length);
+    it('common: should check that the number of <kul-badge> elements matches the number of badgeExamples', () => {
+        cy.get('kul-badge').should('have.length', BADGE_EXAMPLES_KEYS.length);
     });
 
     it('#colors: should check that the <kul-badge> with status colors has a correct state class and the matching status color', () => {
@@ -158,6 +149,7 @@ describe('kul-badge', () => {
             .find('#style')
             .shadow()
             .find('style')
-            .should('have.length.at.least', 2);
+            .eq(1)
+            .should('not.be.empty');
     });
 });
