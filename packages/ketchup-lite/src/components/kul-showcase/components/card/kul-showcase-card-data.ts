@@ -16,29 +16,7 @@ interface CardData {
 export const CARD_EXAMPLES: CardData = {
     standard: {
         1: {
-            cardStyle: {
-                ['data-description']: 'Card with custom style',
-                ['data-dynamic']: 'custom',
-                kulSizeX: '320px',
-                kulSizeY: '320px',
-                kulData: {
-                    nodes: [
-                        {
-                            cells: {
-                                1: { value: 'Title' },
-                                2: { value: 'Subtitle' },
-                                3: { value: 'Description' },
-                                4: {
-                                    shape: 'image',
-                                    value: 'widgets',
-                                },
-                            },
-                            id: '1',
-                        },
-                    ],
-                },
-            },
-            cardImage: {
+            image: {
                 ['data-description']: 'Card with custom style',
                 kulSizeX: '320px',
                 kulSizeY: '320px',
@@ -54,6 +32,28 @@ export const CARD_EXAMPLES: CardData = {
                                     value: getAssetPath(
                                         `./assets/media/morana.png`
                                     ),
+                                },
+                            },
+                            id: '1',
+                        },
+                    ],
+                },
+            },
+            style: {
+                ['data-description']: 'Card with custom style',
+                ['data-dynamic']: 'custom',
+                kulSizeX: '320px',
+                kulSizeY: '320px',
+                kulData: {
+                    nodes: [
+                        {
+                            cells: {
+                                1: { value: 'Title' },
+                                2: { value: 'Subtitle' },
+                                3: { value: 'Description' },
+                                4: {
+                                    shape: 'image',
+                                    value: 'widgets',
                                 },
                             },
                             id: '1',

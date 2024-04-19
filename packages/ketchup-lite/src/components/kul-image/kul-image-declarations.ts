@@ -4,7 +4,7 @@ export type KulImageEvents = 'click' | 'load' | 'ready';
 
 export enum KulImageProps {
     kulBadgeProps = 'Sets the props to show a badge.',
-    kulColor = 'The color of the icon, defaults to the CSS variable --kup-icon-color.',
+    kulColor = 'The color of the icon, defaults to the CSS variable --kul-icon-color.',
     kulShowSpinner = 'When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.',
     kulSizeX = 'The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
     kulSizeY = 'The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',

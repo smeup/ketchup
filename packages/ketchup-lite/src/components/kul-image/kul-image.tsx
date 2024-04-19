@@ -181,7 +181,7 @@ export class KulImage {
 
         if (this.kulValue.indexOf(CSS_VAR_PREFIX) > -1) {
             let themeIcon = this.kulValue.replace('--', '');
-            classObj['kup-icon'] = true;
+            classObj['kul-icon'] = true;
             classObj[themeIcon] = true;
         } else {
             const path = getAssetPath(`./assets/svg/${this.kulValue}.svg`);
@@ -244,20 +244,20 @@ export class KulImage {
         const isUrl = this.isResourceUrl();
         let spinnerLayout: number;
         let style: {
-            '--kup_image_height': string;
-            '--kup_image_width': string;
+            '--kul_image_height': string;
+            '--kul_image_width': string;
         };
 
         if (isUrl) {
             style = {
-                '--kup_image_height': this.kulSizeY ? this.kulSizeY : 'auto',
-                '--kup_image_width': this.kulSizeX ? this.kulSizeX : '100%',
+                '--kul_image_height': this.kulSizeY ? this.kulSizeY : 'auto',
+                '--kul_image_width': this.kulSizeX ? this.kulSizeX : '100%',
             };
             el = this.createImage();
         } else {
             style = {
-                '--kup_image_height': this.kulSizeY ? this.kulSizeY : '100%',
-                '--kup_image_width': this.kulSizeX ? this.kulSizeX : '100%',
+                '--kul_image_height': this.kulSizeY ? this.kulSizeY : '100%',
+                '--kul_image_width': this.kulSizeX ? this.kulSizeX : '100%',
             };
             el = this.createIcon();
         }

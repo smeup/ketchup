@@ -149,12 +149,6 @@ p {
     padding: 20px 72px;
   }
 
-  .flex-wrapper {
-    kul-card:first-child {
-      padding: 0;
-    }
-  }
-
   .section {
     border: 2px solid var(--kul-primary-color);
     border-radius: 5px;
@@ -162,6 +156,7 @@ p {
 
   kul-card {
     margin: 20px 0;
+    padding: 24px;
   }
 }
 

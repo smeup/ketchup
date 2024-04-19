@@ -2,7 +2,7 @@ import { KulShowcaseDynamicExampleType } from './kul-showcase-declarations';
 
 export class DynamicExampleManager {
     #componentsIds: { [index: string]: number } = {};
-    #styles = {
+    styles = {
         custom: [
             '#kul-component { background-color: var(--kul-secondary-color)} ',
             '#kul-component { color: var(--kul-primary-color);} ',
@@ -14,7 +14,7 @@ export class DynamicExampleManager {
         ],
         ['state-colors']: [
             '',
-            'kul-secondary-color',
+            'kul-secondary',
             'kul-info',
             'kul-success',
             'kul-warning',
@@ -27,10 +27,10 @@ export class DynamicExampleManager {
         if (this.#componentsIds[id] === undefined) {
             this.#componentsIds[id] = 0;
         }
-        if (++this.#componentsIds[id] === this.#styles[type].length) {
+        if (++this.#componentsIds[id] === this.styles[type].length) {
             this.#componentsIds[id] = 0;
         }
-        return this.#styles[type][this.#componentsIds[id]];
+        return this.styles[type][this.#componentsIds[id]];
     }
 
     custom = {

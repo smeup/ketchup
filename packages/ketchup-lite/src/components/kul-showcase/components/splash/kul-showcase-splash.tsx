@@ -1,5 +1,6 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { SPLASH_EXAMPLES } from './kul-showcase-splash-data';
+import { SplashExample } from './kul-showcase-splash-declarations';
 
 @Component({
     tag: 'kul-showcase-splash',
@@ -20,7 +21,7 @@ export class KulShowcaseSplash {
         const elements: VNode[] = [];
         for (const key in SPLASH_EXAMPLES) {
             if (Object.prototype.hasOwnProperty.call(SPLASH_EXAMPLES, key)) {
-                const props = SPLASH_EXAMPLES[key];
+                const props = SPLASH_EXAMPLES[key] as SplashExample;
                 elements.push(
                     <div class="example" part="example">
                         <div class="description" part="description">
@@ -28,16 +29,22 @@ export class KulShowcaseSplash {
                         </div>
                         <div class="comp-wrapper" part="comp-wrapper">
                             <kul-button
+                                id={key + '-trigger'}
                                 kulLabel="Splash!"
                                 onClick={() => {
                                     const splash =
                                         document.createElement('kul-splash');
-                                    splash.kulLabel = 'Click to close...';
+                                    splash.id = key;
+                                    splash.kulLabel =
+                                        props.kulLabel || 'Click to close...';
+                                    splash.kulStyle =
+                                        props.kulStyle || 'Click to close...';
                                     splash.addEventListener('click', () => {
                                         splash.remove();
                                     });
                                     const spinner =
                                         document.createElement('kul-spinner');
+
                                     spinner.kulActive = true;
                                     spinner.kulDimensions = '7px';
                                     spinner.kulLayout = 7;

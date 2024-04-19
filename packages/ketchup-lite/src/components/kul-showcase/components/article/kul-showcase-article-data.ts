@@ -1,18 +1,6 @@
 import { getAssetPath } from '@stencil/core';
-import {
-    KulArticleDataset,
-    KulArticlePropsInterface,
-} from '../../../kul-article/kul-article-declarations';
-import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
-
-interface ArticleExample extends KulArticlePropsInterface {
-    ['data-description']: string;
-    ['data-dynamic']?: KulShowcaseDynamicExampleType;
-}
-
-interface ArticleData {
-    [index: string]: Partial<ArticleExample>;
-}
+import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
+import { ArticleData } from './kul-showcase-article-declarations';
 
 const kulData: KulArticleDataset = {
     nodes: [
@@ -165,11 +153,11 @@ const kulData: KulArticleDataset = {
 };
 
 export const ARTICLE_EXAMPLES: ArticleData = {
-    articleSimple: {
+    simple: {
         ['data-description']: 'Simple article',
         kulData,
     },
-    articleStyle: {
+    style: {
         ['data-description']: 'Article with custom style',
         'data-dynamic': 'custom',
         kulData,

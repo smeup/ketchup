@@ -44,8 +44,8 @@ export class KulShowcaseButton {
                                 </div>
                                 <div class="comp-wrapper" part="comp-wrapper">
                                     <kul-button
-                                        key={k2}
-                                        id={k2}
+                                        key={k1 + '-' + k2}
+                                        id={k1 + '-' + k2}
                                         ref={(el) => {
                                             if (props['data-dynamic']) {
                                                 this.#dynamicExamples.push(el);

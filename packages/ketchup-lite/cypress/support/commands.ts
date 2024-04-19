@@ -1,48 +1,15 @@
 /// <reference types="cypress" />
 
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
-// cypress/support/commands.js or cypress/support/commands.ts
-
+import {
+    KulDom,
+    KulManager,
+} from '../../src/managers/kul-manager/kul-manager-declarations';
 export {};
 
 declare global {
     namespace Cypress {
         interface Chainable {
+            getKulManager(): Chainable<KulManager>;
             navigate(component: string): Chainable;
         }
     }
@@ -64,5 +31,12 @@ Cypress.Commands.add('navigate', (component) => {
         .shadow()
         .find('kul-showcase-' + component)
         .should('exist')
-        .as('kulArticleShowcase');
+        .as('kulComponentShowcase');
+});
+
+Cypress.Commands.add('getKulManager', () => {
+    cy.window().then((win) => {
+        const dom = win.document.documentElement as KulDom;
+        return dom.ketchupLite;
+    });
 });
