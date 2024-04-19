@@ -12,34 +12,34 @@ interface BadgeData {
 }
 
 export const BADGE_EXAMPLES: BadgeData = {
-    badgeColors: {
+    colors: {
         ['data-description']: 'Badge states colors',
         ['data-dynamic']: 'state-colors',
     },
-    badgeEmpty: {
+    empty: {
         ['data-description']: 'Empty badge',
     },
-    badgeIcon: {
+    icon: {
         ['data-description']: 'Badge with icon',
         kulImageProps: {
             kulValue: 'notifications',
         },
     },
-    badgeImage: {
+    image: {
         ['data-description']: 'Badge with image',
         kulImageProps: {
             kulValue: 'https://avatars.githubusercontent.com/u/45429703?v=4',
         },
     },
-    badgeLabel: {
+    label: {
         ['data-description']: 'Badge with text',
         kulLabel: random2digitsNumber().toString(),
     },
-    badgePosition: {
+    position: {
         ['data-description']: 'Badge positions',
         ['data-dynamic']: 'positions',
     },
-    badgeStyle: {
+    style: {
         ['data-description']: 'Badge with custom style',
         ['data-dynamic']: 'custom',
     },

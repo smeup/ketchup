@@ -20,6 +20,6 @@ export enum KulArticleProps {
 }
 
 export interface KulArticlePropsInterface {
-    kulData: KulArticleDataset;
-    kulStyle: string;
+    kulData?: KulArticleDataset;
+    kulStyle?: string;
 }
