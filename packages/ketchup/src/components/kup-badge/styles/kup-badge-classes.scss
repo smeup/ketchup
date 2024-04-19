@@ -26,28 +26,22 @@
   transform: translate(15%, -15%);
 }
 
-:host(.#{$kup-class-red}) {
-  --kup-badge-primary-color: var(--kup-accent-red-color);
-  --kup-badge-text-on-primary-color: white;
+#kup-component.error {
+  background-color: var(--kup-error-color-20);
+  color: var(--kup-error-color-70);
 }
 
-:host(.#{$kup-class-orange}) {
-  --kup-badge-primary-color: var(--kup-accent-orange-color);
-  --kup-badge-text-on-primary-color: white;
+#kup-component.info {
+  background-color: var(--kup-info-color-20);
+  color: var(--kup-info-color-70);
 }
 
-:host(.#{$kup-class-yellow}) {
-  --kup-badge-primary-color: var(--kup-accent-yellow-color);
-  --kup-badge-text-on-primary-color: white;
+#kup-component.success {
+  background-color: var(--kup-success-color-20);
+  color: var(--kup-success-color-70);
 }
 
-:host(.#{$kup-class-green}) {
-  --kup-badge-primary-color: var(--kup-accent-green-color);
-  --kup-badge-text-on-primary-color: white;
-}
-
-:host(.#{$kup-class-white}) {
-  --kup-badge-primary-color: var(--kup-accent-white-color);
-  --kup-badge-text-on-primary-color: var(--kup-primary-color-80);
-  --kup_badge_border: 1px solid var(--kup-border-color);
+#kup-component.warning {
+  background-color: var(--kup-warning-color-20);
+  color: var(--kup-warning-color-70);
 }

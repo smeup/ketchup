@@ -7,3 +7,10 @@ export enum KupBadgeProps {
     imageData = 'The data of the image displayed inside the badge.Props of the sub-components.',
     text = 'The text displayed inside the badge.Defaults at false. When set to true, the component is disabled.',
 }
+
+export enum BadgeType {
+    SUCCESS = 'success',
+    INFO = 'info',
+    ERROR = 'error',
+    WARNING = 'warning',
+}
