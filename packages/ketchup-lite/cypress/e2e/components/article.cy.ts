@@ -9,21 +9,23 @@ describe('kul-article', () => {
         cy.navigate('article');
     });
 
-    it('common: should check that all articles exist', () => {
-        cy.wrap(ARTICLE_EXAMPLES_KEYS).each((articleId) => {
-            cy.get(`#${articleId}`).should('exist');
-        });
+    it('common: should check that all <kul-article> exist', () => {
+        cy.get('@kulComponentShowcase')
+            .wrap(ARTICLE_EXAMPLES_KEYS)
+            .each((articleId) => {
+                cy.get(`#${articleId}`).should('exist');
+            });
     });
 
     it('common: should check that the number of <kul-article> elements matches the number of examples', () => {
-        cy.get('kul-article').should(
-            'have.length',
-            ARTICLE_EXAMPLES_KEYS.length
-        );
+        cy.get('@kulComponentShowcase')
+            .find('kul-article')
+            .should('have.length', ARTICLE_EXAMPLES_KEYS.length);
     });
 
     it('common: should call getProps and check keys against KulArticleProps enum', () => {
-        cy.get('kul-article')
+        cy.get('@kulComponentShowcase')
+            .find('kul-article')
             .first()
             .then(($article) => {
                 $article[0].getProps().then((props) => {
@@ -34,27 +36,28 @@ describe('kul-article', () => {
     });
 
     it('#simple: should check for the presence of a <h1> tag inside <article> if the first node has a truthy value', () => {
-        cy.get('kul-article#simple').then(($article) => {
-            const kulArticleElement = $article[0] as HTMLKulArticleElement;
-            const firstNodeValue = kulArticleElement.kulData.nodes[0];
-            if (firstNodeValue) {
-                cy.wrap($article)
-                    .shadow()
-                    .find('article')
-                    .find('h1')
-                    .should('exist');
-            } else {
-                cy.log(
-                    'First node value is falsy, skipping <h1> tag presence check'
-                );
-            }
-        });
+        cy.get('@kulComponentShowcase')
+            .find('kul-article#simple')
+            .then(($article) => {
+                const kulArticleElement = $article[0] as HTMLKulArticleElement;
+                const firstNodeValue = kulArticleElement.kulData.nodes[0];
+                if (firstNodeValue) {
+                    cy.wrap($article)
+                        .shadow()
+                        .find('article')
+                        .find('h1')
+                        .should('exist');
+                } else {
+                    cy.log(
+                        'First node value is falsy, skipping <h1> tag presence check'
+                    );
+                }
+            });
     });
 
     it('#simple: should check whether all <kul-article> elements in the page have a number of <section> elements equal to the number of children of the first node of the kulData property and their content matches', () => {
-        cy.get('@kulArticleShowcase')
-            .shadow()
-            .get('kul-article#simple')
+        cy.get('@kulComponentShowcase')
+            .find('kul-article#simple')
             .invoke('prop', 'kulData')
             .then((kulData) => {
                 const expectedSectionCount = kulData.nodes[0].children.length;
@@ -80,9 +83,8 @@ describe('kul-article', () => {
     });
 
     it('#simple: should check the presence of shapes', () => {
-        cy.get('@kulArticleShowcase')
-            .shadow()
-            .get('kul-article#simple')
+        cy.get('@kulComponentShowcase')
+            .find('kul-article#simple')
             .invoke('prop', 'kulData')
             .then((kulData: KulArticleDataset) => {
                 const firstNodeChildren = kulData.nodes[0].children;
@@ -104,8 +106,7 @@ describe('kul-article', () => {
     });
 
     it('#style: should check for the presence of at least 2 <style> elements within the shadow DOM', () => {
-        cy.get('@kulArticleShowcase')
-            .shadow()
+        cy.get('@kulComponentShowcase')
             .find('#style')
             .shadow()
             .find('style')

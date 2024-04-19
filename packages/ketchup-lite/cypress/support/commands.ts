@@ -31,7 +31,7 @@ Cypress.Commands.add('navigate', (component) => {
         .shadow()
         .find('kul-showcase-' + component)
         .should('exist')
-        .as('kulArticleShowcase');
+        .as('kulComponentShowcase');
 });
 
 Cypress.Commands.add('getKulManager', () => {

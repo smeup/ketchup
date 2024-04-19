@@ -1,20 +1,10 @@
-import { KulUploadPropsInterface } from '../../../kul-upload/kul-upload-declarations';
-import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
-
-interface UploadExample extends KulUploadPropsInterface {
-    ['data-description']: string;
-    ['data-dynamic']?: KulShowcaseDynamicExampleType;
-}
-
-interface UploadData {
-    [index: string]: Partial<UploadExample>;
-}
+import { UploadData } from './kul-showcase-upload-declarations';
 
 export const UPLOAD_EXAMPLES: UploadData = {
-    uploadSimple: {
+    simple: {
         ['data-description']: 'Simple upload component',
     },
-    uploadStyle: {
+    style: {
         ['data-description']: 'Upload component with custom style',
         ['data-dynamic']: 'custom',
     },

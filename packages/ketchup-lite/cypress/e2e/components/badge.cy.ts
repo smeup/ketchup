@@ -9,14 +9,17 @@ describe('kul-badge', () => {
         cy.navigate('badge');
     });
 
-    it('common: should check that all badges exist', () => {
-        cy.wrap(BADGE_EXAMPLES_KEYS).each((badgeId) => {
-            cy.get(`#${badgeId}`).should('exist');
-        });
+    it('common: should check that all <kul-badge> exist', () => {
+        cy.get('@kulComponentShowcase')
+            .wrap(BADGE_EXAMPLES_KEYS)
+            .each((badgeId) => {
+                cy.get(`#${badgeId}`).should('exist');
+            });
     });
 
     it('common: should call getProps() and check keys against KulBadgeProps enum', () => {
-        cy.get('kul-badge')
+        cy.get('@kulComponentShowcase')
+            .find('kul-badge')
             .first()
             .then(($badge) => {
                 $badge[0].getProps().then((props) => {
@@ -26,12 +29,15 @@ describe('kul-badge', () => {
             });
     });
 
-    it('common: should check that the number of <kul-badge> elements matches the number of badgeExamples', () => {
-        cy.get('kul-badge').should('have.length', BADGE_EXAMPLES_KEYS.length);
+    it('common: should check that the number of <kul-badge> elements matches the number of BADGE_EXAMPLES', () => {
+        cy.get('@kulComponentShowcase')
+            .find('kul-badge')
+            .should('have.length', BADGE_EXAMPLES_KEYS.length);
     });
 
     it('#colors: should check that the <kul-badge> with status colors has a correct state class and the matching status color', () => {
-        cy.get('kul-badge#colors')
+        cy.get('@kulComponentShowcase')
+            .find('kul-badge#colors')
             .wait(Math.floor(Math.random() * (2500 - 500 + 1) + 750)) // Every 500ms the class changes randomically through DynamicExampleManager
             .then(($badge) => {
                 const prefix = 'hydrated ';
@@ -65,17 +71,20 @@ describe('kul-badge', () => {
     });
 
     it('#empty: should check that the #kul-component inside the empty <kul-badge> is actually empty', () => {
-        cy.get('kul-badge#empty')
+        cy.get('@kulComponentShowcase')
+            .find('kul-badge#empty')
             .shadow()
             .find('#kul-component')
             .should('be.empty');
     });
 
     it('#icon: should check for the presence of the correct <kul-image> as an icon inside <kul-badge>', () => {
-        cy.get('kul-badge#icon')
+        cy.get('@kulComponentShowcase')
+            .find('kul-badge#icon')
             .invoke('prop', 'kulImageProps')
             .then((kulImageProps: KulImagePropsInterface) => {
-                cy.get('kul-badge#icon')
+                cy.get('@kulComponentShowcase')
+                    .get('kul-badge#icon')
                     .shadow()
                     .find('kul-image')
                     .should('have.prop', 'kulValue', kulImageProps.kulValue)
@@ -86,10 +95,12 @@ describe('kul-badge', () => {
     });
 
     it('#image: should check for the presence of the correct <kul-image> as an image inside <kul-badge>', () => {
-        cy.get('kul-badge#image')
+        cy.get('@kulComponentShowcase')
+            .find('kul-badge#image')
             .invoke('prop', 'kulImageProps')
             .then((kulImageProps: KulImagePropsInterface) => {
-                cy.get('kul-badge#image')
+                cy.get('@kulComponentShowcase')
+                    .find('kul-badge#image')
                     .shadow()
                     .find('kul-image')
                     .should('have.prop', 'kulValue', kulImageProps.kulValue)
@@ -100,14 +111,16 @@ describe('kul-badge', () => {
     });
 
     it('#label: should check that the #kul-component inside the <kul-badge> is not empty', () => {
-        cy.get('kul-badge#label')
+        cy.get('@kulComponentShowcase')
+            .find('kul-badge#label')
             .shadow()
             .find('#kul-component')
             .should('not.be.empty');
     });
 
     it('#position: should check that the <kul-badge> with status colors has a correct state class and the matching status color', () => {
-        cy.get('kul-badge#position')
+        cy.get('@kulComponentShowcase')
+            .find('kul-badge#position')
             .wait(Math.floor(Math.random() * (2500 - 500 + 1) + 750)) // Every 500ms the class changes randomically through DynamicExampleManager
             .then(($badge) => {
                 const prefix = 'hydrated ';
@@ -144,8 +157,7 @@ describe('kul-badge', () => {
     });
 
     it('#style: should check for the presence of at least 2 <style> elements within the shadow DOM', () => {
-        cy.get('@kulArticleShowcase')
-            .shadow()
+        cy.get('@kulComponentShowcase')
             .find('#style')
             .shadow()
             .find('style')

@@ -1,22 +1,4 @@
-import { KulSpinnerPropsInterface } from '../../../kul-spinner/kul-spinner-declarations';
-import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
-
-interface SpinnerExample extends KulSpinnerPropsInterface {
-    ['data-description']: string;
-    ['data-dynamic']?: KulShowcaseDynamicExampleType;
-}
-
-interface SpinnerData {
-    [index: string]: SpinnerBranch;
-}
-
-interface SpinnerBranch {
-    [index: number]: SpinnerLeaf;
-}
-
-interface SpinnerLeaf {
-    [index: string]: Partial<SpinnerExample>;
-}
+import { SpinnerData } from './kul-showcase-spinner-declarations';
 
 function createSpinnerData(
     barLayouts: number,
