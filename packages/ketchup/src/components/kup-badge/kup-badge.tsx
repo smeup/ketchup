@@ -22,7 +22,7 @@ import {
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupBadgeProps } from './kup-badge-declarations';
+import { BadgeType, KupBadgeProps } from './kup-badge-declarations';
 
 @Component({
     tag: 'kup-badge',
@@ -50,6 +50,11 @@ export class KupBadge {
      * @default null
      */
     @Prop() imageData: GenericObject = null;
+    /**
+     * The gravity of the badge.
+     * @default BadgeType.INFO
+     */
+    @Prop() type: BadgeType = BadgeType.INFO;
     /**
      * The text displayed inside the badge.
      * @default null
@@ -156,7 +161,11 @@ export class KupBadge {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId} onClick={() => this.onKupClick()}>
+                <div
+                    id={componentWrapperId}
+                    class={this.type}
+                    onClick={() => this.onKupClick()}
+                >
                     {this.text}
                     {imageEl}
                 </div>
