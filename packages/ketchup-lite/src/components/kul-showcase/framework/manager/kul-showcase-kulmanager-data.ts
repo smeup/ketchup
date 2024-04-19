@@ -123,7 +123,7 @@ export const MANAGER_DATA: KulArticleDataset = {
                                 },
                                 {
                                     id: '2.2.2',
-                                    value: ':  when true, the library automatically sets KupLanguage and KupMath locales to KupDates.',
+                                    value: ':  when true, the library automatically sets KulLanguage and KulMath locales to KulDates.',
                                 },
                             ],
                             id: '2.2',
@@ -142,7 +142,7 @@ export const MANAGER_DATA: KulArticleDataset = {
                                 },
                                 {
                                     id: '2.3.3',
-                                    value: ': sets the locale of the library (used by components such as kup-date-picker).',
+                                    value: ': sets the locale of the library (used by components such as kul-date-picker).',
                                 },
                             ],
                             id: '2.3',

@@ -1,12 +1,12 @@
 :host {
   display: block;
-  height: var(--kup_image_height, 100%);
+  height: var(--kul_image_height, 100%);
   margin: auto;
-  min-height: var(--kup_image_height, 100%);
-  min-width: var(--kup_image_width, 100%);
+  min-height: var(--kul_image_height, 100%);
+  min-width: var(--kul_image_width, 100%);
   position: relative;
   transition: color 0.2s ease;
-  width: var(--kup_image_width, 100%);
+  width: var(--kul_image_width, 100%);
 }
 
 #kul-component {
@@ -19,23 +19,23 @@
 
 .image {
   display: block;
-  height: var(--kup_image_height, 100%);
+  height: var(--kul_image_height, 100%);
   margin: auto;
   position: relative;
-  width: var(--kup_image_width, 100%);
+  width: var(--kul_image_width, 100%);
 
   &__icon {
-    height: var(--kup_image_height, 100%);
+    height: var(--kul_image_height, 100%);
     margin: auto;
-    width: var(--kup_image_width, 100%);
+    width: var(--kul_image_width, 100%);
   }
 }
 
 img {
   display: block;
-  height: var(--kup_image_height, 100%);
+  height: var(--kul_image_height, 100%);
   margin: auto;
-  width: var(--kup_image_width, 100%);
+  width: var(--kul_image_width, 100%);
 }
 
 .spinner {
