@@ -14,7 +14,7 @@ export class DynamicExampleManager {
         ],
         ['state-colors']: [
             '',
-            'kul-secondary-color',
+            'kul-secondary',
             'kul-info',
             'kul-success',
             'kul-warning',
