@@ -1,19 +1,37 @@
 :host {
   /**
+   * @prop --kul-article-h3-color: Sets the color for <h3> elements.
+   * Defaults to var(--kul-text-color)
+   */
+  --kul_article_h3_color: var(--kul-article-h3-color, var(--kul-text-color));
+  /**
+   * @prop --kul-article-h3-font-family: Sets the font family for <h3> elements.
+   * Defaults to var(--kul-font-family)
+   */
+  --kul_article_h3_font_family: var(
+    --kul-article-h3-font-family,
+    var(--kul-font-family)
+  );
+  /**
+   * @prop --kul-article-h3-font-size: Sets the font size for <h3> elements.
+   * Defaults to 1.5em
+   */
+  --kul_article_h3_font_size: var(--kul-article-h3-font-size, 1.5em);
+  /**
    * @prop --kul-article-margin: Sets the margin of the article tag.
    * Defaults to automatic.
    */
-  --kul_article_margin: var(--kul-article-max-width, auto);
-  /**
-   * @prop --kul-article-margin: Sets the padding of the article tag.
-   * Defaults to 40px vertically.
-   */
-  --kul_article_padding: var(--kul-article-max-width, 40px 0);
+  --kul_article_margin: var(--kul-article-margin, auto);
   /**
    * @prop --kul-article-max-width: Sets the max-width of the article tag.
    * Defaults to 1200px.
    */
   --kul_article_max_width: var(--kul-article-max-width, 1200px);
+  /**
+   * @prop --kul-article-padding: Sets the padding of the article tag.
+   * Defaults to 40px vertically.
+   */
+  --kul_article_padding: var(--kul-article-padding, 40px 0);
 
   backdrop-filter: blur(8px);
   background-color: rgba(var(--kul-background-color-rgb), 0.375);
@@ -50,7 +68,9 @@ h2 {
 }
 
 h3 {
-  font-size: 1.5em;
+  color: var(--kul_article_h3_color);
+  font-family: var(--kul_article_h3_font_family);
+  font-size: var(--kul_article_h3_font_size);
   font-weight: 300;
   line-height: 1.2;
   margin: 0.5em 0;

@@ -1,5 +1,13 @@
 import { KulDataDataset } from '../../components';
 
+export const DOC_STYLES = {
+    monoPrimaryH3: {
+        ['--kul_article_h3_color']: 'var(--kul-primary-color)',
+        ['--kul_article_h3_font_family']: 'var(--kul-font-family-monospace)',
+        ['--kul_article_h3_font_size']: 'var(--kul-font-size)',
+    },
+};
+
 export const KUL_SHOWCASE_UTILITIES: KulDataDataset = {
     nodes: [
         {

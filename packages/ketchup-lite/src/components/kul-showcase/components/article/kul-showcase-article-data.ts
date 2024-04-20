@@ -1,6 +1,7 @@
 import { getAssetPath } from '@stencil/core';
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
 import { ArticleData } from './kul-showcase-article-declarations';
+import { DOC_STYLES } from '../../kul-showcase-data';
 
 const kulData: KulArticleDataset = {
     nodes: [
@@ -303,6 +304,9 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                             cells: {
                                                 code: {
                                                     shape: 'code',
+                                                    shapeProps: {
+                                                        kulLanguage: 'markup',
+                                                    },
                                                     value: '<kul-article></kul-article>',
                                                 },
                                             },
@@ -313,7 +317,10 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                             cells: {
                                                 code: {
                                                     shape: 'code',
-                                                    value: '{"nodes": [{"value": "Article Title", "children": [{"value": "Section Title", "children": [{"value": "Paragraph title"}]}]}]}',
+                                                    shapeProps: {
+                                                        kulLanguage: 'json',
+                                                    },
+                                                    value: '{ "nodes": [{"value": "Article Title", "id": "0", "children": [{"value": "Section Title", "id": "0.1", "children": [{"value": "Paragraph title", "id": "0.1.1", "children": [{"value": "Text", "id": "0.1.1.1"}, {"value": "Strong text", "id": "0.1.1.2", "tagName": "strong"}]}]}]}]}',
                                                 },
                                             },
                                             id: '0.3.1.2.2',
@@ -352,6 +359,9 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                             cells: {
                                                 code: {
                                                     shape: 'code',
+                                                    shapeProps: {
+                                                        kulLanguage: 'markup',
+                                                    },
                                                     value: '<kul-article kul-style="#kul-component article { max-height: 20vh; }"></kul-article>',
                                                 },
                                             },
@@ -398,7 +408,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                         },
                                         {
                                             id: '0.4.1.2.3',
-                                            value: 'interface, which includes a ',
+                                            value: ' interface, which includes a ',
                                         },
                                         {
                                             id: '0.4.1.2.4',
@@ -414,6 +424,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                     value: '',
                                 },
                             ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.4.1',
                             value: 'kulData',
                         },
@@ -442,6 +453,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                     value: '',
                                 },
                             ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.4.2',
                             value: 'kulStyle',
                         },
@@ -466,6 +478,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                     value: ', which includes information about the component and the event type.',
                                 },
                             ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.5.1',
                             tagName: 'strong',
                             value: 'kul-article-event',
@@ -492,6 +505,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                     value: " object containing debug information about the component's rendering process.",
                                 },
                             ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.6.1',
                             tagName: 'strong',
                             value: 'getDebugInfo()',
@@ -503,6 +517,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                     value: 'Returns a promise that resolves to an object where each key is a property name, optionally with its description.',
                                 },
                             ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.6.2',
                             tagName: 'strong',
                             value: 'getProps(descriptions?: boolean)',
@@ -514,6 +529,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                     value: 'Triggers a re-render of the component to reflect any state changes.',
                                 },
                             ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.6.3',
                             tagName: 'strong',
                             value: 'refresh()',
@@ -525,6 +541,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                     value: 'Assigns a set of properties to the component, triggering updates if necessary.',
                                 },
                             ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.6.4',
                             tagName: 'strong',
                             value: 'setProps(props: GenericObject)',
@@ -636,7 +653,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                 },
             ],
             id: '0',
-            value: 'KulArticle Component Documentation',
+            value: 'KulArticle',
         },
     ],
 };
