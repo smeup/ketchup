@@ -138,7 +138,9 @@ export class KulCode {
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
+
     #el: HTMLPreElement;
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -162,6 +164,11 @@ export class KulCode {
     }
 
     render() {
+        const isJson = this.kulLanguage.toLowerCase() === 'json';
+        const language = isJson ? 'javascript' : this.kulLanguage;
+        const value = isJson
+            ? JSON.stringify(JSON.parse(this.kulValue), null, 2)
+            : this.kulValue;
         return (
             <Host>
                 <style>{this.#kulManager.theme.setKulStyle(this)}</style>
@@ -189,12 +196,12 @@ export class KulCode {
                         </div>
                     }
                     <pre
-                        class={'language-' + this.kulLanguage}
+                        class={'language-' + language}
                         ref={(el) => {
                             this.#el = el;
                         }}
                     >
-                        <code>{this.kulValue}</code>
+                        <code>{value}</code>
                     </pre>
                 </div>
             </Host>
