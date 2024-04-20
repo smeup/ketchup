@@ -77,10 +77,14 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                      | Description                                                |
-| ------------------------- | ---------------------------------------------------------- |
-| `--kul-article-margin`    | Sets the margin of the article tag. Defaults to automatic. |
-| `--kul-article-max-width` | Sets the max-width of the article tag. Defaults to 1200px. |
+| Name                           | Description                                                                |
+| ------------------------------ | -------------------------------------------------------------------------- |
+| `--kul-article-h3-color`       | Sets the color for <h3> elements. Defaults to var(--kul-text-color)        |
+| `--kul-article-h3-font-family` | Sets the font family for <h3> elements. Defaults to var(--kul-font-family) |
+| `--kul-article-h3-font-size`   | Sets the font size for <h3> elements. Defaults to 1.5em                    |
+| `--kul-article-margin`         | Sets the margin of the article tag. Defaults to automatic.                 |
+| `--kul-article-max-width`      | Sets the max-width of the article tag. Defaults to 1200px.                 |
+| `--kul-article-padding`        | Sets the padding of the article tag. Defaults to 40px vertically.          |
 
 
 ## Dependencies
@@ -88,12 +92,14 @@ Type: `Promise<void>`
 ### Used by
 
  - [kul-showcase-article](../kul-showcase/components/article)
+ - [kul-showcase-badge](../kul-showcase/components/badge)
  - [kul-showcase-kulmanager](../kul-showcase/framework/manager)
 
 ### Graph
 ```mermaid
 graph TD;
   kul-showcase-article --> kul-article
+  kul-showcase-badge --> kul-article
   kul-showcase-kulmanager --> kul-article
   style kul-article fill:#f9f,stroke:#333,stroke-width:4px
 ```

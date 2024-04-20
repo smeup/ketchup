@@ -118,6 +118,7 @@ graph TD;
   kul-button --> kul-image
   kul-showcase-article --> kul-article
   kul-showcase-badge --> kul-badge
+  kul-showcase-badge --> kul-article
   kul-showcase-button --> kul-button
   kul-showcase-button --> kul-spinner
   kul-showcase-card --> kul-card

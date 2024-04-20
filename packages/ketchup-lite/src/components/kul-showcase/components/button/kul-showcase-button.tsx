@@ -112,7 +112,11 @@ export class KulShowcaseButton {
     }
 
     render() {
-        return <Fragment>{this.#prepExamples()}</Fragment>;
+        return (
+            <Fragment>
+                <div data-cy="wrapper">{this.#prepExamples()}</div>
+            </Fragment>
+        );
     }
 
     disconnectedCallback() {

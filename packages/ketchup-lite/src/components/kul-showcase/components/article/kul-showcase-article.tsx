@@ -80,7 +80,7 @@ export class KulShowcaseArticle {
         return (
             <Fragment>
                 <kul-article kulData={ARTICLE_DOC}></kul-article>
-                <div class="grid" part="grid">
+                <div class="grid" data-cy="wrapper" part="grid">
                     {this.#prepExamples()}
                 </div>
             </Fragment>

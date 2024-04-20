@@ -67,7 +67,7 @@ export class KulShowcaseSplash {
     render() {
         return (
             <Fragment>
-                <div class="grid" part="grid">
+                <div class="grid" data-cy="wrapper" part="grid">
                     {this.#prepExamples()}
                 </div>
             </Fragment>
