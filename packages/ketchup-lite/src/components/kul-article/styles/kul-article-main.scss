@@ -1,5 +1,29 @@
 :host {
   /**
+   * @prop --kul-article-content-color: Sets the color for .content elements.
+   * Defaults to var(--kul-text-color)
+   */
+  --kul_article_content_color: var(
+    --kul-article-content-color,
+    var(--kul-text-color)
+  );
+  /**
+   * @prop --kul-article-content-font-family: Sets the font family for .content elements.
+   * Defaults to var(--kul-font-family)
+   */
+  --kul_article_content_font_family: var(
+    --kul-article-content-font-family,
+    var(--kul-font-family)
+  );
+  /**
+   * @prop --kul-article-content-font-size: Sets the font size for .content elements.
+   * Defaults to var(--kul-font-size)
+   */
+  --kul_article_content_font_size: var(
+    --kul-article-content-font-size,
+    var(--kul-font-size)
+  );
+  /**
    * @prop --kul-article-h3-color: Sets the color for <h3> elements.
    * Defaults to var(--kul-text-color)
    */
@@ -46,10 +70,16 @@
   padding: var(--kul_article_padding);
 }
 
-.content--kul-code {
-  max-width: max-content;
-  margin: auto;
-  padding: 1.75em 0;
+.content {
+  color: var(--kul_article_content_color);
+  font-family: var(--kul_article_content_font_family);
+  font-size: var(--kul_article_content_font_size);
+
+  &--kul-code {
+    max-width: max-content;
+    margin: auto;
+    padding: 1.75em 0;
+  }
 }
 
 h1 {

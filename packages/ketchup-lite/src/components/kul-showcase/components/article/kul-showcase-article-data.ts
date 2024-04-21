@@ -671,6 +671,62 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.0.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-article-content-color',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.0.1',
+                                                    value: ': Sets the color for .content elements. Defaults to var(--kul-text-color).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.0',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.1.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-article-content-font-family',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.1.1',
+                                                    value: ': Sets the font family for .content elements. Defaults to var(--kul-font-family).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.1',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.2.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-article-content-font-size',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.2.1',
+                                                    value: ': Sets the font size for .content elements. Defaults to var(--kul-font-size).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.2',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.0.0',
                                                     tagName: 'strong',
                                                     value: '--kul-article-h3-color',
@@ -687,6 +743,8 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.1.0',
                                                     tagName: 'strong',
                                                     value: '--kul-article-h3-font-family',
@@ -703,6 +761,8 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.2.0',
                                                     tagName: 'strong',
                                                     value: '--kul-article-h3-font-size',
@@ -719,6 +779,8 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.3.0',
                                                     tagName: 'strong',
                                                     value: '--kul-article-margin',
@@ -735,6 +797,8 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.4.0',
                                                     tagName: 'strong',
                                                     value: '--kul-article-max-width',
@@ -751,6 +815,8 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.5.0',
                                                     tagName: 'strong',
                                                     value: '--kul-article-padding',
