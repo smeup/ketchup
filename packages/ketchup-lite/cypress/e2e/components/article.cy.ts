@@ -57,28 +57,24 @@ describe('kul-article', () => {
 
     it('#simple: should check whether all <kul-article> elements in the page have a number of <section> elements equal to the number of children of the first node of the kulData property and their content matches', () => {
         cy.get('@kulComponentShowcase')
-            .find('kul-article#simple')
-            .invoke('prop', 'kulData')
-            .then((kulData) => {
+            .find('kul-article')
+            .each(($article) => {
+                const kulData = $article.prop('kulData');
                 const expectedSectionCount = kulData.nodes[0].children.length;
-                cy.get('kul-article').each(($article) => {
-                    cy.wrap($article)
-                        .shadow()
-                        .find('section')
-                        .then(($sections) => {
-                            expect($sections.length).to.equal(
-                                expectedSectionCount
-                            );
-                            $sections.each((index, section) => {
-                                const h2Content = Cypress.$(section)
-                                    .find('h2')
-                                    .text();
-                                const expectedValue =
-                                    kulData.nodes[0].children[index].value;
-                                expect(h2Content).to.equal(expectedValue);
-                            });
+                cy.wrap($article)
+                    .shadow()
+                    .find('section')
+                    .then(($sections) => {
+                        expect($sections.length).to.equal(expectedSectionCount);
+                        $sections.each((index, section) => {
+                            const h2Content = Cypress.$(section)
+                                .find('h2')
+                                .text();
+                            const expectedValue =
+                                kulData.nodes[0].children[index].value;
+                            expect(h2Content).to.equal(expectedValue);
                         });
-                });
+                    });
             });
     });
 

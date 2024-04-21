@@ -1,5 +1,5 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
-import { BUTTON_EXAMPLES } from './kul-showcase-button-data';
+import { BUTTON_DOC, BUTTON_EXAMPLES } from './kul-showcase-button-data';
 import { DynamicExampleManager } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { KulButtonStyling } from '../../../kul-button/kul-button-declarations';
@@ -112,7 +112,12 @@ export class KulShowcaseButton {
     }
 
     render() {
-        return <Fragment>{this.#prepExamples()}</Fragment>;
+        return (
+            <Fragment>
+                <kul-article kulData={BUTTON_DOC}></kul-article>
+                <div data-cy="wrapper">{this.#prepExamples()}</div>
+            </Fragment>
+        );
     }
 
     disconnectedCallback() {

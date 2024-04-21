@@ -1,5 +1,5 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
-import { SPINNER_EXAMPLES } from './kul-showcase-spinner-data';
+import { SPINNER_DOC, SPINNER_EXAMPLES } from './kul-showcase-spinner-data';
 
 @Component({
     tag: 'kul-showcase-spinner',
@@ -85,7 +85,12 @@ export class KulShowcaseSpinner {
     /*-------------------------------------------------*/
 
     render() {
-        return <Fragment>{this.#prepExamples()}</Fragment>;
+        return (
+            <Fragment>
+                <kul-article kulData={SPINNER_DOC}></kul-article>
+                <div data-cy="wrapper">{this.#prepExamples()}</div>
+            </Fragment>
+        );
     }
 
     disconnectedCallback() {

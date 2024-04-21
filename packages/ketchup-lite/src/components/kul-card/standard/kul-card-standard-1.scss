@@ -9,9 +9,9 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow: auto;
   position: relative;
   width: 100%;
-  overflow: auto;
 
   kul-button {
     margin-right: 0;

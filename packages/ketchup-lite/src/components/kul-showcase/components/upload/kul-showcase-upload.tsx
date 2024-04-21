@@ -1,5 +1,5 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
-import { UPLOAD_EXAMPLES } from './kul-showcase-upload-data';
+import { UPLOAD_DOC, UPLOAD_EXAMPLES } from './kul-showcase-upload-data';
 import { DynamicExampleManager } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 
@@ -79,7 +79,8 @@ export class KulShowcaseUpload {
     render() {
         return (
             <Fragment>
-                <div class="grid" part="grid">
+                <kul-article kulData={UPLOAD_DOC}></kul-article>
+                <div class="grid" data-cy="wrapper" part="grid">
                     {this.#prepExamples()}
                 </div>
             </Fragment>

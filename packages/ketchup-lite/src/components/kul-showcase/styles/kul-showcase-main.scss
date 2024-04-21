@@ -15,8 +15,10 @@
 .showcase {
   --template-columns: repeat(1, 1fr);
 
+  backface-visibility: hidden;
   box-sizing: border-box;
   padding: 20px 0;
+  transform: translateZ(0);
   width: 100%;
 }
 
@@ -103,6 +105,7 @@ p {
   padding: 24px;
   text-align: center;
   text-transform: capitalize;
+  transform: translate3d(0, 0, 0);
 }
 
 ::part(example) {

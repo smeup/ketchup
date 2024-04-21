@@ -1,5 +1,5 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
-import { CARD_EXAMPLES } from './kul-showcase-card-data';
+import { CARD_DOC, CARD_EXAMPLES } from './kul-showcase-card-data';
 import { DynamicExampleManager } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 
@@ -113,7 +113,12 @@ export class KulShowcaseCard {
     }
 
     render() {
-        return <Fragment>{this.#prepExamples()}</Fragment>;
+        return (
+            <Fragment>
+                <kul-article kulData={CARD_DOC}></kul-article>
+                <div data-cy="wrapper">{this.#prepExamples()}</div>
+            </Fragment>
+        );
     }
 
     disconnectedCallback() {

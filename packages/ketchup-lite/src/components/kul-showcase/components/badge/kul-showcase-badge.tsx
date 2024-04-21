@@ -1,5 +1,5 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
-import { BADGE_EXAMPLES } from './kul-showcase-badge-data';
+import { BADGE_DOC, BADGE_EXAMPLES } from './kul-showcase-badge-data';
 import { DynamicExampleManager } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 
@@ -96,7 +96,8 @@ export class KulShowcaseBadge {
     render() {
         return (
             <Fragment>
-                <div class="grid" part="grid">
+                <kul-article kulData={BADGE_DOC}></kul-article>
+                <div class="grid" data-cy="wrapper" part="grid">
                     {this.#prepExamples()}
                 </div>
             </Fragment>

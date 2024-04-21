@@ -146,7 +146,7 @@ export class KulArticle {
                 return this.#paragraphTemplate(node, depth);
             default:
                 return node.children?.length
-                    ? this.#paragraphTemplate(node, depth)
+                    ? this.#wrapperTemplate(node, depth)
                     : this.#contentTemplate(node, depth);
         }
     }
@@ -154,7 +154,11 @@ export class KulArticle {
     #articleTemplate(node: KulArticleNode, depth: number): VNode {
         return (
             <Fragment>
-                <article class="article" data-depth={depth.toString()}>
+                <article
+                    class="article"
+                    data-depth={depth.toString()}
+                    style={node.cssStyle}
+                >
                     {node.value ? <h1>{node.value}</h1> : undefined}
                     {node.children
                         ? node.children.map((child) =>
@@ -169,7 +173,11 @@ export class KulArticle {
     #sectionTemplate(node: KulArticleNode, depth: number): VNode {
         return (
             <Fragment>
-                <section class="section" data-depth={depth.toString()}>
+                <section
+                    class="section"
+                    data-depth={depth.toString()}
+                    style={node.cssStyle}
+                >
                     {node.value ? <h2>{node.value}</h2> : undefined}
                     {node.children
                         ? node.children.map((child) =>
@@ -181,10 +189,40 @@ export class KulArticle {
         );
     }
 
+    #wrapperTemplate(node: KulArticleNode, depth: number): VNode {
+        const ComponentTag = node.children?.some(
+            (child) => child.tagName === 'li'
+        )
+            ? 'ul'
+            : node.tagName
+            ? node.tagName
+            : 'div';
+        return (
+            <Fragment>
+                {node.value ? <div>{node.value}</div> : ''}
+                <ComponentTag
+                    class="content-wrapper"
+                    data-depth={depth.toString()}
+                    style={node.cssStyle}
+                >
+                    {node.children
+                        ? node.children.map((child) =>
+                              this.#recursive(child, depth + 1)
+                          )
+                        : null}
+                </ComponentTag>
+            </Fragment>
+        );
+    }
+
     #paragraphTemplate(node: KulArticleNode, depth: number): VNode {
         return (
             <Fragment>
-                <p class="paragraph" data-depth={depth.toString()}>
+                <p
+                    class="paragraph"
+                    data-depth={depth.toString()}
+                    style={node.cssStyle}
+                >
                     {node.value ? <h3>{node.value}</h3> : undefined}
                     {node.children
                         ? node.children.map((child) =>
@@ -211,6 +249,7 @@ export class KulArticle {
                     class={`content content--${ComponentTag}`}
                     data-depth={depth.toString()}
                     {...this.#kulManager.data.extract.singleShape(cell)}
+                    style={node.cssStyle}
                 >
                     {node.value}
                 </ComponentTag>
@@ -220,6 +259,7 @@ export class KulArticle {
                 <ComponentTag
                     class={`content content--${ComponentTag}`}
                     data-depth={depth.toString()}
+                    style={node.cssStyle}
                 >
                     {node.value}
                 </ComponentTag>

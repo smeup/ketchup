@@ -5,6 +5,7 @@ import {
 } from '../../components';
 import { KulButtonPropsInterface } from '../../components/kul-button/kul-button-declarations';
 import { KulCodePropsInterface } from '../../components/kul-code/kul-code-declarations';
+import { GenericMap } from '../../types/GenericTypes';
 
 export interface KulDataCell {
     value: unknown;
@@ -17,28 +18,29 @@ export interface KulDataCellContainer {
     [index: string]: KulDataCell;
 }
 
-export interface KulDataComponentBaseProps {
-    kulStyle?: string;
-}
-
 export interface KulDataColumn {
     id: string;
     type: KulDataShapes;
 }
 
-export type KulDataDynamicComponentProps = {
-    [K in `kul${Capitalize<string>}`]?: any;
-};
+export interface KulDataComponentBaseProps {
+    kulStyle?: string;
+}
 
 export interface KulDataDataset {
     columns?: KulDataColumn[];
     nodes?: KulDataNode[];
 }
 
+export type KulDataDynamicComponentProps = {
+    [K in `kul${Capitalize<string>}`]?: any;
+};
+
 export interface KulDataNode {
     id: string;
     cells?: KulDataCellContainer;
     children?: KulDataNode[];
+    cssStyle?: GenericMap;
     description?: string;
     icon?: string;
     value?: unknown;
