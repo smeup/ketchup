@@ -53,9 +53,9 @@
   --kul_article_max_width: var(--kul-article-max-width, 1200px);
   /**
    * @prop --kul-article-padding: Sets the padding of the article tag.
-   * Defaults to 40px vertically.
+   * Defaults to 40px.
    */
-  --kul_article_padding: var(--kul-article-padding, 40px 0);
+  --kul_article_padding: var(--kul-article-padding, 40px);
 
   backdrop-filter: blur(8px);
   background-color: rgba(var(--kul-background-color-rgb), 0.375);

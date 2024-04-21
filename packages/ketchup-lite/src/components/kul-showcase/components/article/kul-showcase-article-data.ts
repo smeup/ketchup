@@ -608,7 +608,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                 },
                                 {
                                     id: '0.6.0.2',
-                                    value: ',',
+                                    value: ', ',
                                 },
                                 {
                                     id: '0.6.0.3',
@@ -617,7 +617,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                 },
                                 {
                                     id: '0.6.0.4',
-                                    value: ',',
+                                    value: ', ',
                                 },
                                 {
                                     id: '0.6.0.5',
