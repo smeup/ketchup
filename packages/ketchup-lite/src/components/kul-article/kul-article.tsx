@@ -190,9 +190,17 @@ export class KulArticle {
     }
 
     #wrapperTemplate(node: KulArticleNode, depth: number): VNode {
+        const ComponentTag = node.children?.some(
+            (child) => child.tagName === 'li'
+        )
+            ? 'ul'
+            : node.tagName
+            ? node.tagName
+            : 'div';
         return (
             <Fragment>
-                <div
+                {node.value ? <div>{node.value}</div> : ''}
+                <ComponentTag
                     class="content-wrapper"
                     data-depth={depth.toString()}
                     style={node.cssStyle}
@@ -202,7 +210,7 @@ export class KulArticle {
                               this.#recursive(child, depth + 1)
                           )
                         : null}
-                </div>
+                </ComponentTag>
             </Fragment>
         );
     }
