@@ -1,40 +1,70 @@
-/**
-* @prop --kul-code-background-color: Sets the background color of the component.
-* @prop --kul-code-font-family: Sets the font family of the component.
-* @prop --kul-code-header-background-color: Sets the background color of the header.
-* @prop --kul-code-header-color: Sets the color of the header.
-* @prop --kul_code_selection_background_color: Sets the background color of selected text.
-* @prop --kul-code-text-color: Sets the color of the text.
-* @prop --kul-code-token-color-1: Sets the background color of: boolean, constant, deleted, number, property, symbol, tag.
-* @prop --kul-code-token-color-2: Sets the background color of: attr-name, builtin, char, inserted, selector, string.
-* @prop --kul-code-token-color-3: Sets the background color of: atrule, attr-value, keyword.
-* @prop --kul-code-token-color-4: Sets the background color of: class-name, function.
-* @prop --kul-code-token-color-5: Sets the background color of: important, regex, variable.
-*/
-
 :host {
+  /**
+ * @prop --kul-code-background-color: Sets the background color of the component.
+ * Defaults to rgba(var(--kul-background-color-rgb) 0.275)
+ */
   --kul_code_background_color: var(
     --kul-code-background-color,
     rgba(var(--kul-background-color-rgb) 0.275)
   );
+  /**
+  * @prop --kul-code-font-family: Sets the font family of the component.
+  * Defaults to var(--kul-font-family-monospace)
+  */
   --kul_code_font_family: var(
     --kul-code-font-family,
     var(--kul-font-family-monospace)
   );
+  /**
+  * @prop --kul-code-header-background-color: Sets the background color of the header.
+  * Defaults to var(--kul-title-background-color)
+  */
   --kul_code_header_background_color: var(
     --kul-code-header-background-color,
     var(--kul-title-background-color)
   );
+  /**
+  * @prop --kul-code-header-color: Sets the color of the header.
+  * Defaults to var(--kul-title-color)
+  */
   --kul_code_header_color: var(--kul-code-header-color, var(--kul-title-color));
+  /**
+  * @prop --kul-code-selection-background-color: Sets the background color of selected text.
+  * Defaults to rgba(var(--kul-border-color-rgb, 0.275))
+  */
   --kul_code_selection_background_color: var(
     --kul-code-selection-background-color,
     rgba(var(--kul-border-color-rgb, 0.275))
   );
+  /**
+  * @prop --kul-code-text-color: Sets the color of the text.
+  * Defaults to var(--kul-text-color)
+  */
   --kul_code_text_color: var(--kul-code-text-color, var(--kul-text-color));
+  /**
+  * @prop --kul-code-token-color-1: Sets the background color of: boolean, constant, deleted, number, property, symbol, tag.
+  * Defaults to rgb(231, 0, 127)
+  */
   --kul_code_token_color_1: var(--kul-code-token-color-1, rgb(231, 0, 127));
+  /**
+  * @prop --kul-code-token-color-2: Sets the background color of: attr-name, builtin, char, inserted, selector, string.
+  * Defaults to rgb(146, 219, 0)
+  */
   --kul_code_token_color_2: var(--kul-code-token-color-2, rgb(146, 219, 0));
+  /**
+  * @prop --kul-code-token-color-3: Sets the background color of: atrule, attr-value, keyword.
+  * Defaults to rgb(0, 165, 236)
+  */
   --kul_code_token_color_3: var(--kul-code-token-color-3, rgb(0, 165, 236));
+  /**
+  * @prop --kul-code-token-color-4: Sets the background color of: class-name, function.
+  * Defaults to #ff6363
+  */
   --kul_code_token_color_4: var(--kul-code-token-color-4, #ff6363);
+  /**
+  * @prop --kul-code-token-color-5: Sets the background color of: important, regex, variable.
+  * Defaults to rgb(255, 196, 86)
+  */
   --kul_code_token_color_5: var(--kul-code-token-color-5, rgb(255, 196, 86));
 
   display: block;

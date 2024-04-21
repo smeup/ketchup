@@ -368,6 +368,236 @@ export const CODE_DOC: KulArticleDataset = {
                         {
                             children: [
                                 {
+                                    id: '0.7.0.0',
+                                    value: 'The component uses Shadow DOM for encapsulation, ensuring that its styles do not leak into the global scope. However, custom styles can be applied using the ',
+                                },
+                                {
+                                    id: '0.7.0.1',
+                                    tagName: 'strong',
+                                    value: 'kulStyle',
+                                },
+                                {
+                                    id: '0.7.0.2',
+                                    value: ' property.',
+                                },
+                            ],
+                            id: '0.7.0',
+                            tagName: 'strong',
+                            value: '',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
+                                            id: '0.7.1.0.13.0',
+                                            tagName: 'strong',
+                                            value: '--kul-code-background-color',
+                                        },
+                                        {
+                                            id: '0.7.1.0.13.1',
+                                            value: ': Sets the background color of the component. Defaults to rgba(var(--kul-background-color-rgb) 0.275).',
+                                        },
+                                    ],
+                                    id: '0.7.1.0.13',
+                                    tagName: 'li',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
+                                            id: '0.7.1.0.14.0',
+                                            tagName: 'strong',
+                                            value: '--kul-code-font-family',
+                                        },
+                                        {
+                                            id: '0.7.1.0.14.1',
+                                            value: ': Sets the font family of the component. Defaults to var(--kul-font-family-monospace).',
+                                        },
+                                    ],
+                                    id: '0.7.1.0.14',
+                                    tagName: 'li',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
+                                            id: '0.7.1.0.15.0',
+                                            tagName: 'strong',
+                                            value: '--kul-code-header-background-color',
+                                        },
+                                        {
+                                            id: '0.7.1.0.15.1',
+                                            value: ': Sets the background color of the header. Defaults to var(--kul-title-background-color).',
+                                        },
+                                    ],
+                                    id: '0.7.1.0.15',
+                                    tagName: 'li',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
+                                            id: '0.7.1.0.16.0',
+                                            tagName: 'strong',
+                                            value: '--kul-code-header-color',
+                                        },
+                                        {
+                                            id: '0.7.1.0.16.1',
+                                            value: ': Sets the color of the header. Defaults to var(--kul-title-color).',
+                                        },
+                                    ],
+                                    id: '0.7.1.0.16',
+                                    tagName: 'li',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
+                                            id: '0.7.1.0.17.0',
+                                            tagName: 'strong',
+                                            value: '--kul-code-selection-background-color',
+                                        },
+                                        {
+                                            id: '0.7.1.0.17.1',
+                                            value: ': Sets the background color of selected text. Defaults to rgba(var(--kul-border-color-rgb, 0.275)).',
+                                        },
+                                    ],
+                                    id: '0.7.1.0.17',
+                                    tagName: 'li',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
+                                            id: '0.7.1.0.18.0',
+                                            tagName: 'strong',
+                                            value: '--kul-code-text-color',
+                                        },
+                                        {
+                                            id: '0.7.1.0.18.1',
+                                            value: ': Sets the color of the text. Defaults to var(--kul-text-color).',
+                                        },
+                                    ],
+                                    id: '0.7.1.0.18',
+                                    tagName: 'li',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
+                                            id: '0.7.1.0.19.0',
+                                            tagName: 'strong',
+                                            value: '--kul-code-token-color-1',
+                                        },
+                                        {
+                                            id: '0.7.1.0.19.1',
+                                            value: ': Sets the background color of: boolean, constant, deleted, number, property, symbol, tag. Defaults to rgb(231, 0, 127).',
+                                        },
+                                    ],
+                                    id: '0.7.1.0.19',
+                                    tagName: 'li',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
+                                            id: '0.7.1.0.20.0',
+                                            tagName: 'strong',
+                                            value: '--kul-code-token-color-2',
+                                        },
+                                        {
+                                            id: '0.7.1.0.20.1',
+                                            value: ': Sets the background color of: attr-name, builtin, char, inserted, selector, string. Defaults to rgb(146, 219, 0).',
+                                        },
+                                    ],
+                                    id: '0.7.1.0.20',
+                                    tagName: 'li',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
+                                            id: '0.7.1.0.21.0',
+                                            tagName: 'strong',
+                                            value: '--kul-code-token-color-3',
+                                        },
+                                        {
+                                            id: '0.7.1.0.21.1',
+                                            value: ': Sets the background color of: atrule, attr-value, keyword. Defaults to rgb(0, 165, 236).',
+                                        },
+                                    ],
+                                    id: '0.7.1.0.21',
+                                    tagName: 'li',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
+                                            id: '0.7.1.0.22.0',
+                                            tagName: 'strong',
+                                            value: '--kul-code-token-color-4',
+                                        },
+                                        {
+                                            id: '0.7.1.0.22.1',
+                                            value: ': Sets the background color of: class-name, function. Defaults to #ff6363.',
+                                        },
+                                    ],
+                                    id: '0.7.1.0.22',
+                                    tagName: 'li',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
+                                            id: '0.7.1.0.23.0',
+                                            tagName: 'strong',
+                                            value: '--kul-code-token-color-5',
+                                        },
+                                        {
+                                            id: '0.7.1.0.23.1',
+                                            value: ': Sets the background color of: important, regex, variable. Defaults to rgb(255, 196, 86).',
+                                        },
+                                    ],
+                                    id: '0.7.1.0.23',
+                                    tagName: 'li',
+                                    value: '',
+                                },
+                            ],
+                            id: '0.7.1',
+                            value: 'CSS Variables',
+                        },
+                    ],
+                    id: '0.7',
+                    value: 'Styling',
+                },
+                {
+                    children: [
+                        {
+                            children: [
+                                {
                                     id: '0.8.1.1',
                                     value: 'The ',
                                 },
