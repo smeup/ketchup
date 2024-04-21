@@ -32,7 +32,7 @@ export const CODE_DOC: KulArticleDataset = {
                                         },
                                         {
                                             id: '0.1.1.3',
-                                            value: ' component is a customizable web component designed to display code snippets with syntax highlighting. It is part of the Ketchup Lite library, a collection of reusable web components aimed at enhancing web development with encapsulated UI elements. This component is built using Stencil, a compiler that generates Web Components, and is designed to work seamlessly across different frameworks and platforms.',
+                                            value: ' component is a customizable web component designed to display code snippets with syntax highlighting.',
                                         },
                                     ],
                                     id: '0.1.1.1',

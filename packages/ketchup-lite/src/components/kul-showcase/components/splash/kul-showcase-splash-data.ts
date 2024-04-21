@@ -34,7 +34,7 @@ export const SPLASH_DOC: KulArticleDataset = {
                                         },
                                         {
                                             id: '0.1.1.3',
-                                            value: ' component is a versatile and customizable web component designed to showcase various examples of components within the Ketchup Lite library. It is part of the Ketchup Lite library, a collection of reusable web components aimed at enhancing web development with encapsulated UI elements. This component is built using Stencil, a compiler that generates Web Components, and is designed to work seamlessly across different frameworks and platforms.',
+                                            value: ' component is a versatile and customizable web component designed to showcase various examples of components within the Ketchup Lite library.',
                                         },
                                     ],
                                     id: '0.1.1.1',

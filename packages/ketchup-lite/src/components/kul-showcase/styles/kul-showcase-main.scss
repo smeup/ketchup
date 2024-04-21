@@ -103,6 +103,7 @@ p {
   padding: 24px;
   text-align: center;
   text-transform: capitalize;
+  transform: translate3d(0, 0, 0);
 }
 
 ::part(example) {

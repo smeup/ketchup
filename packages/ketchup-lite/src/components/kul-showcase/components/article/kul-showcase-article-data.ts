@@ -174,7 +174,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                         },
                                         {
                                             id: '0.0.0.0.2',
-                                            value: ' component is a versatile and customizable web component designed to render articles based on a JSON structure. It is part of the Ketchup Lite library, a collection of reusable web components aimed at enhancing web development with encapsulated UI elements. This component is built using Stencil, a compiler that generates Web Components, and is designed to work seamlessly across different frameworks and platforms. ',
+                                            value: ' component is a versatile and customizable web component designed to render articles based on a JSON structure. ',
                                         },
                                     ],
                                     id: '0.0.0.0',

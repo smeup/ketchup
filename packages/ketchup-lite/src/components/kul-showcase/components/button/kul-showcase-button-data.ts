@@ -292,7 +292,7 @@ export const BUTTON_DOC: KulArticleDataset = {
                                         },
                                         {
                                             id: '0.1.1.3',
-                                            value: ' component is a versatile and customizable web component designed to render buttons. It is part of the Ketchup Lite library, a collection of reusable web components aimed at enhancing web development with encapsulated UI elements. This component is built using Stencil, a compiler that generates Web Components, and is designed to work seamlessly across different frameworks and platforms.',
+                                            value: ' component is a versatile and customizable web component designed to render buttons.',
                                         },
                                     ],
                                     id: '0.1.1.1',
@@ -309,83 +309,108 @@ export const BUTTON_DOC: KulArticleDataset = {
                         {
                             children: [
                                 {
-                                    id: '0.1.1.1',
-                                    tagName: 'strong',
-                                    value: 'Dynamic Button Rendering',
+                                    children: [
+                                        {
+                                            children: [
+                                                {
+                                                    id: '0.1.0.0.0.0',
+                                                    tagName: 'strong',
+                                                    value: 'Customizable Content',
+                                                },
+                                                {
+                                                    id: '0.1.0.0.0.1',
+                                                    value: ': The component allows for the display of text and images within the button, offering flexibility in content presentation.',
+                                                },
+                                            ],
+                                            id: '0.1.0.0.0',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                    ],
+                                    id: '0.1.0.0',
+                                    value: '',
                                 },
                                 {
-                                    id: '0.1.1.2',
-                                    value: ': The component dynamically generates a ',
+                                    children: [
+                                        {
+                                            children: [
+                                                {
+                                                    id: '0.1.0.1.0.0',
+                                                    tagName: 'strong',
+                                                    value: 'Customizable Styling',
+                                                },
+                                                {
+                                                    id: '0.1.0.1.0.1',
+                                                    value: ": Offers the ability to customize the component's style through the ",
+                                                },
+                                                {
+                                                    id: '0.1.0.1.0.2',
+                                                    tagName: 'strong',
+                                                    value: '<kulStyle>',
+                                                },
+                                                {
+                                                    id: '0.1.0.1.0.3',
+                                                    value: ' property.',
+                                                },
+                                            ],
+                                            id: '0.1.0.1.0',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                    ],
+                                    id: '0.1.0.1',
+                                    value: '',
                                 },
                                 {
-                                    id: '0.1.1.3',
-                                    tagName: 'strong',
-                                    value: '<button>',
+                                    children: [
+                                        {
+                                            children: [
+                                                {
+                                                    id: '0.1.0.2.0.0',
+                                                    tagName: 'strong',
+                                                    value: 'Debug Information',
+                                                },
+                                                {
+                                                    id: '0.1.0.2.0.1',
+                                                    value: ": Provides debug information about the component's rendering process, useful for development and debugging purposes.",
+                                                },
+                                            ],
+                                            id: '0.1.0.2.0',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                    ],
+                                    id: '0.1.0.2',
+                                    value: '',
                                 },
                                 {
-                                    id: '0.1.1.4',
-                                    value: ' element based on the properties provided.',
+                                    children: [
+                                        {
+                                            children: [
+                                                {
+                                                    id: '0.1.0.3.0.0',
+                                                    tagName: 'strong',
+                                                    value: 'Event handling',
+                                                },
+                                                {
+                                                    id: '0.1.0.3.0.1',
+                                                    value: ': Emits custom events for various lifecycle stages, allowing for integration with other components or frameworks.',
+                                                },
+                                            ],
+                                            id: '0.1.0.3.0',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                    ],
+                                    id: '0.1.0.3',
+                                    value: '',
                                 },
                             ],
-                            id: '0.1.1',
-                            tagName: 'li',
-                        },
-                        {
-                            children: [
-                                {
-                                    id: '0.1.1.1',
-                                    tagName: 'strong',
-                                    value: 'Customizable Styling',
-                                },
-                                {
-                                    id: '0.1.1.2',
-                                    value: ": Offers the ability to customize the component's style through the ",
-                                },
-                                {
-                                    id: '0.1.1.3',
-                                    tagName: 'strong',
-                                    value: '<kulStyle>',
-                                },
-                                {
-                                    id: '0.1.1.4',
-                                    value: ' property.',
-                                },
-                            ],
-                            id: '0.2.1',
-                            tagName: 'li',
-                        },
-                        {
-                            children: [
-                                {
-                                    id: '0.1.2.1',
-                                    tagName: 'strong',
-                                    value: 'Debug Information',
-                                },
-                                {
-                                    id: '0.1.2.2',
-                                    value: ": Provides debug information about the component's rendering process, useful for development and debugging purposes.",
-                                },
-                            ],
-                            id: '0.2.1',
-                            tagName: 'li',
-                        },
-                        {
-                            children: [
-                                {
-                                    id: '0.1.2.1',
-                                    tagName: 'strong',
-                                    value: 'Event handling',
-                                },
-                                {
-                                    id: '0.1.2.2',
-                                    value: ': Emits custom events for various button interactions, allowing for integration with other components or frameworks.',
-                                },
-                            ],
-                            id: '0.2.1',
-                            tagName: 'li',
+                            id: '0.1.0',
+                            value: '',
                         },
                     ],
-                    id: '0.2',
+                    id: '0.1',
                     value: 'Features',
                 },
                 {
@@ -395,57 +420,42 @@ export const BUTTON_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            children: [
-                                                {
-                                                    id: '0.3.1.1.1',
-                                                    value: 'To use the ',
-                                                },
-                                                {
-                                                    id: '0.3.1.1.2',
-                                                    tagName: 'strong',
-                                                    value: 'KulButton',
-                                                },
-                                                {
-                                                    id: '0.3.1.1.3',
-                                                    value: ' component, include it in your HTML and provide the necessary properties such as ',
-                                                },
-                                                {
-                                                    id: '0.3.1.1.4',
-                                                    tagName: 'strong',
-                                                    value: 'kulLabel',
-                                                },
-                                                {
-                                                    id: '0.3.1.1.5',
-                                                    value: ' for the button text, ',
-                                                },
-                                                {
-                                                    id: '0.3.1.1.6',
-                                                    tagName: 'strong',
-                                                    value: 'kulIcon',
-                                                },
-                                                {
-                                                    id: '0.3.1.1.7',
-                                                    value: ' for the button icon, and ',
-                                                },
-                                                {
-                                                    id: '0.3.1.1.8',
-                                                    tagName: 'strong',
-                                                    value: 'kulStyle',
-                                                },
-                                                {
-                                                    id: '0.3.1.1.9',
-                                                    value: ' for custom styling.',
-                                                },
-                                            ],
-                                            id: '0.3.1.1',
+                                            id: '0.2.0.0.0',
+                                            value: 'To use the ',
+                                        },
+                                        {
+                                            id: '0.2.0.0.1',
+                                            tagName: 'strong',
+                                            value: 'KulButton',
+                                        },
+                                        {
+                                            id: '0.2.0.0.2',
+                                            value: ' component, include it in your HTML and provide the relevant props.',
                                         },
                                     ],
-                                    id: '0.3.1',
-                                    value: 'Basic Usage',
+                                    id: '0.2.0.0',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            cells: {
+                                                code: {
+                                                    shape: 'code',
+                                                    shapeProps: {
+                                                        kulLanguage: 'markup',
+                                                    },
+                                                    value: '<kul-button kul-label="Click me"></kul-button>',
+                                                },
+                                            },
+                                            id: '0.2.0.1.0',
+                                            value: '',
+                                        },
+                                    ],
+                                    id: '0.2.0.1',
                                 },
                             ],
-                            id: '0.3.1',
-                            tagName: 'li',
+                            id: '0.2.0',
+                            value: 'Basic Usage',
                         },
                     ],
                     id: '0.3',
@@ -457,65 +467,42 @@ export const BUTTON_DOC: KulArticleDataset = {
                             children: [
                                 {
                                     children: [
-                                        { id: '0.4.1.1.1', value: 'Type:' },
                                         {
-                                            id: '0.4.1.1.2',
+                                            id: '0.4.3.1.1',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.4.3.1.2',
                                             tagName: 'strong',
-                                            value: 'string',
+                                            value: 'boolean',
                                         },
                                     ],
-                                    id: '0.4.1.1',
+                                    id: '0.4.3.1',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.4.1.2.1',
-                                            value: 'The label text of the button.',
+                                            id: '0.4.3.2.1',
+                                            value: 'Defaults at false. When set to true, the component is disabled.',
                                         },
                                     ],
-                                    id: '0.4.1.2',
+                                    id: '0.4.3.2',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.1',
-                            value: 'kulLabel',
+                            id: '0.4.3',
+                            value: 'kulDisabled',
                         },
                         {
                             children: [
                                 {
                                     children: [
-                                        { id: '0.4.2.1.1', value: 'Type:' },
                                         {
-                                            id: '0.4.2.1.2',
-                                            tagName: 'strong',
-                                            value: 'string',
+                                            id: '0.4.3.1.1',
+                                            value: 'Type:',
                                         },
-                                    ],
-                                    id: '0.4.2.1',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.4.2.2.1',
-                                            value: 'The icon to be displayed on the button.',
-                                        },
-                                    ],
-                                    id: '0.4.2.2',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.2',
-                            value: 'kulIcon',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        { id: '0.4.3.1.1', value: 'Type:' },
                                         {
                                             id: '0.4.3.1.2',
                                             tagName: 'strong',
@@ -529,7 +516,167 @@ export const BUTTON_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             id: '0.4.3.2.1',
-                                            value: 'Custom CSS styles applied to the button.',
+                                            value: 'When set, the button will show this icon.',
+                                        },
+                                    ],
+                                    id: '0.4.3.2',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.4.3',
+                            value: 'kulIcon',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.1.1',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.4.3.1.2',
+                                            tagName: 'strong',
+                                            value: 'string',
+                                        },
+                                    ],
+                                    id: '0.4.3.1',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.2.1',
+                                            value: 'When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.',
+                                        },
+                                    ],
+                                    id: '0.4.3.2',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.4.3',
+                            value: 'kulIconOff',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.1.1',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.4.3.1.2',
+                                            tagName: 'strong',
+                                            value: 'string',
+                                        },
+                                    ],
+                                    id: '0.4.3.1',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.2.1',
+                                            value: 'When set, the button will show this text.',
+                                        },
+                                    ],
+                                    id: '0.4.3.2',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.4.3',
+                            value: 'kulLabel',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.1.1',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.4.3.1.2',
+                                            tagName: 'strong',
+                                            value: 'boolean',
+                                        },
+                                    ],
+                                    id: '0.4.3.1',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.2.1',
+                                            value: 'When set to true, the pointerdown event will trigger a ripple effect.',
+                                        },
+                                    ],
+                                    id: '0.4.3.2',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.4.3',
+                            value: 'kulRipple',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.1.1',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.4.3.1.2',
+                                            tagName: 'strong',
+                                            value: 'boolean',
+                                        },
+                                    ],
+                                    id: '0.4.3.1',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.2.1',
+                                            value: 'When set to true, the button show a spinner received in slot.',
+                                        },
+                                    ],
+                                    id: '0.4.3.2',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.4.3',
+                            value: 'kulShowSpinner',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.1.1',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.4.3.1.2',
+                                            tagName: 'strong',
+                                            value: 'string',
+                                        },
+                                    ],
+                                    id: '0.4.3.1',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.2.1',
+                                            value: 'Custom style of the component.',
                                         },
                                     ],
                                     id: '0.4.3.2',
@@ -540,8 +687,168 @@ export const BUTTON_DOC: KulArticleDataset = {
                             id: '0.4.3',
                             value: 'kulStyle',
                         },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.1.1',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.4.3.1.2',
+                                            tagName: 'strong',
+                                            value: 'KulButtonStyling',
+                                        },
+                                    ],
+                                    id: '0.4.3.1',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.2.1',
+                                            value: 'Defines the style of the button. This property controls the visual appearance of the button.',
+                                        },
+                                    ],
+                                    id: '0.4.3.2',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.4.3',
+                            value: 'kulStyling',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.1.1',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.4.3.1.2',
+                                            tagName: 'strong',
+                                            value: 'boolean',
+                                        },
+                                    ],
+                                    id: '0.4.3.1',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.2.1',
+                                            value: 'When set to true, the icon button will be toggable on/off.',
+                                        },
+                                    ],
+                                    id: '0.4.3.2',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.4.3',
+                            value: 'kulToggable',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.1.1',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.4.3.1.2',
+                                            tagName: 'strong',
+                                            value: 'boolean',
+                                        },
+                                    ],
+                                    id: '0.4.3.1',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.2.1',
+                                            value: 'When set, the icon will be shown after the text.',
+                                        },
+                                    ],
+                                    id: '0.4.3.2',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.4.3',
+                            value: 'kulTrailingIcon',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.1.1',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.4.3.1.2',
+                                            tagName: 'strong',
+                                            value: 'string',
+                                        },
+                                    ],
+                                    id: '0.4.3.1',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.2.1',
+                                            value: 'Sets the type of the button.',
+                                        },
+                                    ],
+                                    id: '0.4.3.2',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.4.3',
+                            value: 'kulType',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.1.1',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.4.3.1.2',
+                                            tagName: 'strong',
+                                            value: 'boolean',
+                                        },
+                                    ],
+                                    id: '0.4.3.1',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.2.1',
+                                            value: 'When set to true, the icon button state will be on.',
+                                        },
+                                    ],
+                                    id: '0.4.3.2',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.4.3',
+                            value: 'kulValue',
+                        },
                     ],
-                    id: '0.4',
+                    id: ' ',
                     value: 'Properties',
                 },
                 {
@@ -687,25 +994,325 @@ export const BUTTON_DOC: KulArticleDataset = {
                         {
                             children: [
                                 {
-                                    id: '0.8.1.1',
+                                    id: '0.7.0.0',
                                     value: 'The component uses Shadow DOM for encapsulation, ensuring that its styles do not leak into the global scope. However, custom styles can be applied using the ',
                                 },
                                 {
-                                    id: '0.8.1.2',
+                                    id: '0.7.0.1',
                                     tagName: 'strong',
                                     value: 'kulStyle',
                                 },
                                 {
-                                    id: '0.8.1.3',
+                                    id: '0.7.0.2',
                                     value: ' property.',
                                 },
                             ],
-                            id: '0.8.1',
+                            id: '0.7.0',
                             tagName: 'strong',
                             value: '',
                         },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.0.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-button-backdrop-filter',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.0.1',
+                                                    value: ': Sets the backdrop filter of buttons. Defaults to blur(3.5px).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.0',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.1.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-button-backdrop-filter-hover',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.1.1',
+                                                    value: ': Sets the backdrop filter of buttons when hovering. Defaults to blur(5px).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.1',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.2.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-button-border-radius',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.2.1',
+                                                    value: ': Sets border radius of the button. Defaults to 4px.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.2',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.3.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-button-disabled-color',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.3.1',
+                                                    value: ': Sets disabled color of the button. Defaults to var(--kul-disabled-color).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.3',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.4.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-button-font-family',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.4.1',
+                                                    value: ': Sets font family of the button. Defaults to var(--kul-font-family).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.4',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.5.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-button-font-size',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.5.1',
+                                                    value: ': Sets font size of the button. Defaults to var(--kul-font-size).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.5',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.6.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-button-font-weight',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.6.1',
+                                                    value: ': Sets font weight of the button. Defaults to 400.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.6',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.7.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-button-height',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.7.1',
+                                                    value: ': Sets height of the button. Defaults to 3em.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.7',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.8.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-button-padding',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.8.1',
+                                                    value: ': Sets padding of the button. Defaults to 0 1.25em.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.8',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.9.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-button-primary-color',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.9.1',
+                                                    value: ': Sets the primary color of the button. Defaults to var(--kul-primary-color).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.9',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.10.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-button-primary-color-h',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.10.1',
+                                                    value: ': Sets the primary color Hue value of the button (used for focus/hover effects). Defaults to var(--kul-primary-color-h).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.10',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.11.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-button-primary-color-s',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.11.1',
+                                                    value: ': Sets the primary color Saturation value of the button (used for focus/hover effects). Defaults to var(--kul-primary-color-s).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.11',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.12.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-button-primary-color-l',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.12.1',
+                                                    value: ': Sets the primary color Lightness value of the button (used for focus/hover effects). Defaults to var(--kul-primary-color-l).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.12',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-button-primary-color-rgb',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the primary color RGB values of the button (used for shaders). Defaults to var(--kul-primary-color-rgb).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-button-text-on-primary-color',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ':  Sets text and icon color for raised buttons. Defaults to var(--kul-text-on-primary-color).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-button-text-transform',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ':  Set the label case, default is uppercase. Defaults to uppercase.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                    ],
+                                    id: '0.7.1.0',
+                                    value: 'Additionally, the following CSS variables can be used to customize the appearance of the component:',
+                                },
+                            ],
+                            id: '0.7.1',
+                            value: 'CSS Variables',
+                        },
                     ],
-                    id: '0.8',
+                    id: '0.7',
                     value: 'Styling',
                 },
                 {
