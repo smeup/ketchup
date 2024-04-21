@@ -118,7 +118,24 @@ export class KulData {
         exists: (dataset: KulDataDataset) => {
             return !!(dataset && dataset.nodes?.length);
         },
-    };
+        fixIds: (nodes: KulDataNode[]) => {
+            function updateNodeIds(
+                node: KulDataNode,
+                depth: string = '0'
+            ): void {
+                node.id = depth;
 
-    constructor() {}
+                if (node.children) {
+                    node.children.forEach((child: any, index: number) => {
+                        const newDepth = `${depth}.${index}`;
+                        updateNodeIds(child, newDepth);
+                    });
+                }
+            }
+            nodes.forEach((node: KulDataNode) => {
+                updateNodeIds(node, '0');
+            });
+            return nodes;
+        },
+    };
 }
