@@ -1,32 +1,11 @@
 @import 'standard/kul-card-standard';
 
-/**
-* @prop --kul-card-backdrop: Backdrop of the component when is visible.
-* @prop --kul-card-ripple-color: Sets color of ripple effect (for Material layouts).
-* @prop --kul-card-scalable-box-shadow: Box shadow of the scalable layouts.
-* @prop --kul-card-scalable-starting-font-size: Starting font size for scalable cards.
-* @prop --kul-card-scalable-static-font-size: Static font size for scalable cards.
-*/
-
 :host {
+  /**
+ * @prop --kul-card-backdrop: Sets the backdrop color of the component when visible.
+ * Defaults to rgba(0, 0, 0, 0.32).
+ */
   --kul_card_backdrop: var(--kul-card-backdrop, rgba(0, 0, 0, 0.32));
-  --kul_card_ripple_color: var(
-    --kul-card-ripple-color,
-    var(--kul-primary-color)
-  );
-  --kul_card_scalable_box_shadow: var(
-    --kul-card-scalable-box-shadow,
-    0 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0 1px 1px 0 rgba(0, 0, 0, 0.14),
-    0 1px 3px 0 rgba(0, 0, 0, 0.12)
-  );
-  --kul_card_scalable_starting_font_size: var(
-    --kul-card-scalable-starting-font-size,
-    3em
-  );
-  --kul_card_scalable_static_font_size: var(
-    --kul-card-scalable-static-font-size
-  );
 
   display: block;
   font-size: var(--kul-font-size);
