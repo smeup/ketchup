@@ -15,8 +15,11 @@
 .showcase {
   --template-columns: repeat(1, 1fr);
 
+  backface-visibility: hidden;
   box-sizing: border-box;
+  overflow: auto;
   padding: 20px 0;
+  transform: translateZ(0);
   width: 100%;
 }
 
