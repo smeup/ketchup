@@ -207,7 +207,7 @@ export const BADGE_DOC: KulArticleDataset = {
                                         {
                                             id: '0.4.1.1.1',
                                             tagName: 'strong',
-                                            value: 'string',
+                                            value: 'KulImagePropsInterface',
                                         },
                                     ],
                                     id: '0.4.1.1',
@@ -217,7 +217,7 @@ export const BADGE_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             id: '0.4.1.2.1',
-                                            value: 'The text displayed inside the badge.',
+                                            value: 'The props of the image displayed inside the badge.',
                                         },
                                     ],
                                     id: '0.4.1.2',
@@ -226,17 +226,46 @@ export const BADGE_DOC: KulArticleDataset = {
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.4.1',
+                            value: 'kulImageProps',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        { id: '0.4.1.2.1', value: 'Type:' },
+                                        {
+                                            id: '0.4.1.1.1',
+                                            tagName: 'strong',
+                                            value: 'string',
+                                        },
+                                    ],
+                                    id: '0.4.3.1',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.4.3.2.1',
+                                            value: 'The text displayed inside the badge.',
+                                        },
+                                    ],
+                                    id: '0.4.3.2',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.4.3',
                             value: 'kulLabel',
                         },
                         {
                             children: [
                                 {
                                     children: [
-                                        { id: '0.4.2.2.1', value: 'Type:' },
+                                        { id: '0.4.1.2.1', value: 'Type:' },
                                         {
                                             id: '0.4.2.1.1',
                                             tagName: 'strong',
-                                            value: 'KulImagePropsInterface',
+                                            value: 'string',
                                         },
                                     ],
                                     id: '0.4.2.1',
@@ -246,7 +275,7 @@ export const BADGE_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             id: '0.4.2.2.1',
-                                            value: 'The props of the image displayed inside the badge.',
+                                            value: "Enables customization of the component's style. This property accepts a string of CSS styles that will be applied to the component.",
                                         },
                                     ],
                                     id: '0.4.2.2',
@@ -255,7 +284,7 @@ export const BADGE_DOC: KulArticleDataset = {
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.4.2',
-                            value: 'kulImageProps',
+                            value: 'kulStyle',
                         },
                     ],
                     id: '0.4',
@@ -268,7 +297,6 @@ export const BADGE_DOC: KulArticleDataset = {
                                 {
                                     id: '0.5.1.1',
                                     value: 'This event is emitted during various lifecycle stages of the component. It carries a payload of type ',
-                                    tagName: 'strong',
                                 },
                                 {
                                     id: '0.5.1.2',

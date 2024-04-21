@@ -1,5 +1,5 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
-import { SPLASH_EXAMPLES } from './kul-showcase-splash-data';
+import { SPLASH_DOC, SPLASH_EXAMPLES } from './kul-showcase-splash-data';
 import { SplashExample } from './kul-showcase-splash-declarations';
 
 @Component({
@@ -67,6 +67,7 @@ export class KulShowcaseSplash {
     render() {
         return (
             <Fragment>
+                <kul-article kulData={SPLASH_DOC}></kul-article>
                 <div class="grid" data-cy="wrapper" part="grid">
                     {this.#prepExamples()}
                 </div>

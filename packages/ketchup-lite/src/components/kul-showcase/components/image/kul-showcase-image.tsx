@@ -1,5 +1,5 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
-import { IMAGE_EXAMPLES } from './kul-showcase-image-data';
+import { IMAGE_DOC, IMAGE_EXAMPLES } from './kul-showcase-image-data';
 import { DynamicExampleManager } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 
@@ -79,6 +79,7 @@ export class KulShowcaseImage {
     render() {
         return (
             <Fragment>
+                <kul-article kulData={IMAGE_DOC}></kul-article>
                 <div class="grid" data-cy="wrapper" part="grid">
                     {this.#prepExamples()}
                 </div>
