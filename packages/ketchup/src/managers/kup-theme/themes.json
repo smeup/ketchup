@@ -58,7 +58,7 @@
             "--kup-hover-color": "#303030",
             "--kup-title-background-color": "#068a9c",
             "--kup-title-color": "#fff",
-            "--kup-icon-color": "#636363",
+            "--kup-icon-color": "#525252",
             "--kup-border-color": "#d8d8d8",
             "--kup-box-shadow": "0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)",
             "--kup-spinner-color": "#fddc69",

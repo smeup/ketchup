@@ -75,7 +75,7 @@ export function create2(component: KupCard): VNode {
                             color={
                                 colorArray[0]
                                     ? colorArray[0]
-                                    : `var(${KupThemeColorValues.PRIMARY})`
+                                    : `var(${KupThemeColorValues.ICON})`
                             }
                             id="image1"
                             {...imageArray[0]}
@@ -189,7 +189,7 @@ export function create4(component: KupCard): VNode {
                             color={
                                 colorArray[0]
                                     ? colorArray[0]
-                                    : `var(${KupThemeColorValues.PRIMARY})`
+                                    : `var(${KupThemeColorValues.ICON})`
                             }
                             id="image1"
                             {...imageArray[0]}
@@ -305,7 +305,7 @@ export function create5(component: KupCard): VNode {
                             color={
                                 colorArray[0]
                                     ? colorArray[0]
-                                    : `var(${KupThemeColorValues.PRIMARY})`
+                                    : `var(${KupThemeColorValues.ICON})`
                             }
                             id="image1"
                             {...imageArray[0]}
@@ -346,7 +346,7 @@ export function create6(component: KupCard): VNode {
                             color={
                                 colorArray[0]
                                     ? colorArray[0]
-                                    : `var(${KupThemeColorValues.PRIMARY})`
+                                    : `var(${KupThemeColorValues.ICON})`
                             }
                             id="image1"
                             {...imageArray[0]}
@@ -437,7 +437,7 @@ export function create7(component: KupCard): VNode {
                             color={
                                 colorArray[0]
                                     ? colorArray[0]
-                                    : `var(${KupThemeColorValues.PRIMARY})`
+                                    : `var(${KupThemeColorValues.ICON})`
                             }
                             id="image1"
                             {...imageArray[0]}
@@ -478,7 +478,7 @@ export function create8(component: KupCard): VNode {
                             color={
                                 colorArray[0]
                                     ? colorArray[0]
-                                    : `var(${KupThemeColorValues.PRIMARY})`
+                                    : `var(${KupThemeColorValues.ICON})`
                             }
                             id="image1"
                             {...imageArray[0]}
@@ -668,7 +668,7 @@ export function create10(component: KupCard): VNode {
                                         color={
                                             colorArray[0]
                                                 ? colorArray[0]
-                                                : `var(${KupThemeColorValues.PRIMARY})`
+                                                : `var(${KupThemeColorValues.ICON})`
                                         }
                                         id="image1"
                                         {...imageArray[0]}
@@ -714,7 +714,7 @@ export function create11(component: KupCard): VNode {
                             color={
                                 colorArray[0]
                                     ? colorArray[0]
-                                    : `var(${KupThemeColorValues.PRIMARY})`
+                                    : `var(${KupThemeColorValues.ICON})`
                             }
                             id="image1"
                             {...imageArray[0]}
