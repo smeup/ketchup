@@ -392,6 +392,8 @@ export namespace Components {
     }
     interface KulShowcaseSplash {
     }
+    interface KulShowcaseToast {
+    }
     interface KulShowcaseUpload {
     }
     interface KulSpinner {
@@ -493,6 +495,58 @@ export namespace Components {
          */
         "unmount": (ms?: number) => Promise<void>;
     }
+    interface KulToast {
+        /**
+          * Retrieves the debug information reflecting the current state of the component.
+          * @returns A promise that resolves to a KulDebugComponentInfo object containing debug information.
+         */
+        "getDebugInfo": () => Promise<KulDebugComponentInfo>;
+        /**
+          * Retrieves the properties of the component, with optional descriptions.
+          * @param descriptions - If true, returns properties with descriptions; otherwise, returns properties only.
+          * @returns A promise that resolves to an object where each key is a property name, optionally with its description.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Callback invoked when the toast is closed.
+          * @default () => void
+         */
+        "kulCloseCallback": () => void;
+        /**
+          * Sets the props of the clickable icon used to close the toast.
+          * @default { kulSizeX: '18px', kulSizeY: '18px', kulValue: 'clear' }
+         */
+        "kulCloseIcon": KulImagePropsInterface;
+        /**
+          * Sets the props of an optional icon that will be displayed along with the message.
+          * @default { kulSizeX: '18px', kulSizeY: '18px', kulValue: 'info' }
+         */
+        "kulIcon": KulImagePropsInterface;
+        /**
+          * Sets the message of the toast.
+          * @default 'Wow, such empty.'
+         */
+        "kulMessage": string;
+        /**
+          * Enables customization of the component's style.
+          * @default "" - No custom style applied by default.
+         */
+        "kulStyle": string;
+        /**
+          * When kulTimer is set with a number, the toast will close itself after the specified amount of time (in ms).
+          * @default ''
+         */
+        "kulTimer": number;
+        /**
+          * Triggers a re-render of the component to reflect any state changes.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Assigns a set of properties to the component, triggering updates if necessary.
+          * @param props - An object containing properties to be set on the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
     interface KulUpload {
         /**
           * Retrieves the debug information reflecting the current state of the component.
@@ -575,6 +629,10 @@ export interface KulSpinnerCustomEvent<T> extends CustomEvent<T> {
 export interface KulSplashCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulSplashElement;
+}
+export interface KulToastCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKulToastElement;
 }
 export interface KulUploadCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -766,6 +824,12 @@ declare global {
         prototype: HTMLKulShowcaseSplashElement;
         new (): HTMLKulShowcaseSplashElement;
     };
+    interface HTMLKulShowcaseToastElement extends Components.KulShowcaseToast, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseToastElement: {
+        prototype: HTMLKulShowcaseToastElement;
+        new (): HTMLKulShowcaseToastElement;
+    };
     interface HTMLKulShowcaseUploadElement extends Components.KulShowcaseUpload, HTMLStencilElement {
     }
     var HTMLKulShowcaseUploadElement: {
@@ -806,6 +870,23 @@ declare global {
         prototype: HTMLKulSplashElement;
         new (): HTMLKulSplashElement;
     };
+    interface HTMLKulToastElementEventMap {
+        "kul-toast-event": KulEventPayload;
+    }
+    interface HTMLKulToastElement extends Components.KulToast, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulToastElementEventMap>(type: K, listener: (this: HTMLKulToastElement, ev: KulToastCustomEvent<HTMLKulToastElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulToastElementEventMap>(type: K, listener: (this: HTMLKulToastElement, ev: KulToastCustomEvent<HTMLKulToastElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKulToastElement: {
+        prototype: HTMLKulToastElement;
+        new (): HTMLKulToastElement;
+    };
     interface HTMLKulUploadElementEventMap {
         "kul-upload-event": KulUploadEventPayload;
     }
@@ -842,9 +923,11 @@ declare global {
         "kul-showcase-probe": HTMLKulShowcaseProbeElement;
         "kul-showcase-spinner": HTMLKulShowcaseSpinnerElement;
         "kul-showcase-splash": HTMLKulShowcaseSplashElement;
+        "kul-showcase-toast": HTMLKulShowcaseToastElement;
         "kul-showcase-upload": HTMLKulShowcaseUploadElement;
         "kul-spinner": HTMLKulSpinnerElement;
         "kul-splash": HTMLKulSplashElement;
+        "kul-toast": HTMLKulToastElement;
         "kul-upload": HTMLKulUploadElement;
     }
 }
@@ -1087,6 +1170,8 @@ declare namespace LocalJSX {
     }
     interface KulShowcaseSplash {
     }
+    interface KulShowcaseToast {
+    }
     interface KulShowcaseUpload {
     }
     interface KulSpinner {
@@ -1148,6 +1233,42 @@ declare namespace LocalJSX {
          */
         "onKul-splash-event"?: (event: KulSplashCustomEvent<KulEventPayload>) => void;
     }
+    interface KulToast {
+        /**
+          * Callback invoked when the toast is closed.
+          * @default () => void
+         */
+        "kulCloseCallback"?: () => void;
+        /**
+          * Sets the props of the clickable icon used to close the toast.
+          * @default { kulSizeX: '18px', kulSizeY: '18px', kulValue: 'clear' }
+         */
+        "kulCloseIcon"?: KulImagePropsInterface;
+        /**
+          * Sets the props of an optional icon that will be displayed along with the message.
+          * @default { kulSizeX: '18px', kulSizeY: '18px', kulValue: 'info' }
+         */
+        "kulIcon"?: KulImagePropsInterface;
+        /**
+          * Sets the message of the toast.
+          * @default 'Wow, such empty.'
+         */
+        "kulMessage"?: string;
+        /**
+          * Enables customization of the component's style.
+          * @default "" - No custom style applied by default.
+         */
+        "kulStyle"?: string;
+        /**
+          * When kulTimer is set with a number, the toast will close itself after the specified amount of time (in ms).
+          * @default ''
+         */
+        "kulTimer"?: number;
+        /**
+          * Describes event emitted.
+         */
+        "onKul-toast-event"?: (event: KulToastCustomEvent<KulEventPayload>) => void;
+    }
     interface KulUpload {
         /**
           * Sets the button's label.
@@ -1193,9 +1314,11 @@ declare namespace LocalJSX {
         "kul-showcase-probe": KulShowcaseProbe;
         "kul-showcase-spinner": KulShowcaseSpinner;
         "kul-showcase-splash": KulShowcaseSplash;
+        "kul-showcase-toast": KulShowcaseToast;
         "kul-showcase-upload": KulShowcaseUpload;
         "kul-spinner": KulSpinner;
         "kul-splash": KulSplash;
+        "kul-toast": KulToast;
         "kul-upload": KulUpload;
     }
 }
@@ -1221,9 +1344,11 @@ declare module "@stencil/core" {
             "kul-showcase-probe": LocalJSX.KulShowcaseProbe & JSXBase.HTMLAttributes<HTMLKulShowcaseProbeElement>;
             "kul-showcase-spinner": LocalJSX.KulShowcaseSpinner & JSXBase.HTMLAttributes<HTMLKulShowcaseSpinnerElement>;
             "kul-showcase-splash": LocalJSX.KulShowcaseSplash & JSXBase.HTMLAttributes<HTMLKulShowcaseSplashElement>;
+            "kul-showcase-toast": LocalJSX.KulShowcaseToast & JSXBase.HTMLAttributes<HTMLKulShowcaseToastElement>;
             "kul-showcase-upload": LocalJSX.KulShowcaseUpload & JSXBase.HTMLAttributes<HTMLKulShowcaseUploadElement>;
             "kul-spinner": LocalJSX.KulSpinner & JSXBase.HTMLAttributes<HTMLKulSpinnerElement>;
             "kul-splash": LocalJSX.KulSplash & JSXBase.HTMLAttributes<HTMLKulSplashElement>;
+            "kul-toast": LocalJSX.KulToast & JSXBase.HTMLAttributes<HTMLKulToastElement>;
             "kul-upload": LocalJSX.KulUpload & JSXBase.HTMLAttributes<HTMLKulUploadElement>;
         }
     }

@@ -88,6 +88,13 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
             value: 'Spinner',
         },
         {
+            description:
+                'A simple component suitable to display notification messages.',
+            icon: 'information-variant',
+            id: 'Toast',
+            value: 'Toast',
+        },
+        {
             description: 'A simple component useful to upload files.',
             icon: 'upload',
             id: 'Upload',
