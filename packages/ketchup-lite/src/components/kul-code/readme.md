@@ -78,19 +78,19 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                                    | Description                                                                              |
-| --------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `--kul-code-background-color`           | Sets the background color of the component.                                              |
-| `--kul-code-font-family`                | Sets the font family of the component.                                                   |
-| `--kul-code-header-background-color`    | Sets the background color of the header.                                                 |
-| `--kul-code-header-color`               | Sets the color of the header.                                                            |
-| `--kul-code-text-color`                 | Sets the color of the text.                                                              |
-| `--kul-code-token-color-1`              | Sets the background color of: boolean, constant, deleted, number, property, symbol, tag. |
-| `--kul-code-token-color-2`              | Sets the background color of: attr-name, builtin, char, inserted, selector, string.      |
-| `--kul-code-token-color-3`              | Sets the background color of: atrule, attr-value, keyword.                               |
-| `--kul-code-token-color-4`              | Sets the background color of: class-name, function.                                      |
-| `--kul-code-token-color-5`              | Sets the background color of: important, regex, variable.                                |
-| `--kul_code_selection_background_color` | Sets the background color of selected text.                                              |
+| Name                                    | Description                                                                                                           |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `--kul-code-background-color`           | Sets the background color of the component. Defaults to rgba(var(--kul-background-color-rgb) 0.275)                   |
+| `--kul-code-font-family`                | Sets the font family of the component. Defaults to var(--kul-font-family-monospace)                                   |
+| `--kul-code-header-background-color`    | Sets the background color of the header. Defaults to var(--kul-title-background-color)                                |
+| `--kul-code-header-color`               | Sets the color of the header. Defaults to var(--kul-title-color)                                                      |
+| `--kul-code-selection-background-color` | Sets the background color of selected text. Defaults to rgba(var(--kul-border-color-rgb, 0.275))                      |
+| `--kul-code-text-color`                 | Sets the color of the text. Defaults to var(--kul-text-color)                                                         |
+| `--kul-code-token-color-1`              | Sets the background color of: boolean, constant, deleted, number, property, symbol, tag. Defaults to rgb(231, 0, 127) |
+| `--kul-code-token-color-2`              | Sets the background color of: attr-name, builtin, char, inserted, selector, string. Defaults to rgb(146, 219, 0)      |
+| `--kul-code-token-color-3`              | Sets the background color of: atrule, attr-value, keyword. Defaults to rgb(0, 165, 236)                               |
+| `--kul-code-token-color-4`              | Sets the background color of: class-name, function. Defaults to #ff6363                                               |
+| `--kul-code-token-color-5`              | Sets the background color of: important, regex, variable. Defaults to rgb(255, 196, 86)                               |
 
 
 ## Dependencies

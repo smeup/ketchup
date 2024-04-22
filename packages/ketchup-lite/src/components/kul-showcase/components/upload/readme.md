@@ -24,11 +24,13 @@
 ### Depends on
 
 - [kul-upload](../../../kul-upload)
+- [kul-article](../../../kul-article)
 
 ### Graph
 ```mermaid
 graph TD;
   kul-showcase-upload --> kul-upload
+  kul-showcase-upload --> kul-article
   kul-upload --> kul-image
   kul-upload --> kul-button
   kul-image --> kul-spinner

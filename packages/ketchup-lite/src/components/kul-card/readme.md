@@ -91,13 +91,9 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                                     | Description                                         |
-| ---------------------------------------- | --------------------------------------------------- |
-| `--kul-card-backdrop`                    | Backdrop of the component when is visible.          |
-| `--kul-card-ripple-color`                | Sets color of ripple effect (for Material layouts). |
-| `--kul-card-scalable-box-shadow`         | Box shadow of the scalable layouts.                 |
-| `--kul-card-scalable-starting-font-size` | Starting font size for scalable cards.              |
-| `--kul-card-scalable-static-font-size`   | Static font size for scalable cards.                |
+| Name                  | Description                                                                             |
+| --------------------- | --------------------------------------------------------------------------------------- |
+| `--kul-card-backdrop` | Sets the backdrop color of the component when visible. Defaults to rgba(0, 0, 0, 0.32). |
 
 
 ## Dependencies

@@ -78,15 +78,15 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                                | Description                              |
-| ----------------------------------- | ---------------------------------------- |
-| `--kul-badge-border-radius`         | Sets border radius of the badge.         |
-| `--kul-badge-font-family`           | Sets font family of the badge.           |
-| `--kul-badge-font-size`             | Sets font size of the badge.             |
-| `--kul-badge-min-size`              | Sets minimum size of the badge.          |
-| `--kul-badge-padding`               | Sets padding of the badge.               |
-| `--kul-badge-primary-color`         | Sets primary color of the badge.         |
-| `--kul-badge-text-on-primary-color` | Sets text on primary color of the badge. |
+| Name                                | Description                                                                                          |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `--kul-badge-border-radius`         | Sets the border radius of the badge. Defaults to 30px.                                               |
+| `--kul-badge-font-family`           | Sets the font family of the badge. Defaults to var(--kul-font-family).                               |
+| `--kul-badge-font-size`             | Sets the font size of the badge. Defaults to var(--kul-font-size).                                   |
+| `--kul-badge-min-size`              | Sets the minimum size of the badge. Defaults to 1.5em.                                               |
+| `--kul-badge-padding`               | Sets the padding of the badge. Defaults to 0.25em.                                                   |
+| `--kul-badge-primary-color`         | Sets the primary color of the badge. Defaults to var(--kul-primary-color).                           |
+| `--kul-badge-text-on-primary-color` | Sets the text color on the primary color of the badge. Defaults to var(--kul-text-on-primary-color). |
 
 
 ## Dependencies

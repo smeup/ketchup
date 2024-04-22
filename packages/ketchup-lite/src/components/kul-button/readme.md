@@ -113,24 +113,25 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                                 | Description                                                                           |
-| ------------------------------------ | ------------------------------------------------------------------------------------- |
-| `--kul-button-backdrop-filter`       | Sets the backdrop filter of buttons.                                                  |
-| `--kul-button-backdrop-filter-hover` | Sets the backdrop filter of buttons when hovering.                                    |
-| `--kul-button-border-radius`         | Sets border radius of the button.                                                     |
-| `--kul-button-disabled-color`        | Sets disabled color of the button.                                                    |
-| `--kul-button-font-family`           | Sets font family of the button.                                                       |
-| `--kul-button-font-size`             | Sets font size of the button.                                                         |
-| `--kul-button-font-weight`           | Sets font weight of the button.                                                       |
-| `--kul-button-height`                | Sets height of the button.                                                            |
-| `--kul-button-padding`               | Sets padding of the button.                                                           |
-| `--kul-button-primary-color`         | Sets the primary color of the button.                                                 |
-| `--kul-button-primary-color-h`       | Sets the primary color Hue value of the button (used for focus/hover effects).        |
-| `--kul-button-primary-color-l`       | Sets the primary color Lightness value of the button (used for focus/hover effects).  |
-| `--kul-button-primary-color-rgb`     | Sets the primary color RGB values of the button (used for shaders).                   |
-| `--kul-button-primary-color-s`       | Sets the primary color Saturation value of the button (used for focus/hover effects). |
-| `--kul-button-text-on-primary-color` | Sets text and icon color for raised buttons.                                          |
-| `--kul-button-text-transform`        | Set the label case, default is uppercase.                                             |
+| Name                                 | Description                                                                                                                   |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| `--kul-button-backdrop-filter`       | Sets the backdrop filter of buttons. Defaults to blur(3.5px).                                                                 |
+| `--kul-button-backdrop-filter-hover` | Sets the backdrop filter of buttons when hovering. Defaults to blur(5px).                                                     |
+| `--kul-button-border-radius`         | Sets border radius of the button. Defaults to 4px.                                                                            |
+| `--kul-button-disabled-color`        | Sets disabled color of the button. Defaults to var(--kul-disabled-color).                                                     |
+| `--kul-button-font-family`           | Sets font family of the button. Defaults to var(--kul-font-family).                                                           |
+| `--kul-button-font-size`             | Sets font size of the button. Defaults to var(--kul-font-size).                                                               |
+| `--kul-button-font-weight`           | Sets font weight of the button. Defaults to 400.                                                                              |
+| `--kul-button-height`                | Sets height of the button. Defaults to 3em.                                                                                   |
+| `--kul-button-padding`               | Sets padding of the button. Defaults to 0 1.25em.                                                                             |
+| `--kul-button-primary-color`         | Sets the primary color of the button. Defaults to var(--kul-primary-color).                                                   |
+| `--kul-button-primary-color-h`       | Sets the primary color Hue value of the button (used for focus/hover effects). Defaults to var(--kul-primary-color-h).        |
+| `--kul-button-primary-color-l`       | Sets the primary color Lightness value of the button (used for focus/hover effects). Defaults to var(--kul-primary-color-l).  |
+| `--kul-button-primary-color-rgb`     | Sets the primary color RGB values of the button (used for shaders). Defaults to var(--kul-primary-color-rgb).                 |
+| `--kul-button-primary-color-s`       | Sets the primary color Saturation value of the button (used for focus/hover effects). Defaults to var(--kul-primary-color-s). |
+| `--kul-button-text-on-primary-color` | Sets text and icon color for raised buttons. Defaults to var(--kul-text-on-primary-color).                                    |
+| `--kul-button-text-transform`        | Set the label case, default is uppercase. Defaults to uppercase.                                                              |
+| `--kul-spinner-color`                | Sets the spinner color. Defaults to var(--kul-button-primary-color).                                                          |
 
 
 ## Dependencies
