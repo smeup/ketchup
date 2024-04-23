@@ -1,6 +1,7 @@
 **/*.idea
 node_modules/
 .project
+packages/ketchup-lite/cypress/screenshots
 packages/ketchup-lite/src/assets/debug.js
 target/
 .yarn/cache
