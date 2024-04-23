@@ -55,11 +55,11 @@
   );
   --kup_calendar_no_work_day_background_color: var(
     --kup-calendar-no-work-day-background-color,
-    rgba(var(--kup-disabled-background-color-rgb), 0.5)
+    var(--kup-gray-color-0)
   );
   --kup_calendar_no_work_day_color: var(
     --kup-calendar-no-work-day-color,
-    var(--kup-gray-color-30)
+    var(--kup-gray-color-70)
   );
   --kup_calendar_today_background_color: var(
     --kup-calendar-today-background-color,
@@ -157,6 +157,12 @@
     border-color: var(--kup_calendar_border_color);
   }
 
+  .fc-theme-standard td,
+  .fc-theme-standard th,
+  .fc-theme-standard .fc-list {
+    border: 1px solid var(--kup_calendar_border_color);
+  }
+
   .fc-col-header-cell {
     background: var(--kup_calendar_header_background_color);
     color: var(--kup_calendar_header_color);
@@ -206,6 +212,7 @@
   td.fc-day-sat {
     background-color: var(--kup_calendar_no_work_day_background_color);
     color: var(--kup_calendar_no_work_day_color);
+    opacity: 0.7;
   }
 }
 
@@ -226,5 +233,14 @@
   }
   .navigation .navigation__right .f-chip .chip-set .chip-set__item {
     font-size: 16px;
+  }
+}
+
+@media (min-width: 599px) {
+  #kup-component {
+    .fc-daygrid-event {
+      align-items: baseline;
+      white-space: pre-line;
+    }
   }
 }

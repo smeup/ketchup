@@ -288,7 +288,7 @@ export enum KupThemeColorValues {
     HOVER = '--kup-hover-color',
     TITLE_BACKGROUND = '--kup-title-background-color',
     TITLE = '--kup-title-color',
-    ICON = '--kup-icon-color',
+    ICON = '--kup-gray-color-70',
     BORDER = '--kup-border-color',
     INFO = '--kup-info-color',
     SUCCESS = '--kup-success-color-40',
