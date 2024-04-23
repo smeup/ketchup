@@ -434,18 +434,6 @@ export const BADGE_DOC: KulArticleDataset = {
                             tagName: 'strong',
                             value: 'refresh()',
                         },
-                        {
-                            children: [
-                                {
-                                    id: '0.5.3.0',
-                                    value: 'Assigns a set of properties to the component, triggering updates if necessary.',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.5.3',
-                            tagName: 'strong',
-                            value: 'setProps(props: GenericObject)',
-                        },
                     ],
                     id: '0.5',
                     value: 'Methods',

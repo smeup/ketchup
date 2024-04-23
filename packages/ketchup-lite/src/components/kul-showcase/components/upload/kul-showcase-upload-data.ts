@@ -353,18 +353,6 @@ export const UPLOAD_DOC: KulArticleDataset = {
                             tagName: 'strong',
                             value: 'refresh()',
                         },
-                        {
-                            children: [
-                                {
-                                    id: '0.6.4.1',
-                                    value: 'Assigns a set of properties to the component, triggering updates if necessary.',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.6.4',
-                            tagName: 'strong',
-                            value: 'setProps(props: GenericObject)',
-                        },
                     ],
                     id: '0.6',
                     value: 'Methods',
