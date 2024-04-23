@@ -16,7 +16,7 @@ import {
     KulSplashStates,
 } from './kul-splash-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
-import { getProps, setProps } from '../../utils/componentUtils';
+import { getProps } from '../../utils/componentUtils';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
@@ -126,14 +126,6 @@ export class KulSplash {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
-    }
-    /**
-     * Assigns a set of properties to the component, triggering updates if necessary.
-     * @param {GenericObject} props - An object containing properties to be set on the component.
-     */
-    @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KulSplashProps, props);
     }
     /**
      * Initiates the unmount sequence, which removes the component from the DOM after a delay.

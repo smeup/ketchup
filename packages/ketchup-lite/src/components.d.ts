@@ -52,11 +52,6 @@ export namespace Components {
           * Triggers a re-render of the component to reflect any state changes.
          */
         "refresh": () => Promise<void>;
-        /**
-          * Assigns a set of properties to the component, triggering updates if necessary.
-          * @param props - An object containing properties to be set on the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KulBadge {
         /**
@@ -89,11 +84,6 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
-        /**
-          * Sets the props to the component.
-          * @param props - Object containing props that will be set to the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KulButton {
         /**
@@ -180,11 +170,6 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
-          * Sets the props to the component.
-          * @param props - Object containing props that will be set to the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
-        /**
           * Sets the component's state.
           * @param value - The new state to be set on the component.
           * @returns
@@ -242,11 +227,6 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
-        /**
-          * Sets the props to the component.
-          * @param props - Object containing props that will be set to the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KulCode {
         /**
@@ -279,11 +259,6 @@ export namespace Components {
           * Triggers a re-render of the component to reflect any state changes.
          */
         "refresh": () => Promise<void>;
-        /**
-          * Assigns a set of properties to the component, triggering updates if necessary.
-          * @param props - An object containing properties to be set on the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KulImage {
         /**
@@ -337,11 +312,6 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
-        /**
-          * Sets the props to the component.
-          * @param props - Object containing props that will be set to the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KulShowcase {
         /**
@@ -364,11 +334,6 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
-        /**
-          * Sets the props to the component.
-          * @param props - Object containing props that will be set to the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KulShowcaseArticle {
     }
@@ -452,11 +417,6 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
-        /**
-          * Sets the props to the component.
-          * @param props - Object containing props that will be set to the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KulSplash {
         /**
@@ -484,11 +444,6 @@ export namespace Components {
           * Triggers a re-render of the component to reflect any state changes.
          */
         "refresh": () => Promise<void>;
-        /**
-          * Assigns a set of properties to the component, triggering updates if necessary.
-          * @param props - An object containing properties to be set on the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
         /**
           * Initiates the unmount sequence, which removes the component from the DOM after a delay.
           * @param ms - Number of milliseconds
@@ -541,11 +496,6 @@ export namespace Components {
           * Triggers a re-render of the component to reflect any state changes.
          */
         "refresh": () => Promise<void>;
-        /**
-          * Assigns a set of properties to the component, triggering updates if necessary.
-          * @param props - An object containing properties to be set on the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KulUpload {
         /**
@@ -587,11 +537,6 @@ export namespace Components {
           * Triggers a re-render of the component to reflect any state changes.
          */
         "refresh": () => Promise<void>;
-        /**
-          * Assigns a set of properties to the component, triggering updates if necessary.
-          * @param props - An object containing properties to be set on the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
     }
 }
 export interface KulArticleCustomEvent<T> extends CustomEvent<T> {

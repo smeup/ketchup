@@ -63,22 +63,6 @@ Type: `Promise<void>`
 
 
 
-### `setProps(props: GenericObject) => Promise<void>`
-
-Sets the props to the component.
-
-#### Parameters
-
-| Name    | Type                     | Description                                                  |
-| ------- | ------------------------ | ------------------------------------------------------------ |
-| `props` | `GenericObject<unknown>` | - Object containing props that will be set to the component. |
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
 
 ## Dependencies
 

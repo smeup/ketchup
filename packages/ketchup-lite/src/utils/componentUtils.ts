@@ -24,24 +24,3 @@ export function getProps(
     }
     return props;
 }
-/**
- * Dynamically sets properties on a component or its root HTML element based on the prop list.
- * @param {KulComponent} comp - The component to set properties on.
- * @param {GenericMap} list - A map of custom property keys specific to the component.
- * @param {GenericObject} props - An object containing properties to be set on the component or its root element.
- */
-export function setProps(
-    comp: KulComponent,
-    list: GenericMap,
-    props: GenericObject
-): void {
-    for (const key in props) {
-        // If key is a custom prop it will be set on the component (i.e.: "data", "customStyle", ecc.)
-        if (list[key]) {
-            comp[key] = props[key];
-        } else {
-            // Otherwise, it will be set on its HTML element (i.e.: "id", "style", ecc.)
-            comp.rootElement[key] = props[key];
-        }
-    }
-}
