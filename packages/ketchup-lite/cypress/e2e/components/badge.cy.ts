@@ -1,5 +1,8 @@
 import { KUL_WRAPPER_ID } from '../../../src/variables/GenericVariables';
-import { KulBadgeProps } from '../../../src/components/kul-badge/kul-badge-declarations';
+import {
+    KulBadgeProps,
+    KulBadgePropsInterface,
+} from '../../../src/components/kul-badge/kul-badge-declarations';
 import { DynamicExampleManager } from '../../../src/components/kul-showcase/kul-showcase-utils';
 import { KulImagePropsInterface } from '../../../src/components';
 import { BADGE_EXAMPLES_KEYS } from './../../../src/components/kul-showcase/components/badge/kul-showcase-badge-declarations';
@@ -33,6 +36,96 @@ describe('kul-badge', () => {
         cy.get('@kulComponentShowcase')
             .find('kul-badge')
             .should('have.length', BADGE_EXAMPLES_KEYS.length);
+    });
+
+    it('common: should call getDebugInfo and check the structure of the returned object', () => {
+        cy.get('@kulComponentShowcase')
+            .find('kul-badge')
+            .first()
+            .then(($badge) => {
+                const kulBadgeElement = $badge[0] as HTMLKulBadgeElement;
+                kulBadgeElement.getDebugInfo().then((debugInfo) => {
+                    expect(debugInfo)
+                        .to.have.property('endTime')
+                        .that.is.a('number');
+                    expect(debugInfo)
+                        .to.have.property('renderCount')
+                        .that.is.a('number');
+                    expect(debugInfo)
+                        .to.have.property('renderEnd')
+                        .that.is.a('number');
+                    expect(debugInfo)
+                        .to.have.property('renderStart')
+                        .that.is.a('number');
+                    expect(debugInfo)
+                        .to.have.property('startTime')
+                        .that.is.a('number');
+                });
+            });
+    });
+
+    it('common: should call getDebugInfo, refresh, and check that renderCount has increased', () => {
+        let initialRenderCount: number;
+
+        cy.get('@kulComponentShowcase')
+            .find('kul-badge')
+            .first()
+            .then(($badge) => {
+                const kulBadgeElement = $badge[0] as HTMLKulBadgeElement;
+                return kulBadgeElement.getDebugInfo();
+            })
+            .then((debugInfo) => {
+                initialRenderCount = debugInfo.renderCount;
+                return cy.wrap(initialRenderCount);
+            })
+            .then((initialRenderCount) => {
+                cy.get('@kulComponentShowcase')
+                    .find('kul-badge')
+                    .first()
+                    .then(($badge) => {
+                        const kulBadgeElement =
+                            $badge[0] as HTMLKulBadgeElement;
+                        return kulBadgeElement.refresh();
+                    })
+                    .then(() => {
+                        cy.wait(100);
+                        return cy.wrap(initialRenderCount);
+                    })
+                    .then((initialRenderCount) => {
+                        cy.get('@kulComponentShowcase')
+                            .find('kul-badge')
+                            .first()
+                            .then(($badge) => {
+                                const kulBadgeElement =
+                                    $badge[0] as HTMLKulBadgeElement;
+                                return kulBadgeElement.getDebugInfo();
+                            })
+                            .then((debugInfo) => {
+                                expect(debugInfo.renderCount).to.be.greaterThan(
+                                    initialRenderCount
+                                );
+                            });
+                    });
+            });
+    });
+
+    it('common: should call getProps and check keys against KulBadgePropsInterface', () => {
+        cy.get('@kulComponentShowcase')
+            .find('kul-badge')
+            .first()
+            .then(($badge) => {
+                const kulBadgeElement = $badge[0] as HTMLKulBadgeElement;
+                return kulBadgeElement.getProps();
+            })
+            .then((props) => {
+                const dummy: KulBadgePropsInterface = {
+                    kulImageProps: null,
+                    kulLabel: null,
+                    kulStyle: null,
+                };
+                const expectedKeys = Object.keys(dummy);
+                expect(Object.keys(props)).to.deep.equal(expectedKeys);
+            });
     });
 
     it('#colors: should check that the <kul-badge> with status colors has a correct state class and the matching status color', () => {

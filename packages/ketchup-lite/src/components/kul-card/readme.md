@@ -7,14 +7,13 @@
 
 ## Properties
 
-| Property          | Attribute           | Description                                                                               | Type             | Default      |
-| ----------------- | ------------------- | ----------------------------------------------------------------------------------------- | ---------------- | ------------ |
-| `kulData`         | --                  | The actual data of the card.                                                              | `KulDataDataset` | `null`       |
-| `kulLayoutFamily` | `kul-layout-family` | Sets the type of the card.                                                                | `"standard"`     | `'standard'` |
-| `kulLayoutNumber` | `kul-layout-number` | Sets the number of the layout.                                                            | `number`         | `1`          |
-| `kulSizeX`        | `kul-size-x`        | The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).  | `string`         | `'100%'`     |
-| `kulSizeY`        | `kul-size-y`        | The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.). | `string`         | `'100%'`     |
-| `kulStyle`        | `kul-style`         | Custom style of the component.                                                            | `string`         | `''`         |
+| Property    | Attribute    | Description                                                                               | Type             | Default  |
+| ----------- | ------------ | ----------------------------------------------------------------------------------------- | ---------------- | -------- |
+| `kulData`   | --           | The actual data of the card.                                                              | `KulDataDataset` | `null`   |
+| `kulLayout` | `kul-layout` | Sets the layout.                                                                          | `string`         | `'a'`    |
+| `kulSizeX`  | `kul-size-x` | The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).  | `string`         | `'100%'` |
+| `kulSizeY`  | `kul-size-y` | The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.). | `string`         | `'100%'` |
+| `kulStyle`  | `kul-style`  | Custom style of the component.                                                            | `string`         | `''`     |
 
 
 ## Events
@@ -72,32 +71,12 @@ Type: `Promise<void>`
 
 
 
-### `setProps(props: GenericObject) => Promise<void>`
-
-Sets the props to the component.
-
-#### Parameters
-
-| Name    | Type                     | Description                                                  |
-| ------- | ------------------------ | ------------------------------------------------------------ |
-| `props` | `GenericObject<unknown>` | - Object containing props that will be set to the component. |
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
 
 ## CSS Custom Properties
 
-| Name                                     | Description                                         |
-| ---------------------------------------- | --------------------------------------------------- |
-| `--kul-card-backdrop`                    | Backdrop of the component when is visible.          |
-| `--kul-card-ripple-color`                | Sets color of ripple effect (for Material layouts). |
-| `--kul-card-scalable-box-shadow`         | Box shadow of the scalable layouts.                 |
-| `--kul-card-scalable-starting-font-size` | Starting font size for scalable cards.              |
-| `--kul-card-scalable-static-font-size`   | Static font size for scalable cards.                |
+| Name                  | Description                                                                             |
+| --------------------- | --------------------------------------------------------------------------------------- |
+| `--kul-card-backdrop` | Sets the backdrop color of the component when visible. Defaults to rgba(0, 0, 0, 0.32). |
 
 
 ## Dependencies
@@ -109,18 +88,18 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kul-image](../kul-image)
 - [kul-button](../kul-button)
+- [kul-image](../kul-image)
 
 ### Graph
 ```mermaid
 graph TD;
-  kul-card --> kul-image
   kul-card --> kul-button
+  kul-card --> kul-image
+  kul-button --> kul-image
   kul-image --> kul-spinner
   kul-image --> kul-badge
   kul-badge --> kul-image
-  kul-button --> kul-image
   kul-showcase --> kul-card
   kul-showcase-card --> kul-card
   style kul-card fill:#f9f,stroke:#333,stroke-width:4px

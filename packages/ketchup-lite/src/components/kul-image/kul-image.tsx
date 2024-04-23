@@ -20,7 +20,7 @@ import type {
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { KulImageEvents, KulImageProps } from './kul-image-declarations';
 import { KulThemeColorValues } from '../../managers/kul-theme/kul-theme-declarations';
-import { getProps, setProps } from '../../utils/componentUtils';
+import { getProps } from '../../utils/componentUtils';
 import {
     CSS_VAR_PREFIX,
     KUL_WRAPPER_ID,
@@ -155,14 +155,6 @@ export class KulImage {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
-    }
-    /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
-     */
-    @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KulImageProps, props);
     }
 
     /*-------------------------------------------------*/

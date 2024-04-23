@@ -58,22 +58,6 @@ Type: `Promise<void>`
 
 
 
-### `setProps(props: GenericObject) => Promise<void>`
-
-Assigns a set of properties to the component, triggering updates if necessary.
-
-#### Parameters
-
-| Name    | Type                     | Description                                                   |
-| ------- | ------------------------ | ------------------------------------------------------------- |
-| `props` | `GenericObject<unknown>` | - An object containing properties to be set on the component. |
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
 ### `unmount(ms?: number) => Promise<void>`
 
 Initiates the unmount sequence, which removes the component from the DOM after a delay.

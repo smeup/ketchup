@@ -10,27 +10,24 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import {
-    KulSplashEvents,
-    KulSplashProps,
-    KulSplashStates,
-} from './kul-splash-declarations';
+import { KulToastEvents, KulToastProps } from './kul-toast-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps } from '../../utils/componentUtils';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
+import { KulImagePropsInterface } from '../kul-image/kul-image-declarations';
 
 @Component({
-    tag: 'kul-splash',
-    styleUrl: 'kul-splash.scss',
+    tag: 'kul-toast',
+    styleUrl: 'kul-toast.scss',
     shadow: true,
 })
-export class KulSplash {
+export class KulToast {
     /**
-     * References the root HTML element of the component (<kul-splash>).
+     * References the root HTML element of the component (<kul-toast>).
      */
-    @Element() rootElement: HTMLKulSplashElement;
+    @Element() rootElement: HTMLKulToastElement;
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -46,23 +43,55 @@ export class KulSplash {
         renderStart: 0,
         startTime: performance.now(),
     };
-    /**
-     * The value of the component ("on" or "off").
-     * @default ""
-     *
-     * @see KulButtonStates - For a list of possible states.
-     */
-    @State() state: KulSplashStates = 'initializing';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
 
     /**
-     * Initial text displayed within the component, typically shown during loading.
-     * @default "Loading..." - Indicates that loading or initialization is in progress.
+     * Sets the props of the clickable icon used to close the toast.
+     * @default { kulSizeX: '18px', kulSizeY: '18px', kulValue: 'clear' }
      */
-    @Prop({ mutable: true, reflect: false }) kulLabel = 'Loading...';
+    @Prop({ mutable: true })
+    kulCloseIcon: KulImagePropsInterface = {
+        kulSizeX: '18px',
+        kulSizeY: '18px',
+        kulValue: 'clear',
+    };
+    /**
+     * Callback invoked when the toast is closed.
+     * @default () => void
+     */
+    @Prop() kulCloseCallback: () => void = () => {
+        const e = new CustomEvent('close');
+        this.onKulEvent(e, 'close');
+        this.kulEvent.emit({
+            comp: this,
+            eventType: 'close',
+            id: this.rootElement.id,
+            originalEvent: e,
+        });
+        this.rootElement.remove();
+    };
+    /**
+     *  Sets the props of an optional icon that will be displayed along with the message.
+     * @default { kulSizeX: '18px', kulSizeY: '18px', kulValue: 'info' }
+     */
+    @Prop({ mutable: true, reflect: true }) kulIcon: KulImagePropsInterface = {
+        kulSizeX: '18px',
+        kulSizeY: '18px',
+        kulValue: 'info',
+    };
+    /**
+     * When kulTimer is set with a number, the toast will close itself after the specified amount of time (in ms).
+     * @default ''
+     */
+    @Prop() kulTimer: number = null;
+    /**
+     * Sets the message of the toast.
+     * @default 'Wow, such empty.'
+     */
+    @Prop({ mutable: true, reflect: true }) kulMessage = 'Wow, such empty.';
     /**
      * Enables customization of the component's style.
      * @default "" - No custom style applied by default.
@@ -83,14 +112,14 @@ export class KulSplash {
      * Describes event emitted.
      */
     @Event({
-        eventName: 'kul-splash-event',
+        eventName: 'kul-toast-event',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event | CustomEvent, eventType: KulSplashEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulToastEvents) {
         this.kulEvent.emit({
             comp: this,
             eventType,
@@ -118,7 +147,7 @@ export class KulSplash {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        return getProps(this, KulSplashProps, descriptions);
+        return getProps(this, KulToastProps, descriptions);
     }
     /**
      * Triggers a re-render of the component to reflect any state changes.
@@ -126,20 +155,6 @@ export class KulSplash {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
-    }
-    /**
-     * Initiates the unmount sequence, which removes the component from the DOM after a delay.
-     * @param {number} ms - Number of milliseconds
-     */
-    @Method()
-    async unmount(ms: number = 575): Promise<void> {
-        setTimeout(() => {
-            this.state = 'unmounting';
-            setTimeout(() => {
-                this.onKulEvent(new CustomEvent(''), 'unmount');
-                this.rootElement.remove();
-            }, 300);
-        }, ms);
     }
 
     /*-------------------------------------------------*/
@@ -160,6 +175,9 @@ export class KulSplash {
     }
 
     componentDidRender() {
+        if (this.kulTimer) {
+            setTimeout(() => {}, this.kulTimer);
+        }
         this.#kulManager.debug.updateDebugInfo(this, 'did-render');
     }
 
@@ -168,21 +186,33 @@ export class KulSplash {
             <Host>
                 <style>{this.#kulManager.theme.setKulStyle(this)}</style>
                 <div id={KUL_WRAPPER_ID}>
-                    <div
-                        class={
-                            'modal' +
-                            (this.state === 'unmounting' ? ' active' : '')
-                        }
-                    >
-                        <div class="wrapper">
-                            <div class="widget">
-                                <slot></slot>
-                            </div>
-                            <div class="label">
-                                {this.state === 'unmounting'
-                                    ? 'Ready!'
-                                    : this.kulLabel}
-                            </div>
+                    <div class="toast">
+                        <div
+                            class={`toast__accent ${
+                                this.kulTimer ? 'toast__accent--temporary' : ''
+                            }`}
+                        ></div>
+                        <div class="toast__message-wrapper">
+                            {this.kulIcon ? (
+                                <div class="toast__icon">
+                                    <kul-image {...this.kulIcon}></kul-image>
+                                </div>
+                            ) : undefined}
+                            {this.kulMessage ? (
+                                <div class="toast__message">
+                                    {this.kulMessage}
+                                </div>
+                            ) : undefined}
+                            {this.kulCloseIcon ? (
+                                <div
+                                    class="toast__icon toast__icon--close"
+                                    onClick={() => this.kulCloseCallback()}
+                                >
+                                    <kul-image
+                                        {...this.kulCloseIcon}
+                                    ></kul-image>
+                                </div>
+                            ) : undefined}
                         </div>
                     </div>
                 </div>

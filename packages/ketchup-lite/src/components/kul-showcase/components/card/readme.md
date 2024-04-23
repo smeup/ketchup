@@ -26,17 +26,19 @@
 ### Depends on
 
 - [kul-card](../../../kul-card)
+- [kul-article](../../../kul-article)
 
 ### Graph
 ```mermaid
 graph TD;
   kul-showcase-card --> kul-card
-  kul-card --> kul-image
+  kul-showcase-card --> kul-article
   kul-card --> kul-button
+  kul-card --> kul-image
+  kul-button --> kul-image
   kul-image --> kul-spinner
   kul-image --> kul-badge
   kul-badge --> kul-image
-  kul-button --> kul-image
   kul-showcase --> kul-showcase-card
   style kul-showcase-card fill:#f9f,stroke:#333,stroke-width:4px
 ```

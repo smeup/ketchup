@@ -23,21 +23,20 @@
 
 ### Depends on
 
-- [kul-code](../../../kul-code)
+- [kul-toast](../../../kul-toast)
 - [kul-article](../../../kul-article)
 
 ### Graph
 ```mermaid
 graph TD;
-  kul-showcase-code --> kul-code
-  kul-showcase-code --> kul-article
-  kul-code --> kul-button
-  kul-button --> kul-image
+  kul-showcase-toast --> kul-toast
+  kul-showcase-toast --> kul-article
+  kul-toast --> kul-image
   kul-image --> kul-spinner
   kul-image --> kul-badge
   kul-badge --> kul-image
-  kul-showcase --> kul-showcase-code
-  style kul-showcase-code fill:#f9f,stroke:#333,stroke-width:4px
+  kul-showcase --> kul-showcase-toast
+  style kul-showcase-toast fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

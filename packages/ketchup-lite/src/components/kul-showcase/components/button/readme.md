@@ -27,12 +27,14 @@
 
 - [kul-button](../../../kul-button)
 - [kul-spinner](../../../kul-spinner)
+- [kul-article](../../../kul-article)
 
 ### Graph
 ```mermaid
 graph TD;
   kul-showcase-button --> kul-button
   kul-showcase-button --> kul-spinner
+  kul-showcase-button --> kul-article
   kul-button --> kul-image
   kul-image --> kul-spinner
   kul-image --> kul-badge

@@ -13,7 +13,7 @@ import {
 import { KulBadgeEvents, KulBadgeProps } from './kul-badge-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { KulImagePropsInterface } from '../kul-image/kul-image-declarations';
-import { getProps, setProps } from '../../utils/componentUtils';
+import { getProps } from '../../utils/componentUtils';
 import { KulThemeColorValues } from '../../managers/kul-theme/kul-theme-declarations';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
@@ -122,14 +122,6 @@ export class KulBadge {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
-    }
-    /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
-     */
-    @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KulBadgeProps, props);
     }
 
     /*-------------------------------------------------*/

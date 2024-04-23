@@ -34,7 +34,7 @@ export const SPLASH_DOC: KulArticleDataset = {
                                         },
                                         {
                                             id: '0.1.1.3',
-                                            value: ' component is a versatile and customizable web component designed to showcase various examples of components within the Ketchup Lite library.',
+                                            value: ' component is a customizable web component which could be useful for websites landing pages.',
                                         },
                                     ],
                                     id: '0.1.1.1',
@@ -176,22 +176,21 @@ export const SPLASH_DOC: KulArticleDataset = {
                             children: [
                                 {
                                     id: '0.5.1.1',
-                                    value: 'This event is emitted when a user clicks on an example button. It carries a payload of type ',
+                                    value: 'This event is emitted during various lifecycle stages of the component. It carries a payload of type ',
                                 },
                                 {
                                     id: '0.5.1.2',
-                                    value: 'SplashExampleClickEvent',
-                                    tagName: 'strong',
+                                    value: 'KulEventPayload',
                                 },
                                 {
                                     id: '0.5.1.3',
-                                    value: ', which includes information about the clicked example.',
+                                    value: ', which includes information about the component and the event type.',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.5.1',
                             tagName: 'strong',
-                            value: 'splash-example-click',
+                            value: 'kul-toast-event',
                         },
                     ],
                     id: '0.5',
@@ -318,7 +317,7 @@ export const SPLASH_DOC: KulArticleDataset = {
                 },
             ],
             id: '0',
-            value: 'kul-showcase-splash',
+            value: 'KulSplash',
         },
     ],
 };

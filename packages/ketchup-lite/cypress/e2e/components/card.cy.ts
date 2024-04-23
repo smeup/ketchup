@@ -1,32 +1,51 @@
 import {
-    KulSpinnerProps,
-    KulSpinnerPropsInterface,
-} from '../../../src/components/kul-spinner/kul-spinner-declarations';
+    KulCardProps,
+    KulCardPropsInterface,
+} from '../../../src/components/kul-card/kul-card-declarations';
+import { CARD_CATEGORIES_KEYS } from '../../../src/components/kul-showcase/components/card/kul-showcase-card-declarations';
 
-describe('kul-spinner', () => {
+describe('kul-card', () => {
     beforeEach(() => {
-        cy.navigate('spinner');
+        cy.navigate('card');
     });
 
-    it('common: should call getProps() and check keys against KulSpinnerProps enum', () => {
+    it('common: should check that all categories have at least 1 <kul-card>', () => {
         cy.get('@kulComponentShowcase')
-            .find('kul-spinner')
+            .find('.grid-container')
+            .each((category) => {
+                cy.wrap(category)
+                    .find('kul-card')
+                    .its('length')
+                    .should('be.gte', 1);
+            });
+    });
+
+    it('common: should call getProps() and check keys against KulCardProps enum', () => {
+        cy.get('@kulComponentShowcase')
+            .find('kul-card')
             .first()
-            .then(($spinner) => {
-                $spinner[0].getProps().then((props) => {
-                    const enumKeys = Object.keys(KulSpinnerProps);
+            .then(($card) => {
+                $card[0].getProps().then((props) => {
+                    const enumKeys = Object.keys(KulCardProps);
                     expect(Object.keys(props)).to.deep.equal(enumKeys);
                 });
             });
     });
 
+    it('common: should select all <kul-card> elements matching the composed ID', () => {
+        CARD_CATEGORIES_KEYS.forEach((categoryKey) => {
+            const composedId = `#${categoryKey}-style`;
+            cy.get('@kulComponentShowcase').find(composedId).should('exist');
+        });
+    });
+
     it('common: should call getDebugInfo and check the structure of the returned object', () => {
         cy.get('@kulComponentShowcase')
-            .find('kul-spinner')
+            .find('kul-card')
             .first()
-            .then(($spinner) => {
-                const kulSpinnerElement = $spinner[0] as HTMLKulSpinnerElement;
-                kulSpinnerElement.getDebugInfo().then((debugInfo) => {
+            .then(($card) => {
+                const kulCardElement = $card[0] as HTMLKulCardElement;
+                kulCardElement.getDebugInfo().then((debugInfo) => {
                     expect(debugInfo)
                         .to.have.property('endTime')
                         .that.is.a('number');
@@ -50,11 +69,11 @@ describe('kul-spinner', () => {
         let initialRenderCount: number;
 
         cy.get('@kulComponentShowcase')
-            .find('kul-spinner')
+            .find('kul-card')
             .first()
-            .then(($spinner) => {
-                const kulSpinnerElement = $spinner[0] as HTMLKulSpinnerElement;
-                return kulSpinnerElement.getDebugInfo();
+            .then(($card) => {
+                const kulCardElement = $card[0] as HTMLKulCardElement;
+                return kulCardElement.getDebugInfo();
             })
             .then((debugInfo) => {
                 initialRenderCount = debugInfo.renderCount;
@@ -62,12 +81,11 @@ describe('kul-spinner', () => {
             })
             .then((initialRenderCount) => {
                 cy.get('@kulComponentShowcase')
-                    .find('kul-spinner')
+                    .find('kul-card')
                     .first()
-                    .then(($spinner) => {
-                        const kulSpinnerElement =
-                            $spinner[0] as HTMLKulSpinnerElement;
-                        return kulSpinnerElement.refresh();
+                    .then(($card) => {
+                        const kulCardElement = $card[0] as HTMLKulCardElement;
+                        return kulCardElement.refresh();
                     })
                     .then(() => {
                         cy.wait(100);
@@ -75,12 +93,12 @@ describe('kul-spinner', () => {
                     })
                     .then((initialRenderCount) => {
                         cy.get('@kulComponentShowcase')
-                            .find('kul-spinner')
+                            .find('kul-card')
                             .first()
-                            .then(($spinner) => {
-                                const kulSpinnerElement =
-                                    $spinner[0] as HTMLKulSpinnerElement;
-                                return kulSpinnerElement.getDebugInfo();
+                            .then(($card) => {
+                                const kulCardElement =
+                                    $card[0] as HTMLKulCardElement;
+                                return kulCardElement.getDebugInfo();
                             })
                             .then((debugInfo) => {
                                 expect(debugInfo.renderCount).to.be.greaterThan(
@@ -91,23 +109,20 @@ describe('kul-spinner', () => {
             });
     });
 
-    it('common: should call getProps and check keys against KulCodePropsInterface', () => {
+    it('common: should call getProps and check keys against KulCardPropsInterface', () => {
         cy.get('@kulComponentShowcase')
-            .find('kul-spinner')
+            .find('kul-card')
             .first()
-            .then(($spinner) => {
-                const kulSpinnerElement = $spinner[0] as HTMLKulSpinnerElement;
-                return kulSpinnerElement.getProps();
+            .then(($card) => {
+                const kulCardElement = $card[0] as HTMLKulCardElement;
+                return kulCardElement.getProps();
             })
             .then((props) => {
-                const dummy: KulSpinnerPropsInterface = {
-                    kulActive: null,
-                    kulBarVariant: null,
-                    kulDimensions: null,
-                    kulFader: null,
-                    kulFaderTimeout: null,
-                    kulFullScreen: null,
-                    kulLayout: null,
+                const dummy: KulCardPropsInterface = {
+                    kulData: null,
+                    kulLayoutNumber: null,
+                    kulSizeX: null,
+                    kulSizeY: null,
                     kulStyle: null,
                 };
                 const expectedKeys = Object.keys(dummy);

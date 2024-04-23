@@ -63,22 +63,6 @@ Type: `Promise<void>`
 
 
 
-### `setProps(props: GenericObject) => Promise<void>`
-
-Sets the props to the component.
-
-#### Parameters
-
-| Name    | Type                     | Description                                                  |
-| ------- | ------------------------ | ------------------------------------------------------------ |
-| `props` | `GenericObject<unknown>` | - Object containing props that will be set to the component. |
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
 
 ## Dependencies
 
@@ -88,6 +72,7 @@ Type: `Promise<void>`
  - [kul-button](../kul-button)
  - [kul-card](../kul-card)
  - [kul-showcase-image](../kul-showcase/components/image)
+ - [kul-toast](../kul-toast)
  - [kul-upload](../kul-upload)
 
 ### Depends on
@@ -104,6 +89,7 @@ graph TD;
   kul-button --> kul-image
   kul-card --> kul-image
   kul-showcase-image --> kul-image
+  kul-toast --> kul-image
   kul-upload --> kul-image
   style kul-image fill:#f9f,stroke:#333,stroke-width:4px
 ```

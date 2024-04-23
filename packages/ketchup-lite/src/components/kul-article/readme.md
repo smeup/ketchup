@@ -58,33 +58,20 @@ Type: `Promise<void>`
 
 
 
-### `setProps(props: GenericObject) => Promise<void>`
-
-Assigns a set of properties to the component, triggering updates if necessary.
-
-#### Parameters
-
-| Name    | Type                     | Description                                                   |
-| ------- | ------------------------ | ------------------------------------------------------------- |
-| `props` | `GenericObject<unknown>` | - An object containing properties to be set on the component. |
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
 
 ## CSS Custom Properties
 
-| Name                           | Description                                                                |
-| ------------------------------ | -------------------------------------------------------------------------- |
-| `--kul-article-h3-color`       | Sets the color for <h3> elements. Defaults to var(--kul-text-color)        |
-| `--kul-article-h3-font-family` | Sets the font family for <h3> elements. Defaults to var(--kul-font-family) |
-| `--kul-article-h3-font-size`   | Sets the font size for <h3> elements. Defaults to 1.5em                    |
-| `--kul-article-margin`         | Sets the margin of the article tag. Defaults to automatic.                 |
-| `--kul-article-max-width`      | Sets the max-width of the article tag. Defaults to 1200px.                 |
-| `--kul-article-padding`        | Sets the padding of the article tag. Defaults to 40px vertically.          |
+| Name                                | Description                                                                    |
+| ----------------------------------- | ------------------------------------------------------------------------------ |
+| `--kul-article-content-color`       | Sets the color for .content elements. Defaults to var(--kul-text-color)        |
+| `--kul-article-content-font-family` | Sets the font family for .content elements. Defaults to var(--kul-font-family) |
+| `--kul-article-content-font-size`   | Sets the font size for .content elements. Defaults to var(--kul-font-size)     |
+| `--kul-article-h3-color`            | Sets the color for <h3> elements. Defaults to var(--kul-text-color)            |
+| `--kul-article-h3-font-family`      | Sets the font family for <h3> elements. Defaults to var(--kul-font-family)     |
+| `--kul-article-h3-font-size`        | Sets the font size for <h3> elements. Defaults to 1.5em                        |
+| `--kul-article-margin`              | Sets the margin of the article tag. Defaults to automatic.                     |
+| `--kul-article-max-width`           | Sets the max-width of the article tag. Defaults to 1200px.                     |
+| `--kul-article-padding`             | Sets the padding of the article tag. Defaults to 40px.                         |
 
 
 ## Dependencies
@@ -93,14 +80,30 @@ Type: `Promise<void>`
 
  - [kul-showcase-article](../kul-showcase/components/article)
  - [kul-showcase-badge](../kul-showcase/components/badge)
+ - [kul-showcase-button](../kul-showcase/components/button)
+ - [kul-showcase-card](../kul-showcase/components/card)
+ - [kul-showcase-code](../kul-showcase/components/code)
+ - [kul-showcase-image](../kul-showcase/components/image)
  - [kul-showcase-kulmanager](../kul-showcase/framework/manager)
+ - [kul-showcase-spinner](../kul-showcase/components/spinner)
+ - [kul-showcase-splash](../kul-showcase/components/splash)
+ - [kul-showcase-toast](../kul-showcase/components/toast)
+ - [kul-showcase-upload](../kul-showcase/components/upload)
 
 ### Graph
 ```mermaid
 graph TD;
   kul-showcase-article --> kul-article
   kul-showcase-badge --> kul-article
+  kul-showcase-button --> kul-article
+  kul-showcase-card --> kul-article
+  kul-showcase-code --> kul-article
+  kul-showcase-image --> kul-article
   kul-showcase-kulmanager --> kul-article
+  kul-showcase-spinner --> kul-article
+  kul-showcase-splash --> kul-article
+  kul-showcase-toast --> kul-article
+  kul-showcase-upload --> kul-article
   style kul-article fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

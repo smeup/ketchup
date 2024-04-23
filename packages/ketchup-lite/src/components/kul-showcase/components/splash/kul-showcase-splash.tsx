@@ -37,8 +37,7 @@ export class KulShowcaseSplash {
                                     splash.id = key;
                                     splash.kulLabel =
                                         props.kulLabel || 'Click to close...';
-                                    splash.kulStyle =
-                                        props.kulStyle || 'Click to close...';
+                                    splash.kulStyle = props.kulStyle;
                                     splash.addEventListener('click', () => {
                                         splash.remove();
                                     });
