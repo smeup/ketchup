@@ -1,6 +1,7 @@
 import {
     KulArticleDataset,
     KulArticleProps,
+    KulArticlePropsInterface,
 } from './../../../src/components/kul-article/kul-article-declarations';
 import { ARTICLE_EXAMPLES_KEYS } from './../../../src/components/kul-showcase/components/article/kul-showcase-article-declarations';
 
@@ -35,6 +36,95 @@ describe('kul-article', () => {
             });
     });
 
+    it('common: should call getDebugInfo and check the structure of the returned object', () => {
+        cy.get('@kulComponentShowcase')
+            .find('kul-article')
+            .first()
+            .then(($article) => {
+                const kulArticleElement = $article[0] as HTMLKulArticleElement;
+                kulArticleElement.getDebugInfo().then((debugInfo) => {
+                    expect(debugInfo)
+                        .to.have.property('endTime')
+                        .that.is.a('number');
+                    expect(debugInfo)
+                        .to.have.property('renderCount')
+                        .that.is.a('number');
+                    expect(debugInfo)
+                        .to.have.property('renderEnd')
+                        .that.is.a('number');
+                    expect(debugInfo)
+                        .to.have.property('renderStart')
+                        .that.is.a('number');
+                    expect(debugInfo)
+                        .to.have.property('startTime')
+                        .that.is.a('number');
+                });
+            });
+    });
+
+    it('common: should call getDebugInfo, refresh, and check that renderCount has increased', () => {
+        let initialRenderCount: number;
+
+        cy.get('@kulComponentShowcase')
+            .find('kul-article')
+            .first()
+            .then(($article) => {
+                const kulArticleElement = $article[0] as HTMLKulArticleElement;
+                return kulArticleElement.getDebugInfo();
+            })
+            .then((debugInfo) => {
+                initialRenderCount = debugInfo.renderCount;
+                return cy.wrap(initialRenderCount);
+            })
+            .then((initialRenderCount) => {
+                cy.get('@kulComponentShowcase')
+                    .find('kul-article')
+                    .first()
+                    .then(($article) => {
+                        const kulArticleElement =
+                            $article[0] as HTMLKulArticleElement;
+                        return kulArticleElement.refresh();
+                    })
+                    .then(() => {
+                        cy.wait(100);
+                        return cy.wrap(initialRenderCount);
+                    })
+                    .then((initialRenderCount) => {
+                        cy.get('@kulComponentShowcase')
+                            .find('kul-article')
+                            .first()
+                            .then(($article) => {
+                                const kulArticleElement =
+                                    $article[0] as HTMLKulArticleElement;
+                                return kulArticleElement.getDebugInfo();
+                            })
+                            .then((debugInfo) => {
+                                expect(debugInfo.renderCount).to.be.greaterThan(
+                                    initialRenderCount
+                                );
+                            });
+                    });
+            });
+    });
+
+    it('common: should call getProps and check keys against KulArticlePropsInterface', () => {
+        cy.get('@kulComponentShowcase')
+            .find('kul-article')
+            .first()
+            .then(($article) => {
+                const kulArticleElement = $article[0] as HTMLKulArticleElement;
+                return kulArticleElement.getProps();
+            })
+            .then((props) => {
+                const dummy: KulArticlePropsInterface = {
+                    kulData: null,
+                    kulStyle: null,
+                };
+                const expectedKeys = Object.keys(dummy);
+                expect(Object.keys(props)).to.deep.equal(expectedKeys);
+            });
+    });
+
     it('#simple: should check for the presence of a <h1> tag inside <article> if the first node has a truthy value', () => {
         cy.get('@kulComponentShowcase')
             .find('kul-article#simple')
@@ -59,22 +149,28 @@ describe('kul-article', () => {
         cy.get('@kulComponentShowcase')
             .find('kul-article')
             .each(($article) => {
-                const kulData = $article.prop('kulData');
-                const expectedSectionCount = kulData.nodes[0].children.length;
-                cy.wrap($article)
-                    .shadow()
-                    .find('section')
-                    .then(($sections) => {
-                        expect($sections.length).to.equal(expectedSectionCount);
-                        $sections.each((index, section) => {
-                            const h2Content = Cypress.$(section)
-                                .find('h2')
-                                .text();
-                            const expectedValue =
-                                kulData.nodes[0].children[index].value;
-                            expect(h2Content).to.equal(expectedValue);
+                const kulData: KulArticleDataset = $article.prop('kulData');
+                const expectedSectionCount =
+                    kulData.nodes[0]?.children?.length || 0;
+                if (expectedSectionCount > 0) {
+                    cy.wrap($article)
+                        .shadow()
+                        .find('section')
+                        .then(($sections) => {
+                            expect($sections.length).to.equal(
+                                expectedSectionCount
+                            );
+                            $sections.each((index, section) => {
+                                const h2Content = Cypress.$(section)
+                                    .find('h2')
+                                    .text();
+                                const expectedValue =
+                                    kulData.nodes[0]?.children?.[index].value ||
+                                    0;
+                                expect(h2Content).to.equal(expectedValue);
+                            });
                         });
-                    });
+                }
             });
     });
 

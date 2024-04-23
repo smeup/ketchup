@@ -96,12 +96,12 @@ graph TD;
   kul-showcase --> kul-showcase-debug
   kul-showcase --> kul-showcase-probe
   kul-showcase --> kul-button
-  kul-card --> kul-image
   kul-card --> kul-button
+  kul-card --> kul-image
+  kul-button --> kul-image
   kul-image --> kul-spinner
   kul-image --> kul-badge
   kul-badge --> kul-image
-  kul-button --> kul-image
   kul-showcase-article --> kul-article
   kul-showcase-badge --> kul-badge
   kul-showcase-badge --> kul-article
