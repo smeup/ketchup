@@ -28,64 +28,45 @@ export class KulShowcaseCard {
 
     #prepExamples() {
         const elements: VNode[] = [];
-        // Iterate over each example category in CARD_EXAMPLES
         for (const k1 in CARD_EXAMPLES) {
             if (Object.prototype.hasOwnProperty.call(CARD_EXAMPLES, k1)) {
-                const family = CARD_EXAMPLES[k1];
+                const layout = CARD_EXAMPLES[k1];
+                const layoutWrapper: VNode[] = [];
 
-                // Iterate over each card's layout family
-                for (const k2 in family) {
-                    if (Object.prototype.hasOwnProperty.call(family, k2)) {
-                        const layout = family[k2];
-                        const layoutWrapper: VNode[] = [];
-
-                        // Iterate over each family's layout numbers
-                        for (const k3 in layout) {
-                            if (
-                                Object.prototype.hasOwnProperty.call(layout, k3)
-                            ) {
-                                const props = layout[k3];
-                                layoutWrapper.push(
-                                    <div class="example" part="example">
-                                        <div
-                                            class="description"
-                                            part="description"
-                                        >
-                                            {props['data-description']}
-                                        </div>
-                                        <div
-                                            class="comp-wrapper"
-                                            part="comp-wrapper"
-                                        >
-                                            <kul-card
-                                                key={k3}
-                                                id={k3}
-                                                ref={(el) => {
-                                                    if (props['data-dynamic']) {
-                                                        this.#dynamicExamples.push(
-                                                            el
-                                                        );
-                                                    }
-                                                }}
-                                                {...props}
-                                            ></kul-card>
-                                        </div>
-                                    </div>
-                                );
-                            }
-                        }
-                        elements.push(
-                            <div class="grid-container" part="grid-container">
-                                <div class="grid-title" part="grid-title">
-                                    Layout {k1} {k2}
+                for (const k2 in layout) {
+                    if (Object.prototype.hasOwnProperty.call(layout, k2)) {
+                        const props = layout[k2];
+                        layoutWrapper.push(
+                            <div class="example" part="example">
+                                <div class="description" part="description">
+                                    {props['data-description']}
                                 </div>
-                                <div class="grid" part="grid">
-                                    {layoutWrapper}
+                                <div class="comp-wrapper" part="comp-wrapper">
+                                    <kul-card
+                                        key={k2}
+                                        id={k1 + '-' + k2}
+                                        ref={(el) => {
+                                            if (props['data-dynamic']) {
+                                                this.#dynamicExamples.push(el);
+                                            }
+                                        }}
+                                        {...props}
+                                    ></kul-card>
                                 </div>
                             </div>
                         );
                     }
                 }
+                elements.push(
+                    <div class="grid-container" part="grid-container">
+                        <div class="grid-title" part="grid-title">
+                            Layout {k1}
+                        </div>
+                        <div class="grid" part="grid">
+                            {layoutWrapper}
+                        </div>
+                    </div>
+                );
             }
         }
         return elements;

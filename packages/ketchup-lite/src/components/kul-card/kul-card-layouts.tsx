@@ -1,11 +1,11 @@
-import { VNode, h } from '@stencil/core';
-import type { KulCard } from '../kul-card';
-import { KulCardCSSClasses } from '../kul-card-declarations';
-import { KulDataShapesMap } from '../../../components';
-import { kulManagerInstance } from '../../../managers/kul-manager/kul-manager';
-import { RIPPLE_SURFACE_CLASS } from '../../../variables/GenericVariables';
+import { h, VNode } from '@stencil/core';
+import { KulDataShapesMap } from '../../components';
+import { KulCard } from './kul-card';
+import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
+import { RIPPLE_SURFACE_CLASS } from '../../variables/GenericVariables';
+import { KulCardCSSClasses } from './kul-card-declarations';
 
-export function create1(component: KulCard, shapes: KulDataShapesMap) {
+export function getLayoutA(component: KulCard, shapes: KulDataShapesMap) {
     // Button
     const hasButtons = !!shapes.button;
     const actions = hasButtons
@@ -50,7 +50,7 @@ export function create1(component: KulCard, shapes: KulDataShapesMap) {
         ) : undefined;
     return (
         <div
-            class={`standard-layout-${component.kulLayoutNumber} ${
+            class={`layout-${component.kulLayout} ${
                 hasButtons ? KulCardCSSClasses.HAS_ACTIONS : ''
             }`}
         >

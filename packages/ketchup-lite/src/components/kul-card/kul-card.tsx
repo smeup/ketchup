@@ -11,26 +11,21 @@ import {
     State,
     VNode,
 } from '@stencil/core';
-import * as standardLayouts from './standard/kul-card-standard';
 import type {
     GenericMap,
     GenericObject,
     KulEventPayload,
 } from '../../types/GenericTypes';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
-import {
-    KulCardFamily,
-    KulCardProps,
-    KulCardEvents,
-} from './kul-card-declarations';
+import { KulCardProps, KulCardEvents } from './kul-card-declarations';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
-import { KulLanguageGeneric } from '../../managers/kul-language/kul-language-declarations';
 import { getProps } from '../../utils/componentUtils';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import {
     KulDataDataset,
     KulDataShapesMap,
 } from '../../managers/kul-data/kul-data-declarations';
+import { getLayoutA } from './kul-card-layouts';
 
 @Component({
     tag: 'kul-card',
@@ -75,16 +70,10 @@ export class KulCard {
      */
     @Prop({ mutable: true }) kulData: KulDataDataset = null;
     /**
-     * Sets the type of the card.
-     * @default KulCardFamily.STANDARD
+     * Sets the layout.
+     * @default "a"
      */
-    @Prop({ mutable: true, reflect: true }) kulLayoutFamily: KulCardFamily =
-        'standard';
-    /**
-     * Sets the number of the layout.
-     * @default 1
-     */
-    @Prop({ mutable: true, reflect: true }) kulLayoutNumber = 1;
+    @Prop({ mutable: true, reflect: true }) kulLayout = 'a';
     /**
      * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
      * @default "100%"
@@ -178,34 +167,14 @@ export class KulCard {
     /*-------------------------------------------------*/
 
     /**
-     * This method will return the virtual node of the card, selecting the correct layout through layoutFamily and layoutNumber.
-     * @returns {VNode} Virtual node of the card for the specified family layout and number.
+     * This method will return the virtual node of the card containing the core layout of the card.
+     * @returns {VNode} Virtual node of the card for the specified layout.
      */
     getLayout(): Promise<VNode> {
-        const family: KulCardFamily = this.kulLayoutFamily
-            ? (this.kulLayoutFamily.toLowerCase() as KulCardFamily)
-            : 'standard';
-        const method: string = 'create' + this.kulLayoutNumber;
-
-        try {
-            switch (family) {
-                default:
-                case 'standard': {
-                    return standardLayouts[method](this, this.shapes);
-                }
-            }
-        } catch (error) {
-            this.#kulManager.debug.logMessage(this, error, 'warning');
-            return (
-                <kul-image
-                    resource="warning"
-                    title={
-                        this.#kulManager.language.translate(
-                            KulLanguageGeneric.LAYOUT_NYI
-                        ) + '!'
-                    }
-                ></kul-image>
-            );
+        switch (this.kulLayout.toLowerCase()) {
+            case 'a':
+            default:
+                return getLayoutA(this, this.shapes);
         }
     }
     /**
@@ -215,7 +184,9 @@ export class KulCard {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         root.addEventListener('kul-badge-event', this.#cardEvent);
         root.addEventListener('kul-button-event', this.#cardEvent);
+        root.addEventListener('kul-code-event', this.#cardEvent);
         root.addEventListener('kul-image-event', this.#cardEvent);
+        root.addEventListener('kul-upload-event', this.#cardEvent);
     }
 
     /*-------------------------------------------------*/

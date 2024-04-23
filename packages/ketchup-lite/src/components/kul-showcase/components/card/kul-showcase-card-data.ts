@@ -1,67 +1,53 @@
 import { getAssetPath } from '@stencil/core';
-import { KulCardPropsInterface } from '../../../kul-card/kul-card-declarations';
-import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
 import { DOC_STYLES } from '../../kul-showcase-data';
-
-interface CardExample extends KulCardPropsInterface {
-    ['data-description']: string;
-    ['data-dynamic']?: KulShowcaseDynamicExampleType;
-}
-
-interface CardData {
-    [index: string]: {
-        [index: number]: { [index: string]: Partial<CardExample> };
-    };
-}
+import { CardData } from './kul-showcase-card-declarations';
 
 export const CARD_EXAMPLES: CardData = {
-    standard: {
-        1: {
-            image: {
-                ['data-description']: 'Card with custom style',
-                kulSizeX: '320px',
-                kulSizeY: '320px',
-                kulData: {
-                    nodes: [
-                        {
-                            cells: {
-                                1: { value: 'Title' },
-                                2: { value: 'Subtitle' },
-                                3: { value: 'Description' },
-                                4: {
-                                    shape: 'image',
-                                    value: getAssetPath(
-                                        `./assets/media/morana.png`
-                                    ),
-                                },
+    a: {
+        image: {
+            ['data-description']: 'Card with custom style',
+            kulSizeX: '320px',
+            kulSizeY: '320px',
+            kulData: {
+                nodes: [
+                    {
+                        cells: {
+                            1: { value: 'Title' },
+                            2: { value: 'Subtitle' },
+                            3: { value: 'Description' },
+                            4: {
+                                shape: 'image',
+                                value: getAssetPath(
+                                    `./assets/media/morana.png`
+                                ),
                             },
-                            id: '1',
                         },
-                    ],
-                },
+                        id: '1',
+                    },
+                ],
             },
-            style: {
-                ['data-description']: 'Card with custom style',
-                ['data-dynamic']: 'custom',
-                kulSizeX: '320px',
-                kulSizeY: '320px',
-                kulData: {
-                    nodes: [
-                        {
-                            cells: {
-                                1: { value: 'Title' },
-                                2: { value: 'Subtitle' },
-                                3: { value: 'Description' },
-                                4: {
-                                    shape: 'image',
-                                    value: 'widgets',
-                                },
+        },
+        style: {
+            ['data-description']: 'Card with custom style',
+            ['data-dynamic']: 'custom',
+            kulSizeX: '320px',
+            kulSizeY: '320px',
+            kulData: {
+                nodes: [
+                    {
+                        cells: {
+                            1: { value: 'Title' },
+                            2: { value: 'Subtitle' },
+                            3: { value: 'Description' },
+                            4: {
+                                shape: 'image',
+                                value: 'widgets',
                             },
-                            id: '1',
                         },
-                    ],
-                },
+                        id: '1',
+                    },
+                ],
             },
         },
     },
@@ -329,20 +315,8 @@ export const CARD_DOC: KulArticleDataset = {
                         {
                             children: [
                                 {
-                                    id: '0.6.4.2',
-                                    value: 'Sets the type of the card.',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.6.4.2',
-                            tagName: 'strong',
-                            value: 'kulLayoutFamily',
-                        },
-                        {
-                            children: [
-                                {
                                     id: '0.6.4.3',
-                                    value: 'Sets the number of the layout.',
+                                    value: 'Sets the layout.',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,

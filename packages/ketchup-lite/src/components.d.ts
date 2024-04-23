@@ -11,7 +11,6 @@ import { KulDebugComponentInfo } from "./managers/kul-debug/kul-debug-declaratio
 import { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
 import { KulButtonEventPayload, KulButtonStates, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 import { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
-import { KulCardFamily } from "./components/kul-card/kul-card-declarations";
 import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 import { KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 import { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
@@ -21,7 +20,6 @@ export { KulDebugComponentInfo } from "./managers/kul-debug/kul-debug-declaratio
 export { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
 export { KulButtonEventPayload, KulButtonStates, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 export { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
-export { KulCardFamily } from "./components/kul-card/kul-card-declarations";
 export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 export { KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 export { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
@@ -199,15 +197,10 @@ export namespace Components {
          */
         "kulData": KulDataDataset;
         /**
-          * Sets the type of the card.
-          * @default KulCardFamily.STANDARD
+          * Sets the layout.
+          * @default "a"
          */
-        "kulLayoutFamily": KulCardFamily;
-        /**
-          * Sets the number of the layout.
-          * @default 1
-         */
-        "kulLayoutNumber": number;
+        "kulLayout": string;
         /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
@@ -990,15 +983,10 @@ declare namespace LocalJSX {
          */
         "kulData"?: KulDataDataset;
         /**
-          * Sets the type of the card.
-          * @default KulCardFamily.STANDARD
+          * Sets the layout.
+          * @default "a"
          */
-        "kulLayoutFamily"?: KulCardFamily;
-        /**
-          * Sets the number of the layout.
-          * @default 1
-         */
-        "kulLayoutNumber"?: number;
+        "kulLayout"?: string;
         /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"

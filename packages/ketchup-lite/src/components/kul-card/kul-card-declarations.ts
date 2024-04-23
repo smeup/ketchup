@@ -7,11 +7,8 @@ export enum KulCardCSSClasses {
 
 export type KulCardEvents = 'click' | 'kul-event' | 'pointerdown' | 'ready';
 
-export type KulCardFamily = 'standard';
-
 export enum KulCardProps {
     kulData = 'The actual data of the card.',
-    kulLayoutFamily = 'Sets the type of the card.',
     kulLayoutNumber = 'Sets the number of the layout.',
     kulSizeX = 'The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).',
     kulSizeY = 'The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
@@ -20,9 +17,10 @@ export enum KulCardProps {
 
 export interface KulCardPropsInterface {
     kulData?: KulDataDataset;
-    kulLayoutFamily?: 'standard';
     kulLayoutNumber?: number;
     kulSizeX?: string;
     kulSizeY?: string;
     kulStyle?: string;
 }
+
+export type KulCardLayout = 'a';
