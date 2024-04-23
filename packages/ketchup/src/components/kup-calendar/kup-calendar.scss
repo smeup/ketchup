@@ -204,6 +204,10 @@
     padding: 0.25em;
   }
 
+  .fc-event-time {
+    white-space: pre;
+  }
+
   td.fc-day-today {
     background-color: var(--kup_calendar_today_background_color);
   }
