@@ -97,6 +97,9 @@ export class KulShowcaseCard {
         return (
             <Fragment>
                 <kul-article kulData={CARD_DOC}></kul-article>
+                <div class="examples-title" part="examples-title">
+                    Examples
+                </div>
                 <div data-cy="wrapper">{this.#prepExamples()}</div>
             </Fragment>
         );

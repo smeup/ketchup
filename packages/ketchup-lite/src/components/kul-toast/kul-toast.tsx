@@ -63,11 +63,11 @@ export class KulToast {
      * @default () => void
      */
     @Prop() kulCloseCallback: () => void = () => {
-        const e = new CustomEvent('close');
-        this.onKulEvent(e, 'close');
+        const e = new CustomEvent('unmount');
+        this.onKulEvent(e, 'unmount');
         this.kulEvent.emit({
             comp: this,
-            eventType: 'close',
+            eventType: 'unmount',
             id: this.rootElement.id,
             originalEvent: e,
         });

@@ -9,7 +9,6 @@ import {
     Method,
     Prop,
     State,
-    VNode,
 } from '@stencil/core';
 import { KulCodeEvents, KulCodeProps } from './kul-code-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';

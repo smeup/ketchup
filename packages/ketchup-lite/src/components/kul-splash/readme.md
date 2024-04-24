@@ -77,13 +77,13 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                            | Description                       |
-| ------------------------------- | --------------------------------- |
-| `--kul-splash-background-color` | Sets the color of the spinner.    |
-| `--kul-splash-font-family`      | Sets the label's font family.     |
-| `--kul-splash-font-size`        | Sets the label's font size.       |
-| `--kul-splash-label-color`      | Sets the color of the label.      |
-| `--kul-splash-spinner-color`    | Sets the color of the background. |
+| Name                            | Description                                                                     |
+| ------------------------------- | ------------------------------------------------------------------------------- |
+| `--kul-splash-background-color` | Sets the color of the spinner. Defaults to the value of --kul-background-color. |
+| `--kul-splash-font-family`      | Sets the label's font family. Defaults to the value of --kul-font-family.       |
+| `--kul-splash-font-size`        | Sets the label's font size. Defaults to the value of --kul-font-size.           |
+| `--kul-splash-label-color`      | Sets the color of the label. Defaults to the value of --kul-text-color.         |
+| `--kul-splash-widget-color`     | Sets the color of the widget. Defaults to the value of --kul-primary-color.     |
 
 
 ## Dependencies

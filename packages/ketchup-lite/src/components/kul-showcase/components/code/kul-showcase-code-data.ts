@@ -238,6 +238,37 @@ export const CODE_DOC: KulArticleDataset = {
                                     value: 'KulEventPayload',
                                 },
                                 {
+                                    children: [
+                                        {
+                                            children: [
+                                                {
+                                                    children: [
+                                                        {
+                                                            children: [
+                                                                {
+                                                                    id: '0.1.0.2.0.0',
+                                                                    tagName:
+                                                                        'strong',
+                                                                    value: 'ready',
+                                                                },
+                                                                {
+                                                                    id: '0.1.0.2.0.1',
+                                                                    value: ': emitted when the component completes its first complete lifecycle.',
+                                                                },
+                                                            ],
+                                                            id: '0.1.0.2.0',
+                                                            tagName: 'li',
+                                                            value: '',
+                                                        },
+                                                    ],
+                                                    id: '0.1.0.2',
+                                                    value: '',
+                                                },
+                                            ],
+                                            id: '0.1.0',
+                                            value: '',
+                                        },
+                                    ],
                                     id: '0.5.1.3',
                                     value: ', which includes information about the component and the event type.',
                                 },
@@ -367,6 +398,19 @@ export const CODE_DOC: KulArticleDataset = {
                                 {
                                     id: '0.7.0.2',
                                     value: ' property.',
+                                },
+                                {
+                                    cells: {
+                                        code: {
+                                            shape: 'code',
+                                            shapeProps: {
+                                                kulLanguage: 'markup',
+                                            },
+                                            value: '<kul-code kul-style="#kul-component { opacity: 0.5; }"></kul-code>',
+                                        },
+                                    },
+                                    id: '0.2.1.1.0',
+                                    value: '',
                                 },
                             ],
                             id: '0.7.0',

@@ -8,7 +8,7 @@ export const TOAST_EXAMPLES: ToastData = {
     },
     style: {
         ['data-description']: 'Toast with custom style',
-        kulStyle: `.wrapper { animation: pulse 1.275s infinite; } @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.25; } 100% { opacity: 1; } }`,
+        ['data-dynamic']: 'custom',
     },
 };
 
@@ -23,29 +23,27 @@ export const TOAST_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.1.1.1.1',
+                                            id: '0.0.0.0.0',
                                             value: 'The ',
                                         },
                                         {
-                                            id: '0.1.1.2',
+                                            id: '0.0.0.0.1',
                                             tagName: 'strong',
-                                            value: 'kul-showcase-toast',
+                                            value: 'KulToast',
                                         },
                                         {
-                                            id: '0.1.1.3',
-                                            value: ' component is a customizable web component used to display notifications.',
+                                            id: '0.0.0.0.2',
+                                            value: ' component is a versatile and customizable web component designed to display toast notifications. ',
                                         },
                                     ],
-                                    id: '0.1.1.1',
-                                    value: 'Overview',
+                                    id: '0.0.0.0',
                                 },
                             ],
-                            id: '0.1.1',
-                            value: 'Overview',
+                            id: '0.0.0',
                         },
                     ],
-                    id: '0.1',
-                    value: 'Introduction',
+                    id: '0.0',
+                    value: 'Overview',
                 },
                 {
                     children: [
@@ -58,54 +56,33 @@ export const TOAST_DOC: KulArticleDataset = {
                                                 {
                                                     id: '0.1.0.0.0.0',
                                                     tagName: 'strong',
-                                                    value: 'Customizable Content',
+                                                    value: 'Customizable Toast Content',
                                                 },
                                                 {
                                                     id: '0.1.0.0.0.1',
-                                                    value: ': The component allows for the display of text and images within the badge, offering flexibility in content presentation.',
+                                                    value: ': The component allows for customization of the toast message and optional icon.',
                                                 },
                                             ],
                                             id: '0.1.0.0.0',
                                             tagName: 'li',
                                             value: '',
                                         },
-                                    ],
-                                    id: '0.1.0.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
                                         {
                                             children: [
                                                 {
                                                     id: '0.1.0.1.0.0',
                                                     tagName: 'strong',
-                                                    value: 'Customizable Styling',
+                                                    value: 'Auto-dismissal',
                                                 },
                                                 {
                                                     id: '0.1.0.1.0.1',
-                                                    value: ": Offers the ability to customize the component's style through the ",
-                                                },
-                                                {
-                                                    id: '0.1.0.1.0.2',
-                                                    tagName: 'strong',
-                                                    value: '<kulStyle>',
-                                                },
-                                                {
-                                                    id: '0.1.0.1.0.3',
-                                                    value: ' property.',
+                                                    value: ': Offers the ability to automatically dismiss the toast after a specified time interval.',
                                                 },
                                             ],
                                             id: '0.1.0.1.0',
                                             tagName: 'li',
                                             value: '',
                                         },
-                                    ],
-                                    id: '0.1.0.1',
-                                    value: '',
-                                },
-                                {
-                                    children: [
                                         {
                                             children: [
                                                 {
@@ -122,12 +99,6 @@ export const TOAST_DOC: KulArticleDataset = {
                                             tagName: 'li',
                                             value: '',
                                         },
-                                    ],
-                                    id: '0.1.0.2',
-                                    value: '',
-                                },
-                                {
-                                    children: [
                                         {
                                             children: [
                                                 {
@@ -145,7 +116,7 @@ export const TOAST_DOC: KulArticleDataset = {
                                             value: '',
                                         },
                                     ],
-                                    id: '0.1.0.3',
+                                    id: '0.1.0.0',
                                     value: '',
                                 },
                             ],
@@ -163,37 +134,45 @@ export const TOAST_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.3.1.1.1',
+                                            id: '0.2.0.0.0',
                                             value: 'To use the ',
                                         },
                                         {
-                                            id: '0.3.1.1.2',
+                                            id: '0.2.0.0.1',
                                             tagName: 'strong',
-                                            value: 'kul-showcase-toast',
+                                            value: 'KulToast',
                                         },
                                         {
-                                            id: '0.3.1.1.3',
-                                            value: ' component, include it in your HTML and provide the ',
-                                        },
-                                        {
-                                            id: '0.3.1.1.4',
-                                            tagName: 'strong',
-                                            value: 'TOAST_EXAMPLES',
-                                        },
-                                        {
-                                            id: '0.3.1.1.5',
-                                            value: ' property with the JSON structure representing the examples to be showcased.',
+                                            id: '0.2.0.0.2',
+                                            value: " component, include it in your HTML. You can customize the toast's message, icon, and auto-dismissal behavior.",
                                         },
                                     ],
-                                    id: '0.3.1.1',
-                                    value: 'Basic Usage',
+                                    id: '0.2.0.0',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            cells: {
+                                                code: {
+                                                    shape: 'code',
+                                                    shapeProps: {
+                                                        kulLanguage: 'markup',
+                                                    },
+                                                    value: '<kul-toast kul-message="Your message here"></kul-toast>',
+                                                },
+                                            },
+                                            id: '0.2.0.1.0',
+                                            value: '',
+                                        },
+                                    ],
+                                    id: '0.2.0.1',
                                 },
                             ],
-                            id: '0.3.1',
+                            id: '0.2.0',
                             value: 'Basic Usage',
                         },
                     ],
-                    id: '0.3',
+                    id: '0.2',
                     value: 'Usage',
                 },
                 {
@@ -203,127 +182,16 @@ export const TOAST_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.4.2.1.1',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.4.2.1.2',
-                                            tagName: 'strong',
-                                            value: '() => void',
+                                            id: '0.3.0.1.0',
+                                            value: 'This prop sets the message displayed in the toast notification.',
                                         },
                                     ],
-                                    id: '0.4.2.1',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.4.2.2.1',
-                                            value: 'Callback invoked when the toast is closed. Default is a function that emits a close event and removes the toast element.',
-                                        },
-                                    ],
-                                    id: '0.4.2.2',
+                                    id: '0.3.0.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.2',
-                            value: 'kulCloseCallback',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.4.1.1.1',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.4.1.1.2',
-                                            tagName: 'strong',
-                                            value: 'KulImagePropsInterface',
-                                        },
-                                    ],
-                                    id: '0.4.1.1',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.4.1.2.1',
-                                            value: "Sets the props of the clickable icon used to close the toast. Default is { kulSizeX: '18px', kulSizeY: '18px', kulValue: 'clear' }.",
-                                        },
-                                    ],
-                                    id: '0.4.1.2',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.1',
-                            value: 'kulCloseIcon',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.4.3.1.1',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.4.3.1.2',
-                                            tagName: 'strong',
-                                            value: 'KulImagePropsInterface',
-                                        },
-                                    ],
-                                    id: '0.4.3.1',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.4.3.2.1',
-                                            value: "Sets the props of an optional icon that will be displayed along with the message. Default is { kulSizeX: '18px', kulSizeY: '18px', kulValue: 'info' }.",
-                                        },
-                                    ],
-                                    id: '0.4.3.2',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.3',
-                            value: 'kulIcon',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.4.5.1.1',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.4.5.1.2',
-                                            tagName: 'strong',
-                                            value: 'string',
-                                        },
-                                    ],
-                                    id: '0.4.5.1',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.4.5.2.1',
-                                            value: "Sets the message of the toast. Default is 'Wow, such empty.'.",
-                                        },
-                                    ],
-                                    id: '0.4.5.2',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.5',
+                            id: '0.3.0',
                             value: 'kulMessage',
                         },
                         {
@@ -331,67 +199,35 @@ export const TOAST_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.4.6.1.1',
+                                            id: '0.3.1.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.4.6.1.2',
+                                            id: '0.3.1.0.1',
                                             tagName: 'strong',
                                             value: 'string',
                                         },
                                     ],
-                                    id: '0.4.6.1',
+                                    id: '0.3.1.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.4.6.2.1',
-                                            value: "Enables customization of the component's style. Default is an empty string.",
+                                            id: '0.3.1.1.0',
+                                            value: "Enables customization of the component's style. This property accepts a string of CSS styles that will be applied to the component.",
                                         },
                                     ],
-                                    id: '0.4.6.2',
+                                    id: '0.3.1.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.6',
+                            id: '0.3.1',
                             value: 'kulStyle',
                         },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.4.4.1.1',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.4.4.1.2',
-                                            tagName: 'strong',
-                                            value: 'number',
-                                        },
-                                    ],
-                                    id: '0.4.4.1',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.4.4.2.1',
-                                            value: 'When kulTimer is set with a number, the toast will close itself after the specified amount of time (in ms). Default is null.',
-                                        },
-                                    ],
-                                    id: '0.4.4.2',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.4',
-                            value: 'kulTimer',
-                        },
                     ],
-                    id: '0.4',
+                    id: '0.3',
                     value: 'Properties',
                 },
                 {
@@ -399,22 +235,65 @@ export const TOAST_DOC: KulArticleDataset = {
                         {
                             children: [
                                 {
-                                    id: '0.5.1.1',
+                                    id: '0.4.0.0',
                                     value: 'This event is emitted during various lifecycle stages of the component. It carries a payload of type ',
                                 },
                                 {
-                                    id: '0.5.1.2',
+                                    id: '0.4.0.1',
                                     value: 'KulEventPayload',
                                 },
                                 {
-                                    id: '0.5.1.3',
+                                    id: '0.4.0.2',
                                     value: ', which includes information about the component and the event type.',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            children: [
+                                                {
+                                                    children: [
+                                                        {
+                                                            id: '0.1.0.2.0.0',
+                                                            tagName: 'strong',
+                                                            value: 'ready',
+                                                        },
+                                                        {
+                                                            id: '0.1.0.2.0.1',
+                                                            value: ': emitted when the component completes its first complete lifecycle.',
+                                                        },
+                                                    ],
+                                                    id: '0.1.0.2.0',
+                                                    tagName: 'li',
+                                                    value: '',
+                                                },
+                                                {
+                                                    children: [
+                                                        {
+                                                            id: '0.1.0.2.0.0',
+                                                            tagName: 'strong',
+                                                            value: 'unmount',
+                                                        },
+                                                        {
+                                                            id: '0.1.0.2.0.1',
+                                                            value: ': emitted when the component is removed from the DOM.',
+                                                        },
+                                                    ],
+                                                    id: '0.1.0.2.0',
+                                                    tagName: 'li',
+                                                    value: '',
+                                                },
+                                            ],
+                                            id: '0.1.0.2',
+                                            value: '',
+                                        },
+                                    ],
+                                    id: '0.1.0',
+                                    value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.5.1',
-                            tagName: 'strong',
-                            value: 'kul-toast-event',
+                            id: '0.4.',
+                            value: '',
                         },
                     ],
                     id: '0.5',
@@ -425,14 +304,47 @@ export const TOAST_DOC: KulArticleDataset = {
                         {
                             children: [
                                 {
-                                    id: '0.6.1.1',
-                                    value: "Returns a promise that resolves to an object containing debug information about the component's rendering process.",
+                                    id: '0.5.0.0',
+                                    value: 'Returns a promise that resolves to a ',
+                                },
+                                {
+                                    id: '0.5.0.1',
+                                    tagName: 'strong',
+                                    value: 'KulDebugComponentInfo',
+                                },
+                                {
+                                    id: '0.5.0.2',
+                                    value: " object containing debug information about the component's rendering process.",
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.6.1',
+                            id: '0.5.0',
                             tagName: 'strong',
                             value: 'getDebugInfo()',
+                        },
+                        {
+                            children: [
+                                {
+                                    id: '0.5.1.0',
+                                    value: 'Returns a promise that resolves to an object where each key is a property name, optionally with its description.',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.5.1',
+                            tagName: 'strong',
+                            value: 'getProps(descriptions?: boolean)',
+                        },
+                        {
+                            children: [
+                                {
+                                    id: '0.5.2.0',
+                                    value: 'Triggers a re-render of the component to reflect any state changes.',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.5.2',
+                            tagName: 'strong',
+                            value: 'refresh()',
                         },
                     ],
                     id: '0.6',
@@ -503,6 +415,19 @@ export const TOAST_DOC: KulArticleDataset = {
                                 {
                                     id: '0.8.1.3',
                                     value: ' property.',
+                                },
+                                {
+                                    cells: {
+                                        code: {
+                                            shape: 'code',
+                                            shapeProps: {
+                                                kulLanguage: 'markup',
+                                            },
+                                            value: '<kul-toast kul-style="#kul-component { opacity: 0.5; }"></kul-toast>',
+                                        },
+                                    },
+                                    id: '0.2.1.1.0',
+                                    value: '',
                                 },
                             ],
                             id: '0.8.1',

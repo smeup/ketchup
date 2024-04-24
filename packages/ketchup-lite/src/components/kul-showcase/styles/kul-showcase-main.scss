@@ -105,7 +105,15 @@ p {
   padding: 24px;
   text-align: center;
   text-transform: capitalize;
-  transform: translate3d(0, 0, 0);
+}
+
+::part(examples-title) {
+  background-color: var(--kul-title-background-color);
+  color: var(--kul-title-color);
+  font-size: 1.25em;
+  padding: 24px;
+  text-align: center;
+  text-transform: capitalize;
 }
 
 ::part(example) {
@@ -155,6 +163,7 @@ p {
   .section {
     border: 2px solid var(--kul-primary-color);
     border-radius: 5px;
+    margin: 24px 0;
   }
 
   kul-card {

@@ -377,6 +377,58 @@ export const BADGE_DOC: KulArticleDataset = {
                                     id: '0.4.0.2',
                                     value: ', which includes information about the component and the event type.',
                                 },
+                                {
+                                    children: [
+                                        {
+                                            children: [
+                                                {
+                                                    children: [
+                                                        {
+                                                            children: [
+                                                                {
+                                                                    id: '0.1.0.2.0.0',
+                                                                    tagName:
+                                                                        'strong',
+                                                                    value: 'click',
+                                                                },
+                                                                {
+                                                                    id: '0.1.0.2.0.1',
+                                                                    value: ': emitted when the component is clicked.',
+                                                                },
+                                                            ],
+                                                            id: '0.1.0.2.0',
+                                                            tagName: 'li',
+                                                            value: '',
+                                                        },
+                                                        {
+                                                            children: [
+                                                                {
+                                                                    id: '0.1.0.2.0.0',
+                                                                    tagName:
+                                                                        'strong',
+                                                                    value: 'ready',
+                                                                },
+                                                                {
+                                                                    id: '0.1.0.2.0.1',
+                                                                    value: ': emitted when the component completes its first complete lifecycle.',
+                                                                },
+                                                            ],
+                                                            id: '0.1.0.2.0',
+                                                            tagName: 'li',
+                                                            value: '',
+                                                        },
+                                                    ],
+                                                    id: '0.1.0.2',
+                                                    value: '',
+                                                },
+                                            ],
+                                            id: '0.1.0',
+                                            value: '',
+                                        },
+                                    ],
+                                    id: '',
+                                    value: '',
+                                },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.4.0',
@@ -503,6 +555,19 @@ export const BADGE_DOC: KulArticleDataset = {
                                 {
                                     id: '0.7.0.2',
                                     value: ' property.',
+                                },
+                                {
+                                    cells: {
+                                        code: {
+                                            shape: 'code',
+                                            shapeProps: {
+                                                kulLanguage: 'markup',
+                                            },
+                                            value: '<kul-badge kul-style="#kul-component { opacity: 0.5; }"></kul-badge>',
+                                        },
+                                    },
+                                    id: '0.2.1.1.0',
+                                    value: '',
                                 },
                             ],
                             id: '0.7.0',
