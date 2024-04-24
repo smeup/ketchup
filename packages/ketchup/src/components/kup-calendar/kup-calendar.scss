@@ -63,7 +63,7 @@
   );
   --kup_calendar_today_background_color: var(
     --kup-calendar-today-background-color,
-    var(--kup-gray-color-30)
+    var(--kup-gray-color-20)
   );
 
   background-color: var(--kup_calendar_background_color);
@@ -204,8 +204,13 @@
     padding: 0.25em;
   }
 
+  .fc-event-time {
+    white-space: pre;
+  }
+
   td.fc-day-today {
     background-color: var(--kup_calendar_today_background_color);
+    border-top: 2px solid var(--kup-primary-color-60);
   }
 
   td.fc-day-sun,
