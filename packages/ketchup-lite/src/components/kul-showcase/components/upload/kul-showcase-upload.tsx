@@ -80,6 +80,9 @@ export class KulShowcaseUpload {
         return (
             <Fragment>
                 <kul-article kulData={UPLOAD_DOC}></kul-article>
+                <div class="examples-title" part="examples-title">
+                    Examples
+                </div>
                 <div class="grid" data-cy="wrapper" part="grid">
                     {this.#prepExamples()}
                 </div>

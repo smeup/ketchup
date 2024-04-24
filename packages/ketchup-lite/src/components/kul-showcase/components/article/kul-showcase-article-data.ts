@@ -370,48 +370,6 @@ export const ARTICLE_DOC: KulArticleDataset = {
                             id: '0.2.0',
                             value: 'Basic Usage',
                         },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.2.1.0.0',
-                                            value: "You can customize the component's style by setting the ",
-                                        },
-                                        {
-                                            id: '0.2.1.0.1',
-                                            tagName: 'strong',
-                                            value: 'kulStyle',
-                                        },
-                                        {
-                                            id: '0.2.1.0.2',
-                                            value: ' property.',
-                                        },
-                                    ],
-                                    id: '0.2.1.0',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            cells: {
-                                                code: {
-                                                    shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'markup',
-                                                    },
-                                                    value: '<kul-article kul-style="#kul-component article { max-height: 20vh; }"></kul-article>',
-                                                },
-                                            },
-                                            id: '0.2.1.1.0',
-                                            value: '',
-                                        },
-                                    ],
-                                    id: '0.2.1.1',
-                                },
-                            ],
-                            id: '0.2.1',
-                            value: 'Custom Styling',
-                        },
                     ],
                     id: '0.2',
                     value: 'Usage',
@@ -519,6 +477,34 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                 {
                                     id: '0.4.0.2',
                                     value: ', which includes information about the component and the event type.',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            children: [
+                                                {
+                                                    children: [
+                                                        {
+                                                            id: '0.1.0.2.0.0',
+                                                            tagName: 'strong',
+                                                            value: 'ready',
+                                                        },
+                                                        {
+                                                            id: '0.1.0.2.0.1',
+                                                            value: ': emitted when the component completes its first complete lifecycle.',
+                                                        },
+                                                    ],
+                                                    id: '0.1.0.2.0',
+                                                    tagName: 'li',
+                                                    value: '',
+                                                },
+                                            ],
+                                            id: '0.1.0.2',
+                                            value: '',
+                                        },
+                                    ],
+                                    id: '0.1.0',
+                                    value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
@@ -646,6 +632,19 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                 {
                                     id: '0.7.0.2',
                                     value: ' property.',
+                                },
+                                {
+                                    cells: {
+                                        code: {
+                                            shape: 'code',
+                                            shapeProps: {
+                                                kulLanguage: 'markup',
+                                            },
+                                            value: '<kul-article kul-style="#kul-component article { max-height: 20vh; }"></kul-article>',
+                                        },
+                                    },
+                                    id: '0.2.1.1.0',
+                                    value: '',
                                 },
                             ],
                             id: '0.7.0',

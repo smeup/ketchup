@@ -7,12 +7,13 @@
 
 ## Shadow Parts
 
-| Part             | Description |
-| ---------------- | ----------- |
-| `"comp-wrapper"` |             |
-| `"description"`  |             |
-| `"example"`      |             |
-| `"grid"`         |             |
+| Part               | Description |
+| ------------------ | ----------- |
+| `"comp-wrapper"`   |             |
+| `"description"`    |             |
+| `"example"`        |             |
+| `"examples-title"` |             |
+| `"grid"`           |             |
 
 
 ## Dependencies

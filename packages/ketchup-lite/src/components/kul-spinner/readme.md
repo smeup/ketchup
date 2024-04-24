@@ -67,9 +67,9 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                         | Description                          |
-| ---------------------------- | ------------------------------------ |
-| `--kul-spinner-border-color` | Sets borders color of the component. |
+| Name                         | Description                                                                          |
+| ---------------------------- | ------------------------------------------------------------------------------------ |
+| `--kul-spinner-border-color` | Sets the border color of the spinner component. Defaults to var(--kul-border-color). |
 
 
 ## Dependencies

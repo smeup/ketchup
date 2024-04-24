@@ -1,8 +1,8 @@
-/**
-* @prop --kul-spinner-border-color: Sets borders color of the component.
-*/
-
 :host {
+  /**
+  * @prop --kul-spinner-border-color: Sets the border color of the spinner component.
+  * Defaults to var(--kul-border-color).
+  */
   --kul_spinner_border_color: var(
     --kul-spinner-border-color,
     var(--kul-border-color)

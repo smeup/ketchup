@@ -1,25 +1,41 @@
-/**
-* @prop --kul-splash-background-color: Sets the color of the spinner.
-* @prop --kul-splash-font-family: Sets the label's font family.
-* @prop --kul-splash-font-size: Sets the label's font size.
-* @prop --kul-splash-label-color: Sets the color of the label.
-* @prop --kul-splash-spinner-color: Sets the color of the background.
-*/
-
 :host {
-  --kul_splash_background_color: var(
-    --kul-splash-background-color,
-    var(--kul-background-color)
-  );
-  --kul_splash_font_family: var(
-    --kul-splash-font-family,
-    var(--kul-font-family)
-  );
-  --kul_splash_font_size: var(--kul-splash-font-size, var(--kul-font-size));
+  /**
+ * @prop --kul-splash-label-color: Sets the color of the label.
+ * Defaults to the value of --kul-text-color.
+ */
   --kul_splash_label_color: var(
     --kul-splash-label-color,
     var(--kul-text-color)
   );
+
+  /**
+  * @prop --kul-splash-font-family: Sets the label's font family.
+  * Defaults to the value of --kul-font-family.
+  */
+  --kul_splash_font_family: var(
+    --kul-splash-font-family,
+    var(--kul-font-family)
+  );
+
+  /**
+  * @prop --kul-splash-font-size: Sets the label's font size.
+  * Defaults to the value of --kul-font-size.
+  */
+  --kul_splash_font_size: var(--kul-splash-font-size, var(--kul-font-size));
+
+  /**
+  * @prop --kul-splash-background-color: Sets the color of the spinner.
+  * Defaults to the value of --kul-background-color.
+  */
+  --kul_splash_background_color: var(
+    --kul-splash-background-color,
+    var(--kul-background-color)
+  );
+
+  /**
+  * @prop --kul-splash-widget-color: Sets the color of the widget.
+  * Defaults to the value of --kul-primary-color.
+  */
   --kul_splash_widget_color: var(
     --kul-splash-widget-color,
     var(--kul-primary-color)

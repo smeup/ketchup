@@ -12,6 +12,7 @@
 | `"comp-wrapper"`   |             |
 | `"description"`    |             |
 | `"example"`        |             |
+| `"examples-title"` |             |
 | `"grid"`           |             |
 | `"grid-container"` |             |
 | `"grid-title"`     |             |

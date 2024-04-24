@@ -223,48 +223,6 @@ export const SPINNER_DOC: KulArticleDataset = {
                             id: '0.3.1',
                             value: 'Basic Usage',
                         },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.1.1.1',
-                                            value: "You can customize the component's style by setting the ",
-                                        },
-                                        {
-                                            id: '0.3.1.1.2',
-                                            tagName: 'strong',
-                                            value: 'kulStyle',
-                                        },
-                                        {
-                                            id: '0.3.1.1.3',
-                                            value: ' property.',
-                                        },
-                                    ],
-                                    id: '0.3.1.1',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            cells: {
-                                                code: {
-                                                    shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'markup',
-                                                    },
-                                                    value: '<kul-spinner kul-style="#kul-component .spinner { max-height: 20vh; }"></kul-spinner>',
-                                                },
-                                            },
-                                            id: '0.3.1.2.2',
-                                            value: '',
-                                        },
-                                    ],
-                                    id: '0.3.1.2',
-                                },
-                            ],
-                            id: '0.3.2',
-                            value: 'Custom Styling',
-                        },
                     ],
                     id: '0.3',
                     value: 'Usage',
@@ -368,6 +326,30 @@ export const SPINNER_DOC: KulArticleDataset = {
                                     value: 'KulEventPayload',
                                 },
                                 {
+                                    children: [
+                                        {
+                                            children: [
+                                                {
+                                                    children: [
+                                                        {
+                                                            id: '0.1.0.2.0.0',
+                                                            tagName: 'strong',
+                                                            value: 'ready',
+                                                        },
+                                                        {
+                                                            id: '0.1.0.2.0.1',
+                                                            value: ': emitted when the component completes its first complete lifecycle.',
+                                                        },
+                                                    ],
+                                                    id: '0.1.0.2.0',
+                                                    tagName: 'li',
+                                                    value: '',
+                                                },
+                                            ],
+                                            id: '0.1.0.2',
+                                            value: '',
+                                        },
+                                    ],
                                     id: '0.5.1.3',
                                     value: ', which includes information about the component and the event type.',
                                 },
@@ -497,6 +479,19 @@ export const SPINNER_DOC: KulArticleDataset = {
                                 {
                                     id: '0.8.1.3',
                                     value: ' property.',
+                                },
+                                {
+                                    cells: {
+                                        code: {
+                                            shape: 'code',
+                                            shapeProps: {
+                                                kulLanguage: 'markup',
+                                            },
+                                            value: '<kul-spinner kul-style="#kul-component { opacity: 0.5; }"></kul-spinner>',
+                                        },
+                                    },
+                                    id: '0.2.1.1.0',
+                                    value: '',
                                 },
                             ],
                             id: '0.8.1',
