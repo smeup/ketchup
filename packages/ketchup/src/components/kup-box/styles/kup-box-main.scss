@@ -22,6 +22,8 @@
   --kup_box_grid_gap: var(--kup-box-grid-gap, var(--kup-space-03));
   --kup_box_transition: var(--kup-box-transition, 0.25s);
   display: block;
+
+  --kup_box_padding: var(--kup-box-padding, var(--kup-space-05));
 }
 
 .box-component {
@@ -77,6 +79,7 @@
 
       &.column {
         flex-direction: column;
+        padding: var(--kup_box_padding);
       }
 
       &:hover {
