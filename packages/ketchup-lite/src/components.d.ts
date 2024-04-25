@@ -12,7 +12,7 @@ import { KulImagePropsInterface } from "./components/kul-image/kul-image-declara
 import { KulButtonEventPayload, KulButtonStates, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 import { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
-import { KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
+import { KulArticleDataset as KulArticleDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 import { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
 export { KulArticleDataset } from "./components/kul-article/kul-article-declarations";
 export { GenericObject, KulEventPayload } from "./types/GenericTypes";
@@ -21,7 +21,7 @@ export { KulImagePropsInterface } from "./components/kul-image/kul-image-declara
 export { KulButtonEventPayload, KulButtonStates, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 export { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
-export { KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
+export { KulArticleDataset as KulArticleDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 export { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
 export namespace Components {
     interface KulArticle {
@@ -307,6 +307,10 @@ export namespace Components {
         "refresh": () => Promise<void>;
     }
     interface KulShowcase {
+        /**
+          * This methods fixes the ids of showcase's documentation datasets.
+         */
+        "fixDatasets": () => Promise<{ [key: string]: KulArticleDataset1; }>;
         /**
           * Fetches debug information of the component's current state.
           * @returns A promise that resolves with the debug information object.
