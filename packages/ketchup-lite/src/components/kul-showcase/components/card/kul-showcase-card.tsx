@@ -2,6 +2,7 @@ import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { CARD_DOC, CARD_EXAMPLES } from './kul-showcase-card-data';
 import { DynamicExampleManager } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
+import { CardExample } from './kul-showcase-card-declarations';
 
 @Component({
     tag: 'kul-showcase-card',
@@ -30,12 +31,12 @@ export class KulShowcaseCard {
         const elements: VNode[] = [];
         for (const k1 in CARD_EXAMPLES) {
             if (Object.prototype.hasOwnProperty.call(CARD_EXAMPLES, k1)) {
-                const layout = CARD_EXAMPLES[k1];
+                const layout: CardExample = CARD_EXAMPLES[k1];
                 const layoutWrapper: VNode[] = [];
 
                 for (const k2 in layout) {
                     if (Object.prototype.hasOwnProperty.call(layout, k2)) {
-                        const props = layout[k2];
+                        const props: CardExample = layout[k2];
                         layoutWrapper.push(
                             <div class="example" part="example">
                                 <div class="description" part="description">

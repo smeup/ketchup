@@ -20,7 +20,7 @@ Cypress.Commands.add('navigate', (component) => {
     cy.visit('http://localhost:3333');
     // Verify the presence of the kul-showcase component
     cy.get('kul-showcase').should('exist').as('kulShowcase');
-    // Click on the article within the kul-showcase to navigate to the *component* page
+    // Click on the card within the kul-showcase to navigate to the *component* page
     cy.get('@kulShowcase')
         .shadow()
         .find('#' + component.charAt(0).toUpperCase() + component.slice(1))

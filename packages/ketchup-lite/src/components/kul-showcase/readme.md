@@ -21,6 +21,16 @@
 
 ## Methods
 
+### `fixDatasets() => Promise<{ [key: string]: KulArticleDataset; }>`
+
+This methods fixes the ids of showcase's documentation datasets.
+
+#### Returns
+
+Type: `Promise<{ [key: string]: KulArticleDataset; }>`
+
+
+
 ### `getDebugInfo() => Promise<KulDebugComponentInfo>`
 
 Fetches debug information of the component's current state.
@@ -74,6 +84,7 @@ Type: `Promise<void>`
 - [kul-showcase-toast](./components/toast)
 - [kul-showcase-upload](./components/upload)
 - [kul-showcase-kulmanager](./framework/manager)
+- [kul-showcase-header](./layout/header)
 - [kul-showcase-debug](./utilities/debug)
 - [kul-showcase-probe](./utilities/probe)
 - [kul-button](../kul-button)
@@ -93,6 +104,7 @@ graph TD;
   kul-showcase --> kul-showcase-toast
   kul-showcase --> kul-showcase-upload
   kul-showcase --> kul-showcase-kulmanager
+  kul-showcase --> kul-showcase-header
   kul-showcase --> kul-showcase-debug
   kul-showcase --> kul-showcase-probe
   kul-showcase --> kul-button
@@ -129,6 +141,7 @@ graph TD;
   kul-upload --> kul-image
   kul-upload --> kul-button
   kul-showcase-kulmanager --> kul-article
+  kul-showcase-header --> kul-article
   style kul-showcase fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

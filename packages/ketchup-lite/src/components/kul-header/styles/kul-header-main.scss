@@ -1,0 +1,69 @@
+:host {
+  /**
+ * @prop --kul-header-box-shadow: Sets the box shadow of the header component.
+ * Defaults to a combination of shadows for depth.
+ */
+  --kul_header_box_shadow: var(
+    --kul-header-box-shadow,
+    0 2px 4px -1px rgba(128, 128, 128, 0.2),
+    0 4px 5px 0 rgba(128, 128, 128, 0.14),
+    0 1px 10px 0 rgba(128, 128, 128, 0.12)
+  );
+
+  /**
+    * @prop --kul-header-padding: Sets the padding of the header component.
+    * Defaults to 8px top and bottom, 12px left and right.
+    */
+  --kul_header_padding: var(--kul-header-padding, 8px 12px);
+
+  /**
+    * @prop --kul-header-position: Sets the CSS positioning of the header component.
+    * Defaults to fixed.
+    */
+  --kul_header_position: var(--kul-header-position, fixed);
+
+  /**
+    * @prop --kul-header-transition: Sets the transition time of the header component.
+    * Defaults to 250ms.
+    */
+  --kul_header_transition: var(--kul-header-transition, 250ms);
+
+  /**
+    * @prop --kul-header-width: Sets the width of the header component.
+    * Defaults to 100%.
+    */
+  --kul_header_width: var(--kul-header-width, 100%);
+
+  box-sizing: border-box;
+  font-size: var(--kul-font-size);
+  left: 0;
+  position: var(--kul_header_position);
+  top: 0;
+  transition: all var(--kul_header_transition);
+  width: var(--kul_header_width);
+  z-index: var(--kul-header-zindex);
+}
+
+#kul-component {
+  width: var(--kul_header_width);
+}
+
+.header {
+  background-color: var(--kul-header-background-color);
+  box-shadow: var(--kul_header_box_shadow);
+  box-sizing: border-box;
+  color: var(--kul-header-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--kul-header-padding);
+  width: var(--kul_header_width);
+
+  &__section {
+    box-sizing: border-box;
+    display: flex;
+    height: var(--kul-header-height);
+    position: relative;
+    width: var(--kul_header_width);
+  }
+}

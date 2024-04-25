@@ -2,6 +2,7 @@ import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { BADGE_DOC, BADGE_EXAMPLES } from './kul-showcase-badge-data';
 import { DynamicExampleManager } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
+import { BadgeExample } from './kul-showcase-badge-declarations';
 
 @Component({
     tag: 'kul-showcase-badge',
@@ -30,7 +31,7 @@ export class KulShowcaseBadge {
         const elements: VNode[] = [];
         for (const key in BADGE_EXAMPLES) {
             if (Object.prototype.hasOwnProperty.call(BADGE_EXAMPLES, key)) {
-                const props = BADGE_EXAMPLES[key];
+                const props: BadgeExample = BADGE_EXAMPLES[key];
                 elements.push(
                     <div class="example" part="example">
                         <div class="description" part="description">

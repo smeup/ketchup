@@ -1,18 +1,32 @@
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
+import {
+    HEADER_IFRAME_MOCK,
+    HEADER_IFRAME_MOCK_STYLE,
+} from '../../assets/mock-ups/header';
 import { DOC_STYLES } from '../../kul-showcase-data';
-import { UploadData } from './kul-showcase-upload-declarations';
+import { HeaderData } from './kul-showcase-header-declarations';
 
-export const UPLOAD_EXAMPLES: UploadData = {
+export const HEADER_EXAMPLES: HeaderData = {
     simple: {
-        ['data-description']: 'Simple upload component',
+        ['data-description']: 'Simple header component',
+        iframeProps: {
+            height: '100%',
+            srcDoc: HEADER_IFRAME_MOCK,
+            width: '100%',
+        },
     },
     style: {
-        ['data-description']: 'Upload component with custom style',
+        ['data-description']: 'Header with custom style',
         ['data-dynamic']: 'custom',
+        iframeProps: {
+            height: '100%',
+            srcDoc: HEADER_IFRAME_MOCK_STYLE,
+            width: '100%',
+        },
     },
 };
 
-export const UPLOAD_DOC: KulArticleDataset = {
+export const HEADER_DOC: KulArticleDataset = {
     nodes: [
         {
             children: [
@@ -29,11 +43,20 @@ export const UPLOAD_DOC: KulArticleDataset = {
                                         {
                                             id: '0.0.0.0.1',
                                             tagName: 'strong',
-                                            value: 'KulUpload',
+                                            value: 'KulHeader',
                                         },
                                         {
                                             id: '0.0.0.0.2',
-                                            value: ' component is a customizable and reusable web component designed to handle file uploads.',
+                                            value: ' component is a simple element with a header styling which receives a .',
+                                        },
+                                        {
+                                            id: '0.0.0.0.1',
+                                            tagName: 'strong',
+                                            value: 'slot',
+                                        },
+                                        {
+                                            id: '0.0.0.0.1',
+                                            value: '.',
                                         },
                                     ],
                                     id: '0.0.0.0',
@@ -47,21 +70,6 @@ export const UPLOAD_DOC: KulArticleDataset = {
                 },
                 {
                     children: [
-                        {
-                            children: [
-                                {
-                                    id: '0.1.0.0',
-                                    tagName: 'strong',
-                                    value: 'File Selection and Upload',
-                                },
-                                {
-                                    id: '0.1.0.1',
-                                    value: ': The component allows users to select files from their device and provides a visual representation of the selected files, including their type, name, and size. It also supports removing selected files.',
-                                },
-                            ],
-                            id: '0.1.0',
-                            tagName: 'li',
-                        },
                         {
                             children: [
                                 {
@@ -86,36 +94,6 @@ export const UPLOAD_DOC: KulArticleDataset = {
                             id: '0.1.1',
                             tagName: 'li',
                         },
-                        {
-                            children: [
-                                {
-                                    id: '0.1.2.0',
-                                    tagName: 'strong',
-                                    value: 'Debug Information',
-                                },
-                                {
-                                    id: '0.1.2.1',
-                                    value: ": Provides debug information about the component's rendering process, useful for development and debugging purposes.",
-                                },
-                            ],
-                            id: '0.1.2',
-                            tagName: 'li',
-                        },
-                        {
-                            children: [
-                                {
-                                    id: '0.1.3.0',
-                                    tagName: 'strong',
-                                    value: 'Event handling',
-                                },
-                                {
-                                    id: '0.1.3.1',
-                                    value: ': Emits custom events for various lifecycle stages, allowing for integration with other components or frameworks.',
-                                },
-                            ],
-                            id: '0.1.3',
-                            tagName: 'li',
-                        },
                     ],
                     id: '0.1',
                     value: 'Features',
@@ -133,20 +111,20 @@ export const UPLOAD_DOC: KulArticleDataset = {
                                         {
                                             id: '0.2.0.0.1',
                                             tagName: 'strong',
-                                            value: 'KulUpload',
+                                            value: 'KulHeader',
                                         },
                                         {
                                             id: '0.2.0.0.2',
-                                            value: ' component, include it in your HTML and optionally set the ',
+                                            value: ' component, include it in your HTML and provide the ',
                                         },
                                         {
                                             id: '0.2.0.0.3',
                                             tagName: 'strong',
-                                            value: 'kulLabel',
+                                            value: 'slot',
                                         },
                                         {
                                             id: '0.2.0.0.4',
-                                            value: " property to customize the button's label.",
+                                            value: ' that must be displayed inside it.',
                                         },
                                     ],
                                     id: '0.2.0.0',
@@ -155,12 +133,12 @@ export const UPLOAD_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cells: {
-                                                code: {
+                                                header: {
                                                     shape: 'code',
                                                     shapeProps: {
                                                         kulLanguage: 'markup',
                                                     },
-                                                    value: '<kul-upload></kul-upload>',
+                                                    value: '<kul-header>\n   <div class="slot">\n      <kul-button kul-icon="menu" kul-styling="icon"></kul-button>\n   </div>\n</kul-header>',
                                                 },
                                             },
                                             id: '0.2.0.1.0',
@@ -179,38 +157,6 @@ export const UPLOAD_DOC: KulArticleDataset = {
                 },
                 {
                     children: [
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.0.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.0.0.1',
-                                            tagName: 'strong',
-                                            value: 'string',
-                                        },
-                                    ],
-                                    id: '0.3.0.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.0.1.0',
-                                            value: "Sets the button's label. This property accepts a string that will be displayed on the upload button.",
-                                        },
-                                    ],
-                                    id: '0.3.0.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.0',
-                            value: 'kulLabel',
-                        },
                         {
                             children: [
                                 {
@@ -257,56 +203,37 @@ export const UPLOAD_DOC: KulArticleDataset = {
                                 },
                                 {
                                     id: '0.4.0.1',
-                                    value: 'KulUploadEventPayload',
+                                    value: 'KulEventPayload',
                                 },
                                 {
                                     children: [
                                         {
                                             children: [
                                                 {
+                                                    children: [
+                                                        {
+                                                            children: [
+                                                                {
+                                                                    id: '0.4.0.2.0.0.0.0',
+                                                                    tagName:
+                                                                        'strong',
+                                                                    value: 'ready',
+                                                                },
+                                                                {
+                                                                    id: '0.4.0.2.0.0.0.1',
+                                                                    value: ': emitted when the component completes its first complete lifecycle.',
+                                                                },
+                                                            ],
+                                                            id: '0.4.0.2.0.0.0',
+                                                            tagName: 'li',
+                                                            value: '',
+                                                        },
+                                                    ],
                                                     id: '0.4.0.2.0.0',
-                                                    tagName: 'strong',
-                                                    value: 'pointerdown',
-                                                },
-                                                {
-                                                    id: '0.4.0.2.0.1',
-                                                    value: ': emitted when as soon as the component is touched/clicked (before the click event).',
+                                                    value: '',
                                                 },
                                             ],
                                             id: '0.4.0.2.0',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    id: '0.4.0.2.1.0',
-                                                    tagName: 'strong',
-                                                    value: 'ready',
-                                                },
-                                                {
-                                                    id: '0.4.0.2.1.1',
-                                                    value: ': emitted when the component completes its first complete lifecycle.',
-                                                },
-                                            ],
-                                            id: '0.4.0.2.1',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    id: '0.4.0.2.2.0',
-                                                    tagName: 'strong',
-                                                    value: 'upload',
-                                                },
-                                                {
-                                                    id: '0.4.0.2.2.1',
-                                                    value: ': emitted when new files are uploaded.',
-                                                },
-                                            ],
-                                            id: '0.4.0.2.2',
-                                            tagName: 'li',
                                             value: '',
                                         },
                                     ],
@@ -317,7 +244,7 @@ export const UPLOAD_DOC: KulArticleDataset = {
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.4.0',
                             tagName: 'strong',
-                            value: 'kul-upload-event',
+                            value: 'kul-header-event',
                         },
                     ],
                     id: '0.4',
@@ -442,12 +369,12 @@ export const UPLOAD_DOC: KulArticleDataset = {
                                 },
                                 {
                                     cells: {
-                                        code: {
+                                        header: {
                                             shape: 'code',
                                             shapeProps: {
                                                 kulLanguage: 'markup',
                                             },
-                                            value: '<kul-upload kul-style="#kul-component { opacity: 0.5; }"></kul-upload>',
+                                            value: '<kul-header kul-style="#kul-component { opacity: 0.5; }"></kul-header>',
                                         },
                                     },
                                     id: '0.7.0.3',
@@ -457,6 +384,97 @@ export const UPLOAD_DOC: KulArticleDataset = {
                             id: '0.7.0',
                             tagName: 'strong',
                             value: '',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                                            id: '0.7.1.0.0',
+                                            tagName: 'strong',
+                                            value: '--kul-header-box-shadow',
+                                        },
+                                        {
+                                            id: '0.7.1.0.1',
+                                            value: ': Box shadow of the component. Defaults to 0 2px 4px -1px rgba(128, 128, 128, 0.2), 0 4px 5px 0 rgba(128, 128, 128, 0.14), 0 1px 10px 0 rgba(128, 128, 128, 0.12).',
+                                        },
+                                    ],
+                                    id: '0.7.1.0',
+                                    tagName: 'li',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                                            id: '0.7.1.0.0',
+                                            tagName: 'strong',
+                                            value: '--kul-header-padding',
+                                        },
+                                        {
+                                            id: '0.7.1.0.1',
+                                            value: ': Padding of the component. Defaults to 8px 12px.',
+                                        },
+                                    ],
+                                    id: '0.7.1.0',
+                                    tagName: 'li',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                                            id: '0.7.1.0.0',
+                                            tagName: 'strong',
+                                            value: '--kul-header-position',
+                                        },
+                                        {
+                                            id: '0.7.1.0.1',
+                                            value: ': CSS positioning of the component. Defaults to fixed.',
+                                        },
+                                    ],
+                                    id: '0.7.1.0',
+                                    tagName: 'li',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                                            id: '0.7.1.0.0',
+                                            tagName: 'strong',
+                                            value: '--kul-header-transition',
+                                        },
+                                        {
+                                            id: '0.7.1.0.1',
+                                            value: ': Transition time of the component. Defaults to 250ms.',
+                                        },
+                                    ],
+                                    id: '0.7.1.0',
+                                    tagName: 'li',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                                            id: '0.7.1.0.0',
+                                            tagName: 'strong',
+                                            value: '--kul-header-width',
+                                        },
+                                        {
+                                            id: '0.7.1.0.1',
+                                            value: ': Width of the component. Defaults to 100%.',
+                                        },
+                                    ],
+                                    id: '0.7.1.0',
+                                    tagName: 'li',
+                                    value: '',
+                                },
+                            ],
+                            id: '0.7.1',
+                            value: 'CSS Variables',
                         },
                     ],
                     id: '0.7',
@@ -473,11 +491,11 @@ export const UPLOAD_DOC: KulArticleDataset = {
                                 {
                                     id: '0.8.0.1',
                                     tagName: 'strong',
-                                    value: 'KulUpload',
+                                    value: 'KulHeader',
                                 },
                                 {
                                     id: '0.8.0.2',
-                                    value: ' component is a powerful tool for handling file uploads in web applications. Its customizable styling and event handling capabilities make it a versatile choice for web developers looking to enhance their applications with dynamic, encapsulated UI elements.',
+                                    value: " component is a simple yet useful layouting tool to wrap your app's header content.",
                                 },
                             ],
                             id: '0.8.0',
@@ -490,7 +508,7 @@ export const UPLOAD_DOC: KulArticleDataset = {
                 },
             ],
             id: '0',
-            value: 'KulUpload',
+            value: 'KulHeader',
         },
     ],
 };

@@ -80,57 +80,57 @@ export const SPLASH_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
-                                                    id: '0.1.0.1.0.0',
+                                                    id: '0.1.0.0.1.0',
                                                     tagName: 'strong',
                                                     value: 'Customizable Styling',
                                                 },
                                                 {
-                                                    id: '0.1.0.1.0.1',
+                                                    id: '0.1.0.0.1.1',
                                                     value: ": Offers the ability to customize the component's style through the ",
                                                 },
                                                 {
-                                                    id: '0.1.0.1.0.2',
+                                                    id: '0.1.0.0.1.2',
                                                     tagName: 'strong',
                                                     value: '<kulStyle>',
                                                 },
                                                 {
-                                                    id: '0.1.0.1.0.3',
+                                                    id: '0.1.0.0.1.3',
                                                     value: ' property. This allows for a consistent look and feel across different splash screens.',
                                                 },
                                             ],
-                                            id: '0.1.0.1.0',
+                                            id: '0.1.0.0.1',
                                             tagName: 'li',
                                             value: '',
                                         },
                                         {
                                             children: [
                                                 {
-                                                    id: '0.1.0.2.0.0',
+                                                    id: '0.1.0.0.2.0',
                                                     tagName: 'strong',
                                                     value: 'Debug Information',
                                                 },
                                                 {
-                                                    id: '0.1.0.2.0.1',
+                                                    id: '0.1.0.0.2.1',
                                                     value: ": Provides debug information about the component's rendering process, useful for development and debugging purposes.",
                                                 },
                                             ],
-                                            id: '0.1.0.2.0',
+                                            id: '0.1.0.0.2',
                                             tagName: 'li',
                                             value: '',
                                         },
                                         {
                                             children: [
                                                 {
-                                                    id: '0.1.0.3.0.0',
+                                                    id: '0.1.0.0.3.0',
                                                     tagName: 'strong',
                                                     value: 'Event handling',
                                                 },
                                                 {
-                                                    id: '0.1.0.3.0.1',
+                                                    id: '0.1.0.0.3.1',
                                                     value: ': Emits custom events for various lifecycle stages, allowing for integration with other components or frameworks.',
                                                 },
                                             ],
-                                            id: '0.1.0.3.0',
+                                            id: '0.1.0.0.3',
                                             tagName: 'li',
                                             value: '',
                                         },
@@ -201,11 +201,11 @@ export const SPLASH_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.3.0.1.0',
+                                            id: '0.3.0.0.0',
                                             value: 'This prop sets the label displayed in the splash screen.',
                                         },
                                     ],
-                                    id: '0.3.0.1',
+                                    id: '0.3.0.0',
                                     value: '',
                                 },
                             ],
@@ -272,41 +272,41 @@ export const SPLASH_DOC: KulArticleDataset = {
                                                 {
                                                     children: [
                                                         {
-                                                            id: '0.1.0.2.0.0',
+                                                            id: '0.4.0.3.0.0.0',
                                                             tagName: 'strong',
                                                             value: 'ready',
                                                         },
                                                         {
-                                                            id: '0.1.0.2.0.1',
+                                                            id: '0.4.0.3.0.0.1',
                                                             value: ': emitted when the component completes its first complete lifecycle.',
                                                         },
                                                     ],
-                                                    id: '0.1.0.2.0',
+                                                    id: '0.4.0.3.0.0',
                                                     tagName: 'li',
                                                     value: '',
                                                 },
                                                 {
                                                     children: [
                                                         {
-                                                            id: '0.1.0.2.0.0',
+                                                            id: '0.4.0.3.0.1.0',
                                                             tagName: 'strong',
                                                             value: 'unmount',
                                                         },
                                                         {
-                                                            id: '0.1.0.2.0.1',
+                                                            id: '0.4.0.3.0.1.1',
                                                             value: ': emitted when the component is removed from the DOM.',
                                                         },
                                                     ],
-                                                    id: '0.1.0.2.0',
+                                                    id: '0.4.0.3.0.1',
                                                     tagName: 'li',
                                                     value: '',
                                                 },
                                             ],
-                                            id: '0.1.0.2',
+                                            id: '0.4.0.3.0',
                                             value: '',
                                         },
                                     ],
-                                    id: '0.1.0',
+                                    id: '0.4.0.3',
                                     value: '',
                                 },
                             ],
@@ -446,7 +446,7 @@ export const SPLASH_DOC: KulArticleDataset = {
                                             value: '<kul-splash kul-style="#kul-component { opacity: 0.5; }"></kul-splash>',
                                         },
                                     },
-                                    id: '0.2.1.1.0',
+                                    id: '0.7.0.3',
                                     value: '',
                                 },
                             ],
@@ -517,16 +517,16 @@ export const SPLASH_DOC: KulArticleDataset = {
                                                 {
                                                     cssStyle:
                                                         DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.0.0',
+                                                    id: '0.7.1.0.3.0',
                                                     tagName: 'strong',
                                                     value: '--kul-splash-label-color',
                                                 },
                                                 {
-                                                    id: '0.7.1.0.0.1',
+                                                    id: '0.7.1.0.3.1',
                                                     value: ': Sets the color of the label. Defaults to the value of --kul-text-color.',
                                                 },
                                             ],
-                                            id: '0.7.1.0.0',
+                                            id: '0.7.1.0.3',
                                             tagName: 'li',
                                             value: '',
                                         },
@@ -535,16 +535,16 @@ export const SPLASH_DOC: KulArticleDataset = {
                                                 {
                                                     cssStyle:
                                                         DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.1.0',
+                                                    id: '0.7.1.0.4.0',
                                                     tagName: 'strong',
                                                     value: '--kul-splash-widget-color',
                                                 },
                                                 {
-                                                    id: '0.7.1.0.1.1',
+                                                    id: '0.7.1.0.4.1',
                                                     value: ': Sets the color of the widget. Defaults to the value of --kul-primary-color.',
                                                 },
                                             ],
-                                            id: '0.7.1.0.1',
+                                            id: '0.7.1.0.4',
                                             tagName: 'li',
                                             value: '',
                                         },

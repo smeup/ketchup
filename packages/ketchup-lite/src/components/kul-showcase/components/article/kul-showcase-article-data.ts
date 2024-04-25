@@ -153,6 +153,18 @@ const kulData: KulArticleDataset = {
     ],
 };
 
+export const ARTICLE_EXAMPLES: ArticleData = {
+    simple: {
+        ['data-description']: 'Simple article',
+        kulData,
+    },
+    style: {
+        ['data-description']: 'Article with custom style',
+        'data-dynamic': 'custom',
+        kulData,
+    },
+};
+
 export const ARTICLE_DOC: KulArticleDataset = {
     nodes: [
         {
@@ -485,25 +497,25 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                                 {
                                                     children: [
                                                         {
-                                                            id: '0.1.0.2.0.0',
+                                                            id: '0.4.0.3.0.0.0',
                                                             tagName: 'strong',
                                                             value: 'ready',
                                                         },
                                                         {
-                                                            id: '0.1.0.2.0.1',
+                                                            id: '0.4.0.3.0.0.1',
                                                             value: ': emitted when the component completes its first complete lifecycle.',
                                                         },
                                                     ],
-                                                    id: '0.1.0.2.0',
+                                                    id: '0.4.0.3.0.0',
                                                     tagName: 'li',
                                                     value: '',
                                                 },
                                             ],
-                                            id: '0.1.0.2',
+                                            id: '0.4.0.3.0',
                                             value: '',
                                         },
                                     ],
-                                    id: '0.1.0',
+                                    id: '0.4.0.3',
                                     value: '',
                                 },
                             ],
@@ -643,7 +655,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                             value: '<kul-article kul-style="#kul-component article { max-height: 20vh; }"></kul-article>',
                                         },
                                     },
-                                    id: '0.2.1.1.0',
+                                    id: '0.7.0.3',
                                     value: '',
                                 },
                             ],
@@ -714,67 +726,13 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                                 {
                                                     cssStyle:
                                                         DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.0.0',
+                                                    id: '0.7.1.0.3.0',
                                                     tagName: 'strong',
                                                     value: '--kul-article-h3-color',
                                                 },
                                                 {
-                                                    id: '0.7.1.0.0.1',
-                                                    value: ': Sets the color for <h3> elements. Defaults to var(--kul-text-color).',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.0',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.1.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-article-h3-font-family',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.1.1',
-                                                    value: ': Sets the font family for <h3> elements. Defaults to var(--kul-font-family).',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.1',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.2.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-article-h3-font-size',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.2.1',
-                                                    value: ': Sets the font size for <h3> elements. Defaults to 1.5em.',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.2',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.3.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-article-margin',
-                                                },
-                                                {
                                                     id: '0.7.1.0.3.1',
-                                                    value: ': Sets the margin of the article tag. Defaults to automatic.',
+                                                    value: ': Sets the color for <h3> elements. Defaults to var(--kul-text-color).',
                                                 },
                                             ],
                                             id: '0.7.1.0.3',
@@ -788,11 +746,11 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                                         DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.4.0',
                                                     tagName: 'strong',
-                                                    value: '--kul-article-max-width',
+                                                    value: '--kul-article-h3-font-family',
                                                 },
                                                 {
                                                     id: '0.7.1.0.4.1',
-                                                    value: ': Sets the max-width of the article tag. Defaults to 1200px.',
+                                                    value: ': Sets the font family for <h3> elements. Defaults to var(--kul-font-family).',
                                                 },
                                             ],
                                             id: '0.7.1.0.4',
@@ -806,14 +764,68 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                                         DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.5.0',
                                                     tagName: 'strong',
-                                                    value: '--kul-article-padding',
+                                                    value: '--kul-article-h3-font-size',
                                                 },
                                                 {
                                                     id: '0.7.1.0.5.1',
-                                                    value: ': Sets the padding of the article tag. Defaults to 40px vertically.',
+                                                    value: ': Sets the font size for <h3> elements. Defaults to 1.5em.',
                                                 },
                                             ],
                                             id: '0.7.1.0.5',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.6.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-article-margin',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.6.1',
+                                                    value: ': Sets the margin of the article tag. Defaults to automatic.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.6',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.7.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-article-max-width',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.7.1',
+                                                    value: ': Sets the max-width of the article tag. Defaults to 1200px.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.7',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.8.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-article-padding',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.8.1',
+                                                    value: ': Sets the padding of the article tag. Defaults to 40px vertically.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.8',
                                             tagName: 'li',
                                             value: '',
                                         },
@@ -860,16 +872,4 @@ export const ARTICLE_DOC: KulArticleDataset = {
             value: 'KulArticle',
         },
     ],
-};
-
-export const ARTICLE_EXAMPLES: ArticleData = {
-    simple: {
-        ['data-description']: 'Simple article',
-        kulData,
-    },
-    style: {
-        ['data-description']: 'Article with custom style',
-        'data-dynamic': 'custom',
-        kulData,
-    },
 };

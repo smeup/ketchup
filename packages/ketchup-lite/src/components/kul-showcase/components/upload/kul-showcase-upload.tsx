@@ -2,6 +2,7 @@ import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { UPLOAD_DOC, UPLOAD_EXAMPLES } from './kul-showcase-upload-data';
 import { DynamicExampleManager } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
+import { UploadExample } from './kul-showcase-upload-declarations';
 
 @Component({
     tag: 'kul-showcase-upload',
@@ -30,7 +31,7 @@ export class KulShowcaseUpload {
         const elements: VNode[] = [];
         for (const key in UPLOAD_EXAMPLES) {
             if (Object.prototype.hasOwnProperty.call(UPLOAD_EXAMPLES, key)) {
-                const props = UPLOAD_EXAMPLES[key];
+                const props: UploadExample = UPLOAD_EXAMPLES[key];
                 elements.push(
                     <div class="example" part="example">
                         <div class="description" part="description">

@@ -2,6 +2,7 @@ import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { CODE_DOC, CODE_EXAMPLES } from './kul-showcase-code-data';
 import { DynamicExampleManager } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
+import { CodeExample } from './kul-showcase-code-declarations';
 
 @Component({
     tag: 'kul-showcase-code',
@@ -30,7 +31,7 @@ export class KulShowcaseCode {
         const elements: VNode[] = [];
         for (const key in CODE_EXAMPLES) {
             if (Object.prototype.hasOwnProperty.call(CODE_EXAMPLES, key)) {
-                const props = CODE_EXAMPLES[key];
+                const props: CodeExample = CODE_EXAMPLES[key];
                 elements.push(
                     <div class="example" part="example">
                         <div class="description" part="description">

@@ -3,19 +3,19 @@ import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 
 export const SPINNER_EXAMPLES_CATEGORIES = ['bar', 'widget'] as const;
 
-interface SpinnerBranch {
+export interface SpinnerBranch {
     [index: number]: SpinnerLeaf;
+}
+
+export interface SpinnerLeaf {
+    [index: string]: Partial<SpinnerExample>;
 }
 
 export type SpinnerData = {
     [K in (typeof SPINNER_EXAMPLES_CATEGORIES)[number]]: SpinnerBranch;
 };
 
-interface SpinnerExample extends KulSpinnerPropsInterface {
+export interface SpinnerExample extends KulSpinnerPropsInterface {
     ['data-description']: string;
     ['data-dynamic']?: KulShowcaseDynamicExampleType;
-}
-
-interface SpinnerLeaf {
-    [index: string]: Partial<SpinnerExample>;
 }

@@ -21,7 +21,7 @@ export class KulShowcaseSplash {
         const elements: VNode[] = [];
         for (const key in SPLASH_EXAMPLES) {
             if (Object.prototype.hasOwnProperty.call(SPLASH_EXAMPLES, key)) {
-                const props = SPLASH_EXAMPLES[key] as SplashExample;
+                const props: SplashExample = SPLASH_EXAMPLES[key];
                 elements.push(
                     <div class="example" part="example">
                         <div class="description" part="description">

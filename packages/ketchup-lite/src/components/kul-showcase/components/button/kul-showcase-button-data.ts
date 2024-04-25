@@ -284,24 +284,27 @@ export const BUTTON_DOC: KulArticleDataset = {
                             children: [
                                 {
                                     children: [
-                                        { id: '0.1.1.1.1', value: 'The ' },
                                         {
-                                            id: '0.1.1.2',
+                                            id: '0.0.0.0.0',
+                                            value: 'The ',
+                                        },
+                                        {
+                                            id: '0.0.0.0.1',
                                             tagName: 'strong',
                                             value: 'KulButton',
                                         },
                                         {
-                                            id: '0.1.1.3',
+                                            id: '0.0.0.0.2',
                                             value: ' component is a versatile and customizable web component designed to render buttons.',
                                         },
                                     ],
-                                    id: '0.1.1.1',
+                                    id: '0.0.0.0',
                                 },
                             ],
-                            id: '0.1.1',
+                            id: '0.0.0',
                         },
                     ],
-                    id: '0.1',
+                    id: '0.0',
                     value: 'Overview',
                 },
                 {
@@ -458,7 +461,7 @@ export const BUTTON_DOC: KulArticleDataset = {
                             value: 'Basic Usage',
                         },
                     ],
-                    id: '0.3',
+                    id: '0.2',
                     value: 'Usage',
                 },
                 {
@@ -468,31 +471,31 @@ export const BUTTON_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.1.1',
+                                            id: '0.3.0.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.4.3.1.2',
+                                            id: '0.3.0.0.1',
                                             tagName: 'strong',
                                             value: 'boolean',
                                         },
                                     ],
-                                    id: '0.4.3.1',
+                                    id: '0.3.0.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.2.1',
+                                            id: '0.3.0.1.0',
                                             value: 'Defaults at false. When set to true, the component is disabled.',
                                         },
                                     ],
-                                    id: '0.4.3.2',
+                                    id: '0.3.0.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.3',
+                            id: '0.3.0',
                             value: 'kulDisabled',
                         },
                         {
@@ -500,31 +503,31 @@ export const BUTTON_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.1.1',
+                                            id: '0.3.1.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.4.3.1.2',
+                                            id: '0.3.1.0.1',
                                             tagName: 'strong',
                                             value: 'string',
                                         },
                                     ],
-                                    id: '0.4.3.1',
+                                    id: '0.3.1.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.2.1',
+                                            id: '0.3.1.1.0',
                                             value: 'When set, the button will show this icon.',
                                         },
                                     ],
-                                    id: '0.4.3.2',
+                                    id: '0.3.1.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.3',
+                            id: '0.3.1',
                             value: 'kulIcon',
                         },
                         {
@@ -532,31 +535,31 @@ export const BUTTON_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.1.1',
+                                            id: '0.3.2.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.4.3.1.2',
+                                            id: '0.3.2.0.1',
                                             tagName: 'strong',
                                             value: 'string',
                                         },
                                     ],
-                                    id: '0.4.3.1',
+                                    id: '0.3.2.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.2.1',
+                                            id: '0.3.2.1.0',
                                             value: 'When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.',
                                         },
                                     ],
-                                    id: '0.4.3.2',
+                                    id: '0.3.2.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.3',
+                            id: '0.3.2',
                             value: 'kulIconOff',
                         },
                         {
@@ -564,31 +567,31 @@ export const BUTTON_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.1.1',
+                                            id: '0.3.3.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.4.3.1.2',
+                                            id: '0.3.3.0.1',
                                             tagName: 'strong',
                                             value: 'string',
                                         },
                                     ],
-                                    id: '0.4.3.1',
+                                    id: '0.3.3.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.2.1',
+                                            id: '0.3.3.1.0',
                                             value: 'When set, the button will show this text.',
                                         },
                                     ],
-                                    id: '0.4.3.2',
+                                    id: '0.3.3.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.3',
+                            id: '0.3.3',
                             value: 'kulLabel',
                         },
                         {
@@ -596,31 +599,31 @@ export const BUTTON_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.1.1',
+                                            id: '0.3.4.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.4.3.1.2',
+                                            id: '0.3.4.0.1',
                                             tagName: 'strong',
                                             value: 'boolean',
                                         },
                                     ],
-                                    id: '0.4.3.1',
+                                    id: '0.3.4.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.2.1',
+                                            id: '0.3.4.1.0',
                                             value: 'When set to true, the pointerdown event will trigger a ripple effect.',
                                         },
                                     ],
-                                    id: '0.4.3.2',
+                                    id: '0.3.4.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.3',
+                            id: '0.3.4',
                             value: 'kulRipple',
                         },
                         {
@@ -628,31 +631,31 @@ export const BUTTON_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.1.1',
+                                            id: '0.3.5.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.4.3.1.2',
+                                            id: '0.3.5.0.1',
                                             tagName: 'strong',
                                             value: 'boolean',
                                         },
                                     ],
-                                    id: '0.4.3.1',
+                                    id: '0.3.5.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.2.1',
+                                            id: '0.3.5.1.0',
                                             value: 'When set to true, the button show a spinner received in slot.',
                                         },
                                     ],
-                                    id: '0.4.3.2',
+                                    id: '0.3.5.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.3',
+                            id: '0.3.5',
                             value: 'kulShowSpinner',
                         },
                         {
@@ -660,31 +663,31 @@ export const BUTTON_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.1.1',
+                                            id: '0.3.6.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.4.3.1.2',
+                                            id: '0.3.6.0.1',
                                             tagName: 'strong',
                                             value: 'string',
                                         },
                                     ],
-                                    id: '0.4.3.1',
+                                    id: '0.3.6.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.2.1',
+                                            id: '0.3.6.1.0',
                                             value: 'Custom style of the component.',
                                         },
                                     ],
-                                    id: '0.4.3.2',
+                                    id: '0.3.6.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.3',
+                            id: '0.3.6',
                             value: 'kulStyle',
                         },
                         {
@@ -692,31 +695,31 @@ export const BUTTON_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.1.1',
+                                            id: '0.3.7.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.4.3.1.2',
+                                            id: '0.3.7.0.1',
                                             tagName: 'strong',
                                             value: 'KulButtonStyling',
                                         },
                                     ],
-                                    id: '0.4.3.1',
+                                    id: '0.3.7.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.2.1',
+                                            id: '0.3.7.1.0',
                                             value: 'Defines the style of the button. This property controls the visual appearance of the button.',
                                         },
                                     ],
-                                    id: '0.4.3.2',
+                                    id: '0.3.7.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.3',
+                            id: '0.3.7',
                             value: 'kulStyling',
                         },
                         {
@@ -724,31 +727,31 @@ export const BUTTON_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.1.1',
+                                            id: '0.3.8.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.4.3.1.2',
+                                            id: '0.3.8.0.1',
                                             tagName: 'strong',
                                             value: 'boolean',
                                         },
                                     ],
-                                    id: '0.4.3.1',
+                                    id: '0.3.8.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.2.1',
+                                            id: '0.3.8.1.0',
                                             value: 'When set to true, the icon button will be toggable on/off.',
                                         },
                                     ],
-                                    id: '0.4.3.2',
+                                    id: '0.3.8.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.3',
+                            id: '0.3.8',
                             value: 'kulToggable',
                         },
                         {
@@ -756,31 +759,31 @@ export const BUTTON_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.1.1',
+                                            id: '0.3.9.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.4.3.1.2',
+                                            id: '0.3.9.0.1',
                                             tagName: 'strong',
                                             value: 'boolean',
                                         },
                                     ],
-                                    id: '0.4.3.1',
+                                    id: '0.3.9.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.2.1',
+                                            id: '0.3.9.1.0',
                                             value: 'When set, the icon will be shown after the text.',
                                         },
                                     ],
-                                    id: '0.4.3.2',
+                                    id: '0.3.9.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.3',
+                            id: '0.3.9',
                             value: 'kulTrailingIcon',
                         },
                         {
@@ -788,31 +791,31 @@ export const BUTTON_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.1.1',
+                                            id: '0.3.10.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.4.3.1.2',
+                                            id: '0.3.10.0.1',
                                             tagName: 'strong',
                                             value: 'string',
                                         },
                                     ],
-                                    id: '0.4.3.1',
+                                    id: '0.3.10.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.2.1',
+                                            id: '0.3.10.1.0',
                                             value: 'Sets the type of the button.',
                                         },
                                     ],
-                                    id: '0.4.3.2',
+                                    id: '0.3.10.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.3',
+                            id: '0.3.10',
                             value: 'kulType',
                         },
                         {
@@ -820,35 +823,35 @@ export const BUTTON_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.1.1',
+                                            id: '0.3.11.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.4.3.1.2',
+                                            id: '0.3.11.0.1',
                                             tagName: 'strong',
                                             value: 'boolean',
                                         },
                                     ],
-                                    id: '0.4.3.1',
+                                    id: '0.3.11.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.4.3.2.1',
+                                            id: '0.3.11.1.0',
                                             value: 'When set to true, the icon button state will be on.',
                                         },
                                     ],
-                                    id: '0.4.3.2',
+                                    id: '0.3.11.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.4.3',
+                            id: '0.3.11',
                             value: 'kulValue',
                         },
                     ],
-                    id: ' ',
+                    id: '0.3',
                     value: 'Properties',
                 },
                 {
@@ -856,15 +859,15 @@ export const BUTTON_DOC: KulArticleDataset = {
                         {
                             children: [
                                 {
-                                    id: '0.5.1.1',
+                                    id: '0.4.0.0',
                                     value: 'This event is emitted during various button interactions. It carries a payload of type ',
                                 },
                                 {
-                                    id: '0.5.1.2',
+                                    id: '0.4.0.1',
                                     value: 'KulButtonEventPayload',
                                 },
                                 {
-                                    id: '0.5.1.3',
+                                    id: '0.4.0.2',
                                     value: ', which includes information about the component and the event type.',
                                 },
                                 {
@@ -876,107 +879,107 @@ export const BUTTON_DOC: KulArticleDataset = {
                                                         {
                                                             children: [
                                                                 {
-                                                                    id: '0.1.0.2.0.0',
+                                                                    id: '0.4.0.3.0.0.0.0',
                                                                     tagName:
                                                                         'strong',
                                                                     value: 'blur',
                                                                 },
                                                                 {
-                                                                    id: '0.1.0.2.0.1',
+                                                                    id: '0.4.0.3.0.0.0.1',
                                                                     value: ': emitted when the component loses focus.',
                                                                 },
                                                             ],
-                                                            id: '0.1.0.2.0',
+                                                            id: '0.4.0.3.0.0.0',
                                                             tagName: 'li',
                                                             value: '',
                                                         },
                                                         {
                                                             children: [
                                                                 {
-                                                                    id: '0.1.0.2.0.0',
+                                                                    id: '0.4.0.3.0.0.1.0',
                                                                     tagName:
                                                                         'strong',
                                                                     value: 'click',
                                                                 },
                                                                 {
-                                                                    id: '0.1.0.2.0.1',
+                                                                    id: '0.4.0.3.0.0.1.1',
                                                                     value: ': emitted when the component is clicked.',
                                                                 },
                                                             ],
-                                                            id: '0.1.0.2.0',
+                                                            id: '0.4.0.3.0.0.1',
                                                             tagName: 'li',
                                                             value: '',
                                                         },
                                                         {
                                                             children: [
                                                                 {
-                                                                    id: '0.1.0.2.0.0',
+                                                                    id: '0.4.0.3.0.0.2.0',
                                                                     tagName:
                                                                         'strong',
                                                                     value: 'focus',
                                                                 },
                                                                 {
-                                                                    id: '0.1.0.2.0.1',
+                                                                    id: '0.4.0.3.0.0.2.1',
                                                                     value: ': emitted when the component is focused.',
                                                                 },
                                                             ],
-                                                            id: '0.1.0.2.0',
+                                                            id: '0.4.0.3.0.0.2',
                                                             tagName: 'li',
                                                             value: '',
                                                         },
                                                         {
                                                             children: [
                                                                 {
-                                                                    id: '0.1.0.2.0.0',
+                                                                    id: '0.4.0.3.0.0.3.0',
                                                                     tagName:
                                                                         'strong',
                                                                     value: 'pointerdown',
                                                                 },
                                                                 {
-                                                                    id: '0.1.0.2.0.1',
+                                                                    id: '0.4.0.3.0.0.3.1',
                                                                     value: ': emitted when as soon as the component is touched/clicked (before the click event).',
                                                                 },
                                                             ],
-                                                            id: '0.1.0.2.0',
+                                                            id: '0.4.0.3.0.0.3',
                                                             tagName: 'li',
                                                             value: '',
                                                         },
                                                         {
                                                             children: [
                                                                 {
-                                                                    id: '0.1.0.2.0.0',
+                                                                    id: '0.4.0.3.0.0.4.0',
                                                                     tagName:
                                                                         'strong',
                                                                     value: 'ready',
                                                                 },
                                                                 {
-                                                                    id: '0.1.0.2.0.1',
+                                                                    id: '0.4.0.3.0.0.4.1',
                                                                     value: ': emitted when the component completes its first complete lifecycle.',
                                                                 },
                                                             ],
-                                                            id: '0.1.0.2.0',
+                                                            id: '0.4.0.3.0.0.4',
                                                             tagName: 'li',
                                                             value: '',
                                                         },
                                                     ],
-                                                    id: '0.1.0.2',
+                                                    id: '0.4.0.3.0.0',
                                                     value: '',
                                                 },
                                             ],
-                                            id: '0.1.0',
+                                            id: '0.4.0.3.0',
                                             value: '',
                                         },
                                     ],
-                                    id: '',
+                                    id: '0.4.0.3',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.5.1',
+                            id: '0.4.0',
                             tagName: 'strong',
                             value: 'kul-button-event',
                         },
                     ],
-                    id: '0.5',
+                    id: '0.4',
                     value: 'Events',
                 },
                 {
@@ -984,50 +987,50 @@ export const BUTTON_DOC: KulArticleDataset = {
                         {
                             children: [
                                 {
-                                    id: '0.6.1.1',
+                                    id: '0.5.0.0',
                                     value: 'Returns a promise that resolves to a ',
                                 },
                                 {
-                                    id: '0.6.1.2',
+                                    id: '0.5.0.1',
                                     tagName: 'strong',
                                     value: 'KulDebugComponentInfo',
                                 },
                                 {
-                                    id: '0.6.1.3',
+                                    id: '0.5.0.2',
                                     value: " object containing debug information about the component's rendering process.",
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.6.1',
+                            id: '0.5.0',
                             tagName: 'strong',
                             value: 'getDebugInfo()',
                         },
                         {
                             children: [
                                 {
-                                    id: '0.6.2.1',
+                                    id: '0.5.1.0',
                                     value: 'Returns a promise that resolves to an object where each key is a property name, optionally with its description.',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.6.2',
+                            id: '0.5.1',
                             tagName: 'strong',
                             value: 'getProps(descriptions?: boolean)',
                         },
                         {
                             children: [
                                 {
-                                    id: '0.6.3.1',
+                                    id: '0.5.2.0',
                                     value: 'Triggers a re-render of the component to reflect any state changes.',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.6.3',
+                            id: '0.5.2',
                             tagName: 'strong',
                             value: 'refresh()',
                         },
                     ],
-                    id: '0.6',
+                    id: '0.5',
                     value: 'Methods',
                 },
                 {
@@ -1035,48 +1038,48 @@ export const BUTTON_DOC: KulArticleDataset = {
                         {
                             children: [
                                 {
-                                    id: '0.7.1.1',
+                                    id: '0.6.0.0',
                                     value: 'The component utilizes various lifecycle hooks to manage its state and behavior. These include ',
                                 },
                                 {
-                                    id: '0.7.1.2',
+                                    id: '0.6.0.1',
                                     tagName: 'strong',
                                     value: 'componentWillLoad',
                                 },
                                 {
-                                    id: '0.7.1.3',
+                                    id: '0.6.0.2',
                                     value: ',',
                                 },
                                 {
-                                    id: '0.7.1.4',
+                                    id: '0.6.0.3',
                                     tagName: 'strong',
                                     value: 'componentDidLoad',
                                 },
                                 {
-                                    id: '0.7.1.5',
+                                    id: '0.6.0.4',
                                     value: ',',
                                 },
                                 {
-                                    id: '0.7.1.6',
+                                    id: '0.6.0.5',
                                     tagName: 'strong',
                                     value: 'componentWillRender',
                                 },
                                 {
-                                    id: '0.7.1.7',
+                                    id: '0.6.0.6',
                                     value: ' and ',
                                 },
                                 {
-                                    id: '0.7.1.8',
+                                    id: '0.6.0.7',
                                     tagName: 'strong',
                                     value: 'componentDidRender',
                                 },
                             ],
-                            id: '0.7.1',
+                            id: '0.6.0',
                             tagName: 'strong',
                             value: '',
                         },
                     ],
-                    id: '0.7',
+                    id: '0.6',
                     value: 'Lifecycle Hooks',
                 },
                 {
@@ -1106,7 +1109,7 @@ export const BUTTON_DOC: KulArticleDataset = {
                                             value: '<kul-button kul-style="#kul-component { opacity: 0.5; }"></kul-button>',
                                         },
                                     },
-                                    id: '0.2.1.1.0',
+                                    id: '0.7.0.3',
                                     value: '',
                                 },
                             ],
@@ -1375,16 +1378,16 @@ export const BUTTON_DOC: KulArticleDataset = {
                                                 {
                                                     cssStyle:
                                                         DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.13.0',
+                                                    id: '0.7.1.0.14.0',
                                                     tagName: 'strong',
                                                     value: '--kul-button-text-on-primary-color',
                                                 },
                                                 {
-                                                    id: '0.7.1.0.13.1',
+                                                    id: '0.7.1.0.14.1',
                                                     value: ':  Sets text and icon color for raised buttons. Defaults to var(--kul-text-on-primary-color).',
                                                 },
                                             ],
-                                            id: '0.7.1.0.13',
+                                            id: '0.7.1.0.14',
                                             tagName: 'li',
                                             value: '',
                                         },
@@ -1393,16 +1396,16 @@ export const BUTTON_DOC: KulArticleDataset = {
                                                 {
                                                     cssStyle:
                                                         DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.13.0',
+                                                    id: '0.7.1.0.15.0',
                                                     tagName: 'strong',
                                                     value: '--kul-button-text-transform',
                                                 },
                                                 {
-                                                    id: '0.7.1.0.13.1',
+                                                    id: '0.7.1.0.15.1',
                                                     value: ':  Set the label case, default is uppercase. Defaults to uppercase.',
                                                 },
                                             ],
-                                            id: '0.7.1.0.13',
+                                            id: '0.7.1.0.15',
                                             tagName: 'li',
                                             value: '',
                                         },
@@ -1423,25 +1426,25 @@ export const BUTTON_DOC: KulArticleDataset = {
                         {
                             children: [
                                 {
-                                    id: '0.8.1.1',
+                                    id: '0.8.0.0',
                                     value: 'The ',
                                 },
                                 {
-                                    id: '0.8.1.2',
+                                    id: '0.8.0.1',
                                     tagName: 'strong',
                                     value: 'KulButton',
                                 },
                                 {
-                                    id: '0.8.1.3',
+                                    id: '0.8.0.2',
                                     value: ' component is a powerful tool for rendering buttons with dynamic, encapsulated UI elements. Its customizable styling and event handling capabilities make it a versatile choice for web developers looking to enhance their applications with interactive, encapsulated UI elements.',
                                 },
                             ],
-                            id: '0.8.1',
+                            id: '0.8.0',
                             tagName: 'strong',
                             value: '',
                         },
                     ],
-                    id: '0.9',
+                    id: '0.8',
                     value: 'Conclusion',
                 },
             ],
