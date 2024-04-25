@@ -2,6 +2,7 @@ import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { IMAGE_DOC, IMAGE_EXAMPLES } from './kul-showcase-image-data';
 import { DynamicExampleManager } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
+import { ImageExample } from './kul-showcase-image-declarations';
 
 @Component({
     tag: 'kul-showcase-image',
@@ -30,7 +31,7 @@ export class KulShowcaseImage {
         const elements: VNode[] = [];
         for (const key in IMAGE_EXAMPLES) {
             if (Object.prototype.hasOwnProperty.call(IMAGE_EXAMPLES, key)) {
-                const props = IMAGE_EXAMPLES[key];
+                const props: ImageExample = IMAGE_EXAMPLES[key];
                 elements.push(
                     <div class="example" part="example">
                         <div class="description" part="description">

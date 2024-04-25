@@ -2,6 +2,7 @@ import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { ARTICLE_DOC, ARTICLE_EXAMPLES } from './kul-showcase-article-data';
 import { DynamicExampleManager } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
+import { ArticleExample } from './kul-showcase-article-declarations';
 
 @Component({
     tag: 'kul-showcase-article',
@@ -30,7 +31,7 @@ export class KulShowcaseArticle {
         const elements: VNode[] = [];
         for (const key in ARTICLE_EXAMPLES) {
             if (Object.prototype.hasOwnProperty.call(ARTICLE_EXAMPLES, key)) {
-                const props = ARTICLE_EXAMPLES[key];
+                const props: ArticleExample = ARTICLE_EXAMPLES[key];
                 elements.push(
                     <div class="example" part="example">
                         <div class="description" part="description">

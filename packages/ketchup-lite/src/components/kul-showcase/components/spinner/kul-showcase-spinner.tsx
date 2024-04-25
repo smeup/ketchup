@@ -1,5 +1,9 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { SPINNER_DOC, SPINNER_EXAMPLES } from './kul-showcase-spinner-data';
+import {
+    SpinnerBranch,
+    SpinnerLeaf,
+} from './kul-showcase-spinner-declarations';
 
 @Component({
     tag: 'kul-showcase-spinner',
@@ -27,12 +31,12 @@ export class KulShowcaseSpinner {
         // Iterate over each example category in SPINNER_EXAMPLES
         for (const k1 in SPINNER_EXAMPLES) {
             if (Object.prototype.hasOwnProperty.call(SPINNER_EXAMPLES, k1)) {
-                const type = SPINNER_EXAMPLES[k1];
+                const type: SpinnerBranch = SPINNER_EXAMPLES[k1];
 
                 // Iterate over each spinner type
                 for (const k2 in type) {
                     if (Object.prototype.hasOwnProperty.call(type, k2)) {
-                        const layout = type[k2];
+                        const layout: SpinnerLeaf = type[k2];
                         const layoutWrapper: VNode[] = [];
 
                         // Iterate over each layout number

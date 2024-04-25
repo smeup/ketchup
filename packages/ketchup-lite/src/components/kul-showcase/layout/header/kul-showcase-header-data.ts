@@ -1,20 +1,32 @@
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
+import {
+    HEADER_IFRAME_MOCK,
+    HEADER_IFRAME_MOCK_STYLE,
+} from '../../assets/mock-ups/header';
 import { DOC_STYLES } from '../../kul-showcase-data';
-import { CodeData } from './kul-showcase-code-declarations';
+import { HeaderData } from './kul-showcase-header-declarations';
 
-export const CODE_EXAMPLES: CodeData = {
+export const HEADER_EXAMPLES: HeaderData = {
     simple: {
-        ['data-description']: 'Simple code component',
-        kulValue:
-            "const dom = document.documentElement;\ndom.ketchupLiteInit = {\n   theme: { name: 'night' },\n};",
+        ['data-description']: 'Simple header component',
+        iframeProps: {
+            height: '100%',
+            srcDoc: HEADER_IFRAME_MOCK,
+            width: '100%',
+        },
     },
     style: {
-        ['data-description']: 'Code with custom style',
+        ['data-description']: 'Header with custom style',
         ['data-dynamic']: 'custom',
+        iframeProps: {
+            height: '100%',
+            srcDoc: HEADER_IFRAME_MOCK_STYLE,
+            width: '100%',
+        },
     },
 };
 
-export const CODE_DOC: KulArticleDataset = {
+export const HEADER_DOC: KulArticleDataset = {
     nodes: [
         {
             children: [
@@ -31,11 +43,20 @@ export const CODE_DOC: KulArticleDataset = {
                                         {
                                             id: '0.0.0.0.1',
                                             tagName: 'strong',
-                                            value: 'KulCode',
+                                            value: 'KulHeader',
                                         },
                                         {
                                             id: '0.0.0.0.2',
-                                            value: ' component is a customizable web component designed to display code snippets with syntax highlighting.',
+                                            value: ' component is a simple element with a header styling which receives a .',
+                                        },
+                                        {
+                                            id: '0.0.0.0.1',
+                                            tagName: 'strong',
+                                            value: 'slot',
+                                        },
+                                        {
+                                            id: '0.0.0.0.1',
+                                            value: '.',
                                         },
                                     ],
                                     id: '0.0.0.0',
@@ -49,21 +70,6 @@ export const CODE_DOC: KulArticleDataset = {
                 },
                 {
                     children: [
-                        {
-                            children: [
-                                {
-                                    id: '0.1.0.0',
-                                    tagName: 'strong',
-                                    value: 'Syntax Highlighting',
-                                },
-                                {
-                                    id: '0.1.0.1',
-                                    value: ': Utilizes Prism.js for syntax highlighting, supporting various programming languages.',
-                                },
-                            ],
-                            id: '0.1.0',
-                            tagName: 'li',
-                        },
                         {
                             children: [
                                 {
@@ -88,21 +94,6 @@ export const CODE_DOC: KulArticleDataset = {
                             id: '0.1.1',
                             tagName: 'li',
                         },
-                        {
-                            children: [
-                                {
-                                    id: '0.1.2.0',
-                                    tagName: 'strong',
-                                    value: 'Copy to Clipboard',
-                                },
-                                {
-                                    id: '0.1.2.1',
-                                    value: ': Includes a button to copy the displayed code snippet to the clipboard.',
-                                },
-                            ],
-                            id: '0.1.2',
-                            tagName: 'li',
-                        },
                     ],
                     id: '0.1',
                     value: 'Features',
@@ -120,7 +111,7 @@ export const CODE_DOC: KulArticleDataset = {
                                         {
                                             id: '0.2.0.0.1',
                                             tagName: 'strong',
-                                            value: 'KulCode',
+                                            value: 'KulHeader',
                                         },
                                         {
                                             id: '0.2.0.0.2',
@@ -129,11 +120,11 @@ export const CODE_DOC: KulArticleDataset = {
                                         {
                                             id: '0.2.0.0.3',
                                             tagName: 'strong',
-                                            value: 'kulValue',
+                                            value: 'slot',
                                         },
                                         {
                                             id: '0.2.0.0.4',
-                                            value: ' property with the code snippet you wish to display.',
+                                            value: ' that must be displayed inside it.',
                                         },
                                     ],
                                     id: '0.2.0.0',
@@ -142,12 +133,12 @@ export const CODE_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cells: {
-                                                code: {
+                                                header: {
                                                     shape: 'code',
                                                     shapeProps: {
                                                         kulLanguage: 'markup',
                                                     },
-                                                    value: '<kul-code kul-value="console.log(\'Hello, World!\');"></kul-code>',
+                                                    value: '<kul-header>\n   <div class="slot">\n      <kul-button kul-icon="menu" kul-styling="icon"></kul-button>\n   </div>\n</kul-header>',
                                                 },
                                             },
                                             id: '0.2.0.1.0',
@@ -166,38 +157,6 @@ export const CODE_DOC: KulArticleDataset = {
                 },
                 {
                     children: [
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.0.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.0.0.1',
-                                            tagName: 'strong',
-                                            value: 'string',
-                                        },
-                                    ],
-                                    id: '0.3.0.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.0.1.0',
-                                            value: 'The code snippet to be displayed. This property accepts a string of code.',
-                                        },
-                                    ],
-                                    id: '0.3.0.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.0',
-                            value: 'kulValue',
-                        },
                         {
                             children: [
                                 {
@@ -285,7 +244,7 @@ export const CODE_DOC: KulArticleDataset = {
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.4.0',
                             tagName: 'strong',
-                            value: 'kul-code-event',
+                            value: 'kul-header-event',
                         },
                     ],
                     id: '0.4',
@@ -410,12 +369,12 @@ export const CODE_DOC: KulArticleDataset = {
                                 },
                                 {
                                     cells: {
-                                        code: {
+                                        header: {
                                             shape: 'code',
                                             shapeProps: {
                                                 kulLanguage: 'markup',
                                             },
-                                            value: '<kul-code kul-style="#kul-component { opacity: 0.5; }"></kul-code>',
+                                            value: '<kul-header kul-style="#kul-component { opacity: 0.5; }"></kul-header>',
                                         },
                                     },
                                     id: '0.7.0.3',
@@ -434,11 +393,11 @@ export const CODE_DOC: KulArticleDataset = {
                                             cssStyle: DOC_STYLES.monoPrimaryH3,
                                             id: '0.7.1.0.0',
                                             tagName: 'strong',
-                                            value: '--kul-code-background-color',
+                                            value: '--kul-header-box-shadow',
                                         },
                                         {
                                             id: '0.7.1.0.1',
-                                            value: ': Sets the background color of the component. Defaults to rgba(var(--kul-background-color-rgb) 0.275).',
+                                            value: ': Box shadow of the component. Defaults to 0 2px 4px -1px rgba(128, 128, 128, 0.2), 0 4px 5px 0 rgba(128, 128, 128, 0.14), 0 1px 10px 0 rgba(128, 128, 128, 0.12).',
                                         },
                                     ],
                                     id: '0.7.1.0',
@@ -449,16 +408,16 @@ export const CODE_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                                            id: '0.7.1.1.0',
+                                            id: '0.7.1.0.0',
                                             tagName: 'strong',
-                                            value: '--kul-code-font-family',
+                                            value: '--kul-header-padding',
                                         },
                                         {
-                                            id: '0.7.1.1.1',
-                                            value: ': Sets the font family of the component. Defaults to var(--kul-font-family-monospace).',
+                                            id: '0.7.1.0.1',
+                                            value: ': Padding of the component. Defaults to 8px 12px.',
                                         },
                                     ],
-                                    id: '0.7.1.1',
+                                    id: '0.7.1.0',
                                     tagName: 'li',
                                     value: '',
                                 },
@@ -466,16 +425,16 @@ export const CODE_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                                            id: '0.7.1.2.0',
+                                            id: '0.7.1.0.0',
                                             tagName: 'strong',
-                                            value: '--kul-code-header-background-color',
+                                            value: '--kul-header-position',
                                         },
                                         {
-                                            id: '0.7.1.2.1',
-                                            value: ': Sets the background color of the header. Defaults to var(--kul-title-background-color).',
+                                            id: '0.7.1.0.1',
+                                            value: ': CSS positioning of the component. Defaults to fixed.',
                                         },
                                     ],
-                                    id: '0.7.1.2',
+                                    id: '0.7.1.0',
                                     tagName: 'li',
                                     value: '',
                                 },
@@ -483,16 +442,16 @@ export const CODE_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                                            id: '0.7.1.3.0',
+                                            id: '0.7.1.0.0',
                                             tagName: 'strong',
-                                            value: '--kul-code-header-color',
+                                            value: '--kul-header-transition',
                                         },
                                         {
-                                            id: '0.7.1.3.1',
-                                            value: ': Sets the color of the header. Defaults to var(--kul-title-color).',
+                                            id: '0.7.1.0.1',
+                                            value: ': Transition time of the component. Defaults to 250ms.',
                                         },
                                     ],
-                                    id: '0.7.1.3',
+                                    id: '0.7.1.0',
                                     tagName: 'li',
                                     value: '',
                                 },
@@ -500,118 +459,16 @@ export const CODE_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                                            id: '0.7.1.4.0',
+                                            id: '0.7.1.0.0',
                                             tagName: 'strong',
-                                            value: '--kul-code-selection-background-color',
+                                            value: '--kul-header-width',
                                         },
                                         {
-                                            id: '0.7.1.4.1',
-                                            value: ': Sets the background color of selected text. Defaults to rgba(var(--kul-border-color-rgb, 0.275)).',
+                                            id: '0.7.1.0.1',
+                                            value: ': Width of the component. Defaults to 100%.',
                                         },
                                     ],
-                                    id: '0.7.1.4',
-                                    tagName: 'li',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                                            id: '0.7.1.5.0',
-                                            tagName: 'strong',
-                                            value: '--kul-code-text-color',
-                                        },
-                                        {
-                                            id: '0.7.1.5.1',
-                                            value: ': Sets the color of the text. Defaults to var(--kul-text-color).',
-                                        },
-                                    ],
-                                    id: '0.7.1.5',
-                                    tagName: 'li',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                                            id: '0.7.1.6.0',
-                                            tagName: 'strong',
-                                            value: '--kul-code-token-color-1',
-                                        },
-                                        {
-                                            id: '0.7.1.6.1',
-                                            value: ': Sets the background color of: boolean, constant, deleted, number, property, symbol, tag. Defaults to rgb(231, 0, 127).',
-                                        },
-                                    ],
-                                    id: '0.7.1.6',
-                                    tagName: 'li',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                                            id: '0.7.1.7.0',
-                                            tagName: 'strong',
-                                            value: '--kul-code-token-color-2',
-                                        },
-                                        {
-                                            id: '0.7.1.7.1',
-                                            value: ': Sets the background color of: attr-name, builtin, char, inserted, selector, string. Defaults to rgb(146, 219, 0).',
-                                        },
-                                    ],
-                                    id: '0.7.1.7',
-                                    tagName: 'li',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                                            id: '0.7.1.8.0',
-                                            tagName: 'strong',
-                                            value: '--kul-code-token-color-3',
-                                        },
-                                        {
-                                            id: '0.7.1.8.1',
-                                            value: ': Sets the background color of: atrule, attr-value, keyword. Defaults to rgb(0, 165, 236).',
-                                        },
-                                    ],
-                                    id: '0.7.1.8',
-                                    tagName: 'li',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                                            id: '0.7.1.9.0',
-                                            tagName: 'strong',
-                                            value: '--kul-code-token-color-4',
-                                        },
-                                        {
-                                            id: '0.7.1.9.1',
-                                            value: ': Sets the background color of: class-name, function. Defaults to #ff6363.',
-                                        },
-                                    ],
-                                    id: '0.7.1.9',
-                                    tagName: 'li',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                                            id: '0.7.1.10.0',
-                                            tagName: 'strong',
-                                            value: '--kul-code-token-color-5',
-                                        },
-                                        {
-                                            id: '0.7.1.10.1',
-                                            value: ': Sets the background color of: important, regex, variable. Defaults to rgb(255, 196, 86).',
-                                        },
-                                    ],
-                                    id: '0.7.1.10',
+                                    id: '0.7.1.0',
                                     tagName: 'li',
                                     value: '',
                                 },
@@ -634,11 +491,11 @@ export const CODE_DOC: KulArticleDataset = {
                                 {
                                     id: '0.8.0.1',
                                     tagName: 'strong',
-                                    value: 'KulCode',
+                                    value: 'KulHeader',
                                 },
                                 {
                                     id: '0.8.0.2',
-                                    value: ' component is a powerful tool for displaying code snippets with syntax highlighting. Its customizable styling and event handling capabilities make it a versatile choice for web developers looking to enhance their applications with dynamic, encapsulated UI elements.',
+                                    value: " component is a simple yet useful layouting tool to wrap your app's header content.",
                                 },
                             ],
                             id: '0.8.0',
@@ -651,7 +508,7 @@ export const CODE_DOC: KulArticleDataset = {
                 },
             ],
             id: '0',
-            value: 'KulCode',
+            value: 'KulHeader',
         },
     ],
 };

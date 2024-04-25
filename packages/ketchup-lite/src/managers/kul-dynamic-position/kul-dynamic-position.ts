@@ -59,7 +59,7 @@ export class KulDynamicPosition {
         if (this.anchorIsHTMLElement(anchorEl)) {
             anchorEl.setAttribute(kulDynamicPositionAnchorAttribute, '');
         }
-        el.style.zIndex = `calc(var(--kul-navbar-zindex) + 1)`;
+        el.style.zIndex = `calc(var(--kul-header-zindex) + 1)`;
         const originalPath: HTMLElement[] = [];
         if (detach) {
             let currentEl: unknown = el;

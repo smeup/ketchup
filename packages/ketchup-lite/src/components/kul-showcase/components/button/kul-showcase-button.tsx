@@ -3,6 +3,7 @@ import { BUTTON_DOC, BUTTON_EXAMPLES } from './kul-showcase-button-data';
 import { DynamicExampleManager } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { KulButtonStyling } from '../../../kul-button/kul-button-declarations';
+import { ButtonExample } from './kul-showcase-button-declarations';
 
 @Component({
     tag: 'kul-showcase-button',
@@ -31,12 +32,12 @@ export class KulShowcaseButton {
         const elements: VNode[] = [];
         for (const k1 in BUTTON_EXAMPLES) {
             if (Object.prototype.hasOwnProperty.call(BUTTON_EXAMPLES, k1)) {
-                const category = BUTTON_EXAMPLES[k1];
+                const category: ButtonExample = BUTTON_EXAMPLES[k1];
                 const group: VNode[] = [];
 
                 for (const k2 in category) {
                     if (Object.prototype.hasOwnProperty.call(category, k2)) {
-                        const props = category[k2];
+                        const props: ButtonExample = category[k2];
                         group.push(
                             <div class="example" part="example">
                                 <div class="description" part="description">

@@ -31,7 +31,7 @@ export class KulShowcaseToast {
         const elements: VNode[] = [];
         for (const key in TOAST_EXAMPLES) {
             if (Object.prototype.hasOwnProperty.call(TOAST_EXAMPLES, key)) {
-                const props = TOAST_EXAMPLES[key];
+                const props: ToastExample = TOAST_EXAMPLES[key];
                 elements.push(
                     <div class="example" part="example">
                         <div class="description" part="description">

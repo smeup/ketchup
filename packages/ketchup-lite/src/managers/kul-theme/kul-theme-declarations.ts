@@ -39,7 +39,7 @@ export interface KulThemeCSSVariables extends KulThemeChartColorCSSVariables {
     [KulThemeColorValues.NAV_BAR]: string;
     [KulThemeColorValues.DRAWER]: string;
     [KulThemeColorValues.DRAWER_BACKGROUND]: string;
-    '--kul-navbar-height': string;
+    '--kul-header-height': string;
     '--kul-drawer-width': string;
     '--kul-font-family': string;
     '--kul-font-size': string;
@@ -64,7 +64,7 @@ export interface KulThemeCSSVariables extends KulThemeChartColorCSSVariables {
     [KulThemeColorValues.TEXT_ON_SECONDARY]: string;
     '--kul-card-zindex': number;
     '--kul-drawer-zindex': number;
-    '--kul-navbar-zindex': number;
+    '--kul-header-zindex': number;
 }
 /**
  * All icons managed by KulTheme.
@@ -116,8 +116,8 @@ export enum KulThemeColorValues {
     PRIMARY = '--kul-primary-color',
     SECONDARY = '--kul-secondary-color',
     BACKGROUND = '--kul-background-color',
-    NAV_BAR = '--kul-navbar-color',
-    NAV_BAR_BACKGROUND = '--kul-navbar-background-color',
+    NAV_BAR = '--kul-header-color',
+    NAV_BAR_BACKGROUND = '--kul-header-background-color',
     DRAWER = '--kul-drawer-color',
     DRAWER_BACKGROUND = '--kul-drawer-background-color',
     TEXT = '--kul-text-color',

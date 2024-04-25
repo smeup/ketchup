@@ -24,6 +24,7 @@ import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import {
     KUL_SHOWCASE_COMPONENTS,
     KUL_SHOWCASE_FRAMEWORK,
+    KUL_SHOWCASE_LAYOUT,
     KUL_SHOWCASE_UTILITIES,
 } from './kul-showcase-data';
 import {
@@ -78,6 +79,11 @@ export class KulShowcase {
      * @default ""
      */
     @State() currentFramework = '';
+    /**
+     * String keeping track of the current layout component being navigated by the user.
+     * @default ""
+     */
+    @State() currentLayout = '';
     /**
      * String keeping track of the current utility being accessed by the user.
      * @default ""
@@ -283,6 +289,7 @@ export class KulShowcase {
             };
             cards.push(
                 <kul-card
+                    id={node.id}
                     kulData={kulData}
                     kulSizeX="300px"
                     kulSizeY="300px"
@@ -297,6 +304,53 @@ export class KulShowcase {
         switch (this.currentFramework) {
             case 'Manager':
                 return <kul-showcase-kulmanager></kul-showcase-kulmanager>;
+        }
+    }
+
+    #layoutsCards(): VNode[] {
+        const cards: VNode[] = [];
+        KUL_SHOWCASE_LAYOUT.nodes.forEach((node) => {
+            const kulData: KulDataDataset = {
+                nodes: [
+                    {
+                        cells: {
+                            icon: { shape: 'image', value: node.icon },
+                            text1: { value: node.value },
+                            text2: { value: '' },
+                            text3: { value: node.description },
+                        },
+                        id: node.id,
+                    },
+                ],
+            };
+            const onEvent: (
+                event: KulCardCustomEvent<KulEventPayload>
+            ) => void = (e) => {
+                if (e.detail.eventType === 'click') {
+                    this.currentLayout = node.id;
+                    console.log(
+                        'Selected layout component: ',
+                        this.currentLayout
+                    );
+                }
+            };
+            cards.push(
+                <kul-card
+                    id={node.id}
+                    kulData={kulData}
+                    kulSizeX="300px"
+                    kulSizeY="300px"
+                    onKul-card-event={onEvent}
+                ></kul-card>
+            );
+        });
+        return cards;
+    }
+
+    #layouts(): VNode {
+        switch (this.currentLayout) {
+            case 'Header':
+                return <kul-showcase-header></kul-showcase-header>;
         }
     }
 
@@ -326,6 +380,7 @@ export class KulShowcase {
             };
             cards.push(
                 <kul-card
+                    id={node.id}
                     kulData={kulData}
                     kulSizeX="300px"
                     kulSizeY="300px"
@@ -349,6 +404,8 @@ export class KulShowcase {
         const current =
             title === 'Components'
                 ? this.currentComponent
+                : title === 'Layout'
+                ? this.currentLayout
                 : title === 'Utilities'
                 ? this.currentUtility
                 : this.currentFramework;
@@ -363,6 +420,9 @@ export class KulShowcase {
                             switch (title) {
                                 case 'Components':
                                     this.currentComponent = '';
+                                    break;
+                                case 'Layout':
+                                    this.currentLayout = '';
                                     break;
                                 case 'Framework':
                                     this.currentFramework = '';
@@ -421,6 +481,14 @@ export class KulShowcase {
                                 {this.currentComponent
                                     ? this.#comps()
                                     : this.#compsCards()}
+                            </div>
+                        </div>
+                        <div class="section">
+                            {this.#prepHeader('Layout')}
+                            <div class="flex-wrapper flex-wrapper--responsive">
+                                {this.currentLayout
+                                    ? this.#layouts()
+                                    : this.#layoutsCards()}
                             </div>
                         </div>
                         <div class="section">
