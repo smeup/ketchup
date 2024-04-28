@@ -117,7 +117,13 @@ export const KUL_SHOWCASE_FRAMEWORK: KulDataDataset = {
 export const KUL_SHOWCASE_LAYOUT: KulDataDataset = {
     nodes: [
         {
-            description: 'Designed to be the header bar of the application',
+            description: 'Designed to be the aside menu of the application.',
+            icon: 'web',
+            id: 'Drawer',
+            value: 'Drawer',
+        },
+        {
+            description: 'Designed to be the header bar of the application.',
             icon: 'web_asset',
             id: 'Header',
             value: 'Header',

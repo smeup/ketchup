@@ -1,0 +1,32 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+/* $kul-class-permanent                            */
+/* $kul-class-right                                */
+/*-------------------------------------------------*/
+
+:host(.#{$kul-class-right}) {
+  left: unset;
+  right: -100%;
+}
+
+:host([kul-opened].#{$kul-class-right}) {
+  right: 0;
+}
+
+:host(.#{$kul-class-permanent}) {
+  box-shadow: unset;
+  transition: all 250ms;
+
+  .backdrop {
+    display: none;
+  }
+
+  .drawer {
+    position: relative;
+
+    &__content {
+      border-right: var(--kup_drawer_permanent_border);
+    }
+  }
+}
