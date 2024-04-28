@@ -17,8 +17,6 @@ describe('kul-header', () => {
                     .then(($header) => {
                         const headerElement =
                             $header[0] as unknown as HTMLKulHeaderElement;
-                        console.log(headerElement);
-                        console.log(typeof headerElement.getProps);
 
                         return headerElement.getProps();
                     })

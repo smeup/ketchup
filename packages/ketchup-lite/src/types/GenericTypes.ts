@@ -10,6 +10,7 @@ import { KulSpinnerEvents } from '../components/kul-spinner/kul-spinner-declarat
 import { KulSplashEvents } from '../components/kul-splash/kul-splash-declarations';
 import { KulUploadEvents } from '../components/kul-upload/kul-upload-declarations';
 import { KulToastEvents } from '../components/kul-toast/kul-toast-declarations';
+import { KulDrawerEvents } from '../components/kul-drawer/kul-drawer-declarations';
 
 /**
  * Generic KulComponent.
@@ -50,6 +51,7 @@ export interface KulEventPayload {
         | KulBadgeEvents
         | KulButtonEvents
         | KulCardEvents
+        | KulDrawerEvents
         | KulImageEvents
         | KulSpinnerEvents
         | KulSplashEvents

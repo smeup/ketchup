@@ -2,7 +2,7 @@ import { GenericObject } from '../../../../components';
 import { KulHeaderPropsInterface } from '../../../kul-header/kul-header-declarations';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 
-export const CODE_EXAMPLES_KEYS = ['simple', 'style'] as const;
+export const HEADER_EXAMPLES_KEYS = ['simple', 'style'] as const;
 
 export interface HeaderExample extends KulHeaderPropsInterface {
     ['data-description']: string;
@@ -11,5 +11,5 @@ export interface HeaderExample extends KulHeaderPropsInterface {
 }
 
 export type HeaderData = {
-    [K in (typeof CODE_EXAMPLES_KEYS)[number]]: HeaderExample;
+    [K in (typeof HEADER_EXAMPLES_KEYS)[number]]: HeaderExample;
 };

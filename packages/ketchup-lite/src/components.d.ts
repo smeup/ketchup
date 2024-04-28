@@ -253,6 +253,45 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
     }
+    interface KulDrawer {
+        /**
+          * Closes the drawer.
+         */
+        "close": () => Promise<void>;
+        /**
+          * Fetches debug information of the component's current state.
+          * @returns A promise that resolves with the debug information object.
+         */
+        "getDebugInfo": () => Promise<KulDebugComponentInfo1>;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Returns the state of the drawer.
+          * @returns True when opened, false when closed.
+         */
+        "isOpened": () => Promise<boolean>;
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle": string;
+        /**
+          * Opens the drawer.
+         */
+        "open": () => Promise<void>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Opens the drawer when closed and vice-versa.
+         */
+        "toggle": () => Promise<void>;
+    }
     interface KulHeader {
         /**
           * Fetches debug information of the component's current state.
@@ -365,6 +404,8 @@ export namespace Components {
     interface KulShowcaseCode {
     }
     interface KulShowcaseDebug {
+    }
+    interface KulShowcaseDrawer {
     }
     interface KulShowcaseHeader {
     }
@@ -580,6 +621,10 @@ export interface KulCodeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulCodeElement;
 }
+export interface KulDrawerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKulDrawerElement;
+}
 export interface KulHeaderCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulHeaderElement;
@@ -694,6 +739,23 @@ declare global {
         prototype: HTMLKulCodeElement;
         new (): HTMLKulCodeElement;
     };
+    interface HTMLKulDrawerElementEventMap {
+        "kul-drawer-event": KulEventPayload;
+    }
+    interface HTMLKulDrawerElement extends Components.KulDrawer, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulDrawerElementEventMap>(type: K, listener: (this: HTMLKulDrawerElement, ev: KulDrawerCustomEvent<HTMLKulDrawerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulDrawerElementEventMap>(type: K, listener: (this: HTMLKulDrawerElement, ev: KulDrawerCustomEvent<HTMLKulDrawerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKulDrawerElement: {
+        prototype: HTMLKulDrawerElement;
+        new (): HTMLKulDrawerElement;
+    };
     interface HTMLKulHeaderElementEventMap {
         "kul-header-event": KulEventPayload;
     }
@@ -780,6 +842,12 @@ declare global {
     var HTMLKulShowcaseDebugElement: {
         prototype: HTMLKulShowcaseDebugElement;
         new (): HTMLKulShowcaseDebugElement;
+    };
+    interface HTMLKulShowcaseDrawerElement extends Components.KulShowcaseDrawer, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseDrawerElement: {
+        prototype: HTMLKulShowcaseDrawerElement;
+        new (): HTMLKulShowcaseDrawerElement;
     };
     interface HTMLKulShowcaseHeaderElement extends Components.KulShowcaseHeader, HTMLStencilElement {
     }
@@ -903,6 +971,7 @@ declare global {
         "kul-button": HTMLKulButtonElement;
         "kul-card": HTMLKulCardElement;
         "kul-code": HTMLKulCodeElement;
+        "kul-drawer": HTMLKulDrawerElement;
         "kul-header": HTMLKulHeaderElement;
         "kul-image": HTMLKulImageElement;
         "kul-showcase": HTMLKulShowcaseElement;
@@ -912,6 +981,7 @@ declare global {
         "kul-showcase-card": HTMLKulShowcaseCardElement;
         "kul-showcase-code": HTMLKulShowcaseCodeElement;
         "kul-showcase-debug": HTMLKulShowcaseDebugElement;
+        "kul-showcase-drawer": HTMLKulShowcaseDrawerElement;
         "kul-showcase-header": HTMLKulShowcaseHeaderElement;
         "kul-showcase-image": HTMLKulShowcaseImageElement;
         "kul-showcase-kulmanager": HTMLKulShowcaseKulmanagerElement;
@@ -1085,6 +1155,17 @@ declare namespace LocalJSX {
          */
         "onKul-code-event"?: (event: KulCodeCustomEvent<KulEventPayload>) => void;
     }
+    interface KulDrawer {
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle"?: string;
+        /**
+          * Describes event emitted by the component.
+         */
+        "onKul-drawer-event"?: (event: KulDrawerCustomEvent<KulEventPayload>) => void;
+    }
     interface KulHeader {
         /**
           * Customizes the style of the component. This property allows you to apply a custom CSS style to the component.
@@ -1160,6 +1241,8 @@ declare namespace LocalJSX {
     interface KulShowcaseCode {
     }
     interface KulShowcaseDebug {
+    }
+    interface KulShowcaseDrawer {
     }
     interface KulShowcaseHeader {
     }
@@ -1304,6 +1387,7 @@ declare namespace LocalJSX {
         "kul-button": KulButton;
         "kul-card": KulCard;
         "kul-code": KulCode;
+        "kul-drawer": KulDrawer;
         "kul-header": KulHeader;
         "kul-image": KulImage;
         "kul-showcase": KulShowcase;
@@ -1313,6 +1397,7 @@ declare namespace LocalJSX {
         "kul-showcase-card": KulShowcaseCard;
         "kul-showcase-code": KulShowcaseCode;
         "kul-showcase-debug": KulShowcaseDebug;
+        "kul-showcase-drawer": KulShowcaseDrawer;
         "kul-showcase-header": KulShowcaseHeader;
         "kul-showcase-image": KulShowcaseImage;
         "kul-showcase-kulmanager": KulShowcaseKulmanager;
@@ -1336,6 +1421,7 @@ declare module "@stencil/core" {
             "kul-button": LocalJSX.KulButton & JSXBase.HTMLAttributes<HTMLKulButtonElement>;
             "kul-card": LocalJSX.KulCard & JSXBase.HTMLAttributes<HTMLKulCardElement>;
             "kul-code": LocalJSX.KulCode & JSXBase.HTMLAttributes<HTMLKulCodeElement>;
+            "kul-drawer": LocalJSX.KulDrawer & JSXBase.HTMLAttributes<HTMLKulDrawerElement>;
             "kul-header": LocalJSX.KulHeader & JSXBase.HTMLAttributes<HTMLKulHeaderElement>;
             "kul-image": LocalJSX.KulImage & JSXBase.HTMLAttributes<HTMLKulImageElement>;
             "kul-showcase": LocalJSX.KulShowcase & JSXBase.HTMLAttributes<HTMLKulShowcaseElement>;
@@ -1345,6 +1431,7 @@ declare module "@stencil/core" {
             "kul-showcase-card": LocalJSX.KulShowcaseCard & JSXBase.HTMLAttributes<HTMLKulShowcaseCardElement>;
             "kul-showcase-code": LocalJSX.KulShowcaseCode & JSXBase.HTMLAttributes<HTMLKulShowcaseCodeElement>;
             "kul-showcase-debug": LocalJSX.KulShowcaseDebug & JSXBase.HTMLAttributes<HTMLKulShowcaseDebugElement>;
+            "kul-showcase-drawer": LocalJSX.KulShowcaseDrawer & JSXBase.HTMLAttributes<HTMLKulShowcaseDrawerElement>;
             "kul-showcase-header": LocalJSX.KulShowcaseHeader & JSXBase.HTMLAttributes<HTMLKulShowcaseHeaderElement>;
             "kul-showcase-image": LocalJSX.KulShowcaseImage & JSXBase.HTMLAttributes<HTMLKulShowcaseImageElement>;
             "kul-showcase-kulmanager": LocalJSX.KulShowcaseKulmanager & JSXBase.HTMLAttributes<HTMLKulShowcaseKulmanagerElement>;

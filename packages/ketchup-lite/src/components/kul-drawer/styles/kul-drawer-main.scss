@@ -1,0 +1,109 @@
+:host {
+  /**
+ * @prop --kul-drawer-backdrop: Sets the backdrop color of the drawer when in slide mode.
+ * Defaults to rgba(0, 0, 0, 0.32).
+ */
+  --kul_drawer_backdrop: var(--kul-drawer-backdrop, rgba(0, 0, 0, 0.32));
+  /**
+  * @prop --kul-drawer-box-shadow: Sets the box shadow of the drawer when in slide mode.
+  * Defaults to a combination of shadows for depth.
+  */
+  --kul_drawer_box_shadow: var(
+    --kul-drawer-box-shadow,
+    0 8px 10px -5px rgba(0, 0, 0, 0.2),
+    0 16px 24px 2px rgba(0, 0, 0, 0.14),
+    0 6px 30px 5px rgba(0, 0, 0, 0.12)
+  );
+  /**
+  * @prop --kul-drawer-permanent-border: Sets the border of the drawer in permanent mode.
+  * Defaults to a 1px solid border with the color defined by --kul-border-color.
+  */
+  --kul_drawer_permanent_border: var(
+    --kul-drawer-permanent-border,
+    1px solid var(--kul-border-color)
+  );
+  /**
+  * @prop --kul-drawer-slide-transition: Sets the horizontal transition duration when in slide mode.
+  * Defaults to 750ms.
+  */
+  --kul_drawer_slide_transition: var(--kul-drawer-slide-transition, 750ms);
+  /**
+  * @prop --kul-drawer-transition: Sets the transition duration for the drawer.
+  * Defaults to 250ms.
+  */
+  --kul_drawer_transition: var(--kul-drawer-transition, 250ms);
+
+  box-shadow: var(--kul_drawer_box_shadow);
+  display: block;
+  font-size: var(--kul-font-size);
+  height: 100vh;
+  left: calc(var(--kul-drawer-width) * -1);
+  position: fixed;
+  top: 0;
+  transition: left var(--kul_drawer_slide_transition)
+      cubic-bezier(0.4, 0, 0.2, 1),
+    right var(--kul_drawer_slide_transition) cubic-bezier(0.4, 0, 0.2, 1);
+  width: var(--kul-drawer-width);
+  z-index: var(--kul-drawer-zindex);
+}
+
+#kul-component {
+  height: 100%;
+  width: 100%;
+}
+
+.backdrop {
+  background: var(--kul_drawer_backdrop);
+  display: none;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: var(--kul-drawer-zindex);
+}
+
+.drawer {
+  height: 100%;
+  position: fixed;
+  width: var(--kul-drawer-width);
+  z-index: calc(var(--kul-drawer-zindex) + 1);
+
+  &__content {
+    background-color: var(--kul-drawer-background-color);
+    box-sizing: border-box;
+    height: 100%;
+    overflow-y: auto;
+    width: 100%;
+  }
+
+  ::slotted(*) {
+    --kul-button-primary-color: var(--kul-drawer-color);
+    --kul-button-primary-color-rgb: var(--kul-drawer-color-rgb);
+    --kul-button-primary-color-h: var(--kul-drawer-color-h);
+    --kul-button-primary-color-s: var(--kul-drawer-color-s);
+    --kul-button-primary-color-l: var(--kul-drawer-color-l);
+    --kul-switch-label-color: var(--kul-drawer-color);
+    --kul-switch-primary-color: var(--kul-drawer-color);
+    --kul-switch-primary-color-rgb: var(--kul-drawer-color-rgb);
+    --kul-textfield-color: var(--kul-drawer-color);
+    --kul-textfield-color-rgb: var(--kul-drawer-color-rgb);
+    --kul-textfield-primary-color: var(--kul-drawer-color);
+    --kul-textfield-primary-color-rgb: var(--kul-drawer-color-rgb);
+    --kul-tree-color: var(--kul-drawer-color);
+    --kul-tree-color-rgb: var(--kul-drawer-color-rgb);
+    --kul-tree-filter-background-color: var(--kul-drawer-background-color);
+    --kul-tree-icon-color: var(--kul-drawer-color);
+
+    color: var(--kul-drawer-color);
+    fill: var(--kul-drawer-color);
+  }
+}
+
+:host([kul-opened]) {
+  left: 0;
+
+  .backdrop {
+    display: block;
+  }
+}

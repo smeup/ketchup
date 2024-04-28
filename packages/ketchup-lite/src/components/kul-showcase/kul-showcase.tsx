@@ -349,6 +349,8 @@ export class KulShowcase {
 
     #layouts(): VNode {
         switch (this.currentLayout) {
+            case 'Drawer':
+                return <kul-showcase-drawer></kul-showcase-drawer>;
             case 'Header':
                 return <kul-showcase-header></kul-showcase-header>;
         }
