@@ -462,7 +462,6 @@ export class KupColumnMenu {
                         column: column,
                     },
                     fullWidth: true,
-                    icon: 'magnify',
                     id: KupColumnMenuIds.TEXTFIELD_FILTER,
                     initialValue: filterInitialValue,
                     isClearable: true,
@@ -531,7 +530,6 @@ export class KupColumnMenu {
             initialValue: initialValueFrom,
             isClearable: true,
             label: dom.ketchup.language.translate(KupLanguageSearch.FROM),
-            icon: 'magnify',
             trailingIcon: true,
         });
         props.push({
@@ -546,7 +544,6 @@ export class KupColumnMenu {
             initialValue: initialValueTo,
             isClearable: true,
             label: dom.ketchup.language.translate(KupLanguageSearch.TO),
-            icon: 'magnify',
             trailingIcon: true,
         });
 
@@ -856,10 +853,21 @@ export class KupColumnMenu {
                                     dataStorage['column']
                                 );
                             }
+                            if (card.data?.checkbox) {
+                                card.data.checkbox = this.prepCheckbox(
+                                    comp,
+                                    dataStorage['column']
+                                );
+                                card.refresh();
+                            }
                         }, 300);
                         break;
                 }
                 break;
+        }
+        if (card.data?.checkbox && !dataStorage?.['isInterval']) {
+            card.data.checkbox = this.prepCheckbox(comp, dataStorage['column']);
+            card.refresh();
         }
     }
     /**
