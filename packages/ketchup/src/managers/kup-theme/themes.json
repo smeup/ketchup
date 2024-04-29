@@ -1902,7 +1902,7 @@
             "--kup-accent-green-color": "#A4BA4C",
             "--kup-accent-white-color": "#FFFFFF",
             "--kup-background-color": "#000000",
-            "--kup-navbar-background-color": "#ffffff",
+            "--kup-navbar-background-color": "#252525",
             "--kup-navbar-color": "#000000",
             "--kup-drawer-background-color": "#ffffff",
             "--kup-drawer-color": "#000000",
