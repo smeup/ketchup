@@ -42,8 +42,6 @@
             "--kup-error-color-70": "#ba1b23",
             "--kup-background-color": "#ffffff",
             "--kup-navbar-background-color": "#161616",
-            "--kup-drawer-background-color": "#f4f4f4",
-            "--kup-drawer-color": "#535353",
             "--kup-navbar-height": "64px",
             "--kup-drawer-width": "300px",
             "--kup-font-family": "IBM Plex Sans, sans-serif",

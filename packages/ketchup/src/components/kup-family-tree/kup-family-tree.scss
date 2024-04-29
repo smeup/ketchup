@@ -12,15 +12,25 @@
 :host {
   --kup_familytree_item_background_color: var(
     --kup-familytree-item-background-color,
-    var(--kup-background-color)
+    var(--kup-gray-color-10)
+  );
+  --kup_familytree_border_color: var(
+    --kup-familytree-border-color,
+    var(--kup-info-color-50)
   );
   --kup_familytree_item_color: var(
     --kup-familytree-item-color,
     var(--kup-text-color)
   );
   --kup_familytree_item_height: var(--kup-familytree-item-height, 80px);
-  --kup_familytree_item_h_padding: var(--kup-familytree-item-h-padding, 8px);
-  --kup_familytree_item_v_padding: var(--kup-familytree-item-v-padding, 10px);
+  --kup_familytree_item_h_padding: var(
+    --kup-familytree-item-h-padding,
+    var(--kup-space-03)
+  );
+  --kup_familytree_item_v_padding: var(
+    --kup-familytree-item-v-padding,
+    var(--kup-space-03)
+  );
   --kup_familytree_item_width: var(--kup-familytree-item-width, 280px);
   --kup_familytree_lines_color: var(
     --kup-familytree-lines-color,
@@ -161,8 +171,6 @@
 
     &__layout {
       background-color: var(--kup_familytree_item_background_color);
-      border: 1px solid var(--kup_familytree_lines_color);
-      border-radius: 8px;
       box-sizing: border-box;
       display: flex;
       height: var(--kup_familytree_item_height);
@@ -186,16 +194,14 @@
       }
 
       &__color {
-        background-color: var(--kup-secondary-color);
-        border-bottom-left-radius: 8px;
-        border-top-left-radius: 8px;
+        background-color: var(--kup_familytree_border_color);
         height: 100%;
         width: 10px;
       }
 
       &__image {
         display: flex;
-        margin: auto 10px;
+        margin: auto var(--kup-space-03);
 
         img {
           border-radius: 50px;
