@@ -68,6 +68,7 @@
       cursor: pointer;
       position: relative;
       display: flex;
+      padding: var(--kup_box_padding);
       transition: background-color var(--kup_box_transition) ease,
         box-shadow var(--kup_box_transition) ease,
         border var(--kup_box_transition) ease;
@@ -79,7 +80,6 @@
 
       &.column {
         flex-direction: column;
-        padding: var(--kup_box_padding);
       }
 
       &:hover {
