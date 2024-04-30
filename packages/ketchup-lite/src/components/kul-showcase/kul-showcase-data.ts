@@ -88,6 +88,12 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
             value: 'Spinner',
         },
         {
+            description: 'A bar of clickable tabs.',
+            icon: 'featured_play_list',
+            id: 'Tabbar',
+            value: 'Tab bar',
+        },
+        {
             description:
                 'A simple component suitable to display notification messages.',
             icon: 'information-variant',
