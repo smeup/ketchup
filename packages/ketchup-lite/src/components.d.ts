@@ -9,19 +9,21 @@ import { KulArticleDataset } from "./components/kul-article/kul-article-declarat
 import { GenericObject, KulEventPayload } from "./types/GenericTypes";
 import { KulDebugComponentInfo } from "./managers/kul-debug/kul-debug-declarations";
 import { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
-import { KulButtonEventPayload, KulButtonStates, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
-import { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
+import { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
+import { KulDataDataset, KulDataNode, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 import { KulArticleDataset as KulArticleDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
+import { KulTabbarEventPayload, KulTabbarState } from "./components/kul-tabbar/kul-tabbar-declarations";
 import { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
 export { KulArticleDataset } from "./components/kul-article/kul-article-declarations";
 export { GenericObject, KulEventPayload } from "./types/GenericTypes";
 export { KulDebugComponentInfo } from "./managers/kul-debug/kul-debug-declarations";
 export { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
-export { KulButtonEventPayload, KulButtonStates, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
-export { KulDataDataset, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
+export { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
+export { KulDataDataset, KulDataNode, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 export { KulArticleDataset as KulArticleDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
+export { KulTabbarEventPayload, KulTabbarState } from "./components/kul-tabbar/kul-tabbar-declarations";
 export { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
 export namespace Components {
     interface KulArticle {
@@ -99,7 +101,7 @@ export namespace Components {
           * Used to retrieve component's current state.
           * @returns Promise resolved with the current state of the component.
          */
-        "getValue": () => Promise<KulButtonStates>;
+        "getValue": () => Promise<KulButtonState>;
         /**
           * Defaults at false. When set to true, the component is disabled.
           * @default false
@@ -172,7 +174,7 @@ export namespace Components {
           * @param value - The new state to be set on the component.
           * @returns
          */
-        "setValue": (value: KulButtonStates) => Promise<void>;
+        "setValue": (value: KulButtonState) => Promise<void>;
     }
     interface KulCard {
         /**
@@ -419,6 +421,8 @@ export namespace Components {
     }
     interface KulShowcaseSplash {
     }
+    interface KulShowcaseTabbar {
+    }
     interface KulShowcaseToast {
     }
     interface KulShowcaseUpload {
@@ -511,6 +515,54 @@ export namespace Components {
           * @param ms - Number of milliseconds
          */
         "unmount": (ms?: number) => Promise<void>;
+    }
+    interface KulTabbar {
+        /**
+          * Retrieves the debug information reflecting the current state of the component.
+          * @returns A promise that resolves to a KulDebugComponentInfo object containing debug information.
+         */
+        "getDebugInfo": () => Promise<KulDebugComponentInfo1>;
+        /**
+          * Retrieves the properties of the component, with optional descriptions.
+          * @param descriptions - If true, returns properties with descriptions; otherwise, returns properties only.
+          * @returns A promise that resolves to an object where each key is a property name, optionally with its description.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Returns the selected node and its index.
+          * @returns Selected node and its index.
+         */
+        "getValue": () => Promise<KulTabbarState>;
+        /**
+          * Actual data of the component.
+          * @default null
+         */
+        "kulData": KulDataDataset;
+        /**
+          * When set to true, the pointerdown event will trigger a ripple effect.
+          * @default true
+         */
+        "kulRipple": boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle": string;
+        /**
+          * Sets the initial selected node's index.
+          * @default null
+         */
+        "kulValue": number;
+        /**
+          * Triggers a re-render of the component to reflect any state changes.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the value of the component based on the provided argument.
+          * @param value - The index of the node or the id of the node.
+          * @returns The newly set value.
+         */
+        "setValue": (value: number | string) => Promise<KulTabbarState>;
     }
     interface KulToast {
         /**
@@ -644,6 +696,10 @@ export interface KulSpinnerCustomEvent<T> extends CustomEvent<T> {
 export interface KulSplashCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulSplashElement;
+}
+export interface KulTabbarCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKulTabbarElement;
 }
 export interface KulToastCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -885,6 +941,12 @@ declare global {
         prototype: HTMLKulShowcaseSplashElement;
         new (): HTMLKulShowcaseSplashElement;
     };
+    interface HTMLKulShowcaseTabbarElement extends Components.KulShowcaseTabbar, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseTabbarElement: {
+        prototype: HTMLKulShowcaseTabbarElement;
+        new (): HTMLKulShowcaseTabbarElement;
+    };
     interface HTMLKulShowcaseToastElement extends Components.KulShowcaseToast, HTMLStencilElement {
     }
     var HTMLKulShowcaseToastElement: {
@@ -930,6 +992,23 @@ declare global {
     var HTMLKulSplashElement: {
         prototype: HTMLKulSplashElement;
         new (): HTMLKulSplashElement;
+    };
+    interface HTMLKulTabbarElementEventMap {
+        "kul-tabbar-event": KulTabbarEventPayload;
+    }
+    interface HTMLKulTabbarElement extends Components.KulTabbar, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulTabbarElementEventMap>(type: K, listener: (this: HTMLKulTabbarElement, ev: KulTabbarCustomEvent<HTMLKulTabbarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulTabbarElementEventMap>(type: K, listener: (this: HTMLKulTabbarElement, ev: KulTabbarCustomEvent<HTMLKulTabbarElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKulTabbarElement: {
+        prototype: HTMLKulTabbarElement;
+        new (): HTMLKulTabbarElement;
     };
     interface HTMLKulToastElementEventMap {
         "kul-toast-event": KulEventPayload;
@@ -988,10 +1067,12 @@ declare global {
         "kul-showcase-probe": HTMLKulShowcaseProbeElement;
         "kul-showcase-spinner": HTMLKulShowcaseSpinnerElement;
         "kul-showcase-splash": HTMLKulShowcaseSplashElement;
+        "kul-showcase-tabbar": HTMLKulShowcaseTabbarElement;
         "kul-showcase-toast": HTMLKulShowcaseToastElement;
         "kul-showcase-upload": HTMLKulShowcaseUploadElement;
         "kul-spinner": HTMLKulSpinnerElement;
         "kul-splash": HTMLKulSplashElement;
+        "kul-tabbar": HTMLKulTabbarElement;
         "kul-toast": HTMLKulToastElement;
         "kul-upload": HTMLKulUploadElement;
     }
@@ -1256,6 +1337,8 @@ declare namespace LocalJSX {
     }
     interface KulShowcaseSplash {
     }
+    interface KulShowcaseTabbar {
+    }
     interface KulShowcaseToast {
     }
     interface KulShowcaseUpload {
@@ -1318,6 +1401,32 @@ declare namespace LocalJSX {
           * Describes event emitted.
          */
         "onKul-splash-event"?: (event: KulSplashCustomEvent<KulEventPayload>) => void;
+    }
+    interface KulTabbar {
+        /**
+          * Actual data of the component.
+          * @default null
+         */
+        "kulData"?: KulDataDataset;
+        /**
+          * When set to true, the pointerdown event will trigger a ripple effect.
+          * @default true
+         */
+        "kulRipple"?: boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle"?: string;
+        /**
+          * Sets the initial selected node's index.
+          * @default null
+         */
+        "kulValue"?: number;
+        /**
+          * Describes events emitted.
+         */
+        "onKul-tabbar-event"?: (event: KulTabbarCustomEvent<KulTabbarEventPayload>) => void;
     }
     interface KulToast {
         /**
@@ -1404,10 +1513,12 @@ declare namespace LocalJSX {
         "kul-showcase-probe": KulShowcaseProbe;
         "kul-showcase-spinner": KulShowcaseSpinner;
         "kul-showcase-splash": KulShowcaseSplash;
+        "kul-showcase-tabbar": KulShowcaseTabbar;
         "kul-showcase-toast": KulShowcaseToast;
         "kul-showcase-upload": KulShowcaseUpload;
         "kul-spinner": KulSpinner;
         "kul-splash": KulSplash;
+        "kul-tabbar": KulTabbar;
         "kul-toast": KulToast;
         "kul-upload": KulUpload;
     }
@@ -1438,10 +1549,12 @@ declare module "@stencil/core" {
             "kul-showcase-probe": LocalJSX.KulShowcaseProbe & JSXBase.HTMLAttributes<HTMLKulShowcaseProbeElement>;
             "kul-showcase-spinner": LocalJSX.KulShowcaseSpinner & JSXBase.HTMLAttributes<HTMLKulShowcaseSpinnerElement>;
             "kul-showcase-splash": LocalJSX.KulShowcaseSplash & JSXBase.HTMLAttributes<HTMLKulShowcaseSplashElement>;
+            "kul-showcase-tabbar": LocalJSX.KulShowcaseTabbar & JSXBase.HTMLAttributes<HTMLKulShowcaseTabbarElement>;
             "kul-showcase-toast": LocalJSX.KulShowcaseToast & JSXBase.HTMLAttributes<HTMLKulShowcaseToastElement>;
             "kul-showcase-upload": LocalJSX.KulShowcaseUpload & JSXBase.HTMLAttributes<HTMLKulShowcaseUploadElement>;
             "kul-spinner": LocalJSX.KulSpinner & JSXBase.HTMLAttributes<HTMLKulSpinnerElement>;
             "kul-splash": LocalJSX.KulSplash & JSXBase.HTMLAttributes<HTMLKulSplashElement>;
+            "kul-tabbar": LocalJSX.KulTabbar & JSXBase.HTMLAttributes<HTMLKulTabbarElement>;
             "kul-toast": LocalJSX.KulToast & JSXBase.HTMLAttributes<HTMLKulToastElement>;
             "kul-upload": LocalJSX.KulUpload & JSXBase.HTMLAttributes<HTMLKulUploadElement>;
         }

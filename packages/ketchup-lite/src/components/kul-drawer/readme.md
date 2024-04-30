@@ -100,13 +100,13 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                            | Description                                          |
-| ------------------------------- | ---------------------------------------------------- |
-| `--kul-drawer-backdrop`         | Backdrop of the component when in slide mode.        |
-| `--kul-drawer-box-shadow`       | Box shadow of the component when in slide mode.      |
-| `--kul-drawer-permanent-border` | Border of the drawer in permanent mode.              |
-| `--kul-drawer-slide-transition` | Horizontal transition's duration when in slide mode. |
-| `--kul-drawer-transition`       | Transitions duration.                                |
+| Name                            | Description                                                                                                                   |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `--kul-drawer-backdrop`         | Sets the backdrop color of the drawer when in slide mode. Defaults to rgba(0, 0, 0, 0.32).                                    |
+| `--kul-drawer-box-shadow`       | Sets the box shadow of the drawer when in slide mode. Defaults to a combination of shadows for depth.                         |
+| `--kul-drawer-permanent-border` | Sets the border of the drawer in permanent mode. Defaults to a 1px solid border with the color defined by --kul-border-color. |
+| `--kul-drawer-slide-transition` | Sets the horizontal transition duration when in slide mode. Defaults to 750ms.                                                |
+| `--kul-drawer-transition`       | Sets the transition duration for the drawer. Defaults to 250ms.                                                               |
 
 
 ----------------------------------------------

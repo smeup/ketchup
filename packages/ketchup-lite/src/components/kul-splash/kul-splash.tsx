@@ -50,7 +50,7 @@ export class KulSplash {
      * The value of the component ("on" or "off").
      * @default ""
      *
-     * @see KulButtonStates - For a list of possible states.
+     * @see KulButtonState - For a list of possible states.
      */
     @State() state: KulSplashStates = 'initializing';
 
