@@ -1,7 +1,7 @@
 import {
     KulButtonProps,
     KulButtonPropsInterface,
-    KulButtonStates,
+    KulButtonState,
 } from '../../../src/components/kul-button/kul-button-declarations';
 import { BUTTON_CATEGORIES_KEYS } from '../../../src/components/kul-showcase/components/button/kul-showcase-button-declarations';
 
@@ -151,7 +151,7 @@ describe('kul-button', () => {
             })
             .then((value) => {
                 initialValue = value;
-                const newValue: KulButtonStates = value === 'on' ? 'off' : 'on';
+                const newValue: KulButtonState = value === 'on' ? 'off' : 'on';
                 return cy.wrap({ initialValue, newValue });
             })
             .then(({ newValue }) => {

@@ -91,7 +91,7 @@ describe('kul-spinner', () => {
             });
     });
 
-    it('common: should call getProps and check keys against KulCodePropsInterface', () => {
+    it('common: should call getProps and check keys against KulSpinnerPropsInterface', () => {
         cy.get('@kulComponentShowcase')
             .find('kul-spinner')
             .first()

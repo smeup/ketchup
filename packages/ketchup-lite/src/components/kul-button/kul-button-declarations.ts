@@ -41,7 +41,7 @@ export interface KulButtonPropsInterface {
     kulValue?: boolean;
 }
 
-export type KulButtonStates = 'off' | 'on';
+export type KulButtonState = 'off' | 'on';
 
 export type KulButtonStyling =
     | 'flat'

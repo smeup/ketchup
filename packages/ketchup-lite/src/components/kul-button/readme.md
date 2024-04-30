@@ -58,13 +58,13 @@ Type: `Promise<GenericObject<unknown>>`
 
 Promise resolved with an object containing the component's properties.
 
-### `getValue() => Promise<KulButtonStates>`
+### `getValue() => Promise<KulButtonState>`
 
 Used to retrieve component's current state.
 
 #### Returns
 
-Type: `Promise<KulButtonStates>`
+Type: `Promise<KulButtonState>`
 
 Promise resolved with the current state of the component.
 
@@ -78,7 +78,7 @@ Type: `Promise<void>`
 
 
 
-### `setValue(value: KulButtonStates) => Promise<void>`
+### `setValue(value: KulButtonState) => Promise<void>`
 
 Sets the component's state.
 

@@ -17,7 +17,7 @@ import {
     KulButtonEventPayload,
     KulButtonEvents,
     KulButtonProps,
-    KulButtonStates,
+    KulButtonState,
     KulButtonStyling,
 } from './kul-button-declarations';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
@@ -54,9 +54,9 @@ export class KulButton {
      * The value of the component ("on" or "off").
      * @default ""
      *
-     * @see KulButtonStates - For a list of possible states.
+     * @see KulButtonState - For a list of possible states.
      */
-    @State() value: KulButtonStates = 'off';
+    @State() value: KulButtonState = 'off';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -134,8 +134,8 @@ export class KulButton {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    #rippleSurface: HTMLElement;
     #kulManager = kulManagerInstance();
+    #rippleSurface: HTMLElement;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -201,10 +201,10 @@ export class KulButton {
     }
     /**
      * Used to retrieve component's current state.
-     * @returns {Promise<KulButtonStates>} Promise resolved with the current state of the component.
+     * @returns {Promise<KulButtonState>} Promise resolved with the current state of the component.
      */
     @Method()
-    async getValue(): Promise<KulButtonStates> {
+    async getValue(): Promise<KulButtonState> {
         return this.value;
     }
     /**
@@ -216,11 +216,11 @@ export class KulButton {
     }
     /**
      * Sets the component's state.
-     * @param {KulButtonStates} value - The new state to be set on the component.
+     * @param {KulButtonState} value - The new state to be set on the component.
      * @returns {Promise<void>}
      */
     @Method()
-    async setValue(value: KulButtonStates): Promise<void> {
+    async setValue(value: KulButtonState): Promise<void> {
         if (value === 'off' || value === 'on') {
             this.value = value;
         }
