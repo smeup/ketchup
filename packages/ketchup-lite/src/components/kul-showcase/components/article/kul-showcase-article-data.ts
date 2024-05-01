@@ -20,7 +20,7 @@ const kulData: KulArticleDataset = {
                                         1: {
                                             shape: 'image',
                                             value: getAssetPath(
-                                                `./assets/media/morana.png`
+                                                `./assets/media/color_splash.jpg`
                                             ),
                                         },
                                     },
@@ -99,7 +99,7 @@ const kulData: KulArticleDataset = {
                                         1: {
                                             shape: 'image',
                                             value: getAssetPath(
-                                                `./assets/media/morana.png`
+                                                `./assets/media/color_splash.jpg`
                                             ),
                                         },
                                     },
