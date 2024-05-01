@@ -44,11 +44,11 @@ export const TABBAR_DOC: KulArticleDataset = {
                                         {
                                             id: '0.0.0.0.1',
                                             tagName: 'strong',
-                                            value: 'KulArticle',
+                                            value: 'KulTabbar',
                                         },
                                         {
                                             id: '0.0.0.0.2',
-                                            value: ' component is a versatile and customizable web component designed to render articles based on a JSON structure. ',
+                                            value: ' component is a versatile and customizable web component designed to render tab bars based on a JSON structure. ',
                                         },
                                     ],
                                     id: '0.0.0.0',
@@ -75,12 +75,12 @@ export const TABBAR_DOC: KulArticleDataset = {
                                                 },
                                                 {
                                                     id: '0.1.0.0.0.1',
-                                                    value: ': The component dynamically generates an ',
+                                                    value: ': The component dynamically generates a ',
                                                 },
                                                 {
                                                     id: '0.1.0.0.0.2',
                                                     tagName: 'strong',
-                                                    value: '<article>',
+                                                    value: '<kul-tabbar>',
                                                 },
                                                 {
                                                     id: '0.1.0.0.0.3',
@@ -111,7 +111,7 @@ export const TABBAR_DOC: KulArticleDataset = {
                                                 {
                                                     id: '0.1.0.1.0.2',
                                                     tagName: 'strong',
-                                                    value: '<kulStyle>',
+                                                    value: 'kulStyle',
                                                 },
                                                 {
                                                     id: '0.1.0.1.0.3',
@@ -191,7 +191,7 @@ export const TABBAR_DOC: KulArticleDataset = {
                                         {
                                             id: '0.2.0.0.1',
                                             tagName: 'strong',
-                                            value: 'KulArticle',
+                                            value: 'KulTabbar',
                                         },
                                         {
                                             id: '0.2.0.0.2',
@@ -204,7 +204,7 @@ export const TABBAR_DOC: KulArticleDataset = {
                                         },
                                         {
                                             id: '0.2.0.0.4',
-                                            value: ' property with the JSON structure representing the article.',
+                                            value: ' property with the JSON structure representing the tab bar.',
                                         },
                                     ],
                                     id: '0.2.0.0',
@@ -218,7 +218,7 @@ export const TABBAR_DOC: KulArticleDataset = {
                                                     shapeProps: {
                                                         kulLanguage: 'markup',
                                                     },
-                                                    value: '<kul-article></kul-article>',
+                                                    value: '<kul-tabbar></kul-tabbar>',
                                                 },
                                             },
                                             id: '0.2.0.1.0',
@@ -231,7 +231,7 @@ export const TABBAR_DOC: KulArticleDataset = {
                                                     shapeProps: {
                                                         kulLanguage: 'json',
                                                     },
-                                                    value: '{ "nodes": [{"value": "Article Title", "id": "0", "children": [{"value": "Section Title", "id": "0.1", "children": [{"value": "Paragraph title", "id": "0.1.1", "children": [{"value": "Text", "id": "0.1.1.1"}, {"value": "Strong text", "id": "0.1.1.2", "tagName": "strong"}]}]}]}]}',
+                                                    value: '{ "nodes": [{"value": "Tab 1", "id": "0"}, {"value": "Tab 2", "id": "1"}]}',
                                                 },
                                             },
                                             id: '0.2.0.1.1',
@@ -261,7 +261,7 @@ export const TABBAR_DOC: KulArticleDataset = {
                                         {
                                             id: '0.3.0.0.1',
                                             tagName: 'strong',
-                                            value: 'KulArticleDataset',
+                                            value: 'KulTabbarDataset',
                                         },
                                     ],
                                     id: '0.3.0.0',
@@ -271,12 +271,12 @@ export const TABBAR_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             id: '0.3.0.1.0',
-                                            value: 'The actual data of the article. This property should be an object that matches the ',
+                                            value: 'The actual data of the tab bar. This property should be an object that matches the ',
                                         },
                                         {
                                             id: '0.3.0.1.1',
                                             tagName: 'strong',
-                                            value: 'KulArticleDataset',
+                                            value: 'KulTabbarDataset',
                                         },
                                         {
                                             id: '0.3.0.1.2',
@@ -289,7 +289,7 @@ export const TABBAR_DOC: KulArticleDataset = {
                                         },
                                         {
                                             id: '0.3.0.1.4',
-                                            value: ' array representing the structure of the article.',
+                                            value: ' array representing the structure of the tab bar.',
                                         },
                                     ],
                                     id: '0.3.0.1',
@@ -299,6 +299,38 @@ export const TABBAR_DOC: KulArticleDataset = {
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.3.0',
                             value: 'kulData',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.3.4.0.0',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.3.4.0.1',
+                                            tagName: 'strong',
+                                            value: 'boolean',
+                                        },
+                                    ],
+                                    id: '0.3.4.0',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.3.4.1.0',
+                                            value: 'When set to true, the pointerdown event will trigger a ripple effect.',
+                                        },
+                                    ],
+                                    id: '0.3.4.1',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.3.4',
+                            value: 'kulRipple',
                         },
                         {
                             children: [
@@ -332,6 +364,38 @@ export const TABBAR_DOC: KulArticleDataset = {
                             id: '0.3.1',
                             value: 'kulStyle',
                         },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.3.2.0.0',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.3.2.0.1',
+                                            tagName: 'strong',
+                                            value: 'number',
+                                        },
+                                    ],
+                                    id: '0.3.2.0',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.3.2.1.0',
+                                            value: "Sets the initially selected node's index.",
+                                        },
+                                    ],
+                                    id: '0.3.2.1',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.3.2',
+                            value: 'kulValue',
+                        },
                     ],
                     id: '0.3',
                     value: 'Properties',
@@ -346,16 +410,48 @@ export const TABBAR_DOC: KulArticleDataset = {
                                 },
                                 {
                                     id: '0.4.0.1',
-                                    value: 'KulEventPayload',
+                                    value: 'KulTabbarEventPayload',
                                 },
                                 {
                                     id: '0.4.0.2',
-                                    value: ', which includes information about the component and the event type.',
+                                    value: ', which includes information about the component, its state and the event type.',
                                 },
                                 {
                                     children: [
                                         {
                                             children: [
+                                                {
+                                                    children: [
+                                                        {
+                                                            id: '0.4.0.3.0.0.0',
+                                                            tagName: 'strong',
+                                                            value: 'click',
+                                                        },
+                                                        {
+                                                            id: '0.4.0.3.0.0.1',
+                                                            value: ': emitted when a tab is clicked.',
+                                                        },
+                                                    ],
+                                                    id: '0.4.0.3.0.0',
+                                                    tagName: 'li',
+                                                    value: '',
+                                                },
+                                                {
+                                                    children: [
+                                                        {
+                                                            id: '0.4.0.3.0.0.0',
+                                                            tagName: 'strong',
+                                                            value: 'pointerdown',
+                                                        },
+                                                        {
+                                                            id: '0.4.0.3.0.0.1',
+                                                            value: ': emitted when as soon as the component is touched/clicked (before the click event).',
+                                                        },
+                                                    ],
+                                                    id: '0.4.0.3.0.0',
+                                                    tagName: 'li',
+                                                    value: '',
+                                                },
                                                 {
                                                     children: [
                                                         {
@@ -384,7 +480,7 @@ export const TABBAR_DOC: KulArticleDataset = {
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.4.0',
                             tagName: 'strong',
-                            value: 'kul-article-event',
+                            value: 'kul-tabbar-event',
                         },
                     ],
                     id: '0.4',
@@ -429,6 +525,18 @@ export const TABBAR_DOC: KulArticleDataset = {
                             children: [
                                 {
                                     id: '0.5.2.0',
+                                    value: ' Returns the selected node and its index.',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.5.2',
+                            tagName: 'strong',
+                            value: 'getValue()',
+                        },
+                        {
+                            children: [
+                                {
+                                    id: '0.5.2.0',
                                     value: 'Triggers a re-render of the component to reflect any state changes.',
                                 },
                             ],
@@ -436,6 +544,18 @@ export const TABBAR_DOC: KulArticleDataset = {
                             id: '0.5.2',
                             tagName: 'strong',
                             value: 'refresh()',
+                        },
+                        {
+                            children: [
+                                {
+                                    id: '0.5.2.0',
+                                    value: ' Sets the value of the component based on the provided argument.',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.5.2',
+                            tagName: 'strong',
+                            value: 'setValue(value: number | string)',
                         },
                     ],
                     id: '0.5',
@@ -514,7 +634,7 @@ export const TABBAR_DOC: KulArticleDataset = {
                                             shapeProps: {
                                                 kulLanguage: 'markup',
                                             },
-                                            value: '<kul-article kul-style="#kul-component article { max-height: 20vh; }"></kul-article>',
+                                            value: '<kul-tabbar kul-style="#kul-component { max-width: 20vw; }"></kul-tabbar>',
                                         },
                                     },
                                     id: '0.7.0.3',
@@ -534,16 +654,16 @@ export const TABBAR_DOC: KulArticleDataset = {
                                                 {
                                                     cssStyle:
                                                         DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.0.0',
+                                                    id: '0.7.1.0.9.0',
                                                     tagName: 'strong',
-                                                    value: '--kul-article-content-color',
+                                                    value: '--kul-tabbar-backdrop-filter',
                                                 },
                                                 {
-                                                    id: '0.7.1.0.0.1',
-                                                    value: ': Sets the color for .content elements. Defaults to var(--kul-text-color).',
+                                                    id: '0.7.1.0.9.1',
+                                                    value: ': Sets the backdrop filter of tabs. Defaults to blur(3.5px).',
                                                 },
                                             ],
-                                            id: '0.7.1.0.0',
+                                            id: '0.7.1.0.9',
                                             tagName: 'li',
                                             value: '',
                                         },
@@ -552,16 +672,16 @@ export const TABBAR_DOC: KulArticleDataset = {
                                                 {
                                                     cssStyle:
                                                         DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.1.0',
+                                                    id: '0.7.1.0.10.0',
                                                     tagName: 'strong',
-                                                    value: '--kul-article-content-font-family',
+                                                    value: '--kul-tabbar-backdrop-filter-hover',
                                                 },
                                                 {
-                                                    id: '0.7.1.0.1.1',
-                                                    value: ': Sets the font family for .content elements. Defaults to var(--kul-font-family).',
+                                                    id: '0.7.1.0.10.1',
+                                                    value: ': Sets the backdrop filter of tabs when hovering. Defaults to blur(5px).',
                                                 },
                                             ],
-                                            id: '0.7.1.0.1',
+                                            id: '0.7.1.0.10',
                                             tagName: 'li',
                                             value: '',
                                         },
@@ -570,16 +690,16 @@ export const TABBAR_DOC: KulArticleDataset = {
                                                 {
                                                     cssStyle:
                                                         DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.2.0',
+                                                    id: '0.7.1.0.11.0',
                                                     tagName: 'strong',
-                                                    value: '--kul-article-content-font-size',
+                                                    value: '--kul-tabbar-font-size',
                                                 },
                                                 {
-                                                    id: '0.7.1.0.2.1',
-                                                    value: ': Sets the font size for .content elements. Defaults to var(--kul-font-size).',
+                                                    id: '0.7.1.0.11.1',
+                                                    value: ': Sets the font size of the tab bar. Defaults to the value of --kul-font-size.',
                                                 },
                                             ],
-                                            id: '0.7.1.0.2',
+                                            id: '0.7.1.0.11',
                                             tagName: 'li',
                                             value: '',
                                         },
@@ -588,16 +708,16 @@ export const TABBAR_DOC: KulArticleDataset = {
                                                 {
                                                     cssStyle:
                                                         DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.3.0',
+                                                    id: '0.7.1.0.12.0',
                                                     tagName: 'strong',
-                                                    value: '--kul-article-h3-color',
+                                                    value: '--kul-tabbar-font-weight',
                                                 },
                                                 {
-                                                    id: '0.7.1.0.3.1',
-                                                    value: ': Sets the color for <h3> elements. Defaults to var(--kul-text-color).',
+                                                    id: '0.7.1.0.12.1',
+                                                    value: ': Sets the font weight of the tab bar. Defaults to 500.',
                                                 },
                                             ],
-                                            id: '0.7.1.0.3',
+                                            id: '0.7.1.0.12',
                                             tagName: 'li',
                                             value: '',
                                         },
@@ -606,16 +726,16 @@ export const TABBAR_DOC: KulArticleDataset = {
                                                 {
                                                     cssStyle:
                                                         DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.4.0',
+                                                    id: '0.7.1.0.13.0',
                                                     tagName: 'strong',
-                                                    value: '--kul-article-h3-font-family',
+                                                    value: '--kul-tabbar-height',
                                                 },
                                                 {
-                                                    id: '0.7.1.0.4.1',
-                                                    value: ': Sets the font family for <h3> elements. Defaults to var(--kul-font-family).',
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the height of the tab bar. Defaults to 36px.',
                                                 },
                                             ],
-                                            id: '0.7.1.0.4',
+                                            id: '0.7.1.0.13',
                                             tagName: 'li',
                                             value: '',
                                         },
@@ -624,16 +744,16 @@ export const TABBAR_DOC: KulArticleDataset = {
                                                 {
                                                     cssStyle:
                                                         DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.5.0',
+                                                    id: '0.7.1.0.14.0',
                                                     tagName: 'strong',
-                                                    value: '--kul-article-h3-font-size',
+                                                    value: '--kul-tabbar-primary-color-rgb',
                                                 },
                                                 {
-                                                    id: '0.7.1.0.5.1',
-                                                    value: ': Sets the font size for <h3> elements. Defaults to 1.5em.',
+                                                    id: '0.7.1.0.14.1',
+                                                    value: ': Sets the primary color of the tab bar in RGB format. Defaults to the value of --kul-primary-color-rgb.',
                                                 },
                                             ],
-                                            id: '0.7.1.0.5',
+                                            id: '0.7.1.0.14',
                                             tagName: 'li',
                                             value: '',
                                         },
@@ -642,16 +762,16 @@ export const TABBAR_DOC: KulArticleDataset = {
                                                 {
                                                     cssStyle:
                                                         DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.6.0',
+                                                    id: '0.7.1.0.15.0',
                                                     tagName: 'strong',
-                                                    value: '--kul-article-margin',
+                                                    value: '--kul-tabbar-primary-color',
                                                 },
                                                 {
-                                                    id: '0.7.1.0.6.1',
-                                                    value: ': Sets the margin of the article tag. Defaults to automatic.',
+                                                    id: '0.7.1.0.15.1',
+                                                    value: ': Sets the primary color of the tab bar. Defaults to the value of --kul-primary-color.',
                                                 },
                                             ],
-                                            id: '0.7.1.0.6',
+                                            id: '0.7.1.0.15',
                                             tagName: 'li',
                                             value: '',
                                         },
@@ -660,40 +780,22 @@ export const TABBAR_DOC: KulArticleDataset = {
                                                 {
                                                     cssStyle:
                                                         DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.7.0',
+                                                    id: '0.7.1.0.16.0',
                                                     tagName: 'strong',
-                                                    value: '--kul-article-max-width',
+                                                    value: '--kul-tabbar-tab-padding',
                                                 },
                                                 {
-                                                    id: '0.7.1.0.7.1',
-                                                    value: ': Sets the max-width of the article tag. Defaults to 1200px.',
+                                                    id: '0.7.1.0.16.1',
+                                                    value: ': Sets the padding of the tabs in the tab bar. Defaults to 0 24px.',
                                                 },
                                             ],
-                                            id: '0.7.1.0.7',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.8.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-article-padding',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.8.1',
-                                                    value: ': Sets the padding of the article tag. Defaults to 40px vertically.',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.8',
+                                            id: '0.7.1.0.16',
                                             tagName: 'li',
                                             value: '',
                                         },
                                     ],
                                     id: '0.7.1.0',
-                                    value: 'Additionally, the following CSS variables can be used to customize the appearance of the component:',
+                                    value: '',
                                 },
                             ],
                             id: '0.7.1',
@@ -714,11 +816,11 @@ export const TABBAR_DOC: KulArticleDataset = {
                                 {
                                     id: '0.8.0.1',
                                     tagName: 'strong',
-                                    value: 'KulArticle',
+                                    value: 'KulTabbar',
                                 },
                                 {
                                     id: '0.8.0.2',
-                                    value: ' component is a powerful tool for rendering articles based on JSON structures. Its customizable styling and event handling capabilities make it a versatile choice for web developers looking to enhance their applications with dynamic, encapsulated UI elements.',
+                                    value: ' component is mostly used when there are multiple views, to easily switch between them.',
                                 },
                             ],
                             id: '0.8.0',
@@ -731,7 +833,7 @@ export const TABBAR_DOC: KulArticleDataset = {
                 },
             ],
             id: '0',
-            value: 'KulArticle',
+            value: 'KulTabbar',
         },
     ],
 };
