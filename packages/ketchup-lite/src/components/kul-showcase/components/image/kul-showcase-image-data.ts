@@ -4,7 +4,7 @@ import { ImageData } from './kul-showcase-image-declarations';
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
 import { DOC_STYLES } from '../../kul-showcase-data';
 
-const image = getAssetPath(`./assets/media/morana.png`);
+const image = getAssetPath(`./assets/media/color_splash.jpg`);
 
 export const IMAGE_EXAMPLES: ImageData = {
     badge: {

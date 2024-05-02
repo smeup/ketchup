@@ -1,171 +1,34 @@
-import { getAssetPath } from '@stencil/core';
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
-import { ArticleData } from './kul-showcase-article-declarations';
+import { PhotoframeData } from './kul-showcase-photoframe-declarations';
 import { DOC_STYLES } from '../../kul-showcase-data';
+import { getAssetPath } from '@stencil/core';
 
-const kulData: KulArticleDataset = {
-    nodes: [
-        {
-            id: '0',
-            value: 'Artificial Intelligence: A Comprehensive Guide',
-            children: [
-                {
-                    id: '1.1',
-                    value: 'Introduction',
-                    children: [
-                        {
-                            children: [
-                                {
-                                    cells: {
-                                        1: {
-                                            shape: 'image',
-                                            value: getAssetPath(
-                                                `./assets/media/color_splash.jpg`
-                                            ),
-                                        },
-                                    },
-                                    id: '1.1.1.1',
-                                    value: '',
-                                },
-                            ],
-                            id: '1.1.1',
-                            value: '',
-                        },
-                        {
-                            children: [
-                                {
-                                    id: '1.1.2.1',
-                                    value: 'Artificial Intelligence (AI) is a rapidly evolving field that has the potential to revolutionize various aspects of our lives. This article aims to provide a comprehensive overview of AI, its applications, and the challenges it faces.',
-                                },
-                            ],
-                            id: '1.1.2',
-                            value: '',
-                        },
-                    ],
-                },
-                {
-                    id: '1.2',
-                    value: 'What is Artificial Intelligence?',
-                    children: [
-                        {
-                            children: [
-                                {
-                                    id: '1.2.1.1',
-                                    value: 'Artificial Intelligence is a branch of computer science that focuses on creating systems capable of performing tasks that typically require human intelligence. These tasks include learning, reasoning, problem-solving, perception, and language understanding.',
-                                },
-                            ],
-                            id: '1.2.1',
-                            value: '',
-                        },
-                        {
-                            children: [
-                                {
-                                    cells: {
-                                        1: {
-                                            shape: 'code',
-                                            shapeProps: {
-                                                kulLanguage: 'python',
-                                            },
-                                            value: `def hello_world():\nprint("Hello, world!")`,
-                                        },
-                                    },
-                                    id: '1.2.2.1',
-                                    value: 'Artificial Intelligence is a branch of computer science that focuses on creating systems capable of performing tasks that typically require human intelligence. These tasks include learning, reasoning, problem-solving, perception, and language understanding.',
-                                },
-                            ],
-                            id: '1.2.2',
-                            value: ``,
-                        },
-                    ],
-                },
-                {
-                    id: '1.3',
-                    value: 'Applications of Artificial Intelligence',
-                    children: [
-                        {
-                            children: [
-                                {
-                                    id: '1.3.1.1',
-                                    value: 'AI has a wide range of applications across various industries, including healthcare, finance, education, and transportation. For example, AI can help diagnose diseases, predict stock market trends, and personalize learning experiences.',
-                                },
-                            ],
-                            id: '1.3.1',
-                            value: '',
-                        },
-                        {
-                            children: [
-                                {
-                                    cells: {
-                                        1: {
-                                            shape: 'image',
-                                            value: getAssetPath(
-                                                `./assets/media/color_splash.jpg`
-                                            ),
-                                        },
-                                    },
-                                    id: '1.3.2.1',
-                                    value: 'AI has a wide range of applications across various industries, including healthcare, finance, education, and transportation. For example, AI can help diagnose diseases, predict stock market trends, and personalize learning experiences.',
-                                },
-                            ],
-                            id: '1.3.2',
-                            value: '',
-                        },
-                    ],
-                },
-                {
-                    id: '1.4',
-                    value: 'Challenges and Ethical Considerations',
-                    children: [
-                        {
-                            children: [
-                                {
-                                    id: '1.4.1.1',
-                                    value: 'While AI offers numerous benefits, it also presents several challenges, including privacy concerns, job displacement, and the risk of bias in AI systems. Ethical considerations are crucial in the development and deployment of AI technologies.',
-                                },
-                            ],
-                            id: '1.4.1',
-                            value: '',
-                        },
-                        {
-                            id: '1.4.2',
-                            value: '',
-                        },
-                    ],
-                },
-                {
-                    id: '1.5',
-                    value: 'Conclusion',
-                    children: [
-                        {
-                            children: [
-                                {
-                                    value: 'Artificial Intelligence is poised to play a pivotal role in shaping the future of technology and society. As we continue to explore its potential, it is essential to address its challenges and ethical implications to ensure its responsible development and deployment.',
-                                    id: '1.5.2.1',
-                                },
-                            ],
-                            id: '1.5.1',
-                            value: '',
-                        },
-                    ],
-                },
-            ],
-        },
-    ],
+const placeholder = getAssetPath(`./assets/media/blur_color_splash.jpg`);
+const value = getAssetPath(`./assets/media/color_splash.jpg`);
+const kulPlaceholder = {
+    alt: null,
+    src: placeholder,
+};
+const kulValue = {
+    alt: null,
+    src: value,
 };
 
-export const ARTICLE_EXAMPLES: ArticleData = {
+export const PHOTOFRAME_EXAMPLES: PhotoframeData = {
     simple: {
-        ['data-description']: 'Simple article',
-        kulData,
+        ['data-description']: 'Simple photoframe',
+        kulPlaceholder,
+        kulValue,
     },
     style: {
-        ['data-description']: 'Article with custom style',
+        ['data-description']: 'Photoframe with custom style',
         'data-dynamic': 'custom',
-        kulData,
+        kulPlaceholder,
+        kulValue,
     },
 };
 
-export const ARTICLE_DOC: KulArticleDataset = {
+export const PHOTOFRAME_DOC: KulArticleDataset = {
     nodes: [
         {
             children: [
@@ -182,11 +45,11 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                         {
                                             id: '0.0.0.0.1',
                                             tagName: 'strong',
-                                            value: 'KulArticle',
+                                            value: 'KulPhotoframe',
                                         },
                                         {
                                             id: '0.0.0.0.2',
-                                            value: ' component is a versatile and customizable web component designed to render articles based on a JSON structure. ',
+                                            value: " component's function is to display a photo only when it enters the viewport. Until then, a placeholder is displayed.",
                                         },
                                     ],
                                     id: '0.0.0.0',
@@ -207,37 +70,6 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
-                                                    id: '0.1.0.0.0.0',
-                                                    tagName: 'strong',
-                                                    value: 'Dynamic Content Rendering',
-                                                },
-                                                {
-                                                    id: '0.1.0.0.0.1',
-                                                    value: ': The component dynamically generates an ',
-                                                },
-                                                {
-                                                    id: '0.1.0.0.0.2',
-                                                    tagName: 'strong',
-                                                    value: '<article>',
-                                                },
-                                                {
-                                                    id: '0.1.0.0.0.3',
-                                                    value: ' element based on the JSON structure provided.',
-                                                },
-                                            ],
-                                            id: '0.1.0.0.0',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                    ],
-                                    id: '0.1.0.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            children: [
-                                                {
                                                     id: '0.1.0.1.0.0',
                                                     tagName: 'strong',
                                                     value: 'Customizable Styling',
@@ -249,11 +81,33 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                                 {
                                                     id: '0.1.0.1.0.2',
                                                     tagName: 'strong',
-                                                    value: '<kulStyle>',
+                                                    value: 'kulStyle',
                                                 },
                                                 {
                                                     id: '0.1.0.1.0.3',
                                                     value: ' property.',
+                                                },
+                                            ],
+                                            id: '0.1.0.1.0',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                    ],
+                                    id: '0.1.0.1',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            children: [
+                                                {
+                                                    id: '0.1.0.1.0.0',
+                                                    tagName: 'strong',
+                                                    value: 'Performance friendly',
+                                                },
+                                                {
+                                                    id: '0.1.0.1.0.1',
+                                                    value: ': The loading of a potentially large image only when it enters the viewport helps optimize bandwidth usage and improves page load times by downloading images only as needed.',
                                                 },
                                             ],
                                             id: '0.1.0.1.0',
@@ -329,7 +183,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                         {
                                             id: '0.2.0.0.1',
                                             tagName: 'strong',
-                                            value: 'KulArticle',
+                                            value: 'KulPhotoframe',
                                         },
                                         {
                                             id: '0.2.0.0.2',
@@ -338,11 +192,20 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                         {
                                             id: '0.2.0.0.3',
                                             tagName: 'strong',
-                                            value: 'kulData',
+                                            value: 'kulPlaceholder',
+                                        },
+                                        {
+                                            id: '0.2.0.0.3',
+                                            value: ' and ',
+                                        },
+                                        {
+                                            id: '0.2.0.0.3',
+                                            tagName: 'strong',
+                                            value: 'kulValue',
                                         },
                                         {
                                             id: '0.2.0.0.4',
-                                            value: ' property with the JSON structure representing the article.',
+                                            value: ' properties, which should contain respectively the placeholder image and the actual image you want to display.',
                                         },
                                     ],
                                     id: '0.2.0.0',
@@ -356,23 +219,10 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                                     shapeProps: {
                                                         kulLanguage: 'markup',
                                                     },
-                                                    value: '<kul-article></kul-article>',
+                                                    value: '<kul-photoframe></kul-photoframe>',
                                                 },
                                             },
                                             id: '0.2.0.1.0',
-                                            value: '',
-                                        },
-                                        {
-                                            cells: {
-                                                code: {
-                                                    shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'json',
-                                                    },
-                                                    value: '{ "nodes": [{"value": "Article Title", "id": "0", "children": [{"value": "Section Title", "id": "0.1", "children": [{"value": "Paragraph title", "id": "0.1.1", "children": [{"value": "Text", "id": "0.1.1.1"}, {"value": "Strong text", "id": "0.1.1.2", "tagName": "strong"}]}]}]}]}',
-                                                },
-                                            },
-                                            id: '0.2.0.1.1',
                                             value: '',
                                         },
                                     ],
@@ -399,7 +249,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                         {
                                             id: '0.3.0.0.1',
                                             tagName: 'strong',
-                                            value: 'KulArticleDataset',
+                                            value: 'Partial<HTMLImageElement>',
                                         },
                                     ],
                                     id: '0.3.0.0',
@@ -409,25 +259,16 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             id: '0.3.0.1.0',
-                                            value: 'The actual data of the article. This property should be an object that matches the ',
+                                            value: 'Contains the properties of the placeeholder ',
                                         },
                                         {
                                             id: '0.3.0.1.1',
                                             tagName: 'strong',
-                                            value: 'KulArticleDataset',
+                                            value: '<img>',
                                         },
                                         {
                                             id: '0.3.0.1.2',
-                                            value: ' interface, which includes a ',
-                                        },
-                                        {
-                                            id: '0.3.0.1.3',
-                                            tagName: 'strong',
-                                            value: 'nodes',
-                                        },
-                                        {
-                                            id: '0.3.0.1.4',
-                                            value: ' array representing the structure of the article.',
+                                            value: ' element.',
                                         },
                                     ],
                                     id: '0.3.0.1',
@@ -436,7 +277,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.3.0',
-                            value: 'kulData',
+                            value: 'kulPlaceholder',
                         },
                         {
                             children: [
@@ -470,6 +311,79 @@ export const ARTICLE_DOC: KulArticleDataset = {
                             id: '0.3.1',
                             value: 'kulStyle',
                         },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.3.0.0.0',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.3.0.0.1',
+                                            tagName: 'strong',
+                                            value: 'number',
+                                        },
+                                    ],
+                                    id: '0.3.0.0',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.3.0.1.0',
+                                            value: 'Percentage of the component dimensions entering the viewport (0.1 => 1).',
+                                        },
+                                    ],
+                                    id: '0.3.0.1',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.3.2',
+                            value: 'kulThreshold',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.3.0.0.0',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.3.0.0.1',
+                                            tagName: 'strong',
+                                            value: 'Partial<HTMLImageElement>',
+                                        },
+                                    ],
+                                    id: '0.3.0.0',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.3.0.1.0',
+                                            value: 'Contains the properties of the actual ',
+                                        },
+                                        {
+                                            id: '0.3.0.1.1',
+                                            tagName: 'strong',
+                                            value: '<img>',
+                                        },
+                                        {
+                                            id: '0.3.0.1.2',
+                                            value: ' element.',
+                                        },
+                                    ],
+                                    id: '0.3.0.1',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.3.2',
+                            value: 'kulValue',
+                        },
                     ],
                     id: '0.3',
                     value: 'Properties',
@@ -484,16 +398,50 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                 },
                                 {
                                     id: '0.4.0.1',
-                                    value: 'KulEventPayload',
+                                    value: 'KulPhotoframeEventPayload',
                                 },
                                 {
                                     id: '0.4.0.2',
-                                    value: ', which includes information about the component and the event type.',
+                                    value: ', which includes information about the component, its state and the event type.',
                                 },
                                 {
                                     children: [
                                         {
                                             children: [
+                                                {
+                                                    children: [
+                                                        {
+                                                            id: '0.4.0.3.0.0.0',
+                                                            tagName: 'strong',
+                                                            value: 'load',
+                                                        },
+                                                        {
+                                                            id: '0.4.0.3.0.0.1',
+                                                            value: ': emitted when either the placeholder or the image are loaded. The difference is made by the ',
+                                                        },
+                                                        {
+                                                            id: '0.4.0.3.0.0.0',
+                                                            tagName: 'strong',
+                                                            value: 'isPlaceholder',
+                                                        },
+                                                        {
+                                                            id: '0.4.0.3.0.0.0',
+                                                            value: ' boolean flag inside the ',
+                                                        },
+                                                        {
+                                                            id: '0.4.0.3.0.0.0',
+                                                            tagName: 'strong',
+                                                            value: 'detail',
+                                                        },
+                                                        {
+                                                            id: '0.4.0.3.0.0.0',
+                                                            value: ' of the event.',
+                                                        },
+                                                    ],
+                                                    id: '0.4.0.3.0.0',
+                                                    tagName: 'li',
+                                                    value: '',
+                                                },
                                                 {
                                                     children: [
                                                         {
@@ -522,7 +470,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.4.0',
                             tagName: 'strong',
-                            value: 'kul-article-event',
+                            value: 'kul-photoframe-event',
                         },
                     ],
                     id: '0.4',
@@ -652,7 +600,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                             shapeProps: {
                                                 kulLanguage: 'markup',
                                             },
-                                            value: '<kul-article kul-style="#kul-component article { max-height: 20vh; }"></kul-article>',
+                                            value: '<kul-photoframe kul-style="#kul-component { opacity: 0.5; }"></kul-photoframe>',
                                         },
                                     },
                                     id: '0.7.0.3',
@@ -672,16 +620,16 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                                 {
                                                     cssStyle:
                                                         DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.0.0',
+                                                    id: '0.7.1.0.12.0',
                                                     tagName: 'strong',
-                                                    value: '--kul-article-content-color',
+                                                    value: '--kup-photoframe-border',
                                                 },
                                                 {
-                                                    id: '0.7.1.0.0.1',
-                                                    value: ': Sets the color for .content elements. Defaults to var(--kul-text-color).',
+                                                    id: '0.7.1.0.12.1',
+                                                    value: ': Sets the border of the component. Defaults to 1px inset var(--kup-border-color).',
                                                 },
                                             ],
-                                            id: '0.7.1.0.0',
+                                            id: '0.7.1.0.12',
                                             tagName: 'li',
                                             value: '',
                                         },
@@ -690,148 +638,22 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                                 {
                                                     cssStyle:
                                                         DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.1.0',
+                                                    id: '0.7.1.0.13.0',
                                                     tagName: 'strong',
-                                                    value: '--kul-article-content-font-family',
+                                                    value: '--kup-photoframe-fade-out-time',
                                                 },
                                                 {
-                                                    id: '0.7.1.0.1.1',
-                                                    value: ': Sets the font family for .content elements. Defaults to var(--kul-font-family).',
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ": Sets the time of the placeholder's fade out transition. Defaults to 2000ms.",
                                                 },
                                             ],
-                                            id: '0.7.1.0.1',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.2.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-article-content-font-size',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.2.1',
-                                                    value: ': Sets the font size for .content elements. Defaults to var(--kul-font-size).',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.2',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.3.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-article-h3-color',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.3.1',
-                                                    value: ': Sets the color for <h3> elements. Defaults to var(--kul-text-color).',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.3',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.4.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-article-h3-font-family',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.4.1',
-                                                    value: ': Sets the font family for <h3> elements. Defaults to var(--kul-font-family).',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.4',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.5.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-article-h3-font-size',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.5.1',
-                                                    value: ': Sets the font size for <h3> elements. Defaults to 1.5em.',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.5',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.6.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-article-margin',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.6.1',
-                                                    value: ': Sets the margin of the article tag. Defaults to automatic.',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.6',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.7.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-article-max-width',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.7.1',
-                                                    value: ': Sets the max-width of the article tag. Defaults to 1200px.',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.7',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.8.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-article-padding',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.8.1',
-                                                    value: ': Sets the padding of the article tag. Defaults to 40px vertically.',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.8',
+                                            id: '0.7.1.0.13',
                                             tagName: 'li',
                                             value: '',
                                         },
                                     ],
                                     id: '0.7.1.0',
-                                    value: 'Additionally, the following CSS variables can be used to customize the appearance of the component:',
+                                    value: '',
                                 },
                             ],
                             id: '0.7.1',
@@ -852,11 +674,11 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                 {
                                     id: '0.8.0.1',
                                     tagName: 'strong',
-                                    value: 'KulArticle',
+                                    value: 'KulPhotoframe',
                                 },
                                 {
                                     id: '0.8.0.2',
-                                    value: ' component is a powerful tool for rendering articles based on JSON structures. Its customizable styling and event handling capabilities make it a versatile choice for web developers looking to enhance their applications with dynamic, encapsulated UI elements.',
+                                    value: " component is handy when you have many images to load when it's relevant to do so.",
                                 },
                             ],
                             id: '0.8.0',
@@ -869,7 +691,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                 },
             ],
             id: '0',
-            value: 'KulArticle',
+            value: 'KulPhotoframe',
         },
     ],
 };

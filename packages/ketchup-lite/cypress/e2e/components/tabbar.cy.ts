@@ -1,7 +1,6 @@
 import {
     KulTabbarProps,
     KulTabbarPropsInterface,
-    KulTabbarState,
 } from '../../../src/components/kul-tabbar/kul-tabbar-declarations';
 
 describe('kul-tabbar', () => {

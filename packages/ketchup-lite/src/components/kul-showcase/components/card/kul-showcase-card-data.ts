@@ -19,7 +19,7 @@ export const CARD_EXAMPLES: CardData = {
                             4: {
                                 shape: 'image',
                                 value: getAssetPath(
-                                    `./assets/media/morana.png`
+                                    `./assets/media/color_splash.jpg`
                                 ),
                             },
                         },

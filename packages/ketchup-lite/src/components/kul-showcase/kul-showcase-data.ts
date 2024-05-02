@@ -75,6 +75,13 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
         },
         {
             description:
+                'This component displays a placeholder image until it enters the viewport, then the actual image is loaded.',
+            icon: 'photo_album',
+            id: 'Photoframe',
+            value: 'Photoframe',
+        },
+        {
+            description:
                 'A full-screen component designed to display prominent app branding or introductory content.',
             icon: 'water',
             id: 'Splash',

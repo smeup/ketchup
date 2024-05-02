@@ -13,6 +13,7 @@ import { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./compo
 import { KulDataDataset, KulDataNode, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 import { KulArticleDataset as KulArticleDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
+import { KulPhotoframeEventPayload } from "./components/kul-photo-frame/kul-photoframe-declarations";
 import { KulTabbarEventPayload, KulTabbarState } from "./components/kul-tabbar/kul-tabbar-declarations";
 import { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
 export { KulArticleDataset } from "./components/kul-article/kul-article-declarations";
@@ -23,6 +24,7 @@ export { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./compo
 export { KulDataDataset, KulDataNode, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 export { KulArticleDataset as KulArticleDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
+export { KulPhotoframeEventPayload } from "./components/kul-photo-frame/kul-photoframe-declarations";
 export { KulTabbarEventPayload, KulTabbarState } from "./components/kul-tabbar/kul-tabbar-declarations";
 export { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
 export namespace Components {
@@ -369,6 +371,43 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
     }
+    interface KulPhotoframe {
+        /**
+          * Fetches debug information of the component's current state.
+          * @returns A promise that resolves with the debug information object.
+         */
+        "getDebugInfo": () => Promise<KulDebugComponentInfo1>;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Html attributes of the picture before the component enters the viewport.
+          * @default null
+         */
+        "kulPlaceholder": GenericObject;
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle": string;
+        /**
+          * Percentage of the component dimensions entering the viewport (0.1 => 1).
+          * @default 0.25
+         */
+        "kulThreshold": number;
+        /**
+          * Html attributes of the picture after the component enters the viewport.
+          * @default null
+         */
+        "kulValue": GenericObject;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+    }
     interface KulShowcase {
         /**
           * This methods fixes the ids of showcase's documentation datasets.
@@ -414,6 +453,8 @@ export namespace Components {
     interface KulShowcaseImage {
     }
     interface KulShowcaseKulmanager {
+    }
+    interface KulShowcasePhotoframe {
     }
     interface KulShowcaseProbe {
     }
@@ -685,6 +726,10 @@ export interface KulImageCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulImageElement;
 }
+export interface KulPhotoframeCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKulPhotoframeElement;
+}
 export interface KulShowcaseCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulShowcaseElement;
@@ -846,6 +891,23 @@ declare global {
         prototype: HTMLKulImageElement;
         new (): HTMLKulImageElement;
     };
+    interface HTMLKulPhotoframeElementEventMap {
+        "kul-photoframe-event": KulPhotoframeEventPayload;
+    }
+    interface HTMLKulPhotoframeElement extends Components.KulPhotoframe, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulPhotoframeElementEventMap>(type: K, listener: (this: HTMLKulPhotoframeElement, ev: KulPhotoframeCustomEvent<HTMLKulPhotoframeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulPhotoframeElementEventMap>(type: K, listener: (this: HTMLKulPhotoframeElement, ev: KulPhotoframeCustomEvent<HTMLKulPhotoframeElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKulPhotoframeElement: {
+        prototype: HTMLKulPhotoframeElement;
+        new (): HTMLKulPhotoframeElement;
+    };
     interface HTMLKulShowcaseElementEventMap {
         "kul-showcase-event": KulEventPayload;
     }
@@ -922,6 +984,12 @@ declare global {
     var HTMLKulShowcaseKulmanagerElement: {
         prototype: HTMLKulShowcaseKulmanagerElement;
         new (): HTMLKulShowcaseKulmanagerElement;
+    };
+    interface HTMLKulShowcasePhotoframeElement extends Components.KulShowcasePhotoframe, HTMLStencilElement {
+    }
+    var HTMLKulShowcasePhotoframeElement: {
+        prototype: HTMLKulShowcasePhotoframeElement;
+        new (): HTMLKulShowcasePhotoframeElement;
     };
     interface HTMLKulShowcaseProbeElement extends Components.KulShowcaseProbe, HTMLStencilElement {
     }
@@ -1053,6 +1121,7 @@ declare global {
         "kul-drawer": HTMLKulDrawerElement;
         "kul-header": HTMLKulHeaderElement;
         "kul-image": HTMLKulImageElement;
+        "kul-photoframe": HTMLKulPhotoframeElement;
         "kul-showcase": HTMLKulShowcaseElement;
         "kul-showcase-article": HTMLKulShowcaseArticleElement;
         "kul-showcase-badge": HTMLKulShowcaseBadgeElement;
@@ -1064,6 +1133,7 @@ declare global {
         "kul-showcase-header": HTMLKulShowcaseHeaderElement;
         "kul-showcase-image": HTMLKulShowcaseImageElement;
         "kul-showcase-kulmanager": HTMLKulShowcaseKulmanagerElement;
+        "kul-showcase-photoframe": HTMLKulShowcasePhotoframeElement;
         "kul-showcase-probe": HTMLKulShowcaseProbeElement;
         "kul-showcase-spinner": HTMLKulShowcaseSpinnerElement;
         "kul-showcase-splash": HTMLKulShowcaseSplashElement;
@@ -1300,6 +1370,32 @@ declare namespace LocalJSX {
          */
         "onKul-image-event"?: (event: KulImageCustomEvent<KulEventPayload>) => void;
     }
+    interface KulPhotoframe {
+        /**
+          * Html attributes of the picture before the component enters the viewport.
+          * @default null
+         */
+        "kulPlaceholder"?: GenericObject;
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle"?: string;
+        /**
+          * Percentage of the component dimensions entering the viewport (0.1 => 1).
+          * @default 0.25
+         */
+        "kulThreshold"?: number;
+        /**
+          * Html attributes of the picture after the component enters the viewport.
+          * @default null
+         */
+        "kulValue"?: GenericObject;
+        /**
+          * Describes event emitted.
+         */
+        "onKul-photoframe-event"?: (event: KulPhotoframeCustomEvent<KulPhotoframeEventPayload>) => void;
+    }
     interface KulShowcase {
         /**
           * Custom style of the component.
@@ -1330,6 +1426,8 @@ declare namespace LocalJSX {
     interface KulShowcaseImage {
     }
     interface KulShowcaseKulmanager {
+    }
+    interface KulShowcasePhotoframe {
     }
     interface KulShowcaseProbe {
     }
@@ -1499,6 +1597,7 @@ declare namespace LocalJSX {
         "kul-drawer": KulDrawer;
         "kul-header": KulHeader;
         "kul-image": KulImage;
+        "kul-photoframe": KulPhotoframe;
         "kul-showcase": KulShowcase;
         "kul-showcase-article": KulShowcaseArticle;
         "kul-showcase-badge": KulShowcaseBadge;
@@ -1510,6 +1609,7 @@ declare namespace LocalJSX {
         "kul-showcase-header": KulShowcaseHeader;
         "kul-showcase-image": KulShowcaseImage;
         "kul-showcase-kulmanager": KulShowcaseKulmanager;
+        "kul-showcase-photoframe": KulShowcasePhotoframe;
         "kul-showcase-probe": KulShowcaseProbe;
         "kul-showcase-spinner": KulShowcaseSpinner;
         "kul-showcase-splash": KulShowcaseSplash;
@@ -1535,6 +1635,7 @@ declare module "@stencil/core" {
             "kul-drawer": LocalJSX.KulDrawer & JSXBase.HTMLAttributes<HTMLKulDrawerElement>;
             "kul-header": LocalJSX.KulHeader & JSXBase.HTMLAttributes<HTMLKulHeaderElement>;
             "kul-image": LocalJSX.KulImage & JSXBase.HTMLAttributes<HTMLKulImageElement>;
+            "kul-photoframe": LocalJSX.KulPhotoframe & JSXBase.HTMLAttributes<HTMLKulPhotoframeElement>;
             "kul-showcase": LocalJSX.KulShowcase & JSXBase.HTMLAttributes<HTMLKulShowcaseElement>;
             "kul-showcase-article": LocalJSX.KulShowcaseArticle & JSXBase.HTMLAttributes<HTMLKulShowcaseArticleElement>;
             "kul-showcase-badge": LocalJSX.KulShowcaseBadge & JSXBase.HTMLAttributes<HTMLKulShowcaseBadgeElement>;
@@ -1546,6 +1647,7 @@ declare module "@stencil/core" {
             "kul-showcase-header": LocalJSX.KulShowcaseHeader & JSXBase.HTMLAttributes<HTMLKulShowcaseHeaderElement>;
             "kul-showcase-image": LocalJSX.KulShowcaseImage & JSXBase.HTMLAttributes<HTMLKulShowcaseImageElement>;
             "kul-showcase-kulmanager": LocalJSX.KulShowcaseKulmanager & JSXBase.HTMLAttributes<HTMLKulShowcaseKulmanagerElement>;
+            "kul-showcase-photoframe": LocalJSX.KulShowcasePhotoframe & JSXBase.HTMLAttributes<HTMLKulShowcasePhotoframeElement>;
             "kul-showcase-probe": LocalJSX.KulShowcaseProbe & JSXBase.HTMLAttributes<HTMLKulShowcaseProbeElement>;
             "kul-showcase-spinner": LocalJSX.KulShowcaseSpinner & JSXBase.HTMLAttributes<HTMLKulShowcaseSpinnerElement>;
             "kul-showcase-splash": LocalJSX.KulShowcaseSplash & JSXBase.HTMLAttributes<HTMLKulShowcaseSplashElement>;

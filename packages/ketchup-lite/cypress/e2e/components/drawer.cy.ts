@@ -8,12 +8,13 @@ describe('kul-drawer', () => {
     it('common: should call getProps and check keys against KulDrawerPropsInterface', () => {
         cy.get('@kulComponentShowcase')
             .find('iframe')
+            .should('be.visible')
             .first()
             .then(($iframe) => {
                 const iframeDocument = $iframe.contents();
                 const $drawer = iframeDocument.find('kul-drawer');
                 cy.wrap($drawer)
-                    .wait(500)
+                    .wait(2000)
                     .then(($drawer) => {
                         const drawerElement =
                             $drawer[0] as unknown as HTMLKulDrawerElement;
