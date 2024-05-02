@@ -13,7 +13,7 @@ describe('kul-header', () => {
                 const iframeDocument = $iframe.contents();
                 const $header = iframeDocument.find('kul-header');
                 cy.wrap($header)
-                    .wait(500)
+                    .wait(2000)
                     .then(($header) => {
                         const headerElement =
                             $header[0] as unknown as HTMLKulHeaderElement;

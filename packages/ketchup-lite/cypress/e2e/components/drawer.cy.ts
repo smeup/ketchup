@@ -13,7 +13,7 @@ describe('kul-drawer', () => {
                 const iframeDocument = $iframe.contents();
                 const $drawer = iframeDocument.find('kul-drawer');
                 cy.wrap($drawer)
-                    .wait(500)
+                    .wait(2000)
                     .then(($drawer) => {
                         const drawerElement =
                             $drawer[0] as unknown as HTMLKulDrawerElement;
