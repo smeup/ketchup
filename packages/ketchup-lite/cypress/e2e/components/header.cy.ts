@@ -7,8 +7,8 @@ describe('kul-header', () => {
 
     it('common: should call getProps and check keys against KulHeaderPropsInterface', () => {
         cy.get('@kulComponentShowcase')
-            .scrollTo('bottom')
             .find('iframe')
+            .should('be.visible')
             .first()
             .then(($iframe) => {
                 const iframeDocument = $iframe.contents();
