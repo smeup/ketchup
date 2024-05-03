@@ -3068,7 +3068,7 @@ __metadata:
     "@material/form-field": ^14.0.0
     "@material/ripple": ^14.0.0
     "@material/textfield": ^14.0.0
-    "@stencil/core": ^4.12.0
+    "@stencil/core": ^4.17.2
     "@stencil/react-output-target": 0.5.3
     "@stencil/sass": ^3.0.9
     "@toast-ui/editor": ^2.5.4
@@ -3121,12 +3121,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stencil/core@npm:^4.12.0":
-  version: 4.12.0
-  resolution: "@stencil/core@npm:4.12.0"
+"@stencil/core@npm:^4.17.2":
+  version: 4.17.2
+  resolution: "@stencil/core@npm:4.17.2"
   bin:
     stencil: bin/stencil
-  checksum: 4a2087593c01f9d78d4dbe173195ef3a881aa139100788b160a5bbe931bc57f7245fffef00a509ea0938c3835acfb49e095f3523d3fefcde3e03b87e3d931e25
+  checksum: 38a72fbdd3877add9ac5973da4cce951480ac2522d45e3876bb9c710d55e4cc4ef2859f6083576d5309eea912d7d3361239f0a74b6ac2b348952ea9b2f6e3a7f
   languageName: node
   linkType: hard
 
