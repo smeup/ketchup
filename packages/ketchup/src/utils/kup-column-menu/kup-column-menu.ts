@@ -876,7 +876,11 @@ export class KupColumnMenu {
                 }
                 break;
         }
-        if (card.data?.checkbox && !dataStorage?.['isInterval']) {
+        if (
+            card.data?.checkbox &&
+            !dataStorage?.['isInterval'] &&
+            dataStorage?.['column']
+        ) {
             card.data.checkbox = this.prepCheckbox(comp, dataStorage['column']);
             card.refresh();
         }
