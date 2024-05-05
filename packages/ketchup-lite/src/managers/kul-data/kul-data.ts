@@ -1,6 +1,8 @@
 import { GenericObject } from '../../components';
+import { findColumns } from './column/kul-data-column-utils';
 import {
     KulDataCell,
+    KulDataColumn,
     KulDataDataset,
     KulDataNode,
     KulDataShapesMap,
@@ -14,6 +16,30 @@ export class KulData {
     cell = {
         exists: (node: KulDataNode) => {
             return !!(node && node.cells && Object.keys(node.cells).length);
+        },
+        stringify: (value: unknown) => {
+            if (value === null || value === undefined) {
+                return String(value);
+            } else if (value instanceof Date) {
+                return value.toISOString();
+            } else if (typeof value === 'object') {
+                try {
+                    return JSON.stringify(value, null, 2);
+                } catch (error) {
+                    console.error('Failed to stringify object:', error);
+                    return '[object Object]';
+                }
+            } else {
+                return String(value);
+            }
+        },
+    };
+    column = {
+        find(
+            dataset: KulDataDataset | KulDataColumn[],
+            filters: Partial<KulDataColumn>
+        ): KulDataColumn[] {
+            return findColumns(dataset, filters);
         },
     };
     extract = {
