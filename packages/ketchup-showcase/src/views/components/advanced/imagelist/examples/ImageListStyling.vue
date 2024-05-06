@@ -67,7 +67,7 @@ export default {
           value: 'Menu',
         },
       ],
-      markupBasic: '<kup-image-list class="kup-full-width"></kup-iamge-list>',
+      markupBasic: '<kup-image-list class="kup-full-width"></kup-image-list>',
     };
   },
 };

@@ -54,17 +54,17 @@ export default {
   data() {
     return {
       markupBasic: '{prefix}-{component}-{property}-{attribute}-{state}',
-      TokenExample: '{kup}-{button}-{border}-{width}-{}',
-      TokenExample2: '{kup}-{card}-{border}-{color}-{}',
-      TokenExample3: '{kup}-{card}-{border}-{color}-{hover}',
-      TokenExample4: '{kup}-{switch_track}-{background}-{color}-{}',
+      TokenExample: 'kup-button-border-width',
+      TokenExample2: 'kup-card-border-color',
+      TokenExample3: 'kup-card-border-color-hover',
+      TokenExample4: 'kup-switch_track-background-color',
       // Token aggiuntivi
-      TokenExample5: '{kup}-{button}-{text}-{color}-{}',
-      TokenExample6: '{kup}-{input}-{border}-{radius}-{}',
-      TokenExample7: '{kup}-{dropdown}-{background}-{color}-{}',
-      TokenExample8: '{kup}-{tooltip}-{text}-{color}-{}',
-      TokenExample9: '{kup}-{checkbox}-{check}-{color}-{}',
-      TokenExample10: '{kup}-{slider}-{track}-{color}-{}',
+      TokenExample5: 'kup-button-text-color',
+      TokenExample6: 'kup-input-border-radius',
+      TokenExample7: 'kup-dropdown-background-color',
+      TokenExample8: 'kup-tooltip-text-color',
+      TokenExample9: 'kup-checkbox-check-color',
+      TokenExample10: 'kup-slider-track-color',
     };
   },
 };
