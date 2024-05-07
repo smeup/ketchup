@@ -644,7 +644,13 @@ function setCell(
             } else {
                 (subcomponentProps as FImageProps).sizeY = '100%';
                 return (
-                    <div class={`imageWrapIcon`}>
+                    <div
+                        class={`imageWrapIcon`}
+                        style={{
+                            width: subcomponentProps.sizeX,
+                            height: subcomponentProps.sizeY,
+                        }}
+                    >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             version="1.1"

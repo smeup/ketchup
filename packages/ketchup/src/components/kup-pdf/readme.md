@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property  | Attribute  | Description              | Type     | Default     |
-| --------- | ---------- | ------------------------ | -------- | ----------- |
-| `pdfPath` | `pdf-path` | Path of the pdf document | `string` | `undefined` |
+| Property          | Attribute          | Description                            | Type      | Default     |
+| ----------------- | ------------------ | -------------------------------------- | --------- | ----------- |
+| `pdfPath`         | `pdf-path`         | Path of the pdf document               | `string`  | `undefined` |
+| `sendCredentials` | `send-credentials` | Credentials sending along with request | `boolean` | `undefined` |
 
 
 ## Events
