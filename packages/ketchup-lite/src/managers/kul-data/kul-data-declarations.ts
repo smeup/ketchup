@@ -20,6 +20,7 @@ export interface KulDataCellContainer {
 
 export interface KulDataColumn {
     id: string;
+    title: string;
     type: KulDataShapes;
 }
 

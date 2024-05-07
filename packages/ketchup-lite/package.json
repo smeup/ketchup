@@ -29,7 +29,8 @@
         "test:open": "cypress open"
     },
     "dependencies": {
-        "dayjs": "^1.11.10",
+        "dayjs": "^1.11.11",
+        "echarts": "5.5.0",
         "html2canvas": "^1.4.1",
         "numeral": "^2.0.6",
         "prismjs": "^1.29.0"

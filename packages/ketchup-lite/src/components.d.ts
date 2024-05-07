@@ -11,6 +11,8 @@ import { KulDebugComponentInfo } from "./managers/kul-debug/kul-debug-declaratio
 import { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
 import { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 import { KulDataDataset, KulDataNode, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
+import { KulChartEventPayload, KulChartLegendPlacement, KulChartType } from "./components/kul-chart/kul-chart-declarations";
+import { XAXisComponentOption, YAXisComponentOption } from "echarts";
 import { KulArticleDataset as KulArticleDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 import { KulPhotoframeEventPayload } from "./components/kul-photo-frame/kul-photoframe-declarations";
@@ -22,6 +24,8 @@ export { KulDebugComponentInfo } from "./managers/kul-debug/kul-debug-declaratio
 export { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
 export { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 export { KulDataDataset, KulDataNode, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
+export { KulChartEventPayload, KulChartLegendPlacement, KulChartType } from "./components/kul-chart/kul-chart-declarations";
+export { XAXisComponentOption, YAXisComponentOption } from "echarts";
 export { KulArticleDataset as KulArticleDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 export { KulPhotoframeEventPayload } from "./components/kul-photo-frame/kul-photoframe-declarations";
@@ -220,6 +224,78 @@ export namespace Components {
           * @default ""
          */
         "kulStyle": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+    }
+    interface KulChart {
+        /**
+          * Fetches debug information of the component's current state.
+          * @returns A promise that resolves with the debug information object.
+         */
+        "getDebugInfo": () => Promise<KulDebugComponentInfo>;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Sets the axis of the chart.
+          * @default ""
+         */
+        "kulAxis": string;
+        /**
+          * Overrides theme's colors.
+          * @default []
+         */
+        "kulColors": string[];
+        /**
+          * The actual data of the chart.
+          * @default null
+         */
+        "kulData": KulDataDataset;
+        /**
+          * Sets the position of the legend. Supported values: bottom, left, right, top, hidden. Keep in mind that legend types are tied to chart types, some combinations might not work.
+          * @default "bottom"
+         */
+        "kulLegend": KulChartLegendPlacement;
+        /**
+          * The data series to be displayed. They must be of the same type.
+          * @default []
+         */
+        "kulSeries": string[];
+        /**
+          * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+          * @default "100%"
+         */
+        "kulSizeX": string;
+        /**
+          * The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default "100%"
+         */
+        "kulSizeY": string;
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle": string;
+        /**
+          * The type of the chart. Supported formats: Bar, Gaussian, Line, Pie, Map and Scatter.
+          * @default ["line"]
+         */
+        "kulTypes": KulChartType[];
+        /**
+          * Customization options for the x Axis.
+          * @default null
+         */
+        "kulXAxis": XAXisComponentOption;
+        /**
+          * Customization options for the y Axis.
+          * @default null
+         */
+        "kulYAxis": YAXisComponentOption;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -441,6 +517,8 @@ export namespace Components {
     interface KulShowcaseButton {
     }
     interface KulShowcaseCard {
+    }
+    interface KulShowcaseChart {
     }
     interface KulShowcaseCode {
     }
@@ -710,6 +788,10 @@ export interface KulCardCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulCardElement;
 }
+export interface KulChartCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKulChartElement;
+}
 export interface KulCodeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulCodeElement;
@@ -822,6 +904,23 @@ declare global {
     var HTMLKulCardElement: {
         prototype: HTMLKulCardElement;
         new (): HTMLKulCardElement;
+    };
+    interface HTMLKulChartElementEventMap {
+        "kul-echart-event": KulChartEventPayload;
+    }
+    interface HTMLKulChartElement extends Components.KulChart, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulChartElementEventMap>(type: K, listener: (this: HTMLKulChartElement, ev: KulChartCustomEvent<HTMLKulChartElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulChartElementEventMap>(type: K, listener: (this: HTMLKulChartElement, ev: KulChartCustomEvent<HTMLKulChartElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKulChartElement: {
+        prototype: HTMLKulChartElement;
+        new (): HTMLKulChartElement;
     };
     interface HTMLKulCodeElementEventMap {
         "kul-code-event": KulEventPayload;
@@ -948,6 +1047,12 @@ declare global {
     var HTMLKulShowcaseCardElement: {
         prototype: HTMLKulShowcaseCardElement;
         new (): HTMLKulShowcaseCardElement;
+    };
+    interface HTMLKulShowcaseChartElement extends Components.KulShowcaseChart, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseChartElement: {
+        prototype: HTMLKulShowcaseChartElement;
+        new (): HTMLKulShowcaseChartElement;
     };
     interface HTMLKulShowcaseCodeElement extends Components.KulShowcaseCode, HTMLStencilElement {
     }
@@ -1117,6 +1222,7 @@ declare global {
         "kul-badge": HTMLKulBadgeElement;
         "kul-button": HTMLKulButtonElement;
         "kul-card": HTMLKulCardElement;
+        "kul-chart": HTMLKulChartElement;
         "kul-code": HTMLKulCodeElement;
         "kul-drawer": HTMLKulDrawerElement;
         "kul-header": HTMLKulHeaderElement;
@@ -1127,6 +1233,7 @@ declare global {
         "kul-showcase-badge": HTMLKulShowcaseBadgeElement;
         "kul-showcase-button": HTMLKulShowcaseButtonElement;
         "kul-showcase-card": HTMLKulShowcaseCardElement;
+        "kul-showcase-chart": HTMLKulShowcaseChartElement;
         "kul-showcase-code": HTMLKulShowcaseCodeElement;
         "kul-showcase-debug": HTMLKulShowcaseDebugElement;
         "kul-showcase-drawer": HTMLKulShowcaseDrawerElement;
@@ -1285,6 +1392,64 @@ declare namespace LocalJSX {
          */
         "onKul-card-event"?: (event: KulCardCustomEvent<KulEventPayload>) => void;
     }
+    interface KulChart {
+        /**
+          * Sets the axis of the chart.
+          * @default ""
+         */
+        "kulAxis"?: string;
+        /**
+          * Overrides theme's colors.
+          * @default []
+         */
+        "kulColors"?: string[];
+        /**
+          * The actual data of the chart.
+          * @default null
+         */
+        "kulData"?: KulDataDataset;
+        /**
+          * Sets the position of the legend. Supported values: bottom, left, right, top, hidden. Keep in mind that legend types are tied to chart types, some combinations might not work.
+          * @default "bottom"
+         */
+        "kulLegend"?: KulChartLegendPlacement;
+        /**
+          * The data series to be displayed. They must be of the same type.
+          * @default []
+         */
+        "kulSeries"?: string[];
+        /**
+          * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+          * @default "100%"
+         */
+        "kulSizeX"?: string;
+        /**
+          * The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default "100%"
+         */
+        "kulSizeY"?: string;
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle"?: string;
+        /**
+          * The type of the chart. Supported formats: Bar, Gaussian, Line, Pie, Map and Scatter.
+          * @default ["line"]
+         */
+        "kulTypes"?: KulChartType[];
+        /**
+          * Customization options for the x Axis.
+          * @default null
+         */
+        "kulXAxis"?: XAXisComponentOption;
+        /**
+          * Customization options for the y Axis.
+          * @default null
+         */
+        "kulYAxis"?: YAXisComponentOption;
+        "onKul-echart-event"?: (event: KulChartCustomEvent<KulChartEventPayload>) => void;
+    }
     interface KulCode {
         /**
           * Sets the language of the snippet.
@@ -1414,6 +1579,8 @@ declare namespace LocalJSX {
     interface KulShowcaseButton {
     }
     interface KulShowcaseCard {
+    }
+    interface KulShowcaseChart {
     }
     interface KulShowcaseCode {
     }
@@ -1593,6 +1760,7 @@ declare namespace LocalJSX {
         "kul-badge": KulBadge;
         "kul-button": KulButton;
         "kul-card": KulCard;
+        "kul-chart": KulChart;
         "kul-code": KulCode;
         "kul-drawer": KulDrawer;
         "kul-header": KulHeader;
@@ -1603,6 +1771,7 @@ declare namespace LocalJSX {
         "kul-showcase-badge": KulShowcaseBadge;
         "kul-showcase-button": KulShowcaseButton;
         "kul-showcase-card": KulShowcaseCard;
+        "kul-showcase-chart": KulShowcaseChart;
         "kul-showcase-code": KulShowcaseCode;
         "kul-showcase-debug": KulShowcaseDebug;
         "kul-showcase-drawer": KulShowcaseDrawer;
@@ -1631,6 +1800,7 @@ declare module "@stencil/core" {
             "kul-badge": LocalJSX.KulBadge & JSXBase.HTMLAttributes<HTMLKulBadgeElement>;
             "kul-button": LocalJSX.KulButton & JSXBase.HTMLAttributes<HTMLKulButtonElement>;
             "kul-card": LocalJSX.KulCard & JSXBase.HTMLAttributes<HTMLKulCardElement>;
+            "kul-chart": LocalJSX.KulChart & JSXBase.HTMLAttributes<HTMLKulChartElement>;
             "kul-code": LocalJSX.KulCode & JSXBase.HTMLAttributes<HTMLKulCodeElement>;
             "kul-drawer": LocalJSX.KulDrawer & JSXBase.HTMLAttributes<HTMLKulDrawerElement>;
             "kul-header": LocalJSX.KulHeader & JSXBase.HTMLAttributes<HTMLKulHeaderElement>;
@@ -1641,6 +1811,7 @@ declare module "@stencil/core" {
             "kul-showcase-badge": LocalJSX.KulShowcaseBadge & JSXBase.HTMLAttributes<HTMLKulShowcaseBadgeElement>;
             "kul-showcase-button": LocalJSX.KulShowcaseButton & JSXBase.HTMLAttributes<HTMLKulShowcaseButtonElement>;
             "kul-showcase-card": LocalJSX.KulShowcaseCard & JSXBase.HTMLAttributes<HTMLKulShowcaseCardElement>;
+            "kul-showcase-chart": LocalJSX.KulShowcaseChart & JSXBase.HTMLAttributes<HTMLKulShowcaseChartElement>;
             "kul-showcase-code": LocalJSX.KulShowcaseCode & JSXBase.HTMLAttributes<HTMLKulShowcaseCodeElement>;
             "kul-showcase-debug": LocalJSX.KulShowcaseDebug & JSXBase.HTMLAttributes<HTMLKulShowcaseDebugElement>;
             "kul-showcase-drawer": LocalJSX.KulShowcaseDrawer & JSXBase.HTMLAttributes<HTMLKulShowcaseDrawerElement>;

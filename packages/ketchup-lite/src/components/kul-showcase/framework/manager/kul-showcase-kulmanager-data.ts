@@ -1,7 +1,7 @@
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
 
 export const MANAGER_DATA: KulArticleDataset = {
-    columns: [{ id: 'shape', type: 'code' }],
+    columns: [{ id: 'shape', title: 'Code', type: 'code' }],
     nodes: [
         {
             id: '0',

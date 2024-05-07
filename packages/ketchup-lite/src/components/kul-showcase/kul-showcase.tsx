@@ -248,6 +248,8 @@ export class KulShowcase {
                 return <kul-showcase-button></kul-showcase-button>;
             case 'Card':
                 return <kul-showcase-card></kul-showcase-card>;
+            case 'Chart':
+                return <kul-showcase-chart></kul-showcase-chart>;
             case 'Code':
                 return <kul-showcase-code></kul-showcase-code>;
             case 'Image':
