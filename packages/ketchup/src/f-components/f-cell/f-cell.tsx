@@ -629,13 +629,30 @@ function setCell(
             return <div innerHTML={cell.value}></div>;
         case FCellTypes.ICON:
         case FCellTypes.IMAGE:
+            const hasExternalResource =
+                props.cell.value.indexOf('.') > -1 ||
+                props.cell.value.indexOf('/') > -1 ||
+                props.cell.value.indexOf('\\') > -1;
             if (isAutoCentered(props)) {
                 classObj[FCellClasses.C_CENTERED] = true;
             }
             if ((subcomponentProps as FImageProps).badgeData) {
                 classObj[FCellClasses.C_PADDED] = true;
             }
-            return <FImage {...subcomponentProps} />;
+            if (hasExternalResource) {
+                return <FImage {...subcomponentProps} />;
+            } else {
+                return (
+                    <div class={`imageWrapIcon`}>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            version="1.1"
+                            viewBox="0 0 24 24"
+                        ></svg>
+                        <FImage {...subcomponentProps} />
+                    </div>
+                );
+            }
         case FCellTypes.LINK:
             return (
                 <a href={content as string} target="_blank">

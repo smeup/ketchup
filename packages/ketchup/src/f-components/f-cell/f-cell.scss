@@ -75,6 +75,28 @@
     }
   }
 
+  &.image-cell {
+    .f-cell__content .imageWrapIcon {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      .f-image {
+        position: absolute;
+        padding-bottom: 0px;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        max-height: 200px; // moment to test
+        .f-image__icons {
+          mask-size: 100% !important;
+          height: 100% !important;
+        }
+      }
+    }
+  }
+
   &.number-cell {
     .f-cell__content {
       --kup-textfield-font-family: var(--kup_cell_font_family_monospace);
