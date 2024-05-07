@@ -9,6 +9,7 @@ import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./compon
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
+import { BadgeType } from "./components/kup-badge/kup-badge-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxLoadMoreClickEventPayload, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, LoadMoreMode } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
 import { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
@@ -59,6 +60,7 @@ export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./compon
 export { GenericObject, KupEventPayload } from "./types/GenericTypes";
 export { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 export { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
+export { BadgeType } from "./components/kup-badge/kup-badge-declarations";
 export { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxLoadMoreClickEventPayload, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, LoadMoreMode } from "./components/kup-box/kup-box-declarations";
 export { KupStore } from "./components/kup-state/kup-store";
 export { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
@@ -271,6 +273,11 @@ export namespace Components {
           * @default null
          */
         "text": string;
+        /**
+          * The gravity of the badge.
+          * @default BadgeType.INFO
+         */
+        "type": BadgeType;
     }
     interface KupBox {
         /**
@@ -2800,6 +2807,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Credentials sending along with request
+          * @default true
+         */
+        "sendCredentials": boolean;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
@@ -5371,6 +5383,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "text"?: string;
+        /**
+          * The gravity of the badge.
+          * @default BadgeType.INFO
+         */
+        "type"?: BadgeType;
     }
     interface KupBox {
         /**
@@ -7435,6 +7452,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "pdfPath"?: string;
+        /**
+          * Credentials sending along with request
+          * @default true
+         */
+        "sendCredentials"?: boolean;
     }
     interface KupPhotoFrame {
         /**
