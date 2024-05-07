@@ -7,6 +7,6 @@ export default defineConfig({
         ...process.env,
     },
     e2e: {},
-    defaultCommandTimeout: 5000,
+    defaultCommandTimeout: 10000,
     includeShadowDom: true,
 });

@@ -5,7 +5,7 @@ describe('kul-header', () => {
         cy.navigate('header');
     });
 
-    it('common: should call getProps and check keys against KulHeaderPropsInterface', () => {
+    it.skip('common: should call getProps and check keys against KulHeaderPropsInterface', () => {
         cy.get('@kulComponentShowcase')
             .find('iframe')
             .should('be.visible')

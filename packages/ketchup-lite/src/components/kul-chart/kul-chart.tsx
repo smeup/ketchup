@@ -43,6 +43,7 @@ import {
     KulDataNode,
 } from '../../managers/kul-data/kul-data-declarations';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
+import { textShadow } from 'html2canvas/dist/types/css/property-descriptors/text-shadow';
 
 @Component({
     tag: 'kul-chart',
@@ -502,6 +503,20 @@ export class KulChart {
         }
         return {
             color: this.#setColors(Object.keys(y).length),
+            label: {
+                show: true,
+                formatter: '{c|{c}}',
+                rich: {
+                    c: {
+                        color: this.#themeText,
+                        textShadow: 'none',
+                    },
+                },
+                textShadowColor: 'transparent',
+                textShadowOffsetX: 0,
+                textShadowOffsetY: 0,
+                textShadowBlur: 0,
+            },
             legend: this.#setLegend(y),
             tooltip: {
                 ...this.#setTooltip(),

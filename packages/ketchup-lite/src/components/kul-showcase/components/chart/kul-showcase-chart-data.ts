@@ -156,14 +156,30 @@ const kulData: KulDataDataset = {
 };
 
 export const CHART_EXAMPLES: ChartData = {
-    simple: {
+    bar: {
+        ['data-description']: 'Bar',
+        kulAxis: 'Axis',
+        kulData,
+        kulSeries: ['Series_1'],
+        kulSizeY: '300px',
+        kulTypes: ['bar'],
+    },
+    line: {
         ['data-description']: 'Line',
         kulAxis: 'Axis',
         kulData,
         kulSizeY: '300px',
     },
+    pie: {
+        ['data-description']: 'Pie',
+        kulAxis: 'Axis',
+        kulData,
+        kulSizeY: '300px',
+        kulTypes: ['pie'],
+    },
     style: {
         ['data-description']: 'Bar',
+        ['data-dynamic']: 'custom',
         kulAxis: 'Axis',
         kulData,
         kulSeries: ['Series_1'],
@@ -977,7 +993,7 @@ export const CHART_DOC: KulArticleDataset = {
                                 },
                                 {
                                     id: '0.8.0.2',
-                                    value: ' component is mostly used when there are multiple views, to easily switch between them.',
+                                    value: " component's purpose is to visually display data.",
                                 },
                             ],
                             id: '0.8.0',
