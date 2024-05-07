@@ -109,7 +109,6 @@ describe('kul-chart', () => {
                     kulSizeX: null,
                     kulSizeY: null,
                     kulStyle: null,
-                    kulThreshold: null,
                     kulTypes: null,
                     kulXAxis: null,
                     kulYAxis: null,
