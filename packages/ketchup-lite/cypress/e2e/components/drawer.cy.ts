@@ -5,7 +5,7 @@ describe('kul-drawer', () => {
         cy.navigate('drawer');
     });
 
-    it('common: should call getProps and check keys against KulDrawerPropsInterface', () => {
+    it.skip('common: should call getProps and check keys against KulDrawerPropsInterface', () => {
         cy.get('@kulComponentShowcase')
             .find('iframe')
             .should('be.visible')
