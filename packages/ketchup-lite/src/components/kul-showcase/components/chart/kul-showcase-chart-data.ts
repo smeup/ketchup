@@ -993,7 +993,7 @@ export const CHART_DOC: KulArticleDataset = {
                                 },
                                 {
                                     id: '0.8.0.2',
-                                    value: ' component is mostly used when there are multiple views, to easily switch between them.',
+                                    value: " component's purpose is to visually display data.",
                                 },
                             ],
                             id: '0.8.0',
