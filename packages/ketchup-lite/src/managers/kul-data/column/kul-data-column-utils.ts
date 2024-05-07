@@ -1,8 +1,7 @@
-import { KulDataDataset1 } from '../../../components';
 import { KulDataColumn, KulDataDataset } from '../kul-data-declarations';
 
 export function findColumns(
-    dataset: KulDataDataset1 | KulDataColumn[],
+    dataset: KulDataDataset | KulDataColumn[],
     filters: Partial<KulDataColumn>
 ): KulDataColumn[] {
     const result: KulDataColumn[] = [];

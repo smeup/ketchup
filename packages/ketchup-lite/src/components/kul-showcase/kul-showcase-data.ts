@@ -61,6 +61,13 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
             value: 'Card',
         },
         {
+            description:
+                'Versatile wrapper for a few charts from the Echarts library.',
+            icon: 'pie_chart',
+            id: 'Chart',
+            value: 'Chart',
+        },
+        {
             description: 'A simple code visualizer.',
             icon: 'code',
             id: 'Code',

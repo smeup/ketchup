@@ -3,7 +3,6 @@ import { KulData } from '../kul-data/kul-data';
 import { KulDates } from '../kul-dates/kul-dates';
 import { KulDatesLocales } from '../kul-dates/kul-dates-declarations';
 import { KulDebug } from '../kul-debug/kul-debug';
-import { KulDebugCategory } from '../kul-debug/kul-debug-declarations';
 import { KulDynamicPosition } from '../kul-dynamic-position/kul-dynamic-position';
 import { KulDynamicPositionElement } from '../kul-dynamic-position/kul-dynamic-position-declarations';
 import { KulLanguage } from '../kul-language/kul-language';
