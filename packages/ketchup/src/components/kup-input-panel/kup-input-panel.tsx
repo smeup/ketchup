@@ -120,7 +120,7 @@ export class KupInputPanel {
         string,
         (options: any, currentValue: string) => GenericObject[]
     >([
-        ['SmeupTree', this.#treeOptionsNodeAdapter.bind(this)],
+        ['SmeupTreeNode', this.#treeOptionsNodeAdapter.bind(this)],
         ['SmeupTable', this.#tableOptionsAdapter.bind(this)],
     ]);
 
