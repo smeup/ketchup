@@ -4,7 +4,6 @@ import {
     Event,
     EventEmitter,
     Host,
-    Listen,
     Method,
     Prop,
     State,
@@ -13,10 +12,16 @@ import {
     forceUpdate,
     h,
 } from '@stencil/core';
-import { KupAutocompleteEventPayload, KupDataCell } from '../../components';
+import {
+    KupAutocompleteEventPayload,
+    KupComboboxIconClickEventPayload,
+    KupDataCell,
+} from '../../components';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import {
+    FCellEventPayload,
+    FCellEvents,
     FCellProps,
     FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -125,6 +130,15 @@ export class KupInputPanel {
     ]);
 
     #originalData: KupInputPanelData = null;
+
+    #eventNames = new Map<FCellTypes, string[]>([
+        [
+            FCellTypes.AUTOCOMPLETE,
+            ['kup-autocomplete-input', 'kup-autocomplete-iconclick'],
+        ],
+        [FCellTypes.COMBOBOX, ['kup-combobox-iconclick']],
+    ]);
+    #listeners: { event: string; handler: (e) => void }[] = [];
     //#endregion
 
     //#region WATCHERS
@@ -134,9 +148,15 @@ export class KupInputPanel {
 
     @Watch('data')
     onDataChanged() {
-        if (!this.#originalData) {
-            this.#originalData = structuredClone(this.data);
+        this.#originalData = structuredClone(this.data);
+
+        if (this.#listeners.length) {
+            this.#listeners.map(({ event, handler }) => {
+                this.rootElement.removeEventListener(event, handler);
+            });
+            this.#listeners = [];
         }
+
         this.#mapCells(this.data);
     }
     //#endregion
@@ -450,7 +470,7 @@ export class KupInputPanel {
         const adapter = dataAdapterMap.get(cellType);
 
         return adapter
-            ? adapter(options, fieldLabel, currentValue, cell.fun)
+            ? adapter(options, fieldLabel, currentValue, cell, col.name)
             : null;
     }
 
@@ -523,7 +543,8 @@ export class KupInputPanel {
         rawOptions: GenericObject,
         fieldLabel: string,
         currentValue: string,
-        fun: string
+        cell: KupInputPanelCell,
+        id: string
     ) {
         const configCMandACP = {
             data: {
@@ -537,20 +558,40 @@ export class KupInputPanel {
                     data: [],
                 },
             },
+            initialValue: currentValue,
             label: fieldLabel,
         };
 
-        const options = fun ? this.optionsHandler(fun) : rawOptions;
+        if (cell.fun) {
+            const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
-        if (options instanceof Promise) {
-            options.then(
-                (data) =>
-                    (configCMandACP.data['kup-list'].data =
-                        this.#optionsTreeComboAdapter(data, currentValue) ?? [])
-            );
-        } else if (options) {
+            const evNames = this.#eventNames.get(cellType);
+
+            if (!evNames) {
+                return;
+            }
+
+            evNames.map((evName) => {
+                const handler = (
+                    e: CustomEvent<KupAutocompleteEventPayload>
+                ) => {
+                    this.#getAutocompleteEventCallback(
+                        e.detail,
+                        cell.fun,
+                        configCMandACP,
+                        id,
+                        currentValue
+                    );
+                };
+                this.rootElement.addEventListener(evName, handler);
+                this.#listeners.push({
+                    event: evName,
+                    handler,
+                });
+            });
+        } else if (rawOptions) {
             configCMandACP.data['kup-list'].data =
-                this.#optionsTreeComboAdapter(options, currentValue);
+                this.#optionsTreeComboAdapter(rawOptions, currentValue);
         }
 
         return configCMandACP;
@@ -646,6 +687,30 @@ export class KupInputPanel {
             .flat();
     }
 
+    #getAutocompleteEventCallback(
+        detail: KupAutocompleteEventPayload | KupComboboxIconClickEventPayload,
+        fun: string,
+        data: any,
+        id: string,
+        currentValue: string
+    ) {
+        if (
+            detail.id !== id ||
+            (detail as KupComboboxIconClickEventPayload).open === false
+        ) {
+            return;
+        }
+        this.optionsHandler(
+            fun,
+            detail.inputValue,
+            this.#reverseMapCells()
+        ).then((options) => {
+            data.data['kup-list'].data =
+                this.#optionsTreeComboAdapter(options, currentValue) ?? [];
+            detail.comp.refresh();
+        });
+    }
+
     //#endregion
 
     //#region LIFECYCLE HOOKS
@@ -663,24 +728,6 @@ export class KupInputPanel {
     componentDidLoad() {
         this.kupReady.emit({ comp: this, id: this.rootElement.id });
         this.#kupManager.debug.logLoad(this, true);
-
-        // this.handleEventsCallbacks.map((cbData) => {
-        //     this.rootElement.addEventListener(cbData.eventName, (e: any) => {
-        //         const inputPanelEvent: InputPanelEvent = {
-        //             state: this.inputPanelCells.find((data) =>
-        //                 data.cells.find(
-        //                     (cell) => cell.column.name === e.detail.id
-        //                 )
-        //             ).cells,
-        //             data: {
-        //                 field: e.detail.id,
-        //                 value: e.detail.inputValue || e.detail.value,
-        //             },
-        //         };
-
-        //         cbData.eventCallback(inputPanelEvent);
-        //     });
-        // });
     }
 
     componentWillRender() {
