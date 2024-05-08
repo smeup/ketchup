@@ -26,6 +26,7 @@
     overflow: auto;
     padding: var(--kup_input_panel_padding);
     position: relative;
+    gap: 2rem;
 
     &--column {
       flex-direction: column;
@@ -33,6 +34,13 @@
 
     &__section {
       display: grid;
+
+      .f-cell__content {
+        >* {
+          width: 100%;
+        }
+      }
+
     }
 
     &__horizontal-section {
@@ -42,6 +50,17 @@
     .f-cell .f-checkbox .checkbox .checkbox__native-control {
       height: 40px;
       width: 40px;
+    }
+
+    &__label_container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      >.f-cell {
+        flex: 1;
+      }
+
     }
 
 
