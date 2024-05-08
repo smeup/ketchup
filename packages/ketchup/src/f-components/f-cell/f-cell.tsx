@@ -628,6 +628,13 @@ function setCell(
         case FCellTypes.EDITOR:
             return <div innerHTML={cell.value}></div>;
         case FCellTypes.ICON:
+            if (isAutoCentered(props)) {
+                classObj[FCellClasses.C_CENTERED] = true;
+            }
+            if ((subcomponentProps as FImageProps).badgeData) {
+                classObj[FCellClasses.C_PADDED] = true;
+            }
+            return <FImage {...subcomponentProps} />;
         case FCellTypes.IMAGE:
             const hasExternalResource =
                 props.cell.value.indexOf('.') > -1 ||
