@@ -1,4 +1,25 @@
 /*-------------------------------------------------*/
+/*                   Custom CSS                    */
+/*-------------------------------------------------*/
+
+:root {
+  --kup-layer-0: var(--kup-gray-color-0);
+  --kup-layer-1: var(--kup-gray-color-10);
+  --kup-layer-2: var(--kup-gray-color-20);
+  --kup-layer-3: var(--kup-gray-color-30);
+  --kup-icon-layer: var(--kup-gray-color-70);
+  --kup-imagelist-item-background-color : var(--kup-gray-color-10);
+}
+
+:root[kup-theme='ocean'] {
+  --kup-icon-layer: var(--kup-primary-color-70);
+}
+
+:root[kup-theme='ketchup'] {
+  --kup-icon-layer: red;
+}
+
+/*-------------------------------------------------*/
 /*                   E d i t o r                   */
 /*-------------------------------------------------*/
 
