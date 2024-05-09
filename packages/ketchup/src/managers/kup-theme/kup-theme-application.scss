@@ -2,15 +2,18 @@
 /*                   Custom CSS                    */
 /*-------------------------------------------------*/
 
+// Livello di profondità 0
 :root {
   --kup-layer-0: var(--kup-gray-color-0);
   --kup-layer-1: var(--kup-gray-color-10);
   --kup-layer-2: var(--kup-gray-color-20);
   --kup-layer-3: var(--kup-gray-color-30);
   --kup-icon-layer: var(--kup-gray-color-70);
+  // Livello di profondità 1
   --kup-imagelist-item-background-color : var(--kup-gray-color-10);
 }
 
+ // Livello di profondità 2
 :root[kup-theme='ocean'] {
   --kup-icon-layer: var(--kup-primary-color-70);
 }
