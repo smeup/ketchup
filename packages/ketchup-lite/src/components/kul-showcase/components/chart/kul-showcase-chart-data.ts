@@ -156,6 +156,13 @@ const kulData: KulDataDataset = {
 };
 
 export const CHART_EXAMPLES: ChartData = {
+    area: {
+        ['data-description']: 'Area',
+        kulAxis: 'Axis',
+        kulData,
+        kulSizeY: '300px',
+        kulTypes: ['area'],
+    },
     bar: {
         ['data-description']: 'Bar',
         kulAxis: 'Axis',
@@ -176,6 +183,13 @@ export const CHART_EXAMPLES: ChartData = {
         kulData,
         kulSizeY: '300px',
         kulTypes: ['pie'],
+    },
+    scatter: {
+        ['data-description']: 'Scatter',
+        kulAxis: 'Axis',
+        kulData,
+        kulSizeY: '300px',
+        kulTypes: ['scatter'],
     },
     style: {
         ['data-description']: 'Bar',
