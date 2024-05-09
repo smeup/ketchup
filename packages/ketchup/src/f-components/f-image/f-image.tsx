@@ -74,7 +74,9 @@ function createIcon(props: FImageProps): HTMLDivElement {
         'f-image__icon': true,
     };
     const style: GenericObject = {
-        background: props.color ? props.color : `var(--kup-gray-color-70)`,
+        background: props.color
+            ? props.color
+            : `var(--kup-icon-layer, var(--kup-gray-color-70))`,
     };
     if (props.resource.indexOf('--kup') > -1) {
         let themeIcon: string = props.resource.replace('--', '');
