@@ -42,6 +42,12 @@ export class KupPdf {
      */
     @Prop() pdfPath: string;
 
+    /**
+     * Credentials sending along with request
+     * @default true
+     */
+    @Prop() sendCredentials: boolean;
+
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -135,7 +141,7 @@ export class KupPdf {
         try {
             const loadingPdfTask = pdfjsLib.getDocument({
                 url: this.pdfPath,
-                withCredentials: true,
+                withCredentials: this.sendCredentials,
             });
             const pdf = await loadingPdfTask.promise;
             const pdfContainer = this.wrapperRef;
