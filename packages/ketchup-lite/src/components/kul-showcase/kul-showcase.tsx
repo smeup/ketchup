@@ -254,6 +254,8 @@ export class KulShowcase {
                 return <kul-showcase-code></kul-showcase-code>;
             case 'Image':
                 return <kul-showcase-image></kul-showcase-image>;
+            case 'Lazy':
+                return <kul-showcase-lazy></kul-showcase-lazy>;
             case 'Photoframe':
                 return <kul-showcase-photoframe></kul-showcase-photoframe>;
             case 'Splash':

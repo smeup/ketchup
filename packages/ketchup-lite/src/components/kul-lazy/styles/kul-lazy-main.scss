@@ -1,0 +1,79 @@
+:host {
+  /**
+ * @prop --kul-lazy-animation-time: Sets the duration of the animation.
+ * Defaults to 2s.
+ */
+  --kul_lazy_animation_time: var(--kul-lazy-animation-time, 2s);
+  /**
+  * @prop --kul-lazy-height: Sets the height of the component and subcomponent.
+  * Defaults to 100%.
+  */
+  --kul_lazy_height: var(--kul-lazy-height, 100%);
+  /**
+  * @prop --kul-lazy-hor-alignment: Sets the horizontal alignment of the subcomponent.
+  * Defaults to center.
+  */
+  --kul_lazy_hor_alignment: var(--kul-lazy-hor-alignment, center);
+  /**
+  * @prop --kul-lazy-placeholder-color: Sets color of the placeholder icon.
+  * Defaults to var(--kul-icon-color).
+  */
+  --kul_lazy_placeholder_color: var(
+    --kul-lazy-placeholder-color,
+    var(--kul-icon-color)
+  );
+  /**
+  * @prop --kul-lazy-ver-alignment: Sets the vertical alignment of the subcomponent.
+  * Defaults to center.
+  */
+  --kul_lazy_ver_alignment: var(--kul-lazy-ver-alignment, center);
+  /**
+  * @prop --kul-lazy-width: Sets the width of the component and subcomponent.
+  * Defaults to 100%.
+  */
+  --kul_lazy_width: var(--kul-lazy-width, 100%);
+
+  display: block;
+  height: var(--kul_lazy_height);
+  width: var(--kul_lazy_width);
+  position: relative;
+}
+
+#kul-component {
+  align-items: var(--kul_lazy_ver_alignment);
+  display: flex;
+  justify-content: var(--kul_lazy_hor_alignment);
+  height: var(--kul_lazy_height);
+  width: var(--kul_lazy_width);
+
+  > * {
+    height: var(--kul_lazy_height);
+  }
+
+  kul-data-table {
+    min-width: 100%;
+  }
+}
+
+.kul-loaded,
+.kul-to-be-loaded {
+  height: var(--kul_lazy_height);
+  width: var(--kul_lazy_width);
+}
+
+svg {
+  fill: var(--kul_lazy_placeholder_color);
+  animation: shine ease var(--kul_lazy_animation_time) infinite;
+}
+
+@keyframes shine {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}

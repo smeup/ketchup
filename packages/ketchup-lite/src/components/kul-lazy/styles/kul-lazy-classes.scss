@@ -1,0 +1,32 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/* $kul-class-bottom-aligned                       */
+/* $kul-class-left-aligned                         */
+/* $kul-class-right-aligned                        */
+/* $kul-class-top-aligned                          */
+/*-------------------------------------------------*/
+
+:host(.#{$kul-class-bottom-aligned}) {
+  --kul-lazy-ver-alignment: flex-end;
+}
+
+:host(.#{$kul-class-left-aligned}) {
+  --kul-lazy-hor-alignment: flex-start;
+}
+
+:host(.#{$kul-class-right-aligned}) {
+  --kul-lazy-hor-alignment: flex-end;
+}
+
+:host(.#{$kul-class-top-aligned}) {
+  --kul-lazy-ver-alignment: flex-start;
+}
+
+:host(.kul-to-be-loaded) {
+  #kul-component {
+    position: absolute;
+    & > * {
+      margin: auto;
+    }
+  }
+}

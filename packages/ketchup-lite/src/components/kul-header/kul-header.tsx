@@ -139,7 +139,7 @@ export class KulHeader {
                 <div id={KUL_WRAPPER_ID}>
                     <header class="header">
                         <section class="header__section">
-                            <slot></slot>
+                            <slot name="content"></slot>
                         </section>
                     </header>
                 </div>
