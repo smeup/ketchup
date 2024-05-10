@@ -1361,7 +1361,7 @@ export class KupBox {
                 style={rowStyle}
                 ref={(el: HTMLElement) => {
                     if (el) {
-                        this.rowsaRefs.push(el);
+                        this.#rowsRefs.push(el);
                     }
                 }}
             >
