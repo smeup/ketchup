@@ -266,6 +266,8 @@ export class KulShowcase {
                 return <kul-showcase-tabbar></kul-showcase-tabbar>;
             case 'Toast':
                 return <kul-showcase-toast></kul-showcase-toast>;
+            case 'Tree':
+                return <kul-showcase-tree></kul-showcase-tree>;
             case 'Upload':
                 return <kul-showcase-upload></kul-showcase-upload>;
         }

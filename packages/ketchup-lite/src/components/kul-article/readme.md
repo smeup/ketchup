@@ -94,6 +94,7 @@ Type: `Promise<void>`
  - [kul-showcase-splash](../kul-showcase/components/splash)
  - [kul-showcase-tabbar](../kul-showcase/components/tabbar)
  - [kul-showcase-toast](../kul-showcase/components/toast)
+ - [kul-showcase-tree](../kul-showcase/components/tree)
  - [kul-showcase-upload](../kul-showcase/components/upload)
 
 ### Graph
@@ -115,6 +116,7 @@ graph TD;
   kul-showcase-splash --> kul-article
   kul-showcase-tabbar --> kul-article
   kul-showcase-toast --> kul-article
+  kul-showcase-tree --> kul-article
   kul-showcase-upload --> kul-article
   style kul-article fill:#f9f,stroke:#333,stroke-width:4px
 ```

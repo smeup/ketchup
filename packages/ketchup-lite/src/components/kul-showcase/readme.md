@@ -86,6 +86,7 @@ Type: `Promise<void>`
 - [kul-showcase-spinner](./components/spinner)
 - [kul-showcase-tabbar](./components/tabbar)
 - [kul-showcase-toast](./components/toast)
+- [kul-showcase-tree](./components/tree)
 - [kul-showcase-upload](./components/upload)
 - [kul-showcase-kulmanager](./framework/manager)
 - [kul-showcase-drawer](./layout/drawer)
@@ -111,6 +112,7 @@ graph TD;
   kul-showcase --> kul-showcase-spinner
   kul-showcase --> kul-showcase-tabbar
   kul-showcase --> kul-showcase-toast
+  kul-showcase --> kul-showcase-tree
   kul-showcase --> kul-showcase-upload
   kul-showcase --> kul-showcase-kulmanager
   kul-showcase --> kul-showcase-drawer
@@ -155,6 +157,8 @@ graph TD;
   kul-showcase-toast --> kul-toast
   kul-showcase-toast --> kul-article
   kul-toast --> kul-image
+  kul-showcase-tree --> kul-tree
+  kul-showcase-tree --> kul-article
   kul-showcase-upload --> kul-upload
   kul-showcase-upload --> kul-article
   kul-upload --> kul-image

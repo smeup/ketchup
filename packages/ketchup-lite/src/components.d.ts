@@ -13,7 +13,7 @@ import { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./compo
 import { KulDataDataset, KulDataNode, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 import { KulChartEventPayload, KulChartLegendPlacement, KulChartType } from "./components/kul-chart/kul-chart-declarations";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
-import { KulArticleDataset as KulArticleDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
+import { KulArticleDataset as KulArticleDataset1, KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 import { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
 import { KulPhotoframeEventPayload } from "./components/kul-photo-frame/kul-photoframe-declarations";
@@ -27,7 +27,7 @@ export { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./compo
 export { KulDataDataset, KulDataNode, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 export { KulChartEventPayload, KulChartLegendPlacement, KulChartType } from "./components/kul-chart/kul-chart-declarations";
 export { XAXisComponentOption, YAXisComponentOption } from "echarts";
-export { KulArticleDataset as KulArticleDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
+export { KulArticleDataset as KulArticleDataset1, KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 export { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
 export { KulPhotoframeEventPayload } from "./components/kul-photo-frame/kul-photoframe-declarations";
@@ -595,6 +595,8 @@ export namespace Components {
     }
     interface KulShowcaseToast {
     }
+    interface KulShowcaseTree {
+    }
     interface KulShowcaseUpload {
     }
     interface KulSpinner {
@@ -781,6 +783,33 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
     }
+    interface KulTree {
+        /**
+          * Retrieves the debug information reflecting the current state of the component.
+          * @returns A promise that resolves to a KulDebugComponentInfo object containing debug information.
+         */
+        "getDebugInfo": () => Promise<KulDebugComponentInfo>;
+        /**
+          * Retrieves the properties of the component, with optional descriptions.
+          * @param descriptions - If true, returns properties with descriptions; otherwise, returns properties only.
+          * @returns A promise that resolves to an object where each key is a property name, optionally with its description.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * The actual data of the tree.
+          * @default null
+         */
+        "kulData": KulDataDataset1;
+        /**
+          * Enables customization of the component's style.
+          * @default "" - No custom style applied by default.
+         */
+        "kulStyle": string;
+        /**
+          * Triggers a re-render of the component to reflect any state changes.
+         */
+        "refresh": () => Promise<void>;
+    }
     interface KulUpload {
         /**
           * Retrieves the debug information reflecting the current state of the component.
@@ -886,6 +915,10 @@ export interface KulTabbarCustomEvent<T> extends CustomEvent<T> {
 export interface KulToastCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulToastElement;
+}
+export interface KulTreeCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKulTreeElement;
 }
 export interface KulUploadCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1204,6 +1237,12 @@ declare global {
         prototype: HTMLKulShowcaseToastElement;
         new (): HTMLKulShowcaseToastElement;
     };
+    interface HTMLKulShowcaseTreeElement extends Components.KulShowcaseTree, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseTreeElement: {
+        prototype: HTMLKulShowcaseTreeElement;
+        new (): HTMLKulShowcaseTreeElement;
+    };
     interface HTMLKulShowcaseUploadElement extends Components.KulShowcaseUpload, HTMLStencilElement {
     }
     var HTMLKulShowcaseUploadElement: {
@@ -1278,6 +1317,23 @@ declare global {
         prototype: HTMLKulToastElement;
         new (): HTMLKulToastElement;
     };
+    interface HTMLKulTreeElementEventMap {
+        "kul-tree-event": KulEventPayload;
+    }
+    interface HTMLKulTreeElement extends Components.KulTree, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulTreeElementEventMap>(type: K, listener: (this: HTMLKulTreeElement, ev: KulTreeCustomEvent<HTMLKulTreeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulTreeElementEventMap>(type: K, listener: (this: HTMLKulTreeElement, ev: KulTreeCustomEvent<HTMLKulTreeElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKulTreeElement: {
+        prototype: HTMLKulTreeElement;
+        new (): HTMLKulTreeElement;
+    };
     interface HTMLKulUploadElementEventMap {
         "kul-upload-event": KulUploadEventPayload;
     }
@@ -1326,11 +1382,13 @@ declare global {
         "kul-showcase-splash": HTMLKulShowcaseSplashElement;
         "kul-showcase-tabbar": HTMLKulShowcaseTabbarElement;
         "kul-showcase-toast": HTMLKulShowcaseToastElement;
+        "kul-showcase-tree": HTMLKulShowcaseTreeElement;
         "kul-showcase-upload": HTMLKulShowcaseUploadElement;
         "kul-spinner": HTMLKulSpinnerElement;
         "kul-splash": HTMLKulSplashElement;
         "kul-tabbar": HTMLKulTabbarElement;
         "kul-toast": HTMLKulToastElement;
+        "kul-tree": HTMLKulTreeElement;
         "kul-upload": HTMLKulUploadElement;
     }
 }
@@ -1719,6 +1777,8 @@ declare namespace LocalJSX {
     }
     interface KulShowcaseToast {
     }
+    interface KulShowcaseTree {
+    }
     interface KulShowcaseUpload {
     }
     interface KulSpinner {
@@ -1842,6 +1902,22 @@ declare namespace LocalJSX {
          */
         "onKul-toast-event"?: (event: KulToastCustomEvent<KulEventPayload>) => void;
     }
+    interface KulTree {
+        /**
+          * The actual data of the tree.
+          * @default null
+         */
+        "kulData"?: KulDataDataset1;
+        /**
+          * Enables customization of the component's style.
+          * @default "" - No custom style applied by default.
+         */
+        "kulStyle"?: string;
+        /**
+          * Describes event emitted.
+         */
+        "onKul-tree-event"?: (event: KulTreeCustomEvent<KulEventPayload>) => void;
+    }
     interface KulUpload {
         /**
           * Sets the button's label.
@@ -1899,11 +1975,13 @@ declare namespace LocalJSX {
         "kul-showcase-splash": KulShowcaseSplash;
         "kul-showcase-tabbar": KulShowcaseTabbar;
         "kul-showcase-toast": KulShowcaseToast;
+        "kul-showcase-tree": KulShowcaseTree;
         "kul-showcase-upload": KulShowcaseUpload;
         "kul-spinner": KulSpinner;
         "kul-splash": KulSplash;
         "kul-tabbar": KulTabbar;
         "kul-toast": KulToast;
+        "kul-tree": KulTree;
         "kul-upload": KulUpload;
     }
 }
@@ -1941,11 +2019,13 @@ declare module "@stencil/core" {
             "kul-showcase-splash": LocalJSX.KulShowcaseSplash & JSXBase.HTMLAttributes<HTMLKulShowcaseSplashElement>;
             "kul-showcase-tabbar": LocalJSX.KulShowcaseTabbar & JSXBase.HTMLAttributes<HTMLKulShowcaseTabbarElement>;
             "kul-showcase-toast": LocalJSX.KulShowcaseToast & JSXBase.HTMLAttributes<HTMLKulShowcaseToastElement>;
+            "kul-showcase-tree": LocalJSX.KulShowcaseTree & JSXBase.HTMLAttributes<HTMLKulShowcaseTreeElement>;
             "kul-showcase-upload": LocalJSX.KulShowcaseUpload & JSXBase.HTMLAttributes<HTMLKulShowcaseUploadElement>;
             "kul-spinner": LocalJSX.KulSpinner & JSXBase.HTMLAttributes<HTMLKulSpinnerElement>;
             "kul-splash": LocalJSX.KulSplash & JSXBase.HTMLAttributes<HTMLKulSplashElement>;
             "kul-tabbar": LocalJSX.KulTabbar & JSXBase.HTMLAttributes<HTMLKulTabbarElement>;
             "kul-toast": LocalJSX.KulToast & JSXBase.HTMLAttributes<HTMLKulToastElement>;
+            "kul-tree": LocalJSX.KulTree & JSXBase.HTMLAttributes<HTMLKulTreeElement>;
             "kul-upload": LocalJSX.KulUpload & JSXBase.HTMLAttributes<HTMLKulUploadElement>;
         }
     }

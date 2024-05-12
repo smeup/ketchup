@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.node {
+  height: 2em;
+
+  &__content {
+    align-items: center;
+    display: flex;
+    height: 100%;
+  }
+
+  &__icon {
+    margin: 0;
+  }
+
+  &__padding {
+    height: 100%;
+    width: calc(1.75em * var(--kul_tree_padding_multiplier));
+  }
+
+  &__value {
+    margin: 0 0 0 0.5em;
+  }
+}

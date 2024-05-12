@@ -122,6 +122,12 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
             value: 'Toast',
         },
         {
+            description: 'A component that renders a tree.',
+            icon: 'file-tree',
+            id: 'Tree',
+            value: 'Tree',
+        },
+        {
             description: 'A simple component useful to upload files.',
             icon: 'upload',
             id: 'Upload',
