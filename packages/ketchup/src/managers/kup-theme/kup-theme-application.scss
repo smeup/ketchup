@@ -1,33 +1,32 @@
-:root {
-  --kup-layer-0: var(--kup-gray-color-0);
-  --kup-layer-1: var(--kup-gray-color-10);
-  --kup-layer-2: var(--kup-gray-color-20);
-  --kup-layer-3: var(--kup-gray-color-30);
-}
-
 /*-------------------------------------------------*/
 /*                   Custom CSS                    */
 /*-------------------------------------------------*/
 
-// Livello di profondità 0
 :root {
+  // KUP-TOKEN LAYER //
+
+  --kup-background-0: var(--kup-gray-color-0);
+  --kup-background-brand: var(--kup-primary-color-60);
   --kup-layer-0: var(--kup-gray-color-0);
+  --kup-layer-0-selected: var(--kup-gray-color-10);
   --kup-layer-1: var(--kup-gray-color-10);
+  --kup-layer-1-selected: var(--kup-gray-color-20);
   --kup-layer-2: var(--kup-gray-color-20);
-  --kup-layer-3: var(--kup-gray-color-30);
+  --kup-layer-2-selected: var(--kup-gray-color-30);
+  --kup-border-subtle: var(--kup-gray-color-20);
+  --kup-border-subtle-selected: var(--kup-gray-color-30);
+  --kup-border-strong: var(--kup-gray-color-50);
+  --kup-text-primary: var(--kup-gray-color-90);
+  --kup-text-secondary: var(--kup-gray-color-70);
+  --kup-text-placeholder: var(--kup-gray-color-40);
+
+  // KUP ICON LAYER //
   --kup-icon-layer: var(--kup-gray-color-70);
-  // Livello di profondità 1
-  --kup-imagelist-item-background-color : var(--kup-gray-color-10);
 }
 
- // Livello di profondità 2
-:root[kup-theme='ocean'] {
-  --kup-icon-layer: var(--kup-primary-color-70);
-}
-
-:root[kup-theme='ketchup'] {
-  --kup-icon-layer: red;
-}
+// :root[kup-theme='ocean'] {
+//   --kup-icon-layer: var(--kup-primary-color-70);
+// }
 
 /*-------------------------------------------------*/
 /*                   E d i t o r                   */
