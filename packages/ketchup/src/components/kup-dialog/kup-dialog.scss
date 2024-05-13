@@ -4,7 +4,7 @@
 
 :host {
   --kup_dialogheader_text_color: var(
-    --kup-dialogheader-text-color,
+    --kup-text-secondary,
     var(--kup-gray-color-70)
   );
   --kup_dialog_background_color: var(--kup-layer-0, var(--kup-gray-color-0));
@@ -43,7 +43,7 @@
   position: relative;
   width: 100%;
   min-height: 50px;
-  background-color: var(--kup-gray-color-20);
+  background-color: var(--kup-layer-2, var(--kup-gray-color-20));
 
   &__title {
     padding: var(--kup-space-05);
