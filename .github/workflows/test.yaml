@@ -17,10 +17,10 @@ jobs:
               pwd
               cd packages/ketchup
               pwd
-              node scripts/k-npm-snapshot
+              node scripts/k-npm-snapshot.js
               cd ../ketchup-react
               pwd
-              node scripts/kr-npm-snapshot
+              node scripts/kr-npm-snapshot.js
               cd ../..
               pwd
               npm install yarn --global

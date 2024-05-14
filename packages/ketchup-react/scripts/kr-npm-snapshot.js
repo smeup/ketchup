@@ -21,7 +21,7 @@ function getCurrentVersion() {
 
 const oldVersion = getCurrentVersion() ?? error("No version in package.json found.");
 const version = oldVersion.replace(/-SNAPSHOT$/, `-SNAPSHOT.${new Date().toISOString().replace(/[-:TZ]/g, "")}`);
-console.log("Kecthup react version:",version);
+console.log("Ketchup version:",version);
 const npm = spawn(/^win/.test(process.platform) ? "npm.cmd" : "npm", [
   "--no-git-tag-version",
   "version",
