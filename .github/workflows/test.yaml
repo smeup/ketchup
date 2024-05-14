@@ -23,7 +23,7 @@ jobs:
               node scripts/kr-npm-snapshot.js
               cd ../..
               pwd
-              npm install yarn --global
+              npm install yarn
               yarn cache clean --all
               yarn install
               npm run k:build
