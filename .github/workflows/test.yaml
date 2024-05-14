@@ -27,7 +27,7 @@ jobs:
               node -v
               yarn -v
               yarn cache clean --all
-              yarn install --frozen-lockfile
+              yarn install --immutable
               npm run k:build
           # - run: npm run publish:snapshot
           #   env:
