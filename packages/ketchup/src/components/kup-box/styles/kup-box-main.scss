@@ -10,15 +10,12 @@
 */
 
 :host {
-  --kup_box_background_color: var(
-    --kup-box-background-color,
-    var(--kup-gray-color-10)
-  );
+  --kup_box_background_color: var(--kup-layer-1, var(--kup-gray-color-10));
   --kup_box_background_color_hover: var(
     --kup-box-background-color-hover,
     var(--kup-gray-color-20)
   );
-  --kup_box_text_color: var(--kup-box-text-color, var(--kup-gray-color-70));
+  --kup_box_text_color: var(--kup-text-secondary, var(--kup-gray-color-70));
   --kup_box_grid_gap: var(--kup-box-grid-gap, var(--kup-space-03));
   --kup_box_transition: var(--kup-box-transition, 0.25s);
   display: block;
