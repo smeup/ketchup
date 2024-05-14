@@ -24,6 +24,8 @@ jobs:
               cd ../..
               pwd
               npm install yarn
+              node -v
+              yarn -v
               yarn cache clean --all
               yarn install
               npm run k:build
