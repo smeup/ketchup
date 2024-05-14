@@ -7,7 +7,7 @@ import fs from "fs";
 function getPkg() {
   try {
     return JSON.parse(
-      fs.readFileSync(path.resolve(process.cwd()+"/packages/ketchup", "package.json"))
+      fs.readFileSync(path.resolve(process.cwd(), "package.json"))
     );
   } catch (e) {
     process.stderr.write("Could not open a package.json.", e);
