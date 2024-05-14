@@ -14,8 +14,15 @@ jobs:
               node-version: '20.x'
               registry-url: 'https://registry.npmjs.org'
           - run:  |
+              pwd
+              cd packages/ketchup
+              pwd
               node scripts/k-npm-snapshot
+              cd ../ketchup-react
+              pwd
               node scripts/kr-npm-snapshot
+              cd ../..
+              pwd
               npm install yarn --global
               yarn install
               npm run k:build
