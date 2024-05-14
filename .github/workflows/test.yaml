@@ -24,6 +24,7 @@ jobs:
               cd ../..
               pwd
               npm install yarn --global
+              yarn cache clean --all
               yarn install
               npm run k:build
           # - run: npm run publish:snapshot
