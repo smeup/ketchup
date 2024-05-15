@@ -1,12 +1,16 @@
 import type { KupBadge } from '../../components/kup-badge/kup-badge';
 import { FImageProps, FImageData, FImageShape } from './f-image-declarations';
 import { FunctionalComponent, getAssetPath, h, JSX } from '@stencil/core';
-import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { GenericObject } from '../../types/GenericTypes';
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
 /*-------------------------------------------------*/
+
+let img: HTMLImageElement;
+let placeholder: HTMLDivElement;
+
+const HIDDEN_CLASS = 'f-image__hidden';
 
 export const FImage: FunctionalComponent<FImageProps> = (
     props: FImageProps
@@ -33,7 +37,7 @@ export const FImage: FunctionalComponent<FImageProps> = (
                 '--kup_image_height': props.sizeY ? props.sizeY : '100%',
                 '--kup_image_width': props.sizeX ? props.sizeX : '100%',
             };
-            el = createIcon(props);
+            el = createIcon(props.resource, props.color);
         }
     } else if (props.data) {
         style = {
@@ -59,6 +63,13 @@ export const FImage: FunctionalComponent<FImageProps> = (
             title={props.title}
             onClick={props.onClick}
         >
+            {props.placeholderResource
+                ? createIcon(
+                      props.placeholderResource,
+                      props.color,
+                      'f-image__placeholder'
+                  )
+                : undefined}
             {el}
             {...badgeCollection}
         </div>
@@ -69,27 +80,56 @@ export const FImage: FunctionalComponent<FImageProps> = (
 /*                  M e t h o d s                  */
 /*-------------------------------------------------*/
 
-function createIcon(props: FImageProps): HTMLDivElement {
+function createIcon(
+    icon: string,
+    color: string,
+    iconClass = 'f-image__icon'
+): HTMLDivElement {
     const classObj: GenericObject = {
-        'f-image__icon': true,
+        [iconClass]: true,
     };
     const style: GenericObject = {
-        background: props.color ? props.color : `var(--kup-gray-color-70)`,
+        background: color ? color : `var(--kup-gray-color-70)`,
     };
-    if (props.resource.indexOf('--kup') > -1) {
-        let themeIcon: string = props.resource.replace('--', '');
+    if (icon.indexOf('--kup') > -1) {
+        let themeIcon: string = icon.replace('--', '');
         classObj['kup-icon'] = true;
         classObj[themeIcon] = true;
     } else {
-        const path: string = getAssetPath(`./assets/svg/${props.resource}.svg`);
+        const path: string = getAssetPath(`./assets/svg/${icon}.svg`);
         style.mask = `url('${path}') no-repeat center`;
         style.webkitMask = `url('${path}') no-repeat center`;
     }
-    return <div class={classObj} style={style}></div>;
+    return (
+        <div
+            class={classObj}
+            ref={(el) => {
+                if (iconClass.indexOf('placeholder') > 1) {
+                    placeholder = el;
+                }
+            }}
+            style={style}
+        ></div>
+    );
 }
 
 function createImage(props: FImageProps): HTMLImageElement {
-    return <img onLoad={props.onLoad} src={props.resource}></img>;
+    return (
+        <img
+            class={props.placeholderResource ? HIDDEN_CLASS : ''}
+            onLoad={(e) => {
+                if (props.onLoad) {
+                    props.onLoad(e);
+                }
+                if (placeholder) {
+                    placeholder.classList.add(HIDDEN_CLASS);
+                    img.classList.remove(HIDDEN_CLASS);
+                }
+            }}
+            ref={(el) => (img = el)}
+            src={props.resource}
+        ></img>
+    );
 }
 
 function createBar(data: FImageData[]): HTMLDivElement {

@@ -7,6 +7,7 @@ export interface FImageProps extends FComponent {
     color?: string;
     data?: FImageData[];
     fit?: boolean;
+    placeholderResource?: string;
     resource?: string;
     sizeX?: string;
     sizeY?: string;
