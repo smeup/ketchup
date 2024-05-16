@@ -67,7 +67,7 @@ export const FImage: FunctionalComponent<FImageProps> = (
                 ? createIcon(
                       props.placeholderResource,
                       props.color,
-                      'f-image__placeholder'
+                      'f-image__placeholder ' + HIDDEN_CLASS
                   )
                 : undefined}
             {el}
@@ -124,6 +124,12 @@ function createImage(props: FImageProps): HTMLImageElement {
                 if (placeholder) {
                     placeholder.classList.add(HIDDEN_CLASS);
                     img.classList.remove(HIDDEN_CLASS);
+                }
+            }}
+            onError={() => {
+                if (placeholder) {
+                    placeholder.classList.remove(HIDDEN_CLASS);
+                    img.classList.add(HIDDEN_CLASS);
                 }
             }}
             ref={(el) => (img = el)}
