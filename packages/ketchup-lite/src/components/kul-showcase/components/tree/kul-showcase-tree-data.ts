@@ -86,7 +86,7 @@ export const TREE_DOC: KulArticleDataset = {
                                         },
                                         {
                                             id: '0.0.0.0.2',
-                                            value: ' component is a versatile and customizable web component designed to render tab bars based on a JSON structure. ',
+                                            value: ' component is a versatile and customizable web component designed to render a tree based on a JSON structure. ',
                                         },
                                     ],
                                     id: '0.0.0.0',
@@ -242,7 +242,7 @@ export const TREE_DOC: KulArticleDataset = {
                                         },
                                         {
                                             id: '0.2.0.0.4',
-                                            value: ' property with the JSON structure representing the tab bar.',
+                                            value: ' property with the JSON structure representing the tree.',
                                         },
                                     ],
                                     id: '0.2.0.0',
@@ -269,7 +269,7 @@ export const TREE_DOC: KulArticleDataset = {
                                                     shapeProps: {
                                                         kulLanguage: 'json',
                                                     },
-                                                    value: '{ "nodes": [{"value": "Tab 1", "id": "0"}, {"value": "Tab 2", "id": "1"}]}',
+                                                    value: '{ "nodes": [{"value": "Node 1", "id": "0"}, {"value": "Node 2", "id": "1"}]}',
                                                 },
                                             },
                                             id: '0.2.0.1.1',
@@ -299,7 +299,7 @@ export const TREE_DOC: KulArticleDataset = {
                                         {
                                             id: '0.3.0.0.1',
                                             tagName: 'strong',
-                                            value: 'KulTreeDataset',
+                                            value: 'Boolean',
                                         },
                                     ],
                                     id: '0.3.0.0',
@@ -309,25 +309,7 @@ export const TREE_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             id: '0.3.0.1.0',
-                                            value: 'The actual data of the tab bar. This property should be an object that matches the ',
-                                        },
-                                        {
-                                            id: '0.3.0.1.1',
-                                            tagName: 'strong',
-                                            value: 'KulTreeDataset',
-                                        },
-                                        {
-                                            id: '0.3.0.1.2',
-                                            value: ' interface, which includes a ',
-                                        },
-                                        {
-                                            id: '0.3.0.1.3',
-                                            tagName: 'strong',
-                                            value: 'nodes',
-                                        },
-                                        {
-                                            id: '0.3.0.1.4',
-                                            value: ' array representing the structure of the tab bar.',
+                                            value: 'Sets whether the first level of depth will create an accordion-style appearance for nodes.',
                                         },
                                     ],
                                     id: '0.3.0.1',
@@ -336,39 +318,7 @@ export const TREE_DOC: KulArticleDataset = {
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.3.0',
-                            value: 'kulData',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.4.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.4.0.1',
-                                            tagName: 'strong',
-                                            value: 'boolean',
-                                        },
-                                    ],
-                                    id: '0.3.4.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.4.1.0',
-                                            value: 'When set to true, the pointerdown event will trigger a ripple effect.',
-                                        },
-                                    ],
-                                    id: '0.3.4.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.4',
-                            value: 'kulRipple',
+                            value: 'kulAccordionLayout',
                         },
                         {
                             children: [
@@ -381,7 +331,7 @@ export const TREE_DOC: KulArticleDataset = {
                                         {
                                             id: '0.3.1.0.1',
                                             tagName: 'strong',
-                                            value: 'string',
+                                            value: 'KulDataDataset',
                                         },
                                     ],
                                     id: '0.3.1.0',
@@ -391,7 +341,25 @@ export const TREE_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             id: '0.3.1.1.0',
-                                            value: "Enables customization of the component's style. This property accepts a string of CSS styles that will be applied to the component.",
+                                            value: 'The actual data of the tree. This property should be an object that matches the ',
+                                        },
+                                        {
+                                            id: '0.3.1.1.1',
+                                            tagName: 'strong',
+                                            value: 'KulDataDataset',
+                                        },
+                                        {
+                                            id: '0.3.1.1.2',
+                                            value: ' interface, which includes a ',
+                                        },
+                                        {
+                                            id: '0.3.1.1.3',
+                                            tagName: 'strong',
+                                            value: 'nodes',
+                                        },
+                                        {
+                                            id: '0.3.1.1.4',
+                                            value: ' array representing the structure of the tree.',
                                         },
                                     ],
                                     id: '0.3.1.1',
@@ -400,7 +368,7 @@ export const TREE_DOC: KulArticleDataset = {
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.3.1',
-                            value: 'kulStyle',
+                            value: 'kulData',
                         },
                         {
                             children: [
@@ -413,7 +381,7 @@ export const TREE_DOC: KulArticleDataset = {
                                         {
                                             id: '0.3.2.0.1',
                                             tagName: 'strong',
-                                            value: 'number',
+                                            value: 'Number',
                                         },
                                     ],
                                     id: '0.3.2.0',
@@ -423,7 +391,7 @@ export const TREE_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             id: '0.3.2.1.0',
-                                            value: "Sets the initially selected node's index.",
+                                            value: 'Sets the initial expanded nodes based on the specified depth.',
                                         },
                                     ],
                                     id: '0.3.2.1',
@@ -432,7 +400,103 @@ export const TREE_DOC: KulArticleDataset = {
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.3.2',
-                            value: 'kulValue',
+                            value: 'kulInitialExpandedDepth',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.3.3.0.0',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.3.3.0.1',
+                                            tagName: 'strong',
+                                            value: 'Boolean',
+                                        },
+                                    ],
+                                    id: '0.3.3.0',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.3.3.1.0',
+                                            value: 'When set to true, the pointerdown event will trigger a ripple effect.',
+                                        },
+                                    ],
+                                    id: '0.3.3.1',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.3.3',
+                            value: 'kulRipple',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.3.4.0.0',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.3.4.0.1',
+                                            tagName: 'strong',
+                                            value: 'Boolean',
+                                        },
+                                    ],
+                                    id: '0.3.4.0',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.3.4.1.0',
+                                            value: 'When true, nodes can be selected.',
+                                        },
+                                    ],
+                                    id: '0.3.4.1',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.3.4',
+                            value: 'kulSelectable',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.3.5.0.0',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.3.5.0.1',
+                                            tagName: 'strong',
+                                            value: 'String',
+                                        },
+                                    ],
+                                    id: '0.3.5.0',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.3.5.1.0',
+                                            value: "Enables customization of the component's style.",
+                                        },
+                                    ],
+                                    id: '0.3.5.1',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.3.5',
+                            value: 'kulStyle',
                         },
                     ],
                     id: '0.3',
@@ -690,145 +754,183 @@ export const TREE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.9.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-tree-backdrop-filter',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.9.1',
-                                                    value: ': Sets the backdrop filter of tabs. Defaults to blur(3.5px).',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.9',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.10.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-tree-backdrop-filter-hover',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.10.1',
-                                                    value: ': Sets the backdrop filter of tabs when hovering. Defaults to blur(5px).',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.10',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.11.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-tree-font-size',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.11.1',
-                                                    value: ': Sets the font size of the tab bar. Defaults to the value of --kul-font-size.',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.11',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.12.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-tree-font-weight',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.12.1',
-                                                    value: ': Sets the font weight of the tab bar. Defaults to 500.',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.12',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.13.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-tree-height',
+                                                    value: '--kul-tree-accordion-background-color',
                                                 },
                                                 {
                                                     id: '0.7.1.0.13.1',
-                                                    value: ': Sets the height of the tab bar. Defaults to 36px.',
+                                                    value: ': Sets the background color for top-level nodes (data-depth="0") when kul-accordion-layout is applied. Defaults to #ffffff.',
                                                 },
                                             ],
                                             id: '0.7.1.0.13',
-                                            tagName: 'li',
                                             value: '',
                                         },
                                         {
                                             children: [
                                                 {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.14.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-tree-primary-color-rgb',
+                                                    value: '--kul-tree-accordion-border-radius',
                                                 },
                                                 {
                                                     id: '0.7.1.0.14.1',
-                                                    value: ': Sets the primary color of the tab bar in RGB format. Defaults to the value of --kul-primary-color-rgb.',
+                                                    value: ': Sets the border radius for top-level nodes (data-depth="0") when kul-accordion-layout is applied. Defaults to 4px.',
                                                 },
                                             ],
                                             id: '0.7.1.0.14',
-                                            tagName: 'li',
                                             value: '',
                                         },
                                         {
                                             children: [
                                                 {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.15.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-tree-primary-color',
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-accordion-color',
                                                 },
                                                 {
-                                                    id: '0.7.1.0.15.1',
-                                                    value: ': Sets the primary color of the tab bar. Defaults to the value of --kul-primary-color.',
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the text color for top-level nodes (data-depth="0") when kul-accordion-layout is applied. Defaults to #000000.',
                                                 },
                                             ],
-                                            id: '0.7.1.0.15',
-                                            tagName: 'li',
+                                            id: '0.7.1.0.13',
                                             value: '',
                                         },
                                         {
                                             children: [
                                                 {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.16.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-tree-tab-padding',
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-accordion-font-size',
                                                 },
                                                 {
-                                                    id: '0.7.1.0.16.1',
-                                                    value: ': Sets the padding of the tabs in the tab bar. Defaults to 0 24px.',
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the font size for top-level nodes (data-depth="0") when kul-accordion-layout is applied. Defaults to 1.125em.',
                                                 },
                                             ],
-                                            id: '0.7.1.0.16',
-                                            tagName: 'li',
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-accordion-hover-background-color',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the background color for top-level nodes (data-depth="0") on hover when kul-accordion-layout is applied. Defaults to var(--kul-primary-color).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-accordion-hover-color',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the text color for top-level nodes (data-depth="0") on hover when kul-accordion-layout is applied. Defaults to var(--kul-text-on-primary-color).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-accordion-node-height',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the height of top-level nodes (data-depth="0") when the tree has an accordion layout. Defaults to 4em.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-node-height',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the height for all nodes. Replaces the static value previously used. Defaults to 2em.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-backdrop-filter',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the backdrop filter of the tree. Defaults to blur(3.5px).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-node-background-color-hover',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the background color when hovering a node. Defaults to rgba(var(--kul-primary-color-rgb), 0.175).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-node-background-color-selected',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the background color of the selected node. Defaults to rgba(var(--kul-primary-color-rgb), 0.375).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-node-padding',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the padding of nodes. Defaults to 0 1em.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-padding',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the padding of the tree. Defaults to 0.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
                                             value: '',
                                         },
                                     ],
@@ -858,7 +960,7 @@ export const TREE_DOC: KulArticleDataset = {
                                 },
                                 {
                                     id: '0.8.0.2',
-                                    value: ' component is mostly used when there are multiple views, to easily switch between them.',
+                                    value: ' component is a powerful webcomponent that visually represents a tree-like structure in JSON format.',
                                 },
                             ],
                             id: '0.8.0',
