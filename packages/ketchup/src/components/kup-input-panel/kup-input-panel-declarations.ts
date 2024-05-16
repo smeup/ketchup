@@ -74,7 +74,8 @@ export type DataAdapterFn = (
     options: GenericObject,
     fieldLabel: string,
     currentValue: string,
-    fun?: string
+    cell?: KupInputPanelCell,
+    id?: string
 ) => Object;
 
 export type InputPanelCells = {
@@ -90,7 +91,11 @@ export type InputPanelEvent = {
     };
 };
 
-export type InputPanelOptionsHandler = (fun: string) => Promise<GenericObject>;
+export type InputPanelOptionsHandler = (
+    fun: string,
+    inputValue: string,
+    currentState: KupInputPanelData
+) => Promise<GenericObject>;
 
 export enum KupInputPanelProps {
     customStyle = 'Custom style of the component.',

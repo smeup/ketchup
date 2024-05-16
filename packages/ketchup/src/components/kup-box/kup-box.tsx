@@ -675,13 +675,17 @@ export class KupBox {
     }
 
     private checkScrollOnHover() {
-        if (!this.kupManager.scrollOnHover.isRegistered(this.boxContainer)) {
-            if (this.scrollOnHover) {
-                this.kupManager.scrollOnHover.register(this.boxContainer);
-            }
-        } else {
-            if (!this.scrollOnHover) {
-                this.kupManager.scrollOnHover.unregister(this.boxContainer);
+        if (this.boxContainer) {
+            if (
+                !this.kupManager.scrollOnHover.isRegistered(this.boxContainer)
+            ) {
+                if (this.scrollOnHover) {
+                    this.kupManager.scrollOnHover.register(this.boxContainer);
+                }
+            } else {
+                if (!this.scrollOnHover) {
+                    this.kupManager.scrollOnHover.unregister(this.boxContainer);
+                }
             }
         }
     }
@@ -1355,7 +1359,11 @@ export class KupBox {
             <div
                 class="box-wrapper"
                 style={rowStyle}
-                ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
+                ref={(el: HTMLElement) => {
+                    if (el) {
+                        this.#rowsRefs.push(el);
+                    }
+                }}
             >
                 <div
                     class={boxClass}
@@ -2006,6 +2014,7 @@ export class KupBox {
     }
 
     render() {
+        this.#rowsRefs = [];
         const isKanban: boolean = !!(
             typeof this.kanban === 'object' && this.kanban !== null
         );
