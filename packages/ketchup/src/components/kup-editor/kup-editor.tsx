@@ -24,6 +24,7 @@ import {
 import Editor, { EditorOptions } from '@toast-ui/editor';
 import {
     KupEditorEventPayload,
+    KupEditorSelectedTab,
     KupEditorPreview,
     KupEditorProps,
     KupEditorType,
@@ -104,6 +105,12 @@ export class KupEditor {
      * @default 'vertical'
      */
     @Prop() previewStyle: KupEditorPreview = 'vertical';
+
+    /**
+     * The markdown editor selected tab.
+     * @default 'write'
+     */
+    @Prop() selectedTab: KupEditorSelectedTab = 'write';
 
     /**
      * Defines whether to show the save button in editor's toolbar or not.
@@ -192,7 +199,16 @@ export class KupEditor {
         if (this.editor) {
             // to give focus to editor
             setTimeout(() => {
-                this.editor && this.editor.moveCursorToStart();
+                if (this.editor) {
+                    this.editor.moveCursorToStart();
+                    if (
+                        this.initialEditType === 'markdown' &&
+                        this.previewStyle === 'tab' &&
+                        this.selectedTab === 'preview'
+                    ) {
+                        this.updateMarkDownPreviewTab();
+                    }
+                }
             }, 100);
         }
     }
@@ -241,6 +257,17 @@ export class KupEditor {
         }
 
         this.updateToolbarVisiblity();
+    }
+
+    @Watch('selectedTab')
+    onMarkdownPreviewTabChanged() {
+        if (
+            (this.initialEditType != 'markdown' &&
+                this.previewStyle != 'tab') ||
+            !this.editor
+        )
+            return;
+        this.updateMarkDownPreviewTab();
     }
 
     @Watch('showSaveButton')
@@ -455,6 +482,20 @@ export class KupEditor {
 
     onEditorAutoSave() {
         this.kupAutoSave.emit(this.getSaveAndAutoSaveProps());
+    }
+
+    updateMarkDownPreviewTab() {
+        const tabSection = this.rootElement.querySelector(
+            '.te-markdown-tab-section'
+        );
+        if (!tabSection) return;
+
+        this.selectedTab === 'preview' &&
+            (tabSection.querySelector(
+                'button:last-child'
+            ) as HTMLElement)!.click();
+        this.selectedTab === 'write' &&
+            tabSection.querySelector('button')!.click();
     }
 
     getToolBarWithSaveButton(includeDefaultItems: boolean = true) {

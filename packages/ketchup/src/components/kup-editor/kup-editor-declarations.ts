@@ -10,6 +10,7 @@ export enum KupEditorProps {
     initialEditType = 'Initializes editor with the specified editor type. Suported values: "markdown", "wysiwyg".',
     initialValue = 'Initializes editor with the specified string.',
     isReadOnly = 'Defaults at false. When set, When set, the editor’s content can’t be changed..',
+    selectedTab = 'Sets the markdown editor with the specified tab. Supported values: "preview", "write".',
     previewStyle = 'Initializes editor with the specified preview type. Suported values: "tab", "vertical".',
     showSaveButton = 'When set, a save button shown in the editor’s toolbar.',
     showToolbar = 'When set to false, the toolbar will not be shown.',
@@ -18,6 +19,8 @@ export enum KupEditorProps {
 export type KupEditorType = 'wysiwyg' | 'markdown';
 
 export type KupEditorPreview = 'tab' | 'vertical';
+
+export type KupEditorSelectedTab = 'preview' | 'write';
 
 export interface KupEditorEventPayload extends KupEventPayload {
     htmlValue: string;
