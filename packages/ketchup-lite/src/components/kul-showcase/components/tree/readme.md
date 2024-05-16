@@ -32,10 +32,6 @@
 graph TD;
   kul-showcase-tree --> kul-tree
   kul-showcase-tree --> kul-article
-  kul-tree --> kul-image
-  kul-image --> kul-spinner
-  kul-image --> kul-badge
-  kul-badge --> kul-image
   kul-showcase --> kul-showcase-tree
   style kul-showcase-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```

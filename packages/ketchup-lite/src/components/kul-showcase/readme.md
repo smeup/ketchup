@@ -159,7 +159,6 @@ graph TD;
   kul-toast --> kul-image
   kul-showcase-tree --> kul-tree
   kul-showcase-tree --> kul-article
-  kul-tree --> kul-image
   kul-showcase-upload --> kul-upload
   kul-showcase-upload --> kul-article
   kul-upload --> kul-image
