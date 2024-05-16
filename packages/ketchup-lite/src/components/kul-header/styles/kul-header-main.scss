@@ -9,25 +9,21 @@
     0 4px 5px 0 rgba(128, 128, 128, 0.14),
     0 1px 10px 0 rgba(128, 128, 128, 0.12)
   );
-
   /**
     * @prop --kul-header-padding: Sets the padding of the header component.
     * Defaults to 8px top and bottom, 12px left and right.
     */
   --kul_header_padding: var(--kul-header-padding, 8px 12px);
-
   /**
     * @prop --kul-header-position: Sets the CSS positioning of the header component.
     * Defaults to fixed.
     */
   --kul_header_position: var(--kul-header-position, fixed);
-
   /**
     * @prop --kul-header-transition: Sets the transition time of the header component.
     * Defaults to 250ms.
     */
   --kul_header_transition: var(--kul-header-transition, 250ms);
-
   /**
     * @prop --kul-header-width: Sets the width of the header component.
     * Defaults to 100%.
@@ -56,7 +52,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: var(--kul-header-padding);
+  padding: var(--kul_header_padding);
   width: var(--kul_header_width);
 
   &__section {

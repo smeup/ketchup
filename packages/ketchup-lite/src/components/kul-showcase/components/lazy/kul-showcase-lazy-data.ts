@@ -1,208 +1,23 @@
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
-import { ChartData } from './kul-showcase-chart-declarations';
+import { LazyData } from './kul-showcase-lazy-declarations';
 import { DOC_STYLES } from '../../kul-showcase-data';
-import { KulDataDataset } from '../../../../components';
+import { KulButtonPropsInterface } from '../../../kul-button/kul-button-declarations';
 
-const kulData: KulDataDataset = {
-    columns: [
-        {
-            id: 'Axis',
-            title: 'Department',
-            type: 'text',
-        },
-        {
-            id: 'Series_1',
-            title: 'Current Budget',
-            type: 'text',
-        },
-        {
-            id: 'Series_2',
-            title: 'Projected Budget',
-            type: 'text',
-        },
-        {
-            id: 'Series_3',
-            title: 'Allocated Budget',
-            type: 'text',
-        },
-        {
-            id: 'Series_4',
-            title: 'Expenditures',
-            type: 'text',
-        },
-        {
-            id: 'Series_5',
-            title: 'Savings',
-            type: 'text',
-        },
-    ],
-    nodes: [
-        {
-            cells: {
-                Axis: {
-                    value: 'Digital Marketing',
-                },
-                Series_1: {
-                    value: '15000',
-                },
-                Series_2: {
-                    value: '16000',
-                },
-                Series_3: {
-                    value: '15500',
-                },
-                Series_4: {
-                    value: '14500',
-                },
-                Series_5: {
-                    value: '500',
-                },
-            },
-            id: '0',
-        },
-        {
-            cells: {
-                Axis: {
-                    value: 'E-commerce Sales',
-                },
-                Series_1: {
-                    value: '8000',
-                },
-                Series_2: {
-                    value: '9000',
-                },
-                Series_3: {
-                    value: '8500',
-                },
-                Series_4: {
-                    value: '7500',
-                },
-                Series_5: {
-                    value: '1000',
-                },
-            },
-            id: '1',
-        },
-        {
-            cells: {
-                Axis: {
-                    value: 'Administrative Services',
-                },
-                Series_1: {
-                    value: '6000',
-                },
-                Series_2: {
-                    value: '6500',
-                },
-                Series_3: {
-                    value: '6250',
-                },
-                Series_4: {
-                    value: '6000',
-                },
-                Series_5: {
-                    value: '250',
-                },
-            },
-            id: '2',
-        },
-        {
-            cells: {
-                Axis: {
-                    value: 'Product Development',
-                },
-                Series_1: {
-                    value: '20000',
-                },
-                Series_2: {
-                    value: '22000',
-                },
-                Series_3: {
-                    value: '21000',
-                },
-                Series_4: {
-                    value: '20500',
-                },
-                Series_5: {
-                    value: '9500',
-                },
-            },
-            id: '3',
-        },
-        {
-            cells: {
-                Axis: {
-                    value: 'Customer Support',
-                },
-                Series_1: {
-                    value: '10000',
-                },
-                Series_2: {
-                    value: '11000',
-                },
-                Series_3: {
-                    value: '10500',
-                },
-                Series_4: {
-                    value: '10000',
-                },
-                Series_5: {
-                    value: '500',
-                },
-            },
-            id: '4',
-        },
-    ],
-};
-
-export const CHART_EXAMPLES: ChartData = {
-    area: {
-        ['data-description']: 'Area',
-        kulAxis: 'Axis',
-        kulData,
-        kulSizeY: '300px',
-        kulTypes: ['area'],
-    },
-    bar: {
-        ['data-description']: 'Bar',
-        kulAxis: 'Axis',
-        kulData,
-        kulSeries: ['Series_1'],
-        kulSizeY: '300px',
-        kulTypes: ['bar'],
-    },
-    line: {
-        ['data-description']: 'Line',
-        kulAxis: 'Axis',
-        kulData,
-        kulSizeY: '300px',
-    },
-    pie: {
-        ['data-description']: 'Pie',
-        kulAxis: 'Axis',
-        kulData,
-        kulSizeY: '300px',
-        kulTypes: ['pie'],
-    },
-    scatter: {
-        ['data-description']: 'Scatter',
-        kulAxis: 'Axis',
-        kulData,
-        kulSizeY: '300px',
-        kulTypes: ['scatter'],
+export const LAZY_EXAMPLES: LazyData = {
+    simple: {
+        ['data-description']: 'Simple tab bar',
+        kulComponentName: 'kul-button',
+        kulComponentProps: { kulLabel: 'Button' } as KulButtonPropsInterface,
     },
     style: {
-        ['data-description']: 'Bar',
-        ['data-dynamic']: 'custom',
-        kulAxis: 'Axis',
-        kulData,
-        kulSeries: ['Series_1'],
-        kulSizeY: '300px',
-        kulTypes: ['bar'],
+        ['data-description']: 'Tab bar with custom style',
+        'data-dynamic': 'custom',
+        kulComponentName: 'kul-button',
+        kulComponentProps: { kulLabel: 'Button' } as KulButtonPropsInterface,
     },
 };
 
-export const CHART_DOC: KulArticleDataset = {
+export const LAZY_DOC: KulArticleDataset = {
     nodes: [
         {
             children: [
@@ -219,11 +34,11 @@ export const CHART_DOC: KulArticleDataset = {
                                         {
                                             id: '0.0.0.0.1',
                                             tagName: 'strong',
-                                            value: 'KulChart',
+                                            value: 'KulLazy',
                                         },
                                         {
                                             id: '0.0.0.0.2',
-                                            value: ' component is a versatile and customizable web component designed to render tab bars based on a JSON structure. ',
+                                            value: " component's main purpose is to prevent long page loading times, displaying a placeholder until it's relevant to switch to the actual component.",
                                         },
                                     ],
                                     id: '0.0.0.0',
@@ -239,37 +54,6 @@ export const CHART_DOC: KulArticleDataset = {
                     children: [
                         {
                             children: [
-                                {
-                                    children: [
-                                        {
-                                            children: [
-                                                {
-                                                    id: '0.1.0.0.0.0',
-                                                    tagName: 'strong',
-                                                    value: 'Dynamic Content Rendering',
-                                                },
-                                                {
-                                                    id: '0.1.0.0.0.1',
-                                                    value: ': The component dynamically generates a ',
-                                                },
-                                                {
-                                                    id: '0.1.0.0.0.2',
-                                                    tagName: 'strong',
-                                                    value: '<kul-chart>',
-                                                },
-                                                {
-                                                    id: '0.1.0.0.0.3',
-                                                    value: ' element based on the JSON structure provided.',
-                                                },
-                                            ],
-                                            id: '0.1.0.0.0',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                    ],
-                                    id: '0.1.0.0',
-                                    value: '',
-                                },
                                 {
                                     children: [
                                         {
@@ -366,20 +150,29 @@ export const CHART_DOC: KulArticleDataset = {
                                         {
                                             id: '0.2.0.0.1',
                                             tagName: 'strong',
-                                            value: 'KulChart',
+                                            value: 'KulLazy',
                                         },
                                         {
                                             id: '0.2.0.0.2',
-                                            value: ' component, include it in your HTML and provide the ',
+                                            value: ' component, include it in your HTML and provide the name of the inner component through the ',
                                         },
                                         {
                                             id: '0.2.0.0.3',
                                             tagName: 'strong',
-                                            value: 'kulData',
+                                            value: 'kulComponentName',
                                         },
                                         {
                                             id: '0.2.0.0.4',
-                                            value: ' property with the JSON structure representing the tab bar.',
+                                            value: ' property and its related properties through ',
+                                        },
+                                        {
+                                            id: '0.2.0.0.3',
+                                            tagName: 'strong',
+                                            value: 'kulComponentProps',
+                                        },
+                                        {
+                                            id: '0.2.0.0.4',
+                                            value: '.',
                                         },
                                     ],
                                     id: '0.2.0.0',
@@ -393,25 +186,10 @@ export const CHART_DOC: KulArticleDataset = {
                                                     shapeProps: {
                                                         kulLanguage: 'markup',
                                                     },
-                                                    value: '<kul-chart></kul-chart>',
+                                                    value: '<kul-lazy></kul-lazy>',
                                                 },
                                             },
                                             id: '0.2.0.1.0',
-                                            value: '',
-                                        },
-                                        {
-                                            cells: {
-                                                code: {
-                                                    shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'json',
-                                                    },
-                                                    value: JSON.stringify(
-                                                        kulData
-                                                    ),
-                                                },
-                                            },
-                                            id: '0.2.0.1.1',
                                             value: '',
                                         },
                                     ],
@@ -432,352 +210,185 @@ export const CHART_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
-                                            id: '0.3.2.0.0',
+                                            id: '0.0.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.3.2.0.1',
+                                            id: '0.0.0.1',
                                             tagName: 'strong',
-                                            value: 'string',
+                                            value: 'String',
                                         },
                                     ],
-                                    id: '0.3.2.0',
+                                    id: '0.0.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.3.2.1.0',
-                                            value: 'Sets the axis of the chart. Default is an empty string.',
+                                            id: '0.0.1.0',
+                                            value: 'The tag name of the component to be lazy loaded.',
+                                        },
+                                        {
+                                            id: '0.0.1.1',
+                                            tagName: 'strong',
+                                            value: 'kulComponentName',
                                         },
                                     ],
-                                    id: '0.3.2.1',
+                                    id: '0.0.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.2',
-                            value: 'kulAxis',
+                            id: '0.0',
+                            value: 'kulComponentName',
                         },
                         {
                             children: [
                                 {
                                     children: [
                                         {
-                                            id: '0.3.3.0.0',
+                                            id: '0.1.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.3.3.0.1',
+                                            id: '0.1.0.1',
                                             tagName: 'strong',
-                                            value: 'string[]',
+                                            value: 'Object',
                                         },
                                     ],
-                                    id: '0.3.3.0',
+                                    id: '0.1.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.3.3.1.0',
-                                            value: "Overrides theme's colors. Default is an empty array.",
+                                            id: '0.1.1.0',
+                                            value: 'The data of the component to be lazy loaded.',
+                                        },
+                                        {
+                                            id: '0.1.1.1',
+                                            tagName: 'strong',
+                                            value: 'kulComponentProps',
                                         },
                                     ],
-                                    id: '0.3.3.1',
+                                    id: '0.1.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.3',
-                            value: 'kulColors',
+                            id: '0.1',
+                            value: 'kulComponentProps',
                         },
                         {
                             children: [
                                 {
                                     children: [
                                         {
-                                            id: '0.3.4.0.0',
+                                            id: '0.2.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.3.4.0.1',
+                                            id: '0.2.0.1',
                                             tagName: 'strong',
-                                            value: 'KulDataDataset',
+                                            value: 'String',
                                         },
                                     ],
-                                    id: '0.3.4.0',
+                                    id: '0.2.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.3.4.1.0',
-                                            value: 'The actual data of the chart. Default is null.',
+                                            id: '0.2.1.0',
+                                            value: 'Decides when the sub-component should be rendered.',
+                                        },
+                                        {
+                                            id: '0.2.1.1',
+                                            tagName: 'strong',
+                                            value: 'kulRenderMode',
                                         },
                                     ],
-                                    id: '0.3.4.1',
+                                    id: '0.2.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.4',
-                            value: 'kulData',
+                            id: '0.2',
+                            value: 'kulRenderMode',
                         },
                         {
                             children: [
                                 {
                                     children: [
                                         {
-                                            id: '0.3.5.0.0',
+                                            id: '0.3.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.3.5.0.1',
+                                            id: '0.3.0.1',
                                             tagName: 'strong',
-                                            value: 'KulChartLegendPlacement',
+                                            value: 'Boolean',
                                         },
                                     ],
-                                    id: '0.3.5.0',
+                                    id: '0.3.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.3.5.1.0',
-                                            value: "Sets the position of the legend. Supported values: bottom, left, right, top, hidden. Default is 'bottom'.",
+                                            id: '0.3.1.0',
+                                            value: 'Displays an animated SVG placeholder until the component is loaded.',
+                                        },
+                                        {
+                                            id: '0.3.1.1',
+                                            tagName: 'strong',
+                                            value: 'kulShowPlaceholder',
                                         },
                                     ],
-                                    id: '0.3.5.1',
+                                    id: '0.3.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.5',
-                            value: 'kulLegend',
+                            id: '0.3',
+                            value: 'kulShowPlaceholder',
                         },
                         {
                             children: [
                                 {
                                     children: [
                                         {
-                                            id: '0.3.6.0.0',
+                                            id: '0.4.0.0',
                                             value: 'Type:',
                                         },
                                         {
-                                            id: '0.3.6.0.1',
+                                            id: '0.4.0.1',
                                             tagName: 'strong',
-                                            value: 'string[]',
+                                            value: 'String',
                                         },
                                     ],
-                                    id: '0.3.6.0',
+                                    id: '0.4.0',
                                     value: '',
                                 },
                                 {
                                     children: [
                                         {
-                                            id: '0.3.6.1.0',
-                                            value: 'The data series to be displayed. They must be of the same type. Default is an empty array.',
+                                            id: '0.4.1.0',
+                                            value: 'Customizes the style of the component.',
+                                        },
+                                        {
+                                            id: '0.4.1.1',
+                                            tagName: 'strong',
+                                            value: 'kulStyle',
                                         },
                                     ],
-                                    id: '0.3.6.1',
+                                    id: '0.4.1',
                                     value: '',
                                 },
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.6',
-                            value: 'kulSeries',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.7.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.7.0.1',
-                                            tagName: 'strong',
-                                            value: 'string',
-                                        },
-                                    ],
-                                    id: '0.3.7.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.7.1.0',
-                                            value: 'The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).',
-                                        },
-                                    ],
-                                    id: '0.3.7.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.7',
-                            value: 'kulSizeX',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.8.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.8.0.1',
-                                            tagName: 'strong',
-                                            value: 'string',
-                                        },
-                                    ],
-                                    id: '0.3.8.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.8.1.0',
-                                            value: 'The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
-                                        },
-                                    ],
-                                    id: '0.3.8.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.8',
-                            value: 'kulSizeY',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.9.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.9.0.1',
-                                            tagName: 'strong',
-                                            value: 'string',
-                                        },
-                                    ],
-                                    id: '0.3.9.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.9.1.0',
-                                            value: 'Custom style of the component. Default is an empty string.',
-                                        },
-                                    ],
-                                    id: '0.3.9.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.9',
+                            id: '0.4',
                             value: 'kulStyle',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.10.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.10.0.1',
-                                            tagName: 'strong',
-                                            value: 'KulChartType[]',
-                                        },
-                                    ],
-                                    id: '0.3.10.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.10.1.0',
-                                            value: "The type of the chart. Supported formats: Bar, Gaussian, Line, Pie, Map and Scatter. Default is ['line'].",
-                                        },
-                                    ],
-                                    id: '0.3.10.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.10',
-                            value: 'kulTypes',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.11.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.11.0.1',
-                                            tagName: 'strong',
-                                            value: 'XAXisComponentOption',
-                                        },
-                                    ],
-                                    id: '0.3.11.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.11.1.0',
-                                            value: 'Customization options for the x Axis. Default is null.',
-                                        },
-                                    ],
-                                    id: '0.3.11.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.11',
-                            value: 'kulXAxis',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.12.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.12.0.1',
-                                            tagName: 'strong',
-                                            value: 'YAXisComponentOption',
-                                        },
-                                    ],
-                                    id: '0.3.12.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.12.1.0',
-                                            value: 'Customization options for the y Axis. Default is null.',
-                                        },
-                                    ],
-                                    id: '0.3.12.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.12',
-                            value: 'kulYAxis',
                         },
                     ],
                     id: '0.3',
@@ -793,7 +404,7 @@ export const CHART_DOC: KulArticleDataset = {
                                 },
                                 {
                                     id: '0.4.0.1',
-                                    value: 'KulChartEventPayload',
+                                    value: 'KulLazyEventPayload',
                                 },
                                 {
                                     id: '0.4.0.2',
@@ -808,11 +419,11 @@ export const CHART_DOC: KulArticleDataset = {
                                                         {
                                                             id: '0.4.0.3.0.0.0',
                                                             tagName: 'strong',
-                                                            value: 'click',
+                                                            value: 'load',
                                                         },
                                                         {
                                                             id: '0.4.0.3.0.0.1',
-                                                            value: ': emitted when the chart is clicked',
+                                                            value: ': emitted when the inner component is loaded.',
                                                         },
                                                     ],
                                                     id: '0.4.0.3.0.0',
@@ -847,7 +458,7 @@ export const CHART_DOC: KulArticleDataset = {
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.4.0',
                             tagName: 'strong',
-                            value: 'kul-chart-event',
+                            value: 'kul-lazy-event',
                         },
                     ],
                     id: '0.4',
@@ -855,6 +466,18 @@ export const CHART_DOC: KulArticleDataset = {
                 },
                 {
                     children: [
+                        {
+                            children: [
+                                {
+                                    id: '0.5.0.0',
+                                    value: 'Returns a promise resolving to the inner component.',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.5.0',
+                            tagName: 'strong',
+                            value: 'getComponent()',
+                        },
                         {
                             children: [
                                 {
@@ -977,7 +600,7 @@ export const CHART_DOC: KulArticleDataset = {
                                             shapeProps: {
                                                 kulLanguage: 'markup',
                                             },
-                                            value: '<kul-chart kul-style="#kul-component { max-width: 20vw; }"></kul-chart>',
+                                            value: '<kul-lazy kul-style="#kul-component { max-width: 20vw; }"></kul-lazy>',
                                         },
                                     },
                                     id: '0.7.0.3',
@@ -987,6 +610,126 @@ export const CHART_DOC: KulArticleDataset = {
                             id: '0.7.0',
                             tagName: 'strong',
                             value: '',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.12.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-lazy-animation-time',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.12.1',
+                                                    value: ': Sets the duration of the animation. Defaults to 2s.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.12',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.12.1.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-lazy-height',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.12.2',
+                                                    value: ': Sets the height of the component and subcomponent. Defaults to 100%.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.12.2.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-lazy-hor-alignment',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.12.3',
+                                                    value: ': Sets the horizontal alignment of the subcomponent. Defaults to center.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.14',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.12.3.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-lazy-placeholder-color',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.12.4',
+                                                    value: ': Sets the color of the placeholder icon. Defaults to var(--kul-icon-color).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.15',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.12.4.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-lazy-ver-alignment',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.12.5',
+                                                    value: ': Sets the vertical alignment of the subcomponent. Defaults to center.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.16',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.12.5.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul-lazy-width',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.12.6',
+                                                    value: ': Sets the width of the component and subcomponent. Defaults to 100%.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.17',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                    ],
+                                    id: '0.7.1.0',
+                                    value: '',
+                                },
+                            ],
+                            id: '0.7.1',
+                            value: 'CSS Variables',
                         },
                     ],
                     id: '0.7',
@@ -1003,11 +746,11 @@ export const CHART_DOC: KulArticleDataset = {
                                 {
                                     id: '0.8.0.1',
                                     tagName: 'strong',
-                                    value: 'KulChart',
+                                    value: 'KulLazy',
                                 },
                                 {
                                     id: '0.8.0.2',
-                                    value: " component's purpose is to visually display data.",
+                                    value: ' is a useful component which serves as a placeholder until it enters the viewport.',
                                 },
                             ],
                             id: '0.8.0',
@@ -1020,7 +763,7 @@ export const CHART_DOC: KulArticleDataset = {
                 },
             ],
             id: '0',
-            value: 'KulChart',
+            value: 'KulLazy',
         },
     ],
 };

@@ -82,6 +82,13 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
         },
         {
             description:
+                'This components displays a placeholder until it either ready or it enters the viewport.',
+            icon: 'flip_to_back',
+            id: 'Lazy',
+            value: 'Lazy',
+        },
+        {
+            description:
                 'This component displays a placeholder image until it enters the viewport, then the actual image is loaded.',
             icon: 'photo_album',
             id: 'Photoframe',
@@ -113,6 +120,12 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
             icon: 'information-variant',
             id: 'Toast',
             value: 'Toast',
+        },
+        {
+            description: 'A component that renders a tree.',
+            icon: 'file-tree',
+            id: 'Tree',
+            value: 'Tree',
         },
         {
             description: 'A simple component useful to upload files.',

@@ -88,11 +88,13 @@ Type: `Promise<void>`
  - [kul-showcase-header](../kul-showcase/layout/header)
  - [kul-showcase-image](../kul-showcase/components/image)
  - [kul-showcase-kulmanager](../kul-showcase/framework/manager)
+ - [kul-showcase-lazy](../kul-showcase/components/lazy)
  - [kul-showcase-photoframe](../kul-showcase/components/photoframe)
  - [kul-showcase-spinner](../kul-showcase/components/spinner)
  - [kul-showcase-splash](../kul-showcase/components/splash)
  - [kul-showcase-tabbar](../kul-showcase/components/tabbar)
  - [kul-showcase-toast](../kul-showcase/components/toast)
+ - [kul-showcase-tree](../kul-showcase/components/tree)
  - [kul-showcase-upload](../kul-showcase/components/upload)
 
 ### Graph
@@ -108,11 +110,13 @@ graph TD;
   kul-showcase-header --> kul-article
   kul-showcase-image --> kul-article
   kul-showcase-kulmanager --> kul-article
+  kul-showcase-lazy --> kul-article
   kul-showcase-photoframe --> kul-article
   kul-showcase-spinner --> kul-article
   kul-showcase-splash --> kul-article
   kul-showcase-tabbar --> kul-article
   kul-showcase-toast --> kul-article
+  kul-showcase-tree --> kul-article
   kul-showcase-upload --> kul-article
   style kul-article fill:#f9f,stroke:#333,stroke-width:4px
 ```

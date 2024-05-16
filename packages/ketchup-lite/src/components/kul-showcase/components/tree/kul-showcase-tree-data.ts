@@ -1,208 +1,71 @@
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
-import { ChartData } from './kul-showcase-chart-declarations';
 import { DOC_STYLES } from '../../kul-showcase-data';
 import { KulDataDataset } from '../../../../components';
+import { TreeData } from './kul-showcase-tree-declarations';
 
 const kulData: KulDataDataset = {
-    columns: [
-        {
-            id: 'Axis',
-            title: 'Department',
-            type: 'text',
-        },
-        {
-            id: 'Series_1',
-            title: 'Current Budget',
-            type: 'text',
-        },
-        {
-            id: 'Series_2',
-            title: 'Projected Budget',
-            type: 'text',
-        },
-        {
-            id: 'Series_3',
-            title: 'Allocated Budget',
-            type: 'text',
-        },
-        {
-            id: 'Series_4',
-            title: 'Expenditures',
-            type: 'text',
-        },
-        {
-            id: 'Series_5',
-            title: 'Savings',
-            type: 'text',
-        },
-    ],
     nodes: [
         {
-            cells: {
-                Axis: {
-                    value: 'Digital Marketing',
+            id: '0001',
+            value: 'Root Node',
+            icon: 'filter_1',
+            children: [
+                {
+                    id: '0002',
+                    value: 'Child Node 1',
+                    icon: 'filter_2',
+                    children: [
+                        {
+                            id: '00021',
+                            value: 'Grandchild Node 1',
+                            icon: 'filter_3',
+                            children: [
+                                {
+                                    id: '000211',
+                                    value: 'Great-Grandchild Node 1',
+                                    icon: 'filter_4',
+                                },
+                            ],
+                        },
+                    ],
                 },
-                Series_1: {
-                    value: '15000',
+                {
+                    id: '00022',
+                    value: 'Child Node 2',
+                    icon: 'filter_2',
+                    children: [
+                        {
+                            id: '000221',
+                            value: 'Grandchild Node 2',
+                            icon: 'filter_3',
+                            children: [
+                                {
+                                    id: '000222',
+                                    value: 'Great-Great-Grandchild Node 2',
+                                    icon: 'filter_4',
+                                },
+                            ],
+                        },
+                    ],
                 },
-                Series_2: {
-                    value: '16000',
-                },
-                Series_3: {
-                    value: '15500',
-                },
-                Series_4: {
-                    value: '14500',
-                },
-                Series_5: {
-                    value: '500',
-                },
-            },
-            id: '0',
-        },
-        {
-            cells: {
-                Axis: {
-                    value: 'E-commerce Sales',
-                },
-                Series_1: {
-                    value: '8000',
-                },
-                Series_2: {
-                    value: '9000',
-                },
-                Series_3: {
-                    value: '8500',
-                },
-                Series_4: {
-                    value: '7500',
-                },
-                Series_5: {
-                    value: '1000',
-                },
-            },
-            id: '1',
-        },
-        {
-            cells: {
-                Axis: {
-                    value: 'Administrative Services',
-                },
-                Series_1: {
-                    value: '6000',
-                },
-                Series_2: {
-                    value: '6500',
-                },
-                Series_3: {
-                    value: '6250',
-                },
-                Series_4: {
-                    value: '6000',
-                },
-                Series_5: {
-                    value: '250',
-                },
-            },
-            id: '2',
-        },
-        {
-            cells: {
-                Axis: {
-                    value: 'Product Development',
-                },
-                Series_1: {
-                    value: '20000',
-                },
-                Series_2: {
-                    value: '22000',
-                },
-                Series_3: {
-                    value: '21000',
-                },
-                Series_4: {
-                    value: '20500',
-                },
-                Series_5: {
-                    value: '9500',
-                },
-            },
-            id: '3',
-        },
-        {
-            cells: {
-                Axis: {
-                    value: 'Customer Support',
-                },
-                Series_1: {
-                    value: '10000',
-                },
-                Series_2: {
-                    value: '11000',
-                },
-                Series_3: {
-                    value: '10500',
-                },
-                Series_4: {
-                    value: '10000',
-                },
-                Series_5: {
-                    value: '500',
-                },
-            },
-            id: '4',
+            ],
         },
     ],
 };
 
-export const CHART_EXAMPLES: ChartData = {
-    area: {
-        ['data-description']: 'Area',
-        kulAxis: 'Axis',
+export const TREE_EXAMPLES: TreeData = {
+    simple: {
+        ['data-description']: 'Simple tree',
         kulData,
-        kulSizeY: '300px',
-        kulTypes: ['area'],
-    },
-    bar: {
-        ['data-description']: 'Bar',
-        kulAxis: 'Axis',
-        kulData,
-        kulSeries: ['Series_1'],
-        kulSizeY: '300px',
-        kulTypes: ['bar'],
-    },
-    line: {
-        ['data-description']: 'Line',
-        kulAxis: 'Axis',
-        kulData,
-        kulSizeY: '300px',
-    },
-    pie: {
-        ['data-description']: 'Pie',
-        kulAxis: 'Axis',
-        kulData,
-        kulSizeY: '300px',
-        kulTypes: ['pie'],
-    },
-    scatter: {
-        ['data-description']: 'Scatter',
-        kulAxis: 'Axis',
-        kulData,
-        kulSizeY: '300px',
-        kulTypes: ['scatter'],
     },
     style: {
-        ['data-description']: 'Bar',
+        ['data-description']: 'Tree with custom style',
         ['data-dynamic']: 'custom',
-        kulAxis: 'Axis',
         kulData,
-        kulSeries: ['Series_1'],
-        kulSizeY: '300px',
-        kulTypes: ['bar'],
     },
 };
 
-export const CHART_DOC: KulArticleDataset = {
+export const TREE_DOC: KulArticleDataset = {
     nodes: [
         {
             children: [
@@ -219,11 +82,11 @@ export const CHART_DOC: KulArticleDataset = {
                                         {
                                             id: '0.0.0.0.1',
                                             tagName: 'strong',
-                                            value: 'KulChart',
+                                            value: 'KulTree',
                                         },
                                         {
                                             id: '0.0.0.0.2',
-                                            value: ' component is a versatile and customizable web component designed to render tab bars based on a JSON structure. ',
+                                            value: ' component is a versatile and customizable web component designed to render a tree based on a JSON structure. ',
                                         },
                                     ],
                                     id: '0.0.0.0',
@@ -255,7 +118,7 @@ export const CHART_DOC: KulArticleDataset = {
                                                 {
                                                     id: '0.1.0.0.0.2',
                                                     tagName: 'strong',
-                                                    value: '<kul-chart>',
+                                                    value: '<kul-tree>',
                                                 },
                                                 {
                                                     id: '0.1.0.0.0.3',
@@ -366,7 +229,7 @@ export const CHART_DOC: KulArticleDataset = {
                                         {
                                             id: '0.2.0.0.1',
                                             tagName: 'strong',
-                                            value: 'KulChart',
+                                            value: 'KulTree',
                                         },
                                         {
                                             id: '0.2.0.0.2',
@@ -379,7 +242,7 @@ export const CHART_DOC: KulArticleDataset = {
                                         },
                                         {
                                             id: '0.2.0.0.4',
-                                            value: ' property with the JSON structure representing the tab bar.',
+                                            value: ' property with the JSON structure representing the tree.',
                                         },
                                     ],
                                     id: '0.2.0.0',
@@ -393,7 +256,7 @@ export const CHART_DOC: KulArticleDataset = {
                                                     shapeProps: {
                                                         kulLanguage: 'markup',
                                                     },
-                                                    value: '<kul-chart></kul-chart>',
+                                                    value: '<kul-tree></kul-tree>',
                                                 },
                                             },
                                             id: '0.2.0.1.0',
@@ -406,9 +269,7 @@ export const CHART_DOC: KulArticleDataset = {
                                                     shapeProps: {
                                                         kulLanguage: 'json',
                                                     },
-                                                    value: JSON.stringify(
-                                                        kulData
-                                                    ),
+                                                    value: '{ "nodes": [{"value": "Node 1", "id": "0"}, {"value": "Node 2", "id": "1"}]}',
                                                 },
                                             },
                                             id: '0.2.0.1.1',
@@ -432,13 +293,95 @@ export const CHART_DOC: KulArticleDataset = {
                                 {
                                     children: [
                                         {
+                                            id: '0.3.0.0.0',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.3.0.0.1',
+                                            tagName: 'strong',
+                                            value: 'Boolean',
+                                        },
+                                    ],
+                                    id: '0.3.0.0',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.3.0.1.0',
+                                            value: 'Sets whether the first level of depth will create an accordion-style appearance for nodes.',
+                                        },
+                                    ],
+                                    id: '0.3.0.1',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.3.0',
+                            value: 'kulAccordionLayout',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            id: '0.3.1.0.0',
+                                            value: 'Type:',
+                                        },
+                                        {
+                                            id: '0.3.1.0.1',
+                                            tagName: 'strong',
+                                            value: 'KulDataDataset',
+                                        },
+                                    ],
+                                    id: '0.3.1.0',
+                                    value: '',
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '0.3.1.1.0',
+                                            value: 'The actual data of the tree. This property should be an object that matches the ',
+                                        },
+                                        {
+                                            id: '0.3.1.1.1',
+                                            tagName: 'strong',
+                                            value: 'KulDataDataset',
+                                        },
+                                        {
+                                            id: '0.3.1.1.2',
+                                            value: ' interface, which includes a ',
+                                        },
+                                        {
+                                            id: '0.3.1.1.3',
+                                            tagName: 'strong',
+                                            value: 'nodes',
+                                        },
+                                        {
+                                            id: '0.3.1.1.4',
+                                            value: ' array representing the structure of the tree.',
+                                        },
+                                    ],
+                                    id: '0.3.1.1',
+                                    value: '',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3,
+                            id: '0.3.1',
+                            value: 'kulData',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
                                             id: '0.3.2.0.0',
                                             value: 'Type:',
                                         },
                                         {
                                             id: '0.3.2.0.1',
                                             tagName: 'strong',
-                                            value: 'string',
+                                            value: 'Number',
                                         },
                                     ],
                                     id: '0.3.2.0',
@@ -448,7 +391,7 @@ export const CHART_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             id: '0.3.2.1.0',
-                                            value: 'Sets the axis of the chart. Default is an empty string.',
+                                            value: 'Sets the initial expanded nodes based on the specified depth.',
                                         },
                                     ],
                                     id: '0.3.2.1',
@@ -457,7 +400,7 @@ export const CHART_DOC: KulArticleDataset = {
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.3.2',
-                            value: 'kulAxis',
+                            value: 'kulInitialExpandedDepth',
                         },
                         {
                             children: [
@@ -470,7 +413,7 @@ export const CHART_DOC: KulArticleDataset = {
                                         {
                                             id: '0.3.3.0.1',
                                             tagName: 'strong',
-                                            value: 'string[]',
+                                            value: 'Boolean',
                                         },
                                     ],
                                     id: '0.3.3.0',
@@ -480,7 +423,7 @@ export const CHART_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             id: '0.3.3.1.0',
-                                            value: "Overrides theme's colors. Default is an empty array.",
+                                            value: 'When set to true, the pointerdown event will trigger a ripple effect.',
                                         },
                                     ],
                                     id: '0.3.3.1',
@@ -489,7 +432,7 @@ export const CHART_DOC: KulArticleDataset = {
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.3.3',
-                            value: 'kulColors',
+                            value: 'kulRipple',
                         },
                         {
                             children: [
@@ -502,7 +445,7 @@ export const CHART_DOC: KulArticleDataset = {
                                         {
                                             id: '0.3.4.0.1',
                                             tagName: 'strong',
-                                            value: 'KulDataDataset',
+                                            value: 'Boolean',
                                         },
                                     ],
                                     id: '0.3.4.0',
@@ -512,7 +455,7 @@ export const CHART_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             id: '0.3.4.1.0',
-                                            value: 'The actual data of the chart. Default is null.',
+                                            value: 'When true, nodes can be selected.',
                                         },
                                     ],
                                     id: '0.3.4.1',
@@ -521,7 +464,7 @@ export const CHART_DOC: KulArticleDataset = {
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.3.4',
-                            value: 'kulData',
+                            value: 'kulSelectable',
                         },
                         {
                             children: [
@@ -534,7 +477,7 @@ export const CHART_DOC: KulArticleDataset = {
                                         {
                                             id: '0.3.5.0.1',
                                             tagName: 'strong',
-                                            value: 'KulChartLegendPlacement',
+                                            value: 'String',
                                         },
                                     ],
                                     id: '0.3.5.0',
@@ -544,7 +487,7 @@ export const CHART_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             id: '0.3.5.1.0',
-                                            value: "Sets the position of the legend. Supported values: bottom, left, right, top, hidden. Default is 'bottom'.",
+                                            value: "Enables customization of the component's style.",
                                         },
                                     ],
                                     id: '0.3.5.1',
@@ -553,231 +496,7 @@ export const CHART_DOC: KulArticleDataset = {
                             ],
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.3.5',
-                            value: 'kulLegend',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.6.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.6.0.1',
-                                            tagName: 'strong',
-                                            value: 'string[]',
-                                        },
-                                    ],
-                                    id: '0.3.6.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.6.1.0',
-                                            value: 'The data series to be displayed. They must be of the same type. Default is an empty array.',
-                                        },
-                                    ],
-                                    id: '0.3.6.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.6',
-                            value: 'kulSeries',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.7.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.7.0.1',
-                                            tagName: 'strong',
-                                            value: 'string',
-                                        },
-                                    ],
-                                    id: '0.3.7.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.7.1.0',
-                                            value: 'The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).',
-                                        },
-                                    ],
-                                    id: '0.3.7.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.7',
-                            value: 'kulSizeX',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.8.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.8.0.1',
-                                            tagName: 'strong',
-                                            value: 'string',
-                                        },
-                                    ],
-                                    id: '0.3.8.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.8.1.0',
-                                            value: 'The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
-                                        },
-                                    ],
-                                    id: '0.3.8.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.8',
-                            value: 'kulSizeY',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.9.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.9.0.1',
-                                            tagName: 'strong',
-                                            value: 'string',
-                                        },
-                                    ],
-                                    id: '0.3.9.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.9.1.0',
-                                            value: 'Custom style of the component. Default is an empty string.',
-                                        },
-                                    ],
-                                    id: '0.3.9.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.9',
                             value: 'kulStyle',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.10.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.10.0.1',
-                                            tagName: 'strong',
-                                            value: 'KulChartType[]',
-                                        },
-                                    ],
-                                    id: '0.3.10.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.10.1.0',
-                                            value: "The type of the chart. Supported formats: Bar, Gaussian, Line, Pie, Map and Scatter. Default is ['line'].",
-                                        },
-                                    ],
-                                    id: '0.3.10.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.10',
-                            value: 'kulTypes',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.11.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.11.0.1',
-                                            tagName: 'strong',
-                                            value: 'XAXisComponentOption',
-                                        },
-                                    ],
-                                    id: '0.3.11.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.11.1.0',
-                                            value: 'Customization options for the x Axis. Default is null.',
-                                        },
-                                    ],
-                                    id: '0.3.11.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.11',
-                            value: 'kulXAxis',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.12.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.12.0.1',
-                                            tagName: 'strong',
-                                            value: 'YAXisComponentOption',
-                                        },
-                                    ],
-                                    id: '0.3.12.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.12.1.0',
-                                            value: 'Customization options for the y Axis. Default is null.',
-                                        },
-                                    ],
-                                    id: '0.3.12.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.12',
-                            value: 'kulYAxis',
                         },
                     ],
                     id: '0.3',
@@ -793,7 +512,7 @@ export const CHART_DOC: KulArticleDataset = {
                                 },
                                 {
                                     id: '0.4.0.1',
-                                    value: 'KulChartEventPayload',
+                                    value: 'KulTreeEventPayload',
                                 },
                                 {
                                     id: '0.4.0.2',
@@ -812,7 +531,23 @@ export const CHART_DOC: KulArticleDataset = {
                                                         },
                                                         {
                                                             id: '0.4.0.3.0.0.1',
-                                                            value: ': emitted when the chart is clicked',
+                                                            value: ': emitted when a node is clicked.',
+                                                        },
+                                                    ],
+                                                    id: '0.4.0.3.0.0',
+                                                    tagName: 'li',
+                                                    value: '',
+                                                },
+                                                {
+                                                    children: [
+                                                        {
+                                                            id: '0.4.0.3.0.0.0',
+                                                            tagName: 'strong',
+                                                            value: 'pointerdown',
+                                                        },
+                                                        {
+                                                            id: '0.4.0.3.0.0.1',
+                                                            value: ': emitted when as soon as a node is touched/clicked (before the click event).',
                                                         },
                                                     ],
                                                     id: '0.4.0.3.0.0',
@@ -847,7 +582,7 @@ export const CHART_DOC: KulArticleDataset = {
                             cssStyle: DOC_STYLES.monoPrimaryH3,
                             id: '0.4.0',
                             tagName: 'strong',
-                            value: 'kul-chart-event',
+                            value: 'kul-tree-event',
                         },
                     ],
                     id: '0.4',
@@ -977,7 +712,7 @@ export const CHART_DOC: KulArticleDataset = {
                                             shapeProps: {
                                                 kulLanguage: 'markup',
                                             },
-                                            value: '<kul-chart kul-style="#kul-component { max-width: 20vw; }"></kul-chart>',
+                                            value: '<kul-tree kul-style="#kul-component { max-width: 20vw; }"></kul-tree>',
                                         },
                                     },
                                     id: '0.7.0.3',
@@ -987,6 +722,239 @@ export const CHART_DOC: KulArticleDataset = {
                             id: '0.7.0',
                             tagName: 'strong',
                             value: '',
+                        },
+                        {
+                            children: [
+                                {
+                                    children: [
+                                        {
+                                            children: [
+                                                {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-accordion-background-color',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the background color for top-level nodes (data-depth="0") when kul-accordion-layout is applied. Defaults to #ffffff.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.14.0',
+                                                    value: '--kul-tree-accordion-border-radius',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.14.1',
+                                                    value: ': Sets the border radius for top-level nodes (data-depth="0") when kul-accordion-layout is applied. Defaults to 4px.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.14',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-accordion-color',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the text color for top-level nodes (data-depth="0") when kul-accordion-layout is applied. Defaults to #000000.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-accordion-font-size',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the font size for top-level nodes (data-depth="0") when kul-accordion-layout is applied. Defaults to 1.125em.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-accordion-hover-background-color',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the background color for top-level nodes (data-depth="0") on hover when kul-accordion-layout is applied. Defaults to var(--kul-primary-color).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-accordion-hover-color',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the text color for top-level nodes (data-depth="0") on hover when kul-accordion-layout is applied. Defaults to var(--kul-text-on-primary-color).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-accordion-node-height',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the height of top-level nodes (data-depth="0") when the tree has an accordion layout. Defaults to 4em.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-node-height',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the height for all nodes. Replaces the static value previously used. Defaults to 2em.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-backdrop-filter',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the backdrop filter of the tree. Defaults to blur(3.5px).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-node-background-color-hover',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the background color when hovering a node. Defaults to rgba(var(--kul-primary-color-rgb), 0.175).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-node-background-color-selected',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the background color of the selected node. Defaults to rgba(var(--kul-primary-color-rgb), 0.375).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-node-padding',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the padding of nodes. Defaults to 0 1em.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    value: '--kul-tree-padding',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the padding of the tree. Defaults to 0.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.13',
+                                            value: '',
+                                        },
+                                    ],
+                                    id: '0.7.1.0',
+                                    value: '',
+                                },
+                            ],
+                            id: '0.7.1',
+                            value: 'CSS Variables',
                         },
                     ],
                     id: '0.7',
@@ -1003,11 +971,11 @@ export const CHART_DOC: KulArticleDataset = {
                                 {
                                     id: '0.8.0.1',
                                     tagName: 'strong',
-                                    value: 'KulChart',
+                                    value: 'KulTree',
                                 },
                                 {
                                     id: '0.8.0.2',
-                                    value: " component's purpose is to visually display data.",
+                                    value: ' component is a powerful webcomponent that visually represents a tree-like structure in JSON format.',
                                 },
                             ],
                             id: '0.8.0',
@@ -1020,7 +988,7 @@ export const CHART_DOC: KulArticleDataset = {
                 },
             ],
             id: '0',
-            value: 'KulChart',
+            value: 'KulTree',
         },
     ],
 };

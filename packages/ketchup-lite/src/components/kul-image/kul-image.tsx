@@ -170,11 +170,17 @@ export class KulImage {
                 ? this.kulColor
                 : `var(${KulThemeColorValues.ICON})`,
         };
-
         if (this.kulValue.indexOf(CSS_VAR_PREFIX) > -1) {
-            let themeIcon = this.kulValue.replace('--', '');
+            const themeIcon = this.kulValue.replace('--', '');
             classObj['kul-icon'] = true;
             classObj[themeIcon] = true;
+            const icon =
+                this.#kulManager.theme.list[this.#kulManager.theme.name].icons[
+                    this.kulValue
+                ];
+            const path = getAssetPath(`./assets/svg/${icon}.svg`);
+            style.mask = `url('${path}') no-repeat center`;
+            style.webkitMask = `url('${path}') no-repeat center`;
         } else {
             const path = getAssetPath(`./assets/svg/${this.kulValue}.svg`);
             style.mask = `url('${path}') no-repeat center`;
