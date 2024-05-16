@@ -15,6 +15,7 @@
 | `initialValue`    | `initial-value`     | The initial editor value.                                                                   | `string`                  | `''`         |
 | `isReadOnly`      | `is-read-only`      | Defines whether the editor is disabled or not.                                              | `boolean`                 | `false`      |
 | `previewStyle`    | `preview-style`     | The editor preview style.                                                                   | `"tab" \| "vertical"`     | `'vertical'` |
+| `selectedTab`     | `selected-tab`      | The markdown editor selected tab.                                                           | `"preview" \| "write"`    | `'write'`    |
 | `showSaveButton`  | `show-save-button`  | Defines whether to show the save button in editor's toolbar or not.                         | `boolean`                 | `true`       |
 | `showToolbar`     | `show-toolbar`      | Defines whether to show the editor's toolbar or not.                                        | `boolean`                 | `true`       |
 

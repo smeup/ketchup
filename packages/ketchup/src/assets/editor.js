@@ -47,10 +47,11 @@ const props = {
     </code></pre>
     `,
     isReadOnly: false,
-    previewStyle: 'vertical',
+    previewStyle: 'tab',
     showSaveButton: true,
     showToolbar: true,
-    //   autosaveTimer: 2000
+    //   autosaveTimer: 2000,
+    selectedTab: 'preview',
 };
 
 if (props) {
