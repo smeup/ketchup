@@ -1,7 +1,6 @@
 {
     "name": "@sme.up/ketchup",
     "version": "10.0.0-SNAPSHOT",
-    "type": "module",
     "keywords": [
         "smeup",
         "KetchUP",
