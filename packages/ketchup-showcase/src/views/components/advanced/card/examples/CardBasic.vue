@@ -14,29 +14,25 @@
       >
       <br />
       <span class="code-word">autocomplete</span>: array of objects containing
-      <a href="https://ketchup.smeup.com/ketchup-showcase/#/autocomplete"
+      <a href="https://smeup.github.io/ketchup/#/autocomplete"
         >kup-autocomplete</a
       >
       <br />
       <span class="code-word">button</span>: array of objects containing
-      <a href="https://ketchup.smeup.com/ketchup-showcase/#/button"
-        >kup-button</a
-      >
+      <a href="https://smeup.github.io/ketchup/#/button">kup-button</a>
       props.
       <br />
       <span class="code-word">cell</span>: array of cells.
       <br />
       <span class="code-word">chart</span>: array of objects containing
-      <a href="https://ketchup.smeup.com/ketchup-showcase/#/chart">kup-chart</a>
+      <a href="https://smeup.github.io/ketchup/#/chart">kup-chart</a>
       props.
       <br />
       <span class="code-word">checkbox</span>: array of objects containing
-      <a href="https://ketchup.smeup.com/ketchup-showcase/#/checkbox"
-        >kup-checkbox</a
-      >
+      <a href="https://smeup.github.io/ketchup/#/checkbox">kup-checkbox</a>
       <br />
       <span class="code-word">chip</span>: array of objects containing
-      <a href="https://ketchup.smeup.com/ketchup-showcase/#/button">kup-chip</a>
+      <a href="https://smeup.github.io/ketchup/#/button">kup-chip</a>
       props.
       <br />
       <span class="code-word">color</span>: array of CSS color strings.
@@ -44,29 +40,23 @@
       <span class="code-word">columns</span>: array of columns.
       <br />
       <span class="code-word">combobox</span>: array of objects containing
-      <a href="https://ketchup.smeup.com/ketchup-showcase/#/combobox"
-        >kup-combobox</a
-      >
+      <a href="https://smeup.github.io/ketchup/#/combobox">kup-combobox</a>
       props.
       <br />
       <span class="code-word">datatable</span>: array of objects containing
-      <a href="https://ketchup.smeup.com/ketchup-showcase/#/datatable"
-        >kup-data-table</a
-      >
+      <a href="https://smeup.github.io/ketchup/#/datatable">kup-data-table</a>
       props.
       <br />
       <span class="code-word">datepicker</span>: array of objects containing
-      <a href="https://ketchup.smeup.com/ketchup-showcase/#/datepicker"
-        >kup-date-picker</a
-      >
+      <a href="https://smeup.github.io/ketchup/#/datepicker">kup-date-picker</a>
       props.
       <br />
       <span class="code-word">image</span>: array of objects containing
-      <a href="https://ketchup.smeup.com/ketchup-showcase/#/image">kup-image</a>
+      <a href="https://smeup.github.io/ketchup/#/image">kup-image</a>
       props.
       <br />
       <span class="code-word">list</span>: array of objects containing
-      <a href="https://ketchup.smeup.com/ketchup-showcase/#/list">kup-list</a>
+      <a href="https://smeup.github.io/ketchup/#/list">kup-list</a>
       props.
       <br />
       <span class="code-word">object</span>: array of objects containing
@@ -76,33 +66,27 @@
       built-in layouts and it contains their settings.
       <br />
       <span class="code-word">progressbar</span>: array of objects containing
-      <a href="https://ketchup.smeup.com/ketchup-showcase/#/progressbar"
+      <a href="https://smeup.github.io/ketchup/#/progressbar"
         >kup-progress-bar</a
       >
       props.
       <br />
       <span class="code-word">tabbar</span>: array of objects containing
-      <a href="https://ketchup.smeup.com/ketchup-showcase/#/tabbar"
-        >kup-tab-bar</a
-      >
+      <a href="https://smeup.github.io/ketchup/#/tabbar">kup-tab-bar</a>
       props.
       <br />
       <span class="code-word">text</span>: array of strings.
       <br />
       <span class="code-word">textfield</span>: array of objects containing
-      <a href="https://ketchup.smeup.com/ketchup-showcase/#/textfield"
-        >kup-text-field</a
-      >
+      <a href="https://smeup.github.io/ketchup/#/textfield">kup-text-field</a>
       props.
       <br />
       <span class="code-word">timepicker</span>: array of objects containing
-      <a href="https://ketchup.smeup.com/ketchup-showcase/#/timepicker"
-        >kup-time-picker</a
-      >
+      <a href="https://smeup.github.io/ketchup/#/timepicker">kup-time-picker</a>
       props.
       <br />
       <span class="code-word">tree</span>: array of objects containing
-      <a href="https://ketchup.smeup.com/ketchup-showcase/#/tree">kup-tree</a>
+      <a href="https://smeup.github.io/ketchup/#/tree">kup-tree</a>
       props.
       <br />
       <br />

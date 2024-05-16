@@ -6,7 +6,7 @@ import { KupEventPayload } from '../../types/GenericTypes';
  * Used to export every prop in an object.
  */
 export enum KupAccordionProps {
-    customStyle = 'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+    customStyle = 'Custom style of the component. For more information: https://smeup.github.io/ketchup/#/customization',
     data = 'Data of the accordion.',
     ripple = "When enabled displays Material's ripple effect on item headers.",
 }
