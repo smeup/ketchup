@@ -1,5 +1,60 @@
 :host {
   /**
+  * @prop --kul-tree-accordion-background-color: Sets the background color for top-level nodes (data-depth="0") when kul-accordion-layout is applied.
+  * Defaults to #ffffff.
+  */
+  --kul_tree_accordion_background_color: var(
+    --kul-tree-accordion-background-color,
+    var(--kul-title-background-color)
+  );
+  /**
+  * @prop --kul-tree-accordion-border-radius: Sets the border radius for top-level nodes (data-depth="0") when kul-accordion-layout is applied.
+  * Defaults to 4px.
+  */
+  --kul_tree_accordion_border_radius: var(
+    --kul-tree-accordion-border-radius,
+    4px
+  );
+  /**
+  * @prop --kul-tree-accordion-color: Sets the text color for top-level nodes (data-depth="0") when kul-accordion-layout is applied.
+  * Defaults to #000000.
+  */
+  --kul_tree_accordion_color: var(
+    --kul-tree-accordion-color,
+    var(--kul-title-color)
+  );
+  /**
+  * @prop --kul-tree-accordion-font-size: Sets the font size for top-level nodes (data-depth="0") when kul-accordion-layout is applied.
+  * Defaults to 1.125em.
+  */
+  --kul_tree_accordion_font_size: var(--kul-tree-accordion-font-size, 1.125em);
+  /**
+  * @prop --kul-tree-accordion-hover-background-color: Sets the background color for top-level nodes (data-depth="0") on hover when kul-accordion-layout is applied.
+  * Defaults to var(--kul-primary-color).
+  */
+  --kul_tree_accordion_hover_background_color: var(
+    --kul-tree-accordion-hover-background-color,
+    var(--kul-primary-color)
+  );
+  /**
+  * @prop --kul-tree-accordion-hover-color: Sets the text color for top-level nodes (data-depth="0") on hover when kul-accordion-layout is applied.
+  * Defaults to var(--kul-text-on-primary-color).
+  */
+  --kul_tree_accordion_hover_color: var(
+    --kul-tree-accordion-hover-color,
+    var(--kul-text-on-primary-color)
+  );
+  /**
+  * @prop --kul-tree-accordion-node-height: Sets the height of top-level nodes (data-depth="0") when the tree has an accordion layout.
+  * Defaults to 4em.
+  */
+  --kul_tree_accordion_node_height: var(--kul-tree-accordion-node-height, 4em);
+  /**
+  * @prop --kul-tree-node-height: Sets the height for all nodes. Replaces the static value previously used.
+  * Defaults to 2em.
+  */
+  --kul_tree_node_height: var(--kul-tree-node-height, 2em);
+  /**
  * @prop --kul-tree-backdrop-filter: Sets the backdrop filter of the tree.
  * Defaults to blur(3.5px).
  */
@@ -48,6 +103,27 @@
   }
 }
 
+:host([kul-accordion-layout]) {
+  .node[data-depth='0'] {
+    background-color: var(--kul_tree_accordion_background_color);
+    border-radius: var(--kul_tree_accordion_border_radius);
+    color: var(--kul_tree_accordion_color);
+    font-size: var(--kul_tree_accordion_font_size);
+    height: var(--kul_tree_accordion_node_height);
+
+    &:hover {
+      background-color: var(--kul_tree_accordion_hover_background_color);
+      color: var(--kul_tree_accordion_hover_color);
+
+      .node__dropdown,
+      .node__expand,
+      .node__icon {
+        background-color: var(--kul_tree_accordion_hover_color);
+      }
+    }
+  }
+}
+
 .tree {
   backdrop-filter: var(--kul_tree_backdrop_filter);
   padding: var(--kul_tree_padding);
@@ -55,7 +131,7 @@
 
 .node {
   box-sizing: border-box;
-  height: 2em;
+  height: var(--kul_tree_node_height);
   padding: var(--kul_tree_node_padding);
   position: relative;
   transition: background-color 125ms ease;
@@ -64,32 +140,45 @@
     align-items: center;
     display: flex;
     height: 100%;
+    width: 100%;
   }
 
+  &__dropdown,
   &__expand,
   &__icon {
+    background-color: var(--kul-text-color);
     cursor: pointer;
+    height: 1.5em;
     margin: 0;
-    transition: background-color 125ms ease;
-
-    &--placeholder {
-      height: 1.5em;
-      width: 1.5em;
-    }
+    width: 1.5em;
   }
 
+  &__dropdown,
   &__expand {
-    background-color: var(--kul-text-color);
-    height: 1.5em;
-    -webkit-mask: var(--kul-collapsed-icon);
-    mask: var(--kul-collapsed-icon);
     overflow: hidden;
     transition: transform 125ms ease;
-    width: 1.5em;
 
     &:hover {
       transform: scale(1.25);
     }
+  }
+
+  &__dropdown {
+    -webkit-mask: var(--kul-dropdown-icon);
+    mask: var(--kul-dropdown-icon);
+
+    &--expanded {
+      transform: rotate(180deg);
+
+      &:hover {
+        transform: rotate(-180deg) scale(1.25);
+      }
+    }
+  }
+
+  &__expand {
+    -webkit-mask: var(--kul-collapsed-icon);
+    mask: var(--kul-collapsed-icon);
 
     &--expanded {
       -webkit-mask: var(--kul-expanded-icon);
@@ -104,5 +193,6 @@
 
   &__value {
     margin: 0 0 0 0.5em;
+    width: 100%;
   }
 }

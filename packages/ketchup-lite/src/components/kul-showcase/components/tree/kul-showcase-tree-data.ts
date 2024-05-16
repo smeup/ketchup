@@ -6,36 +6,49 @@ import { TreeData } from './kul-showcase-tree-declarations';
 const kulData: KulDataDataset = {
     nodes: [
         {
+            id: '0001',
+            value: 'Root Node',
+            icon: 'filter_1',
             children: [
                 {
-                    children: [],
-                    id: '00100',
-                    value: 'First node',
-                },
-                {
+                    id: '0002',
+                    value: 'Child Node 1',
+                    icon: 'filter_2',
                     children: [
                         {
+                            id: '00021',
+                            value: 'Grandchild Node 1',
+                            icon: 'filter_3',
                             children: [
                                 {
-                                    children: [],
-                                    icon: 'account',
-                                    id: '0010300',
-                                    value: 'FIOGIA30',
+                                    id: '000211',
+                                    value: 'Great-Grandchild Node 1',
+                                    icon: 'filter_4',
                                 },
                             ],
-                            icon: 'favorite',
-                            id: '001201',
-                            value: 'Second node item',
                         },
                     ],
+                },
+                {
+                    id: '00022',
+                    value: 'Child Node 2',
                     icon: 'filter_2',
-                    id: '00111',
-                    value: 'Second node',
+                    children: [
+                        {
+                            id: '000221',
+                            value: 'Grandchild Node 2',
+                            icon: 'filter_3',
+                            children: [
+                                {
+                                    id: '000222',
+                                    value: 'Great-Great-Grandchild Node 2',
+                                    icon: 'filter_4',
+                                },
+                            ],
+                        },
+                    ],
                 },
             ],
-            icon: 'widgets',
-            id: '0005',
-            value: 'Demo',
         },
     ],
 };
@@ -47,7 +60,7 @@ export const TREE_EXAMPLES: TreeData = {
     },
     style: {
         ['data-description']: 'Tree with custom style',
-        'data-dynamic': 'custom',
+        ['data-dynamic']: 'custom',
         kulData,
     },
 };

@@ -22,7 +22,8 @@ import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
 import { KulDataDataset, KulDataNode } from '../../components';
-import { KulThemeIconValues } from '../../managers/kul-theme/kul-theme-declarations';
+import { TreeNode } from './node/kul-tree-node';
+import { KulTreeNodeProps } from './node/kul-tree-node-declarations';
 
 @Component({
     tag: 'kul-tree',
@@ -63,6 +64,11 @@ export class KulTree {
     /*-------------------------------------------------*/
 
     /**
+     * When enabled, the first level of depth will create an accordion-style appearance for nodes.
+     * @default false
+     */
+    @Prop({ mutable: true, reflect: true }) kulAccordionLayout = true;
+    /**
      * The actual data of the tree.
      * @default null
      */
@@ -85,7 +91,7 @@ export class KulTree {
     @Prop({ mutable: true, reflect: true }) kulSelectable = true;
     /**
      * Enables customization of the component's style.
-     * @default "" - No custom style applied by default.
+     * @default ""
      */
     @Prop({ mutable: true, reflect: true }) kulStyle = '';
 
@@ -202,69 +208,42 @@ export class KulTree {
                 this.expandedNodes.add(node);
             }
         }
-        const depthString = depth.toString();
-        const isExpanded = this.expandedNodes.has(node);
-        elements.push(
-            <div
-                class={`node ${
-                    node === this.selectedNode ? 'node--selected' : ''
-                }`}
-                data-depth={depthString}
-                key={node.id}
-                onClick={(e) => {
-                    this.onKulEvent(e, 'click', { node });
-                }}
-                onPointerDown={(e) => {
-                    this.onKulEvent(e, 'pointerdown', { node });
-                }}
-                title={node.description}
-            >
-                <div
-                    ref={(el) => {
-                        if (el && this.kulRipple) {
-                            this.#rippleSurface[node.id] = el;
-                        }
-                    }}
-                ></div>
-                <div class="node__content">
+        const nodeProps: KulTreeNodeProps = {
+            accordionLayout: this.kulAccordionLayout && depth === 0,
+            depth,
+            elements: {
+                ripple: (
                     <div
-                        class="node__padding"
-                        style={{
-                            ['--kul_tree_padding_multiplier']: depthString,
+                        ref={(el) => {
+                            if (el && this.kulRipple) {
+                                this.#rippleSurface[node.id] = el;
+                            }
                         }}
                     ></div>
-                    {node.children?.length ? (
-                        <div
-                            class={`node__expand ${
-                                isExpanded ? 'node__expand--expanded' : ''
-                            }`}
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                this.onKulEvent(e, 'click', {
-                                    expansion: true,
-                                    node,
-                                });
-                            }}
-                        ></div>
-                    ) : (
-                        <div class={'node__expand--placeholder'}></div>
-                    )}
-                    {node.icon ? (
-                        <kul-image
-                            class={'node__icon'}
-                            kulSizeX="1.5em"
-                            kulSizeY="1.5em"
-                            kulValue={node.icon}
-                        ></kul-image>
-                    ) : (
-                        <div class={'node__expand--placeholder'}></div>
-                    )}
+                ),
+                value: (
                     <div class="node__value">
                         {this.#kulManager.data.cell.stringify(node.value)}
                     </div>
-                </div>
-            </div>
-        );
+                ),
+            },
+            events: {
+                onClick: (e) => {
+                    this.onKulEvent(e, 'click', { node });
+                },
+                onClickExpand: (e) => {
+                    this.onKulEvent(e, 'click', { expansion: true, node });
+                },
+                onPointerDown: (e) => {
+                    this.onKulEvent(e, 'pointerdown', { node });
+                },
+            },
+            expanded: this.expandedNodes.has(node),
+            node,
+            selected: this.selectedNode === node,
+        };
+
+        elements.push(<TreeNode {...nodeProps}></TreeNode>);
         if (this.expandedNodes.has(node)) {
             node.children?.map((child) =>
                 this.#recursive(elements, child, depth + 1)
@@ -322,6 +301,7 @@ export class KulTree {
 
         return (
             <Host>
+                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
                 <div id={KUL_WRAPPER_ID}>
                     <div class="tree">
                         {this.kulData?.nodes?.length

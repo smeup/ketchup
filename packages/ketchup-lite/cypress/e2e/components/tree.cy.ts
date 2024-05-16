@@ -100,7 +100,9 @@ describe('kul-tree', () => {
             })
             .then((props) => {
                 const dummy: KulTreePropsInterface = {
+                    kulAccordionLayout: null,
                     kulData: null,
+                    kulInitialExpandedDepth: null,
                     kulRipple: null,
                     kulSelectable: null,
                     kulStyle: null,

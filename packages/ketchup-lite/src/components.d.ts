@@ -796,6 +796,11 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * When enabled, the first level of depth will create an accordion-style appearance for nodes.
+          * @default false
+         */
+        "kulAccordionLayout": boolean;
+        /**
           * The actual data of the tree.
           * @default null
          */
@@ -817,7 +822,7 @@ export namespace Components {
         "kulSelectable": boolean;
         /**
           * Enables customization of the component's style.
-          * @default "" - No custom style applied by default.
+          * @default ""
          */
         "kulStyle": string;
         /**
@@ -1919,6 +1924,11 @@ declare namespace LocalJSX {
     }
     interface KulTree {
         /**
+          * When enabled, the first level of depth will create an accordion-style appearance for nodes.
+          * @default false
+         */
+        "kulAccordionLayout"?: boolean;
+        /**
           * The actual data of the tree.
           * @default null
          */
@@ -1940,7 +1950,7 @@ declare namespace LocalJSX {
         "kulSelectable"?: boolean;
         /**
           * Enables customization of the component's style.
-          * @default "" - No custom style applied by default.
+          * @default ""
          */
         "kulStyle"?: string;
         /**
