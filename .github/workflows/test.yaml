@@ -14,20 +14,13 @@ jobs:
               node-version: '16.x'
               registry-url: 'https://registry.npmjs.org'
           - run:  |
-              pwd
               cd packages/ketchup
-              pwd
               node scripts/k-npm-snapshot.js
               cd ../ketchup-react
-              pwd
               node scripts/kr-npm-snapshot.js
               cd ../..
-              pwd
               npm install yarn
-              node -v
-              yarn -v
-              yarn cache clean --all
-              yarn install
+              yarn install --no-immutable
               npm run k:build
           # - run: npm run publish:snapshot
           #   env:
