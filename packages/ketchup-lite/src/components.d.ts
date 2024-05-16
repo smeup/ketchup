@@ -801,6 +801,21 @@ export namespace Components {
          */
         "kulData": KulDataDataset1;
         /**
+          * Sets the initial expanded nodes based on the specified depth. If the property is not provided, all nodes in the tree will be expanded.
+          * @default null
+         */
+        "kulInitialExpandedDepth": number;
+        /**
+          * When set to true, the pointerdown event will trigger a ripple effect.
+          * @default true
+         */
+        "kulRipple": boolean;
+        /**
+          * When true, nodes can be selected.
+          * @default null
+         */
+        "kulSelectable": boolean;
+        /**
           * Enables customization of the component's style.
           * @default "" - No custom style applied by default.
          */
@@ -1908,6 +1923,21 @@ declare namespace LocalJSX {
           * @default null
          */
         "kulData"?: KulDataDataset1;
+        /**
+          * Sets the initial expanded nodes based on the specified depth. If the property is not provided, all nodes in the tree will be expanded.
+          * @default null
+         */
+        "kulInitialExpandedDepth"?: number;
+        /**
+          * When set to true, the pointerdown event will trigger a ripple effect.
+          * @default true
+         */
+        "kulRipple"?: boolean;
+        /**
+          * When true, nodes can be selected.
+          * @default null
+         */
+        "kulSelectable"?: boolean;
         /**
           * Enables customization of the component's style.
           * @default "" - No custom style applied by default.

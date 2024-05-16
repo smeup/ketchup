@@ -74,6 +74,7 @@ Type: `Promise<void>`
  - [kul-showcase-image](../kul-showcase/components/image)
  - [kul-tabbar](../kul-tabbar)
  - [kul-toast](../kul-toast)
+ - [kul-tree](../kul-tree)
  - [kul-upload](../kul-upload)
 
 ### Depends on
@@ -92,6 +93,7 @@ graph TD;
   kul-showcase-image --> kul-image
   kul-tabbar --> kul-image
   kul-toast --> kul-image
+  kul-tree --> kul-image
   kul-upload --> kul-image
   style kul-image fill:#f9f,stroke:#333,stroke-width:4px
 ```

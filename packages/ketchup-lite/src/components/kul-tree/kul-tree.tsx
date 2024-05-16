@@ -11,13 +11,18 @@ import {
     State,
     VNode,
 } from '@stencil/core';
-import { KulTreeEvents, KulTreeProps } from './kul-tree-declarations';
+import {
+    KulTreeEvent,
+    KulTreeEventArguments,
+    KulTreeProps,
+} from './kul-tree-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps } from '../../utils/componentUtils';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
 import { KulDataDataset, KulDataNode } from '../../components';
+import { KulThemeIconValues } from '../../managers/kul-theme/kul-theme-declarations';
 
 @Component({
     tag: 'kul-tree',
@@ -48,6 +53,10 @@ export class KulTree {
      * Set of expanded nodes.
      */
     @State() expandedNodes: Set<KulDataNode> = new Set();
+    /**
+     * Selected node.
+     */
+    @State() selectedNode: KulDataNode = null;
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -59,6 +68,22 @@ export class KulTree {
      */
     @Prop({ mutable: true }) kulData: KulDataDataset = null;
     /**
+     * Sets the initial expanded nodes based on the specified depth.
+     * If the property is not provided, all nodes in the tree will be expanded.
+     * @default null
+     */
+    @Prop({ mutable: true }) kulInitialExpandedDepth: number;
+    /**
+     * When set to true, the pointerdown event will trigger a ripple effect.
+     * @default true
+     */
+    @Prop({ mutable: true, reflect: true }) kulRipple = true;
+    /**
+     * When true, nodes can be selected.
+     * @default null
+     */
+    @Prop({ mutable: true, reflect: true }) kulSelectable = true;
+    /**
      * Enables customization of the component's style.
      * @default "" - No custom style applied by default.
      */
@@ -69,6 +94,7 @@ export class KulTree {
     /*-------------------------------------------------*/
 
     #kulManager = kulManagerInstance();
+    #rippleSurface: { [id: string]: HTMLElement } = {};
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -85,7 +111,32 @@ export class KulTree {
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event | CustomEvent, eventType: KulTreeEvents) {
+    onKulEvent(
+        e: Event | CustomEvent,
+        eventType: KulTreeEvent,
+        args?: KulTreeEventArguments
+    ) {
+        const { expansion, node } = args || {};
+        if (eventType === 'pointerdown') {
+            if (this.kulRipple) {
+                this.#kulManager.theme.ripple.trigger(
+                    e as PointerEvent,
+                    this.#rippleSurface[node.id]
+                );
+            }
+        }
+        if (eventType === 'click') {
+            if (expansion && node.children?.length) {
+                if (this.expandedNodes.has(node)) {
+                    this.expandedNodes.delete(node);
+                } else {
+                    this.expandedNodes.add(node);
+                }
+                this.expandedNodes = new Set(this.expandedNodes);
+            } else if (node) {
+                this.selectedNode = node;
+            }
+        }
         this.kulEvent.emit({
             comp: this,
             eventType,
@@ -127,10 +178,54 @@ export class KulTree {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    #recursive(node: KulDataNode, depth: number): VNode {
+    #setExpansion(node: KulDataNode) {
+        if (this.expandedNodes.has(node)) {
+            this.expandedNodes.delete(node);
+        } else {
+            this.expandedNodes.add(node);
+        }
+
+        if (node.children?.length) {
+            node.children.forEach((child) => {
+                this.#setExpansion(child);
+            });
+        }
+    }
+
+    #recursive(elements: VNode[], node: KulDataNode, depth: number) {
+        if (!this.debugInfo.endTime) {
+            if (
+                this.kulInitialExpandedDepth === null ||
+                this.kulInitialExpandedDepth === undefined ||
+                depth <= this.kulInitialExpandedDepth
+            ) {
+                this.expandedNodes.add(node);
+            }
+        }
         const depthString = depth.toString();
-        return (
-            <div class="node" data-depth={depthString} title={node.description}>
+        const isExpanded = this.expandedNodes.has(node);
+        elements.push(
+            <div
+                class={`node ${
+                    node === this.selectedNode ? 'node--selected' : ''
+                }`}
+                data-depth={depthString}
+                key={node.id}
+                onClick={(e) => {
+                    this.onKulEvent(e, 'click', { node });
+                }}
+                onPointerDown={(e) => {
+                    this.onKulEvent(e, 'pointerdown', { node });
+                }}
+                title={node.description}
+            >
+                <div
+                    ref={(el) => {
+                        if (el && this.kulRipple) {
+                            this.#rippleSurface[node.id] = el;
+                        }
+                    }}
+                ></div>
                 <div class="node__content">
                     <div
                         class="node__padding"
@@ -138,6 +233,22 @@ export class KulTree {
                             ['--kul_tree_padding_multiplier']: depthString,
                         }}
                     ></div>
+                    {node.children?.length ? (
+                        <div
+                            class={`node__expand ${
+                                isExpanded ? 'node__expand--expanded' : ''
+                            }`}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                this.onKulEvent(e, 'click', {
+                                    expansion: true,
+                                    node,
+                                });
+                            }}
+                        ></div>
+                    ) : (
+                        <div class={'node__expand--placeholder'}></div>
+                    )}
                     {node.icon ? (
                         <kul-image
                             class={'node__icon'}
@@ -145,16 +256,20 @@ export class KulTree {
                             kulSizeY="1.5em"
                             kulValue={node.icon}
                         ></kul-image>
-                    ) : undefined}
+                    ) : (
+                        <div class={'node__expand--placeholder'}></div>
+                    )}
                     <div class="node__value">
                         {this.#kulManager.data.cell.stringify(node.value)}
                     </div>
                 </div>
-                {node.children?.map((child) =>
-                    this.#recursive(child, depth + 1)
-                )}
             </div>
         );
+        if (this.expandedNodes.has(node)) {
+            node.children?.map((child) =>
+                this.#recursive(elements, child, depth + 1)
+            );
+        }
     }
 
     #prepTree(): VNode[] {
@@ -162,7 +277,7 @@ export class KulTree {
         const nodes = this.kulData.nodes;
         for (let index = 0; index < nodes.length; index++) {
             const node = nodes[index];
-            elements.push(this.#recursive(node, 0));
+            this.#recursive(elements, node, 0);
         }
         return elements;
     }
@@ -185,16 +300,34 @@ export class KulTree {
     }
 
     componentDidRender() {
+        if (Object.keys(this.#rippleSurface).length) {
+            for (const key in this.#rippleSurface) {
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        this.#rippleSurface,
+                        key
+                    )
+                ) {
+                    const surface = this.#rippleSurface[key];
+                    this.#kulManager.theme.ripple.setup(surface);
+                }
+            }
+        }
+
         this.#kulManager.debug.updateDebugInfo(this, 'did-render');
     }
 
     render() {
+        this.#rippleSurface = {};
+
         return (
             <Host>
                 <div id={KUL_WRAPPER_ID}>
-                    {this.kulData?.nodes?.length
-                        ? this.#prepTree()
-                        : 'Empty data'}
+                    <div class="tree">
+                        {this.kulData?.nodes?.length
+                            ? this.#prepTree()
+                            : 'Empty data'}
+                    </div>
                 </div>
             </Host>
         );
