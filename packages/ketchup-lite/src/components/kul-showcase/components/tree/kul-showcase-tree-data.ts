@@ -531,7 +531,7 @@ export const TREE_DOC: KulArticleDataset = {
                                                         },
                                                         {
                                                             id: '0.4.0.3.0.0.1',
-                                                            value: ': emitted when a tab is clicked.',
+                                                            value: ': emitted when a node is clicked.',
                                                         },
                                                     ],
                                                     id: '0.4.0.3.0.0',
@@ -547,7 +547,7 @@ export const TREE_DOC: KulArticleDataset = {
                                                         },
                                                         {
                                                             id: '0.4.0.3.0.0.1',
-                                                            value: ': emitted when as soon as the component is touched/clicked (before the click event).',
+                                                            value: ': emitted when as soon as a node is touched/clicked (before the click event).',
                                                         },
                                                     ],
                                                     id: '0.4.0.3.0.0',
@@ -627,18 +627,6 @@ export const TREE_DOC: KulArticleDataset = {
                             children: [
                                 {
                                     id: '0.5.2.0',
-                                    value: ' Returns the selected node and its index.',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.5.2',
-                            tagName: 'strong',
-                            value: 'getValue()',
-                        },
-                        {
-                            children: [
-                                {
-                                    id: '0.5.2.0',
                                     value: 'Triggers a re-render of the component to reflect any state changes.',
                                 },
                             ],
@@ -646,18 +634,6 @@ export const TREE_DOC: KulArticleDataset = {
                             id: '0.5.2',
                             tagName: 'strong',
                             value: 'refresh()',
-                        },
-                        {
-                            children: [
-                                {
-                                    id: '0.5.2.0',
-                                    value: ' Sets the value of the component based on the provided argument.',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.5.2',
-                            tagName: 'strong',
-                            value: 'setValue(value: number | string)',
                         },
                     ],
                     id: '0.5',
@@ -754,6 +730,9 @@ export const TREE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.13.0',
                                                     value: '--kul-tree-accordion-background-color',
                                                 },
@@ -768,6 +747,9 @@ export const TREE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.14.0',
                                                     value: '--kul-tree-accordion-border-radius',
                                                 },
@@ -782,6 +764,9 @@ export const TREE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.13.0',
                                                     value: '--kul-tree-accordion-color',
                                                 },
@@ -796,6 +781,9 @@ export const TREE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.13.0',
                                                     value: '--kul-tree-accordion-font-size',
                                                 },
@@ -810,6 +798,9 @@ export const TREE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.13.0',
                                                     value: '--kul-tree-accordion-hover-background-color',
                                                 },
@@ -824,6 +815,9 @@ export const TREE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.13.0',
                                                     value: '--kul-tree-accordion-hover-color',
                                                 },
@@ -838,6 +832,9 @@ export const TREE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.13.0',
                                                     value: '--kul-tree-accordion-node-height',
                                                 },
@@ -852,6 +849,9 @@ export const TREE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.13.0',
                                                     value: '--kul-tree-node-height',
                                                 },
@@ -866,6 +866,9 @@ export const TREE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.13.0',
                                                     value: '--kul-tree-backdrop-filter',
                                                 },
@@ -880,6 +883,9 @@ export const TREE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.13.0',
                                                     value: '--kul-tree-node-background-color-hover',
                                                 },
@@ -894,6 +900,9 @@ export const TREE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.13.0',
                                                     value: '--kul-tree-node-background-color-selected',
                                                 },
@@ -908,6 +917,9 @@ export const TREE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.13.0',
                                                     value: '--kul-tree-node-padding',
                                                 },
@@ -922,6 +934,9 @@ export const TREE_DOC: KulArticleDataset = {
                                         {
                                             children: [
                                                 {
+                                                    tagName: 'strong',
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.13.0',
                                                     value: '--kul-tree-padding',
                                                 },
