@@ -105,6 +105,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'placeholderResource',
+          description:
+            'An SVG that will be displayed until the image is loaded.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'resource',
           description:
             'The name of the image. It can also contain an URL or a path.',
