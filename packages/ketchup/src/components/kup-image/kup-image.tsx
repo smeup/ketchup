@@ -78,6 +78,11 @@ export class KupImage {
      */
     @Prop() isCanvas: boolean = false;
     /**
+     * An SVG that will be displayed until the image is loaded.
+     * @default ""
+     */
+    @Prop() placeholderResource = '';
+    /**
      * The resource used to fetch the image.
      * @default null
      */
@@ -250,6 +255,7 @@ export class KupImage {
             color: this.color,
             data: this.data,
             fit: this.rootElement.classList.contains('kup-fit') ? true : false,
+            placeholderResource: this.placeholderResource,
             resource: this.resource,
             sizeX: this.sizeX,
             sizeY: this.sizeY,

@@ -2404,6 +2404,11 @@ export namespace Components {
          */
         "isCanvas": boolean;
         /**
+          * An SVG that will be displayed until the image is loaded.
+          * @default ""
+         */
+        "placeholderResource": string;
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
@@ -7178,6 +7183,11 @@ declare namespace LocalJSX {
         "isCanvas"?: boolean;
         "onKup-image-click"?: (event: KupImageCustomEvent<KupImageClickEventPayload>) => void;
         "onKup-image-load"?: (event: KupImageCustomEvent<KupImageClickEventPayload>) => void;
+        /**
+          * An SVG that will be displayed until the image is loaded.
+          * @default ""
+         */
+        "placeholderResource"?: string;
         /**
           * The resource used to fetch the image.
           * @default null

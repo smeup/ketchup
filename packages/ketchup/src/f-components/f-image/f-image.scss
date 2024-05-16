@@ -31,6 +31,16 @@
     width: var(--kup_image_width, 100%);
   }
 
+  .f-image__placeholder {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+  }
+
+  .f-image__hidden {
+    visibility: hidden;
+  }
+
   .css-step.bottom-aligned {
     bottom: 0;
     position: absolute;
