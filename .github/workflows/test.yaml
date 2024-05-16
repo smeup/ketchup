@@ -19,7 +19,6 @@ jobs:
               cd ../ketchup-react
               node scripts/kr-npm-snapshot.js
               cd ../..
-              npm install yarn
               yarn install --no-immutable
               npm run k:build
           # - run: npm run publish:snapshot
