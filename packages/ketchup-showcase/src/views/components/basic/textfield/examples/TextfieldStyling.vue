@@ -86,7 +86,7 @@
         is filling in. To do so, use the
         <span class="code-word">icon</span> attribute. You can use any value
         supported by the
-        <a href="https://smeup.github.io/ketchup/#/icon">Icon</a>
+        <a href="https://smeup.github.io/ketchup/#/image">Image</a>
         component.
       </p>
       <div class="demo-container">
