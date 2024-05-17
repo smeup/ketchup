@@ -21,6 +21,7 @@ export enum KupEchartProps {
     showMarks = 'Displays the numerical values.',
     sizeX = 'The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).',
     sizeY = 'The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
+    stacked = 'Displays the data columns of an object on top of each other.',
     types = 'The type of the chart. Supported formats: Line, Pie, Map, Scatter.',
     xAxis = 'Customization options for the x Axis.',
     yAxis = 'Customization options for the y Axis.',
