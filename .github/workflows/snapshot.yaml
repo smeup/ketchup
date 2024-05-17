@@ -42,7 +42,7 @@ jobs:
       - name: Publish Ketchup
         run: |
           cd packages/ketchup
-          npm run publish:snapshot
+          npm run publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -50,6 +50,6 @@ jobs:
       - name: Publish Ketchup React Package
         run: |
           cd packages/ketchup-react
-          npm run publish:snapshot
+          npm run publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
