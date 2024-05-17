@@ -649,10 +649,6 @@ function setCell(
             if (hasExternalResource) {
                 return <FImage {...subcomponentProps} />;
             } else {
-                if (!(subcomponentProps as FImageProps).sizeY) {
-                    (subcomponentProps as FImageProps).sizeY = '100%';
-                }
-
                 return (
                     <div
                         class={`imageWrapIcon`}

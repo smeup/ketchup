@@ -2808,6 +2808,11 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Credentials sending along with request
+          * @default true
+         */
+        "sendCredentials": boolean;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
@@ -7447,6 +7452,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "pdfPath"?: string;
+        /**
+          * Credentials sending along with request
+          * @default true
+         */
+        "sendCredentials"?: boolean;
     }
     interface KupPhotoFrame {
         /**
