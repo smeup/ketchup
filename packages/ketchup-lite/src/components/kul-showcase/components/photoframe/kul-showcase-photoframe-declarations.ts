@@ -1,4 +1,4 @@
-import { KulPhotoframePropsInterface } from '../../../kul-photo-frame/kul-photoframe-declarations';
+import { KulPhotoframePropsInterface } from '../../../kul-photoframe/kul-photoframe-declarations';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 
 export const PHOTOFRAME_EXAMPLES_KEYS = ['simple', 'style'] as const;

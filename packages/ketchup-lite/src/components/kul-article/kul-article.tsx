@@ -14,7 +14,7 @@ import {
 } from '@stencil/core';
 import {
     KulArticleDataset,
-    KulArticleEvents,
+    KulArticleEvent,
     KulArticleNode,
     KulArticleProps,
 } from './kul-article-declarations';
@@ -86,7 +86,7 @@ export class KulArticle {
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event | CustomEvent, eventType: KulArticleEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulArticleEvent) {
         this.kulEvent.emit({
             comp: this,
             eventType,

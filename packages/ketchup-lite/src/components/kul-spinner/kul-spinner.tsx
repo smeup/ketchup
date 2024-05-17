@@ -13,7 +13,7 @@ import {
 } from '@stencil/core';
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
-import { KulSpinnerEvents, KulSpinnerProps } from './kul-spinner-declarations';
+import { KulSpinnerEvent, KulSpinnerProps } from './kul-spinner-declarations';
 import { getProps } from '../../utils/componentUtils';
 import { KulDebugComponentInfo } from '../../components';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
@@ -107,7 +107,7 @@ export class KulSpinner {
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event | CustomEvent, eventType: KulSpinnerEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulSpinnerEvent) {
         this.kulEvent.emit({
             comp: this,
             id: this.rootElement.id,

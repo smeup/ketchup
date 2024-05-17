@@ -13,7 +13,7 @@ import {
 } from '@stencil/core';
 import {
     KulTabbarEventPayload,
-    KulTabbarEvents,
+    KulTabbarEvent,
     KulTabbarProps,
     KulTabbarState,
 } from './kul-tabbar-declarations';
@@ -107,7 +107,7 @@ export class KulTabbar {
     })
     kulEvent: EventEmitter<KulTabbarEventPayload>;
 
-    onKulEvent(e: Event | CustomEvent, eventType: KulTabbarEvents, index = 0) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulTabbarEvent, index = 0) {
         if (eventType === 'pointerdown') {
             if (this.kulRipple) {
                 this.#kulManager.theme.ripple.trigger(

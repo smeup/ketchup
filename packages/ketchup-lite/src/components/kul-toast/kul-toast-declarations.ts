@@ -1,6 +1,6 @@
 import { KulImagePropsInterface } from '../kul-image/kul-image-declarations';
 
-export type KulToastEvents = 'ready' | 'unmount';
+export type KulToastEvent = 'ready' | 'unmount';
 
 export enum KulToastProps {
     kulCloseCallback = 'Callback invoked when the toast is closed.',

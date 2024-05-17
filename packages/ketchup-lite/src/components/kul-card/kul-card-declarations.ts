@@ -5,7 +5,7 @@ export enum KulCardCSSClasses {
     HAS_CONTENT = 'has-content',
 }
 
-export type KulCardEvents = 'click' | 'kul-event' | 'pointerdown' | 'ready';
+export type KulCardEvent = 'click' | 'kul-event' | 'pointerdown' | 'ready';
 
 export enum KulCardProps {
     kulData = 'The actual data of the card.',

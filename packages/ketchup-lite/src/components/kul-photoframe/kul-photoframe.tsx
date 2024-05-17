@@ -13,7 +13,7 @@ import { Method } from '@stencil/core/internal';
 import { GenericObject } from '../../types/GenericTypes';
 import {
     KulPhotoframeEventPayload,
-    KulPhotoframeEvents,
+    KulPhotoframeEvent,
     KulPhotoframeProps,
 } from './kul-photoframe-declarations';
 import { KulDebugComponentInfo } from '../../components';
@@ -105,7 +105,7 @@ export class KulPhotoframe {
 
     onKulEvent(
         e: Event | CustomEvent,
-        eventType: KulPhotoframeEvents,
+        eventType: KulPhotoframeEvent,
         isPlaceholder = false
     ) {
         this.kulEvent.emit({

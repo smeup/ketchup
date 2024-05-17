@@ -15,7 +15,7 @@ import type { GenericObject } from '../../types/GenericTypes';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import {
     KulButtonEventPayload,
-    KulButtonEvents,
+    KulButtonEvent,
     KulButtonProps,
     KulButtonState,
     KulButtonStyling,
@@ -152,7 +152,7 @@ export class KulButton {
     })
     kulEvent: EventEmitter<KulButtonEventPayload>;
 
-    onKulEvent(e: Event | CustomEvent, eventType: KulButtonEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulButtonEvent) {
         if (eventType === 'pointerdown') {
             if (this.kulRipple && this.kulStyling !== 'icon') {
                 this.#kulManager.theme.ripple.trigger(

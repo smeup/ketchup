@@ -10,7 +10,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { KulToastEvents, KulToastProps } from './kul-toast-declarations';
+import { KulToastEvent, KulToastProps } from './kul-toast-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps } from '../../utils/componentUtils';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
@@ -119,7 +119,7 @@ export class KulToast {
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event | CustomEvent, eventType: KulToastEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulToastEvent) {
         this.kulEvent.emit({
             comp: this,
             eventType,

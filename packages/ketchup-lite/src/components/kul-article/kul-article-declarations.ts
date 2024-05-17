@@ -7,7 +7,7 @@ export interface KulArticleDataset extends KulDataDataset {
     nodes: KulArticleNode[];
 }
 
-export type KulArticleEvents = 'ready';
+export type KulArticleEvent = 'ready';
 
 export interface KulArticleNode extends KulDataNode {
     children?: KulArticleNode[];

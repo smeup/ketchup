@@ -17,7 +17,7 @@ import type {
     KulEventPayload,
 } from '../../types/GenericTypes';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
-import { KulCardProps, KulCardEvents } from './kul-card-declarations';
+import { KulCardProps, KulCardEvent } from './kul-card-declarations';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { getProps } from '../../utils/componentUtils';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
@@ -111,7 +111,7 @@ export class KulCard {
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event | CustomEvent, eventType: KulCardEvents): void {
+    onKulEvent(e: Event | CustomEvent, eventType: KulCardEvent): void {
         this.kulEvent.emit({
             comp: this,
             id: this.rootElement.id,

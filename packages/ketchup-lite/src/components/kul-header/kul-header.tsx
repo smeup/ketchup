@@ -10,7 +10,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { KulHeaderProps, KulHeaderEvents } from './kul-header-declarations';
+import { KulHeaderProps, KulHeaderEvent } from './kul-header-declarations';
 import type { GenericObject, KulEventPayload } from '../../types/GenericTypes';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { KulDebugComponentInfo } from '../../components';
@@ -73,7 +73,7 @@ export class KulHeader {
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event | CustomEvent, eventType: KulHeaderEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulHeaderEvent) {
         this.kulEvent.emit({
             comp: this,
             id: this.rootElement.id,

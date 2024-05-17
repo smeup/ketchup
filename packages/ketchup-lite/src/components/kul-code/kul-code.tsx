@@ -10,7 +10,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { KulCodeEvents, KulCodeProps } from './kul-code-declarations';
+import { KulCodeEvent, KulCodeProps } from './kul-code-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps } from '../../utils/componentUtils';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
@@ -88,7 +88,7 @@ export class KulCode {
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event | CustomEvent, eventType: KulCodeEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulCodeEvent) {
         this.kulEvent.emit({
             comp: this,
             eventType,
