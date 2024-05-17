@@ -1,55 +1,53 @@
 name: snapshot-release
 
 on:
-  push:
-    branches:
-      - develop
+    push:
+        branches:
+            - develop
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '18.x'
-          registry-url: 'https://registry.npmjs.org'
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: '18.x'
+                  registry-url: 'https://registry.npmjs.org'
 
-      - name: Install dependencies
-        run: yarn install --no-immutable
+            - name: Install dependencies
+              run: yarn install --no-immutable
 
-      - name: Update Ketchup Version with Timestamp
-        run: |
-          cd packages/ketchup
-          VERSION=$(node -p "require('./package.json').version")
-          TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          NEW_VERSION="${VERSION}-${TIMESTAMP}"
-          echo "New version: $NEW_VERSION"
-          sed -i "s/\"version\": \"$VERSION\"/\"version\": \"$NEW_VERSION\"/" ./package.json
+            - name: Update Ketchup Version with Timestamp
+              run: |
+                  cd packages/ketchup
+                  VERSION=$(node -p "require('./package.json').version")
+                  TIMESTAMP=$(date +%Y%m%d%H%M%S)
+                  NEW_VERSION="${VERSION}-${TIMESTAMP}"
+                  echo "New version: $NEW_VERSION"
+                  sed -i "s/\"version\": \"$VERSION\"/\"version\": \"$NEW_VERSION\"/" ./package.json
 
-      - name: Update Ketchup React Version with Timestamp
-        run: |
-          cd packages/ketchup-react
-          VERSION=$(node -p "require('./package.json').version")
-          TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          NEW_VERSION="${VERSION}-${TIMESTAMP}"
-          echo "New version: $NEW_VERSION"
-          sed -i "s/\"version\": \"$VERSION\"/\"version\": \"$NEW_VERSION\"/" ./package.json
+            - name: Update Ketchup React Version with Timestamp
+              run: |
+                  cd packages/ketchup-react
+                  VERSION=$(node -p "require('./package.json').version")
+                  TIMESTAMP=$(date +%Y%m%d%H%M%S)
+                  NEW_VERSION="${VERSION}-${TIMESTAMP}"
+                  echo "New version: $NEW_VERSION"
+                  sed -i "s/\"version\": \"$VERSION\"/\"version\": \"$NEW_VERSION\"/" ./package.json
 
-      - name: Run Ketchup build
-        run: npm run k:build
-        
+            - name: Run Ketchup build
+              run: npm run k:build
 
-      - name: Publish Ketchup
-        run: |
-          cd packages/ketchup
-          npm run publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - name: Publish Ketchup
+              run: |
+                  cd packages/ketchup
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-
-      - name: Publish Ketchup React Package
-        run: |
-          cd packages/ketchup-react
-          npm run publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - name: Publish Ketchup React
+              run: |
+                  cd packages/ketchup-react
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
