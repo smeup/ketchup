@@ -65,6 +65,7 @@
     --kup-calendar-today-background-color,
     rgba(var(--kup-primary-color-rgb), 0.125)
   );
+  --fc-border-color: var(--kup_calendar_border_color);
 
   background-color: var(--kup_calendar_background_color);
   display: block;
