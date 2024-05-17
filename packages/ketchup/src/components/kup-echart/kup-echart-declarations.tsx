@@ -18,6 +18,7 @@ export enum KupEchartProps {
     legend = 'Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.',
     map = `Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". It's possible to supply a custom JSON too.`,
     series = 'The data series to be displayed. They must be of the same type.',
+    showMarks = 'Displays the numerical values.',
     sizeX = 'The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).',
     sizeY = 'The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
     types = 'The type of the chart. Supported formats: Line, Pie, Map, Scatter.',
@@ -64,10 +65,8 @@ export enum KupEchartTypes {
     SANKEY = 'Sankey',
     CANDLE = 'Candle',
     CALENDAR = 'Calendar'
-
-
-
 }
+
 export interface KupEchartClickEventPayload extends KupEventPayload {
     column: KupDataColumn;
     row: KupDataRow;
