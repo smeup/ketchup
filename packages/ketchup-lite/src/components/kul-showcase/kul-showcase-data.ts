@@ -16,14 +16,15 @@ export const DOC_STYLES = {
 export const KUL_SHOWCASE_UTILITIES: KulDataDataset = {
     nodes: [
         {
-            description: "Environment to test a single component's behavior.",
+            description:
+                'Provides an environment to test individual component functionality.',
             icon: 'bug',
             id: 'Debugging',
             value: 'Debugging',
         },
         {
             description:
-                'Environment for performance testing through kul-probe.',
+                'Offers a setup for performance testing using kul-probe.',
             icon: 'timer',
             id: 'Probe',
             value: 'Probe',
@@ -35,100 +36,106 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
     nodes: [
         {
             description:
-                'A component that writes semantic article-related HTML from a JSON dataset.',
+                'Generates semantic HTML for articles based on a JSON input.',
             icon: 'document',
             id: 'Article',
             value: 'Article',
         },
         {
             description:
-                'A small count and labeling component that adds context to content.',
+                'Displays a count and label to provide context to content.',
             icon: 'notifications',
             id: 'Badge',
             value: 'Badge',
         },
         {
-            description: 'A reusable button component for user interactions.',
+            description:
+                'Provides a reusable button for various user interactions.',
             icon: 'brightness-1',
             id: 'Button',
             value: 'Button',
         },
         {
             description:
-                'A card component for displaying content and actions on a single topic.',
+                'Displays content and actions related to a single topic in card format.',
             icon: 'art_track',
             id: 'Card',
             value: 'Card',
         },
         {
             description:
-                'Versatile wrapper for a few charts from the Echarts library.',
+                'Integrates multiple types of charts using the Echarts library.',
             icon: 'pie_chart',
             id: 'Chart',
             value: 'Chart',
         },
         {
-            description: 'A simple code visualizer.',
+            description: 'Visualizes code in a readable format.',
             icon: 'code',
             id: 'Code',
             value: 'Code',
         },
         {
-            description:
-                'A component for displaying images with support for different resolutions.',
+            description: 'Displays images and supports different resolutions.',
             icon: 'image',
             id: 'Image',
             value: 'Image',
         },
         {
             description:
-                'This components displays a placeholder until it either ready or it enters the viewport.',
+                'Displays a placeholder until content is ready or enters viewport.',
             icon: 'flip_to_back',
             id: 'Lazy',
             value: 'Lazy',
         },
         {
             description:
-                'This component displays a placeholder image until it enters the viewport, then the actual image is loaded.',
+                'Shows a placeholder image until the actual image is loaded upon entering viewport.',
             icon: 'photo_album',
             id: 'Photoframe',
             value: 'Photoframe',
         },
         {
             description:
-                'A full-screen component designed to display prominent app branding or introductory content.',
+                'Full-screen component for prominent app branding or introductory content.',
             icon: 'water',
             id: 'Splash',
             value: 'Splash',
         },
         {
             description:
-                'A component that indicates a loading state, often used during content or page loading.',
+                'Indicates a loading state, commonly used during content or page loading.',
             icon: 'vanish',
             id: 'Spinner',
             value: 'Spinner',
         },
         {
-            description: 'A bar of clickable tabs.',
+            description: 'Provides a bar of clickable tabs for navigation.',
             icon: 'featured_play_list',
             id: 'Tabbar',
             value: 'Tab bar',
         },
         {
-            description:
-                'A simple component suitable to display notification messages.',
+            description: 'Component for text input fields.',
+            icon: 'text_fields',
+            id: 'Textfield',
+            value: 'Text field',
+        },
+        {
+            description: 'Displays notification messages in a simple format.',
             icon: 'information-variant',
             id: 'Toast',
             value: 'Toast',
         },
         {
-            description: 'A component that renders a tree.',
+            description:
+                'Renders a tree structure to display hierarchical data.',
             icon: 'file-tree',
             id: 'Tree',
             value: 'Tree',
         },
         {
-            description: 'A simple component useful to upload files.',
+            description: 'Provides functionality to upload files easily.',
             icon: 'upload',
             id: 'Upload',
             value: 'Upload',
@@ -139,7 +146,7 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
 export const KUL_SHOWCASE_FRAMEWORK: KulDataDataset = {
     nodes: [
         {
-            description: 'Manages various aspects of the library.',
+            description: 'Handles various management tasks within the library.',
             icon: 'settings',
             id: 'Manager',
             value: 'Manager',
@@ -150,13 +157,13 @@ export const KUL_SHOWCASE_FRAMEWORK: KulDataDataset = {
 export const KUL_SHOWCASE_LAYOUT: KulDataDataset = {
     nodes: [
         {
-            description: 'Designed to be the aside menu of the application.',
+            description: 'Acts as the side menu within the application layout.',
             icon: 'web',
             id: 'Drawer',
             value: 'Drawer',
         },
         {
-            description: 'Designed to be the header bar of the application.',
+            description: 'Serves as the top header bar for the application.',
             icon: 'web_asset',
             id: 'Header',
             value: 'Header',

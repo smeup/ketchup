@@ -24,7 +24,7 @@
 
 ### Depends on
 
-- [kul-photoframe](../../../kul-photo-frame)
+- [kul-photoframe](../../../kul-photoframe)
 - [kul-article](../../../kul-article)
 
 ### Graph

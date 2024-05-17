@@ -93,6 +93,7 @@ Type: `Promise<void>`
  - [kul-showcase-spinner](../kul-showcase/components/spinner)
  - [kul-showcase-splash](../kul-showcase/components/splash)
  - [kul-showcase-tabbar](../kul-showcase/components/tabbar)
+ - [kul-showcase-textfield](../kul-showcase/components/textfield)
  - [kul-showcase-toast](../kul-showcase/components/toast)
  - [kul-showcase-tree](../kul-showcase/components/tree)
  - [kul-showcase-upload](../kul-showcase/components/upload)
@@ -115,6 +116,7 @@ graph TD;
   kul-showcase-spinner --> kul-article
   kul-showcase-splash --> kul-article
   kul-showcase-tabbar --> kul-article
+  kul-showcase-textfield --> kul-article
   kul-showcase-toast --> kul-article
   kul-showcase-tree --> kul-article
   kul-showcase-upload --> kul-article

@@ -11,6 +11,7 @@ import { KulSplashEvent } from '../components/kul-splash/kul-splash-declarations
 import { KulUploadEvent } from '../components/kul-upload/kul-upload-declarations';
 import { KulToastEvent } from '../components/kul-toast/kul-toast-declarations';
 import { KulDrawerEvent } from '../components/kul-drawer/kul-drawer-declarations';
+import { KulTextfieldEvent } from '../components/kul-textfield/kul-textfield-declarations';
 import { KulChartEvent } from '../components/kul-chart/kul-chart-declarations';
 import { KulHeaderEvent } from '../components/kul-header/kul-header-declarations';
 import { KulLazyEvent } from '../components/kul-lazy/kul-lazy-declarations';
@@ -66,6 +67,7 @@ export interface KulEventPayload {
         | KulSpinnerEvent
         | KulSplashEvent
         | KulTabbarEvent
+        | KulTextfieldEvent
         | KulToastEvent
         | KulTreeEvent
         | KulUploadEvent;

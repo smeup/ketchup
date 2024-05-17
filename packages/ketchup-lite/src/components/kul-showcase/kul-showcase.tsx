@@ -264,6 +264,8 @@ export class KulShowcase {
                 return <kul-showcase-spinner></kul-showcase-spinner>;
             case 'Tabbar':
                 return <kul-showcase-tabbar></kul-showcase-tabbar>;
+            case 'Textfield':
+                return <kul-showcase-textfield></kul-showcase-textfield>;
             case 'Toast':
                 return <kul-showcase-toast></kul-showcase-toast>;
             case 'Tree':
