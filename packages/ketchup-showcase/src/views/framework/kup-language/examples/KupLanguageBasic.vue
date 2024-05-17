@@ -4,17 +4,14 @@
       <p>
         <span class="code-word">KupLanguage</span> is a class where all Ketchup
         translations reside. <br />The supported languages are tied to those of
-        <a href="https://ketchup.smeup.com/ketchup-showcase/#/kup-dates"
-          >KupDates</a
-        >
+        <a href="https://smeup.github.io/ketchup/#/kup-dates">KupDates</a>
         in order to have more consistency with the whole library
         localization.<br /><br />It's also possible to define
         <span class="code-word">variants</span> of base languages, which in
         inherit everything from it except the spcified keys. The translation is
         automatically applied to static strings throughout the library, such as
         the combobox used to paginate a
-        <a href="https://ketchup.smeup.com/ketchup-showcase/#/datatable"
-          >kup-data-table</a
+        <a href="https://smeup.github.io/ketchup/#/datatable">kup-data-table</a
         >.<br /><br />By clicking on the button below it's possible to download
         the standard JSON of translations shipped with the library.
       </p>

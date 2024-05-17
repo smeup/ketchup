@@ -69,7 +69,7 @@ Ideally, component classes should be structured like this:
     /**
      * Custom style of the component.
      * @default ""
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://smeup.github.io/ketchup/#/customization
      */
     @Prop() customStyle: string = '';
 ```
@@ -230,7 +230,7 @@ Almost all Ketchup components should include these features:
 -   customStyle
 -   debugging
 
-The `customStyle` prop allows a custom stylesheet to be defined inside a component. More info [here](https://ketchup.smeup.com/ketchup-showcase/#/customization).
+The `customStyle` prop allows a custom stylesheet to be defined inside a component. More info [here](https://smeup.github.io/ketchup/#/customization).
 
 Debugging is useful to understand a component's performances.
 
@@ -251,7 +251,7 @@ Both these features (among many others) reside in an API called `KupManager`, wh
     /**
      * Custom style of the component.
      * @default ""
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://smeup.github.io/ketchup/#/customization
      */
     @Prop() customStyle: string = '';
 ```

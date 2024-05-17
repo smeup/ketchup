@@ -3,7 +3,7 @@
     <p>
       An even more elegant way to customize components' look is using Ketchup
       CSS variables. You can check the whole list in the
-      <a href="https://ketchup.smeup.com/ketchup-showcase/#/theming">Theming</a>
+      <a href="https://smeup.github.io/ketchup/#/theming">Theming</a>
       page. <br />Let's take the button we created before:
     </p>
     <div class="demo-container">

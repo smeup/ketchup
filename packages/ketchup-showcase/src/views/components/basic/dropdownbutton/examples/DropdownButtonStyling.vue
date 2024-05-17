@@ -67,7 +67,7 @@
         If you want to use an icon to give further emphasis to the dropdown
         button's meaning, you can use the attribute
         <span class="code-word">icon</span> and specify a value supported by the
-        <a href="https://ketchup.smeup.com/ketchup-showcase/#/image"
+        <a href="https://smeup.github.io/ketchup/#/image"
           >Ketchup Icon component</a
         >.
       </p>
