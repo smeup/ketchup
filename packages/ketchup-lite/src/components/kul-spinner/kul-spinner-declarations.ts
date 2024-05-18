@@ -1,4 +1,4 @@
-export type KulSpinnerEvents = 'ready';
+export type KulSpinnerEvent = 'ready';
 
 export enum KulSpinnerProps {
     kulActive = 'Specifies if the spinner is animating.',

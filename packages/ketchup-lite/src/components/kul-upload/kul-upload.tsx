@@ -17,7 +17,7 @@ import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declar
 import { GenericObject } from '../../types/GenericTypes';
 import {
     KulUploadEventPayload,
-    KulUploadEvents,
+    KulUploadEvent,
     KulUploadProps,
 } from './kul-upload-declarations';
 
@@ -100,7 +100,7 @@ export class KulUpload {
     })
     kulEvent: EventEmitter<KulUploadEventPayload>;
 
-    onKulEvent(e: Event | CustomEvent, eventType: KulUploadEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulUploadEvent) {
         if (eventType === 'pointerdown') {
             if (this.kulRipple) {
                 this.#kulManager.theme.ripple.trigger(

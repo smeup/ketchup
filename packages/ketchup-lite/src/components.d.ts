@@ -16,8 +16,9 @@ import { XAXisComponentOption, YAXisComponentOption } from "echarts";
 import { KulArticleDataset as KulArticleDataset1, KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 import { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
-import { KulPhotoframeEventPayload } from "./components/kul-photo-frame/kul-photoframe-declarations";
+import { KulPhotoframeEventPayload } from "./components/kul-photoframe/kul-photoframe-declarations";
 import { KulTabbarEventPayload, KulTabbarState } from "./components/kul-tabbar/kul-tabbar-declarations";
+import { KulTextfieldHelper, KulTextfieldStyling } from "./components/kul-textfield/kul-textfield-declarations";
 import { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
 export { KulArticleDataset } from "./components/kul-article/kul-article-declarations";
 export { GenericObject, KulEventPayload } from "./types/GenericTypes";
@@ -30,8 +31,9 @@ export { XAXisComponentOption, YAXisComponentOption } from "echarts";
 export { KulArticleDataset as KulArticleDataset1, KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 export { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
-export { KulPhotoframeEventPayload } from "./components/kul-photo-frame/kul-photoframe-declarations";
+export { KulPhotoframeEventPayload } from "./components/kul-photoframe/kul-photoframe-declarations";
 export { KulTabbarEventPayload, KulTabbarState } from "./components/kul-tabbar/kul-tabbar-declarations";
+export { KulTextfieldHelper, KulTextfieldStyling } from "./components/kul-textfield/kul-textfield-declarations";
 export { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
 export namespace Components {
     interface KulArticle {
@@ -593,6 +595,8 @@ export namespace Components {
     }
     interface KulShowcaseTabbar {
     }
+    interface KulShowcaseTextfield {
+    }
     interface KulShowcaseToast {
     }
     interface KulShowcaseTree {
@@ -735,6 +739,73 @@ export namespace Components {
           * @returns The newly set value.
          */
         "setValue": (value: number | string) => Promise<KulTabbarState>;
+    }
+    interface KulTextfield {
+        /**
+          * Fetches debug information of the component's current state.
+          * @returns A promise that resolves with the debug information object.
+         */
+        "getDebugInfo": () => Promise<KulDebugComponentInfo>;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Enables or disables the text field to prevent user interaction.
+          * @default false
+         */
+        "kulDisabled": boolean;
+        /**
+          * Applies a full-width styling to the text field, making it occupy all available horizontal space.
+          * @default false
+         */
+        "kulFullWidth": boolean;
+        /**
+          * Specifies helper text to display alongside the text field. Helper text can provide additional context or instructions to the user.
+          * @default ""
+         */
+        "kulHelper": KulTextfieldHelper;
+        /**
+          * Allows customization of the input or textarea element through additional HTML attributes. This can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.
+          * @default {}
+         */
+        "kulHtmlAttributes": GenericObject;
+        /**
+          * Defines the icon to be displayed within the text field. Icons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.
+          * @default ""
+         */
+        "kulIcon": string;
+        /**
+          * Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected. Labels are especially important for screen readers and users navigating with keyboard-only controls.
+          * @default ""
+         */
+        "kulLabel": string;
+        /**
+          * Accepts custom CSS styles to apply directly to the text field component. This allows for fine-grained control over the appearance of the component beyond predefined styling options.
+          * @default ""
+         */
+        "kulStyle": string;
+        /**
+          * Determines the overall styling theme of the text field, affecting its shape and border. Options include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.
+          * @default "raised"
+         */
+        "kulStyling": KulTextfieldStyling;
+        /**
+          * Controls whether the icon should appear after the text input, typically used for action buttons like clear or search.
+          * @default false
+         */
+        "kulTrailingIcon": boolean;
+        /**
+          * Initializes the text field with a default value when the component is first rendered. This can be used to pre-fill forms or set a starting point for user input.
+          * @default ""
+         */
+        "kulValue": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
     }
     interface KulToast {
         /**
@@ -931,6 +1002,10 @@ export interface KulSplashCustomEvent<T> extends CustomEvent<T> {
 export interface KulTabbarCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulTabbarElement;
+}
+export interface KulTextfieldCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKulTextfieldElement;
 }
 export interface KulToastCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1251,6 +1326,12 @@ declare global {
         prototype: HTMLKulShowcaseTabbarElement;
         new (): HTMLKulShowcaseTabbarElement;
     };
+    interface HTMLKulShowcaseTextfieldElement extends Components.KulShowcaseTextfield, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseTextfieldElement: {
+        prototype: HTMLKulShowcaseTextfieldElement;
+        new (): HTMLKulShowcaseTextfieldElement;
+    };
     interface HTMLKulShowcaseToastElement extends Components.KulShowcaseToast, HTMLStencilElement {
     }
     var HTMLKulShowcaseToastElement: {
@@ -1319,6 +1400,23 @@ declare global {
     var HTMLKulTabbarElement: {
         prototype: HTMLKulTabbarElement;
         new (): HTMLKulTabbarElement;
+    };
+    interface HTMLKulTextfieldElementEventMap {
+        "kul-textfield-event": KulEventPayload;
+    }
+    interface HTMLKulTextfieldElement extends Components.KulTextfield, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulTextfieldElementEventMap>(type: K, listener: (this: HTMLKulTextfieldElement, ev: KulTextfieldCustomEvent<HTMLKulTextfieldElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulTextfieldElementEventMap>(type: K, listener: (this: HTMLKulTextfieldElement, ev: KulTextfieldCustomEvent<HTMLKulTextfieldElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKulTextfieldElement: {
+        prototype: HTMLKulTextfieldElement;
+        new (): HTMLKulTextfieldElement;
     };
     interface HTMLKulToastElementEventMap {
         "kul-toast-event": KulEventPayload;
@@ -1401,12 +1499,14 @@ declare global {
         "kul-showcase-spinner": HTMLKulShowcaseSpinnerElement;
         "kul-showcase-splash": HTMLKulShowcaseSplashElement;
         "kul-showcase-tabbar": HTMLKulShowcaseTabbarElement;
+        "kul-showcase-textfield": HTMLKulShowcaseTextfieldElement;
         "kul-showcase-toast": HTMLKulShowcaseToastElement;
         "kul-showcase-tree": HTMLKulShowcaseTreeElement;
         "kul-showcase-upload": HTMLKulShowcaseUploadElement;
         "kul-spinner": HTMLKulSpinnerElement;
         "kul-splash": HTMLKulSplashElement;
         "kul-tabbar": HTMLKulTabbarElement;
+        "kul-textfield": HTMLKulTextfieldElement;
         "kul-toast": HTMLKulToastElement;
         "kul-tree": HTMLKulTreeElement;
         "kul-upload": HTMLKulUploadElement;
@@ -1795,6 +1895,8 @@ declare namespace LocalJSX {
     }
     interface KulShowcaseTabbar {
     }
+    interface KulShowcaseTextfield {
+    }
     interface KulShowcaseToast {
     }
     interface KulShowcaseTree {
@@ -1885,6 +1987,62 @@ declare namespace LocalJSX {
           * Describes events emitted.
          */
         "onKul-tabbar-event"?: (event: KulTabbarCustomEvent<KulTabbarEventPayload>) => void;
+    }
+    interface KulTextfield {
+        /**
+          * Enables or disables the text field to prevent user interaction.
+          * @default false
+         */
+        "kulDisabled"?: boolean;
+        /**
+          * Applies a full-width styling to the text field, making it occupy all available horizontal space.
+          * @default false
+         */
+        "kulFullWidth"?: boolean;
+        /**
+          * Specifies helper text to display alongside the text field. Helper text can provide additional context or instructions to the user.
+          * @default ""
+         */
+        "kulHelper"?: KulTextfieldHelper;
+        /**
+          * Allows customization of the input or textarea element through additional HTML attributes. This can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.
+          * @default {}
+         */
+        "kulHtmlAttributes"?: GenericObject;
+        /**
+          * Defines the icon to be displayed within the text field. Icons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.
+          * @default ""
+         */
+        "kulIcon"?: string;
+        /**
+          * Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected. Labels are especially important for screen readers and users navigating with keyboard-only controls.
+          * @default ""
+         */
+        "kulLabel"?: string;
+        /**
+          * Accepts custom CSS styles to apply directly to the text field component. This allows for fine-grained control over the appearance of the component beyond predefined styling options.
+          * @default ""
+         */
+        "kulStyle"?: string;
+        /**
+          * Determines the overall styling theme of the text field, affecting its shape and border. Options include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.
+          * @default "raised"
+         */
+        "kulStyling"?: KulTextfieldStyling;
+        /**
+          * Controls whether the icon should appear after the text input, typically used for action buttons like clear or search.
+          * @default false
+         */
+        "kulTrailingIcon"?: boolean;
+        /**
+          * Initializes the text field with a default value when the component is first rendered. This can be used to pre-fill forms or set a starting point for user input.
+          * @default ""
+         */
+        "kulValue"?: string;
+        /**
+          * Describes event emitted.
+         */
+        "onKul-textfield-event"?: (event: KulTextfieldCustomEvent<KulEventPayload>) => void;
     }
     interface KulToast {
         /**
@@ -2014,12 +2172,14 @@ declare namespace LocalJSX {
         "kul-showcase-spinner": KulShowcaseSpinner;
         "kul-showcase-splash": KulShowcaseSplash;
         "kul-showcase-tabbar": KulShowcaseTabbar;
+        "kul-showcase-textfield": KulShowcaseTextfield;
         "kul-showcase-toast": KulShowcaseToast;
         "kul-showcase-tree": KulShowcaseTree;
         "kul-showcase-upload": KulShowcaseUpload;
         "kul-spinner": KulSpinner;
         "kul-splash": KulSplash;
         "kul-tabbar": KulTabbar;
+        "kul-textfield": KulTextfield;
         "kul-toast": KulToast;
         "kul-tree": KulTree;
         "kul-upload": KulUpload;
@@ -2058,12 +2218,14 @@ declare module "@stencil/core" {
             "kul-showcase-spinner": LocalJSX.KulShowcaseSpinner & JSXBase.HTMLAttributes<HTMLKulShowcaseSpinnerElement>;
             "kul-showcase-splash": LocalJSX.KulShowcaseSplash & JSXBase.HTMLAttributes<HTMLKulShowcaseSplashElement>;
             "kul-showcase-tabbar": LocalJSX.KulShowcaseTabbar & JSXBase.HTMLAttributes<HTMLKulShowcaseTabbarElement>;
+            "kul-showcase-textfield": LocalJSX.KulShowcaseTextfield & JSXBase.HTMLAttributes<HTMLKulShowcaseTextfieldElement>;
             "kul-showcase-toast": LocalJSX.KulShowcaseToast & JSXBase.HTMLAttributes<HTMLKulShowcaseToastElement>;
             "kul-showcase-tree": LocalJSX.KulShowcaseTree & JSXBase.HTMLAttributes<HTMLKulShowcaseTreeElement>;
             "kul-showcase-upload": LocalJSX.KulShowcaseUpload & JSXBase.HTMLAttributes<HTMLKulShowcaseUploadElement>;
             "kul-spinner": LocalJSX.KulSpinner & JSXBase.HTMLAttributes<HTMLKulSpinnerElement>;
             "kul-splash": LocalJSX.KulSplash & JSXBase.HTMLAttributes<HTMLKulSplashElement>;
             "kul-tabbar": LocalJSX.KulTabbar & JSXBase.HTMLAttributes<HTMLKulTabbarElement>;
+            "kul-textfield": LocalJSX.KulTextfield & JSXBase.HTMLAttributes<HTMLKulTextfieldElement>;
             "kul-toast": LocalJSX.KulToast & JSXBase.HTMLAttributes<HTMLKulToastElement>;
             "kul-tree": LocalJSX.KulTree & JSXBase.HTMLAttributes<HTMLKulTreeElement>;
             "kul-upload": LocalJSX.KulUpload & JSXBase.HTMLAttributes<HTMLKulUploadElement>;

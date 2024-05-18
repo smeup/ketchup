@@ -1,16 +1,23 @@
 import { ComponentInterface } from '@stencil/core';
-import { KulArticleEvents } from '../components/kul-article/kul-article-declarations';
-import { KulBadgeEvents } from '../components/kul-badge/kul-badge-declarations';
-import { KulButtonEvents } from '../components/kul-button/kul-button-declarations';
-import { KulCardEvents } from '../components/kul-card/kul-card-declarations';
-import { KulCodeEvents } from '../components/kul-code/kul-code-declarations';
+import { KulArticleEvent } from '../components/kul-article/kul-article-declarations';
+import { KulBadgeEvent } from '../components/kul-badge/kul-badge-declarations';
+import { KulButtonEvent } from '../components/kul-button/kul-button-declarations';
+import { KulCardEvent } from '../components/kul-card/kul-card-declarations';
+import { KulCodeEvent } from '../components/kul-code/kul-code-declarations';
 import { KulDebugComponentInfo } from '../components';
-import { KulImageEvents } from '../components/kul-image/kul-image-declarations';
-import { KulSpinnerEvents } from '../components/kul-spinner/kul-spinner-declarations';
-import { KulSplashEvents } from '../components/kul-splash/kul-splash-declarations';
-import { KulUploadEvents } from '../components/kul-upload/kul-upload-declarations';
-import { KulToastEvents } from '../components/kul-toast/kul-toast-declarations';
-import { KulDrawerEvents } from '../components/kul-drawer/kul-drawer-declarations';
+import { KulImageEvent } from '../components/kul-image/kul-image-declarations';
+import { KulSpinnerEvent } from '../components/kul-spinner/kul-spinner-declarations';
+import { KulSplashEvent } from '../components/kul-splash/kul-splash-declarations';
+import { KulUploadEvent } from '../components/kul-upload/kul-upload-declarations';
+import { KulToastEvent } from '../components/kul-toast/kul-toast-declarations';
+import { KulDrawerEvent } from '../components/kul-drawer/kul-drawer-declarations';
+import { KulTextfieldEvent } from '../components/kul-textfield/kul-textfield-declarations';
+import { KulChartEvent } from '../components/kul-chart/kul-chart-declarations';
+import { KulHeaderEvent } from '../components/kul-header/kul-header-declarations';
+import { KulLazyEvent } from '../components/kul-lazy/kul-lazy-declarations';
+import { KulPhotoframeEvent } from '../components/kul-photoframe/kul-photoframe-declarations';
+import { KulTabbarEvent } from '../components/kul-tabbar/kul-tabbar-declarations';
+import { KulTreeEvent } from '../components/kul-tree/kul-tree-declarations';
 
 /**
  * Generic KulComponent.
@@ -46,17 +53,24 @@ export interface GenericObject<T = unknown> {
 export interface KulEventPayload {
     comp: unknown;
     eventType:
-        | KulArticleEvents
-        | KulCodeEvents
-        | KulBadgeEvents
-        | KulButtonEvents
-        | KulCardEvents
-        | KulDrawerEvents
-        | KulImageEvents
-        | KulSpinnerEvents
-        | KulSplashEvents
-        | KulToastEvents
-        | KulUploadEvents;
+        | KulArticleEvent
+        | KulBadgeEvent
+        | KulButtonEvent
+        | KulCardEvent
+        | KulChartEvent
+        | KulCodeEvent
+        | KulDrawerEvent
+        | KulHeaderEvent
+        | KulImageEvent
+        | KulLazyEvent
+        | KulPhotoframeEvent
+        | KulSpinnerEvent
+        | KulSplashEvent
+        | KulTabbarEvent
+        | KulTextfieldEvent
+        | KulToastEvent
+        | KulTreeEvent
+        | KulUploadEvent;
     id: string;
     originalEvent: Event;
 }

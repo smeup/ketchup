@@ -1,4 +1,4 @@
-export type KulDrawerEvents = 'close' | 'open' | 'ready';
+export type KulDrawerEvent = 'close' | 'open' | 'ready';
 
 export enum KulDrawerProps {
     kulStyle = 'Custom style of the component.',

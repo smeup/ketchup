@@ -1,4 +1,4 @@
-export type KulCodeEvents = 'ready';
+export type KulCodeEvent = 'ready';
 
 export enum KulCodeProps {
     kulLanguage = 'Sets the language of the snippet.',

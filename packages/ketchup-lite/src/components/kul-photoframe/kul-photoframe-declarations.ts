@@ -1,6 +1,6 @@
 import { GenericObject, KulEventPayload } from '../../components';
 
-export type KulPhotoframeEvents = 'load' | 'ready';
+export type KulPhotoframeEvent = 'load' | 'ready';
 
 export interface KulPhotoframeEventPayload extends KulEventPayload {
     isPlaceholder?: boolean;

@@ -1,20 +1,20 @@
 import {
-    KulPhotoframeProps,
-    KulPhotoframePropsInterface,
-} from '../../../src/components/kul-photoframe/kul-photoframe-declarations';
+    KulTextfieldProps,
+    KulTextfieldPropsInterface,
+} from '../../../src/components/kul-textfield/kul-textfield-declarations';
 
-describe('kul-photoframe', () => {
+describe('kul-textfield', () => {
     beforeEach(() => {
-        cy.navigate('photoframe');
+        cy.navigate('textfield');
     });
 
-    it('common: should call getProps() and check keys against KulPhotoframeProps enum', () => {
+    it('common: should call getProps() and check keys against KulTextfieldProps enum', () => {
         cy.get('@kulComponentShowcase')
-            .find('kul-photoframe')
+            .find('kul-textfield')
             .first()
-            .then(($photoframe) => {
-                $photoframe[0].getProps().then((props) => {
-                    const enumKeys = Object.keys(KulPhotoframeProps);
+            .then(($textfield) => {
+                $textfield[0].getProps().then((props) => {
+                    const enumKeys = Object.keys(KulTextfieldProps);
                     expect(Object.keys(props)).to.deep.equal(enumKeys);
                 });
             });
@@ -22,12 +22,12 @@ describe('kul-photoframe', () => {
 
     it('common: should call getDebugInfo and check the structure of the returned object', () => {
         cy.get('@kulComponentShowcase')
-            .find('kul-photoframe')
+            .find('kul-textfield')
             .first()
-            .then(($photoframe) => {
-                const kulPhotoframeElement =
-                    $photoframe[0] as HTMLKulPhotoframeElement;
-                kulPhotoframeElement.getDebugInfo().then((debugInfo) => {
+            .then(($textfield) => {
+                const kulTextfieldElement =
+                    $textfield[0] as HTMLKulTextfieldElement;
+                kulTextfieldElement.getDebugInfo().then((debugInfo) => {
                     expect(debugInfo)
                         .to.have.property('endTime')
                         .that.is.a('number');
@@ -51,12 +51,12 @@ describe('kul-photoframe', () => {
         let initialRenderCount: number;
 
         cy.get('@kulComponentShowcase')
-            .find('kul-photoframe')
+            .find('kul-textfield')
             .first()
-            .then(($photoframe) => {
-                const kulPhotoframeElement =
-                    $photoframe[0] as HTMLKulPhotoframeElement;
-                return kulPhotoframeElement.getDebugInfo();
+            .then(($textfield) => {
+                const kulTextfieldElement =
+                    $textfield[0] as HTMLKulTextfieldElement;
+                return kulTextfieldElement.getDebugInfo();
             })
             .then((debugInfo) => {
                 initialRenderCount = debugInfo.renderCount;
@@ -64,12 +64,12 @@ describe('kul-photoframe', () => {
             })
             .then((initialRenderCount) => {
                 cy.get('@kulComponentShowcase')
-                    .find('kul-photoframe')
+                    .find('kul-textfield')
                     .first()
-                    .then(($photoframe) => {
-                        const kulPhotoframeElement =
-                            $photoframe[0] as HTMLKulPhotoframeElement;
-                        return kulPhotoframeElement.refresh();
+                    .then(($textfield) => {
+                        const kulTextfieldElement =
+                            $textfield[0] as HTMLKulTextfieldElement;
+                        return kulTextfieldElement.refresh();
                     })
                     .then(() => {
                         cy.wait(100);
@@ -77,12 +77,12 @@ describe('kul-photoframe', () => {
                     })
                     .then((initialRenderCount) => {
                         cy.get('@kulComponentShowcase')
-                            .find('kul-photoframe')
+                            .find('kul-textfield')
                             .first()
-                            .then(($photoframe) => {
-                                const kulPhotoframeElement =
-                                    $photoframe[0] as HTMLKulPhotoframeElement;
-                                return kulPhotoframeElement.getDebugInfo();
+                            .then(($textfield) => {
+                                const kulTextfieldElement =
+                                    $textfield[0] as HTMLKulTextfieldElement;
+                                return kulTextfieldElement.getDebugInfo();
                             })
                             .then((debugInfo) => {
                                 expect(debugInfo.renderCount).to.be.greaterThan(
@@ -93,20 +93,26 @@ describe('kul-photoframe', () => {
             });
     });
 
-    it('common: should call getProps and check keys against KulPhotoframePropsInterface', () => {
+    it('common: should call getProps and check keys against KulTextfieldPropsInterface', () => {
         cy.get('@kulComponentShowcase')
-            .find('kul-photoframe')
+            .find('kul-textfield')
             .first()
-            .then(($photoframe) => {
-                const kulPhotoframeElement =
-                    $photoframe[0] as HTMLKulPhotoframeElement;
-                return kulPhotoframeElement.getProps();
+            .then(($textfield) => {
+                const kulTextfieldElement =
+                    $textfield[0] as HTMLKulTextfieldElement;
+                return kulTextfieldElement.getProps();
             })
             .then((props) => {
-                const dummy: KulPhotoframePropsInterface = {
-                    kulPlaceholder: null,
+                const dummy: KulTextfieldPropsInterface = {
+                    kulDisabled: null,
+                    kulFullWidth: null,
+                    kulHelper: null,
+                    kulHtmlAttributes: null,
+                    kulIcon: null,
+                    kulLabel: null,
                     kulStyle: null,
-                    kulThreshold: null,
+                    kulStyling: null,
+                    kulTrailingIcon: null,
                     kulValue: null,
                 };
                 const expectedKeys = Object.keys(dummy);

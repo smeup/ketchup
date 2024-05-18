@@ -1,6 +1,6 @@
 import { KulImagePropsInterface } from '../kul-image/kul-image-declarations';
 
-export type KulBadgeEvents = 'click' | 'ready';
+export type KulBadgeEvent = 'click' | 'ready';
 
 export enum KulBadgeProps {
     kulImageProps = 'The props of the image displayed inside the badge.',

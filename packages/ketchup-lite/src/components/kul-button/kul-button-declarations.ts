@@ -4,7 +4,7 @@ export interface KulButtonEventPayload extends KulEventPayload {
     value: string;
 }
 
-export type KulButtonEvents =
+export type KulButtonEvent =
     | 'blur'
     | 'click'
     | 'focus'

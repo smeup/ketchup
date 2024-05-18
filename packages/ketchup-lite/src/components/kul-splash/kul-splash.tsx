@@ -11,7 +11,7 @@ import {
     State,
 } from '@stencil/core';
 import {
-    KulSplashEvents,
+    KulSplashEvent,
     KulSplashProps,
     KulSplashStates,
 } from './kul-splash-declarations';
@@ -90,7 +90,7 @@ export class KulSplash {
     })
     kulEvent: EventEmitter<KulEventPayload>;
 
-    onKulEvent(e: Event | CustomEvent, eventType: KulSplashEvents) {
+    onKulEvent(e: Event | CustomEvent, eventType: KulSplashEvent) {
         this.kulEvent.emit({
             comp: this,
             eventType,

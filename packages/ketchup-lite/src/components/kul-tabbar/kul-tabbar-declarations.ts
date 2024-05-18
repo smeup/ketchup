@@ -1,6 +1,6 @@
 import { KulDataDataset, KulDataNode, KulEventPayload } from '../../components';
 
-export type KulTabbarEvents = 'click' | 'pointerdown' | 'ready';
+export type KulTabbarEvent = 'click' | 'pointerdown' | 'ready';
 
 export interface KulTabbarEventPayload extends KulEventPayload {
     index?: number;
