@@ -10,11 +10,14 @@ import {
     Method,
     Prop,
     State,
+    VNode,
 } from '@stencil/core';
 import {
     KulTextfieldEvent,
+    KulTextfieldHelper,
     KulTextfieldProps,
     KulTextfieldStatus,
+    KulTextfieldStyling,
 } from './kul-textfield-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps } from '../../utils/componentUtils';
@@ -61,33 +64,73 @@ export class KulTextfield {
     /*-------------------------------------------------*/
 
     /**
-     * Icon of the text field.
+     * Enables or disables the text field to prevent user interaction.
+     * @default false
+     */
+    @Prop({ mutable: true, reflect: true }) kulDisabled = false;
+    /**
+     * Applies a full-width styling to the text field, making it occupy all available horizontal space.
+     * @default false
+     */
+    @Prop({ mutable: true, reflect: true }) kulFullWidth = false;
+    /**
+     * Specifies helper text to display alongside the text field.
+     * Helper text can provide additional context or instructions to the user.
      * @default ""
      */
-    @Prop({ mutable: true, reflect: true }) kulIcon = 'widgets';
+    @Prop({ mutable: true, reflect: true }) kulHelper: KulTextfieldHelper =
+        null;
     /**
-     * Label of the text field.
+     * Allows customization of the input or textarea element through additional HTML attributes.
+     * This can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.
+     * @default {}
+     */
+    @Prop({ mutable: true, reflect: true }) kulHtmlAttributes: GenericObject =
+        {};
+    /**
+     * Defines the icon to be displayed within the text field.
+     * Icons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.
      * @default ""
      */
-    @Prop({ mutable: true, reflect: true }) kulLabel = 'Label';
+    @Prop({ mutable: true, reflect: true }) kulIcon = '';
     /**
-     * Custom style of the component.
+     * Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected.
+     * Labels are especially important for screen readers and users navigating with keyboard-only controls.
+     * @default ""
+     */
+    @Prop({ mutable: true, reflect: true }) kulLabel = '';
+    /**
+     * Accepts custom CSS styles to apply directly to the text field component.
+     * This allows for fine-grained control over the appearance of the component beyond predefined styling options.
      * @default ""
      */
     @Prop({ mutable: true, reflect: true }) kulStyle = '';
     /**
-     * Sets the initial value of the text field.
+     * Determines the overall styling theme of the text field, affecting its shape and border.
+     * Options include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.
+     * @default "raised"
+     */
+    @Prop({ mutable: true, reflect: true }) kulStyling: KulTextfieldStyling =
+        'raised';
+    /**
+     * Controls whether the icon should appear after the text input, typically used for action buttons like clear or search.
+     * @default false
+     */
+    @Prop({ mutable: true, reflect: true }) kulTrailingIcon = false;
+    /**
+     * Initializes the text field with a default value when the component is first rendered.
+     * This can be used to pre-fill forms or set a starting point for user input.
      * @default ""
      */
-    @Prop({ mutable: false }) kulValue = 'initial';
+    @Prop({ mutable: false }) kulValue = '';
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    #input: HTMLInputElement;
-    #label: HTMLLabelElement;
+    #hasOutline: boolean;
     #kulManager = kulManagerInstance();
+    #maxLength: number;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -164,16 +207,145 @@ export class KulTextfield {
     }
 
     /*-------------------------------------------------*/
-    /*           P u b l i c   M e t h o d s           */
+    /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    #createIcon() {
+    #outlineCheck() {
+        return this.kulStyling === 'outlined' || this.kulStyling === 'textarea';
+    }
+
+    #prepCounter() {
+        if (!this.#maxLength) {
+            return;
+        }
+
+        return (
+            <div class="textfield__character-counter">
+                '0 / ' + {this.#maxLength.toString()}
+            </div>
+        );
+    }
+
+    #prepHelper() {
+        if (!this.kulHelper) {
+            return;
+        }
+
+        const classList: Record<string, boolean> = {
+            'textfield__helper-text': true,
+            'textfield__helper-text--persistent':
+                !this.kulHelper.showWhenFocused,
+        };
+        return (
+            <div class="textfield__helper-line">
+                <div class={classList}>{this.kulHelper.value}</div>
+                {this.kulStyling !== 'textarea'
+                    ? this.#prepCounter()
+                    : undefined}
+            </div>
+        );
+    }
+
+    #prepIcon() {
+        if (!this.kulIcon) {
+            return;
+        }
+
         const path = getAssetPath(`./assets/svg/${this.kulIcon}.svg`);
         const style = {
             mask: `url('${path}') no-repeat center`,
             webkitMask: `url('${path}') no-repeat center`,
         };
-        return <div class="textfield__icon" style={style}></div>;
+        return (
+            <div class="textfield__icon" onClick={() => {}} style={style}></div>
+        );
+    }
+
+    #prepInput() {
+        return (
+            <input
+                {...this.kulHtmlAttributes}
+                class="textfield__input"
+                disabled={this.kulDisabled}
+                placeholder={this.kulFullWidth ? this.kulLabel : undefined}
+                onBlur={(e) => {
+                    this.onKulEvent(e, 'blur');
+                }}
+                onChange={(e) => {
+                    this.onKulEvent(e, 'change');
+                }}
+                onClick={(e) => {
+                    this.onKulEvent(e, 'click');
+                }}
+                onFocus={(e) => {
+                    this.onKulEvent(e, 'focus');
+                }}
+                onInput={(e) => {
+                    this.onKulEvent(e, 'input');
+                }}
+                value={this.kulValue}
+            ></input>
+        );
+    }
+
+    #prepLabel() {
+        if (this.kulFullWidth) {
+            return;
+        }
+
+        const labelEl: VNode = (
+            <label class="textfield__label" htmlFor="input">
+                {this.kulLabel}
+            </label>
+        );
+        if (this.#hasOutline) {
+            return (
+                <div class="textfield__notched-outline">
+                    <div class="textfield__notched-outline__leading"></div>
+                    <div class="textfield__notched-outline__notch">
+                        {labelEl}
+                    </div>
+                    <div class="textfield__notched-outline__trailing"></div>
+                </div>
+            );
+        }
+
+        return labelEl;
+    }
+
+    #prepRipple() {
+        return (
+            !this.#hasOutline && <span class="textfield__line-ripple"></span>
+        );
+    }
+
+    #prepTextArea() {
+        return (
+            <span class="textfield__resizer">
+                <textarea
+                    {...this.kulHtmlAttributes}
+                    class="textfield__input"
+                    disabled={this.kulDisabled}
+                    id="input"
+                    onBlur={(e) => {
+                        this.onKulEvent(e, 'blur');
+                    }}
+                    onChange={(e) => {
+                        this.onKulEvent(e, 'change');
+                    }}
+                    onClick={(e) => {
+                        this.onKulEvent(e, 'click');
+                    }}
+                    onFocus={(e) => {
+                        this.onKulEvent(e, 'focus');
+                    }}
+                    onInput={(e) => {
+                        this.onKulEvent(e, 'input');
+                    }}
+                    value={this.kulValue}
+                ></textarea>
+            </span>
+        );
     }
 
     /*-------------------------------------------------*/
@@ -195,6 +367,29 @@ export class KulTextfield {
 
     componentWillRender() {
         this.#kulManager.debug.updateDebugInfo(this, 'will-render');
+        this.#hasOutline = this.#outlineCheck();
+        this.#maxLength = this.kulHtmlAttributes?.maxLength as number;
+        if (this.kulDisabled) {
+            this.status.add('disabled');
+        } else {
+            this.status.delete('disabled');
+        }
+        if (this.kulFullWidth) {
+            this.status.add('full-width');
+        } else {
+            this.status.delete('full-width');
+        }
+        if (this.kulIcon) {
+            this.status.add('has-icon');
+        } else {
+            this.status.delete('has-icon');
+        }
+        if (this.kulLabel) {
+            this.status.add('has-label');
+            console.log('adding has label');
+        } else {
+            this.status.delete('has-label');
+        }
     }
 
     componentDidRender() {
@@ -202,47 +397,29 @@ export class KulTextfield {
     }
 
     render() {
-        const classes = ['textfield'];
+        const classList = ['textfield', 'textfield--' + this.kulStyling];
         this.status.forEach((status) => {
-            classes.push(`textfield--${status}`);
+            classList.push(`textfield--${status}`);
         });
         return (
             <Host>
                 <style>{this.#kulManager.theme.setKulStyle(this)}</style>
                 <div id={KUL_WRAPPER_ID}>
-                    <div class={classes.join(' ')}>
-                        {this.kulLabel && (
-                            <label
-                                class="textfield__label"
-                                htmlFor="input"
-                                ref={(el) => (this.#label = el)}
-                            >
-                                {this.kulLabel}
-                            </label>
-                        )}
-                        {this.kulIcon && this.#createIcon()}
-                        <input
-                            class="textfield__input"
-                            id="input"
-                            onBlur={(e) => {
-                                this.onKulEvent(e, 'blur');
-                            }}
-                            onChange={(e) => {
-                                this.onKulEvent(e, 'change');
-                            }}
-                            onClick={(e) => {
-                                this.onKulEvent(e, 'click');
-                            }}
-                            onFocus={(e) => {
-                                this.onKulEvent(e, 'focus');
-                            }}
-                            onInput={(e) => {
-                                this.onKulEvent(e, 'input');
-                            }}
-                            ref={(el) => (this.#input = el)}
-                            type="text"
-                            value={this.value}
-                        />
+                    <div class={classList.join(' ')}>
+                        {this.kulStyling === 'textarea'
+                            ? [
+                                  this.#prepCounter(),
+                                  this.#prepIcon(),
+                                  this.#prepTextArea(),
+                                  this.#prepLabel(),
+                              ]
+                            : [
+                                  this.#prepIcon(),
+                                  this.#prepInput(),
+                                  this.#prepLabel(),
+                                  this.#prepRipple(),
+                              ]}
+                        {this.#prepHelper()}
                     </div>
                 </div>
             </Host>

@@ -3,12 +3,218 @@ import { DOC_STYLES } from '../../kul-showcase-data';
 import { TextfieldData } from './kul-showcase-textfield-declarations';
 
 export const TEXTFIELD_EXAMPLES: TextfieldData = {
-    simple: {
-        ['data-description']: 'Simple textfield',
+    flat: {
+        colors: {
+            ['data-description']: 'Textfield states colors',
+            ['data-dynamic']: 'state-colors',
+            kulLabel: 'State colors',
+            kulValue: 'Value',
+        },
+        disabled: {
+            ['data-description']: 'Disabled textfield',
+            kulDisabled: true,
+            kulLabel: 'Disabled',
+        },
+        disabledIcon: {
+            ['data-description']: 'Disabled textfield with icon',
+            kulDisabled: true,
+            kulIcon: 'widgets',
+            kulLabel: 'Disabled',
+        },
+        disabledValue: {
+            ['data-description']: 'Disabled textfield with value',
+            kulDisabled: true,
+            kulLabel: 'Disabled',
+            kulValue: 'Value',
+        },
+        disabledFullWidthLabel: {
+            ['data-description']: 'Full width textfield with label',
+            kulDisabled: true,
+            kulFullWidth: true,
+            kulLabel: 'Full width label (disabled)',
+        },
+        disabledFullWidthValue: {
+            ['data-description']: 'Full width textfield with value',
+            kulDisabled: true,
+            kulFullWidth: true,
+            kulValue: 'Full width value (disabled)',
+        },
+        fullWidthLabel: {
+            ['data-description']: 'Full width textfield with label',
+            kulFullWidth: true,
+            kulLabel: 'Full width label',
+        },
+        fullWidthIcon: {
+            ['data-description']: 'Full width textfield with icon',
+            kulFullWidth: true,
+            kulIcon: 'widgets',
+            kulLabel: 'Full width with icon',
+        },
+        fullWidthValue: {
+            ['data-description']: 'Full width textfield with value',
+            kulFullWidth: true,
+            kulValue: 'Value',
+        },
+        icon: {
+            ['data-description']: 'Textfield with icon',
+            kulIcon: 'widgets',
+        },
+        label: {
+            ['data-description']: 'Textfield with label',
+            kulLabel: 'Textfield with label',
+        },
+        labelIcon: {
+            ['data-description']: 'Textfield with label and icon',
+            kulIcon: 'widgets',
+            kulLabel: 'Textfield with label and icon',
+        },
+        style: {
+            ['data-description']: 'Textfield with custom style',
+            ['data-dynamic']: 'custom',
+            kulLabel: 'Textfield with custom style',
+        },
     },
-    style: {
-        ['data-description']: 'Textfield with custom style',
-        ['data-dynamic']: 'custom',
+    outlined: {
+        colors: {
+            ['data-description']: 'Textfield states colors',
+            ['data-dynamic']: 'state-colors',
+            kulLabel: 'State colors',
+            kulValue: 'Value',
+        },
+        disabled: {
+            ['data-description']: 'Disabled textfield',
+            kulDisabled: true,
+            kulLabel: 'Disabled',
+        },
+        disabledIcon: {
+            ['data-description']: 'Disabled textfield with icon',
+            kulDisabled: true,
+            kulIcon: 'widgets',
+            kulLabel: 'Disabled',
+        },
+        disabledValue: {
+            ['data-description']: 'Disabled textfield with value',
+            kulDisabled: true,
+            kulLabel: 'Disabled',
+            kulValue: 'Value',
+        },
+        icon: {
+            ['data-description']: 'Textfield with icon',
+            kulIcon: 'widgets',
+        },
+        label: {
+            ['data-description']: 'Textfield with label',
+            kulLabel: 'Textfield with label',
+        },
+        labelIcon: {
+            ['data-description']: 'Textfield with label and icon',
+            kulIcon: 'widgets',
+            kulLabel: 'Textfield with label and icon',
+        },
+        style: {
+            ['data-description']: 'Textfield with custom style',
+            ['data-dynamic']: 'custom',
+            kulLabel: 'Textfield with custom style',
+        },
+    },
+    raised: {
+        colors: {
+            ['data-description']: 'Textfield states colors',
+            ['data-dynamic']: 'state-colors',
+            kulLabel: 'State colors',
+            kulValue: 'Value',
+        },
+        disabled: {
+            ['data-description']: 'Disabled textfield',
+            kulDisabled: true,
+            kulLabel: 'Disabled',
+        },
+        disabledIcon: {
+            ['data-description']: 'Disabled textfield with icon',
+            kulDisabled: true,
+            kulIcon: 'widgets',
+            kulLabel: 'Disabled',
+        },
+        disabledValue: {
+            ['data-description']: 'Disabled textfield with value',
+            kulDisabled: true,
+            kulLabel: 'Disabled',
+            kulValue: 'Value',
+        },
+        disabledFullWidthLabel: {
+            ['data-description']: 'Full width textfield with label',
+            kulDisabled: true,
+            kulFullWidth: true,
+            kulLabel: 'Full width label (disabled)',
+        },
+        disabledFullWidthValue: {
+            ['data-description']: 'Full width textfield with value',
+            kulDisabled: true,
+            kulFullWidth: true,
+            kulValue: 'Full width value (disabled)',
+        },
+        fullWidthLabel: {
+            ['data-description']: 'Full width textfield with label',
+            kulFullWidth: true,
+            kulLabel: 'Full width label',
+        },
+        fullWidthIcon: {
+            ['data-description']: 'Full width textfield with icon',
+            kulFullWidth: true,
+            kulIcon: 'widgets',
+            kulLabel: 'Full width with icon',
+        },
+        fullWidthValue: {
+            ['data-description']: 'Full width textfield with value',
+            kulFullWidth: true,
+            kulValue: 'Value',
+        },
+        icon: {
+            ['data-description']: 'Textfield with icon',
+            kulIcon: 'widgets',
+        },
+        label: {
+            ['data-description']: 'Textfield with label',
+            kulLabel: 'Textfield with label',
+        },
+        labelIcon: {
+            ['data-description']: 'Textfield with label and icon',
+            kulIcon: 'widgets',
+            kulLabel: 'Textfield with label and icon',
+        },
+        style: {
+            ['data-description']: 'Textfield with custom style',
+            ['data-dynamic']: 'custom',
+            kulLabel: 'Textfield with custom style',
+        },
+    },
+    textarea: {
+        colors: {
+            ['data-description']: 'Textfield states colors',
+            ['data-dynamic']: 'state-colors',
+            kulLabel: 'State colors',
+            kulValue: 'Value',
+        },
+        disabled: {
+            ['data-description']: 'Disabled textfield',
+            kulDisabled: true,
+            kulLabel: 'Disabled',
+        },
+        disabledValue: {
+            ['data-description']: 'Disabled textfield with value',
+            kulDisabled: true,
+            kulLabel: 'Disabled',
+            kulValue: 'Value',
+        },
+        label: {
+            ['data-description']: 'Textfield with label',
+            kulLabel: 'Textfield with label',
+        },
+        style: {
+            ['data-description']: 'Textfield with custom style',
+            ['data-dynamic']: 'custom',
+            kulLabel: 'Textfield with custom style',
+        },
     },
 };
 

@@ -18,6 +18,7 @@ import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declara
 import { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
 import { KulPhotoframeEventPayload } from "./components/kul-photoframe/kul-photoframe-declarations";
 import { KulTabbarEventPayload, KulTabbarState } from "./components/kul-tabbar/kul-tabbar-declarations";
+import { KulTextfieldHelper, KulTextfieldStyling } from "./components/kul-textfield/kul-textfield-declarations";
 import { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
 export { KulArticleDataset } from "./components/kul-article/kul-article-declarations";
 export { GenericObject, KulEventPayload } from "./types/GenericTypes";
@@ -32,6 +33,7 @@ export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declara
 export { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
 export { KulPhotoframeEventPayload } from "./components/kul-photoframe/kul-photoframe-declarations";
 export { KulTabbarEventPayload, KulTabbarState } from "./components/kul-tabbar/kul-tabbar-declarations";
+export { KulTextfieldHelper, KulTextfieldStyling } from "./components/kul-textfield/kul-textfield-declarations";
 export { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
 export namespace Components {
     interface KulArticle {
@@ -751,22 +753,52 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * Icon of the text field.
+          * Enables or disables the text field to prevent user interaction.
+          * @default false
+         */
+        "kulDisabled": boolean;
+        /**
+          * Applies a full-width styling to the text field, making it occupy all available horizontal space.
+          * @default false
+         */
+        "kulFullWidth": boolean;
+        /**
+          * Specifies helper text to display alongside the text field. Helper text can provide additional context or instructions to the user.
+          * @default ""
+         */
+        "kulHelper": KulTextfieldHelper;
+        /**
+          * Allows customization of the input or textarea element through additional HTML attributes. This can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.
+          * @default {}
+         */
+        "kulHtmlAttributes": GenericObject;
+        /**
+          * Defines the icon to be displayed within the text field. Icons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.
           * @default ""
          */
         "kulIcon": string;
         /**
-          * Label of the text field.
+          * Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected. Labels are especially important for screen readers and users navigating with keyboard-only controls.
           * @default ""
          */
         "kulLabel": string;
         /**
-          * Custom style of the component.
+          * Accepts custom CSS styles to apply directly to the text field component. This allows for fine-grained control over the appearance of the component beyond predefined styling options.
           * @default ""
          */
         "kulStyle": string;
         /**
-          * Sets the initial value of the text field.
+          * Determines the overall styling theme of the text field, affecting its shape and border. Options include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.
+          * @default "raised"
+         */
+        "kulStyling": KulTextfieldStyling;
+        /**
+          * Controls whether the icon should appear after the text input, typically used for action buttons like clear or search.
+          * @default false
+         */
+        "kulTrailingIcon": boolean;
+        /**
+          * Initializes the text field with a default value when the component is first rendered. This can be used to pre-fill forms or set a starting point for user input.
           * @default ""
          */
         "kulValue": string;
@@ -1958,22 +1990,52 @@ declare namespace LocalJSX {
     }
     interface KulTextfield {
         /**
-          * Icon of the text field.
+          * Enables or disables the text field to prevent user interaction.
+          * @default false
+         */
+        "kulDisabled"?: boolean;
+        /**
+          * Applies a full-width styling to the text field, making it occupy all available horizontal space.
+          * @default false
+         */
+        "kulFullWidth"?: boolean;
+        /**
+          * Specifies helper text to display alongside the text field. Helper text can provide additional context or instructions to the user.
+          * @default ""
+         */
+        "kulHelper"?: KulTextfieldHelper;
+        /**
+          * Allows customization of the input or textarea element through additional HTML attributes. This can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.
+          * @default {}
+         */
+        "kulHtmlAttributes"?: GenericObject;
+        /**
+          * Defines the icon to be displayed within the text field. Icons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.
           * @default ""
          */
         "kulIcon"?: string;
         /**
-          * Label of the text field.
+          * Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected. Labels are especially important for screen readers and users navigating with keyboard-only controls.
           * @default ""
          */
         "kulLabel"?: string;
         /**
-          * Custom style of the component.
+          * Accepts custom CSS styles to apply directly to the text field component. This allows for fine-grained control over the appearance of the component beyond predefined styling options.
           * @default ""
          */
         "kulStyle"?: string;
         /**
-          * Sets the initial value of the text field.
+          * Determines the overall styling theme of the text field, affecting its shape and border. Options include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.
+          * @default "raised"
+         */
+        "kulStyling"?: KulTextfieldStyling;
+        /**
+          * Controls whether the icon should appear after the text input, typically used for action buttons like clear or search.
+          * @default false
+         */
+        "kulTrailingIcon"?: boolean;
+        /**
+          * Initializes the text field with a default value when the component is first rendered. This can be used to pre-fill forms or set a starting point for user input.
           * @default ""
          */
         "kulValue"?: string;

@@ -1,4 +1,4 @@
-# kul-showcase-textfield
+# kul-showcase-badge
 
 
 
@@ -7,12 +7,15 @@
 
 ## Shadow Parts
 
-| Part             | Description |
-| ---------------- | ----------- |
-| `"comp-wrapper"` |             |
-| `"description"`  |             |
-| `"example"`      |             |
-| `"grid"`         |             |
+| Part               | Description |
+| ------------------ | ----------- |
+| `"comp-wrapper"`   |             |
+| `"description"`    |             |
+| `"example"`        |             |
+| `"examples-title"` |             |
+| `"grid"`           |             |
+| `"grid-container"` |             |
+| `"grid-title"`     |             |
 
 
 ## Dependencies
