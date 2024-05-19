@@ -44,6 +44,7 @@
         "@types/numeral": "^2.0.2",
         "@types/prismjs": "^1.26.3",
         "cypress": "^13.6.3",
+        "prettier-eslint": "16.3.0",
         "puppeteer": "^21.6.0",
         "rimraf": "^5.0.5",
         "typescript": "^5.4.5"

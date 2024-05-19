@@ -1,0 +1,1141 @@
+import { KulShowcaseDoc } from "../kul-showcase-declarations";
+export const KUL_DOC: KulShowcaseDoc = {
+  "kul-article": {
+    props: [
+      {
+        name: "kulData",
+        docs: "The actual data of the article.",
+        type: "KulArticleDataset",
+      },
+      {
+        name: "kulStyle",
+        docs: "Enables customization of the component's style.",
+        type: "string",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul-article-content-color",
+        docs: "Sets the color for .content elements. Defaults to var(--kul-text-color)",
+      },
+      {
+        name: "--kul-article-content-font-family",
+        docs: "Sets the font family for .content elements. Defaults to var(--kul-font-family)",
+      },
+      {
+        name: "--kul-article-content-font-size",
+        docs: "Sets the font size for .content elements. Defaults to var(--kul-font-size)",
+      },
+      {
+        name: "--kul-article-h3-color",
+        docs: "Sets the color for <h3> elements. Defaults to var(--kul-text-color)",
+      },
+      {
+        name: "--kul-article-h3-font-family",
+        docs: "Sets the font family for <h3> elements. Defaults to var(--kul-font-family)",
+      },
+      {
+        name: "--kul-article-h3-font-size",
+        docs: "Sets the font size for <h3> elements. Defaults to 1.5em",
+      },
+      {
+        name: "--kul-article-margin",
+        docs: "Sets the margin of the article tag. Defaults to automatic.",
+      },
+      {
+        name: "--kul-article-max-width",
+        docs: "Sets the max-width of the article tag. Defaults to 1200px.",
+      },
+      {
+        name: "--kul-article-padding",
+        docs: "Sets the padding of the article tag. Defaults to 40px.",
+      },
+    ],
+  },
+  "kul-badge": {
+    props: [
+      {
+        name: "kulImageProps",
+        docs: "The props of the image displayed inside the badge.",
+        type: "KulImagePropsInterface",
+      },
+      {
+        name: "kulLabel",
+        docs: "The text displayed inside the badge.",
+        type: "string",
+      },
+      {
+        name: "kulStyle",
+        docs: "Custom style of the component.",
+        type: "string",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul-badge-border-radius",
+        docs: "Sets the border radius of the badge. Defaults to 30px.",
+      },
+      {
+        name: "--kul-badge-font-family",
+        docs: "Sets the font family of the badge. Defaults to var(--kul-font-family).",
+      },
+      {
+        name: "--kul-badge-font-size",
+        docs: "Sets the font size of the badge. Defaults to var(--kul-font-size).",
+      },
+      {
+        name: "--kul-badge-min-size",
+        docs: "Sets the minimum size of the badge. Defaults to 1.5em.",
+      },
+      {
+        name: "--kul-badge-padding",
+        docs: "Sets the padding of the badge. Defaults to 0.25em.",
+      },
+      {
+        name: "--kul-badge-primary-color",
+        docs: "Sets the primary color of the badge. Defaults to var(--kul-primary-color).",
+      },
+      {
+        name: "--kul-badge-text-on-primary-color",
+        docs: "Sets the text color on the primary color of the badge. Defaults to var(--kul-text-on-primary-color).",
+      },
+    ],
+  },
+  "kul-button": {
+    props: [
+      {
+        name: "kulDisabled",
+        docs: "Defaults at false. When set to true, the component is disabled.",
+        type: "boolean",
+      },
+      {
+        name: "kulIcon",
+        docs: "When set, the button will show this icon.",
+        type: "string",
+      },
+      {
+        name: "kulIconOff",
+        docs: "When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.",
+        type: "string",
+      },
+      {
+        name: "kulLabel",
+        docs: "When set, the button will show this text.",
+        type: "string",
+      },
+      {
+        name: "kulRipple",
+        docs: "When set to true, the pointerdown event will trigger a ripple effect.",
+        type: "boolean",
+      },
+      {
+        name: "kulShowSpinner",
+        docs: "When set to true, the button show a spinner received in slot.",
+        type: "boolean",
+      },
+      {
+        name: "kulStyle",
+        docs: "Custom style of the component.",
+        type: "string",
+      },
+      {
+        name: "kulStyling",
+        docs: "Defines the style of the button. This property controls the visual appearance of the button.",
+        type: '"flat" | "floating" | "icon" | "outlined" | "raised"',
+      },
+      {
+        name: "kulToggable",
+        docs: "When set to true, the icon button will be toggable on/off.",
+        type: "boolean",
+      },
+      {
+        name: "kulTrailingIcon",
+        docs: "When set, the icon will be shown after the text.",
+        type: "boolean",
+      },
+      {
+        name: "kulType",
+        docs: "Sets the type of the button.",
+        type: '"button" | "reset" | "submit"',
+      },
+      {
+        name: "kulValue",
+        docs: "When set to true, the icon button state will be on.",
+        type: "boolean",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul-button-backdrop-filter",
+        docs: "Sets the backdrop filter of buttons. Defaults to blur(3.5px).",
+      },
+      {
+        name: "--kul-button-backdrop-filter-hover",
+        docs: "Sets the backdrop filter of buttons when hovering. Defaults to blur(5px).",
+      },
+      {
+        name: "--kul-button-border-radius",
+        docs: "Sets border radius of the button. Defaults to 4px.",
+      },
+      {
+        name: "--kul-button-disabled-color",
+        docs: "Sets disabled color of the button. Defaults to var(--kul-disabled-color).",
+      },
+      {
+        name: "--kul-button-font-family",
+        docs: "Sets font family of the button. Defaults to var(--kul-font-family).",
+      },
+      {
+        name: "--kul-button-font-size",
+        docs: "Sets font size of the button. Defaults to var(--kul-font-size).",
+      },
+      {
+        name: "--kul-button-font-weight",
+        docs: "Sets font weight of the button. Defaults to 400.",
+      },
+      {
+        name: "--kul-button-height",
+        docs: "Sets height of the button. Defaults to 3em.",
+      },
+      {
+        name: "--kul-button-padding",
+        docs: "Sets padding of the button. Defaults to 0 1.25em.",
+      },
+      {
+        name: "--kul-button-primary-color",
+        docs: "Sets the primary color of the button. Defaults to var(--kul-primary-color).",
+      },
+      {
+        name: "--kul-button-primary-color-h",
+        docs: "Sets the primary color Hue value of the button (used for focus/hover effects). Defaults to var(--kul-primary-color-h).",
+      },
+      {
+        name: "--kul-button-primary-color-l",
+        docs: "Sets the primary color Lightness value of the button (used for focus/hover effects). Defaults to var(--kul-primary-color-l).",
+      },
+      {
+        name: "--kul-button-primary-color-rgb",
+        docs: "Sets the primary color RGB values of the button (used for shaders). Defaults to var(--kul-primary-color-rgb).",
+      },
+      {
+        name: "--kul-button-primary-color-s",
+        docs: "Sets the primary color Saturation value of the button (used for focus/hover effects). Defaults to var(--kul-primary-color-s).",
+      },
+      {
+        name: "--kul-button-text-on-primary-color",
+        docs: "Sets text and icon color for raised buttons. Defaults to var(--kul-text-on-primary-color).",
+      },
+      {
+        name: "--kul-button-text-transform",
+        docs: "Set the label case, default is uppercase. Defaults to uppercase.",
+      },
+      {
+        name: "--kul-spinner-color",
+        docs: "Sets the spinner color. Defaults to var(--kul-button-primary-color).",
+      },
+    ],
+  },
+  "kul-card": {
+    props: [
+      {
+        name: "kulData",
+        docs: "The actual data of the card.",
+        type: "KulDataDataset",
+      },
+      {
+        name: "kulLayout",
+        docs: "Sets the layout.",
+        type: "string",
+      },
+      {
+        name: "kulSizeX",
+        docs: "The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).",
+        type: "string",
+      },
+      {
+        name: "kulSizeY",
+        docs: "The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).",
+        type: "string",
+      },
+      {
+        name: "kulStyle",
+        docs: "Custom style of the component.",
+        type: "string",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul-card-backdrop",
+        docs: "Sets the backdrop color of the component when visible. Defaults to rgba(0, 0, 0, 0.32).",
+      },
+    ],
+  },
+  "kul-chart": {
+    props: [
+      {
+        name: "kulAxis",
+        docs: "Sets the axis of the chart.",
+        type: "string",
+      },
+      {
+        name: "kulColors",
+        docs: "Overrides theme's colors.",
+        type: "string[]",
+      },
+      {
+        name: "kulData",
+        docs: "The actual data of the chart.",
+        type: "KulDataDataset",
+      },
+      {
+        name: "kulLegend",
+        docs: "Sets the position of the legend. Supported values: bottom, left, right, top, hidden. Keep in mind that legend types are tied to chart types, some combinations might not work.",
+        type: '"bottom" | "hidden" | "left" | "right" | "top"',
+      },
+      {
+        name: "kulSeries",
+        docs: "The data series to be displayed. They must be of the same type.",
+        type: "string[]",
+      },
+      {
+        name: "kulSizeX",
+        docs: "The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).",
+        type: "string",
+      },
+      {
+        name: "kulSizeY",
+        docs: "The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).",
+        type: "string",
+      },
+      {
+        name: "kulStyle",
+        docs: "Custom style of the component.",
+        type: "string",
+      },
+      {
+        name: "kulTypes",
+        docs: "The type of the chart. Supported formats: Bar, Gaussian, Line, Pie, Map and Scatter.",
+        type: "KulChartType[]",
+      },
+      {
+        name: "kulXAxis",
+        docs: "Customization options for the x Axis.",
+        type: 'AxisBaseOptionCommon & { gridIndex?: number; gridId?: string; position?: CartesianAxisPosition; offset?: number; categorySortInfo?: OrdinalSortInfo; } & { mainType?: "xAxis"; } | CategoryAxisBaseOption & { gridIndex?: number; gridId?: string; position?: CartesianAxisPosition; offset?: number; categorySortInfo?: OrdinalSortInfo; } & { mainType?: "xAxis"; } | LogAxisBaseOption & { gridIndex?: number; gridId?: string; position?: CartesianAxisPosition; offset?: number; categorySortInfo?: OrdinalSortInfo; } & { mainType?: "xAxis"; } | TimeAxisBaseOption & { gridIndex?: number; gridId?: string; position?: CartesianAxisPosition; offset?: number; categorySortInfo?: OrdinalSortInfo; } & { mainType?: "xAxis"; } | ValueAxisBaseOption & { gridIndex?: number; gridId?: string; position?: CartesianAxisPosition; offset?: number; categorySortInfo?: OrdinalSortInfo; } & { mainType?: "xAxis"; }',
+      },
+      {
+        name: "kulYAxis",
+        docs: "Customization options for the y Axis.",
+        type: 'AxisBaseOptionCommon & { gridIndex?: number; gridId?: string; position?: CartesianAxisPosition; offset?: number; categorySortInfo?: OrdinalSortInfo; } & { mainType?: "yAxis"; } | CategoryAxisBaseOption & { gridIndex?: number; gridId?: string; position?: CartesianAxisPosition; offset?: number; categorySortInfo?: OrdinalSortInfo; } & { mainType?: "yAxis"; } | LogAxisBaseOption & { gridIndex?: number; gridId?: string; position?: CartesianAxisPosition; offset?: number; categorySortInfo?: OrdinalSortInfo; } & { mainType?: "yAxis"; } | TimeAxisBaseOption & { gridIndex?: number; gridId?: string; position?: CartesianAxisPosition; offset?: number; categorySortInfo?: OrdinalSortInfo; } & { mainType?: "yAxis"; } | ValueAxisBaseOption & { gridIndex?: number; gridId?: string; position?: CartesianAxisPosition; offset?: number; categorySortInfo?: OrdinalSortInfo; } & { mainType?: "yAxis"; }',
+      },
+    ],
+    styles: [],
+  },
+  "kul-code": {
+    props: [
+      {
+        name: "kulLanguage",
+        docs: "Sets the language of the snippet.",
+        type: "string",
+      },
+      {
+        name: "kulStyle",
+        docs: "Enables customization of the component's style.",
+        type: "string",
+      },
+      {
+        name: "kulValue",
+        docs: "String containing the snippet of code to display.",
+        type: "string",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul-code-background-color",
+        docs: "Sets the background color of the component. Defaults to rgba(var(--kul-background-color-rgb) 0.275)",
+      },
+      {
+        name: "--kul-code-font-family",
+        docs: "Sets the font family of the component. Defaults to var(--kul-font-family-monospace)",
+      },
+      {
+        name: "--kul-code-header-background-color",
+        docs: "Sets the background color of the header. Defaults to var(--kul-title-background-color)",
+      },
+      {
+        name: "--kul-code-header-color",
+        docs: "Sets the color of the header. Defaults to var(--kul-title-color)",
+      },
+      {
+        name: "--kul-code-selection-background-color",
+        docs: "Sets the background color of selected text. Defaults to rgba(var(--kul-border-color-rgb, 0.275))",
+      },
+      {
+        name: "--kul-code-text-color",
+        docs: "Sets the color of the text. Defaults to var(--kul-text-color)",
+      },
+      {
+        name: "--kul-code-token-color-1",
+        docs: "Sets the background color of: boolean, constant, deleted, number, property, symbol, tag. Defaults to rgb(231, 0, 127)",
+      },
+      {
+        name: "--kul-code-token-color-2",
+        docs: "Sets the background color of: attr-name, builtin, char, inserted, selector, string. Defaults to rgb(146, 219, 0)",
+      },
+      {
+        name: "--kul-code-token-color-3",
+        docs: "Sets the background color of: atrule, attr-value, keyword. Defaults to rgb(0, 165, 236)",
+      },
+      {
+        name: "--kul-code-token-color-4",
+        docs: "Sets the background color of: class-name, function. Defaults to #ff6363",
+      },
+      {
+        name: "--kul-code-token-color-5",
+        docs: "Sets the background color of: important, regex, variable. Defaults to rgb(255, 196, 86)",
+      },
+    ],
+  },
+  "kul-drawer": {
+    props: [
+      {
+        name: "kulStyle",
+        docs: "Custom style of the component.",
+        type: "string",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul-drawer-backdrop",
+        docs: "Sets the backdrop color of the drawer when in slide mode. Defaults to rgba(0, 0, 0, 0.32).",
+      },
+      {
+        name: "--kul-drawer-box-shadow",
+        docs: "Sets the box shadow of the drawer when in slide mode. Defaults to a combination of shadows for depth.",
+      },
+      {
+        name: "--kul-drawer-permanent-border",
+        docs: "Sets the border of the drawer in permanent mode. Defaults to a 1px solid border with the color defined by --kul-border-color.",
+      },
+      {
+        name: "--kul-drawer-slide-transition",
+        docs: "Sets the horizontal transition duration when in slide mode. Defaults to 750ms.",
+      },
+      {
+        name: "--kul-drawer-transition",
+        docs: "Sets the transition duration for the drawer. Defaults to 250ms.",
+      },
+    ],
+  },
+  "kul-header": {
+    props: [
+      {
+        name: "kulStyle",
+        docs: "Customizes the style of the component. This property allows you to apply a custom CSS style to the component.",
+        type: "string",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul-header-box-shadow",
+        docs: "Sets the box shadow of the header component. Defaults to a combination of shadows for depth.",
+      },
+      {
+        name: "--kul-header-padding",
+        docs: "Sets the padding of the header component. Defaults to 8px top and bottom, 12px left and right.",
+      },
+      {
+        name: "--kul-header-position",
+        docs: "Sets the CSS positioning of the header component. Defaults to fixed.",
+      },
+      {
+        name: "--kul-header-transition",
+        docs: "Sets the transition time of the header component. Defaults to 250ms.",
+      },
+      {
+        name: "--kul-header-width",
+        docs: "Sets the width of the header component. Defaults to 100%.",
+      },
+    ],
+  },
+  "kul-image": {
+    props: [
+      {
+        name: "kulBadgeProps",
+        docs: "This property is used to attach a badge to the component.",
+        type: "KulBadgePropsInterface",
+      },
+      {
+        name: "kulColor",
+        docs: "Specifies the color of the icon using a CSS variable. This property is used to set the color of the component's icon.",
+        type: "string",
+      },
+      {
+        name: "kulShowSpinner",
+        docs: "Controls the display of a loading indicator. When enabled, a spinner is shown until the image finishes loading. This property is not compatible with SVG images.",
+        type: "boolean",
+      },
+      {
+        name: "kulSizeX",
+        docs: "Sets the width of the icon. This property accepts any valid CSS measurement value (e.g., px, %, vh, etc.) and defaults to 100%.",
+        type: "string",
+      },
+      {
+        name: "kulSizeY",
+        docs: "Sets the height of the icon. This property accepts any valid CSS measurement value (e.g., px, %, vh, etc.) and defaults to 100%.",
+        type: "string",
+      },
+      {
+        name: "kulStyle",
+        docs: "Customizes the style of the component. This property allows you to apply a custom CSS style to the component.",
+        type: "string",
+      },
+      {
+        name: "kulValue",
+        docs: "Defines the source URL of the image. This property is used to set the image resource that the component should display.",
+        type: "string",
+      },
+    ],
+    styles: [],
+  },
+  "kul-lazy": {
+    props: [
+      {
+        name: "kulComponentName",
+        docs: "Sets the tag name of the component to be lazy loaded.",
+        type: "string",
+      },
+      {
+        name: "kulComponentProps",
+        docs: "Sets the data of the component to be lazy loaded.",
+        type: "unknown",
+      },
+      {
+        name: "kulRenderMode",
+        docs: "Decides when the sub-component should be rendered.\r\nBy default when both the component props exist and the component is in the viewport.",
+        type: '"both" | "props" | "viewport"',
+      },
+      {
+        name: "kulShowPlaceholder",
+        docs: "Displays an animated SVG placeholder until the component is loaded.",
+        type: "boolean",
+      },
+      {
+        name: "kulStyle",
+        docs: "Customizes the style of the component. This property allows you to apply a custom CSS style to the component.",
+        type: "string",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul-lazy-animation-time",
+        docs: "Sets the duration of the animation. Defaults to 2s.",
+      },
+      {
+        name: "--kul-lazy-height",
+        docs: "Sets the height of the component and subcomponent. Defaults to 100%.",
+      },
+      {
+        name: "--kul-lazy-hor-alignment",
+        docs: "Sets the horizontal alignment of the subcomponent. Defaults to center.",
+      },
+      {
+        name: "--kul-lazy-placeholder-color",
+        docs: "Sets color of the placeholder icon. Defaults to var(--kul-icon-color).",
+      },
+      {
+        name: "--kul-lazy-ver-alignment",
+        docs: "Sets the vertical alignment of the subcomponent. Defaults to center.",
+      },
+      {
+        name: "--kul-lazy-width",
+        docs: "Sets the width of the component and subcomponent. Defaults to 100%.",
+      },
+    ],
+  },
+  "kul-photoframe": {
+    props: [
+      {
+        name: "kulPlaceholder",
+        docs: "Html attributes of the picture before the component enters the viewport.",
+        type: "GenericObject<unknown>",
+      },
+      {
+        name: "kulStyle",
+        docs: "Custom style of the component.",
+        type: "string",
+      },
+      {
+        name: "kulThreshold",
+        docs: "Percentage of the component dimensions entering the viewport (0.1 => 1).",
+        type: "number",
+      },
+      {
+        name: "kulValue",
+        docs: "Html attributes of the picture after the component enters the viewport.",
+        type: "GenericObject<unknown>",
+      },
+    ],
+    styles: [
+      {
+        name: "--kup-photoframe-border",
+        docs: "Sets the border of the component. Defaults to 1px inset var(--kup-border-color).",
+      },
+      {
+        name: "--kup-photoframe-fade-out-time",
+        docs: "Sets the time of the placeholder's fade out transition. Defaults to 2000ms.",
+      },
+    ],
+  },
+  "kul-showcase": {
+    props: [
+      {
+        name: "kulStyle",
+        docs: "Custom style of the component.",
+        type: "string",
+      },
+    ],
+    styles: [],
+  },
+  "kul-showcase-article": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-badge": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-button": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-card": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-chart": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-code": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-debug": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-drawer": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-header": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-image": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-kulmanager": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-lazy": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-photoframe": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-probe": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-spinner": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-splash": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-tabbar": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-textfield": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-toast": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-tree": {
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-upload": {
+    props: [],
+    styles: [],
+  },
+  "kul-spinner": {
+    props: [
+      {
+        name: "kulActive",
+        docs: "Specifies if the spinner is animating.",
+        type: "boolean",
+      },
+      {
+        name: "kulBarVariant",
+        docs: "Controls if the component displays as a bar or a spinner.",
+        type: "boolean",
+      },
+      {
+        name: "kulDimensions",
+        docs: "Defines the width and height of the spinner. In the bar variant, it specifies only the height.",
+        type: "string",
+      },
+      {
+        name: "kulFader",
+        docs: "Applies a blending modal over the component to darken or lighten the view, based on the theme.",
+        type: "boolean",
+      },
+      {
+        name: "kulFaderTimeout",
+        docs: "Duration needed for the fader to become active.",
+        type: "number",
+      },
+      {
+        name: "kulFullScreen",
+        docs: "Fills the entire viewport when enabled.",
+        type: "boolean",
+      },
+      {
+        name: "kulLayout",
+        docs: "Selects the spinner layout.",
+        type: "number",
+      },
+      {
+        name: "kulStyle",
+        docs: "Sets a custom style for the component.",
+        type: "string",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul-spinner-border-color",
+        docs: "Sets the border color of the spinner component. Defaults to var(--kul-border-color).",
+      },
+    ],
+  },
+  "kul-splash": {
+    props: [
+      {
+        name: "kulLabel",
+        docs: "Initial text displayed within the component, typically shown during loading.",
+        type: "string",
+      },
+      {
+        name: "kulStyle",
+        docs: "Enables customization of the component's style.",
+        type: "string",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul-splash-background-color",
+        docs: "Sets the color of the spinner. Defaults to the value of --kul-background-color.",
+      },
+      {
+        name: "--kul-splash-font-family",
+        docs: "Sets the label's font family. Defaults to the value of --kul-font-family.",
+      },
+      {
+        name: "--kul-splash-font-size",
+        docs: "Sets the label's font size. Defaults to the value of --kul-font-size.",
+      },
+      {
+        name: "--kul-splash-label-color",
+        docs: "Sets the color of the label. Defaults to the value of --kul-text-color.",
+      },
+      {
+        name: "--kul-splash-widget-color",
+        docs: "Sets the color of the widget. Defaults to the value of --kul-primary-color.",
+      },
+    ],
+  },
+  "kul-tabbar": {
+    props: [
+      {
+        name: "kulData",
+        docs: "Actual data of the component.",
+        type: "KulDataDataset",
+      },
+      {
+        name: "kulRipple",
+        docs: "When set to true, the pointerdown event will trigger a ripple effect.",
+        type: "boolean",
+      },
+      {
+        name: "kulStyle",
+        docs: "Custom style of the component.",
+        type: "string",
+      },
+      {
+        name: "kulValue",
+        docs: "Sets the initial selected node's index.",
+        type: "number",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul-tabbar-backdrop-filter",
+        docs: "Sets the backdrop filter of tabs. Defaults to blur(3.5px).",
+      },
+      {
+        name: "--kul-tabbar-backdrop-filter-hover",
+        docs: "Sets the backdrop filter of tabs when hovering. Defaults to blur(5px).",
+      },
+      {
+        name: "--kul-tabbar-font-size",
+        docs: "Sets the font size of the tab bar. Defaults to the value of --kul-font-size.",
+      },
+      {
+        name: "--kul-tabbar-font-weight",
+        docs: "Sets the font weight of the tab bar. Defaults to 500.",
+      },
+      {
+        name: "--kul-tabbar-height",
+        docs: "Sets the height of the tab bar. Defaults to 36px.",
+      },
+      {
+        name: "--kul-tabbar-primary-color",
+        docs: "Sets the primary color of the tab bar. Defaults to the value of --kul-primary-color.",
+      },
+      {
+        name: "--kul-tabbar-primary-color-rgb",
+        docs: "Sets the primary color of the tab bar in RGB format. Defaults to the value of --kul-primary-color-rgb.",
+      },
+      {
+        name: "--kul-tabbar-tab-padding",
+        docs: "Sets the padding of the tabs in the tab bar. Defaults to 0 24px.",
+      },
+    ],
+  },
+  "kul-textfield": {
+    props: [
+      {
+        name: "kulDisabled",
+        docs: "Enables or disables the text field to prevent user interaction.",
+        type: "boolean",
+      },
+      {
+        name: "kulFullWidth",
+        docs: "Applies a full-width styling to the text field, making it occupy all available horizontal space.",
+        type: "boolean",
+      },
+      {
+        name: "kulHelper",
+        docs: "Specifies helper text to display alongside the text field.\r\nHelper text can provide additional context or instructions to the user.",
+        type: "KulTextfieldHelper",
+      },
+      {
+        name: "kulHtmlAttributes",
+        docs: "Allows customization of the input or textarea element through additional HTML attributes.\r\nThis can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.",
+        type: "GenericObject<unknown>",
+      },
+      {
+        name: "kulIcon",
+        docs: "Defines the icon to be displayed within the text field.\r\nIcons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.",
+        type: "string",
+      },
+      {
+        name: "kulLabel",
+        docs: "Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected.\r\nLabels are especially important for screen readers and users navigating with keyboard-only controls.",
+        type: "string",
+      },
+      {
+        name: "kulStyle",
+        docs: "Accepts custom CSS styles to apply directly to the text field component.\r\nThis allows for fine-grained control over the appearance of the component beyond predefined styling options.",
+        type: "string",
+      },
+      {
+        name: "kulStyling",
+        docs: "Determines the overall styling theme of the text field, affecting its shape and border.\r\nOptions include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.",
+        type: '"flat" | "outlined" | "raised" | "textarea"',
+      },
+      {
+        name: "kulTrailingIcon",
+        docs: "Controls whether the icon should appear after the text input, typically used for action buttons like clear or search.",
+        type: "boolean",
+      },
+      {
+        name: "kulValue",
+        docs: "Initializes the text field with a default value when the component is first rendered.\r\nThis can be used to pre-fill forms or set a starting point for user input.",
+        type: "string",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul-textfield-backdrop-filter",
+        docs: "Sets the backdrop filter of the text field. Defaults to blur(3.5px).",
+      },
+      {
+        name: "--kul-textfield-backdrop-filter-hover",
+        docs: "Sets the backdrop filter of the text field when hovering. Defaults to blur(5px).",
+      },
+      {
+        name: "--kul-textfield-background-color",
+        docs: "Sets the background color of the text field. Defaults to rgba(var(--kul-text-color-rgb), 0.125).",
+      },
+      {
+        name: "--kul-textfield-background-color-hover",
+        docs: "Sets the background color of the text field when hovering. Defaults to rgba(var(--kul-text-color-rgb), 0.125).",
+      },
+      {
+        name: "--kul-textfield-input-color",
+        docs: "Sets the color of the text field's input text. Defaults to var(--kul-text-color).",
+      },
+      {
+        name: "--kul-textfield-input-color-rgb",
+        docs: "Sets the rgb color of the text field's input text. Defaults to var(--kul-text-color-rgb).",
+      },
+      {
+        name: "--kul-textfield-input-font-size",
+        docs: "Sets the font size of the text field's value. Defaults to var(--kul-font-size).",
+      },
+      {
+        name: "--kul-textfield-input-font-weight",
+        docs: "Sets the font weight of the text field's input. Defaults to 400.",
+      },
+      {
+        name: "--kul-textfield-label-color",
+        docs: "Sets the color of the text field's label. Defaults to rgba(var(--kul-text-color-rgb), 0.875).",
+      },
+      {
+        name: "--kul-textfield-label-font-size",
+        docs: "Sets the font size of the text field's label. Defaults to var(--kul-font-size).",
+      },
+      {
+        name: "--kul-textfield-label-font-weight",
+        docs: "Sets the font weight of the text field's label. Defaults to 400.",
+      },
+      {
+        name: "--kul-textfield-padding",
+        docs: "Sets the padding of the text field. Defaults to 0 16px.",
+      },
+      {
+        name: "--kul-textfield-primary-color",
+        docs: "Sets the primary color of the text field. Defaults to var(--kul-primary-color).",
+      },
+    ],
+  },
+  "kul-toast": {
+    props: [
+      {
+        name: "kulCloseCallback",
+        docs: "Callback invoked when the toast is closed.",
+        type: "() => void",
+      },
+      {
+        name: "kulCloseIcon",
+        docs: "Sets the props of the clickable icon used to close the toast.",
+        type: "KulImagePropsInterface",
+      },
+      {
+        name: "kulIcon",
+        docs: "Sets the props of an optional icon that will be displayed along with the message.",
+        type: "KulImagePropsInterface",
+      },
+      {
+        name: "kulMessage",
+        docs: "Sets the message of the toast.",
+        type: "string",
+      },
+      {
+        name: "kulStyle",
+        docs: "Enables customization of the component's style.",
+        type: "string",
+      },
+      {
+        name: "kulTimer",
+        docs: "When kulTimer is set with a number, the toast will close itself after the specified amount of time (in ms).",
+        type: "number",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul-toast-accent-color",
+        docs: "Sets the accent color of the toast, identified by a bar displayed on the top of the component. Defaults to var(--kul-info-color).",
+      },
+      {
+        name: "--kul-toast-accent-height",
+        docs: "Sets the height of the accent color bar. Defaults to 4px.",
+      },
+      {
+        name: "--kul-toast-icon-opacity",
+        docs: "Sets the opacity of the icon. Defaults to 0.625.",
+      },
+      {
+        name: "--kul-toast-slidein-from",
+        docs: "Sets the animation starting point. Defaults to translateX(100%).",
+      },
+      {
+        name: "--kul-toast-slidein-to",
+        docs: "Sets the animation ending point. Defaults to translateX(0).",
+      },
+    ],
+  },
+  "kul-tree": {
+    props: [
+      {
+        name: "kulAccordionLayout",
+        docs: "When enabled, the first level of depth will create an accordion-style appearance for nodes.",
+        type: "boolean",
+      },
+      {
+        name: "kulData",
+        docs: "The actual data of the tree.",
+        type: "KulDataDataset",
+      },
+      {
+        name: "kulInitialExpandedDepth",
+        docs: "Sets the initial expanded nodes based on the specified depth.\r\nIf the property is not provided, all nodes in the tree will be expanded.",
+        type: "number",
+      },
+      {
+        name: "kulRipple",
+        docs: "When set to true, the pointerdown event will trigger a ripple effect.",
+        type: "boolean",
+      },
+      {
+        name: "kulSelectable",
+        docs: "When true, nodes can be selected.",
+        type: "boolean",
+      },
+      {
+        name: "kulStyle",
+        docs: "Enables customization of the component's style.",
+        type: "string",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul-tree-accordion-background-color",
+        docs: 'Sets the background color for top-level nodes (data-depth="0") when kul-accordion-layout is applied. Defaults to #ffffff.',
+      },
+      {
+        name: "--kul-tree-accordion-border-radius",
+        docs: 'Sets the border radius for top-level nodes (data-depth="0") when kul-accordion-layout is applied. Defaults to 4px.',
+      },
+      {
+        name: "--kul-tree-accordion-color",
+        docs: 'Sets the text color for top-level nodes (data-depth="0") when kul-accordion-layout is applied. Defaults to #000000.',
+      },
+      {
+        name: "--kul-tree-accordion-font-size",
+        docs: 'Sets the font size for top-level nodes (data-depth="0") when kul-accordion-layout is applied. Defaults to 1.125em.',
+      },
+      {
+        name: "--kul-tree-accordion-hover-background-color",
+        docs: 'Sets the background color for top-level nodes (data-depth="0") on hover when kul-accordion-layout is applied. Defaults to var(--kul-primary-color).',
+      },
+      {
+        name: "--kul-tree-accordion-hover-color",
+        docs: 'Sets the text color for top-level nodes (data-depth="0") on hover when kul-accordion-layout is applied. Defaults to var(--kul-text-on-primary-color).',
+      },
+      {
+        name: "--kul-tree-accordion-node-height",
+        docs: 'Sets the height of top-level nodes (data-depth="0") when the tree has an accordion layout. Defaults to 4em.',
+      },
+      {
+        name: "--kul-tree-backdrop-filter",
+        docs: "Sets the backdrop filter of the tree. Defaults to blur(3.5px).",
+      },
+      {
+        name: "--kul-tree-node-background-color-hover",
+        docs: "Sets the background color when hovering a node. Defaults to rgba(var(--kul-primary-color-rgb), 0.175).",
+      },
+      {
+        name: "--kul-tree-node-background-color-selected",
+        docs: "Sets the background color of the selected node. Defaults to rgba(var(--kul-primary-color-rgb), 0.375).",
+      },
+      {
+        name: "--kul-tree-node-height",
+        docs: "Sets the height for all nodes. Replaces the static value previously used. Defaults to 2em.",
+      },
+      {
+        name: "--kul-tree-node-padding",
+        docs: "Sets the padding of nodes. Defaults to 0 1em.",
+      },
+      {
+        name: "--kul-tree-padding",
+        docs: "Sets the padding of the tree. Defaults to 0.",
+      },
+    ],
+  },
+  "kul-upload": {
+    props: [
+      {
+        name: "kulLabel",
+        docs: "Sets the button's label.",
+        type: "string",
+      },
+      {
+        name: "kulRipple",
+        docs: "When set to true, the pointerdown event will trigger a ripple effect.",
+        type: "boolean",
+      },
+      {
+        name: "kulStyle",
+        docs: "Enables customization of the component's style.",
+        type: "string",
+      },
+      {
+        name: "kulValue",
+        docs: "Initializes the component with these files.",
+        type: "any",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul_upload_backdrop_filter",
+        docs: "Sets the backdrop filter for the upload component. Defaults to a blur effect of 5px.",
+      },
+      {
+        name: "--kul_upload_backdrop_filter_hover",
+        docs: "Sets the backdrop filter for the upload component on hover. Defaults to a blur effect of 10px.",
+      },
+      {
+        name: "--kul_upload_border",
+        docs: "Sets the border for the upload component. Defaults to a 1px solid border with a color defined by --kul-border-color-rgb.",
+      },
+      {
+        name: "--kul_upload_border_radius",
+        docs: "Sets the border radius for the upload component. Defaults to 4px.",
+      },
+      {
+        name: "--kul_upload_button_height",
+        docs: "Sets the height of the upload button. Defaults to 42px.",
+      },
+      {
+        name: "--kul_upload_button_text_transform",
+        docs: "Sets the text transformation for the upload button. Defaults to uppercase.",
+      },
+      {
+        name: "--kul_upload_grid_gap",
+        docs: "Sets the grid gap for the upload component. Defaults to 20px.",
+      },
+      {
+        name: "--kul_upload_info_height",
+        docs: "Sets the height of the info section in the upload component. Defaults to 1fr.",
+      },
+      {
+        name: "--kul_upload_padding",
+        docs: "Sets the padding for the upload component. Defaults to 1em.",
+      },
+    ],
+  },
+};

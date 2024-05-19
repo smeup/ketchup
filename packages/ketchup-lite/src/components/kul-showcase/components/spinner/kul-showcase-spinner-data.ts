@@ -1,5 +1,6 @@
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
 import { DOC_STYLES } from '../../kul-showcase-data';
+import { genProps } from '../../kul-showcase-utils';
 import { SpinnerData } from './kul-showcase-spinner-declarations';
 
 function createSpinnerData(
@@ -231,94 +232,7 @@ export const SPINNER_DOC: KulArticleDataset = {
                     value: 'Usage',
                 },
                 {
-                    children: [
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.0.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.0.0.1',
-                                            tagName: 'strong',
-                                            value: 'KulSpinnerDataset',
-                                        },
-                                    ],
-                                    id: '0.3.0.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.0.1.0',
-                                            value: 'The actual data of the spinner. This property should be an object that matches the ',
-                                        },
-                                        {
-                                            id: '0.3.0.1.1',
-                                            tagName: 'strong',
-                                            value: 'KulSpinnerDataset',
-                                        },
-                                        {
-                                            id: '0.3.0.1.2',
-                                            value: ' interface, which includes a ',
-                                        },
-                                        {
-                                            id: '0.3.0.1.3',
-                                            tagName: 'strong',
-                                            value: 'nodes',
-                                        },
-                                        {
-                                            id: '0.3.0.1.4',
-                                            value: '',
-                                        },
-                                        {
-                                            id: '0.3.0.1.5',
-                                            value: ' array representing the structure of the spinner.',
-                                        },
-                                    ],
-                                    id: '0.3.0.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.0',
-                            value: 'kulData',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.1.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.1.0.1',
-                                            tagName: 'strong',
-                                            value: 'string',
-                                        },
-                                    ],
-                                    id: '0.3.1.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.1.1.0',
-                                            value: "Enables customization of the component's style. This property accepts a string of CSS styles that will be applied to the component.",
-                                        },
-                                    ],
-                                    id: '0.3.1.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.1',
-                            value: 'kulStyle',
-                        },
-                    ],
+                    children: genProps('kul-spinner'),
                     id: '0.3',
                     value: 'Properties',
                 },

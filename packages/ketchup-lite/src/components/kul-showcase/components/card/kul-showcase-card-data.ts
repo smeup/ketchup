@@ -2,6 +2,7 @@ import { getAssetPath } from '@stencil/core';
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
 import { DOC_STYLES } from '../../kul-showcase-data';
 import { CardData } from './kul-showcase-card-declarations';
+import { genProps } from '../../kul-showcase-utils';
 
 export const CARD_EXAMPLES: CardData = {
     a: {
@@ -299,68 +300,7 @@ export const CARD_DOC: KulArticleDataset = {
                     value: 'Usage',
                 },
                 {
-                    children: [
-                        {
-                            children: [
-                                {
-                                    id: '0.3.0.0',
-                                    value: 'The actual data of the card.',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.0',
-                            tagName: 'strong',
-                            value: 'kulData',
-                        },
-                        {
-                            children: [
-                                {
-                                    id: '0.3.1.0',
-                                    value: 'Sets the layout.',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.1',
-                            tagName: 'strong',
-                            value: 'kulLayoutNumber',
-                        },
-                        {
-                            children: [
-                                {
-                                    id: '0.3.2.0',
-                                    value: 'The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.2',
-                            tagName: 'strong',
-                            value: 'kulSizeX',
-                        },
-                        {
-                            children: [
-                                {
-                                    id: '0.3.3.0',
-                                    value: 'The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.3',
-                            tagName: 'strong',
-                            value: 'kulSizeY',
-                        },
-                        {
-                            children: [
-                                {
-                                    id: '0.3.4.0',
-                                    value: 'Custom style of the component.',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.4',
-                            tagName: 'strong',
-                            value: 'kulStyle',
-                        },
-                    ],
+                    children: genProps('kul-card'),
                     id: '0.3',
                     value: 'Properties',
                 },

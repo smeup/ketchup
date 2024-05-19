@@ -1,5 +1,6 @@
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
 import { DOC_STYLES } from '../../kul-showcase-data';
+import { genProps } from '../../kul-showcase-utils';
 import { CodeData } from './kul-showcase-code-declarations';
 
 export const CODE_EXAMPLES: CodeData = {
@@ -165,72 +166,7 @@ export const CODE_DOC: KulArticleDataset = {
                     value: 'Usage',
                 },
                 {
-                    children: [
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.0.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.0.0.1',
-                                            tagName: 'strong',
-                                            value: 'string',
-                                        },
-                                    ],
-                                    id: '0.3.0.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.0.1.0',
-                                            value: 'The code snippet to be displayed. This property accepts a string of code.',
-                                        },
-                                    ],
-                                    id: '0.3.0.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.0',
-                            value: 'kulValue',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.1.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.1.0.1',
-                                            tagName: 'strong',
-                                            value: 'string',
-                                        },
-                                    ],
-                                    id: '0.3.1.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.1.1.0',
-                                            value: "Enables customization of the component's style. This property accepts a string of CSS styles that will be applied to the component.",
-                                        },
-                                    ],
-                                    id: '0.3.1.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.1',
-                            value: 'kulStyle',
-                        },
-                    ],
+                    children: genProps('kul-code'),
                     id: '0.3',
                     value: 'Properties',
                 },
