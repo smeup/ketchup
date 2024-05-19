@@ -1,6 +1,6 @@
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
 import { DOC_STYLES } from '../../kul-showcase-data';
-import { random2digitsNumber } from '../../kul-showcase-utils';
+import { genProps, random2digitsNumber } from '../../kul-showcase-utils';
 import { BadgeData } from './kul-showcase-badge-declarations';
 
 export const BADGE_EXAMPLES: BadgeData = {
@@ -259,104 +259,7 @@ export const BADGE_DOC: KulArticleDataset = {
                     value: 'Usage',
                 },
                 {
-                    children: [
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.0.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.0.0.1',
-                                            tagName: 'strong',
-                                            value: 'KulImagePropsInterface',
-                                        },
-                                    ],
-                                    id: '0.3.0.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.0.1.0',
-                                            value: 'The props of the image displayed inside the badge.',
-                                        },
-                                    ],
-                                    id: '0.3.0.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.0',
-                            value: 'kulImageProps',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.1.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.1.0.1',
-                                            tagName: 'strong',
-                                            value: 'string',
-                                        },
-                                    ],
-                                    id: '0.3.1.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.1.1.0',
-                                            value: 'The text displayed inside the badge.',
-                                        },
-                                    ],
-                                    id: '0.3.1.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.1',
-                            value: 'kulLabel',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.2.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.2.0.1',
-                                            tagName: 'strong',
-                                            value: 'string',
-                                        },
-                                    ],
-                                    id: '0.3.2.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.2.1.0',
-                                            value: "Enables customization of the component's style. This property accepts a string of CSS styles that will be applied to the component.",
-                                        },
-                                    ],
-                                    id: '0.3.2.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.2',
-                            value: 'kulStyle',
-                        },
-                    ],
+                    children: genProps('kul-badge'),
                     id: '0.3',
                     value: 'Properties',
                 },

@@ -3,9 +3,12 @@ import { sass } from '@stencil/sass';
 import { reactOutputTarget } from '@stencil/react-output-target';
 
 export const config: Config = {
-    sourceMap: false,
     namespace: 'ketchup-lite',
     outputTargets: [
+        {
+            file: 'src/components/kul-showcase/assets/doc.json',
+            type: 'docs-json',
+        },
         { type: 'docs-readme' },
         {
             copy: [{ src: 'assets' }],
@@ -31,4 +34,5 @@ export const config: Config = {
             injectGlobalPaths: ['src/style/global.scss'],
         }),
     ],
+    sourceMap: false,
 };

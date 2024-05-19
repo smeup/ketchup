@@ -19,8 +19,9 @@
     },
     "scripts": {
         "lerna": "lerna",
-        "build": "lerna run build --scope ketchup-lite --stream && lerna run build --scope ketchup-lite-react --stream",
+        "build": "npm run gendoc && lerna run build --scope ketchup-lite --stream && lerna run build --scope ketchup-lite-react --stream",
         "dev": "lerna run dev --scope ketchup-lite --stream",
+        "gendoc": "node ./packages/ketchup-lite/src/scripts/genDoc.js",
         "test": "lerna run test --scope ketchup-lite --stream",
         "test:open": "lerna run test:open --scope ketchup-lite --stream"
     },

@@ -1,5 +1,6 @@
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
 import { DOC_STYLES } from '../../kul-showcase-data';
+import { genProps } from '../../kul-showcase-utils';
 import { ToastData } from './kul-showcase-toast-declarations';
 
 export const TOAST_EXAMPLES: ToastData = {
@@ -176,57 +177,7 @@ export const TOAST_DOC: KulArticleDataset = {
                     value: 'Usage',
                 },
                 {
-                    children: [
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.0.0.0',
-                                            value: 'This prop sets the message displayed in the toast notification.',
-                                        },
-                                    ],
-                                    id: '0.3.0.0',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.0',
-                            value: 'kulMessage',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.1.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.1.0.1',
-                                            tagName: 'strong',
-                                            value: 'string',
-                                        },
-                                    ],
-                                    id: '0.3.1.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.1.1.0',
-                                            value: "Enables customization of the component's style. This property accepts a string of CSS styles that will be applied to the component.",
-                                        },
-                                    ],
-                                    id: '0.3.1.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.1',
-                            value: 'kulStyle',
-                        },
-                    ],
+                    children: genProps('kul-toast'),
                     id: '0.3',
                     value: 'Properties',
                 },

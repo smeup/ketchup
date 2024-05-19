@@ -1,3 +1,10 @@
+export interface KulShowcaseDoc {
+    [index: string]: {
+        props: { docs: string; name: string; type: string }[];
+        styles: { docs: string; name: string }[];
+    };
+}
+
 export type KulShowcaseDynamicExampleType =
     | 'custom'
     | 'state-colors'

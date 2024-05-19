@@ -1,5 +1,6 @@
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
 import { DOC_STYLES } from '../../kul-showcase-data';
+import { genProps } from '../../kul-showcase-utils';
 import { TextfieldData } from './kul-showcase-textfield-declarations';
 
 export const TEXTFIELD_EXAMPLES: TextfieldData = {
@@ -427,104 +428,7 @@ export const TEXTFIELD_DOC: KulArticleDataset = {
                     value: 'Usage',
                 },
                 {
-                    children: [
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.0.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.0.0.1',
-                                            tagName: 'strong',
-                                            value: 'KulImagePropsInterface',
-                                        },
-                                    ],
-                                    id: '0.3.0.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.0.1.0',
-                                            value: 'The props of the image displayed inside the textfield.',
-                                        },
-                                    ],
-                                    id: '0.3.0.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.0',
-                            value: 'kulImageProps',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.1.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.1.0.1',
-                                            tagName: 'strong',
-                                            value: 'string',
-                                        },
-                                    ],
-                                    id: '0.3.1.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.1.1.0',
-                                            value: 'The text displayed inside the textfield.',
-                                        },
-                                    ],
-                                    id: '0.3.1.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.1',
-                            value: 'kulLabel',
-                        },
-                        {
-                            children: [
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.2.0.0',
-                                            value: 'Type:',
-                                        },
-                                        {
-                                            id: '0.3.2.0.1',
-                                            tagName: 'strong',
-                                            value: 'string',
-                                        },
-                                    ],
-                                    id: '0.3.2.0',
-                                    value: '',
-                                },
-                                {
-                                    children: [
-                                        {
-                                            id: '0.3.2.1.0',
-                                            value: "Enables customization of the component's style. This property accepts a string of CSS styles that will be applied to the component.",
-                                        },
-                                    ],
-                                    id: '0.3.2.1',
-                                    value: '',
-                                },
-                            ],
-                            cssStyle: DOC_STYLES.monoPrimaryH3,
-                            id: '0.3.2',
-                            value: 'kulStyle',
-                        },
-                    ],
+                    children: genProps('kul-textfield'),
                     id: '0.3',
                     value: 'Properties',
                 },
@@ -751,85 +655,13 @@ export const TEXTFIELD_DOC: KulArticleDataset = {
                                                 {
                                                     cssStyle:
                                                         DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.0.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-textfield-border-radius',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.0.1',
-                                                    value: ': Sets the border radius of the textfield.  Defaults to 30px.',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.0',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.1.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-textfield-font-family',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.1.1',
-                                                    value: ': Sets the font size of the textfield. Defaults to var(--kul-font-size).',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.1',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.2.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-textfield-font-size',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.2.1',
-                                                    value: ': Sets the font size of the textfield.  Defaults to var(--kul-font-size).',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.2',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
-                                                    id: '0.7.1.0.3.0',
-                                                    tagName: 'strong',
-                                                    value: '--kul-textfield-min-size',
-                                                },
-                                                {
-                                                    id: '0.7.1.0.3.1',
-                                                    value: ': Sets the minimum size of the textfield. Defaults to 1.5em.',
-                                                },
-                                            ],
-                                            id: '0.7.1.0.3',
-                                            tagName: 'li',
-                                            value: '',
-                                        },
-                                        {
-                                            children: [
-                                                {
-                                                    cssStyle:
-                                                        DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.4.0',
                                                     tagName: 'strong',
-                                                    value: '--kul-textfield-padding',
+                                                    value: '--kul_textfield_backdrop_filter',
                                                 },
                                                 {
                                                     id: '0.7.1.0.4.1',
-                                                    value: ': Sets the padding of the textfield. Defaults to 0.25em.',
+                                                    value: ': Sets the backdrop filter of the text field. Defaults to blur(3.5px).',
                                                 },
                                             ],
                                             id: '0.7.1.0.4',
@@ -843,11 +675,11 @@ export const TEXTFIELD_DOC: KulArticleDataset = {
                                                         DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.5.0',
                                                     tagName: 'strong',
-                                                    value: '--kul-textfield-primary-color',
+                                                    value: '--kul_textfield_backdrop_filter_hover',
                                                 },
                                                 {
                                                     id: '0.7.1.0.5.1',
-                                                    value: ': Sets the primary color of the textfield. Defaults to var(--kul-primary-color).',
+                                                    value: ': Sets the backdrop filter of the text field when hovering. Defaults to blur(5px).',
                                                 },
                                             ],
                                             id: '0.7.1.0.5',
@@ -861,14 +693,194 @@ export const TEXTFIELD_DOC: KulArticleDataset = {
                                                         DOC_STYLES.monoPrimaryContent,
                                                     id: '0.7.1.0.6.0',
                                                     tagName: 'strong',
-                                                    value: '--kul-textfield-text-on-primary-color',
+                                                    value: '--kul_textfield_background_color',
                                                 },
                                                 {
                                                     id: '0.7.1.0.6.1',
-                                                    value: ': Sets the text color on the primary color of the textfield. Defaults to var(--kul-text-on-primary-color).',
+                                                    value: ': Sets the background color of the text field. Defaults to rgba(var(--kul-text-color-rgb), 0.125).',
                                                 },
                                             ],
                                             id: '0.7.1.0.6',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.7.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul_textfield_background_color_hover',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.7.1',
+                                                    value: ': Sets the background color of the text field when hovering. Defaults to rgba(var(--kul-text-color-rgb), 0.175).',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.7',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.8.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul_textfield_input_color',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.8.1',
+                                                    value: ": Sets the color of the text field's input text. Defaults to var(--kul-text-color).",
+                                                },
+                                            ],
+                                            id: '0.7.1.0.8',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.9.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul_textfield_input_color_rgb',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.9.1',
+                                                    value: ": Sets the rgb color of the text field's input text. Defaults to var(--kul-text-color-rgb).",
+                                                },
+                                            ],
+                                            id: '0.7.1.0.9',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.10.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul_textfield_input_font_size',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.10.1',
+                                                    value: ": Sets the font size of the text field's value. Defaults to var(--kul-font-size).",
+                                                },
+                                            ],
+                                            id: '0.7.1.0.10',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.11.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul_textfield_input_font_weight',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.11.1',
+                                                    value: ": Sets the font weight of the text field's input. Defaults to 400.",
+                                                },
+                                            ],
+                                            id: '0.7.1.0.11',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.12.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul_textfield_label_color',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.12.1',
+                                                    value: ": Sets the color of the text field's label. Defaults to rgba(var(--kul-text-color-rgb), 0.875).",
+                                                },
+                                            ],
+                                            id: '0.7.1.0.12',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul_textfield_label_font_size',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ": Sets the font size of the text field's label. Defaults to var(--kul-font-size).",
+                                                },
+                                            ],
+                                            id: '0.7.1.0.14.0',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul_textfield_label_font_weight',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ": Sets the font weight of the text field's label. Defaults to 400.",
+                                                },
+                                            ],
+                                            id: '0.7.1.0.14.0',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul_textfield_padding',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the padding of the text field. Defaults to 0 16px.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.14.0',
+                                            tagName: 'li',
+                                            value: '',
+                                        },
+                                        {
+                                            children: [
+                                                {
+                                                    cssStyle:
+                                                        DOC_STYLES.monoPrimaryContent,
+                                                    id: '0.7.1.0.13.0',
+                                                    tagName: 'strong',
+                                                    value: '--kul_textfield_padding',
+                                                },
+                                                {
+                                                    id: '0.7.1.0.13.1',
+                                                    value: ': Sets the padding of the text field. Defaults to 0 16px.',
+                                                },
+                                            ],
+                                            id: '0.7.1.0.14.0',
                                             tagName: 'li',
                                             value: '',
                                         },
