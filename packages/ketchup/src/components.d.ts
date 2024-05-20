@@ -1845,6 +1845,11 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
+          * Displays the numerical values.
+          * @default false
+         */
+        "showMarks": boolean;
+        /**
           * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
          */
@@ -1854,6 +1859,11 @@ export namespace Components {
           * @default "100%"
          */
         "sizeY": string;
+        /**
+          * Displays the data columns of an object on top of each other.
+          * @default false
+         */
+        "stacked": boolean;
         /**
           * The type of the chart. Supported formats: Bar, Gaussian, Line, Pie, Map and Scatter.
           * @default [KupEchartTypes.LINE]
@@ -6728,6 +6738,11 @@ declare namespace LocalJSX {
          */
         "series"?: string[];
         /**
+          * Displays the numerical values.
+          * @default false
+         */
+        "showMarks"?: boolean;
+        /**
           * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
          */
@@ -6737,6 +6752,11 @@ declare namespace LocalJSX {
           * @default "100%"
          */
         "sizeY"?: string;
+        /**
+          * Displays the data columns of an object on top of each other.
+          * @default false
+         */
+        "stacked"?: boolean;
         /**
           * The type of the chart. Supported formats: Bar, Gaussian, Line, Pie, Map and Scatter.
           * @default [KupEchartTypes.LINE]
