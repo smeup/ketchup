@@ -182,6 +182,14 @@ export default {
           try: 'field',
         },
         {
+          prop: 'placeholderIcon',
+          description:
+            'When set, the button will show this icon, if icon/image not found.',
+          type: 'string',
+          default: 'null',
+          try: 'field',
+        },
+        {
           prop: 'selectMode',
           description:
             'Sets how to return the selected item value. Suported values: "code", "description", "both".',

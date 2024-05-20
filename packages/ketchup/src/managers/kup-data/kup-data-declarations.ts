@@ -24,6 +24,7 @@ export interface KupDataColumn {
     formula?: string;
     hideValuesRepetitions?: boolean;
     icon?: string;
+    placeholderIcon?: string;
     isEditable?: boolean;
     isKey?: boolean;
     mergedFrom?: string[];
@@ -72,6 +73,7 @@ export interface KupDataCell {
     displayedValue?: string;
     element?: HTMLElement;
     icon?: string;
+    placeholderIcon?: string;
     info?: FCellInfo;
     isEditable?: boolean;
     obj?: KupObj;
@@ -91,6 +93,7 @@ export interface KupDataNode extends KupDataRow {
     expandable?: boolean;
     obj?: KupObj;
     icon?: string;
+    placeholderIcon?: string;
     isExpanded?: boolean;
     title?: string;
 }

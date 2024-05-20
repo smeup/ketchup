@@ -255,6 +255,7 @@ export class KupImageList {
         const props: FImageProps = {
             fit: true,
             resource: node.icon,
+            placeholderResource: node.placeholderIcon,
             title: node.title,
             wrapperClass: 'image-list__image',
             badgeData: node.badgeData,
@@ -270,7 +271,12 @@ export class KupImageList {
 
         return (
             <FCell
-                cell={{ value: node.value, icon: node.icon, obj: node.obj }}
+                cell={{
+                    value: node.value,
+                    icon: node.icon,
+                    placeholderIcon: node.placeholderIcon,
+                    obj: node.obj,
+                }}
                 column={{ name: 'IMAGE', title: 'Image' }}
                 component={this}
                 density={FCellPadding.NONE}
@@ -550,6 +556,9 @@ export class KupImageList {
                                     <FImage
                                         fit={true}
                                         resource={this.currentNode.icon}
+                                        placeholderResource={
+                                            this.currentNode.placeholderIcon
+                                        }
                                         sizeX="1.25em"
                                         sizeY="1.25em"
                                         wrapperClass="navigation-bar__title__image"

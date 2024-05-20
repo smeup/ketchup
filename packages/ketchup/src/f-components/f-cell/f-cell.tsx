@@ -135,6 +135,9 @@ export const FCell: FunctionalComponent<FCellProps> = (
         const fProps: FImageProps = {
             color: `rgba(var(${KupThemeColorValues.TEXT}-rgb), 0.375)`,
             resource: cell.icon ? cell.icon : column.icon,
+            placeholderResource: cell.placeholderIcon
+                ? cell.placeholderIcon
+                : column.placeholderIcon,
             sizeX: '1.25em',
             sizeY: '1.25em',
             wrapperClass: 'obj-icon',
@@ -161,6 +164,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
         const fProps: FImageProps = {
             color: info.color,
             resource: info.icon,
+            placeholderResource: info.placeholderIcon,
             sizeX: '1.25em',
             sizeY: '1.25em',
             title: info.message ? info.message : '',

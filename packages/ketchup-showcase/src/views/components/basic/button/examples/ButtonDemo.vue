@@ -165,6 +165,14 @@ export default {
           try: 'field',
         },
         {
+          prop: 'placeholderIcon',
+          description:
+            'When set, the button will show this icon, if icon/image not found.',
+          type: 'string',
+          default: 'null',
+          try: 'field',
+        },
+        {
           prop: 'styling',
           description:
             'Defines the style of the button. Styles available: "flat", "outlined", "floating", "icon" and "raised" which is also the default.',

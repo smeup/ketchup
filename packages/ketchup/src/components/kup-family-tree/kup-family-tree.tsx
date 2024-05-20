@@ -493,6 +493,7 @@ export class KupFamilyTree {
                 <div class={'family-tree__item__layout__image'}>
                     <FImage
                         resource={node.icon}
+                        placeholderResource={node.placeholderIcon}
                         sizeX="48px"
                         sizeY="48px"
                     ></FImage>

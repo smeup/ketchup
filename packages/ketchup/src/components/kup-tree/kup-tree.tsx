@@ -1296,13 +1296,15 @@ export class KupTree {
     private createIconElement(
         CSSClass: string,
         icon: string,
-        iconColor: string
+        iconColor: string,
+        placeholderIcon: string
     ) {
         if (
             icon.indexOf('.') > -1 ||
             icon.indexOf('/') > -1 ||
             icon.indexOf('\\') > -1
         ) {
+            console.log('cacca', placeholderIcon);
             CSSClass += ' is-image';
             return (
                 <span class={CSSClass}>
@@ -1548,7 +1550,8 @@ export class KupTree {
                     treeNodeIcon = this.createIconElement(
                         'kup-tree__icon',
                         treeNodeData.icon,
-                        treeNodeData.iconColor
+                        treeNodeData.iconColor,
+                        treeNodeData.placeholderIcon
                     );
                 }
             } else {
