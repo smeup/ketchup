@@ -91,6 +91,7 @@ import {
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { FImage } from '../../f-components/f-image/f-image';
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
@@ -1293,37 +1294,6 @@ export class KupTree {
         }
     }
 
-    private createIconElement(
-        CSSClass: string,
-        icon: string,
-        iconColor: string,
-        placeholderIcon: string
-    ) {
-        if (
-            icon.indexOf('.') > -1 ||
-            icon.indexOf('/') > -1 ||
-            icon.indexOf('\\') > -1
-        ) {
-            console.log('cacca', placeholderIcon);
-            CSSClass += ' is-image';
-            return (
-                <span class={CSSClass}>
-                    <img src={icon}></img>
-                </span>
-            );
-        } else {
-            let svg: string = `url('${getAssetPath(
-                `./assets/svg/${icon}.svg`
-            )}') no-repeat center`;
-            CSSClass += ' kup-icon';
-            let iconStyle = {
-                ...(iconColor ? { background: iconColor } : {}),
-                mask: svg,
-                webkitMask: svg,
-            };
-            return <span style={iconStyle} class={CSSClass}></span>;
-        }
-    }
     private getCellStyle(colName: string, cellStyle: any): any {
         // Controls if there are columns with a specified width
         if (this.sizedColumns) {
@@ -1547,11 +1517,13 @@ export class KupTree {
                 if (treeNodeData.icon === '') {
                     treeNodeIcon = <span class="kup-tree__icon" />;
                 } else {
-                    treeNodeIcon = this.createIconElement(
-                        'kup-tree__icon',
-                        treeNodeData.icon,
-                        treeNodeData.iconColor,
-                        treeNodeData.placeholderIcon
+                    treeNodeIcon = (
+                        <FImage
+                            color={treeNodeData.iconColor}
+                            placeholderResource={treeNodeData.placeholderIcon}
+                            resource={treeNodeData.icon}
+                            wrapperClass={'kup-tree__icon'}
+                        ></FImage>
                     );
                 }
             } else {
