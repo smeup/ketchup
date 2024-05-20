@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-05-20T16:29:47",
+  "timestamp": "2024-05-20T19:18:16",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -7165,7 +7165,7 @@
       "filePath": "src/components/kul-tree/kul-tree.tsx",
       "encapsulation": "shadow",
       "tag": "kul-tree",
-      "readme": "# kul-badge\r\n\r\n\r\n\r",
+      "readme": "# kul-badge\n\n\n",
       "docs": "",
       "docsTags": [],
       "usage": {},
@@ -7230,7 +7230,7 @@
           "required": false
         },
         {
-          "name": "kulInitialExpandedDepth",
+          "name": "kulInitialExpansionDepth",
           "type": "number",
           "complexType": {
             "original": "number",
@@ -7238,7 +7238,7 @@
             "references": {}
           },
           "mutable": true,
-          "attr": "kul-initial-expanded-depth",
+          "attr": "kul-initial-expansion-depth",
           "reflectToAttr": false,
           "docs": "Sets the initial expanded nodes based on the specified depth.\r\nIf the property is not provided, all nodes in the tree will be expanded.",
           "docsTags": [
@@ -7444,16 +7444,16 @@
       "events": [
         {
           "event": "kul-tree-event",
-          "detail": "KulEventPayload",
+          "detail": "KulTreeEventPayload",
           "bubbles": true,
           "complexType": {
-            "original": "KulEventPayload",
-            "resolved": "KulEventPayload",
+            "original": "KulTreeEventPayload",
+            "resolved": "KulTreeEventPayload",
             "references": {
-              "KulEventPayload": {
+              "KulTreeEventPayload": {
                 "location": "import",
-                "path": "../../types/GenericTypes",
-                "id": "src/types/GenericTypes.ts::KulEventPayload"
+                "path": "./kul-tree-declarations",
+                "id": "src/components/kul-tree/kul-tree-declarations.ts::KulTreeEventPayload"
               }
             }
           },
@@ -7529,6 +7529,11 @@
           "name": "--kul-tree-padding",
           "annotation": "prop",
           "docs": "Sets the padding of the tree. Defaults to 0."
+        },
+        {
+          "name": "--kul-tree-text-color",
+          "annotation": "prop",
+          "docs": "Sets the text color of the tree. Defaults to var(--kul-text-color)."
         }
       ],
       "slots": [],
@@ -8006,6 +8011,11 @@
       "declaration": "any",
       "docstring": "",
       "path": "src/components.d.ts"
+    },
+    "src/components/kul-tree/kul-tree-declarations.ts::KulTreeEventPayload": {
+      "declaration": "export interface KulTreeEventPayload extends KulEventPayload {\n    node?: KulDataNode;\n}",
+      "docstring": "",
+      "path": "src/components/kul-tree/kul-tree-declarations.ts"
     },
     "src/components/kul-upload/kul-upload-declarations.ts::KulUploadEventPayload": {
       "declaration": "export interface KulUploadEventPayload extends KulEventPayload {\n    selectedFiles: File[];\n}",

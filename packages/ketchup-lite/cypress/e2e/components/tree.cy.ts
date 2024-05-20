@@ -102,7 +102,7 @@ describe('kul-tree', () => {
                 const dummy: KulTreePropsInterface = {
                     kulAccordionLayout: null,
                     kulData: null,
-                    kulInitialExpandedDepth: null,
+                    kulInitialExpansionDepth: null,
                     kulRipple: null,
                     kulSelectable: null,
                     kulStyle: null,

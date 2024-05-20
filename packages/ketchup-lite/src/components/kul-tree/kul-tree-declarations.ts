@@ -1,3 +1,4 @@
+import { KulEventPayload } from '../../components';
 import {
     KulDataDataset,
     KulDataNode,
@@ -8,12 +9,16 @@ export interface KulTreeEventArguments {
     node?: KulDataNode;
 }
 
+export interface KulTreeEventPayload extends KulEventPayload {
+    node?: KulDataNode;
+}
+
 export type KulTreeEvent = 'click' | 'pointerdown' | 'ready';
 
 export enum KulTreeProps {
     kulAccordionLayout = 'When enabled, the first level of depth will create an accordion-style appearance for nodes.',
     kulData = 'Actual data of the tree.',
-    kulInitialExpandedDepth = 'Sets the initial expanded nodes based on the specified depth. If the property is not provided, all nodes in the tree will be expanded.',
+    kulInitialExpansionDepth = 'Sets the initial expanded nodes based on the specified depth. If the property is not provided, all nodes in the tree will be expanded.',
     kulRipple = 'When set to true, the pointerdown event will trigger a ripple effect.',
     kulSelectable = 'When true, nodes can be selected.',
     kulStyle = 'Custom style of the component.',
@@ -22,7 +27,7 @@ export enum KulTreeProps {
 export interface KulTreePropsInterface {
     kulAccordionLayout?: boolean;
     kulData?: KulDataDataset;
-    kulInitialExpandedDepth?: number;
+    kulInitialExpansionDepth?: number;
     kulRipple?: boolean;
     kulSelectable?: boolean;
     kulStyle?: string;

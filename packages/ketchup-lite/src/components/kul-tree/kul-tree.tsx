@@ -14,13 +14,14 @@ import {
 import {
     KulTreeEvent,
     KulTreeEventArguments,
+    KulTreeEventPayload,
     KulTreeProps,
 } from './kul-tree-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps } from '../../utils/componentUtils';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
-import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
+import { GenericObject } from '../../types/GenericTypes';
 import { KulDataDataset, KulDataNode } from '../../components';
 import { TreeNode } from './node/kul-tree-node';
 import { KulTreeNodeProps } from './node/kul-tree-node-declarations';
@@ -78,7 +79,7 @@ export class KulTree {
      * If the property is not provided, all nodes in the tree will be expanded.
      * @default null
      */
-    @Prop({ mutable: true }) kulInitialExpandedDepth: number;
+    @Prop({ mutable: true }) kulInitialExpansionDepth: number;
     /**
      * When set to true, the pointerdown event will trigger a ripple effect.
      * @default true
@@ -115,7 +116,7 @@ export class KulTree {
         cancelable: false,
         bubbles: true,
     })
-    kulEvent: EventEmitter<KulEventPayload>;
+    kulEvent: EventEmitter<KulTreeEventPayload>;
 
     onKulEvent(
         e: Event | CustomEvent,
@@ -148,6 +149,7 @@ export class KulTree {
             eventType,
             id: this.rootElement.id,
             originalEvent: e,
+            node,
         });
     }
 
@@ -201,9 +203,9 @@ export class KulTree {
     #recursive(elements: VNode[], node: KulDataNode, depth: number) {
         if (!this.debugInfo.endTime) {
             if (
-                this.kulInitialExpandedDepth === null ||
-                this.kulInitialExpandedDepth === undefined ||
-                depth <= this.kulInitialExpandedDepth
+                this.kulInitialExpansionDepth === null ||
+                this.kulInitialExpansionDepth === undefined ||
+                this.kulInitialExpansionDepth > depth
             ) {
                 this.expandedNodes.add(node);
             }

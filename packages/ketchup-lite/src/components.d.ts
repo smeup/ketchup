@@ -19,6 +19,7 @@ import { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
 import { KulPhotoframeEventPayload } from "./components/kul-photoframe/kul-photoframe-declarations";
 import { KulTabbarEventPayload, KulTabbarState } from "./components/kul-tabbar/kul-tabbar-declarations";
 import { KulTextfieldHelper, KulTextfieldStyling } from "./components/kul-textfield/kul-textfield-declarations";
+import { KulTreeEventPayload } from "./components/kul-tree/kul-tree-declarations";
 import { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
 export { KulArticleDataset } from "./components/kul-article/kul-article-declarations";
 export { GenericObject, KulEventPayload } from "./types/GenericTypes";
@@ -34,6 +35,7 @@ export { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
 export { KulPhotoframeEventPayload } from "./components/kul-photoframe/kul-photoframe-declarations";
 export { KulTabbarEventPayload, KulTabbarState } from "./components/kul-tabbar/kul-tabbar-declarations";
 export { KulTextfieldHelper, KulTextfieldStyling } from "./components/kul-textfield/kul-textfield-declarations";
+export { KulTreeEventPayload } from "./components/kul-tree/kul-tree-declarations";
 export { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
 export namespace Components {
     interface KulArticle {
@@ -876,7 +878,7 @@ export namespace Components {
           * Sets the initial expanded nodes based on the specified depth. If the property is not provided, all nodes in the tree will be expanded.
           * @default null
          */
-        "kulInitialExpandedDepth": number;
+        "kulInitialExpansionDepth": number;
         /**
           * When set to true, the pointerdown event will trigger a ripple effect.
           * @default true
@@ -1432,7 +1434,7 @@ declare global {
         new (): HTMLKulToastElement;
     };
     interface HTMLKulTreeElementEventMap {
-        "kul-tree-event": KulEventPayload;
+        "kul-tree-event": KulTreeEventPayload;
     }
     interface HTMLKulTreeElement extends Components.KulTree, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKulTreeElementEventMap>(type: K, listener: (this: HTMLKulTreeElement, ev: KulTreeCustomEvent<HTMLKulTreeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -2091,7 +2093,7 @@ declare namespace LocalJSX {
           * Sets the initial expanded nodes based on the specified depth. If the property is not provided, all nodes in the tree will be expanded.
           * @default null
          */
-        "kulInitialExpandedDepth"?: number;
+        "kulInitialExpansionDepth"?: number;
         /**
           * When set to true, the pointerdown event will trigger a ripple effect.
           * @default true
@@ -2110,7 +2112,7 @@ declare namespace LocalJSX {
         /**
           * Describes event emitted.
          */
-        "onKul-tree-event"?: (event: KulTreeCustomEvent<KulEventPayload>) => void;
+        "onKul-tree-event"?: (event: KulTreeCustomEvent<KulTreeEventPayload>) => void;
     }
     interface KulUpload {
         /**

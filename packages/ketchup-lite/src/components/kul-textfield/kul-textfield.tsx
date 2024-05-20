@@ -386,7 +386,6 @@ export class KulTextfield {
         }
         if (this.kulLabel) {
             this.status.add('has-label');
-            console.log('adding has label');
         } else {
             this.status.delete('has-label');
         }

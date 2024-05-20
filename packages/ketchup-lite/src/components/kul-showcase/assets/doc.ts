@@ -1643,7 +1643,7 @@ export const KUL_DOC: KulShowcaseDoc = {
         type: "KulDataDataset",
       },
       {
-        name: "kulInitialExpandedDepth",
+        name: "kulInitialExpansionDepth",
         docs: "Sets the initial expanded nodes based on the specified depth.\r\nIf the property is not provided, all nodes in the tree will be expanded.",
         type: "number",
       },
@@ -1715,6 +1715,10 @@ export const KUL_DOC: KulShowcaseDoc = {
       {
         name: "--kul-tree-padding",
         docs: "Sets the padding of the tree. Defaults to 0.",
+      },
+      {
+        name: "--kul-tree-text-color",
+        docs: "Sets the text color of the tree. Defaults to var(--kul-text-color).",
       },
     ],
   },

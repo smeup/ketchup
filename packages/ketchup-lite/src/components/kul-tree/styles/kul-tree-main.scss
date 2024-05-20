@@ -85,6 +85,11 @@
  * Defaults to 0.
  */
   --kul_tree_padding: var(--kul-tree-padding, 0);
+  /**
+ * @prop --kul-tree-text-color: Sets the text color of the tree.
+ * Defaults to var(--kul-text-color).
+ */
+  --kul_tree_text_color: var(--kul-tree-text-color, var(--kul-text-color));
 
   display: block;
   height: 100%;
@@ -131,6 +136,7 @@
 
 .node {
   box-sizing: border-box;
+  color: var(--kul_tree_text_color);
   height: var(--kul_tree_node_height);
   padding: var(--kul_tree_node_padding);
   position: relative;
@@ -146,7 +152,7 @@
   &__dropdown,
   &__expand,
   &__icon {
-    background-color: var(--kul-text-color);
+    background-color: var(--kul_tree_text_color);
     cursor: pointer;
     height: 1.5em;
     margin: 0;
