@@ -1,11 +1,11 @@
 :host {
   /**
-   * @prop --kul_upload_backdrop_filter: Sets the backdrop filter for the upload component.
+   * @prop --kul-upload-backdrop-filter: Sets the backdrop filter for the upload component.
    * Defaults to a blur effect of 5px.
    */
   --kul_upload_backdrop_filter: var(--kul-upload-backdrop-filter, blur(5px));
   /**
-   * @prop --kul_upload_backdrop_filter_hover: Sets the backdrop filter for the upload component on hover.
+   * @prop --kul-upload-backdrop-filter-hover: Sets the backdrop filter for the upload component on hover.
    * Defaults to a blur effect of 10px.
    */
   --kul_upload_backdrop_filter_hover: var(
@@ -13,7 +13,7 @@
     blur(10px)
   );
   /**
-   * @prop --kul_upload_border: Sets the border for the upload component.
+   * @prop --kul-upload-border: Sets the border for the upload component.
    * Defaults to a 1px solid border with a color defined by --kul-border-color-rgb.
    */
   --kul_upload_border: var(
@@ -21,17 +21,17 @@
     1px solid rgba(var(--kul-border-color-rgb), 0.2)
   );
   /**
-   * @prop --kul_upload_border_radius: Sets the border radius for the upload component.
+   * @prop --kul-upload-border-radius: Sets the border radius for the upload component.
    * Defaults to 4px.
    */
   --kul_upload_border_radius: var(--kul-upload-border-radius, 4px);
   /**
-   * @prop --kul_upload_button_height: Sets the height of the upload button.
+   * @prop --kul-upload-button-height: Sets the height of the upload button.
    * Defaults to 42px.
    */
   --kul_upload_button_height: var(--kul-upload-button-height, 42px);
   /**
-   * @prop --kul_upload_button_text_transform: Sets the text transformation for the upload button.
+   * @prop --kul-upload-button-text-transform: Sets the text transformation for the upload button.
    * Defaults to uppercase.
    */
   --kul_upload_button_text_transform: var(
@@ -39,22 +39,22 @@
     uppercase
   );
   /**
-   * @prop --kul_upload_grid_gap: Sets the grid gap for the upload component.
+   * @prop --kul-upload-grid-gap: Sets the grid gap for the upload component.
    * Defaults to 20px.
    */
   --kul_upload_grid_gap: var(--kul-upload-grid-gap, 20px);
   /**
-   * @prop --kul_upload_info_height: Sets the height of the info section in the upload component.
+   * @prop --kul-upload-info-height: Sets the height of the info section in the upload component.
    * Defaults to 1fr.
    */
   --kul_upload_info_height: var(--kul-upload-info-height, minmax(auto, 25vh));
   /**
-   * @prop --kul_upload_info_height: Sets the padding for each uploaded item.
+   * @prop --kul-upload-info-height: Sets the padding for each uploaded item.
    * Defaults to 0.75em.
    */
   --kul_upload_item_padding: var(--kul-upload-item-padding, 0.75em);
   /**
-   * @prop --kul_upload_padding: Sets the padding for the upload component.
+   * @prop --kul-upload-padding: Sets the padding for the upload component.
    * Defaults to 1em.
    */
   --kul_upload_padding: var(--kul-upload-backdrop-filter, 1em);
@@ -97,7 +97,8 @@
   border: var(--kul_upload_border);
   border-radius: var(--kul_upload_border_radius);
   display: flex;
-  transition: backdrop-filter 80ms ease,
+  transition:
+    backdrop-filter 80ms ease,
     box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &__input {
@@ -120,7 +121,8 @@
 
   &:hover {
     backdrop-filter: var(--kul_upload_backdrop_filter_hover);
-    box-shadow: 0 5px 5px -3px rgba(var(--kul-text-color-rgb), 0.25),
+    box-shadow:
+      0 5px 5px -3px rgba(var(--kul-text-color-rgb), 0.25),
       0 8px 10px 1px rgba(var(--kul-text-color-rgb), 0.18),
       0 3px 14px 2px rgba(var(--kul-text-color-rgb), 0.15);
   }

@@ -8,9 +8,7 @@ const inputFilePath = path.join(
     '..',
     '..',
     'src',
-    'components',
-    'kul-showcase',
-    'assets',
+    'docs',
     'doc.json'
 );
 
@@ -40,9 +38,20 @@ fs.readFile(inputFilePath, 'utf8', (err, data) => {
         console.log('Processing ' + tag + '...');
 
         processedData[tag] = {
+            methods: [],
             props: [],
             styles: [],
         };
+
+        component.methods.forEach((method) => {
+            processedData[tag].methods.push({
+                name: method.name,
+                docs: method.docs,
+                returns: method.returns,
+                signature: method.complexType.signature,
+                type: method.type,
+            });
+        });
 
         component.props.forEach((prop) => {
             processedData[tag].props.push({

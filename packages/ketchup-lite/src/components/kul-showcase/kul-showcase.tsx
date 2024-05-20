@@ -27,21 +27,7 @@ import {
     KUL_SHOWCASE_LAYOUT,
     KUL_SHOWCASE_UTILITIES,
 } from './kul-showcase-data';
-import {
-    KulArticleDataset,
-    KulCardCustomEvent,
-    KulDataDataset,
-} from '../../components';
-import { ARTICLE_DOC } from './components/article/kul-showcase-article-data';
-import { BADGE_DOC } from './components/badge/kul-showcase-badge-data';
-import { BUTTON_DOC } from './components/button/kul-showcase-button-data';
-import { CARD_DOC } from './components/card/kul-showcase-card-data';
-import { CODE_DOC } from './components/code/kul-showcase-code-data';
-import { IMAGE_DOC } from './components/image/kul-showcase-image-data';
-import { SPINNER_DOC } from './components/spinner/kul-showcase-spinner-data';
-import { SPLASH_DOC } from './components/splash/kul-showcase-splash-data';
-import { TOAST_DOC } from './components/toast/kul-showcase-toast-data';
-import { UPLOAD_DOC } from './components/upload/kul-showcase-upload-data';
+import { KulCardCustomEvent, KulDataDataset } from '../../components';
 
 @Component({
     assetsDirs: ['assets/media'],
@@ -134,44 +120,6 @@ export class KulShowcase {
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
-    /**
-     * This methods fixes the ids of showcase's documentation datasets.
-     */
-    @Method()
-    async fixDatasets(): Promise<{ [key: string]: KulArticleDataset }> {
-        return {
-            article: {
-                nodes: this.#kulManager.data.node.fixIds(ARTICLE_DOC.nodes),
-            },
-            badge: {
-                nodes: this.#kulManager.data.node.fixIds(BADGE_DOC.nodes),
-            },
-            button: {
-                nodes: this.#kulManager.data.node.fixIds(BUTTON_DOC.nodes),
-            },
-            card: {
-                nodes: this.#kulManager.data.node.fixIds(CARD_DOC.nodes),
-            },
-            code: {
-                nodes: this.#kulManager.data.node.fixIds(CODE_DOC.nodes),
-            },
-            image: {
-                nodes: this.#kulManager.data.node.fixIds(IMAGE_DOC.nodes),
-            },
-            spinner: {
-                nodes: this.#kulManager.data.node.fixIds(SPINNER_DOC.nodes),
-            },
-            splash: {
-                nodes: this.#kulManager.data.node.fixIds(SPLASH_DOC.nodes),
-            },
-            toast: {
-                nodes: this.#kulManager.data.node.fixIds(TOAST_DOC.nodes),
-            },
-            upload: {
-                nodes: this.#kulManager.data.node.fixIds(UPLOAD_DOC.nodes),
-            },
-        };
-    }
     /**
      * Fetches debug information of the component's current state.
      * @returns {Promise<KulDebugComponentInfo>} A promise that resolves with the debug information object.
@@ -419,10 +367,10 @@ export class KulShowcase {
             title === 'Components'
                 ? this.currentComponent
                 : title === 'Layout'
-                ? this.currentLayout
-                : title === 'Utilities'
-                ? this.currentUtility
-                : this.currentFramework;
+                  ? this.currentLayout
+                  : title === 'Utilities'
+                    ? this.currentUtility
+                    : this.currentFramework;
         return (
             <div class="header">
                 <h2>{current ? current : title}</h2>

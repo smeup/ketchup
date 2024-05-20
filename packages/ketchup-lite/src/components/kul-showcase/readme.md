@@ -21,16 +21,6 @@
 
 ## Methods
 
-### `fixDatasets() => Promise<{ [key: string]: KulArticleDataset; }>`
-
-This methods fixes the ids of showcase's documentation datasets.
-
-#### Returns
-
-Type: `Promise<{ [key: string]: KulArticleDataset; }>`
-
-
-
 ### `getDebugInfo() => Promise<KulDebugComponentInfo>`
 
 Fetches debug information of the component's current state.

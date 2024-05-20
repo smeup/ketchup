@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-05-19T18:45:38",
+  "timestamp": "2024-05-20T10:19:18",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -4029,33 +4029,6 @@
       ],
       "methods": [
         {
-          "name": "fixDatasets",
-          "returns": {
-            "type": "Promise<{ [key: string]: KulArticleDataset; }>",
-            "docs": ""
-          },
-          "complexType": {
-            "signature": "() => Promise<{ [key: string]: KulArticleDataset; }>",
-            "parameters": [],
-            "references": {
-              "Promise": {
-                "location": "global",
-                "id": "global::Promise"
-              },
-              "KulArticleDataset": {
-                "location": "import",
-                "path": "../../components",
-                "id": "src/components.d.ts::KulArticleDataset"
-              }
-            },
-            "return": "Promise<{ [key: string]: KulArticleDataset; }>"
-          },
-          "signature": "fixDatasets() => Promise<{ [key: string]: KulArticleDataset; }>",
-          "parameters": [],
-          "docs": "This methods fixes the ids of showcase's documentation datasets.",
-          "docsTags": []
-        },
-        {
           "name": "getDebugInfo",
           "returns": {
             "type": "Promise<KulDebugComponentInfo>",
@@ -8080,47 +8053,47 @@
       "listeners": [],
       "styles": [
         {
-          "name": "--kul_upload_backdrop_filter",
+          "name": "--kul-upload-backdrop-filter",
           "annotation": "prop",
           "docs": "Sets the backdrop filter for the upload component. Defaults to a blur effect of 5px."
         },
         {
-          "name": "--kul_upload_backdrop_filter_hover",
+          "name": "--kul-upload-backdrop-filter-hover",
           "annotation": "prop",
           "docs": "Sets the backdrop filter for the upload component on hover. Defaults to a blur effect of 10px."
         },
         {
-          "name": "--kul_upload_border",
+          "name": "--kul-upload-border",
           "annotation": "prop",
           "docs": "Sets the border for the upload component. Defaults to a 1px solid border with a color defined by --kul-border-color-rgb."
         },
         {
-          "name": "--kul_upload_border_radius",
+          "name": "--kul-upload-border-radius",
           "annotation": "prop",
           "docs": "Sets the border radius for the upload component. Defaults to 4px."
         },
         {
-          "name": "--kul_upload_button_height",
+          "name": "--kul-upload-button-height",
           "annotation": "prop",
           "docs": "Sets the height of the upload button. Defaults to 42px."
         },
         {
-          "name": "--kul_upload_button_text_transform",
+          "name": "--kul-upload-button-text-transform",
           "annotation": "prop",
           "docs": "Sets the text transformation for the upload button. Defaults to uppercase."
         },
         {
-          "name": "--kul_upload_grid_gap",
+          "name": "--kul-upload-grid-gap",
           "annotation": "prop",
           "docs": "Sets the grid gap for the upload component. Defaults to 20px."
         },
         {
-          "name": "--kul_upload_info_height",
+          "name": "--kul-upload-info-height",
           "annotation": "prop",
           "docs": "Sets the height of the info section in the upload component. Defaults to 1fr."
         },
         {
-          "name": "--kul_upload_padding",
+          "name": "--kul-upload-padding",
           "annotation": "prop",
           "docs": "Sets the padding for the upload component. Defaults to 1em."
         }
@@ -8240,11 +8213,6 @@
       "declaration": "export interface KulPhotoframeEventPayload extends KulEventPayload {\n    isPlaceholder?: boolean;\n}",
       "docstring": "",
       "path": "src/components/kul-photoframe/kul-photoframe-declarations.ts"
-    },
-    "src/components.d.ts::KulArticleDataset": {
-      "declaration": "any",
-      "docstring": "",
-      "path": "src/components.d.ts"
     },
     "src/components/kul-tabbar/kul-tabbar-declarations.ts::KulTabbarEventPayload": {
       "declaration": "export interface KulTabbarEventPayload extends KulEventPayload {\n    index?: number;\n}",

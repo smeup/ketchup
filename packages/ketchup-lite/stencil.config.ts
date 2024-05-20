@@ -6,7 +6,7 @@ export const config: Config = {
     namespace: 'ketchup-lite',
     outputTargets: [
         {
-            file: 'src/components/kul-showcase/assets/doc.json',
+            file: 'src/docs/doc.json',
             type: 'docs-json',
         },
         { type: 'docs-readme' },
