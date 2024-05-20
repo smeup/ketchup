@@ -488,6 +488,11 @@ export namespace Components {
          */
         "label": string;
         /**
+          * When set, the button will show this icon, if icon/image not found.
+          * @default null
+         */
+        "placeholderIcon": string;
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
@@ -1749,6 +1754,11 @@ export namespace Components {
           * @default ""
          */
         "label": string;
+        /**
+          * When set, the button will show this icon, if icon/image not found.
+          * @default null
+         */
+        "placeholderIcon": string;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -5628,6 +5638,11 @@ declare namespace LocalJSX {
          */
         "onKup-button-focus"?: (event: KupButtonCustomEvent<KupButtonClickEventPayload>) => void;
         /**
+          * When set, the button will show this icon, if icon/image not found.
+          * @default null
+         */
+        "placeholderIcon"?: string;
+        /**
           * When set to true, the button show a spinner received in slot.
           * @default false
          */
@@ -6663,6 +6678,11 @@ declare namespace LocalJSX {
           * Triggered when a list item is clicked.
          */
         "onKup-dropdownbutton-itemclick"?: (event: KupDropdownButtonCustomEvent<KupDropdownButtonEventPayload>) => void;
+        /**
+          * When set, the button will show this icon, if icon/image not found.
+          * @default null
+         */
+        "placeholderIcon"?: string;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
           * @default ItemsDisplayMode.CODE

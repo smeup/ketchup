@@ -576,6 +576,7 @@ export function create9(component: KupCard): VNode {
                         {buttons.map((b) => (
                             <FButton
                                 icon={b.icon}
+                                placeholderIcon={b.placeholderIcon}
                                 title={b.title}
                                 styling={b.styling}
                                 wrapperClass={b.class}

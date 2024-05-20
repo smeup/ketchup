@@ -221,6 +221,7 @@ export class KupButtonList {
             fullWidth: data.fullWidth,
             icon: data.icon,
             iconOff: data.iconOff,
+            placeholderIcon: data.placeholderIcon,
             id: data.id,
             label: data.label,
             large: data.large,
@@ -294,6 +295,9 @@ export class KupButtonList {
         if (data.icon == null) {
             data.icon = node.icon;
         }
+        if (data.placeholderIcon == null) {
+            data.placeholderIcon = node.placeholderIcon;
+        }
         if (data.label == null) {
             data.label = node.value;
         }
@@ -333,7 +337,12 @@ export class KupButtonList {
 
         for (let i = 0; i < children.length; i++) {
             const tn: KupButtonListNode = children[i];
-            ris.push({ icon: tn.icon, id: i.toString(), value: tn.value });
+            ris.push({
+                icon: tn.icon,
+                placeholderIcon: tn.placeholderIcon,
+                id: i.toString(),
+                value: tn.value,
+            });
         }
         return ris;
     }
