@@ -18,10 +18,6 @@
 
 ## Dependencies
 
-### Used by
-
- - [kul-showcase](../..)
-
 ### Depends on
 
 - [kul-upload](../../../kul-upload)
@@ -38,7 +34,6 @@ graph TD;
   kul-image --> kul-badge
   kul-badge --> kul-image
   kul-button --> kul-image
-  kul-showcase --> kul-showcase-upload
   style kul-showcase-upload fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
