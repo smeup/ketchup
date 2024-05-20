@@ -7,9 +7,6 @@ import { GenericObject } from '../../types/GenericTypes';
 /*                C o m p o n e n t                */
 /*-------------------------------------------------*/
 
-let img: HTMLImageElement;
-let placeholder: HTMLDivElement;
-
 const HIDDEN_CLASS = 'f-image__hidden';
 
 export const FImage: FunctionalComponent<FImageProps> = (
@@ -100,17 +97,7 @@ function createIcon(
         style.mask = `url('${path}') no-repeat center`;
         style.webkitMask = `url('${path}') no-repeat center`;
     }
-    return (
-        <div
-            class={classObj}
-            ref={(el) => {
-                if (iconClass.indexOf('placeholder') > 1) {
-                    placeholder = el;
-                }
-            }}
-            style={style}
-        ></div>
-    );
+    return <div class={classObj} style={style}></div>;
 }
 
 function createImage(props: FImageProps): HTMLImageElement {
@@ -118,6 +105,10 @@ function createImage(props: FImageProps): HTMLImageElement {
         <img
             class={props.placeholderResource ? HIDDEN_CLASS : ''}
             onLoad={(e) => {
+                const img = e.currentTarget as HTMLImageElement;
+                const placeholder = img.parentElement.querySelector(
+                    '.f-image__placeholder'
+                );
                 if (props.onLoad) {
                     props.onLoad(e);
                 }
@@ -126,13 +117,16 @@ function createImage(props: FImageProps): HTMLImageElement {
                     img.classList.remove(HIDDEN_CLASS);
                 }
             }}
-            onError={() => {
+            onError={(e) => {
+                const img = e.currentTarget as HTMLImageElement;
+                const placeholder = img.parentElement.querySelector(
+                    '.f-image__placeholder'
+                );
                 if (placeholder) {
                     placeholder.classList.remove(HIDDEN_CLASS);
                     img.classList.add(HIDDEN_CLASS);
                 }
             }}
-            ref={(el) => (img = el)}
             src={props.resource}
         ></img>
     );
