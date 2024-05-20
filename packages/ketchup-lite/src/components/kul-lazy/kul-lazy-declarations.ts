@@ -1,4 +1,4 @@
-export type KulLazyEvent = 'load' | 'ready';
+export type KulLazyEvent = 'kul-event' | 'load' | 'ready';
 
 export enum KulLazyProps {
     kulComponentName = 'Sets the tag name of the component to be lazy loaded.',

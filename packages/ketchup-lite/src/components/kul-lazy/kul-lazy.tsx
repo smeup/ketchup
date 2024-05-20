@@ -63,23 +63,23 @@ export class KulLazy {
      * Sets the tag name of the component to be lazy loaded.
      * @default ""
      */
-    @Prop() kulComponentName = '';
+    @Prop({ mutable: false }) kulComponentName = '';
     /**
      * Sets the data of the component to be lazy loaded.
      * @default null
      */
-    @Prop() kulComponentProps: unknown = null;
+    @Prop({ mutable: false }) kulComponentProps: unknown = null;
     /**
      * Decides when the sub-component should be rendered.
      * By default when both the component props exist and the component is in the viewport.
      * @default "both"
      */
-    @Prop() kulRenderMode: KulLazyRenderMode = 'both';
+    @Prop({ mutable: false }) kulRenderMode: KulLazyRenderMode = 'both';
     /**
      * Displays an animated SVG placeholder until the component is loaded.
      * @default true
      */
-    @Prop() kulShowPlaceholder = true;
+    @Prop({ mutable: false }) kulShowPlaceholder = true;
     /**
      * Customizes the style of the component. This property allows you to apply a custom CSS style to the component.
      * @default ""
@@ -188,6 +188,12 @@ export class KulLazy {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
+        this.rootElement.addEventListener(
+            `${this.kulComponentName}-event`,
+            (e) => {
+                this.onKulEvent(e, 'kul-event');
+            }
+        );
         this.#kulManager.theme.register(this);
         this.#setObserver();
     }
