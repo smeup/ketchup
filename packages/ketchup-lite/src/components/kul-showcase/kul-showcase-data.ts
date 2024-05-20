@@ -148,8 +148,8 @@ export const KUL_SHOWCASE_FRAMEWORK: KulDataDataset = {
         {
             description: 'Handles various management tasks within the library.',
             icon: 'settings',
-            id: 'Manager',
-            value: 'Manager',
+            id: 'KulManager',
+            value: 'KulManager',
         },
     ],
 };

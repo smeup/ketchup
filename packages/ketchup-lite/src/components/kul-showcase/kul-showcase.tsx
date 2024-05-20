@@ -149,9 +149,35 @@ export class KulShowcase {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    #compsCards(): VNode[] {
+    #comps(type: KulShowcaseTitle): VNode {
+        const switchType = () => {
+            switch (type) {
+                case 'Components':
+                    return this.currentComponent.toLowerCase();
+                case 'Framework':
+                    return this.currentFramework.toLowerCase();
+                case 'Layout':
+                    return this.currentLayout.toLowerCase();
+                case 'Utilities':
+                    return this.currentUtility.toLowerCase();
+            }
+        };
+        const Tag = 'kul-showcase-' + switchType();
+        return Tag ? <Tag /> : null;
+    }
+
+    #cards(type: KulShowcaseTitle) {
         const cards: VNode[] = [];
-        KUL_SHOWCASE_COMPONENTS.nodes.forEach((node) => {
+        const dataset =
+            type === 'Components'
+                ? KUL_SHOWCASE_COMPONENTS
+                : type === 'Framework'
+                  ? KUL_SHOWCASE_FRAMEWORK
+                  : type === 'Layout'
+                    ? KUL_SHOWCASE_LAYOUT
+                    : KUL_SHOWCASE_UTILITIES;
+
+        dataset.nodes.forEach((node) => {
             const kulData: KulDataDataset = {
                 nodes: [
                     {
@@ -169,8 +195,37 @@ export class KulShowcase {
                 event: KulCardCustomEvent<KulEventPayload>
             ) => void = (e) => {
                 if (e.detail.eventType === 'click') {
-                    this.currentComponent = node.id;
-                    console.log('Selected component: ', this.currentComponent);
+                    switch (type) {
+                        case 'Components':
+                            this.currentComponent = node.id;
+                            console.log(
+                                `Selected component: `,
+                                this.currentComponent
+                            );
+                            break;
+
+                        case 'Framework':
+                            this.currentFramework = node.id;
+                            console.log(
+                                `Selected framework: `,
+                                this.currentFramework
+                            );
+                            break;
+                        case 'Layout':
+                            this.currentLayout = node.id;
+                            console.log(
+                                `Selected layout: `,
+                                this.currentLayout
+                            );
+                            break;
+                        case 'Utilities':
+                            this.currentUtility = node.id;
+                            console.log(
+                                `Selected utility: `,
+                                this.currentUtility
+                            );
+                            break;
+                    }
                 }
             };
             cards.push(
@@ -184,182 +239,6 @@ export class KulShowcase {
             );
         });
         return cards;
-    }
-
-    #comps(): VNode {
-        switch (this.currentComponent) {
-            case 'Article':
-                return <kul-showcase-article></kul-showcase-article>;
-            case 'Badge':
-                return <kul-showcase-badge></kul-showcase-badge>;
-            case 'Button':
-                return <kul-showcase-button></kul-showcase-button>;
-            case 'Card':
-                return <kul-showcase-card></kul-showcase-card>;
-            case 'Chart':
-                return <kul-showcase-chart></kul-showcase-chart>;
-            case 'Code':
-                return <kul-showcase-code></kul-showcase-code>;
-            case 'Image':
-                return <kul-showcase-image></kul-showcase-image>;
-            case 'Lazy':
-                return <kul-showcase-lazy></kul-showcase-lazy>;
-            case 'Photoframe':
-                return <kul-showcase-photoframe></kul-showcase-photoframe>;
-            case 'Splash':
-                return <kul-showcase-splash></kul-showcase-splash>;
-            case 'Spinner':
-                return <kul-showcase-spinner></kul-showcase-spinner>;
-            case 'Tabbar':
-                return <kul-showcase-tabbar></kul-showcase-tabbar>;
-            case 'Textfield':
-                return <kul-showcase-textfield></kul-showcase-textfield>;
-            case 'Toast':
-                return <kul-showcase-toast></kul-showcase-toast>;
-            case 'Tree':
-                return <kul-showcase-tree></kul-showcase-tree>;
-            case 'Upload':
-                return <kul-showcase-upload></kul-showcase-upload>;
-        }
-    }
-
-    #frameworkCards(): VNode[] {
-        const cards: VNode[] = [];
-        KUL_SHOWCASE_FRAMEWORK.nodes.forEach((node) => {
-            const kulData: KulDataDataset = {
-                nodes: [
-                    {
-                        cells: {
-                            icon: { shape: 'image', value: node.icon },
-                            text1: { value: node.value },
-                            text2: { value: '' },
-                            text3: { value: node.description },
-                        },
-                        id: node.id,
-                    },
-                ],
-            };
-            const onEvent: (
-                event: KulCardCustomEvent<KulEventPayload>
-            ) => void = (e) => {
-                if (e.detail.eventType === 'click') {
-                    this.currentFramework = node.id;
-                    console.log('Selected framework: ', this.currentFramework);
-                }
-            };
-            cards.push(
-                <kul-card
-                    id={node.id}
-                    kulData={kulData}
-                    kulSizeX="300px"
-                    kulSizeY="300px"
-                    onKul-card-event={onEvent}
-                ></kul-card>
-            );
-        });
-        return cards;
-    }
-
-    #framework(): VNode {
-        switch (this.currentFramework) {
-            case 'Manager':
-                return <kul-showcase-kulmanager></kul-showcase-kulmanager>;
-        }
-    }
-
-    #layoutsCards(): VNode[] {
-        const cards: VNode[] = [];
-        KUL_SHOWCASE_LAYOUT.nodes.forEach((node) => {
-            const kulData: KulDataDataset = {
-                nodes: [
-                    {
-                        cells: {
-                            icon: { shape: 'image', value: node.icon },
-                            text1: { value: node.value },
-                            text2: { value: '' },
-                            text3: { value: node.description },
-                        },
-                        id: node.id,
-                    },
-                ],
-            };
-            const onEvent: (
-                event: KulCardCustomEvent<KulEventPayload>
-            ) => void = (e) => {
-                if (e.detail.eventType === 'click') {
-                    this.currentLayout = node.id;
-                    console.log(
-                        'Selected layout component: ',
-                        this.currentLayout
-                    );
-                }
-            };
-            cards.push(
-                <kul-card
-                    id={node.id}
-                    kulData={kulData}
-                    kulSizeX="300px"
-                    kulSizeY="300px"
-                    onKul-card-event={onEvent}
-                ></kul-card>
-            );
-        });
-        return cards;
-    }
-
-    #layouts(): VNode {
-        switch (this.currentLayout) {
-            case 'Drawer':
-                return <kul-showcase-drawer></kul-showcase-drawer>;
-            case 'Header':
-                return <kul-showcase-header></kul-showcase-header>;
-        }
-    }
-
-    #utilsCards(): VNode[] {
-        const cards: VNode[] = [];
-        KUL_SHOWCASE_UTILITIES.nodes.forEach((node) => {
-            const kulData: KulDataDataset = {
-                nodes: [
-                    {
-                        cells: {
-                            icon: { shape: 'image', value: node.icon },
-                            text1: { value: node.value },
-                            text2: { value: '' },
-                            text3: { value: node.description },
-                        },
-                        id: node.id,
-                    },
-                ],
-            };
-            const onEvent: (
-                event: KulCardCustomEvent<KulEventPayload>
-            ) => void = (e) => {
-                if (e.detail.eventType === 'click') {
-                    this.currentUtility = node.id;
-                    console.log('Selected utility: ', this.currentUtility);
-                }
-            };
-            cards.push(
-                <kul-card
-                    id={node.id}
-                    kulData={kulData}
-                    kulSizeX="300px"
-                    kulSizeY="300px"
-                    onKul-card-event={onEvent}
-                ></kul-card>
-            );
-        });
-        return cards;
-    }
-
-    #utils(): VNode {
-        switch (this.currentUtility) {
-            case 'Debugging':
-                return <kul-showcase-debug></kul-showcase-debug>;
-            case 'Probe':
-                return <kul-showcase-probe></kul-showcase-probe>;
-        }
     }
 
     #prepHeader(title: KulShowcaseTitle): VNode {
@@ -433,32 +312,32 @@ export class KulShowcase {
                             {this.#prepHeader('Utilities')}
                             <div class="flex-wrapper flex-wrapper--responsive">
                                 {this.currentUtility
-                                    ? this.#utils()
-                                    : this.#utilsCards()}
+                                    ? this.#comps('Utilities')
+                                    : this.#cards('Utilities')}
                             </div>
                         </div>
                         <div class="section">
                             {this.#prepHeader('Components')}
                             <div class="flex-wrapper flex-wrapper--responsive">
                                 {this.currentComponent
-                                    ? this.#comps()
-                                    : this.#compsCards()}
+                                    ? this.#comps('Components')
+                                    : this.#cards('Components')}
                             </div>
                         </div>
                         <div class="section">
                             {this.#prepHeader('Layout')}
                             <div class="flex-wrapper flex-wrapper--responsive">
                                 {this.currentLayout
-                                    ? this.#layouts()
-                                    : this.#layoutsCards()}
+                                    ? this.#comps('Layout')
+                                    : this.#cards('Layout')}
                             </div>
                         </div>
                         <div class="section">
                             {this.#prepHeader('Framework')}
                             <div class="flex-wrapper flex-wrapper--responsive">
                                 {this.currentFramework
-                                    ? this.#framework()
-                                    : this.#frameworkCards()}
+                                    ? this.#comps('Framework')
+                                    : this.#cards('Framework')}
                             </div>
                         </div>
                     </div>
