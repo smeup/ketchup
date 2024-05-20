@@ -13,7 +13,7 @@ import { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./compo
 import { KulDataDataset, KulDataNode, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 import { KulChartEventPayload, KulChartLegendPlacement, KulChartType } from "./components/kul-chart/kul-chart-declarations";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
-import { KulArticleDataset as KulArticleDataset1, KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
+import { KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 import { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
 import { KulPhotoframeEventPayload } from "./components/kul-photoframe/kul-photoframe-declarations";
@@ -28,7 +28,7 @@ export { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./compo
 export { KulDataDataset, KulDataNode, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 export { KulChartEventPayload, KulChartLegendPlacement, KulChartType } from "./components/kul-chart/kul-chart-declarations";
 export { XAXisComponentOption, YAXisComponentOption } from "echarts";
-export { KulArticleDataset as KulArticleDataset1, KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
+export { KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 export { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
 export { KulPhotoframeEventPayload } from "./components/kul-photoframe/kul-photoframe-declarations";
@@ -536,10 +536,6 @@ export namespace Components {
         "refresh": () => Promise<void>;
     }
     interface KulShowcase {
-        /**
-          * This methods fixes the ids of showcase's documentation datasets.
-         */
-        "fixDatasets": () => Promise<{ [key: string]: KulArticleDataset1; }>;
         /**
           * Fetches debug information of the component's current state.
           * @returns A promise that resolves with the debug information object.

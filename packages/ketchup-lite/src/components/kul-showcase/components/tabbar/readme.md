@@ -18,10 +18,6 @@
 
 ## Dependencies
 
-### Used by
-
- - [kul-showcase](../..)
-
 ### Depends on
 
 - [kul-tabbar](../../../kul-tabbar)
@@ -36,7 +32,6 @@ graph TD;
   kul-image --> kul-spinner
   kul-image --> kul-badge
   kul-badge --> kul-image
-  kul-showcase --> kul-showcase-tabbar
   style kul-showcase-tabbar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

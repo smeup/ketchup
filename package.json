@@ -13,15 +13,14 @@
     "author": "Luca Foscili",
     "repository": "https://github.com/lucafoscili/ketchup-lite",
     "devDependencies": {
-        "eslint": "^8.46.0",
-        "lerna": "^7.1.4",
-        "workbox-build": "^7.0.0"
+        "eslint": "^9.3.0",
+        "lerna": "^8.1.3"
     },
     "scripts": {
         "lerna": "lerna",
-        "build": "npm run gendoc && lerna run build --scope ketchup-lite --stream && lerna run build --scope ketchup-lite-react --stream",
+        "build": "lerna run build --scope ketchup-lite --stream && lerna run build --scope ketchup-lite-react --stream && npm run doc",
         "dev": "lerna run dev --scope ketchup-lite --stream",
-        "gendoc": "node ./packages/ketchup-lite/src/scripts/genDoc.js",
+        "doc": "node ./packages/ketchup-lite/src/scripts/doc.js",
         "test": "lerna run test --scope ketchup-lite --stream",
         "test:open": "lerna run test:open --scope ketchup-lite --stream"
     },

@@ -1,8 +1,48 @@
+import { GenericObject } from '../../components';
+
+export const COMPONENTS = [
+    'article',
+    'badge',
+    'button',
+    'card',
+    'chart',
+    'code',
+    'image',
+    'lazy',
+    'photoframe',
+    'splash',
+    'spinner',
+    'tabbar',
+    'textfield',
+    'toast',
+    'tree',
+    'upload',
+];
+
+export interface KulShowcaseDocMethod {
+    docs: string;
+    name: string;
+    returns: { docs: string; type: string };
+    signature: string;
+}
+export interface KulShowcaseDocProp {
+    docs: string;
+    name: string;
+    type: string;
+}
+export interface KulShowcaseDocStyle {
+    docs: string;
+    name: string;
+}
+
 export interface KulShowcaseDoc {
-    [index: string]: {
-        props: { docs: string; name: string; type: string }[];
-        styles: { docs: string; name: string }[];
-    };
+    [index: string]:
+        | {
+              methods: KulShowcaseDocMethod[];
+              props: KulShowcaseDocProp[];
+              styles: KulShowcaseDocStyle[];
+          }
+        | GenericObject;
 }
 
 export type KulShowcaseDynamicExampleType =

@@ -75,15 +75,15 @@ Type: `Promise<void>`
 
 | Name                                 | Description                                                                                                              |
 | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `--kul_upload_backdrop_filter`       | Sets the backdrop filter for the upload component. Defaults to a blur effect of 5px.                                     |
-| `--kul_upload_backdrop_filter_hover` | Sets the backdrop filter for the upload component on hover. Defaults to a blur effect of 10px.                           |
-| `--kul_upload_border`                | Sets the border for the upload component. Defaults to a 1px solid border with a color defined by --kul-border-color-rgb. |
-| `--kul_upload_border_radius`         | Sets the border radius for the upload component. Defaults to 4px.                                                        |
-| `--kul_upload_button_height`         | Sets the height of the upload button. Defaults to 42px.                                                                  |
-| `--kul_upload_button_text_transform` | Sets the text transformation for the upload button. Defaults to uppercase.                                               |
-| `--kul_upload_grid_gap`              | Sets the grid gap for the upload component. Defaults to 20px.                                                            |
-| `--kul_upload_info_height`           | Sets the height of the info section in the upload component. Defaults to 1fr.                                            |
-| `--kul_upload_padding`               | Sets the padding for the upload component. Defaults to 1em.                                                              |
+| `--kul-upload-backdrop-filter`       | Sets the backdrop filter for the upload component. Defaults to a blur effect of 5px.                                     |
+| `--kul-upload-backdrop-filter-hover` | Sets the backdrop filter for the upload component on hover. Defaults to a blur effect of 10px.                           |
+| `--kul-upload-border`                | Sets the border for the upload component. Defaults to a 1px solid border with a color defined by --kul-border-color-rgb. |
+| `--kul-upload-border-radius`         | Sets the border radius for the upload component. Defaults to 4px.                                                        |
+| `--kul-upload-button-height`         | Sets the height of the upload button. Defaults to 42px.                                                                  |
+| `--kul-upload-button-text-transform` | Sets the text transformation for the upload button. Defaults to uppercase.                                               |
+| `--kul-upload-grid-gap`              | Sets the grid gap for the upload component. Defaults to 20px.                                                            |
+| `--kul-upload-info-height`           | Sets the height of the info section in the upload component. Defaults to 1fr.                                            |
+| `--kul-upload-padding`               | Sets the padding for the upload component. Defaults to 1em.                                                              |
 
 
 ## Dependencies

@@ -18,10 +18,6 @@
 
 ## Dependencies
 
-### Used by
-
- - [kul-showcase](../..)
-
 ### Depends on
 
 - [kul-article](../../../kul-article)
@@ -30,7 +26,6 @@
 ```mermaid
 graph TD;
   kul-showcase-header --> kul-article
-  kul-showcase --> kul-showcase-header
   style kul-showcase-header fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

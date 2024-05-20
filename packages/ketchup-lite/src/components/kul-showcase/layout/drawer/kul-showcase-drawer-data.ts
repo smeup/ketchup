@@ -354,55 +354,6 @@ export const DRAWER_DOC: KulArticleDataset = {
                         {
                             children: [
                                 {
-                                    id: '0.6.0.0',
-                                    value: 'The component utilizes various lifecycle hooks to manage its state and behavior. These include ',
-                                },
-                                {
-                                    id: '0.6.0.1',
-                                    tagName: 'strong',
-                                    value: 'componentWillLoad',
-                                },
-                                {
-                                    id: '0.6.0.2',
-                                    value: ', ',
-                                },
-                                {
-                                    id: '0.6.0.3',
-                                    tagName: 'strong',
-                                    value: 'componentDidLoad',
-                                },
-                                {
-                                    id: '0.6.0.4',
-                                    value: ', ',
-                                },
-                                {
-                                    id: '0.6.0.5',
-                                    tagName: 'strong',
-                                    value: 'componentWillRender',
-                                },
-                                {
-                                    id: '0.6.0.6',
-                                    value: ' and ',
-                                },
-                                {
-                                    id: '0.6.0.7',
-                                    tagName: 'strong',
-                                    value: 'componentDidRender',
-                                },
-                            ],
-                            id: '0.6.0',
-                            tagName: 'strong',
-                            value: '',
-                        },
-                    ],
-                    id: '0.6',
-                    value: 'Lifecycle Hooks',
-                },
-                {
-                    children: [
-                        {
-                            children: [
-                                {
                                     id: '0.7.0.0',
                                     value: 'The component uses Shadow DOM for encapsulation, ensuring that its styles do not leak into the global scope. However, custom styles can be applied using the ',
                                 },

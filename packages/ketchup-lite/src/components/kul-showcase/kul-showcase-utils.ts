@@ -1,7 +1,160 @@
 import { KUL_DOC } from './assets/doc';
-import { KulShowcaseDynamicExampleType } from './kul-showcase-declarations';
+import {
+    KulShowcaseDocMethod,
+    KulShowcaseDocProp,
+    KulShowcaseDocStyle,
+    KulShowcaseDynamicExampleType,
+} from './kul-showcase-declarations';
 import { DOC_STYLES } from './kul-showcase-data';
 import { KulArticleNode } from '../kul-article/kul-article-declarations';
+
+export class Documentation {
+    get = {
+        methods: (compName: string) => {
+            const component = 'kul-' + compName;
+            const nodes: KulArticleNode[] = [];
+            const docMethods = KUL_DOC[component]
+                .methods as KulShowcaseDocMethod[];
+            docMethods.forEach((method) => {
+                const node: KulArticleNode = {
+                    children: [],
+                    cssStyle: DOC_STYLES.monoPrimaryH3,
+                    id: '',
+                    value: `${method.name} ${method.signature}`,
+                };
+                const propDescription: KulArticleNode = {
+                    children: [
+                        {
+                            id: '',
+                            value: method.docs,
+                        },
+                    ],
+                    id: '',
+                    value: '',
+                };
+                node.children.push(propDescription);
+                nodes.push(node);
+            });
+            return nodes;
+        },
+        props: (compName: string) => {
+            const component = 'kul-' + compName;
+            const nodes: KulArticleNode[] = [];
+            const docProps = KUL_DOC[component].props as KulShowcaseDocProp[];
+            docProps.forEach((prop) => {
+                const node: KulArticleNode = {
+                    children: [],
+                    cssStyle: DOC_STYLES.monoPrimaryH3,
+                    id: '',
+                    value: prop.name,
+                };
+                const propTitle: KulArticleNode = {
+                    children: [
+                        {
+                            id: '',
+                            value: 'Type:',
+                        },
+                        {
+                            id: '',
+                            tagName: 'strong',
+                            value: prop.type,
+                        },
+                    ],
+                    id: '',
+                    value: '',
+                };
+                const propDescription: KulArticleNode = {
+                    children: [
+                        {
+                            id: '',
+                            value: prop.docs,
+                        },
+                    ],
+                    id: '',
+                    value: '',
+                };
+                node.children.push(propTitle);
+                node.children.push(propDescription);
+                nodes.push(node);
+            });
+            return nodes;
+        },
+        styles: (compName: string) => {
+            const component = 'kul-' + compName;
+            const nodes: KulArticleNode[] = [];
+            const docStyles = KUL_DOC[component]
+                .styles as KulShowcaseDocStyle[];
+            const kulStyle: KulArticleNode = {
+                children: [
+                    {
+                        id: '',
+                        value: 'The component uses Shadow DOM for encapsulation, ensuring that its styles do not leak into the global scope. However, custom styles can be applied using the ',
+                    },
+                    {
+                        id: '',
+                        tagName: 'strong',
+                        value: 'kulStyle',
+                    },
+                    {
+                        id: '',
+                        value: ' property.',
+                    },
+                    {
+                        cells: {
+                            code: {
+                                shape: 'code',
+                                shapeProps: {
+                                    kulLanguage: 'markup',
+                                },
+                                value: `<${component} kul-style="#kul-component { max-height: 20vh; }"></${component}>`,
+                            },
+                        },
+                        id: '',
+                        value: '',
+                    },
+                ],
+                id: '',
+                tagName: 'strong',
+                value: 'kulStyle',
+            };
+            const listNode: KulArticleNode = {
+                children: [],
+                id: '',
+                value: 'Additionally, the following CSS variables can be used to customize the appearance of the component:',
+            };
+            const wrapperNode: KulArticleNode = {
+                children: [],
+                id: '',
+                value: 'CSS Variables',
+            };
+
+            docStyles?.forEach((style) => {
+                const styleNode: KulArticleNode = {
+                    children: [
+                        {
+                            cssStyle: DOC_STYLES.monoPrimaryContent,
+                            id: '',
+                            tagName: 'strong',
+                            value: style.name,
+                        },
+                        { id: '', value: `: ${style.docs}` },
+                    ],
+                    id: '',
+                    tagName: 'li',
+                    value: '',
+                };
+                listNode.children.push(styleNode);
+            });
+            nodes.push(kulStyle);
+            if (listNode.children.length > 0) {
+                nodes.push(wrapperNode);
+                wrapperNode.children.push(listNode);
+            }
+            return nodes;
+        },
+    };
+}
+export const SHOWCASE_DOC = new Documentation();
 
 export class DynamicExampleManager {
     #componentsIds: { [index: string]: number } = {};
@@ -57,45 +210,4 @@ export class DynamicExampleManager {
 
 export function random2digitsNumber() {
     return Math.floor(Math.random() * 99) + 1;
-}
-
-export function genProps(component: string) {
-    const nodes: KulArticleNode[] = [];
-    KUL_DOC[component].props.forEach((prop) => {
-        const node: KulArticleNode = {
-            children: [],
-            cssStyle: DOC_STYLES.monoPrimaryH3,
-            id: '',
-            value: prop.name,
-        };
-        const propTitle: KulArticleNode = {
-            children: [
-                {
-                    id: '',
-                    value: 'Type:',
-                },
-                {
-                    id: '',
-                    tagName: 'strong',
-                    value: 'KulArticleDataset',
-                },
-            ],
-            id: '',
-            value: '',
-        };
-        const propDescription: KulArticleNode = {
-            children: [
-                {
-                    id: '',
-                    value: prop.docs,
-                },
-            ],
-            id: '',
-            value: '',
-        };
-        node.children.push(propTitle);
-        node.children.push(propDescription);
-        nodes.push(node);
-    });
-    return nodes;
 }

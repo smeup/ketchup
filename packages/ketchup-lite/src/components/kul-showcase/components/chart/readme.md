@@ -18,10 +18,6 @@
 
 ## Dependencies
 
-### Used by
-
- - [kul-showcase](../..)
-
 ### Depends on
 
 - [kul-chart](../../../kul-chart)
@@ -32,7 +28,6 @@
 graph TD;
   kul-showcase-chart --> kul-chart
   kul-showcase-chart --> kul-article
-  kul-showcase --> kul-showcase-chart
   style kul-showcase-chart fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

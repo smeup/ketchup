@@ -1,6 +1,35 @@
 import { KulShowcaseDoc } from "../kul-showcase-declarations";
 export const KUL_DOC: KulShowcaseDoc = {
   "kul-article": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Retrieves the debug information reflecting the current state of the component.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves to a KulDebugComponentInfo object containing debug information.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Retrieves the properties of the component, with optional descriptions.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "A promise that resolves to an object where each key is a property name, optionally with its description.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "refresh",
+        docs: "Triggers a re-render of the component to reflect any state changes.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulData",
@@ -53,6 +82,35 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
   },
   "kul-badge": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Fetches debug information of the component's current state.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves with the debug information object.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Used to retrieve component's props values.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "List of props as object, each key will be a prop.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "refresh",
+        docs: "This method is used to trigger a new render of the component.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulImageProps",
@@ -102,6 +160,53 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
   },
   "kul-button": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Fetches debug information of the component's current state.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves with the debug information object.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Used to retrieve component's properties and descriptions.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "Promise resolved with an object containing the component's properties.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "getValue",
+        docs: "Used to retrieve component's current state.",
+        returns: {
+          type: "Promise<KulButtonState>",
+          docs: "Promise resolved with the current state of the component.",
+        },
+        signature: "() => Promise<KulButtonState>",
+      },
+      {
+        name: "refresh",
+        docs: "This method is used to trigger a new render of the component.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+      {
+        name: "setValue",
+        docs: "Sets the component's state.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "(value: KulButtonState) => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulDisabled",
@@ -236,6 +341,44 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
   },
   "kul-card": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Fetches debug information of the component's current state.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves with the debug information object.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Used to retrieve component's props values.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "List of props as object, each key will be a prop.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "getShapes",
+        docs: "Used to retrieve component's shapes.",
+        returns: {
+          type: "Promise<KulDataShapesMap>",
+          docs: "Map of shapes.",
+        },
+        signature: "() => Promise<KulDataShapesMap>",
+      },
+      {
+        name: "refresh",
+        docs: "This method is used to trigger a new render of the component.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulData",
@@ -271,6 +414,35 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
   },
   "kul-chart": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Fetches debug information of the component's current state.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves with the debug information object.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Used to retrieve component's props values.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "List of props as object, each key will be a prop.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "refresh",
+        docs: "This method is used to trigger a new render of the component.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulAxis",
@@ -331,6 +503,35 @@ export const KUL_DOC: KulShowcaseDoc = {
     styles: [],
   },
   "kul-code": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Retrieves the debug information reflecting the current state of the component.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves to a KulDebugComponentInfo object containing debug information.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Retrieves the properties of the component, with optional descriptions.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "A promise that resolves to an object where each key is a property name, optionally with its description.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "refresh",
+        docs: "Triggers a re-render of the component to reflect any state changes.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulLanguage",
@@ -396,6 +597,71 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
   },
   "kul-drawer": {
+    methods: [
+      {
+        name: "close",
+        docs: "Closes the drawer.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+      {
+        name: "getDebugInfo",
+        docs: "Fetches debug information of the component's current state.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves with the debug information object.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Used to retrieve component's props values.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "List of props as object, each key will be a prop.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "isOpened",
+        docs: "Returns the state of the drawer.",
+        returns: {
+          type: "Promise<boolean>",
+          docs: "True when opened, false when closed.",
+        },
+        signature: "() => Promise<boolean>",
+      },
+      {
+        name: "open",
+        docs: "Opens the drawer.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+      {
+        name: "refresh",
+        docs: "This method is used to trigger a new render of the component.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+      {
+        name: "toggle",
+        docs: "Opens the drawer when closed and vice-versa.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulStyle",
@@ -427,6 +693,35 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
   },
   "kul-header": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Fetches debug information of the component's current state.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves with the debug information object.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Used to retrieve component's props values.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "List of props as object, each key will be a prop.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "refresh",
+        docs: "This method is used to trigger a new render of the component.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulStyle",
@@ -458,6 +753,35 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
   },
   "kul-image": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Fetches debug information of the component's current state.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves with the debug information object.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Used to retrieve component's props values.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "List of props as object, each key will be a prop.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "refresh",
+        docs: "This method is used to trigger a new render of the component.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulBadgeProps",
@@ -498,6 +822,44 @@ export const KUL_DOC: KulShowcaseDoc = {
     styles: [],
   },
   "kul-lazy": {
+    methods: [
+      {
+        name: "getComponent",
+        docs: "Returns the HTMLElement of the component to lazy load.",
+        returns: {
+          type: "Promise<HTMLElement>",
+          docs: "Lazy loaded component.",
+        },
+        signature: "() => Promise<HTMLElement>",
+      },
+      {
+        name: "getDebugInfo",
+        docs: "Fetches debug information of the component's current state.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves with the debug information object.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Used to retrieve component's props values.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "List of props as object, each key will be a prop.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "refresh",
+        docs: "This method is used to trigger a new render of the component.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulComponentName",
@@ -553,6 +915,35 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
   },
   "kul-photoframe": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Fetches debug information of the component's current state.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves with the debug information object.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Used to retrieve component's props values.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "List of props as object, each key will be a prop.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "refresh",
+        docs: "This method is used to trigger a new render of the component.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulPlaceholder",
@@ -587,6 +978,35 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
   },
   "kul-showcase": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Fetches debug information of the component's current state.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves with the debug information object.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Used to retrieve component's props values.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "List of props as object, each key will be a prop.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "refresh",
+        docs: "This method is used to trigger a new render of the component.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulStyle",
@@ -597,90 +1017,140 @@ export const KUL_DOC: KulShowcaseDoc = {
     styles: [],
   },
   "kul-showcase-article": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-badge": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-button": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-card": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-chart": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-code": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-debug": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-drawer": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-header": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-image": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-kulmanager": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-lazy": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-photoframe": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-probe": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-spinner": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-splash": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-tabbar": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-textfield": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-toast": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-tree": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-showcase-upload": {
+    methods: [],
     props: [],
     styles: [],
   },
   "kul-spinner": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Fetches debug information of the component's current state.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves with the debug information object.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Used to retrieve component's props values.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "List of props as object, each key will be a prop.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "refresh",
+        docs: "This method is used to trigger a new render of the component.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulActive",
@@ -731,6 +1201,44 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
   },
   "kul-splash": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Retrieves the debug information reflecting the current state of the component.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves to a KulDebugComponentInfo object containing debug information.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Retrieves the properties of the component, with optional descriptions.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "A promise that resolves to an object where each key is a property name, optionally with its description.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "refresh",
+        docs: "Triggers a re-render of the component to reflect any state changes.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+      {
+        name: "unmount",
+        docs: "Initiates the unmount sequence, which removes the component from the DOM after a delay.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "(ms?: number) => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulLabel",
@@ -767,6 +1275,53 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
   },
   "kul-tabbar": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Retrieves the debug information reflecting the current state of the component.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves to a KulDebugComponentInfo object containing debug information.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Retrieves the properties of the component, with optional descriptions.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "A promise that resolves to an object where each key is a property name, optionally with its description.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "getValue",
+        docs: "Returns the selected node and its index.",
+        returns: {
+          type: "Promise<KulTabbarState>",
+          docs: "Selected node and its index.",
+        },
+        signature: "() => Promise<KulTabbarState>",
+      },
+      {
+        name: "refresh",
+        docs: "Triggers a re-render of the component to reflect any state changes.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+      {
+        name: "setValue",
+        docs: "Sets the value of the component based on the provided argument.",
+        returns: {
+          type: "Promise<KulTabbarState>",
+          docs: "The newly set value.",
+        },
+        signature: "(value: number | string) => Promise<KulTabbarState>",
+      },
+    ],
     props: [
       {
         name: "kulData",
@@ -825,6 +1380,35 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
   },
   "kul-textfield": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Fetches debug information of the component's current state.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves with the debug information object.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Used to retrieve component's props values.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "List of props as object, each key will be a prop.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "refresh",
+        docs: "This method is used to trigger a new render of the component.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulDisabled",
@@ -933,6 +1517,35 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
   },
   "kul-toast": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Retrieves the debug information reflecting the current state of the component.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves to a KulDebugComponentInfo object containing debug information.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Retrieves the properties of the component, with optional descriptions.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "A promise that resolves to an object where each key is a property name, optionally with its description.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "refresh",
+        docs: "Triggers a re-render of the component to reflect any state changes.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulCloseCallback",
@@ -989,6 +1602,35 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
   },
   "kul-tree": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Retrieves the debug information reflecting the current state of the component.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves to a KulDebugComponentInfo object containing debug information.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Retrieves the properties of the component, with optional descriptions.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "A promise that resolves to an object where each key is a property name, optionally with its description.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "refresh",
+        docs: "Triggers a re-render of the component to reflect any state changes.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulAccordionLayout",
@@ -1077,6 +1719,44 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
   },
   "kul-upload": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Retrieves the debug information reflecting the current state of the component.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves to a KulDebugComponentInfo object containing debug information.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Retrieves the properties of the component, with optional descriptions.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "A promise that resolves to an object where each key is a property name, optionally with its description.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "getValue",
+        docs: "Returns the component's internal value.",
+        returns: {
+          type: "Promise<File[]>",
+          docs: "",
+        },
+        signature: "() => Promise<File[]>",
+      },
+      {
+        name: "refresh",
+        docs: "Triggers a re-render of the component to reflect any state changes.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
     props: [
       {
         name: "kulLabel",
@@ -1101,39 +1781,39 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
     styles: [
       {
-        name: "--kul_upload_backdrop_filter",
+        name: "--kul-upload-backdrop-filter",
         docs: "Sets the backdrop filter for the upload component. Defaults to a blur effect of 5px.",
       },
       {
-        name: "--kul_upload_backdrop_filter_hover",
+        name: "--kul-upload-backdrop-filter-hover",
         docs: "Sets the backdrop filter for the upload component on hover. Defaults to a blur effect of 10px.",
       },
       {
-        name: "--kul_upload_border",
+        name: "--kul-upload-border",
         docs: "Sets the border for the upload component. Defaults to a 1px solid border with a color defined by --kul-border-color-rgb.",
       },
       {
-        name: "--kul_upload_border_radius",
+        name: "--kul-upload-border-radius",
         docs: "Sets the border radius for the upload component. Defaults to 4px.",
       },
       {
-        name: "--kul_upload_button_height",
+        name: "--kul-upload-button-height",
         docs: "Sets the height of the upload button. Defaults to 42px.",
       },
       {
-        name: "--kul_upload_button_text_transform",
+        name: "--kul-upload-button-text-transform",
         docs: "Sets the text transformation for the upload button. Defaults to uppercase.",
       },
       {
-        name: "--kul_upload_grid_gap",
+        name: "--kul-upload-grid-gap",
         docs: "Sets the grid gap for the upload component. Defaults to 20px.",
       },
       {
-        name: "--kul_upload_info_height",
+        name: "--kul-upload-info-height",
         docs: "Sets the height of the info section in the upload component. Defaults to 1fr.",
       },
       {
-        name: "--kul_upload_padding",
+        name: "--kul-upload-padding",
         docs: "Sets the padding for the upload component. Defaults to 1em.",
       },
     ],
