@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "esbenp.prettier-vscode",
+        "phind.phind",
+        "equinusocio.vsc-material-theme",
+        "dbaeumer.vscode-eslint",
+        "davidanson.vscode-markdownlint"
+    ]
+}
