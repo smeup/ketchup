@@ -226,8 +226,26 @@ function setCellSize(
         case FCellTypes.IMAGE:
             if (
                 (props.component as KupComponent).rootElement.tagName ===
-                    KupTagNames.BOX ||
                 KupTagNames.DATA_TABLE
+            ) {
+                if (
+                    !(subcomponentProps as FImageProps).sizeX &&
+                    !(subcomponentProps as FImageProps).sizeY
+                ) {
+                    (subcomponentProps as FImageProps).sizeX = 'auto';
+                    (subcomponentProps as FImageProps).sizeY = '64px';
+                } else {
+                    if (!(subcomponentProps as FImageProps).sizeX) {
+                        (subcomponentProps as FImageProps).sizeX = 'auto';
+                    }
+                    if (!(subcomponentProps as FImageProps).sizeY) {
+                        (subcomponentProps as FImageProps).sizeY = 'auto';
+                    }
+                }
+            }
+            if (
+                (props.component as KupComponent).rootElement.tagName ===
+                KupTagNames.BOX
             ) {
                 if (!(subcomponentProps as FImageProps).sizeY) {
                     (subcomponentProps as FImageProps).sizeY = 'auto';
