@@ -226,7 +226,8 @@ function setCellSize(
         case FCellTypes.IMAGE:
             if (
                 (props.component as KupComponent).rootElement.tagName ===
-                KupTagNames.BOX
+                    KupTagNames.BOX ||
+                KupTagNames.DATA_TABLE
             ) {
                 if (!(subcomponentProps as FImageProps).sizeY) {
                     (subcomponentProps as FImageProps).sizeY = 'auto';
