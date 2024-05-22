@@ -232,11 +232,11 @@ function setCellSize(
                     !(subcomponentProps as FImageProps).sizeX &&
                     !(subcomponentProps as FImageProps).sizeY
                 ) {
-                    (subcomponentProps as FImageProps).sizeX = 'auto';
+                    (subcomponentProps as FImageProps).sizeX = '100%';
                     (subcomponentProps as FImageProps).sizeY = '64px';
                 } else {
                     if (!(subcomponentProps as FImageProps).sizeX) {
-                        (subcomponentProps as FImageProps).sizeX = 'auto';
+                        (subcomponentProps as FImageProps).sizeX = '100%';
                     }
                     if (!(subcomponentProps as FImageProps).sizeY) {
                         (subcomponentProps as FImageProps).sizeY = 'auto';
