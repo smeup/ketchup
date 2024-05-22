@@ -357,7 +357,7 @@ export class KulButton {
                 type={this.kulType ? this.kulType : 'button'}
                 class={classObj}
                 disabled={this.kulDisabled}
-                onBlur={(e) => this.onKulEvent(e, 'click')}
+                onBlur={(e) => this.onKulEvent(e, 'blur')}
                 onClick={(e) => this.onKulEvent(e, 'click')}
                 onPointerDown={(e) => this.onKulEvent(e, 'pointerdown')}
                 style={styleSpinnerContainer}
