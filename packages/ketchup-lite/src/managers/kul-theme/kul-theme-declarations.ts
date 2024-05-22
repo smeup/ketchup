@@ -79,6 +79,7 @@ export interface KulThemeIcons {
     [KulThemeIconValues.KEY]: string;
     [KulThemeIconValues.FILTER_REMOVE]: string;
     [KulThemeIconValues.SEARCH]: string;
+    [KulThemeIconValues.WARNING]: string;
 }
 /**
  * Object returned by the colorCheck method, containing hex/rgb/hsl CSS colors and rgb/hsl values.
@@ -154,4 +155,5 @@ export enum KulThemeIconValues {
     FILTER_REMOVE = '--kul-filter-remove-icon',
     KEY = '--kul-key-icon',
     SEARCH = '--kul-search-icon',
+    WARNING = '--kul-warning-icon',
 }
