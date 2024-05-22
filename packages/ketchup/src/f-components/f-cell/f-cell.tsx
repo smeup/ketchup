@@ -224,9 +224,14 @@ function setCellSize(
             }
             break;
         case FCellTypes.IMAGE:
+            const hasExternalResource =
+                props.cell.value.indexOf('.') > -1 ||
+                props.cell.value.indexOf('/') > -1 ||
+                props.cell.value.indexOf('\\') > -1;
             if (
                 (props.component as KupComponent).rootElement.tagName ===
-                KupTagNames.DATA_TABLE
+                    KupTagNames.DATA_TABLE &&
+                !hasExternalResource
             ) {
                 if (
                     !(subcomponentProps as FImageProps).sizeX &&
