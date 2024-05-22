@@ -1719,6 +1719,14 @@
             ></kup-image>
             <div class="icon-label">timetable</div>
           </div>
+          <div class="icon-wrapper" title="tractor">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="tractor"
+            ></kup-image>
+            <div class="icon-label">tractor</div>
+          </div>
           <div class="icon-wrapper" title="traffic-light">
             <kup-image
               size-x="48px"
