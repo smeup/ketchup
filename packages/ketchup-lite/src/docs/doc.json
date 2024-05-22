@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-05-22T15:10:36",
+  "timestamp": "2024-05-22T16:51:26",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -6746,6 +6746,11 @@
           "name": "--kul-textfield-background-color-hover",
           "annotation": "prop",
           "docs": "Sets the background color of the text field when hovering. Defaults to rgba(var(--kul-text-color-rgb), 0.125)."
+        },
+        {
+          "name": "--kul-textfield-font-family",
+          "annotation": "prop",
+          "docs": "Sets the font family of the text field. Defaults to var(--kul-font-family)."
         },
         {
           "name": "--kul-textfield-input-color",

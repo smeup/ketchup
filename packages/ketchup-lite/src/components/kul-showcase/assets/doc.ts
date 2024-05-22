@@ -1479,6 +1479,10 @@ export const KUL_DOC: KulShowcaseDoc = {
         docs: "Sets the background color of the text field when hovering. Defaults to rgba(var(--kul-text-color-rgb), 0.125).",
       },
       {
+        name: "--kul-textfield-font-family",
+        docs: "Sets the font family of the text field. Defaults to var(--kul-font-family).",
+      },
+      {
         name: "--kul-textfield-input-color",
         docs: "Sets the color of the text field's input text. Defaults to var(--kul-text-color).",
       },

@@ -48,6 +48,14 @@
     var(--kul-text-color-rgb)
   );
   /**
+  * @prop --kul-textfield-font-family: Sets the font family of the text field.
+  * Defaults to var(--kul-font-family).
+  */
+  --kul_textfield_font_family: var(
+    --kul-textfield-font-family,
+    var(--kul-font-family)
+  );
+  /**
   * @prop --kul-textfield-input-font-size: Sets the font size of the text field's value.
   * Defaults to var(--kul-font-size).
   */
@@ -270,7 +278,6 @@
     .textfield__input {
       box-sizing: border-box;
       flex-grow: 1;
-      font-family: var(--kul-font-family);
       height: auto;
       line-height: 1.5rem;
       margin-bottom: 16px;
@@ -305,6 +312,7 @@
   &__input,
   &__label {
     box-sizing: border-box;
+    font-family: var(--kul_textfield_font_family);
   }
 
   &__icon {

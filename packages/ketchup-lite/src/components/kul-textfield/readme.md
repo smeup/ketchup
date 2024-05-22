@@ -75,6 +75,7 @@ Type: `Promise<void>`
 | `--kul-textfield-backdrop-filter-hover`  | Sets the backdrop filter of the text field when hovering. Defaults to blur(5px).                               |
 | `--kul-textfield-background-color`       | Sets the background color of the text field. Defaults to rgba(var(--kul-text-color-rgb), 0.125).               |
 | `--kul-textfield-background-color-hover` | Sets the background color of the text field when hovering. Defaults to rgba(var(--kul-text-color-rgb), 0.125). |
+| `--kul-textfield-font-family`            | Sets the font family of the text field. Defaults to var(--kul-font-family).                                    |
 | `--kul-textfield-input-color`            | Sets the color of the text field's input text. Defaults to var(--kul-text-color).                              |
 | `--kul-textfield-input-color-rgb`        | Sets the rgb color of the text field's input text. Defaults to var(--kul-text-color-rgb).                      |
 | `--kul-textfield-input-font-size`        | Sets the font size of the text field's value. Defaults to var(--kul-font-size).                                |
