@@ -1269,8 +1269,20 @@ export const KUL_DOC: KulShowcaseDoc = {
         docs: "Sets the color of the label. Defaults to the value of --kul-text-color.",
       },
       {
+        name: "--kul-splash-label-display",
+        docs: "Sets the display property of the label. Defaults to block.",
+      },
+      {
         name: "--kul-splash-widget-color",
         docs: "Sets the color of the widget. Defaults to the value of --kul-primary-color.",
+      },
+      {
+        name: "--kul-splash-widget-height",
+        docs: "Sets the height of the widget. Defaults to 150px.",
+      },
+      {
+        name: "--kul-splash-widget-width",
+        docs: "Sets the width of the widget. Defaults to 150px.",
       },
     ],
   },

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-05-22T16:51:26",
+  "timestamp": "2024-05-22T19:25:50",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -5872,9 +5872,24 @@
           "docs": "Sets the color of the label. Defaults to the value of --kul-text-color."
         },
         {
+          "name": "--kul-splash-label-display",
+          "annotation": "prop",
+          "docs": "Sets the display property of the label. Defaults to block."
+        },
+        {
           "name": "--kul-splash-widget-color",
           "annotation": "prop",
           "docs": "Sets the color of the widget. Defaults to the value of --kul-primary-color."
+        },
+        {
+          "name": "--kul-splash-widget-height",
+          "annotation": "prop",
+          "docs": "Sets the height of the widget. Defaults to 150px."
+        },
+        {
+          "name": "--kul-splash-widget-width",
+          "annotation": "prop",
+          "docs": "Sets the width of the widget. Defaults to 150px."
         }
       ],
       "slots": [],
