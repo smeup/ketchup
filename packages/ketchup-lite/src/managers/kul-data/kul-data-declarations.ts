@@ -55,12 +55,52 @@ export type KulDataShapesMap = {
             [P in K]: K extends 'badge'
                 ? Partial<KulBadgePropsInterface>
                 : K extends 'button'
-                ? Partial<KulButtonPropsInterface>
-                : K extends 'code'
-                ? Partial<KulCodePropsInterface>
-                : K extends 'image'
-                ? Partial<KulImagePropsInterface>
-                : string;
+                  ? Partial<KulButtonPropsInterface>
+                  : K extends 'code'
+                    ? Partial<KulCodePropsInterface>
+                    : K extends 'image'
+                      ? Partial<KulImagePropsInterface>
+                      : string;
         }[K]
     >;
 };
+
+export interface KulDataNodeOperations {
+    exists: (dataset: KulDataDataset) => boolean;
+    filter: (
+        dataset: KulDataDataset,
+        filters: Partial<KulDataNode>,
+        partialMatch: boolean
+    ) => {
+        matchingNodes: Set<KulDataNode>;
+        remainingNodes: Set<KulDataNode>;
+        ancestorNodes: Set<KulDataNode>;
+    };
+    fixIds: (nodes: KulDataNode[]) => KulDataNode[];
+    getDrilldownInfo: (nodes: KulDataNode[]) => KulDataNodeDrilldownInfo;
+    getParent: (nodes: KulDataNode[], child: KulDataNode) => KulDataNode;
+    pop: (nodes: KulDataNode[], node2remove: KulDataNode) => KulDataNode;
+    setProperties: (
+        nodes: KulDataNode[],
+        properties: Partial<KulDataNode>,
+        recursively?: boolean,
+        exclude?: KulDataNode[]
+    ) => KulDataNode[];
+    toStream: (nodes: KulDataNode[]) => KulDataNode[];
+}
+
+export interface KulDataNodeDrilldownInfo {
+    maxChildren?: number;
+    maxDepth?: number;
+}
+
+export interface KulDataFindCellFilters {
+    columns?: string[];
+    range?: KulDataFilterRange;
+    value?: string;
+}
+
+export interface KulDataFilterRange {
+    min?: number | string | String;
+    max?: number | string | String;
+}
