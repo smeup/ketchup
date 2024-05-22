@@ -18,7 +18,7 @@ import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declara
 import { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
 import { KulPhotoframeEventPayload } from "./components/kul-photoframe/kul-photoframe-declarations";
 import { KulTabbarEventPayload, KulTabbarState } from "./components/kul-tabbar/kul-tabbar-declarations";
-import { KulTextfieldHelper, KulTextfieldStyling } from "./components/kul-textfield/kul-textfield-declarations";
+import { KulTextfieldEventPayload, KulTextfieldHelper, KulTextfieldStyling } from "./components/kul-textfield/kul-textfield-declarations";
 import { KulTreeEventPayload } from "./components/kul-tree/kul-tree-declarations";
 import { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
 export { KulArticleDataset } from "./components/kul-article/kul-article-declarations";
@@ -34,7 +34,7 @@ export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declara
 export { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
 export { KulPhotoframeEventPayload } from "./components/kul-photoframe/kul-photoframe-declarations";
 export { KulTabbarEventPayload, KulTabbarState } from "./components/kul-tabbar/kul-tabbar-declarations";
-export { KulTextfieldHelper, KulTextfieldStyling } from "./components/kul-textfield/kul-textfield-declarations";
+export { KulTextfieldEventPayload, KulTextfieldHelper, KulTextfieldStyling } from "./components/kul-textfield/kul-textfield-declarations";
 export { KulTreeEventPayload } from "./components/kul-tree/kul-tree-declarations";
 export { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
 export namespace Components {
@@ -875,6 +875,11 @@ export namespace Components {
          */
         "kulData": KulDataDataset1;
         /**
+          * When true, displays a text field which enables filtering the dataset of the tree.
+          * @default null
+         */
+        "kulFilter": boolean;
+        /**
           * Sets the initial expanded nodes based on the specified depth. If the property is not provided, all nodes in the tree will be expanded.
           * @default null
          */
@@ -1400,7 +1405,7 @@ declare global {
         new (): HTMLKulTabbarElement;
     };
     interface HTMLKulTextfieldElementEventMap {
-        "kul-textfield-event": KulEventPayload;
+        "kul-textfield-event": KulTextfieldEventPayload;
     }
     interface HTMLKulTextfieldElement extends Components.KulTextfield, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKulTextfieldElementEventMap>(type: K, listener: (this: HTMLKulTextfieldElement, ev: KulTextfieldCustomEvent<HTMLKulTextfieldElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -2040,7 +2045,7 @@ declare namespace LocalJSX {
         /**
           * Describes event emitted.
          */
-        "onKul-textfield-event"?: (event: KulTextfieldCustomEvent<KulEventPayload>) => void;
+        "onKul-textfield-event"?: (event: KulTextfieldCustomEvent<KulTextfieldEventPayload>) => void;
     }
     interface KulToast {
         /**
@@ -2089,6 +2094,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "kulData"?: KulDataDataset1;
+        /**
+          * When true, displays a text field which enables filtering the dataset of the tree.
+          * @default null
+         */
+        "kulFilter"?: boolean;
         /**
           * Sets the initial expanded nodes based on the specified depth. If the property is not provided, all nodes in the tree will be expanded.
           * @default null

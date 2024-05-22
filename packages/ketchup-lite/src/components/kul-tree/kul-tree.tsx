@@ -25,6 +25,8 @@ import { GenericObject } from '../../types/GenericTypes';
 import { KulDataDataset, KulDataNode } from '../../components';
 import { TreeNode } from './node/kul-tree-node';
 import { KulTreeNodeProps } from './node/kul-tree-node-declarations';
+import { KulLanguageSearch } from '../../managers/kul-language/kul-language-declarations';
+import { KulTextfieldEventPayload } from '../kul-textfield/kul-textfield-declarations';
 
 @Component({
     tag: 'kul-tree',
@@ -56,6 +58,10 @@ export class KulTree {
      */
     @State() expandedNodes: Set<KulDataNode> = new Set();
     /**
+     * Holds the filtered dataset, including ancestors of matched nodes.
+     */
+    @State() hiddenNodes: Set<KulDataNode> = new Set();
+    /**
      * Selected node.
      */
     @State() selectedNode: KulDataNode = null;
@@ -74,6 +80,11 @@ export class KulTree {
      * @default null
      */
     @Prop({ mutable: true }) kulData: KulDataDataset = null;
+    /**
+     * When true, displays a text field which enables filtering the dataset of the tree.
+     * @default null
+     */
+    @Prop({ mutable: true }) kulFilter = true;
     /**
      * Sets the initial expanded nodes based on the specified depth.
      * If the property is not provided, all nodes in the tree will be expanded.
@@ -100,6 +111,8 @@ export class KulTree {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
+    #filterTimeout: ReturnType<typeof setTimeout>;
+    #filterValue = '';
     #kulManager = kulManagerInstance();
     #rippleSurface: { [id: string]: HTMLElement } = {};
 
@@ -124,25 +137,27 @@ export class KulTree {
         args?: KulTreeEventArguments
     ) {
         const { expansion, node } = args || {};
-        if (eventType === 'pointerdown') {
-            if (this.kulRipple) {
-                this.#kulManager.theme.ripple.trigger(
-                    e as PointerEvent,
-                    this.#rippleSurface[node.id]
-                );
-            }
-        }
-        if (eventType === 'click') {
-            if (expansion && node.children?.length) {
-                if (this.expandedNodes.has(node)) {
-                    this.expandedNodes.delete(node);
-                } else {
-                    this.expandedNodes.add(node);
+        switch (eventType) {
+            case 'click':
+                if (expansion && node.children?.length) {
+                    if (this.expandedNodes.has(node)) {
+                        this.expandedNodes.delete(node);
+                    } else {
+                        this.expandedNodes.add(node);
+                    }
+                    this.expandedNodes = new Set(this.expandedNodes);
+                } else if (node) {
+                    this.selectedNode = node;
                 }
-                this.expandedNodes = new Set(this.expandedNodes);
-            } else if (node) {
-                this.selectedNode = node;
-            }
+                break;
+            case 'pointerdown':
+                if (this.kulRipple) {
+                    this.#kulManager.theme.ripple.trigger(
+                        e as PointerEvent,
+                        this.#rippleSurface[node.id]
+                    );
+                }
+                break;
         }
         this.kulEvent.emit({
             comp: this,
@@ -201,6 +216,8 @@ export class KulTree {
     }
 
     #recursive(elements: VNode[], node: KulDataNode, depth: number) {
+        const isExpanded = this.expandedNodes.has(node);
+        const isHidden = this.hiddenNodes.has(node);
         if (!this.debugInfo.endTime) {
             if (
                 this.kulInitialExpansionDepth === null ||
@@ -245,11 +262,13 @@ export class KulTree {
             selected: this.selectedNode === node,
         };
 
-        elements.push(<TreeNode {...nodeProps}></TreeNode>);
-        if (this.expandedNodes.has(node)) {
-            node.children?.map((child) =>
-                this.#recursive(elements, child, depth + 1)
-            );
+        if (!isHidden) {
+            elements.push(<TreeNode {...nodeProps}></TreeNode>);
+            if (isExpanded) {
+                node.children?.map((child) =>
+                    this.#recursive(elements, child, depth + 1)
+                );
+            }
         }
     }
 
@@ -260,7 +279,33 @@ export class KulTree {
             const node = nodes[index];
             this.#recursive(elements, node, 0);
         }
-        return elements;
+        return elements.length ? (
+            elements
+        ) : this.#filterValue ? (
+            <div class="no-matches">
+                <div class="no-matches__icon"></div>
+                <div class="no-matches__text">
+                    No matches found for "
+                    <strong class="no-matches__filter">
+                        {this.#filterValue}
+                    </strong>
+                    ".
+                </div>
+            </div>
+        ) : undefined;
+    }
+
+    #filter(e: CustomEvent<KulTextfieldEventPayload>) {
+        clearTimeout(this.#filterTimeout);
+        this.#filterTimeout = setTimeout(() => {
+            this.#filterValue = e.detail.value.toLowerCase();
+            const filter = this.#kulManager.data.node.filter(
+                this.kulData,
+                { value: this.#filterValue },
+                true
+            );
+            this.hiddenNodes = new Set(filter.remainingNodes);
+        }, 300);
     }
 
     /*-------------------------------------------------*/
@@ -306,9 +351,25 @@ export class KulTree {
                 <style>{this.#kulManager.theme.setKulStyle(this)}</style>
                 <div id={KUL_WRAPPER_ID}>
                     <div class="tree">
+                        {this.kulFilter ? (
+                            <kul-textfield
+                                kulIcon="magnify"
+                                kulFullWidth={true}
+                                kulLabel={this.#kulManager.language.translate(
+                                    KulLanguageSearch.SEARCH
+                                )}
+                                kulStyling="flat"
+                                onKul-textfield-event={(e) => {
+                                    this.onKulEvent(e, 'kul-event');
+                                    if (e.detail.eventType === 'input') {
+                                        this.#filter(e);
+                                    }
+                                }}
+                            ></kul-textfield>
+                        ) : undefined}
                         {this.kulData?.nodes?.length
                             ? this.#prepTree()
-                            : 'Empty data'}
+                            : 'Empty data.'}
                     </div>
                 </div>
             </Host>

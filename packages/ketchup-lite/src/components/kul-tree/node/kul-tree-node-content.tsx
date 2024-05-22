@@ -47,6 +47,6 @@ export const TreeNodeContent: FunctionalComponent<{
                 ></div>
             );
         default:
-            return <div class={'node__expand--placeholder'}></div>;
+            return <div class={'node__expand node__expand--placeholder'}></div>;
     }
 };

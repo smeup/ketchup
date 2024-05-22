@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-05-20T19:18:16",
+  "timestamp": "2024-05-22T15:10:36",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -5168,6 +5168,9 @@
         "kul-showcase-tree": [
           "kul-tree",
           "kul-article"
+        ],
+        "kul-tree": [
+          "kul-textfield"
         ]
       }
     },
@@ -6703,16 +6706,16 @@
       "events": [
         {
           "event": "kul-textfield-event",
-          "detail": "KulEventPayload",
+          "detail": "KulTextfieldEventPayload",
           "bubbles": true,
           "complexType": {
-            "original": "KulEventPayload",
-            "resolved": "KulEventPayload",
+            "original": "KulTextfieldEventPayload",
+            "resolved": "KulTextfieldEventPayload",
             "references": {
-              "KulEventPayload": {
+              "KulTextfieldEventPayload": {
                 "location": "import",
-                "path": "../../types/GenericTypes",
-                "id": "src/types/GenericTypes.ts::KulEventPayload"
+                "path": "./kul-textfield-declarations",
+                "id": "src/components/kul-textfield/kul-textfield-declarations.ts::KulTextfieldEventPayload"
               }
             }
           },
@@ -6793,11 +6796,15 @@
       "slots": [],
       "parts": [],
       "dependents": [
-        "kul-showcase-textfield"
+        "kul-showcase-textfield",
+        "kul-tree"
       ],
       "dependencies": [],
       "dependencyGraph": {
         "kul-showcase-textfield": [
+          "kul-textfield"
+        ],
+        "kul-tree": [
           "kul-textfield"
         ]
       }
@@ -7230,6 +7237,33 @@
           "required": false
         },
         {
+          "name": "kulFilter",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": true,
+          "attr": "kul-filter",
+          "reflectToAttr": false,
+          "docs": "When true, displays a text field which enables filtering the dataset of the tree.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "null"
+            }
+          ],
+          "default": "true",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
           "name": "kulInitialExpansionDepth",
           "type": "number",
           "complexType": {
@@ -7541,8 +7575,13 @@
       "dependents": [
         "kul-showcase-tree"
       ],
-      "dependencies": [],
+      "dependencies": [
+        "kul-textfield"
+      ],
       "dependencyGraph": {
+        "kul-tree": [
+          "kul-textfield"
+        ],
         "kul-showcase-tree": [
           "kul-tree"
         ]
@@ -7943,7 +7982,7 @@
       "path": "src/managers/kul-data/kul-data-declarations.ts"
     },
     "src/managers/kul-data/kul-data-declarations.ts::KulDataShapesMap": {
-      "declaration": "{\n    [K in KulDataShapes]?: Array<\n        {\n            [P in K]: K extends 'badge'\n                ? Partial<KulBadgePropsInterface>\n                : K extends 'button'\n                ? Partial<KulButtonPropsInterface>\n                : K extends 'code'\n                ? Partial<KulCodePropsInterface>\n                : K extends 'image'\n                ? Partial<KulImagePropsInterface>\n                : string;\n        }[K]\n    >;\n}",
+      "declaration": "{\n    [K in KulDataShapes]?: Array<\n        {\n            [P in K]: K extends 'badge'\n                ? Partial<KulBadgePropsInterface>\n                : K extends 'button'\n                  ? Partial<KulButtonPropsInterface>\n                  : K extends 'code'\n                    ? Partial<KulCodePropsInterface>\n                    : K extends 'image'\n                      ? Partial<KulImagePropsInterface>\n                      : string;\n        }[K]\n    >;\n}",
       "docstring": "",
       "path": "src/managers/kul-data/kul-data-declarations.ts"
     },
@@ -8004,6 +8043,11 @@
     },
     "src/components/kul-textfield/kul-textfield-declarations.ts::KulTextfieldStyling": {
       "declaration": "export type KulTextfieldStyling = 'flat' | 'outlined' | 'raised' | 'textarea';",
+      "docstring": "",
+      "path": "src/components/kul-textfield/kul-textfield-declarations.ts"
+    },
+    "src/components/kul-textfield/kul-textfield-declarations.ts::KulTextfieldEventPayload": {
+      "declaration": "export interface KulTextfieldEventPayload extends KulEventPayload {\n    value?: string;\n}",
       "docstring": "",
       "path": "src/components/kul-textfield/kul-textfield-declarations.ts"
     },

@@ -11,6 +11,7 @@
 | -------------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ----------- |
 | `kulAccordionLayout`       | `kul-accordion-layout`        | When enabled, the first level of depth will create an accordion-style appearance for nodes.                                            | `boolean`        | `true`      |
 | `kulData`                  | --                            | The actual data of the tree.                                                                                                           | `KulDataDataset` | `null`      |
+| `kulFilter`                | `kul-filter`                  | When true, displays a text field which enables filtering the dataset of the tree.                                                      | `boolean`        | `true`      |
 | `kulInitialExpansionDepth` | `kul-initial-expansion-depth` | Sets the initial expanded nodes based on the specified depth. If the property is not provided, all nodes in the tree will be expanded. | `number`         | `undefined` |
 | `kulRipple`                | `kul-ripple`                  | When set to true, the pointerdown event will trigger a ripple effect.                                                                  | `boolean`        | `true`      |
 | `kulSelectable`            | `kul-selectable`              | When true, nodes can be selected.                                                                                                      | `boolean`        | `true`      |
@@ -89,9 +90,14 @@ Type: `Promise<void>`
 
  - [kul-showcase-tree](../kul-showcase/components/tree)
 
+### Depends on
+
+- [kul-textfield](../kul-textfield)
+
 ### Graph
 ```mermaid
 graph TD;
+  kul-tree --> kul-textfield
   kul-showcase-tree --> kul-tree
   style kul-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -1643,6 +1643,11 @@ export const KUL_DOC: KulShowcaseDoc = {
         type: "KulDataDataset",
       },
       {
+        name: "kulFilter",
+        docs: "When true, displays a text field which enables filtering the dataset of the tree.",
+        type: "boolean",
+      },
+      {
         name: "kulInitialExpansionDepth",
         docs: "Sets the initial expanded nodes based on the specified depth.\r\nIf the property is not provided, all nodes in the tree will be expanded.",
         type: "number",

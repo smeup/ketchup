@@ -180,6 +180,10 @@
         transform: rotate(-180deg) scale(1.25);
       }
     }
+
+    &--placeholder {
+      visibility: hidden;
+    }
   }
 
   &__expand {
@@ -189,6 +193,10 @@
     &--expanded {
       -webkit-mask: var(--kul-expanded-icon);
       mask: var(--kul-expanded-icon);
+    }
+
+    &--placeholder {
+      visibility: hidden;
     }
   }
 
@@ -200,5 +208,33 @@
   &__value {
     margin: 0 0 0 0.5em;
     width: 100%;
+  }
+}
+
+.no-matches {
+  align-items: center;
+  box-sizing: border-box;
+  color: var(--kul_tree_text_color);
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  padding: 1em;
+  width: 100%;
+
+  &__icon {
+    background-color: var(--kul-primary-color);
+    height: 1.25em;
+    margin-right: 0.375em;
+    -webkit-mask: var(--kul-warning-icon);
+    mask: var(--kul-warning-icon);
+    width: 1.25em;
+  }
+
+  &__text {
+    font-size: 0.975em;
+  }
+
+  &__filter {
+    color: var(--kul-primary-color);
   }
 }

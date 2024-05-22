@@ -23,12 +23,15 @@ export const TreeNode: FunctionalComponent<KulTreeNodeProps> = (
     ) : (
         <TreeNodeContent type="placeholder"></TreeNodeContent>
     );
+    const classList = {
+        node: true,
+        ['node--expanded']: expanded ? true : false,
+        ['node--selected']: selected ? true : false,
+    };
     if (accordionLayout) {
         return (
             <div
-                class={`node ${expanded ? 'node--expanded' : ''} ${
-                    selected ? 'node--selected' : ''
-                }`}
+                class={classList}
                 data-depth={depth.toString()}
                 key={node.id}
                 onClick={events.onClickExpand}
