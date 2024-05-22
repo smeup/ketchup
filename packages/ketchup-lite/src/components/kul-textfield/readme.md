@@ -23,9 +23,9 @@
 
 ## Events
 
-| Event                 | Description              | Type                           |
-| --------------------- | ------------------------ | ------------------------------ |
-| `kul-textfield-event` | Describes event emitted. | `CustomEvent<KulEventPayload>` |
+| Event                 | Description              | Type                                    |
+| --------------------- | ------------------------ | --------------------------------------- |
+| `kul-textfield-event` | Describes event emitted. | `CustomEvent<KulTextfieldEventPayload>` |
 
 
 ## Methods
@@ -91,11 +91,13 @@ Type: `Promise<void>`
 ### Used by
 
  - [kul-showcase-textfield](../kul-showcase/components/textfield)
+ - [kul-tree](../kul-tree)
 
 ### Graph
 ```mermaid
 graph TD;
   kul-showcase-textfield --> kul-textfield
+  kul-tree --> kul-textfield
   style kul-textfield fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

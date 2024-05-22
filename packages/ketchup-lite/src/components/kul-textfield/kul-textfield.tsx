@@ -14,6 +14,7 @@ import {
 } from '@stencil/core';
 import {
     KulTextfieldEvent,
+    KulTextfieldEventPayload,
     KulTextfieldHelper,
     KulTextfieldProps,
     KulTextfieldStatus,
@@ -23,7 +24,7 @@ import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps } from '../../utils/componentUtils';
 import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
-import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
+import { GenericObject } from '../../types/GenericTypes';
 
 @Component({
     tag: 'kul-textfield',
@@ -145,10 +146,11 @@ export class KulTextfield {
         cancelable: false,
         bubbles: true,
     })
-    kulEvent: EventEmitter<KulEventPayload>;
+    kulEvent: EventEmitter<KulTextfieldEventPayload>;
 
     onKulEvent(e: Event | CustomEvent, eventType: KulTextfieldEvent) {
         const target = e.target as HTMLInputElement;
+        const value = target?.value;
         switch (eventType) {
             case 'blur':
                 this.status.delete('focused');
@@ -162,7 +164,7 @@ export class KulTextfield {
                     this.status.add('filled');
                     this.status = new Set(this.status);
                 }
-                this.value = target.value;
+                this.value = value;
                 break;
             case 'focus':
                 this.status.add('focused');
@@ -174,6 +176,7 @@ export class KulTextfield {
             eventType,
             id: this.rootElement.id,
             originalEvent: e,
+            value,
         });
     }
 
