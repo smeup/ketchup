@@ -83,6 +83,7 @@ describe('kul-spinner', () => {
                                 return kulSpinnerElement.getDebugInfo();
                             })
                             .then((debugInfo) => {
+                                cy.wait(100);
                                 expect(debugInfo.renderCount).to.be.greaterThan(
                                     initialRenderCount
                                 );
