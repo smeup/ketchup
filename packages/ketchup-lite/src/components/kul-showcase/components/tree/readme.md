@@ -28,6 +28,7 @@
 graph TD;
   kul-showcase-tree --> kul-tree
   kul-showcase-tree --> kul-article
+  kul-tree --> kul-textfield
   style kul-showcase-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

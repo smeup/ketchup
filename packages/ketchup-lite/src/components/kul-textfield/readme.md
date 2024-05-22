@@ -23,9 +23,9 @@
 
 ## Events
 
-| Event                 | Description              | Type                           |
-| --------------------- | ------------------------ | ------------------------------ |
-| `kul-textfield-event` | Describes event emitted. | `CustomEvent<KulEventPayload>` |
+| Event                 | Description              | Type                                    |
+| --------------------- | ------------------------ | --------------------------------------- |
+| `kul-textfield-event` | Describes event emitted. | `CustomEvent<KulTextfieldEventPayload>` |
 
 
 ## Methods
@@ -75,6 +75,7 @@ Type: `Promise<void>`
 | `--kul-textfield-backdrop-filter-hover`  | Sets the backdrop filter of the text field when hovering. Defaults to blur(5px).                               |
 | `--kul-textfield-background-color`       | Sets the background color of the text field. Defaults to rgba(var(--kul-text-color-rgb), 0.125).               |
 | `--kul-textfield-background-color-hover` | Sets the background color of the text field when hovering. Defaults to rgba(var(--kul-text-color-rgb), 0.125). |
+| `--kul-textfield-font-family`            | Sets the font family of the text field. Defaults to var(--kul-font-family).                                    |
 | `--kul-textfield-input-color`            | Sets the color of the text field's input text. Defaults to var(--kul-text-color).                              |
 | `--kul-textfield-input-color-rgb`        | Sets the rgb color of the text field's input text. Defaults to var(--kul-text-color-rgb).                      |
 | `--kul-textfield-input-font-size`        | Sets the font size of the text field's value. Defaults to var(--kul-font-size).                                |
@@ -91,11 +92,13 @@ Type: `Promise<void>`
 ### Used by
 
  - [kul-showcase-textfield](../kul-showcase/components/textfield)
+ - [kul-tree](../kul-tree)
 
 ### Graph
 ```mermaid
 graph TD;
   kul-showcase-textfield --> kul-textfield
+  kul-tree --> kul-textfield
   style kul-textfield fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

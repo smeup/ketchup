@@ -82,6 +82,7 @@ describe('kul-lazy', () => {
                                 return kulLazyElement.getDebugInfo();
                             })
                             .then((debugInfo) => {
+                                cy.wait(100);
                                 expect(debugInfo.renderCount).to.be.greaterThan(
                                     initialRenderCount
                                 );

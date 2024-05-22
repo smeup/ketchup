@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-05-20T16:29:47",
+  "timestamp": "2024-05-22T19:25:50",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -5168,6 +5168,9 @@
         "kul-showcase-tree": [
           "kul-tree",
           "kul-article"
+        ],
+        "kul-tree": [
+          "kul-textfield"
         ]
       }
     },
@@ -5869,9 +5872,24 @@
           "docs": "Sets the color of the label. Defaults to the value of --kul-text-color."
         },
         {
+          "name": "--kul-splash-label-display",
+          "annotation": "prop",
+          "docs": "Sets the display property of the label. Defaults to block."
+        },
+        {
           "name": "--kul-splash-widget-color",
           "annotation": "prop",
           "docs": "Sets the color of the widget. Defaults to the value of --kul-primary-color."
+        },
+        {
+          "name": "--kul-splash-widget-height",
+          "annotation": "prop",
+          "docs": "Sets the height of the widget. Defaults to 150px."
+        },
+        {
+          "name": "--kul-splash-widget-width",
+          "annotation": "prop",
+          "docs": "Sets the width of the widget. Defaults to 150px."
         }
       ],
       "slots": [],
@@ -6703,16 +6721,16 @@
       "events": [
         {
           "event": "kul-textfield-event",
-          "detail": "KulEventPayload",
+          "detail": "KulTextfieldEventPayload",
           "bubbles": true,
           "complexType": {
-            "original": "KulEventPayload",
-            "resolved": "KulEventPayload",
+            "original": "KulTextfieldEventPayload",
+            "resolved": "KulTextfieldEventPayload",
             "references": {
-              "KulEventPayload": {
+              "KulTextfieldEventPayload": {
                 "location": "import",
-                "path": "../../types/GenericTypes",
-                "id": "src/types/GenericTypes.ts::KulEventPayload"
+                "path": "./kul-textfield-declarations",
+                "id": "src/components/kul-textfield/kul-textfield-declarations.ts::KulTextfieldEventPayload"
               }
             }
           },
@@ -6743,6 +6761,11 @@
           "name": "--kul-textfield-background-color-hover",
           "annotation": "prop",
           "docs": "Sets the background color of the text field when hovering. Defaults to rgba(var(--kul-text-color-rgb), 0.125)."
+        },
+        {
+          "name": "--kul-textfield-font-family",
+          "annotation": "prop",
+          "docs": "Sets the font family of the text field. Defaults to var(--kul-font-family)."
         },
         {
           "name": "--kul-textfield-input-color",
@@ -6793,11 +6816,15 @@
       "slots": [],
       "parts": [],
       "dependents": [
-        "kul-showcase-textfield"
+        "kul-showcase-textfield",
+        "kul-tree"
       ],
       "dependencies": [],
       "dependencyGraph": {
         "kul-showcase-textfield": [
+          "kul-textfield"
+        ],
+        "kul-tree": [
           "kul-textfield"
         ]
       }
@@ -7165,7 +7192,7 @@
       "filePath": "src/components/kul-tree/kul-tree.tsx",
       "encapsulation": "shadow",
       "tag": "kul-tree",
-      "readme": "# kul-badge\r\n\r\n\r\n\r",
+      "readme": "# kul-badge\n\n\n",
       "docs": "",
       "docsTags": [],
       "usage": {},
@@ -7230,7 +7257,34 @@
           "required": false
         },
         {
-          "name": "kulInitialExpandedDepth",
+          "name": "kulFilter",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": true,
+          "attr": "kul-filter",
+          "reflectToAttr": false,
+          "docs": "When true, displays a text field which enables filtering the dataset of the tree.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "null"
+            }
+          ],
+          "default": "true",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "kulInitialExpansionDepth",
           "type": "number",
           "complexType": {
             "original": "number",
@@ -7238,7 +7292,7 @@
             "references": {}
           },
           "mutable": true,
-          "attr": "kul-initial-expanded-depth",
+          "attr": "kul-initial-expansion-depth",
           "reflectToAttr": false,
           "docs": "Sets the initial expanded nodes based on the specified depth.\r\nIf the property is not provided, all nodes in the tree will be expanded.",
           "docsTags": [
@@ -7444,16 +7498,16 @@
       "events": [
         {
           "event": "kul-tree-event",
-          "detail": "KulEventPayload",
+          "detail": "KulTreeEventPayload",
           "bubbles": true,
           "complexType": {
-            "original": "KulEventPayload",
-            "resolved": "KulEventPayload",
+            "original": "KulTreeEventPayload",
+            "resolved": "KulTreeEventPayload",
             "references": {
-              "KulEventPayload": {
+              "KulTreeEventPayload": {
                 "location": "import",
-                "path": "../../types/GenericTypes",
-                "id": "src/types/GenericTypes.ts::KulEventPayload"
+                "path": "./kul-tree-declarations",
+                "id": "src/components/kul-tree/kul-tree-declarations.ts::KulTreeEventPayload"
               }
             }
           },
@@ -7529,6 +7583,11 @@
           "name": "--kul-tree-padding",
           "annotation": "prop",
           "docs": "Sets the padding of the tree. Defaults to 0."
+        },
+        {
+          "name": "--kul-tree-text-color",
+          "annotation": "prop",
+          "docs": "Sets the text color of the tree. Defaults to var(--kul-text-color)."
         }
       ],
       "slots": [],
@@ -7536,8 +7595,13 @@
       "dependents": [
         "kul-showcase-tree"
       ],
-      "dependencies": [],
+      "dependencies": [
+        "kul-textfield"
+      ],
       "dependencyGraph": {
+        "kul-tree": [
+          "kul-textfield"
+        ],
         "kul-showcase-tree": [
           "kul-tree"
         ]
@@ -7938,7 +8002,7 @@
       "path": "src/managers/kul-data/kul-data-declarations.ts"
     },
     "src/managers/kul-data/kul-data-declarations.ts::KulDataShapesMap": {
-      "declaration": "{\n    [K in KulDataShapes]?: Array<\n        {\n            [P in K]: K extends 'badge'\n                ? Partial<KulBadgePropsInterface>\n                : K extends 'button'\n                ? Partial<KulButtonPropsInterface>\n                : K extends 'code'\n                ? Partial<KulCodePropsInterface>\n                : K extends 'image'\n                ? Partial<KulImagePropsInterface>\n                : string;\n        }[K]\n    >;\n}",
+      "declaration": "{\n    [K in KulDataShapes]?: Array<\n        {\n            [P in K]: K extends 'badge'\n                ? Partial<KulBadgePropsInterface>\n                : K extends 'button'\n                  ? Partial<KulButtonPropsInterface>\n                  : K extends 'code'\n                    ? Partial<KulCodePropsInterface>\n                    : K extends 'image'\n                      ? Partial<KulImagePropsInterface>\n                      : string;\n        }[K]\n    >;\n}",
       "docstring": "",
       "path": "src/managers/kul-data/kul-data-declarations.ts"
     },
@@ -8002,10 +8066,20 @@
       "docstring": "",
       "path": "src/components/kul-textfield/kul-textfield-declarations.ts"
     },
+    "src/components/kul-textfield/kul-textfield-declarations.ts::KulTextfieldEventPayload": {
+      "declaration": "export interface KulTextfieldEventPayload extends KulEventPayload {\n    value?: string;\n}",
+      "docstring": "",
+      "path": "src/components/kul-textfield/kul-textfield-declarations.ts"
+    },
     "src/components.d.ts::KulDataDataset": {
       "declaration": "any",
       "docstring": "",
       "path": "src/components.d.ts"
+    },
+    "src/components/kul-tree/kul-tree-declarations.ts::KulTreeEventPayload": {
+      "declaration": "export interface KulTreeEventPayload extends KulEventPayload {\n    node?: KulDataNode;\n}",
+      "docstring": "",
+      "path": "src/components/kul-tree/kul-tree-declarations.ts"
     },
     "src/components/kul-upload/kul-upload-declarations.ts::KulUploadEventPayload": {
       "declaration": "export interface KulUploadEventPayload extends KulEventPayload {\n    selectedFiles: File[];\n}",

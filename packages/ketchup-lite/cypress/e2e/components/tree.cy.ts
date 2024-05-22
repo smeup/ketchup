@@ -82,6 +82,7 @@ describe('kul-tree', () => {
                                 return kulTreeElement.getDebugInfo();
                             })
                             .then((debugInfo) => {
+                                cy.wait(100);
                                 expect(debugInfo.renderCount).to.be.greaterThan(
                                     initialRenderCount
                                 );
@@ -102,7 +103,8 @@ describe('kul-tree', () => {
                 const dummy: KulTreePropsInterface = {
                     kulAccordionLayout: null,
                     kulData: null,
-                    kulInitialExpandedDepth: null,
+                    kulFilter: null,
+                    kulInitialExpansionDepth: null,
                     kulRipple: null,
                     kulSelectable: null,
                     kulStyle: null,

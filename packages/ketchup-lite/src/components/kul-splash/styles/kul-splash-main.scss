@@ -7,7 +7,6 @@
     --kul-splash-label-color,
     var(--kul-text-color)
   );
-
   /**
   * @prop --kul-splash-font-family: Sets the label's font family.
   * Defaults to the value of --kul-font-family.
@@ -16,13 +15,11 @@
     --kul-splash-font-family,
     var(--kul-font-family)
   );
-
   /**
   * @prop --kul-splash-font-size: Sets the label's font size.
   * Defaults to the value of --kul-font-size.
   */
   --kul_splash_font_size: var(--kul-splash-font-size, var(--kul-font-size));
-
   /**
   * @prop --kul-splash-background-color: Sets the color of the spinner.
   * Defaults to the value of --kul-background-color.
@@ -31,7 +28,6 @@
     --kul-splash-background-color,
     var(--kul-background-color)
   );
-
   /**
   * @prop --kul-splash-widget-color: Sets the color of the widget.
   * Defaults to the value of --kul-primary-color.
@@ -40,6 +36,21 @@
     --kul-splash-widget-color,
     var(--kul-primary-color)
   );
+  /**
+  * @prop --kul-splash-widget-height: Sets the height of the widget.
+  * Defaults to 150px.
+  */
+  --kul_splash_widget_height: var(--kul-splash-widget-height, 150px);
+  /**
+  * @prop --kul-splash-widget-width: Sets the width of the widget.
+  * Defaults to 150px.
+  */
+  --kul_splash_widget_width: var(--kul-splash-widget-width, 150px);
+  /**
+  * @prop --kul-splash-label-display: Sets the display property of the label.
+  * Defaults to block.
+  */
+  --kul_splash_label_display: var(--kul-splash-label-display, block);
 }
 
 .modal {
@@ -66,13 +77,14 @@
 }
 
 .widget {
-  height: 150px;
+  height: var(--kul_splash_widget_height);
   margin: auto;
-  width: 150px;
+  width: var(--kul_splash_widget_width);
 }
 
 .label {
   color: var(--kul_splash_label_color);
+  display: var(--kul_splash_label_display);
   font-family: var(--kul_splash_font_family);
   font-size: var(--kul_splash_font_size);
   font-weight: bold;

@@ -1,4 +1,4 @@
-import { GenericObject } from '../../components';
+import { GenericObject, KulEventPayload } from '../../components';
 
 export type KulTextfieldEvent =
     | 'blur'
@@ -7,6 +7,10 @@ export type KulTextfieldEvent =
     | 'focus'
     | 'input'
     | 'ready';
+
+export interface KulTextfieldEventPayload extends KulEventPayload {
+    value?: string;
+}
 
 export interface KulTextfieldHelper {
     showWhenFocused?: boolean;

@@ -1269,8 +1269,20 @@ export const KUL_DOC: KulShowcaseDoc = {
         docs: "Sets the color of the label. Defaults to the value of --kul-text-color.",
       },
       {
+        name: "--kul-splash-label-display",
+        docs: "Sets the display property of the label. Defaults to block.",
+      },
+      {
         name: "--kul-splash-widget-color",
         docs: "Sets the color of the widget. Defaults to the value of --kul-primary-color.",
+      },
+      {
+        name: "--kul-splash-widget-height",
+        docs: "Sets the height of the widget. Defaults to 150px.",
+      },
+      {
+        name: "--kul-splash-widget-width",
+        docs: "Sets the width of the widget. Defaults to 150px.",
       },
     ],
   },
@@ -1479,6 +1491,10 @@ export const KUL_DOC: KulShowcaseDoc = {
         docs: "Sets the background color of the text field when hovering. Defaults to rgba(var(--kul-text-color-rgb), 0.125).",
       },
       {
+        name: "--kul-textfield-font-family",
+        docs: "Sets the font family of the text field. Defaults to var(--kul-font-family).",
+      },
+      {
         name: "--kul-textfield-input-color",
         docs: "Sets the color of the text field's input text. Defaults to var(--kul-text-color).",
       },
@@ -1643,7 +1659,12 @@ export const KUL_DOC: KulShowcaseDoc = {
         type: "KulDataDataset",
       },
       {
-        name: "kulInitialExpandedDepth",
+        name: "kulFilter",
+        docs: "When true, displays a text field which enables filtering the dataset of the tree.",
+        type: "boolean",
+      },
+      {
+        name: "kulInitialExpansionDepth",
         docs: "Sets the initial expanded nodes based on the specified depth.\r\nIf the property is not provided, all nodes in the tree will be expanded.",
         type: "number",
       },
@@ -1715,6 +1736,10 @@ export const KUL_DOC: KulShowcaseDoc = {
       {
         name: "--kul-tree-padding",
         docs: "Sets the padding of the tree. Defaults to 0.",
+      },
+      {
+        name: "--kul-tree-text-color",
+        docs: "Sets the text color of the tree. Defaults to var(--kul-text-color).",
       },
     ],
   },

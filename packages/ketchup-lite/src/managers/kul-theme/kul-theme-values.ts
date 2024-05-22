@@ -52,6 +52,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-filter-remove-icon': 'filter-remove',
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
+            '--kul-warning-icon': 'warning',
         },
         isDark: false,
         customStyles: {},
@@ -109,6 +110,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-filter-remove-icon': 'filter-remove',
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
+            '--kul-warning-icon': 'warning',
         },
         isDark: true,
         imports: [
@@ -165,6 +167,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-filter-remove-icon': 'filter-remove',
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
+            '--kul-warning-icon': 'warning',
         },
         isDark: true,
         imports: [
@@ -221,6 +224,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-filter-remove-icon': 'filter-remove',
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
+            '--kul-warning-icon': 'warning',
         },
         isDark: true,
         imports: [
@@ -288,6 +292,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-filter-remove-icon': 'filter-remove',
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
+            '--kul-warning-icon': 'warning',
         },
     },
     ketchup: {
@@ -342,6 +347,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-filter-remove-icon': 'filter-remove',
             '--kul-key-icon': 'key',
             '--kul-search-icon': 'search',
+            '--kul-warning-icon': 'warning',
         },
         imports: [
             "url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap')",
@@ -405,6 +411,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-filter-remove-icon': 'filter-remove',
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
+            '--kul-warning-icon': 'warning',
         },
         imports: [
             "url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap')",
@@ -461,6 +468,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-filter-remove-icon': 'filter-remove',
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
+            '--kul-warning-icon': 'warning',
         },
         imports: [
             "url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300;700&display=swap')",
@@ -539,6 +547,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-filter-remove-icon': 'filter-remove',
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
+            '--kul-warning-icon': 'warning',
         },
     },
     raj: {
@@ -592,6 +601,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-filter-remove-icon': 'filter-remove',
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
+            '--kul-warning-icon': 'warning',
         },
         imports: [
             "url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap')",
@@ -655,6 +665,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-filter-remove-icon': 'filter-remove',
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
+            '--kul-warning-icon': 'warning',
         },
         customStyles: {},
         imports: [
@@ -719,6 +730,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-filter-remove-icon': 'filter-remove',
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
+            '--kul-warning-icon': 'warning',
         },
         customStyles: {
             'kul-DATA-TABLE':
@@ -779,6 +791,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-filter-remove-icon': 'filter-remove',
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
+            '--kul-warning-icon': 'warning',
         },
         imports: [
             "url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Xanh+Mono&display=swap')",
@@ -843,6 +856,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-filter-remove-icon': 'filter-remove',
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
+            '--kul-warning-icon': 'warning',
         },
     },
     wildlife: {
@@ -896,6 +910,7 @@ export const themesJson: KulThemeJSON = {
             '--kul-filter-remove-icon': 'filter-remove',
             '--kul-key-icon': 'key-variant',
             '--kul-search-icon': 'search',
+            '--kul-warning-icon': 'warning',
         },
         imports: [
             "url('https://fonts.googleapis.com/css2?family=Abel&display=swap')",

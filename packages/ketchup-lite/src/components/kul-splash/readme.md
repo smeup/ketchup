@@ -83,7 +83,10 @@ Type: `Promise<void>`
 | `--kul-splash-font-family`      | Sets the label's font family. Defaults to the value of --kul-font-family.       |
 | `--kul-splash-font-size`        | Sets the label's font size. Defaults to the value of --kul-font-size.           |
 | `--kul-splash-label-color`      | Sets the color of the label. Defaults to the value of --kul-text-color.         |
+| `--kul-splash-label-display`    | Sets the display property of the label. Defaults to block.                      |
 | `--kul-splash-widget-color`     | Sets the color of the widget. Defaults to the value of --kul-primary-color.     |
+| `--kul-splash-widget-height`    | Sets the height of the widget. Defaults to 150px.                               |
+| `--kul-splash-widget-width`     | Sets the width of the widget. Defaults to 150px.                                |
 
 
 ## Dependencies

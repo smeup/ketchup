@@ -1,10 +1,20 @@
 import { GenericObject } from '../../components';
-import { findColumns } from './column/kul-data-column-utils';
+import { findColumns } from './utils/kul-data-column-utils';
+import {
+    filter,
+    getDrilldownInfo,
+    getParent,
+    pop,
+    setProperties,
+    toStream,
+} from './utils/kul-data-node-utils';
 import {
     KulDataCell,
     KulDataColumn,
     KulDataDataset,
     KulDataNode,
+    KulDataNodeDrilldownInfo,
+    KulDataNodeOperations,
     KulDataShapesMap,
 } from './kul-data-declarations';
 
@@ -140,9 +150,20 @@ export class KulData {
             return shapeProps;
         },
     };
-    node = {
+    node: KulDataNodeOperations = {
         exists: (dataset: KulDataDataset) => {
             return !!(dataset && dataset.nodes?.length);
+        },
+        filter: (
+            dataset: KulDataDataset,
+            filters: Partial<KulDataNode>,
+            partialMatch: boolean = false
+        ): {
+            matchingNodes: Set<KulDataNode>;
+            remainingNodes: Set<KulDataNode>;
+            ancestorNodes: Set<KulDataNode>;
+        } => {
+            return filter(this.cell.stringify, dataset, filters, partialMatch);
         },
         fixIds: (nodes: KulDataNode[]) => {
             function updateNodeIds(
@@ -162,6 +183,26 @@ export class KulData {
                 updateNodeIds(node, '0');
             });
             return nodes;
+        },
+        getDrilldownInfo(nodes: KulDataNode[]): KulDataNodeDrilldownInfo {
+            return getDrilldownInfo(nodes);
+        },
+        getParent(nodes: KulDataNode[], child: KulDataNode): KulDataNode {
+            return getParent(nodes, child);
+        },
+        pop(nodes: KulDataNode[], node2remove: KulDataNode): KulDataNode {
+            return pop(nodes, node2remove);
+        },
+        setProperties(
+            nodes: KulDataNode[],
+            properties: Partial<KulDataNode>,
+            recursively?: boolean,
+            exclude?: KulDataNode[]
+        ): KulDataNode[] {
+            return setProperties(nodes, properties, recursively, exclude);
+        },
+        toStream(nodes: KulDataNode[]): KulDataNode[] {
+            return toStream(nodes);
         },
     };
 }

@@ -10,42 +10,80 @@ const kulData: KulDataDataset = {
     nodes: [
         {
             id: '0001',
-            value: 'Root Node',
+            value: 'Depth 0 (0)',
             icon: 'filter_1',
             children: [
                 {
                     id: '0002',
-                    value: 'Child Node 1',
+                    value: 'Depth 1 (0)',
                     icon: 'filter_2',
                     children: [
                         {
                             id: '00021',
-                            value: 'Grandchild Node 1',
+                            value: 'Depth 2 (0)',
                             icon: 'filter_3',
                             children: [
                                 {
                                     id: '000211',
-                                    value: 'Great-Grandchild Node 1',
+                                    value: 'Depth 3 (0)',
                                     icon: 'filter_4',
                                 },
                             ],
                         },
                     ],
                 },
+            ],
+        },
+        {
+            id: '00022',
+            value: 'Depth 0 (1)',
+            icon: 'filter_2',
+            children: [
                 {
-                    id: '00022',
-                    value: 'Child Node 2',
-                    icon: 'filter_2',
+                    id: '000221',
+                    value: 'Depth 1 (0)',
+                    icon: 'filter_3',
                     children: [
                         {
-                            id: '000221',
-                            value: 'Grandchild Node 2',
-                            icon: 'filter_3',
+                            id: '000222',
+                            value: 'Depth 2 (0)',
+                            icon: 'filter_4',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            id: '0003',
+            value: 'Depth 0 (2)',
+            icon: 'filter_2',
+            children: [
+                {
+                    id: '00031',
+                    value: 'Depth 1 (0)',
+                    icon: 'filter_3',
+                },
+            ],
+        },
+        {
+            id: '0004',
+            value: 'Depth 0 (3)',
+            icon: 'filter_2',
+            children: [
+                {
+                    id: '00041',
+                    value: 'Depth 1 (0)',
+                    icon: 'filter_3',
+                    children: [
+                        {
+                            id: '000411',
+                            value: 'Depth 2 (0)',
+                            icon: 'filter_4',
                             children: [
                                 {
-                                    id: '000222',
-                                    value: 'Great-Great-Grandchild Node 2',
-                                    icon: 'filter_4',
+                                    id: '0004111',
+                                    value: 'Depth 3 (0)',
+                                    icon: 'filter_5',
                                 },
                             ],
                         },
