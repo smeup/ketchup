@@ -543,6 +543,7 @@ export class KupCalendar {
     }
 
     render() {
+        console.log('TEMPORARY LOG FOR CHECK CI');
         return (
             <Host>
                 <style>
