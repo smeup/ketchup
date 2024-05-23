@@ -1167,6 +1167,14 @@
             <kup-image size-x="48px" size-y="48px" resource="lazy"></kup-image>
             <div class="icon-label">lazy</div>
           </div>
+          <div class="icon-wrapper" title="landling_phone">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="landling_phone"
+            ></kup-image>
+            <div class="icon-label">landling_phone</div>
+          </div>
           <div class="icon-wrapper" title="lightbulb-on">
             <kup-image
               size-x="48px"
