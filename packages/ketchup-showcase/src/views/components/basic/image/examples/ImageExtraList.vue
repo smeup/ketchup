@@ -27,6 +27,14 @@
             ></kup-image>
             <div class="icon-label">account-alert</div>
           </div>
+          <div class="icon-wrapper" title="board_of_directors">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="board_of_directors"
+            ></kup-image>
+            <div class="icon-label">board_of_directors</div>
+          </div>
           <div class="icon-wrapper" title="account-box-outline">
             <kup-image
               size-x="48px"
