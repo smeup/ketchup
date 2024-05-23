@@ -154,6 +154,7 @@ function createChipList(
                             ? `var(${KupThemeColorValues.PRIMARY})`
                             : `var(${KupThemeColorValues.TEXT})`,
                     resource: chip.icon,
+                    placeholderResource: chip.placeholderIcon,
                     sizeX: '18px',
                     sizeY: '18px',
                     wrapperClass: iconClass,

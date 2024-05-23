@@ -3,9 +3,7 @@
     <div class="demo-wrapper">
       <p
         >Cards lists are a set of scalable
-        <a href="https://ketchup.smeup.com/ketchup-showcase/#/button"
-          >kup-card</a
-        >
+        <a href="https://smeup.github.io/ketchup/#/button">kup-card</a>
         elements. </p
       ><br />
       <p>For this reason, they inherit their style.</p>

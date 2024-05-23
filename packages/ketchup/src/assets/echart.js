@@ -9,6 +9,7 @@ const echart8 = document.getElementById('bubbleChart');
 const echart9 = document.getElementById('sankeyChart');
 const echart10 = document.getElementById('candleStickChart');
 const echart11 = document.getElementById('calendarChart');
+const echart12 = document.getElementById('barChart');
 
 const mockData = {
     columns: [
@@ -158,6 +159,12 @@ echart1.series = ['Col3', 'Col4'];
 echart1.types = ['Line', 'Scatter'];
 echart1.data = mockData;
 echart2.axis = 'Col1';
+echart2.chartTitle = {
+    value: 'Map',
+    color: 'red',
+    position: 'top',
+    size: 16,
+};
 echart2.types = ['Map'];
 echart2.data = {
     columns: [
@@ -322,6 +329,12 @@ echart2.data = {
 };
 echart3.series = ['S1', 'S2', 'S3'];
 echart3.types = ['Gaussian'];
+echart3.chartTitle = {
+    value: 'Gaussian',
+    color: 'red',
+    position: 'top',
+    size: 16,
+};
 const rows = [];
 const columns = [
     {
@@ -470,6 +483,12 @@ const testMockColumns = [
 ];
 echart4.consistencyCheck = true;
 echart4.types = ['Gaussian', 'Bar'];
+echart4.chartTitle = {
+    value: 'Gaussian | Bar',
+    color: 'red',
+    position: 'top',
+    size: 16,
+};
 echart4.axis = 'COL3';
 echart4.data = {
     columns: testMockColumns,
@@ -477,6 +496,12 @@ echart4.data = {
 };
 echart5.consistencyCheck = true;
 echart5.types = ['Gaussian', 'Bar', 'Scatter'];
+echart5.chartTitle = {
+    value: 'Gaussian | Bar | Scatter',
+    color: 'red',
+    position: 'top',
+    size: 16,
+};
 echart5.axis = 'COL3';
 echart5.data = {
     columns: testMockColumns,
@@ -1429,6 +1454,312 @@ echart11.data = {
                     value: '100',
                 },
             },
+        },
+    ],
+};
+
+
+echart12.types = ['Bar', 'Bar'];
+echart12.colors = ['blue'];
+echart12.chartTitle = {
+    value: 'Bar',
+    color: 'red',
+    position: 'top',
+    size: 16,
+};
+echart12.stacked = true;
+echart12.showMarks = true;
+echart12.axis = 'A';
+echart12.series = ['B', 'C'];
+echart12.data = {
+    columns: [
+        {
+            isEditable: false,
+            isKey: false,
+            name: 'A',
+            obj: {
+                k: '',
+                p: 'COL',
+                t: 'CN',
+            },
+            title: 'Persone',
+            tooltip: true,
+        },
+        {
+            decimals: 0,
+            isEditable: false,
+            isKey: false,
+            name: 'B',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'Anno Cur',
+            tooltip: false,
+        },
+        {
+            decimals: 0,
+            isEditable: false,
+            isKey: false,
+            name: 'C',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'Anno Pre',
+            tooltip: false,
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                A: {
+                    obj: {
+                        k: 'SANCOS',
+                        p: 'COL',
+                        t: 'CN',
+                    },
+                    value: 'SANCOS',
+                },
+                B: {
+                    obj: {
+                        k: '3',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '3',
+                },
+                C: {
+                    obj: {
+                        k: '7',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '7',
+                },
+            },
+            id: '0',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                A: {
+                    obj: {
+                        k: 'BENMAR',
+                        p: 'COL',
+                        t: 'CN',
+                    },
+                    value: 'BENMAR',
+                },
+                B: {
+                    obj: {
+                        k: '3',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '3',
+                },
+                C: {
+                    obj: {
+                        k: '4',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '4',
+                },
+            },
+            id: '1',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                A: {
+                    obj: {
+                        k: 'CARLUC',
+                        p: 'COL',
+                        t: 'CN',
+                    },
+                    value: 'CARLUC',
+                },
+                B: {
+                    obj: {
+                        k: '8',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '8',
+                },
+                C: {
+                    obj: {
+                        k: '20',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '20',
+                },
+            },
+            id: '2',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                A: {
+                    obj: {
+                        k: 'FIOGIA',
+                        p: 'COL',
+                        t: 'CN',
+                    },
+                    value: 'FIOGIA',
+                },
+                B: {
+                    obj: {
+                        k: '2',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '2',
+                },
+                C: {
+                    obj: {
+                        k: '12',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '12',
+                },
+            },
+            id: '3',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                A: {
+                    obj: {
+                        k: 'Franco',
+                        p: 'COL',
+                        t: 'CN',
+                    },
+                    value: 'Franco',
+                },
+                B: {
+                    obj: {
+                        k: '1',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '1',
+                },
+                C: {
+                    obj: {
+                        k: '2',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '2',
+                },
+            },
+            id: '4',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                A: {
+                    obj: {
+                        k: "Carlo D'Azeglio",
+                        p: 'COL',
+                        t: 'CN',
+                    },
+                    value: "Carlo D'Azeglio",
+                },
+                B: {
+                    obj: {
+                        k: '16',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '16',
+                },
+                C: {
+                    obj: {
+                        k: '1',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '1',
+                },
+            },
+            id: '5',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                A: {
+                    obj: {
+                        k: 'Oliviero',
+                        p: 'COL',
+                        t: 'CN',
+                    },
+                    value: 'Oliviero',
+                },
+                B: {
+                    obj: {
+                        k: '10',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '10',
+                },
+                C: {
+                    obj: {
+                        k: '4',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '4',
+                },
+            },
+            id: '6',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                A: {
+                    obj: {
+                        k: 'Quinto',
+                        p: 'COL',
+                        t: 'CN',
+                    },
+                    value: 'Quinto',
+                },
+                B: {
+                    obj: {
+                        k: '3',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '3',
+                },
+                C: {
+                    obj: {
+                        k: '11',
+                        p: '',
+                        t: 'NR',
+                    },
+                    value: '11',
+                },
+            },
+            id: '7',
+            object: '',
+            readOnly: true,
         },
     ],
 };

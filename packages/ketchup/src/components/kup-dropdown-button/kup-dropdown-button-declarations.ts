@@ -1,4 +1,4 @@
-import { KupEventPayload } from "../../types/GenericTypes";
+import { KupEventPayload } from '../../types/GenericTypes';
 
 /**
  * Props of the kup-dropdown-button component.
@@ -12,6 +12,7 @@ export enum KupDropdownButtonProps {
     icon = 'Defaults at null. When set, the button will show this icon.',
     initialValue = 'Sets the initial value of the component.',
     label = 'Defaults at null. When set, the button will show this text.',
+    placeholderIcon = 'When set, the button will show this icon, if icon/image not found.',
     selectMode = 'Sets to the return the selected item value. Suported values: "code", "description", "both".',
     styling = 'Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.',
     trailingIcon = 'Defaults at null. When set, the icon will be shown after the text.',

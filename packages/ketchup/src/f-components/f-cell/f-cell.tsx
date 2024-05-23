@@ -135,6 +135,9 @@ export const FCell: FunctionalComponent<FCellProps> = (
         const fProps: FImageProps = {
             color: `rgba(var(${KupThemeColorValues.TEXT}-rgb), 0.375)`,
             resource: cell.icon ? cell.icon : column.icon,
+            placeholderResource: cell.placeholderIcon
+                ? cell.placeholderIcon
+                : column.placeholderIcon,
             sizeX: '1.25em',
             sizeY: '1.25em',
             wrapperClass: 'obj-icon',
@@ -161,6 +164,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
         const fProps: FImageProps = {
             color: info.color,
             resource: info.icon,
+            placeholderResource: info.placeholderIcon,
             sizeX: '1.25em',
             sizeY: '1.25em',
             title: info.message ? info.message : '',
@@ -220,6 +224,30 @@ function setCellSize(
             }
             break;
         case FCellTypes.IMAGE:
+            const hasExternalResource =
+                props.cell.value.indexOf('.') > -1 ||
+                props.cell.value.indexOf('/') > -1 ||
+                props.cell.value.indexOf('\\') > -1;
+            if (
+                (props.component as KupComponent).rootElement.tagName ===
+                    KupTagNames.DATA_TABLE &&
+                !hasExternalResource
+            ) {
+                if (
+                    !(subcomponentProps as FImageProps).sizeX &&
+                    !(subcomponentProps as FImageProps).sizeY
+                ) {
+                    (subcomponentProps as FImageProps).sizeX = '100%';
+                    (subcomponentProps as FImageProps).sizeY = '64px';
+                } else {
+                    if (!(subcomponentProps as FImageProps).sizeX) {
+                        (subcomponentProps as FImageProps).sizeX = '100%';
+                    }
+                    if (!(subcomponentProps as FImageProps).sizeY) {
+                        (subcomponentProps as FImageProps).sizeY = 'auto';
+                    }
+                }
+            }
             if (
                 (props.component as KupComponent).rootElement.tagName ===
                 KupTagNames.BOX
@@ -628,7 +656,6 @@ function setCell(
         case FCellTypes.EDITOR:
             return <div innerHTML={cell.value}></div>;
         case FCellTypes.ICON:
-        case FCellTypes.IMAGE:
             if (isAutoCentered(props)) {
                 classObj[FCellClasses.C_CENTERED] = true;
             }
@@ -636,6 +663,37 @@ function setCell(
                 classObj[FCellClasses.C_PADDED] = true;
             }
             return <FImage {...subcomponentProps} />;
+        case FCellTypes.IMAGE:
+            const hasExternalResource =
+                props.cell.value.indexOf('.') > -1 ||
+                props.cell.value.indexOf('/') > -1 ||
+                props.cell.value.indexOf('\\') > -1;
+            if (isAutoCentered(props)) {
+                classObj[FCellClasses.C_CENTERED] = true;
+            }
+            if ((subcomponentProps as FImageProps).badgeData) {
+                classObj[FCellClasses.C_PADDED] = true;
+            }
+            if (hasExternalResource) {
+                return <FImage {...subcomponentProps} />;
+            } else {
+                return (
+                    <div
+                        class={`imageWrapIcon`}
+                        style={{
+                            width: subcomponentProps.sizeX,
+                            height: subcomponentProps.sizeY,
+                        }}
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            version="1.1"
+                            viewBox="0 0 24 24"
+                        ></svg>
+                        <FImage {...subcomponentProps} />
+                    </div>
+                );
+            }
         case FCellTypes.LINK:
             return (
                 <a href={content as string} target="_blank">

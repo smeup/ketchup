@@ -580,6 +580,12 @@ export class KupData {
                 if (oldColumn.icon && !cells[cellName].icon) {
                     cells[cellName].icon = oldColumn.icon;
                 }
+                if (
+                    oldColumn.placeholderIcon &&
+                    !cells[cellName].placeholderIcon
+                ) {
+                    cells[cellName].placeholderIcon = oldColumn.placeholderIcon;
+                }
                 if (oldColumn.shape && !cells[cellName].shape) {
                     cells[cellName].shape = oldColumn.shape;
                 }

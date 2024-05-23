@@ -7,9 +7,7 @@
         file, which you can download by clicking on the butto bewlow.<br />Note
         that it's also possible to use a custom JSON made by yourself, to learn
         how check the
-        <a href="https://ketchup.smeup.com/ketchup-showcase/#/kup-manager"
-          >KupManager</a
-        >
+        <a href="https://smeup.github.io/ketchup/#/kup-manager">KupManager</a>
         initialization paragraph.
       </p>
       <div class="demo-container">

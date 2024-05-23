@@ -37,6 +37,9 @@ let sortBoxData = {
                         p: 'IMG',
                         k: 'CN;COL;CASFRA',
                     },
+                    data: {
+                        sizeX: '100px',
+                    },
                     value: 'http://lorempixel.com/64/64/?user=CASFRA',
                 },
                 FLD2: {
@@ -68,6 +71,10 @@ let sortBoxData = {
         {
             cells: {
                 FLD1: {
+                    data: {
+                        sizeX: '100px',
+                        sizeY: '150px',
+                    },
                     obj: {
                         t: 'J4',
                         p: 'IMG',
@@ -707,6 +714,8 @@ let graphicsBoxData = {
             cells: {
                 COL: {
                     data: {
+                        sizeX: '340px',
+                        sizeY: '340px',
                         resource:
                             '/WebUP/javax.faces.resource/CN%253BCOL%253BBERNIC.jsf?ln=smeupImages',
                     },

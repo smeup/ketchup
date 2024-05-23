@@ -97,9 +97,7 @@
             try this algorithm by typing a series of numbers in the text field
             below, separated by a ";" character. They will be plotted as a
             Gaussian curve through the
-            <a href="https://ketchup.smeup.com/ketchup-showcase/#/echart"
-              >kup-echart</a
-            >
+            <a href="https://smeup.github.io/ketchup/#/echart">kup-echart</a>
             component.
           </p>
           <div class="demo-container">

@@ -34,6 +34,7 @@ export interface FCellProps extends FComponent {
 export interface FCellInfo {
     color?: string;
     icon?: string;
+    placeholderIcon?: string;
     message: string;
 }
 /**
