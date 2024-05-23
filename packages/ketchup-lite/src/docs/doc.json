@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-05-23T11:25:46",
+  "timestamp": "2024-05-23T12:10:14",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -8042,7 +8042,7 @@
       "path": "src/components/kul-photoframe/kul-photoframe-declarations.ts"
     },
     "src/components/kul-tabbar/kul-tabbar-declarations.ts::KulTabbarEventPayload": {
-      "declaration": "export interface KulTabbarEventPayload extends KulEventPayload {\n    index?: number;\n}",
+      "declaration": "export interface KulTabbarEventPayload extends KulEventPayload {\n    index?: number;\n    node?: KulDataNode;\n}",
       "docstring": "",
       "path": "src/components/kul-tabbar/kul-tabbar-declarations.ts"
     },

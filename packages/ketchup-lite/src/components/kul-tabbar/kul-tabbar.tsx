@@ -107,7 +107,12 @@ export class KulTabbar {
     })
     kulEvent: EventEmitter<KulTabbarEventPayload>;
 
-    onKulEvent(e: Event | CustomEvent, eventType: KulTabbarEvent, index = 0) {
+    onKulEvent(
+        e: Event | CustomEvent,
+        eventType: KulTabbarEvent,
+        index = 0,
+        node?: KulDataNode
+    ) {
         if (eventType === 'pointerdown') {
             if (this.kulRipple) {
                 this.#kulManager.theme.ripple.trigger(
@@ -128,6 +133,7 @@ export class KulTabbar {
             eventType,
             id: this.rootElement.id,
             originalEvent: e,
+            node,
         });
     }
 
@@ -248,10 +254,10 @@ export class KulTabbar {
                     tabIndex={i}
                     title={node.description ? node.description : null}
                     onClick={(e) => {
-                        this.onKulEvent(e, 'click', i);
+                        this.onKulEvent(e, 'click', i, node);
                     }}
                     onPointerDown={(e) => {
-                        this.onKulEvent(e, 'pointerdown', i);
+                        this.onKulEvent(e, 'pointerdown', i, node);
                     }}
                 >
                     <div
