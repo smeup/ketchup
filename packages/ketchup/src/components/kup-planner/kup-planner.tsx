@@ -195,7 +195,7 @@ export class KupPlanner {
     /**
      * Custom style of the component.
      * @default ""
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://smeup.github.io/ketchup/#/customization
      */
     @Prop()
     customStyle: string = '';
@@ -476,7 +476,7 @@ export class KupPlanner {
     /**
      * Columns containing forecast task duration, from (firstHour) to (secondHour)
      * @default null
-    */
+     */
     @Prop()
     taskPrevHours: string[] = [];
 
@@ -672,7 +672,7 @@ export class KupPlanner {
                         row.cells[this.phaseHours[0]],
                         row.cells[this.phaseHours[1]],
                         row.cells[this.phasePrevHours[0]],
-                        row.cells[this.phasePrevHours[1]],
+                        row.cells[this.phasePrevHours[1]]
                     );
                     const valuesToShow = getValuesToShow(
                         row,
@@ -758,7 +758,7 @@ export class KupPlanner {
                     row.cells[this.taskHours[0]],
                     row.cells[this.taskHours[1]],
                     row.cells[this.taskPrevHours[0]],
-                    row.cells[this.taskPrevHours[1]],
+                    row.cells[this.taskPrevHours[1]]
                 );
                 const valuesToShow = getValuesToShow(
                     row,
@@ -801,7 +801,7 @@ export class KupPlanner {
                     startHour: datesSanitized.hourValues[0],
                     endHour: datesSanitized.hourValues[1],
                     secondaryStartHour: datesSanitized.secHourValues[0],
-                    secondaryEndHour: datesSanitized.secHourValues[1]
+                    secondaryEndHour: datesSanitized.secHourValues[1],
                 };
                 return task;
             });
@@ -817,7 +817,7 @@ export class KupPlanner {
             .filter((row) =>
                 isAtLeastOneDateValid(
                     row.cells[this.detailDates[0]],
-                    row.cells[this.detailDates[1]],
+                    row.cells[this.detailDates[1]]
                 )
             )
             .forEach((row) => {
@@ -830,7 +830,7 @@ export class KupPlanner {
                     undefined,
                     undefined,
                     row.cells[this.detailHours[0]],
-                    row.cells[this.detailHours[1]],
+                    row.cells[this.detailHours[1]]
                 );
 
                 const valuesToShow = getValuesToShow(
@@ -872,7 +872,7 @@ export class KupPlanner {
                         ? { url: iconUrl, color: iconColor ?? '#595959' }
                         : undefined,
                     startHour: datesSanitized.hourValues[0],
-                    endHour: datesSanitized.hourValues[1]
+                    endHour: datesSanitized.hourValues[1],
                 });
             });
 
@@ -1084,7 +1084,7 @@ export class KupPlanner {
         let taskScrollYTimeout: number;
         let detailScrollYTimeout: number;
         const scrollDelay = 500;
-        
+
         this.plannerProps = {
             mainGantt: {
                 title: this.titleMess,
@@ -1439,10 +1439,7 @@ export class KupPlanner {
     handleOnPhaseDrop(
         nativeEvent: KupPlannerGanttTask | KupPlannerPhase | KupPlannerDetail
     ) {
-        this.onKupPhaseDrop(
-            nativeEvent,
-            KupPlannerTaskAction.onTask
-        );
+        this.onKupPhaseDrop(nativeEvent, KupPlannerTaskAction.onTask);
     }
 
     //======== Utility methods ========

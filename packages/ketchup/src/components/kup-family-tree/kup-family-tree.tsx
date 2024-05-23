@@ -75,7 +75,7 @@ export class KupFamilyTree {
     /**
      * Custom style of the component.
      * @default ""
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://smeup.github.io/ketchup/#/customization
      */
     @Prop() customStyle: string = '';
     /**
@@ -493,6 +493,7 @@ export class KupFamilyTree {
                 <div class={'family-tree__item__layout__image'}>
                     <FImage
                         resource={node.icon}
+                        placeholderResource={node.placeholderIcon}
                         sizeX="48px"
                         sizeY="48px"
                     ></FImage>

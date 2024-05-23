@@ -75,7 +75,7 @@ import { defineCustomElements } from '@sme.up/ketchup/dist/loader';
 defineCustomElements(window);
 ```
 
--   Use Ketchup components in your pages. About components and their props and events see [Ketchup Showcase](https://ketchup.smeup.com/). A simple sample for a Ketchup button can be:
+-   Use Ketchup components in your pages. About components and their props and events see [Ketchup Showcase](https://smeup.github.io/ketchup/). A simple sample for a Ketchup button can be:
 
 ```
 <kup-button label="I'm a button" @kup-button-click="myButtonAction" />

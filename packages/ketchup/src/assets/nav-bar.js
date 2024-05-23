@@ -5,8 +5,7 @@ const dropdownEl = document.querySelector('kup-dropdown-button');
 const switchEl = document.querySelector('kup-switch');
 
 barEl.image = {
-    resource:
-        'https://ketchup.smeup.com/ketchup-showcase/ketchup_logo_header.svg',
+    resource: 'https://smeup.github.io/ketchup/ketchup_logo_header.svg',
 };
 dropdownEl.data = {
     'kup-list': {

@@ -29,7 +29,7 @@
           <kup-image
             size-x="auto"
             size-y="128px"
-            resource="https://ketchup.smeup.com/ketchup-showcase/header_logo.svg"
+            resource="https://smeup.github.io/ketchup/header_logo.svg"
           ></kup-image>
         </div>
         <p class="centered">URL image sample markup</p>
@@ -47,7 +47,7 @@ export default {
       markupSVG:
         '<kup-image size-x="128px" size-y="128px" resource="your_icon"></kup-image>',
       markupURL:
-        '<kup-image size-x="auto" size-y="128px" resource="https://ketchup.smeup.com/ketchup-showcase/header_logo.svg"></kup-image>',
+        '<kup-image size-x="auto" size-y="128px" resource="https://smeup.github.io/ketchup/header_logo.svg"></kup-image>',
     };
   },
 };

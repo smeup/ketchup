@@ -122,7 +122,7 @@ export default {
         {
           prop: 'customStyle',
           description:
-            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+            'Custom style of the component. For more information: https://smeup.github.io/ketchup/#/customization',
           type: 'string',
           default: '""',
           try: 'css',
@@ -177,6 +177,14 @@ export default {
           prop: 'label',
           description:
             "The button's text. If no value is specified, the button will render as an icon button, in this variant specifying an icon is mandatory.",
+          type: 'string',
+          default: 'null',
+          try: 'field',
+        },
+        {
+          prop: 'placeholderIcon',
+          description:
+            'When set, the button will show this icon, if icon/image not found.',
           type: 'string',
           default: 'null',
           try: 'field',

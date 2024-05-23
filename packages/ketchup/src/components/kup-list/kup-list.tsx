@@ -68,7 +68,7 @@ export class KupList {
     /**
      * Custom style of the component.
      * @default ""
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://smeup.github.io/ketchup/#/customization
      */
     @Prop() customStyle: string = '';
     /**
@@ -389,7 +389,7 @@ export class KupList {
             item.icon != null &&
             item.icon.trim() != ''
         ) {
-            imageTag = this.#getIconTag(item.icon);
+            imageTag = this.#getIconTag(item.icon, item.placeholderIcon);
         }
         let primaryTextTag = [
             getIdOfItemByDisplayMode(item, this.displayMode, ' - '),
@@ -540,7 +540,7 @@ export class KupList {
         return vNodes;
     }
 
-    #getIconTag(icon: string) {
+    #getIconTag(icon: string, placeholderIcon: string) {
         const large: boolean = this.rootElement.classList.contains('kup-large');
         const propsFImage = {
             color: `var(${KupThemeColorValues.PRIMARY})`,
@@ -552,6 +552,7 @@ export class KupList {
             <FImage
                 {...propsFImage}
                 resource={icon}
+                placeholderResource={placeholderIcon}
                 wrapperClass={`icon-button__icon kup-icon`}
             />
         );

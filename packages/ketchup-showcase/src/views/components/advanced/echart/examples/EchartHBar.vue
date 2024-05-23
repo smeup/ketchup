@@ -21,6 +21,18 @@
         />
       </div>
     </div>
+    <br />
+    <p>Stacked.</p>
+    <div class="demo-container">
+      <div class="kup-container">
+        <kup-echart
+          :axis.prop="axis"
+          :data.prop="baseData"
+          :types.prop="types"
+          stacked
+        />
+      </div>
+    </div>
   </div>
 </template>
 

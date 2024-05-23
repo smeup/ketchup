@@ -5,7 +5,7 @@
 export enum KupGaugeProps {
     arcThickness = 'Sets how much the arc of the gauge should be thick.',
     colors = 'Array of three elements to specify the color of the arcs.',
-    customStyle = 'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+    customStyle = 'Custom style of the component. For more information: https://smeup.github.io/ketchup/#/customization',
     firstThreshold = 'The first threshold, establishing the length of the first and second arc.',
     labelDistance = 'The distance the label and the value has from the gauge graph.',
     maxValue = 'The maximum value reachable in the current graph.',

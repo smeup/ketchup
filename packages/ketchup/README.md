@@ -75,7 +75,7 @@ import { defineCustomElements } from '@sme.up/ketchup/dist/loader';
 defineCustomElements(window);
 ```
 
--   Use Ketchup components in your pages. About components and their props and events see [Ketchup Showcase](https://ketchup.smeup.com/). A simple sample for a Ketchup button can be:
+-   Use Ketchup components in your pages. About components and their props and events see [Ketchup Showcase](https://smeup.github.io/ketchup/). A simple sample for a Ketchup button can be:
 
 ```
 <kup-button label="I'm a button" @kup-button-click="myButtonAction" />
@@ -85,9 +85,9 @@ defineCustomElements(window);
 
 In order to keep the code under control, if you want to contribute you must have knowledge of the following fundamentals:
 
- - Git (how branching works, scoped commits and clear pull requests);
- - Deep understanding of TypeScript, Sass and JSX (the core of the library);
- - Basic understanding of Vue2 (this is only for the showcase, yet still important because components must be showcased once created). 
+-   Git (how branching works, scoped commits and clear pull requests);
+-   Deep understanding of TypeScript, Sass and JSX (the core of the library);
+-   Basic understanding of Vue2 (this is only for the showcase, yet still important because components must be showcased once created).
 
 If you respect this prerequisites and you wish to contribute to this project, you're welcome to do so. Check out our [style guide](docs/styleGuide.md) for more details about our coding practices.
 

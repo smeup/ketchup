@@ -110,6 +110,13 @@ export default {
           try: 'json',
         },
         {
+          prop: 'showMarks',
+          description: 'Displays the numerical values.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'sizeX',
           description:
             'The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).',
@@ -124,6 +131,14 @@ export default {
           type: 'string',
           default: '100%',
           try: 'field',
+        },
+        {
+          prop: 'stacked',
+          description:
+            'Displays the data columns of an object on top of each other.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'types',

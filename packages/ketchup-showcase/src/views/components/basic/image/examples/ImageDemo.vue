@@ -74,7 +74,7 @@ export default {
         {
           prop: 'customStyle',
           description:
-            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+            'Custom style of the component. For more information: https://smeup.github.io/ketchup/#/customization',
           type: 'string',
           default: '""',
           try: 'css',
@@ -103,6 +103,14 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'placeholderResource',
+          description:
+            'An SVG that will be displayed until the image is loaded.',
+          type: 'string',
+          default: '""',
+          try: 'field',
         },
         {
           prop: 'resource',
@@ -138,8 +146,7 @@ function createComp() {
   comp.badgeData = [
     {
       imageData: {
-        resource:
-          'https://ketchup.smeup.com/ketchup-showcase/header_logo_dark.svg',
+        resource: 'https://smeup.github.io/ketchup/header_logo_dark.svg',
         sizeX: '1.75rem',
         sizeY: 'auto',
       },

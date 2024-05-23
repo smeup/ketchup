@@ -17,7 +17,7 @@
         <span class="code-word">icon</span> is optional and it's the icon
         associated to the row, it will be displayed through the Image component:
         any value supported can be found in the
-        <a href="https://ketchup.smeup.com/ketchup-showcase/#/image">Image</a>
+        <a href="https://smeup.github.io/ketchup/#/image">Image</a>
         page.
         <br />
         <span class="code-word">secondaryText</span> contains an optional string

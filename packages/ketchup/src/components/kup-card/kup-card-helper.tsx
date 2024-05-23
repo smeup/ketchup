@@ -228,6 +228,7 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
                     } else {
                         chipData.push({
                             icon: node.icon,
+                            placeholderIcon: node.placeholderIcon,
                             value: node.value,
                             obj: node.obj,
                             id: key,
@@ -238,6 +239,7 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
                     chip.data['chip'] = [
                         {
                             icon: node.icon,
+                            placeholderIcon: node.placeholderIcon,
                             label: node.value,
                             obj: node.obj,
                             value: key,

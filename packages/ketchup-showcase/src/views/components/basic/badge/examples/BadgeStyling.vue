@@ -63,8 +63,7 @@ export default {
       },
       imageDataURL: {
         sizeX: 'auto',
-        resource:
-          'https://ketchup.smeup.com/ketchup-showcase/header_logo_dark.svg',
+        resource: 'https://smeup.github.io/ketchup/header_logo_dark.svg',
       },
       markupPosition: '<kup-badge class="top-right"></kup-badge>',
     };

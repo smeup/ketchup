@@ -3,9 +3,7 @@
     <div class="demo-wrapper">
       <p
         >Button lists are a set of
-        <a href="https://ketchup.smeup.com/ketchup-showcase/#/button"
-          >kup-button</a
-        >
+        <a href="https://smeup.github.io/ketchup/#/button">kup-button</a>
         elements. </p
       ><br />
       <p>For this reason, they inherit their style.</p>

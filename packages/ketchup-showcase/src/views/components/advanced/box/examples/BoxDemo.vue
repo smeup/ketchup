@@ -184,7 +184,7 @@ export default {
         {
           prop: 'customStyle',
           description:
-            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+            'Custom style of the component. For more information: https://smeup.github.io/ketchup/#/customization',
           type: 'string',
           default: '""',
           try: 'css',
