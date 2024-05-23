@@ -968,11 +968,11 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
     styles: [
       {
-        name: "--kup-photoframe-border",
-        docs: "Sets the border of the component. Defaults to 1px inset var(--kup-border-color).",
+        name: "--kul-photoframe-border",
+        docs: "Sets the border of the component. Defaults to 1px inset var(--kul-border-color).",
       },
       {
-        name: "--kup-photoframe-fade-out-time",
+        name: "--kul-photoframe-fade-out-time",
         docs: "Sets the time of the placeholder's fade out transition. Defaults to 2000ms.",
       },
     ],
