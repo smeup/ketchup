@@ -155,7 +155,7 @@ export class KulChart {
     /*-------------------------------------------------*/
 
     @Event({
-        eventName: 'kul-echart-event',
+        eventName: 'kul-chart-event',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -341,13 +341,18 @@ export class KulChart {
         }
         this.#chartEl.setOption(options, true);
         this.#chartEl.on('click', (e) => {
-            const node: KulDataNode = { id: '' };
+            const column = this.#kulManager.data.column.find(this.kulData, {
+                title: e.seriesName,
+            })[0];
+            const node: KulDataNode = { id: '*NOTFOUND*' };
             if (this.#sortedDataset && e.seriesType === 'bar') {
                 Object.assign(node, this.#sortedDataset.nodes[e.dataIndex]);
             } else if (!Array.isArray(e.data)) {
                 Object.assign(node, this.kulData.nodes[e.dataIndex]);
             }
             this.onKulEvent(e.event?.event, 'click', {
+                column,
+                node,
                 x: Array.isArray(e.data as number[]) ? e.data[0] : e.name,
                 y: Array.isArray(e.data as number[]) ? e.data[1] : e.value,
             });

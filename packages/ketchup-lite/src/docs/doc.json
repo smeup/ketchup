@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-05-23T16:37:21",
+  "timestamp": "2024-05-23T16:57:37",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -2148,7 +2148,7 @@
       ],
       "events": [
         {
-          "event": "kul-echart-event",
+          "event": "kul-chart-event",
           "detail": "KulChartEventPayload",
           "bubbles": true,
           "complexType": {

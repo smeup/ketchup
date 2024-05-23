@@ -1092,7 +1092,7 @@ declare global {
         new (): HTMLKulCardElement;
     };
     interface HTMLKulChartElementEventMap {
-        "kul-echart-event": KulChartEventPayload;
+        "kul-chart-event": KulChartEventPayload;
     }
     interface HTMLKulChartElement extends Components.KulChart, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKulChartElementEventMap>(type: K, listener: (this: HTMLKulChartElement, ev: KulChartCustomEvent<HTMLKulChartElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1709,7 +1709,7 @@ declare namespace LocalJSX {
           * @default null
          */
         "kulYAxis"?: YAXisComponentOption;
-        "onKul-echart-event"?: (event: KulChartCustomEvent<KulChartEventPayload>) => void;
+        "onKul-chart-event"?: (event: KulChartCustomEvent<KulChartEventPayload>) => void;
     }
     interface KulCode {
         /**
