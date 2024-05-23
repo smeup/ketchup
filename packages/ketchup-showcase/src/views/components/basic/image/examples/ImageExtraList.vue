@@ -27,6 +27,14 @@
             ></kup-image>
             <div class="icon-label">account-alert</div>
           </div>
+          <div class="icon-wrapper" title="board_of_directors">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="board_of_directors"
+            ></kup-image>
+            <div class="icon-label">board_of_directors</div>
+          </div>
           <div class="icon-wrapper" title="account-box-outline">
             <kup-image
               size-x="48px"
@@ -631,6 +639,14 @@
             ></kup-image>
             <div class="icon-label">delete-empty</div>
           </div>
+          <div class="icon-wrapper" title="delivery">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="delivery"
+            ></kup-image>
+            <div class="icon-label">delivery</div>
+          </div>
           <div class="icon-wrapper" title="document">
             <kup-image
               size-x="48px"
@@ -1150,6 +1166,14 @@
           <div class="icon-wrapper" title="lazy">
             <kup-image size-x="48px" size-y="48px" resource="lazy"></kup-image>
             <div class="icon-label">lazy</div>
+          </div>
+          <div class="icon-wrapper" title="landline_phone">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="landline_phone"
+            ></kup-image>
+            <div class="icon-label">landline_phone</div>
           </div>
           <div class="icon-wrapper" title="lightbulb-on">
             <kup-image
