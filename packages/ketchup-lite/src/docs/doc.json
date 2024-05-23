@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-05-22T19:25:50",
+  "timestamp": "2024-05-23T11:25:46",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -3968,12 +3968,12 @@
       "listeners": [],
       "styles": [
         {
-          "name": "--kup-photoframe-border",
+          "name": "--kul-photoframe-border",
           "annotation": "prop",
-          "docs": "Sets the border of the component. Defaults to 1px inset var(--kup-border-color)."
+          "docs": "Sets the border of the component. Defaults to 1px inset var(--kul-border-color)."
         },
         {
-          "name": "--kup-photoframe-fade-out-time",
+          "name": "--kul-photoframe-fade-out-time",
           "annotation": "prop",
           "docs": "Sets the time of the placeholder's fade out transition. Defaults to 2000ms."
         }

@@ -65,8 +65,8 @@ Type: `Promise<void>`
 
 | Name                             | Description                                                                      |
 | -------------------------------- | -------------------------------------------------------------------------------- |
-| `--kup-photoframe-border`        | Sets the border of the component. Defaults to 1px inset var(--kup-border-color). |
-| `--kup-photoframe-fade-out-time` | Sets the time of the placeholder's fade out transition. Defaults to 2000ms.      |
+| `--kul-photoframe-border`        | Sets the border of the component. Defaults to 1px inset var(--kul-border-color). |
+| `--kul-photoframe-fade-out-time` | Sets the time of the placeholder's fade out transition. Defaults to 2000ms.      |
 
 
 ## Dependencies
