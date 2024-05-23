@@ -631,6 +631,14 @@
             ></kup-image>
             <div class="icon-label">delete-empty</div>
           </div>
+          <div class="icon-wrapper" title="delivery">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="delivery"
+            ></kup-image>
+            <div class="icon-label">delivery</div>
+          </div>
           <div class="icon-wrapper" title="document">
             <kup-image
               size-x="48px"
