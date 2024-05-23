@@ -101,11 +101,9 @@ export class Documentation {
                     },
                     {
                         cells: {
-                            code: {
+                            kulCode: {
                                 shape: 'code',
-                                shapeProps: {
-                                    kulLanguage: 'markup',
-                                },
+                                kulLanguage: 'markup',
                                 value: `<${component} kul-style="#kul-component { max-height: 20vh; }"></${component}>`,
                             },
                         },

@@ -83,11 +83,9 @@ export const UPLOAD_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cells: {
-                                                code: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'markup',
-                                                    },
+                                                    kulLanguage: 'markup',
                                                     value: '<kul-upload></kul-upload>',
                                                 },
                                             },

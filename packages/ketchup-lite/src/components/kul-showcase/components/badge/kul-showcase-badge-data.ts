@@ -116,11 +116,9 @@ export const BADGE_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cells: {
-                                                code: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'markup',
-                                                    },
+                                                    kulLanguage: 'markup',
                                                     value: '<kul-badge></kul-badge>',
                                                 },
                                             },
@@ -129,11 +127,9 @@ export const BADGE_DOC: KulArticleDataset = {
                                         },
                                         {
                                             cells: {
-                                                code: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'json',
-                                                    },
+                                                    kulLanguage: 'json',
                                                     value: '{ "kulImageProps": { "kulValue": "notifications" } }',
                                                 },
                                             },

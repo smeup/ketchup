@@ -1,4 +1,3 @@
-import { GenericObject } from '../../components';
 import { findColumns } from './utils/kul-data-column-utils';
 import {
     filter,
@@ -53,42 +52,6 @@ export class KulData {
         },
     };
     extract = {
-        props: (dataset: KulDataDataset) => {
-            if (!this.node.exists(dataset)) {
-                return;
-            }
-            const browseCells = (node: KulDataNode) => {
-                if (!this.cell.exists(node)) {
-                    return;
-                }
-                const cells = node.cells;
-                for (const key in cells) {
-                    if (Object.prototype.hasOwnProperty.call(cells, key)) {
-                        const cell = cells[key];
-                        if (cell.relatedProp && props[cell.relatedProp]) {
-                            props[cell.relatedProp] = cell.value;
-                        }
-                    }
-                }
-            };
-            const recursive = (node: KulDataNode) => {
-                for (
-                    let index = 0;
-                    node.children && index < node.children.length;
-                    index++
-                ) {
-                    recursive(node.children[index]);
-                }
-            };
-            const props: GenericObject = {};
-            const nodes = dataset.nodes;
-            for (let index = 0; index < nodes.length; index++) {
-                const node = nodes[index];
-                browseCells(node);
-                recursive(node);
-            }
-            return props;
-        },
         shapes: (dataset: KulDataDataset) => {
             if (!this.node.exists(dataset)) {
                 return;
@@ -102,7 +65,11 @@ export class KulData {
                 for (const key in cells) {
                     if (Object.prototype.hasOwnProperty.call(cells, key)) {
                         const cell = cells[key];
-                        if (cell.shape && cell.shape !== 'text') {
+                        if (
+                            cell.shape &&
+                            cell.shape !== 'text' &&
+                            cell.shape !== 'number'
+                        ) {
                             const shapeProps = {};
                             if (!shapes[cell.shape]) {
                                 shapes[cell.shape] = [];
@@ -138,14 +105,21 @@ export class KulData {
             return shapes;
         },
         singleShape: (cell: KulDataCell) => {
-            const shapeProps = { ...cell.shapeProps };
+            const prefix = 'kul';
+            const shapeProps = {};
             for (const prop in cell) {
                 if (prop === 'shape') {
                     continue;
                 }
-                const prefixedProp =
-                    'kul' + prop.charAt(0).toUpperCase() + prop.slice(1);
-                shapeProps[prefixedProp] = cell[prop];
+                if (prop.indexOf(prefix) === 0) {
+                    shapeProps[prop] = cell[prop];
+                } else {
+                    const prefixedProp =
+                        prefix + prop.charAt(0).toUpperCase() + prop.slice(1);
+                    if (!shapeProps[prefixedProp]) {
+                        shapeProps[prefixedProp] = cell[prop];
+                    }
+                }
             }
             return shapeProps;
         },

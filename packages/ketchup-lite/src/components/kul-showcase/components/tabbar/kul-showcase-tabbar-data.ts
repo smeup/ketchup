@@ -98,11 +98,9 @@ export const TABBAR_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cells: {
-                                                code: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'markup',
-                                                    },
+                                                    kulLanguage: 'markup',
                                                     value: '<kul-tabbar></kul-tabbar>',
                                                 },
                                             },
@@ -111,11 +109,9 @@ export const TABBAR_DOC: KulArticleDataset = {
                                         },
                                         {
                                             cells: {
-                                                code: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'json',
-                                                    },
+                                                    kulLanguage: 'json',
                                                     value: '{ "nodes": [{"value": "Tab 1", "id": "0"}, {"value": "Tab 2", "id": "1"}]}',
                                                 },
                                             },

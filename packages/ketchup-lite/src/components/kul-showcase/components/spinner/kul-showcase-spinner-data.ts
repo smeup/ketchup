@@ -123,11 +123,9 @@ export const SPINNER_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cells: {
-                                                code: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'markup',
-                                                    },
+                                                    kulLanguage: 'markup',
                                                     value: '<kul-spinner></kul-spinner>',
                                                 },
                                             },
@@ -136,11 +134,9 @@ export const SPINNER_DOC: KulArticleDataset = {
                                         },
                                         {
                                             cells: {
-                                                code: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'json',
-                                                    },
+                                                    kulLanguage: 'json',
                                                     value: '{ "nodes": [{"value": "Spinner Title", "id": "0", "children": [{"value": "Section Title", "id": "0.1", "children": [{"value": "Paragraph title", "id": "0.1.1", "children": [{"value": "Text", "id": "0.1.1.1"}, {"value": "Strong text", "id": "0.1.1.2", "tagName": "strong"}]}]}]}]}',
                                                 },
                                             },

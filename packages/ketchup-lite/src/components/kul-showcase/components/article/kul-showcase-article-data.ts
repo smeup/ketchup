@@ -20,7 +20,7 @@ const kulData: KulArticleDataset = {
                             children: [
                                 {
                                     cells: {
-                                        1: {
+                                        kulImage: {
                                             shape: 'image',
                                             value: getAssetPath(
                                                 `./assets/media/color_splash.jpg`
@@ -64,11 +64,9 @@ const kulData: KulArticleDataset = {
                             children: [
                                 {
                                     cells: {
-                                        1: {
+                                        kulCode: {
                                             shape: 'code',
-                                            shapeProps: {
-                                                kulLanguage: 'python',
-                                            },
+                                            kulLanguage: 'python',
                                             value: `def hello_world():\nprint("Hello, world!")`,
                                         },
                                     },
@@ -99,7 +97,7 @@ const kulData: KulArticleDataset = {
                             children: [
                                 {
                                     cells: {
-                                        1: {
+                                        kulImage: {
                                             shape: 'image',
                                             value: getAssetPath(
                                                 `./assets/media/color_splash.jpg`
@@ -236,11 +234,9 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cells: {
-                                                code: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'markup',
-                                                    },
+                                                    kulLanguage: 'markup',
                                                     value: '<kul-article></kul-article>',
                                                 },
                                             },
@@ -251,9 +247,7 @@ export const ARTICLE_DOC: KulArticleDataset = {
                                             cells: {
                                                 code: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'json',
-                                                    },
+                                                    kulLanguage: 'json',
                                                     value: '{ "nodes": [{"value": "Article Title", "id": "0", "children": [{"value": "Section Title", "id": "0.1", "children": [{"value": "Paragraph title", "id": "0.1.1", "children": [{"value": "Text", "id": "0.1.1.1"}, {"value": "Strong text", "id": "0.1.1.2", "tagName": "strong"}]}]}]}]}',
                                                 },
                                             },

@@ -11,32 +11,26 @@ const kulData: KulDataDataset = {
         {
             id: 'Axis',
             title: 'Department',
-            type: 'text',
         },
         {
             id: 'Series_1',
             title: 'Current Budget',
-            type: 'text',
         },
         {
             id: 'Series_2',
             title: 'Projected Budget',
-            type: 'text',
         },
         {
             id: 'Series_3',
             title: 'Allocated Budget',
-            type: 'text',
         },
         {
             id: 'Series_4',
             title: 'Expenditures',
-            type: 'text',
         },
         {
             id: 'Series_5',
             title: 'Savings',
-            type: 'text',
         },
     ],
     nodes: [
@@ -273,11 +267,9 @@ export const CHART_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cells: {
-                                                code: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'markup',
-                                                    },
+                                                    kulLanguage: 'markup',
                                                     value: '<kul-chart></kul-chart>',
                                                 },
                                             },
@@ -286,11 +278,9 @@ export const CHART_DOC: KulArticleDataset = {
                                         },
                                         {
                                             cells: {
-                                                code: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'json',
-                                                    },
+                                                    kulLanguage: 'json',
                                                     value: JSON.stringify(
                                                         kulData
                                                     ),

@@ -19,7 +19,7 @@ export const CARD_EXAMPLES: CardData = {
                             1: { value: 'Title' },
                             2: { value: 'Subtitle' },
                             3: { value: 'Description' },
-                            4: {
+                            kulImage: {
                                 shape: 'image',
                                 value: getAssetPath(
                                     `./assets/media/color_splash.jpg`
@@ -43,7 +43,7 @@ export const CARD_EXAMPLES: CardData = {
                             1: { value: 'Title' },
                             2: { value: 'Subtitle' },
                             3: { value: 'Description' },
-                            4: {
+                            kulImage: {
                                 shape: 'image',
                                 value: 'widgets',
                             },
@@ -124,11 +124,9 @@ export const CARD_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cells: {
-                                                code: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'markup',
-                                                    },
+                                                    kulLanguage: 'markup',
                                                     value: '<kul-card></kul-card>',
                                                 },
                                             },
@@ -137,11 +135,9 @@ export const CARD_DOC: KulArticleDataset = {
                                         },
                                         {
                                             cells: {
-                                                code: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'json',
-                                                    },
+                                                    kulLanguage: 'json',
                                                     value: '{ "nodes": [ { "cells": { "icon": { "shape": "image", "value": "widgets" }, "text1": { "value": "Title" }, "text2": { "value": "Subtitle"            }, "text3": { "value": "Description." } }, "id": "card" } ] }',
                                                 },
                                             },
@@ -179,11 +175,9 @@ export const CARD_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cells: {
-                                                code: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'markup',
-                                                    },
+                                                    kulLanguage: 'markup',
                                                     value: '<kul-card kul-style="#kul-component card { max-height: 20vh; }"></kul-card>',
                                                 },
                                             },

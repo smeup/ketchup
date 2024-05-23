@@ -1,5 +1,4 @@
 import {
-    GenericObject,
     KulBadgePropsInterface,
     KulImagePropsInterface,
 } from '../../components';
@@ -9,19 +8,70 @@ import { GenericMap } from '../../types/GenericTypes';
 
 export interface KulDataCell {
     value: unknown;
-    relatedProp?: string;
     shape?: KulDataShapes;
-    shapeProps?: GenericObject;
 }
 
+export interface KulDataBadgeCell extends KulDataCell, KulBadgePropsInterface {
+    shape: 'badge';
+    value: string;
+}
+
+export interface KulDataButtonCell
+    extends KulDataCell,
+        KulButtonPropsInterface {
+    shape: 'button';
+    value: string;
+}
+
+export interface KulDataCodeCell extends KulDataCell, KulCodePropsInterface {
+    shape: 'code';
+    value: string;
+}
+
+export interface KulDataImageCell extends KulDataCell, KulImagePropsInterface {
+    shape: 'image';
+    value: string;
+}
+
+export interface KulDataNumberCell extends KulDataCell {
+    shape: 'number';
+    value: number;
+}
+
+export interface KulDataTextCell extends KulDataCell {
+    shape: 'text';
+    value: string;
+}
+
+type KulDataCellType =
+    | KulDataCell
+    | KulDataBadgeCell
+    | KulDataButtonCell
+    | KulDataCodeCell
+    | KulDataImageCell
+    | KulDataNumberCell
+    | KulDataTextCell;
+
 export interface KulDataCellContainer {
-    [index: string]: KulDataCell;
+    [index: string]: KulDataCellType;
+    ['kulBadge']?: KulDataBadgeCell;
+    ['kulButton']?: KulDataButtonCell;
+    ['kulCode']?: KulDataCodeCell;
+    ['kulImage']?: KulDataImageCell;
+    ['kulNumber']?: KulDataNumberCell;
+    ['kulText']?: KulDataTextCell;
 }
 
 export interface KulDataColumn {
-    id: string;
+    id:
+        | string
+        | 'kulBadge'
+        | 'kulButton'
+        | 'kulCode'
+        | 'kulImage'
+        | 'kulNumber'
+        | 'kulText';
     title: string;
-    type: KulDataShapes;
 }
 
 export interface KulDataComponentBaseProps {
@@ -47,7 +97,13 @@ export interface KulDataNode {
     value?: unknown;
 }
 
-export type KulDataShapes = 'badge' | 'button' | 'code' | 'image' | 'text';
+export type KulDataShapes =
+    | 'badge'
+    | 'button'
+    | 'code'
+    | 'image'
+    | 'number'
+    | 'text';
 
 export type KulDataShapesMap = {
     [K in KulDataShapes]?: Array<

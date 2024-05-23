@@ -133,11 +133,9 @@ export const HEADER_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cells: {
-                                                header: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'markup',
-                                                    },
+                                                    kulLanguage: 'markup',
                                                     value: '<kul-header>\n   <div class="slot">\n      <kul-button kul-icon="menu" kul-styling="icon"></kul-button>\n   </div>\n</kul-header>',
                                                 },
                                             },
@@ -320,11 +318,9 @@ export const HEADER_DOC: KulArticleDataset = {
                                 },
                                 {
                                     cells: {
-                                        header: {
+                                        kulCode: {
                                             shape: 'code',
-                                            shapeProps: {
-                                                kulLanguage: 'markup',
-                                            },
+                                            kulLanguage: 'markup',
                                             value: '<kul-header kul-style="#kul-component { opacity: 0.5; }"></kul-header>',
                                         },
                                     },
