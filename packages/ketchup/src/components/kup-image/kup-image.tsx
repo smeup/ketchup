@@ -29,6 +29,7 @@ import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declaration
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupCardFamily } from '../kup-card/kup-card-declarations';
 
 @Component({
     tag: 'kup-image',
@@ -98,6 +99,12 @@ export class KupImage {
      */
     @Prop() sizeY: string = '100%';
 
+    /**
+     * When set to true, a dialog will be displayed with the same resource set to 100% when image is clicked.
+     * @default false
+     */
+    @Prop() zoomEnable: boolean = false;
+
     /*-------------------------------------------------*/
     /*        I n t e r n a l   V a r i a b l e s      */
     /*-------------------------------------------------*/
@@ -119,6 +126,10 @@ export class KupImage {
      */
     private kupManager: KupManager = kupManagerInstance();
 
+    card: HTMLKupCardElement = null;
+    dialog: HTMLKupDialogElement = null;
+    image: HTMLKupImageElement = null;
+
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
@@ -137,6 +148,9 @@ export class KupImage {
             id: this.rootElement.id,
             el: e.target,
         });
+        if (this.zoomEnable) {
+            this.createDialog();
+        }
     }
 
     @Event({
@@ -243,6 +257,42 @@ export class KupImage {
             this.imageCanvas.drawCanvas(this.resource, this.canvas);
         }
         this.kupManager.debug.logRender(this, true);
+    }
+
+    createDialog() {
+        this.card = document.createElement('kup-card');
+        this.card.layoutFamily = KupCardFamily.FREE;
+        this.card.layoutNumber = 1;
+        this.card.sizeX = '100%';
+        this.card.sizeY = '100%';
+
+        this.image = document.createElement('kup-image');
+        this.image.resource = this.resource;
+        this.image.placeholderResource = this.placeholderResource;
+        this.image.zoomEnable = false;
+        this.image.sizeX = '100%';
+        this.image.sizeY = '100%';
+
+        this.card.appendChild(this.image);
+
+        this.dialog = document.createElement('kup-dialog');
+        this.dialog.id = 'kup-image-zoom';
+        this.dialog.sizeX = '80vw';
+        this.dialog.sizeY = '80vh';
+        this.dialog.addEventListener('kup-dialog-close', () => this.hide());
+        this.dialog.appendChild(this.card);
+        document.body.appendChild(this.dialog);
+    }
+
+    hide() {
+        if (this.image) {
+            this.image.remove();
+            this.image = null;
+            this.card.remove();
+            this.card = null;
+            this.dialog.remove();
+            this.dialog = null;
+        }
     }
 
     render() {
