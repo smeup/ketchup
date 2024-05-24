@@ -309,16 +309,21 @@ function newColumnFromMath(
             firstColumn = col;
         }
         if (col.resultOf && col.resultOf === formula) {
-            const message =
-                'This mathematical operation on these columns was already performed!(' +
-                formula +
-                ')';
-            dom.ketchup.debug.logMessage(
-                'kup-data',
-                message,
-                KupDebugCategory.WARNING
-            );
-            return message;
+            if (col.visible !== true) {
+                col.visible = true;
+                return;
+            } else {
+                const message =
+                    'This mathematical operation on these columns was already performed!(' +
+                    formula +
+                    ')';
+                dom.ketchup.debug.logMessage(
+                    'kup-data',
+                    message,
+                    KupDebugCategory.WARNING
+                );
+                return message;
+            }
         }
     }
     let prog = 0;
