@@ -2452,6 +2452,11 @@ export namespace Components {
           * @default '100%'
          */
         "sizeY": string;
+        /**
+          * When set to true, a dialog will be displayed with the same resource set to 100% when image is clicked.
+          * @default false
+         */
+        "zoomEnable": boolean;
     }
     interface KupImageList {
         /**
@@ -7243,6 +7248,11 @@ declare namespace LocalJSX {
           * @default '100%'
          */
         "sizeY"?: string;
+        /**
+          * When set to true, a dialog will be displayed with the same resource set to 100% when image is clicked.
+          * @default false
+         */
+        "zoomEnable"?: boolean;
     }
     interface KupImageList {
         /**

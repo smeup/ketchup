@@ -15,6 +15,7 @@ export enum KupImageProps {
     resource = 'The resource used to fetch the image.',
     sizeX = 'The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
     sizeY = 'The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
+    zoomEnable = 'When set to true, a dialog will be displayed with the same resource set to 100% when image is clicked',
 }
 
 export interface KupImageClickEventPayload extends KupEventPayload {

@@ -136,6 +136,14 @@ export default {
           default: '100%',
           try: 'field',
         },
+        {
+          prop: 'zoomEnable',
+          description:
+            'When set to true, a dialog will be displayed with the same resource set to 100% when image is clicked',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
       ],
     };
   },
