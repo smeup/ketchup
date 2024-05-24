@@ -1049,8 +1049,12 @@ export const KUL_DOC: KulShowcaseDoc = {
         docs: "Sets text color of the list. Defaults to the value of --kul-text-color.",
       },
       {
+        name: "--kul-list-text-color-rgb",
+        docs: "Sets the RGB values of text color. Defaults to the value of --kul-text-color-rgb.",
+      },
+      {
         name: "--kul-list-transition",
-        docs: "Transitions duration for text and background colors. Defaults to 120ms.",
+        docs: "Transitions duration for text and background colors. Defaults to 125ms.",
       },
     ],
   },

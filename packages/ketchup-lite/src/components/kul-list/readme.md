@@ -99,7 +99,7 @@ Calls handleSelection private method to select the given item.
 
 | Name    | Type     | Description                                                                                                                  |
 | ------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `index` | `number` | - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element. |
+| `index` | `number` | - Zero-based index of the item that must be selected, when not provided the list will attempt to select the focused element. |
 
 #### Returns
 
@@ -122,7 +122,8 @@ Type: `Promise<void>`
 | `--kul-list-primary-color`     | Sets the primary color of the component. Defaults to the value of --kul-primary-color.                                          |
 | `--kul-list-primary-color-rgb` | Sets the RGB values of the primary color of the component (used for shaders). Defaults to the value of --kul-primary-color-rgb. |
 | `--kul-list-text-color`        | Sets text color of the list. Defaults to the value of --kul-text-color.                                                         |
-| `--kul-list-transition`        | Transitions duration for text and background colors. Defaults to 120ms.                                                         |
+| `--kul-list-text-color-rgb`    | Sets the RGB values of text color. Defaults to the value of --kul-text-color-rgb.                                               |
+| `--kul-list-transition`        | Transitions duration for text and background colors. Defaults to 125ms.                                                         |
 
 
 ## Dependencies
