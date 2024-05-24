@@ -89,8 +89,7 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
             value: 'Lazy',
         },
         {
-            description:
-                'A component that displays a tree-like structure as a list.',
+            description: 'A component that displays a list of items.',
             icon: 'list',
             id: 'List',
             value: 'List',

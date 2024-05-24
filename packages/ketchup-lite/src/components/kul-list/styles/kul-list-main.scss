@@ -104,6 +104,7 @@
   &--selectable {
     .node {
       cursor: pointer;
+      pointer-events: all;
 
       &:not(.node--selected) {
         &:hover,
@@ -125,10 +126,11 @@
   display: flex;
   height: var(--kul_list_item_height);
   justify-content: flex-start;
-  position: relative;
   padding: var(--kul_list_item_padding);
-  overflow: hidden;
+  pointer-events: none;
+  position: relative;
   outline: none;
+  overflow: hidden;
   transition:
     background-color var(--kul_list_transition),
     color var(--kul_list_transition);

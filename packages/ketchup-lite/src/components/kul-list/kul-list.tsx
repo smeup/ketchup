@@ -270,7 +270,12 @@ export class KulList {
     /*-------------------------------------------------*/
 
     #handleSelection(index: number): void {
-        if (index !== null && index !== undefined && !isNaN(index)) {
+        if (
+            this.kulSelectable &&
+            index !== null &&
+            index !== undefined &&
+            !isNaN(index)
+        ) {
             this.selected = index;
         }
     }

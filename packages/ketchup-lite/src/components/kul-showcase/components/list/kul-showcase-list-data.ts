@@ -20,11 +20,11 @@ const kulData: KulDataDataset = {
 
 export const LIST_EXAMPLES: ListData = {
     simple: {
-        ['data-description']: 'Simple list bar',
+        ['data-description']: 'Simple list',
         kulData,
     },
     style: {
-        ['data-description']: 'Tab bar with custom style',
+        ['data-description']: 'List with custom style',
         'data-dynamic': 'custom',
         kulData,
     },
@@ -51,7 +51,7 @@ export const LIST_DOC: KulArticleDataset = {
                                         },
                                         {
                                             id: '0.0.0.0.2',
-                                            value: ' component is a versatile and customizable web component designed to render list bars based on a JSON structure. ',
+                                            value: ' component is used to display a list of items vertically. ',
                                         },
                                     ],
                                     id: '0.0.0.0',
@@ -112,7 +112,7 @@ export const LIST_DOC: KulArticleDataset = {
                                                 kulCode: {
                                                     shape: 'code',
                                                     kulLanguage: 'json',
-                                                    value: '{ "nodes": [{"value": "Tab 1", "id": "0"}, {"value": "Tab 2", "id": "1"}]}',
+                                                    value: '{ "nodes": [{"value": "Item 1", "id": "1"}, {"value": "Item 2", "id": "2"}]}',
                                                 },
                                             },
                                             id: '0.2.0.1.1',
@@ -159,11 +159,43 @@ export const LIST_DOC: KulArticleDataset = {
                                                         {
                                                             id: '0.4.0.3.0.0.0',
                                                             tagName: 'strong',
+                                                            value: 'blur',
+                                                        },
+                                                        {
+                                                            id: '0.4.0.3.0.0.1',
+                                                            value: ': emitted when an item loses focus.',
+                                                        },
+                                                    ],
+                                                    id: '0.4.0.3.0.0',
+                                                    tagName: 'li',
+                                                    value: '',
+                                                },
+                                                {
+                                                    children: [
+                                                        {
+                                                            id: '0.4.0.3.0.0.0',
+                                                            tagName: 'strong',
                                                             value: 'click',
                                                         },
                                                         {
                                                             id: '0.4.0.3.0.0.1',
-                                                            value: ': emitted when a list is clicked.',
+                                                            value: ': emitted when an item is clicked.',
+                                                        },
+                                                    ],
+                                                    id: '0.4.0.3.0.0',
+                                                    tagName: 'li',
+                                                    value: '',
+                                                },
+                                                {
+                                                    children: [
+                                                        {
+                                                            id: '0.4.0.3.0.0.0',
+                                                            tagName: 'strong',
+                                                            value: 'focus',
+                                                        },
+                                                        {
+                                                            id: '0.4.0.3.0.0.1',
+                                                            value: ': emitted when an item is focused.',
                                                         },
                                                     ],
                                                     id: '0.4.0.3.0.0',
@@ -179,7 +211,7 @@ export const LIST_DOC: KulArticleDataset = {
                                                         },
                                                         {
                                                             id: '0.4.0.3.0.0.1',
-                                                            value: ': emitted when as soon as the component is touched/clicked (before the click event).',
+                                                            value: ': emitted when as soon as an item is touched/clicked (before the click event).',
                                                         },
                                                     ],
                                                     id: '0.4.0.3.0.0',
