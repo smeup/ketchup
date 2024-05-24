@@ -6,7 +6,10 @@ import {
     FCellProps,
     FCellShapes,
 } from '../../../f-components/f-cell/f-cell-declarations';
-import { KupDataCell } from '../../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataCell,
+    KupDataRowCells,
+} from '../../../managers/kup-data/kup-data-declarations';
 import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -142,22 +145,30 @@ export function create4(component: KupCard): VNode {
             value = index;
         }
     }
+    const imagePropsCells: KupDataRowCells = {};
+    if (image && columns[image]) {
+        imagePropsCells[columns[image].name] = cells[image];
+    }
     const imageProps: FCellProps = {
         cell: cells[image],
         column: columns[image],
         component: component,
         density: FCellPadding.NONE,
         renderKup: true,
-        row: { cells: { [columns[image].name]: cells[image] } },
+        row: { cells: imagePropsCells },
         wrapperClass: 'c-centered',
     };
+    const valuePropsCells: KupDataRowCells = {};
+    if (value && columns[value]) {
+        valuePropsCells[columns[value].name] = cells[value];
+    }
     const valueProps: FCellProps = {
         cell: cells[value],
         column: columns[value],
         component: component,
         density: FCellPadding.NONE,
         renderKup: true,
-        row: { cells: { [columns[value].name]: cells[value] } },
+        row: { cells: valuePropsCells },
         wrapperClass: 'c-centered',
     };
 
@@ -165,10 +176,10 @@ export function create4(component: KupCard): VNode {
         <div class={`box-layout-${component.layoutNumber}`}>
             <div class="container">
                 <div class="image">
-                    <FCell {...imageProps}></FCell>
+                    {image && <FCell {...imageProps}></FCell>}
                 </div>
                 <div class="value">
-                    <FCell {...valueProps}></FCell>
+                    {value && <FCell {...valueProps}></FCell>}
                 </div>
             </div>
         </div>
@@ -284,13 +295,18 @@ export function create6(component: KupCard): VNode {
             );
         }
     }
+    const imagePropsCells: KupDataRowCells = {};
+    if (image && columns[image]) {
+        imagePropsCells[columns[image].name] = cells[image];
+    }
+
     const imageProps: FCellProps = {
         cell: cells[image],
         column: columns[image],
         component: component,
         density: FCellPadding.NONE,
         renderKup: true,
-        row: { cells: { [columns[image].name]: cells[image] } },
+        row: { cells: imagePropsCells },
         wrapperClass: 'c-centered',
     };
 
@@ -298,7 +314,7 @@ export function create6(component: KupCard): VNode {
         <div class={`box-layout-${component.layoutNumber}`}>
             <div class="container">
                 <div class="image">
-                    <FCell {...imageProps}></FCell>
+                    {image && <FCell {...imageProps}></FCell>}
                 </div>
                 <div class="table">
                     <table>{rows}</table>
