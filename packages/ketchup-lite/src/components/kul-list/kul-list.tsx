@@ -122,14 +122,27 @@ export class KulList {
         node?: KulDataNode,
         index = 0
     ) {
-        if (eventType === 'pointerdown') {
-            if (this.kulRipple) {
-                this.#kulManager.theme.ripple.trigger(
-                    e as PointerEvent,
-                    this.#rippleSurface[index]
-                );
-            }
+        switch (eventType) {
+            case 'blur':
+                this.focused = null;
+                break;
+            case 'click':
+                this.focused = index;
+                this.#handleSelection(index);
+                break;
+            case 'focus':
+                this.focused = index;
+                break;
+            case 'pointerdown':
+                if (this.kulRipple) {
+                    this.#kulManager.theme.ripple.trigger(
+                        e as PointerEvent,
+                        this.#rippleSurface[index]
+                    );
+                }
+                break;
         }
+
         this.kulEvent.emit({
             comp: this,
             eventType,
@@ -242,7 +255,7 @@ export class KulList {
     }
     /**
      * Calls handleSelection private method to select the given item.
-     * @param {number} index - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element.
+     * @param {number} index - Zero-based index of the item that must be selected, when not provided the list will attempt to select the focused element.
      */
     @Method()
     async selectNode(index?: number): Promise<void> {
@@ -259,12 +272,6 @@ export class KulList {
     #handleSelection(index: number): void {
         if (index !== null && index !== undefined && !isNaN(index)) {
             this.selected = index;
-            this.onKulEvent(
-                new CustomEvent('click'),
-                'click',
-                this.kulData.nodes[index],
-                index
-            );
         }
     }
 
@@ -306,21 +313,9 @@ export class KulList {
                 aria-checked={isSelected}
                 class={className}
                 data-index={index.toString()}
-                onBlur={
-                    !this.kulSelectable
-                        ? (e) => e.stopPropagation()
-                        : (e) => this.onKulEvent(e, 'blur', node, index)
-                }
-                onClick={
-                    !this.kulSelectable
-                        ? (e) => e.stopPropagation()
-                        : (e) => this.onKulEvent(e, 'click', node, index)
-                }
-                onFocus={
-                    !this.kulSelectable
-                        ? (e) => e.stopPropagation()
-                        : (e) => this.onKulEvent(e, 'focus', node, index)
-                }
+                onBlur={(e) => this.onKulEvent(e, 'blur', node, index)}
+                onClick={(e) => this.onKulEvent(e, 'click', node, index)}
+                onFocus={(e) => this.onKulEvent(e, 'focus', node, index)}
                 onPointerDown={(e) =>
                     this.onKulEvent(e, 'pointerdown', node, index)
                 }
@@ -340,7 +335,7 @@ export class KulList {
                     }}
                 ></div>
                 {this.#prepIcon(node)}
-                <span class="list-item__text">
+                <span class="node__text">
                     {this.#prepTitle(node)}
                     {this.#prepSubtitle(node)}
                 </span>
@@ -393,9 +388,9 @@ export class KulList {
                 <style>{this.#kulManager.theme.setKulStyle(this)}</style>
                 <div id={KUL_WRAPPER_ID}>
                     <ul
+                        aria-multiselectable={'false'}
                         class={className}
                         role={'listbox'}
-                        aria-multiselectable={'false'}
                     >
                         {this.kulData.nodes.map((item, index) =>
                             this.#prepNode(item, index)

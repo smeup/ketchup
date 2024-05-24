@@ -14,7 +14,7 @@ const kulData: KulDataDataset = {
             id: '1',
             value: 'Second item (title)',
         },
-        { icon: 'widgets', id: '1', value: 'Third item (icon)' },
+        { icon: 'widgets', id: '2', value: 'Third item (icon)' },
     ],
 };
 

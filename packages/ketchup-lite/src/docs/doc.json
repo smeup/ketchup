@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-05-24T17:39:12",
+  "timestamp": "2024-05-24T19:32:18",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -4056,7 +4056,7 @@
               {
                 "name": "index",
                 "type": "number",
-                "docs": "- Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element."
+                "docs": "- Zero-based index of the item that must be selected, when not provided the list will attempt to select the focused element."
               }
             ],
             "references": {
@@ -4072,14 +4072,14 @@
             {
               "name": "index",
               "type": "number",
-              "docs": "- Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element."
+              "docs": "- Zero-based index of the item that must be selected, when not provided the list will attempt to select the focused element."
             }
           ],
           "docs": "Calls handleSelection private method to select the given item.",
           "docsTags": [
             {
               "name": "param",
-              "text": "index - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element."
+              "text": "index - Zero-based index of the item that must be selected, when not provided the list will attempt to select the focused element."
             }
           ]
         }
@@ -4165,9 +4165,14 @@
           "docs": "Sets text color of the list. Defaults to the value of --kul-text-color."
         },
         {
+          "name": "--kul-list-text-color-rgb",
+          "annotation": "prop",
+          "docs": "Sets the RGB values of text color. Defaults to the value of --kul-text-color-rgb."
+        },
+        {
           "name": "--kul-list-transition",
           "annotation": "prop",
-          "docs": "Transitions duration for text and background colors. Defaults to 120ms."
+          "docs": "Transitions duration for text and background colors. Defaults to 125ms."
         }
       ],
       "slots": [],

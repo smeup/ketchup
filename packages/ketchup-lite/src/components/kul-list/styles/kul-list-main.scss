@@ -56,10 +56,18 @@
  */
   --kul_list_text_color: var(--kul-list-text-color, var(--kul-text-color));
   /**
- * @prop --kul-list-transition: Transitions duration for text and background colors.
- * Defaults to 120ms.
+ * @prop --kul-list-text-color-rgb: Sets the RGB values of text color.
+ * Defaults to the value of --kul-text-color-rgb.
  */
-  --kul_list_transition: var(--kul-list-transition, 120ms);
+  --kul_list_text_color_rgb: var(
+    --kul-list-text-color-rgb,
+    var(--kul-text-color-rgb)
+  );
+  /**
+ * @prop --kul-list-transition: Transitions duration for text and background colors.
+ * Defaults to 125ms.
+ */
+  --kul_list_transition: var(--kul-list-transition, 125ms);
 
   display: block;
   font-family: var(--kul_list_font_family);
@@ -76,8 +84,10 @@
 
 .list {
   backdrop-filter: var(--kul_list_backdrop_filter);
+  box-sizing: border-box;
   color: var(--kul_list_text_color);
   font-weight: var(--kul_list_font_weight);
+  height: 100%;
   letter-spacing: 0.009375em;
   line-height: 1.5em;
   list-style-type: none;
@@ -85,6 +95,7 @@
   padding: 0.5em 0;
   text-decoration: inherit;
   text-transform: inherit;
+  width: 100%;
 
   &--empty {
     padding: 0;
@@ -94,11 +105,16 @@
     .node {
       cursor: pointer;
 
-      &:not(.list-item--selected) {
+      &:not(.node--selected) {
         &:hover,
-        &.list-item--focused {
-          background-color: rgba(var(--kul_list_text_color_rgb), 0.175);
+        &.node--focused {
+          background-color: rgba(var(--kul_list_text_color_rgb), 0.125);
         }
+      }
+
+      &.node--selected:hover {
+        background-color: rgba(var(--kul_list_primary_color_rgb), 0.225);
+        color: var(--kul_list_primary_color);
       }
     }
   }

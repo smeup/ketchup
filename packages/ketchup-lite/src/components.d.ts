@@ -558,7 +558,7 @@ export namespace Components {
         "refresh": () => Promise<void>;
         /**
           * Calls handleSelection private method to select the given item.
-          * @param index - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element.
+          * @param index - Zero-based index of the item that must be selected, when not provided the list will attempt to select the focused element.
          */
         "selectNode": (index?: number) => Promise<void>;
     }
