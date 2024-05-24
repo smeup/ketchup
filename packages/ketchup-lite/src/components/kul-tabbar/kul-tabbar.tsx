@@ -262,7 +262,7 @@ export class KulTabbar {
                 >
                     <div
                         ref={(el) => {
-                            if (this.kulRipple) {
+                            if (this.kulRipple && el) {
                                 this.#rippleSurface.push(el);
                             }
                         }}
