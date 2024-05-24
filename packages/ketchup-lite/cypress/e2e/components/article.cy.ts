@@ -65,6 +65,7 @@ describe('kul-article', () => {
     it('common: should call getDebugInfo, refresh, and check that renderCount has increased', () => {
         let initialRenderCount: number;
 
+        // Step 1: Get initial render count
         cy.get('@kulComponentShowcase')
             .find('kul-article')
             .first()
@@ -74,38 +75,52 @@ describe('kul-article', () => {
             })
             .then((debugInfo) => {
                 initialRenderCount = debugInfo.renderCount;
-                return cy.wrap(initialRenderCount);
-            })
-            .then((initialRenderCount) => {
-                cy.get('@kulComponentShowcase')
-                    .find('kul-article')
-                    .first()
-                    .then(($article) => {
-                        const kulArticleElement =
-                            $article[0] as HTMLKulArticleElement;
-                        return kulArticleElement.refresh();
-                    })
-                    .then(() => {
-                        cy.wait(250);
-                        return cy.wrap(initialRenderCount);
-                    })
-                    .then((initialRenderCount) => {
-                        cy.get('@kulComponentShowcase')
-                            .find('kul-article')
-                            .first()
-                            .then(($article) => {
-                                const kulArticleElement =
-                                    $article[0] as HTMLKulArticleElement;
-                                return kulArticleElement.getDebugInfo();
-                            })
-                            .then((debugInfo) => {
-                                cy.wait(250);
-                                expect(debugInfo.renderCount).to.be.greaterThan(
-                                    initialRenderCount
-                                );
-                            });
-                    });
             });
+
+        // Step 2: Trigger refresh
+        cy.get('@kulComponentShowcase')
+            .find('kul-article')
+            .first()
+            .then(($article) => {
+                const kulArticleElement = $article[0] as HTMLKulArticleElement;
+                return kulArticleElement.refresh();
+            });
+
+        // Step 3: Poll for renderCount increase
+        // Use a recursive function to check if renderCount has increased
+        function checkForRenderCountIncrease(attempts = 0) {
+            cy.get('@kulComponentShowcase')
+                .find('kul-article')
+                .first()
+                .then(($article) => {
+                    const kulArticleElement =
+                        $article[0] as HTMLKulArticleElement;
+                    return kulArticleElement.getDebugInfo();
+                })
+                .then((debugInfo) => {
+                    if (
+                        debugInfo.renderCount <= initialRenderCount &&
+                        attempts < 10
+                    ) {
+                        // If renderCount hasn't increased and we haven't exceeded max attempts, try again
+                        cy.wait(100); // Short wait between checks
+                        checkForRenderCountIncrease(attempts + 1);
+                    } else if (debugInfo.renderCount > initialRenderCount) {
+                        // Render count has increased, proceed with assertion
+                        expect(debugInfo.renderCount).to.be.greaterThan(
+                            initialRenderCount
+                        );
+                    } else {
+                        // Max attempts reached without render count increasing, fail the test
+                        throw new Error(
+                            'Max attempts reached without detecting a render.'
+                        );
+                    }
+                });
+        }
+
+        // Start polling
+        checkForRenderCountIncrease();
     });
 
     it('common: should call getProps and check keys against KulArticlePropsInterface', () => {
