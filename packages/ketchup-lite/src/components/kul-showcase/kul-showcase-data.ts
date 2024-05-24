@@ -90,6 +90,13 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
         },
         {
             description:
+                'A component that displays a tree-like structure as a list.',
+            icon: 'list',
+            id: 'List',
+            value: 'List',
+        },
+        {
+            description:
                 'Shows a placeholder image until the actual image is loaded upon entering viewport.',
             icon: 'photo_album',
             id: 'Photoframe',

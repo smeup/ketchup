@@ -9,6 +9,7 @@ export const COMPONENTS = [
     'code',
     'image',
     'lazy',
+    'list',
     'photoframe',
     'splash',
     'spinner',
