@@ -47,8 +47,6 @@ export interface KulThemeCSSVariables extends KulThemeChartColorCSSVariables {
     [KulThemeColorValues.TEXT_ON_PRIMARY]: string;
     [KulThemeColorValues.DISABLED_BACKGROUND]: string;
     [KulThemeColorValues.DISABLED]: string;
-    [KulThemeColorValues.HOVER_BACKGROUND]: string;
-    [KulThemeColorValues.HOVER]: string;
     [KulThemeColorValues.TITLE_BACKGROUND]: string;
     [KulThemeColorValues.TITLE]: string;
     [KulThemeColorValues.ICON]: string;
