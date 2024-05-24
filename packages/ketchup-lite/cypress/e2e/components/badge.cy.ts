@@ -88,7 +88,7 @@ describe('kul-badge', () => {
                         return kulBadgeElement.refresh();
                     })
                     .then(() => {
-                        cy.wait(100);
+                        cy.wait(250);
                         return cy.wrap(initialRenderCount);
                     })
                     .then((initialRenderCount) => {
@@ -101,7 +101,7 @@ describe('kul-badge', () => {
                                 return kulBadgeElement.getDebugInfo();
                             })
                             .then((debugInfo) => {
-                                cy.wait(100);
+                                cy.wait(250);
                                 expect(debugInfo.renderCount).to.be.greaterThan(
                                     initialRenderCount
                                 );

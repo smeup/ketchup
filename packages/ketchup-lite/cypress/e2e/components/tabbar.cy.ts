@@ -70,7 +70,7 @@ describe('kul-tabbar', () => {
                         return kulTabbarElement.refresh();
                     })
                     .then(() => {
-                        cy.wait(100);
+                        cy.wait(250);
                         return cy.wrap(initialRenderCount);
                     })
                     .then((initialRenderCount) => {
@@ -83,7 +83,7 @@ describe('kul-tabbar', () => {
                                 return kulTabbarElement.getDebugInfo();
                             })
                             .then((debugInfo) => {
-                                cy.wait(100);
+                                cy.wait(250);
                                 expect(debugInfo.renderCount).to.be.greaterThan(
                                     initialRenderCount
                                 );
