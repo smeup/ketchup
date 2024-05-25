@@ -4,6 +4,8 @@
         "phind.phind",
         "equinusocio.vsc-material-theme",
         "dbaeumer.vscode-eslint",
-        "davidanson.vscode-markdownlint"
+        "davidanson.vscode-markdownlint",
+        "eamodio.gitlens",
+        "continue.continue"
     ]
 }
