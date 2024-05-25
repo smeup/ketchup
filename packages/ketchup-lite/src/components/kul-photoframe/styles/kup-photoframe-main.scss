@@ -1,26 +1,26 @@
 :host {
   /**
- * @prop --kup-photoframe-border: Sets the border of the component.
- * Defaults to 1px inset var(--kup-border-color).
+ * @prop --kul-photoframe-border: Sets the border of the component.
+ * Defaults to 1px inset var(--kul-border-color).
  */
-  --kup_photoframe_border: var(
-    --kup-photoframe-border,
-    1px inset var(--kup-border-color)
+  --kul_photoframe_border: var(
+    --kul-photoframe-border,
+    1px inset var(--kul-border-color)
   );
   /**
-  * @prop --kup-photoframe-fade-out-time: Sets the time of the placeholder's fade out transition.
+  * @prop --kul-photoframe-fade-out-time: Sets the time of the placeholder's fade out transition.
   * Defaults to 2000ms.
   */
-  --kup_photoframe_fade_out_time: var(--kup-photoframe-fade-out-time, 2000ms);
+  --kul_photoframe_fade_out_time: var(--kul-photoframe-fade-out-time, 2000ms);
 
-  border: var(--kup_photoframe_border);
+  border: var(--kul_photoframe_border);
   display: block;
   height: 100%;
   position: relative;
   width: 100%;
 }
 
-#kup-component {
+#kul-component {
   position: relative;
   height: 100%;
   width: 100%;
@@ -45,7 +45,7 @@ img {
 
 .placeholder {
   display: none;
-  transition: opacity var(--kup_photoframe_fade_out_time) ease-out;
+  transition: opacity var(--kul_photoframe_fade_out_time) ease-out;
   will-change: opacity;
   z-index: 1;
 

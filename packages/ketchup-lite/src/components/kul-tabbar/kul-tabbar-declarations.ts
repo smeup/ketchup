@@ -4,6 +4,7 @@ export type KulTabbarEvent = 'click' | 'pointerdown' | 'ready';
 
 export interface KulTabbarEventPayload extends KulEventPayload {
     index?: number;
+    node?: KulDataNode;
 }
 
 export enum KulTabbarProps {

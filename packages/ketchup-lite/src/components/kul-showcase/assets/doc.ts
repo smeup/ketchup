@@ -914,6 +914,150 @@ export const KUL_DOC: KulShowcaseDoc = {
       },
     ],
   },
+  "kul-list": {
+    methods: [
+      {
+        name: "focusNext",
+        docs: "Focuses the next element of the list.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+      {
+        name: "focusPrevious",
+        docs: "Focuses the previous element of the list.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+      {
+        name: "getDebugInfo",
+        docs: "Fetches debug information of the component's current state.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves with the debug information object.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Used to retrieve component's props values.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "List of props as object, each key will be a prop.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "getSelected",
+        docs: "Returns the selected node.",
+        returns: {
+          type: "Promise<KulDataNode>",
+          docs: "Selected node.",
+        },
+        signature: "() => Promise<KulDataNode>",
+      },
+      {
+        name: "refresh",
+        docs: "This method is used to trigger a new render of the component.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+      {
+        name: "selectNode",
+        docs: "Calls handleSelection private method to select the given item.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "(index?: number) => Promise<void>",
+      },
+    ],
+    props: [
+      {
+        name: "kulData",
+        docs: "The data of the list.",
+        type: "KulDataDataset",
+      },
+      {
+        name: "kulNavigation",
+        docs: "When true, enables items' navigation through arrow keys.",
+        type: "boolean",
+      },
+      {
+        name: "kulRipple",
+        docs: "When set to true, the pointerdown event will trigger a ripple effect.",
+        type: "boolean",
+      },
+      {
+        name: "kulSelectable",
+        docs: "Defines whether items are selectable or not.",
+        type: "boolean",
+      },
+      {
+        name: "kulStyle",
+        docs: "Custom style of the component.",
+        type: "string",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul-list-backdrop-filter",
+        docs: "Sets the backdrop filter of the list. Defaults to blur(3.5px).",
+      },
+      {
+        name: "--kul-list-font-family",
+        docs: "Sets font family of the component. Defaults to the value of --kul-font-family.",
+      },
+      {
+        name: "--kul-list-font-size",
+        docs: "Sets font size of the component. Defaults to the value of --kul-font-size.",
+      },
+      {
+        name: "--kul-list-font-weight",
+        docs: "Sets font weight of the component. Defaults to 400.",
+      },
+      {
+        name: "--kul-list-group-item-height",
+        docs: "Sets height of each list item when the list contains radio buttons or checkboxes. Defaults to 3em.",
+      },
+      {
+        name: "--kul-list-item-height",
+        docs: "Sets height of each list item. Defaults to 2.5em.",
+      },
+      {
+        name: "--kul-list-item-padding",
+        docs: "Sets the padding of each list item. Defaults to 0 0.75em.",
+      },
+      {
+        name: "--kul-list-primary-color",
+        docs: "Sets the primary color of the component. Defaults to the value of --kul-primary-color.",
+      },
+      {
+        name: "--kul-list-primary-color-rgb",
+        docs: "Sets the RGB values of the primary color of the component (used for shaders). Defaults to the value of --kul-primary-color-rgb.",
+      },
+      {
+        name: "--kul-list-text-color",
+        docs: "Sets text color of the list. Defaults to the value of --kul-text-color.",
+      },
+      {
+        name: "--kul-list-text-color-rgb",
+        docs: "Sets the RGB values of text color. Defaults to the value of --kul-text-color-rgb.",
+      },
+      {
+        name: "--kul-list-transition",
+        docs: "Transitions duration for text and background colors. Defaults to 125ms.",
+      },
+    ],
+  },
   "kul-photoframe": {
     methods: [
       {
@@ -968,11 +1112,11 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
     styles: [
       {
-        name: "--kup-photoframe-border",
-        docs: "Sets the border of the component. Defaults to 1px inset var(--kup-border-color).",
+        name: "--kul-photoframe-border",
+        docs: "Sets the border of the component. Defaults to 1px inset var(--kul-border-color).",
       },
       {
-        name: "--kup-photoframe-fade-out-time",
+        name: "--kul-photoframe-fade-out-time",
         docs: "Sets the time of the placeholder's fade out transition. Defaults to 2000ms.",
       },
     ],
@@ -1072,6 +1216,11 @@ export const KUL_DOC: KulShowcaseDoc = {
     styles: [],
   },
   "kul-showcase-lazy": {
+    methods: [],
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-list": {
     methods: [],
     props: [],
     styles: [],

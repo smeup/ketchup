@@ -3,6 +3,8 @@ import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 
 export const SPINNER_EXAMPLES_CATEGORIES = ['bar', 'widget'] as const;
 
+export const SPINNER_EXAMPLES_KEYS = ['spinner', 'spinnerActive', 'style'];
+
 export interface SpinnerBranch {
     [index: number]: SpinnerLeaf;
 }

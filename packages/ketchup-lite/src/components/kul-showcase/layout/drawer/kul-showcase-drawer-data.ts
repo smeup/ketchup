@@ -133,11 +133,9 @@ export const DRAWER_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cells: {
-                                                drawer: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'markup',
-                                                    },
+                                                    kulLanguage: 'markup',
                                                     value: '<kul-drawer>\n   <div class="slot">\n      <div class="title">Simple title</div>\n   </div>\n</kul-drawer>',
                                                 },
                                             },
@@ -368,11 +366,9 @@ export const DRAWER_DOC: KulArticleDataset = {
                                 },
                                 {
                                     cells: {
-                                        drawer: {
+                                        kulCode: {
                                             shape: 'code',
-                                            shapeProps: {
-                                                kulLanguage: 'markup',
-                                            },
+                                            kulLanguage: 'markup',
                                             value: '<kul-drawer kul-style="#kul-component { opacity: 0.5; }"></kul-drawer>',
                                         },
                                     },

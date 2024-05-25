@@ -44,7 +44,7 @@ export class KulShowcaseBadge {
                                     key={key}
                                     id={key}
                                     ref={(el) => {
-                                        if (props['data-dynamic']) {
+                                        if (el && props['data-dynamic']) {
                                             this.#dynamicExamples.push(el);
                                         }
                                     }}

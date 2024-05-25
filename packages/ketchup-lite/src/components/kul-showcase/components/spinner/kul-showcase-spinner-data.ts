@@ -1,7 +1,10 @@
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
 import { DOC_STYLES } from '../../kul-showcase-data';
 import { SHOWCASE_DOC } from '../../kul-showcase-utils';
-import { SpinnerData } from './kul-showcase-spinner-declarations';
+import {
+    SpinnerData,
+    SPINNER_EXAMPLES_KEYS,
+} from './kul-showcase-spinner-declarations';
 
 const component = 'spinner';
 
@@ -14,45 +17,76 @@ function createSpinnerData(
         widget: {},
     };
 
-    const exampleTypes = ['spinner', 'spinnerActive'];
-
     for (let i = 1; i <= barLayouts; i++) {
-        exampleTypes.forEach((exampleType) => {
-            const isActive = exampleType === 'spinnerActive';
-            const description = isActive ? 'Active' : 'Inactive';
-
+        SPINNER_EXAMPLES_KEYS.forEach((exampleType) => {
             if (!spinnerData.bar[i]) {
                 spinnerData.bar[i] = {};
             }
-
-            spinnerData.bar[i][exampleType] = {
-                ['data-description']: description,
-                kulActive: isActive,
-                kulBarVariant: true,
-                kulLayout: i,
-            };
+            switch (exampleType) {
+                case 'spinner':
+                    spinnerData.bar[i][exampleType] = {
+                        ['data-description']: 'Inactive',
+                        kulActive: false,
+                        kulBarVariant: true,
+                        kulLayout: i,
+                    };
+                    break;
+                case 'spinnerActive':
+                    spinnerData.bar[i][exampleType] = {
+                        ['data-description']: 'Active',
+                        kulActive: true,
+                        kulBarVariant: true,
+                        kulLayout: i,
+                    };
+                    break;
+                case 'style':
+                    spinnerData.bar[i][exampleType] = {
+                        'data-description': 'Custom style',
+                        'data-dynamic': 'custom',
+                        kulActive: true,
+                        kulBarVariant: true,
+                        kulLayout: i,
+                    };
+                    break;
+            }
         });
     }
 
     for (let i = 1; i <= widgetsLayouts; i++) {
-        exampleTypes.forEach((exampleType) => {
-            const isActive = exampleType === 'spinnerActive';
-            const description = isActive ? 'Active' : 'Inactive';
-
+        SPINNER_EXAMPLES_KEYS.forEach((exampleType) => {
             if (!spinnerData.widget[i]) {
                 spinnerData.widget[i] = {};
             }
-
-            spinnerData.widget[i][exampleType] = {
-                ['data-description']: description,
-                kulActive: isActive,
-                kulLayout: i,
-            };
+            switch (exampleType) {
+                case 'spinner':
+                    spinnerData.widget[i][exampleType] = {
+                        ['data-description']: 'Inactive',
+                        kulActive: false,
+                        kulLayout: i,
+                    };
+                    break;
+                case 'spinnerActive':
+                    spinnerData.widget[i][exampleType] = {
+                        ['data-description']: 'Active',
+                        kulActive: true,
+                        kulLayout: i,
+                    };
+                    break;
+                case 'style':
+                    spinnerData.widget[i][exampleType] = {
+                        'data-description': 'Custom style',
+                        'data-dynamic': 'custom',
+                        kulActive: true,
+                        kulLayout: i,
+                    };
+                    break;
+            }
         });
     }
 
     return spinnerData;
 }
+
 export const SPINNER_EXAMPLES = createSpinnerData(2, 14);
 
 export const SPINNER_DOC: KulArticleDataset = {
@@ -123,11 +157,9 @@ export const SPINNER_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cells: {
-                                                code: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'markup',
-                                                    },
+                                                    kulLanguage: 'markup',
                                                     value: '<kul-spinner></kul-spinner>',
                                                 },
                                             },
@@ -136,11 +168,9 @@ export const SPINNER_DOC: KulArticleDataset = {
                                         },
                                         {
                                             cells: {
-                                                code: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'json',
-                                                    },
+                                                    kulLanguage: 'json',
                                                     value: '{ "nodes": [{"value": "Spinner Title", "id": "0", "children": [{"value": "Section Title", "id": "0.1", "children": [{"value": "Paragraph title", "id": "0.1.1", "children": [{"value": "Text", "id": "0.1.1.1"}, {"value": "Strong text", "id": "0.1.1.2", "tagName": "strong"}]}]}]}]}',
                                                 },
                                             },

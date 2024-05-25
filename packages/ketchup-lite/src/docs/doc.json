@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-05-22T19:25:50",
+  "timestamp": "2024-05-24T19:56:41",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -263,6 +263,7 @@
         "kul-showcase-image",
         "kul-showcase-kulmanager",
         "kul-showcase-lazy",
+        "kul-showcase-list",
         "kul-showcase-photoframe",
         "kul-showcase-spinner",
         "kul-showcase-splash",
@@ -305,6 +306,9 @@
           "kul-article"
         ],
         "kul-showcase-lazy": [
+          "kul-article"
+        ],
+        "kul-showcase-list": [
           "kul-article"
         ],
         "kul-showcase-photoframe": [
@@ -2148,7 +2152,7 @@
       ],
       "events": [
         {
-          "event": "kul-echart-event",
+          "event": "kul-chart-event",
           "detail": "KulChartEventPayload",
           "bubbles": true,
           "complexType": {
@@ -3712,6 +3716,478 @@
       }
     },
     {
+      "filePath": "src/components/kul-list/kul-list.tsx",
+      "encapsulation": "shadow",
+      "tag": "kul-list",
+      "readme": "# kul-list\n\n\n",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "kulData",
+          "type": "KulDataDataset",
+          "complexType": {
+            "original": "KulDataDataset",
+            "resolved": "KulDataDataset",
+            "references": {
+              "KulDataDataset": {
+                "location": "import",
+                "path": "../../managers/kul-data/kul-data-declarations",
+                "id": "src/managers/kul-data/kul-data-declarations.ts::KulDataDataset"
+              }
+            }
+          },
+          "mutable": true,
+          "reflectToAttr": false,
+          "docs": "The data of the list.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "[]"
+            }
+          ],
+          "default": "null",
+          "values": [
+            {
+              "type": "KulDataDataset"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "kulNavigation",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "kul-navigation",
+          "reflectToAttr": false,
+          "docs": "When true, enables items' navigation through arrow keys.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "true"
+            }
+          ],
+          "default": "true",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "kulRipple",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": true,
+          "attr": "kul-ripple",
+          "reflectToAttr": true,
+          "docs": "When set to true, the pointerdown event will trigger a ripple effect.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "true"
+            }
+          ],
+          "default": "true",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "kulSelectable",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "kul-selectable",
+          "reflectToAttr": false,
+          "docs": "Defines whether items are selectable or not.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "true"
+            }
+          ],
+          "default": "true",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "kulStyle",
+          "type": "string",
+          "complexType": {
+            "original": "string",
+            "resolved": "string",
+            "references": {}
+          },
+          "mutable": true,
+          "attr": "kul-style",
+          "reflectToAttr": false,
+          "docs": "Custom style of the component.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "\"\""
+            }
+          ],
+          "default": "''",
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        }
+      ],
+      "methods": [
+        {
+          "name": "focusNext",
+          "returns": {
+            "type": "Promise<void>",
+            "docs": ""
+          },
+          "complexType": {
+            "signature": "() => Promise<void>",
+            "parameters": [],
+            "references": {
+              "Promise": {
+                "location": "global",
+                "id": "global::Promise"
+              }
+            },
+            "return": "Promise<void>"
+          },
+          "signature": "focusNext() => Promise<void>",
+          "parameters": [],
+          "docs": "Focuses the next element of the list.",
+          "docsTags": []
+        },
+        {
+          "name": "focusPrevious",
+          "returns": {
+            "type": "Promise<void>",
+            "docs": ""
+          },
+          "complexType": {
+            "signature": "() => Promise<void>",
+            "parameters": [],
+            "references": {
+              "Promise": {
+                "location": "global",
+                "id": "global::Promise"
+              }
+            },
+            "return": "Promise<void>"
+          },
+          "signature": "focusPrevious() => Promise<void>",
+          "parameters": [],
+          "docs": "Focuses the previous element of the list.",
+          "docsTags": []
+        },
+        {
+          "name": "getDebugInfo",
+          "returns": {
+            "type": "Promise<KulDebugComponentInfo>",
+            "docs": "A promise that resolves with the debug information object."
+          },
+          "complexType": {
+            "signature": "() => Promise<KulDebugComponentInfo>",
+            "parameters": [],
+            "references": {
+              "Promise": {
+                "location": "global",
+                "id": "global::Promise"
+              },
+              "KulDebugComponentInfo": {
+                "location": "import",
+                "path": "../../managers/kul-debug/kul-debug-declarations",
+                "id": "src/managers/kul-debug/kul-debug-declarations.ts::KulDebugComponentInfo"
+              }
+            },
+            "return": "Promise<KulDebugComponentInfo>"
+          },
+          "signature": "getDebugInfo() => Promise<KulDebugComponentInfo>",
+          "parameters": [],
+          "docs": "Fetches debug information of the component's current state.",
+          "docsTags": [
+            {
+              "name": "returns",
+              "text": "A promise that resolves with the debug information object."
+            }
+          ]
+        },
+        {
+          "name": "getProps",
+          "returns": {
+            "type": "Promise<GenericObject<unknown>>",
+            "docs": "List of props as object, each key will be a prop."
+          },
+          "complexType": {
+            "signature": "(descriptions?: boolean) => Promise<GenericObject>",
+            "parameters": [
+              {
+                "name": "descriptions",
+                "type": "boolean",
+                "docs": "- When provided and true, the result will be the list of props with their description."
+              }
+            ],
+            "references": {
+              "Promise": {
+                "location": "global",
+                "id": "global::Promise"
+              },
+              "GenericObject": {
+                "location": "import",
+                "path": "../../types/GenericTypes",
+                "id": "src/types/GenericTypes.ts::GenericObject"
+              }
+            },
+            "return": "Promise<GenericObject<unknown>>"
+          },
+          "signature": "getProps(descriptions?: boolean) => Promise<GenericObject>",
+          "parameters": [
+            {
+              "name": "descriptions",
+              "type": "boolean",
+              "docs": "- When provided and true, the result will be the list of props with their description."
+            }
+          ],
+          "docs": "Used to retrieve component's props values.",
+          "docsTags": [
+            {
+              "name": "param",
+              "text": "descriptions - When provided and true, the result will be the list of props with their description."
+            },
+            {
+              "name": "returns",
+              "text": "List of props as object, each key will be a prop."
+            }
+          ]
+        },
+        {
+          "name": "getSelected",
+          "returns": {
+            "type": "Promise<KulDataNode>",
+            "docs": "Selected node."
+          },
+          "complexType": {
+            "signature": "() => Promise<KulDataNode>",
+            "parameters": [],
+            "references": {
+              "Promise": {
+                "location": "global",
+                "id": "global::Promise"
+              },
+              "KulDataNode": {
+                "location": "import",
+                "path": "../../managers/kul-data/kul-data-declarations",
+                "id": "src/managers/kul-data/kul-data-declarations.ts::KulDataNode"
+              }
+            },
+            "return": "Promise<KulDataNode>"
+          },
+          "signature": "getSelected() => Promise<KulDataNode>",
+          "parameters": [],
+          "docs": "Returns the selected node.",
+          "docsTags": [
+            {
+              "name": "returns",
+              "text": "Selected node."
+            }
+          ]
+        },
+        {
+          "name": "refresh",
+          "returns": {
+            "type": "Promise<void>",
+            "docs": ""
+          },
+          "complexType": {
+            "signature": "() => Promise<void>",
+            "parameters": [],
+            "references": {
+              "Promise": {
+                "location": "global",
+                "id": "global::Promise"
+              }
+            },
+            "return": "Promise<void>"
+          },
+          "signature": "refresh() => Promise<void>",
+          "parameters": [],
+          "docs": "This method is used to trigger a new render of the component.",
+          "docsTags": []
+        },
+        {
+          "name": "selectNode",
+          "returns": {
+            "type": "Promise<void>",
+            "docs": ""
+          },
+          "complexType": {
+            "signature": "(index?: number) => Promise<void>",
+            "parameters": [
+              {
+                "name": "index",
+                "type": "number",
+                "docs": "- Zero-based index of the item that must be selected, when not provided the list will attempt to select the focused element."
+              }
+            ],
+            "references": {
+              "Promise": {
+                "location": "global",
+                "id": "global::Promise"
+              }
+            },
+            "return": "Promise<void>"
+          },
+          "signature": "selectNode(index?: number) => Promise<void>",
+          "parameters": [
+            {
+              "name": "index",
+              "type": "number",
+              "docs": "- Zero-based index of the item that must be selected, when not provided the list will attempt to select the focused element."
+            }
+          ],
+          "docs": "Calls handleSelection private method to select the given item.",
+          "docsTags": [
+            {
+              "name": "param",
+              "text": "index - Zero-based index of the item that must be selected, when not provided the list will attempt to select the focused element."
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "event": "kul-list-event",
+          "detail": "KulListEventPayload",
+          "bubbles": true,
+          "complexType": {
+            "original": "KulListEventPayload",
+            "resolved": "KulListEventPayload",
+            "references": {
+              "KulListEventPayload": {
+                "location": "import",
+                "path": "./kul-list-declarations",
+                "id": "src/components/kul-list/kul-list-declarations.ts::KulListEventPayload"
+              }
+            }
+          },
+          "cancelable": false,
+          "composed": true,
+          "docs": "Describes event emitted.",
+          "docsTags": []
+        }
+      ],
+      "listeners": [
+        {
+          "event": "keydown",
+          "capture": false,
+          "passive": false
+        }
+      ],
+      "styles": [
+        {
+          "name": "--kul-list-backdrop-filter",
+          "annotation": "prop",
+          "docs": "Sets the backdrop filter of the list. Defaults to blur(3.5px)."
+        },
+        {
+          "name": "--kul-list-font-family",
+          "annotation": "prop",
+          "docs": "Sets font family of the component. Defaults to the value of --kul-font-family."
+        },
+        {
+          "name": "--kul-list-font-size",
+          "annotation": "prop",
+          "docs": "Sets font size of the component. Defaults to the value of --kul-font-size."
+        },
+        {
+          "name": "--kul-list-font-weight",
+          "annotation": "prop",
+          "docs": "Sets font weight of the component. Defaults to 400."
+        },
+        {
+          "name": "--kul-list-group-item-height",
+          "annotation": "prop",
+          "docs": "Sets height of each list item when the list contains radio buttons or checkboxes. Defaults to 3em."
+        },
+        {
+          "name": "--kul-list-item-height",
+          "annotation": "prop",
+          "docs": "Sets height of each list item. Defaults to 2.5em."
+        },
+        {
+          "name": "--kul-list-item-padding",
+          "annotation": "prop",
+          "docs": "Sets the padding of each list item. Defaults to 0 0.75em."
+        },
+        {
+          "name": "--kul-list-primary-color",
+          "annotation": "prop",
+          "docs": "Sets the primary color of the component. Defaults to the value of --kul-primary-color."
+        },
+        {
+          "name": "--kul-list-primary-color-rgb",
+          "annotation": "prop",
+          "docs": "Sets the RGB values of the primary color of the component (used for shaders). Defaults to the value of --kul-primary-color-rgb."
+        },
+        {
+          "name": "--kul-list-text-color",
+          "annotation": "prop",
+          "docs": "Sets text color of the list. Defaults to the value of --kul-text-color."
+        },
+        {
+          "name": "--kul-list-text-color-rgb",
+          "annotation": "prop",
+          "docs": "Sets the RGB values of text color. Defaults to the value of --kul-text-color-rgb."
+        },
+        {
+          "name": "--kul-list-transition",
+          "annotation": "prop",
+          "docs": "Transitions duration for text and background colors. Defaults to 125ms."
+        }
+      ],
+      "slots": [],
+      "parts": [],
+      "dependents": [
+        "kul-showcase-list"
+      ],
+      "dependencies": [],
+      "dependencyGraph": {
+        "kul-showcase-list": [
+          "kul-list"
+        ]
+      }
+    },
+    {
       "filePath": "src/components/kul-photoframe/kul-photoframe.tsx",
       "encapsulation": "shadow",
       "tag": "kul-photoframe",
@@ -3968,12 +4444,12 @@
       "listeners": [],
       "styles": [
         {
-          "name": "--kup-photoframe-border",
+          "name": "--kul-photoframe-border",
           "annotation": "prop",
-          "docs": "Sets the border of the component. Defaults to 1px inset var(--kup-border-color)."
+          "docs": "Sets the border of the component. Defaults to 1px inset var(--kul-border-color)."
         },
         {
-          "name": "--kup-photoframe-fade-out-time",
+          "name": "--kul-photoframe-fade-out-time",
           "annotation": "prop",
           "docs": "Sets the time of the placeholder's fade out transition. Defaults to 2000ms."
         }
@@ -4762,6 +5238,54 @@
       "dependencyGraph": {
         "kul-showcase-lazy": [
           "kul-lazy",
+          "kul-article"
+        ]
+      }
+    },
+    {
+      "filePath": "src/components/kul-showcase/components/list/kul-showcase-list.tsx",
+      "encapsulation": "shadow",
+      "tag": "kul-showcase-list",
+      "readme": "# kul-showcase-list\n\n\n",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [
+        {
+          "name": "comp-wrapper",
+          "docs": ""
+        },
+        {
+          "name": "description",
+          "docs": ""
+        },
+        {
+          "name": "example",
+          "docs": ""
+        },
+        {
+          "name": "examples-title",
+          "docs": ""
+        },
+        {
+          "name": "grid",
+          "docs": ""
+        }
+      ],
+      "dependents": [],
+      "dependencies": [
+        "kul-list",
+        "kul-article"
+      ],
+      "dependencyGraph": {
+        "kul-showcase-list": [
+          "kul-list",
           "kul-article"
         ]
       }
@@ -8036,13 +8560,23 @@
       "docstring": "",
       "path": "src/components/kul-lazy/kul-lazy-declarations.ts"
     },
+    "src/components/kul-list/kul-list-declarations.ts::KulListEventPayload": {
+      "declaration": "export interface KulListEventPayload extends KulEventPayload {\n    node: KulDataNode;\n}",
+      "docstring": "",
+      "path": "src/components/kul-list/kul-list-declarations.ts"
+    },
+    "src/managers/kul-data/kul-data-declarations.ts::KulDataNode": {
+      "declaration": "export interface KulDataNode {\n    id: string;\n    cells?: KulDataCellContainer;\n    children?: KulDataNode[];\n    cssStyle?: GenericMap;\n    description?: string;\n    icon?: string;\n    value?: unknown;\n}",
+      "docstring": "",
+      "path": "src/managers/kul-data/kul-data-declarations.ts"
+    },
     "src/components/kul-photoframe/kul-photoframe-declarations.ts::KulPhotoframeEventPayload": {
       "declaration": "export interface KulPhotoframeEventPayload extends KulEventPayload {\n    isPlaceholder?: boolean;\n}",
       "docstring": "",
       "path": "src/components/kul-photoframe/kul-photoframe-declarations.ts"
     },
     "src/components/kul-tabbar/kul-tabbar-declarations.ts::KulTabbarEventPayload": {
-      "declaration": "export interface KulTabbarEventPayload extends KulEventPayload {\n    index?: number;\n}",
+      "declaration": "export interface KulTabbarEventPayload extends KulEventPayload {\n    index?: number;\n    node?: KulDataNode;\n}",
       "docstring": "",
       "path": "src/components/kul-tabbar/kul-tabbar-declarations.ts"
     },
@@ -8050,11 +8584,6 @@
       "declaration": "export interface KulTabbarState {\n    index?: number;\n    node?: KulDataNode;\n}",
       "docstring": "",
       "path": "src/components/kul-tabbar/kul-tabbar-declarations.ts"
-    },
-    "src/managers/kul-data/kul-data-declarations.ts::KulDataNode": {
-      "declaration": "export interface KulDataNode {\n    id: string;\n    cells?: KulDataCellContainer;\n    children?: KulDataNode[];\n    cssStyle?: GenericMap;\n    description?: string;\n    icon?: string;\n    value?: unknown;\n}",
-      "docstring": "",
-      "path": "src/managers/kul-data/kul-data-declarations.ts"
     },
     "src/components/kul-textfield/kul-textfield-declarations.ts::KulTextfieldHelper": {
       "declaration": "export interface KulTextfieldHelper {\n    showWhenFocused?: boolean;\n    value: string;\n}",

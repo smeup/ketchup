@@ -24,9 +24,9 @@
 
 ## Events
 
-| Event              | Description | Type                                |
-| ------------------ | ----------- | ----------------------------------- |
-| `kul-echart-event` |             | `CustomEvent<KulChartEventPayload>` |
+| Event             | Description | Type                                |
+| ----------------- | ----------- | ----------------------------------- |
+| `kul-chart-event` |             | `CustomEvent<KulChartEventPayload>` |
 
 
 ## Methods

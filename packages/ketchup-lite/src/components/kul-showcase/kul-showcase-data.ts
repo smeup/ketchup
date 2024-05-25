@@ -89,6 +89,12 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
             value: 'Lazy',
         },
         {
+            description: 'A component that displays a list of items.',
+            icon: 'list',
+            id: 'List',
+            value: 'List',
+        },
+        {
             description:
                 'Shows a placeholder image until the actual image is loaded upon entering viewport.',
             icon: 'photo_album',

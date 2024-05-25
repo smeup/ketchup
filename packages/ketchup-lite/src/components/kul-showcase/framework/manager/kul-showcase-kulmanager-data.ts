@@ -1,7 +1,6 @@
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
 
 export const MANAGER_DATA: KulArticleDataset = {
-    columns: [{ id: 'shape', title: 'Code', type: 'code' }],
     nodes: [
         {
             id: '0',
@@ -82,7 +81,7 @@ export const MANAGER_DATA: KulArticleDataset = {
                                 },
                                 {
                                     cells: {
-                                        1: {
+                                        kulCode: {
                                             shape: 'code',
                                             value: "const dom = document.documentElement;\ndom.ketchupLiteInit = {\n   theme: { name: 'night' },\n};",
                                         },

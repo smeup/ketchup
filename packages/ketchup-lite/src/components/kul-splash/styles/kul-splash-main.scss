@@ -29,6 +29,11 @@
     var(--kul-background-color)
   );
   /**
+  * @prop --kul-splash-label-display: Sets the display property of the label.
+  * Defaults to block.
+  */
+  --kul_splash_label_display: var(--kul-splash-label-display, block);
+  /**
   * @prop --kul-splash-widget-color: Sets the color of the widget.
   * Defaults to the value of --kul-primary-color.
   */
@@ -46,11 +51,6 @@
   * Defaults to 150px.
   */
   --kul_splash_widget_width: var(--kul-splash-widget-width, 150px);
-  /**
-  * @prop --kul-splash-label-display: Sets the display property of the label.
-  * Defaults to block.
-  */
-  --kul_splash_label_display: var(--kul-splash-label-display, block);
 }
 
 .modal {

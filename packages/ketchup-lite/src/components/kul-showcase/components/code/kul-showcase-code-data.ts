@@ -14,6 +14,8 @@ export const CODE_EXAMPLES: CodeData = {
     style: {
         ['data-description']: 'Code with custom style',
         ['data-dynamic']: 'custom',
+        kulValue:
+            "const dom = document.documentElement;\ndom.ketchupLiteInit = {\n   theme: { name: 'night' },\n};",
     },
 };
 
@@ -85,11 +87,9 @@ export const CODE_DOC: KulArticleDataset = {
                                     children: [
                                         {
                                             cells: {
-                                                code: {
+                                                kulCode: {
                                                     shape: 'code',
-                                                    shapeProps: {
-                                                        kulLanguage: 'markup',
-                                                    },
+                                                    kulLanguage: 'markup',
                                                     value: '<kul-code kul-value="console.log(\'Hello, World!\');"></kul-code>',
                                                 },
                                             },

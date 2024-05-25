@@ -4,7 +4,7 @@ import {
     KulDataDataset,
     KulDataNode,
 } from '../../managers/kul-data/kul-data-declarations';
-import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
+import { KulEventPayload } from '../../types/GenericTypes';
 
 export type KulChartEvent = 'click' | 'ready';
 

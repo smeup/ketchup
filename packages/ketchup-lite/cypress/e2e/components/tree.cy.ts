@@ -2,115 +2,50 @@ import {
     KulTreeProps,
     KulTreePropsInterface,
 } from '../../../src/components/kul-tree/kul-tree-declarations';
+import { TREE_EXAMPLES_KEYS } from '../../../src/components/kul-showcase/components/tree/kul-showcase-tree-declarations';
 
-describe('kul-tree', () => {
+const tree = 'tree';
+const treeCapitalized = tree.charAt(0).toUpperCase() + tree.slice(1);
+const treeTag = 'kul-' + tree;
+
+describe(treeTag, () => {
     beforeEach(() => {
-        cy.navigate('tree');
+        cy.navigate(tree);
     });
 
-    it('common: should call getProps() and check keys against KulTreeProps enum', () => {
-        cy.get('@kulComponentShowcase')
-            .find('kul-tree')
-            .first()
-            .then(($tree) => {
-                $tree[0].getProps().then((props) => {
-                    const enumKeys = Object.keys(KulTreeProps);
-                    expect(Object.keys(props)).to.deep.equal(enumKeys);
-                });
-            });
+    it(`common: should check that all <${treeTag}> exist`, () => {
+        cy.checkComponentExamples(treeTag, new Set(TREE_EXAMPLES_KEYS));
+    });
+
+    it(`common: should check that the number of <${treeTag}> elements matches the number of examples`, () => {
+        cy.checkComponentExamplesNumber(Array.from(TREE_EXAMPLES_KEYS));
     });
 
     it('common: should call getDebugInfo and check the structure of the returned object', () => {
-        cy.get('@kulComponentShowcase')
-            .find('kul-tree')
-            .first()
-            .then(($tree) => {
-                const kulTreeElement = $tree[0] as HTMLKulTreeElement;
-                kulTreeElement.getDebugInfo().then((debugInfo) => {
-                    expect(debugInfo)
-                        .to.have.property('endTime')
-                        .that.is.a('number');
-                    expect(debugInfo)
-                        .to.have.property('renderCount')
-                        .that.is.a('number');
-                    expect(debugInfo)
-                        .to.have.property('renderEnd')
-                        .that.is.a('number');
-                    expect(debugInfo)
-                        .to.have.property('renderStart')
-                        .that.is.a('number');
-                    expect(debugInfo)
-                        .to.have.property('startTime')
-                        .that.is.a('number');
-                });
-            });
+        cy.checkDebugInfo(treeTag);
+    });
+
+    it('common: should check for the presence of at least 2 <style> elements within the shadow DOM', () => {
+        cy.checkKulStyle();
+    });
+
+    it(`common: should call getProps and check keys against Kul${treeCapitalized}Props enum`, () => {
+        cy.checkProps(treeTag, KulTreeProps);
+    });
+
+    it(`common: should call getProps and check keys against Kul${treeCapitalized}PropsInterface`, () => {
+        cy.checkPropsInterface(treeTag, {
+            kulAccordionLayout: null,
+            kulData: null,
+            kulFilter: null,
+            kulInitialExpansionDepth: null,
+            kulRipple: null,
+            kulSelectable: null,
+            kulStyle: null,
+        } as Required<KulTreePropsInterface>);
     });
 
     it('common: should call getDebugInfo, refresh, and check that renderCount has increased', () => {
-        let initialRenderCount: number;
-
-        cy.get('@kulComponentShowcase')
-            .find('kul-tree')
-            .first()
-            .then(($tree) => {
-                const kulTreeElement = $tree[0] as HTMLKulTreeElement;
-                return kulTreeElement.getDebugInfo();
-            })
-            .then((debugInfo) => {
-                initialRenderCount = debugInfo.renderCount;
-                return cy.wrap(initialRenderCount);
-            })
-            .then((initialRenderCount) => {
-                cy.get('@kulComponentShowcase')
-                    .find('kul-tree')
-                    .first()
-                    .then(($tree) => {
-                        const kulTreeElement = $tree[0] as HTMLKulTreeElement;
-                        return kulTreeElement.refresh();
-                    })
-                    .then(() => {
-                        cy.wait(100);
-                        return cy.wrap(initialRenderCount);
-                    })
-                    .then((initialRenderCount) => {
-                        cy.get('@kulComponentShowcase')
-                            .find('kul-tree')
-                            .first()
-                            .then(($tree) => {
-                                const kulTreeElement =
-                                    $tree[0] as HTMLKulTreeElement;
-                                return kulTreeElement.getDebugInfo();
-                            })
-                            .then((debugInfo) => {
-                                cy.wait(100);
-                                expect(debugInfo.renderCount).to.be.greaterThan(
-                                    initialRenderCount
-                                );
-                            });
-                    });
-            });
-    });
-
-    it('common: should call getProps and check keys against KulTreePropsInterface', () => {
-        cy.get('@kulComponentShowcase')
-            .find('kul-tree')
-            .first()
-            .then(($tree) => {
-                const kulTreeElement = $tree[0] as HTMLKulTreeElement;
-                return kulTreeElement.getProps();
-            })
-            .then((props) => {
-                const dummy: KulTreePropsInterface = {
-                    kulAccordionLayout: null,
-                    kulData: null,
-                    kulFilter: null,
-                    kulInitialExpansionDepth: null,
-                    kulRipple: null,
-                    kulSelectable: null,
-                    kulStyle: null,
-                };
-                const expectedKeys = Object.keys(dummy);
-                expect(Object.keys(props)).to.deep.equal(expectedKeys);
-            });
+        cy.checkRenderCountIncrease(treeTag);
     });
 });

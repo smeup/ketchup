@@ -2,116 +2,51 @@ import {
     KulPhotoframeProps,
     KulPhotoframePropsInterface,
 } from '../../../src/components/kul-photoframe/kul-photoframe-declarations';
+import { PHOTOFRAME_EXAMPLES_KEYS } from '../../../src/components/kul-showcase/components/photoframe/kul-showcase-photoframe-declarations';
 
-describe('kul-photoframe', () => {
+const photoframe = 'photoframe';
+const photoframeCapitalized =
+    photoframe.charAt(0).toUpperCase() + photoframe.slice(1);
+const photoframeTag = 'kul-' + photoframe;
+
+describe(photoframeTag, () => {
     beforeEach(() => {
-        cy.navigate('photoframe');
+        cy.navigate(photoframe);
     });
 
-    it('common: should call getProps() and check keys against KulPhotoframeProps enum', () => {
-        cy.get('@kulComponentShowcase')
-            .find('kul-photoframe')
-            .first()
-            .then(($photoframe) => {
-                $photoframe[0].getProps().then((props) => {
-                    const enumKeys = Object.keys(KulPhotoframeProps);
-                    expect(Object.keys(props)).to.deep.equal(enumKeys);
-                });
-            });
+    it(`common: should check that all <${photoframeTag}> exist`, () => {
+        cy.checkComponentExamples(
+            photoframeTag,
+            new Set(PHOTOFRAME_EXAMPLES_KEYS)
+        );
+    });
+
+    it(`common: should check that the number of <${photoframeTag}> elements matches the number of examples`, () => {
+        cy.checkComponentExamplesNumber(Array.from(PHOTOFRAME_EXAMPLES_KEYS));
     });
 
     it('common: should call getDebugInfo and check the structure of the returned object', () => {
-        cy.get('@kulComponentShowcase')
-            .find('kul-photoframe')
-            .first()
-            .then(($photoframe) => {
-                const kulPhotoframeElement =
-                    $photoframe[0] as HTMLKulPhotoframeElement;
-                kulPhotoframeElement.getDebugInfo().then((debugInfo) => {
-                    expect(debugInfo)
-                        .to.have.property('endTime')
-                        .that.is.a('number');
-                    expect(debugInfo)
-                        .to.have.property('renderCount')
-                        .that.is.a('number');
-                    expect(debugInfo)
-                        .to.have.property('renderEnd')
-                        .that.is.a('number');
-                    expect(debugInfo)
-                        .to.have.property('renderStart')
-                        .that.is.a('number');
-                    expect(debugInfo)
-                        .to.have.property('startTime')
-                        .that.is.a('number');
-                });
-            });
+        cy.checkDebugInfo(photoframeTag);
+    });
+
+    it('common: should check for the presence of at least 2 <style> elements within the shadow DOM', () => {
+        cy.checkKulStyle();
+    });
+
+    it(`common: should call getProps and check keys against Kul${photoframeCapitalized}Props enum`, () => {
+        cy.checkProps(photoframeTag, KulPhotoframeProps);
+    });
+
+    it(`common: should call getProps and check keys against Kul${photoframeCapitalized}PropsInterface`, () => {
+        cy.checkPropsInterface(photoframeTag, {
+            kulPlaceholder: null,
+            kulStyle: null,
+            kulThreshold: null,
+            kulValue: null,
+        } as Required<KulPhotoframePropsInterface>);
     });
 
     it('common: should call getDebugInfo, refresh, and check that renderCount has increased', () => {
-        let initialRenderCount: number;
-
-        cy.get('@kulComponentShowcase')
-            .find('kul-photoframe')
-            .first()
-            .then(($photoframe) => {
-                const kulPhotoframeElement =
-                    $photoframe[0] as HTMLKulPhotoframeElement;
-                return kulPhotoframeElement.getDebugInfo();
-            })
-            .then((debugInfo) => {
-                initialRenderCount = debugInfo.renderCount;
-                return cy.wrap(initialRenderCount);
-            })
-            .then((initialRenderCount) => {
-                cy.get('@kulComponentShowcase')
-                    .find('kul-photoframe')
-                    .first()
-                    .then(($photoframe) => {
-                        const kulPhotoframeElement =
-                            $photoframe[0] as HTMLKulPhotoframeElement;
-                        return kulPhotoframeElement.refresh();
-                    })
-                    .then(() => {
-                        cy.wait(100);
-                        return cy.wrap(initialRenderCount);
-                    })
-                    .then((initialRenderCount) => {
-                        cy.get('@kulComponentShowcase')
-                            .find('kul-photoframe')
-                            .first()
-                            .then(($photoframe) => {
-                                const kulPhotoframeElement =
-                                    $photoframe[0] as HTMLKulPhotoframeElement;
-                                return kulPhotoframeElement.getDebugInfo();
-                            })
-                            .then((debugInfo) => {
-                                cy.wait(100);
-                                expect(debugInfo.renderCount).to.be.greaterThan(
-                                    initialRenderCount
-                                );
-                            });
-                    });
-            });
-    });
-
-    it('common: should call getProps and check keys against KulPhotoframePropsInterface', () => {
-        cy.get('@kulComponentShowcase')
-            .find('kul-photoframe')
-            .first()
-            .then(($photoframe) => {
-                const kulPhotoframeElement =
-                    $photoframe[0] as HTMLKulPhotoframeElement;
-                return kulPhotoframeElement.getProps();
-            })
-            .then((props) => {
-                const dummy: KulPhotoframePropsInterface = {
-                    kulPlaceholder: null,
-                    kulStyle: null,
-                    kulThreshold: null,
-                    kulValue: null,
-                };
-                const expectedKeys = Object.keys(dummy);
-                expect(Object.keys(props)).to.deep.equal(expectedKeys);
-            });
+        cy.checkRenderCountIncrease(photoframeTag);
     });
 });

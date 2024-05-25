@@ -16,6 +16,7 @@ import { XAXisComponentOption, YAXisComponentOption } from "echarts";
 import { KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 import { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
+import { KulListEventPayload } from "./components/kul-list/kul-list-declarations";
 import { KulPhotoframeEventPayload } from "./components/kul-photoframe/kul-photoframe-declarations";
 import { KulTabbarEventPayload, KulTabbarState } from "./components/kul-tabbar/kul-tabbar-declarations";
 import { KulTextfieldEventPayload, KulTextfieldHelper, KulTextfieldStyling } from "./components/kul-textfield/kul-textfield-declarations";
@@ -32,6 +33,7 @@ export { XAXisComponentOption, YAXisComponentOption } from "echarts";
 export { KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 export { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
+export { KulListEventPayload } from "./components/kul-list/kul-list-declarations";
 export { KulPhotoframeEventPayload } from "./components/kul-photoframe/kul-photoframe-declarations";
 export { KulTabbarEventPayload, KulTabbarState } from "./components/kul-tabbar/kul-tabbar-declarations";
 export { KulTextfieldEventPayload, KulTextfieldHelper, KulTextfieldStyling } from "./components/kul-textfield/kul-textfield-declarations";
@@ -500,6 +502,66 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
     }
+    interface KulList {
+        /**
+          * Focuses the next element of the list.
+         */
+        "focusNext": () => Promise<void>;
+        /**
+          * Focuses the previous element of the list.
+         */
+        "focusPrevious": () => Promise<void>;
+        /**
+          * Fetches debug information of the component's current state.
+          * @returns A promise that resolves with the debug information object.
+         */
+        "getDebugInfo": () => Promise<KulDebugComponentInfo>;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Returns the selected node.
+          * @returns Selected node.
+         */
+        "getSelected": () => Promise<KulDataNode>;
+        /**
+          * The data of the list.
+          * @default []
+         */
+        "kulData": KulDataDataset;
+        /**
+          * When true, enables items' navigation through arrow keys.
+          * @default true
+         */
+        "kulNavigation": boolean;
+        /**
+          * When set to true, the pointerdown event will trigger a ripple effect.
+          * @default true
+         */
+        "kulRipple": boolean;
+        /**
+          * Defines whether items are selectable or not.
+          * @default true
+         */
+        "kulSelectable": boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Calls handleSelection private method to select the given item.
+          * @param index - Zero-based index of the item that must be selected, when not provided the list will attempt to select the focused element.
+         */
+        "selectNode": (index?: number) => Promise<void>;
+    }
     interface KulPhotoframe {
         /**
           * Fetches debug information of the component's current state.
@@ -582,6 +644,8 @@ export namespace Components {
     interface KulShowcaseKulmanager {
     }
     interface KulShowcaseLazy {
+    }
+    interface KulShowcaseList {
     }
     interface KulShowcasePhotoframe {
     }
@@ -986,6 +1050,10 @@ export interface KulLazyCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulLazyElement;
 }
+export interface KulListCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKulListElement;
+}
 export interface KulPhotoframeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulPhotoframeElement;
@@ -1092,7 +1160,7 @@ declare global {
         new (): HTMLKulCardElement;
     };
     interface HTMLKulChartElementEventMap {
-        "kul-echart-event": KulChartEventPayload;
+        "kul-chart-event": KulChartEventPayload;
     }
     interface HTMLKulChartElement extends Components.KulChart, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKulChartElementEventMap>(type: K, listener: (this: HTMLKulChartElement, ev: KulChartCustomEvent<HTMLKulChartElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1192,6 +1260,23 @@ declare global {
     var HTMLKulLazyElement: {
         prototype: HTMLKulLazyElement;
         new (): HTMLKulLazyElement;
+    };
+    interface HTMLKulListElementEventMap {
+        "kul-list-event": KulListEventPayload;
+    }
+    interface HTMLKulListElement extends Components.KulList, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulListElementEventMap>(type: K, listener: (this: HTMLKulListElement, ev: KulListCustomEvent<HTMLKulListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulListElementEventMap>(type: K, listener: (this: HTMLKulListElement, ev: KulListCustomEvent<HTMLKulListElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKulListElement: {
+        prototype: HTMLKulListElement;
+        new (): HTMLKulListElement;
     };
     interface HTMLKulPhotoframeElementEventMap {
         "kul-photoframe-event": KulPhotoframeEventPayload;
@@ -1298,6 +1383,12 @@ declare global {
     var HTMLKulShowcaseLazyElement: {
         prototype: HTMLKulShowcaseLazyElement;
         new (): HTMLKulShowcaseLazyElement;
+    };
+    interface HTMLKulShowcaseListElement extends Components.KulShowcaseList, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseListElement: {
+        prototype: HTMLKulShowcaseListElement;
+        new (): HTMLKulShowcaseListElement;
     };
     interface HTMLKulShowcasePhotoframeElement extends Components.KulShowcasePhotoframe, HTMLStencilElement {
     }
@@ -1483,6 +1574,7 @@ declare global {
         "kul-header": HTMLKulHeaderElement;
         "kul-image": HTMLKulImageElement;
         "kul-lazy": HTMLKulLazyElement;
+        "kul-list": HTMLKulListElement;
         "kul-photoframe": HTMLKulPhotoframeElement;
         "kul-showcase": HTMLKulShowcaseElement;
         "kul-showcase-article": HTMLKulShowcaseArticleElement;
@@ -1497,6 +1589,7 @@ declare global {
         "kul-showcase-image": HTMLKulShowcaseImageElement;
         "kul-showcase-kulmanager": HTMLKulShowcaseKulmanagerElement;
         "kul-showcase-lazy": HTMLKulShowcaseLazyElement;
+        "kul-showcase-list": HTMLKulShowcaseListElement;
         "kul-showcase-photoframe": HTMLKulShowcasePhotoframeElement;
         "kul-showcase-probe": HTMLKulShowcaseProbeElement;
         "kul-showcase-spinner": HTMLKulShowcaseSpinnerElement;
@@ -1709,7 +1802,7 @@ declare namespace LocalJSX {
           * @default null
          */
         "kulYAxis"?: YAXisComponentOption;
-        "onKul-echart-event"?: (event: KulChartCustomEvent<KulChartEventPayload>) => void;
+        "onKul-chart-event"?: (event: KulChartCustomEvent<KulChartEventPayload>) => void;
     }
     interface KulCode {
         /**
@@ -1827,6 +1920,37 @@ declare namespace LocalJSX {
          */
         "onKul-lazy-event"?: (event: KulLazyCustomEvent<KulEventPayload>) => void;
     }
+    interface KulList {
+        /**
+          * The data of the list.
+          * @default []
+         */
+        "kulData"?: KulDataDataset;
+        /**
+          * When true, enables items' navigation through arrow keys.
+          * @default true
+         */
+        "kulNavigation"?: boolean;
+        /**
+          * When set to true, the pointerdown event will trigger a ripple effect.
+          * @default true
+         */
+        "kulRipple"?: boolean;
+        /**
+          * Defines whether items are selectable or not.
+          * @default true
+         */
+        "kulSelectable"?: boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle"?: string;
+        /**
+          * Describes event emitted.
+         */
+        "onKul-list-event"?: (event: KulListCustomEvent<KulListEventPayload>) => void;
+    }
     interface KulPhotoframe {
         /**
           * Html attributes of the picture before the component enters the viewport.
@@ -1887,6 +2011,8 @@ declare namespace LocalJSX {
     interface KulShowcaseKulmanager {
     }
     interface KulShowcaseLazy {
+    }
+    interface KulShowcaseList {
     }
     interface KulShowcasePhotoframe {
     }
@@ -2161,6 +2287,7 @@ declare namespace LocalJSX {
         "kul-header": KulHeader;
         "kul-image": KulImage;
         "kul-lazy": KulLazy;
+        "kul-list": KulList;
         "kul-photoframe": KulPhotoframe;
         "kul-showcase": KulShowcase;
         "kul-showcase-article": KulShowcaseArticle;
@@ -2175,6 +2302,7 @@ declare namespace LocalJSX {
         "kul-showcase-image": KulShowcaseImage;
         "kul-showcase-kulmanager": KulShowcaseKulmanager;
         "kul-showcase-lazy": KulShowcaseLazy;
+        "kul-showcase-list": KulShowcaseList;
         "kul-showcase-photoframe": KulShowcasePhotoframe;
         "kul-showcase-probe": KulShowcaseProbe;
         "kul-showcase-spinner": KulShowcaseSpinner;
@@ -2207,6 +2335,7 @@ declare module "@stencil/core" {
             "kul-header": LocalJSX.KulHeader & JSXBase.HTMLAttributes<HTMLKulHeaderElement>;
             "kul-image": LocalJSX.KulImage & JSXBase.HTMLAttributes<HTMLKulImageElement>;
             "kul-lazy": LocalJSX.KulLazy & JSXBase.HTMLAttributes<HTMLKulLazyElement>;
+            "kul-list": LocalJSX.KulList & JSXBase.HTMLAttributes<HTMLKulListElement>;
             "kul-photoframe": LocalJSX.KulPhotoframe & JSXBase.HTMLAttributes<HTMLKulPhotoframeElement>;
             "kul-showcase": LocalJSX.KulShowcase & JSXBase.HTMLAttributes<HTMLKulShowcaseElement>;
             "kul-showcase-article": LocalJSX.KulShowcaseArticle & JSXBase.HTMLAttributes<HTMLKulShowcaseArticleElement>;
@@ -2221,6 +2350,7 @@ declare module "@stencil/core" {
             "kul-showcase-image": LocalJSX.KulShowcaseImage & JSXBase.HTMLAttributes<HTMLKulShowcaseImageElement>;
             "kul-showcase-kulmanager": LocalJSX.KulShowcaseKulmanager & JSXBase.HTMLAttributes<HTMLKulShowcaseKulmanagerElement>;
             "kul-showcase-lazy": LocalJSX.KulShowcaseLazy & JSXBase.HTMLAttributes<HTMLKulShowcaseLazyElement>;
+            "kul-showcase-list": LocalJSX.KulShowcaseList & JSXBase.HTMLAttributes<HTMLKulShowcaseListElement>;
             "kul-showcase-photoframe": LocalJSX.KulShowcasePhotoframe & JSXBase.HTMLAttributes<HTMLKulShowcasePhotoframeElement>;
             "kul-showcase-probe": LocalJSX.KulShowcaseProbe & JSXBase.HTMLAttributes<HTMLKulShowcaseProbeElement>;
             "kul-showcase-spinner": LocalJSX.KulShowcaseSpinner & JSXBase.HTMLAttributes<HTMLKulShowcaseSpinnerElement>;

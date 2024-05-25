@@ -2,117 +2,53 @@ import {
     KulSpinnerProps,
     KulSpinnerPropsInterface,
 } from '../../../src/components/kul-spinner/kul-spinner-declarations';
+import { SPINNER_EXAMPLES_CATEGORIES } from '../../../src/components/kul-showcase/components/spinner/kul-showcase-spinner-declarations';
 
-describe('kul-spinner', () => {
+const spinner = 'spinner';
+const spinnerCapitalized = spinner.charAt(0).toUpperCase() + spinner.slice(1);
+const spinnerTag = 'kul-' + spinner;
+
+describe(spinnerTag, () => {
     beforeEach(() => {
-        cy.navigate('spinner');
+        cy.navigate(spinner);
     });
 
-    it('common: should call getProps() and check keys against KulSpinnerProps enum', () => {
-        cy.get('@kulComponentShowcase')
-            .find('kul-spinner')
-            .first()
-            .then(($spinner) => {
-                $spinner[0].getProps().then((props) => {
-                    const enumKeys = Object.keys(KulSpinnerProps);
-                    expect(Object.keys(props)).to.deep.equal(enumKeys);
-                });
-            });
+    it(`common: should select all <${spinnerTag}> elements matching the composed ID`, () => {
+        cy.checkComponentExamplesByCategory(
+            new Set(SPINNER_EXAMPLES_CATEGORIES)
+        );
+    });
+
+    it(`common: should check that all categories have at least 1 <${spinnerTag}>`, () => {
+        cy.checkComponentExamplesByCategoryNumber(spinnerTag);
     });
 
     it('common: should call getDebugInfo and check the structure of the returned object', () => {
-        cy.get('@kulComponentShowcase')
-            .find('kul-spinner')
-            .first()
-            .then(($spinner) => {
-                const kulSpinnerElement = $spinner[0] as HTMLKulSpinnerElement;
-                kulSpinnerElement.getDebugInfo().then((debugInfo) => {
-                    expect(debugInfo)
-                        .to.have.property('endTime')
-                        .that.is.a('number');
-                    expect(debugInfo)
-                        .to.have.property('renderCount')
-                        .that.is.a('number');
-                    expect(debugInfo)
-                        .to.have.property('renderEnd')
-                        .that.is.a('number');
-                    expect(debugInfo)
-                        .to.have.property('renderStart')
-                        .that.is.a('number');
-                    expect(debugInfo)
-                        .to.have.property('startTime')
-                        .that.is.a('number');
-                });
-            });
+        cy.checkDebugInfo(spinnerTag);
+    });
+
+    it('common: should check for the presence of at least 2 <style> elements within the shadow DOM', () => {
+        cy.checkKulStyle();
+    });
+
+    it(`common: should call getProps and check keys against Kul${spinnerCapitalized}Props enum`, () => {
+        cy.checkProps(spinnerTag, KulSpinnerProps);
+    });
+
+    it(`common: should call getProps and check keys against Kul${spinnerCapitalized}PropsInterface`, () => {
+        cy.checkPropsInterface(spinnerTag, {
+            kulActive: null,
+            kulBarVariant: null,
+            kulDimensions: null,
+            kulFader: null,
+            kulFaderTimeout: null,
+            kulFullScreen: null,
+            kulLayout: null,
+            kulStyle: null,
+        } as Required<KulSpinnerPropsInterface>);
     });
 
     it('common: should call getDebugInfo, refresh, and check that renderCount has increased', () => {
-        let initialRenderCount: number;
-
-        cy.get('@kulComponentShowcase')
-            .find('kul-spinner')
-            .first()
-            .then(($spinner) => {
-                const kulSpinnerElement = $spinner[0] as HTMLKulSpinnerElement;
-                return kulSpinnerElement.getDebugInfo();
-            })
-            .then((debugInfo) => {
-                initialRenderCount = debugInfo.renderCount;
-                return cy.wrap(initialRenderCount);
-            })
-            .then((initialRenderCount) => {
-                cy.get('@kulComponentShowcase')
-                    .find('kul-spinner')
-                    .first()
-                    .then(($spinner) => {
-                        const kulSpinnerElement =
-                            $spinner[0] as HTMLKulSpinnerElement;
-                        return kulSpinnerElement.refresh();
-                    })
-                    .then(() => {
-                        cy.wait(100);
-                        return cy.wrap(initialRenderCount);
-                    })
-                    .then((initialRenderCount) => {
-                        cy.get('@kulComponentShowcase')
-                            .find('kul-spinner')
-                            .first()
-                            .then(($spinner) => {
-                                const kulSpinnerElement =
-                                    $spinner[0] as HTMLKulSpinnerElement;
-                                return kulSpinnerElement.getDebugInfo();
-                            })
-                            .then((debugInfo) => {
-                                cy.wait(100);
-                                expect(debugInfo.renderCount).to.be.greaterThan(
-                                    initialRenderCount
-                                );
-                            });
-                    });
-            });
-    });
-
-    it('common: should call getProps and check keys against KulSpinnerPropsInterface', () => {
-        cy.get('@kulComponentShowcase')
-            .find('kul-spinner')
-            .first()
-            .then(($spinner) => {
-                const kulSpinnerElement = $spinner[0] as HTMLKulSpinnerElement;
-                return kulSpinnerElement.getProps();
-            })
-            .then((props) => {
-                const dummy: KulSpinnerPropsInterface = {
-                    kulActive: null,
-                    kulBarVariant: null,
-                    kulDimensions: null,
-                    kulFader: null,
-                    kulFaderTimeout: null,
-                    kulFullScreen: null,
-                    kulLayout: null,
-                    kulStyle: null,
-                };
-                const expectedKeys = Object.keys(dummy);
-                expect(Object.keys(props)).to.deep.equal(expectedKeys);
-            });
+        cy.checkRenderCountIncrease(spinnerTag);
     });
 });

@@ -4,6 +4,8 @@ import {
     SpinnerBranch,
     SpinnerLeaf,
 } from './kul-showcase-spinner-declarations';
+import { DynamicExampleManager } from '../../kul-showcase-utils';
+import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 
 @Component({
     tag: 'kul-showcase-spinner',
@@ -21,6 +23,8 @@ export class KulShowcaseSpinner {
     /*-------------------------------------------------*/
 
     #interval: NodeJS.Timeout;
+    #dynamicExamples: HTMLKulSpinnerElement[] = [];
+    #dynamicExampleManager = new DynamicExampleManager();
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
@@ -58,9 +62,19 @@ export class KulShowcaseSpinner {
                                             part="comp-wrapper"
                                         >
                                             <kul-spinner
-                                                key={k3}
-                                                id={k3}
+                                                key={k2}
+                                                id={k1 + '-' + k3}
                                                 {...props}
+                                                ref={(el) => {
+                                                    if (
+                                                        el &&
+                                                        props['data-dynamic']
+                                                    ) {
+                                                        this.#dynamicExamples.push(
+                                                            el
+                                                        );
+                                                    }
+                                                }}
                                             ></kul-spinner>
                                         </div>
                                     </div>
@@ -87,6 +101,23 @@ export class KulShowcaseSpinner {
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
+
+    componentDidLoad() {
+        if (this.#dynamicExamples.length > 0) {
+            this.#interval = setInterval(() => {
+                this.#dynamicExamples.forEach((comp) => {
+                    switch (
+                        comp.dataset.dynamic as KulShowcaseDynamicExampleType
+                    ) {
+                        case 'custom':
+                            comp.kulStyle =
+                                this.#dynamicExampleManager.custom.get(comp.id);
+                            break;
+                    }
+                });
+            }, 500);
+        }
+    }
 
     render() {
         return (
