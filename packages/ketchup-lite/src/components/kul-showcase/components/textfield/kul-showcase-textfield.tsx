@@ -3,7 +3,7 @@ import {
     TEXTFIELD_DOC,
     TEXTFIELD_EXAMPLES,
 } from './kul-showcase-textfield-data';
-import { DynamicExampleManager } from '../../kul-showcase-utils';
+import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { KulTextfieldStyling } from '../../../kul-textfield/kul-textfield-declarations';
 import { TextfieldExample } from './kul-showcase-textfield-declarations';
@@ -24,7 +24,7 @@ export class KulShowcaseTextfield {
     /*-------------------------------------------------*/
 
     #dynamicExamples: HTMLKulTextfieldElement[] = [];
-    #dynamicExampleManager = new DynamicExampleManager();
+    #dynamicExampleManager = SHOWCASE_DYN_EXAMPLES;
     #interval: NodeJS.Timeout;
 
     /*-------------------------------------------------*/

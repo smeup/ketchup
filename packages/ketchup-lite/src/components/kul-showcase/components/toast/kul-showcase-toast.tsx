@@ -1,7 +1,7 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { TOAST_DOC, TOAST_EXAMPLES } from './kul-showcase-toast-data';
 import { ToastExample } from './kul-showcase-toast-declarations';
-import { DynamicExampleManager } from '../../kul-showcase-utils';
+import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 
 @Component({
@@ -20,7 +20,7 @@ export class KulShowcaseToast {
     /*-------------------------------------------------*/
 
     #dynamicExamples: HTMLKulToastElement[] = [];
-    #dynamicExampleManager = new DynamicExampleManager();
+    #dynamicExampleManager = SHOWCASE_DYN_EXAMPLES;
     #interval: NodeJS.Timeout;
 
     /*-------------------------------------------------*/

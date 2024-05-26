@@ -1,6 +1,6 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { LIST_DOC, LIST_EXAMPLES } from './kul-showcase-list-data';
-import { DynamicExampleManager } from '../../kul-showcase-utils';
+import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { ListExample } from './kul-showcase-list-declarations';
 
@@ -20,7 +20,7 @@ export class KulShowcaseList {
     /*-------------------------------------------------*/
 
     #dynamicExamples: HTMLKulListElement[] = [];
-    #dynamicExampleManager = new DynamicExampleManager();
+    #dynamicExampleManager = SHOWCASE_DYN_EXAMPLES;
     #interval: NodeJS.Timeout;
 
     /*-------------------------------------------------*/

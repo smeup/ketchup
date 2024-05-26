@@ -1,6 +1,6 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { SWITCH_DOC, SWITCH_EXAMPLES } from './kul-showcase-switch-data';
-import { DynamicExampleManager } from '../../kul-showcase-utils';
+import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { SwitchExample } from './kul-showcase-switch-declarations';
 
@@ -20,7 +20,7 @@ export class KulShowcaseSwitch {
     /*-------------------------------------------------*/
 
     #dynamicExamples: HTMLKulSwitchElement[] = [];
-    #dynamicExampleManager = new DynamicExampleManager();
+    #dynamicExampleManager = SHOWCASE_DYN_EXAMPLES;
     #interval: NodeJS.Timeout;
 
     /*-------------------------------------------------*/

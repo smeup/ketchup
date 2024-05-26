@@ -1,6 +1,6 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { LAZY_DOC, LAZY_EXAMPLES } from './kul-showcase-lazy-data';
-import { DynamicExampleManager } from '../../kul-showcase-utils';
+import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { LazyExample } from './kul-showcase-lazy-declarations';
 
@@ -20,7 +20,7 @@ export class KulShowcaseLazy {
     /*-------------------------------------------------*/
 
     #dynamicExamples: HTMLKulLazyElement[] = [];
-    #dynamicExampleManager = new DynamicExampleManager();
+    #dynamicExampleManager = SHOWCASE_DYN_EXAMPLES;
     #interval: NodeJS.Timeout;
 
     /*-------------------------------------------------*/

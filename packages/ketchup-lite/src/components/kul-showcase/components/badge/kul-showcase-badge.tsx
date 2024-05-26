@@ -1,8 +1,8 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { BADGE_DOC, BADGE_EXAMPLES } from './kul-showcase-badge-data';
-import { DynamicExampleManager } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { BadgeExample } from './kul-showcase-badge-declarations';
+import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 
 @Component({
     tag: 'kul-showcase-badge',
@@ -20,7 +20,7 @@ export class KulShowcaseBadge {
     /*-------------------------------------------------*/
 
     #dynamicExamples: HTMLKulBadgeElement[] = [];
-    #dynamicExampleManager = new DynamicExampleManager();
+    #dynamicExampleManager = SHOWCASE_DYN_EXAMPLES;
     #interval: NodeJS.Timeout;
 
     /*-------------------------------------------------*/

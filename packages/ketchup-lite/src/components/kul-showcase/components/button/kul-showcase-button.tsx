@@ -1,9 +1,9 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { BUTTON_DOC, BUTTON_EXAMPLES } from './kul-showcase-button-data';
-import { DynamicExampleManager } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { KulButtonStyling } from '../../../kul-button/kul-button-declarations';
 import { ButtonExample } from './kul-showcase-button-declarations';
+import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 
 @Component({
     tag: 'kul-showcase-button',
@@ -21,7 +21,7 @@ export class KulShowcaseButton {
     /*-------------------------------------------------*/
 
     #dynamicExamples: HTMLKulButtonElement[] = [];
-    #dynamicExampleManager = new DynamicExampleManager();
+    #dynamicExampleManager = SHOWCASE_DYN_EXAMPLES;
     #interval: NodeJS.Timeout;
 
     /*-------------------------------------------------*/

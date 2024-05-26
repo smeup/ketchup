@@ -1,6 +1,6 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { CARD_DOC, CARD_EXAMPLES } from './kul-showcase-card-data';
-import { DynamicExampleManager } from '../../kul-showcase-utils';
+import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { CardExample } from './kul-showcase-card-declarations';
 
@@ -20,7 +20,7 @@ export class KulShowcaseCard {
     /*-------------------------------------------------*/
 
     #dynamicExamples: HTMLKulCardElement[] = [];
-    #dynamicExampleManager = new DynamicExampleManager();
+    #dynamicExampleManager = SHOWCASE_DYN_EXAMPLES;
     #interval: NodeJS.Timeout;
 
     /*-------------------------------------------------*/

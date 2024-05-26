@@ -1,6 +1,6 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { IMAGE_DOC, IMAGE_EXAMPLES } from './kul-showcase-image-data';
-import { DynamicExampleManager } from '../../kul-showcase-utils';
+import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { ImageExample } from './kul-showcase-image-declarations';
 
@@ -20,7 +20,7 @@ export class KulShowcaseImage {
     /*-------------------------------------------------*/
 
     #dynamicExamples: HTMLKulImageElement[] = [];
-    #dynamicExampleManager = new DynamicExampleManager();
+    #dynamicExampleManager = SHOWCASE_DYN_EXAMPLES;
     #interval: NodeJS.Timeout;
 
     /*-------------------------------------------------*/

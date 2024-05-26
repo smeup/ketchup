@@ -1,6 +1,6 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { UPLOAD_DOC, UPLOAD_EXAMPLES } from './kul-showcase-upload-data';
-import { DynamicExampleManager } from '../../kul-showcase-utils';
+import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { UploadExample } from './kul-showcase-upload-declarations';
 
@@ -20,7 +20,7 @@ export class KulShowcaseUpload {
     /*-------------------------------------------------*/
 
     #dynamicExamples: HTMLKulUploadElement[] = [];
-    #dynamicExampleManager = new DynamicExampleManager();
+    #dynamicExampleManager = SHOWCASE_DYN_EXAMPLES;
     #interval: NodeJS.Timeout;
 
     /*-------------------------------------------------*/

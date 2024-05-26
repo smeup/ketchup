@@ -3,7 +3,7 @@ import {
     PHOTOFRAME_DOC,
     PHOTOFRAME_EXAMPLES,
 } from './kul-showcase-photoframe-data';
-import { DynamicExampleManager } from '../../kul-showcase-utils';
+import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { PhotoframeExample } from './kul-showcase-photoframe-declarations';
 
@@ -23,7 +23,7 @@ export class KulShowcasePhotoframe {
     /*-------------------------------------------------*/
 
     #dynamicExamples: HTMLKulPhotoframeElement[] = [];
-    #dynamicExampleManager = new DynamicExampleManager();
+    #dynamicExampleManager = SHOWCASE_DYN_EXAMPLES;
     #interval: NodeJS.Timeout;
 
     /*-------------------------------------------------*/

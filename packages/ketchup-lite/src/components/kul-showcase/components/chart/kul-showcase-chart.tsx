@@ -1,6 +1,6 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { CHART_DOC, CHART_EXAMPLES } from './kul-showcase-chart-data';
-import { DynamicExampleManager } from '../../kul-showcase-utils';
+import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { ChartExample } from './kul-showcase-chart-declarations';
 
@@ -20,7 +20,7 @@ export class KulShowcaseChart {
     /*-------------------------------------------------*/
 
     #dynamicExamples: HTMLKulChartElement[] = [];
-    #dynamicExampleManager = new DynamicExampleManager();
+    #dynamicExampleManager = SHOWCASE_DYN_EXAMPLES;
     #interval: NodeJS.Timeout;
 
     /*-------------------------------------------------*/
