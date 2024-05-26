@@ -153,20 +153,18 @@ export class KulButton {
     kulEvent: EventEmitter<KulButtonEventPayload>;
 
     onKulEvent(e: Event | CustomEvent, eventType: KulButtonEvent) {
-        if (eventType === 'pointerdown') {
-            if (this.kulRipple && this.kulStyling !== 'icon') {
-                this.#kulManager.theme.ripple.trigger(
-                    e as PointerEvent,
-                    this.#rippleSurface
-                );
-            }
-            if (this.kulToggable && !this.kulDisabled) {
-                if (this.#isOn()) {
-                    this.value = 'off';
-                } else {
-                    this.value = 'on';
+        switch (eventType) {
+            case 'click':
+                this.#updateState(this.#isOn() ? 'off' : 'on');
+                break;
+            case 'pointerdown':
+                if (this.kulRipple && this.kulStyling !== 'icon') {
+                    this.#kulManager.theme.ripple.trigger(
+                        e as PointerEvent,
+                        this.#rippleSurface
+                    );
                 }
-            }
+                break;
         }
 
         this.kulEvent.emit({
@@ -221,9 +219,7 @@ export class KulButton {
      */
     @Method()
     async setValue(value: KulButtonState): Promise<void> {
-        if (value === 'off' || value === 'on') {
-            this.value = value;
-        }
+        this.#updateState(value);
     }
 
     /*-------------------------------------------------*/
@@ -232,6 +228,16 @@ export class KulButton {
 
     #isOn() {
         return this.value === 'on' ? true : false;
+    }
+
+    #updateState(value: KulButtonState) {
+        if (
+            this.kulToggable &&
+            !this.kulDisabled &&
+            (value === 'off' || value === 'on')
+        ) {
+            this.value = value;
+        }
     }
 
     #normalizedStyling() {
