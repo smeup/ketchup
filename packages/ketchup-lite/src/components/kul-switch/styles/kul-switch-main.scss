@@ -77,12 +77,14 @@
 
   &__label {
     color: var(--kul_switch_label_color);
+    cursor: pointer;
     font-family: var(--kul-font-family);
     margin-left: 0px;
     margin-right: auto;
+    order: 0;
     padding-left: 4px;
     padding-right: 0px;
-    order: 0;
+    user-select: none;
   }
 }
 
