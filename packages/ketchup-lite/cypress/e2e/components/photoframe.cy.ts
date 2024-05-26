@@ -29,7 +29,7 @@ describe(photoframeTag, () => {
         cy.checkDebugInfo(photoframeTag);
     });
 
-    it('common: should check for the presence of at least 2 <style> elements within the shadow DOM', () => {
+    it('common: should check for the presence of a <style> element with id kup-style', () => {
         cy.checkKulStyle();
     });
 

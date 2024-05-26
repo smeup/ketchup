@@ -20,7 +20,7 @@ import {
 } from './kul-article-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps } from '../../utils/componentUtils';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
 
@@ -187,8 +187,8 @@ export class KulArticle {
         )
             ? 'ul'
             : node.tagName
-            ? node.tagName
-            : 'div';
+              ? node.tagName
+              : 'div';
         return (
             <Fragment>
                 {node.value ? <div>{node.value}</div> : ''}
@@ -232,8 +232,8 @@ export class KulArticle {
         const ComponentTag = cell
             ? 'kul-' + cell.shape
             : node.tagName
-            ? node.tagName
-            : 'span';
+              ? node.tagName
+              : 'span';
 
         if (cell) {
             return (
@@ -293,7 +293,9 @@ export class KulArticle {
     render() {
         return (
             <Host>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                <style id={KUL_STYLE_ID}>
+                    {this.#kulManager.theme.setKulStyle(this)}
+                </style>
                 <div id={KUL_WRAPPER_ID}>
                     {this.kulData?.nodes?.length
                         ? this.#prepArticle()

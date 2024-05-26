@@ -20,7 +20,7 @@ import {
     KulShowcaseProps,
     KulShowcaseTitle,
 } from './kul-showcase-declarations';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import {
     KUL_SHOWCASE_COMPONENTS,
     KUL_SHOWCASE_FRAMEWORK,
@@ -302,7 +302,9 @@ export class KulShowcase {
     render() {
         return (
             <Host>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                <style id={KUL_STYLE_ID}>
+                    {this.#kulManager.theme.setKulStyle(this)}
+                </style>
                 <div
                     id={KUL_WRAPPER_ID}
                     onClick={(e) => this.onKulEvent(e, 'click')}

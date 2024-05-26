@@ -22,7 +22,7 @@ import {
 } from './kul-button-declarations';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { getProps } from '../../utils/componentUtils';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulImagePropsInterface } from '../kul-image/kul-image-declarations';
 
 @Component({
@@ -443,7 +443,9 @@ export class KulButton {
 
         return (
             <Host>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                <style id={KUL_STYLE_ID}>
+                    {this.#kulManager.theme.setKulStyle(this)}
+                </style>
                 <div id={KUL_WRAPPER_ID}>
                     {isIconButton
                         ? this.renderIconButton()

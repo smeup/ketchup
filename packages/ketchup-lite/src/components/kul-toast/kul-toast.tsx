@@ -13,7 +13,7 @@ import {
 import { KulToastEvent, KulToastProps } from './kul-toast-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps } from '../../utils/componentUtils';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
 import { KulImagePropsInterface } from '../kul-image/kul-image-declarations';
@@ -184,7 +184,9 @@ export class KulToast {
     render() {
         return (
             <Host>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                <style id={KUL_STYLE_ID}>
+                    {this.#kulManager.theme.setKulStyle(this)}
+                </style>
                 <div id={KUL_WRAPPER_ID}>
                     <div class="toast">
                         <div

@@ -23,6 +23,7 @@ import { KulThemeColorValues } from '../../managers/kul-theme/kul-theme-declarat
 import { getProps } from '../../utils/componentUtils';
 import {
     CSS_VAR_PREFIX,
+    KUL_STYLE_ID,
     KUL_WRAPPER_ID,
 } from '../../variables/GenericVariables';
 import { KulBadgePropsInterface } from '../kul-badge/kul-badge-declarations';
@@ -275,7 +276,9 @@ export class KulImage {
 
         return (
             <Host style={style}>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                <style id={KUL_STYLE_ID}>
+                    {this.#kulManager.theme.setKulStyle(this)}
+                </style>
                 {feedback}
                 <div id={KUL_WRAPPER_ID}>
                     <div

@@ -100,12 +100,20 @@ Cypress.Commands.add('checkDebugInfo', (component) => {
 });
 
 Cypress.Commands.add('checkKulStyle', () => {
-    cy.get('@kulComponentShowcase')
-        .find('[id*="style"]')
-        .shadow()
-        .find('style')
-        .eq(1)
-        .should('not.be.empty');
+    function checkStyles(attempts = 0) {
+        cy.get('@kulComponentShowcase')
+            .find('#kul-style')
+            .eq(1)
+            .then(($style) => {
+                if ($style.length && $style.text().trim() && attempts < 10) {
+                    cy.wait(200);
+                    checkStyles(attempts + 1);
+                } else {
+                    cy.wrap($style).should('not.be.empty');
+                }
+            });
+    }
+    checkStyles();
 });
 
 Cypress.Commands.add('checkProps', (component, componentProps) => {

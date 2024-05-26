@@ -15,7 +15,7 @@ import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { KulImagePropsInterface } from '../kul-image/kul-image-declarations';
 import { getProps } from '../../utils/componentUtils';
 import { KulThemeColorValues } from '../../managers/kul-theme/kul-theme-declarations';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
 
@@ -156,7 +156,9 @@ export class KulBadge {
 
         return (
             <Host>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                <style id={KUL_STYLE_ID}>
+                    {this.#kulManager.theme.setKulStyle(this)}
+                </style>
                 <div
                     id={KUL_WRAPPER_ID}
                     onClick={(e) => this.onKulEvent(e, 'click')}

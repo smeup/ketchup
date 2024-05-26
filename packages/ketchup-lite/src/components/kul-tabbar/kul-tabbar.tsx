@@ -27,7 +27,7 @@ import {
 } from '../../managers/kul-data/kul-data-declarations';
 import { KulDebugComponentInfo } from '../../components';
 import { getProps } from '../../utils/componentUtils';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kul-tabbar',
@@ -294,7 +294,9 @@ export class KulTabbar {
 
         return (
             <Host>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                <style id={KUL_STYLE_ID}>
+                    {this.#kulManager.theme.setKulStyle(this)}
+                </style>
                 <div id={KUL_WRAPPER_ID}>
                     <div class="tabbar" role="tablist">
                         <div class="tabbar_scroller">

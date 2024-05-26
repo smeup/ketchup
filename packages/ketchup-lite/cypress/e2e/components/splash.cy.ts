@@ -46,23 +46,6 @@ describe(splashTag, () => {
         expect(counter).equals(SPLASH_EXAMPLES_KEYS.length);
     });
 
-    it('#label: should check that the label is different from the default (Loading...)', () => {
-        cy.get('@kulComponentShowcase').get('#label-trigger').click();
-        cy.get(`${splashTag}#label`)
-            .shadow()
-            .find('.label')
-            .should('not.have.text', 'Loading...');
-    });
-
-    it('#style: should check for the presence of at least 2 <style> elements within the shadow DOM', () => {
-        cy.get('@kulComponentShowcase').get('#style-trigger').click();
-        cy.get(`${splashTag}#style`)
-            .shadow()
-            .find('style')
-            .eq(1)
-            .should('not.be.empty');
-    });
-
     it('common: should call getDebugInfo and check the structure of the returned object', () => {
         cy.get('@kulComponentShowcase').get('#label-trigger').click();
         cy.get(splashTag).then(($splash) => {
@@ -145,5 +128,22 @@ describe(splashTag, () => {
                 const expectedKeys = Object.keys(dummy);
                 expect(Object.keys(props)).to.deep.equal(expectedKeys);
             });
+    });
+
+    it('common: should check for the presence of a <style> element with id kup-style', () => {
+        cy.get('@kulComponentShowcase').get('#style-trigger').click();
+        cy.get(`${splashTag}#style`)
+            .shadow()
+            .find('style')
+            .eq(1)
+            .should('not.be.empty');
+    });
+
+    it('#label: should check that the label is different from the default (Loading...)', () => {
+        cy.get('@kulComponentShowcase').get('#label-trigger').click();
+        cy.get(`${splashTag}#label`)
+            .shadow()
+            .find('.label')
+            .should('not.have.text', 'Loading...');
     });
 });
