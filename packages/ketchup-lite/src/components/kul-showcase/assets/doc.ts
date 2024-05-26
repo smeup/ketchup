@@ -1245,6 +1245,11 @@ export const KUL_DOC: KulShowcaseDoc = {
     props: [],
     styles: [],
   },
+  "kul-showcase-switch": {
+    methods: [],
+    props: [],
+    styles: [],
+  },
   "kul-showcase-tabbar": {
     methods: [],
     props: [],
@@ -1432,6 +1437,117 @@ export const KUL_DOC: KulShowcaseDoc = {
       {
         name: "--kul-splash-widget-width",
         docs: "Sets the width of the widget. Defaults to 150px.",
+      },
+    ],
+  },
+  "kul-switch": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Fetches debug information of the component's current state.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves with the debug information object.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Used to retrieve component's properties and descriptions.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "Promise resolved with an object containing the component's properties.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "getValue",
+        docs: "Used to retrieve component's current state.",
+        returns: {
+          type: "Promise<KulSwitchState>",
+          docs: "Promise resolved with the current state of the component.",
+        },
+        signature: "() => Promise<KulSwitchState>",
+      },
+      {
+        name: "refresh",
+        docs: "This method is used to trigger a new render of the component.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+      {
+        name: "setValue",
+        docs: "Sets the component's state.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "(value: KulSwitchState) => Promise<void>",
+      },
+    ],
+    props: [
+      {
+        name: "kulDisabled",
+        docs: "Defaults at false. When set to true, the component is disabled.",
+        type: "boolean",
+      },
+      {
+        name: "kulLabel",
+        docs: "Defines text to display along with the switch.",
+        type: "string",
+      },
+      {
+        name: "kulLeadingLabel",
+        docs: "Defaults at false. When set to true, the label will be displayed before the component.",
+        type: "boolean",
+      },
+      {
+        name: "kulRipple",
+        docs: "When set to true, the pointerdown event will trigger a ripple effect.",
+        type: "boolean",
+      },
+      {
+        name: "kulStyle",
+        docs: "Custom style of the component.",
+        type: "string",
+      },
+      {
+        name: "kulValue",
+        docs: "Sets the initial boolean state of the switch.",
+        type: "boolean",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul-switch-font-family",
+        docs: "Sets font family of the switch's label. Defaults to var(--kul-font-family).",
+      },
+      {
+        name: "--kul-switch-font-size",
+        docs: "Sets font size of the switch's label. Defaults to var(--kul-font-size).",
+      },
+      {
+        name: "--kul-switch-font-weight",
+        docs: "Sets font weight of the switch's label. Defaults to 400.",
+      },
+      {
+        name: "--kul-switch-label-color",
+        docs: "Sets text color of the switch's label. Defaults to var(--kul-text-color).",
+      },
+      {
+        name: "--kul-switch-primary-color",
+        docs: "Sets primary color of the component. Defaults to var(--kul-primary-color).",
+      },
+      {
+        name: "--kul-switch-primary-color-rgb",
+        docs: "Sets primary color RGB values of the component. Defaults to var(--kul-primary-color-rgb).",
+      },
+      {
+        name: "--kul-switch-thumb-color",
+        docs: "Sets thumb color. Defaults to var(--kul-border-color).",
       },
     ],
   },

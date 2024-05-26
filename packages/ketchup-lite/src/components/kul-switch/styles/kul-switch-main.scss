@@ -1,0 +1,195 @@
+:host {
+  /**
+  * @prop --kul-switch-font-family: Sets font family of the switch's label.
+  * Defaults to var(--kul-font-family).
+  */
+  --kul_switch_font_family: var(
+    --kul-switch-font-family,
+    var(--kul-font-family)
+  );
+  /**
+  * @prop --kul-switch-font-size: Sets font size of the switch's label.
+  * Defaults to var(--kul-font-size).
+  */
+  --kul_switch_font_size: var(--kul-switch-font-size, var(--kul-font-size));
+  /**
+  * @prop --kul-switch-font-weight: Sets font weight of the switch's label.
+  * Defaults to 400.
+  */
+  --kul_switch_font_weight: var(--kul-switch-font-weight, 400);
+  /**
+  * @prop --kul-switch-label-color: Sets text color of the switch's label.
+  * Defaults to var(--kul-text-color).
+  */
+  --kul_switch_label_color: var(
+    --kul-switch-label-color,
+    var(--kul-text-color)
+  );
+  /**
+  * @prop --kul-switch-primary-color: Sets primary color of the component.
+  * Defaults to var(--kul-primary-color).
+  */
+  --kul_switch_primary_color: var(
+    --kul-switch-primary-color,
+    var(--kul-primary-color)
+  );
+  /**
+  * @prop --kul-switch-primary-color-rgb: Sets primary color RGB values of the component.
+  * Defaults to var(--kul-primary-color-rgb).
+  */
+  --kul_switch_primary_color_rgb: var(
+    --kul-switch-primary-color-rgb,
+    var(--kul-primary-color-rgb)
+  );
+  /**
+  * @prop --kul-switch-thumb-color: Sets thumb color.
+  * Defaults to var(--kul-border-color).
+  */
+  --kul_switch_thumb_color: var(
+    --kul-switch-thumb-color,
+    var(--kul-border-color)
+  );
+
+  display: block;
+  font-family: var(--kul_switch_font_family);
+  font-size: var(--kul_switch_font_size);
+}
+
+.form-field {
+  font-size: 0.875em;
+  line-height: 2em;
+  font-weight: var(--kul_switch_font_weight);
+  letter-spacing: 0.0178571429em;
+  color: var(--kul_switch_label_color);
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+
+  &--align-end {
+    .switch__label {
+      margin-left: auto;
+      margin-right: 0px;
+      padding-left: 0px;
+      padding-right: 4px;
+      order: -1;
+    }
+  }
+
+  &__label {
+    color: var(--kul_switch_label_color);
+    font-family: var(--kul-font-family);
+    margin-left: 0px;
+    margin-right: auto;
+    padding-left: 4px;
+    padding-right: 0px;
+    order: 0;
+  }
+}
+
+.switch {
+  display: inline-block;
+  position: relative;
+  outline: none;
+  user-select: none;
+  margin: 0 0.75em;
+
+  &--disabled {
+    cursor: auto;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  &--checked {
+    .switch__track {
+      background-color: var(--kul_switch_primary_color);
+      opacity: 0.54;
+    }
+    .switch__thumb-underlay {
+      transform: translateX(16px);
+    }
+
+    .switch__thumb {
+      background-color: var(--kul_switch_primary_color);
+      border-color: var(--kul_switch_primary_color);
+
+      .switch__native-control {
+        transform: translateX(-16px);
+      }
+    }
+  }
+
+  &__track {
+    box-sizing: border-box;
+    width: 36px;
+    height: 14px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    opacity: 0.38;
+    transition:
+      opacity 90ms cubic-bezier(0.4, 0, 0.2, 1),
+      background-color 90ms cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 90ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &__thumb-underlay {
+    border-radius: 50%;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(0);
+    transition:
+      transform 90ms cubic-bezier(0.4, 0, 0.2, 1),
+      background-color 90ms cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 90ms cubic-bezier(0.4, 0, 0.2, 1);
+    left: -14px;
+    right: initial;
+    top: -16px;
+    width: 48px;
+    height: 48px;
+
+    &:hover {
+      background-color: rgba(var(--kul_switch_primary_color_rgb), 0.125);
+    }
+  }
+
+  &__thumb {
+    box-shadow:
+      0px 3px 1px -2px rgb(0 0 0 / 20%),
+      0px 2px 2px 0px rgb(0 0 0 / 14%),
+      0px 1px 5px 0px rgb(0 0 0 / 12%);
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    border: 10px solid;
+    border-radius: 50%;
+    z-index: 1;
+    transition:
+      transform 90ms cubic-bezier(0.4, 0, 0.2, 1),
+      background-color 90ms cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 90ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &__native-control {
+    left: 0;
+    right: initial;
+    position: absolute;
+    top: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    transition: transform 90ms cubic-bezier(0.4, 0, 0.2, 1);
+    width: 64px;
+    height: 48px;
+  }
+
+  &:not(.switch--checked) {
+    .switch__track {
+      background-color: var(--kul_switch_label_color);
+    }
+    .switch__thumb {
+      background-color: var(--kul_switch_thumb_color);
+      border-color: var(--kul_switch_thumb_color);
+    }
+  }
+}
