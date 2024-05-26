@@ -160,8 +160,8 @@ export class KulButton {
                     this.#rippleSurface
                 );
             }
-            if (this.kulToggable) {
-                if (this.value === 'on') {
+            if (this.kulToggable && !this.kulDisabled) {
+                if (this.#isOn()) {
                     this.value = 'off';
                 } else {
                     this.value = 'on';
@@ -229,6 +229,10 @@ export class KulButton {
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
+
+    #isOn() {
+        return this.value === 'on' ? true : false;
+    }
 
     #normalizedStyling() {
         return this.kulStyling
@@ -325,7 +329,7 @@ export class KulButton {
 
     renderIconButton(): VNode {
         const isLarge = this.rootElement.classList.contains('large');
-        const isOn = this.value === 'on';
+        const isOn = this.#isOn();
         const imageProps: KulImagePropsInterface = {
             kulColor: this.kulDisabled
                 ? `var(--kul_button_disabled_color)`
