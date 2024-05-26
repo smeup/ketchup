@@ -176,9 +176,11 @@ export class KulDrawer {
     render() {
         return (
             <Host kul-opened={this.opened}>
-                <style id={KUL_STYLE_ID}>
-                    {this.#kulManager.theme.setKulStyle(this)}
-                </style>
+                {this.kulStyle ? (
+                    <style id={KUL_STYLE_ID}>
+                        {this.#kulManager.theme.setKulStyle(this)}
+                    </style>
+                ) : undefined}
                 <div
                     class="backdrop"
                     onClick={(e) => {

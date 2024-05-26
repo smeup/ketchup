@@ -390,9 +390,11 @@ export class KulList {
 
         return (
             <Host>
-                <style id={KUL_STYLE_ID}>
-                    {this.#kulManager.theme.setKulStyle(this)}
-                </style>
+                {this.kulStyle ? (
+                    <style id={KUL_STYLE_ID}>
+                        {this.#kulManager.theme.setKulStyle(this)}
+                    </style>
+                ) : undefined}
                 <div id={KUL_WRAPPER_ID}>
                     <ul
                         aria-multiselectable={'false'}

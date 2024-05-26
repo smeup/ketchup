@@ -4,7 +4,11 @@ import {
     KulDom,
     KulManager,
 } from '../../src/managers/kul-manager/kul-manager-declarations';
-import { GenericMap, KulComponent } from '../../src/types/GenericTypes';
+import {
+    GenericMap,
+    KulComponent,
+    KulEventPayload,
+} from '../../src/types/GenericTypes';
 export {};
 
 declare global {
@@ -102,8 +106,7 @@ Cypress.Commands.add('checkDebugInfo', (component) => {
 Cypress.Commands.add('checkKulStyle', () => {
     function checkStyles(attempts = 0) {
         cy.get('@kulComponentShowcase')
-            .find('#kul-style')
-            .eq(1)
+            .find('style#kul-style')
             .then(($style) => {
                 if ($style.length && $style.text().trim() && attempts < 10) {
                     cy.wait(200);
@@ -192,7 +195,27 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add('navigate', (component) => {
+    // Visit the page
     cy.visit('http://localhost:3333');
+
+    // Wait for the "kul-splash-event" with the correct payload
+    cy.window().then((win) => {
+        return new Cypress.Promise((resolve) => {
+            const checkEvent = (event: CustomEvent<KulEventPayload>) => {
+                if (
+                    event.type === 'kul-splash-event' &&
+                    event.detail.eventType === 'unmount'
+                ) {
+                    resolve(); // Resolve the promise when the correct event is received
+                    win.removeEventListener('kul-splash-event', checkEvent); // Remove the event listener
+                }
+            };
+
+            win.addEventListener('kul-splash-event', checkEvent); // Add the event listener
+        });
+    });
+
+    // Continue with the rest of the navigation steps
     cy.get('kul-showcase').should('exist').as('kulShowcase');
     cy.get('@kulShowcase')
         .shadow()

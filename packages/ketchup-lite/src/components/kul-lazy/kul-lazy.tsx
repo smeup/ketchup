@@ -323,9 +323,11 @@ export class KulLazy {
 
         return (
             <Host class={className}>
-                <style id={KUL_STYLE_ID}>
-                    {this.#kulManager.theme.setKulStyle(this)}
-                </style>
+                {this.kulStyle ? (
+                    <style id={KUL_STYLE_ID}>
+                        {this.#kulManager.theme.setKulStyle(this)}
+                    </style>
+                ) : undefined}
                 <div id={KUL_WRAPPER_ID}>{content}</div>
             </Host>
         );
