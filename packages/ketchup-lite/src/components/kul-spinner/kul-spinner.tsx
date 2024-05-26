@@ -16,7 +16,7 @@ import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { KulSpinnerEvent, KulSpinnerProps } from './kul-spinner-declarations';
 import { getProps } from '../../utils/componentUtils';
 import { KulDebugComponentInfo } from '../../components';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kul-spinner',
@@ -285,7 +285,11 @@ export class KulSpinner {
 
         return (
             <Host style={elStyle}>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                {this.kulStyle ? (
+                    <style id={KUL_STYLE_ID}>
+                        {this.#kulManager.theme.setKulStyle(this)}
+                    </style>
+                ) : undefined}
                 <div id={KUL_WRAPPER_ID} style={elStyle}>
                     <div
                         id="loading-wrapper-master"

@@ -1,6 +1,6 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { TREE_DOC, TREE_EXAMPLES } from './kul-showcase-tree-data';
-import { DynamicExampleManager } from '../../kul-showcase-utils';
+import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { TreeExample } from './kul-showcase-tree-declarations';
 
@@ -20,7 +20,7 @@ export class KulShowcaseTree {
     /*-------------------------------------------------*/
 
     #dynamicExamples: HTMLKulTreeElement[] = [];
-    #dynamicExampleManager = new DynamicExampleManager();
+    #dynamicExampleManager = SHOWCASE_DYN_EXAMPLES;
     #interval: NodeJS.Timeout;
 
     /*-------------------------------------------------*/

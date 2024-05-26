@@ -25,7 +25,7 @@ import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { GenericObject } from '../../types/GenericTypes';
 import { getProps } from '../../utils/componentUtils';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kul-list',
@@ -390,7 +390,11 @@ export class KulList {
 
         return (
             <Host>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                {this.kulStyle ? (
+                    <style id={KUL_STYLE_ID}>
+                        {this.#kulManager.theme.setKulStyle(this)}
+                    </style>
+                ) : undefined}
                 <div id={KUL_WRAPPER_ID}>
                     <ul
                         aria-multiselectable={'false'}

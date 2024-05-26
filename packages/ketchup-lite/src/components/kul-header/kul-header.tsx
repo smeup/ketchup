@@ -15,7 +15,7 @@ import type { GenericObject, KulEventPayload } from '../../types/GenericTypes';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { KulDebugComponentInfo } from '../../components';
 import { getProps } from '../../utils/componentUtils';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kul-header',
@@ -135,7 +135,11 @@ export class KulHeader {
     render() {
         return (
             <Host class="header">
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                {this.kulStyle ? (
+                    <style id={KUL_STYLE_ID}>
+                        {this.#kulManager.theme.setKulStyle(this)}
+                    </style>
+                ) : undefined}
                 <div id={KUL_WRAPPER_ID}>
                     <header class="header">
                         <section class="header__section">

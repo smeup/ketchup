@@ -27,7 +27,7 @@ import {
 } from '../../managers/kul-data/kul-data-declarations';
 import { KulDebugComponentInfo } from '../../components';
 import { getProps } from '../../utils/componentUtils';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kul-tabbar',
@@ -124,7 +124,7 @@ export class KulTabbar {
         if (eventType === 'click') {
             this.value = {
                 index,
-                node: this.kulData.nodes[index],
+                node,
             };
         }
 
@@ -240,7 +240,7 @@ export class KulTabbar {
 
         for (let i = 0; i < nodes.length; i++) {
             const node = nodes[i];
-            const isActive = node === this.value;
+            const isActive = node === this.value?.node;
             const tabClass: Record<string, boolean> = {
                 tab: true,
                 'tab--active': isActive ? true : false,
@@ -262,7 +262,7 @@ export class KulTabbar {
                 >
                     <div
                         ref={(el) => {
-                            if (this.kulRipple && el) {
+                            if (el && this.kulRipple) {
                                 this.#rippleSurface.push(el);
                             }
                         }}
@@ -294,7 +294,11 @@ export class KulTabbar {
 
         return (
             <Host>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                {this.kulStyle ? (
+                    <style id={KUL_STYLE_ID}>
+                        {this.#kulManager.theme.setKulStyle(this)}
+                    </style>
+                ) : undefined}
                 <div id={KUL_WRAPPER_ID}>
                     <div class="tabbar" role="tablist">
                         <div class="tabbar_scroller">

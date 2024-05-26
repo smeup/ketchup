@@ -4,7 +4,7 @@ import {
     SpinnerBranch,
     SpinnerLeaf,
 } from './kul-showcase-spinner-declarations';
-import { DynamicExampleManager } from '../../kul-showcase-utils';
+import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 
 @Component({
@@ -24,7 +24,7 @@ export class KulShowcaseSpinner {
 
     #interval: NodeJS.Timeout;
     #dynamicExamples: HTMLKulSpinnerElement[] = [];
-    #dynamicExampleManager = new DynamicExampleManager();
+    #dynamicExampleManager = SHOWCASE_DYN_EXAMPLES;
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */

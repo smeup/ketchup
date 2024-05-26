@@ -57,6 +57,9 @@ export class KulData {
                 return;
             }
 
+            const shapes: KulDataShapesMap = {};
+            const nodes = dataset.nodes;
+
             const browseCells = (node: KulDataNode) => {
                 if (!this.cell.exists(node)) {
                     return;
@@ -95,8 +98,6 @@ export class KulData {
                     recursive(node.children[index]);
                 }
             };
-            const shapes: KulDataShapesMap = {};
-            const nodes = dataset.nodes;
             for (let index = 0; index < nodes.length; index++) {
                 const node = nodes[index];
                 browseCells(node);

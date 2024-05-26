@@ -18,6 +18,7 @@ import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declara
 import { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
 import { KulListEventPayload } from "./components/kul-list/kul-list-declarations";
 import { KulPhotoframeEventPayload } from "./components/kul-photoframe/kul-photoframe-declarations";
+import { KulSwitchEventPayload, KulSwitchState } from "./components/kul-switch/kul-switch-declarations";
 import { KulTabbarEventPayload, KulTabbarState } from "./components/kul-tabbar/kul-tabbar-declarations";
 import { KulTextfieldEventPayload, KulTextfieldHelper, KulTextfieldStyling } from "./components/kul-textfield/kul-textfield-declarations";
 import { KulTreeEventPayload } from "./components/kul-tree/kul-tree-declarations";
@@ -35,6 +36,7 @@ export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declara
 export { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
 export { KulListEventPayload } from "./components/kul-list/kul-list-declarations";
 export { KulPhotoframeEventPayload } from "./components/kul-photoframe/kul-photoframe-declarations";
+export { KulSwitchEventPayload, KulSwitchState } from "./components/kul-switch/kul-switch-declarations";
 export { KulTabbarEventPayload, KulTabbarState } from "./components/kul-tabbar/kul-tabbar-declarations";
 export { KulTextfieldEventPayload, KulTextfieldHelper, KulTextfieldStyling } from "./components/kul-textfield/kul-textfield-declarations";
 export { KulTreeEventPayload } from "./components/kul-tree/kul-tree-declarations";
@@ -655,6 +657,8 @@ export namespace Components {
     }
     interface KulShowcaseSplash {
     }
+    interface KulShowcaseSwitch {
+    }
     interface KulShowcaseTabbar {
     }
     interface KulShowcaseTextfield {
@@ -753,6 +757,64 @@ export namespace Components {
           * @param ms - Number of milliseconds
          */
         "unmount": (ms?: number) => Promise<void>;
+    }
+    interface KulSwitch {
+        /**
+          * Fetches debug information of the component's current state.
+          * @returns A promise that resolves with the debug information object.
+         */
+        "getDebugInfo": () => Promise<KulDebugComponentInfo>;
+        /**
+          * Used to retrieve component's properties and descriptions.
+          * @param descriptions - When true, includes descriptions for each property.
+          * @returns Promise resolved with an object containing the component's properties.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Used to retrieve component's current state.
+          * @returns Promise resolved with the current state of the component.
+         */
+        "getValue": () => Promise<KulSwitchState>;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+          * @default false
+         */
+        "kulDisabled": boolean;
+        /**
+          * Defines text to display along with the switch.
+          * @default ""
+         */
+        "kulLabel": string;
+        /**
+          * Defaults at false. When set to true, the label will be displayed before the component.
+          * @default false
+         */
+        "kulLeadingLabel": boolean;
+        /**
+          * When set to true, the pointerdown event will trigger a ripple effect.
+          * @default true
+         */
+        "kulRipple": boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle": string;
+        /**
+          * Sets the initial boolean state of the switch.
+          * @default false
+         */
+        "kulValue": boolean;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the component's state.
+          * @param value - The new state to be set on the component.
+          * @returns
+         */
+        "setValue": (value: KulSwitchState) => Promise<void>;
     }
     interface KulTabbar {
         /**
@@ -1069,6 +1131,10 @@ export interface KulSpinnerCustomEvent<T> extends CustomEvent<T> {
 export interface KulSplashCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulSplashElement;
+}
+export interface KulSwitchCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKulSwitchElement;
 }
 export interface KulTabbarCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1414,6 +1480,12 @@ declare global {
         prototype: HTMLKulShowcaseSplashElement;
         new (): HTMLKulShowcaseSplashElement;
     };
+    interface HTMLKulShowcaseSwitchElement extends Components.KulShowcaseSwitch, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseSwitchElement: {
+        prototype: HTMLKulShowcaseSwitchElement;
+        new (): HTMLKulShowcaseSwitchElement;
+    };
     interface HTMLKulShowcaseTabbarElement extends Components.KulShowcaseTabbar, HTMLStencilElement {
     }
     var HTMLKulShowcaseTabbarElement: {
@@ -1477,6 +1549,23 @@ declare global {
     var HTMLKulSplashElement: {
         prototype: HTMLKulSplashElement;
         new (): HTMLKulSplashElement;
+    };
+    interface HTMLKulSwitchElementEventMap {
+        "kul-switch-event": KulSwitchEventPayload;
+    }
+    interface HTMLKulSwitchElement extends Components.KulSwitch, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulSwitchElementEventMap>(type: K, listener: (this: HTMLKulSwitchElement, ev: KulSwitchCustomEvent<HTMLKulSwitchElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulSwitchElementEventMap>(type: K, listener: (this: HTMLKulSwitchElement, ev: KulSwitchCustomEvent<HTMLKulSwitchElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKulSwitchElement: {
+        prototype: HTMLKulSwitchElement;
+        new (): HTMLKulSwitchElement;
     };
     interface HTMLKulTabbarElementEventMap {
         "kul-tabbar-event": KulTabbarEventPayload;
@@ -1594,6 +1683,7 @@ declare global {
         "kul-showcase-probe": HTMLKulShowcaseProbeElement;
         "kul-showcase-spinner": HTMLKulShowcaseSpinnerElement;
         "kul-showcase-splash": HTMLKulShowcaseSplashElement;
+        "kul-showcase-switch": HTMLKulShowcaseSwitchElement;
         "kul-showcase-tabbar": HTMLKulShowcaseTabbarElement;
         "kul-showcase-textfield": HTMLKulShowcaseTextfieldElement;
         "kul-showcase-toast": HTMLKulShowcaseToastElement;
@@ -1601,6 +1691,7 @@ declare global {
         "kul-showcase-upload": HTMLKulShowcaseUploadElement;
         "kul-spinner": HTMLKulSpinnerElement;
         "kul-splash": HTMLKulSplashElement;
+        "kul-switch": HTMLKulSwitchElement;
         "kul-tabbar": HTMLKulTabbarElement;
         "kul-textfield": HTMLKulTextfieldElement;
         "kul-toast": HTMLKulToastElement;
@@ -2022,6 +2113,8 @@ declare namespace LocalJSX {
     }
     interface KulShowcaseSplash {
     }
+    interface KulShowcaseSwitch {
+    }
     interface KulShowcaseTabbar {
     }
     interface KulShowcaseTextfield {
@@ -2090,6 +2183,42 @@ declare namespace LocalJSX {
           * Describes event emitted.
          */
         "onKul-splash-event"?: (event: KulSplashCustomEvent<KulEventPayload>) => void;
+    }
+    interface KulSwitch {
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+          * @default false
+         */
+        "kulDisabled"?: boolean;
+        /**
+          * Defines text to display along with the switch.
+          * @default ""
+         */
+        "kulLabel"?: string;
+        /**
+          * Defaults at false. When set to true, the label will be displayed before the component.
+          * @default false
+         */
+        "kulLeadingLabel"?: boolean;
+        /**
+          * When set to true, the pointerdown event will trigger a ripple effect.
+          * @default true
+         */
+        "kulRipple"?: boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle"?: string;
+        /**
+          * Sets the initial boolean state of the switch.
+          * @default false
+         */
+        "kulValue"?: boolean;
+        /**
+          * Describes event emitted for various switch interactions like click, focus, blur.
+         */
+        "onKul-switch-event"?: (event: KulSwitchCustomEvent<KulSwitchEventPayload>) => void;
     }
     interface KulTabbar {
         /**
@@ -2307,6 +2436,7 @@ declare namespace LocalJSX {
         "kul-showcase-probe": KulShowcaseProbe;
         "kul-showcase-spinner": KulShowcaseSpinner;
         "kul-showcase-splash": KulShowcaseSplash;
+        "kul-showcase-switch": KulShowcaseSwitch;
         "kul-showcase-tabbar": KulShowcaseTabbar;
         "kul-showcase-textfield": KulShowcaseTextfield;
         "kul-showcase-toast": KulShowcaseToast;
@@ -2314,6 +2444,7 @@ declare namespace LocalJSX {
         "kul-showcase-upload": KulShowcaseUpload;
         "kul-spinner": KulSpinner;
         "kul-splash": KulSplash;
+        "kul-switch": KulSwitch;
         "kul-tabbar": KulTabbar;
         "kul-textfield": KulTextfield;
         "kul-toast": KulToast;
@@ -2355,6 +2486,7 @@ declare module "@stencil/core" {
             "kul-showcase-probe": LocalJSX.KulShowcaseProbe & JSXBase.HTMLAttributes<HTMLKulShowcaseProbeElement>;
             "kul-showcase-spinner": LocalJSX.KulShowcaseSpinner & JSXBase.HTMLAttributes<HTMLKulShowcaseSpinnerElement>;
             "kul-showcase-splash": LocalJSX.KulShowcaseSplash & JSXBase.HTMLAttributes<HTMLKulShowcaseSplashElement>;
+            "kul-showcase-switch": LocalJSX.KulShowcaseSwitch & JSXBase.HTMLAttributes<HTMLKulShowcaseSwitchElement>;
             "kul-showcase-tabbar": LocalJSX.KulShowcaseTabbar & JSXBase.HTMLAttributes<HTMLKulShowcaseTabbarElement>;
             "kul-showcase-textfield": LocalJSX.KulShowcaseTextfield & JSXBase.HTMLAttributes<HTMLKulShowcaseTextfieldElement>;
             "kul-showcase-toast": LocalJSX.KulShowcaseToast & JSXBase.HTMLAttributes<HTMLKulShowcaseToastElement>;
@@ -2362,6 +2494,7 @@ declare module "@stencil/core" {
             "kul-showcase-upload": LocalJSX.KulShowcaseUpload & JSXBase.HTMLAttributes<HTMLKulShowcaseUploadElement>;
             "kul-spinner": LocalJSX.KulSpinner & JSXBase.HTMLAttributes<HTMLKulSpinnerElement>;
             "kul-splash": LocalJSX.KulSplash & JSXBase.HTMLAttributes<HTMLKulSplashElement>;
+            "kul-switch": LocalJSX.KulSwitch & JSXBase.HTMLAttributes<HTMLKulSwitchElement>;
             "kul-tabbar": LocalJSX.KulTabbar & JSXBase.HTMLAttributes<HTMLKulTabbarElement>;
             "kul-textfield": LocalJSX.KulTextfield & JSXBase.HTMLAttributes<HTMLKulTextfieldElement>;
             "kul-toast": LocalJSX.KulToast & JSXBase.HTMLAttributes<HTMLKulToastElement>;

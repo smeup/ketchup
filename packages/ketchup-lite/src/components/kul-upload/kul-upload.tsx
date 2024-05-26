@@ -12,7 +12,7 @@ import {
 } from '@stencil/core';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps } from '../../utils/componentUtils';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { GenericObject } from '../../types/GenericTypes';
 import {
@@ -194,10 +194,10 @@ export class KulUpload {
                         file.type.includes('image')
                             ? 'image'
                             : file.type.includes('audio')
-                            ? 'audiotrack'
-                            : file.type.includes('video')
-                            ? 'movie'
-                            : 'file'
+                              ? 'audiotrack'
+                              : file.type.includes('video')
+                                ? 'movie'
+                                : 'file'
                     }
                     kulSizeX="24px"
                     kulSizeY="24px"
@@ -256,7 +256,11 @@ export class KulUpload {
             this.selectedFiles && this.selectedFiles.length;
         return (
             <Host>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                {this.kulStyle ? (
+                    <style id={KUL_STYLE_ID}>
+                        {this.#kulManager.theme.setKulStyle(this)}
+                    </style>
+                ) : undefined}
                 <div id={KUL_WRAPPER_ID}>
                     <div
                         class={`wrapper ${

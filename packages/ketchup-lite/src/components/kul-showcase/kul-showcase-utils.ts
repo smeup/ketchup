@@ -205,6 +205,7 @@ export class DynamicExampleManager {
         },
     };
 }
+export const SHOWCASE_DYN_EXAMPLES = new DynamicExampleManager();
 
 export function random2digitsNumber() {
     return Math.floor(Math.random() * 99) + 1;

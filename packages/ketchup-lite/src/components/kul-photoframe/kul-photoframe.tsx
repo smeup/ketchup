@@ -18,7 +18,7 @@ import {
 } from './kul-photoframe-declarations';
 import { KulDebugComponentInfo } from '../../components';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { getProps } from '../../utils/componentUtils';
 
 @Component({
@@ -193,7 +193,11 @@ export class KulPhotoframe {
         }
         return (
             <Host>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                {this.kulStyle ? (
+                    <style id={KUL_STYLE_ID}>
+                        {this.#kulManager.theme.setKulStyle(this)}
+                    </style>
+                ) : undefined}
                 <div
                     id={KUL_WRAPPER_ID}
                     ref={(el) => {

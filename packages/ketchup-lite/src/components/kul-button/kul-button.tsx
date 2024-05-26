@@ -22,7 +22,7 @@ import {
 } from './kul-button-declarations';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { getProps } from '../../utils/componentUtils';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulImagePropsInterface } from '../kul-image/kul-image-declarations';
 
 @Component({
@@ -153,20 +153,18 @@ export class KulButton {
     kulEvent: EventEmitter<KulButtonEventPayload>;
 
     onKulEvent(e: Event | CustomEvent, eventType: KulButtonEvent) {
-        if (eventType === 'pointerdown') {
-            if (this.kulRipple && this.kulStyling !== 'icon') {
-                this.#kulManager.theme.ripple.trigger(
-                    e as PointerEvent,
-                    this.#rippleSurface
-                );
-            }
-            if (this.kulToggable) {
-                if (this.value === 'on') {
-                    this.value = 'off';
-                } else {
-                    this.value = 'on';
+        switch (eventType) {
+            case 'click':
+                this.#updateState(this.#isOn() ? 'off' : 'on');
+                break;
+            case 'pointerdown':
+                if (this.kulRipple && this.kulStyling !== 'icon') {
+                    this.#kulManager.theme.ripple.trigger(
+                        e as PointerEvent,
+                        this.#rippleSurface
+                    );
                 }
-            }
+                break;
         }
 
         this.kulEvent.emit({
@@ -221,14 +219,26 @@ export class KulButton {
      */
     @Method()
     async setValue(value: KulButtonState): Promise<void> {
-        if (value === 'off' || value === 'on') {
-            this.value = value;
-        }
+        this.#updateState(value);
     }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
+
+    #isOn() {
+        return this.value === 'on' ? true : false;
+    }
+
+    #updateState(value: KulButtonState) {
+        if (
+            this.kulToggable &&
+            !this.kulDisabled &&
+            (value === 'off' || value === 'on')
+        ) {
+            this.value = value;
+        }
+    }
 
     #normalizedStyling() {
         return this.kulStyling
@@ -325,7 +335,7 @@ export class KulButton {
 
     renderIconButton(): VNode {
         const isLarge = this.rootElement.classList.contains('large');
-        const isOn = this.value === 'on';
+        const isOn = this.#isOn();
         const imageProps: KulImagePropsInterface = {
             kulColor: this.kulDisabled
                 ? `var(--kul_button_disabled_color)`
@@ -433,7 +443,11 @@ export class KulButton {
 
         return (
             <Host>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                {this.kulStyle ? (
+                    <style id={KUL_STYLE_ID}>
+                        {this.#kulManager.theme.setKulStyle(this)}
+                    </style>
+                ) : undefined}
                 <div id={KUL_WRAPPER_ID}>
                     {isIconButton
                         ? this.renderIconButton()

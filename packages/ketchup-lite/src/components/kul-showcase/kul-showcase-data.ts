@@ -116,6 +116,13 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
             value: 'Spinner',
         },
         {
+            description:
+                'Simple component to toggle a boolean state on and off.',
+            icon: 'toll',
+            id: 'Switch',
+            value: 'Switch',
+        },
+        {
             description: 'Provides a bar of clickable tabs for navigation.',
             icon: 'featured_play_list',
             id: 'Tabbar',

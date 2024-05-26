@@ -23,7 +23,7 @@ import {
 } from './kul-lazy-declarations';
 import { KulDebugComponentInfo } from '../../components';
 import { getProps } from '../../utils/componentUtils';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kul-lazy',
@@ -323,7 +323,11 @@ export class KulLazy {
 
         return (
             <Host class={className}>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                {this.kulStyle ? (
+                    <style id={KUL_STYLE_ID}>
+                        {this.#kulManager.theme.setKulStyle(this)}
+                    </style>
+                ) : undefined}
                 <div id={KUL_WRAPPER_ID}>{content}</div>
             </Host>
         );

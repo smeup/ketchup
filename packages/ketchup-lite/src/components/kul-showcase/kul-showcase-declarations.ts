@@ -13,6 +13,7 @@ export const COMPONENTS = [
     'photoframe',
     'splash',
     'spinner',
+    'switch',
     'tabbar',
     'textfield',
     'toast',

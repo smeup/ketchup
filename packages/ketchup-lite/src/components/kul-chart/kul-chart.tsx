@@ -36,7 +36,7 @@ import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps } from '../../utils/componentUtils';
 import { KulThemeColorValues } from '../../managers/kul-theme/kul-theme-declarations';
 import { GenericMap, GenericObject } from '../../types/GenericTypes';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import {
     KulDataCellContainer,
     KulDataDataset,
@@ -1325,7 +1325,11 @@ export class KulChart {
 
         return (
             <Host style={style}>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                {this.kulStyle ? (
+                    <style id={KUL_STYLE_ID}>
+                        {this.#kulManager.theme.setKulStyle(this)}
+                    </style>
+                ) : undefined}
                 <div
                     id={KUL_WRAPPER_ID}
                     ref={(chartContainer) =>

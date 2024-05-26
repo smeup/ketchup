@@ -13,7 +13,7 @@ import {
 import { KulCodeEvent, KulCodeProps } from './kul-code-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps } from '../../utils/componentUtils';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
 import Prism from 'prismjs';
@@ -162,7 +162,11 @@ export class KulCode {
             : this.kulValue;
         return (
             <Host>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                {this.kulStyle ? (
+                    <style id={KUL_STYLE_ID}>
+                        {this.#kulManager.theme.setKulStyle(this)}
+                    </style>
+                ) : undefined}
                 <div id={KUL_WRAPPER_ID}>
                     {
                         <div class="header">

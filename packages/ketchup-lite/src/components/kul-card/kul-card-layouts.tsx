@@ -5,7 +5,7 @@ import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { RIPPLE_SURFACE_CLASS } from '../../variables/GenericVariables';
 import { KulCardCSSClasses } from './kul-card-declarations';
 
-export function getLayoutA(component: KulCard, shapes: KulDataShapesMap) {
+export function getLayoutA(component: KulCard, shapes: KulDataShapesMap = {}) {
     // Button
     const hasButtons = !!shapes.button;
     const actions = hasButtons

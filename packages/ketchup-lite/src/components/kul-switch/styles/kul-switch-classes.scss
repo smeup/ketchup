@@ -1,0 +1,34 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+/* $kul-class-danger                               */
+/* $kul-class-info                                 */
+/* $kul-class-warning                              */
+/* $kul-class-secondary                            */
+/* $kul-class-success                              */
+/*-------------------------------------------------*/
+
+:host(.#{$kul-class-danger}) {
+  --kul-switch-primary-color: var(--kul-danger-color);
+  --kul-switch-primary-color-rgb: var(--kul-danger-color-rgb);
+}
+
+:host(.#{$kul-class-info}) {
+  --kul-switch-primary-color: var(--kul-info-color);
+  --kul-switch-primary-color-rgb: var(--kul-info-color-rgb);
+}
+
+:host(.#{$kul-class-secondary}) {
+  --kul-switch-primary-color: var(--kul-secondary-color);
+  --kul-switch-primary-color-rgb: var(--kul-secondary-color-rgb);
+}
+
+:host(.#{$kul-class-success}) {
+  --kul-switch-primary-color: var(--kul-success-color);
+  --kul-switch-primary-color-rgb: var(--kul-success-color-rgb);
+}
+
+:host(.#{$kul-class-warning}) {
+  --kul-switch-primary-color: var(--kul-warning-color);
+  --kul-switch-primary-color-rgb: var(--kul-warning-color-rgb);
+}

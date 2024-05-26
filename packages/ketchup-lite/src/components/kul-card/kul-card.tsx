@@ -20,7 +20,7 @@ import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { KulCardProps, KulCardEvent } from './kul-card-declarations';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { getProps } from '../../utils/componentUtils';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import {
     KulDataDataset,
     KulDataShapesMap,
@@ -227,7 +227,11 @@ export class KulCard {
 
         return (
             <Host style={style}>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                {this.kulStyle ? (
+                    <style id={KUL_STYLE_ID}>
+                        {this.#kulManager.theme.setKulStyle(this)}
+                    </style>
+                ) : undefined}
                 <div
                     id={KUL_WRAPPER_ID}
                     onClick={(e) => this.onKulEvent(e, 'click')}

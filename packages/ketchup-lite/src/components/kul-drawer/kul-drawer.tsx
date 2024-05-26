@@ -12,7 +12,7 @@ import {
 } from '@stencil/core';
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
-import { KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDrawerEvent, KulDrawerProps } from './kul-drawer-declarations';
 import { KulDebugComponentInfo } from '../../components';
 import { getProps } from '../../utils/componentUtils';
@@ -176,7 +176,11 @@ export class KulDrawer {
     render() {
         return (
             <Host kul-opened={this.opened}>
-                <style>{this.#kulManager.theme.setKulStyle(this)}</style>
+                {this.kulStyle ? (
+                    <style id={KUL_STYLE_ID}>
+                        {this.#kulManager.theme.setKulStyle(this)}
+                    </style>
+                ) : undefined}
                 <div
                     class="backdrop"
                     onClick={(e) => {
