@@ -209,6 +209,11 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
     props: [
       {
+        name: "kulData",
+        docs: "The actual data of the card.",
+        type: "KulDataDataset",
+      },
+      {
         name: "kulDisabled",
         docs: "Defaults at false. When set to true, the component is disabled.",
         type: "boolean",

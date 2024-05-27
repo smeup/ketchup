@@ -1,4 +1,5 @@
 import { KulEventPayload } from '../../types/GenericTypes';
+import { KulDataDataset } from '../../managers/kul-data/kul-data-declarations';
 
 export interface KulButtonEventPayload extends KulEventPayload {
     value: string;
@@ -8,10 +9,12 @@ export type KulButtonEvent =
     | 'blur'
     | 'click'
     | 'focus'
+    | 'kul-event'
     | 'pointerdown'
     | 'ready';
 
 export enum KulButtonProps {
+    kulData = 'Actual data of the button, used to render dropdown buttons.',
     kulDisabled = 'When true, the component is disabled.',
     kulIcon = 'Specifies an icon to display.',
     kulIconOff = 'Icon to be used for the off state when the button is toggable.',
@@ -27,6 +30,7 @@ export enum KulButtonProps {
 }
 
 export interface KulButtonPropsInterface {
+    kulData?: KulDataDataset;
     kulDisabled?: boolean;
     kulIcon?: string;
     kulIconOff?: string;

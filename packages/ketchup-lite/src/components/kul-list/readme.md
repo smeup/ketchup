@@ -130,11 +130,13 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kul-button](../kul-button)
  - [kul-showcase-list](../kul-showcase/components/list)
 
 ### Graph
 ```mermaid
 graph TD;
+  kul-button --> kul-list
   kul-showcase-list --> kul-list
   style kul-list fill:#f9f,stroke:#333,stroke-width:4px
 ```

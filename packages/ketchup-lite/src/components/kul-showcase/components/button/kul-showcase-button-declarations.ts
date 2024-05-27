@@ -12,6 +12,7 @@ export const BUTTON_CATEGORIES_KEYS = [
 export const BUTTON_EXAMPLES_KEYS = [
     'colors',
     'disabled',
+    'dropdown',
     'icon',
     'label',
     'labelIcon',

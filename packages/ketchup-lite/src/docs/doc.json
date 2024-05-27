@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-05-27T09:37:26",
+  "timestamp": "2024-05-27T21:10:04",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -626,11 +626,42 @@
       "filePath": "src/components/kul-button/kul-button.tsx",
       "encapsulation": "shadow",
       "tag": "kul-button",
-      "readme": "# kul-button\r\n\r\n\r\n\r",
       "docs": "",
       "docsTags": [],
       "usage": {},
       "props": [
+        {
+          "name": "kulData",
+          "type": "KulDataDataset",
+          "complexType": {
+            "original": "KulDataDataset",
+            "resolved": "KulDataDataset",
+            "references": {
+              "KulDataDataset": {
+                "location": "import",
+                "path": "../../managers/kul-data/kul-data-declarations",
+                "id": "src/managers/kul-data/kul-data-declarations.ts::KulDataDataset"
+              }
+            }
+          },
+          "mutable": true,
+          "reflectToAttr": false,
+          "docs": "The actual data of the card.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "null"
+            }
+          ],
+          "default": "null",
+          "values": [
+            {
+              "type": "KulDataDataset"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
         {
           "name": "kulDisabled",
           "type": "boolean",
@@ -1296,11 +1327,13 @@
         "kul-upload"
       ],
       "dependencies": [
-        "kul-image"
+        "kul-image",
+        "kul-list"
       ],
       "dependencyGraph": {
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-image": [
           "kul-spinner",
@@ -1661,7 +1694,8 @@
           "kul-image"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-image": [
           "kul-spinner",
@@ -2478,7 +2512,8 @@
           "kul-button"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-image": [
           "kul-spinner",
@@ -4182,10 +4217,14 @@
       "slots": [],
       "parts": [],
       "dependents": [
+        "kul-button",
         "kul-showcase-list"
       ],
       "dependencies": [],
       "dependencyGraph": {
+        "kul-button": [
+          "kul-list"
+        ],
         "kul-showcase-list": [
           "kul-list"
         ]
@@ -4652,7 +4691,8 @@
           "kul-image"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-image": [
           "kul-spinner",
@@ -4817,7 +4857,8 @@
           "kul-article"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-image": [
           "kul-spinner",
@@ -4887,7 +4928,8 @@
           "kul-image"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-image": [
           "kul-spinner",
@@ -4996,7 +5038,8 @@
           "kul-button"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-image": [
           "kul-spinner",
@@ -5468,7 +5511,8 @@
           "kul-article"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-image": [
           "kul-spinner",
@@ -5808,7 +5852,8 @@
           "kul-image"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ]
       }
     },
@@ -9024,7 +9069,8 @@
           "kul-image"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-showcase-upload": [
           "kul-upload"
@@ -9058,6 +9104,11 @@
       "docstring": "",
       "path": "src/components/kul-image/kul-image-declarations.ts"
     },
+    "src/managers/kul-data/kul-data-declarations.ts::KulDataDataset": {
+      "declaration": "export interface KulDataDataset {\n    columns?: KulDataColumn[];\n    nodes?: KulDataNode[];\n}",
+      "docstring": "",
+      "path": "src/managers/kul-data/kul-data-declarations.ts"
+    },
     "src/components/kul-button/kul-button-declarations.ts::KulButtonStyling": {
       "declaration": "export type KulButtonStyling =\n    | 'flat'\n    | 'floating'\n    | 'icon'\n    | 'outlined'\n    | 'raised';",
       "docstring": "",
@@ -9072,11 +9123,6 @@
       "declaration": "export type KulButtonState = 'off' | 'on';",
       "docstring": "",
       "path": "src/components/kul-button/kul-button-declarations.ts"
-    },
-    "src/managers/kul-data/kul-data-declarations.ts::KulDataDataset": {
-      "declaration": "export interface KulDataDataset {\n    columns?: KulDataColumn[];\n    nodes?: KulDataNode[];\n}",
-      "docstring": "",
-      "path": "src/managers/kul-data/kul-data-declarations.ts"
     },
     "src/managers/kul-data/kul-data-declarations.ts::KulDataShapesMap": {
       "declaration": "{\n    [K in KulDataShapes]?: Array<\n        {\n            [P in K]: K extends 'badge'\n                ? Partial<KulBadgePropsInterface>\n                : K extends 'button'\n                  ? Partial<KulButtonPropsInterface>\n                  : K extends 'code'\n                    ? Partial<KulCodePropsInterface>\n                    : K extends 'image'\n                      ? Partial<KulImagePropsInterface>\n                      : string;\n        }[K]\n    >;\n}",
