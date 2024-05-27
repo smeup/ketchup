@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-05-26T20:06:13",
+  "timestamp": "2024-05-27T21:10:04",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -626,11 +626,42 @@
       "filePath": "src/components/kul-button/kul-button.tsx",
       "encapsulation": "shadow",
       "tag": "kul-button",
-      "readme": "# kul-button\r\n\r\n\r\n\r",
       "docs": "",
       "docsTags": [],
       "usage": {},
       "props": [
+        {
+          "name": "kulData",
+          "type": "KulDataDataset",
+          "complexType": {
+            "original": "KulDataDataset",
+            "resolved": "KulDataDataset",
+            "references": {
+              "KulDataDataset": {
+                "location": "import",
+                "path": "../../managers/kul-data/kul-data-declarations",
+                "id": "src/managers/kul-data/kul-data-declarations.ts::KulDataDataset"
+              }
+            }
+          },
+          "mutable": true,
+          "reflectToAttr": false,
+          "docs": "The actual data of the card.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "null"
+            }
+          ],
+          "default": "null",
+          "values": [
+            {
+              "type": "KulDataDataset"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
         {
           "name": "kulDisabled",
           "type": "boolean",
@@ -1097,7 +1128,7 @@
           },
           "signature": "getValue() => Promise<KulButtonState>",
           "parameters": [],
-          "docs": "Used to retrieve component's current state.",
+          "docs": "Used to retrieve the component's current state.",
           "docsTags": [
             {
               "name": "returns",
@@ -1296,11 +1327,13 @@
         "kul-upload"
       ],
       "dependencies": [
-        "kul-image"
+        "kul-image",
+        "kul-list"
       ],
       "dependencyGraph": {
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-image": [
           "kul-spinner",
@@ -1661,7 +1694,8 @@
           "kul-image"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-image": [
           "kul-spinner",
@@ -2478,7 +2512,8 @@
           "kul-button"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-image": [
           "kul-spinner",
@@ -3437,7 +3472,7 @@
           "mutable": false,
           "attr": "kul-render-mode",
           "reflectToAttr": false,
-          "docs": "Decides when the sub-component should be rendered.\r\nBy default when both the component props exist and the component is in the viewport.",
+          "docs": "Decides when the sub-component should be rendered.\nBy default when both the component props exist and the component is in the viewport.",
           "docsTags": [
             {
               "name": "default",
@@ -4182,10 +4217,14 @@
       "slots": [],
       "parts": [],
       "dependents": [
+        "kul-button",
         "kul-showcase-list"
       ],
       "dependencies": [],
       "dependencyGraph": {
+        "kul-button": [
+          "kul-list"
+        ],
         "kul-showcase-list": [
           "kul-list"
         ]
@@ -4652,7 +4691,8 @@
           "kul-image"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-image": [
           "kul-spinner",
@@ -4817,7 +4857,8 @@
           "kul-article"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-image": [
           "kul-spinner",
@@ -4887,7 +4928,8 @@
           "kul-image"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-image": [
           "kul-spinner",
@@ -4996,7 +5038,8 @@
           "kul-button"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-image": [
           "kul-spinner",
@@ -5468,7 +5511,8 @@
           "kul-article"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-image": [
           "kul-spinner",
@@ -5808,7 +5852,8 @@
           "kul-image"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ]
       }
     },
@@ -6757,7 +6802,7 @@
           },
           "signature": "getValue() => Promise<KulSwitchState>",
           "parameters": [],
-          "docs": "Used to retrieve component's current state.",
+          "docs": "Used to retrieve the component's current state.",
           "docsTags": [
             {
               "name": "returns",
@@ -7387,7 +7432,7 @@
           },
           "mutable": true,
           "reflectToAttr": false,
-          "docs": "Specifies helper text to display alongside the text field.\r\nHelper text can provide additional context or instructions to the user.",
+          "docs": "Specifies helper text to display alongside the text field.\nHelper text can provide additional context or instructions to the user.",
           "docsTags": [
             {
               "name": "default",
@@ -7419,7 +7464,7 @@
           },
           "mutable": true,
           "reflectToAttr": false,
-          "docs": "Allows customization of the input or textarea element through additional HTML attributes.\r\nThis can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.",
+          "docs": "Allows customization of the input or textarea element through additional HTML attributes.\nThis can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.",
           "docsTags": [
             {
               "name": "default",
@@ -7446,7 +7491,7 @@
           "mutable": true,
           "attr": "kul-icon",
           "reflectToAttr": true,
-          "docs": "Defines the icon to be displayed within the text field.\r\nIcons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.",
+          "docs": "Defines the icon to be displayed within the text field.\nIcons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.",
           "docsTags": [
             {
               "name": "default",
@@ -7473,7 +7518,7 @@
           "mutable": true,
           "attr": "kul-label",
           "reflectToAttr": true,
-          "docs": "Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected.\r\nLabels are especially important for screen readers and users navigating with keyboard-only controls.",
+          "docs": "Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected.\nLabels are especially important for screen readers and users navigating with keyboard-only controls.",
           "docsTags": [
             {
               "name": "default",
@@ -7500,7 +7545,7 @@
           "mutable": true,
           "attr": "kul-style",
           "reflectToAttr": true,
-          "docs": "Accepts custom CSS styles to apply directly to the text field component.\r\nThis allows for fine-grained control over the appearance of the component beyond predefined styling options.",
+          "docs": "Accepts custom CSS styles to apply directly to the text field component.\nThis allows for fine-grained control over the appearance of the component beyond predefined styling options.",
           "docsTags": [
             {
               "name": "default",
@@ -7533,7 +7578,7 @@
           "mutable": true,
           "attr": "kul-styling",
           "reflectToAttr": true,
-          "docs": "Determines the overall styling theme of the text field, affecting its shape and border.\r\nOptions include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.",
+          "docs": "Determines the overall styling theme of the text field, affecting its shape and border.\nOptions include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.",
           "docsTags": [
             {
               "name": "default",
@@ -7600,7 +7645,7 @@
           "mutable": false,
           "attr": "kul-value",
           "reflectToAttr": false,
-          "docs": "Initializes the text field with a default value when the component is first rendered.\r\nThis can be used to pre-fill forms or set a starting point for user input.",
+          "docs": "Initializes the text field with a default value when the component is first rendered.\nThis can be used to pre-fill forms or set a starting point for user input.",
           "docsTags": [
             {
               "name": "default",
@@ -7699,6 +7744,33 @@
           ]
         },
         {
+          "name": "getValue",
+          "returns": {
+            "type": "Promise<string>",
+            "docs": "Promise resolved with the current state of the component."
+          },
+          "complexType": {
+            "signature": "() => Promise<string>",
+            "parameters": [],
+            "references": {
+              "Promise": {
+                "location": "global",
+                "id": "global::Promise"
+              }
+            },
+            "return": "Promise<string>"
+          },
+          "signature": "getValue() => Promise<string>",
+          "parameters": [],
+          "docs": "Used to retrieve the component's current state.",
+          "docsTags": [
+            {
+              "name": "returns",
+              "text": "Promise resolved with the current state of the component."
+            }
+          ]
+        },
+        {
           "name": "refresh",
           "returns": {
             "type": "Promise<void>",
@@ -7719,6 +7791,48 @@
           "parameters": [],
           "docs": "This method is used to trigger a new render of the component.",
           "docsTags": []
+        },
+        {
+          "name": "setValue",
+          "returns": {
+            "type": "Promise<void>",
+            "docs": ""
+          },
+          "complexType": {
+            "signature": "(value: string) => Promise<void>",
+            "parameters": [
+              {
+                "name": "value",
+                "type": "string",
+                "docs": "- The new state to be set on the component."
+              }
+            ],
+            "references": {
+              "Promise": {
+                "location": "global",
+                "id": "global::Promise"
+              }
+            },
+            "return": "Promise<void>"
+          },
+          "signature": "setValue(value: string) => Promise<void>",
+          "parameters": [
+            {
+              "name": "value",
+              "type": "string",
+              "docs": "- The new state to be set on the component."
+            }
+          ],
+          "docs": "Sets the component's state.",
+          "docsTags": [
+            {
+              "name": "param",
+              "text": "value - The new state to be set on the component."
+            },
+            {
+              "name": "returns"
+            }
+          ]
         }
       ],
       "events": [
@@ -7764,6 +7878,11 @@
           "name": "--kul-textfield-background-color-hover",
           "annotation": "prop",
           "docs": "Sets the background color of the text field when hovering. Defaults to rgba(var(--kul-text-color-rgb), 0.125)."
+        },
+        {
+          "name": "--kul-textfield-border-radius",
+          "annotation": "prop",
+          "docs": "Sets the border radius of the text field. Defaults to 4px."
         },
         {
           "name": "--kul-textfield-font-family",
@@ -7858,7 +7977,7 @@
               "text": "() => void"
             }
           ],
-          "default": "() => {\r\n        const e = new CustomEvent('unmount');\r\n        this.onKulEvent(e, 'unmount');\r\n        this.kulEvent.emit({\r\n            comp: this,\r\n            eventType: 'unmount',\r\n            id: this.rootElement.id,\r\n            originalEvent: e,\r\n        });\r\n        this.rootElement.remove();\r\n    }",
+          "default": "() => {\n        const e = new CustomEvent('unmount');\n        this.onKulEvent(e, 'unmount');\n        this.kulEvent.emit({\n            comp: this,\n            eventType: 'unmount',\n            id: this.rootElement.id,\n            originalEvent: e,\n        });\n        this.rootElement.remove();\n    }",
           "values": [
             {
               "type": "() => void"
@@ -7890,7 +8009,7 @@
               "text": "{ kulSizeX: '18px', kulSizeY: '18px', kulValue: 'clear' }"
             }
           ],
-          "default": "{\r\n        kulSizeX: '18px',\r\n        kulSizeY: '18px',\r\n        kulValue: 'clear',\r\n    }",
+          "default": "{\n        kulSizeX: '18px',\n        kulSizeY: '18px',\n        kulValue: 'clear',\n    }",
           "values": [
             {
               "type": "KulImagePropsInterface"
@@ -7922,7 +8041,7 @@
               "text": "{ kulSizeX: '18px', kulSizeY: '18px', kulValue: 'info' }"
             }
           ],
-          "default": "{\r\n        kulSizeX: '18px',\r\n        kulSizeY: '18px',\r\n        kulValue: 'info',\r\n    }",
+          "default": "{\n        kulSizeX: '18px',\n        kulSizeY: '18px',\n        kulValue: 'info',\n    }",
           "values": [
             {
               "type": "KulImagePropsInterface"
@@ -8297,7 +8416,7 @@
           "mutable": true,
           "attr": "kul-initial-expansion-depth",
           "reflectToAttr": false,
-          "docs": "Sets the initial expanded nodes based on the specified depth.\r\nIf the property is not provided, all nodes in the tree will be expanded.",
+          "docs": "Sets the initial expanded nodes based on the specified depth.\nIf the property is not provided, all nodes in the tree will be expanded.",
           "docsTags": [
             {
               "name": "default",
@@ -8950,7 +9069,8 @@
           "kul-image"
         ],
         "kul-button": [
-          "kul-image"
+          "kul-image",
+          "kul-list"
         ],
         "kul-showcase-upload": [
           "kul-upload"
@@ -8984,6 +9104,11 @@
       "docstring": "",
       "path": "src/components/kul-image/kul-image-declarations.ts"
     },
+    "src/managers/kul-data/kul-data-declarations.ts::KulDataDataset": {
+      "declaration": "export interface KulDataDataset {\n    columns?: KulDataColumn[];\n    nodes?: KulDataNode[];\n}",
+      "docstring": "",
+      "path": "src/managers/kul-data/kul-data-declarations.ts"
+    },
     "src/components/kul-button/kul-button-declarations.ts::KulButtonStyling": {
       "declaration": "export type KulButtonStyling =\n    | 'flat'\n    | 'floating'\n    | 'icon'\n    | 'outlined'\n    | 'raised';",
       "docstring": "",
@@ -8998,11 +9123,6 @@
       "declaration": "export type KulButtonState = 'off' | 'on';",
       "docstring": "",
       "path": "src/components/kul-button/kul-button-declarations.ts"
-    },
-    "src/managers/kul-data/kul-data-declarations.ts::KulDataDataset": {
-      "declaration": "export interface KulDataDataset {\n    columns?: KulDataColumn[];\n    nodes?: KulDataNode[];\n}",
-      "docstring": "",
-      "path": "src/managers/kul-data/kul-data-declarations.ts"
     },
     "src/managers/kul-data/kul-data-declarations.ts::KulDataShapesMap": {
       "declaration": "{\n    [K in KulDataShapes]?: Array<\n        {\n            [P in K]: K extends 'badge'\n                ? Partial<KulBadgePropsInterface>\n                : K extends 'button'\n                  ? Partial<KulButtonPropsInterface>\n                  : K extends 'code'\n                    ? Partial<KulCodePropsInterface>\n                    : K extends 'image'\n                      ? Partial<KulImagePropsInterface>\n                      : string;\n        }[K]\n    >;\n}",
@@ -9085,7 +9205,7 @@
       "path": "src/components/kul-textfield/kul-textfield-declarations.ts"
     },
     "src/components/kul-textfield/kul-textfield-declarations.ts::KulTextfieldEventPayload": {
-      "declaration": "export interface KulTextfieldEventPayload extends KulEventPayload {\n    value?: string;\n}",
+      "declaration": "export interface KulTextfieldEventPayload extends KulEventPayload {\n    inputValue?: string;\n    value?: string;\n}",
       "docstring": "",
       "path": "src/components/kul-textfield/kul-textfield-declarations.ts"
     },

@@ -106,6 +106,7 @@ graph TD;
   kul-image --> kul-badge
   kul-badge --> kul-image
   kul-button --> kul-image
+  kul-button --> kul-list
   kul-showcase-upload --> kul-upload
   style kul-upload fill:#f9f,stroke:#333,stroke-width:4px
 ```

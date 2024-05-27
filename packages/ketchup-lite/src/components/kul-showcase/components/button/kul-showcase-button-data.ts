@@ -2,8 +2,22 @@ import { KulArticleDataset } from '../../../kul-article/kul-article-declarations
 import { DOC_STYLES } from '../../kul-showcase-data';
 import { SHOWCASE_DOC } from '../../kul-showcase-utils';
 import { ButtonData } from './kul-showcase-button-declarations';
+import { KulDataDataset } from '../../../../managers/kul-data/kul-data-declarations';
 
 const component = 'button';
+
+const kulData: KulDataDataset = {
+    nodes: [
+        {
+            children: [
+                { id: '0.0', value: 'Child 1' },
+                { id: '0.1', value: 'Child 2' },
+            ],
+            id: '0',
+            value: 'Node 0',
+        },
+    ],
+};
 
 export const BUTTON_EXAMPLES: ButtonData = {
     flat: {
@@ -16,6 +30,11 @@ export const BUTTON_EXAMPLES: ButtonData = {
             ['data-description']: 'Disabled button',
             kulDisabled: true,
             kulLabel: 'Disabled',
+        },
+        dropdown: {
+            ['data-description']: 'Dropdown button',
+            kulData,
+            kulLabel: 'Dropdown',
         },
         icon: {
             ['data-description']: 'Icon button',
@@ -73,6 +92,11 @@ export const BUTTON_EXAMPLES: ButtonData = {
             kulDisabled: true,
             kulLabel: 'Disabled',
         },
+        dropdown: {
+            ['data-description']: 'Dropdown button',
+            kulData,
+            kulLabel: 'Dropdown',
+        },
         icon: {
             ['data-description']: 'Icon button',
             kulIcon: 'widgets',
@@ -129,6 +153,12 @@ export const BUTTON_EXAMPLES: ButtonData = {
             kulDisabled: true,
             kulIcon: 'widgets',
         },
+        dropdown: {
+            ['data-description']: 'Dropdown button',
+            kulData,
+            kulIcon: 'widgets',
+            kulLabel: 'Dropdown',
+        },
         icon: {
             ['data-description']: 'Icon button',
             kulIcon: 'widgets',
@@ -173,6 +203,11 @@ export const BUTTON_EXAMPLES: ButtonData = {
             ['data-description']: 'Disabled button',
             kulDisabled: true,
             kulLabel: 'Disabled',
+        },
+        dropdown: {
+            ['data-description']: 'Dropdown button',
+            kulData,
+            kulLabel: 'Dropdown',
         },
         icon: {
             ['data-description']: 'Icon button',
@@ -229,6 +264,11 @@ export const BUTTON_EXAMPLES: ButtonData = {
             ['data-description']: 'Disabled button',
             kulDisabled: true,
             kulLabel: 'Disabled',
+        },
+        dropdown: {
+            ['data-description']: 'Dropdown button',
+            kulData,
+            kulLabel: 'Dropdown',
         },
         icon: {
             ['data-description']: 'Icon button',

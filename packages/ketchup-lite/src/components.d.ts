@@ -9,8 +9,8 @@ import { KulArticleDataset } from "./components/kul-article/kul-article-declarat
 import { GenericObject, KulEventPayload } from "./types/GenericTypes";
 import { KulDebugComponentInfo } from "./managers/kul-debug/kul-debug-declarations";
 import { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
-import { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 import { KulDataDataset, KulDataNode, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
+import { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 import { KulChartEventPayload, KulChartLegendPlacement, KulChartType } from "./components/kul-chart/kul-chart-declarations";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
 import { KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
@@ -27,8 +27,8 @@ export { KulArticleDataset } from "./components/kul-article/kul-article-declarat
 export { GenericObject, KulEventPayload } from "./types/GenericTypes";
 export { KulDebugComponentInfo } from "./managers/kul-debug/kul-debug-declarations";
 export { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
-export { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 export { KulDataDataset, KulDataNode, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
+export { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 export { KulChartEventPayload, KulChartLegendPlacement, KulChartType } from "./components/kul-chart/kul-chart-declarations";
 export { XAXisComponentOption, YAXisComponentOption } from "echarts";
 export { KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
@@ -114,10 +114,15 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * Used to retrieve component's current state.
+          * Used to retrieve the component's current state.
           * @returns Promise resolved with the current state of the component.
          */
         "getValue": () => Promise<KulButtonState>;
+        /**
+          * The actual data of the card.
+          * @default null
+         */
+        "kulData": KulDataDataset;
         /**
           * Defaults at false. When set to true, the component is disabled.
           * @default false
@@ -771,7 +776,7 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * Used to retrieve component's current state.
+          * Used to retrieve the component's current state.
           * @returns Promise resolved with the current state of the component.
          */
         "getValue": () => Promise<KulSwitchState>;
@@ -877,6 +882,11 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * Used to retrieve the component's current state.
+          * @returns Promise resolved with the current state of the component.
+         */
+        "getValue": () => Promise<string>;
+        /**
           * Enables or disables the text field to prevent user interaction.
           * @default false
          */
@@ -930,6 +940,12 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the component's state.
+          * @param value - The new state to be set on the component.
+          * @returns
+         */
+        "setValue": (value: string) => Promise<void>;
     }
     interface KulToast {
         /**
@@ -1738,6 +1754,11 @@ declare namespace LocalJSX {
         "onKul-badge-event"?: (event: KulBadgeCustomEvent<KulEventPayload>) => void;
     }
     interface KulButton {
+        /**
+          * The actual data of the card.
+          * @default null
+         */
+        "kulData"?: KulDataDataset;
         /**
           * Defaults at false. When set to true, the component is disabled.
           * @default false

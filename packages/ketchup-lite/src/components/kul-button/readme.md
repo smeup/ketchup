@@ -9,6 +9,7 @@
 
 | Property          | Attribute           | Description                                                                                                                 | Type                                                       | Default    |
 | ----------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ---------- |
+| `kulData`         | --                  | The actual data of the card.                                                                                                | `KulDataDataset`                                           | `null`     |
 | `kulDisabled`     | `kul-disabled`      | Defaults at false. When set to true, the component is disabled.                                                             | `boolean`                                                  | `false`    |
 | `kulIcon`         | `kul-icon`          | When set, the button will show this icon.                                                                                   | `string`                                                   | `''`       |
 | `kulIconOff`      | `kul-icon-off`      | When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed. | `string`                                                   | `''`       |
@@ -60,7 +61,7 @@ Promise resolved with an object containing the component's properties.
 
 ### `getValue() => Promise<KulButtonState>`
 
-Used to retrieve component's current state.
+Used to retrieve the component's current state.
 
 #### Returns
 
@@ -132,11 +133,13 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kul-image](../kul-image)
+- [kul-list](../kul-list)
 
 ### Graph
 ```mermaid
 graph TD;
   kul-button --> kul-image
+  kul-button --> kul-list
   kul-image --> kul-spinner
   kul-image --> kul-badge
   kul-badge --> kul-image

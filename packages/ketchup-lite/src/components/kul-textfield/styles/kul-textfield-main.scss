@@ -32,6 +32,11 @@
     rgba(var(--kul-text-color-rgb), 0.175)
   );
   /**
+ * @prop --kul-textfield-border-radius: Sets the border radius of the text field.
+ * Defaults to 4px.
+ */
+  --kul_textfield_border_radius: var(--kul-textfield-border-radius, 4px);
+  /**
    * @prop --kul-textfield-input-color: Sets the color of the text field's input text.
    * Defaults to var(--kul-text-color).
    */
@@ -118,19 +123,23 @@
   align-items: baseline;
   backdrop-filter: var(--kul_textfield_backdrop_filter);
   background-color: var(--kul_textfield_background_color);
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  border-radius: 8px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+  border-radius: var(--kul_textfield_border_radius);
   box-sizing: border-box;
   display: inline-flex;
   height: 56px;
   overflow: hidden;
-  padding: 0 16px;
+  padding: var(--kul_textfield_padding);
   position: relative;
   transition: background-color 125ms ease;
   width: 100%;
+
+  &--full-width {
+    padding: 0;
+    &.textfield--flat .textfield__input,
+    &.textfield--raised .textfield__input {
+      padding-top: 0;
+    }
+  }
 
   &--has-icon {
     .textfield__label {
@@ -161,7 +170,7 @@
       .textfield__notched-outline__leading,
       .textfield__notched-outline__notch,
       .textfield__notched-outline__trailing {
-        border-color: var(--kup_textfield_primary_color);
+        border-color: var(--kul_textfield_primary_color);
       }
     }
 
@@ -183,6 +192,18 @@
         left: 4px;
         padding: 0.25em 1em;
         transform: scale(0.75) translateY(-3.25em);
+      }
+    }
+
+    &.textfield--filled {
+      .textfield__label {
+        border: 1px solid rgba(var(--kul_textfield_input_color_rgb), 0.575);
+      }
+    }
+
+    &.textfield--focused {
+      .textfield__label {
+        border: 1px solid rgba(var(--kul_textfield_primary_color_rgb), 0.575);
       }
     }
 
@@ -462,5 +483,36 @@
     overflow: hidden;
     resize: both;
     transform: translateX(-1px) translateY(-1px);
+  }
+
+  &__helper-text {
+    font-family: var(--kul_textfield_font_family);
+    line-height: 1.25em;
+    display: block;
+    font-size: 0.75em;
+    font-weight: 400;
+    letter-spacing: 0.0333333333em;
+    line-height: normal;
+    margin: 0;
+    margin-top: 0;
+    opacity: 0;
+    text-decoration: inherit;
+    text-transform: inherit;
+    transition: opacity 150ms 0ms cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity;
+
+    &--persistent {
+      transition: none;
+      opacity: 1;
+      will-change: initial;
+    }
+  }
+
+  &__helper-line {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding-right: 16px;
+    padding-left: 16px;
   }
 }

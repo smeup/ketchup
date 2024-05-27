@@ -33,6 +33,7 @@ graph TD;
   kul-showcase-button --> kul-spinner
   kul-showcase-button --> kul-article
   kul-button --> kul-image
+  kul-button --> kul-list
   kul-image --> kul-spinner
   kul-image --> kul-badge
   kul-badge --> kul-image

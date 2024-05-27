@@ -9,6 +9,7 @@ export type KulTextfieldEvent =
     | 'ready';
 
 export interface KulTextfieldEventPayload extends KulEventPayload {
+    inputValue?: string;
     value?: string;
 }
 
