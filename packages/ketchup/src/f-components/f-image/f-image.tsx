@@ -18,13 +18,12 @@ export const FImage: FunctionalComponent<FImageProps> = (
         '--kup_image_width': string;
     };
 
-    const hasExternalResource =
-        props.resource.indexOf('.') > -1 ||
-        props.resource.indexOf('/') > -1 ||
-        props.resource.indexOf('\\') > -1;
-
     if (props.resource) {
-        if (hasExternalResource) {
+        if (
+            props.resource.indexOf('.') > -1 ||
+            props.resource.indexOf('/') > -1 ||
+            props.resource.indexOf('\\') > -1
+        ) {
             style = {
                 '--kup_image_height': props.sizeY ? props.sizeY : 'auto',
                 '--kup_image_width': props.sizeX ? props.sizeX : '100%',
@@ -54,9 +53,7 @@ export const FImage: FunctionalComponent<FImageProps> = (
 
     return (
         <div
-            class={`f-image ${props.wrapperClass ? props.wrapperClass : ''} ${
-                hasExternalResource ? `images` : ''
-            } `}
+            class={`f-image ${props.wrapperClass ? props.wrapperClass : ''} `}
             {...props.dataSet}
             id={props.id}
             style={style}
