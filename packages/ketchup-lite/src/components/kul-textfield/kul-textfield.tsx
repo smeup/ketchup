@@ -150,21 +150,11 @@ export class KulTextfield {
 
     onKulEvent(e: Event | CustomEvent, eventType: KulTextfieldEvent) {
         const target = e.target as HTMLInputElement;
-        const value = target?.value;
+        const inputValue = target?.value;
         switch (eventType) {
             case 'blur':
                 this.status.delete('focused');
                 this.status = new Set(this.status);
-                break;
-            case 'change':
-                if (!target.value) {
-                    this.status.delete('filled');
-                    this.status = new Set(this.status);
-                } else {
-                    this.status.add('filled');
-                    this.status = new Set(this.status);
-                }
-                this.value = value;
                 break;
             case 'focus':
                 this.status.add('focused');
@@ -176,7 +166,8 @@ export class KulTextfield {
             eventType,
             id: this.rootElement.id,
             originalEvent: e,
-            value,
+            inputValue,
+            value: this.value,
         });
     }
 
@@ -202,16 +193,43 @@ export class KulTextfield {
         return getProps(this, KulTextfieldProps, descriptions);
     }
     /**
+     * Used to retrieve the component's current state.
+     * @returns {Promise<string>} Promise resolved with the current state of the component.
+     */
+    @Method()
+    async getValue(): Promise<string> {
+        return this.value;
+    }
+    /**
      * This method is used to trigger a new render of the component.
      */
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
     }
+    /**
+     * Sets the component's state.
+     * @param {string} value - The new state to be set on the component.
+     * @returns {Promise<void>}
+     */
+    @Method()
+    async setValue(value: string): Promise<void> {
+        this.#updateState(value);
+    }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
+
+    #updateState(
+        value: string,
+        e: CustomEvent<unknown> | Event = new CustomEvent('change')
+    ) {
+        if (!this.kulDisabled) {
+            this.value = value;
+            this.onKulEvent(e, 'change');
+        }
+    }
 
     #outlineCheck() {
         return this.kulStyling === 'outlined' || this.kulStyling === 'textarea';
@@ -275,7 +293,9 @@ export class KulTextfield {
                     this.onKulEvent(e, 'blur');
                 }}
                 onChange={(e) => {
-                    this.onKulEvent(e, 'change');
+                    this.#updateState(
+                        (e.currentTarget as HTMLInputElement).value
+                    );
                 }}
                 onClick={(e) => {
                     this.onKulEvent(e, 'click');
@@ -334,7 +354,9 @@ export class KulTextfield {
                         this.onKulEvent(e, 'blur');
                     }}
                     onChange={(e) => {
-                        this.onKulEvent(e, 'change');
+                        this.#updateState(
+                            (e.currentTarget as HTMLInputElement).value
+                        );
                     }}
                     onClick={(e) => {
                         this.onKulEvent(e, 'click');
@@ -351,6 +373,28 @@ export class KulTextfield {
         );
     }
 
+    #updateStatus() {
+        const propertiesToUpdateStatus: {
+            prop: string;
+            status: KulTextfieldStatus;
+        }[] = [
+            { prop: 'value', status: 'filled' },
+            { prop: 'kulDisabled', status: 'disabled' },
+            { prop: 'kulFullWidth', status: 'full-width' },
+            { prop: 'kulIcon', status: 'has-icon' },
+            { prop: 'kulLabel', status: 'has-label' },
+        ];
+
+        propertiesToUpdateStatus.forEach(({ prop, status }) => {
+            const propName = prop as keyof KulTextfield;
+            const propValue = this[propName];
+            if (propValue) {
+                this.status.add(status);
+            } else {
+                this.status.delete(status);
+            }
+        });
+    }
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -372,26 +416,7 @@ export class KulTextfield {
         this.#kulManager.debug.updateDebugInfo(this, 'will-render');
         this.#hasOutline = this.#outlineCheck();
         this.#maxLength = this.kulHtmlAttributes?.maxLength as number;
-        if (this.kulDisabled) {
-            this.status.add('disabled');
-        } else {
-            this.status.delete('disabled');
-        }
-        if (this.kulFullWidth) {
-            this.status.add('full-width');
-        } else {
-            this.status.delete('full-width');
-        }
-        if (this.kulIcon) {
-            this.status.add('has-icon');
-        } else {
-            this.status.delete('has-icon');
-        }
-        if (this.kulLabel) {
-            this.status.add('has-label');
-        } else {
-            this.status.delete('has-label');
-        }
+        this.#updateStatus();
     }
 
     componentDidRender() {
@@ -424,9 +449,12 @@ export class KulTextfield {
                                   this.#prepInput(),
                                   this.#prepLabel(),
                                   this.#prepRipple(),
+                                  this.kulFullWidth
+                                      ? undefined
+                                      : this.#prepHelper(),
                               ]}
-                        {this.#prepHelper()}
                     </div>
+                    {this.kulFullWidth ? this.#prepHelper() : undefined}
                 </div>
             </Host>
         );

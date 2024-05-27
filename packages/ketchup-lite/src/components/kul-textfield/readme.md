@@ -56,9 +56,35 @@ Type: `Promise<GenericObject<unknown>>`
 
 List of props as object, each key will be a prop.
 
+### `getValue() => Promise<string>`
+
+Used to retrieve the component's current state.
+
+#### Returns
+
+Type: `Promise<string>`
+
+Promise resolved with the current state of the component.
+
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setValue(value: string) => Promise<void>`
+
+Sets the component's state.
+
+#### Parameters
+
+| Name    | Type     | Description                                 |
+| ------- | -------- | ------------------------------------------- |
+| `value` | `string` | - The new state to be set on the component. |
 
 #### Returns
 
@@ -75,6 +101,7 @@ Type: `Promise<void>`
 | `--kul-textfield-backdrop-filter-hover`  | Sets the backdrop filter of the text field when hovering. Defaults to blur(5px).                               |
 | `--kul-textfield-background-color`       | Sets the background color of the text field. Defaults to rgba(var(--kul-text-color-rgb), 0.125).               |
 | `--kul-textfield-background-color-hover` | Sets the background color of the text field when hovering. Defaults to rgba(var(--kul-text-color-rgb), 0.125). |
+| `--kul-textfield-border-radius`          | Sets the border radius of the text field. Defaults to 4px.                                                     |
 | `--kul-textfield-font-family`            | Sets the font family of the text field. Defaults to var(--kul-font-family).                                    |
 | `--kul-textfield-input-color`            | Sets the color of the text field's input text. Defaults to var(--kul-text-color).                              |
 | `--kul-textfield-input-color-rgb`        | Sets the rgb color of the text field's input text. Defaults to var(--kul-text-color-rgb).                      |
