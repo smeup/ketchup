@@ -54,7 +54,7 @@ Promise resolved with an object containing the component's properties.
 
 ### `getValue() => Promise<KulSwitchState>`
 
-Used to retrieve component's current state.
+Used to retrieve the component's current state.
 
 #### Returns
 

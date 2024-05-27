@@ -114,9 +114,6 @@ export class KulSwitch {
 
     onKulEvent(e: Event | CustomEvent, eventType: KulSwitchEvent) {
         switch (eventType) {
-            case 'change':
-                this.#updateState(this.#isOn() ? 'off' : 'on');
-                break;
             case 'pointerdown':
                 if (this.kulRipple) {
                     this.#kulManager.theme.ripple.trigger(
@@ -158,7 +155,7 @@ export class KulSwitch {
         return getProps(this, KulSwitchProps, descriptions);
     }
     /**
-     * Used to retrieve component's current state.
+     * Used to retrieve the component's current state.
      * @returns {Promise<KulSwitchState>} Promise resolved with the current state of the component.
      */
     @Method()
@@ -190,9 +187,13 @@ export class KulSwitch {
         return this.value === 'on' ? true : false;
     }
 
-    #updateState(value: KulSwitchState) {
+    #updateState(
+        value: KulSwitchState,
+        e: CustomEvent<unknown> | Event = new CustomEvent('change')
+    ) {
         if (!this.kulDisabled && (value === 'off' || value === 'on')) {
             this.value = value;
+            this.onKulEvent(e, 'change');
         }
     }
 
@@ -265,7 +266,10 @@ export class KulSwitch {
                                             this.onKulEvent(e, 'blur');
                                         }}
                                         onChange={(e) => {
-                                            this.onKulEvent(e, 'change');
+                                            this.#updateState(
+                                                this.#isOn() ? 'off' : 'on',
+                                                e
+                                            );
                                         }}
                                         onFocus={(e) => {
                                             this.onKulEvent(e, 'focus');
