@@ -36,6 +36,7 @@ describe(buttonTag, () => {
 
     it(`common: should call getProps and check keys against Kul${buttonCapitalized}PropsInterface`, () => {
         cy.checkPropsInterface(buttonTag, {
+            kulData: null,
             kulDisabled: null,
             kulIcon: null,
             kulIconOff: null,
