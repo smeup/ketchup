@@ -18,12 +18,13 @@ export const FImage: FunctionalComponent<FImageProps> = (
         '--kup_image_width': string;
     };
 
+    const hasExternalResource =
+        props.resource.indexOf('.') > -1 ||
+        props.resource.indexOf('/') > -1 ||
+        props.resource.indexOf('\\') > -1;
+
     if (props.resource) {
-        if (
-            props.resource.indexOf('.') > -1 ||
-            props.resource.indexOf('/') > -1 ||
-            props.resource.indexOf('\\') > -1
-        ) {
+        if (hasExternalResource) {
             style = {
                 '--kup_image_height': props.sizeY ? props.sizeY : 'auto',
                 '--kup_image_width': props.sizeX ? props.sizeX : '100%',
@@ -53,7 +54,9 @@ export const FImage: FunctionalComponent<FImageProps> = (
 
     return (
         <div
-            class={`f-image ${props.wrapperClass ? props.wrapperClass : ''} `}
+            class={`f-image ${props.wrapperClass ? props.wrapperClass : ''} ${
+                hasExternalResource ? `images` : ''
+            } `}
             {...props.dataSet}
             id={props.id}
             style={style}
@@ -97,7 +100,16 @@ function createIcon(
         style.mask = `url('${path}') no-repeat center`;
         style.webkitMask = `url('${path}') no-repeat center`;
     }
-    return <div class={classObj} style={style}></div>;
+    return (
+        <div class="iconWrapper">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+                viewBox="0 0 24 24"
+            ></svg>
+            <div class={classObj} style={style}></div>
+        </div>
+    );
 }
 
 function createImage(props: FImageProps): HTMLImageElement {
