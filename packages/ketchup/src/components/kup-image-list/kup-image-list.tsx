@@ -400,7 +400,7 @@ export class KupImageList {
                                 clone as PointerEvent
                             );
                             const node = details.row as KupImageListDataNode;
-                            if (node.children && node.children.length > 0) {
+                            if (node?.children?.length > 0) {
                                 this.currentNode = node;
                             }
                             this.kupClick.emit({
