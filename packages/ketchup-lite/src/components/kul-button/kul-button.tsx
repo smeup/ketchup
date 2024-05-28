@@ -71,7 +71,7 @@ export class KulButton {
     /*-------------------------------------------------*/
 
     /**
-     * The actual data of the card.
+     * Actual data of the button, used to render dropdown buttons.
      * @default null
      */
     @Prop({ mutable: true }) kulData: KulDataDataset = null;
@@ -177,9 +177,6 @@ export class KulButton {
         switch (eventType) {
             case 'click':
                 this.#updateState(this.#isOn() ? 'off' : 'on');
-                if (isDropdown) {
-                    this.#listManager().toggle();
-                }
                 break;
             case 'pointerdown':
                 if (this.kulRipple) {
@@ -282,11 +279,12 @@ export class KulButton {
                 if (!this.#clickCb) {
                     this.#clickCb = {
                         cb: () => {
-                            this.#list.remove();
+                            this.#listManager().close();
                         },
                         el: this.#list,
                     };
                 }
+                this.#kulManager.addClickCallback(this.#clickCb, true);
             },
             toggle: () => {
                 if (this.#listManager().isOpened()) {
@@ -509,7 +507,9 @@ export class KulButton {
             <button
                 class={className}
                 disabled={this.kulDisabled}
-                onClick={(e) => this.onKulEvent(e, 'click', true)}
+                onClick={() => {
+                    this.#listManager().toggle();
+                }}
                 onPointerDown={(e) => this.onKulEvent(e, 'pointerdown', true)}
                 ref={(el) => {
                     if (el) {

@@ -210,7 +210,7 @@ export const KUL_DOC: KulShowcaseDoc = {
     props: [
       {
         name: "kulData",
-        docs: "The actual data of the card.",
+        docs: "Actual data of the button, used to render dropdown buttons.",
         type: "KulDataDataset",
       },
       {
