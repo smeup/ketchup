@@ -97,7 +97,16 @@ function createIcon(
         style.mask = `url('${path}') no-repeat center`;
         style.webkitMask = `url('${path}') no-repeat center`;
     }
-    return <div class={classObj} style={style}></div>;
+    return (
+        <div class="iconWrapper">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+                viewBox="0 0 24 24"
+            ></svg>
+            <div class={classObj} style={style}></div>
+        </div>
+    );
 }
 
 function createImage(props: FImageProps): HTMLImageElement {
@@ -109,6 +118,11 @@ function createImage(props: FImageProps): HTMLImageElement {
                 const placeholder = img.parentElement.querySelector(
                     '.f-image__placeholder'
                 );
+                const iconWrapper =
+                    img.parentElement.querySelector('.iconWrapper');
+
+                const fWrapper =
+                    img.parentElement.parentElement.querySelector('.f-image');
                 if (props.onLoad) {
                     props.onLoad(e);
                 }
@@ -116,15 +130,24 @@ function createImage(props: FImageProps): HTMLImageElement {
                     placeholder.classList.add(HIDDEN_CLASS);
                     img.classList.remove(HIDDEN_CLASS);
                 }
+                if (iconWrapper) {
+                    iconWrapper.classList.add(HIDDEN_CLASS);
+                    fWrapper.classList.add('noIcon');
+                }
             }}
             onError={(e) => {
                 const img = e.currentTarget as HTMLImageElement;
                 const placeholder = img.parentElement.querySelector(
                     '.f-image__placeholder'
                 );
+                const iconWrapper =
+                    img.parentElement.querySelector('.iconWrapper');
                 if (placeholder) {
                     placeholder.classList.remove(HIDDEN_CLASS);
                     img.classList.add(HIDDEN_CLASS);
+                }
+                if (iconWrapper) {
+                    iconWrapper.classList.remove(HIDDEN_CLASS);
                 }
             }}
             src={props.resource}

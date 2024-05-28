@@ -106,9 +106,10 @@ graph TD;
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
-  kup-image --> kup-spinner
   kup-image --> kup-card
+  kup-image --> kup-image
   kup-image --> kup-dialog
+  kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-spinner --> kup-card
   kup-spinner --> kup-dialog
