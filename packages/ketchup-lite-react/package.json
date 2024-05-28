@@ -1,6 +1,6 @@
 {
     "name": "ketchup-lite-react",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "module": "dist/index.js",
     "typings": "dist/index.d.ts",
     "keywords": [
@@ -20,17 +20,16 @@
     "description": "Ketchup Lite React Components library",
     "license": "Apache-2.0",
     "dependencies": {
-        "ketchup-lite": "^0.0.1",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "ketchup-lite": "^1.0.0",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1"
     },
     "devDependencies": {
-        "@types/geojson": "^7946.0.10",
         "@types/node": "^20.2.5",
-        "@types/react": "^18.2.7",
-        "@types/react-dom": "^18.2.4",
-        "rimraf": "^5.0.1",
-        "typescript": "5.0.4"
+        "@types/react": "^18.3.3",
+        "@types/react-dom": "^18.3.0",
+        "rimraf": "^5.0.7",
+        "typescript": "5.4.5"
     },
     "installConfig": {
         "hoistingLimits": "workspaces"
