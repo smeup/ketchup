@@ -119,7 +119,7 @@ export namespace Components {
          */
         "getValue": () => Promise<KulButtonState>;
         /**
-          * The actual data of the card.
+          * Actual data of the button, used to render dropdown buttons.
           * @default null
          */
         "kulData": KulDataDataset;
@@ -1755,7 +1755,7 @@ declare namespace LocalJSX {
     }
     interface KulButton {
         /**
-          * The actual data of the card.
+          * Actual data of the button, used to render dropdown buttons.
           * @default null
          */
         "kulData"?: KulDataDataset;

@@ -9,7 +9,7 @@
 
 | Property          | Attribute           | Description                                                                                                                 | Type                                                       | Default    |
 | ----------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ---------- |
-| `kulData`         | --                  | The actual data of the card.                                                                                                | `KulDataDataset`                                           | `null`     |
+| `kulData`         | --                  | Actual data of the button, used to render dropdown buttons.                                                                 | `KulDataDataset`                                           | `null`     |
 | `kulDisabled`     | `kul-disabled`      | Defaults at false. When set to true, the component is disabled.                                                             | `boolean`                                                  | `false`    |
 | `kulIcon`         | `kul-icon`          | When set, the button will show this icon.                                                                                   | `string`                                                   | `''`       |
 | `kulIconOff`      | `kul-icon-off`      | When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed. | `string`                                                   | `''`       |
