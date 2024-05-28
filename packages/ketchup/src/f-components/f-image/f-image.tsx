@@ -118,6 +118,11 @@ function createImage(props: FImageProps): HTMLImageElement {
                 const placeholder = img.parentElement.querySelector(
                     '.f-image__placeholder'
                 );
+                const iconWrapper =
+                    img.parentElement.querySelector('.iconWrapper');
+
+                const fWrapper =
+                    img.parentElement.parentElement.querySelector('.f-image');
                 if (props.onLoad) {
                     props.onLoad(e);
                 }
@@ -125,15 +130,24 @@ function createImage(props: FImageProps): HTMLImageElement {
                     placeholder.classList.add(HIDDEN_CLASS);
                     img.classList.remove(HIDDEN_CLASS);
                 }
+                if (iconWrapper) {
+                    iconWrapper.classList.add(HIDDEN_CLASS);
+                    fWrapper.classList.add('noIcon');
+                }
             }}
             onError={(e) => {
                 const img = e.currentTarget as HTMLImageElement;
                 const placeholder = img.parentElement.querySelector(
                     '.f-image__placeholder'
                 );
+                const iconWrapper =
+                    img.parentElement.querySelector('.iconWrapper');
                 if (placeholder) {
                     placeholder.classList.remove(HIDDEN_CLASS);
                     img.classList.add(HIDDEN_CLASS);
+                }
+                if (iconWrapper) {
+                    iconWrapper.classList.remove(HIDDEN_CLASS);
                 }
             }}
             src={props.resource}
