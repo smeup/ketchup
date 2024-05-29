@@ -1,4 +1,4 @@
-name: Publish NPM Package on new tag
+name: release
 
 on:
     create:
@@ -6,7 +6,7 @@ on:
             - '*'
 
 jobs:
-    main-package:
+    release:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
