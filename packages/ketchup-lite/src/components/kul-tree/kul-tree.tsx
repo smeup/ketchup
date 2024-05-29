@@ -298,7 +298,7 @@ export class KulTree {
     #filter(e: CustomEvent<KulTextfieldEventPayload>) {
         clearTimeout(this.#filterTimeout);
         this.#filterTimeout = setTimeout(() => {
-            this.#filterValue = e.detail.value.toLowerCase();
+            this.#filterValue = e.detail.inputValue?.toLowerCase();
             const filter = this.#kulManager.data.node.filter(
                 this.kulData,
                 { value: this.#filterValue },
