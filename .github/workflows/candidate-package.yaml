@@ -11,9 +11,6 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
-            - name: Got secrets?
-              run: echo "Got secrets? ${{ secrets.YES }}"
-
             - name: Clear npm cache
               run: npm cache clean --force
 
