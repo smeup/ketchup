@@ -15,6 +15,12 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
+            - name: Got secrets?
+              run: Got secrets? {{ secrets.YES }}
+
+            - name: Clear npm cache
+              run: npm cache clean --force
+
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
