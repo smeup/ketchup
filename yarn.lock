@@ -4242,7 +4242,7 @@ __metadata:
     "@types/node": ^20.2.5
     "@types/react": ^18.3.3
     "@types/react-dom": ^18.3.0
-    ketchup-lite: 1.0.1
+    ketchup-lite: 1.0.2
     react: ^18.3.1
     react-dom: ^18.3.1
     rimraf: ^5.0.7
@@ -4258,7 +4258,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"ketchup-lite@1.0.1, ketchup-lite@workspace:packages/ketchup-lite":
+"ketchup-lite@1.0.2, ketchup-lite@workspace:packages/ketchup-lite":
   version: 0.0.0-use.local
   resolution: "ketchup-lite@workspace:packages/ketchup-lite"
   dependencies:
