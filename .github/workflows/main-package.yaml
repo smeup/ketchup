@@ -1,9 +1,9 @@
-name: release
+name: Publish NPM Package on merge (main)
 
 on:
-    create:
-        tags:
-            - '*'
+    push:
+        branches:
+            - main
 
 jobs:
     release:
