@@ -24,9 +24,9 @@ jobs:
               run: npm run build
 
             - name: Log in to npm
-              uses: npm/npm-login-action@v1
+              uses: actions/npm@v2
               with:
-                  registry-url: https://registry.npmjs.org/
+                  registry-url: 'https://registry.npmjs.org/'
                   scope: ''
 
             - name: Publish Ketchup Lite
