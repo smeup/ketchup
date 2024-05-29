@@ -1,6 +1,7 @@
 # Ketchup Lite
 
 [![npm Package](https://img.shields.io/npm/v/ketchup-lite.svg)](https://www.npmjs.com/package/ketchup-lite)
+[![Cypress tests](https://github.com/lucafoscili/ketchup-lite/actions/workflows/cypress-tests.yaml/badge.svg?branch=candidate)](https://github.com/lucafoscili/ketchup-lite/actions/workflows/cypress-tests.yaml)
 
 [![Built with StencilJS](https://img.shields.io/badge/Built_with_StencilJS-black?style=for-the-badge&logo=stenciljs&logoColor=white)](https://stenciljs.com/)
 [![Showcase](https://img.shields.io/badge/-Showcase-black?style=for-the-badge&logo=website&logoColor=white&link=https://www.lucafoscili.com/ketchup-lite)](https://www.lucafoscili.com/ketchup-lite)
