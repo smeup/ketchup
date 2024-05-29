@@ -29,6 +29,16 @@ jobs:
                   registry-url: https://registry.npmjs.org/
                   scope: ''
 
-            - name: Publish to npm
+            - name: Publish Ketchup Lite
               run: |
-                  npm publish --access public
+                  cd packages/ketchup-lite
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+            - name: Publish Ketchup Lite React
+              run: |
+                  cd packages/ketchup-lite-react
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
