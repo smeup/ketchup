@@ -6,7 +6,7 @@ on:
             - '*'
 
 jobs:
-    publish-npm-package:
+    main-package:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
