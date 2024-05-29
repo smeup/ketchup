@@ -58,7 +58,7 @@ export class KulTree {
      */
     @State() expandedNodes: Set<KulDataNode> = new Set();
     /**
-     * Holds the filtered dataset, including ancestors of matched nodes.
+     * When filters are active, this set contains the nodes that don't match the filter.
      */
     @State() hiddenNodes: Set<KulDataNode> = new Set();
     /**
@@ -264,7 +264,7 @@ export class KulTree {
 
         if (!isHidden) {
             elements.push(<TreeNode {...nodeProps}></TreeNode>);
-            if (isExpanded) {
+            if (isExpanded || !this.#filterValue) {
                 node.children?.map((child) =>
                     this.#recursive(elements, child, depth + 1)
                 );
@@ -299,12 +299,17 @@ export class KulTree {
         clearTimeout(this.#filterTimeout);
         this.#filterTimeout = setTimeout(() => {
             this.#filterValue = e.detail.inputValue?.toLowerCase();
-            const filter = this.#kulManager.data.node.filter(
-                this.kulData,
-                { value: this.#filterValue },
-                true
-            );
-            this.hiddenNodes = new Set(filter.remainingNodes);
+            if (!this.#filterValue) {
+                this.hiddenNodes = new Set();
+            } else {
+                const filter = this.#kulManager.data.node.filter(
+                    this.kulData,
+                    { value: this.#filterValue },
+                    true
+                );
+                console.log(filter);
+                this.hiddenNodes = new Set(filter.remainingNodes);
+            }
         }, 300);
     }
 
