@@ -1,12 +1,12 @@
-name: Publish NPM Package on new tag
+name: Publish NPM Package on merge (main)
 
 on:
-    create:
-        tags:
-            - '*'
+    push:
+        branches:
+            - main
 
 jobs:
-    main-package:
+    release:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4

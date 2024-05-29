@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-05-29T09:49:49",
+  "timestamp": "2024-05-29T21:44:33",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -8417,7 +8417,7 @@
           "mutable": true,
           "attr": "kul-initial-expansion-depth",
           "reflectToAttr": false,
-          "docs": "Sets the initial expanded nodes based on the specified depth.\nIf the property is not provided, all nodes in the tree will be expanded.",
+          "docs": "Sets the initial expanded nodes based on the specified depth.\r\nIf the property is not provided, all nodes in the tree will be expanded.",
           "docsTags": [
             {
               "name": "default",
