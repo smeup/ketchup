@@ -1,0 +1,59 @@
+name: Publish NPM Package on merge (candidate)
+
+on:
+    push:
+        branches:
+            - candidate
+
+jobs:
+    candidate-package:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Clear npm cache
+              run: npm cache clean --force
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '18.x'
+                  registry-url: 'https://registry.npmjs.org'
+
+            - name: Install dependencies
+              run: yarn install --no-immutable
+
+            - name: Construct package name (Ketchup Lite)
+              run: |
+                  cd packages/ketchup-lite
+                  VERSION=$(node -p "require('./package.json').version")
+                  TIMESTAMP=$(date +%Y%m%d%H%M%S)
+                  NEW_VERSION="${VERSION}-${TIMESTAMP}"
+                  echo "New version: $NEW_VERSION"
+                  sed -i "s/\"version\": \"$VERSION\"/\"version\": \"$NEW_VERSION\"/" ./package.json
+
+            - name: Construct package name (Ketchup Lite React)
+              run: |
+                  cd packages/ketchup-lite-react
+                  VERSION=$(node -p "require('./package.json').version")
+                  TIMESTAMP=$(date +%Y%m%d%H%M%S)
+                  NEW_VERSION="${VERSION}-${TIMESTAMP}"
+                  echo "New version: $NEW_VERSION"
+                  sed -i "s/\"version\": \"$VERSION\"/\"version\": \"$NEW_VERSION\"/" ./package.json
+
+            - name: Build Ketchup Lite
+              run: npm run build
+
+            - name: Publish Ketchup Lite
+              run: |
+                  cd packages/ketchup-lite
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+            - name: Publish Ketchup Lite React
+              run: |
+                  cd packages/ketchup-lite-react
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

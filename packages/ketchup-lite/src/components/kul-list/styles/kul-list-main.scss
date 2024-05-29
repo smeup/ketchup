@@ -83,6 +83,7 @@
 }
 
 .list {
+  -webkit-backdrop-filter: var(--kul_list_backdrop_filter);
   backdrop-filter: var(--kul_list_backdrop_filter);
   box-sizing: border-box;
   color: var(--kul_list_text_color);
@@ -123,6 +124,8 @@
 
 .node {
   align-items: center;
+  -webkit-backdrop-filter: var(--kul_list_backdrop_filter);
+  backdrop-filter: var(--kul_list_backdrop_filter);
   display: flex;
   height: var(--kul_list_item_height);
   justify-content: flex-start;

@@ -70,6 +70,7 @@
 }
 
 .wrapper {
+  -webkit-backdrop-filter: var(--kul_upload_backdrop_filter);
   backdrop-filter: var(--kul_upload_backdrop_filter);
   background: rgba(255, 255, 255, 0.1);
   border: var(--kul_upload_border);
@@ -93,6 +94,7 @@
 }
 
 .file-upload {
+  -webkit-backdrop-filter: var(--kul_upload_backdrop_filter);
   backdrop-filter: var(--kul_upload_backdrop_filter);
   border: var(--kul_upload_border);
   border-radius: var(--kul_upload_border_radius);
@@ -120,6 +122,7 @@
   }
 
   &:hover {
+    -webkit-backdrop-filter: var(--kul_upload_backdrop_filter_hover);
     backdrop-filter: var(--kul_upload_backdrop_filter_hover);
     box-shadow:
       0 5px 5px -3px rgba(var(--kul-text-color-rgb), 0.25),
@@ -131,7 +134,7 @@
 .file-info {
   background-color: rgba(var(--kul-background-color-rgb), 0.375);
   border-radius: var(--kul_upload_border_radius);
-  max-height: 25vh;
+  max-height: 25dvh;
   overflow: auto;
   transition: background-color 0.3s ease;
 

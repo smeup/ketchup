@@ -3,6 +3,7 @@ name: Cypress tests
 on:
     pull_request:
         branches:
+            - candidate
             - main
 
 jobs:
@@ -13,6 +14,9 @@ jobs:
             cancel-in-progress: true
         steps:
             - uses: actions/checkout@v4
+
+            - name: Clear npm cache
+              run: npm cache clean --force
 
             - name: Setup Node.js
               uses: actions/setup-node@v4
