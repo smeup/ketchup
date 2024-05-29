@@ -130,6 +130,7 @@
 }
 
 .tree {
+  -webkit-backdrop-filter: var(--kul_tree_backdrop_filter);
   backdrop-filter: var(--kul_tree_backdrop_filter);
   padding: var(--kul_tree_padding);
 }

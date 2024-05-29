@@ -58,13 +58,13 @@
 
   background: var(--kul_splash_background_color);
   display: flex;
-  height: 100%;
+  height: 100dvh;
   left: 0;
   opacity: 1;
   position: fixed;
   top: 0;
   transition: opacity 0.5s ease-out;
-  width: 100%;
+  width: 100dvw;
   z-index: 999;
 
   &.active {
