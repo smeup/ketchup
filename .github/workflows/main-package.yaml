@@ -11,6 +11,9 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
+            - name: Log trigger event
+              run: echo "Trigger event: ${{ github.event_name }}"
+
             - name: Clear npm cache
               run: npm cache clean --force
 
