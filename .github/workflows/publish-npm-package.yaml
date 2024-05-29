@@ -1,0 +1,44 @@
+name: Publish NPM Package on new tag
+
+on:
+    create:
+        tags:
+            - '*'
+
+jobs:
+    publish-npm-package:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '18.17.0'
+                  cache: 'yarn'
+
+            - name: Install dependencies
+              run: yarn install --immutable
+
+            - name: Build Ketchup Lite
+              run: npm run build
+
+            - name: Log in to npm
+              uses: actions/npm@v2
+              with:
+                  registry-url: 'https://registry.npmjs.org/'
+                  scope: ''
+
+            - name: Publish Ketchup Lite
+              run: |
+                  cd packages/ketchup-lite
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+            - name: Publish Ketchup Lite React
+              run: |
+                  cd packages/ketchup-lite-react
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
