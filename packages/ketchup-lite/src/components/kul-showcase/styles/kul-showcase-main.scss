@@ -12,6 +12,10 @@
   width: 100%;
 }
 
+kul-card {
+  padding: 1em 0;
+}
+
 .showcase {
   --template-columns: repeat(1, 1fr);
 
@@ -33,10 +37,6 @@
     flex-direction: row;
     flex-wrap: wrap;
   }
-
-  kul-card:first-child {
-    padding: 20px;
-  }
 }
 
 a {
@@ -45,7 +45,9 @@ a {
   letter-spacing: 0.075em;
   padding: 0.25em;
   text-transform: uppercase;
-  transition: background-color 80ms, color 80ms;
+  transition:
+    background-color 80ms,
+    color 80ms;
   width: max-content;
 
   &:hover {
@@ -97,8 +99,9 @@ p {
 }
 
 ::part(grid-title) {
-  background-color: rgba(var(--kul-primary-color-rgb), 0.1);
+  -webkit-backdrop-filter: blur(3.5px);
   backdrop-filter: blur(3.5px);
+  background-color: rgba(var(--kul-primary-color-rgb), 0.1);
   font-size: 1em;
   font-weight: bold;
   padding: 24px;
@@ -166,7 +169,6 @@ p {
   }
 
   kul-card {
-    margin: 20px 0;
     padding: 24px;
   }
 }
@@ -176,10 +178,6 @@ p {
     --template-columns: repeat(4, 1fr);
 
     padding: 20px 72px;
-  }
-
-  kul-card {
-    margin: 12px auto;
   }
 }
 

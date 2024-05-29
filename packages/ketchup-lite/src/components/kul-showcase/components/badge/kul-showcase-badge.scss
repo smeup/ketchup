@@ -14,6 +14,7 @@
 }
 
 .badge-anchor {
+  -webkit-backdrop-filter: blur(3.5px);
   backdrop-filter: blur(3.5px);
   line-height: 72px;
   transform: translate3d(0, 0, 0);

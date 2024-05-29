@@ -29,6 +29,7 @@
   --kul_toast_slidein_to: var(--kul-toast-slidein-to, translateX(0));
 
   animation: slideIn 250ms ease-out;
+  -webkit-backdrop-filter: blur(3.5px);
   backdrop-filter: blur(3.5px);
   background-color: rgba(var(--kul-background-color-rgb), 0.375);
   border-radius: 4px;

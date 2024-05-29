@@ -1,4 +1,5 @@
 :host {
+  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   display: block;
   height: var(--kul_chart_height, 100%);
