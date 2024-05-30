@@ -118,12 +118,14 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kul-showcase-debug](../kul-showcase/utilities/debug)
  - [kul-showcase-textfield](../kul-showcase/components/textfield)
  - [kul-tree](../kul-tree)
 
 ### Graph
 ```mermaid
 graph TD;
+  kul-showcase-debug --> kul-textfield
   kul-showcase-textfield --> kul-textfield
   kul-tree --> kul-textfield
   style kul-textfield fill:#f9f,stroke:#333,stroke-width:4px

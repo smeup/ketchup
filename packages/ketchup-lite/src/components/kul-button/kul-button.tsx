@@ -23,7 +23,12 @@ import {
 } from './kul-button-declarations';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { getProps } from '../../utils/componentUtils';
-import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import {
+    KUL_DROPDOWN_CLASS,
+    KUL_DROPDOWN_CLASS_VISIBLE,
+    KUL_STYLE_ID,
+    KUL_WRAPPER_ID,
+} from '../../variables/GenericVariables';
 import { KulImagePropsInterface } from '../kul-image/kul-image-declarations';
 import {
     KulDataDataset,
@@ -252,12 +257,14 @@ export class KulButton {
     #listManager() {
         return {
             close: () => {
-                this.#list.classList.remove('list--visible');
+                this.#list.classList.remove(KUL_DROPDOWN_CLASS_VISIBLE);
                 this.#kulManager.dynamicPosition.stop(this.#list);
                 this.#kulManager.removeClickCallback(this.#clickCb);
             },
             isOpened: () => {
-                return this.#list.classList.contains('list--visible');
+                return this.#list.classList.contains(
+                    KUL_DROPDOWN_CLASS_VISIBLE
+                );
             },
             open: () => {
                 if (this.#kulManager.dynamicPosition.isRegistered(this.#list)) {
@@ -270,12 +277,12 @@ export class KulButton {
                         this.#list,
                         this.#dropdown,
                         0,
-                        KulDynamicPositionPlacement.RIGHT,
+                        KulDynamicPositionPlacement.AUTO,
                         true
                     );
                 }
                 this.#kulManager.dynamicPosition.start(this.#list);
-                this.#list.classList.add('list--visible');
+                this.#list.classList.add(KUL_DROPDOWN_CLASS_VISIBLE);
                 if (!this.#clickCb) {
                     this.#clickCb = {
                         cb: () => {
@@ -520,19 +527,8 @@ export class KulButton {
                 {this.#prepRipple(true)}
                 <kul-image {...image} kulValue={'--kul-dropdown-icon'} />
                 <kul-list
-                    class="list"
+                    class={KUL_DROPDOWN_CLASS}
                     kulData={{ nodes: this.kulData.nodes[0].children }}
-                    kulStyle="
-                        :host(.list) {
-                            display: none;
-                            height: max-content;
-                            max-height: 40vh;
-                            width: max-content;
-                        }
-                        :host(.list--visible) {
-                            display: block;
-                         }
-                        "
                     onKul-list-event={eventHandler}
                     ref={(el) => (this.#list = el)}
                 ></kul-list>

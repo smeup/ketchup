@@ -1,3 +1,26 @@
 :host {
+  --template-columns: 1fr;
   display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.grid {
+  --padding: 0;
+}
+
+.placeholder {
+  align-items: center;
+  background: var(--kul-background-color);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  :host {
+    --template-columns: minmax(300px, 50%) 1fr;
+  }
 }

@@ -94,7 +94,7 @@ p {
 ::part(grid) {
   display: grid;
   grid-template-columns: var(--template-columns);
-  padding: 12px 0;
+  padding: var(--padding, 12px 0);
   width: 100%;
 }
 

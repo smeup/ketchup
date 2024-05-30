@@ -236,11 +236,18 @@ export class KulArticle {
               : 'span';
 
         if (cell) {
+            const eventName = `onKul-${cell.shape}-event`;
+            const eventBinder = {
+                [eventName]: (e: CustomEvent<unknown>) => {
+                    this.onKulEvent(e, 'kul-event');
+                },
+            };
             return (
                 <ComponentTag
                     class={`content content--${ComponentTag}`}
                     data-depth={depth.toString()}
                     {...this.#kulManager.data.extract.singleShape(cell)}
+                    {...eventBinder}
                     style={node.cssStyle}
                 >
                     {node.value}

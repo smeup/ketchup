@@ -1,0 +1,18 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+/* $kul-class-dropdown-menu                        */
+/*-------------------------------------------------*/
+
+:host(.#{$kul-class-dropdown-menu}) {
+  display: none;
+  height: max-content;
+  max-height: 50dvh;
+  max-width: 75dvw;
+  overflow: auto;
+  width: max-content;
+}
+
+:host(.#{$kul-class-dropdown-menu}--visible) {
+  display: block;
+}
