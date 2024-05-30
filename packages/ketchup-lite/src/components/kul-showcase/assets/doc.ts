@@ -878,7 +878,7 @@ export const KUL_DOC: KulShowcaseDoc = {
       },
       {
         name: "kulRenderMode",
-        docs: "Decides when the sub-component should be rendered.\nBy default when both the component props exist and the component is in the viewport.",
+        docs: "Decides when the sub-component should be rendered.\r\nBy default when both the component props exist and the component is in the viewport.",
         type: '"both" | "props" | "viewport"',
       },
       {
@@ -1016,6 +1016,10 @@ export const KUL_DOC: KulShowcaseDoc = {
       {
         name: "--kul-list-backdrop-filter",
         docs: "Sets the backdrop filter of the list. Defaults to blur(3.5px).",
+      },
+      {
+        name: "--kul-list-background-color",
+        docs: "Sets the background color of the list. Defaults to rgba(var(--kul-background-color-rgb), 0.75).",
       },
       {
         name: "--kul-list-font-family",
@@ -1957,7 +1961,7 @@ export const KUL_DOC: KulShowcaseDoc = {
       },
       {
         name: "kulInitialExpansionDepth",
-        docs: "Sets the initial expanded nodes based on the specified depth.\r\nIf the property is not provided, all nodes in the tree will be expanded.",
+        docs: "Sets the initial expanded nodes based on the specified depth.\nIf the property is not provided, all nodes in the tree will be expanded.",
         type: "number",
       },
       {
