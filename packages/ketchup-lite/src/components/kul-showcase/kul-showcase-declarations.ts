@@ -1,26 +1,5 @@
 import { GenericObject } from '../../components';
 
-export const COMPONENTS = [
-    'article',
-    'badge',
-    'button',
-    'card',
-    'chart',
-    'code',
-    'image',
-    'lazy',
-    'list',
-    'photoframe',
-    'splash',
-    'spinner',
-    'switch',
-    'tabbar',
-    'textfield',
-    'toast',
-    'tree',
-    'upload',
-];
-
 export interface KulShowcaseDocMethod {
     docs: string;
     name: string;
