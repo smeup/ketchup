@@ -23,6 +23,7 @@ import { getProps } from '../../utils/componentUtils';
 import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
+import { KulLanguageGeneric } from '../../managers/kul-language/kul-language-declarations';
 
 @Component({
     tag: 'kul-article',
@@ -306,9 +307,17 @@ export class KulArticle {
                     </style>
                 ) : undefined}
                 <div id={KUL_WRAPPER_ID}>
-                    {this.kulData?.nodes?.length
-                        ? this.#prepArticle()
-                        : 'Empty data'}
+                    {this.kulData?.nodes?.length ? (
+                        this.#prepArticle()
+                    ) : (
+                        <div class="empty-data">
+                            <div class="empty-data__text">
+                                {this.#kulManager.language.translate(
+                                    KulLanguageGeneric.EMPTY_DATA
+                                )}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </Host>
         );

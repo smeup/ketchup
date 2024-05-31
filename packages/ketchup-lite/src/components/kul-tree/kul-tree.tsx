@@ -25,7 +25,10 @@ import { GenericObject } from '../../types/GenericTypes';
 import { KulDataDataset, KulDataNode } from '../../components';
 import { TreeNode } from './node/kul-tree-node';
 import { KulTreeNodeProps } from './node/kul-tree-node-declarations';
-import { KulLanguageSearch } from '../../managers/kul-language/kul-language-declarations';
+import {
+    KulLanguageGeneric,
+    KulLanguageSearch,
+} from '../../managers/kul-language/kul-language-declarations';
 import { KulTextfieldEventPayload } from '../kul-textfield/kul-textfield-declarations';
 
 @Component({
@@ -356,6 +359,7 @@ export class KulTree {
     }
 
     render() {
+        const isEmpty = !!!this.kulData?.nodes?.length;
         this.#rippleSurface = {};
 
         return (
@@ -383,9 +387,17 @@ export class KulTree {
                                 }}
                             ></kul-textfield>
                         ) : undefined}
-                        {this.kulData?.nodes?.length
-                            ? this.#prepTree()
-                            : 'Empty data.'}
+                        {isEmpty ? (
+                            <div class="empty-data">
+                                <div class="empty-data__text">
+                                    {this.#kulManager.language.translate(
+                                        KulLanguageGeneric.EMPTY_DATA
+                                    )}
+                                </div>
+                            </div>
+                        ) : (
+                            this.#prepTree()
+                        )}
                     </div>
                 </div>
             </Host>

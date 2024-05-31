@@ -65,6 +65,11 @@
   width: 100%;
 }
 
+#kul-component {
+  height: 100%;
+  width: 100%;
+}
+
 .article {
   margin: var(--kul_article_margin);
   max-width: var(--kul_article_max_width);
@@ -105,4 +110,12 @@ h3 {
   font-weight: 300;
   line-height: 1.2;
   margin: 0.5em 0;
+}
+
+.empty-data {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
 }
