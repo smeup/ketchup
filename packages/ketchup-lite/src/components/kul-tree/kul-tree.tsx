@@ -201,23 +201,52 @@ export class KulTree {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    #setExpansion(node: KulDataNode) {
-        if (this.expandedNodes.has(node)) {
-            this.expandedNodes.delete(node);
-        } else {
-            this.expandedNodes.add(node);
-        }
+    #filter(e: CustomEvent<KulTextfieldEventPayload>) {
+        clearTimeout(this.#filterTimeout);
+        this.#filterTimeout = setTimeout(() => {
+            this.#filterValue = e.detail.inputValue?.toLowerCase();
+            if (!this.#filterValue) {
+                this.hiddenNodes = new Set();
+            } else {
+                const filter = this.#kulManager.data.node.filter(
+                    this.kulData,
+                    { value: this.#filterValue },
+                    true
+                );
+                this.hiddenNodes = new Set(filter.remainingNodes);
+                if (filter.ancestorNodes) {
+                    filter.ancestorNodes.forEach((ancestor) => {
+                        this.hiddenNodes.delete(ancestor);
+                    });
+                }
+            }
+        }, 300);
+    }
 
-        if (node.children?.length) {
-            node.children.forEach((child) => {
-                this.#setExpansion(child);
-            });
+    #prepTree(): VNode[] {
+        const elements: VNode[] = [];
+        const nodes = this.kulData.nodes;
+        for (let index = 0; index < nodes.length; index++) {
+            const node = nodes[index];
+            this.#recursive(elements, node, 0);
         }
+        return elements.length ? (
+            elements
+        ) : this.#filterValue ? (
+            <div class="no-matches">
+                <div class="no-matches__icon"></div>
+                <div class="no-matches__text">
+                    No matches found for "
+                    <strong class="no-matches__filter">
+                        {this.#filterValue}
+                    </strong>
+                    ".
+                </div>
+            </div>
+        ) : undefined;
     }
 
     #recursive(elements: VNode[], node: KulDataNode, depth: number) {
-        const isExpanded = this.expandedNodes.has(node);
-        const isHidden = this.hiddenNodes.has(node);
         if (!this.debugInfo.endTime) {
             if (
                 this.kulInitialExpansionDepth === null ||
@@ -227,6 +256,11 @@ export class KulTree {
                 this.expandedNodes.add(node);
             }
         }
+        const isExpanded = this.#filterValue
+            ? true
+            : this.expandedNodes.has(node);
+        const isHidden = this.hiddenNodes.has(node);
+        const isSelected = this.selectedNode === node;
         const nodeProps: KulTreeNodeProps = {
             accordionLayout: this.kulAccordionLayout && depth === 0,
             depth,
@@ -257,14 +291,14 @@ export class KulTree {
                     this.onKulEvent(e, 'pointerdown', { node });
                 },
             },
-            expanded: this.expandedNodes.has(node),
+            expanded: isExpanded,
             node,
-            selected: this.selectedNode === node,
+            selected: isSelected,
         };
 
         if (!isHidden) {
             elements.push(<TreeNode {...nodeProps}></TreeNode>);
-            if (isExpanded || !this.#filterValue) {
+            if (isExpanded) {
                 node.children?.map((child) =>
                     this.#recursive(elements, child, depth + 1)
                 );
@@ -272,45 +306,18 @@ export class KulTree {
         }
     }
 
-    #prepTree(): VNode[] {
-        const elements: VNode[] = [];
-        const nodes = this.kulData.nodes;
-        for (let index = 0; index < nodes.length; index++) {
-            const node = nodes[index];
-            this.#recursive(elements, node, 0);
+    #setExpansion(node: KulDataNode) {
+        if (this.expandedNodes.has(node)) {
+            this.expandedNodes.delete(node);
+        } else {
+            this.expandedNodes.add(node);
         }
-        return elements.length ? (
-            elements
-        ) : this.#filterValue ? (
-            <div class="no-matches">
-                <div class="no-matches__icon"></div>
-                <div class="no-matches__text">
-                    No matches found for "
-                    <strong class="no-matches__filter">
-                        {this.#filterValue}
-                    </strong>
-                    ".
-                </div>
-            </div>
-        ) : undefined;
-    }
 
-    #filter(e: CustomEvent<KulTextfieldEventPayload>) {
-        clearTimeout(this.#filterTimeout);
-        this.#filterTimeout = setTimeout(() => {
-            this.#filterValue = e.detail.inputValue?.toLowerCase();
-            if (!this.#filterValue) {
-                this.hiddenNodes = new Set();
-            } else {
-                const filter = this.#kulManager.data.node.filter(
-                    this.kulData,
-                    { value: this.#filterValue },
-                    true
-                );
-                console.log(filter);
-                this.hiddenNodes = new Set(filter.remainingNodes);
-            }
-        }, 300);
+        if (node.children?.length) {
+            node.children.forEach((child) => {
+                this.#setExpansion(child);
+            });
+        }
     }
 
     /*-------------------------------------------------*/

@@ -25,64 +25,58 @@ export function filter(
     const remainingNodes: Set<KulDataNode> = new Set();
     const ancestorNodes: Set<KulDataNode> = new Set();
 
-    // Helper function to check if a node matches the filters
-    // Modified helper function to check if a node or any of its descendants match the filters
-    const matchesFiltersRecursively = (node: KulDataNode): boolean => {
+    const recursive = (
+        node: KulDataNode,
+        ancestor: KulDataNode,
+        ancestorSet: Set<KulDataNode>
+    ) => {
+        const hasChildren = node.children?.length;
         let matches = false;
-
-        // Check if the current node matches the filters
         for (const key in filters) {
             const nodeValue = node[key];
             const filterValue = filters[key];
-
-            // Convert values to string for partial matching comparison
             const nodeValueStr = stringify(nodeValue).toLowerCase();
             const filterValueStr = stringify(filterValue).toLowerCase();
 
             if (partialMatch) {
-                // Check for partial match
                 if (!nodeValueStr.includes(filterValueStr)) {
                     continue;
                 }
             } else {
-                // Check for exact match
                 if (nodeValue !== filterValue) {
                     continue;
                 }
             }
-
             matches = true;
             break;
         }
 
-        // If the current node matches, no need to check its children
+        if (ancestor) {
+            ancestorSet.add(ancestor);
+        }
+
         if (matches) {
-            return true;
-        }
-
-        // Recursively check children
-        if (node.children) {
-            for (const child of node.children) {
-                if (matchesFiltersRecursively(child)) {
-                    matches = true;
-                    break;
-                }
-            }
-        }
-
-        return matches;
-    };
-
-    dataset.nodes.forEach((node) => {
-        if (matchesFiltersRecursively(node)) {
             matchingNodes.add(node);
-            const ancestorsArray = getAncestors(node, dataset.nodes);
-            ancestorsArray.forEach((ancestor) => {
-                ancestorNodes.add(ancestor);
-            });
         } else {
             remainingNodes.add(node);
         }
+
+        if (hasChildren) {
+            node.children.forEach((child) => {
+                recursive(child, node, ancestorSet);
+            });
+        } else {
+            if (matches) {
+                ancestorSet.forEach((node) => {
+                    ancestorNodes.add(node);
+                });
+            }
+        }
+    };
+
+    dataset.nodes.forEach((node) => {
+        const ancestorSet: Set<KulDataNode> = new Set();
+        recursive(node, null, ancestorSet);
     });
 
     return {

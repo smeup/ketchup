@@ -84,6 +84,7 @@ Type: `Promise<void>`
  - [kul-showcase-card](../kul-showcase/components/card)
  - [kul-showcase-chart](../kul-showcase/components/chart)
  - [kul-showcase-code](../kul-showcase/components/code)
+ - [kul-showcase-debug](../kul-showcase/utilities/debug)
  - [kul-showcase-drawer](../kul-showcase/layout/drawer)
  - [kul-showcase-header](../kul-showcase/layout/header)
  - [kul-showcase-image](../kul-showcase/components/image)
@@ -109,6 +110,7 @@ graph TD;
   kul-showcase-card --> kul-article
   kul-showcase-chart --> kul-article
   kul-showcase-code --> kul-article
+  kul-showcase-debug --> kul-article
   kul-showcase-drawer --> kul-article
   kul-showcase-header --> kul-article
   kul-showcase-image --> kul-article
