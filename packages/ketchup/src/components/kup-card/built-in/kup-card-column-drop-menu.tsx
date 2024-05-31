@@ -217,7 +217,13 @@ async function applyFormula(component: KupCard) {
     const options = component.data.options as KupCardColumnDropMenuOptions;
     const combobox = getCombobox(component);
     if (combobox) {
-        const value = (await combobox.getValue()) as KupLanguageTotals;
+        const valueString = (await combobox.getValue()) as KupLanguageTotals;
+        const parts = valueString.split(';');
+        const hasDescription = parts.length >= 2;
+        const description = hasDescription ? parts[0].trim() : '';
+        const value = hasDescription
+            ? (parts[1].trim() as KupLanguageTotals)
+            : valueString;
         if (premadeFormulas.includes(value)) {
             dom.ketchup.data.column.new(
                 options.data,
@@ -227,6 +233,9 @@ async function applyFormula(component: KupCard) {
                         options.receivingColumn.name,
                         options.starterColumn.name,
                     ],
+                    newColumn: hasDescription
+                        ? { name: description, title: description }
+                        : undefined,
                     operation: value,
                 }
             );
@@ -238,6 +247,9 @@ async function applyFormula(component: KupCard) {
                 options.data,
                 KupDataNewColumnTypes.MATH,
                 {
+                    newColumn: hasDescription
+                        ? { name: description, title: description }
+                        : undefined,
                     operation: value,
                 }
             );

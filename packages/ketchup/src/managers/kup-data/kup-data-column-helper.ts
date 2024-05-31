@@ -95,7 +95,8 @@ export function newColumn(
             return newColumnFromMath(
                 dataset,
                 options.operation,
-                options.columns
+                options.columns,
+                options?.newColumn?.title
             );
         case KupDataNewColumnTypes.MERGE:
             return newColumnFromMerge(
@@ -247,7 +248,8 @@ export function newColumnFromDuplication(
 function newColumnFromMath(
     dataset: KupDataDataset,
     operation: string,
-    columns?: string[]
+    columns?: string[],
+    title?: string
 ): string | KupDataColumn {
     if (!columns) {
         columns = [];
@@ -367,7 +369,7 @@ function newColumnFromMath(
     const newColumn: KupDataColumn = {
         ...firstColumn,
         name: newName,
-        title: newTitle,
+        title: title ? title : newTitle,
         obj: newObj,
         resultOf: formula,
     };
