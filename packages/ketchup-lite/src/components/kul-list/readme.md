@@ -113,6 +113,7 @@ Type: `Promise<void>`
 | Name                           | Description                                                                                                                     |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
 | `--kul-list-backdrop-filter`   | Sets the backdrop filter of the list. Defaults to blur(3.5px).                                                                  |
+| `--kul-list-background-color`  | Sets the background color of the list. Defaults to rgba(var(--kul-background-color-rgb), 0.75).                                 |
 | `--kul-list-font-family`       | Sets font family of the component. Defaults to the value of --kul-font-family.                                                  |
 | `--kul-list-font-size`         | Sets font size of the component. Defaults to the value of --kul-font-size.                                                      |
 | `--kul-list-font-weight`       | Sets font weight of the component. Defaults to 400.                                                                             |

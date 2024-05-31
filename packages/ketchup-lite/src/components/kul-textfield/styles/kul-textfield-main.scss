@@ -156,16 +156,8 @@
     }
   }
 
-  &--outlined {
-    height: 56px;
-    overflow: visible;
-
-    &.textfield--has-icon {
-      .textfield__label {
-        left: 3em;
-      }
-    }
-
+  &--outlined,
+  &--textarea {
     &:hover,
     &.textfield--focused {
       .textfield__notched-outline__leading,
@@ -180,6 +172,17 @@
       .textfield__notched-outline__notch,
       .textfield__notched-outline__trailing {
         border-width: 2px;
+      }
+    }
+  }
+
+  &--outlined {
+    height: 56px;
+    overflow: visible;
+
+    &.textfield--has-icon {
+      .textfield__label {
+        left: 3em;
       }
     }
 
@@ -299,7 +302,6 @@
     overflow: visible;
     padding: 0;
     transition: none;
-    width: auto;
 
     .textfield__input {
       box-sizing: border-box;

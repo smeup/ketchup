@@ -1,5 +1,26 @@
 import { KulDataDataset } from '../../components';
 
+export const COMPONENTS = [
+    'article',
+    'badge',
+    'button',
+    'card',
+    'chart',
+    'code',
+    'image',
+    'lazy',
+    'list',
+    'photoframe',
+    'splash',
+    'spinner',
+    'switch',
+    'tabbar',
+    'textfield',
+    'toast',
+    'tree',
+    'upload',
+];
+
 export const DOC_STYLES = {
     monoPrimaryContent: {
         ['--kul_article_content_color']: 'var(--kul-primary-color)',
@@ -19,8 +40,8 @@ export const KUL_SHOWCASE_UTILITIES: KulDataDataset = {
             description:
                 'Provides an environment to test individual component functionality.',
             icon: 'bug',
-            id: 'Debugging',
-            value: 'Debugging',
+            id: 'Debug',
+            value: 'Debug',
         },
         {
             description:

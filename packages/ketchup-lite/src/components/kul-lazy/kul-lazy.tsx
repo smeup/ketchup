@@ -10,11 +10,7 @@ import {
     State,
 } from '@stencil/core';
 import { Method } from '@stencil/core/internal';
-import {
-    GenericObject,
-    KulComponent,
-    KulEventPayload,
-} from '../../types/GenericTypes';
+import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import {
     KulLazyEvent,
