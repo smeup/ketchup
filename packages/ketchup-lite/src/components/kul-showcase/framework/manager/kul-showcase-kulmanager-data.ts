@@ -1,4 +1,5 @@
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
+import { DOC_STYLES } from '../../kul-showcase-data';
 
 export const MANAGER_DATA: KulArticleDataset = {
     nodes: [
@@ -102,6 +103,7 @@ export const MANAGER_DATA: KulArticleDataset = {
                             children: [
                                 {
                                     id: '2.1.1',
+                                    cssStyle: DOC_STYLES.monoPrimaryContent,
                                     tagName: 'strong',
                                     value: 'assetsPath (string)',
                                 },
@@ -117,6 +119,7 @@ export const MANAGER_DATA: KulArticleDataset = {
                             children: [
                                 {
                                     id: '2.2.1',
+                                    cssStyle: DOC_STYLES.monoPrimaryContent,
                                     tagName: 'strong',
                                     value: 'autoSetLocalization (boolean)',
                                 },
@@ -135,15 +138,17 @@ export const MANAGER_DATA: KulArticleDataset = {
                                     value: '- ',
                                 },
                                 {
+                                    cssStyle: DOC_STYLES.monoPrimaryContent,
                                     id: '2.3.2',
                                     tagName: 'strong',
                                     value: 'locale(string)',
                                 },
                                 {
                                     id: '2.3.3',
-                                    value: ': sets the locale of the library (used by components such as kul-date-picker).',
+                                    value: ': sets the locale of the library in regard to time and dates.',
                                 },
                             ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3Large,
                             id: '2.3',
                             value: 'dates',
                         },
@@ -156,6 +161,8 @@ export const MANAGER_DATA: KulArticleDataset = {
                                             value: '- ',
                                         },
                                         {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
                                             id: '2.4.1.2',
                                             tagName: 'strong',
                                             value: 'active(boolean)',
@@ -175,6 +182,8 @@ export const MANAGER_DATA: KulArticleDataset = {
                                             value: '- ',
                                         },
                                         {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
                                             id: '2.4.2.2',
                                             tagName: 'strong',
                                             value: 'autoPrint(boolean)',
@@ -194,6 +203,8 @@ export const MANAGER_DATA: KulArticleDataset = {
                                             value: '- ',
                                         },
                                         {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
                                             id: '2.4.3.2',
                                             tagName: 'strong',
                                             value: 'logLimit(number)',
@@ -207,6 +218,7 @@ export const MANAGER_DATA: KulArticleDataset = {
                                     value: '',
                                 },
                             ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3Large,
                             id: '2.4',
                             value: 'debug',
                         },
@@ -219,13 +231,15 @@ export const MANAGER_DATA: KulArticleDataset = {
                                             value: '- ',
                                         },
                                         {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
                                             id: '2.5.1.2',
                                             tagName: 'strong',
                                             value: 'list(JSON)',
                                         },
                                         {
                                             id: '2.5.1.3',
-                                            value: ': sets whether the debug widget automatically print new logs.',
+                                            value: ': sets a custom list of languages.',
                                         },
                                     ],
                                     id: '2.5.1',
@@ -238,21 +252,45 @@ export const MANAGER_DATA: KulArticleDataset = {
                                             value: '- ',
                                         },
                                         {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
                                             id: '2.5.2.2',
                                             tagName: 'strong',
                                             value: 'name(string)',
                                         },
                                         {
                                             id: '2.5.2.3',
-                                            value: ': sets the maximum number of debug logs to store.',
+                                            value: ": sets the library's current language.",
                                         },
                                     ],
                                     id: '2.5.2',
                                     value: '',
                                 },
                             ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3Large,
                             id: '2.6',
                             value: 'language',
+                        },
+                        {
+                            children: [
+                                {
+                                    id: '2.3.1',
+                                    value: '- ',
+                                },
+                                {
+                                    cssStyle: DOC_STYLES.monoPrimaryContent,
+                                    id: '2.3.2',
+                                    tagName: 'strong',
+                                    value: 'locale(string)',
+                                },
+                                {
+                                    id: '2.3.3',
+                                    value: ':  sets the locale of the library in regard to math and amounts.',
+                                },
+                            ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3Large,
+                            id: '2.3',
+                            value: 'math',
                         },
                         {
                             children: [
@@ -263,6 +301,8 @@ export const MANAGER_DATA: KulArticleDataset = {
                                             value: '- ',
                                         },
                                         {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
                                             id: '2.6.1.2',
                                             tagName: 'strong',
                                             value: 'delay(number)',
@@ -282,6 +322,8 @@ export const MANAGER_DATA: KulArticleDataset = {
                                             value: '- ',
                                         },
                                         {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
                                             id: '2.6.2.2',
                                             tagName: 'strong',
                                             value: 'step(number)',
@@ -295,6 +337,7 @@ export const MANAGER_DATA: KulArticleDataset = {
                                     value: '',
                                 },
                             ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3Large,
                             id: '2.7',
                             value: 'scrollOnHover',
                         },
@@ -307,6 +350,8 @@ export const MANAGER_DATA: KulArticleDataset = {
                                             value: '- ',
                                         },
                                         {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
                                             id: '2.7.1.2',
                                             tagName: 'strong',
                                             value: 'list(JSON)',
@@ -326,6 +371,8 @@ export const MANAGER_DATA: KulArticleDataset = {
                                             value: '- ',
                                         },
                                         {
+                                            cssStyle:
+                                                DOC_STYLES.monoPrimaryContent,
                                             id: '2.7.2.2',
                                             tagName: 'strong',
                                             value: 'name(string)',
@@ -339,6 +386,7 @@ export const MANAGER_DATA: KulArticleDataset = {
                                     value: '',
                                 },
                             ],
+                            cssStyle: DOC_STYLES.monoPrimaryH3Large,
                             id: '2.8',
                             value: 'theme',
                         },

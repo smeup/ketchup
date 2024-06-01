@@ -32,6 +32,11 @@ export const DOC_STYLES = {
         ['--kul_article_h3_font_family']: 'var(--kul-font-family-monospace)',
         ['--kul_article_h3_font_size']: 'var(--kul-font-size)',
     },
+    monoPrimaryH3Large: {
+        ['--kul_article_h3_color']: 'var(--kul-primary-color)',
+        ['--kul_article_h3_font_family']: 'var(--kul-font-family-monospace)',
+        ['--kul_article_h3_font_size']: 'calc(var(--kul-font-size) * 1.5)',
+    },
 };
 
 export const KUL_SHOWCASE_UTILITIES: KulDataDataset = {

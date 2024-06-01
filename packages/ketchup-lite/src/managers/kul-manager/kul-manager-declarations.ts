@@ -11,16 +11,11 @@ import type { KulScrollOnHover } from '../kul-scroll-on-hover/kul-scroll-on-hove
 import type { KulTheme } from '../kul-theme/kul-theme';
 import type { KulThemeJSON } from '../kul-theme/kul-theme-declarations';
 import type { Options } from 'html2canvas';
-/**
- * Interface used to define the HTML element with Ketchup specific properties.
- */
+
 export interface KulDom extends HTMLHtmlElement {
     ketchupLite: KulManager;
     ketchupLiteInit: KulManagerInitialization;
 }
-/**
- * Interface for the KulManager class
- */
 export interface KulManager {
     data: KulData;
     dates: KulDates;
@@ -45,23 +40,14 @@ export interface KulManager {
         options?: Partial<Options>
     ) => Promise<HTMLCanvasElement>;
 }
-/**
- * Interface for the KulManager utilities.
- */
 export interface KulManagerUtilities {
     clickCallbacks?: Set<KulManagerClickCb>;
     lastPointerDownString?: string;
 }
-/**
- * Interface to declare callbacks automatically invoked on pointer down events.
- */
 export interface KulManagerClickCb {
     cb: () => unknown;
     el?: HTMLElement;
 }
-/**
- * Interface for the KulManager override settings.
- */
 export interface KulManagerInitialization {
     assetsPath?: string;
     autoSetLocalization?: boolean;
@@ -71,58 +57,30 @@ export interface KulManagerInitialization {
     math?: KulManagerMathSettings;
     scrollOnHover?: KulManagerScrollOnHoverSettings;
     theme?: KulManagerThemeSettings;
-    tooltip?: KulManagerTooltipSettings;
 }
-/**
- * KulDates initialization settings.
- */
 export interface KulManagerDatesSettings {
     locale?: KulDatesLocales;
 }
-/**
- * KulDebug initialization settings.
- */
 export interface KulManagerDebugSettings {
     active?: boolean;
     autoPrint?: boolean;
     logLimit?: number;
 }
-/**
- * KulLanguage initialization settings.
- */
 export interface KulManagerLanguageSettings {
     list?: KulLanguageJSON;
     name?: string;
 }
-/**
- * KulMath initialization settings.
- */
 export interface KulManagerMathSettings {
     locale?: KulMathLocales;
 }
-/**
- * KulScrollOnHover initialization settings.
- */
 export interface KulManagerScrollOnHoverSettings {
     delay?: number;
     step?: number;
 }
-/**
- * KulTheme initialization settings.
- */
+export interface KulManagerStringFinderPayload {
+    string: string;
+}
 export interface KulManagerThemeSettings {
     list?: KulThemeJSON;
     name?: string;
-}
-/**
- * KulDates initialization settings.
- */
-export interface KulManagerTooltipSettings {
-    delay?: number;
-}
-/**
- * KulTheme initialization settings.
- */
-export interface KulManagerStringFinderPayload {
-    string: string;
 }
