@@ -313,14 +313,6 @@ export class KulShowcase {
                 >
                     <div class="showcase">
                         <div class="section">
-                            {this.#prepHeader('Utilities')}
-                            <div class="flex-wrapper flex-wrapper--responsive">
-                                {this.currentUtility
-                                    ? this.#comps('Utilities')
-                                    : this.#cards('Utilities')}
-                            </div>
-                        </div>
-                        <div class="section">
                             {this.#prepHeader('Components')}
                             <div class="flex-wrapper flex-wrapper--responsive">
                                 {this.currentComponent
@@ -342,6 +334,14 @@ export class KulShowcase {
                                 {this.currentFramework
                                     ? this.#comps('Framework')
                                     : this.#cards('Framework')}
+                            </div>
+                        </div>
+                        <div class="section">
+                            {this.#prepHeader('Utilities')}
+                            <div class="flex-wrapper flex-wrapper--responsive">
+                                {this.currentUtility
+                                    ? this.#comps('Utilities')
+                                    : this.#cards('Utilities')}
                             </div>
                         </div>
                     </div>

@@ -26,7 +26,6 @@ export interface KulManager {
     dates: KulDates;
     debug: KulDebug;
     dynamicPosition: KulDynamicPosition;
-    enableExperimentalFeatures: boolean;
     language: KulLanguage;
     math: KulMath;
     overrides?: KulManagerInitialization;
@@ -68,7 +67,6 @@ export interface KulManagerInitialization {
     autoSetLocalization?: boolean;
     dates?: KulManagerDatesSettings;
     debug?: KulManagerDebugSettings;
-    enableExperimentalFeatures?: boolean;
     language?: KulManagerLanguageSettings;
     math?: KulManagerMathSettings;
     scrollOnHover?: KulManagerScrollOnHoverSettings;
