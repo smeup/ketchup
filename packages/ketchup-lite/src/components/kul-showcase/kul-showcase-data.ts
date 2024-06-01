@@ -43,13 +43,6 @@ export const KUL_SHOWCASE_UTILITIES: KulDataDataset = {
             id: 'Debug',
             value: 'Debug',
         },
-        {
-            description:
-                'Offers a setup for performance testing using kul-probe.',
-            icon: 'timer',
-            id: 'Probe',
-            value: 'Probe',
-        },
     ],
 };
 

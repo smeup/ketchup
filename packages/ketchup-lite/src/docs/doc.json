@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-05-30T22:24:04",
+  "timestamp": "2024-06-01T16:14:47",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -3763,7 +3763,7 @@
       "filePath": "src/components/kul-list/kul-list.tsx",
       "encapsulation": "shadow",
       "tag": "kul-list",
-      "readme": "# kul-list\n\n\n",
+      "readme": "# kul-list\r\n\r\n\r\n\r",
       "docs": "",
       "docsTags": [],
       "usage": {},
@@ -5407,25 +5407,6 @@
           "kul-article"
         ]
       }
-    },
-    {
-      "filePath": "src/components/kul-showcase/utilities/probe/kul-showcase-probe.tsx",
-      "encapsulation": "shadow",
-      "tag": "kul-showcase-probe",
-      "readme": "# kul-showcase-badge\r\n\r\n\r\n\r",
-      "docs": "",
-      "docsTags": [],
-      "usage": {},
-      "props": [],
-      "methods": [],
-      "events": [],
-      "listeners": [],
-      "styles": [],
-      "slots": [],
-      "parts": [],
-      "dependents": [],
-      "dependencies": [],
-      "dependencyGraph": {}
     },
     {
       "filePath": "src/components/kul-showcase/components/spinner/kul-showcase-spinner.tsx",
@@ -8443,7 +8424,7 @@
           "mutable": true,
           "attr": "kul-initial-expansion-depth",
           "reflectToAttr": false,
-          "docs": "Sets the initial expanded nodes based on the specified depth.\nIf the property is not provided, all nodes in the tree will be expanded.",
+          "docs": "Sets the initial expanded nodes based on the specified depth.\r\nIf the property is not provided, all nodes in the tree will be expanded.",
           "docsTags": [
             {
               "name": "default",

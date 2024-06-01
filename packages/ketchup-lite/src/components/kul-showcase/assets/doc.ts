@@ -1239,11 +1239,6 @@ export const KUL_DOC: KulShowcaseDoc = {
     props: [],
     styles: [],
   },
-  "kul-showcase-probe": {
-    methods: [],
-    props: [],
-    styles: [],
-  },
   "kul-showcase-spinner": {
     methods: [],
     props: [],
@@ -1961,7 +1956,7 @@ export const KUL_DOC: KulShowcaseDoc = {
       },
       {
         name: "kulInitialExpansionDepth",
-        docs: "Sets the initial expanded nodes based on the specified depth.\nIf the property is not provided, all nodes in the tree will be expanded.",
+        docs: "Sets the initial expanded nodes based on the specified depth.\r\nIf the property is not provided, all nodes in the tree will be expanded.",
         type: "number",
       },
       {

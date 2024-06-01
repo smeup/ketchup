@@ -35,7 +35,6 @@ export const KulShowcaseKulmanager = /*@__PURE__*/createReactComponent<JSX.KulSh
 export const KulShowcaseLazy = /*@__PURE__*/createReactComponent<JSX.KulShowcaseLazy, HTMLKulShowcaseLazyElement>('kul-showcase-lazy');
 export const KulShowcaseList = /*@__PURE__*/createReactComponent<JSX.KulShowcaseList, HTMLKulShowcaseListElement>('kul-showcase-list');
 export const KulShowcasePhotoframe = /*@__PURE__*/createReactComponent<JSX.KulShowcasePhotoframe, HTMLKulShowcasePhotoframeElement>('kul-showcase-photoframe');
-export const KulShowcaseProbe = /*@__PURE__*/createReactComponent<JSX.KulShowcaseProbe, HTMLKulShowcaseProbeElement>('kul-showcase-probe');
 export const KulShowcaseSpinner = /*@__PURE__*/createReactComponent<JSX.KulShowcaseSpinner, HTMLKulShowcaseSpinnerElement>('kul-showcase-spinner');
 export const KulShowcaseSplash = /*@__PURE__*/createReactComponent<JSX.KulShowcaseSplash, HTMLKulShowcaseSplashElement>('kul-showcase-splash');
 export const KulShowcaseSwitch = /*@__PURE__*/createReactComponent<JSX.KulShowcaseSwitch, HTMLKulShowcaseSwitchElement>('kul-showcase-switch');
