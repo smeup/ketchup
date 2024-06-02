@@ -96,6 +96,11 @@
   width: 100%;
 }
 
+#kul-component {
+  height: 100%;
+  width: 100%;
+}
+
 :host([kul-selectable]) {
   .node {
     &:hover:not(.node--selected) {
@@ -238,4 +243,12 @@
   &__filter {
     color: var(--kul-primary-color);
   }
+}
+
+.empty-data {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
 }

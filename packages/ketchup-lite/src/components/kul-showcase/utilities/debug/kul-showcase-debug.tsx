@@ -51,10 +51,13 @@ export class KulShowcaseDebug {
             ? 'kul-' + this.currentComponent
             : undefined;
         return ComponentTag ? (
-            <ComponentTag
-                class={`component--${ComponentTag}`}
-                {...this.currentProps}
-            ></ComponentTag>
+            <div class="component-wrapper">
+                <ComponentTag
+                    class={`component--${ComponentTag}`}
+                    key={`${Date.now()}-${Math.random()}`}
+                    {...this.currentProps}
+                ></ComponentTag>
+            </div>
         ) : (
             <div class="placeholder">
                 <div class="placeholder__text">
@@ -68,6 +71,7 @@ export class KulShowcaseDebug {
         return this.currentComponent ? (
             <kul-textfield
                 class={this.invalidJson ? 'kul-danger' : ''}
+                key={'enabled'}
                 kulLabel={this.invalidJson ? 'Invalid JSON' : 'Props'}
                 onKul-textfield-event={(e) => {
                     if (e.detail.eventType === 'change') {
@@ -85,6 +89,7 @@ export class KulShowcaseDebug {
             ></kul-textfield>
         ) : (
             <kul-textfield
+                key={'disabled'}
                 kulDisabled={true}
                 kulFullWidth={true}
                 kulLabel="Props"

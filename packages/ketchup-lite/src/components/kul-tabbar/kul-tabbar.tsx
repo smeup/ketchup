@@ -217,6 +217,9 @@ export class KulTabbar {
                 this.#kulManager.theme.ripple.setup(el);
             });
         }
+        if (this.#scrollArea) {
+            this.#kulManager.scrollOnHover.register(this.#scrollArea);
+        }
         this.onKulEvent(new CustomEvent('ready'), 'ready');
         this.#kulManager.debug.updateDebugInfo(this, 'did-load');
     }
@@ -321,7 +324,9 @@ export class KulTabbar {
     }
 
     disconnectedCallback() {
-        this.#kulManager.scrollOnHover.unregister(this.#scrollArea);
+        if (this.#scrollArea) {
+            this.#kulManager.scrollOnHover.unregister(this.#scrollArea);
+        }
         this.#kulManager.theme.unregister(this);
     }
 }

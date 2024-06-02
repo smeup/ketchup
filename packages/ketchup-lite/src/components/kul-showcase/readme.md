@@ -64,12 +64,14 @@ Type: `Promise<void>`
 
 - [kul-card](../kul-card)
 - [kul-button](../kul-button)
+- [kul-article](../kul-article)
 
 ### Graph
 ```mermaid
 graph TD;
   kul-showcase --> kul-card
   kul-showcase --> kul-button
+  kul-showcase --> kul-article
   kul-card --> kul-button
   kul-card --> kul-image
   kul-button --> kul-image

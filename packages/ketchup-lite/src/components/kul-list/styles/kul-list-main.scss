@@ -74,6 +74,9 @@
  */
   --kul_list_transition: var(--kul-list-transition, 125ms);
 
+  -webkit-backdrop-filter: var(--kul_list_backdrop_filter);
+  backdrop-filter: var(--kul_list_backdrop_filter);
+  background-color: var(--kul_list_background_color);
   display: block;
   font-family: var(--kul_list_font_family);
   font-size: var(--kul_list_font_size);
@@ -88,9 +91,6 @@
 }
 
 .list {
-  -webkit-backdrop-filter: var(--kul_list_backdrop_filter);
-  backdrop-filter: var(--kul_list_backdrop_filter);
-  background-color: var(--kul_list_background_color);
   box-sizing: border-box;
   color: var(--kul_list_text_color);
   font-weight: var(--kul_list_font_weight);
@@ -201,4 +201,12 @@
     margin: 0 0.75em 0 0;
     width: 1.5em;
   }
+}
+
+.empty-data {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
 }

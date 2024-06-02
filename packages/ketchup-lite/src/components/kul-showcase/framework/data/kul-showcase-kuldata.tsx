@@ -1,16 +1,17 @@
 import { Component, Element, Fragment, h } from '@stencil/core';
 import { KUL_WRAPPER_ID } from '../../../../variables/GenericVariables';
+import { DATA_DOC } from './kul-showcase-kuldata-data';
 
 @Component({
-    tag: 'kul-showcase-probe',
-    styleUrl: 'kul-showcase-probe.scss',
+    tag: 'kul-showcase-kuldata',
+    styleUrl: 'kul-showcase-kuldata.scss',
     shadow: true,
 })
-export class KulShowcaseProbe {
+export class KulShowcaseKuldata {
     /**
-     * References the root HTML element of the component (<kul-showcase-probe>).
+     * References the root HTML element of the component (<kul-showcase-kuldata>).
      */
-    @Element() rootElement: HTMLKulShowcaseProbeElement;
+    @Element() rootElement: HTMLKulShowcaseKuldataElement;
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
@@ -19,7 +20,9 @@ export class KulShowcaseProbe {
     render() {
         return (
             <Fragment>
-                <div id={KUL_WRAPPER_ID}>- work in progress -</div>
+                <div id={KUL_WRAPPER_ID}>
+                    <kul-article kulData={DATA_DOC}></kul-article>
+                </div>
             </Fragment>
         );
     }
