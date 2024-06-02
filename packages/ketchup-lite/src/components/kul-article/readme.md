@@ -78,6 +78,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kul-showcase](../kul-showcase)
  - [kul-showcase-article](../kul-showcase/components/article)
  - [kul-showcase-badge](../kul-showcase/components/badge)
  - [kul-showcase-button](../kul-showcase/components/button)
@@ -88,6 +89,7 @@ Type: `Promise<void>`
  - [kul-showcase-drawer](../kul-showcase/layout/drawer)
  - [kul-showcase-header](../kul-showcase/layout/header)
  - [kul-showcase-image](../kul-showcase/components/image)
+ - [kul-showcase-kuldata](../kul-showcase/framework/data)
  - [kul-showcase-kulmanager](../kul-showcase/framework/manager)
  - [kul-showcase-lazy](../kul-showcase/components/lazy)
  - [kul-showcase-list](../kul-showcase/components/list)
@@ -104,6 +106,7 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
+  kul-showcase --> kul-article
   kul-showcase-article --> kul-article
   kul-showcase-badge --> kul-article
   kul-showcase-button --> kul-article
@@ -114,6 +117,7 @@ graph TD;
   kul-showcase-drawer --> kul-article
   kul-showcase-header --> kul-article
   kul-showcase-image --> kul-article
+  kul-showcase-kuldata --> kul-article
   kul-showcase-kulmanager --> kul-article
   kul-showcase-lazy --> kul-article
   kul-showcase-list --> kul-article

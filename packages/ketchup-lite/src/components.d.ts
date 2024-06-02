@@ -648,6 +648,8 @@ export namespace Components {
     }
     interface KulShowcaseImage {
     }
+    interface KulShowcaseKuldata {
+    }
     interface KulShowcaseKulmanager {
     }
     interface KulShowcaseLazy {
@@ -1452,6 +1454,12 @@ declare global {
         prototype: HTMLKulShowcaseImageElement;
         new (): HTMLKulShowcaseImageElement;
     };
+    interface HTMLKulShowcaseKuldataElement extends Components.KulShowcaseKuldata, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseKuldataElement: {
+        prototype: HTMLKulShowcaseKuldataElement;
+        new (): HTMLKulShowcaseKuldataElement;
+    };
     interface HTMLKulShowcaseKulmanagerElement extends Components.KulShowcaseKulmanager, HTMLStencilElement {
     }
     var HTMLKulShowcaseKulmanagerElement: {
@@ -1684,6 +1692,7 @@ declare global {
         "kul-showcase-drawer": HTMLKulShowcaseDrawerElement;
         "kul-showcase-header": HTMLKulShowcaseHeaderElement;
         "kul-showcase-image": HTMLKulShowcaseImageElement;
+        "kul-showcase-kuldata": HTMLKulShowcaseKuldataElement;
         "kul-showcase-kulmanager": HTMLKulShowcaseKulmanagerElement;
         "kul-showcase-lazy": HTMLKulShowcaseLazyElement;
         "kul-showcase-list": HTMLKulShowcaseListElement;
@@ -2111,6 +2120,8 @@ declare namespace LocalJSX {
     }
     interface KulShowcaseImage {
     }
+    interface KulShowcaseKuldata {
+    }
     interface KulShowcaseKulmanager {
     }
     interface KulShowcaseLazy {
@@ -2439,6 +2450,7 @@ declare namespace LocalJSX {
         "kul-showcase-drawer": KulShowcaseDrawer;
         "kul-showcase-header": KulShowcaseHeader;
         "kul-showcase-image": KulShowcaseImage;
+        "kul-showcase-kuldata": KulShowcaseKuldata;
         "kul-showcase-kulmanager": KulShowcaseKulmanager;
         "kul-showcase-lazy": KulShowcaseLazy;
         "kul-showcase-list": KulShowcaseList;
@@ -2488,6 +2500,7 @@ declare module "@stencil/core" {
             "kul-showcase-drawer": LocalJSX.KulShowcaseDrawer & JSXBase.HTMLAttributes<HTMLKulShowcaseDrawerElement>;
             "kul-showcase-header": LocalJSX.KulShowcaseHeader & JSXBase.HTMLAttributes<HTMLKulShowcaseHeaderElement>;
             "kul-showcase-image": LocalJSX.KulShowcaseImage & JSXBase.HTMLAttributes<HTMLKulShowcaseImageElement>;
+            "kul-showcase-kuldata": LocalJSX.KulShowcaseKuldata & JSXBase.HTMLAttributes<HTMLKulShowcaseKuldataElement>;
             "kul-showcase-kulmanager": LocalJSX.KulShowcaseKulmanager & JSXBase.HTMLAttributes<HTMLKulShowcaseKulmanagerElement>;
             "kul-showcase-lazy": LocalJSX.KulShowcaseLazy & JSXBase.HTMLAttributes<HTMLKulShowcaseLazyElement>;
             "kul-showcase-list": LocalJSX.KulShowcaseList & JSXBase.HTMLAttributes<HTMLKulShowcaseListElement>;

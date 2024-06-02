@@ -1,4 +1,4 @@
-import { KulDataDataset } from '../../components';
+import { KulArticleDataset, KulDataDataset } from '../../components';
 
 export const COMPONENTS = [
     'article',
@@ -37,6 +37,76 @@ export const DOC_STYLES = {
         ['--kul_article_h3_font_family']: 'var(--kul-font-family-monospace)',
         ['--kul_article_h3_font_size']: 'calc(var(--kul-font-size) * 1.5)',
     },
+    underConstruction: {
+        ['boxSizing']: 'border-box',
+        ['display']: 'block',
+        ['fontSize']: '1.5em',
+        ['margin']: 'auto',
+        ['padding']: '1em',
+        ['textAlign']: 'center',
+        ['textTransform']: 'uppercase',
+        ['width']: '100%',
+    },
+};
+
+export const KUL_DOC: KulArticleDataset = {
+    nodes: [
+        {
+            id: '0',
+            value: 'Ketchup Lite',
+            children: [
+                {
+                    children: [
+                        {
+                            children: [
+                                {
+                                    id: '1.5',
+                                    value: 'Ketchup Lite is a Webcomponents library written in TypeScript and Sass.',
+                                },
+                                {
+                                    id: '1.5',
+                                    value: "It's a side project on which I'm working on in my free time.",
+                                },
+                                {
+                                    children: [
+                                        {
+                                            id: '',
+                                            value: 'It is a fork stemming from the original ',
+                                        },
+                                        {
+                                            id: '',
+                                            tagName: 'strong',
+                                            value: 'Ketchup project',
+                                        },
+                                        {
+                                            id: '',
+                                            value: ', aiming to provide a streamlined and efficient set of tools for developers.',
+                                        },
+                                    ],
+                                    id: '',
+                                    value: '',
+                                },
+                            ],
+                            id: '',
+                            value: '',
+                        },
+                        {
+                            children: [
+                                {
+                                    id: '',
+                                    value: 'For more information you can visit the GitHub page of the project.',
+                                },
+                            ],
+                            id: '',
+                            value: '',
+                        },
+                    ],
+                    id: '',
+                    value: '',
+                },
+            ],
+        },
+    ],
 };
 
 export const KUL_SHOWCASE_UTILITIES: KulDataDataset = {
@@ -182,6 +252,12 @@ export const KUL_SHOWCASE_FRAMEWORK: KulDataDataset = {
             icon: 'settings',
             id: 'KulManager',
             value: 'KulManager',
+        },
+        {
+            description: 'Dataset management and manipulation.',
+            icon: 'table-edit',
+            id: 'KulData',
+            value: 'KulData',
         },
     ],
 };

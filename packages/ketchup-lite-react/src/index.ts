@@ -31,6 +31,7 @@ export const KulShowcaseDebug = /*@__PURE__*/createReactComponent<JSX.KulShowcas
 export const KulShowcaseDrawer = /*@__PURE__*/createReactComponent<JSX.KulShowcaseDrawer, HTMLKulShowcaseDrawerElement>('kul-showcase-drawer');
 export const KulShowcaseHeader = /*@__PURE__*/createReactComponent<JSX.KulShowcaseHeader, HTMLKulShowcaseHeaderElement>('kul-showcase-header');
 export const KulShowcaseImage = /*@__PURE__*/createReactComponent<JSX.KulShowcaseImage, HTMLKulShowcaseImageElement>('kul-showcase-image');
+export const KulShowcaseKuldata = /*@__PURE__*/createReactComponent<JSX.KulShowcaseKuldata, HTMLKulShowcaseKuldataElement>('kul-showcase-kuldata');
 export const KulShowcaseKulmanager = /*@__PURE__*/createReactComponent<JSX.KulShowcaseKulmanager, HTMLKulShowcaseKulmanagerElement>('kul-showcase-kulmanager');
 export const KulShowcaseLazy = /*@__PURE__*/createReactComponent<JSX.KulShowcaseLazy, HTMLKulShowcaseLazyElement>('kul-showcase-lazy');
 export const KulShowcaseList = /*@__PURE__*/createReactComponent<JSX.KulShowcaseList, HTMLKulShowcaseListElement>('kul-showcase-list');

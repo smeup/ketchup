@@ -1219,6 +1219,11 @@ export const KUL_DOC: KulShowcaseDoc = {
     props: [],
     styles: [],
   },
+  "kul-showcase-kuldata": {
+    methods: [],
+    props: [],
+    styles: [],
+  },
   "kul-showcase-kulmanager": {
     methods: [],
     props: [],

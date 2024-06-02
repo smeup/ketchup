@@ -22,12 +22,14 @@ import {
 } from './kul-showcase-declarations';
 import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import {
+    KUL_DOC,
     KUL_SHOWCASE_COMPONENTS,
     KUL_SHOWCASE_FRAMEWORK,
     KUL_SHOWCASE_LAYOUT,
     KUL_SHOWCASE_UTILITIES,
 } from './kul-showcase-data';
 import { KulCardCustomEvent, KulDataDataset } from '../../components';
+import { ARTICLE_DOC } from './components/article/kul-showcase-article-data';
 
 @Component({
     assetsDirs: ['assets/media'],
@@ -312,6 +314,37 @@ export class KulShowcase {
                     onClick={(e) => this.onKulEvent(e, 'click')}
                 >
                     <div class="showcase">
+                        <kul-article kulData={KUL_DOC}></kul-article>
+                        <div class="link-wrapper">
+                            <kul-button
+                                aria-label="Open GitHub Repository"
+                                class={'link'}
+                                kulIcon="github"
+                                kulLabel="GitHub"
+                                kulStyling="floating"
+                                onClick={() =>
+                                    window.open(
+                                        'https://github.com/lucafoscili/ketchup-lite',
+                                        '_blank'
+                                    )
+                                }
+                                title="Open GitHub Repository"
+                            ></kul-button>
+                            <kul-button
+                                aria-label="Open npm Package"
+                                class={'link'}
+                                kulIcon="npm"
+                                kulLabel="npm"
+                                kulStyling="floating"
+                                onClick={() =>
+                                    window.open(
+                                        'https://www.npmjs.com/package/ketchup-lite',
+                                        '_blank'
+                                    )
+                                }
+                                title="Open npm Package"
+                            ></kul-button>
+                        </div>
                         <div class="section">
                             {this.#prepHeader('Components')}
                             <div class="flex-wrapper flex-wrapper--responsive">
