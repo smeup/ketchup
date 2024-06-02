@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-06-02T14:06:50",
+  "timestamp": "2024-06-02T15:01:52",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -264,7 +264,14 @@
         "kul-showcase-header",
         "kul-showcase-image",
         "kul-showcase-kuldata",
+        "kul-showcase-kuldates",
+        "kul-showcase-kuldebug",
+        "kul-showcase-kuldynamicposition",
+        "kul-showcase-kullanguage",
         "kul-showcase-kulmanager",
+        "kul-showcase-kulmath",
+        "kul-showcase-kulscrollonhover",
+        "kul-showcase-kultheme",
         "kul-showcase-lazy",
         "kul-showcase-list",
         "kul-showcase-photoframe",
@@ -315,7 +322,28 @@
         "kul-showcase-kuldata": [
           "kul-article"
         ],
+        "kul-showcase-kuldates": [
+          "kul-article"
+        ],
+        "kul-showcase-kuldebug": [
+          "kul-article"
+        ],
+        "kul-showcase-kuldynamicposition": [
+          "kul-article"
+        ],
+        "kul-showcase-kullanguage": [
+          "kul-article"
+        ],
         "kul-showcase-kulmanager": [
+          "kul-article"
+        ],
+        "kul-showcase-kulmath": [
+          "kul-article"
+        ],
+        "kul-showcase-kulscrollonhover": [
+          "kul-article"
+        ],
+        "kul-showcase-kultheme": [
           "kul-article"
         ],
         "kul-showcase-lazy": [
@@ -5275,6 +5303,106 @@
       }
     },
     {
+      "filePath": "src/components/kul-showcase/framework/dates/kul-showcase-kuldates.tsx",
+      "encapsulation": "shadow",
+      "tag": "kul-showcase-kuldates",
+      "readme": "# kul-showcase-kuldates\n\n\n",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [
+        "kul-article"
+      ],
+      "dependencyGraph": {
+        "kul-showcase-kuldates": [
+          "kul-article"
+        ]
+      }
+    },
+    {
+      "filePath": "src/components/kul-showcase/framework/debug/kul-showcase-kuldebug.tsx",
+      "encapsulation": "shadow",
+      "tag": "kul-showcase-kuldebug",
+      "readme": "# kul-showcase-kuldebug\n\n\n",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [
+        "kul-article"
+      ],
+      "dependencyGraph": {
+        "kul-showcase-kuldebug": [
+          "kul-article"
+        ]
+      }
+    },
+    {
+      "filePath": "src/components/kul-showcase/framework/dynamicposition/kul-showcase-kuldynamicposition.tsx",
+      "encapsulation": "shadow",
+      "tag": "kul-showcase-kuldynamicposition",
+      "readme": "# kul-showcase-kuldynamicposition\n\n\n",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [
+        "kul-article"
+      ],
+      "dependencyGraph": {
+        "kul-showcase-kuldynamicposition": [
+          "kul-article"
+        ]
+      }
+    },
+    {
+      "filePath": "src/components/kul-showcase/framework/language/kul-showcase-kullanguage.tsx",
+      "encapsulation": "shadow",
+      "tag": "kul-showcase-kullanguage",
+      "readme": "# kul-showcase-kuldata\n\n\n",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [
+        "kul-article"
+      ],
+      "dependencyGraph": {
+        "kul-showcase-kullanguage": [
+          "kul-article"
+        ]
+      }
+    },
+    {
       "filePath": "src/components/kul-showcase/framework/manager/kul-showcase-kulmanager.tsx",
       "encapsulation": "shadow",
       "tag": "kul-showcase-kulmanager",
@@ -5295,6 +5423,81 @@
       ],
       "dependencyGraph": {
         "kul-showcase-kulmanager": [
+          "kul-article"
+        ]
+      }
+    },
+    {
+      "filePath": "src/components/kul-showcase/framework/math/kul-showcase-kulmath.tsx",
+      "encapsulation": "shadow",
+      "tag": "kul-showcase-kulmath",
+      "readme": "# kul-showcase-kuldata\n\n\n",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [
+        "kul-article"
+      ],
+      "dependencyGraph": {
+        "kul-showcase-kulmath": [
+          "kul-article"
+        ]
+      }
+    },
+    {
+      "filePath": "src/components/kul-showcase/framework/scroll-on-hover/kul-showcase-kulscrollonhover.tsx",
+      "encapsulation": "shadow",
+      "tag": "kul-showcase-kulscrollonhover",
+      "readme": "# kul-showcase-kuldata\n\n\n",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [
+        "kul-article"
+      ],
+      "dependencyGraph": {
+        "kul-showcase-kulscrollonhover": [
+          "kul-article"
+        ]
+      }
+    },
+    {
+      "filePath": "src/components/kul-showcase/framework/theme/kul-showcase-kultheme.tsx",
+      "encapsulation": "shadow",
+      "tag": "kul-showcase-kultheme",
+      "readme": "# kul-showcase-kuldata\n\n\n",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [
+        "kul-article"
+      ],
+      "dependencyGraph": {
+        "kul-showcase-kultheme": [
           "kul-article"
         ]
       }

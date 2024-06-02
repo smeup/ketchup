@@ -1224,7 +1224,42 @@ export const KUL_DOC: KulShowcaseDoc = {
     props: [],
     styles: [],
   },
+  "kul-showcase-kuldates": {
+    methods: [],
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-kuldebug": {
+    methods: [],
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-kuldynamicposition": {
+    methods: [],
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-kullanguage": {
+    methods: [],
+    props: [],
+    styles: [],
+  },
   "kul-showcase-kulmanager": {
+    methods: [],
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-kulmath": {
+    methods: [],
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-kulscrollonhover": {
+    methods: [],
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-kultheme": {
     methods: [],
     props: [],
     styles: [],

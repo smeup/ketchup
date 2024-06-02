@@ -1,11 +1,11 @@
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
 import { DOC_STYLES } from '../../kul-showcase-data';
 
-export const DATA_DOC: KulArticleDataset = {
+export const DEBUG_DATA: KulArticleDataset = {
     nodes: [
         {
             id: '0',
-            value: 'KulData',
+            value: 'KulDebug',
             children: [
                 {
                     id: '1',
@@ -16,11 +16,11 @@ export const DATA_DOC: KulArticleDataset = {
                                 {
                                     id: '1.1.1',
                                     tagName: 'strong',
-                                    value: 'KulData',
+                                    value: 'KulDebug',
                                 },
                                 {
                                     id: '1.1.2',
-                                    value: ' is part of the KulManager class and serves as the foundation for dataset management and manipulation.',
+                                    value: ' is included in the KulManager class and is a framework that assists developers with debugging tasks.',
                                 },
                             ],
                             id: '1.1',

@@ -41,6 +41,7 @@ export const DOC_STYLES = {
         ['boxSizing']: 'border-box',
         ['display']: 'block',
         ['fontSize']: '1.5em',
+        ['letterSpacing']: '1px',
         ['margin']: 'auto',
         ['padding']: '1em',
         ['textAlign']: 'center',
@@ -248,16 +249,60 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
 export const KUL_SHOWCASE_FRAMEWORK: KulDataDataset = {
     nodes: [
         {
+            description: 'Dataset management and manipulation.',
+            icon: 'table-edit',
+            id: 'KulData',
+            value: 'KulData',
+        },
+        {
+            description: 'Date and time management.',
+            icon: 'calendar',
+            id: 'KulDates',
+            value: 'KulDates',
+        },
+        {
+            description:
+                'Utility useful for debugging and for code observability.',
+            icon: 'developer_mode',
+            id: 'KulDebug',
+            value: 'KulDebug',
+        },
+        {
+            description: 'Takes care of displaying elements dynamically.',
+            icon: 'location_searching',
+            id: 'KulDynamicPosition',
+            value: 'KulDynamicPosition',
+        },
+        {
+            description: 'JSON-based utility to handle translations.',
+            icon: 'g_translate',
+            id: 'KulLanguage',
+            value: 'KulLanguage',
+        },
+        {
             description: 'Handles various management tasks within the library.',
             icon: 'settings',
             id: 'KulManager',
             value: 'KulManager',
         },
         {
-            description: 'Dataset management and manipulation.',
-            icon: 'table-edit',
-            id: 'KulData',
-            value: 'KulData',
+            description: 'Math operations and number formatting.',
+            icon: 'calculator',
+            id: 'KulMath',
+            value: 'KulMath',
+        },
+        {
+            description:
+                'Simple script that activates a scroll-on-hover effect on an element.',
+            icon: 'compare_arrows',
+            id: 'KulScrollOnHover',
+            value: 'KulScrollOnHover',
+        },
+        {
+            description: 'Design system of the library.',
+            icon: 'style',
+            id: 'KulTheme',
+            value: 'KulTheme',
         },
     ],
 };

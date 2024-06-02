@@ -1,11 +1,11 @@
 import { KulArticleDataset } from '../../../kul-article/kul-article-declarations';
 import { DOC_STYLES } from '../../kul-showcase-data';
 
-export const DATA_DOC: KulArticleDataset = {
+export const SCROLL_ON_HOVER_DATA: KulArticleDataset = {
     nodes: [
         {
             id: '0',
-            value: 'KulData',
+            value: 'KulScrollOnHover',
             children: [
                 {
                     id: '1',
@@ -16,11 +16,11 @@ export const DATA_DOC: KulArticleDataset = {
                                 {
                                     id: '1.1.1',
                                     tagName: 'strong',
-                                    value: 'KulData',
+                                    value: 'KulScrollOnHover',
                                 },
                                 {
                                     id: '1.1.2',
-                                    value: ' is part of the KulManager class and serves as the foundation for dataset management and manipulation.',
+                                    value: ' is part of the KulManager class and is a script that enables the scrolling of an element when the mouse hovers over it.',
                                 },
                             ],
                             id: '1.1',

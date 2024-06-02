@@ -90,7 +90,14 @@ Type: `Promise<void>`
  - [kul-showcase-header](../kul-showcase/layout/header)
  - [kul-showcase-image](../kul-showcase/components/image)
  - [kul-showcase-kuldata](../kul-showcase/framework/data)
+ - [kul-showcase-kuldates](../kul-showcase/framework/dates)
+ - [kul-showcase-kuldebug](../kul-showcase/framework/debug)
+ - [kul-showcase-kuldynamicposition](../kul-showcase/framework/dynamicposition)
+ - [kul-showcase-kullanguage](../kul-showcase/framework/language)
  - [kul-showcase-kulmanager](../kul-showcase/framework/manager)
+ - [kul-showcase-kulmath](../kul-showcase/framework/math)
+ - [kul-showcase-kulscrollonhover](../kul-showcase/framework/scroll-on-hover)
+ - [kul-showcase-kultheme](../kul-showcase/framework/theme)
  - [kul-showcase-lazy](../kul-showcase/components/lazy)
  - [kul-showcase-list](../kul-showcase/components/list)
  - [kul-showcase-photoframe](../kul-showcase/components/photoframe)
@@ -118,7 +125,14 @@ graph TD;
   kul-showcase-header --> kul-article
   kul-showcase-image --> kul-article
   kul-showcase-kuldata --> kul-article
+  kul-showcase-kuldates --> kul-article
+  kul-showcase-kuldebug --> kul-article
+  kul-showcase-kuldynamicposition --> kul-article
+  kul-showcase-kullanguage --> kul-article
   kul-showcase-kulmanager --> kul-article
+  kul-showcase-kulmath --> kul-article
+  kul-showcase-kulscrollonhover --> kul-article
+  kul-showcase-kultheme --> kul-article
   kul-showcase-lazy --> kul-article
   kul-showcase-list --> kul-article
   kul-showcase-photoframe --> kul-article

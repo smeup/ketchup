@@ -9,7 +9,7 @@ export const MANAGER_DATA: KulArticleDataset = {
             children: [
                 {
                     id: '1',
-                    value: 'What is it?',
+                    value: 'Overview',
                     children: [
                         {
                             children: [
