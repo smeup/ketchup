@@ -26,6 +26,7 @@ import { GenericObject } from '../../types/GenericTypes';
 import { getProps } from '../../utils/componentUtils';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
+import { KulLanguageGeneric } from '../../managers/kul-language/kul-language-declarations';
 
 @Component({
     tag: 'kul-list',
@@ -381,10 +382,11 @@ export class KulList {
     }
 
     render() {
+        const isEmpty = !!!this.kulData?.nodes?.length;
         this.#listItems = [];
         const className = {
             list: true,
-            'list--empty': !!!this.kulData?.nodes?.length,
+            'list--empty': isEmpty,
             'list--selectable': this.kulSelectable,
         };
 
@@ -396,15 +398,25 @@ export class KulList {
                     </style>
                 ) : undefined}
                 <div id={KUL_WRAPPER_ID}>
-                    <ul
-                        aria-multiselectable={'false'}
-                        class={className}
-                        role={'listbox'}
-                    >
-                        {this.kulData.nodes.map((item, index) =>
-                            this.#prepNode(item, index)
-                        )}
-                    </ul>
+                    {isEmpty ? (
+                        <div class="empty-data">
+                            <div class="empty-data__text">
+                                {this.#kulManager.language.translate(
+                                    KulLanguageGeneric.EMPTY_DATA
+                                )}
+                            </div>
+                        </div>
+                    ) : (
+                        <ul
+                            aria-multiselectable={'false'}
+                            class={className}
+                            role={'listbox'}
+                        >
+                            {this.kulData.nodes.map((item, index) =>
+                                this.#prepNode(item, index)
+                            )}
+                        </ul>
+                    )}
                 </div>
             </Host>
         );

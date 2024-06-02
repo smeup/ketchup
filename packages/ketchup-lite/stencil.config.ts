@@ -21,7 +21,6 @@ export const config: Config = {
                 'kul-showcase-list',
                 'kul-showcase-kulmanager',
                 'kul-showcase-photoframe',
-                'kul-showcase-probe',
                 'kul-showcase-spinner',
                 'kul-showcase-splash',
                 'kul-showcase-switch',

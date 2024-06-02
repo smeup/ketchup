@@ -35,7 +35,6 @@ export class KulManager {
     dates: KulDates;
     debug: KulDebug;
     dynamicPosition: KulDynamicPosition;
-    enableExperimentalFeatures: boolean;
     language: KulLanguage;
     math: KulMath;
     overrides?: KulManagerInitialization;
@@ -58,14 +57,10 @@ export class KulManager {
             themeList: KulThemeJSON = null,
             themeName: string = null;
 
-        this.enableExperimentalFeatures = false;
-
         if (overrides) {
             const assetsPath = overrides.assetsPath;
             const dates = overrides.dates;
             const debug = overrides.debug;
-            const enableExperimentalFeatures =
-                overrides.enableExperimentalFeatures;
             const language = overrides.language;
             const scrollOnHover = overrides.scrollOnHover;
             const theme = overrides.theme;
@@ -79,9 +74,6 @@ export class KulManager {
                 debugActive = debug.active ? debug.active : null;
                 debugAutoprint = debug.autoPrint ? debug.autoPrint : null;
                 debugLogLimit = debug.logLimit ? debug.logLimit : null;
-            }
-            if (enableExperimentalFeatures) {
-                this.enableExperimentalFeatures = enableExperimentalFeatures;
             }
             if (language) {
                 languageList = language.list ? language.list : null;

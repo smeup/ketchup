@@ -12,8 +12,23 @@
   width: 100%;
 }
 
+kul-article {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: none;
+}
+
+.link {
+  padding: 1em;
+}
+
 kul-card {
   padding: 1em 0;
+}
+
+.link-wrapper {
+  display: flex;
+  justify-content: center;
 }
 
 .showcase {
