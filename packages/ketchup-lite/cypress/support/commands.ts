@@ -34,6 +34,7 @@ declare global {
                 component: string,
                 componentProps: { [key: string]: any }
             ): Chainable;
+            checkReadyEvent(component: string): Chainable;
             checkRenderCountIncrease(
                 component: string,
                 attempts?: number
@@ -145,6 +146,33 @@ Cypress.Commands.add('checkPropsInterface', (component, componentProps) => {
         });
 });
 
+Cypress.Commands.add('checkReadyEvent', (component) => {
+    visitManager().visit();
+    visitManager().splashUnmount();
+    const c = cy;
+    cy.document().then((document) => {
+        const eventName = `kul-${component}-event`;
+        const checkEvent = (event: CustomEvent<KulEventPayload>) => {
+            console.log('WE', event);
+            if (
+                event.type === eventName &&
+                event.detail.eventType === 'ready'
+            ) {
+                document.removeEventListener(eventName, checkEvent);
+                const readyCheck = document.createElement('div');
+                readyCheck.id = 'ready-check';
+                document.body.appendChild(readyCheck);
+            }
+        };
+        document.addEventListener(eventName, checkEvent);
+        visitManager().cardClick(component);
+        cy.get('@kulComponentShowcase')
+            .find(`kul-${component}`)
+            .first()
+            .scrollIntoView();
+    });
+});
+
 Cypress.Commands.add(
     'checkRenderCountIncrease',
     (component, maxAttempts = 10) => {
@@ -194,45 +222,60 @@ Cypress.Commands.add(
     }
 );
 
-Cypress.Commands.add('navigate', (component) => {
-    // Visit the page
-    cy.visit('http://localhost:3333');
-
-    // Wait for the "kul-splash-event" with the correct payload
-    cy.window().then((win) => {
-        return new Cypress.Promise((resolve) => {
-            const checkEvent = (event: CustomEvent<KulEventPayload>) => {
-                if (
-                    event.type === 'kul-splash-event' &&
-                    event.detail.eventType === 'unmount'
-                ) {
-                    resolve(); // Resolve the promise when the correct event is received
-                    win.removeEventListener('kul-splash-event', checkEvent); // Remove the event listener
-                }
-            };
-
-            win.addEventListener('kul-splash-event', checkEvent); // Add the event listener
-        });
-    });
-
-    // Continue with the rest of the navigation steps
-    cy.get('kul-showcase').should('exist').as('kulShowcase');
-    cy.get('@kulShowcase')
-        .shadow()
-        .find('#' + component.charAt(0).toUpperCase() + component.slice(1))
-        .should('exist')
-        .click();
-    cy.get('@kulShowcase')
-        .shadow()
-        .find('kul-showcase-' + component)
-        .should('exist')
-        .get('[data-cy="wrapper"]')
-        .as('kulComponentShowcase');
-});
-
 Cypress.Commands.add('getKulManager', () => {
     cy.window().then((win) => {
         const dom = win.document.documentElement as KulDom;
         return dom.ketchupLite;
     });
 });
+
+Cypress.Commands.add('navigate', (component) => {
+    visitManager().visit();
+    visitManager().splashUnmount();
+    visitManager().cardClick(component);
+});
+
+function visitManager() {
+    return {
+        cardClick: (component: string) => {
+            cy.get('kul-showcase').should('exist').as('kulShowcase');
+            cy.get('@kulShowcase')
+                .shadow()
+                .find(
+                    '#' + component.charAt(0).toUpperCase() + component.slice(1)
+                )
+                .should('exist')
+                .click();
+            cy.get('@kulShowcase')
+                .shadow()
+                .find('kul-showcase-' + component)
+                .should('exist')
+                .get('[data-cy="wrapper"]')
+                .as('kulComponentShowcase');
+        },
+        splashUnmount: () => {
+            cy.window().then((win) => {
+                return new Cypress.Promise((resolve) => {
+                    const checkEvent = (
+                        event: CustomEvent<KulEventPayload>
+                    ) => {
+                        if (
+                            event.type === 'kul-splash-event' &&
+                            event.detail.eventType === 'unmount'
+                        ) {
+                            resolve();
+                            win.removeEventListener(
+                                'kul-splash-event',
+                                checkEvent
+                            );
+                        }
+                    };
+                    win.addEventListener('kul-splash-event', checkEvent);
+                });
+            });
+        },
+        visit: () => {
+            cy.visit('http://localhost:3333');
+        },
+    };
+}
