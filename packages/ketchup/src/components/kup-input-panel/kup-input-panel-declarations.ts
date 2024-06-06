@@ -48,6 +48,7 @@ export interface KupInputPanelLayout {
 
 export interface KupInputPanelLayoutSection {
     id?: string;
+    title?: string;
     content?: KupInputPanelLayoutField[];
     sections?: KupInputPanelLayoutSection[];
     dim?: string;

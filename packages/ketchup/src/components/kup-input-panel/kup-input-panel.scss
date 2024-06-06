@@ -32,6 +32,12 @@
       flex-direction: column;
     }
 
+    &__section_label_container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
     &__section {
       display: grid;
 
@@ -63,6 +69,13 @@
 
     }
 
+    .f-cell.number-cell {
+      .f-cell__content {
+        --kup-textfield-font-family: var(--kup_cell_font_family);
+
+        font-family: var(--kup_cell_font_family);
+      }
+    }
 
   }
 }
