@@ -643,6 +643,14 @@
             ></kup-image>
             <div class="icon-label">dark_grey</div>
           </div>
+          <div class="icon-wrapper" title="dark_orange">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="dark_orange"
+            ></kup-image>
+            <div class="icon-label">dark_orange</div>
+          </div>
           <div class="icon-wrapper" title="database">
             <kup-image
               size-x="48px"
@@ -1247,13 +1255,13 @@
             ></kup-image>
             <div class="icon-label">light_green</div>
           </div>
-          <div class="icon-wrapper" title="light_gray">
+          <div class="icon-wrapper" title="light_grey">
             <kup-image
               size-x="48px"
               size-y="48px"
-              resource="light_gray"
+              resource="light_grey"
             ></kup-image>
-            <div class="icon-label">light_gray</div>
+            <div class="icon-label">light_grey</div>
           </div>
           <div class="icon-wrapper" title="light_orange">
             <kup-image
@@ -1439,14 +1447,7 @@
             ></kup-image>
             <div class="icon-label">open_in_new</div>
           </div>
-          <div class="icon-wrapper" title="orange">
-            <kup-image
-              size-x="48px"
-              size-y="48px"
-              resource="orange"
-            ></kup-image>
-            <div class="icon-label">orange</div>
-          </div>
+
           <div class="icon-wrapper" title="pause-circle">
             <kup-image
               size-x="48px"
