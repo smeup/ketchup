@@ -1255,13 +1255,13 @@
             ></kup-image>
             <div class="icon-label">light_green</div>
           </div>
-          <div class="icon-wrapper" title="light_gray">
+          <div class="icon-wrapper" title="light_grey">
             <kup-image
               size-x="48px"
               size-y="48px"
-              resource="light_gray"
+              resource="light_grey"
             ></kup-image>
-            <div class="icon-label">light_gray</div>
+            <div class="icon-label">light_grey</div>
           </div>
           <div class="icon-wrapper" title="light_orange">
             <kup-image
