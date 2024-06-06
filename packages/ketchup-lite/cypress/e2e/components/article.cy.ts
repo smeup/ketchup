@@ -1,3 +1,4 @@
+import { KulEventPayload } from '../../../src/components';
 import {
     KulArticleDataset,
     KulArticleProps,
@@ -9,63 +10,26 @@ const article = 'article';
 const articleCapitalized = article.charAt(0).toUpperCase() + article.slice(1);
 const articleTag = 'kul-' + article;
 
-describe(articleTag, () => {
+describe('Basic', () => {
     beforeEach(() => {
         cy.navigate(article);
     });
 
-    it(`common: should check that all <${articleTag}> exist`, () => {
+    it(`Should check that all <${articleTag}> exist.`, () => {
         cy.checkComponentExamples(articleTag, new Set(ARTICLE_EXAMPLES_KEYS));
     });
 
-    it(`common: should check that the number of <${articleTag}> elements matches the number of examples`, () => {
+    it(`Should check that the number of <${articleTag}> elements matches the number of examples.`, () => {
         cy.checkComponentExamplesNumber(Array.from(ARTICLE_EXAMPLES_KEYS));
     });
+});
 
-    it('common: should call getDebugInfo and check the structure of the returned object', () => {
-        cy.checkDebugInfo(articleTag);
+describe('Data', () => {
+    beforeEach(() => {
+        cy.navigate(article);
     });
 
-    it('common: should check for the presence of a <style> element with id kup-style', () => {
-        cy.checkKulStyle();
-    });
-
-    it(`common: should call getProps and check keys against Kul${articleCapitalized}Props enum`, () => {
-        cy.checkProps(articleTag, KulArticleProps);
-    });
-
-    it(`common: should call getProps and check keys against Kul${articleCapitalized}PropsInterface`, () => {
-        cy.checkPropsInterface(articleTag, {
-            kulData: null,
-            kulStyle: null,
-        } as Required<KulArticlePropsInterface>);
-    });
-
-    it('common: should call getDebugInfo, refresh, and check that renderCount has increased', () => {
-        cy.checkRenderCountIncrease(articleTag);
-    });
-
-    it('common: should check for the presence of a <h1> tag inside <article> if the first node has a truthy value', () => {
-        cy.get('@kulComponentShowcase')
-            .find(`${articleTag}#simple`)
-            .then(($article) => {
-                const kulArticleElement = $article[0] as HTMLKulArticleElement;
-                const firstNodeValue = kulArticleElement.kulData.nodes[0];
-                if (firstNodeValue) {
-                    cy.wrap($article)
-                        .shadow()
-                        .find('article')
-                        .find('h1')
-                        .should('exist');
-                } else {
-                    cy.log(
-                        'First node value is falsy, skipping <h1> tag presence check'
-                    );
-                }
-            });
-    });
-
-    it(`#simple: should check whether all <${articleTag}> elements in the page have a number of <section> elements equal to the number of children of the first node of the kulData property and their content matches`, () => {
+    it(`Should check whether all <${articleTag}> elements in the page have a number of <section> elements equal to the number of children of the first node of the kulData property and their content matches.`, () => {
         cy.get('@kulComponentShowcase')
             .find(articleTag)
             .each(($article) => {
@@ -94,7 +58,7 @@ describe(articleTag, () => {
             });
     });
 
-    it('#simple: should check the presence of shapes', () => {
+    it('Should check for the presence of shapes.', () => {
         cy.get('@kulComponentShowcase')
             .find(`${articleTag}#simple`)
             .invoke('prop', 'kulData')
@@ -115,5 +79,67 @@ describe(articleTag, () => {
                         }
                     });
             });
+    });
+
+    it('Should check for the presence of a <h1> tag inside <article> if the first node has a truthy value.', () => {
+        cy.get('@kulComponentShowcase')
+            .find(`${articleTag}#simple`)
+            .then(($article) => {
+                const kulArticleElement = $article[0] as HTMLKulArticleElement;
+                const firstNodeValue = kulArticleElement.kulData.nodes[0];
+                if (firstNodeValue) {
+                    cy.wrap($article)
+                        .shadow()
+                        .find('article')
+                        .find('h1')
+                        .should('exist');
+                } else {
+                    cy.log(
+                        'First node value is falsy, skipping <h1> tag presence check'
+                    );
+                }
+            });
+    });
+});
+
+describe('Events', () => {
+    it(`ready: emission`, () => {
+        cy.checkReadyEvent(article);
+        cy.get('#ready-check').should('exist');
+    });
+});
+
+describe('Methods', () => {
+    beforeEach(() => {
+        cy.navigate(article);
+    });
+
+    it('getDebugInfo: check the structure of the returned object.', () => {
+        cy.checkDebugInfo(articleTag);
+    });
+
+    it('getDebugInfo, refresh: check that renderCount has increased after refreshing.', () => {
+        cy.checkRenderCountIncrease(articleTag);
+    });
+
+    it(`getProps: check keys against Kul${articleCapitalized}Props enum.`, () => {
+        cy.checkProps(articleTag, KulArticleProps);
+    });
+
+    it(`getProps: check keys against Kul${articleCapitalized}PropsInterface.`, () => {
+        cy.checkPropsInterface(articleTag, {
+            kulData: null,
+            kulStyle: null,
+        } as Required<KulArticlePropsInterface>);
+    });
+});
+
+describe('Props', () => {
+    beforeEach(() => {
+        cy.navigate(article);
+    });
+
+    it('Should check for the presence of a <style> element with id kup-style.', () => {
+        cy.checkKulStyle();
     });
 });
