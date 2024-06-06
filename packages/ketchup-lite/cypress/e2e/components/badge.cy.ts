@@ -3,55 +3,37 @@ import {
     KulBadgeProps,
     KulBadgePropsInterface,
 } from '../../../src/components/kul-badge/kul-badge-declarations';
+import { BADGE_EXAMPLES_KEYS } from './../../../src/components/kul-showcase/components/badge/kul-showcase-badge-declarations';
 import { DynamicExampleManager } from '../../../src/components/kul-showcase/kul-showcase-utils';
 import { KulImagePropsInterface } from '../../../src/components';
-import { BADGE_EXAMPLES_KEYS } from './../../../src/components/kul-showcase/components/badge/kul-showcase-badge-declarations';
 
 const badge = 'badge';
 const badgeCapitalized = badge.charAt(0).toUpperCase() + badge.slice(1);
 const badgeTag = 'kul-' + badge;
 
-describe(badgeTag, () => {
+describe('Basic', () => {
     beforeEach(() => {
         cy.navigate(badge);
     });
 
-    it(`common: should check that all <${badgeTag}> exist`, () => {
+    it(`Should check that all <${badgeTag}> exist.`, () => {
         cy.checkComponentExamples(badgeTag, new Set(BADGE_EXAMPLES_KEYS));
     });
 
-    it(`common: should check that the number of <${badgeTag}> elements matches the number of examples`, () => {
+    it(`Should check that the number of <${badgeTag}> elements matches the number of examples.`, () => {
         cy.checkComponentExamplesNumber(Array.from(BADGE_EXAMPLES_KEYS));
     });
+});
 
-    it('common: should call getDebugInfo and check the structure of the returned object', () => {
-        cy.checkDebugInfo(badgeTag);
+describe('CSS Classes', () => {
+    beforeEach(() => {
+        cy.navigate(badge);
     });
 
-    it('common: should check for the presence of a <style> element with id kup-style', () => {
-        cy.checkKulStyle();
-    });
-
-    it(`common: should call getProps and check keys against Kul${badgeCapitalized}Props enum`, () => {
-        cy.checkProps(badgeTag, KulBadgeProps);
-    });
-
-    it(`common: should call getProps and check keys against Kul${badgeCapitalized}PropsInterface`, () => {
-        cy.checkPropsInterface(badgeTag, {
-            kulImageProps: null,
-            kulLabel: null,
-            kulStyle: null,
-        } as Required<KulBadgePropsInterface>);
-    });
-
-    it('common: should call getDebugInfo, refresh, and check that renderCount has increased', () => {
-        cy.checkRenderCountIncrease(badgeTag);
-    });
-
-    it(`#colors: should check that the <${badgeTag}> with status colors has a correct state class and the matching status color`, () => {
+    it(`colors: Should check that the <${badgeTag}> with status colors has a correct state class and the matching status color.`, () => {
         cy.get('@kulComponentShowcase')
             .find(`${badgeTag}#colors`)
-            .wait(Math.floor(Math.random() * (2500 - 500 + 1) + 750)) // Every 500ms the class changes randomically through DynamicExampleManager
+            .wait(Math.floor(Math.random() * (2500 - 500 + 1) + 750)) // Every 500ms the class changes randomly through DynamicExampleManager
             .then(($badge) => {
                 const prefix = 'hydrated ';
                 const badgeClass = $badge
@@ -83,58 +65,10 @@ describe(badgeTag, () => {
             });
     });
 
-    it(`#empty: should check that the #kul-component inside the empty <${badgeTag}> is actually empty`, () => {
-        cy.get('@kulComponentShowcase')
-            .find(`${badgeTag}#empty`)
-            .shadow()
-            .find('#kul-component')
-            .should('be.empty');
-    });
-
-    it(`#icon: should check for the presence of the correct <kul-image> as an icon inside <${badgeTag}>`, () => {
-        cy.get('@kulComponentShowcase')
-            .find(`${badgeTag}#icon`)
-            .invoke('prop', 'kulImageProps')
-            .then((kulImageProps: KulImagePropsInterface) => {
-                cy.get('@kulComponentShowcase')
-                    .get(`${badgeTag}#icon`)
-                    .shadow()
-                    .find('kul-image')
-                    .should('have.prop', 'kulValue', kulImageProps.kulValue)
-                    .shadow()
-                    .find('.image__icon')
-                    .should('exist');
-            });
-    });
-
-    it(`#image: should check for the presence of the correct <kul-image> as an image inside <${badgeTag}>`, () => {
-        cy.get('@kulComponentShowcase')
-            .find(`${badgeTag}#image`)
-            .invoke('prop', 'kulImageProps')
-            .then((kulImageProps: KulImagePropsInterface) => {
-                cy.get('@kulComponentShowcase')
-                    .find(`${badgeTag}#image`)
-                    .shadow()
-                    .find('kul-image')
-                    .should('have.prop', 'kulValue', kulImageProps.kulValue)
-                    .shadow()
-                    .find('img')
-                    .should('exist');
-            });
-    });
-
-    it(`#label: should check that the #kul-component inside the <${badgeTag}> is not empty`, () => {
-        cy.get('@kulComponentShowcase')
-            .find(`${badgeTag}#label`)
-            .shadow()
-            .find('#kul-component')
-            .should('not.be.empty');
-    });
-
-    it(`#position: should check that the <${badgeTag}> with status colors has a correct state class and the matching status color`, () => {
+    it(`position: should check that the <${badgeTag}> with a position class matches the relevant coordinates.`, () => {
         cy.get('@kulComponentShowcase')
             .find(`${badgeTag}#position`)
-            .wait(Math.floor(Math.random() * (2500 - 500 + 1) + 750)) // Every 500ms the class changes randomically through DynamicExampleManager
+            .wait(Math.floor(Math.random() * (2500 - 500 + 1) + 750)) // Every 500ms the class changes randomly through DynamicExampleManager
             .then(($badge) => {
                 const prefix = 'hydrated ';
                 const badgeClass = $badge
@@ -167,5 +101,96 @@ describe(badgeTag, () => {
                     }
                 });
             });
+    });
+});
+
+describe('Events', () => {
+    it(`ready: emission`, () => {
+        cy.checkReadyEvent(badge);
+        cy.get('#ready-check').should('exist');
+    });
+});
+
+describe('Methods', () => {
+    beforeEach(() => {
+        cy.navigate(badge);
+    });
+
+    it('getDebugInfo: check the structure of the returned object.', () => {
+        cy.checkDebugInfo(badgeTag);
+    });
+
+    it('getDebugInfo, refresh: check that renderCount has increased after refreshing.', () => {
+        cy.checkRenderCountIncrease(badgeTag);
+    });
+
+    it(`getProps: check keys against Kul${badgeCapitalized}Props enum.`, () => {
+        cy.checkProps(badgeTag, KulBadgeProps);
+    });
+
+    it(`getProps: check keys against Kul${badgeCapitalized}PropsInterface.`, () => {
+        cy.checkPropsInterface(badgeTag, {
+            kulImageProps: null,
+            kulLabel: null,
+            kulStyle: null,
+        } as Required<KulBadgePropsInterface>);
+    });
+});
+
+describe('Props', () => {
+    beforeEach(() => {
+        cy.navigate(badge);
+    });
+
+    it(`kulImageProps: should check for the presence of the correct <kul-image>, as an icon, inside <${badgeTag}>.`, () => {
+        cy.get('@kulComponentShowcase')
+            .find(`${badgeTag}#icon`)
+            .invoke('prop', 'kulImageProps')
+            .then((kulImageProps: KulImagePropsInterface) => {
+                cy.get('@kulComponentShowcase')
+                    .get(`${badgeTag}#icon`)
+                    .shadow()
+                    .find('kul-image')
+                    .should('have.prop', 'kulValue', kulImageProps.kulValue)
+                    .shadow()
+                    .find('.image__icon')
+                    .should('exist');
+            });
+    });
+
+    it(`kulImageProps: should check for the presence of the correct <kul-image, as an image, inside <${badgeTag}>.`, () => {
+        cy.get('@kulComponentShowcase')
+            .find(`${badgeTag}#image`)
+            .invoke('prop', 'kulImageProps')
+            .then((kulImageProps: KulImagePropsInterface) => {
+                cy.get('@kulComponentShowcase')
+                    .find(`${badgeTag}#image`)
+                    .shadow()
+                    .find('kul-image')
+                    .should('have.prop', 'kulValue', kulImageProps.kulValue)
+                    .shadow()
+                    .find('img')
+                    .should('exist');
+            });
+    });
+
+    it(`kulLabel: Should check that the #kul-component inside the empty <${badgeTag}> is actually empty.`, () => {
+        cy.get('@kulComponentShowcase')
+            .find(`${badgeTag}#empty`)
+            .shadow()
+            .find('#kul-component')
+            .should('be.empty');
+    });
+
+    it(`kulLabel: should check that the #kul-component inside the <${badgeTag}> is not empty.`, () => {
+        cy.get('@kulComponentShowcase')
+            .find(`${badgeTag}#label`)
+            .shadow()
+            .find('#kul-component')
+            .should('not.be.empty');
+    });
+
+    it('kulStyle: Should check for the presence of a <style> element with id kul-style.', () => {
+        cy.checkKulStyle();
     });
 });

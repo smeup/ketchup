@@ -1,4 +1,3 @@
-import { KulEventPayload } from '../../../src/components';
 import {
     KulArticleDataset,
     KulArticleProps,
@@ -139,7 +138,7 @@ describe('Props', () => {
         cy.navigate(article);
     });
 
-    it('Should check for the presence of a <style> element with id kup-style.', () => {
+    it('kulStyle: Should check for the presence of a <style> element with id kul-style.', () => {
         cy.checkKulStyle();
     });
 });
