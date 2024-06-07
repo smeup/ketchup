@@ -35,6 +35,24 @@ const data = {
             title: 'Radio Buttons',
             visible: true,
         },
+        {
+            name: 'DAT',
+            title: 'Data di Nascita',
+            visible: true,
+        },
+        {
+            name: 'BTN',
+            visible: true,
+        },
+        {
+            name: 'BTN2',
+            visible: true,
+        },
+        {
+            name: 'NUM',
+            title: 'Numeric',
+            visible: true,
+        },
     ],
     rows: [
         {
@@ -61,71 +79,45 @@ const data = {
                     mandatory: true,
                     shape: 'ITX',
                 },
-                NAT: {
-                    value: '',
-                    fun: 'combo',
+                DAT: {
+                    value: '2024-05-12',
                     obj: {
-                        t: '',
+                        t: 'D8',
                         p: '',
                         k: '',
                     },
                     editable: true,
-                    mandatory: true,
-                    shape: 'CMB',
                 },
-                CIT: {
-                    value: '',
+                BTN: {
                     obj: {
-                        t: '',
+                        t: 'J4',
+                        p: 'BTN',
+                        k: '',
+                    },
+                    icon: 'home',
+                    fun: 'btn fun',
+                    value: 'Button 1',
+                    editable: true,
+                },
+                BTN2: {
+                    obj: {
+                        t: 'J4',
+                        p: 'BTN',
+                        k: '',
+                    },
+                    fun: 'btn2 fun',
+                    value: 'Button 2',
+                    editable: true,
+                },
+                NUM: {
+                    value: '',
+                    editable: true,
+                    mandatory: true,
+                    obj: {
+                        t: 'NR',
                         p: '',
                         k: '',
                     },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'ACP',
-                    fun: 'ddas',
-                },
-                LIS: {
-                    value: '',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
-                    },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'ACP',
-                    fun: 'fff',
-                },
-                CHK: {
-                    value: 'on',
-                    editable: true,
-                    mandatory: true,
-                    shape: 'CHK',
-                },
-                RAD: {
-                    value: '3',
-                    options: [
-                        {
-                            id: '1',
-                            label: 'One',
-                        },
-                        {
-                            id: '2',
-                            label: 'Two',
-                        },
-                        {
-                            id: '3',
-                            label: 'Three',
-                        },
-                        {
-                            id: '4',
-                            label: 'Four',
-                        },
-                    ],
-                    editable: true,
-                    mandatory: true,
-                    shape: 'RAD',
                 },
             },
             layout: {
@@ -147,246 +139,242 @@ const data = {
                                 rowEnd: 1,
                             },
                             {
-                                id: 'NAT',
-                                colStart: 1,
-                                colEnd: 1,
+                                id: 'DAT',
+                                colSpan: 1,
                                 rowStart: 2,
-                                rowEnd: 2,
                             },
                             {
-                                id: 'CIT',
-                                colStart: 2,
-                                colEnd: 2,
+                                id: 'NUM',
+                                colSpan: 1,
                                 rowStart: 2,
-                                rowEnd: 2,
-                            },
-                            {
-                                id: 'CHK',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 3,
-                                rowEnd: 3,
-                            },
-                            {
-                                id: 'RAD',
-                                colSpan: 2,
-                                rowStart: 3,
-                                rowEnd: 3,
-                            },
-                            {
-                                id: 'LIS',
-                                colStart: 3,
-                                colEnd: 3,
-                                rowStart: 2,
-                                rowEnd: 2,
                             },
                         ],
+                        title: 'Anagrafica',
                         dim: '50%',
                         gridCols: 3,
-                        gridRows: 3,
+                        gridRows: 2,
+                        gap: 2,
+                    },
+                    {
+                        content: [
+                            {
+                                id: 'BTN',
+                                colSpan: 1,
+                                rowStart: 1,
+                            },
+                            {
+                                id: 'BTN2',
+                                colSpan: 1,
+                                rowStart: 1,
+                            },
+                        ],
+                        title: 'Action',
+                        dim: '50%',
+                        gridCols: 3,
+                        gridRows: 1,
                         gap: 2,
                     },
                 ],
-                horizontal: true,
             },
         },
     ],
 };
 
-const data1 = {
-    columns: [
-        {
-            name: 'NAM',
-            title: 'Name',
-            visible: true,
-        },
-        {
-            name: 'SUR',
-            title: 'Surname',
-            visible: true,
-        },
-        {
-            name: 'NAT',
-            title: 'Nation',
-            visible: true,
-        },
-        {
-            name: 'CIT',
-            title: 'Tree Options',
-            visible: true,
-        },
-        {
-            name: 'LIS',
-            title: 'Table Options',
-            visible: true,
-        },
-        {
-            name: 'CHK',
-            title: 'Checkbox',
-            visible: true,
-        },
-        {
-            name: 'RAD',
-            title: 'Radio Buttons',
-            visible: true,
-        },
-    ],
-    rows: [
-        {
-            cells: {
-                NAM: {
-                    value: 'Giovanni',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
-                    },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'ITX',
-                },
-                SUR: {
-                    value: 'serio',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
-                    },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'ITX',
-                },
-                NAT: {
-                    value: 'ITA',
-                    fun: 'combo',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
-                    },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'CMB',
-                },
-                CIT: {
-                    value: 'E1',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
-                    },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'ACP',
-                    fun: 'ddas',
-                },
-                LIS: {
-                    value: 'E2',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
-                    },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'ACP',
-                    fun: 'fff',
-                },
-                CHK: {
-                    value: 'on',
-                    editable: true,
-                    mandatory: true,
-                    shape: 'CHK',
-                },
-                RAD: {
-                    value: '1',
-                    options: [
-                        {
-                            id: '1',
-                            label: 'One',
-                        },
-                        {
-                            id: '2',
-                            label: 'Two',
-                        },
-                        {
-                            id: '3',
-                            label: 'Three',
-                        },
-                        {
-                            id: '4',
-                            label: 'Four',
-                        },
-                    ],
-                    editable: true,
-                    mandatory: true,
-                    shape: 'RAD',
-                },
-            },
-            layout: {
-                sections: [
-                    {
-                        content: [
-                            {
-                                id: 'NAM',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 1,
-                                rowEnd: 1,
-                            },
-                            {
-                                id: 'SUR',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 1,
-                                rowEnd: 1,
-                            },
-                            {
-                                id: 'NAT',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 2,
-                                rowEnd: 2,
-                            },
-                            {
-                                id: 'CIT',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 2,
-                                rowEnd: 2,
-                            },
-                            {
-                                id: 'CHK',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 3,
-                                rowEnd: 3,
-                            },
-                            {
-                                id: 'RAD',
-                                colSpan: 2,
-                                rowStart: 3,
-                                rowEnd: 3,
-                            },
-                            {
-                                id: 'LIS',
-                                colStart: 3,
-                                colEnd: 3,
-                                rowStart: 2,
-                                rowEnd: 2,
-                            },
-                        ],
-                        dim: '50%',
-                        gridCols: 3,
-                        gridRows: 3,
-                        gap: 2,
-                    },
-                ],
-                horizontal: true,
-            },
-        },
-    ],
-};
+// Example of rerender configuration
+// const data1 = {
+//     columns: [
+//         {
+//             name: 'NAM',
+//             title: 'Name',
+//             visible: true,
+//         },
+//         {
+//             name: 'SUR',
+//             title: 'Surname',
+//             visible: true,
+//         },
+//         {
+//             name: 'NAT',
+//             title: 'Nation',
+//             visible: true,
+//         },
+//         {
+//             name: 'CIT',
+//             title: 'Tree Options',
+//             visible: true,
+//         },
+//         {
+//             name: 'LIS',
+//             title: 'Table Options',
+//             visible: true,
+//         },
+//         {
+//             name: 'CHK',
+//             title: 'Checkbox',
+//             visible: true,
+//         },
+//         {
+//             name: 'RAD',
+//             title: 'Radio Buttons',
+//             visible: true,
+//         },
+//     ],
+//     rows: [
+//         {
+//             cells: {
+//                 NAM: {
+//                     value: 'Giovanni',
+//                     obj: {
+//                         t: '',
+//                         p: '',
+//                         k: '',
+//                     },
+//                     editable: true,
+//                     mandatory: true,
+//                     shape: 'ITX',
+//                 },
+//                 SUR: {
+//                     value: 'serio',
+//                     obj: {
+//                         t: '',
+//                         p: '',
+//                         k: '',
+//                     },
+//                     editable: true,
+//                     mandatory: true,
+//                     shape: 'ITX',
+//                 },
+//                 NAT: {
+//                     value: 'ITA',
+//                     fun: 'combo',
+//                     obj: {
+//                         t: '',
+//                         p: '',
+//                         k: '',
+//                     },
+//                     editable: true,
+//                     mandatory: true,
+//                     shape: 'CMB',
+//                 },
+//                 CIT: {
+//                     value: 'E1',
+//                     obj: {
+//                         t: '',
+//                         p: '',
+//                         k: '',
+//                     },
+//                     editable: true,
+//                     mandatory: true,
+//                     shape: 'ACP',
+//                     fun: 'ddas',
+//                 },
+//                 LIS: {
+//                     value: 'E2',
+//                     obj: {
+//                         t: '',
+//                         p: '',
+//                         k: '',
+//                     },
+//                     editable: true,
+//                     mandatory: true,
+//                     shape: 'ACP',
+//                     fun: 'fff',
+//                 },
+//                 CHK: {
+//                     value: 'on',
+//                     editable: true,
+//                     mandatory: true,
+//                     shape: 'CHK',
+//                 },
+//                 RAD: {
+//                     value: '1',
+//                     options: [
+//                         {
+//                             id: '1',
+//                             label: 'One',
+//                         },
+//                         {
+//                             id: '2',
+//                             label: 'Two',
+//                         },
+//                         {
+//                             id: '3',
+//                             label: 'Three',
+//                         },
+//                         {
+//                             id: '4',
+//                             label: 'Four',
+//                         },
+//                     ],
+//                     editable: true,
+//                     mandatory: true,
+//                     shape: 'RAD',
+//                 },
+//             },
+//             layout: {
+//                 sections: [
+//                     {
+//                         content: [
+//                             {
+//                                 id: 'NAM',
+//                                 colStart: 1,
+//                                 colEnd: 1,
+//                                 rowStart: 1,
+//                                 rowEnd: 1,
+//                             },
+//                             {
+//                                 id: 'SUR',
+//                                 colStart: 2,
+//                                 colEnd: 2,
+//                                 rowStart: 1,
+//                                 rowEnd: 1,
+//                             },
+//                             {
+//                                 id: 'NAT',
+//                                 colStart: 1,
+//                                 colEnd: 1,
+//                                 rowStart: 2,
+//                                 rowEnd: 2,
+//                             },
+//                             {
+//                                 id: 'CIT',
+//                                 colStart: 2,
+//                                 colEnd: 2,
+//                                 rowStart: 2,
+//                                 rowEnd: 2,
+//                             },
+//                             {
+//                                 id: 'CHK',
+//                                 colStart: 1,
+//                                 colEnd: 1,
+//                                 rowStart: 3,
+//                                 rowEnd: 3,
+//                             },
+//                             {
+//                                 id: 'RAD',
+//                                 colSpan: 2,
+//                                 rowStart: 3,
+//                                 rowEnd: 3,
+//                             },
+//                             {
+//                                 id: 'LIS',
+//                                 colStart: 3,
+//                                 colEnd: 3,
+//                                 rowStart: 2,
+//                                 rowEnd: 2,
+//                             },
+//                         ],
+//                         dim: '50%',
+//                         gridCols: 3,
+//                         gridRows: 3,
+//                         gap: 2,
+//                     },
+//                 ],
+//                 horizontal: true,
+//             },
+//         },
+//     ],
+// };
 
 const inputPanel = document.getElementById('input-panel');
 inputPanel.data = data;
@@ -467,11 +455,14 @@ inputPanel.optionsHandler = (fun, inputValue, currentState) => {
     });
 };
 inputPanel.submitCb = (e) => {
-    console.log(e);
-    const inputPanel = document.getElementById('input-panel');
-    inputPanel.data = data1;
+    console.log('submit', e);
+    
+    // Example of rerender event 
+    // const inputPanel = document.getElementById('input-panel');
+    // inputPanel.data = data1;
 };
 
+// Example of Ergon Form configuration
 // const ergonForm = {
 //     columns: [
 //         {
