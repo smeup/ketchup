@@ -830,6 +830,13 @@ export class KupBox {
             this.kupManager.getEventPath(e.target, this.rootElement),
             e
         );
+        if (details.row) {
+            if (this.multiSelection) {
+                this.onSelectionCheckChange(details.row);
+            } else {
+                this.selectedRows = [details.row];
+            }
+        }
         return details;
     }
 
@@ -854,52 +861,6 @@ export class KupBox {
         }
 
         return false;
-    }
-
-    // event listeners
-    private onBoxClick({ target }: MouseEvent, row: KupBoxRow) {
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        // searching parent
-        let element = target;
-        let classList = element.classList;
-
-        while (
-            !classList.contains('box-object') &&
-            !classList.contains('box-section') &&
-            !classList.contains('box')
-        ) {
-            element = element.parentElement;
-
-            if (element === null) {
-                break;
-            }
-
-            classList = element.classList;
-        }
-
-        // evaluating column
-        let column = null;
-        if (classList.contains('box-object')) {
-            column = element.dataset.column;
-        }
-
-        this.kupBoxClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            row,
-            column,
-        });
-
-        // selecting box
-        if (this.multiSelection) {
-            // triggering multi selection
-            this.onSelectionCheckChange(row);
-        } else {
-            this.selectedRows = [row];
-        }
     }
 
     private onSelectionCheckChange(row: KupBoxRow) {

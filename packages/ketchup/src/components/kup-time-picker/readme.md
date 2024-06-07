@@ -168,9 +168,10 @@ graph TD;
   kup-date-picker --> kup-dialog
   kup-rating --> kup-card
   kup-rating --> kup-dialog
-  kup-image --> kup-spinner
   kup-image --> kup-card
+  kup-image --> kup-image
   kup-image --> kup-dialog
+  kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-spinner --> kup-card
   kup-spinner --> kup-dialog
