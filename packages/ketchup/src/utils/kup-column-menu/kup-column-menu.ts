@@ -486,7 +486,7 @@ export class KupColumnMenu {
                     icon: 'functions',
                     id: KupColumnMenuIds.TEXTFIELD_FORMULA,
                     key: KupColumnMenuIds.TEXTFIELD_FORMULA + column.name,
-                    helper: `i.e.: [${column.name}] * 2`,
+                    helper: `i.e.: Description;[${column.name}] * 2`,
                     label: dom.ketchup.language.translate(
                         KupLanguageTotals.FORMULA
                     ),
@@ -806,11 +806,23 @@ export class KupColumnMenu {
             case 'kup-textfield-change':
                 switch (compID) {
                     case KupColumnMenuIds.TEXTFIELD_FORMULA:
+                        const valueString = (
+                            compEvent as CustomEvent<KupTextFieldEventPayload>
+                        ).detail.value;
+                        const parts = valueString.split(';');
+                        const hasDescription = parts.length >= 2;
+                        const description = hasDescription
+                            ? parts[0].trim()
+                            : '';
+                        const value = hasDescription
+                            ? (parts[1].trim() as KupLanguageTotals)
+                            : valueString;
                         (comp as KupDataTable)
                             .newColumn(KupDataNewColumnTypes.MATH, {
-                                operation: (
-                                    compEvent as CustomEvent<KupTextFieldEventPayload>
-                                ).detail.value,
+                                operation: value,
+                                newColumn: hasDescription
+                                    ? { name: description, title: description }
+                                    : undefined,
                             })
                             .then((res) => {
                                 if (
