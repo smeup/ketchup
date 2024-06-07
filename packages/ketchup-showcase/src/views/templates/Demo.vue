@@ -705,6 +705,13 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.ENUM,
   },
+  KupInputPanelData: {
+    keys: {
+      columns: 'KupDataColumn[]',
+      rows: 'KupInputPanelRow[]',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
   KupListNode: {
     keys: {
       id: 'string',
