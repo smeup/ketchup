@@ -5,20 +5,50 @@
 :root {
   // KUP-TOKEN LAYER //
 
+  // BACKGROUND
   --kup-background-0: var(--kup-gray-color-0);
+  --kup-background-0-hover: var(--kup-gray-color-10-hover);
+  --kup-background-0-active: var(--kup-gray-color-30);
+  --kup-background-0-selected: var(--kup-gray-color-20);
+  --kup-background-0-selected-hover: var(--kup-gray-color-20-hover);
   --kup-background-brand: var(--kup-primary-color-60);
+
+  // LAYER
   --kup-layer-0: var(--kup-gray-color-0);
-  --kup-layer-0-selected: var(--kup-gray-color-10);
+  --kup-layer-0-hover: var(--kup-gray-color-0-hover);
+  --kup-layer-0-selected: var(--kup-gray-color-20);
+  --kup-layer-0-focus: var(--kup-gray-color-30);
   --kup-layer-1: var(--kup-gray-color-10);
+  --kup-layer-1-hover: var(--kup-gray-color-10-hover);
   --kup-layer-1-selected: var(--kup-gray-color-20);
-  --kup-layer-2: var(--kup-gray-color-20);
-  --kup-layer-2-selected: var(--kup-gray-color-30);
+  --kup-layer-1-focus: var(--kup-gray-color-30);
+
+  // BORDER
+  --kup-border-interactive: var(--kup-primary-color-60);
   --kup-border-subtle: var(--kup-gray-color-20);
+  --kup-border-subtle-hover: var(--kup-gray-color-20-hover);
   --kup-border-subtle-selected: var(--kup-gray-color-30);
+  --kup-border-subtle-focus: var(--kup-gray-color-40);
   --kup-border-strong: var(--kup-gray-color-50);
+  --kup-border-disabled: var(--kup-gray-color-30);
+
+  // TEXT
+  --kup-text-color: var(--kup-primary-color-60);
   --kup-text-primary: var(--kup-gray-color-90);
   --kup-text-secondary: var(--kup-gray-color-70);
   --kup-text-placeholder: var(--kup-gray-color-40);
+  --kup-text-helper: var(--kup-gray-color-60);
+  --kup-text-error: var(--kup-danger-color-60);
+  --kup-text-disabled: var(--kup-danger-color-30);
+
+  //BUTTON
+  // TO BE DONE
+  --kup-button-primary: var(--kup-primary-color-60);
+  --kup-button-primary-hover: var(--kup-primary-color-70);
+  --kup-button-primary-active: var(--kup-primary-color-80);
+  --kup-button-primary: var(--kup-primary-color-60);
+  --kup-button-primary-hover: var(--kup-primary-color-70);
+  --kup-button-primary-active: var(--kup-primary-color-80);
 
   // KUP ICON LAYER //
   --kup-icon-layer: var(--kup-gray-color-70);
