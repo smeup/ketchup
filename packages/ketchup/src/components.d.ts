@@ -3912,6 +3912,11 @@ export namespace Components {
          */
         "outlined": boolean;
         /**
+          * Set the placeholder value. It's an example, not a label.
+          * @default false
+         */
+        "placeholder": string;
+        /**
           * When set, appear 2 buttons to increment and decrement the value.
           * @default false
          */
@@ -8687,6 +8692,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "outlined"?: boolean;
+        /**
+          * Set the placeholder value. It's an example, not a label.
+          * @default false
+         */
+        "placeholder"?: string;
         /**
           * When set, appear 2 buttons to increment and decrement the value.
           * @default false

@@ -26,6 +26,7 @@ export interface FTextFieldProps extends FComponent {
     label?: string;
     leadingLabel?: boolean;
     name?: string;
+    placeholder?: string;
     outlined?: boolean;
     quantityButtons?: boolean;
     readOnly?: boolean;

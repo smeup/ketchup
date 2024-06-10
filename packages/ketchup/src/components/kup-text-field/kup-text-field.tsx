@@ -190,6 +190,11 @@ export class KupTextField {
      */
     @Prop() outlined: boolean = false;
     /**
+     * Set the placeholder value. It's an example, not a label.
+     * @default false
+     */
+    @Prop() placeholder: string = '';
+    /**
      * When set, appear 2 buttons to increment and decrement the value.
      * @default false
      */
@@ -613,6 +618,7 @@ export class KupTextField {
             min: this.min,
             name: this.name,
             outlined: this.outlined,
+            placeholder: this.placeholder,
             quantityButtons: this.quantityButtons,
             readOnly: this.readOnly,
             secondary: this.rootElement.classList.contains('kup-secondary')
