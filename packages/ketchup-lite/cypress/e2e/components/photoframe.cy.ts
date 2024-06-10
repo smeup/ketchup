@@ -1,4 +1,5 @@
 import {
+    KulPhotoframeEvent,
     KulPhotoframeProps,
     KulPhotoframePropsInterface,
 } from '../../../src/components/kul-photoframe/kul-photoframe-declarations';
@@ -9,35 +10,52 @@ const photoframeCapitalized =
     photoframe.charAt(0).toUpperCase() + photoframe.slice(1);
 const photoframeTag = 'kul-' + photoframe;
 
-describe(photoframeTag, () => {
+describe('Basic', () => {
     beforeEach(() => {
         cy.navigate(photoframe);
     });
 
-    it(`common: should check that all <${photoframeTag}> exist`, () => {
+    it(`Should check that all <${photoframeTag}> exist.`, () => {
         cy.checkComponentExamples(
             photoframeTag,
             new Set(PHOTOFRAME_EXAMPLES_KEYS)
         );
     });
 
-    it(`common: should check that the number of <${photoframeTag}> elements matches the number of examples`, () => {
+    it(`Should check that the number of <${photoframeTag}> elements matches the number of examples.`, () => {
         cy.checkComponentExamplesNumber(Array.from(PHOTOFRAME_EXAMPLES_KEYS));
     });
+});
 
-    it('common: should call getDebugInfo and check the structure of the returned object', () => {
+describe('Events', () => {
+    it(`load`, () => {
+        const eventType: KulPhotoframeEvent = 'load';
+        cy.checkReadyEvent(photoframe, eventType);
+    });
+
+    it(`ready`, () => {
+        cy.checkReadyEvent(photoframe);
+    });
+});
+
+describe('Methods', () => {
+    beforeEach(() => {
+        cy.navigate(photoframe);
+    });
+
+    it('getDebugInfo: check the structure of the returned object.', () => {
         cy.checkDebugInfo(photoframeTag);
     });
 
-    it('common: should check for the presence of a <style> element with id kup-style', () => {
-        cy.checkKulStyle();
+    it('getDebugInfo, refresh: check that renderCount has increased after refreshing.', () => {
+        cy.checkRenderCountIncrease(photoframeTag);
     });
 
-    it(`common: should call getProps and check keys against Kul${photoframeCapitalized}Props enum`, () => {
+    it(`getProps: check keys against Kul${photoframeCapitalized}Props enum.`, () => {
         cy.checkProps(photoframeTag, KulPhotoframeProps);
     });
 
-    it(`common: should call getProps and check keys against Kul${photoframeCapitalized}PropsInterface`, () => {
+    it(`getProps: check keys against Kul${photoframeCapitalized}PropsInterface.`, () => {
         cy.checkPropsInterface(photoframeTag, {
             kulPlaceholder: null,
             kulStyle: null,
@@ -45,8 +63,14 @@ describe(photoframeTag, () => {
             kulValue: null,
         } as Required<KulPhotoframePropsInterface>);
     });
+});
 
-    it('common: should call getDebugInfo, refresh, and check that renderCount has increased', () => {
-        cy.checkRenderCountIncrease(photoframeTag);
+describe('Props', () => {
+    beforeEach(() => {
+        cy.navigate(photoframe);
+    });
+
+    it('kulStyle: should check for the presence of a <style> element with id kup-style.', () => {
+        cy.checkKulStyle();
     });
 });
