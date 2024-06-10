@@ -1,5 +1,7 @@
+import { KulDataCyAttributes } from '../../../src/types/GenericTypes';
 import {
     KulArticleDataset,
+    KulArticleEvent,
     KulArticleProps,
     KulArticlePropsInterface,
 } from './../../../src/components/kul-article/kul-article-declarations';
@@ -102,9 +104,21 @@ describe('Data', () => {
 });
 
 describe('Events', () => {
-    it(`ready: emission`, () => {
+    it(`kul-event`, () => {
+        cy.navigate(article);
+        const eventType: KulArticleEvent = 'kul-event';
+        cy.checkEvent(article, eventType);
+        cy.get('@eventElement')
+            .findCyElement(KulDataCyAttributes.SHAPE)
+            .first()
+            .scrollIntoView()
+            .click();
+        cy.getCyElement(KulDataCyAttributes.CHECK).should('exist');
+    });
+
+    it(`ready`, () => {
         cy.checkReadyEvent(article);
-        cy.get('#ready-check').should('exist');
+        cy.getCyElement(KulDataCyAttributes.CHECK).should('exist');
     });
 });
 

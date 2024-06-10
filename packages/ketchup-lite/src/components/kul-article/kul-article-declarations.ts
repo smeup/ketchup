@@ -1,3 +1,4 @@
+import { KulEventPayload } from '../../components';
 import {
     KulDataDataset,
     KulDataNode,
@@ -8,6 +9,10 @@ export interface KulArticleDataset extends KulDataDataset {
 }
 
 export type KulArticleEvent = 'kul-event' | 'ready';
+
+export interface KulArticleEventPayload extends KulEventPayload {
+    eventType: KulArticleEvent;
+}
 
 export interface KulArticleNode extends KulDataNode {
     children?: KulArticleNode[];
