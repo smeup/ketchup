@@ -9,11 +9,22 @@
 */
 
 :host {
-  --kup_input_panel_background_color: var(--kup-input-panel-background-color,
-      var(--kup-background-color));
-  --kup_input_panel_color: var(--kup-input-panel-color, var(--kup-text-color));
-  --kup_input_panel_font_family: var(--kup-input-panel-font-family, var(--kup-font-family));
-  --kup_input_panel_font_size: var(--kup-input-panel-font-size, var(--kup-font-size));
+  --kup_input_panel_background_color: var(
+    --kup-input-panel-background-color,
+    var(--kup-layer-0)
+  );
+  --kup_input_panel_color: var(
+    --kup-input-panel-color,
+    var(--kup-text-secondary)
+  );
+  --kup_input_panel_font_family: var(
+    --kup-input-panel-font-family,
+    var(--kup-font-family)
+  );
+  --kup_input_panel_font_size: var(
+    --kup-input-panel-font-size,
+    var(--kup-font-size)
+  );
   --kup_input_panel_label_alignment: var(--kup-input-panel-label-alignment);
   --kup_input_panel_label_width: var(--kup-input-panel-label-width);
   --kup_input_panel_padding: var(--kup-input-panel-padding, 1em 0);
@@ -42,11 +53,10 @@
       display: grid;
 
       .f-cell__content {
-        >* {
+        > * {
           width: 100%;
         }
       }
-
     }
 
     &__horizontal-section {
@@ -63,10 +73,9 @@
       flex-direction: column;
       justify-content: center;
 
-      >.f-cell {
+      > .f-cell {
         flex: 1;
       }
-
     }
 
     .f-cell.number-cell {
@@ -76,6 +85,5 @@
         font-family: var(--kup_cell_font_family);
       }
     }
-
   }
 }

@@ -1,6 +1,6 @@
 .calendarBottomText {
   text-anchor: middle;
-  fill: var(--kup-gray-color-70);
+  fill: var(--kup-text-secondary);
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -11,12 +11,12 @@
 }
 
 .calendarTopTick {
-  stroke: var(--kup-gray-color-20);
+  stroke: var(--kup-border-subtle);
 }
 
 .calendarTopText {
   text-anchor: middle;
-  fill: var(--kup-gray-color-70);
+  fill: var(--kup-text-secondary);
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -28,7 +28,7 @@
 
 .calendarHeader {
   fill: var(--kup-layer-1);
-  stroke: var(--kup-gray-color-20);
+  stroke: var(--kup-border-subtle);
   stroke-width: 1.4;
   @include kup-heading-compact-01;
 }

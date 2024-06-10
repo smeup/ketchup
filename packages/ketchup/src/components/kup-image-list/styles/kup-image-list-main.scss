@@ -51,11 +51,15 @@
   );
   --kup_imagelist_text_color: var(
     --kup-imagelist-text-color,
-    var(--kup-gray-color-70)
+    var(--kup-text-secondary)
   );
   --kup_imagelist_item_background_color: var(
     --kup-imagelist-item-background-color,
     var(--kup-layer-1)
+  );
+  --kup_imagelist_item_background_color_hover: var(
+    --kup-imagelist-item-background-color-hover,
+    var(--kup-layer-1-hover)
   );
 
   display: block;
@@ -160,7 +164,7 @@
     padding: var(--kup_imagelist_item_padding);
     width: var(--kup_imagelist_item_width);
     &:hover {
-      background-color: var(--kup-gray-color-20);
+      background-color: var(--kup_imagelist_item_background_color_hover);
     }
   }
 

@@ -22,14 +22,14 @@
   );
   --kup_list_background_color_hover: var(
     --kup-list-background-color-hover,
-    var(--kup-gray-color-20)
+    var(--kup-layer-1-hover)
   );
 
-  --kup_list_focus_color: var(--kup-list-focus-color, var(--kup-primary-color));
-  --kup_list_text_color: var(--kup-list-text-color, var(--kup-gray-color-70));
+  --kup_list_focus_color: var(--kup-list-focus-color, var(--kup-text-main));
+  --kup_list_text_color: var(--kup-list-text-color, var(--kup-text-secondary));
   --kup_list_item_text_color: var(
     --kup-list-item-text-color,
-    var(--kup-gray-color-70)
+    var(--kup-text-secondary)
   );
   --kup_list_text_color_hover: var(
     --kup-list-text-color-hover,

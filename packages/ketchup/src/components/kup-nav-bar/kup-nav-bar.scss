@@ -14,6 +14,10 @@
     --kup-navbar-item-color,
     var(--kup-primary-color-0)
   );
+  --kup_navbar_background_color: var(
+    --kup-navbar-background-color,
+    var(--kup-layer-0-inverted)
+  );
   --kup_navbar_box_shadow: var(
     --kup-navbar-box-shadow,
     0 2px 4px -1px rgba(128, 128, 128, 0.2),
@@ -51,7 +55,7 @@
 }
 
 .nav-bar {
-  background-color: var(--kup-navbar-background-color);
+  background-color: var(--kup_navbar_background_color);
   // box-shadow: var(--kup_navbar_box_shadow);
   box-sizing: border-box;
   color: var(--kup_navbar_item_color);

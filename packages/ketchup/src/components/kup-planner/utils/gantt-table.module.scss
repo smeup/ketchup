@@ -85,10 +85,10 @@
 
 .project {
   background: var(--kup-layer-1);
-  border-bottom: 1px solid var(--kup-gray-color-20);
+  border-bottom: 1px solid var(--kup-border-subtle);
   border-radius: var(--kup-radius-00);
   box-sizing: border-box;
-  color: var(--kup-text-color, #595959);
+  color: var(--kup-text-secondary);
   cursor: pointer;
   display: grid;
   font-weight: 400;
@@ -117,7 +117,7 @@
 .subrow {
   cursor: pointer;
   display: grid;
-  border-bottom: 1px solid var(--kup-gray-color-20);
+  border-bottom: 1px solid var(--kup-border-subtle);
   box-sizing: border-box;
   grid-template-columns: var(--grid-fasi-columns, 1fr 1fr 1fr);
   place-items: center;
@@ -150,7 +150,7 @@
   padding: var(--kup-space-03);
   cursor: pointer;
   display: grid;
-  border-bottom: 1px solid var(--kup-gray-color-20);
+  border-bottom: 1px solid var(--kup-border-subtle);
   border-radius: var(--kup-radius-00);
   grid-template-columns: var(--grid-fasi-columns, 1fr 1fr 1fr);
   place-items: center;

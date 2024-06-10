@@ -7,7 +7,7 @@
 }
 
 .gridTick {
-  stroke: var(--kup-gray-color-20);
+  stroke: var(--kup-border-subtle);
 }
 
 .barHandle {
@@ -37,7 +37,7 @@
 }
 
 .barLabel {
-  fill: var(--kup-gray-colo-0);
+  fill: var(--kup-layer-0);
   text-anchor: middle;
   font-weight: lighter;
   -webkit-touch-callout: none;
@@ -49,7 +49,7 @@
 }
 
 .barLabelOutside {
-  fill: var(--kup-gray-color-70);
+  fill: var(--kup-text-secondary);
   text-anchor: start;
   -webkit-touch-callout: none;
   -webkit-user-select: none;

@@ -11,15 +11,15 @@
 :host {
   --kup_tabindicator_border_bottom_color: var(
     --kup-tab-indicator-border-bottom-color,
-    var(--kup-gray-color-20)
+    var(--kup-layer-2)
   );
   --kup_tabindicator_border_bottom_color_active: var(
     --kup-tabindicator-border-bottom-color-active,
-    var(--kup-primary-color-60)
+    var(--kup-border-interactive)
   );
   --kup_tabbar_text_color: var(
     --kup-tabbar-text-color,
-    var(--kup-gray-color-70)
+    var(--kup-text-secondary)
   );
   --kup_tabbar_text_color_active: var(
     --kup-tabbar-text-color-active,
@@ -27,7 +27,7 @@
   );
   --kup_tabbar_border_color_dense: var(
     --kup-tabbar-border-color-dense,
-    var(--kup-gray-color-50)
+    var(--kup-border-strong)
   );
 
   --kup_tabbar_font_size: var(--kup-tabbar-font-size, var(--kup-font-size));
@@ -116,12 +116,12 @@
         }
       }
       &[disabled] {
-        --kup_tabindicator_border_bottom_color: var(--kup-gray-color-30);
-        --kup_tabbar_text_color: var(--kup-gray-color-30);
+        --kup_tabindicator_border_bottom_color: var(--kup-border-disabled);
+        --kup_tabbar_text_color: var(--kup-text-disabled);
         pointer-events: none;
       }
       &.kup-dense {
-        background: var(--kup-gray-color-20);
+        background: var(--kup-layer-2);
         border-right: 1px solid var(--kup_tabbar_border_color_dense);
         &.tab--active {
           background: var(--kup-layer-1);

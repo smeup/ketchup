@@ -18,6 +18,10 @@
   --kup-layer-0-hover: var(--kup-gray-color-0-hover);
   --kup-layer-0-selected: var(--kup-gray-color-20);
   --kup-layer-0-focus: var(--kup-gray-color-30);
+  --kup-layer-0-inverted: var(--kup-gray-color-90);
+  --kup-layer-0-inverted-hover: var(--kup-gray-color-90-hover);
+  --kup-layer-0-inverted-selected: var(--kup-gray-color-80);
+  --kup-layer-0-inverted-focus: var(--kup-gray-color-70);
   --kup-layer-1: var(--kup-gray-color-10);
   --kup-layer-1-hover: var(--kup-gray-color-10-hover);
   --kup-layer-1-selected: var(--kup-gray-color-20);
@@ -43,6 +47,7 @@
   // TEXT
   --kup-text-main: var(--kup-primary-color-60);
   --kup-text-primary: var(--kup-gray-color-90);
+  --kup-text-primary-inverted: var(--kup-gray-color-0);
   --kup-text-secondary: var(--kup-gray-color-70);
   --kup-text-placeholder: var(--kup-gray-color-40);
   --kup-text-helper: var(--kup-gray-color-60);
