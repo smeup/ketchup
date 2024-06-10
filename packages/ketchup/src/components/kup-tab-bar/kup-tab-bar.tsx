@@ -54,7 +54,7 @@ export class KupTabBar {
     /**
      * Custom style of the component.
      * @default ""
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://smeup.github.io/ketchup/#/customization
      */
     @Prop() customStyle: string = '';
     /**
@@ -306,18 +306,20 @@ export class KupTabBar {
                     onFocus={() => this.onKupFocus(i, node)}
                 >
                     <span class="tab__content">
+                        {node.icon ? (
+                            <FImage
+                                color={`var(${KupThemeColorValues.PRIMARY})`}
+                                resource={node.icon}
+                                placeholderResource={node.placeholderIcon}
+                                sizeX="24px"
+                                sizeY="24px"
+                                wrapperClass="tab__icon"
+                            />
+                        ) : null}
                         {node.value ? (
                             <span class="tab__text-label">
                                 {this.data[i].value}
                             </span>
-                        ) : null}
-                        {node.icon ? (
-                            <FImage
-                                resource={node.icon}
-                                sizeX="16px"
-                                sizeY="16px"
-                                wrapperClass="tab__icon"
-                            />
                         ) : null}
                     </span>
                     <span

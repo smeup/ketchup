@@ -156,8 +156,11 @@ describe('kup-input-panel', () => {
         );
         expect(autocompleteCell).not.toBeNull();
 
-        const autocompleteTextfield = await autocompleteCell.find(
-            'kup-autocomplete >>> div.f-text-field'
+        const autocompleteShadow = await autocompleteCell.find(
+            'kup-autocomplete'
+        );
+        const autocompleteTextfield = await autocompleteShadow.find(
+            '>>> div.f-text-field'
         );
         expect(autocompleteTextfield).not.toBeNull();
 
@@ -258,9 +261,9 @@ describe('kup-input-panel', () => {
         const comboCell = await inputPanelContent.find('.f-cell.combobox-cell');
         expect(comboCell).not.toBeNull();
 
-        const comboTextfield = await comboCell.find(
-            'kup-combobox >>> div.f-text-field'
-        );
+        const comboShadow = await comboCell.find('kup-combobox');
+        const comboTextfield = await comboShadow.find('>>> div.f-text-field');
+
         expect(comboTextfield).not.toBeNull();
 
         const label = await comboTextfield.find('label');

@@ -73,7 +73,7 @@ export class KupInputPanel {
     /**
      * Custom style of the component.
      * @default ""
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://smeup.github.io/ketchup/#/customization
      */
     @Prop() customStyle: string = '';
 
@@ -267,6 +267,16 @@ export class KupInputPanel {
         row: KupInputPanelRow,
         column: KupInputPanelColumn
     ) {
+        if (!cell) {
+            return;
+        }
+
+        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+
+        if (cellType === FCellTypes.BUTTON) {
+            return this.#renderButton(cell);
+        }
+
         const cellProps: FCellProps = {
             cell,
             column,
@@ -289,6 +299,23 @@ export class KupInputPanel {
         }
 
         return <FCell {...cellProps} />;
+    }
+
+    #renderButton(cell: KupDataCell) {
+        return (
+            <FButton
+                label={cell.data.label}
+                icon={cell.icon}
+                wrapperClass="form__submit"
+                onClick={() => {
+                    this.optionsHandler(
+                        cell.data.fun,
+                        null,
+                        this.#reverseMapCells()
+                    );
+                }}
+            ></FButton>
+        );
     }
 
     #getLabelComponent(cell: KupDataCell, label: string) {
@@ -342,10 +369,19 @@ export class KupInputPanel {
             styleObj.maxHeight = section.dim;
         }
 
-        return (
+        const sectionContent = (
             <div class={classObj} style={styleObj}>
                 {content}
             </div>
+        );
+
+        return section.title ? (
+            <div class={{ 'input-panel__section_label_container': true }}>
+                <h3>{section.title}</h3>
+                {sectionContent}
+            </div>
+        ) : (
+            sectionContent
         );
     }
 
@@ -373,6 +409,10 @@ export class KupInputPanel {
             'grid-row-end': rowEnd,
         };
 
+        if (!fieldCell || !fieldCell.cell) {
+            return;
+        }
+
         return (
             <div style={styleObj}>
                 {this.#renderCell(fieldCell.cell, cells.row, fieldCell.column)}
@@ -387,16 +427,18 @@ export class KupInputPanel {
                       .filter((column) => column.visible)
                       .map((column) => {
                           const cell = structuredClone(row.cells[column.name]);
-                          const mappedCell = {
-                              ...cell,
-                              data: {
-                                  ...this.#mapData(cell, column),
-                                  disabled: !cell.editable,
-                                  id: column.name,
-                              },
-                              slotData: this.#slotData(cell, column),
-                              isEditable: true,
-                          };
+                          const mappedCell = cell
+                              ? {
+                                    ...cell,
+                                    data: {
+                                        ...this.#mapData(cell, column),
+                                        disabled: !cell.editable,
+                                        id: column.name,
+                                    },
+                                    slotData: this.#slotData(cell, column),
+                                    isEditable: true,
+                                }
+                              : null;
 
                           return { column, cell: mappedCell };
                       });
@@ -414,14 +456,14 @@ export class KupInputPanel {
                     (cells, key) => {
                         const cellState = curr.cells.find(
                             (c) => c.column.name === key
-                        ).cell;
+                        )?.cell;
 
                         return {
                             ...cells,
                             [key]: {
                                 ...curr.row.cells[key],
-                                value: cellState.value,
-                                obj: cellState.obj,
+                                value: cellState?.value,
+                                obj: cellState?.obj,
                             },
                         };
                     },
@@ -450,6 +492,10 @@ export class KupInputPanel {
     }
 
     #mapData(cell: KupInputPanelCell, col: KupInputPanelColumn) {
+        if (!cell) {
+            return null;
+        }
+
         const options = cell.options;
         const fieldLabel = col.title;
         const currentValue = cell.value;
@@ -457,12 +503,14 @@ export class KupInputPanel {
 
         const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
             [FCellTypes.AUTOCOMPLETE, this.#CMBandACPAdapter.bind(this)],
-            [FCellTypes.BUTTON_LIST, this.#BTNAdapter.bind(this)],
+            [FCellTypes.BUTTON, this.#BTNAdapter.bind(this)],
             [FCellTypes.CHART, this.#GRAAdapter.bind(this)],
             [FCellTypes.CHIP, this.#CHIAdapter.bind(this)],
             [FCellTypes.CHECKBOX, this.#CHKAdapter.bind(this)],
             [FCellTypes.COLOR_PICKER, this.#CLPAdapter.bind(this)],
             [FCellTypes.COMBOBOX, this.#CMBandACPAdapter.bind(this)],
+            [FCellTypes.NUMBER, this.#NumberAdapter.bind(this)],
+            [FCellTypes.DATE, this.#DateAdapter.bind(this)],
             [FCellTypes.RADIO, this.#RADAdapter.bind(this)],
             [FCellTypes.STRING, this.#ITXAdapter.bind(this)],
         ]);
@@ -526,16 +574,12 @@ export class KupInputPanel {
     #BTNAdapter(
         _options: GenericObject,
         _fieldLabel: string,
-        _currentValue: string
+        _currentValue: string,
+        cell: KupInputPanelCell
     ) {
-        //TODO: come gestire i button list dal protocollo?
         return {
-            data: [
-                {
-                    data: { dropdownOnly: false, label: 'Pier' },
-                },
-                { data: { dropdownOnly: false, label: 'Valerio' } },
-            ],
+            label: cell.value,
+            fun: cell.fun,
         };
     }
 
@@ -642,6 +686,29 @@ export class KupInputPanel {
                 checked: option.id === currentValue,
             })),
         };
+    }
+
+    #DateAdapter(
+        _options: GenericObject,
+        fieldLabel: string,
+        currentValue: string
+    ) {
+        return {
+            data: {
+                'kup-text-field': {
+                    label: fieldLabel,
+                },
+            },
+            initialValue: currentValue,
+        };
+    }
+
+    #NumberAdapter(
+        _options: GenericObject,
+        fieldLabel: string,
+        _currentValue: string
+    ) {
+        return { label: fieldLabel, decimals: 2 };
     }
 
     #optionsTreeComboAdapter(options: any, currentValue: string) {

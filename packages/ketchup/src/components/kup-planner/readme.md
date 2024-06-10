@@ -1,5 +1,7 @@
 # kup-gantt
 
+
+
 <!-- Auto Generated Below -->
 
 
@@ -140,7 +142,6 @@ Type: `Promise<void>`
 - [kup-planner-renderer](utils)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
-- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
@@ -148,7 +149,6 @@ graph TD;
   kup-planner --> kup-planner-renderer
   kup-planner --> kup-card
   kup-planner --> kup-dialog
-  kup-planner --> kup-badge
   kup-planner-renderer --> kup-switcher
   kup-planner-renderer --> kup-gantt
   kup-gantt --> kup-standard-tooltip
@@ -191,7 +191,6 @@ graph TD;
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
-  kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-card
@@ -210,26 +209,22 @@ graph TD;
   kup-chip --> kup-badge
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
-  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
-  kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
   kup-combobox --> kup-dialog
-  kup-combobox --> kup-badge
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
-  kup-date-picker --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
-  kup-time-picker --> kup-badge
-  kup-image --> kup-spinner
   kup-image --> kup-card
+  kup-image --> kup-image
   kup-image --> kup-dialog
+  kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-spinner --> kup-card
   kup-spinner --> kup-dialog
@@ -252,7 +247,6 @@ graph TD;
   kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
-  kup-checkbox --> kup-badge
   kup-data-table --> kup-card
   kup-data-table --> kup-list
   kup-data-table --> kup-switch

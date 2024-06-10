@@ -75,6 +75,7 @@ function renderButton(props: FButtonProps): VNode {
             ? `var(--kup_button_text_color)` // metter colore per sfondo bianco
             : `var(--kup_button_text_color)`,
         resource: props.icon,
+        placeholderResource: props.placeholderIcon,
         sizeX: isFloating ? '1.75em' : '1.475em',
         sizeY: isFloating ? '1.75em' : '1.475em',
         wrapperClass: 'button__icon kup-icon',
@@ -180,6 +181,7 @@ function renderIconButton(props: FButtonProps): VNode {
                     resource={
                         props.toggable && !props.checked ? iconOff : props.icon
                     }
+                    placeholderResource={props.placeholderIcon}
                     wrapperClass={`icon-button__icon kup-icon`}
                 />
             ) : null}
@@ -187,6 +189,7 @@ function renderIconButton(props: FButtonProps): VNode {
                 <FImage
                     {...propsFImage}
                     resource={props.icon}
+                    placeholderResource={props.placeholderIcon}
                     wrapperClass={`icon-button__icon icon-button__icon--on kup-icon`}
                 />
             ) : null}

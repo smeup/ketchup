@@ -12,7 +12,7 @@
         <span class="code-word">text</span> must be empty.
         <span class="code-word">imageData</span> is basically a set of props
         passed to the image component, to learn more about it check the
-        <a href="https://ketchup.smeup.com/ketchup-showcase/#/badge">Image</a>
+        <a href="https://smeup.github.io/ketchup/#/image">Image</a>
         page.
       </p>
       <p class="centered">Sample markup</p>

@@ -36,7 +36,7 @@ import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/
 import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 import { GeoJSON } from "geojson";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
-import { KupEditorEventPayload, KupEditorPreview, KupEditorType } from "./components/kup-editor/kup-editor-declarations";
+import { KupEditorEventPayload, KupEditorPreview, KupEditorSelectedTab, KupEditorType } from "./components/kup-editor/kup-editor-declarations";
 import { KupFamilyTreeData, KupFamilyTreeEventPayload, KupFamilyTreeLayout, KupFamilyTreeNode } from "./components/kup-family-tree/kup-family-tree-declarations";
 import { KupFormData, KupFormLabelPlacement, KupFormLayout } from "./components/kup-form/kup-form-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
@@ -88,7 +88,7 @@ export { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/
 export { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 export { GeoJSON } from "geojson";
 export { XAXisComponentOption, YAXisComponentOption } from "echarts";
-export { KupEditorEventPayload, KupEditorPreview, KupEditorType } from "./components/kup-editor/kup-editor-declarations";
+export { KupEditorEventPayload, KupEditorPreview, KupEditorSelectedTab, KupEditorType } from "./components/kup-editor/kup-editor-declarations";
 export { KupFamilyTreeData, KupFamilyTreeEventPayload, KupFamilyTreeLayout, KupFamilyTreeNode } from "./components/kup-family-tree/kup-family-tree-declarations";
 export { KupFormData, KupFormLabelPlacement, KupFormLayout } from "./components/kup-form/kup-form-declarations";
 export { KupBadge } from "./components/kup-badge/kup-badge";
@@ -118,7 +118,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -175,7 +175,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -297,7 +297,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -345,7 +345,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -510,7 +510,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -539,6 +539,11 @@ export namespace Components {
           * @default null
          */
         "label": string;
+        /**
+          * When set, the button will show this icon, if icon/image not found.
+          * @default null
+         */
+        "placeholderIcon": string;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -583,7 +588,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -631,7 +636,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -678,7 +683,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -745,7 +750,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -843,7 +848,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -905,7 +910,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -1018,7 +1023,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -1066,7 +1071,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -1119,7 +1124,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -1181,7 +1186,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -1308,7 +1313,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -1360,7 +1365,7 @@ export namespace Components {
          */
         "collapseAll": () => Promise<void>;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component. For more information: https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -1670,7 +1675,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -1731,7 +1736,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -1787,7 +1792,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -1823,7 +1828,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -1871,6 +1876,11 @@ export namespace Components {
           * @default ""
          */
         "label": string;
+        /**
+          * When set, the button will show this icon, if icon/image not found.
+          * @default null
+         */
+        "placeholderIcon": string;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -1924,7 +1934,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -1967,6 +1977,11 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
+          * Displays the numerical values.
+          * @default false
+         */
+        "showMarks": boolean;
+        /**
           * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
          */
@@ -1976,6 +1991,11 @@ export namespace Components {
           * @default "100%"
          */
         "sizeY": string;
+        /**
+          * Displays the data columns of an object on top of each other.
+          * @default false
+         */
+        "stacked": boolean;
         /**
           * The type of the chart. Supported formats: Bar, Gaussian, Line, Pie, Map and Scatter.
           * @default [KupEchartTypes.LINE]
@@ -2042,6 +2062,11 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * The markdown editor selected tab.
+          * @default 'write'
+         */
+        "selectedTab": KupEditorSelectedTab;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
@@ -2085,7 +2110,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -2131,7 +2156,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -2287,7 +2312,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -2381,7 +2406,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -2496,7 +2521,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -2521,6 +2546,11 @@ export namespace Components {
          */
         "isCanvas": boolean;
         /**
+          * An SVG that will be displayed until the image is loaded.
+          * @default ""
+         */
+        "placeholderResource": string;
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
@@ -2544,6 +2574,11 @@ export namespace Components {
           * @default '100%'
          */
         "sizeY": string;
+        /**
+          * When set to true, a dialog will be displayed with the same resource set to 100% when image is clicked.
+          * @default false
+         */
+        "zoomEnable": boolean;
     }
     interface KupImageList {
         /**
@@ -2554,7 +2589,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -2598,7 +2633,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -2646,7 +2681,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -2689,7 +2724,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -2785,7 +2820,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -2813,7 +2848,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -2845,7 +2880,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -2944,7 +2979,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -2988,7 +3023,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -3250,13 +3285,13 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
           * Specify features to test.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "features": {
         debug: boolean;
@@ -3285,7 +3320,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -3376,7 +3411,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -3424,7 +3459,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -3472,7 +3507,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -3528,7 +3563,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -3586,7 +3621,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -3632,7 +3667,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -3748,7 +3783,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -3943,7 +3978,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -4036,7 +4071,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle": string;
         /**
@@ -5451,7 +5486,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -5488,7 +5523,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -5588,7 +5623,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -5622,7 +5657,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -5801,7 +5836,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -5837,6 +5872,11 @@ declare namespace LocalJSX {
          */
         "onKup-button-focus"?: (event: KupButtonCustomEvent<KupButtonClickEventPayload>) => void;
         /**
+          * When set, the button will show this icon, if icon/image not found.
+          * @default null
+         */
+        "placeholderIcon"?: string;
+        /**
           * When set to true, the button show a spinner received in slot.
           * @default false
          */
@@ -5871,7 +5911,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -5905,7 +5945,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -5949,7 +5989,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -6013,7 +6053,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -6092,7 +6132,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -6134,7 +6174,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -6232,7 +6272,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -6277,7 +6317,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -6335,7 +6375,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -6369,7 +6409,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -6474,7 +6514,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -6496,7 +6536,7 @@ declare namespace LocalJSX {
          */
         "autoFillMissingCells"?: boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component. For more information: https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -6787,7 +6827,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -6829,7 +6869,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -6864,7 +6904,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -6884,7 +6924,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -6943,6 +6983,11 @@ declare namespace LocalJSX {
          */
         "onKup-dropdownbutton-itemclick"?: (event: KupDropdownButtonCustomEvent<KupDropdownButtonEventPayload>) => void;
         /**
+          * When set, the button will show this icon, if icon/image not found.
+          * @default null
+         */
+        "placeholderIcon"?: string;
+        /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
           * @default ItemsDisplayMode.CODE
          */
@@ -6982,7 +7027,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -7007,6 +7052,11 @@ declare namespace LocalJSX {
          */
         "series"?: string[];
         /**
+          * Displays the numerical values.
+          * @default false
+         */
+        "showMarks"?: boolean;
+        /**
           * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
          */
@@ -7016,6 +7066,11 @@ declare namespace LocalJSX {
           * @default "100%"
          */
         "sizeY"?: string;
+        /**
+          * Displays the data columns of an object on top of each other.
+          * @default false
+         */
+        "stacked"?: boolean;
         /**
           * The type of the chart. Supported formats: Bar, Gaussian, Line, Pie, Map and Scatter.
           * @default [KupEchartTypes.LINE]
@@ -7076,6 +7131,11 @@ declare namespace LocalJSX {
          */
         "previewStyle"?: KupEditorPreview;
         /**
+          * The markdown editor selected tab.
+          * @default 'write'
+         */
+        "selectedTab"?: KupEditorSelectedTab;
+        /**
           * Defines whether to show the save button in editor's toolbar or not.
           * @default true
          */
@@ -7110,7 +7170,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -7136,7 +7196,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -7271,7 +7331,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -7350,7 +7410,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -7437,7 +7497,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -7458,6 +7518,11 @@ declare namespace LocalJSX {
         "onKup-image-click"?: (event: KupImageCustomEvent<KupImageClickEventPayload>) => void;
         "onKup-image-load"?: (event: KupImageCustomEvent<KupImageClickEventPayload>) => void;
         /**
+          * An SVG that will be displayed until the image is loaded.
+          * @default ""
+         */
+        "placeholderResource"?: string;
+        /**
           * The resource used to fetch the image.
           * @default null
          */
@@ -7472,6 +7537,11 @@ declare namespace LocalJSX {
           * @default '100%'
          */
         "sizeY"?: string;
+        /**
+          * When set to true, a dialog will be displayed with the same resource set to 100% when image is clicked.
+          * @default false
+         */
+        "zoomEnable"?: boolean;
     }
     interface KupImageList {
         /**
@@ -7482,7 +7552,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -7514,7 +7584,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -7551,7 +7621,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -7578,7 +7648,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -7644,7 +7714,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -7657,7 +7727,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -7678,7 +7748,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -7751,7 +7821,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -7782,7 +7852,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -8038,13 +8108,13 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
           * Specify features to test.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "features"?: {
         debug: boolean;
@@ -8065,7 +8135,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -8141,7 +8211,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -8186,7 +8256,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -8220,7 +8290,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -8261,7 +8331,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -8308,7 +8378,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -8351,7 +8421,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -8459,7 +8529,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -8667,7 +8737,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**
@@ -8734,7 +8804,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
         /**

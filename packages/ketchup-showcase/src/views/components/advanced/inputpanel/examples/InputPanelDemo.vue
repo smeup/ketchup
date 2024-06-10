@@ -32,7 +32,7 @@ export default {
         {
           prop: 'customStyle',
           description:
-            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+            'Custom style of the component. For more information: https://smeup.github.io/ketchup/#/customization',
           type: 'string',
           default: '""',
           try: 'css',
@@ -60,12 +60,12 @@ export default {
           try: 'field',
         },
         {
-          prop: 'handleEventsCallbacks',
-          description: 'Sets the callbacks functions on ketchup events.',
-          type: 'InputPanelEventsCallback',
-          isArray: true,
-          default: '[]',
-          try: 'json',
+          prop: 'optionsHandler',
+          description:
+            'Sets the callback function to call FUN from inside the input panel. Could return an object to be associated to field options.',
+          type: 'string',
+          default: 'null',
+          try: 'field',
         },
       ],
     };
@@ -250,6 +250,9 @@ function createComp() {
     ],
   };
   comp.id = 'demo-component';
+  comp.submitCb = (e) => console.log('Input Panel submit', e);
+  comp.optionsHandler = (fun, inputValue, currentState) =>
+    console.log('Option handler event', { fun, inputValue, currentState });
 
   return comp;
 }

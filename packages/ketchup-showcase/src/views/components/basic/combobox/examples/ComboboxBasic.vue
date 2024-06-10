@@ -35,11 +35,9 @@
         <br />Considering that this component is pretty much a mix of two other
         ones, it can be styled accordingly by using their props. To learn more
         about styling options for each one of them, check
-        <a href="https://ketchup.smeup.com/ketchup-showcase/#/textfield"
-          >Text Field</a
-        >
+        <a href="https://smeup.github.io/ketchup/#/textfield">Text Field</a>
         and
-        <a href="https://ketchup.smeup.com/ketchup-showcase/#/list">List</a>.
+        <a href="https://smeup.github.io/ketchup/#/list">List</a>.
       </p>
       <p class="centered">Sample markup</p>
       <code class="flat">{{ markupBasic }}</code>

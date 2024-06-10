@@ -85,7 +85,7 @@ export class KupEchart {
     /**
      * Custom style of the component.
      * @default ""
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://smeup.github.io/ketchup/#/customization
      */
     @Prop() customStyle: string = '';
     /**
@@ -109,6 +109,11 @@ export class KupEchart {
      */
     @Prop() series: string[] = [];
     /**
+     * Displays the numerical values.
+     * @default false
+     */
+    @Prop() showMarks = false;
+    /**
      * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
      * @default "100%"
      */
@@ -118,6 +123,11 @@ export class KupEchart {
      * @default "100%"
      */
     @Prop() sizeY: string = '100%';
+    /**
+     * Displays the data columns of an object on top of each other.
+     * @default false
+     */
+    @Prop() stacked = false;
     /**
      * The type of the chart. Supported formats: Bar, Gaussian, Line, Pie, Map and Scatter.
      * @default [KupEchartTypes.LINE]
@@ -1344,6 +1354,9 @@ export class KupEchart {
             case KupEchartTypes.GAUSSIAN:
                 series.push({
                     data: this.#kupManager.math.normalDistribution(values),
+                    label: {
+                        show: this.showMarks,
+                    },
                     name: key,
                     showSymbol: false,
                     smooth: true,
@@ -1356,7 +1369,11 @@ export class KupEchart {
             case KupEchartTypes.HBAR:
                 series.push({
                     data: values,
+                    label: {
+                        show: this.showMarks,
+                    },
                     name: key,
+                    stack: this.stacked ? 'total' : undefined,
                     type: 'bar',
                     barWidth: needSortDataset ? '100%' : undefined,
                 } as echarts.BarSeriesOption);
@@ -1364,6 +1381,9 @@ export class KupEchart {
             case KupEchartTypes.SCATTER:
                 series.push({
                     data: values,
+                    label: {
+                        show: this.showMarks,
+                    },
                     name: key,
                     type: 'scatter',
                 } as echarts.ScatterSeriesOption);
@@ -1373,6 +1393,9 @@ export class KupEchart {
             default:
                 series.push({
                     data: values,
+                    label: {
+                        show: this.showMarks,
+                    },
                     name: key,
                     type: 'line',
                     areaStyle:

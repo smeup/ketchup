@@ -72,7 +72,7 @@
         the
         <span class="code-word">icon</span> prop to a valid SVG name supported
         by the
-        <a href="https://ketchup.smeup.com/ketchup-showcase/#/image"
+        <a href="https://smeup.github.io/ketchup/#/image"
           >Ketchup Image component</a
         >, the label will be replaced by this icon. <br />Keep in mind that in
         this case, <span class="code-word">hideLabel</span> and

@@ -27,6 +27,14 @@
             ></kup-image>
             <div class="icon-label">account-alert</div>
           </div>
+          <div class="icon-wrapper" title="board_of_directors">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="board_of_directors"
+            ></kup-image>
+            <div class="icon-label">board_of_directors</div>
+          </div>
           <div class="icon-wrapper" title="account-box-outline">
             <kup-image
               size-x="48px"
@@ -262,6 +270,10 @@
               resource="block-helper"
             ></kup-image>
             <div class="icon-label">block-helper</div>
+          </div>
+          <div class="icon-wrapper" title="blue">
+            <kup-image size-x="48px" size-y="48px" resource="blue"></kup-image>
+            <div class="icon-label">blue</div>
           </div>
           <div class="icon-wrapper" title="book-open">
             <kup-image
@@ -607,6 +619,38 @@
             ></kup-image>
             <div class="icon-label">currency-usd</div>
           </div>
+          <div class="icon-wrapper" title="dark_blue">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="dark_blue"
+            ></kup-image>
+            <div class="icon-label">dark_blue</div>
+          </div>
+          <div class="icon-wrapper" title="dark_green">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="dark_green"
+            ></kup-image>
+            <div class="icon-label">dark_green</div>
+          </div>
+          <div class="icon-wrapper" title="dark_grey">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="dark_grey"
+            ></kup-image>
+            <div class="icon-label">dark_grey</div>
+          </div>
+          <div class="icon-wrapper" title="dark_orange">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="dark_orange"
+            ></kup-image>
+            <div class="icon-label">dark_orange</div>
+          </div>
           <div class="icon-wrapper" title="database">
             <kup-image
               size-x="48px"
@@ -630,6 +674,14 @@
               resource="delete-empty"
             ></kup-image>
             <div class="icon-label">delete-empty</div>
+          </div>
+          <div class="icon-wrapper" title="delivery">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="delivery"
+            ></kup-image>
+            <div class="icon-label">delivery</div>
           </div>
           <div class="icon-wrapper" title="document">
             <kup-image
@@ -1083,6 +1135,18 @@
             ></kup-image>
             <div class="icon-label">google-chrome</div>
           </div>
+          <div class="icon-wrapper" title="green_light">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="green_light"
+            ></kup-image>
+            <div class="icon-label">green_light</div>
+          </div>
+          <div class="icon-wrapper" title="green">
+            <kup-image size-x="48px" size-y="48px" resource="green"></kup-image>
+            <div class="icon-label">green</div>
+          </div>
           <div class="icon-wrapper" title="help-circle">
             <kup-image
               size-x="48px"
@@ -1151,6 +1215,14 @@
             <kup-image size-x="48px" size-y="48px" resource="lazy"></kup-image>
             <div class="icon-label">lazy</div>
           </div>
+          <div class="icon-wrapper" title="landline_phone">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="landline_phone"
+            ></kup-image>
+            <div class="icon-label">landline_phone</div>
+          </div>
           <div class="icon-wrapper" title="lightbulb-on">
             <kup-image
               size-x="48px"
@@ -1166,6 +1238,50 @@
               resource="lightbulb-outline"
             ></kup-image>
             <div class="icon-label">lightbulb-outline</div>
+          </div>
+          <div class="icon-wrapper" title="light_blue">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="light_blue"
+            ></kup-image>
+            <div class="icon-label">light_blue</div>
+          </div>
+          <div class="icon-wrapper" title="light_green">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="light_green"
+            ></kup-image>
+            <div class="icon-label">light_green</div>
+          </div>
+          <div class="icon-wrapper" title="light_grey">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="light_grey"
+            ></kup-image>
+            <div class="icon-label">light_grey</div>
+          </div>
+          <div class="icon-wrapper" title="light_orange">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="light_orange"
+            ></kup-image>
+            <div class="icon-label">light_orange</div>
+          </div>
+          <div class="icon-wrapper" title="light_pink">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="light_pink"
+            ></kup-image>
+            <div class="icon-label">light_pink</div>
+          </div>
+          <div class="icon-wrapper" title="lilac">
+            <kup-image size-x="48px" size-y="48px" resource="lilac"></kup-image>
+            <div class="icon-label">lilac</div>
           </div>
           <div class="icon-wrapper" title="link_off">
             <kup-image
@@ -1331,6 +1447,7 @@
             ></kup-image>
             <div class="icon-label">open_in_new</div>
           </div>
+
           <div class="icon-wrapper" title="pause-circle">
             <kup-image
               size-x="48px"
@@ -1371,6 +1488,10 @@
             ></kup-image>
             <div class="icon-label">periodic-table-co2</div>
           </div>
+          <div class="icon-wrapper" title="pink">
+            <kup-image size-x="48px" size-y="48px" resource="pink"></kup-image>
+            <div class="icon-label">pink</div>
+          </div>
           <div class="icon-wrapper" title="pinterest">
             <kup-image
               size-x="48px"
@@ -1406,6 +1527,14 @@
           <div class="icon-wrapper" title="pound">
             <kup-image size-x="48px" size-y="48px" resource="pound"></kup-image>
             <div class="icon-label">pound</div>
+          </div>
+          <div class="icon-wrapper" title="purple">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="purple"
+            ></kup-image>
+            <div class="icon-label">purple</div>
           </div>
           <div class="icon-wrapper" title="printer">
             <kup-image
@@ -1454,6 +1583,18 @@
               resource="rename-box"
             ></kup-image>
             <div class="icon-label">rename-box</div>
+          </div>
+          <div class="icon-wrapper" title="red">
+            <kup-image size-x="48px" size-y="48px" resource="red"></kup-image>
+            <div class="icon-label">red</div>
+          </div>
+          <div class="icon-wrapper" title="red_light">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="red_light"
+            ></kup-image>
+            <div class="icon-label">red_light</div>
           </div>
           <div class="icon-wrapper" title="reddit">
             <kup-image
@@ -1719,6 +1860,14 @@
             ></kup-image>
             <div class="icon-label">timetable</div>
           </div>
+          <div class="icon-wrapper" title="tractor">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="tractor"
+            ></kup-image>
+            <div class="icon-label">tractor</div>
+          </div>
           <div class="icon-wrapper" title="traffic-light">
             <kup-image
               size-x="48px"
@@ -1879,6 +2028,10 @@
             ></kup-image>
             <div class="icon-label">webcam</div>
           </div>
+          <div class="icon-wrapper" title="white">
+            <kup-image size-x="48px" size-y="48px" resource="white"></kup-image>
+            <div class="icon-label">white</div>
+          </div>
           <div class="icon-wrapper" title="wikipedia">
             <kup-image
               size-x="48px"
@@ -1914,6 +2067,14 @@
           <div class="icon-wrapper" title="xml">
             <kup-image size-x="48px" size-y="48px" resource="xml"></kup-image>
             <div class="icon-label">xml</div>
+          </div>
+          <div class="icon-wrapper" title="yellow_light">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="yellow_light"
+            ></kup-image>
+            <div class="icon-label">yellow_light</div>
           </div>
           <div class="icon-wrapper" title="youtube-play">
             <kup-image

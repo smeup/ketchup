@@ -262,7 +262,7 @@ export class KupBox {
     /**
      * Custom style of the component.
      * @default ""
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://smeup.github.io/ketchup/#/customization
      */
     @Prop() customStyle: string = '';
     /**
@@ -675,13 +675,17 @@ export class KupBox {
     }
 
     private checkScrollOnHover() {
-        if (!this.kupManager.scrollOnHover.isRegistered(this.boxContainer)) {
-            if (this.scrollOnHover) {
-                this.kupManager.scrollOnHover.register(this.boxContainer);
-            }
-        } else {
-            if (!this.scrollOnHover) {
-                this.kupManager.scrollOnHover.unregister(this.boxContainer);
+        if (this.boxContainer) {
+            if (
+                !this.kupManager.scrollOnHover.isRegistered(this.boxContainer)
+            ) {
+                if (this.scrollOnHover) {
+                    this.kupManager.scrollOnHover.register(this.boxContainer);
+                }
+            } else {
+                if (!this.scrollOnHover) {
+                    this.kupManager.scrollOnHover.unregister(this.boxContainer);
+                }
             }
         }
     }
@@ -826,6 +830,13 @@ export class KupBox {
             this.kupManager.getEventPath(e.target, this.rootElement),
             e
         );
+        if (details.row) {
+            if (this.multiSelection) {
+                this.onSelectionCheckChange(details.row);
+            } else {
+                this.selectedRows = [details.row];
+            }
+        }
         return details;
     }
 
@@ -850,52 +861,6 @@ export class KupBox {
         }
 
         return false;
-    }
-
-    // event listeners
-    private onBoxClick({ target }: MouseEvent, row: KupBoxRow) {
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        // searching parent
-        let element = target;
-        let classList = element.classList;
-
-        while (
-            !classList.contains('box-object') &&
-            !classList.contains('box-section') &&
-            !classList.contains('box')
-        ) {
-            element = element.parentElement;
-
-            if (element === null) {
-                break;
-            }
-
-            classList = element.classList;
-        }
-
-        // evaluating column
-        let column = null;
-        if (classList.contains('box-object')) {
-            column = element.dataset.column;
-        }
-
-        this.kupBoxClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            row,
-            column,
-        });
-
-        // selecting box
-        if (this.multiSelection) {
-            // triggering multi selection
-            this.onSelectionCheckChange(row);
-        } else {
-            this.selectedRows = [row];
-        }
     }
 
     private onSelectionCheckChange(row: KupBoxRow) {
@@ -1355,7 +1320,11 @@ export class KupBox {
             <div
                 class="box-wrapper"
                 style={rowStyle}
-                ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
+                ref={(el: HTMLElement) => {
+                    if (el) {
+                        this.#rowsRefs.push(el);
+                    }
+                }}
             >
                 <div
                     class={boxClass}
@@ -2006,6 +1975,7 @@ export class KupBox {
     }
 
     render() {
+        this.#rowsRefs = [];
         const isKanban: boolean = !!(
             typeof this.kanban === 'object' && this.kanban !== null
         );

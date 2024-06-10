@@ -95,7 +95,8 @@ export function newColumn(
             return newColumnFromMath(
                 dataset,
                 options.operation,
-                options.columns
+                options.columns,
+                options?.newColumn?.title
             );
         case KupDataNewColumnTypes.MERGE:
             return newColumnFromMerge(
@@ -247,7 +248,8 @@ export function newColumnFromDuplication(
 function newColumnFromMath(
     dataset: KupDataDataset,
     operation: string,
-    columns?: string[]
+    columns?: string[],
+    title?: string
 ): string | KupDataColumn {
     if (!columns) {
         columns = [];
@@ -309,16 +311,21 @@ function newColumnFromMath(
             firstColumn = col;
         }
         if (col.resultOf && col.resultOf === formula) {
-            const message =
-                'This mathematical operation on these columns was already performed!(' +
-                formula +
-                ')';
-            dom.ketchup.debug.logMessage(
-                'kup-data',
-                message,
-                KupDebugCategory.WARNING
-            );
-            return message;
+            if (col.visible !== true) {
+                col.visible = true;
+                return;
+            } else {
+                const message =
+                    'This mathematical operation on these columns was already performed!(' +
+                    formula +
+                    ')';
+                dom.ketchup.debug.logMessage(
+                    'kup-data',
+                    message,
+                    KupDebugCategory.WARNING
+                );
+                return message;
+            }
         }
     }
     let prog = 0;
@@ -362,7 +369,7 @@ function newColumnFromMath(
     const newColumn: KupDataColumn = {
         ...firstColumn,
         name: newName,
-        title: newTitle,
+        title: title ? title : newTitle,
         obj: newObj,
         resultOf: formula,
     };

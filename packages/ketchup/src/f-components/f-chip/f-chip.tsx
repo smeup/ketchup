@@ -167,6 +167,7 @@ function createChipList(
                             ? `var(--kup_chip_primary_color)`
                             : `var(--kup_chip_text_color)`,
                     resource: chip.icon,
+                    placeholderResource: chip.placeholderIcon,
                     sizeX: '16px',
                     sizeY: '16px',
                     wrapperClass: iconClass,

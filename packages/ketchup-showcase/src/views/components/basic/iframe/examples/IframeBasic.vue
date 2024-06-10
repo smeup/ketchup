@@ -13,7 +13,7 @@
         By default, <span class="code-word">label</span> will be set to "Open in
         new tab" and <span class="code-word">icon</span> to "open_in_new". For
         more information about the styling options check the
-        <a href="https://ketchup.smeup.com/ketchup-showcase/#/button">Button</a>
+        <a href="https://smeup.github.io/ketchup/#/button">Button</a>
         component page.
       </p>
       <br />

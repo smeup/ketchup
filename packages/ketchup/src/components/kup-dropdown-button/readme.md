@@ -1,23 +1,26 @@
 # kup-dropdown-button
 
+
+
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                                   | Type                                                                                                                        | Default                        |
-| -------------- | --------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
-| `customStyle`  | `custom-style`  | Custom style of the component.                                                                                | `string`                                                                                                                    | `''`                           |
-| `data`         | --              | Props of the sub-components.                                                                                  | `Object`                                                                                                                    | `null`                         |
-| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                               | `boolean`                                                                                                                   | `false`                        |
-| `displayMode`  | `display-mode`  | Sets how to show the selected item value. Suported values: "code", "description", "both".                     | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`                            | `ItemsDisplayMode.DESCRIPTION` |
-| `dropdownOnly` | `dropdown-only` | Default value is false. When set to true, the arrow dropdown button is the only button displayed.             | `boolean`                                                                                                                   | `false`                        |
-| `icon`         | `icon`          | Defaults at null. When set, the button will show this icon.                                                   | `string`                                                                                                                    | `null`                         |
-| `initialValue` | `initial-value` | Sets the initial value of the component.                                                                      | `string`                                                                                                                    | `''`                           |
-| `label`        | `label`         | Defaults at null. When set, the button will show this text.                                                   | `string`                                                                                                                    | `null`                         |
-| `selectMode`   | `select-mode`   | Sets how to return the selected item value. Suported values: "code", "description", "both".                   | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`                            | `ItemsDisplayMode.CODE`        |
-| `styling`      | `styling`       | Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default. | `FButtonStyling.FLAT \| FButtonStyling.FLOATING \| FButtonStyling.ICON \| FButtonStyling.OUTLINED \| FButtonStyling.RAISED` | `FButtonStyling.RAISED`        |
-| `trailingIcon` | `trailing-icon` | Defaults at null. When set, the icon will be shown after the text.                                            | `boolean`                                                                                                                   | `false`                        |
+| Property          | Attribute          | Description                                                                                                   | Type                                                                                                                        | Default                        |
+| ----------------- | ------------------ | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `customStyle`     | `custom-style`     | Custom style of the component.                                                                                | `string`                                                                                                                    | `''`                           |
+| `data`            | --                 | Props of the sub-components.                                                                                  | `Object`                                                                                                                    | `null`                         |
+| `disabled`        | `disabled`         | Defaults at false. When set to true, the component is disabled.                                               | `boolean`                                                                                                                   | `false`                        |
+| `displayMode`     | `display-mode`     | Sets how to show the selected item value. Suported values: "code", "description", "both".                     | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`                            | `ItemsDisplayMode.DESCRIPTION` |
+| `dropdownOnly`    | `dropdown-only`    | Default value is false. When set to true, the arrow dropdown button is the only button displayed.             | `boolean`                                                                                                                   | `false`                        |
+| `icon`            | `icon`             | Defaults at null. When set, the button will show this icon.                                                   | `string`                                                                                                                    | `null`                         |
+| `initialValue`    | `initial-value`    | Sets the initial value of the component.                                                                      | `string`                                                                                                                    | `''`                           |
+| `label`           | `label`            | Defaults at null. When set, the button will show this text.                                                   | `string`                                                                                                                    | `null`                         |
+| `placeholderIcon` | `placeholder-icon` | When set, the button will show this icon, if icon/image not found.                                            | `string`                                                                                                                    | `null`                         |
+| `selectMode`      | `select-mode`      | Sets how to return the selected item value. Suported values: "code", "description", "both".                   | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`                            | `ItemsDisplayMode.CODE`        |
+| `styling`         | `styling`          | Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default. | `FButtonStyling.FLAT \| FButtonStyling.FLOATING \| FButtonStyling.ICON \| FButtonStyling.OUTLINED \| FButtonStyling.RAISED` | `FButtonStyling.RAISED`        |
+| `trailingIcon`    | `trailing-icon`    | Defaults at null. When set, the icon will be shown after the text.                                            | `boolean`                                                                                                                   | `false`                        |
 
 
 ## Events
@@ -134,7 +137,6 @@ graph TD;
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
-  kup-autocomplete --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
@@ -146,26 +148,22 @@ graph TD;
   kup-chip --> kup-badge
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
-  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
-  kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
   kup-combobox --> kup-dialog
-  kup-combobox --> kup-badge
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
-  kup-date-picker --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
-  kup-time-picker --> kup-badge
-  kup-image --> kup-spinner
   kup-image --> kup-card
+  kup-image --> kup-image
   kup-image --> kup-dialog
+  kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-spinner --> kup-card
   kup-spinner --> kup-dialog
@@ -181,7 +179,6 @@ graph TD;
   kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
-  kup-checkbox --> kup-badge
   kup-data-table --> kup-card
   kup-data-table --> kup-list
   kup-data-table --> kup-switch

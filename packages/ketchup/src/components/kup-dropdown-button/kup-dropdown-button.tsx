@@ -57,7 +57,7 @@ export class KupDropdownButton {
     /**
      * Custom style of the component.
      * @default ""
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://smeup.github.io/ketchup/#/customization
      */
     @Prop() customStyle: string = '';
     /**
@@ -95,6 +95,11 @@ export class KupDropdownButton {
      * @default ""
      */
     @Prop() label: string = null;
+    /**
+     * When set, the button will show this icon, if icon/image not found.
+     * @default null
+     */
+    @Prop() placeholderIcon: string = null;
     /**
      * Sets how to return the selected item value. Suported values: "code", "description", "both".
      * @default ItemsDisplayMode.CODE
@@ -466,6 +471,7 @@ export class KupDropdownButton {
                 <FButton
                     {...props}
                     icon={this.icon ? this.icon : null}
+                    placeholderIcon={this.placeholderIcon}
                     label={this.label ? this.label : null}
                     trailingIcon={this.trailingIcon ? true : false}
                     wrapperClass="dropdown-button__primary-action"
@@ -484,6 +490,7 @@ export class KupDropdownButton {
                         ? this.icon
                         : 'arrow_drop_down'
                 }
+                placeholderIcon={this.placeholderIcon}
                 label=" "
                 wrapperClass={
                     'dropdown-button__dropdown-action' +

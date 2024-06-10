@@ -65,6 +65,7 @@
     --kup-calendar-today-background-color,
     var(--kup-gray-color-20)
   );
+  --fc-border-color: var(--kup_calendar_border_color);
 
   background-color: var(--kup_calendar_background_color);
   display: block;
@@ -145,8 +146,9 @@
     padding: 0.25rem;
   }
 
-  .fc-daygrid-dot-event .fc-event-title {
+  .fc-event-title {
     white-space: normal;
+    word-break: break-word;
   }
 
   .fc-content,

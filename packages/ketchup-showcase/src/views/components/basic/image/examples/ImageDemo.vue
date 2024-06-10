@@ -74,7 +74,7 @@ export default {
         {
           prop: 'customStyle',
           description:
-            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+            'Custom style of the component. For more information: https://smeup.github.io/ketchup/#/customization',
           type: 'string',
           default: '""',
           try: 'css',
@@ -105,6 +105,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'placeholderResource',
+          description:
+            'An SVG that will be displayed until the image is loaded.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'resource',
           description:
             'The name of the image. It can also contain an URL or a path.',
@@ -128,6 +136,14 @@ export default {
           default: '100%',
           try: 'field',
         },
+        {
+          prop: 'zoomEnable',
+          description:
+            'When set to true, a dialog will be displayed with the same resource set to 100% when image is clicked',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
       ],
     };
   },
@@ -138,8 +154,7 @@ function createComp() {
   comp.badgeData = [
     {
       imageData: {
-        resource:
-          'https://ketchup.smeup.com/ketchup-showcase/header_logo_dark.svg',
+        resource: 'https://smeup.github.io/ketchup/header_logo_dark.svg',
         sizeX: '1.75rem',
         sizeY: 'auto',
       },

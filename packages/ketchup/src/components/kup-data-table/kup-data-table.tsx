@@ -512,7 +512,7 @@ export class KupDataTable {
      */
     @Prop() autoFillMissingCells: boolean = false;
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component. For more information: https://smeup.github.io/ketchup/#/customization
      */
     @Prop() customStyle: string = '';
     /**

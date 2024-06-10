@@ -70,7 +70,7 @@ export class KupButton {
     /**
      * Custom style of the component.
      * @default ""
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://smeup.github.io/ketchup/#/customization
      */
     @Prop() customStyle: string = '';
     /**
@@ -93,6 +93,11 @@ export class KupButton {
      * @default null
      */
     @Prop() label: string = null;
+    /**
+     * When set, the button will show this icon, if icon/image not found.
+     * @default null
+     */
+    @Prop() placeholderIcon: string = null;
     /**
      * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
      * @default FButtonStyling.RAISED
@@ -273,6 +278,7 @@ export class KupButton {
                 : false,
             icon: this.icon,
             iconOff: this.iconOff,
+            placeholderIcon: this.placeholderIcon,
             info: this.rootElement.classList.contains('kup-info')
                 ? true
                 : false,
