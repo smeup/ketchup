@@ -1,11 +1,13 @@
 import { KUL_WRAPPER_ID } from '../../../src/variables/GenericVariables';
 import {
+    KulBadgeEvent,
     KulBadgeProps,
     KulBadgePropsInterface,
 } from '../../../src/components/kul-badge/kul-badge-declarations';
 import { BADGE_EXAMPLES_KEYS } from './../../../src/components/kul-showcase/components/badge/kul-showcase-badge-declarations';
 import { DynamicExampleManager } from '../../../src/components/kul-showcase/kul-showcase-utils';
 import { KulImagePropsInterface } from '../../../src/components';
+import { KulDataCyAttributes } from '../../../src/types/GenericTypes';
 
 const badge = 'badge';
 const badgeCapitalized = badge.charAt(0).toUpperCase() + badge.slice(1);
@@ -105,9 +107,17 @@ describe('CSS Classes', () => {
 });
 
 describe('Events', () => {
-    it(`ready: emission`, () => {
+    it(`click`, () => {
+        cy.navigate(badge);
+        const eventType: KulBadgeEvent = 'click';
+        cy.checkEvent(badge, eventType);
+        cy.get('@eventElement').click();
+        cy.getCyElement(KulDataCyAttributes.CHECK).should('exist');
+    });
+
+    it(`ready`, () => {
         cy.checkReadyEvent(badge);
-        cy.get('#ready-check').should('exist');
+        cy.getCyElement(KulDataCyAttributes.CHECK).should('exist');
     });
 });
 
