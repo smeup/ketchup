@@ -3,6 +3,7 @@ import { CARD_DOC, CARD_EXAMPLES } from './kul-showcase-card-data';
 import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { CardExample } from './kul-showcase-card-declarations';
+import { KulDataCyAttributes } from '../../../../types/GenericTypes';
 
 @Component({
     tag: 'kul-showcase-card',
@@ -101,7 +102,9 @@ export class KulShowcaseCard {
                 <div class="examples-title" part="examples-title">
                     Examples
                 </div>
-                <div data-cy="wrapper">{this.#prepExamples()}</div>
+                <div data-cy={KulDataCyAttributes.SHOWCASE_GRID_WRAPPER}>
+                    {this.#prepExamples()}
+                </div>
             </Fragment>
         );
     }
