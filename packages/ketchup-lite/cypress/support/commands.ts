@@ -7,8 +7,12 @@ import {
 import {
     GenericMap,
     KulComponent,
+    KulDataCyAttributes,
     KulEventPayload,
+    KulEventType,
 } from '../../src/types/GenericTypes';
+import { DataCyAttributeTransformed } from './selectors';
+
 export {};
 
 declare global {
@@ -26,6 +30,7 @@ declare global {
                 componentExamples: Array<string>
             ): Chainable;
             checkDebugInfo(component: string): Chainable;
+            checkEvent(component: string, eventType: KulEventType): Chainable;
             checkProps(
                 component: string,
                 componentProps: GenericMap
@@ -34,12 +39,17 @@ declare global {
                 component: string,
                 componentProps: { [key: string]: any }
             ): Chainable;
-            checkReadyEvent(component: string): Chainable;
+            checkReadyEvent(
+                component: string,
+                eventType?: KulEventType
+            ): Chainable;
             checkRenderCountIncrease(
                 component: string,
                 attempts?: number
             ): Chainable;
             checkKulStyle(): Chainable;
+            findCyElement(dataCy: KulDataCyAttributes): Chainable;
+            getCyElement(dataCy: KulDataCyAttributes): Chainable;
             getKulManager(): Chainable<KulManager>;
             navigate(component: string): Chainable;
         }
@@ -82,9 +92,9 @@ Cypress.Commands.add('checkDebugInfo', (component) => {
     cy.get('@kulComponentShowcase')
         .find(component)
         .first()
-        .then(($article) => {
-            const kulArticleElement = $article[0] as HTMLKulArticleElement;
-            kulArticleElement.getDebugInfo().then((debugInfo) => {
+        .then(($comp) => {
+            const kulElement = $comp[0] as Partial<KulComponent>;
+            kulElement.getDebugInfo().then((debugInfo) => {
                 expect(debugInfo)
                     .to.have.property('endTime')
                     .that.is.a('number');
@@ -102,6 +112,27 @@ Cypress.Commands.add('checkDebugInfo', (component) => {
                     .that.is.a('number');
             });
         });
+});
+
+Cypress.Commands.add('checkEvent', (component, eventType) => {
+    cy.document().then((document) => {
+        const checkEvent = (event: CustomEvent<KulEventPayload>) => {
+            if (
+                event.type === `kul-${component}-event` &&
+                event.detail.eventType === eventType
+            ) {
+                const eventCheck = document.createElement('div');
+                eventCheck.dataset.cy = KulDataCyAttributes.CHECK;
+                document.body.appendChild(eventCheck);
+            }
+        };
+        document.addEventListener(`kul-${component}-event`, checkEvent);
+    });
+    cy.get('@kulComponentShowcase')
+        .find(`kul-${component}`)
+        .first()
+        .scrollIntoView()
+        .as('eventElement');
 });
 
 Cypress.Commands.add('checkKulStyle', () => {
@@ -146,32 +177,34 @@ Cypress.Commands.add('checkPropsInterface', (component, componentProps) => {
         });
 });
 
-Cypress.Commands.add('checkReadyEvent', (component) => {
-    visitManager().visit();
-    visitManager().splashUnmount();
-    const c = cy;
-    cy.document().then((document) => {
-        const eventName = `kul-${component}-event`;
-        const checkEvent = (event: CustomEvent<KulEventPayload>) => {
-            console.log('WE', event);
-            if (
-                event.type === eventName &&
-                event.detail.eventType === 'ready'
-            ) {
-                document.removeEventListener(eventName, checkEvent);
-                const readyCheck = document.createElement('div');
-                readyCheck.id = 'ready-check';
-                document.body.appendChild(readyCheck);
-            }
-        };
-        document.addEventListener(eventName, checkEvent);
-        visitManager().cardClick(component);
-        cy.get('@kulComponentShowcase')
-            .find(`kul-${component}`)
-            .first()
-            .scrollIntoView();
-    });
-});
+Cypress.Commands.add(
+    'checkReadyEvent',
+    (component, eventType: KulEventType = 'ready') => {
+        visitManager().visit();
+        visitManager().splashUnmount();
+        cy.document().then((document) => {
+            const eventName = `kul-${component}-event`;
+            const checkEvent = (event: CustomEvent<KulEventPayload>) => {
+                if (
+                    event.type === eventName &&
+                    event.detail.eventType === eventType
+                ) {
+                    document.removeEventListener(eventName, checkEvent);
+                    const readyCheck = document.createElement('div');
+                    readyCheck.dataset.cy = KulDataCyAttributes.CHECK;
+                    document.body.appendChild(readyCheck);
+                }
+            };
+            document.addEventListener(eventName, checkEvent);
+            visitManager().cardClick(component);
+            cy.get('@kulComponentShowcase')
+                .find(`kul-${component}`)
+                .first()
+                .scrollIntoView();
+            cy.getCyElement(KulDataCyAttributes.CHECK).should('exist');
+        });
+    }
+);
 
 Cypress.Commands.add(
     'checkRenderCountIncrease',
@@ -222,6 +255,18 @@ Cypress.Commands.add(
     }
 );
 
+Cypress.Commands.add(
+    'findCyElement',
+    { prevSubject: 'element' },
+    (subject, dataCy: KulDataCyAttributes) => {
+        cy.wrap(subject).find(transformEnumValue(dataCy) as unknown as string);
+    }
+);
+
+Cypress.Commands.add('getCyElement', (dataCy: KulDataCyAttributes) =>
+    cy.get(transformEnumValue(dataCy) as unknown as string)
+);
+
 Cypress.Commands.add('getKulManager', () => {
     cy.window().then((win) => {
         const dom = win.document.documentElement as KulDom;
@@ -235,6 +280,12 @@ Cypress.Commands.add('navigate', (component) => {
     visitManager().cardClick(component);
 });
 
+function transformEnumValue(
+    key: KulDataCyAttributes
+): DataCyAttributeTransformed {
+    return `[data-cy="${key}"]` as unknown as DataCyAttributeTransformed;
+}
+
 function visitManager() {
     return {
         cardClick: (component: string) => {
@@ -247,11 +298,11 @@ function visitManager() {
                 .should('exist')
                 .click();
             cy.get('@kulShowcase')
-                .shadow()
                 .find('kul-showcase-' + component)
-                .should('exist')
-                .get('[data-cy="wrapper"]')
-                .as('kulComponentShowcase');
+                .should('exist');
+            cy.getCyElement(KulDataCyAttributes.SHOWCASE_GRID_WRAPPER).as(
+                'kulComponentShowcase'
+            );
         },
         splashUnmount: () => {
             cy.window().then((win) => {
