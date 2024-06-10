@@ -6,32 +6,32 @@
   );
   --kup_checkbox_disabled_checkmark_color: var(
     --kup-checkbox-disabled-checkmark-color,
-    var(--kup-gray-color-10)
+    var(--kup-layer-1)
   );
   --kup_checkbox_padding: var(--kup-checkbox-padding, 11px);
   --kup_checkbox_primary_color: var(
     --kup-checkbox-primary-color,
-    var(--kup-gray-color-90)
+    var(--kup-text-primary)
   );
   --kup_checkbox_primary_color_rgb: var(
     --kup-checkbox-primary-color-rgb,
-    var(--kup-gray-color-90-rgb)
+    var(--kup-text-primary-rgb)
   );
   --kup_checkbox_text_color: var(
     --kup-checkbox-text-color,
-    var(--kup-gray-color-90)
+    var(--kup-text-primary)
   );
   --kup_checkbox_text_color_rgb: var(
     --kup-checkbox-text-color-rgb,
-    var(--kup-gray-color-90-rgb)
+    var(--kup-text-primary-rgb)
   );
   --kup_checkbox_text_on_primary_color: var(
     --kup-checkbox-text-on-primary-color,
-    var(--kup-gray-color-10)
+    var(--kup-layer-1)
   );
   --kup_checkbox_text_on_primary_color_rgb: var(
     --kup-checkbox-text-on-primary-color-rgb,
-    var(--kup-gray-color-10-rgb)
+    var(--kup-layer-1-rgb)
   );
 
   @include kup-body-compact-01;

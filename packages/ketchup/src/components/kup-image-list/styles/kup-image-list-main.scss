@@ -55,7 +55,7 @@
   );
   --kup_imagelist_item_background_color: var(
     --kup-imagelist-item-background-color,
-    var(--kup-gray-color-10)
+    var(--kup-layer-1)
   );
 
   display: block;
@@ -128,7 +128,7 @@
   .f-cell {
     height: 100%;
     width: 100%;
-    .f-cell__content{
+    .f-cell__content {
       height: 100%;
     }
     .f-cell__content .image-list__wrapper {
@@ -139,11 +139,11 @@
       position: relative;
       height: 100%;
     }
-    .f-cell__content .image-list__wrapper.images{
+    .f-cell__content .image-list__wrapper.images {
       height: 100%;
       justify-content: flex-end;
 
-      .f-image{
+      .f-image {
         position: unset;
         overflow: auto;
         height: 100%;
@@ -170,12 +170,11 @@
     padding-bottom: 0px;
     box-sizing: border-box;
     width: 100%;
-    height: calc(100% - 16px - var(--kup-space-03)*2);
+    height: calc(100% - 16px - var(--kup-space-03) * 2);
     overflow: hidden;
 
-
     .f-image__icon {
-      mask-size: 100%!important;
+      mask-size: 100% !important;
     }
   }
 
@@ -188,7 +187,6 @@
     @include kup-label-01;
   }
 }
-
 
 @media screen and (min-width: 678px) {
   :host {

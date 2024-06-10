@@ -1164,7 +1164,7 @@ export default {
             ],
           },
         ],
-        color: ['var(--kup-spinner-color)', 'var(--kup-border-color)'],
+        color: ['var(--kup-spinner-color)', 'var(--kup-border-subtle)'],
         combobox: [
           {
             data: {

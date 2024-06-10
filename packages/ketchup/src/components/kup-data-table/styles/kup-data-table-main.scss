@@ -36,7 +36,7 @@
 :host {
   --kup_datatable_background_color: var(
     --kup-datatable-background-color,
-    var(--kup-gray-color-10)
+    var(--kup-layer-1)
   );
   --kup_datatable_background_color_active: var(
     --kup-datatable-background-color-active,
@@ -296,7 +296,7 @@ th {
 
 .header-cell {
   &__content {
-    color: var(--kup-gray-color-90);
+    color: var(--kup-text-primary);
     display: flex;
     justify-content: space-between;
     padding: 0.5em 0.6em;
@@ -322,7 +322,7 @@ th {
   &__icons {
     display: flex;
     .kup-icon {
-      background-color: var(--kup-gray-color-90);
+      background-color: var(--kup-text-primary);
     }
   }
 
@@ -519,7 +519,7 @@ th.obj:hover span:not(.overlay-action) {
   height: 0;
   border-top-left-radius: 25px 30px;
   border-top-right-radius: 25px 30px;
-  background-color: var(--kup-border-color);
+  background-color: var(--kup-border-subtle);
   transition: height 0.25s;
   &.toggled {
     background-color: var(--kup-primary-color);
@@ -555,7 +555,7 @@ th.obj:hover span:not(.overlay-action) {
 .actions-wrapper {
   display: flex;
   justify-content: flex-end;
-  background-color: var(--kup-gray-color-10);
+  background-color: var(--kup-layer-1);
   margin-top: var(--kup-space-03);
   .insert-button,
   .delete-button,

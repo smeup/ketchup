@@ -9,10 +9,7 @@
     var(--kup-gray-color-80)
   );
 
-  --kup_snackbar_text_color: var(
-    --kup-snackbar-text-color,
-    var(--kup-gray-color-10)
-  );
+  --kup_snackbar_text_color: var(--kup-snackbar-text-color, var(--kup-layer-1));
 
   animation: snackbar-show 125ms;
   bottom: 0;

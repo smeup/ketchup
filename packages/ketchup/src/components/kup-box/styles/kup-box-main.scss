@@ -137,7 +137,7 @@
         // collapsible sections
         &.collapse-section {
           .header {
-            border-top: 1px solid var(--kup-border-color);
+            border-top: 1px solid var(--kup-border-subtle);
             color: rgba(var(--kup-text-secondary-rgb), 0.75);
             display: flex;
             justify-content: space-around;
@@ -177,7 +177,7 @@
         }
 
         &.titled {
-          border: 1px solid var(--kup-border-color);
+          border: 1px solid var(--kup-border-subtle);
           padding-top: 5px;
           position: relative;
           margin: 10px;
@@ -219,7 +219,7 @@
 
         .row-action-menu {
           background: var(--kup-background-color);
-          border: 1px solid var(--kup-border-color);
+          border: 1px solid var(--kup-border-subtle);
           box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
           position: absolute;
           top: 0;
@@ -241,7 +241,7 @@
               line-height: 30px;
 
               &:not(:last-child) {
-                border-bottom: 1px solid var(--kup-border-color);
+                border-bottom: 1px solid var(--kup-border-subtle);
               }
             }
           }

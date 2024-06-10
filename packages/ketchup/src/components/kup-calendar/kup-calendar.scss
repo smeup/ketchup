@@ -167,11 +167,11 @@
     border-color: var(--kup_calendar_border_color);
   }
 
-  .fc-theme-standard td,
-  .fc-theme-standard th,
-  .fc-theme-standard .fc-list {
-    border: 1px solid var(--kup_calendar_border_color);
-  }
+  // .fc-theme-standard td,
+  // .fc-theme-standard th,
+  // .fc-theme-standard .fc-list {
+  //   border: 1px solid var(--kup_calendar_border_color);
+  // }
 
   .fc-col-header-cell {
     background: var(--kup_calendar_header_background_color);

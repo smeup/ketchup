@@ -23,7 +23,7 @@
   );
   --kup_tabbar_text_color_active: var(
     --kup-tabbar-text-color-active,
-    var(--kup-gray-color-90)
+    var(--kup-text-primary)
   );
   --kup_tabbar_border_color_dense: var(
     --kup-tabbar-border-color-dense,
@@ -124,7 +124,7 @@
         background: var(--kup-gray-color-20);
         border-right: 1px solid var(--kup_tabbar_border_color_dense);
         &.tab--active {
-          background: var(--kup-gray-color-10);
+          background: var(--kup-layer-1);
         }
         &:hover {
           background: var(--kup-gray-color-30);

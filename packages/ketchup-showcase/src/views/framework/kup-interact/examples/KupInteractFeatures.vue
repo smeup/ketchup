@@ -336,7 +336,7 @@ export default {
 .interact-example {
   align-items: center;
   background: var(--kup-background-color);
-  border: 2px var(--kup-border-color);
+  border: 2px var(--kup-border-subtle);
   box-sizing: border-box;
   display: flex;
   height: 6em;

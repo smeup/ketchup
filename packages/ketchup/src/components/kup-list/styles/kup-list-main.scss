@@ -18,7 +18,7 @@
 :host {
   --kup_list_background_color: var(
     --kup-list-background-color,
-    var(--kup-gray-color-10)
+    var(--kup-layer-1)
   );
   --kup_list_background_color_hover: var(
     --kup-list-background-color-hover,
@@ -33,7 +33,7 @@
   );
   --kup_list_text_color_hover: var(
     --kup-list-text-color-hover,
-    var(--kup-gray-color-90)
+    var(--kup-text-primary)
   );
   --kup_list_font_family: var(--kup-list-font-family, var(--kup-font-family));
   --kup_list_font_size: var(--kup-list-font-size, var(--kup-font-size));

@@ -38,10 +38,10 @@
 }
 
 code.flat {
-  background: var(--kup-gray-color-10);
+  background: var(--kup-layer-1);
   border-radius: var(--kup-radius-00);
   border: 1px solid var(--kup-gray-color-30);
-  color: var(--kup-gray-color-90);
+  color: var(--kup-text-primary);
   display: flex;
   font-family: var(--kup-font-family-monospace);
   font-size: 14px;

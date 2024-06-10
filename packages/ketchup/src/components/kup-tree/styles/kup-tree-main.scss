@@ -43,7 +43,7 @@
   --kup_tree_text_color: var(--kup-tree-text-color, var(--kup-gray-color-70));
   --kup_tree_header_text_color: var(
     --kup-tree-header-text-color,
-    var(--kup-gray-color-90)
+    var(--kup-text-primary)
   );
   --kup_tree_color_rgb: var(--kup-tree-color-rgb, var(--kup-text-color-rgb));
   --kup_tree_font_family: var(--kup-tree-font-family, var(--kup-font-family));
@@ -58,7 +58,7 @@
   --kup_tree_font_size: var(--kup-tree-font-size, var(--kup-font-size));
   --kup_tree_text_hover_color: var(
     --kup-tree-text-hover-color,
-    var(--kup-gray-color-90)
+    var(--kup-text-primary)
   );
   --kup_tree_icon_color: var(--kup-tree-icons-color, var(--kup-gray-color-70));
 
@@ -127,7 +127,7 @@
     }
 
     tbody {
-      background-color: var(--kup-gray-color-10);
+      background-color: var(--kup-layer-1);
       tr {
       }
 
@@ -139,7 +139,7 @@
     }
 
     tfoot {
-      background-color: var(--kup-gray-color-10);
+      background-color: var(--kup-layer-1);
     }
 
     tr,

@@ -252,7 +252,7 @@ export default {
 <style lang="scss" scoped>
 .anchor-point {
   align-items: center;
-  border: 2px var(--kup-border-color);
+  border: 2px var(--kup-border-subtle);
   border-style: inset;
   box-sizing: border-box;
   display: flex;

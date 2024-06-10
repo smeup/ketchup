@@ -37,12 +37,12 @@
 }
 
 #debug-section {
-  border-bottom: 2px solid var(--kup-border-color);
+  border-bottom: 2px solid var(--kup-border-subtle);
   padding-bottom: 1em;
 }
 
 #debug-wrapper {
-  border: 1px solid var(--kup-border-color);
+  border: 1px solid var(--kup-border-subtle);
   padding: 0.5em;
 }
 </style>

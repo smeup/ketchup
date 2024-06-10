@@ -361,8 +361,8 @@
   &.#{$kup-class-neutral} {
     .button {
       --kup_button_background_color: var(--kup-gray-color-70);
-      --kup_button_border_color_focus: var(--kup-gray-color-90);
-      --kup_button_text_color: var(--kup-gray-color-90);
+      --kup_button_border_color_focus: var(--kup-text-primary);
+      --kup_button_text_color: var(--kup-text-primary);
 
       &:hover {
         --kup_button_background_color_hover: var(--kup-gray-color-80);
@@ -392,12 +392,12 @@
         }
 
         &:active {
-          --kup_button_background_color_active: var(--kup-gray-color-90);
+          --kup_button_background_color_active: var(--kup-text-primary);
           --kup_button_text_color: var(--kup-gray-color-0);
         }
 
         &:focus {
-          --kup_button_background_color_focus: var(--kup-gray-color-90);
+          --kup_button_background_color_focus: var(--kup-text-primary);
           --kup_button_text_color: var(--kup-gray-color-0);
         }
 
@@ -415,12 +415,12 @@
         }
 
         &:focus {
-          background-color: var(--kup-gray-color-90);
+          background-color: var(--kup-text-primary);
           color: var(--kup-gray-color-0);
         }
 
         &:active {
-          background-color: var(--kup-gray-color-90);
+          background-color: var(--kup-text-primary);
         }
 
         &.button--disabled {
