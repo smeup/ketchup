@@ -1,33 +1,39 @@
-import { KulDrawerPropsInterface } from '../../../src/components/kul-drawer/kul-drawer-declarations';
+import { KulDebugComponentInfo } from '../../../src/managers/kul-debug/kul-debug-declarations';
 
-describe('kul-drawer', () => {
+const drawer = 'drawer';
+
+describe('Methods', () => {
     beforeEach(() => {
-        cy.navigate('drawer');
+        cy.navigate(drawer);
     });
 
-    it.skip('common: should call getProps and check keys against KulDrawerPropsInterface', () => {
-        cy.get('@kulComponentShowcase')
-            .find('iframe')
-            .should('be.visible')
-            .first()
-            .then(($iframe) => {
-                const iframeDocument = $iframe.contents();
-                const $drawer = iframeDocument.find('kul-drawer');
-                cy.wrap($drawer)
-                    .wait(2000)
-                    .then(($drawer) => {
-                        const drawerElement =
-                            $drawer[0] as unknown as HTMLKulDrawerElement;
-
-                        return drawerElement.getProps();
-                    })
-                    .then((props) => {
-                        const dummy: KulDrawerPropsInterface = {
-                            kulStyle: null,
-                        };
-                        const expectedKeys = Object.keys(dummy);
-                        expect(Object.keys(props)).to.deep.equal(expectedKeys);
-                    });
+    it('getDebugInfo: check the structure of the returned object.', () => {
+        cy.get('iframe').then(($iframe) => {
+            const iframeDocument = $iframe.contents();
+            iframeDocument.find(drawer).each(($el) => {
+                cy.wrap($el).then(($el) => {
+                    const kulDrawerElement: HTMLKulDrawerElement = $el[0];
+                    kulDrawerElement
+                        .getDebugInfo()
+                        .then((debugInfo: KulDebugComponentInfo) => {
+                            expect(debugInfo)
+                                .to.have.property('endTime')
+                                .that.is.a('number');
+                            expect(debugInfo)
+                                .to.have.property('renderCount')
+                                .that.is.a('number');
+                            expect(debugInfo)
+                                .to.have.property('renderEnd')
+                                .that.is.a('number');
+                            expect(debugInfo)
+                                .to.have.property('renderStart')
+                                .that.is.a('number');
+                            expect(debugInfo)
+                                .to.have.property('startTime')
+                                .that.is.a('number');
+                        });
+                });
             });
+        });
     });
 });
