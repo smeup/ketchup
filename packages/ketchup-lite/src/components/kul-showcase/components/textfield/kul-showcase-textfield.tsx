@@ -7,6 +7,7 @@ import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { KulTextfieldStyling } from '../../../kul-textfield/kul-textfield-declarations';
 import { TextfieldExample } from './kul-showcase-textfield-declarations';
+import { KulDataCyAttributes } from '../../../../types/GenericTypes';
 
 @Component({
     tag: 'kul-showcase-textfield',
@@ -114,7 +115,9 @@ export class KulShowcaseTextfield {
                 <div class="examples-title" part="examples-title">
                     Examples
                 </div>
-                <div data-cy="wrapper">{this.#prepExamples()}</div>
+                <div data-cy={KulDataCyAttributes.SHOWCASE_GRID_WRAPPER}>
+                    {this.#prepExamples()}
+                </div>
             </Fragment>
         );
     }
