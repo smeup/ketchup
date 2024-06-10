@@ -21,7 +21,7 @@
   --kup_radio_text_color: var(--kup-radio-text-color, var(--kup-text-primary));
   --kup_radio_text_color_disabled: var(
     --kup-radio-text-color-disabled,
-    var(--kup-gray-color-30)
+    var(--kup-text-disabled)
   );
 
   font-family: var(--kup_radio_font_family);
