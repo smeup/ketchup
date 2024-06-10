@@ -18,11 +18,11 @@
 :host {
   --kup_calendar_background_color: var(
     --kup-calendar-background-color,
-    var(--kup-gray-color-10)
+    var(--kup-layer-1)
   );
   --kup_calendar_border_color: var(
     --kup-calendar-border-color,
-    var(--kup-gray-color-20)
+    var(--kup-border-subtle)
   );
   --kup_calendar_event_background_color: var(
     --kup-calendar-event-background-color,
@@ -34,7 +34,7 @@
   );
   --kup_calendar_event_color: var(
     --kup-calendar-event-color,
-    var(--kup-gray-color-70)
+    var(--kup-text-secondary)
   );
   --kup_calendar_font_family: var(
     --kup-calendar-font-family,
@@ -43,27 +43,31 @@
   --kup_calendar_font_size: var(--kup-calendar-font-size, var(--kup-font-size));
   --kup_calendar_header_background_color: var(
     --kup-calendar-header-background-color,
-    var(--kup-gray-color-20)
+    var(--kup-layer-2)
   );
   --kup_calendar_header_color: var(
     --kup-calendar-header-color,
-    var(--kup-gray-color-70)
+    var(--kup-text-secondary)
   );
   --kup_calendar_navigator_border: var(
     --kup-calendar-navigator-border,
-    1px solid var(--kup-gray-color-20)
+    1px solid var(--kup-border-subtle)
   );
   --kup_calendar_no_work_day_background_color: var(
     --kup-calendar-no-work-day-background-color,
-    var(--kup-gray-color-0)
+    var(--kup-layer-0)
   );
   --kup_calendar_no_work_day_color: var(
     --kup-calendar-no-work-day-color,
-    var(--kup-gray-color-70)
+    var(--kup-text-secondary)
   );
   --kup_calendar_today_background_color: var(
     --kup-calendar-today-background-color,
-    var(--kup-gray-color-20)
+    var(--kup-layer-2)
+  );
+  --kup_calendar_border_top_color: var(
+    --kup-calendar-border-top-color,
+    var(--kup-border-interactive)
   );
   --fc-border-color: var(--kup_calendar_border_color);
 
@@ -216,7 +220,7 @@
 
   td.fc-day-today {
     background-color: var(--kup_calendar_today_background_color);
-    border-top: 2px solid var(--kup-primary-color-60);
+    border-top: 2px solid var(--kup_calendar_border_top_color);
   }
 
   td.fc-day-sun,
