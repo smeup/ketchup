@@ -543,7 +543,7 @@ export class KupList {
     #getIconTag(icon: string, placeholderIcon: string) {
         const large: boolean = this.rootElement.classList.contains('kup-large');
         const propsFImage = {
-            color: `var(--kup-gray-color-70)`,
+            color: `var(--kup-list-fimage-color, var(--kup-text-secondary))`,
             sizeX: large ? '24px' : '16px',
             sizeY: large ? '24px' : '16px',
         };

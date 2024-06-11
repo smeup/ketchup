@@ -6,32 +6,24 @@
   );
   --kup_checkbox_disabled_checkmark_color: var(
     --kup-checkbox-disabled-checkmark-color,
-    var(--kup-gray-color-10)
+    var(--kup-border-disabled)
   );
   --kup_checkbox_padding: var(--kup-checkbox-padding, 11px);
   --kup_checkbox_primary_color: var(
     --kup-checkbox-primary-color,
-    var(--kup-gray-color-90)
-  );
-  --kup_checkbox_primary_color_rgb: var(
-    --kup-checkbox-primary-color-rgb,
-    var(--kup-gray-color-90-rgb)
+    var(--kup-text-primary)
   );
   --kup_checkbox_text_color: var(
     --kup-checkbox-text-color,
-    var(--kup-gray-color-90)
-  );
-  --kup_checkbox_text_color_rgb: var(
-    --kup-checkbox-text-color-rgb,
-    var(--kup-gray-color-90-rgb)
+    var(--kup-text-primary)
   );
   --kup_checkbox_text_on_primary_color: var(
     --kup-checkbox-text-on-primary-color,
-    var(--kup-gray-color-10)
+    var(--kup-layer-1)
   );
-  --kup_checkbox_text_on_primary_color_rgb: var(
-    --kup-checkbox-text-on-primary-color-rgb,
-    var(--kup-gray-color-10-rgb)
+  --kup_checkbox_text_disabled: var(
+    --kup-checkbox-text-disabled,
+    var(--kup-text-disabled)
   );
 
   @include kup-body-compact-01;
@@ -84,7 +76,7 @@
     transition: background-color 125ms linear;
 
     &:hover {
-      background: rgba(var(--kup_checkbox_primary_color_rgb), 0.125);
+      // background: rgba(--kup_checkbox_disabled_checkmark_color, 0.5);
 
       label {
         color: var(--kup_checkbox_primary_color);
@@ -129,7 +121,7 @@
       box-sizing: border-box;
       width: 18px;
       height: 18px;
-      border: 1px solid rgba(var(--kup_checkbox_text_color_rgb), 1);
+      border: 1px solid var(--kup_checkbox_text_color);
       border-radius: 2px;
       background-color: transparent;
       pointer-events: none;
@@ -193,20 +185,21 @@
 
     &.checkbox--disabled {
       pointer-events: none;
+      cursor: not-allowed;
 
       + label {
         pointer-events: none;
-        color: rgba(var(--kup_checkbox_text_color_rgb), 0.325);
+        color: var(--kup_checkbox_text_disabled);
       }
 
       .checkbox__background {
         background-color: transparent;
-        border-color: rgba(var(--kup_checkbox_text_color_rgb), 0.325);
+        border-color: var(--kup_checkbox_disabled_checkmark_color);
       }
 
       &.checkbox--checked {
         .checkbox__background {
-          background-color: rgba(var(--kup_checkbox_text_color_rgb), 0.325);
+          background-color: var(--kup_checkbox_disabled_checkmark_color);
           border-color: transparent;
         }
 

@@ -1,18 +1,20 @@
 :host {
   --kup_snackbar_border_left_color: var(
     --kup-snackbar-border-left-color,
-    var(--kup-primary-color-60)
+    var(--kup-border-interactive)
   );
 
   --kup_snackbar_background_color: var(
     --kup-snackbar-background-color,
-    var(--kup-gray-color-80)
+    var(--kup-layer-0-inverted)
   );
 
   --kup_snackbar_text_color: var(
     --kup-snackbar-text-color,
-    var(--kup-gray-color-10)
+    var(--kup-text-primary-inverted)
   );
+
+  --kup_snackbar_text_color: var(--kup-snackbar-text-color, var(--kup-layer-1));
 
   animation: snackbar-show 125ms;
   bottom: 0;
@@ -45,7 +47,7 @@
 .snackbar {
   align-items: center;
   background-color: var(--kup_snackbar_background_color);
-  color: var(--kup-navbar-color);
+  color: var(--kup_snackbar_text_color);
   display: flex;
   justify-content: space-between;
   max-width: 672px;

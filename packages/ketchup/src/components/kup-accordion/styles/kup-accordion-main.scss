@@ -18,7 +18,7 @@
 :host {
   --kup_accordion_border_top_color: var(
     --kup-accordion-border-top-color,
-    var(--kup-gray-color-20)
+    var(--kup-border-subtle)
   );
   --kup_accordion_item_small_height: var(
     --kup-accordion-item-small-height,
@@ -30,7 +30,7 @@
   );
   --kup_accordion_item_outline_color_active: var(
     --kup-accordion-item-outline-color-focus,
-    var(--kup-primary-color-60)
+    var(--kup-border-interactive)
   );
   --kup_accordion_item_large_height: var(
     --kup-accordion-item-medium-height,
@@ -38,11 +38,11 @@
   );
   --kup_accordion_header_background_color: var(
     --kup-accordion-header-background-color,
-    var(--kup-gray-color-0)
+    var(--kup-layer-0)
   );
   --kup_accordion_header_background_color_hover: var(
     --kup-accordion-header-background-color-hover,
-    var(--kup-gray-color-20)
+    var(--kup-layer-0-hover)
   );
   --kup_accordion_header_padding: var(
     --kup-accordion-header-padding,
@@ -50,7 +50,7 @@
   );
   --kup_accordion_dropdown_icon_color: var(
     --kup-accordio-dropdown-icon-color,
-    var(--kup-gray-color-90)
+    var(--kup-text-primary)
   );
   --kup_accordion_transition: var(--kup-accordion-transition, 80ms);
 

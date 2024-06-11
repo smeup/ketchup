@@ -9,7 +9,7 @@
 
   .section-1 {
     display: inline-flex;
-    border-bottom: 1px solid var(--kup-border-color);
+    border-bottom: 1px solid var(--kup-border-subtle);
     width: 100%;
     kup-button {
       margin: 0;
@@ -20,7 +20,7 @@
     display: flex;
     flex-direction: column;
     &.has-content {
-      border-bottom: 1px solid var(--kup-border-color);
+      border-bottom: 1px solid var(--kup-border-subtle);
       padding: var(--kup-space-05);
     }
     kup-date-picker:first-of-type,

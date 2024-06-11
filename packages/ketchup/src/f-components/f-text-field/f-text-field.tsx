@@ -230,11 +230,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                         class="mdc-text-field__input"
                         disabled={props.disabled}
                         readOnly={props.readOnly}
-                        placeholder={
-                            props.fullWidth && !props.outlined
-                                ? props.label
-                                : undefined
-                        }
+                        placeholder={props.placeholder}
                         maxlength={props.maxLength}
                         size={props.size}
                         value={value}

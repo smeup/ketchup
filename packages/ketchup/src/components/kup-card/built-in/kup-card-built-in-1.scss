@@ -1,8 +1,8 @@
 .built-in-layout-1 {
-  --kup_card_text_color: var(--kup-card-text-color, var(--kup-gray-color-90));
+  --kup_card_text_color: var(--kup-card-text-color, var(--kup-text-primary));
   --kup_card_background_color: var(
     --kup-card-background-color,
-    var(--kup-gray-color-10)
+    var(--kup-layer-1)
   );
   --kup_card_selected_color: var(
     --kup-card-selected-color,
@@ -10,7 +10,7 @@
   );
   --kup_card_selected_color_hover: var(
     --kup-card-selected-color-hover,
-    var(--kup-gray-color-30)
+    var(--kup-layer-1-hover)
   );
   --kup_card_box_shadow: var(
     --kup-box-shadow,

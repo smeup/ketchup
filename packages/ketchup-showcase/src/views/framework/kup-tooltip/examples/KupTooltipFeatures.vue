@@ -345,7 +345,7 @@ export default {
 
 <style lang="scss" scoped>
 .anchor-point {
-  border: 1px solid var(--kup-border-color);
+  border: 1px solid var(--kup-border-subtle);
   border-radius: 4px;
   margin: 1em auto;
   max-width: 100%;

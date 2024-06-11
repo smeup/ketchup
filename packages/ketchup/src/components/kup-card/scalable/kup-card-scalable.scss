@@ -10,7 +10,15 @@
 @import 'kup-card-scalable-10.scss';
 
 .scalable-card {
-  background-color: var(--kup-gray-color-10);
+  --kup_card_text_color: var(--kup-card-text-color, var(--kup-text-secondary));
+  --kup_card_background_color: var(
+    --kup-card-background-color,
+    var(--kup-layer-1)
+  );
+
+  background-color: var(--kup_card_background_color);
+  color: var(--kup_card_text_color);
+
   align-items: center;
   border-radius: var(--kup-space-00);
   display: flex;
@@ -29,5 +37,4 @@
   width: 100%;
   box-sizing: border-box;
   padding: var(--kup-space-03);
-  color: var(--kup-gray-color-70);
 }

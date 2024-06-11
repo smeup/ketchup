@@ -17,39 +17,49 @@
 :host {
   --kup_tree_header_background_color: var(
     --kup-tree-header-background-color,
-    var(--kup-gray-color-20)
+    var(--kup-layer-2)
+  );
+
+  --kup_tree_body_background_color: var(
+    --kup-tree-body-background-color,
+    var(--kup-layer-1)
+  );
+
+  --kup_tree_body_background_color_hover: var(
+    --kup-tree-body-background-color-hover,
+    var(--kup-layer-1-hover)
   );
 
   --kup_tree_border_color: var(
     --kup-tree-border-color,
-    var(--kup-gray-color-20)
+    var(--kup-border-subtle)
   );
 
   --kup_tree_tr_outline_color: var(
     --kup-tree-tr-outline-color,
-    var(--kup-primary-color-60)
+    var(--kup-border-interactive)
   );
 
   --kup_tree_tr_background_color_hover: var(
     --kup-tree-tr-background-color-hover,
-    var(--kup-gray-color-20)
+    var(--kup-layer-1-hover)
   );
 
   --kup_tree_tr_background_color_focus: var(
     --kup-tree-tr-background-color-focus,
-    var(--kup-gray-color-30)
+    var(--kup-layer-1-selected)
   );
 
-  --kup_tree_text_color: var(--kup-tree-text-color, var(--kup-gray-color-70));
+  --kup_tree_text_color: var(--kup-tree-text-color, var(--kup-text-secondary));
   --kup_tree_header_text_color: var(
     --kup-tree-header-text-color,
-    var(--kup-gray-color-90)
+    var(--kup-text-primary)
   );
   --kup_tree_color_rgb: var(--kup-tree-color-rgb, var(--kup-text-color-rgb));
   --kup_tree_font_family: var(--kup-tree-font-family, var(--kup-font-family));
   --kup_tree_filter_background_color: var(
     --kup-tree-filter-background-color,
-    var(--kup-background-color)
+    var(--kup-layer-1)
   );
   --kup_tree_font_family_monospace: var(
     --kup-tree-font-family-monospace,
@@ -58,9 +68,9 @@
   --kup_tree_font_size: var(--kup-tree-font-size, var(--kup-font-size));
   --kup_tree_text_hover_color: var(
     --kup-tree-text-hover-color,
-    var(--kup-gray-color-90)
+    var(--kup-text-primary)
   );
-  --kup_tree_icon_color: var(--kup-tree-icons-color, var(--kup-gray-color-70));
+  --kup_tree_icon_color: var(--kup-tree-icons-color, var(--kup-text-secondary));
 
   display: block;
   font-family: var(--kup_tree_font_family);
@@ -127,7 +137,7 @@
     }
 
     tbody {
-      background-color: var(--kup-gray-color-10);
+      background-color: var(--kup_tree_body_background_color);
       tr {
       }
 
@@ -139,7 +149,7 @@
     }
 
     tfoot {
-      background-color: var(--kup-gray-color-10);
+      background-color: var(--kup_tree_body_background_color);
     }
 
     tr,
@@ -238,10 +248,7 @@
       }
 
       &--selected:not(.kup-tree__node--disabled) td {
-        // outline-offset: -2px;
         background-color: var(--kup_tree_tr_background_color_focus);
-        // outline: 2px solid var(--kup_tree_tr_outline_color);
-        // border-left: 4px solid var(--kup_tree_tr_outline_color);
       }
     }
 
@@ -308,7 +315,7 @@ tfoot {
     font-weight: bold;
     padding: 0.5em 0.3125em;
     &:hover {
-      background-color: var(--kup-background-color);
+      background-color: var(--kup_tree_body_background_color_hover);
     }
     &:first-of-type {
       border: none;

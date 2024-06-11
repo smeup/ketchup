@@ -6,7 +6,7 @@
 :host {
   --kup_photoframe_border: var(
     --kup-photoframe-border,
-    1px inset var(--kup-border-color)
+    1px inset var(--kup-border-subtle)
   );
   --kup_photoframe_fade_out_time: var(--kup-photoframe-fade-out-time, 2000ms);
 

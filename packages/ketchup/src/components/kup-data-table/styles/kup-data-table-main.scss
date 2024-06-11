@@ -36,15 +36,19 @@
 :host {
   --kup_datatable_background_color: var(
     --kup-datatable-background-color,
-    var(--kup-gray-color-10)
+    var(--kup-layer-1)
   );
-  --kup_datatable_background_color_active: var(
-    --kup-datatable-background-color-active,
-    var(--kup-gray-color-20)
+  --kup_datatable_th_background_color: var(
+    --kup-datatable-th-background-color,
+    var(--kup-layer-2)
+  );
+  --kup_datatable_background_color_selected: var(
+    --kup-datatable-background-color-selected,
+    var(--kup-layer-1-selected)
   );
   --kup_datatable_border: var(
     --kup-datatable-border-color,
-    1px solid var(--kup-gray-color-20)
+    1px solid var(--kup-border-subtle)
   );
   --kup_datatable_font_family: var(
     --kup-datatable-font-family,
@@ -60,7 +64,7 @@
   );
   --kup_datatable_th_border: var(
     --kup-datatable-th-border,
-    1px solid var(--kup-gray-color-30)
+    1px solid var(--kup-border-subtle)
   );
   --kup_datatable_th_resize_handle_width: var(
     --kup-datatable-th-resize-handle-width,
@@ -69,12 +73,13 @@
 
   --kup_datatable_background_color_hover: var(
     --kup-datatable-background-color-hover,
-    var(--kup-gray-color-20)
+    var(--kup-layer-1-hover)
   );
   --kup_datatable_text_color_hover: var(
     --kup-datatable-background-color-hover,
-    var(--kup-gray-color-80)
+    var(--kup-text-primary)
   );
+  --kup_card_text_color: var(--kup-card-text-color, var(--kup-text-secondary));
 
   display: block;
   font-family: var(--kup_datatable_font_family);
@@ -102,7 +107,7 @@ table {
   background-color: var(--kup_datatable_background_color);
   border-spacing: 0; // [TFixed-1]
   border-collapse: separate; // [TFixed-1]
-  color: var(--kup-gray-color-70);
+  color: var(--kup_card_text_color);
   min-width: intrinsic; /* Safari/WebKit uses a non-standard name */
   min-width: -moz-max-content; /* Firefox/Gecko */
   min-width: -webkit-max-content; /* Chrome */
@@ -120,7 +125,7 @@ table {
     &[#{$kup-dd-drag-over}] {
       td {
         &:first-of-type {
-          box-shadow: inset 4px 0px 0px 0px var(--kup-gray-color-30);
+          box-shadow: inset 4px 0px 0px 0px var(--kup_datatable_th_border);
         }
       }
     }
@@ -280,7 +285,7 @@ table {
 }
 
 th {
-  background-color: var(--kup-gray-color-20);
+  background-color: var(--kup_datatable_th_background_color);
   border: var(--kup_datatable_th_border);
   border-left: 0 none; // Important: only the first cell must have the border left, otherwise the th will have a visual 2px border between each other.
   box-sizing: border-box;
@@ -296,7 +301,7 @@ th {
 
 .header-cell {
   &__content {
-    color: var(--kup-gray-color-90);
+    color: var(--kup-text-primary);
     display: flex;
     justify-content: space-between;
     padding: 0.5em 0.6em;
@@ -322,7 +327,7 @@ th {
   &__icons {
     display: flex;
     .kup-icon {
-      background-color: var(--kup-gray-color-90);
+      background-color: var(--kup-text-primary);
     }
   }
 
@@ -375,7 +380,7 @@ tbody {
 
     &.selected {
       td {
-        background-color: var(--kup_datatable_background_color_active);
+        background-color: var(--kup_datatable_background_color_selected);
       }
     }
 
@@ -388,9 +393,9 @@ tbody {
 
     // grouping
     &.group {
-      background: var(--kup-gray-color-20);
+      background: var(--kup-layer-3);
       border-top: var(--kup_datatable_border);
-      color: var(--kup-gray-color-70);
+      color: var(--kup-text-secondary);
       font-weight: bold;
       cursor: pointer;
 
@@ -418,7 +423,7 @@ tbody {
             @include kup-heading-compact-01;
           }
           & .kup-icon {
-            background-color: var(--kup-gray-color-70);
+            background-color: var(--kup-text-secondary);
           }
         }
 
@@ -427,7 +432,7 @@ tbody {
           padding: 0.5em 0.6em;
 
           &.negative-number {
-            color: var(--kup-danger-color);
+            color: var(--kup-danger-color-60);
           }
         }
       }
@@ -499,7 +504,7 @@ th.obj:hover span:not(.overlay-action) {
     text-overflow: ellipsis;
     transition: color 200ms;
     &:hover {
-      color: var(--kup-gray-color-70);
+      color: var(--kup-text-secondary);
     }
   }
 }
@@ -519,7 +524,7 @@ th.obj:hover span:not(.overlay-action) {
   height: 0;
   border-top-left-radius: 25px 30px;
   border-top-right-radius: 25px 30px;
-  background-color: var(--kup-border-color);
+  background-color: var(--kup-border-subtle);
   transition: height 0.25s;
   &.toggled {
     background-color: var(--kup-primary-color);
@@ -555,7 +560,7 @@ th.obj:hover span:not(.overlay-action) {
 .actions-wrapper {
   display: flex;
   justify-content: flex-end;
-  background-color: var(--kup-gray-color-10);
+  background-color: var(--kup-layer-1);
   margin-top: var(--kup-space-03);
   .insert-button,
   .delete-button,

@@ -1,16 +1,21 @@
 .built-in-layout-5 {
   --kup_card_background_color: var(
     --kup-card-background-color,
-    var(--kup-gray-color-10)
+    var(--kup-layer-1)
+  );
+  --kup_card_background_color_hover: var(
+    --kup-card-background-color-hover,
+    var(--kup-layer-1-hover)
   );
   --kup_card_box_shadow: var(
     --kup-box-shadow,
     0px 3px 6px 0 rgba(0, 0, 0, 0.3)
   );
-  --kup-card_border_color: var(
+  --kup_card_border_color: var(
     --kup-card-border-color,
-    var(--kup-gray-color-20)
+    var(--kup-border-subtle)
   );
+  --kup_card_text_color: var(--kup-card-text-color, var(--kup-text-secondary));
   background: var(--kup_card_background_color);
   box-shadow: var(--kup_card_box_shadow);
   box-sizing: border-box;
@@ -23,8 +28,8 @@
     > tr > td {
       > div.value {
         text-align: right;
-        color: var(--kup-text-color, var(--kup-gray-color-70));
-        border-bottom: 1px solid var(--kup-card_border_color);
+        color: var(--kup_card_text_color);
+        border-bottom: 1px solid var(--kup_card_border_color);
         min-height: 1.5em;
       }
 
@@ -44,7 +49,7 @@
         text-transform: capitalize;
 
         &:hover {
-          background-color: var(--kup-gray-color-30);
+          background-color: var(--kup_card_background_color_hover);
         }
       }
     }

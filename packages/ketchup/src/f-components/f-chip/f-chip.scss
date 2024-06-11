@@ -1,11 +1,11 @@
 .f-chip {
   --kup_chip_background_color: var(
     --kup-chip-background-color,
-    var(--kup-gray-color-30)
+    var(--kup-layer-3)
   );
   --kup_chip_border_color: var(
     --kup-chip-border-color,
-    var(--kup-gray-color-80)
+    var(--kup-border-strong)
   );
   --kup_chip_border_radius: var(
     --kup-chip-border-radius,
@@ -21,13 +21,13 @@
   --kup_chip_padding: var(--kup-chip-padding, var(--kup-space-03));
   --kup_chip_primary_color: var(
     --kup-chip-primary-color,
-    var(--kup-gray-color-80)
+    var(--kup-text-primary)
   );
   --kup_chip_primary_color_rgb: var(
     --kup-chip-primary-color-rgb,
     var(--kup-primary-color-rgb)
   );
-  --kup_chip_text_color: var(--kup-chip-text-color, var(--kup-gray-color-80));
+  --kup_chip_text_color: var(--kup-chip-text-color, var(--kup-text-primary));
   --kup_chip_text_color_rgb: var(
     --kup-chip-text-color-rgb,
     var(--kup-text-color-rgb)

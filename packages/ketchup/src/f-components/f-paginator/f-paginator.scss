@@ -1,5 +1,5 @@
 .f-paginator {
-  background-color: var(--kup-gray-color-10);
+  background-color: var(--kup-layer-1);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -7,7 +7,7 @@
 
   .load-more-button {
     padding: 0;
-    border-right: 1px solid var(--kup-gray-color-30);
+    border-right: 1px solid var(--kup-border-subtle);
     flex: 2;
     button {
       width: 100%;
@@ -24,13 +24,13 @@
 
     &.page-selector {
       padding: 0 var(--kup-space-05);
-      border-right: 1px solid var(--kup-gray-color-30);
+      border-right: 1px solid var(--kup-border-subtle);
       flex: 2;
     }
 
     &.rows-selector {
       padding: 0 var(--kup-space-05);
-      border-right: 1px solid var(--kup-gray-color-30);
+      border-right: 1px solid var(--kup-border-subtle);
       flex: 2;
     }
   }
@@ -59,6 +59,6 @@
     border-right: none;
   }
   .load-more-button {
-    border-left: 1px solid var(--kup-gray-color-30);
+    border-left: 1px solid var(--kup-border-subtle);
   }
 }

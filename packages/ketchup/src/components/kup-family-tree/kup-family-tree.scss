@@ -12,7 +12,7 @@
 :host {
   --kup_familytree_item_background_color: var(
     --kup-layer-1,
-    var(--kup-gray-color-10)
+    var(--kup-layer-1)
   );
   --kup_familytree_border_color: var(
     --kup-familytree-border-color,
@@ -34,7 +34,7 @@
   --kup_familytree_item_width: var(--kup-familytree-item-width, 280px);
   --kup_familytree_lines_color: var(
     --kup-familytree-lines-color,
-    var(--kup-border-color)
+    var(--kup-border-subtle)
   );
 
   display: block;

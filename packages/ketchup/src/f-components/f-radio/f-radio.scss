@@ -4,7 +4,7 @@
   --kup_radio_font_weight: var(--kup-radio-font-weight, 400);
   --kup_radio_outer_circle_color: var(
     --kup-radio-outer-circle-color,
-    var(--kup-gray-color-90)
+    var(--kup-text-primary)
   );
   --kup_radio_focus_color: var(
     --kup-radio-focus-color,
@@ -12,16 +12,16 @@
   );
   --kup_radio_primary_color: var(
     --kup-radio-primary-color,
-    var(--kup-gray-color-90)
+    var(--kup-text-primary)
   );
   --kup_radio_primary_color_rgb: var(
     --kup-radio-primary-color-rgb,
-    var(--kup-gray-color-90-rgb)
+    var(--kup-text-primary-rgb)
   );
-  --kup_radio_text_color: var(--kup-radio-text-color, var(--kup-gray-color-90));
+  --kup_radio_text_color: var(--kup-radio-text-color, var(--kup-text-primary));
   --kup_radio_text_color_disabled: var(
     --kup-radio-text-color-disabled,
-    var(--kup-gray-color-30)
+    var(--kup-text-disabled)
   );
 
   font-family: var(--kup_radio_font_family);
@@ -147,8 +147,8 @@
       }
 
       &.radio--disabled {
-        --kup_radio_outer_circle_color: var(--kup-gray-color-30);
-        --kup_radio_text_color: var(--kup-gray-color-30);
+        --kup_radio_outer_circle_color: var(--kup-border-disabled);
+        --kup_radio_text_color: var(--kup-text-disabled);
         pointer-events: none;
 
         + label {

@@ -8,20 +8,28 @@
   .f-text-field {
     --kup_textfield_background_color_rgb: var(
       --kup-textfield-background-color-rgb,
-      var(--kup-gray-color-10-rgb)
+      var(--kup-layer-1)
+    );
+    --kup_textfield_background_color: var(
+      --kup-textfield-background-color,
+      var(--kup-layer-1)
+    );
+    --kup_textfield_background_color_hover: var(
+      --kup-textfield-background-color-hover,
+      var(--kup-layer-1-hover)
     );
     --kup_textfield_border_color: var(
       --kup-textfield-border-color,
-      var(--kup-gray-color-50)
+      var(--kup-border-strong)
     );
-    --kup_textfield_color: var(--kup-textfield-color, var(--kup-gray-color-90));
+    --kup_textfield_border_color_hover: var(
+      --kup-textfield-border-color-hover,
+      var(--kup-border-interactive)
+    );
+    --kup_textfield_color: var(--kup-textfield-color, var(--kup-text-primary));
     --kup_textfield_label_color: var(
       --kup-textfield-label-color,
-      var(--kup-gray-color-70)
-    );
-    --kup_textfield_color_rgb: var(
-      --kup-textfield-color-rgb,
-      var(--kup-text-color-rgb)
+      var(--kup-text-secondary)
     );
     --kup_textfield_fullwidth_height: var(
       --kup-textfield-fullwidth-height,
@@ -44,18 +52,10 @@
     );
     --kup_textfield_primary_color: var(
       --kup-textfield-primary-color,
-      var(--kup-primary-color-60)
-    );
-    --kup_textfield_primary_color_rgb: var(
-      --kup-textfield-primary-color-rgb,
-      var(--kup-primary-color-rgb)
+      var(--kup-text-main)
     );
     --kup_textfield_text_align: var(--kup-textfield-text-align, start);
     --kup_textfield_width: var(--kup-textfield-width, 100%);
-    --kup_disabled_background_color_rgb: var(
-      --kup-disabled-background-color-rgb,
-      var(--kup-disabled-color-rgb)
-    );
     --mdc-theme-primary: var(--kup_textfield_primary_color);
     --mdc-shape-small: 0px;
 
@@ -91,6 +91,9 @@
         @include kup-body-compact-01;
         padding: 6px 0px;
       }
+      .mdc-text-field__input::placeholder {
+        opacity: 1;
+      }
     }
 
     .mdc-quantity-buttons {
@@ -107,7 +110,7 @@
         align-items: center;
 
         &:hover {
-          background-color: var(--kup-gray-color-20);
+          background-color: var(kup_textfield_background_color);
         }
 
         &:focus {
@@ -123,7 +126,7 @@
           content: '';
           width: 1px;
           height: 50%;
-          background-color: var(--kup-gray-color-20);
+          background-color: var(--kup_textfield_background_color);
           position: absolute;
           top: 50%;
           right: -0.5px;
@@ -147,7 +150,7 @@
       outline: 2px solid transparent;
       outline-offset: -2px;
       border-bottom: 1px solid var(--kup_textfield_border_color);
-      background: rgb(var(--kup_textfield_background_color_rgb));
+      background-color: var(--kup_textfield_background_color_rgb);
       align-items: center;
       padding: 0px var(--kup-space-05);
 
@@ -166,7 +169,7 @@
         pointer-events: all;
 
         &.#{$kup-icon-clear}:hover {
-          background-color: var(--kup-danger-color);
+          background-color: var(--kup-danger-color-60);
         }
       }
 
@@ -178,8 +181,8 @@
       }
 
       &.mdc-text-field--read-only {
-        --kup_textfield_border_color: var(--kup-gray-color-30);
-        --kup_textfield_background_color_rgb: var(--kup-gray-color-0);
+        --kup_textfield_border_color: var(--kup-border-disabled);
+        --kup_textfield_background_color_rgb: var(--kup-layer-0);
         pointer-events: none;
         .#{$kup-icon},
         button {
@@ -204,8 +207,7 @@
       }
 
       &.mdc-text-field--focused:not(.mdc-text-field--disabled) {
-        // border: 1px solid var(--kup_textfield_primary_color);
-        outline: 2px solid var(--kup_textfield_primary_color);
+        outline: 2px solid var(--kup_textfield_border_color_hover);
       }
 
       &.mdc-text-field--filled:not(.mdc-text-field--disabled)
@@ -324,7 +326,7 @@
         }
 
         &:not(.mdc-text-field--disabled) {
-          background-color: rgb(var(--kup_textfield_background_color_rgb));
+          background-color: var(--kup_textfield_background_color_rgb);
         }
       }
 
@@ -385,8 +387,7 @@
       }
 
       &.mdc-text-field--error {
-        // border: 1px solid var(--kup-danger-color);
-        outline: 2px solid var(--kup-danger-color);
+        outline: 2px solid var(--kup-danger-color-60);
       }
 
       &.mdc-text-field--textarea {
@@ -434,7 +435,7 @@
         }
 
         &.mdc-text-field--read-only {
-          --kup_textfield_border_color: var(--kup-gray-color-30);
+          --kup_textfield_border_color: var(--kup-border-disabled);
           pointer-events: none;
           .#{$kup-icon},
           button {
@@ -462,7 +463,7 @@
     }
 
     .mdc-error-message {
-      color: var(--kup-danger-color);
+      color: var(--kup-danger-color-60);
     }
 
     .mdc-label-container {
@@ -526,13 +527,13 @@
     }
 
     &.#{$kup-class-danger} {
-      --kup-textfield-primary-color: var(--kup-danger-color);
-      --kup-textfield-primary-color-rgb: var(--kup-danger-color-rgb);
+      --kup-textfield-primary-color: var(--kup-danger-color-60);
+      --kup-textfield-primary-color-rgb: var(--kup-danger-color-60-rgb);
     }
 
     &.#{$kup-class-info} {
-      --kup-textfield-primary-color: var(--kup-info-color);
-      --kup-textfield-primary-color-rgb: var(--kup-info-color-rgb);
+      --kup-textfield-primary-color: var(--kup-info-color-50);
+      --kup-textfield-primary-color-rgb: var(--kup-info-color-50-rgb);
     }
 
     &.#{$kup-class-secondary} {
@@ -541,13 +542,13 @@
     }
 
     &.#{$kup-class-success} {
-      --kup-textfield-primary-color: var(--kup-success-color);
-      --kup-textfield-primary-color-rgb: var(--kup-success-color-rgb);
+      --kup-textfield-primary-color: var(--kup-success-color-60);
+      --kup-textfield-primary-color-rgb: var(--kup-success-color-60-rgb);
     }
 
     &.#{$kup-class-warning} {
-      --kup-textfield-primary-color: var(--kup-warning-color);
-      --kup-textfield-primary-color-rgb: var(--kup-warning-color-rgb);
+      --kup-textfield-primary-color: var(--kup-warning-40-color);
+      --kup-textfield-primary-color-rgb: var(--kup-warning-color-40-rgb);
     }
 
     .#{$kup-icon}.#{$kup-icon-clear} {
@@ -558,6 +559,9 @@
     .#{$kup-icon}.#{$kup-icon-search} {
       -webkit-mask: var(--kup-search-icon);
       mask: var(--kup-search-icon);
+    }
+    .mdc-text-field__input::placeholder {
+      opacity: 1;
     }
   }
 }

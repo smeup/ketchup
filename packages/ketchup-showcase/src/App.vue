@@ -1115,7 +1115,7 @@ label {
 }
 
 .version {
-  border-top: 1px solid var(--kup-border-color);
+  border-top: 1px solid var(--kup-border-subtle);
   box-sizing: border-box;
   font-weight: 600;
   margin-top: auto;
@@ -1215,7 +1215,7 @@ a.footer__icon--trailing {
 #rasterize-viewer {
   background: var(--kup-background-color);
   bottom: 0;
-  border: 1px solid var(--kup-border-color);
+  border: 1px solid var(--kup-border-subtle);
   height: 30vh;
   overflow: auto;
   position: fixed;

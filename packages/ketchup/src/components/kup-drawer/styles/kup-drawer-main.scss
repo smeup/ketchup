@@ -17,15 +17,15 @@
 
   --kup_drawer_slotted_color: var(
     --kup-drawer-slotted-color,
-    var(--kup-gray-color-70)
+    var(--kup-text-secondary)
   );
   --kup_drawer_background_color: var(
     --kup-drawer-background-color,
-    var(--kup-gray-color-10)
+    var(--kup-layer-1)
   );
   --kup_drawer_permanent_border: var(
     --kup-drawer-permanent-border,
-    1px solid var(--kup-border-color)
+    1px solid var(--kup-border-subtle)
   );
   --kup_drawer_slide_transition: var(--kup-drawer-slide-transition, 300ms);
   --kup_drawer_transition: var(--kup-drawer-transition, 250ms);

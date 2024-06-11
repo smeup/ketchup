@@ -18,19 +18,19 @@
   );
   --kup_progressbar_text_color: var(
     --kup-progressbar-text-color,
-    var(--kup-gray-color-70)
+    var(--kup-text-secondary)
   );
   --kup_progressbar_text_color_rgb: var(
     --kup-progressbar-text-color-rgb,
-    var(--kup-text-color-70-rgb)
+    var(--kup-text-secondary-rgb)
   );
   --kup_progressbar_activebar_text_color: var(
     --kup-progressbar-text-on-primary-color,
-    var(--kup-gray-color-10)
+    var(--kup-layer-1)
   );
   --kup_progressbar_track_background_color: var(
     --kup-progressbar-track-background-color,
-    var(--kup-gray-color-20)
+    var(--kup-layer-3)
   );
   --kup_progressbar_width: var(--kup-progressbar-width, 100%);
 
