@@ -147,8 +147,8 @@
       }
 
       &.radio--disabled {
-        --kup_radio_outer_circle_color: var(--kup-gray-color-30);
-        --kup_radio_text_color: var(--kup-gray-color-30);
+        --kup_radio_outer_circle_color: var(--kup-border-disabled);
+        --kup_radio_text_color: var(--kup-text-disabled);
         pointer-events: none;
 
         + label {

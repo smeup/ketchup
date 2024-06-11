@@ -64,7 +64,7 @@
   );
   --kup_datatable_th_border: var(
     --kup-datatable-th-border,
-    1px solid var(--kup-gray-color-30)
+    1px solid var(--kup-border-subtle)
   );
   --kup_datatable_th_resize_handle_width: var(
     --kup-datatable-th-resize-handle-width,
@@ -79,6 +79,7 @@
     --kup-datatable-background-color-hover,
     var(--kup-text-primary)
   );
+  --kup_card_text_color: var(--kup-card-text-color, var(--kup-text-secondary));
 
   display: block;
   font-family: var(--kup_datatable_font_family);
@@ -106,7 +107,7 @@ table {
   background-color: var(--kup_datatable_background_color);
   border-spacing: 0; // [TFixed-1]
   border-collapse: separate; // [TFixed-1]
-  color: var(--kup-gray-color-70);
+  color: var(--kup_card_text_color);
   min-width: intrinsic; /* Safari/WebKit uses a non-standard name */
   min-width: -moz-max-content; /* Firefox/Gecko */
   min-width: -webkit-max-content; /* Chrome */
@@ -124,7 +125,7 @@ table {
     &[#{$kup-dd-drag-over}] {
       td {
         &:first-of-type {
-          box-shadow: inset 4px 0px 0px 0px var(--kup-gray-color-30);
+          box-shadow: inset 4px 0px 0px 0px var(--kup_datatable_th_border);
         }
       }
     }

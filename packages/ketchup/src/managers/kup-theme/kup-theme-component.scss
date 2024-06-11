@@ -2,9 +2,9 @@
 /*                   D i a l o g                   */
 /*-------------------------------------------------*/
 [kup-dialog] {
-  border-top: 4px solid var(--kup-gray-color-70);
+  border-top: 4px solid var(--kup-border-strong);
   animation: fade-in-down cubic-bezier(0.455, 0.03, 0.515, 0.955) s ease-in-out;
-  background-color: var(--kup-gray-color-0);
+  background-color: var(--kup-layer-0);
   margin: 0;
   position: absolute;
   -ms-touch-action: none;

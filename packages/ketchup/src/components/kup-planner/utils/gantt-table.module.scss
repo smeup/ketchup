@@ -137,7 +137,7 @@
 }
 
 .subrow:last-of-type {
-  border-bottom: 1px solid var(--kup-gray-color-30);
+  border-bottom: 1px solid var(--kup-border-subtle);
 }
 
 .subrow:has(+ .subrow),

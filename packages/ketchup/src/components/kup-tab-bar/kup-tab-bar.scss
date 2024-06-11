@@ -101,7 +101,7 @@
       &:hover {
         background-color: rgba(var(--kup_tabbar_primary_color_rgb), 0.075);
         .tab-indicator .tab-indicator__content--underline {
-          --kup_tabindicator_border_bottom_color: var(--kup-gray-color-50);
+          --kup_tabindicator_border_bottom_color: var(--kup-border-strong);
         }
       }
       &.tab--active {
@@ -124,10 +124,10 @@
         background: var(--kup-layer-2);
         border-right: 1px solid var(--kup_tabbar_border_color_dense);
         &.tab--active {
-          background: var(--kup-layer-1);
+          background: var(--kup-layer-2-selected);
         }
         &:hover {
-          background: var(--kup-gray-color-30);
+          background: var(--kup-layer-2-hover);
         }
         .tab-indicator {
           height: 2px;

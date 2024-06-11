@@ -1,6 +1,12 @@
 .scalable-layout-10 {
-  background-color: var(--kup-layer-1);
-  color: var(--kup-gray-color-70);
+  --kup_card_text_color: var(--kup-card-text-color, var(--kup-text-secondary));
+  --kup_card_background_color: var(
+    --kup-card-background-color,
+    var(--kup-layer-1)
+  );
+
+  background-color: var(--kup_card_background_color);
+  color: var(--kup_card_text_color);
   height: 100%;
   display: flex;
   justify-content: unset;
