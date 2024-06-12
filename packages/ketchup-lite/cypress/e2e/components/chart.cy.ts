@@ -1,4 +1,5 @@
 import {
+    KulChartEvent,
     KulChartProps,
     KulChartPropsInterface,
 } from '../../../src/components/kul-chart/kul-chart-declarations';
@@ -8,32 +9,44 @@ const chart = 'chart';
 const chartCapitalized = chart.charAt(0).toUpperCase() + chart.slice(1);
 const chartTag = 'kul-' + chart;
 
-describe(chartTag, () => {
+describe('Basic', () => {
     beforeEach(() => {
         cy.navigate(chart);
     });
 
-    it(`common: should check that all <${chartTag}> exist`, () => {
+    it(`Should check that all <${chartTag}> exist.`, () => {
         cy.checkComponentExamples(chartTag, new Set(CHART_EXAMPLES_KEYS));
     });
 
-    it(`common: should check that the number of <${chartTag}> elements matches the number of examples`, () => {
+    it(`Should check that the number of <${chartTag}> elements matches the number of examples.`, () => {
         cy.checkComponentExamplesNumber(Array.from(CHART_EXAMPLES_KEYS));
     });
+});
 
-    it('common: should call getDebugInfo and check the structure of the returned object', () => {
+describe('Events', () => {
+    it(`ready`, () => {
+        cy.checkReadyEvent(chart);
+    });
+});
+
+describe('Methods', () => {
+    beforeEach(() => {
+        cy.navigate(chart);
+    });
+
+    it('getDebugInfo: check the structure of the returned object.', () => {
         cy.checkDebugInfo(chartTag);
     });
 
-    it('common: should check for the presence of a <style> element with id kup-style', () => {
-        cy.checkKulStyle();
+    it('getDebugInfo, refresh: check that renderCount has increased after refreshing.', () => {
+        cy.checkRenderCountIncrease(chartTag);
     });
 
-    it(`common: should call getProps and check keys against Kul${chartCapitalized}Props enum`, () => {
+    it(`getProps: check keys against Kul${chartCapitalized}Props enum.`, () => {
         cy.checkProps(chartTag, KulChartProps);
     });
 
-    it(`common: should call getProps and check keys against Kul${chartCapitalized}PropsInterface`, () => {
+    it(`getProps: check keys against Kul${chartCapitalized}PropsInterface.`, () => {
         cy.checkPropsInterface(chartTag, {
             kulAxis: null,
             kulColors: null,
@@ -48,8 +61,14 @@ describe(chartTag, () => {
             kulYAxis: null,
         } as Required<KulChartPropsInterface>);
     });
+});
 
-    it('common: should call getDebugInfo, refresh, and check that renderCount has increased', () => {
-        cy.checkRenderCountIncrease(chartTag);
+describe('Props', () => {
+    beforeEach(() => {
+        cy.navigate(chart);
+    });
+
+    it('Should check for the presence of a <style> element with id kup-style.', () => {
+        cy.checkKulStyle();
     });
 });

@@ -1,6 +1,6 @@
+import { KUL_DROPDOWN_CLASS_VISIBLE } from '../../variables/GenericVariables';
 import type { KulDom } from '../kul-manager/kul-manager-declarations';
 import {
-    kulDynamicPositionActiveClass,
     KulDynamicPositionAnchor,
     kulDynamicPositionAnchorAttribute,
     kulDynamicPositionAttribute,
@@ -88,7 +88,7 @@ export class KulDynamicPosition {
             const target: Node = mutations[0].target;
             if (
                 (target as HTMLElement).classList.contains(
-                    kulDynamicPositionActiveClass
+                    KUL_DROPDOWN_CLASS_VISIBLE
                 )
             ) {
                 requestAnimationFrame(function () {
@@ -137,14 +137,14 @@ export class KulDynamicPosition {
      * @param {KulDynamicPositionElement} el - Element to reposition.
      */
     start(el: KulDynamicPositionElement): void {
-        el.classList.add(kulDynamicPositionActiveClass);
+        el.classList.add(KUL_DROPDOWN_CLASS_VISIBLE);
     }
     /**
      * Ends the process of dynamically reposition the element.
      * @param {KulDynamicPositionElement} el - Element to reposition.
      */
     stop(el: KulDynamicPositionElement): void {
-        el.classList.remove(kulDynamicPositionActiveClass);
+        el.classList.remove(KUL_DROPDOWN_CLASS_VISIBLE);
     }
     /**
      * This function calculates where to place the element in order to correctly display it attached to its anchor point.
@@ -156,7 +156,7 @@ export class KulDynamicPosition {
             cancelAnimationFrame(el.kulDynamicPosition.rAF);
             return;
         }
-        if (!el.classList.contains(kulDynamicPositionActiveClass)) {
+        if (!el.classList.contains(KUL_DROPDOWN_CLASS_VISIBLE)) {
             cancelAnimationFrame(el.kulDynamicPosition.rAF);
             return;
         }

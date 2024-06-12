@@ -24,7 +24,7 @@ import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps } from '../../utils/componentUtils';
 import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KulDataCyAttributes } from '../../types/GenericTypes';
 
 @Component({
     tag: 'kul-textfield',
@@ -287,8 +287,8 @@ export class KulTextfield {
             <input
                 {...this.kulHtmlAttributes}
                 class="textfield__input"
+                data-cy={KulDataCyAttributes.INPUT}
                 disabled={this.kulDisabled}
-                placeholder={this.kulFullWidth ? this.kulLabel : undefined}
                 onBlur={(e) => {
                     this.onKulEvent(e, 'blur');
                 }}
@@ -306,6 +306,7 @@ export class KulTextfield {
                 onInput={(e) => {
                     this.onKulEvent(e, 'input');
                 }}
+                placeholder={this.kulFullWidth ? this.kulLabel : undefined}
                 value={this.kulValue}
             ></input>
         );
@@ -348,6 +349,7 @@ export class KulTextfield {
                 <textarea
                     {...this.kulHtmlAttributes}
                     class="textfield__input"
+                    data-cy={KulDataCyAttributes.INPUT}
                     disabled={this.kulDisabled}
                     id="input"
                     onBlur={(e) => {

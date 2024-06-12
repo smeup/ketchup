@@ -3,6 +3,7 @@ import { LAZY_DOC, LAZY_EXAMPLES } from './kul-showcase-lazy-data';
 import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { LazyExample } from './kul-showcase-lazy-declarations';
+import { KulDataCyAttributes } from '../../../../types/GenericTypes';
 
 @Component({
     tag: 'kul-showcase-lazy',
@@ -84,7 +85,11 @@ export class KulShowcaseLazy {
                 <div class="examples-title" part="examples-title">
                     Examples
                 </div>
-                <div class="grid" data-cy="wrapper" part="grid">
+                <div
+                    class="grid"
+                    data-cy={KulDataCyAttributes.SHOWCASE_GRID_WRAPPER}
+                    part="grid"
+                >
                     {this.#prepExamples()}
                 </div>
             </Fragment>

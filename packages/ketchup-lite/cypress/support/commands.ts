@@ -7,8 +7,12 @@ import {
 import {
     GenericMap,
     KulComponent,
+    KulDataCyAttributes,
     KulEventPayload,
+    KulEventType,
 } from '../../src/types/GenericTypes';
+import { DataCyAttributeTransformed } from './selectors';
+
 export {};
 
 declare global {
@@ -26,6 +30,7 @@ declare global {
                 componentExamples: Array<string>
             ): Chainable;
             checkDebugInfo(component: string): Chainable;
+            checkEvent(component: string, eventType: KulEventType): Chainable;
             checkProps(
                 component: string,
                 componentProps: GenericMap
@@ -34,11 +39,17 @@ declare global {
                 component: string,
                 componentProps: { [key: string]: any }
             ): Chainable;
+            checkReadyEvent(
+                component: string,
+                eventType?: KulEventType
+            ): Chainable;
             checkRenderCountIncrease(
                 component: string,
                 attempts?: number
             ): Chainable;
             checkKulStyle(): Chainable;
+            findCyElement(dataCy: KulDataCyAttributes): Chainable;
+            getCyElement(dataCy: KulDataCyAttributes): Chainable;
             getKulManager(): Chainable<KulManager>;
             navigate(component: string): Chainable;
         }
@@ -81,9 +92,9 @@ Cypress.Commands.add('checkDebugInfo', (component) => {
     cy.get('@kulComponentShowcase')
         .find(component)
         .first()
-        .then(($article) => {
-            const kulArticleElement = $article[0] as HTMLKulArticleElement;
-            kulArticleElement.getDebugInfo().then((debugInfo) => {
+        .then(($comp) => {
+            const kulElement = $comp[0] as Partial<KulComponent>;
+            kulElement.getDebugInfo().then((debugInfo) => {
                 expect(debugInfo)
                     .to.have.property('endTime')
                     .that.is.a('number');
@@ -101,6 +112,27 @@ Cypress.Commands.add('checkDebugInfo', (component) => {
                     .that.is.a('number');
             });
         });
+});
+
+Cypress.Commands.add('checkEvent', (component, eventType) => {
+    cy.document().then((document) => {
+        const checkEvent = (event: CustomEvent<KulEventPayload>) => {
+            if (
+                event.type === `kul-${component}-event` &&
+                event.detail.eventType === eventType
+            ) {
+                const eventCheck = document.createElement('div');
+                eventCheck.dataset.cy = KulDataCyAttributes.CHECK;
+                document.body.appendChild(eventCheck);
+            }
+        };
+        document.addEventListener(`kul-${component}-event`, checkEvent);
+    });
+    cy.get('@kulComponentShowcase')
+        .find(`kul-${component}`)
+        .first()
+        .scrollIntoView()
+        .as('eventElement');
 });
 
 Cypress.Commands.add('checkKulStyle', () => {
@@ -144,6 +176,35 @@ Cypress.Commands.add('checkPropsInterface', (component, componentProps) => {
             expect(Object.keys(props)).to.deep.equal(expectedKeys);
         });
 });
+
+Cypress.Commands.add(
+    'checkReadyEvent',
+    (component, eventType: KulEventType = 'ready') => {
+        visitManager().visit();
+        visitManager().splashUnmount();
+        cy.document().then((document) => {
+            const eventName = `kul-${component}-event`;
+            const checkEvent = (event: CustomEvent<KulEventPayload>) => {
+                if (
+                    event.type === eventName &&
+                    event.detail.eventType === eventType
+                ) {
+                    document.removeEventListener(eventName, checkEvent);
+                    const readyCheck = document.createElement('div');
+                    readyCheck.dataset.cy = KulDataCyAttributes.CHECK;
+                    document.body.appendChild(readyCheck);
+                }
+            };
+            document.addEventListener(eventName, checkEvent);
+            visitManager().cardClick(component);
+            cy.get('@kulComponentShowcase')
+                .find(`kul-${component}`)
+                .first()
+                .scrollIntoView();
+            cy.getCyElement(KulDataCyAttributes.CHECK).should('exist');
+        });
+    }
+);
 
 Cypress.Commands.add(
     'checkRenderCountIncrease',
@@ -194,41 +255,17 @@ Cypress.Commands.add(
     }
 );
 
-Cypress.Commands.add('navigate', (component) => {
-    // Visit the page
-    cy.visit('http://localhost:3333');
+Cypress.Commands.add(
+    'findCyElement',
+    { prevSubject: 'element' },
+    (subject, dataCy: KulDataCyAttributes) => {
+        cy.wrap(subject).find(transformEnumValue(dataCy) as unknown as string);
+    }
+);
 
-    // Wait for the "kul-splash-event" with the correct payload
-    cy.window().then((win) => {
-        return new Cypress.Promise((resolve) => {
-            const checkEvent = (event: CustomEvent<KulEventPayload>) => {
-                if (
-                    event.type === 'kul-splash-event' &&
-                    event.detail.eventType === 'unmount'
-                ) {
-                    resolve(); // Resolve the promise when the correct event is received
-                    win.removeEventListener('kul-splash-event', checkEvent); // Remove the event listener
-                }
-            };
-
-            win.addEventListener('kul-splash-event', checkEvent); // Add the event listener
-        });
-    });
-
-    // Continue with the rest of the navigation steps
-    cy.get('kul-showcase').should('exist').as('kulShowcase');
-    cy.get('@kulShowcase')
-        .shadow()
-        .find('#' + component.charAt(0).toUpperCase() + component.slice(1))
-        .should('exist')
-        .click();
-    cy.get('@kulShowcase')
-        .shadow()
-        .find('kul-showcase-' + component)
-        .should('exist')
-        .get('[data-cy="wrapper"]')
-        .as('kulComponentShowcase');
-});
+Cypress.Commands.add('getCyElement', (dataCy: KulDataCyAttributes) =>
+    cy.get(transformEnumValue(dataCy) as unknown as string)
+);
 
 Cypress.Commands.add('getKulManager', () => {
     cy.window().then((win) => {
@@ -236,3 +273,60 @@ Cypress.Commands.add('getKulManager', () => {
         return dom.ketchupLite;
     });
 });
+
+Cypress.Commands.add('navigate', (component) => {
+    visitManager().visit();
+    visitManager().splashUnmount();
+    visitManager().cardClick(component);
+});
+
+function transformEnumValue(
+    key: KulDataCyAttributes
+): DataCyAttributeTransformed {
+    return `[data-cy="${key}"]` as unknown as DataCyAttributeTransformed;
+}
+
+function visitManager() {
+    return {
+        cardClick: (component: string) => {
+            cy.get('kul-showcase').should('exist').as('kulShowcase');
+            cy.get('@kulShowcase')
+                .shadow()
+                .find(
+                    '#' + component.charAt(0).toUpperCase() + component.slice(1)
+                )
+                .should('exist')
+                .click();
+            cy.get('@kulShowcase')
+                .find('kul-showcase-' + component)
+                .should('exist');
+            cy.getCyElement(KulDataCyAttributes.SHOWCASE_GRID_WRAPPER).as(
+                'kulComponentShowcase'
+            );
+        },
+        splashUnmount: () => {
+            cy.window().then((win) => {
+                return new Cypress.Promise((resolve) => {
+                    const checkEvent = (
+                        event: CustomEvent<KulEventPayload>
+                    ) => {
+                        if (
+                            event.type === 'kul-splash-event' &&
+                            event.detail.eventType === 'unmount'
+                        ) {
+                            resolve();
+                            win.removeEventListener(
+                                'kul-splash-event',
+                                checkEvent
+                            );
+                        }
+                    };
+                    win.addEventListener('kul-splash-event', checkEvent);
+                });
+            });
+        },
+        visit: () => {
+            cy.visit('http://localhost:3333');
+        },
+    };
+}

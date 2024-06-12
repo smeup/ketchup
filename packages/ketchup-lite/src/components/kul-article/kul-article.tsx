@@ -22,7 +22,11 @@ import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps } from '../../utils/componentUtils';
 import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
-import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KulDataCyAttributes,
+    KulEventPayload,
+} from '../../types/GenericTypes';
 import { KulLanguageGeneric } from '../../managers/kul-language/kul-language-declarations';
 
 @Component({
@@ -246,6 +250,7 @@ export class KulArticle {
             return (
                 <ComponentTag
                     class={`content content--${ComponentTag}`}
+                    data-cy={KulDataCyAttributes.SHAPE}
                     data-depth={depth.toString()}
                     {...this.#kulManager.data.extract.singleShape(cell)}
                     {...eventBinder}

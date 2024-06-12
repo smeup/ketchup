@@ -3,6 +3,7 @@ import { CODE_DOC, CODE_EXAMPLES } from './kul-showcase-code-data';
 import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
 import { CodeExample } from './kul-showcase-code-declarations';
+import { KulDataCyAttributes } from '../../../../types/GenericTypes';
 
 @Component({
     tag: 'kul-showcase-code',
@@ -84,7 +85,11 @@ export class KulShowcaseCode {
                 <div class="examples-title" part="examples-title">
                     Examples
                 </div>
-                <div class="grid" data-cy="wrapper" part="grid">
+                <div
+                    class="grid"
+                    data-cy={KulDataCyAttributes.SHOWCASE_GRID_WRAPPER}
+                    part="grid"
+                >
                     {this.#prepExamples()}
                 </div>
             </Fragment>

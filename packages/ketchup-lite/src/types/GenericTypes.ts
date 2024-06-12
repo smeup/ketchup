@@ -19,9 +19,14 @@ import { KulPhotoframeEvent } from '../components/kul-photoframe/kul-photoframe-
 import { KulTabbarEvent } from '../components/kul-tabbar/kul-tabbar-declarations';
 import { KulTreeEvent } from '../components/kul-tree/kul-tree-declarations';
 
-/**
- * Generic KulComponent.
- */
+export interface GenericMap {
+    [index: string]: string;
+}
+
+export interface GenericObject<T = unknown> {
+    [index: string]: T;
+}
+
 export interface KulComponent extends ComponentInterface {
     getDebugInfo: () => Promise<KulDebugComponentInfo>;
     getProps: (descriptions?: boolean) => Promise<GenericObject>;
@@ -29,48 +34,45 @@ export interface KulComponent extends ComponentInterface {
     refresh: () => Promise<void>;
     rootElement: unknown;
 }
-/**
- * Resizable KulComponent.
- */
-export interface ResizableKulComponent extends KulComponent {
-    resizeCallback: () => {};
+
+export enum KulDataCyAttributes {
+    BUTTON = 'button',
+    CHECK = 'check',
+    DROPDOWN_BUTTON = 'dropdown-button',
+    DROPDOWN_MENU = 'dropdown-menu',
+    INPUT = 'input',
+    NODE = 'node',
+    RIPPLE = 'ripple',
+    SHAPE = 'shape',
+    SHOWCASE_GRID_WRAPPER = 'wrapper',
 }
-/**
- * Generic map.
- */
-export interface GenericMap {
-    [index: string]: string;
-}
-/**
- * Generic object.
- */
-export interface GenericObject<T = unknown> {
-    [index: string]: T;
-}
-/**
- * Generic payload of a kul event.
- */
 export interface KulEventPayload {
     comp: unknown;
-    eventType:
-        | KulArticleEvent
-        | KulBadgeEvent
-        | KulButtonEvent
-        | KulCardEvent
-        | KulChartEvent
-        | KulCodeEvent
-        | KulDrawerEvent
-        | KulHeaderEvent
-        | KulImageEvent
-        | KulLazyEvent
-        | KulPhotoframeEvent
-        | KulSpinnerEvent
-        | KulSplashEvent
-        | KulTabbarEvent
-        | KulTextfieldEvent
-        | KulToastEvent
-        | KulTreeEvent
-        | KulUploadEvent;
+    eventType: KulEventType;
     id: string;
     originalEvent: Event;
+}
+
+export type KulEventType =
+    | KulArticleEvent
+    | KulBadgeEvent
+    | KulButtonEvent
+    | KulCardEvent
+    | KulChartEvent
+    | KulCodeEvent
+    | KulDrawerEvent
+    | KulHeaderEvent
+    | KulImageEvent
+    | KulLazyEvent
+    | KulPhotoframeEvent
+    | KulSpinnerEvent
+    | KulSplashEvent
+    | KulTabbarEvent
+    | KulTextfieldEvent
+    | KulToastEvent
+    | KulTreeEvent
+    | KulUploadEvent;
+
+export interface ResizableKulComponent extends KulComponent {
+    resizeCallback: () => {};
 }

@@ -3,6 +3,7 @@ import { TOAST_DOC, TOAST_EXAMPLES } from './kul-showcase-toast-data';
 import { ToastExample } from './kul-showcase-toast-declarations';
 import { SHOWCASE_DYN_EXAMPLES } from '../../kul-showcase-utils';
 import { KulShowcaseDynamicExampleType } from '../../kul-showcase-declarations';
+import { KulDataCyAttributes } from '../../../../types/GenericTypes';
 
 @Component({
     tag: 'kul-showcase-toast',
@@ -84,7 +85,11 @@ export class KulShowcaseToast {
                 <div class="examples-title" part="examples-title">
                     Examples
                 </div>
-                <div class="grid" data-cy="wrapper" part="grid">
+                <div
+                    class="grid"
+                    data-cy={KulDataCyAttributes.SHOWCASE_GRID_WRAPPER}
+                    part="grid"
+                >
                     {this.#prepExamples()}
                 </div>
             </Fragment>
