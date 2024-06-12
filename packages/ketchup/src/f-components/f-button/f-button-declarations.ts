@@ -1,4 +1,4 @@
-import type { FComponent } from '../../types/GenericTypes';
+import type { FComponent, KupComponentSizing } from '../../types/GenericTypes';
 /**
  * Props of the f-button component.
  */
@@ -13,12 +13,14 @@ export interface FButtonProps extends FComponent {
     placeholderIcon?: string;
     label?: string;
     large?: boolean;
+    neutral?: boolean;
     onClick?: (event: MouseEvent) => void;
     onBlur?: (event: FocusEvent) => void;
     onFocus?: (event: FocusEvent) => void;
     pulsating?: boolean;
     shaped?: boolean;
     slim?: boolean;
+    sizing?: KupComponentSizing;
     styling?: FButtonStyling;
     showSpinner?: boolean;
     toggable?: boolean;

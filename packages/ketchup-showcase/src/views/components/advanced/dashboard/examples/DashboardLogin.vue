@@ -241,7 +241,7 @@ export default {
 }
 
 .login-box {
-  border: 1px solid var(--kup-border-color);
+  border: 1px solid var(--kup-border-subtle);
   box-shadow: var(--kup-box-shadow);
   margin: 4px;
   padding: 8px;

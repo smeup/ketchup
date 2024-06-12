@@ -63,10 +63,15 @@ export class KupTabBar {
      */
     @Prop() data: KupTabBarNode[] = null;
     /**
+     * Defaults at false. When set to true, the component is dense.
+     * @default false
+     */
+    @Prop() dense: boolean = false;
+    /**
      * When enabled displays Material's ripple effect on item headers.
      * @default true
      */
-    @Prop() ripple: boolean = true;
+    @Prop() ripple: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -286,10 +291,11 @@ export class KupTabBar {
                 tab: true,
                 'tab--active': node.active ? true : false,
                 'mdc-ripple-surface': this.ripple ? true : false,
+                'kup-dense': this.dense,
             };
 
             const tabEl: VNode = (
-                <button
+                <f-button
                     class={tabClass}
                     role="tab"
                     aria-selected={this.data[i].active ? true : false}
@@ -323,7 +329,7 @@ export class KupTabBar {
                     >
                         <span class="tab-indicator__content tab-indicator__content--underline"></span>
                     </span>
-                </button>
+                </f-button>
             );
             tabBar.push(tabEl);
         }

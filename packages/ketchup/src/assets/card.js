@@ -360,7 +360,7 @@ for (let index = 0; index < cards.length; index++) {
         ],
         image: [
             {
-                resource: 'omega',
+                resource: 'trending-up',
             },
             {
                 resource: 'radioactive',
@@ -500,8 +500,8 @@ for (let index = 0; index < cards.length; index++) {
             },
         ],
         text: [
-            '#1 L U L',
-            '#2 LUL',
+            'Admission count',
+            'Perception late',
             '#3 omegalul',
             '#4 L U L',
             '#5 LUL',

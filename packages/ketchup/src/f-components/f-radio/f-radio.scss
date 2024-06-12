@@ -4,17 +4,25 @@
   --kup_radio_font_weight: var(--kup-radio-font-weight, 400);
   --kup_radio_outer_circle_color: var(
     --kup-radio-outer-circle-color,
-    rgba(var(--kup-text-color-rgb), 0.5)
+    var(--kup-text-primary)
+  );
+  --kup_radio_focus_color: var(
+    --kup-radio-focus-color,
+    var(--kup-primary-color-60)
   );
   --kup_radio_primary_color: var(
     --kup-radio-primary-color,
-    var(--kup-primary-color)
+    var(--kup-text-primary)
   );
   --kup_radio_primary_color_rgb: var(
     --kup-radio-primary-color-rgb,
-    var(--kup-primary-color-rgb)
+    var(--kup-text-primary-rgb)
   );
-  --kup_radio_text_color: var(--kup-radio-text-color, var(--kup-text-color));
+  --kup_radio_text_color: var(--kup-radio-text-color, var(--kup-text-primary));
+  --kup_radio_text_color_disabled: var(
+    --kup-radio-text-color-disabled,
+    var(--kup-text-disabled)
+  );
 
   font-family: var(--kup_radio_font_family);
   font-size: var(--kup_radio_font_size);
@@ -23,7 +31,6 @@
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     font-size: 0.875em;
-    line-height: 2em;
     font-weight: var(--kup_radio_font_weight);
     letter-spacing: 0.0178571429em;
     display: inline-flex;
@@ -32,11 +39,9 @@
 
     label {
       color: var(--kup_radio_text_color);
-      margin-left: 0px;
-      margin-right: auto;
-      padding-left: 4px;
-      padding-right: 0px;
+      padding-left: var(--kup-space-03);
       order: 0;
+      @include kup-body-compact-01;
     }
 
     &.form-field--align-end {
@@ -51,6 +56,8 @@
   }
 
   &.radio-wrapper {
+    display: grid;
+    gap: var(--kup-space-03);
     &.radio-wrapper--grid {
       display: grid;
       grid-gap: 1em;
@@ -59,18 +66,18 @@
 
     .radio {
       border-radius: 50%;
-      padding: 10px;
       position: relative;
       flex: 0 0 auto;
       box-sizing: content-box;
-      width: 20px;
-      height: 20px;
+      width: 15px;
+      height: 15px;
       cursor: pointer;
       will-change: opacity, transform, border-color, color;
       will-change: transform, opacity;
+      border: 1px solid transparent;
 
       &:hover {
-        background-color: rgba(var(--kup_radio_primary_color_rgb), 0.125);
+        border: 1px solid var(--kup_radio_focus_color);
       }
 
       .radio__native-control {
@@ -83,16 +90,16 @@
         top: 0px;
         right: 0px;
         left: 0px;
-        width: 40px;
-        height: 40px;
+        width: 15px;
+        height: 15px;
       }
 
       .radio__background {
         display: inline-block;
         position: relative;
         box-sizing: border-box;
-        width: 20px;
-        height: 20px;
+        width: 15px;
+        height: 15px;
         transition: opacity 120ms cubic-bezier(0, 0, 0.2, 1) 0ms,
           transform 120ms cubic-bezier(0, 0, 0.2, 1) 0ms;
 
@@ -104,7 +111,7 @@
           box-sizing: border-box;
           width: 100%;
           height: 100%;
-          border-width: 2px;
+          border-width: 1px;
           border-style: solid;
           border-radius: 50%;
           transition: border-color 120ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
@@ -118,7 +125,7 @@
           width: 100%;
           height: 100%;
           transform: scale(0, 0);
-          border-width: 10px;
+          border-width: 7.5px;
           border-style: solid;
           border-radius: 50%;
           transition: transform 120ms cubic-bezier(0.4, 0, 0.6, 1) 0ms,
@@ -140,9 +147,12 @@
       }
 
       &.radio--disabled {
+        --kup_radio_outer_circle_color: var(--kup-border-disabled);
+        --kup_radio_text_color: var(--kup-text-disabled);
         pointer-events: none;
 
         + label {
+          color: var(--kup_radio_text_color_disabled);
           pointer-events: none;
         }
 
@@ -155,6 +165,11 @@
         }
       }
     }
+  }
+
+  &.#{$kup-class-horizontal} {
+    display: flex;
+    gap: var(--kup-space-05);
   }
 
   &.#{$kup-class-danger} {

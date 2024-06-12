@@ -84,7 +84,7 @@ export function prepareCalendar(component: KupCard) {
     const nextButtonComp = <FButton {...nextButtonProp} />;
 
     const changeViewButtonProp: FButtonProps = {
-        wrapperClass: 'change-view-button',
+        wrapperClass: 'change-view-button kup-neutral',
         styling: FButtonStyling.FLAT,
         label: changeViewButtonLabel,
         onClick: () => changeView(component),

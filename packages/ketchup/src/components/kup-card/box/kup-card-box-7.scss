@@ -1,10 +1,9 @@
 .box-layout-7 {
-  background-color: var(--kup-background-color);
-  color: var(--kup-text-color);
   display: flex;
-  font-size: var(--kup-font-size);
   height: 100%;
-  padding: 1em 0.5em;
+  background-color: var(--kup-layer-1);
+  color: var(--kup-text-secondary);
+  @include kup-body-compact-01;
 
   .container {
     height: 100%;
@@ -28,7 +27,7 @@
   }
 
   .value {
-    font-weight: bold;
+    @include kup-heading-compact-01;
   }
 
   .table {

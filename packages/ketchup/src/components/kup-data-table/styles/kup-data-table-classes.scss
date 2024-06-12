@@ -25,7 +25,7 @@
 
     tr.selected {
       td {
-        background-color: rgba(var(--kup-text-color-rgb), 0.075);
+        background-color: var(--kup-gray-color-20);
 
         &:first-of-type {
           box-shadow: inset 4px 0px 0px 0px var(--kup-secondary-color);

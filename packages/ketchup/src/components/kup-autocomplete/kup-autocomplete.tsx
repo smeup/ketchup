@@ -17,7 +17,11 @@ import {
 } from '../../managers/kup-manager/kup-manager';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
-import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupComponentSizing,
+} from '../../types/GenericTypes';
 import {
     KupAutocompleteEventPayload,
     KupAutocompleteIconClickEventPayload,
@@ -34,6 +38,7 @@ import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
+import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -57,6 +62,11 @@ export class KupAutocomplete {
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
 
+    /**
+     * Set alert message
+     * @default '''
+     */
+    @Prop() alert: string = '';
     /**
      * When true, the autocomplete fires the change event even when the value typed isn't included in the autocomplete list.
      * @default false
@@ -84,20 +94,51 @@ export class KupAutocomplete {
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
+     * Set error message
+     * @default '''
+     */
+    @Prop() error: string = '';
+    /**
+     * When set, the text-field will show this icon.
+     * @default null
+     */
+    @Prop() icon: string = null;
+    /**
      * Sets the initial value of the component.
      * @default ""
      */
     @Prop() initialValue: string = '';
+    /**
+     * Enables a clear trailing icon.
+     * @default false
+     */
+    @Prop() isClearable: boolean = false;
     /**
      * Input event emission delay in milliseconds.
      * @default 300
      */
     @Prop() inputDelay: number = 300;
     /**
+     * When set, its content will be shown as a label.
+     * @default null
+     */
+    @Prop() label: string = null;
+    /**
+     * When set to true, the label will be on the left of the component.
+     * @default false
+     */
+    @Prop() leadingLabel: boolean = false;
+
+    /**
      * The minimum number of chars to trigger the autocomplete
      * @default 1
      */
     @Prop() minimumChars: number = 1;
+    /**
+     * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+     * @default false
+     */
+    @Prop() readOnly: boolean = false;
     /**
      * Sets how to return the selected item value. Suported values: "code", "description", "both".
      * @default ItemsDisplayMode.CODE
@@ -113,6 +154,16 @@ export class KupAutocomplete {
      * @default true
      */
     @Prop() showDropDownIcon: boolean = true;
+    /**
+     * Sets the type of the button
+     * @default KupComponentSizing.MEDIUM
+     */
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+    /**
+     * When set, the icon will be shown after the text.
+     * @default false
+     */
+    @Prop() trailingIcon: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -393,6 +444,9 @@ export class KupAutocomplete {
             this.#closeList();
             return false;
         }
+        const hasError = this.error.trim().length > 0;
+        const hasAlert = this.alert.trim().length > 0;
+        const topOffset = hasError || hasAlert ? -20 : 0;
         this.#textfieldWrapper.classList.add('toggled');
         this.#listEl.menuVisible = true;
         const elStyle = this.#listEl.style;
@@ -407,7 +461,7 @@ export class KupAutocomplete {
             this.#kupManager.dynamicPosition.register(
                 this.#listEl,
                 this.#textfieldWrapper,
-                0,
+                topOffset,
                 KupDynamicPositionPlacement.AUTO,
                 true
             );
@@ -520,6 +574,30 @@ export class KupAutocomplete {
     }
 
     render() {
+        const props: FTextFieldProps = {
+            alert: this.alert,
+            danger: this.rootElement.classList.contains('kup-danger')
+                ? true
+                : false,
+            disabled: this.disabled,
+            error: this.error,
+            icon: this.icon,
+            info: this.rootElement.classList.contains('kup-info')
+                ? true
+                : false,
+            isClearable: this.isClearable,
+            label: this.label,
+            leadingLabel: this.leadingLabel,
+            readOnly: this.readOnly,
+            sizing: this.sizing,
+            success: this.rootElement.classList.contains('kup-success')
+                ? true
+                : false,
+            value: this.value,
+            warning: this.rootElement.classList.contains('kup-warning')
+                ? true
+                : false,
+        };
         const fullHeight =
             this.rootElement.classList.contains('kup-full-height');
         const fullWidth = this.rootElement.classList.contains('kup-full-width');
@@ -538,6 +616,7 @@ export class KupAutocomplete {
                 </style>
                 <div id={componentWrapperId} style={this.#elStyle}>
                     <FTextField
+                        {...props}
                         icon={
                             this.showDropDownIcon
                                 ? KupThemeIconValues.DROPDOWN

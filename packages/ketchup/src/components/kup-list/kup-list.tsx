@@ -543,9 +543,9 @@ export class KupList {
     #getIconTag(icon: string, placeholderIcon: string) {
         const large: boolean = this.rootElement.classList.contains('kup-large');
         const propsFImage = {
-            color: `var(${KupThemeColorValues.PRIMARY})`,
-            sizeX: large ? '32px' : '24px',
-            sizeY: large ? '32px' : '24px',
+            color: `var(--kup-list-fimage-color, var(--kup-text-secondary))`,
+            sizeX: large ? '24px' : '16px',
+            sizeY: large ? '24px' : '16px',
         };
 
         return (

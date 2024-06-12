@@ -13,7 +13,11 @@ import {
     Watch,
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
-import type { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupComponentSizing,
+} from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -72,7 +76,12 @@ export class KupAccordion {
      * When enabled displays Material's ripple effect on item headers.
      * @default true
      */
-    @Prop() ripple: boolean = true;
+    @Prop() ripple: boolean = false;
+    /**
+     * Sets the type of the button
+     * @default KupComponentSizing.MEDIUM
+     */
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -248,6 +257,7 @@ export class KupAccordion {
                 'accordion-item__header--expanded':
                     isItemExpandible && isItemSelected ? true : false,
                 'mdc-ripple-surface': this.ripple ? true : false,
+                [`accordion-item--${this.sizing}`]: this.sizing ? true : false,
             };
 
             const itemContentClass: GenericObject = {
@@ -260,6 +270,7 @@ export class KupAccordion {
             items.push(
                 <div class="accordion-item">
                     <div
+                        tabindex="1"
                         title={column.title}
                         class={itemHeaderClass}
                         onClick={() => this.toggleItem(itemName)}

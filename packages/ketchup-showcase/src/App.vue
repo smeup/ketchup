@@ -130,7 +130,7 @@ export default {
     ) {
       dom.ketchupInit = {
         ...dom.ketchupInit,
-        theme: { name: 'dark' },
+        theme: { name: 'octane' },
       };
     }
     document.addEventListener('kup-theme-change', () => {
@@ -161,9 +161,9 @@ export default {
   methods: {
     changeTheme(e: CustomEvent<KupSwitchEventPayload>): void {
       if (e.detail.value === 'on') {
-        dom.ketchup.theme.set('dark');
+        dom.ketchup.theme.set('darkOctaneGray');
       } else {
-        dom.ketchup.theme.set('ketchup');
+        dom.ketchup.theme.set('octane');
       }
     },
     drawerReady(): void {
@@ -197,7 +197,7 @@ export default {
     },
     removeSpinner(): void {
       setTimeout(() => {
-        if (dom.ketchup.theme.name === 'dark') {
+        if (dom.ketchup.theme.name === 'darkOctaneGray') {
           theme.checked = true;
         }
         spinnerLabel.innerHTML = 'Ready!';
@@ -900,6 +900,16 @@ export default {
           {
             cells: {
               ROUTE: {
+                value: 'kup-token',
+              },
+            },
+            icon: 'dns',
+            value: 'KupToken',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
                 value: 'kup-toolbar',
               },
             },
@@ -1105,7 +1115,7 @@ label {
 }
 
 .version {
-  border-top: 1px solid var(--kup-border-color);
+  border-top: 1px solid var(--kup-border-subtle);
   box-sizing: border-box;
   font-weight: 600;
   margin-top: auto;
@@ -1205,7 +1215,7 @@ a.footer__icon--trailing {
 #rasterize-viewer {
   background: var(--kup-background-color);
   bottom: 0;
-  border: 1px solid var(--kup-border-color);
+  border: 1px solid var(--kup-border-subtle);
   height: 30vh;
   overflow: auto;
   position: fixed;

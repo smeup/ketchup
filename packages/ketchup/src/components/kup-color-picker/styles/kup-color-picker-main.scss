@@ -7,10 +7,6 @@
   transition: background-color 0.2s;
   width: max-content;
 
-  &:hover {
-    background-color: rgba(var(--kup-text-color-rgb), 0.1);
-  }
-
   .mdc-text-field {
     &:not(.mdc-text-field--disabled) {
       cursor: pointer;
@@ -43,7 +39,7 @@
   width: 1.5em;
   margin: 0.25em;
   border-radius: 50%;
-  border: 0.1em solid var(--kup-border-color);
+  border: 0.1em solid var(--kup-border-subtle);
   background-color: transparent;
   cursor: pointer;
 

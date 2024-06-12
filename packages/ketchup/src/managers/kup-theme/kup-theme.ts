@@ -62,7 +62,7 @@ export class KupTheme {
         this.cssVars = {};
         this.list = list ? list : themesJson['default'];
         this.managedComponents = new Set();
-        this.name = name ? name : 'ketchup';
+        this.name = name ? name : 'octane';
         this.styleTag = dom
             .querySelector('head')
             .appendChild(document.createElement('style'));

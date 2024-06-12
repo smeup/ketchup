@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
-import { GenericObject, KupEventPayload } from "./types/GenericTypes";
+import { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 import { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { BadgeType } from "./components/kup-badge/kup-badge-declarations";
@@ -23,7 +23,7 @@ import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
-import { FChipType } from "./f-components/f-chip/f-chip-declarations";
+import { FChipSize, FChipStyling, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
@@ -52,12 +52,13 @@ import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarat
 import { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 import { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
+import { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
-export { GenericObject, KupEventPayload } from "./types/GenericTypes";
+export { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 export { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 export { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 export { BadgeType } from "./components/kup-badge/kup-badge-declarations";
@@ -74,7 +75,7 @@ export { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 export { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 export { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 export { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
-export { FChipType } from "./f-components/f-chip/f-chip-declarations";
+export { FChipSize, FChipStyling, FChipType } from "./f-components/f-chip/f-chip-declarations";
 export { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 export { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 export { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
@@ -103,6 +104,7 @@ export { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarat
 export { FRadioData } from "./f-components/f-radio/f-radio-declarations";
 export { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-declarations";
 export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
+export { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 export { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 export { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 export { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
@@ -149,12 +151,22 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing": KupComponentSizing;
+        /**
           * This method activates or deactivates an item
           * @param itemName - Name of the item.
          */
         "toggleItem": (itemName: string) => Promise<void>;
     }
     interface KupAutocomplete {
+        /**
+          * Set alert message
+          * @default '''
+         */
+        "alert": string;
         /**
           * When true, the autocomplete fires the change event even when the value typed isn't included in the autocomplete list.
           * @default false
@@ -182,6 +194,11 @@ export namespace Components {
          */
         "displayMode": ItemsDisplayMode;
         /**
+          * Set error message
+          * @default '''
+         */
+        "error": string;
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
@@ -193,6 +210,11 @@ export namespace Components {
          */
         "getValue": () => Promise<string>;
         /**
+          * When set, the text-field will show this icon.
+          * @default null
+         */
+        "icon": string;
+        /**
           * Sets the initial value of the component.
           * @default ""
          */
@@ -203,10 +225,30 @@ export namespace Components {
          */
         "inputDelay": number;
         /**
+          * Enables a clear trailing icon.
+          * @default false
+         */
+        "isClearable": boolean;
+        /**
+          * When set, its content will be shown as a label.
+          * @default null
+         */
+        "label": string;
+        /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "leadingLabel": boolean;
+        /**
           * The minimum number of chars to trigger the autocomplete
           * @default 1
          */
         "minimumChars": number;
+        /**
+          * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+          * @default false
+         */
+        "readOnly": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -240,6 +282,16 @@ export namespace Components {
           * @default true
          */
         "showDropDownIcon": boolean;
+        /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing": KupComponentSizing;
+        /**
+          * When set, the icon will be shown after the text.
+          * @default false
+         */
+        "trailingIcon": boolean;
     }
     interface KupBadge {
         /**
@@ -507,6 +559,11 @@ export namespace Components {
          */
         "showSpinner": boolean;
         /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing": KupComponentSizing;
+        /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
          */
@@ -565,8 +622,8 @@ export namespace Components {
          */
         "showSelection": boolean;
         /**
-          * Defines the style of the buttons. Available styles are "flat", "outlined" and "raised" (which is the default).
-          * @default FButtonStyling.RAISED
+          * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
+          * @default FButtonStyling.FLAT
          */
         "styling": FButtonStyling;
     }
@@ -954,6 +1011,11 @@ export namespace Components {
     }
     interface KupCheckbox {
         /**
+          * Set alert message
+          * @default '''
+         */
+        "alert": string;
+        /**
           * Defaults at false. When set to true, the component will be set to 'checked'.
           * @default false
          */
@@ -969,6 +1031,11 @@ export namespace Components {
           * @default false
          */
         "disabled": boolean;
+        /**
+          * Set error message
+          * @default '''
+         */
+        "error": string;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -1038,6 +1105,16 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
+          * Sets the size of the chip
+          * @default FChipSize.MEDIUM
+         */
+        "sizing": FChipSize;
+        /**
+          * Sets the style of the chip
+          * @default FChipStyling.RAISED
+         */
+        "styling": FChipStyling;
+        /**
           * The type of chip. Available types: input, filter, choice or empty for default.
           * @default FChipType.STANDARD
          */
@@ -1077,6 +1154,11 @@ export namespace Components {
          */
         "initialValue": string;
         /**
+          * Sets the component to read only state, making it not editable, but interactable.
+          * @default false
+         */
+        "readOnly": boolean;
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
@@ -1102,6 +1184,11 @@ export namespace Components {
     }
     interface KupCombobox {
         /**
+          * Set alert message
+          * @default '''
+         */
+        "alert": string;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://smeup.github.io/ketchup/#/customization
@@ -1120,6 +1207,11 @@ export namespace Components {
          */
         "displayMode": ItemsDisplayMode;
         /**
+          * Set error message
+          * @default '''
+         */
+        "error": string;
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
@@ -1131,13 +1223,38 @@ export namespace Components {
          */
         "getValue": () => Promise<string>;
         /**
+          * When set, the text-field will show this icon.
+          * @default null
+         */
+        "icon": string;
+        /**
           * Sets the initial value of the component
          */
         "initialValue": string;
         /**
+          * Enables a clear trailing icon.
+          * @default false
+         */
+        "isClearable": boolean;
+        /**
           * Lets the combobox behave as a select element.
          */
         "isSelect": boolean;
+        /**
+          * When set, its content will be shown as a label.
+          * @default null
+         */
+        "label": string;
+        /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "leadingLabel": boolean;
+        /**
+          * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+          * @default false
+         */
+        "readOnly": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -1164,6 +1281,16 @@ export namespace Components {
           * When true shows the drop-down icon, for open list.
          */
         "showDropDownIcon": boolean;
+        /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing": KupComponentSizing;
+        /**
+          * When set, the icon will be shown after the text.
+          * @default false
+         */
+        "trailingIcon": boolean;
     }
     interface KupCustomTaskListHeader {
         "doubleView"?: boolean;
@@ -2055,7 +2182,7 @@ export namespace Components {
         "hiddenSubmitButton": boolean;
         /**
           * Sets the label placement for 'all' fields in form
-          * @default KupFormLabelPlacement.LEFT
+          * @default KupFormLabelPlacement.TOP
          */
         "labelPlacement": KupFormLabelPlacement;
         /**
@@ -3309,6 +3436,16 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * Defaults at false. When set to true, the component is horizontal.
+          * @default false
+         */
+        "horizontal": boolean;
+        /**
+          * When set, its content will be shown as a label.
+          * @default null
+         */
+        "label": string;
+        /**
           * Defaults at false. When set to true, the label will be on the left of the component.
           * @default false
          */
@@ -3384,6 +3521,11 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Sets the textual content of the snackbar.
+          * @default ''
+         */
+        "header": string;
         /**
           * Hides the snackbar.
          */
@@ -3517,6 +3659,11 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the size of the switch
+          * @default FSwitchSizing.MEDIUM
+         */
+        "sizing": FSwitchSizing;
     }
     interface KupSwitcher {
         "timeUnitChange": KupPlannerSwitcherProps['onTimeUnitChange'];
@@ -3533,6 +3680,11 @@ export namespace Components {
           * @default null
          */
         "data": KupTabBarNode[];
+        /**
+          * Defaults at false. When set to true, the component is dense.
+          * @default false
+         */
+        "dense": boolean;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -3624,6 +3776,11 @@ export namespace Components {
     }
     interface KupTextField {
         /**
+          * Set alert message
+          * @default '''
+         */
+        "alert": string;
+        /**
           * When true, could be input negative numbers (should be used when inputType is number).
           * @default null
          */
@@ -3649,6 +3806,11 @@ export namespace Components {
           * @default true
          */
         "emitSubmitEventOnEnter": boolean;
+        /**
+          * Set error message
+          * @default '''
+         */
+        "error": string;
         /**
           * When set to true, the component will be rendered at full width.
           * @default false
@@ -3755,6 +3917,16 @@ export namespace Components {
          */
         "outlined": boolean;
         /**
+          * Set the placeholder value. It's an example, not a label.
+          * @default false
+         */
+        "placeholder": string;
+        /**
+          * When set, appear 2 buttons to increment and decrement the value.
+          * @default false
+         */
+        "quantityButtons": boolean;
+        /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
          */
@@ -3781,6 +3953,11 @@ export namespace Components {
           * @default null
          */
         "size": number;
+        /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing": KupComponentSizing;
         /**
           * The HTML step of the input element. It has effect only with number input type.
           * @default null
@@ -5164,6 +5341,8 @@ declare global {
         "kup-textfield-iconclick": KupTextFieldEventPayload;
         "kup-textfield-cleariconclick": KupEventPayload;
         "kup-textfield-submit": KupTextFieldEventPayload;
+        "kup-textfield-minusclick": KupTextFieldEventPayload;
+        "kup-textfield-plusclick": KupTextFieldEventPayload;
     }
     interface HTMLKupTextFieldElement extends Components.KupTextField, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupTextFieldElementEventMap>(type: K, listener: (this: HTMLKupTextFieldElement, ev: KupTextFieldCustomEvent<HTMLKupTextFieldElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5334,8 +5513,18 @@ declare namespace LocalJSX {
           * @default true
          */
         "ripple"?: boolean;
+        /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing"?: KupComponentSizing;
     }
     interface KupAutocomplete {
+        /**
+          * Set alert message
+          * @default '''
+         */
+        "alert"?: string;
         /**
           * When true, the autocomplete fires the change event even when the value typed isn't included in the autocomplete list.
           * @default false
@@ -5363,6 +5552,16 @@ declare namespace LocalJSX {
          */
         "displayMode"?: ItemsDisplayMode;
         /**
+          * Set error message
+          * @default '''
+         */
+        "error"?: string;
+        /**
+          * When set, the text-field will show this icon.
+          * @default null
+         */
+        "icon"?: string;
+        /**
           * Sets the initial value of the component.
           * @default ""
          */
@@ -5372,6 +5571,21 @@ declare namespace LocalJSX {
           * @default 300
          */
         "inputDelay"?: number;
+        /**
+          * Enables a clear trailing icon.
+          * @default false
+         */
+        "isClearable"?: boolean;
+        /**
+          * When set, its content will be shown as a label.
+          * @default null
+         */
+        "label"?: string;
+        /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "leadingLabel"?: boolean;
         /**
           * The minimum number of chars to trigger the autocomplete
           * @default 1
@@ -5384,6 +5598,11 @@ declare namespace LocalJSX {
         "onKup-autocomplete-iconclick"?: (event: KupAutocompleteCustomEvent<KupAutocompleteIconClickEventPayload>) => void;
         "onKup-autocomplete-input"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-itemclick"?: (event: KupAutocompleteCustomEvent<KupAutocompleteEventPayload>) => void;
+        /**
+          * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+          * @default false
+         */
+        "readOnly"?: boolean;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
           * @default ItemsDisplayMode.CODE
@@ -5399,6 +5618,16 @@ declare namespace LocalJSX {
           * @default true
          */
         "showDropDownIcon"?: boolean;
+        /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing"?: KupComponentSizing;
+        /**
+          * When set, the icon will be shown after the text.
+          * @default false
+         */
+        "trailingIcon"?: boolean;
     }
     interface KupBadge {
         /**
@@ -5663,6 +5892,11 @@ declare namespace LocalJSX {
          */
         "showSpinner"?: boolean;
         /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing"?: KupComponentSizing;
+        /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
          */
@@ -5707,8 +5941,8 @@ declare namespace LocalJSX {
          */
         "showSelection"?: boolean;
         /**
-          * Defines the style of the buttons. Available styles are "flat", "outlined" and "raised" (which is the default).
-          * @default FButtonStyling.RAISED
+          * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
+          * @default FButtonStyling.FLAT
          */
         "styling"?: FButtonStyling;
     }
@@ -6036,6 +6270,11 @@ declare namespace LocalJSX {
     }
     interface KupCheckbox {
         /**
+          * Set alert message
+          * @default '''
+         */
+        "alert"?: string;
+        /**
           * Defaults at false. When set to true, the component will be set to 'checked'.
           * @default false
          */
@@ -6051,6 +6290,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "disabled"?: boolean;
+        /**
+          * Set error message
+          * @default '''
+         */
+        "error"?: string;
         /**
           * When set to true, the component will be set to 'indeterminate'.
           * @default false
@@ -6122,6 +6366,16 @@ declare namespace LocalJSX {
          */
         "onKup-chip-iconclick"?: (event: KupChipCustomEvent<KupChipEventPayload>) => void;
         /**
+          * Sets the size of the chip
+          * @default FChipSize.MEDIUM
+         */
+        "sizing"?: FChipSize;
+        /**
+          * Sets the style of the chip
+          * @default FChipStyling.RAISED
+         */
+        "styling"?: FChipStyling;
+        /**
           * The type of chip. Available types: input, filter, choice or empty for default.
           * @default FChipType.STANDARD
          */
@@ -6151,12 +6405,22 @@ declare namespace LocalJSX {
         "initialValue"?: string;
         "onKup-colorpicker-change"?: (event: KupColorPickerCustomEvent<KupColorPickerEventPayload>) => void;
         /**
+          * Sets the component to read only state, making it not editable, but interactable.
+          * @default false
+         */
+        "readOnly"?: boolean;
+        /**
           * When true, the component's text field will be replaced by a swatch.
           * @default false
          */
         "swatchOnly"?: boolean;
     }
     interface KupCombobox {
+        /**
+          * Set alert message
+          * @default '''
+         */
+        "alert"?: string;
         /**
           * Custom style of the component.
           * @default ""
@@ -6176,13 +6440,38 @@ declare namespace LocalJSX {
          */
         "displayMode"?: ItemsDisplayMode;
         /**
+          * Set error message
+          * @default '''
+         */
+        "error"?: string;
+        /**
+          * When set, the text-field will show this icon.
+          * @default null
+         */
+        "icon"?: string;
+        /**
           * Sets the initial value of the component
          */
         "initialValue"?: string;
         /**
+          * Enables a clear trailing icon.
+          * @default false
+         */
+        "isClearable"?: boolean;
+        /**
           * Lets the combobox behave as a select element.
          */
         "isSelect"?: boolean;
+        /**
+          * When set, its content will be shown as a label.
+          * @default null
+         */
+        "label"?: string;
+        /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "leadingLabel"?: boolean;
         "onKup-combobox-blur"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-change"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-click"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
@@ -6191,6 +6480,11 @@ declare namespace LocalJSX {
         "onKup-combobox-input"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-itemclick"?: (event: KupComboboxCustomEvent<KupComboboxEventPayload>) => void;
         /**
+          * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+          * @default false
+         */
+        "readOnly"?: boolean;
+        /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode"?: ItemsDisplayMode;
@@ -6198,6 +6492,16 @@ declare namespace LocalJSX {
           * When true shows the drop-down icon, for open list.
          */
         "showDropDownIcon"?: boolean;
+        /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing"?: KupComponentSizing;
+        /**
+          * When set, the icon will be shown after the text.
+          * @default false
+         */
+        "trailingIcon"?: boolean;
     }
     interface KupCustomTaskListHeader {
         "doubleView"?: boolean;
@@ -6922,7 +7226,7 @@ declare namespace LocalJSX {
         "hiddenSubmitButton"?: boolean;
         /**
           * Sets the label placement for 'all' fields in form
-          * @default KupFormLabelPlacement.LEFT
+          * @default KupFormLabelPlacement.TOP
          */
         "labelPlacement"?: KupFormLabelPlacement;
         /**
@@ -7936,6 +8240,16 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Defaults at false. When set to true, the component is horizontal.
+          * @default false
+         */
+        "horizontal"?: boolean;
+        /**
+          * When set, its content will be shown as a label.
+          * @default null
+         */
+        "label"?: string;
+        /**
           * Defaults at false. When set to true, the label will be on the left of the component.
           * @default false
          */
@@ -7994,6 +8308,11 @@ declare namespace LocalJSX {
           * @see https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
+        /**
+          * Sets the textual content of the snackbar.
+          * @default ''
+         */
+        "header"?: string;
         /**
           * Triggered when action button is clicked.
          */
@@ -8104,6 +8423,11 @@ declare namespace LocalJSX {
           * Triggered when the input element gets focused.
          */
         "onKup-switch-focus"?: (event: KupSwitchCustomEvent<KupSwitchEventPayload>) => void;
+        /**
+          * Sets the size of the switch
+          * @default FSwitchSizing.MEDIUM
+         */
+        "sizing"?: FSwitchSizing;
     }
     interface KupSwitcher {
         "timeUnitChange"?: KupPlannerSwitcherProps['onTimeUnitChange'];
@@ -8120,6 +8444,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: KupTabBarNode[];
+        /**
+          * Defaults at false. When set to true, the component is dense.
+          * @default false
+         */
+        "dense"?: boolean;
         /**
           * Triggered when the tab loses focus.
          */
@@ -8203,6 +8532,11 @@ declare namespace LocalJSX {
     }
     interface KupTextField {
         /**
+          * Set alert message
+          * @default '''
+         */
+        "alert"?: string;
+        /**
           * When true, could be input negative numbers (should be used when inputType is number).
           * @default null
          */
@@ -8228,6 +8562,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "emitSubmitEventOnEnter"?: boolean;
+        /**
+          * Set error message
+          * @default '''
+         */
+        "error"?: string;
         /**
           * When set to true, the component will be rendered at full width.
           * @default false
@@ -8347,6 +8686,14 @@ declare namespace LocalJSX {
          */
         "onKup-textfield-input"?: (event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) => void;
         /**
+          * Triggered when the - button of the number type component is pressed.
+         */
+        "onKup-textfield-minusclick"?: (event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) => void;
+        /**
+          * Triggered when the + button of the number type component is pressed.
+         */
+        "onKup-textfield-plusclick"?: (event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) => void;
+        /**
           * Triggered when the Enter key is pressed.
          */
         "onKup-textfield-submit"?: (event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) => void;
@@ -8355,6 +8702,16 @@ declare namespace LocalJSX {
           * @default false
          */
         "outlined"?: boolean;
+        /**
+          * Set the placeholder value. It's an example, not a label.
+          * @default false
+         */
+        "placeholder"?: string;
+        /**
+          * When set, appear 2 buttons to increment and decrement the value.
+          * @default false
+         */
+        "quantityButtons"?: boolean;
         /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
           * @default false
@@ -8365,6 +8722,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "size"?: number;
+        /**
+          * Sets the type of the button
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing"?: KupComponentSizing;
         /**
           * The HTML step of the input element. It has effect only with number input type.
           * @default null

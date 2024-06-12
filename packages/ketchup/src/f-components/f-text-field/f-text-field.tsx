@@ -3,6 +3,8 @@ import { FunctionalComponent, getAssetPath, h, VNode } from '@stencil/core';
 import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { NumericFieldFormatOptions } from '../../managers/kup-math/kup-math-declarations';
+import { FImage } from '../f-image/f-image';
+import { FImageProps } from '../f-image/f-image-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -14,17 +16,21 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
     props: FTextFieldProps,
     children: VNode[]
 ) => {
+    const classObj: Record<string, boolean> = {
+        'f-text-field': true,
+        'kup-danger': props.danger,
+        'kup-full-height': props.fullHeight,
+        'kup-full-width': props.fullWidth,
+        'kup-info': props.info,
+        'kup-secondary': props.secondary,
+        'kup-shaped': props.shaped,
+        'kup-success': props.success,
+        'kup-warning': props.warning,
+        [props.wrapperClass]: !!props.wrapperClass,
+    };
     return (
         <div
-            class={`f-text-field ${props.danger ? 'kup-danger' : ''} ${
-                props.fullHeight ? 'kup-full-height' : ''
-            } ${props.fullWidth ? 'kup-full-width' : ''}  ${
-                props.info ? 'kup-info' : ''
-            } ${props.secondary ? 'kup-secondary' : ''} ${
-                props.shaped ? 'kup-shaped' : ''
-            } ${props.success ? 'kup-success' : ''} ${
-                props.warning ? 'kup-warning' : ''
-            }  ${props.wrapperClass ? props.wrapperClass : ''}`}
+            class={classObj}
             {...props.dataSet}
             id={props.id}
             title={props.title}
@@ -57,12 +63,21 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     const isOutlined: boolean = props.textArea || props.outlined;
     let labelEl: HTMLElement;
     let iconEl: HTMLElement;
+    let minusEl: HTMLElement;
+    let plusEl: HTMLElement;
 
     if (props.label && !props.leadingLabel && !props.trailingLabel) {
         labelEl = (
-            <label class="mdc-floating-label" htmlFor="kup-input">
-                {props.label}
-            </label>
+            <div class="mdc-text-field__label-container">
+                <label class="mdc-label" htmlFor="kup-input">
+                    {props.label}
+                </label>
+                {props.maxLength ? (
+                    <div class="mdc-text-field-character-counter">
+                        {props.value.length} / {props.maxLength}
+                    </div>
+                ) : undefined}
+            </div>
         );
     }
 
@@ -95,10 +110,57 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         );
     }
 
+    if (props.quantityButtons) {
+        const minusSvg: string = `url('${getAssetPath(
+            `./assets/svg/minus.svg`
+        )}') no-repeat center`;
+        const plusSvg: string = `url('${getAssetPath(
+            `./assets/svg/plus.svg`
+        )}') no-repeat center`;
+
+        const minusStyle = {
+            mask: minusSvg,
+            webkitMask: minusSvg,
+        };
+        const plusStyle = {
+            mask: plusSvg,
+            webkitMask: plusSvg,
+        };
+
+        minusEl = (
+            <span
+                style={minusStyle}
+                class={`mdc-text-field__icon kup-icon action`}
+            ></span>
+        );
+        plusEl = (
+            <span
+                style={plusStyle}
+                class={`mdc-text-field__icon kup-icon action`}
+            ></span>
+        );
+    }
+
+    const propsFImage: FImageProps = {
+        color: props.error
+            ? `var(--kup-danger-color)`
+            : `var(--kup-warning-color)`,
+        resource: props.error ? 'error' : 'warning',
+        sizeX: '1.25em',
+        sizeY: '1.25em',
+        wrapperClass: 'kup-icon',
+    };
+
+    const classContainerObj: Record<string, boolean> = {
+        'mdc-text-field-container': true,
+        'mdc-text-field-container--disabled': props.disabled,
+    };
+
     const classObj: Record<string, boolean> = {
         'is-clearable': props.isClearable,
         'mdc-text-field': true,
         'mdc-text-field--disabled': props.disabled,
+        'mdc-text-field--read-only': props.readOnly,
         'mdc-text-field--filled': !props.fullWidth && !isOutlined,
         'mdc-text-field--no-label': !props.label,
         'mdc-text-field--fullwidth': props.fullWidth,
@@ -106,10 +168,16 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         'mdc-text-field--textarea': props.textArea,
         'mdc-text-field--with-leading-icon': props.icon && !props.trailingIcon,
         'mdc-text-field--with-trailing-icon': props.icon && props.trailingIcon,
+        'mdc-text-field--with-quantity-buttons': props.quantityButtons,
+        'mdc-text-field--error': Boolean(props.error),
+        'mdc-text-field--alert': Boolean(props.alert),
+        [`mdc-text-field--${props.sizing}`]: props.sizing ? true : false,
     };
 
     let value = props.value;
-    let inputType = props.inputType ?? 'text';
+    let inputType = props.quantityButtons
+        ? 'number'
+        : props.inputType ?? 'text';
     let persManageForNumberFormat = false;
     if (
         props.inputType === 'number' &&
@@ -127,104 +195,51 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         };
         value = formatValue(value, options, false);
     }
+
     return (
-        <div class={classObj}>
-            {props.textArea && props.maxLength ? (
-                <div class="mdc-text-field-character-counter">
-                    '0 / ' + {props.maxLength}
-                </div>
-            ) : undefined}
-            {!props.trailingIcon ? iconEl : undefined}
-            {props.textArea ? (
-                <span class="mdc-text-field__resizer">
-                    <textarea
+        <div class={classContainerObj}>
+            {!props.fullWidth ? labelEl : undefined}
+            <div class={classObj}>
+                {!props.trailingIcon ? iconEl : undefined}
+                {props.textArea ? (
+                    <span class="mdc-text-field__resizer">
+                        <textarea
+                            class="mdc-text-field__input"
+                            disabled={props.disabled}
+                            maxlength={props.maxLength}
+                            value={value}
+                            onBlur={props.onBlur}
+                            onClick={props.onClick}
+                            onChange={props.onChange}
+                            onFocus={props.onFocus}
+                            onInput={props.onInput}
+                            onKeyDown={props.onKeyDown}
+                        ></textarea>
+                    </span>
+                ) : (
+                    <input
+                        inputmode={
+                            props.inputMode ? props.inputMode : undefined
+                        }
+                        type={inputType}
+                        step={props.step}
+                        min={props.min}
+                        max={props.max}
+                        name={props.name}
                         class="mdc-text-field__input"
                         disabled={props.disabled}
-                        readOnly={props.readOnly}
+                        placeholder={props.placeholder}
                         maxlength={props.maxLength}
+                        size={props.size}
                         value={value}
-                        onBlur={props.onBlur}
-                        onClick={props.onClick}
-                        onChange={props.onChange}
-                        onFocus={props.onFocus}
-                        onInput={props.onInput}
-                        onKeyDown={props.onKeyDown}
-                    ></textarea>
-                </span>
-            ) : (
-                <input
-                    inputmode={props.inputMode ? props.inputMode : undefined}
-                    type={inputType}
-                    step={props.step}
-                    min={props.min}
-                    max={props.max}
-                    name={props.name}
-                    class="mdc-text-field__input"
-                    disabled={props.disabled}
-                    readOnly={props.readOnly}
-                    placeholder={
-                        props.fullWidth && !props.outlined
-                            ? props.label
-                            : undefined
-                    }
-                    maxlength={props.maxLength}
-                    size={props.size}
-                    value={value}
-                    onBlur={(e: FocusEvent) => {
-                        if (persManageForNumberFormat) {
-                            const options: NumericFieldFormatOptions = {
-                                allowNegative: props.allowNegative ?? true,
-                                decimal: props.decimals,
-                                group: props.group,
-                                integer: props.integers,
-                            };
-                            (e.target as HTMLInputElement).value = formatValue(
-                                (e.target as HTMLInputElement).value,
-                                options,
-                                true
-                            );
-                        }
-                        if (props.onBlur) {
-                            props.onBlur(e);
-                        }
-                    }}
-                    onChange={(e: InputEvent) => {
-                        if (persManageForNumberFormat) {
-                            const options: NumericFieldFormatOptions = {
-                                allowNegative: props.allowNegative ?? true,
-                                decimal: props.decimals,
-                                group: props.group,
-                                integer: props.integers,
-                            };
-                            if (
-                                props.min !== undefined &&
-                                props.min !== null &&
-                                props.min >
-                                    parseFloat(
-                                        (e.target as HTMLInputElement).value
-                                    )
-                            ) {
-                                (e.target as HTMLInputElement).value =
-                                    formatValue(
-                                        props.min.toString(),
-                                        options,
-                                        true
-                                    );
-                            } else if (
-                                props.max !== undefined &&
-                                props.max !== null &&
-                                props.max <
-                                    parseFloat(
-                                        (e.target as HTMLInputElement).value
-                                    )
-                            ) {
-                                (e.target as HTMLInputElement).value =
-                                    formatValue(
-                                        props.max.toString(),
-                                        options,
-                                        true
-                                    );
-                            } else {
+                        onBlur={(e: FocusEvent) => {
+                            if (persManageForNumberFormat) {
+                                const options: NumericFieldFormatOptions = {
+                                    allowNegative: props.allowNegative ?? true,
+                                    decimal: props.decimals,
+                                    group: props.group,
+                                    integer: props.integers,
+                                };
                                 (e.target as HTMLInputElement).value =
                                     formatValue(
                                         (e.target as HTMLInputElement).value,
@@ -232,105 +247,182 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                                         true
                                     );
                             }
-                        } else {
-                            if (
-                                props.min !== undefined &&
-                                props.min !== null &&
-                                props.min >
-                                    parseFloat(
-                                        (e.target as HTMLInputElement).value
-                                    )
-                            ) {
-                                (e.target as HTMLInputElement).value =
-                                    props.min.toString();
-                            } else if (
-                                props.max !== undefined &&
-                                props.max !== null &&
-                                props.max <
-                                    parseFloat(
-                                        (e.target as HTMLInputElement).value
-                                    )
-                            ) {
-                                (e.target as HTMLInputElement).value =
-                                    props.max.toString();
+                            if (props.onBlur) {
+                                props.onBlur(e);
                             }
-                        }
-                        if (props.onChange) {
-                            props.onChange(e);
-                        }
-                    }}
-                    onClick={props.onClick}
-                    onFocus={props.onFocus}
-                    onInput={props.onInput}
-                    onKeyDown={props.onKeyDown}
-                    onKeyPress={(e: KeyboardEvent) => {
-                        if (!persManageForNumberFormat) {
-                            return;
-                        }
-                        if (e.ctrlKey) {
-                            return;
-                        }
+                        }}
+                        onChange={(e: InputEvent) => {
+                            if (persManageForNumberFormat) {
+                                const options: NumericFieldFormatOptions = {
+                                    allowNegative: props.allowNegative ?? true,
+                                    decimal: props.decimals,
+                                    group: props.group,
+                                    integer: props.integers,
+                                };
+                                if (
+                                    props.min !== undefined &&
+                                    props.min !== null &&
+                                    props.min >
+                                        parseFloat(
+                                            (e.target as HTMLInputElement).value
+                                        )
+                                ) {
+                                    (e.target as HTMLInputElement).value =
+                                        formatValue(
+                                            props.min.toString(),
+                                            options,
+                                            true
+                                        );
+                                } else if (
+                                    props.max !== undefined &&
+                                    props.max !== null &&
+                                    props.max <
+                                        parseFloat(
+                                            (e.target as HTMLInputElement).value
+                                        )
+                                ) {
+                                    (e.target as HTMLInputElement).value =
+                                        formatValue(
+                                            props.max.toString(),
+                                            options,
+                                            true
+                                        );
+                                } else {
+                                    (e.target as HTMLInputElement).value =
+                                        formatValue(
+                                            (e.target as HTMLInputElement)
+                                                .value,
+                                            options,
+                                            true
+                                        );
+                                }
+                            } else {
+                                if (
+                                    props.min !== undefined &&
+                                    props.min !== null &&
+                                    props.min >
+                                        parseFloat(
+                                            (e.target as HTMLInputElement).value
+                                        )
+                                ) {
+                                    (e.target as HTMLInputElement).value =
+                                        props.min.toString();
+                                } else if (
+                                    props.max !== undefined &&
+                                    props.max !== null &&
+                                    props.max <
+                                        parseFloat(
+                                            (e.target as HTMLInputElement).value
+                                        )
+                                ) {
+                                    (e.target as HTMLInputElement).value =
+                                        props.max.toString();
+                                }
+                            }
+                            if (props.onChange) {
+                                props.onChange(e);
+                            }
+                        }}
+                        onClick={props.onClick}
+                        onFocus={props.onFocus}
+                        onInput={props.onInput}
+                        onKeyDown={props.onKeyDown}
+                        onKeyPress={(e: KeyboardEvent) => {
+                            if (!persManageForNumberFormat) {
+                                return;
+                            }
+                            if (e.ctrlKey) {
+                                return;
+                            }
 
-                        if (e.key.length > 1) {
-                            return;
-                        }
+                            if (e.key.length > 1) {
+                                return;
+                            }
 
-                        const options: NumericFieldFormatOptions = {
-                            allowNegative: props.allowNegative ?? true,
-                            decimal: props.decimals,
-                            group: props.group,
-                            integer: props.integers,
-                        };
-                        let component = e.target as HTMLInputElement;
-                        let value = component.value;
+                            const options: NumericFieldFormatOptions = {
+                                allowNegative: props.allowNegative ?? true,
+                                decimal: props.decimals,
+                                group: props.group,
+                                integer: props.integers,
+                            };
+                            let component = e.target as HTMLInputElement;
+                            let value = component.value;
 
-                        let beginVal = value.substring(
-                            0,
-                            component.selectionStart
-                        );
-                        let endVal = value.substring(
-                            component.selectionEnd,
-                            component.selectionEnd + value.length - 1
-                        );
-                        let val = beginVal + e.key + endVal;
-                        if (
-                            !dom.ketchup.math.matchNumericValueWithOptions(
-                                val,
-                                options
-                            )
-                        ) {
-                            e.preventDefault();
-                            return;
-                        }
-                    }}
-                ></input>
-            )}
-            {props.isClearable ? (
-                <span
-                    class={`mdc-text-field__icon kup-icon ${KupThemeIconValues.CLEAR.replace(
-                        '--',
-                        ''
-                    )}`}
-                    onClick={props.onClearIconClick}
-                ></span>
-            ) : undefined}
-            {props.trailingIcon ? iconEl : undefined}
-            {!props.fullWidth && !isOutlined ? labelEl : undefined}
-            {isOutlined ? (
-                <div class="mdc-notched-outline">
-                    <div class="mdc-notched-outline__leading"></div>
-                    <div class="mdc-notched-outline__notch">{labelEl}</div>
-                    <div class="mdc-notched-outline__trailing"></div>
-                </div>
-            ) : (
-                <span class="mdc-line-ripple"></span>
-            )}
+                            let beginVal = value.substring(
+                                0,
+                                component.selectionStart
+                            );
+                            let endVal = value.substring(
+                                component.selectionEnd,
+                                component.selectionEnd + value.length - 1
+                            );
+                            let val = beginVal + e.key + endVal;
+                            if (
+                                !dom.ketchup.math.matchNumericValueWithOptions(
+                                    val,
+                                    options
+                                )
+                            ) {
+                                e.preventDefault();
+                                return;
+                            }
+                        }}
+                    ></input>
+                )}
+
+                {props.trailingIcon ? iconEl : undefined}
+
+                {/* {isOutlined ? (
+                    <div class="mdc-notched-outline">
+                        <div class="mdc-notched-outline__leading"></div>
+                        <div class="mdc-notched-outline__trailing"></div>
+                    </div>
+                ) : (
+                    <span class="mdc-line-ripple"></span>
+                )} */}
+
+                {props.error ? (
+                    <div class="mdc-error-icon">
+                        <FImage {...propsFImage} />
+                    </div>
+                ) : props.alert ? (
+                    <div class="mdc-alert-icon">
+                        <FImage {...propsFImage} />
+                    </div>
+                ) : undefined}
+
+                {props.quantityButtons && (
+                    <div class="mdc-quantity-buttons">
+                        <button onClick={props.onMinusClick}>{minusEl}</button>
+                        <button onClick={props.onPlusClick}>{plusEl}</button>
+                    </div>
+                )}
+                {props.isClearable ? (
+                    <span
+                        class={`mdc-text-field__icon kup-icon ${KupThemeIconValues.CLEAR.replace(
+                            '--',
+                            ''
+                        )}`}
+                        onClick={props.onClearIconClick}
+                    ></span>
+                ) : undefined}
+            </div>
         </div>
     );
 }
 
 function setHelper(props: FTextFieldProps): HTMLDivElement {
-    if (props.helperEnabled !== false) {
+    if (props.error || props.alert) {
+        return (
+            <div class="mdc-text-field-helper-line">
+                {props.error ? (
+                    <span class="mdc-error-message">{props.error}</span>
+                ) : props.alert ? (
+                    <span class="mdc-alert-message">{props.alert}</span>
+                ) : undefined}
+            </div>
+        );
+    } else if (props.helperEnabled !== false) {
         if (props.helper) {
             const classObj: Record<string, boolean> = {
                 'mdc-text-field-helper-text': true,
@@ -340,29 +432,8 @@ function setHelper(props: FTextFieldProps): HTMLDivElement {
             return (
                 <div class="mdc-text-field-helper-line">
                     <div class={classObj}>{props.helper}</div>
-                    {props.hiddenCounter !== true &&
-                    props.maxLength &&
-                    !props.textArea ? (
-                        <div class="mdc-text-field-character-counter">
-                            '0 / ' + {props.maxLength.toString()}
-                        </div>
-                    ) : undefined}
                 </div>
             );
-        } else {
-            if (
-                props.hiddenCounter !== true &&
-                props.maxLength &&
-                !props.textArea
-            ) {
-                return (
-                    <div class="mdc-text-field-helper-line">
-                        <div class="mdc-text-field-character-counter">
-                            '0 / ' + {props.maxLength}
-                        </div>
-                    </div>
-                );
-            }
         }
     }
 }

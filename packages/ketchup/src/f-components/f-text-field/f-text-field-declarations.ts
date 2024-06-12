@@ -1,11 +1,13 @@
-import type { FComponent } from '../../types/GenericTypes';
+import type { FComponent, KupComponentSizing } from '../../types/GenericTypes';
 /**
  * Props of the f-text-field component.
  */
 export interface FTextFieldProps extends FComponent {
+    alert?: string;
     allowNegative?: boolean;
     decimals?: number;
     disabled?: boolean;
+    error?: string;
     fullHeight?: boolean;
     fullWidth?: boolean;
     group?: boolean;
@@ -24,10 +26,13 @@ export interface FTextFieldProps extends FComponent {
     label?: string;
     leadingLabel?: boolean;
     name?: string;
+    placeholder?: string;
     outlined?: boolean;
+    quantityButtons?: boolean;
     readOnly?: boolean;
     shaped?: boolean;
     size?: number;
+    sizing?: KupComponentSizing;
     step?: number;
     textArea?: boolean;
     trailingIcon?: boolean;
@@ -41,4 +46,6 @@ export interface FTextFieldProps extends FComponent {
     onKeyDown?: (event: KeyboardEvent) => void;
     onIconClick?: (event: MouseEvent) => void;
     onClearIconClick?: (event: MouseEvent) => void;
+    onMinusClick?: (event: MouseEvent) => void;
+    onPlusClick?: (event: MouseEvent) => void;
 }

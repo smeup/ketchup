@@ -15,34 +15,62 @@
 */
 
 :host {
-  --kup_tree_border: var(--kup-tree-border, 1px solid var(--kup-border-color));
-  --kup_tree_color: var(--kup-tree-color, var(--kup-text-color));
+  --kup_tree_header_background_color: var(
+    --kup-tree-header-background-color,
+    var(--kup-layer-2)
+  );
+
+  --kup_tree_body_background_color: var(
+    --kup-tree-body-background-color,
+    var(--kup-layer-1)
+  );
+
+  --kup_tree_body_background_color_hover: var(
+    --kup-tree-body-background-color-hover,
+    var(--kup-layer-1-hover)
+  );
+
+  --kup_tree_border_color: var(
+    --kup-tree-border-color,
+    var(--kup-border-subtle)
+  );
+
+  --kup_tree_tr_outline_color: var(
+    --kup-tree-tr-outline-color,
+    var(--kup-border-interactive)
+  );
+
+  --kup_tree_tr_background_color_hover: var(
+    --kup-tree-tr-background-color-hover,
+    var(--kup-layer-1-hover)
+  );
+
+  --kup_tree_tr_background_color_focus: var(
+    --kup-tree-tr-background-color-focus,
+    var(--kup-layer-1-selected)
+  );
+
+  --kup_tree_text_color: var(--kup-tree-text-color, var(--kup-text-secondary));
+  --kup_tree_header_text_color: var(
+    --kup-tree-header-text-color,
+    var(--kup-text-primary)
+  );
   --kup_tree_color_rgb: var(--kup-tree-color-rgb, var(--kup-text-color-rgb));
   --kup_tree_font_family: var(--kup-tree-font-family, var(--kup-font-family));
-  --kup_tree_filter_background_color: var(--kup-tree-filter-background-color, var(--kup-background-color));
+  --kup_tree_filter_background_color: var(
+    --kup-tree-filter-background-color,
+    var(--kup-layer-1)
+  );
   --kup_tree_font_family_monospace: var(
     --kup-tree-font-family-monospace,
     var(--kup-font-family-monospace)
   );
   --kup_tree_font_size: var(--kup-tree-font-size, var(--kup-font-size));
-  --kup_tree_hover_color: var(--kup-tree-hover-color, var(--kup-hover-color));
-  --kup_tree_hover_background_color: var(
-    --kup-tree-hover-background-color,
-    var(--kup-hover-background-color)
+  --kup_tree_text_hover_color: var(
+    --kup-tree-text-hover-color,
+    var(--kup-text-primary)
   );
-  --kup_tree_icon_color: var(--kup-tree-icon-color, var(--kup-icon-color));
-  --kup_tree_primary_color: var(
-    --kup-tree-primary-color,
-    var(--kup-primary-color)
-  );
-  --kup_tree_primary_color_rgb: var(
-    --kup-tree-primary-color-rgb,
-    var(--kup-primary-color-rgb)
-  );
-  --kup_tree_text_on_primary_color: var(
-    --kup-tree-text-on-primary-color,
-    var(--kup-text-on-primary-color)
-  );
+  --kup_tree_icon_color: var(--kup-tree-icons-color, var(--kup-text-secondary));
 
   display: block;
   font-family: var(--kup_tree_font_family);
@@ -56,14 +84,14 @@
 }
 
 #kup-component {
-  color: var(--kup_tree_color);
+  color: var(--kup_tree_text_color);
 }
 
 .density-dense .wrapper .kup-tree,
 .density-dense .wrapper .kup-tree {
   td:not(.grid-cell),
   th {
-    padding: 0 0.5em;
+    padding: 0 1.8em;
 
     & .kup-tree__icon ~ .cell-content,
     & .kup-tree__icon + .cell-content {
@@ -76,7 +104,7 @@
 .density-wide .wrapper .kup-tree {
   td:not(.grid-cell),
   th {
-    padding: 0.75em 0.5em;
+    padding: 0.75em 1.8em;
   }
 }
 
@@ -91,16 +119,37 @@
       display: none;
       &.header--is-visible {
         display: table-header-group;
+        background-color: var(--kup_tree_header_background_color);
 
         th {
           padding: 0.8em 0.5em;
           font-size: 1.1em;
+          span {
+            color: var(--kup_tree_header_text_color);
+            @include kup-heading-compact-01;
+          }
         }
       }
 
       th {
         text-align: left;
       }
+    }
+
+    tbody {
+      background-color: var(--kup_tree_body_background_color);
+      tr {
+      }
+
+      tr.kup-tree__node.kup-tree__node--first {
+        td .cell-content {
+          @include kup-body-compact-01;
+        }
+      }
+    }
+
+    tfoot {
+      background-color: var(--kup_tree_body_background_color);
     }
 
     tr,
@@ -120,13 +169,14 @@
       & .kup-tree__icon ~ .cell-content,
       & .kup-tree__icon + .cell-content {
         display: inline-block;
-        vertical-align: 0.3em;
+        vertical-align: 0.2em;
+        @include kup-body-compact-01;
       }
     }
 
     td:not(.grid-cell),
     th {
-      padding: 0.4em 0.5em;
+      padding: 0.4em var(--kup-space-03);
     }
 
     td {
@@ -136,15 +186,15 @@
 
     &__indent {
       display: inline-block;
-      width: calc(1.5em * var(--kup_tree_node_depth, 0));
+      width: calc(1.8em * var(--kup_tree_node_depth, 0));
     }
 
     &__icon {
       display: inline-block;
       margin-right: 0.4em;
-      height: 1.5em;
-      min-width: 1.5em;
-      width: 1.5em;
+      height: 16px;
+      min-width: 16px;
+      width: 16px;
     }
 
     &__node__expander {
@@ -179,7 +229,7 @@
       }
 
       .#{$kup-icon}.kup-tree__node__expander:not(.is-image) {
-        background-color: var(--kup_tree_color);
+        background-color: var(--kup_tree_text_color);
       }
 
       .#{$kup-icon}.is-image img {
@@ -189,32 +239,35 @@
       }
 
       &:hover:not(.kup-tree__node--disabled):not(.kup-tree__node--selected) td {
-        background-color: var(--kup_tree_hover_background_color);
-        color: var(--kup_tree_hover_color);
+        background-color: var(--kup_tree_tr_background_color_hover);
+        color: var(--kup_tree_text_hover_color);
 
         .#{$kup-icon} {
-          background-color: var(--kup_tree_hover_color);
+          background-color: var(--kup_tree_text_hover_color);
         }
       }
 
       &--selected:not(.kup-tree__node--disabled) td {
-        background-color: rgba(var(--kup_tree_primary_color_rgb), 0.175);
-        color: var(--kup_tree_color);
+        background-color: var(--kup_tree_tr_background_color_focus);
       }
     }
 
     &[data-show-columns] .kup-tree__node {
-      border-bottom: solid 1px var(--kup-border-color);
+      border-bottom: solid 1px var(--kup_tree_border_color);
+      border-left: 2px solid transparent;
+      box-sizing: content-box;
     }
   }
 }
 
 #global-filter {
   background: var(--kup_tree_filter_background_color);
-  margin-bottom: 1em;
   position: sticky;
   top: 0;
   z-index: 1;
+  kup-text-field .f-text-field .mdc-text-field-container .mdc-text-field {
+    border-bottom: none;
+  }
 }
 
 .first-node .cell-content {
@@ -235,7 +288,7 @@
 }
 
 .#{$kup-icon}.#{$kup-icon-filter-remove}:not(.f-image) {
-  background-color: var(--kup_tree_color);
+  background-color: var(--kup_tree_text_color);
   margin: 0 0.25em;
   height: 1em;
   width: 1em;
@@ -246,24 +299,27 @@
 }
 
 .grid-cell {
-  height: 0; // Trick to let the cell' size to adapt to its content
+  height: 0;
+  .f-cell .f-cell__content {
+    @include kup-body-compact-01;
+  } // Trick to let the cell' size to adapt to its content
 }
 
 tfoot {
   td {
-    border-bottom: var(--kup_tree_border);
-    border-right: var(--kup_tree_border);
+    border-bottom: solid 1px var(--kup_tree_border_color);
+    border-right: solid 1px var(--kup_tree_border_color);
     box-sizing: border-box;
     height: 36px;
     text-align: right;
     font-weight: bold;
     padding: 0.5em 0.3125em;
     &:hover {
-      background-color: var(--kup-background-color);
+      background-color: var(--kup_tree_body_background_color_hover);
     }
     &:first-of-type {
       border: none;
-      border-right: var(--kup_tree_border);
+      border-right: solid 1px var(--kup_tree_border_color);
     }
   }
 }
@@ -275,7 +331,7 @@ tfoot {
     text-overflow: ellipsis;
     transition: color 200ms;
     &:hover {
-      color: var(--kup_tree_color);
+      color: var(--kup_tree_text_color);
     }
   }
 }
@@ -289,8 +345,11 @@ tfoot {
     display: table-header-group;
 
     tr {
-      border-left: var(--kup_tree_border);
-      border-right: var(--kup_tree_border);
+      border-left: solid 1px var(--kup_tree_border_color);
+      border-right: solid 1px var(--kup_tree_border_color);
+      th span {
+        @include kup-heading-compact-01;
+      }
     }
   }
 
@@ -319,21 +378,19 @@ tfoot {
 
     &:hover,
     &[data-is-expanded] {
-      background-color: var(--kup_tree_hover_background_color);
+      background-color: var(--kup_tree_tr_background_color_hover);
 
       .cell-content {
-        color: var(--kup_tree_hover_color);
+        color: var(--kup_tree_text_hover_color);
       }
 
       .#{$kup-icon} {
-        background-color: var(--kup_tree_hover_color);
+        background-color: var(--kup_tree_text_hover_color);
       }
     }
 
     &[data-is-expanded] {
       .first-node {
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
       }
 
       .#{$kup-icon-dropdown} {
@@ -341,32 +398,13 @@ tfoot {
       }
     }
 
-    &:first-of-type {
-      .first-node {
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
-        border-top: var(--kup_tree_border);
-      }
-    }
-
-    &:last-of-type {
-      .first-node {
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
-      }
-    }
-
     .first-node {
       align-items: center;
-      border-bottom: var(--kup_tree_border);
-      border-left: var(--kup_tree_border);
-      border-right: var(--kup_tree_border);
       box-sizing: border-box;
-      color: var(--kup_tree_color);
+      color: var(--kup_tree_text_color);
       cursor: pointer;
       display: flex;
       line-height: 1.75em;
-      outline: none;
       text-align: left;
       transition: background-color 80ms, color 80ms;
       width: 100%;
@@ -398,9 +436,7 @@ tfoot {
 
   // First accordion item right below a tree item
   .kup-tree__node:not(.kup-tree__node--first) + .kup-tree__node--first {
-    border-top: var(--kup_tree_border);
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    border-top: 1px solid var(--kup_tree_border_color);
   }
 }
 
@@ -408,7 +444,7 @@ tfoot {
   animation: fade-in 0.25s ease-out;
   background-color: var(--kup-background-color);
   box-shadow: var(--kup-box-shadow);
-  color: var(--kup-text-color);
+  color: var(kup_tree_text_color);
   display: none;
   max-height: 33vh;
   overflow: auto;

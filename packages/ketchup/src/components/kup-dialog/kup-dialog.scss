@@ -3,6 +3,18 @@
 */
 
 :host {
+  --kup_dialogheader_text_color: var(
+    --kup-dialogheader-text-color,
+    var(--kup-text-secondary)
+  );
+  --kup_dialog_background_color: var(
+    --kup-dialog-background-color,
+    var(--kup-layer-0)
+  );
+  --kup_dialog_header_background_color: var(
+    --kup-dialog-header-background-color,
+    var(--kup-layer-1)
+  );
   --kup_dialog_header_height: var(--kup-dialog-header-height, 2em);
 
   box-sizing: border-box;
@@ -31,33 +43,30 @@
 }
 
 .header {
-  background-color: var(--kup-title-background-color);
-  color: var(--kup-title-color);
+  color: var(--kup_dialogheader_text_color);
   display: flex;
   flex-direction: row;
   height: var(--kup_dialog_header_height);
   position: relative;
   width: 100%;
+  min-height: 50px;
+  background-color: var(--kup_dialog_header_background_color);
 
   &__title {
-    font-weight: bold;
-    line-height: 2em;
-    padding-left: 0.5em;
-    padding-right: 2em;
+    padding: var(--kup-space-05);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    @include kup-heading-compact-01;
   }
 
   &__close.f-image {
-    --kup-icon-color: var(--kup-title-color);
-
+    --kup-icon-color: var(--kup_dialogheader_text_color);
     cursor: pointer;
     margin-right: 0;
     transition: opacity 0.25s;
     position: absolute;
-    right: 0;
-    background: var(--kup-title-background-color);
+    right: var(--kup-space-05);
 
     &:hover {
       opacity: 0.5;
@@ -67,6 +76,8 @@
 
 .content {
   height: calc(100% - var(--kup_dialog_header_height));
+  padding: var(--kup-space-05);
   overflow: auto;
   user-select: text;
+  background-color: var(--kup_dialog_background_color);
 }

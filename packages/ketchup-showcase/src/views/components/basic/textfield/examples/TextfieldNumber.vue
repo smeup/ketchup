@@ -51,6 +51,22 @@
           separator sample markup</p
         >
         <code class="flat">{{ markupGroupNumber }}</code>
+
+        <p
+          >You can also have the possibility to get the 'Plus' and 'Minus'
+          button at the end of input number field by specifing the
+          'quantity-buttons'.</p
+        >
+        <div class="kup-container">
+          <kup-text-field
+            label="Normal"
+            input-type="number"
+            input-mode="decimal"
+            quantity-buttons
+          ></kup-text-field>
+        </div>
+        <p class="centered">Input number with plus and minus button</p>
+        <code class="flat">{{ plusAndMinus }}</code>
       </div>
     </div>
   </div>
@@ -67,6 +83,8 @@ export default {
         '<kup-text-field input-type="number" allow-negative decimals="2" integers="4"></kup-text-field>',
       markupGroupNumber:
         '<kup-text-field input-type="number" group decimals="2" integers="4"></kup-text-field>',
+      plusAndMinus:
+        '<kup-text-field input-type="number" input-mode="decimal" quantity-buttons label="Normal"></kup-text-field>',
     };
   },
 };

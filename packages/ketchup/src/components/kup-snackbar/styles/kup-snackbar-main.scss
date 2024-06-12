@@ -1,4 +1,21 @@
 :host {
+  --kup_snackbar_border_left_color: var(
+    --kup-snackbar-border-left-color,
+    var(--kup-border-interactive)
+  );
+
+  --kup_snackbar_background_color: var(
+    --kup-snackbar-background-color,
+    var(--kup-layer-0-inverted)
+  );
+
+  --kup_snackbar_text_color: var(
+    --kup-snackbar-text-color,
+    var(--kup-text-primary-inverted)
+  );
+
+  --kup_snackbar_text_color: var(--kup-snackbar-text-color, var(--kup-layer-1));
+
   animation: snackbar-show 125ms;
   bottom: 0;
   box-sizing: border-box;
@@ -29,33 +46,37 @@
 
 .snackbar {
   align-items: center;
-  background: var(--kup-navbar-background-color);
-  border-radius: 5px;
-  box-shadow: var(--kup-box-shadow);
-  color: var(--kup-navbar-color);
+  background-color: var(--kup_snackbar_background_color);
+  color: var(--kup_snackbar_text_color);
   display: flex;
   justify-content: space-between;
   max-width: 672px;
   min-height: 48px;
   min-width: 344px;
+  border-left: 4px solid var(--kup_snackbar_border_left_color);
+  padding: 0 var(--kup-space-05);
 
-  &__text {
-    padding: 14px 16px;
+  .snackbar__text__block {
+    padding: var(--kup-space-05) 0;
+    color: var(--kup_snackbar_text_color);
+  }
+
+  &__header {
     pointer-events: all;
     word-break: break-word;
+    @include kup-heading-compact-01;
+  }
+
+  &__text {
+    pointer-events: all;
+    word-break: break-word;
+    @include kup-body-compact-01;
   }
 
   &__buttons {
-    --kup-button-primary-color: var(--kup-navbar-color);
-    --kup-button-primary-color-rgb: var(--kup-navbar-color-rgb);
-    --kup-button-primary-color-h: var(--kup-navbar-color-h);
-    --kup-button-primary-color-s: var(--kup-navbar-color-s);
-    --kup-button-primary-color-l: var(--kup-navbar-color-l);
-
     align-items: center;
     display: flex;
     justify-content: flex-end;
-    margin-right: 8px;
     pointer-events: all;
     width: max-content;
   }
@@ -65,6 +86,13 @@
 
     margin-left: 8px;
     pointer-events: all;
+  }
+}
+
+@media (min-width: 768px) {
+  .snackbar__text__block {
+    padding: var(--kup-space-05) 0;
+    min-width: 350px;
   }
 }
 

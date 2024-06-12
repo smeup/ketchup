@@ -75,7 +75,7 @@ export function create2(component: KupCard): VNode {
                             color={
                                 colorArray[0]
                                     ? colorArray[0]
-                                    : `var(${KupThemeColorValues.PRIMARY})`
+                                    : `var(${KupThemeColorValues.ICON})`
                             }
                             id="image1"
                             {...imageArray[0]}
@@ -189,7 +189,7 @@ export function create4(component: KupCard): VNode {
                             color={
                                 colorArray[0]
                                     ? colorArray[0]
-                                    : `var(${KupThemeColorValues.PRIMARY})`
+                                    : `var(${KupThemeColorValues.ICON})`
                             }
                             id="image1"
                             {...imageArray[0]}
@@ -305,7 +305,7 @@ export function create5(component: KupCard): VNode {
                             color={
                                 colorArray[0]
                                     ? colorArray[0]
-                                    : `var(${KupThemeColorValues.PRIMARY})`
+                                    : `var(${KupThemeColorValues.ICON})`
                             }
                             id="image1"
                             {...imageArray[0]}
@@ -346,7 +346,7 @@ export function create6(component: KupCard): VNode {
                             color={
                                 colorArray[0]
                                     ? colorArray[0]
-                                    : `var(${KupThemeColorValues.PRIMARY})`
+                                    : `var(${KupThemeColorValues.ICON})`
                             }
                             id="image1"
                             {...imageArray[0]}
@@ -437,7 +437,7 @@ export function create7(component: KupCard): VNode {
                             color={
                                 colorArray[0]
                                     ? colorArray[0]
-                                    : `var(${KupThemeColorValues.PRIMARY})`
+                                    : `var(${KupThemeColorValues.ICON})`
                             }
                             id="image1"
                             {...imageArray[0]}
@@ -478,7 +478,7 @@ export function create8(component: KupCard): VNode {
                             color={
                                 colorArray[0]
                                     ? colorArray[0]
-                                    : `var(${KupThemeColorValues.PRIMARY})`
+                                    : `var(${KupThemeColorValues.ICON})`
                             }
                             id="image1"
                             {...imageArray[0]}
@@ -590,6 +590,158 @@ export function create9(component: KupCard): VNode {
                         ))}
                     </div>
                 ) : undefined}
+            </div>
+        </div>
+    );
+}
+
+/**
+ * 10th scalable card layout, tile view.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 8th scalable layout virtual node.
+ */
+export function create10(component: KupCard): VNode {
+    // color line
+    const lineBg =
+        component.data.color && component.data.color.length > 0
+            ? component.data.color[0]
+            : `var(${KupThemeColorValues.PRIMARY})`;
+    // color component
+    const componentBg =
+        component.data.color && component.data.color.length > 1
+            ? component.data.color[1]
+            : `var(${KupThemeColorValues.BACKGROUND})`;
+    // color text
+    const textFg =
+        component.data.color && component.data.color.length > 2
+            ? component.data.color[2]
+            : `var(${KupThemeColorValues.TEXT})`;
+    //Icon
+    const imageArray: GenericObject[] = component.data['image']
+        ? component.data['image']
+        : [];
+    //Image color
+
+    const colorArray: string[] = component.data['color']
+        ? component.data['color']
+        : [];
+    // Main text
+    const mainText =
+        component.data.text && component.data.text.length > 0
+            ? component.data.text[0]
+            : null;
+
+    // Sub text
+    const subText =
+        component.data.text && component.data.text.length > 1
+            ? component.data.text[1]
+            : null;
+    // Buttons area
+    const buttons =
+        component.data.button && component.data.button.length > 0
+            ? (JSON.parse(JSON.stringify(component.data.button)) as [])
+            : [];
+    // Only 4 buttons supported
+    if (buttons.length > 4) {
+        buttons.splice(4, buttons.length - 4);
+    }
+    buttons.reverse();
+
+    //Dynamic CSS variables
+    const CSSVariables: GenericObject = {
+        ['--color-0']: lineBg,
+        ['--color-1']: componentBg,
+        ['--color-2']: textFg,
+    };
+    return (
+        <div
+            class={`scalable-layout-${component.layoutNumber}`}
+            style={CSSVariables}
+        >
+            <div class="scalable-card">
+                <div class="text scalable-element">
+                    <div class="title">{mainText}</div>
+                    <div class="number">
+                        <div>
+                            <div class="icon">
+                                {imageArray[0] ? (
+                                    <FImage
+                                        color={
+                                            colorArray[0]
+                                                ? colorArray[0]
+                                                : `var(${KupThemeColorValues.ICON})`
+                                        }
+                                        id="image1"
+                                        {...imageArray[0]}
+                                        sizeX="1.25em"
+                                        sizeY="1.25em"
+                                    ></FImage>
+                                ) : null}
+                            </div>
+                        </div>
+                        <div>{subText}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+/**
+ * 11th scalable card layout, icon with title and subtitle.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 8th scalable layout virtual node.
+ */
+export function create11(component: KupCard): VNode {
+    //Image color
+    const colorArray: string[] = component.data['color']
+        ? component.data['color']
+        : [];
+    //Icon
+    const imageArray: GenericObject[] = component.data['image']
+        ? component.data['image']
+        : [];
+    //Title, subtitle
+    let textIndex: number = 0;
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
+    return (
+        <div class={`scalable-layout-${component.layoutNumber} scalable-card`}>
+            <div class="scalable-element">
+                <div class="icon">
+                    {imageArray[0] ? (
+                        <FImage
+                            color={
+                                colorArray[0]
+                                    ? colorArray[0]
+                                    : `var(${KupThemeColorValues.ICON})`
+                            }
+                            id="image1"
+                            {...imageArray[0]}
+                            sizeX="1em"
+                            sizeY="1em"
+                        ></FImage>
+                    ) : null}
+                </div>
+                <div class="value">
+                    <div
+                        style={
+                            colorArray[1] ? { color: colorArray[1] } : undefined
+                        }
+                    >
+                        {textArray[textIndex] ? textArray[textIndex] : ''}
+                    </div>
+                </div>
+                <div class="descr">
+                    <div
+                        style={
+                            colorArray[2] ? { color: colorArray[2] } : undefined
+                        }
+                    >
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
+                    </div>
+                </div>
             </div>
         </div>
     );

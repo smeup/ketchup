@@ -33,7 +33,7 @@
         <div
           class="kup-container"
           style="
-            border: 1px solid var(--kup-border-color);
+            border: 1px solid var(--kup-border-subtle);
             height: 128px;
             padding: 0;
             width: 100%;
@@ -58,7 +58,7 @@
         <div
           class="kup-container"
           style="
-            border: 1px solid var(--kup-border-color);
+            border: 1px solid var(--kup-border-subtle);
             height: 100px;
             margin: auto;
             padding: 0;

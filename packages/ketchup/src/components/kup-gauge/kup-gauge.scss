@@ -6,12 +6,12 @@
 */
 
 :host {
-  --kup_gauge_color: var(--kup-gauge-color, var(--kup-text-color));
+  --kup_gauge_color: var(--kup-gauge-color, var(--kup-text-secondary));
   --kup_gauge_font_family: var(--kup-gauge-font-family, var(--kup-font-family));
   --kup_gauge_font_size: var(--kup-gauge-font-size, var(--kup-font-size));
   --kup_gauge_needle_color: var(
     --kup-gauge-needle-color,
-    var(--kup-text-color)
+    var(--kup-text-secondary)
   );
 
   display: inline-block;

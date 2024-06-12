@@ -1,3 +1,5 @@
+import { FImage } from '../f-image/f-image';
+import { FImageProps } from '../f-image/f-image-declarations';
 import type { FCheckboxProps } from './f-checkbox-declarations';
 import { FunctionalComponent, h } from '@stencil/core';
 
@@ -20,15 +22,25 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
         'checkbox--indeterminate': props.indeterminate ? true : false,
     };
 
+    const propsFImage: FImageProps = {
+        color: props.error
+            ? `var(--kup_danger_icon_color)`
+            : `var(--kup_warning_icon_color)`,
+        resource: props.error ? 'error' : 'warning',
+        sizeX: '1.15em',
+        sizeY: '1.15em',
+        wrapperClass: 'kup-icon',
+    };
+
     return (
         <div
             class={`f-checkbox ${props.danger ? 'kup-danger' : ''} ${
-                props.info ? 'kup-info' : ''
-            } ${props.secondary ? 'kup-secondary' : ''} ${
-                props.success ? 'kup-success' : ''
-            } ${props.warning ? 'kup-warning' : ''} ${
-                props.wrapperClass ? props.wrapperClass : ''
-            }`}
+                props.error ? 'checkbox--error' : ''
+            } ${props.info ? 'kup-info' : ''} ${
+                props.secondary ? 'kup-secondary' : ''
+            } ${props.success ? 'kup-success' : ''} ${
+                props.warning ? 'kup-warning' : ''
+            } ${props.wrapperClass ? props.wrapperClass : ''}`}
             {...props.dataSet}
             id={props.id}
             title={props.title}
@@ -61,8 +73,24 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
                         <div class="checkbox__mixedmark"></div>
                     </div>
                 </div>
-                {props.label ? <label>{props.label}</label> : undefined}
+                {props.label ? (
+                    <label htmlFor={props.id} onClick={props.onChange}>
+                        {props.label}
+                    </label>
+                ) : undefined}
             </div>
+
+            {props.error ? (
+                <div class="checkbox__error-message">
+                    <FImage {...propsFImage} />
+                    {props.error}
+                </div>
+            ) : props.alert ? (
+                <div class="checkbox__alert-message">
+                    <FImage {...propsFImage} />
+                    {props.alert}
+                </div>
+            ) : undefined}
         </div>
     );
 };

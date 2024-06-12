@@ -12,6 +12,9 @@
     <template v-slot:3>
       <switch-disabled></switch-disabled>
     </template>
+    <template v-slot:4>
+      <switch-sizing></switch-sizing>
+    </template>
   </comp>
 </template>
 
@@ -20,6 +23,7 @@ import SwitchDemo from '@/views/components/basic/switch/examples/SwitchDemo';
 import SwitchBasic from '@/views/components/basic/switch/examples/SwitchBasic';
 import SwitchLabels from '@/views/components/basic/switch/examples/SwitchLabels';
 import SwitchDisabled from '@/views/components/basic/switch/examples/SwitchDisabled';
+import SwitchSizing from '@/views/components/basic/switch/examples/SwitchSizing';
 import Comp from '@/views/templates/Comp';
 export default {
   components: {
@@ -27,6 +31,7 @@ export default {
     SwitchBasic,
     SwitchLabels,
     SwitchDisabled,
+    SwitchSizing,
     Comp,
   },
   data() {
@@ -34,7 +39,13 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-switch',
       headtitle: 'Switch',
-      titles: ['Playground', 'Basic usage', 'Adding labels', 'Disabled'],
+      titles: [
+        'Playground',
+        'Basic usage',
+        'Adding labels',
+        'Disabled',
+        'Sizing',
+      ],
     };
   },
   title: 'Ketchup | Switch',

@@ -228,7 +228,6 @@ function setCellSize(
                 props.cell.value.indexOf('.') > -1 ||
                 props.cell.value.indexOf('/') > -1 ||
                 props.cell.value.indexOf('\\') > -1;
-
             if (
                 (props.component as KupComponent).rootElement.tagName ===
                     KupTagNames.DATA_TABLE &&
@@ -252,7 +251,6 @@ function setCellSize(
                     }
                 }
             }
-
             if (
                 (props.component as KupComponent).rootElement.tagName ===
                 KupTagNames.BOX
