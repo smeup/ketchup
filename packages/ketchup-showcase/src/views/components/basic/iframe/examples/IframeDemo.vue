@@ -80,7 +80,8 @@ function createComp() {
     flat: true,
   };
   comp.id = 'demo-component';
-  comp.src = 'https://smeup.github.io/ketchup';
+  comp.src = 'https://smeup.github.io/ketchup/';
+
   return comp;
 }
 </script>
