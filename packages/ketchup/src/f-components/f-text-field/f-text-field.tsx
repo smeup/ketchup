@@ -206,7 +206,6 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                         <textarea
                             class="mdc-text-field__input"
                             disabled={props.disabled}
-                            readOnly={props.readOnly}
                             maxlength={props.maxLength}
                             value={value}
                             onBlur={props.onBlur}
@@ -229,7 +228,6 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                         name={props.name}
                         class="mdc-text-field__input"
                         disabled={props.disabled}
-                        readOnly={props.readOnly}
                         placeholder={props.placeholder}
                         maxlength={props.maxLength}
                         size={props.size}

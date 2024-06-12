@@ -1154,6 +1154,11 @@ export namespace Components {
          */
         "initialValue": string;
         /**
+          * Sets the component to read only state, making it not editable, but interactable.
+          * @default false
+         */
+        "readOnly": boolean;
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
@@ -6399,6 +6404,11 @@ declare namespace LocalJSX {
          */
         "initialValue"?: string;
         "onKup-colorpicker-change"?: (event: KupColorPickerCustomEvent<KupColorPickerEventPayload>) => void;
+        /**
+          * Sets the component to read only state, making it not editable, but interactable.
+          * @default false
+         */
+        "readOnly"?: boolean;
         /**
           * When true, the component's text field will be replaced by a swatch.
           * @default false
