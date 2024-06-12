@@ -1029,7 +1029,7 @@ const data = [
             {
                 imageData: {
                     resource:
-                        'https://ketchup.smeup.com/ketchup-showcase/header_logo_dark.svg',
+                        'https://smeup.github.io/ketchup/ketchup-showcase/header_logo_dark.svg',
                     sizeX: '1.75rem',
                     sizeY: 'auto',
                     color: 'var(--kup-text-on-primary-color)',
@@ -1079,7 +1079,7 @@ const data = [
             {
                 imageData: {
                     resource:
-                        'https://ketchup.smeup.com/ketchup-showcase/header_logo_dark.svg',
+                        'https://smeup.github.io/ketchup/ketchup-showcase/header_logo_dark.svg',
                     sizeX: '1.75rem',
                     sizeY: 'auto',
                     color: 'var(--kup-text-on-primary-color)',

@@ -2,29 +2,32 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
-| `data` | -- | Props of the sub-components. | `Object` | `null` |
-| `disabled` | `disabled` | Defaults at false. When set to true, the component is disabled. | `boolean` | `false` |
-| `firstDayIndex` | `first-day-index` | First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop | `number` | `1` |
-| `initialValue` | `initial-value` | Sets the initial value of the component | `string` | `''` |
+| Property        | Attribute         | Description                                                                                   | Type      | Default |
+| --------------- | ----------------- | --------------------------------------------------------------------------------------------- | --------- | ------- |
+| `customStyle`   | `custom-style`    | Custom style of the component.                                                                | `string`  | `''`    |
+| `data`          | --                | Props of the sub-components.                                                                  | `Object`  | `null`  |
+| `disabled`      | `disabled`        | Defaults at false. When set to true, the component is disabled.                               | `boolean` | `false` |
+| `firstDayIndex` | `first-day-index` | First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop | `number`  | `1`     |
+| `initialValue`  | `initial-value`   | Sets the initial value of the component                                                       | `string`  | `''`    |
+
 
 ## Events
 
-| Event | Description | Type |
-| --- | --- | --- |
-| `kup-datepicker-blur` |  | `CustomEvent<KupDatePickerEventPayload>` |
-| `kup-datepicker-change` |  | `CustomEvent<KupDatePickerEventPayload>` |
-| `kup-datepicker-cleariconclick` |  | `CustomEvent<KupEventPayload>` |
-| `kup-datepicker-click` |  | `CustomEvent<KupDatePickerEventPayload>` |
-| `kup-datepicker-focus` |  | `CustomEvent<KupDatePickerEventPayload>` |
-| `kup-datepicker-iconclick` |  | `CustomEvent<KupDatePickerEventPayload>` |
-| `kup-datepicker-input` |  | `CustomEvent<KupDatePickerEventPayload>` |
-| `kup-datepicker-itemclick` |  | `CustomEvent<KupDatePickerEventPayload>` |
-| `kup-datepicker-textfieldsubmit` |  | `CustomEvent<KupDatePickerEventPayload>` |
+| Event                            | Description | Type                                     |
+| -------------------------------- | ----------- | ---------------------------------------- |
+| `kup-datepicker-blur`            |             | `CustomEvent<KupDatePickerEventPayload>` |
+| `kup-datepicker-change`          |             | `CustomEvent<KupDatePickerEventPayload>` |
+| `kup-datepicker-cleariconclick`  |             | `CustomEvent<KupEventPayload>`           |
+| `kup-datepicker-click`           |             | `CustomEvent<KupDatePickerEventPayload>` |
+| `kup-datepicker-focus`           |             | `CustomEvent<KupDatePickerEventPayload>` |
+| `kup-datepicker-iconclick`       |             | `CustomEvent<KupDatePickerEventPayload>` |
+| `kup-datepicker-input`           |             | `CustomEvent<KupDatePickerEventPayload>` |
+| `kup-datepicker-itemclick`       |             | `CustomEvent<KupDatePickerEventPayload>` |
+| `kup-datepicker-textfieldsubmit` |             | `CustomEvent<KupDatePickerEventPayload>` |
+
 
 ## Methods
 
@@ -34,8 +37,8 @@ Used to retrieve component's props values.
 
 #### Parameters
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type      | Description                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------- |
 | `descriptions` | `boolean` | - When provided and true, the result will be the list of props with their description. |
 
 #### Returns
@@ -62,6 +65,8 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
+
+
 ### `setFocus() => Promise<void>`
 
 Sets the focus to the component.
@@ -69,6 +74,8 @@ Sets the focus to the component.
 #### Returns
 
 Type: `Promise<void>`
+
+
 
 ### `setValue(value: string) => Promise<void>`
 
@@ -84,27 +91,29 @@ Sets the component's value.
 
 Type: `Promise<void>`
 
+
+
+
 ## Dependencies
 
 ### Used by
 
--   [kup-box](../kup-box)
--   [kup-card](../kup-card)
--   [kup-cell](../kup-cell)
--   [kup-data-table](../kup-data-table)
--   [kup-form](../kup-form)
--   [kup-image-list](../kup-image-list)
--   [kup-input-panel](../kup-input-panel)
--   [kup-tree](../kup-tree)
+ - [kup-box](../kup-box)
+ - [kup-card](../kup-card)
+ - [kup-cell](../kup-cell)
+ - [kup-data-table](../kup-data-table)
+ - [kup-form](../kup-form)
+ - [kup-image-list](../kup-image-list)
+ - [kup-input-panel](../kup-input-panel)
+ - [kup-tree](../kup-tree)
 
 ### Depends on
 
--   [kup-card](../kup-card)
--   [kup-dialog](../kup-dialog)
--   [kup-badge](../kup-badge)
+- [kup-card](../kup-card)
+- [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-date-picker --> kup-card
@@ -147,7 +156,6 @@ graph TD;
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
   kup-time-picker --> kup-badge
-  kup-image --> kup-spinner
   kup-image --> kup-card
   kup-image --> kup-image
   kup-image --> kup-dialog
@@ -190,6 +198,6 @@ graph TD;
   style kup-date-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*
