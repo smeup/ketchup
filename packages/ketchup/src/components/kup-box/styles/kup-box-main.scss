@@ -62,10 +62,22 @@
   .box-wrapper {
     display: flex;
     align-items: center;
+    background-color: var(--kup_box_background_color);
+    border-radius: var(--kup-radius-00);
+    &:hover {
+      background-color: var(--kup_box_background_color_hover);
+    }
+
+    &.selected {
+      background-color: var(--kup_box_background_color_selected);
+
+      & .box-section.titled > h3 {
+        background-color: transparent;
+      }
+    }
+
 
     .box {
-      background-color: var(--kup_box_background_color);
-      border-radius: var(--kup-radius-00);
       flex-grow: 1;
       cursor: pointer;
       position: relative;
@@ -84,17 +96,6 @@
         flex-direction: column;
       }
 
-      &:hover {
-        background-color: var(--kup_box_background_color_hover);
-      }
-
-      &.selected {
-        background-color: var(--kup_box_background_color_selected);
-
-        & .box-section.titled > h3 {
-          background-color: transparent;
-        }
-      }
 
       &[#{$kup-dd-draggable}] {
         opacity: 0.5;
@@ -214,7 +215,7 @@
           cursor: pointer;
           opacity: 0;
           fill: var(--kup-text-color);
-          transition: opacity 500ms ease-out;
+          transition: opacity 300ms ease-out;
         }
 
         .row-action-menu {
