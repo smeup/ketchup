@@ -41,7 +41,7 @@
   );
   --kup_button_background_color_active: var(
     --kup-button-background-color-active,
-    var(--kup-primary-color-40)
+    var(--kup-primary-color-90)
   );
   --kup_button_border_color_focus: var(
     --kup-button-border-color-focus,
@@ -116,14 +116,12 @@
       color: var(--kup-primary-color-0);
 
       .f-image__icon {
-        background: var(--kup-gray-color-0) !important;
+        background-color: var(--kup-gray-color-0) !important;
         color: var(--kup-primary-color-0);
       }
     }
 
     &:focus {
-      border-color: var(--kup_button_border_color_focus);
-
       .f-image__icon {
         background: var(--kup_button_border_color_focus) !important;
         color: var(--kup-primary-color-60);
@@ -373,13 +371,21 @@
       }
 
       &:focus {
+        --kup_button_background_color_focus: var(--kup-gray-color-90);
         --kup_button_border_color_focus: var(--kup-gray-color-80);
         --kup_button_text_color: var(--kup-gray-color-0);
+        background-color: var(--kup_button_background_color_focus);
+        .f-image__icon {
+          background: white !important;
+          color: var(--kup-primary-color-60);
+        }
       }
 
       &:active {
         --kup_button_background_color_active: var(--kup-gray-color-70);
         --kup_button_text_color: var(--kup-gray-color-0);
+        background-color: var(--kup_button_background_color_active);
+        color: var(--kup_button_text_color);
       }
 
       &.button--floating,
@@ -527,13 +533,21 @@
       }
 
       &:focus {
+        --kup_button_background_color_focus: var(--kup-danger-color-80);
         --kup_button_border_color_focus: var(--kup-danger-color-80);
         --kup_button_text_color: var(--kup-primary-color-0);
+        background-color: var(--kup_button_background_color_focus);
+        .f-image__icon {
+          background: white !important;
+          color: var(--kup-primary-color-60);
+        }
       }
 
       &:active {
         --kup_button_background_color_active: var(--kup-danger-color-80);
         --kup_button_text_color: var(--kup-primary-color-0);
+        background-color: var(--kup_button_background_color_active);
+        color: var(--kup_button_text_color);
       }
 
       &.button--floating,
