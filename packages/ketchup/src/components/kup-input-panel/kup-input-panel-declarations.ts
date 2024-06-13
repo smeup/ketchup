@@ -5,6 +5,10 @@ import {
 } from '../../managers/kup-data/kup-data-declarations';
 
 export interface KupInputPanelSubmit {
+    value: KupInputPanelSubmitValue;
+    cell?: string;
+}
+export interface KupInputPanelSubmitValue {
     after: KupInputPanelData;
     before: KupInputPanelData;
 }
@@ -97,6 +101,12 @@ export type InputPanelOptionsHandler = (
     inputValue: string,
     currentState: KupInputPanelData
 ) => Promise<GenericObject>;
+
+export type InputPanelButtonClickHandler = (
+    fun: string,
+    cellId: string,
+    currentState: KupInputPanelData
+) => void;
 
 export enum KupInputPanelProps {
     customStyle = 'Custom style of the component.',

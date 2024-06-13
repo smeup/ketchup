@@ -41,6 +41,7 @@ import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
     DataAdapterFn,
+    InputPanelButtonClickHandler,
     InputPanelCells,
     InputPanelOptionsHandler,
     KupInputPanelCell,
@@ -97,9 +98,15 @@ export class KupInputPanel {
 
     /**
      * Sets the callback function on loading options via FUN
-     * @default []
+     * @default null
      */
     @Prop() optionsHandler: InputPanelOptionsHandler = null;
+
+    /**
+     * Sets the handler to use when click on custom buttons
+     * @default null
+     */
+    @Prop() customButtonClickHandler?: InputPanelButtonClickHandler = null;
     //#endregion
 
     //#region STATES
@@ -243,8 +250,10 @@ export class KupInputPanel {
                 onSubmit={(e: SubmitEvent) => {
                     e.preventDefault();
                     this.submitCb({
-                        before: { ...this.#originalData },
-                        after: this.#reverseMapCells(),
+                        value: {
+                            before: { ...this.#originalData },
+                            after: this.#reverseMapCells(),
+                        },
                     });
                 }}
             >
@@ -274,7 +283,7 @@ export class KupInputPanel {
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
         if (cellType === FCellTypes.BUTTON) {
-            return this.#renderButton(cell);
+            return this.#renderButton(cell, column.name);
         }
 
         const cellProps: FCellProps = {
@@ -301,18 +310,26 @@ export class KupInputPanel {
         return <FCell {...cellProps} />;
     }
 
-    #renderButton(cell: KupDataCell) {
+    #renderButton(cell: KupDataCell, cellId: string) {
         return (
             <FButton
                 label={cell.data.label}
                 icon={cell.icon}
                 wrapperClass="form__submit"
                 onClick={() => {
-                    this.optionsHandler(
-                        cell.data.fun,
-                        null,
-                        this.#reverseMapCells()
-                    );
+                    cell.data.fun
+                        ? this.customButtonClickHandler(
+                              cell.data.fun,
+                              cellId,
+                              this.#reverseMapCells()
+                          )
+                        : this.submitCb({
+                              value: {
+                                  before: { ...this.#originalData },
+                                  after: this.#reverseMapCells(),
+                              },
+                              cell: cellId,
+                          });
                 }}
             ></FButton>
         );
