@@ -371,13 +371,11 @@ export class KupInputPanel {
         };
 
         const styleObj: GenericObject = {
-            gap: section.gap ? `${section.gap}rem` : '',
-            'grid-template-columns': section.gridCols
-                ? `repeat(${section.gridCols}, 1fr)`
-                : '',
-            'grid-template-rows': section.gridRows
-                ? `repeat(${section.gridRows}, 1fr)`
-                : '',
+            gap: +section.gap > 0 ? `${section.gap}rem` : '',
+            'grid-template-columns':
+                +section.gridCols > 0 ? `repeat(${section.gridCols}, 1fr)` : '',
+            'grid-template-rows':
+                +section.gridRows > 0 ? `repeat(${section.gridRows}, 1fr)` : '',
         };
 
         if (cells.row?.layout?.horizontal) {
@@ -407,17 +405,27 @@ export class KupInputPanel {
             (cell) => cell.column.name === field.id
         );
 
-        const colStart = field.colSpan
-            ? `span ${field.colSpan}`
-            : `${field.colStart}`;
+        const colSpan =
+            +field.colSpan > 0
+                ? field.colSpan
+                : !(+field.colSpan > 0) && !(+field.colStart > 0)
+                ? 1
+                : null;
 
-        const colEnd = field.colEnd ? `${field.colEnd}` : '';
+        const colStart = colSpan ? `span ${colSpan}` : `${field.colStart}`;
 
-        const rowStart = field.rowSpan
-            ? `span ${field.rowSpan}`
-            : `${field.rowStart}`;
+        const colEnd = +field.colEnd > 0 ? `${field.colEnd}` : '';
 
-        const rowEnd = field.rowEnd ? `${field.rowEnd}` : '';
+        const rowSpan =
+            +field.rowSpan > 0
+                ? field.rowSpan
+                : !(+field.rowSpan > 0) && !(+field.rowStart > 0)
+                ? 1
+                : null;
+
+        const rowStart = rowSpan ? `span ${rowSpan}` : `${field.rowStart}`;
+
+        const rowEnd = +field.rowEnd > 0 ? `${field.rowEnd}` : '';
 
         const styleObj = {
             'grid-column-start': colStart,
