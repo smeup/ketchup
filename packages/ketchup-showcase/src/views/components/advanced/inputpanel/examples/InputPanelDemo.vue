@@ -67,6 +67,13 @@ export default {
           default: 'null',
           try: 'field',
         },
+        {
+          prop: 'customButtonClickHandler',
+          description: 'Sets the handler to use when click on custom buttons.',
+          type: 'string',
+          default: 'null',
+          try: 'field',
+        },
       ],
     };
   },

@@ -44,7 +44,7 @@ import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
-import { InputPanelOptionsHandler, KupInputPanelData, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
+import { InputPanelButtonClickHandler, InputPanelOptionsHandler, KupInputPanelData, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -96,7 +96,7 @@ export { FImageData } from "./f-components/f-image/f-image-declarations";
 export { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 export { KupImageListDataNode, KupImageListEventPayload } from "./components/kup-image-list/kup-image-list-declarations";
 export { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
-export { InputPanelOptionsHandler, KupInputPanelData, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
+export { InputPanelButtonClickHandler, InputPanelOptionsHandler, KupInputPanelData, KupInputPanelSubmit } from "./components/kup-input-panel/kup-input-panel-declarations";
 export { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 export { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 export { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
@@ -2636,6 +2636,11 @@ export namespace Components {
     }
     interface KupInputPanel {
         /**
+          * Sets the handler to use when click on custom buttons
+          * @default null
+         */
+        "customButtonClickHandler"?: InputPanelButtonClickHandler;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://smeup.github.io/ketchup/#/customization
@@ -2659,7 +2664,7 @@ export namespace Components {
         "hiddenSubmitButton": boolean;
         /**
           * Sets the callback function on loading options via FUN
-          * @default []
+          * @default null
          */
         "optionsHandler": InputPanelOptionsHandler;
         /**
@@ -7597,6 +7602,11 @@ declare namespace LocalJSX {
     }
     interface KupInputPanel {
         /**
+          * Sets the handler to use when click on custom buttons
+          * @default null
+         */
+        "customButtonClickHandler"?: InputPanelButtonClickHandler;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://smeup.github.io/ketchup/#/customization
@@ -7618,7 +7628,7 @@ declare namespace LocalJSX {
         "onKup-input-panel-ready"?: (event: KupInputPanelCustomEvent<KupEventPayload>) => void;
         /**
           * Sets the callback function on loading options via FUN
-          * @default []
+          * @default null
          */
         "optionsHandler"?: InputPanelOptionsHandler;
         /**

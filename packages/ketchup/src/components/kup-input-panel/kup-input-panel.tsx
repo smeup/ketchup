@@ -41,6 +41,7 @@ import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
     DataAdapterFn,
+    InputPanelButtonClickHandler,
     InputPanelCells,
     InputPanelOptionsHandler,
     KupInputPanelCell,
@@ -97,9 +98,15 @@ export class KupInputPanel {
 
     /**
      * Sets the callback function on loading options via FUN
-     * @default []
+     * @default null
      */
     @Prop() optionsHandler: InputPanelOptionsHandler = null;
+
+    /**
+     * Sets the handler to use when click on custom buttons
+     * @default null
+     */
+    @Prop() customButtonClickHandler?: InputPanelButtonClickHandler = null;
     //#endregion
 
     //#region STATES
@@ -243,8 +250,10 @@ export class KupInputPanel {
                 onSubmit={(e: SubmitEvent) => {
                     e.preventDefault();
                     this.submitCb({
-                        before: { ...this.#originalData },
-                        after: this.#reverseMapCells(),
+                        value: {
+                            before: { ...this.#originalData },
+                            after: this.#reverseMapCells(),
+                        },
                     });
                 }}
             >
@@ -274,7 +283,7 @@ export class KupInputPanel {
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
         if (cellType === FCellTypes.BUTTON) {
-            return this.#renderButton(cell);
+            return this.#renderButton(cell, column.name);
         }
 
         const cellProps: FCellProps = {
@@ -301,18 +310,26 @@ export class KupInputPanel {
         return <FCell {...cellProps} />;
     }
 
-    #renderButton(cell: KupDataCell) {
+    #renderButton(cell: KupDataCell, cellId: string) {
         return (
             <FButton
                 label={cell.data.label}
                 icon={cell.icon}
                 wrapperClass="form__submit"
                 onClick={() => {
-                    this.optionsHandler(
-                        cell.data.fun,
-                        null,
-                        this.#reverseMapCells()
-                    );
+                    cell.data.fun
+                        ? this.customButtonClickHandler(
+                              cell.data.fun,
+                              cellId,
+                              this.#reverseMapCells()
+                          )
+                        : this.submitCb({
+                              value: {
+                                  before: { ...this.#originalData },
+                                  after: this.#reverseMapCells(),
+                              },
+                              cell: cellId,
+                          });
                 }}
             ></FButton>
         );
@@ -354,13 +371,11 @@ export class KupInputPanel {
         };
 
         const styleObj: GenericObject = {
-            gap: section.gap ? `${section.gap}rem` : '',
-            'grid-template-columns': section.gridCols
-                ? `repeat(${section.gridCols}, 1fr)`
-                : '',
-            'grid-template-rows': section.gridRows
-                ? `repeat(${section.gridRows}, 1fr)`
-                : '',
+            gap: +section.gap > 0 ? `${section.gap}rem` : '',
+            'grid-template-columns':
+                +section.gridCols > 0 ? `repeat(${section.gridCols}, 1fr)` : '',
+            'grid-template-rows':
+                +section.gridRows > 0 ? `repeat(${section.gridRows}, 1fr)` : '',
         };
 
         if (cells.row?.layout?.horizontal) {
@@ -390,17 +405,27 @@ export class KupInputPanel {
             (cell) => cell.column.name === field.id
         );
 
-        const colStart = field.colSpan
-            ? `span ${field.colSpan}`
-            : `${field.colStart}`;
+        const colSpan =
+            +field.colSpan > 0
+                ? field.colSpan
+                : !(+field.colSpan > 0) && !(+field.colStart > 0)
+                ? 1
+                : null;
 
-        const colEnd = field.colEnd ? `${field.colEnd}` : '';
+        const colStart = colSpan ? `span ${colSpan}` : `${field.colStart}`;
 
-        const rowStart = field.rowSpan
-            ? `span ${field.rowSpan}`
-            : `${field.rowStart}`;
+        const colEnd = +field.colEnd > 0 ? `${field.colEnd}` : '';
 
-        const rowEnd = field.rowEnd ? `${field.rowEnd}` : '';
+        const rowSpan =
+            +field.rowSpan > 0
+                ? field.rowSpan
+                : !(+field.rowSpan > 0) && !(+field.rowStart > 0)
+                ? 1
+                : null;
+
+        const rowStart = rowSpan ? `span ${rowSpan}` : `${field.rowStart}`;
+
+        const rowEnd = +field.rowEnd > 0 ? `${field.rowEnd}` : '';
 
         const styleObj = {
             'grid-column-start': colStart,

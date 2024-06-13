@@ -1,183 +1,120 @@
 const data = {
+    type: 'SmeupDataTable',
     columns: [
         {
-            name: 'NAM',
-            title: 'Name',
+            editable: false,
+            name: 'INP1',
+            title: 'Field1',
             visible: true,
+            isEditable: false,
         },
         {
-            name: 'SUR',
-            title: 'Surname',
+            editable: false,
+            name: 'INP2',
+            title: 'Field2',
             visible: true,
+            isEditable: false,
         },
-        {
-            name: 'NAT',
-            title: 'Nation',
-            visible: true,
-        },
-        {
-            name: 'CIT',
-            title: 'Tree Options',
-            visible: true,
-        },
-        {
-            name: 'LIS',
-            title: 'Table Options',
-            visible: true,
-        },
-        {
-            name: 'CHK',
-            title: 'Checkbox',
-            visible: true,
-        },
-        {
-            name: 'RAD',
-            title: 'Radio Buttons',
-            visible: true,
-        },
-        {
-            name: 'DAT',
-            title: 'Data di Nascita',
-            visible: true,
-        },
-        {
-            name: 'BTN',
-            visible: true,
-        },
-        {
-            name: 'BTN2',
-            visible: true,
-        },
-        {
-            name: 'NUM',
-            title: 'Numeric',
-            visible: true,
-        },
+        { editable: false, name: 'BTN1', visible: true, isEditable: false },
+        { editable: false, name: 'BTN2', visible: true, isEditable: false },
     ],
     rows: [
         {
             cells: {
-                NAM: {
-                    value: '',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
-                    },
+                INP1: {
+                    obj: { t: 'D8' },
+                    options: [],
                     editable: true,
                     mandatory: true,
-                    shape: 'ITX',
                 },
-                SUR: {
-                    value: '',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
-                    },
+                INP2: {
+                    obj: { t: 'NR' },
+                    options: [],
                     editable: true,
                     mandatory: true,
-                    shape: 'ITX',
                 },
-                DAT: {
-                    value: '2024-05-12',
-                    obj: {
-                        t: 'D8',
-                        p: '',
-                        k: '',
-                    },
-                    editable: true,
-                },
-                BTN: {
-                    obj: {
-                        t: 'J4',
-                        p: 'BTN',
-                        k: '',
-                    },
-                    icon: 'home',
-                    fun: 'btn fun',
+                BTN1: {
                     value: 'Button 1',
+                    obj: { t: 'J4', p: 'BTN' },
+                    options: [],
                     editable: true,
+                    mandatory: true,
+                    fun: 'btn1',
                 },
                 BTN2: {
-                    obj: {
-                        t: 'J4',
-                        p: 'BTN',
-                        k: '',
-                    },
-                    fun: 'btn2 fun',
                     value: 'Button 2',
-                    editable: true,
-                },
-                NUM: {
-                    value: '',
+                    obj: { t: 'J4', p: 'BTN' },
+                    options: [],
                     editable: true,
                     mandatory: true,
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '',
-                    },
                 },
             },
             layout: {
+                type: 'SmeupDataLayout',
+                horizontal: false,
                 sections: [
                     {
                         content: [
                             {
-                                id: 'NAM',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 1,
-                                rowEnd: 1,
-                            },
-                            {
-                                id: 'SUR',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 1,
-                                rowEnd: 1,
-                            },
-                            {
-                                id: 'DAT',
+                                options: [],
+                                editable: false,
+                                mandatory: false,
+                                id: 'INP1',
                                 colSpan: 1,
-                                rowStart: 2,
+                                rowSpan: 1,
                             },
                             {
-                                id: 'NUM',
+                                options: [],
+                                editable: false,
+                                mandatory: false,
+                                id: 'INP2',
                                 colSpan: 1,
-                                rowStart: 2,
+                                rowSpan: 1,
                             },
                         ],
-                        title: 'Anagrafica',
-                        dim: '50%',
-                        gridCols: 3,
+                        sections: [],
+                        horizontal: false,
+                        gridCols: 4,
                         gridRows: 2,
                         gap: 2,
+                        title: 'Anagrafica',
                     },
                     {
                         content: [
                             {
-                                id: 'BTN',
+                                options: [],
+                                editable: false,
+                                mandatory: false,
+                                id: 'BTN1',
                                 colSpan: 1,
-                                rowStart: 1,
+                                rowSpan: 1,
                             },
                             {
+                                options: [],
+                                editable: false,
+                                mandatory: false,
                                 id: 'BTN2',
                                 colSpan: 1,
-                                rowStart: 1,
+                                rowSpan: 1,
                             },
                         ],
-                        title: 'Action',
-                        dim: '50%',
-                        gridCols: 3,
-                        gridRows: 1,
+                        sections: [],
+                        horizontal: false,
+                        gridCols: 4,
+                        gridRows: 2,
                         gap: 2,
+                        title: 'Actions',
                     },
                 ],
             },
         },
     ],
+    debugInfo: {
+        executionTime_ms: 51,
+        initialTimestamp: '2024-06-11T15:02:17.854994131Z',
+        finalTimestamp: '2024-06-11T15:02:17.906443131Z',
+        runtime: 'Java 21',
+    },
 };
 
 // Example of rerender configuration
@@ -454,12 +391,17 @@ inputPanel.optionsHandler = (fun, inputValue, currentState) => {
         ],
     });
 };
+
 inputPanel.submitCb = (e) => {
     console.log('submit', e);
-    
-    // Example of rerender event 
+
+    // Example of rerender event
     // const inputPanel = document.getElementById('input-panel');
     // inputPanel.data = data1;
+};
+
+inputPanel.customButtonClickHandler = (fun, cellId, currentState) => {
+    console.log('customButtonClick event', { fun, cell: cellId, currentState });
 };
 
 // Example of Ergon Form configuration
