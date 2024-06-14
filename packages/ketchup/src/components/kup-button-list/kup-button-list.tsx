@@ -87,9 +87,9 @@ export class KupButtonList {
     @Prop() showSelection: boolean = true;
     /**
      * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
-     * @default FButtonStyling.FLAT
+     * @default FButtonStyling.OUTLINED
      */
-    @Prop({ reflect: true }) styling: FButtonStyling = FButtonStyling.FLAT;
+    @Prop({ reflect: true }) styling: FButtonStyling = FButtonStyling.OUTLINED;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
