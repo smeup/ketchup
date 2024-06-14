@@ -608,6 +608,15 @@
   }
 
   &.#{$kup-class-secondary} {
+    .f-button .icon-button:focus {
+      background-color: transparent;
+
+      .f-image__icon {
+        background: var(--kup-secondary-color) !important;
+      }
+    }
+
+    --kup_button_text_color: var(--kup-secondary-color);
     --kup-button-primary-color: var(--kup-secondary-color);
     --kup-button-primary-color-h: var(--kup-secondary-color-h);
     --kup-button-primary-color-s: var(--kup-secondary-color-s);
