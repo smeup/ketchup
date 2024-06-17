@@ -127,6 +127,7 @@ export enum KupLanguageFontsize {
 export enum KupLanguageGeneric {
     ABORT = 'genericAbort',
     ADD_NEW = 'genericAddNew',
+    AI_ASSISTANT = 'genericAiAssistant',
     APPLY = 'genericApply',
     BACK = 'genericBack',
     COLLAPSE = 'genericCollapse',

@@ -5046,8 +5046,11 @@ export class KupDataTable {
                                 this.#kupManager.language.translate(
                                     KupLanguageGeneric.TOGGLE
                                 ) +
-                                ' Smeup AI ' +
-                                '(' +
+                                ' ' +
+                                this.#kupManager.language.translate(
+                                    KupLanguageGeneric.AI_ASSISTANT
+                                ) +
+                                ' (' +
                                 this.#kupManager.language.translate(
                                     KupLanguageGeneric.EXPERIMENTAL_FEAT
                                 ) +
