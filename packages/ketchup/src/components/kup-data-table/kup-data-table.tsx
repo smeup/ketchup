@@ -5046,14 +5046,14 @@ export class KupDataTable {
                                 this.#kupManager.language.translate(
                                     KupLanguageGeneric.TOGGLE
                                 ) +
-                                ' Open AI ' +
+                                ' Smeup AI ' +
                                 '(' +
                                 this.#kupManager.language.translate(
                                     KupLanguageGeneric.EXPERIMENTAL_FEAT
                                 ) +
                                 ')'
                             }
-                            icon="open-ai"
+                            icon="smeup-ai"
                             onkup-button-click={() =>
                                 this.#kupManager.openAI.show({
                                     context: this.rootElement.tagName,

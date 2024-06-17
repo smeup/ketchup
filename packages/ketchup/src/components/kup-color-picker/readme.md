@@ -11,6 +11,7 @@
 | `data`         | --              | Props of the text field.                                                                                                              | `Object`  | `null`  |
 | `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                                                       | `boolean` | `false` |
 | `initialValue` | `initial-value` | Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ). | `string`  | `''`    |
+| `readOnly`     | `read-only`     | Sets the component to read only state, making it not editable, but interactable.                                                      | `boolean` | `false` |
 | `swatchOnly`   | `swatch-only`   | When true, the component's text field will be replaced by a swatch.                                                                   | `boolean` | `false` |
 
 
