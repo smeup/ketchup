@@ -1700,6 +1700,14 @@
             <kup-image size-x="48px" size-y="48px" resource="smeup"></kup-image>
             <div class="icon-label">smeup</div>
           </div>
+          <div class="icon-wrapper" title="smeup-ai">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="smeup-ai"
+            ></kup-image>
+            <div class="icon-label">smeup-ai</div>
+          </div>
           <div class="icon-wrapper" title="solid">
             <kup-image size-x="48px" size-y="48px" resource="solid"></kup-image>
             <div class="icon-label">solid</div>

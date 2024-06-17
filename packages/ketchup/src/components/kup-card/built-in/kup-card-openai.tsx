@@ -155,7 +155,7 @@ export function prepareOpenAIInterface(component: KupCard): VNode[] {
                         ref={(el) => (clearButton = el)}
                     ></kup-button>
                     <kup-button
-                        icon="open-ai"
+                        icon="smeup-ai"
                         label="Submit"
                         onKup-button-click={() => submitCb()}
                         ref={(el) => (submitButton = el)}
