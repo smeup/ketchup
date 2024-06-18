@@ -13,6 +13,9 @@
   padding: 1.25em 1.25em;
 
   .wrapper {
+    display: grid;
+    grid-template-rows: 3fr;
+    place-items: center;
     margin: auto;
 
     &.ready {
@@ -24,7 +27,7 @@
   }
 
   .password {
-    padding: 1.5em 0;
+    padding: 2.5em 0 2em 0;
   }
 
   .query-area {
@@ -47,7 +50,6 @@
   .title {
     text-align: center;
     font-size: 2em;
-    padding: 0.75em 0 0.5em;
   }
 
   .empty,
@@ -59,9 +61,14 @@
   }
 
   .buttons {
+    align-items: center;
     display: flex;
     justify-content: space-evenly;
     padding: 1em 0;
+  }
+
+  .stt {
+    padding: 0 1em;
   }
 
   .request,

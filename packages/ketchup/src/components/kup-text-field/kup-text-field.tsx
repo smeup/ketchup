@@ -511,16 +511,20 @@ export class KupTextField {
      * Sets the internal value of the component.
      */
     @Method()
-    async setValue(value: string): Promise<void> {
+    async setValue(value: string, skipNumberCheck = false): Promise<void> {
         this.value = value;
-        try {
-            this.inputEl.value = this.#getValueForOutput();
-        } catch (error) {
-            this.kupManager.debug.logMessage(
-                this,
-                "Couldn't set value on input element: '" + value + "'",
-                KupDebugCategory.WARNING
-            );
+        if (skipNumberCheck) {
+            this.inputEl.value = value;
+        } else {
+            try {
+                this.inputEl.value = this.#getValueForOutput();
+            } catch (error) {
+                this.kupManager.debug.logMessage(
+                    this,
+                    "Couldn't set value on input element: '" + value + "'",
+                    KupDebugCategory.WARNING
+                );
+            }
         }
     }
 

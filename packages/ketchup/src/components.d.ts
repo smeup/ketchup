@@ -3952,7 +3952,7 @@ export namespace Components {
         /**
           * Sets the internal value of the component.
          */
-        "setValue": (value: string) => Promise<void>;
+        "setValue": (value: string, skipNumberCheck?: boolean) => Promise<void>;
         /**
           * The HTML attribute size of the input element.
           * @default null
