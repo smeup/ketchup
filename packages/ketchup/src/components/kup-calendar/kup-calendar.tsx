@@ -298,7 +298,8 @@ export class KupCalendar {
             },
             events: this.getEvents(),
             headerToolbar: false,
-            initialDate: this.currentDate ? this.currentDate : new Date().toISOString().substring(0, 10),
+            //initialDate: this.currentDate ? this.currentDate : new Date().toISOString().substring(0, 10),
+            initialDate: this.currentDate,
             initialView: this.viewType,
             locale: this.getLocale(),
             locales: [
