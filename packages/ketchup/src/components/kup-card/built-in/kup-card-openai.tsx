@@ -15,6 +15,7 @@ const dom: KupDom = document.documentElement as KupDom;
 let inputArea: HTMLKupTextFieldElement = null;
 let clearButton: HTMLKupButtonElement = null;
 let submitButton: HTMLKupButtonElement = null;
+let passwordField: HTMLKupTextFieldElement = null;
 
 export function prepareOpenAIInterface(component: KupCard): VNode[] {
     const options = component.data.options as KupCardBuiltInOpenAIOptions;
@@ -35,6 +36,12 @@ export function prepareOpenAIInterface(component: KupCard): VNode[] {
         }
     };
 
+    const eventHandler = () => {
+        if (passwordField) {
+            options.authCb(passwordField);
+        }
+    };
+
     const authJsx: () => VNode[] = () => {
         return [
             <div class="title">Authentication</div>,
@@ -44,9 +51,15 @@ export function prepareOpenAIInterface(component: KupCard): VNode[] {
                 icon="key-variant"
                 inputType="password"
                 helperEnabled={true}
-                onKup-textfield-iconclick={options.authCb}
-                onKup-textfield-submit={options.authCb}
+                onKup-textfield-iconclick={eventHandler}
+                onKup-textfield-submit={eventHandler}
+                ref={(el) => (passwordField = el)}
             ></kup-text-field>,
+            <kup-button
+                class="login-button"
+                label="Login"
+                onKup-button-click={eventHandler}
+            ></kup-button>,
         ];
     };
 

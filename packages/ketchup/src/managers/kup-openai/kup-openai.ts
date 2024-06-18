@@ -1,4 +1,5 @@
 import {
+    KupButtonClickEventPayload,
     KupDataTableDataset,
     KupTextFieldCustomEvent,
     KupTextFieldEventPayload,
@@ -57,10 +58,9 @@ export class KupOpenAI {
         _this.card.refresh();
     }
 
-    #invalidPassword(event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) {
-        const field = event.detail.comp as KupTextField;
+    #invalidPassword(field: HTMLKupTextFieldElement) {
         field.helper = 'Invalid password.';
-        field.rootElement.classList.add('kup-danger');
+        field.classList.add('kup-danger');
         field.refresh();
     }
 
@@ -200,12 +200,12 @@ export class KupOpenAI {
         }
     }
 
-    async auth(event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) {
+    async auth(field: HTMLKupTextFieldElement) {
         const openAI = dom.ketchup.openAI;
         if (!openAI.url) {
             return;
         }
-        const pwd = await event.detail.comp.getValue();
+        const pwd = await field.getValue();
         let response = null;
         try {
             response = await fetch(openAI.url + '/api/auth', {
@@ -222,8 +222,7 @@ export class KupOpenAI {
 
         if (response) {
             if (response.status != 200) {
-                openAI.#invalidPassword(event);
-                //this.setError(await response.text());
+                openAI.#invalidPassword(field);
                 return;
             }
             const responseJson = await response.json();
