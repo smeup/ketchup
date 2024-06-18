@@ -15,6 +15,7 @@ const dom: KupDom = document.documentElement as KupDom;
 let inputArea: HTMLKupTextFieldElement = null;
 let clearButton: HTMLKupButtonElement = null;
 let submitButton: HTMLKupButtonElement = null;
+let sttButton: HTMLKupButtonElement = null;
 let passwordField: HTMLKupTextFieldElement = null;
 
 export function prepareOpenAIInterface(component: KupCard): VNode[] {
@@ -152,6 +153,16 @@ export function prepareOpenAIInterface(component: KupCard): VNode[] {
 
             return nodes;
         };
+
+        const sttCb = (
+            inputArea: HTMLKupTextFieldElement,
+            button: HTMLKupButtonElement
+        ) => {
+            if (options.sttCb) {
+                options.sttCb(inputArea, button);
+            }
+        };
+
         return [
             <div class="query-area">
                 <kup-text-field
@@ -167,6 +178,20 @@ export function prepareOpenAIInterface(component: KupCard): VNode[] {
                         styling={FButtonStyling.FLAT}
                         ref={(el) => (clearButton = el)}
                     ></kup-button>
+                    <kup-button
+                        class="stt"
+                        icon="keyboard_voice"
+                        onKup-button-click={() => sttCb(inputArea, sttButton)}
+                        ref={(el) => (sttButton = el)}
+                        styling={FButtonStyling.ICON}
+                    >
+                        <kup-spinner
+                            active={true}
+                            dimensions="0.6em"
+                            layout={6}
+                            slot="spinner"
+                        ></kup-spinner>
+                    </kup-button>
                     <kup-button
                         icon="smeup-ai"
                         label="Submit"

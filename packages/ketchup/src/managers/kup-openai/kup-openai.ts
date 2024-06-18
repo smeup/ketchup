@@ -1,15 +1,9 @@
-import {
-    KupButtonClickEventPayload,
-    KupDataTableDataset,
-    KupTextFieldCustomEvent,
-    KupTextFieldEventPayload,
-} from '../../components';
+import { KupDataTableDataset } from '../../components';
 import { KupCardFamily } from '../../components/kup-card/kup-card-declarations';
 import {
     KupCardBuiltInOpenAIMessages,
     KupCardBuiltInOpenAIOptions,
 } from '../../components/kup-card/kup-card-declarations';
-import { KupTextField } from '../../components/kup-text-field/kup-text-field';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
@@ -99,6 +93,7 @@ export class KupOpenAI {
             this.card.data.options = {
                 submitCb: this.chat,
                 authCb: this.auth,
+                sttCb: this.stt,
             } as KupCardBuiltInOpenAIOptions;
         }
         return this.card.data.options as KupCardBuiltInOpenAIOptions;
@@ -188,6 +183,57 @@ export class KupOpenAI {
             await this.hide();
         }
         this.#create();
+    }
+
+    async stt(
+        inputArea: HTMLKupTextFieldElement,
+        button: HTMLKupButtonElement
+    ) {
+        const speechConstructor =
+            window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!speechConstructor) {
+            alert('Speech recognition is not supported in this browser.');
+            return;
+        }
+        const recognition = new speechConstructor();
+        recognition.lang = dom.ketchup.language.getBCP47();
+        recognition.interimResults = true;
+        recognition.maxAlternatives = 1;
+
+        recognition.addEventListener(
+            'result',
+            (event: SpeechRecognitionEvent) => {
+                const transcript = Array.from(event.results)
+                    .map((result) => result[0])
+                    .map((result) => result.transcript)
+                    .join('');
+                dom.ketchup.debug.logMessage(
+                    'KupOpenAi',
+                    'STT response: ' + transcript
+                );
+                inputArea.setValue(transcript, true);
+                const isFinal = event.results[event.results.length - 1].isFinal;
+                if (isFinal) {
+                    recognition.stop();
+                }
+            }
+        );
+
+        recognition.addEventListener('end', () => {
+            recognition.stop();
+            button.showSpinner = false;
+        });
+
+        recognition.addEventListener('start', () => {
+            inputArea.setFocus();
+            button.showSpinner = true;
+        });
+
+        try {
+            recognition.start();
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     async hide() {

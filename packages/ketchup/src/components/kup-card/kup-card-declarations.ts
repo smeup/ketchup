@@ -75,6 +75,10 @@ export interface KupCardBuiltInOpenAIOptions {
     authCb?: KupCardBuiltInOpenAIAuthCb;
     messages?: KupCardBuiltInOpenAIMessages[];
     state?: 'authentication' | 'connecting' | 'error' | 'ready';
+    sttCb?: (
+        inputArea: HTMLKupTextFieldElement,
+        button: HTMLKupButtonElement
+    ) => void;
     submitCb?: (
         disableCb: (status: boolean) => void,
         inputArea?: HTMLKupTextFieldElement

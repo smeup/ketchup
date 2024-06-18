@@ -159,6 +159,23 @@ export class KupLanguage {
         return languages;
     }
     /**
+     * Gets the BCP47 language code of the specified language.
+     * @param {string} language - Language to check.
+     * @returns {string} BCP47 code
+     */
+    getBCP47(language: string = this.name): string {
+        const bcp47Map: Record<KupLanguageDefaults, string> = {
+            chinese: 'zh-CN',
+            english: 'en-US',
+            spanish: 'es-ES',
+            italian: 'it-IT',
+            french: 'fr-FR',
+            polish: 'pl-PL',
+            russian: 'ru-RU',
+        };
+        return bcp47Map[language];
+    }
+    /**
      * Registers a KupComponent in KupLanguage, in order to be automatically refreshed whenever the language changes.
      * @param {any} component - The component calling this function.
      */

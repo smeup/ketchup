@@ -61,9 +61,14 @@
   }
 
   .buttons {
+    align-items: center;
     display: flex;
     justify-content: space-evenly;
     padding: 1em 0;
+  }
+
+  .stt {
+    padding: 0 1em;
   }
 
   .request,
