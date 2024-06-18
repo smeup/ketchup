@@ -124,15 +124,16 @@ Type: `Promise<void>`
 
 
 
-### `setValue(value: string) => Promise<void>`
+### `setValue(value: string, skipNumberCheck?: boolean) => Promise<void>`
 
 Sets the internal value of the component.
 
 #### Parameters
 
-| Name    | Type     | Description |
-| ------- | -------- | ----------- |
-| `value` | `string` |             |
+| Name              | Type      | Description |
+| ----------------- | --------- | ----------- |
+| `value`           | `string`  |             |
+| `skipNumberCheck` | `boolean` |             |
 
 #### Returns
 
