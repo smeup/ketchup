@@ -2015,13 +2015,16 @@ export class KupDataTable {
                     !this.enableMergeColumns
                 );
                 const draggable = e.relatedTarget as KupDraggableElement;
+                const isSameComponent = !!(
+                    this.rootElement.id === draggable.kupDragDrop.id
+                );
                 const starter = draggable.kupDragDrop.column;
                 const receiving = getColumnByName(
                     this.getColumns(),
                     e.target.dataset.column
                 );
                 this.#columnDropCardAnchor = e.target as HTMLElement;
-                if (receiving && starter) {
+                if (isSameComponent && receiving && starter) {
                     if (onlySort) {
                         this.#handleColumnSort(receiving, starter);
                     } else if (onlyMerge) {
