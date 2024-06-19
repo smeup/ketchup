@@ -37,6 +37,7 @@ import {
     KupCardProps,
     KupCardClickPayload,
     KupCardColorPickerOptions,
+    KupCardModal,
 } from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
@@ -72,6 +73,11 @@ export class KupCard {
      */
     @Prop() data: KupCardData = null;
     /**
+     * Defines whether the card is at full screen or not.
+     * @default false
+     */
+    @Prop() fullScreen: boolean = false;
+    /**
      * Defines whether the card is a menu or not.
      * Works together with menuVisible.
      * @default false
@@ -93,6 +99,11 @@ export class KupCard {
      * @default false
      */
     @Prop({ mutable: true, reflect: true }) menuVisible: boolean = false;
+    /**
+     * Set of options to display the dialog as a modal.
+     * @default "{ closeOnBackdropClick: true }"
+     */
+    @Prop() modal: KupCardModal = { closeOnBackdropClick: true };
     /**
      * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
      * @default "100%"
@@ -219,6 +230,17 @@ export class KupCard {
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         return getProps(this, KupCardProps, descriptions);
+    }
+    /**
+     * Closes the dialog detaching it from the DOM.
+     */
+    @Method()
+    async close(): Promise<void> {
+        this.kupClose.emit({
+            comp: this,
+            id: this.rootElement.id,
+        });
+        this.rootElement.remove();
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -608,6 +630,15 @@ export class KupCard {
         if (rippleEl) {
             MDCRipple.attachTo(rippleEl);
         }
+        if (this.modal && this.fullScreen) {
+            this.kupManager.interact.showModalBackdrop(
+                this.modal.closeOnBackdropClick
+                    ? () => {
+                          this.close();
+                      }
+                    : null
+            );
+        }
         this.kupManager.resize.observe(this.rootElement);
         this.kupReady.emit({
             comp: this,
@@ -669,5 +700,8 @@ export class KupCard {
         this.kupManager.language.unregister(this);
         this.kupManager.resize.unobserve(this.rootElement);
         this.kupManager.theme.unregister(this);
+        if (this.modal) {
+            this.kupManager.interact.hideModalBackdrop();
+        }
     }
 }

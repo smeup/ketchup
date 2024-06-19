@@ -281,3 +281,7 @@ export interface KupCardClickPayload extends KupEventPayload {
 export interface KupCardEventPayload extends KupEventPayload {
     event: any;
 }
+
+export interface KupCardModal {
+    closeOnBackdropClick?: boolean;
+}

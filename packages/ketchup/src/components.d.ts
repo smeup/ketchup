@@ -17,7 +17,7 @@ import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-d
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
 import { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
-import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
+import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily, KupCardModal } from "./components/kup-card/kup-card-declarations";
 import { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
@@ -69,7 +69,7 @@ export { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-d
 export { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 export { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
 export { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
-export { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
+export { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily, KupCardModal } from "./components/kup-card/kup-card-declarations";
 export { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 export { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 export { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
@@ -681,6 +681,10 @@ export namespace Components {
     }
     interface KupCard {
         /**
+          * Closes the dialog detaching it from the DOM.
+         */
+        "close": () => Promise<void>;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://smeup.github.io/ketchup/#/customization
@@ -691,6 +695,11 @@ export namespace Components {
           * @default null
          */
         "data": KupCardData;
+        /**
+          * Defines whether the card is at full screen or not.
+          * @default false
+         */
+        "fullScreen": boolean;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -717,6 +726,11 @@ export namespace Components {
           * @default false
          */
         "menuVisible": boolean;
+        /**
+          * Set of options to display the dialog as a modal.
+          * @default "{ closeOnBackdropClick: true }"
+         */
+        "modal": KupCardModal;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -6013,6 +6027,11 @@ declare namespace LocalJSX {
          */
         "data"?: KupCardData;
         /**
+          * Defines whether the card is at full screen or not.
+          * @default false
+         */
+        "fullScreen"?: boolean;
+        /**
           * Defines whether the card is a menu or not. Works together with menuVisible.
           * @default false
          */
@@ -6032,6 +6051,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "menuVisible"?: boolean;
+        /**
+          * Set of options to display the dialog as a modal.
+          * @default "{ closeOnBackdropClick: true }"
+         */
+        "modal"?: KupCardModal;
         /**
           * Triggered when the card is clicked.
          */
