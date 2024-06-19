@@ -146,6 +146,9 @@ export class KupInputPanel {
         [FCellTypes.COMBOBOX, ['kup-combobox-iconclick']],
     ]);
     #listeners: { event: string; handler: (e) => void }[] = [];
+    #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([
+        [FCellTypes.DATE, 'kup-date-picker'],
+    ]);
     //#endregion
 
     //#region WATCHERS
@@ -470,6 +473,24 @@ export class KupInputPanel {
                   return [...inpuPanelCells, { cells, row }];
               }, [])
             : [];
+
+        inpuPanelCells.map(({ cells }: InputPanelCells) =>
+            cells.map(({ cell, column }) => {
+                const cellType = dom.ketchup.data.cell.getType(
+                    cell,
+                    cell.shape
+                );
+                const componentQuery = this.#cellTypeComponents.get(cellType);
+                if (!componentQuery) {
+                    return;
+                }
+
+                const el: any = this.rootElement.shadowRoot.querySelector(
+                    `${componentQuery}[id=${column.name}]`
+                );
+                el?.setValue(cell.value);
+            })
+        );
 
         this.inputPanelCells = inpuPanelCells;
     }
