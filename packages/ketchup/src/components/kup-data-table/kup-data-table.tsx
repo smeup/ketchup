@@ -5057,12 +5057,13 @@ export class KupDataTable {
                                 ')'
                             }
                             icon="smeup-ai"
-                            onkup-button-click={() =>
+                            onkup-button-click={() => {
                                 this.#kupManager.openAI.show({
                                     context: this.rootElement.tagName,
                                     dataset: this.data,
-                                })
-                            }
+                                });
+                                this.#closeCustomSettings();
+                            }}
                         />
                     ) : null}
                 </div>
