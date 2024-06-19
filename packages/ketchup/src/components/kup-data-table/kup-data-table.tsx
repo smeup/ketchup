@@ -652,7 +652,7 @@ export class KupDataTable {
     /**
      * Sets the position of the paginator. Available positions: top, bottom or both.
      */
-    @Prop() paginatorPos: PaginatorPos = PaginatorPos.BOTTOM;
+    @Prop() paginatorPos: PaginatorPos = PaginatorPos.TOP;
     /**
      * When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.
      */

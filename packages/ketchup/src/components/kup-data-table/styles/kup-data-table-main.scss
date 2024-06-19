@@ -85,6 +85,7 @@
   font-family: var(--kup_datatable_font_family);
   font-size: var(--kup_datatable_font_size);
   position: relative;
+  width: fit-content;
 }
 
 :host([kup-toolbar]) {
