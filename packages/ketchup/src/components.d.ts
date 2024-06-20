@@ -696,11 +696,6 @@ export namespace Components {
          */
         "data": KupCardData;
         /**
-          * Defines whether the card is at full screen or not.
-          * @default false
-         */
-        "fullScreen": boolean;
-        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
@@ -6026,11 +6021,6 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: KupCardData;
-        /**
-          * Defines whether the card is at full screen or not.
-          * @default false
-         */
-        "fullScreen"?: boolean;
         /**
           * Defines whether the card is a menu or not. Works together with menuVisible.
           * @default false

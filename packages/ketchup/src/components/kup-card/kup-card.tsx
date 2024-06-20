@@ -73,11 +73,6 @@ export class KupCard {
      */
     @Prop() data: KupCardData = null;
     /**
-     * Defines whether the card is at full screen or not.
-     * @default false
-     */
-    @Prop() fullScreen: boolean = false;
-    /**
      * Defines whether the card is a menu or not.
      * Works together with menuVisible.
      * @default false
@@ -630,7 +625,7 @@ export class KupCard {
         if (rippleEl) {
             MDCRipple.attachTo(rippleEl);
         }
-        if (this.modal && this.fullScreen) {
+        if (this.modal) {
             this.kupManager.interact.showModalBackdrop(
                 this.modal.closeOnBackdropClick
                     ? () => {
