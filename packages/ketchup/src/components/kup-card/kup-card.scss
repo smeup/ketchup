@@ -54,7 +54,7 @@
 }
 
 @media screen and (max-width: 600px) {
-  :host([full-screen]) {
+  :host(#kup-tooltip) {
     position: fixed !important;
     z-index: 1000 !important;
     bottom: 0 !important;
