@@ -163,7 +163,7 @@ export class KupLanguage {
      * @param {string} language - Language to check.
      * @returns {string} BCP47 code
      */
-    getBCP47(language: string = this.name): string {
+    getBCP47(language: string = this.name?.split('_')[0]): string {
         const bcp47Map: Record<KupLanguageDefaults, string> = {
             chinese: 'zh-CN',
             english: 'en-US',
