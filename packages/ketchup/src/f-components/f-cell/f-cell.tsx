@@ -1,5 +1,5 @@
 import type { FCheckboxProps } from '../f-checkbox/f-checkbox-declarations';
-import type { FImageProps } from '../f-image/f-image-declarations';
+import type { FImageData, FImageProps } from '../f-image/f-image-declarations';
 import type { FButtonProps } from '../f-button/f-button-declarations';
 import type { KupChart } from '../../components/kup-chart/kup-chart';
 import type { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
@@ -824,6 +824,119 @@ function setKupCell(
 }
 
 function setDefaults(cellType: string, cell: KupDataCell): void {
+    function isShapeBarMarker(value: string): boolean {
+        return value.toUpperCase().startsWith('SHAPE;BAR');
+    }
+
+    function isShapeMarker(value: string): boolean {
+        return value.toUpperCase().startsWith('SHAPE;');
+    }
+
+    function isBgColorMarker(value: string): boolean {
+        return value.toUpperCase().startsWith('BCOLOR;');
+    }
+
+    function isHeightMarker(value: string): boolean {
+        return value.toUpperCase().startsWith('HEIGHT;');
+    }
+
+    function isDecoratorMarker(value: string): boolean {
+        return (
+            value.toUpperCase().startsWith('SEP;') ||
+            value.toUpperCase().startsWith('DIV;') ||
+            value.toUpperCase().startsWith('ARW;') ||
+            value.toUpperCase().startsWith('GRID;')
+        );
+    }
+    function getData(value: string): FImageData[] | null {
+        if (!value) {
+            return null;
+        }
+        const graphicElementDefinitionArr = value.split('\\\\AND\\');
+        const data: FImageData[] = [];
+        for (const graphicElem of graphicElementDefinitionArr) {
+            const elementData = getElementData(graphicElem);
+            if (elementData) {
+                data.push(...elementData);
+            } else {
+                return null;
+            }
+        }
+        return data;
+    }
+
+    function getElementData(value: string): FImageData[] | null {
+        const commonsData: FImageData = {};
+
+        const markersArray = value.split('\\\\');
+        const shapesArray: FImageData[] = [];
+
+        for (const vString of markersArray) {
+            if (vString) {
+                if (isDecoratorMarker(vString)) {
+                    return null;
+                }
+
+                if (isShapeMarker(vString)) {
+                    if (!isShapeBarMarker(vString)) {
+                        return null;
+                    } else {
+                        const attr = vString.split(';');
+                        if (attr.length === 3) {
+                            const width = attr[2].replace(',', '.');
+                            if (!isNaN(parseFloat(width))) {
+                                commonsData.width = `${width}%`;
+                            }
+                        }
+                    }
+                } else if (isBgColorMarker(vString)) {
+                    // Background color handling can be added here if needed
+                } else if (isHeightMarker(vString)) {
+                    const height = vString
+                        .substring('HEIGHT;'.length)
+                        .replace(',', '.');
+                    if (!isNaN(parseFloat(height))) {
+                        commonsData.height = `${height}%`;
+                    }
+                } else {
+                    shapesArray.push(getShapeData(vString, commonsData));
+                }
+            }
+            return shapesArray.length ? shapesArray : null;
+        }
+
+        function getShapeData(
+            value: string,
+            commonsData: FImageData
+        ): FImageData {
+            const shapeData: FImageData = { ...commonsData };
+            const attr = value.split(';');
+            if (attr.length >= 1) {
+                const pattern = /R(\d+)G(\d+)B(\d+)/;
+                const match = pattern.exec(attr[0]);
+                if (match) {
+                    const [, r, g, b] = match;
+                    if (
+                        !isNaN(parseInt(r, 10)) &&
+                        !isNaN(parseInt(g, 10)) &&
+                        !isNaN(parseInt(b, 10))
+                    ) {
+                        shapeData.color = `rgb(${parseInt(r)},${parseInt(
+                            g
+                        )},${parseInt(b)})`;
+                    }
+                }
+                if (attr.length >= 2) {
+                    const width = attr[1].replace(',', '.');
+                    if (!isNaN(parseFloat(width))) {
+                        shapeData.width = `${width}%`;
+                    }
+                }
+            }
+            return shapeData;
+        }
+    }
+
     cell.data = {};
 
     const createDataset = () => {
@@ -849,6 +962,12 @@ function setDefaults(cellType: string, cell: KupDataCell): void {
             break;
 
         case FCellTypes.BAR:
+            if (isShapeMarker(cell.value)) {
+                cell.data.isCanvas = true;
+                cell.data.resource = cell.value;
+            } else {
+                cell.data.data = getData(cell.value);
+            }
             break;
 
         case FCellTypes.BUTTON:
