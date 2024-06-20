@@ -37,6 +37,7 @@ import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarat
 import {
     KupDataCell,
     KupDataColumn,
+    KupDataNode,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 import { FSwitch } from '../f-switch/f-switch';
@@ -95,6 +96,9 @@ export const FCell: FunctionalComponent<FCellProps> = (
         [cssClasses]: cssClasses ? true : false,
     };
     let content: unknown = valueToDisplay;
+    if (!cell.data) {
+        setDefaults(cellType, cell);
+    }
     if (isEditable && editableTypes.includes(cellType)) {
         content = setEditableCell(cellType, classObj, cell, column, props);
     } else if (cell.data && kupTypes.includes(cellType)) {
@@ -816,6 +820,75 @@ function setKupCell(
             return <FRadio {...subcomponentProps}></FRadio>;
         case FCellTypes.RATING:
             return <FRating {...subcomponentProps} disabled={true}></FRating>;
+    }
+}
+
+function setDefaults(cellType: string, cell: KupDataCell): void {
+    cell.data = {};
+
+    const createDataset = () => {
+        const parts = cell.value.split(';');
+        if (parts[parts.length - 1].trim() === '') {
+            parts.pop();
+        }
+        if (parts && parts.length) {
+            cell.data.data = [];
+            for (let part of parts) {
+                (cell.data.data as KupDataNode[]).push({
+                    id: part,
+                    value: part,
+                });
+            }
+        }
+    };
+
+    switch (cellType) {
+        case FCellTypes.CHECKBOX:
+        case FCellTypes.SWITCH:
+            cell.data.checked = cell.value === '1' ? true : false;
+            break;
+
+        case FCellTypes.BAR:
+            break;
+
+        case FCellTypes.BUTTON:
+            cell.data.label = cell.value;
+            break;
+
+        case FCellTypes.CHART:
+            Object.assign(cell.data, {
+                sizeX: '100px',
+                sizeY: '100px',
+                offlineMode: {
+                    value: cell.value,
+                    shape: 'pie',
+                },
+            });
+            break;
+
+        case FCellTypes.BUTTON_LIST:
+        case FCellTypes.CHIP:
+        case FCellTypes.MULTI_AUTOCOMPLETE:
+        case FCellTypes.MULTI_COMBOBOX:
+        case FCellTypes.RADIO:
+            createDataset();
+            break;
+
+        case FCellTypes.COLOR_PICKER:
+            cell.data.initialValue = cell.value;
+            break;
+
+        case FCellTypes.GAUGE:
+        case FCellTypes.KNOB:
+        case FCellTypes.PROGRESS_BAR:
+        case FCellTypes.RATING:
+            cell.data.value = parseInt(cell.value);
+            break;
+
+        case FCellTypes.ICON:
+        case FCellTypes.IMAGE:
+            cell.data.resource = cell.value;
+            break;
     }
 }
 

@@ -652,7 +652,7 @@ export class KupDataTable {
     /**
      * Sets the position of the paginator. Available positions: top, bottom or both.
      */
-    @Prop() paginatorPos: PaginatorPos = PaginatorPos.BOTTOM;
+    @Prop() paginatorPos: PaginatorPos = PaginatorPos.TOP;
     /**
      * When enabled, the extra whitespaces will be displayed and the font will be set to monospace by default.
      */
@@ -2015,13 +2015,16 @@ export class KupDataTable {
                     !this.enableMergeColumns
                 );
                 const draggable = e.relatedTarget as KupDraggableElement;
+                const isSameComponent = !!(
+                    this.rootElement.id === draggable.kupDragDrop.id
+                );
                 const starter = draggable.kupDragDrop.column;
                 const receiving = getColumnByName(
                     this.getColumns(),
                     e.target.dataset.column
                 );
                 this.#columnDropCardAnchor = e.target as HTMLElement;
-                if (receiving && starter) {
+                if (isSameComponent && receiving && starter) {
                     if (onlySort) {
                         this.#handleColumnSort(receiving, starter);
                     } else if (onlyMerge) {
@@ -5057,12 +5060,13 @@ export class KupDataTable {
                                 ')'
                             }
                             icon="smeup-ai"
-                            onkup-button-click={() =>
+                            onkup-button-click={() => {
                                 this.#kupManager.openAI.show({
                                     context: this.rootElement.tagName,
                                     dataset: this.data,
-                                })
-                            }
+                                });
+                                this.#closeCustomSettings();
+                            }}
                         />
                     ) : null}
                 </div>
