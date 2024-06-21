@@ -681,10 +681,6 @@ export namespace Components {
     }
     interface KupCard {
         /**
-          * Closes the dialog detaching it from the DOM.
-         */
-        "close": () => Promise<void>;
-        /**
           * Custom style of the component.
           * @default ""
           * @see https://smeup.github.io/ketchup/#/customization

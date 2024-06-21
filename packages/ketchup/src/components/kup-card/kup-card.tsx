@@ -37,7 +37,6 @@ import {
     KupCardProps,
     KupCardClickPayload,
     KupCardColorPickerOptions,
-    KupCardModal,
 } from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
@@ -220,17 +219,6 @@ export class KupCard {
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         return getProps(this, KupCardProps, descriptions);
-    }
-    /**
-     * Closes the dialog detaching it from the DOM.
-     */
-    @Method()
-    async close(): Promise<void> {
-        this.kupClose.emit({
-            comp: this,
-            id: this.rootElement.id,
-        });
-        this.rootElement.remove();
     }
     /**
      * This method is used to trigger a new render of the component.
