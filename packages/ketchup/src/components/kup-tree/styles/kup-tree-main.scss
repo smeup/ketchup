@@ -75,7 +75,6 @@
   display: block;
   font-family: var(--kup_tree_font_family);
   font-size: var(--kup_tree_font_size);
-  width: fit-content;
 }
 
 :host([prevent-x-scroll]) {
@@ -114,7 +113,7 @@
 
   .kup-tree {
     border-collapse: collapse;
-    width: max-content;
+    width: 100%;
 
     thead {
       display: none;
