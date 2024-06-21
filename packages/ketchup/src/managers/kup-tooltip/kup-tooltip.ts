@@ -214,6 +214,7 @@ export class KupTooltip {
             return;
         }
         this.element.menuVisible = true;
+        // Adding the click callback for tooltip
         dom.ketchup.addClickCallback(this.#clickCb, true);
     }
     /**
