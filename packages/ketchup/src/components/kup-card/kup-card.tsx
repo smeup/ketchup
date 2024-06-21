@@ -95,11 +95,6 @@ export class KupCard {
      */
     @Prop({ mutable: true, reflect: true }) menuVisible: boolean = false;
     /**
-     * Set of options to display the dialog as a modal.
-     * @default "{ closeOnBackdropClick: true }"
-     */
-    @Prop() modal: KupCardModal = { closeOnBackdropClick: true };
-    /**
      * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
      * @default "100%"
      */
@@ -625,15 +620,6 @@ export class KupCard {
         if (rippleEl) {
             MDCRipple.attachTo(rippleEl);
         }
-        if (this.modal) {
-            this.kupManager.interact.showModalBackdrop(
-                this.modal.closeOnBackdropClick
-                    ? () => {
-                          this.close();
-                      }
-                    : null
-            );
-        }
         this.kupManager.resize.observe(this.rootElement);
         this.kupReady.emit({
             comp: this,
@@ -695,8 +681,5 @@ export class KupCard {
         this.kupManager.language.unregister(this);
         this.kupManager.resize.unobserve(this.rootElement);
         this.kupManager.theme.unregister(this);
-        if (this.modal) {
-            this.kupManager.interact.hideModalBackdrop();
-        }
     }
 }
