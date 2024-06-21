@@ -134,6 +134,7 @@ export class KupInputPanel {
     >([
         ['SmeupTreeNode', this.#treeOptionsNodeAdapter.bind(this)],
         ['SmeupTable', this.#tableOptionsAdapter.bind(this)],
+        ['SmeupDataTable', this.#tableOptionsAdapter.bind(this)],
     ]);
 
     #originalData: KupInputPanelData = null;
@@ -791,11 +792,14 @@ export class KupInputPanel {
             .map(({ fields }) => {
                 const keys = Object.keys(fields);
 
-                return keys.map((key) => ({
-                    id: fields[key].smeupObject.codice,
-                    value: fields[key].smeupObject.testo,
-                    selected: currentValue === fields[key].smeupObject.codice,
-                }));
+                return keys
+                    .filter((key) => !['RowId', 'ID'].includes(key))
+                    .map((key) => ({
+                        id: fields[key].smeupObject.codice,
+                        value: fields[key].smeupObject.testo,
+                        selected:
+                            currentValue === fields[key].smeupObject.codice,
+                    }));
             })
             .flat();
     }
