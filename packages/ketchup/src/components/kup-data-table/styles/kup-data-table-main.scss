@@ -85,7 +85,6 @@
   font-family: var(--kup_datatable_font_family);
   font-size: var(--kup_datatable_font_size);
   position: relative;
-  width: fit-content;
 }
 
 :host([kup-toolbar]) {
@@ -101,6 +100,10 @@
   .f-cell__text {
     white-space: nowrap;
   }
+}
+
+#kup-component.auto-width {
+  width: fit-content;
 }
 
 table {

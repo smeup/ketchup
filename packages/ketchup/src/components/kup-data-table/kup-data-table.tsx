@@ -5571,6 +5571,7 @@ export class KupDataTable {
                 groupChips = <FChip {...props}></FChip>;
             }
         }
+
         const tableClass = {
             // Class to specify whether the table should have width: auto or not.
             // Mandatory to check with custom column size.
@@ -5593,6 +5594,8 @@ export class KupDataTable {
 
             'border-top': !this.showHeader,
         };
+
+        const wrapClass = tableClass['auto-width'] ? 'auto-width' : '';
 
         tableClass[`density-${this.density}`] = true;
         tableClass[`fontsize-${this.fontsize}`] = true;
@@ -5667,7 +5670,7 @@ export class KupDataTable {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}>
+                <div id={componentWrapperId} class={wrapClass}>
                     <div class="group-wrapper">{groupChips}</div>
                     <div class="actions-wrapper">
                         {this.globalFilter ? (
