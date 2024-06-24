@@ -120,11 +120,13 @@ export class KupScrollOnHover {
      * @param {KupScrollOnHoverElement} el - Element to unregister.
      */
     unregister(el: KupScrollOnHoverElement): void {
-        el.removeEventListener('scroll', this.#scrollEvent);
-        el.removeEventListener('mousemove', this.#mousemoveEvent);
-        el.removeEventListener('mouseleave', this.#mouseleaveEvent);
-        if (this.managedElements) {
-            this.managedElements.delete(el);
+        if (el) {
+            el.removeEventListener('scroll', this.#scrollEvent);
+            el.removeEventListener('mousemove', this.#mousemoveEvent);
+            el.removeEventListener('mouseleave', this.#mouseleaveEvent);
+            if (this.managedElements) {
+                this.managedElements.delete(el);
+            }
         }
     }
     /**
