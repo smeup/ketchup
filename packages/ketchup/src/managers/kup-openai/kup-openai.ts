@@ -81,7 +81,7 @@ export class KupOpenAI {
         if (!this.url) {
             this.getCardOptions().state = 'error';
         } else {
-            this.getCardOptions().state = 'authentication';
+            this.mockAuth();
         }
     }
 
@@ -244,6 +244,40 @@ export class KupOpenAI {
             this.dialog = null;
             await this.#disconnect();
         }
+    }
+
+    async mockAuth() {
+        const openAI = dom.ketchup.openAI;
+        if (!openAI.url) {
+            return;
+        }
+        let response = null;
+        try {
+            response = await fetch(openAI.url + '/api/auth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ data: 'mockup' }),
+            });
+        } catch (e) {
+            openAI.setError(e.message, openAI);
+            return;
+        }
+
+        if (response) {
+            if (response.status === 200) {
+                const responseJson = await response.json();
+                if (responseJson.status == 'ok') {
+                    openAI.getCardOptions().state = 'connecting';
+                    openAI.card.refresh();
+                    openAI.#connect();
+                    return;
+                }
+            }
+        }
+        openAI.getCardOptions().state = 'error';
+        openAI.card.refresh();
     }
 
     async auth(field: HTMLKupTextFieldElement) {
