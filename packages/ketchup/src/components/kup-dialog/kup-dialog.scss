@@ -15,7 +15,10 @@
     --kup-dialog-header-background-color,
     var(--kup-layer-1)
   );
-  --kup_dialog_header_height: var(--kup-dialog-header-height, 2em);
+  --kup_dialog_header_height: var(
+    --kup-dialog-header-height,
+    var(--kup-space-09)
+  );
 
   box-sizing: border-box;
   display: block;
@@ -27,6 +30,9 @@
   top: var(--kup_dialog_top, -100%);
   transition: opacity 0.25s ease-in;
   width: var(--kup_dialog_width);
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
 }
 
 #kup-component {
@@ -49,7 +55,7 @@
   height: var(--kup_dialog_header_height);
   position: relative;
   width: 100%;
-  min-height: 50px;
+  min-height: var(--kup-space-09);
   background-color: var(--kup_dialog_header_background_color);
 
   &__title {
@@ -75,7 +81,9 @@
 }
 
 .content {
-  height: calc(100% - var(--kup_dialog_header_height));
+  height: calc(
+    100% - var(--kup_dialog_header_height) - (var(--kup-space-05) * 2)
+  );
   padding: var(--kup-space-05);
   overflow: auto;
   user-select: text;
