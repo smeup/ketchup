@@ -609,8 +609,6 @@
 
   &.#{$kup-class-secondary} {
     &.f-button .icon-button:focus {
-      background-color: transparent;
-
       .icon-button__icon .f-image__icon {
         background: var(--kup-secondary-color) !important;
       }
