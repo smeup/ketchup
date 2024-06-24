@@ -68,6 +68,7 @@ export class KupInteract {
         >
     ) {
         interact.dynamicDrop(true);
+        interact.pointerMoveTolerance(100); // should solve a misfire of tap events in mobile - finetune this if new problems arise
         this.container = document.createElement('div');
         this.container.setAttribute('kup-interact', '');
         this.modalBackdrop = document.createElement('div');
