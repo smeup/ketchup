@@ -127,6 +127,7 @@ export enum FCellShapes {
     RADIO = 'RAD',
     RATING = 'RTG',
     SWITCH = 'SWT',
+    TABLE = 'TBL',
     TEXT_FIELD = 'ITX',
 }
 /**
@@ -158,6 +159,7 @@ export enum FCellTypes {
     RATING = 'rating',
     STRING = 'string',
     SWITCH = 'switch',
+    TABLE = 'table',
     TIME = 'time',
 }
 export const editableTypes = [
