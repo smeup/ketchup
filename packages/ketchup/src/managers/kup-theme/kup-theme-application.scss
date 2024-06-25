@@ -2466,7 +2466,7 @@ Please note that using !important should generally be avoided if possible, as it
   top: 0;
   width: 100vw;
 
-  &.visible {
+  &.visible:not(.responsive) {
     display: block;
   }
 }
@@ -2568,6 +2568,14 @@ Please note that using !important should generally be avoided if possible, as it
           animation: kup-pulseright 1.2s infinite;
         }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  [kup-modal-backdrop] {
+    &.responsive.visible {
+      display: block;
     }
   }
 }

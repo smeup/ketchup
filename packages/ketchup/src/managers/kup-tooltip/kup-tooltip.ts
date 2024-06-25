@@ -24,15 +24,21 @@ export class KupTooltip {
     element: HTMLKupCardElement = null;
     fCellCallbacks: KupTooltipCallbacks = null;
     managedElements: Set<KupTooltipAnchor> = null;
+    modal: boolean = null;
     timeout: ReturnType<typeof setTimeout> = null;
     #clickCb: KupManagerClickCb = null;
     /**
      * Initializes KupTooltip.
      */
-    constructor(delay?: number, fCellCallbacks?: KupTooltipCallbacks) {
+    constructor(
+        delay?: number,
+        fCellCallbacks?: KupTooltipCallbacks,
+        modal?: boolean
+    ) {
         this.delay = delay ? delay : 125;
         this.fCellCallbacks = fCellCallbacks ? fCellCallbacks : null;
         this.managedElements = new Set();
+        this.modal = modal ?? false;
         document.addEventListener('pointermove', (e) => {
             const paths = e.composedPath() as HTMLElement[];
             // Leaving the function when hovering on the tooltip itself
@@ -179,6 +185,9 @@ export class KupTooltip {
             this.element.menuVisible = false;
             dom.ketchup.dynamicPosition.stop(this.element);
             dom.ketchup.removeClickCallback(this.#clickCb);
+            if (this.modal) {
+                dom.ketchup.interact.hideModalBackdrop();
+            }
         }
     }
     /**
@@ -188,7 +197,8 @@ export class KupTooltip {
      */
     show(
         anchor?: KupDynamicPositionAnchor,
-        options?: Partial<HTMLKupCardElement>
+        options?: Partial<HTMLKupCardElement>,
+        modal = false
     ) {
         // Creates the card or updates it with new options
         if (!this.element) {
@@ -212,6 +222,9 @@ export class KupTooltip {
                 KupDebugCategory.WARNING
             );
             return;
+        }
+        if (modal) {
+            dom.ketchup.interact.showModalBackdrop(() => this.#clickCb, true);
         }
         this.element.menuVisible = true;
         // Adding the click callback for tooltip

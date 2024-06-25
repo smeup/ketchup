@@ -85,7 +85,8 @@ export class KupManager {
             themeList: KupThemeJSON = null,
             themeName: string = null,
             tooltipDelay: number = null,
-            tooltipFCellCallbacks: KupTooltipCallbacks = null;
+            tooltipFCellCallbacks: KupTooltipCallbacks = null,
+            tooltipModal: boolean = null;
 
         this.enableExperimentalFeatures = false;
         /** POI VIA */
@@ -150,6 +151,7 @@ export class KupManager {
                 tooltipFCellCallbacks = tooltip.fCellCallbacks
                     ? tooltip.fCellCallbacks
                     : null;
+                tooltipModal = tooltip.modal ? tooltip.modal : null;
             }
         }
         this.data = new KupData();
@@ -193,7 +195,11 @@ export class KupManager {
         };
         this.theme = new KupTheme(themeList, themeName);
         this.toolbar = new KupToolbar();
-        this.tooltip = new KupTooltip(tooltipDelay, tooltipFCellCallbacks);
+        this.tooltip = new KupTooltip(
+            tooltipDelay,
+            tooltipFCellCallbacks,
+            tooltipModal
+        );
         document.addEventListener('pointerdown', (e) => {
             const paths = e.composedPath() as HTMLElement[];
             const lastString =
