@@ -53,6 +53,7 @@ import {
     KupInputPanelRow,
     KupInputPanelSubmit,
 } from './kup-input-panel-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -149,6 +150,13 @@ export class KupInputPanel {
     #listeners: { event: string; handler: (e) => void }[] = [];
     #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([
         [FCellTypes.DATE, 'kup-date-picker'],
+    ]);
+    #cellCustomRender: Map<
+        FCellTypes,
+        (cell: KupDataCell, cellId: string) => any
+    > = new Map<FCellTypes, (cell: KupDataCell, cellId: string) => any>([
+        [FCellTypes.BUTTON, this.#renderButton.bind(this)],
+        [FCellTypes.TABLE, this.#renderDataTable.bind(this)],
     ]);
     //#endregion
 
@@ -286,8 +294,10 @@ export class KupInputPanel {
 
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
-        if (cellType === FCellTypes.BUTTON) {
-            return this.#renderButton(cell, column.name);
+        const customRender = this.#cellCustomRender.get(cellType);
+
+        if (customRender !== undefined) {
+            return customRender(cell, column.name);
         }
 
         const cellProps: FCellProps = {
@@ -319,6 +329,7 @@ export class KupInputPanel {
             <FButton
                 label={cell.data.label}
                 icon={cell.icon}
+                id={cellId}
                 wrapperClass="form__submit"
                 onClick={() => {
                     cell.data.fun
@@ -336,6 +347,16 @@ export class KupInputPanel {
                           });
                 }}
             ></FButton>
+        );
+    }
+
+    #renderDataTable(cell: KupDataCell, cellId: string) {
+        return (
+            <kup-data-table
+                id={cellId}
+                data={cell.data}
+                editableData={true}
+            ></kup-data-table>
         );
     }
 
@@ -560,6 +581,7 @@ export class KupInputPanel {
             [FCellTypes.DATE, this.#DateAdapter.bind(this)],
             [FCellTypes.RADIO, this.#RADAdapter.bind(this)],
             [FCellTypes.STRING, this.#ITXAdapter.bind(this)],
+            [FCellTypes.TABLE, this.#DataTableAdapter.bind(this)],
         ]);
 
         const adapter = dataAdapterMap.get(cellType);
@@ -756,6 +778,25 @@ export class KupInputPanel {
         _currentValue: string
     ) {
         return { label: fieldLabel, decimals: 2 };
+    }
+
+    #DataTableAdapter(
+        _rawOptions: GenericObject,
+        _fieldLabel: string,
+        _value: string,
+        cell: KupInputPanelCell,
+        id: string
+    ) {
+        if ((cell.value as any)?.type !== 'SmeupDataTable') {
+            this.#kupManager.debug.logMessage(
+                this,
+                `Wrong data table type for ${id} cell. Type \`SmeupDataTable\` in value expected`,
+                KupDebugCategory.ERROR
+            );
+            return null;
+        }
+
+        return cell.value;
     }
 
     #optionsTreeComboAdapter(options: any, currentValue: string) {
