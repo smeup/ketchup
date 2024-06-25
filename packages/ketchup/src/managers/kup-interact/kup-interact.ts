@@ -482,8 +482,14 @@ export class KupInteract {
     /**
      * Displays the modal's backdrop.
      */
-    showModalBackdrop(cb?: (e: MouseEvent) => unknown): void {
+    showModalBackdrop(
+        cb?: (e: MouseEvent) => unknown,
+        responsive = false
+    ): void {
         this.modalBackdrop.classList.add('visible');
+        if (responsive) {
+            this.modalBackdrop.classList.add('responsive');
+        }
         if (cb) {
             this.modalCb = cb;
         }
