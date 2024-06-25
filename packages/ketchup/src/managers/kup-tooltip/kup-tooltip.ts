@@ -197,8 +197,7 @@ export class KupTooltip {
      */
     show(
         anchor?: KupDynamicPositionAnchor,
-        options?: Partial<HTMLKupCardElement>,
-        modal = false
+        options?: Partial<HTMLKupCardElement>
     ) {
         // Creates the card or updates it with new options
         if (!this.element) {
@@ -223,7 +222,7 @@ export class KupTooltip {
             );
             return;
         }
-        if (modal) {
+        if (this.modal) {
             dom.ketchup.interact.showModalBackdrop(() => this.#clickCb, true);
         }
         this.element.menuVisible = true;
