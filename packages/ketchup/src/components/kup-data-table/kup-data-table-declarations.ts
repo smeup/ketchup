@@ -117,7 +117,7 @@ export enum SortMode {
 export type KupDataTableInsertMode = 'form' | 'row' | '';
 
 export interface TotalsMap {
-    [index: string]: TotalMode;
+    [index: string]: TotalMode | string;
 }
 
 export enum TotalMode {
