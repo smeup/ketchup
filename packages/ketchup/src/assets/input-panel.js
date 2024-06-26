@@ -1,6 +1,76 @@
-const data = {
+const datatable = {
     type: 'SmeupDataTable',
     columns: [
+        {
+            editable: true,
+            name: 'COL1',
+            title: 'Column 1',
+            visible: true,
+            isEditable: true,
+        },
+        {
+            editable: false,
+            name: 'COL2',
+            title: 'Column 2',
+            visible: true,
+            isEditable: false,
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                COL1: {
+                    value: 'Override value',
+                    options: [],
+                    icon: 'home',
+                    editable: false,
+                    mandatory: false,
+                    fun: 'EXEC',
+                },
+                COL2: {
+                    value: 'Row 1 column 2',
+                    options: [],
+                    editable: false,
+                    mandatory: false,
+                },
+            },
+            layout: {
+                type: 'SmeupDataLayout',
+                horizontal: false,
+                sections: [],
+            },
+        },
+        {
+            cells: {
+                COL1: {
+                    value: 'Row 2 column 1',
+                    options: [],
+                    editable: false,
+                    mandatory: false,
+                },
+                COL2: {
+                    value: 'Row 2 column 2',
+                    options: [],
+                    editable: false,
+                    mandatory: false,
+                },
+            },
+            layout: {
+                type: 'SmeupDataLayout',
+                horizontal: false,
+                sections: [],
+            },
+        },
+    ],
+};
+
+const data = {
+    columns: [
+        {
+            name: 'NAM',
+            title: 'Name',
+            visible: true,
+        },
         {
             editable: false,
             name: 'INP1',
@@ -15,69 +85,116 @@ const data = {
             visible: true,
             isEditable: false,
         },
+        {
+            name: 'DATA',
+            title: '',
+            visible: true,
+        },
         { editable: false, name: 'BTN1', visible: true, isEditable: false },
         { editable: false, name: 'BTN2', visible: true, isEditable: false },
+        { name: 'NAT', title: 'Combo', visible: true },
     ],
     rows: [
         {
             cells: {
+                NAM: {
+                    value: 'Giovanni',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'ITX',
+                },
                 INP1: {
-                    obj: { t: 'D8' },
-                    options: [],
+                    value: '',
+                    obj: { t: 'D8', p: '', k: '' },
                     editable: true,
                     mandatory: true,
                 },
                 INP2: {
-                    obj: { t: 'NR' },
-                    options: [],
+                    value: '',
+                    obj: { t: 'NR', p: '' },
                     editable: true,
                     mandatory: true,
                 },
                 BTN1: {
-                    value: 'Button 1',
+                    value: 'Load data',
                     obj: { t: 'J4', p: 'BTN' },
                     options: [],
                     editable: true,
                     mandatory: true,
-                    fun: 'btn1',
                 },
                 BTN2: {
-                    value: 'Button 2',
+                    value: 'Avanti',
                     obj: { t: 'J4', p: 'BTN' },
                     options: [],
                     editable: true,
                     mandatory: true,
+                },
+                DATA: {
+                    // value: datatable,
+                    shape: 'TBL',
+                    editable: true,
+                    mandatory: true,
+                },
+                NAT: {
+                    value: 'ITA',
+                    fun: 'combo',
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                    },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'CMB',
                 },
             },
             layout: {
                 type: 'SmeupDataLayout',
                 horizontal: false,
                 sections: [
+                    // {
+                    //     content: [
+                    //         {
+                    //             id: 'NAM',
+                    //         },
+                    //         {
+                    //             options: [],
+                    //             editable: false,
+                    //             mandatory: false,
+                    //             id: 'INP1',
+                    //         },
+                    //         {
+                    //             options: [],
+                    //             editable: false,
+                    //             mandatory: false,
+                    //             id: 'INP2',
+                    //         },
+                    //     ],
+                    //     sections: [],
+                    //     horizontal: false,
+                    //     gridCols: 4,
+                    //     gridRows: 2,
+                    //     gap: 2,
+                    //     title: 'Anagrafica',
+                    // },
+                    // {
+                    //     content: [{id: 'NAT',colSpan: 1, rowSpan: 1,}],
+                    //     gridCols: 1,
+                    //     gridRows:1
+                    // },
                     {
                         content: [
                             {
-                                options: [],
-                                editable: false,
-                                mandatory: false,
-                                id: 'INP1',
-                                colSpan: 1,
-                                rowSpan: 1,
-                            },
-                            {
-                                options: [],
-                                editable: false,
-                                mandatory: false,
-                                id: 'INP2',
+                                id: 'DATA',
                                 colSpan: 1,
                                 rowSpan: 1,
                             },
                         ],
-                        sections: [],
                         horizontal: false,
-                        gridCols: 4,
-                        gridRows: 2,
-                        gap: 2,
-                        title: 'Anagrafica',
+                        gridCols: 1,
+                        gridRows: 1,
+                        title: 'Table',
                     },
                     {
                         content: [
@@ -89,14 +206,14 @@ const data = {
                                 colSpan: 1,
                                 rowSpan: 1,
                             },
-                            {
-                                options: [],
-                                editable: false,
-                                mandatory: false,
-                                id: 'BTN2',
-                                colSpan: 1,
-                                rowSpan: 1,
-                            },
+                            // {
+                            //     options: [],
+                            //     editable: false,
+                            //     mandatory: false,
+                            //     id: 'BTN2',
+                            //     colSpan: 1,
+                            //     rowSpan: 1,
+                            // },
                         ],
                         sections: [],
                         horizontal: false,
@@ -115,6 +232,148 @@ const data = {
         finalTimestamp: '2024-06-11T15:02:17.906443131Z',
         runtime: 'Java 21',
     },
+};
+
+const data1 = {
+    columns: [
+        {
+            name: 'NAM',
+            title: 'Name',
+            visible: true,
+        },
+        {
+            editable: false,
+            name: 'INP1',
+            title: 'Field1',
+            visible: true,
+            isEditable: false,
+        },
+        {
+            editable: false,
+            name: 'INP2',
+            title: 'Field2',
+            visible: true,
+            isEditable: false,
+        },
+        {
+            name: 'DATA',
+            title: '',
+            visible: true,
+        },
+        { editable: false, name: 'BTN1', visible: true, isEditable: false },
+        { editable: false, name: 'BTN2', visible: true, isEditable: false },
+    ],
+    rows: [
+        {
+            cells: {
+                NAM: {
+                    value: '',
+                    editable: true,
+                    mandatory: true,
+
+                    obj: { t: '', p: '', k: '' },
+                    shape: 'ITX',
+                },
+                INP1: {
+                    value: '',
+                    obj: { t: 'D8' },
+                    editable: true,
+                    mandatory: true,
+                },
+                INP2: {
+                    value: '',
+                    obj: { t: 'NR', p: '' },
+                    editable: true,
+                    mandatory: true,
+                },
+                BTN1: {
+                    value: 'Load data',
+                    obj: { t: 'J4', p: 'BTN' },
+                    options: [],
+                    editable: true,
+                    mandatory: true,
+                },
+                BTN2: {
+                    value: 'Avanti',
+                    obj: { t: 'J4', p: 'BTN' },
+                    options: [],
+                    editable: true,
+                    mandatory: true,
+                },
+                DATA: {
+                    value: datatable,
+                    obj: { t: 'TABLE' },
+                    // options: datatable,
+                    editable: true,
+                    mandatory: true,
+                },
+            },
+            layout: {
+                type: 'SmeupDataLayout',
+                horizontal: false,
+                sections: [
+                    {
+                        content: [
+                            {
+                                id: 'NAM',
+                            },
+                            {
+                                id: 'INP1',
+                            },
+                            {
+                                id: 'INP2',
+                            },
+                        ],
+                        sections: [],
+                        horizontal: false,
+                        gridCols: 4,
+                        gridRows: 2,
+                        gap: 2,
+                        title: 'Anagrafica',
+                    },
+                    // {
+                    //     content: [
+                    //         {
+                    //             id: 'DATA',
+                    //             colSpan: 1,
+                    //             rowSpan: 1
+                    //         },
+                    //     ],
+                    //     horizontal: false,
+                    //     gridCols: 1,
+                    //     gridRows: 1,
+                    //     title: 'Table',
+                    // },
+                    // {
+                    //     content: [
+                    //         {
+                    //             options: [],
+                    //             editable: false,
+                    //             mandatory: false,
+                    //             id: 'BTN1',
+                    //             colSpan: 1,
+                    //             rowSpan: 1,
+                    //         },
+                    //         {
+                    //             options: [],
+                    //             editable: false,
+                    //             mandatory: false,
+                    //             id: 'BTN2',
+                    //             colSpan: 1,
+                    //             rowSpan: 1,
+                    //         },
+                    //     ],
+                    //     sections: [],
+                    //     horizontal: false,
+                    //     gridCols: 4,
+                    //     gridRows: 2,
+                    //     gap: 2,
+                    //     title: 'Actions',
+                    // },
+                ],
+            },
+        },
+    ],
 };
 
 // Example of rerender configuration
@@ -318,73 +577,183 @@ inputPanel.data = data;
 inputPanel.optionsHandler = (fun, inputValue, currentState) => {
     console.log('optionsHandler event', { fun, inputValue, currentState });
 
+    // return Promise.resolve({
+    //     type: 'SmeupTable',
+    //     messages: [],
+    //     rows: [
+    //         {
+    //             fields: {
+    //                 E1: {
+    //                     smeupObject: {
+    //                         codice: 'E1',
+    //                         testo: 'Element 1',
+    //                     },
+    //                 },
+    //                 E2: {
+    //                     smeupObject: {
+    //                         codice: 'E2',
+    //                         testo: 'Element 2',
+    //                     },
+    //                 },
+    //                 E3: {
+    //                     smeupObject: {
+    //                         codice: 'E3',
+    //                         testo: 'Element 3',
+    //                     },
+    //                 },
+    //             },
+    //         },
+    //         {
+    //             fields: {
+    //                 E4: {
+    //                     smeupObject: {
+    //                         codice: 'E4',
+    //                         testo: 'Element 4',
+    //                     },
+    //                 },
+    //                 E5: {
+    //                     smeupObject: {
+    //                         codice: 'E5',
+    //                         testo: 'Element 5',
+    //                     },
+    //                 },
+    //                 E6: {
+    //                     smeupObject: {
+    //                         codice: 'E6',
+    //                         testo: 'Element 6',
+    //                     },
+    //                 },
+    //             },
+    //         },
+    //         {
+    //             fields: {
+    //                 E14: {
+    //                     smeupObject: {
+    //                         codice: 'E14',
+    //                         testo: 'Element 14',
+    //                     },
+    //                 },
+    //                 E15: {
+    //                     smeupObject: {
+    //                         codice: 'E15',
+    //                         testo: 'Element 15',
+    //                     },
+    //                 },
+    //                 E16: {
+    //                     smeupObject: {
+    //                         codice: 'E16',
+    //                         testo: 'Element 16',
+    //                     },
+    //                 },
+    //             },
+    //         },
+    //     ],
+    // });
+
     return Promise.resolve({
         type: 'SmeupTable',
-        messages: [],
+        columns: [
+            {
+                IO: 'I',
+                code: 'COL1',
+                ogg: '',
+                sortMode: 'A',
+                text: 'Column 1',
+                tooltip: false,
+            },
+            {
+                IO: 'O',
+                code: 'COL2',
+                ogg: '',
+                sortMode: 'A',
+                text: 'Column 2',
+                tooltip: false,
+            },
+        ],
         rows: [
             {
                 fields: {
-                    E1: {
+                    RowId: {
+                        name: 'RowId',
                         smeupObject: {
-                            codice: 'E1',
-                            testo: 'Element 1',
+                            codice: '0',
+                            parametro: '',
+                            tipo: 'NR',
                         },
+                        tooltip: false,
                     },
-                    E2: {
+                    ID: {
+                        name: 'ID',
                         smeupObject: {
-                            codice: 'E2',
-                            testo: 'Element 2',
+                            codice: '1',
+                            parametro: '',
+                            tipo: 'NR',
                         },
+                        tooltip: false,
                     },
-                    E3: {
+                    COL2: {
+                        name: 'COL2',
                         smeupObject: {
-                            codice: 'E3',
-                            testo: 'Element 3',
+                            codice: 'Row 1 column 2',
+                            parametro: '',
+                            testo: 'Row 1 column 2',
+                            tipo: '',
                         },
+                        tooltip: false,
+                    },
+                    COL1: {
+                        name: 'COL1',
+                        smeupObject: {
+                            codice: 'Row 1 column 1',
+                            exec: 'EXEC',
+                            i: 'home',
+                            parametro: '',
+                            testo: 'Override value',
+                            tipo: '',
+                        },
+                        tooltip: false,
                     },
                 },
             },
             {
                 fields: {
-                    E4: {
+                    RowId: {
+                        name: 'RowId',
                         smeupObject: {
-                            codice: 'E4',
-                            testo: 'Element 4',
+                            codice: '1',
+                            parametro: '',
+                            tipo: 'NR',
                         },
+                        tooltip: false,
                     },
-                    E5: {
+                    ID: {
+                        name: 'ID',
                         smeupObject: {
-                            codice: 'E5',
-                            testo: 'Element 5',
+                            codice: '2',
+                            parametro: '',
+                            tipo: 'NR',
                         },
+                        tooltip: false,
                     },
-                    E6: {
+                    COL2: {
+                        name: 'COL2',
                         smeupObject: {
-                            codice: 'E6',
-                            testo: 'Element 6',
+                            codice: 'Row 2 column 2',
+                            parametro: '',
+                            testo: 'Row 2 column 2',
+                            tipo: '',
                         },
+                        tooltip: false,
                     },
-                },
-            },
-            {
-                fields: {
-                    E14: {
+                    COL1: {
+                        name: 'COL1',
                         smeupObject: {
-                            codice: 'E14',
-                            testo: 'Element 14',
+                            codice: 'Row 2 column 1',
+                            parametro: '',
+                            testo: 'Row 2 column 1',
+                            tipo: '',
                         },
-                    },
-                    E15: {
-                        smeupObject: {
-                            codice: 'E15',
-                            testo: 'Element 15',
-                        },
-                    },
-                    E16: {
-                        smeupObject: {
-                            codice: 'E16',
-                            testo: 'Element 16',
-                        },
+                        tooltip: false,
                     },
                 },
             },
@@ -396,8 +765,18 @@ inputPanel.submitCb = (e) => {
     console.log('submit', e);
 
     // Example of rerender event
-    // const inputPanel = document.getElementById('input-panel');
-    // inputPanel.data = data1;
+    const inputPanel = document.getElementById('input-panel');
+    let updated;
+    if (e.cell === 'BTN2') {
+        updated = structuredClone(data1);
+    } else if (e.cell === 'BTN1') {
+        updated = structuredClone(data);
+        updated.rows[0].cells.DATA.value = datatable;
+        updated.rows[0].layout.sections[1].content[0].id = 'BTN2';
+    } else {
+        updated = structuredClone(data);
+    }
+    inputPanel.data = updated;
 };
 
 inputPanel.customButtonClickHandler = (fun, cellId, currentState) => {

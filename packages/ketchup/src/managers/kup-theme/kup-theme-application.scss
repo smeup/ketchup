@@ -2442,15 +2442,18 @@ Please note that using !important should generally be avoided if possible, as it
 /*                   D i a l o g                   */
 /*-------------------------------------------------*/
 [kup-dialog] {
-  border-top: 4px solid var(--kup-gray-color-70);
+  border-top: 4px solid var(--kup-border-strong);
   animation: fade-in-down 0.25s ease-out;
-  background-color: var(--kup-gray-color-0);
+  background-color: var(--kup-layer-0);
   margin: 0;
   position: absolute;
   -ms-touch-action: none;
   touch-action: none;
   transition: none;
   will-change: transform;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
 }
 
 [kup-modal-backdrop] {
@@ -2463,7 +2466,7 @@ Please note that using !important should generally be avoided if possible, as it
   top: 0;
   width: 100vw;
 
-  &.visible {
+  &.visible:not(.responsive) {
     display: block;
   }
 }
@@ -2565,6 +2568,14 @@ Please note that using !important should generally be avoided if possible, as it
           animation: kup-pulseright 1.2s infinite;
         }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  [kup-modal-backdrop] {
+    &.responsive.visible {
+      display: block;
     }
   }
 }

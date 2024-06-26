@@ -62,7 +62,7 @@ describe('kup-input-panel', () => {
         for (const [i, textField] of textFields.entries()) {
             const label = await textField.find('label');
             expect(label).not.toBeNull();
-            expect(label).toHaveClass('mdc-floating-label');
+            expect(label).toHaveClass('mdc-label');
             expect(label).toEqualText(data.columns[i].title);
 
             const input = await textField.find('input');
@@ -446,5 +446,257 @@ describe('kup-input-panel', () => {
             'div.radio '
         );
         expect(updateRadioButtonChecked).toHaveClass('radio--checked');
+    });
+
+    it('renders table', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'DAT',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        DAT: {
+                            value: null,
+                            editable: true,
+                            shape: 'TBL',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+        const tableShadow = await inputPanelContent.find('kup-data-table');
+
+        const tableComponent = await tableShadow.find('>>> table');
+        expect(tableComponent).not.toBeNull();
+
+        const emptyRow = await tableComponent.find(
+            'tbody tr:first-child td:first-child'
+        );
+        expect(emptyRow.textContent).toBe('Empty data.');
+    });
+
+    it('renders table 2 col 1 row', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+        const col1Title = 'Column 1';
+        const col1Name = 'COL1';
+        const col1Value = 'Row 1 column 1';
+        const col2Title = 'Column 2';
+        const col2Name = 'COL2';
+        const col2Value = 'Row 1 column 2';
+        const data = {
+            columns: [
+                {
+                    name: 'DAT',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        DAT: {
+                            value: {
+                                type: 'SmeupDataTable',
+                                columns: [
+                                    {
+                                        name: col1Name,
+                                        title: col1Title,
+                                    },
+                                    {
+                                        editable: false,
+                                        name: col2Name,
+                                        title: col2Title,
+                                    },
+                                ],
+                                rows: [
+                                    {
+                                        cells: {
+                                            COL1: {
+                                                value: col1Value,
+                                            },
+                                            COL2: {
+                                                value: col2Value,
+                                            },
+                                        },
+                                    },
+                                ],
+                            },
+                            editable: true,
+                            shape: 'TBL',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+        const tableShadow = await inputPanelContent.find('kup-data-table');
+
+        const tableComponent = await tableShadow.find('>>> table');
+        expect(tableComponent).not.toBeNull();
+
+        const thead1Col = await tableComponent.find(
+            'thead tr:first-child th:first-child'
+        );
+        expect(thead1Col).toEqualAttribute('data-column', col1Name);
+
+        const thead1stColCell = await thead1Col.find(
+            'div.header-cell__content span.header-cell__title'
+        );
+        expect(thead1stColCell.textContent).toBe(col1Title);
+
+        const thead2Col = await tableComponent.find(
+            'thead tr:first-child th:nth-of-type(2)'
+        );
+        expect(thead2Col).toEqualAttribute('data-column', col2Name);
+
+        const thead2ndColcell = await thead2Col.find(
+            'div.header-cell__content span.header-cell__title'
+        );
+        expect(thead2ndColcell.textContent).toBe(col2Title);
+
+        const tbodyRows = await tableComponent.findAll('tbody tr');
+        expect(tbodyRows.length).toBe(1);
+
+        const tbody1Col = await tbodyRows[0].find('td:first-child');
+        expect(tbody1Col).toEqualAttribute('data-column', col1Name);
+        expect(tbody1Col.textContent).toBe(col1Value);
+
+        const tbody2Col = await tbodyRows[0].find('td:nth-of-type(2)');
+        expect(tbody2Col).toEqualAttribute('data-column', col2Name);
+        expect(tbody2Col.textContent).toBe(col2Value);
+    });
+
+    it('renders table with first column editable', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+        const col1Title = 'Column 1';
+        const col1Name = 'COL1';
+        const col1Value = 'Row 1 column 1';
+        const col1Row2Value = 'Row 2 column 1';
+        const col2Title = 'Column 2';
+        const col2Name = 'COL2';
+        const col2Value = 'Row 1 column 2';
+        const col2Row2Value = 'Row 2 column 2';
+        const col1Values = [col1Value, col1Row2Value];
+
+        const data = {
+            columns: [
+                {
+                    name: 'DAT',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        DAT: {
+                            value: {
+                                type: 'SmeupDataTable',
+                                columns: [
+                                    {
+                                        name: col1Name,
+                                        title: col1Title,
+                                        isEditable: true,
+                                    },
+                                    {
+                                        name: col2Name,
+                                        title: col2Title,
+                                        isEditable: false,
+                                    },
+                                ],
+                                rows: [
+                                    {
+                                        cells: {
+                                            COL1: {
+                                                value: col1Value,
+                                            },
+                                            COL2: {
+                                                value: col2Value,
+                                            },
+                                        },
+                                    },
+                                    {
+                                        cells: {
+                                            COL1: {
+                                                value: col1Row2Value,
+                                            },
+                                            COL2: {
+                                                value: col2Row2Value,
+                                            },
+                                        },
+                                    },
+                                ],
+                            },
+                            editable: true,
+                            shape: 'TBL',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+        const tableShadow = await inputPanelContent.find('kup-data-table');
+
+        const tableComponent = await tableShadow.find('>>> table');
+        expect(tableComponent).not.toBeNull();
+
+        const tbodyRows = await tableComponent.findAll('tbody tr');
+        expect(tbodyRows.length).toBe(2);
+
+        await Promise.all(
+            tbodyRows.map(async (row, i) => {
+                const col1 = await row.find('td:first-child');
+                expect(col1).toEqualAttribute('data-column', col1Name);
+
+                const colTextField = await col1.find(
+                    '.f-cell.string-cell .f-text-field'
+                );
+                console.log('row i', i);
+                expect(colTextField).not.toBeNull();
+
+                const input = await colTextField.find('input');
+                expect(input).not.toBeNull();
+
+                const value = await input.getProperty('value');
+                expect(value).toBe(col1Values[i]);
+            })
+        );
     });
 });

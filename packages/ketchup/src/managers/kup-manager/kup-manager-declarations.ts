@@ -157,14 +157,15 @@ export interface KupManagerThemeSettings {
     name?: string;
 }
 /**
- * KupDates initialization settings.
+ * KupTooltip initialization settings.
  */
 export interface KupManagerTooltipSettings {
     fCellCallbacks?: KupTooltipCallbacks;
     delay?: number;
+    modal?: boolean;
 }
 /**
- * KupTheme initialization settings.
+ * String finder payload.
  */
 export interface KupManagerStringFinderPayload {
     string: string;

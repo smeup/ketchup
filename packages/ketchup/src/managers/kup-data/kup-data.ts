@@ -108,6 +108,8 @@ export class KupData {
                         return FCellTypes.RATING;
                     case FCellShapes.SWITCH:
                         return FCellTypes.SWITCH;
+                    case FCellShapes.TABLE:
+                        return FCellTypes.TABLE;
                     case FCellShapes.TEXT_FIELD:
                         return FCellTypes.STRING;
                 }
