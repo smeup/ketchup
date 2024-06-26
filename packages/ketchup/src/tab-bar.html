@@ -45,6 +45,7 @@
         <kup-tab-bar id="event-tabbar"></kup-tab-bar>
         <kup-tab-bar></kup-tab-bar>
         <kup-tab-bar></kup-tab-bar>
+        <kup-tab-bar></kup-tab-bar>
 
         <script>
             let tabBar = document.getElementsByTagName('kup-tab-bar')[0];
@@ -117,6 +118,19 @@
                 {
                     id: '4',
                     value: 'Settings',
+                    active: false,
+                },
+            ];
+            let tabBar4 = document.getElementsByTagName('kup-tab-bar')[3];
+            tabBar4.data = [
+                {
+                    id: '1',
+                    value: 'Favorites',
+                    active: true,
+                },
+                {
+                    id: '2',
+                    value: 'Alarm clock',
                     active: false,
                 },
             ];
