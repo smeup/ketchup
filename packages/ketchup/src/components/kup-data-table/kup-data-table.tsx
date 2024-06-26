@@ -757,7 +757,7 @@ export class KupDataTable {
     private currentPage = 1;
 
     @State()
-    private currentRowsPerPage = 10;
+    private currentRowsPerPage = 50;
 
     @State()
     private selectedRows: Array<KupDataTableRow> = [];
