@@ -55,10 +55,16 @@
 
 @media (max-width: 500px) {
   .f-paginator kup-combobox.rows-selector {
-    order: 3;
+    order: 1;
     border-right: none;
+  }
+  .arrow-wrapper {
+    order: 2;
   }
   .load-more-button {
     border-left: 1px solid var(--kup-border-subtle);
+  }
+  .f-paginator kup-combobox.page-selector {
+    display: none;
   }
 }
