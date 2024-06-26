@@ -223,10 +223,9 @@ export class KupTooltip {
             return;
         }
         if (this.modal) {
-            dom.ketchup.interact.showModalBackdrop(
-                () => this.#clickCb.cb,
-                true
-            );
+            dom.ketchup.interact.showModalBackdrop(() => {
+                this.#clickCb.cb();
+            }, true);
         }
         this.element.menuVisible = true;
         // Adding the click callback for tooltip
