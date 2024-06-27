@@ -5476,6 +5476,7 @@ export class KupDataTable {
         this.#rowsRefs = [];
         this.#renderedRows = [];
         let elStyle = undefined;
+        let actionWrapperWidth = undefined;
         this.#sizedColumns = this.#getSizedColumns();
 
         let rows = null;
@@ -5613,6 +5614,11 @@ export class KupDataTable {
                 width: this.tableWidth,
                 overflow: 'auto',
             };
+            actionWrapperWidth = {
+                ...actionWrapperWidth,
+                width: this.tableWidth,
+                overflow: 'auto',
+            };
         }
 
         let stickyEl = undefined;
@@ -5672,7 +5678,7 @@ export class KupDataTable {
                 </style>
                 <div id={componentWrapperId} class={wrapClass}>
                     <div class="group-wrapper">{groupChips}</div>
-                    <div class="actions-wrapper">
+                    <div class="actions-wrapper" style={actionWrapperWidth}>
                         {this.globalFilter ? (
                             <div id="global-filter">
                                 <FTextField
