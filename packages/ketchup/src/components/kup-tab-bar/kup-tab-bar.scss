@@ -169,7 +169,13 @@
         line-height: 1;
         z-index: 2;
         color: var(--kup_tabbar_text_color);
-        min-width: 150px;
+        min-width: auto;
+      }
+
+      @media screen and (min-width: 678px) {
+        .tab__text-label {
+          min-width: 150px;
+        }
       }
     }
 
