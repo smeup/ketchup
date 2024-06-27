@@ -9,7 +9,7 @@
 
 | Property                   | Attribute              | Description                                                            | Type                                                                                           | Default |
 | -------------------------- | ---------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `customButtonClickHandler` | --                     | Sets the handler to use when click on custom buttons                   | `(fun: string, cellId: string, currentState: KupInputPanelData) => void`                       | `null`  |
+| `customButtonClickHandler` | --                     | Sets the handler to use when click on custom buttons                   | `(event: { fun: string; cellId: string; currentState: KupInputPanelData; }) => void`           | `null`  |
 | `customStyle`              | `custom-style`         | Custom style of the component.                                         | `string`                                                                                       | `''`    |
 | `data`                     | --                     | Actual data of the form.                                               | `KupInputPanelData`                                                                            | `null`  |
 | `hiddenSubmitButton`       | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean`                                                                                      | `false` |

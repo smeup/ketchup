@@ -102,11 +102,11 @@ export type InputPanelOptionsHandler = (
     currentState: KupInputPanelData
 ) => Promise<GenericObject>;
 
-export type InputPanelButtonClickHandler = (
-    fun: string,
-    cellId: string,
-    currentState: KupInputPanelData
-) => void;
+export type InputPanelButtonClickHandler = (event: {
+    fun: string;
+    cellId: string;
+    currentState: KupInputPanelData;
+}) => void;
 
 export enum KupInputPanelProps {
     customStyle = 'Custom style of the component.',
