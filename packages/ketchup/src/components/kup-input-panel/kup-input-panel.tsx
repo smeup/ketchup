@@ -333,11 +333,11 @@ export class KupInputPanel {
                 wrapperClass="form__submit"
                 onClick={() => {
                     cell.data.fun
-                        ? this.customButtonClickHandler(
-                              cell.data.fun,
+                        ? this.customButtonClickHandler({
+                              fun: cell.data.fun,
                               cellId,
-                              this.#reverseMapCells()
-                          )
+                              currentState: this.#reverseMapCells(),
+                          })
                         : this.submitCb({
                               value: {
                                   before: { ...this.#originalData },
