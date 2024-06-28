@@ -15,6 +15,10 @@
     --kup-button-text-color,
     var(--kup-primary-color-60-rgb)
   );
+  --kup_button_raised_icon_color_focus: var(
+    --kup-button-raised-icon-color-focus,
+    var(--kup-gray-color-0)
+  );
   --kup_button_border_color: var(
     --kup-button-border-color,
     var(--kup-primary-color-60)
@@ -191,6 +195,10 @@
         --kup_button_border_color_focus: var(--kup-primary-color-90);
         background-color: var(--kup-primary-color-80);
         border-color: var(--kup_button_border_color_focus);
+        .f-image__icon {
+          background: var(--kup_button_raised_icon_color_focus) !important;
+          color: var(--kup-primary-color-60);
+        }
       }
 
       &:active {
