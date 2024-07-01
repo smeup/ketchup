@@ -228,10 +228,11 @@ function setCellSize(
             }
             break;
         case FCellTypes.IMAGE:
+            const cellValue = props.cell?.value || '';
             const hasExternalResource =
-                props.cell.value.indexOf('.') > -1 ||
-                props.cell.value.indexOf('/') > -1 ||
-                props.cell.value.indexOf('\\') > -1;
+                cellValue.indexOf('.') > -1 ||
+                cellValue.indexOf('/') > -1 ||
+                cellValue.indexOf('\\') > -1;
             if (
                 (props.component as KupComponent).rootElement.tagName ===
                     KupTagNames.DATA_TABLE &&
