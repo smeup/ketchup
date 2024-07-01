@@ -70,7 +70,7 @@
     --kup-tree-text-hover-color,
     var(--kup-text-primary)
   );
-  --kup_tree_icon_color: var(--kup-tree-icons-color, var(--kup-text-secondary));
+  --kup-icon-color: var(--kup-tree-icon-color, var(--kup-text-secondary));
 
   display: block;
   font-family: var(--kup_tree_font_family);

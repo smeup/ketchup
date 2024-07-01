@@ -16,6 +16,7 @@ import {
     KupAutocompleteEventPayload,
     KupComboboxIconClickEventPayload,
     KupDataCell,
+    KupDataTableDataset,
 } from '../../components';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FCell } from '../../f-components/f-cell/f-cell';
@@ -23,6 +24,7 @@ import {
     FCellEventPayload,
     FCellEvents,
     FCellProps,
+    FCellShapes,
     FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
@@ -54,6 +56,7 @@ import {
     KupInputPanelSubmit,
 } from './kup-input-panel-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { KupDataTable } from '../kup-data-table/kup-data-table';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -526,11 +529,20 @@ export class KupInputPanel {
                             (c) => c.column.name === key
                         )?.cell;
 
+                        let value: any = cellState?.value;
+
+                        if (cellState.shape === FCellShapes.TABLE) {
+                            value = this.#getTableUpdatedCell(
+                                cellState.data,
+                                key
+                            );
+                        }
+
                         return {
                             ...cells,
                             [key]: {
                                 ...curr.row.cells[key],
-                                value: cellState?.value,
+                                value,
                                 obj: cellState?.obj,
                             },
                         };
@@ -787,16 +799,86 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        if ((cell.value as any)?.type !== 'SmeupDataTable') {
+        try {
+            const data = JSON.parse(cell.value);
+
+            if (!data) {
+                this.#kupManager.debug.logMessage(
+                    this,
+                    `Empty value for ${id} cell.`,
+                    KupDebugCategory.WARNING
+                );
+                return null;
+            }
+
+            if ((data as any).type !== 'SmeupDataTable') {
+                this.#kupManager.debug.logMessage(
+                    this,
+                    `Wrong data table type for ${id} cell. Type \`SmeupDataTable\` in value expected`,
+                    KupDebugCategory.ERROR
+                );
+                return null;
+            }
+
+            return data;
+        } catch (e) {
             this.#kupManager.debug.logMessage(
                 this,
-                `Wrong data table type for ${id} cell. Type \`SmeupDataTable\` in value expected`,
+                `Invalid value for ${id} cell. Type \`SmeupDataTable\` expected`,
                 KupDebugCategory.ERROR
             );
             return null;
         }
+    }
 
-        return cell.value;
+    #getTableUpdatedCell(
+        tableValue: KupDataTableDataset,
+        cellId: string
+    ): KupDataTableDataset {
+        const updated: KupDataTableDataset = {
+            ...tableValue,
+            rows: [],
+        };
+
+        const editableColsId = tableValue.columns
+            .filter((col) => col.isEditable)
+            .map((col) => col.name);
+
+        if (!editableColsId.length) {
+            return updated;
+        }
+
+        try {
+            const beforeTableValue = JSON.parse(
+                this.#originalData.rows[0].cells[cellId].value
+            );
+
+            updated.rows = tableValue.rows
+                .map((row, i) =>
+                    editableColsId.reduce((cells, colId) => {
+                        const changed =
+                            row.cells[colId].value !==
+                            beforeTableValue.rows[i].cells[colId].value;
+
+                        if (changed) {
+                            return {
+                                ...cells,
+                                [colId]: {
+                                    ...beforeTableValue.rows[i].cells[colId],
+                                    value: row.cells[colId].value,
+                                },
+                            };
+                        }
+
+                        return cells;
+                    }, {})
+                )
+                .filter((row) => Object.keys(row).length);
+
+            return updated;
+        } catch (e) {
+            return updated;
+        }
     }
 
     #optionsTreeComboAdapter(options: any, currentValue: string) {

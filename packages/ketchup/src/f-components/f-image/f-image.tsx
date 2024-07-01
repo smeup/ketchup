@@ -86,7 +86,9 @@ function createIcon(
         [iconClass]: true,
     };
     const style: GenericObject = {
-        background: color ? color : `var(--kup-text-secondary)`,
+        background: color
+            ? color
+            : `var(--kup-icon-color,var(--kup-text-secondary))`,
     };
     if (icon.indexOf('--kup') > -1) {
         let themeIcon: string = icon.replace('--', '');
