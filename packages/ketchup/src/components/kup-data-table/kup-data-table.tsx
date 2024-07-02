@@ -896,6 +896,7 @@ export class KupDataTable {
      */
     #tableAreaRef: KupScrollOnHoverElement;
     #stickyTheadRef: any;
+    #lastPointerDetails: KupDatatableEventHandlerDetails;
     #customizeTopButtonRef: any;
     #customizeTopPanelRef: HTMLKupCardElement;
     #sizedColumns: KupDataColumn[] = undefined;
@@ -2117,21 +2118,26 @@ export class KupDataTable {
             for (let index = 0; index < this.#rowsRefs.length; index++) {
                 const row = this.#rowsRefs[index];
                 const dataCb: KupDragDataTransferCallback = () => {
-                    const cellEl = this.rootElement.shadowRoot.querySelector(
-                        'td:hover'
-                    ) as HTMLElement;
+                    const cell = this.#lastPointerDetails?.cell;
+                    const column = this.#lastPointerDetails?.column;
+                    const row = this.#lastPointerDetails?.row;
+                    if (!cell) {
+                        this.#kupManager.debug.logMessage(
+                            this,
+                            "Couldn't find cell hovered to retrieve dropzone informations!",
+                            KupDebugCategory.WARNING
+                        );
+                        return;
+                    }
                     return {
-                        cell: cellEl['data-cell'],
-                        column: getColumnByName(
-                            this.getVisibleColumns(),
-                            cellEl.dataset.column
-                        ),
+                        cell,
+                        column,
                         id: this.rootElement.id,
                         multiple: !!(
                             this.selection === SelectionMode.MULTIPLE ||
                             this.selection === SelectionMode.MULTIPLE_CHECKBOX
                         ),
-                        row: cellEl['data-row'],
+                        row,
                         selectedRows: this.selectedRows,
                     };
                 };
@@ -5856,6 +5862,16 @@ export class KupDataTable {
                             }
                             onMouseLeave={(ev) => {
                                 ev.stopPropagation();
+                            }}
+                            onPointerDown={(e) => {
+                                this.#lastPointerDetails =
+                                    this.#getEventDetails(
+                                        this.#kupManager.getEventPath(
+                                            e.target,
+                                            this.rootElement
+                                        ),
+                                        e as unknown as Interact.PointerEvent
+                                    );
                             }}
                             onContextMenu={(e: MouseEvent) => {
                                 e.preventDefault();
