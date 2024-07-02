@@ -852,27 +852,25 @@ export class KupInputPanel {
                 this.#originalData.rows[0].cells[cellId].value
             );
 
-            updated.rows = tableValue.rows
-                .map((row, i) =>
-                    editableColsId.reduce((cells, colId) => {
-                        const changed =
-                            row.cells[colId].value !==
-                            beforeTableValue.rows[i].cells[colId].value;
+            updated.rows = tableValue.rows.map((row, i) =>
+                editableColsId.reduce((cells, colId) => {
+                    const changed =
+                        row.cells[colId].value !==
+                        beforeTableValue.rows[i].cells[colId].value;
 
-                        if (changed) {
-                            return {
-                                ...cells,
-                                [colId]: {
-                                    ...beforeTableValue.rows[i].cells[colId],
-                                    value: row.cells[colId].value,
-                                },
-                            };
-                        }
+                    if (changed) {
+                        return {
+                            ...cells,
+                            [colId]: {
+                                ...beforeTableValue.rows[i].cells[colId],
+                                value: row.cells[colId].value,
+                            },
+                        };
+                    }
 
-                        return cells;
-                    }, {})
-                )
-                .filter((row) => Object.keys(row).length);
+                    return cells;
+                }, {})
+            );
 
             return updated;
         } catch (e) {
