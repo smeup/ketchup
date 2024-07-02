@@ -2124,7 +2124,7 @@ export class KupDataTable {
                     if (!cell) {
                         this.#kupManager.debug.logMessage(
                             this,
-                            "Couldn't find cell hovered to retrieve dropzone informations!",
+                            "Couldn't find cell to retrieve drag informations!",
                             KupDebugCategory.WARNING
                         );
                         return;
@@ -2161,26 +2161,22 @@ export class KupDataTable {
         }
         if (this.dropEnabled) {
             const dataCb: KupDropDataTransferCallback = () => {
-                const cell =
-                    this.rootElement.shadowRoot.querySelector('td:hover');
+                const cell = this.#lastPointerDetails?.cell;
+                const column = this.#lastPointerDetails?.column;
+                const row = this.#lastPointerDetails?.row;
                 if (!cell) {
                     this.#kupManager.debug.logMessage(
                         this,
-                        "Couldn't find cell hovered to retrieve dropzone informations!",
+                        "Couldn't find cell to retrieve dropzone informations!",
                         KupDebugCategory.WARNING
                     );
                     return;
                 }
-                const path = this.#kupManager.getEventPath(
-                    cell,
-                    this.rootElement
-                );
-                const receivingDetails = this.#getEventDetails(path);
                 return {
-                    cell: receivingDetails.cell,
-                    column: receivingDetails.column,
+                    cell,
+                    column,
                     id: this.rootElement.id,
-                    row: receivingDetails.row,
+                    row,
                 };
             };
             for (let index = 0; index < this.#rowsRefs.length; index++) {
@@ -5864,6 +5860,16 @@ export class KupDataTable {
                                 ev.stopPropagation();
                             }}
                             onPointerDown={(e) => {
+                                this.#lastPointerDetails =
+                                    this.#getEventDetails(
+                                        this.#kupManager.getEventPath(
+                                            e.target,
+                                            this.rootElement
+                                        ),
+                                        e as unknown as Interact.PointerEvent
+                                    );
+                            }}
+                            onPointerUp={(e) => {
                                 this.#lastPointerDetails =
                                     this.#getEventDetails(
                                         this.#kupManager.getEventPath(
