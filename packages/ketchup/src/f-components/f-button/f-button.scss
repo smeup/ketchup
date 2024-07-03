@@ -119,14 +119,16 @@
       background-color: var(--kup_button_background_color_hover);
       color: var(--kup-primary-color-0);
 
-      .f-image__icon {
+      .f-image__icon,
+      .f-image__placeholder {
         background-color: var(--kup-gray-color-0) !important;
         color: var(--kup-primary-color-0);
       }
     }
 
     &:focus {
-      .f-image__icon {
+      .f-image__icon,
+      .f-image__placeholder {
         background: var(--kup_button_border_color_focus) !important;
         color: var(--kup-primary-color-60);
       }
@@ -136,7 +138,8 @@
       background-color: var(--kup_button_background_color_active);
       color: var(--kup-primary-color-0);
 
-      .f-image__icon {
+      .f-image__icon,
+      .f-image__placeholder {
         background: var(--kup-primary-color-0) !important;
       }
     }
@@ -195,7 +198,8 @@
         --kup_button_border_color_focus: var(--kup-primary-color-90);
         background-color: var(--kup-primary-color-80);
         border-color: var(--kup_button_border_color_focus);
-        .f-image__icon {
+        .f-image__icon,
+        .f-image__placeholder {
           background: var(--kup_button_raised_icon_color_focus) !important;
           color: var(--kup-primary-color-60);
         }
@@ -257,7 +261,8 @@
         border-color: transparent;
       }
 
-      &:hover .f-image .f-image__icon {
+      &:hover .f-image .f-image__icon,
+      &:hover .f-image .f-image__placeholder {
         --kup_button_background_color_hover: var(--kup-gray-color-0);
         background-color: var(--kup_button_background_color_hover) !important;
       }
@@ -269,7 +274,8 @@
         background-color: var(--kup_button_background_color_focus);
       }
 
-      &:focus .f-image .f-image__icon {
+      &:focus .f-image .f-image__icon,
+      &:focus .f-image .f-image__placeholder {
         --kup_button_background_color_focus: var(--kup-primary-color-0);
         background-color: var(--kup_button_background_color_focus) !important;
       }
@@ -281,7 +287,8 @@
         background-color: var(--kup_button_background_color_active);
       }
 
-      &:active .f-image .f-image__icon {
+      &:active .f-image .f-image__icon,
+      &:active .f-image .f-image__placeholder {
         --kup_button_background_color_active: var(--kup-primary-color-0);
         background-color: var(--kup_button_background_color_active) !important;
       }
@@ -330,7 +337,8 @@
     &:hover,
     &:focus {
       background-color: var(--kup-primary-color-60);
-      .icon-button__icon .f-image__icon {
+      .icon-button__icon .f-image__icon,
+      .icon-button__icon .f-image__placeholder {
         background: var(--kup-primary-color-0) !important;
       }
     }
@@ -383,7 +391,8 @@
         --kup_button_border_color_focus: var(--kup-gray-color-80);
         --kup_button_text_color: var(--kup-gray-color-0);
         background-color: var(--kup_button_background_color_focus);
-        .f-image__icon {
+        .f-image__icon,
+        .f-image__placeholder {
           background: white !important;
           color: var(--kup-primary-color-60);
         }
@@ -456,14 +465,16 @@
       user-select: none;
       padding: 0.75em;
       @include kup-body-compact-01;
-      .icon-button__icon .f-image__icon {
+      .icon-button__icon .f-image__icon,
+      .icon-button__icon .f-image__placeholder {
         background: var(--kup-gray-color-70);
       }
 
       &:hover,
       &:focus {
         background-color: var(--kup-gray-color-60);
-        .icon-button__icon .f-image__icon {
+        .icon-button__icon .f-image__icon,
+        .icon-button__icon .f-image__placeholder {
           background: var(--kup-gray-color-0) !important;
         }
       }
@@ -545,7 +556,8 @@
         --kup_button_border_color_focus: var(--kup-danger-color-80);
         --kup_button_text_color: var(--kup-primary-color-0);
         background-color: var(--kup_button_background_color_focus);
-        .f-image__icon {
+        .f-image__icon,
+        .f-image__placeholder {
           background: white !important;
           color: var(--kup-primary-color-60);
         }
@@ -617,7 +629,8 @@
 
   &.#{$kup-class-secondary} {
     &.f-button .icon-button:focus {
-      .icon-button__icon .f-image__icon {
+      .icon-button__icon .f-image__icon,
+      .icon-button__icon .f-image__placeholder {
         background: var(--kup-secondary-color) !important;
       }
     }
