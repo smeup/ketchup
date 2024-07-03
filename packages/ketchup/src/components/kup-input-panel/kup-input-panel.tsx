@@ -17,6 +17,7 @@ import {
     KupComboboxIconClickEventPayload,
     KupDataCell,
     KupDataTableDataset,
+    KupDataTableRow,
 } from '../../components';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FCell } from '../../f-components/f-cell/f-cell';
@@ -836,7 +837,7 @@ export class KupInputPanel {
     ): KupDataTableDataset {
         const updated: KupDataTableDataset = {
             ...tableValue,
-            rows: [],
+            rows: tableValue.rows.map((row) => ({ ...row, cells: {} })),
         };
 
         const editableColsId = tableValue.columns
@@ -853,23 +854,34 @@ export class KupInputPanel {
             );
 
             updated.rows = tableValue.rows.map((row, i) =>
-                editableColsId.reduce((cells, colId) => {
-                    const changed =
-                        row.cells[colId].value !==
-                        beforeTableValue.rows[i].cells[colId].value;
+                editableColsId.reduce<KupDataTableRow>(
+                    (updatedRow, colId) => {
+                        const changed =
+                            row.cells[colId].value !==
+                            beforeTableValue.rows[i].cells[colId].value;
 
-                    if (changed) {
+                        if (changed) {
+                            return {
+                                ...beforeTableValue.rows[i],
+                                cells: {
+                                    ...updatedRow.cells,
+                                    [colId]: {
+                                        ...beforeTableValue.rows[i].cells[
+                                            colId
+                                        ],
+                                        value: row.cells[colId].value,
+                                    },
+                                },
+                            };
+                        }
+
                         return {
-                            ...cells,
-                            [colId]: {
-                                ...beforeTableValue.rows[i].cells[colId],
-                                value: row.cells[colId].value,
-                            },
+                            ...beforeTableValue.rows[i],
+                            cells: updatedRow.cells,
                         };
-                    }
-
-                    return cells;
-                }, {})
+                    },
+                    { ...beforeTableValue.rows[i], cells: {} }
+                )
             );
 
             return updated;
