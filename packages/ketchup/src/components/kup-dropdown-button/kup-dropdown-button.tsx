@@ -16,7 +16,10 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import { ItemsDisplayMode } from '../kup-list/kup-list-declarations';
+import {
+    ItemsDisplayMode,
+    KupListEventPayload,
+} from '../kup-list/kup-list-declarations';
 import { consistencyCheck } from '../kup-list/kup-list-helper';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
@@ -275,7 +278,7 @@ export class KupDropdownButton {
         }
     }
 
-    onKupItemClick(e: CustomEvent) {
+    onKupItemClick(e: CustomEvent<KupListEventPayload>) {
         this.consistencyCheck(e);
         this.closeList();
 
@@ -283,12 +286,14 @@ export class KupDropdownButton {
             comp: this,
             id: this.rootElement.id,
             value: this.id,
+            node: e.detail.selected,
         });
 
         this.kupItemClick.emit({
             comp: this,
             id: this.rootElement.id,
             value: this.id,
+            node: e.detail.selected,
         });
     }
 
@@ -518,7 +523,9 @@ export class KupDropdownButton {
                         {...this.data['kup-list']}
                         displayMode={this.displayMode}
                         isMenu={true}
-                        onkup-list-click={(e) => this.onKupItemClick(e)}
+                        onKup-list-click={(
+                            e: CustomEvent<KupListEventPayload>
+                        ) => this.onKupItemClick(e)}
                         id={this.rootElement.id + '_list'}
                         ref={(el) => (this.listEl = el)}
                     ></kup-list>
