@@ -31,6 +31,10 @@
   word-break: break-all;
   word-wrap: break-word;
 
+  &:has(.f-cell__content .f-image .iconWrapper .f-image__icon) {
+    max-height: 100%;
+  }
+
   .f-cell__content {
     align-items: center;
     display: flex;
