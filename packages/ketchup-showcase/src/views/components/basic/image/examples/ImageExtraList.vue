@@ -231,6 +231,14 @@
             ></kup-image>
             <div class="icon-label">asterisk</div>
           </div>
+          <div class="icon-wrapper" title="attributes">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="asterisk"
+            ></kup-image>
+            <div class="icon-label">attributes</div>
+          </div>
           <div class="icon-wrapper" title="auto-fix">
             <kup-image
               size-x="48px"
