@@ -5,11 +5,12 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { KulArticleDataset } from "./components/kul-article/kul-article-declarations";
+import { KulDataDataset, KulDataNode, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 import { GenericObject, KulEventPayload } from "./types/GenericTypes";
 import { KulDebugComponentInfo } from "./managers/kul-debug/kul-debug-declarations";
+import { Event } from "@stencil/core";
+import { KulArticleDataset } from "./components/kul-article/kul-article-declarations";
 import { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
-import { KulDataDataset, KulDataNode, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 import { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 import { KulChartEventPayload, KulChartLegendPlacement, KulChartType } from "./components/kul-chart/kul-chart-declarations";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
@@ -23,11 +24,12 @@ import { KulTabbarEventPayload, KulTabbarState } from "./components/kul-tabbar/k
 import { KulTextfieldEventPayload, KulTextfieldHelper, KulTextfieldStyling } from "./components/kul-textfield/kul-textfield-declarations";
 import { KulTreeEventPayload } from "./components/kul-tree/kul-tree-declarations";
 import { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
-export { KulArticleDataset } from "./components/kul-article/kul-article-declarations";
+export { KulDataDataset, KulDataNode, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 export { GenericObject, KulEventPayload } from "./types/GenericTypes";
 export { KulDebugComponentInfo } from "./managers/kul-debug/kul-debug-declarations";
+export { Event } from "@stencil/core";
+export { KulArticleDataset } from "./components/kul-article/kul-article-declarations";
 export { KulImagePropsInterface } from "./components/kul-image/kul-image-declarations";
-export { KulDataDataset, KulDataNode, KulDataShapesMap } from "./managers/kul-data/kul-data-declarations";
 export { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 export { KulChartEventPayload, KulChartLegendPlacement, KulChartType } from "./components/kul-chart/kul-chart-declarations";
 export { XAXisComponentOption, YAXisComponentOption } from "echarts";
@@ -42,6 +44,43 @@ export { KulTextfieldEventPayload, KulTextfieldHelper, KulTextfieldStyling } fro
 export { KulTreeEventPayload } from "./components/kul-tree/kul-tree-declarations";
 export { KulUploadEventPayload } from "./components/kul-upload/kul-upload-declarations";
 export namespace Components {
+    interface KulAccordion {
+        /**
+          * Fetches debug information of the component's current state.
+          * @returns A promise that resolves with the debug information object.
+         */
+        "getDebugInfo": () => Promise<KulDebugComponentInfo>;
+        /**
+          * Used to retrieve component's properties and descriptions.
+          * @param descriptions - When true, includes descriptions for each property.
+          * @returns Promise resolved with an object containing the component's properties.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Actual data of the accordion.
+          * @default null
+         */
+        "kulData": KulDataDataset;
+        /**
+          * When set to true, the pointerdown event will trigger a ripple effect.
+          * @default true
+         */
+        "kulRipple": boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * This method activates or deactivates an node.
+          * @param id - Id of the node.
+         */
+        "toggleNode": (id: string, e?: Event) => Promise<void>;
+    }
     interface KulArticle {
         /**
           * Retrieves the debug information reflecting the current state of the component.
@@ -628,6 +667,8 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
     }
+    interface KulShowcaseAccordion {
+    }
     interface KulShowcaseArticle {
     }
     interface KulShowcaseBadge {
@@ -1102,6 +1143,10 @@ export namespace Components {
         "refresh": () => Promise<void>;
     }
 }
+export interface KulAccordionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKulAccordionElement;
+}
 export interface KulArticleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulArticleElement;
@@ -1187,6 +1232,23 @@ export interface KulUploadCustomEvent<T> extends CustomEvent<T> {
     target: HTMLKulUploadElement;
 }
 declare global {
+    interface HTMLKulAccordionElementEventMap {
+        "kul-accordion-event": KulEventPayload;
+    }
+    interface HTMLKulAccordionElement extends Components.KulAccordion, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulAccordionElementEventMap>(type: K, listener: (this: HTMLKulAccordionElement, ev: KulAccordionCustomEvent<HTMLKulAccordionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulAccordionElementEventMap>(type: K, listener: (this: HTMLKulAccordionElement, ev: KulAccordionCustomEvent<HTMLKulAccordionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKulAccordionElement: {
+        prototype: HTMLKulAccordionElement;
+        new (): HTMLKulAccordionElement;
+    };
     interface HTMLKulArticleElementEventMap {
         "kul-article-event": KulEventPayload;
     }
@@ -1407,6 +1469,12 @@ declare global {
     var HTMLKulShowcaseElement: {
         prototype: HTMLKulShowcaseElement;
         new (): HTMLKulShowcaseElement;
+    };
+    interface HTMLKulShowcaseAccordionElement extends Components.KulShowcaseAccordion, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseAccordionElement: {
+        prototype: HTMLKulShowcaseAccordionElement;
+        new (): HTMLKulShowcaseAccordionElement;
     };
     interface HTMLKulShowcaseArticleElement extends Components.KulShowcaseArticle, HTMLStencilElement {
     }
@@ -1725,6 +1793,7 @@ declare global {
         new (): HTMLKulUploadElement;
     };
     interface HTMLElementTagNameMap {
+        "kul-accordion": HTMLKulAccordionElement;
         "kul-article": HTMLKulArticleElement;
         "kul-badge": HTMLKulBadgeElement;
         "kul-button": HTMLKulButtonElement;
@@ -1738,6 +1807,7 @@ declare global {
         "kul-list": HTMLKulListElement;
         "kul-photoframe": HTMLKulPhotoframeElement;
         "kul-showcase": HTMLKulShowcaseElement;
+        "kul-showcase-accordion": HTMLKulShowcaseAccordionElement;
         "kul-showcase-article": HTMLKulShowcaseArticleElement;
         "kul-showcase-badge": HTMLKulShowcaseBadgeElement;
         "kul-showcase-button": HTMLKulShowcaseButtonElement;
@@ -1779,6 +1849,27 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface KulAccordion {
+        /**
+          * Actual data of the accordion.
+          * @default null
+         */
+        "kulData"?: KulDataDataset;
+        /**
+          * When set to true, the pointerdown event will trigger a ripple effect.
+          * @default true
+         */
+        "kulRipple"?: boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+         */
+        "kulStyle"?: string;
+        /**
+          * Describes event emitted.
+         */
+        "onKul-accordion-event"?: (event: KulAccordionCustomEvent<KulEventPayload>) => void;
+    }
     interface KulArticle {
         /**
           * The actual data of the article.
@@ -2163,6 +2254,8 @@ declare namespace LocalJSX {
          */
         "onKul-showcase-event"?: (event: KulShowcaseCustomEvent<KulEventPayload>) => void;
     }
+    interface KulShowcaseAccordion {
+    }
     interface KulShowcaseArticle {
     }
     interface KulShowcaseBadge {
@@ -2504,6 +2597,7 @@ declare namespace LocalJSX {
         "onKul-upload-event"?: (event: KulUploadCustomEvent<KulUploadEventPayload>) => void;
     }
     interface IntrinsicElements {
+        "kul-accordion": KulAccordion;
         "kul-article": KulArticle;
         "kul-badge": KulBadge;
         "kul-button": KulButton;
@@ -2517,6 +2611,7 @@ declare namespace LocalJSX {
         "kul-list": KulList;
         "kul-photoframe": KulPhotoframe;
         "kul-showcase": KulShowcase;
+        "kul-showcase-accordion": KulShowcaseAccordion;
         "kul-showcase-article": KulShowcaseArticle;
         "kul-showcase-badge": KulShowcaseBadge;
         "kul-showcase-button": KulShowcaseButton;
@@ -2561,6 +2656,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "kul-accordion": LocalJSX.KulAccordion & JSXBase.HTMLAttributes<HTMLKulAccordionElement>;
             "kul-article": LocalJSX.KulArticle & JSXBase.HTMLAttributes<HTMLKulArticleElement>;
             "kul-badge": LocalJSX.KulBadge & JSXBase.HTMLAttributes<HTMLKulBadgeElement>;
             "kul-button": LocalJSX.KulButton & JSXBase.HTMLAttributes<HTMLKulButtonElement>;
@@ -2574,6 +2670,7 @@ declare module "@stencil/core" {
             "kul-list": LocalJSX.KulList & JSXBase.HTMLAttributes<HTMLKulListElement>;
             "kul-photoframe": LocalJSX.KulPhotoframe & JSXBase.HTMLAttributes<HTMLKulPhotoframeElement>;
             "kul-showcase": LocalJSX.KulShowcase & JSXBase.HTMLAttributes<HTMLKulShowcaseElement>;
+            "kul-showcase-accordion": LocalJSX.KulShowcaseAccordion & JSXBase.HTMLAttributes<HTMLKulShowcaseAccordionElement>;
             "kul-showcase-article": LocalJSX.KulShowcaseArticle & JSXBase.HTMLAttributes<HTMLKulShowcaseArticleElement>;
             "kul-showcase-badge": LocalJSX.KulShowcaseBadge & JSXBase.HTMLAttributes<HTMLKulShowcaseBadgeElement>;
             "kul-showcase-button": LocalJSX.KulShowcaseButton & JSXBase.HTMLAttributes<HTMLKulShowcaseButtonElement>;
