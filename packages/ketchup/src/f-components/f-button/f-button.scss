@@ -167,6 +167,26 @@
       height: var(--kup_button_max_large_height);
     }
 
+    &.button--left {
+      justify-content: left;
+    }
+
+    &.button--right {
+      justify-content: right;
+    }
+
+    &.button--around {
+      justify-content: space-around;
+    }
+
+    &.button--between {
+      justify-content: space-between;
+    }
+
+    &.button--evenly {
+      justify-content: space-evenly;
+    }
+
     // RAISED AND FLOATING BUTTON
 
     &.button--floating,

@@ -13,7 +13,7 @@ import { BadgeType } from "./components/kup-badge/kup-badge-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxLoadMoreClickEventPayload, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, LoadMoreMode } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
 import { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
-import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
+import { FButtonAlign, FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
 import { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
@@ -65,7 +65,7 @@ export { BadgeType } from "./components/kup-badge/kup-badge-declarations";
 export { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxLoadMoreClickEventPayload, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, LoadMoreMode } from "./components/kup-box/kup-box-declarations";
 export { KupStore } from "./components/kup-state/kup-store";
 export { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
-export { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
+export { FButtonAlign, FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 export { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 export { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
 export { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
@@ -497,6 +497,11 @@ export namespace Components {
         "swipeDisabled": boolean;
     }
     interface KupButton {
+        /**
+          * Sets the type of the button.
+          * @default null
+         */
+        "aligncontent": FButtonAlign;
         /**
           * Sets the type of the button.
           * @default null
@@ -5838,6 +5843,11 @@ declare namespace LocalJSX {
         "swipeDisabled"?: boolean;
     }
     interface KupButton {
+        /**
+          * Sets the type of the button.
+          * @default null
+         */
+        "aligncontent"?: FButtonAlign;
         /**
           * Sets the type of the button.
           * @default null
