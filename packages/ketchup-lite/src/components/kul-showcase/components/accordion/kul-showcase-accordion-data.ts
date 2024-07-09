@@ -64,7 +64,7 @@ export const ACCORDION_DOC: KulArticleDataset = {
                                         },
                                         {
                                             id: '0.0.0.0.2',
-                                            value: ' component is a versatile and customizable web component designed to render a accordion based on a JSON structure. ',
+                                            value: ' component allows users to toggle between hiding and showing large amounts of content.',
                                         },
                                     ],
                                     id: '0.0.0.0',
@@ -102,7 +102,7 @@ export const ACCORDION_DOC: KulArticleDataset = {
                                         },
                                         {
                                             id: '0.2.0.0.4',
-                                            value: ' property with the JSON structure representing the accordion.',
+                                            value: ' property with the JSON structure representing the accordion items.',
                                         },
                                     ],
                                     id: '0.2.0.0',
