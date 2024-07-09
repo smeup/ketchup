@@ -1,5 +1,124 @@
 import { KulShowcaseDoc } from "../kul-showcase-declarations";
 export const KUL_DOC: KulShowcaseDoc = {
+  "kul-accordion": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Fetches debug information of the component's current state.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves with the debug information object.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Used to retrieve component's properties and descriptions.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "Promise resolved with an object containing the component's properties.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "refresh",
+        docs: "This method is used to trigger a new render of the component.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+      {
+        name: "toggleNode",
+        docs: "This method activates or deactivates an node.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "(id: string, e?: Event) => Promise<void>",
+      },
+    ],
+    props: [
+      {
+        name: "kulData",
+        docs: "Actual data of the accordion.",
+        type: "KulDataDataset",
+      },
+      {
+        name: "kulRipple",
+        docs: "When set to true, the pointerdown event will trigger a ripple effect.",
+        type: "boolean",
+      },
+      {
+        name: "kulStyle",
+        docs: "Custom style of the component.",
+        type: "string",
+      },
+    ],
+    styles: [
+      {
+        name: "--kul-accordion-backdrop-filter",
+        docs: "Sets the backdrop filter of the accordion. Defaults to blur(3.5px).",
+      },
+      {
+        name: "--kul-accordion-background-color",
+        docs: "Sets background of the component. Defaults to var(--kul-background-color).",
+      },
+      {
+        name: "--kul-accordion-background-color-hover",
+        docs: "Sets background color of the hover effect. Defaults to rgba(var(--kul-text-color-rgb), 0.175).",
+      },
+      {
+        name: "--kul-accordion-border",
+        docs: "Sets borders color of the accordion. Defaults to 1px solid var(--kul-border-color).",
+      },
+      {
+        name: "--kul-accordion-border-radius",
+        docs: "Sets border radius of the first and last nodes of the accordion. Defaults to 4px.",
+      },
+      {
+        name: "--kul-accordion-color-hover",
+        docs: "Sets text color of the hover effect. Defaults to var(--kul-text-color).",
+      },
+      {
+        name: "--kul-accordion-dropdown-icon-color",
+        docs: "Sets color of the dropdown icon. Defaults to var(--kul-text-color).",
+      },
+      {
+        name: "--kul-accordion-font-family",
+        docs: "Sets font family of the component. Defaults to var(--kul-font-family).",
+      },
+      {
+        name: "--kul-accordion-font-size",
+        docs: "Sets font size of the component. Defaults to var(--kul-font-size).",
+      },
+      {
+        name: "--kul-accordion-padding",
+        docs: "Sets padding of the accordion's nodes. Defaults to 1em 1.5em.",
+      },
+      {
+        name: "--kul-accordion-primary-color",
+        docs: "Sets primary color of the component. Defaults to var(--kul-primary-color).",
+      },
+      {
+        name: "--kul-accordion-primary-color-rgb",
+        docs: "Sets primary color RGB values of the component. Defaults to var(--kul-primary-color-rgb).",
+      },
+      {
+        name: "--kul-accordion-text-color",
+        docs: "Sets text color of the component. Defaults to var(--kul-text-color).",
+      },
+      {
+        name: "--kul-accordion-text-on-primary-color",
+        docs: "Sets text on primary color of the component. Defaults to var(--kul-text-on-primary-color).",
+      },
+      {
+        name: "--kul-accordion-transition",
+        docs: "Sets transition duration for color and background-color. Defaults to 80ms.",
+      },
+    ],
+  },
   "kul-article": {
     methods: [
       {
@@ -1169,6 +1288,11 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
     styles: [],
   },
+  "kul-showcase-accordion": {
+    methods: [],
+    props: [],
+    styles: [],
+  },
   "kul-showcase-article": {
     methods: [],
     props: [],
@@ -1761,32 +1885,32 @@ export const KUL_DOC: KulShowcaseDoc = {
       },
       {
         name: "kulHelper",
-        docs: "Specifies helper text to display alongside the text field.\nHelper text can provide additional context or instructions to the user.",
+        docs: "Specifies helper text to display alongside the text field.\r\nHelper text can provide additional context or instructions to the user.",
         type: "KulTextfieldHelper",
       },
       {
         name: "kulHtmlAttributes",
-        docs: "Allows customization of the input or textarea element through additional HTML attributes.\nThis can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.",
+        docs: "Allows customization of the input or textarea element through additional HTML attributes.\r\nThis can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.",
         type: "GenericObject<unknown>",
       },
       {
         name: "kulIcon",
-        docs: "Defines the icon to be displayed within the text field.\nIcons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.",
+        docs: "Defines the icon to be displayed within the text field.\r\nIcons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.",
         type: "string",
       },
       {
         name: "kulLabel",
-        docs: "Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected.\nLabels are especially important for screen readers and users navigating with keyboard-only controls.",
+        docs: "Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected.\r\nLabels are especially important for screen readers and users navigating with keyboard-only controls.",
         type: "string",
       },
       {
         name: "kulStyle",
-        docs: "Accepts custom CSS styles to apply directly to the text field component.\nThis allows for fine-grained control over the appearance of the component beyond predefined styling options.",
+        docs: "Accepts custom CSS styles to apply directly to the text field component.\r\nThis allows for fine-grained control over the appearance of the component beyond predefined styling options.",
         type: "string",
       },
       {
         name: "kulStyling",
-        docs: "Determines the overall styling theme of the text field, affecting its shape and border.\nOptions include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.",
+        docs: "Determines the overall styling theme of the text field, affecting its shape and border.\r\nOptions include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.",
         type: '"flat" | "outlined" | "raised" | "textarea"',
       },
       {
@@ -1796,7 +1920,7 @@ export const KUL_DOC: KulShowcaseDoc = {
       },
       {
         name: "kulValue",
-        docs: "Initializes the text field with a default value when the component is first rendered.\nThis can be used to pre-fill forms or set a starting point for user input.",
+        docs: "Initializes the text field with a default value when the component is first rendered.\r\nThis can be used to pre-fill forms or set a starting point for user input.",
         type: "string",
       },
     ],
