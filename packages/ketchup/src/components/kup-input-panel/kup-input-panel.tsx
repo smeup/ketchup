@@ -156,11 +156,11 @@ export class KupInputPanel {
         [FCellTypes.DATE, 'kup-date-picker'],
     ]);
     #cellCustomRender: Map<
-        FCellTypes,
+        FCellShapes,
         (cell: KupDataCell, cellId: string) => any
-    > = new Map<FCellTypes, (cell: KupDataCell, cellId: string) => any>([
-        [FCellTypes.BUTTON, this.#renderButton.bind(this)],
-        [FCellTypes.TABLE, this.#renderDataTable.bind(this)],
+    > = new Map<FCellShapes, (cell: KupDataCell, cellId: string) => any>([
+        [FCellShapes.BUTTON_LIST, this.#renderButton.bind(this)],
+        [FCellShapes.TABLE, this.#renderDataTable.bind(this)],
     ]);
     //#endregion
 
@@ -296,9 +296,7 @@ export class KupInputPanel {
             return;
         }
 
-        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
-
-        const customRender = this.#cellCustomRender.get(cellType);
+        const customRender = this.#cellCustomRender.get(cell.shape);
 
         if (customRender !== undefined) {
             return customRender(cell, column.name);
@@ -583,7 +581,7 @@ export class KupInputPanel {
 
         const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
             [FCellTypes.AUTOCOMPLETE, this.#CMBandACPAdapter.bind(this)],
-            [FCellTypes.BUTTON, this.#BTNAdapter.bind(this)],
+            [FCellTypes.BUTTON_LIST, this.#BTNAdapter.bind(this)],
             [FCellTypes.CHART, this.#GRAAdapter.bind(this)],
             [FCellTypes.CHIP, this.#CHIAdapter.bind(this)],
             [FCellTypes.CHECKBOX, this.#CHKAdapter.bind(this)],
@@ -800,7 +798,7 @@ export class KupInputPanel {
         id: string
     ) {
         try {
-            const data = JSON.parse(cell.value);
+            let data = JSON.parse(cell.value);
 
             if (!data) {
                 this.#kupManager.debug.logMessage(
@@ -820,7 +818,24 @@ export class KupInputPanel {
                 return null;
             }
 
-            return data;
+            return {
+                ...data,
+                rows: data.rows.map((row) => ({
+                    ...row,
+                    cells: Object.keys(row.cells).reduce(
+                        (cell, key) => ({
+                            ...cell,
+                            [key]: {
+                                ...row.cells[key],
+                                data: {
+                                    disabled: row.cells[key].editable === false,
+                                },
+                            },
+                        }),
+                        {}
+                    ),
+                })),
+            };
         } catch (e) {
             this.#kupManager.debug.logMessage(
                 this,

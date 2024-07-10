@@ -503,43 +503,44 @@ describe('kup-input-panel', () => {
         const col2Title = 'Column 2';
         const col2Name = 'COL2';
         const col2Value = 'Row 1 column 2';
+        const tableData = {
+            type: 'SmeupDataTable',
+            columns: [
+                {
+                    name: col1Name,
+                    title: col1Title,
+                },
+                {
+                    editable: false,
+                    name: col2Name,
+                    title: col2Title,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        COL1: {
+                            value: col1Value,
+                        },
+                        COL2: {
+                            value: col2Value,
+                        },
+                    },
+                },
+            ],
+        };
         const data = {
             columns: [
                 {
-                    name: 'DAT',
+                    name: 'DAT1',
                     visible: true,
                 },
             ],
             rows: [
                 {
                     cells: {
-                        DAT: {
-                            value: {
-                                type: 'SmeupDataTable',
-                                columns: [
-                                    {
-                                        name: col1Name,
-                                        title: col1Title,
-                                    },
-                                    {
-                                        editable: false,
-                                        name: col2Name,
-                                        title: col2Title,
-                                    },
-                                ],
-                                rows: [
-                                    {
-                                        cells: {
-                                            COL1: {
-                                                value: col1Value,
-                                            },
-                                            COL2: {
-                                                value: col2Value,
-                                            },
-                                        },
-                                    },
-                                ],
-                            },
+                        DAT1: {
+                            value: JSON.stringify(tableData),
                             editable: true,
                             shape: 'TBL',
                         },
@@ -608,54 +609,56 @@ describe('kup-input-panel', () => {
         const col2Row2Value = 'Row 2 column 2';
         const col1Values = [col1Value, col1Row2Value];
 
+        const tableData = {
+            type: 'SmeupDataTable',
+            columns: [
+                {
+                    name: col1Name,
+                    title: col1Title,
+                    isEditable: true,
+                },
+                {
+                    name: col2Name,
+                    title: col2Title,
+                    isEditable: false,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        COL1: {
+                            value: col1Value,
+                        },
+                        COL2: {
+                            value: col2Value,
+                        },
+                    },
+                },
+                {
+                    cells: {
+                        COL1: {
+                            value: col1Row2Value,
+                        },
+                        COL2: {
+                            value: col2Row2Value,
+                        },
+                    },
+                },
+            ],
+        };
+
         const data = {
             columns: [
                 {
-                    name: 'DAT',
+                    name: 'DAT2',
                     visible: true,
                 },
             ],
             rows: [
                 {
                     cells: {
-                        DAT: {
-                            value: {
-                                type: 'SmeupDataTable',
-                                columns: [
-                                    {
-                                        name: col1Name,
-                                        title: col1Title,
-                                        isEditable: true,
-                                    },
-                                    {
-                                        name: col2Name,
-                                        title: col2Title,
-                                        isEditable: false,
-                                    },
-                                ],
-                                rows: [
-                                    {
-                                        cells: {
-                                            COL1: {
-                                                value: col1Value,
-                                            },
-                                            COL2: {
-                                                value: col2Value,
-                                            },
-                                        },
-                                    },
-                                    {
-                                        cells: {
-                                            COL1: {
-                                                value: col1Row2Value,
-                                            },
-                                            COL2: {
-                                                value: col2Row2Value,
-                                            },
-                                        },
-                                    },
-                                ],
-                            },
+                        DAT2: {
+                            value: JSON.stringify(tableData),
                             editable: true,
                             shape: 'TBL',
                         },
@@ -688,7 +691,6 @@ describe('kup-input-panel', () => {
                 const colTextField = await col1.find(
                     '.f-cell.string-cell .f-text-field'
                 );
-                console.log('row i', i);
                 expect(colTextField).not.toBeNull();
 
                 const input = await colTextField.find('input');
