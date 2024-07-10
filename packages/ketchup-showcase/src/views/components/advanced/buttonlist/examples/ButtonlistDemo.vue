@@ -360,7 +360,7 @@ function createComp() {
     },
   ];
   comp.showSelection = true;
-  comp.styling = 'raised';
+  comp.styling = 'outlined';
   return comp;
 }
 </script>
