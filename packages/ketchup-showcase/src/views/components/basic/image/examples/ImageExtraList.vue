@@ -539,6 +539,14 @@
             ></kup-image>
             <div class="icon-label">console</div>
           </div>
+          <div class="icon-wrapper" title="construction">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="construction"
+            ></kup-image>
+            <div class="icon-label">construction</div>
+          </div>
           <div class="icon-wrapper" title="content-copy">
             <kup-image
               size-x="48px"
