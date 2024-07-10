@@ -21,6 +21,7 @@ import {
 } from '../../managers/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
 import {
+    FButtonAlign,
     FButtonProps,
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
@@ -56,7 +57,6 @@ export class KupButton {
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
-
     /**
      * Sets the type of the button.
      * @default null
@@ -67,6 +67,11 @@ export class KupButton {
      * @default false
      */
     @Prop({ mutable: true }) checked: boolean = false;
+    /**
+     * Sets the type of the button.
+     * @default null
+     */
+    @Prop() aligncontent: FButtonAlign = FButtonAlign.CENTER;
     /**
      * Custom style of the component.
      * @default ""
@@ -266,6 +271,7 @@ export class KupButton {
         const props: FButtonProps = {
             buttonType: this.buttonType,
             checked: this.checked,
+            aligncontent: this.aligncontent,
             danger: this.rootElement.classList.contains('kup-danger')
                 ? true
                 : false,

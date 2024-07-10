@@ -380,20 +380,22 @@ export class KupButtonList {
             return null;
         }
 
-        const haveIcons: boolean = this.data.some((button) => button.icon);
-        if (haveIcons) {
-            const allButtonsHaveIconsOrDropdown: boolean = this.data.every(
-                (button) => button.icon || button.data.dropdownOnly
-            );
-            if (!allButtonsHaveIconsOrDropdown) {
-                this.kupManager.debug.logMessage(
-                    this,
-                    'Not all buttons have icons, please add icons to all buttons or remove them from all buttons.',
-                    KupDebugCategory.WARNING
-                );
-                return null;
-            }
-        }
+        // 08/07/24 --> Removed check all icons for redUP Problem
+
+        // const haveIcons: boolean = this.data.some((button) => button.icon);
+        // if (haveIcons) {
+        //     const allButtonsHaveIconsOrDropdown: boolean = this.data.every(
+        //         (button) => button.icon || button.data.dropdownOnly
+        //     );
+        //     // if (!allButtonsHaveIconsOrDropdown) {
+        //     //     this.kupManager.debug.logMessage(
+        //     //         this,
+        //     //         'Not all buttons have icons, please add icons to all buttons or remove them from all buttons.',
+        //     //         KupDebugCategory.WARNING
+        //     //     );
+        //     //     return null;
+        //     // }
+        // }
 
         const columns: VNode[] = [];
         for (let i = 0; i < this.data.length; i++) {
