@@ -1447,7 +1447,14 @@
             ></kup-image>
             <div class="icon-label">open_in_new</div>
           </div>
-
+          <div class="icon-wrapper" title="packs">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="packs"
+            ></kup-image>
+            <div class="icon-label">packs</div>
+          </div>
           <div class="icon-wrapper" title="pause-circle">
             <kup-image
               size-x="48px"
