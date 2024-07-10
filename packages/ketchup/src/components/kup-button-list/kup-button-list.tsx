@@ -19,6 +19,7 @@ import {
 } from '../../managers/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
 import {
+    FButtonAlign,
     FButtonProps,
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
@@ -59,6 +60,11 @@ export class KupButtonList {
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
+    /**
+     * Sets the type of the button.
+     * @default null
+     */
+    @Prop() aligncontent: FButtonAlign = FButtonAlign.CENTER;
     /**
      * Number of columns.
      * @default 0
@@ -216,6 +222,7 @@ export class KupButtonList {
         }
 
         const props: FButtonProps = {
+            aligncontent: data.aligncontent,
             checked: data.checked,
             disabled: data.disabled,
             fullHeight: data.fullHeight,
@@ -230,7 +237,7 @@ export class KupButtonList {
                 ? true
                 : false,
             shaped: data.shaped,
-            styling: index === Number(this.selected) ? 'raised' : data.styling,
+            styling: data.id === this.selected ? 'raised' : data.styling,
             toggable: data.toggable,
             trailingIcon: data.trailingIcon,
             title: data.title,
@@ -268,8 +275,8 @@ export class KupButtonList {
                 showIcons: true,
             },
         };
-        data.styling =
-            index === Number(this.selected) ? 'raised' : data.styling;
+        data.styling = data.id === this.selected ? 'raised' : data.styling;
+        data.contentalign = data.contentalign;
         return (
             <kup-dropdown-button
                 class={this.rootElement.className + ' ' + data.wrapperClass}
@@ -298,6 +305,9 @@ export class KupButtonList {
         }
         if (this.styling != null && this.styling.trim() != '') {
             data.styling = this.styling;
+        }
+        if (this.aligncontent != null && this.aligncontent.trim() != '') {
+            data.aligncontent = this.aligncontent;
         }
         if (data.icon == null) {
             data.icon = node.icon;
