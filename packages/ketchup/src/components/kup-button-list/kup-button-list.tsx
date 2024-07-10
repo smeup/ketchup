@@ -230,7 +230,7 @@ export class KupButtonList {
                 ? true
                 : false,
             shaped: data.shaped,
-            styling: index === Number(this.selected) ? 'raised' : data.styling,
+            styling: data.id === this.selected ? 'raised' : data.styling,
             toggable: data.toggable,
             trailingIcon: data.trailingIcon,
             title: data.title,
@@ -268,8 +268,7 @@ export class KupButtonList {
                 showIcons: true,
             },
         };
-        data.styling =
-            index === Number(this.selected) ? 'raised' : data.styling;
+        data.styling = data.id === this.selected ? 'raised' : data.styling;
         return (
             <kup-dropdown-button
                 class={this.rootElement.className + ' ' + data.wrapperClass}

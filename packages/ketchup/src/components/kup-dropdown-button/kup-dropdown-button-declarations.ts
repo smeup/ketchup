@@ -1,4 +1,5 @@
 import { KupEventPayload } from '../../types/GenericTypes';
+import { KupListNode } from '../kup-list/kup-list-declarations';
 
 /**
  * Props of the kup-dropdown-button component.
@@ -20,5 +21,6 @@ export enum KupDropdownButtonProps {
 }
 
 export interface KupDropdownButtonEventPayload extends KupEventPayload {
+    node?: KupListNode;
     value: any;
 }

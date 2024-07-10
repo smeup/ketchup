@@ -832,6 +832,30 @@ export class KupEchart {
         return y;
     }
 
+    #createYForPie() {
+        const y = {};
+        const column = getColumnByName(this.data.columns, this.axis);
+        if (!column) {
+            return y;
+        }
+        for (const row of this.data.rows) {
+            const title = row.cells[this.axis]?.value ?? '[noy found]';
+            for (const key of Object.keys(row.cells)) {
+                if (
+                    !this.series ||
+                    this.series.length == 0 ||
+                    this.series.includes(key)
+                ) {
+                    if (!y[title]) {
+                        y[title] = [];
+                    }
+                    y[title].push(row.cells[key]?.value ?? '');
+                }
+            }
+        }
+        return y;
+    }
+
     #setAxisColors() {
         return {
             axisLabel: {
@@ -1105,7 +1129,7 @@ export class KupEchart {
     }
 
     #setPieOptions() {
-        const y = this.#createY();
+        const y = this.#createYForPie();
         const data = [];
         for (let key in y) {
             let sum: number = 0;
