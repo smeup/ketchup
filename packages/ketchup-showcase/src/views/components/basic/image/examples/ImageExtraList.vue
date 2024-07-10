@@ -235,7 +235,7 @@
             <kup-image
               size-x="48px"
               size-y="48px"
-              resource="asterisk"
+              resource="attributes"
             ></kup-image>
             <div class="icon-label">attributes</div>
           </div>
