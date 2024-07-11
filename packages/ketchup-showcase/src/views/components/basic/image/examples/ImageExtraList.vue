@@ -787,6 +787,14 @@
             ></kup-image>
             <div class="icon-label">emoticon-sad</div>
           </div>
+          <div class="icon-wrapper" title="exclamation">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="exclamation"
+            ></kup-image>
+            <div class="icon-label">exclamation</div>
+          </div>
           <div class="icon-wrapper" title="eye-off">
             <kup-image
               size-x="48px"
@@ -1390,6 +1398,14 @@
               resource="message-bulleted"
             ></kup-image>
             <div class="icon-label">message-bulleted</div>
+          </div>
+          <div class="icon-wrapper" title="message-closed">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="message-closed"
+            ></kup-image>
+            <div class="icon-label">message-closed</div>
           </div>
           <div class="icon-wrapper" title="message-processing">
             <kup-image
