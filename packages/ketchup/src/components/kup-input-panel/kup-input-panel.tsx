@@ -591,6 +591,7 @@ export class KupInputPanel {
             [FCellTypes.DATE, this.#DateAdapter.bind(this)],
             [FCellTypes.RADIO, this.#RADAdapter.bind(this)],
             [FCellTypes.STRING, this.#ITXAdapter.bind(this)],
+            [FCellTypes.SWITCH, this.#SWTAdapter.bind(this)],
             [FCellTypes.TABLE, this.#DataTableAdapter.bind(this)],
         ]);
 
@@ -758,6 +759,18 @@ export class KupInputPanel {
                 label: option.label,
                 checked: option.id === currentValue,
             })),
+        };
+    }
+
+    #SWTAdapter(
+        _options: GenericObject,
+        fieldLabel: string,
+        currentValue: string
+    ) {
+        return {
+            checked: !!currentValue,
+            label: fieldLabel,
+            leadingLabel: true,
         };
     }
 
