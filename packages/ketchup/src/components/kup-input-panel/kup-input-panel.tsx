@@ -620,18 +620,12 @@ export class KupInputPanel {
     }
 
     #CHIAdapter(
-        options: GenericObject,
+        _options: GenericObject,
         _fieldLabel: string,
         currentValue: string
     ) {
         return {
-            data: options?.length
-                ? options.map((option) => ({
-                      value: option.label,
-                      id: option.id,
-                      selected: currentValue === option.id,
-                  }))
-                : [{ id: currentValue, value: currentValue }],
+            data: currentValue.split(';').map((v) => ({ id: v, value: v })),
         };
     }
 
