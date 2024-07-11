@@ -1759,6 +1759,14 @@
             ></kup-image>
             <div class="icon-label">sort-descending</div>
           </div>
+          <div class="icon-wrapper" title="standard">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="standard"
+            ></kup-image>
+            <div class="icon-label">standard</div>
+          </div>
           <div class="icon-wrapper" title="star">
             <kup-image size-x="48px" size-y="48px" resource="star"></kup-image>
             <div class="icon-label">star</div>
