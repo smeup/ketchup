@@ -306,7 +306,7 @@ export class KupButtonList {
         if (this.styling != null && this.styling.trim() != '') {
             data.styling = this.styling;
         }
-        if (this.contentAlign != null && this.contentAlign.trim() != '') {
+        if (this.contentAlign) {
             data.contentAlign = this.contentAlign;
         }
         if (data.icon == null) {
