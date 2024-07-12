@@ -57,7 +57,6 @@ import {
     KupInputPanelSubmit,
 } from './kup-input-panel-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
-import { KupDataTable } from '../kup-data-table/kup-data-table';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -160,6 +159,7 @@ export class KupInputPanel {
         (cell: KupDataCell, cellId: string) => any
     > = new Map<FCellShapes, (cell: KupDataCell, cellId: string) => any>([
         [FCellShapes.BUTTON_LIST, this.#renderButton.bind(this)],
+        [FCellShapes.EDITOR, this.#renderEditor.bind(this)],
         [FCellShapes.TABLE, this.#renderDataTable.bind(this)],
     ]);
     //#endregion
@@ -349,6 +349,18 @@ export class KupInputPanel {
                           });
                 }}
             ></FButton>
+        );
+    }
+
+    #renderEditor(cell: KupDataCell, cellId: string) {
+        return (
+            <kup-editor
+                initialValue={cell.value}
+                id={cellId}
+                isReadOnly={!cell.isEditable}
+                showSaveButton={false}
+                showToolbar={true}
+            ></kup-editor>
         );
     }
 
@@ -737,6 +749,16 @@ export class KupInputPanel {
                     label: fieldLabel,
                 },
             },
+        };
+    }
+
+    #EDTAdapter(
+        _options: GenericObject,
+        _fieldLabel: string,
+        currentValue: string
+    ) {
+        return {
+            initialValue: currentValue,
         };
     }
 
