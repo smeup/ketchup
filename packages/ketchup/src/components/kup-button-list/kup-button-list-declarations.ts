@@ -11,7 +11,7 @@ import {
  * Used to export every prop in an object.
  */
 export enum KupButtonListProps {
-    aligncontent = 'Manage the align contents of the button. It could be right, left, center, around, evenly, between. Center is the default',
+    contentAlign = 'Manage the align contents of the button. It could be right, left, center, around, evenly, between. Center is the default',
     columns = 'Number of columns.',
     customStyle = 'Custom style of the component.',
     data = 'Props of the sub-components.',

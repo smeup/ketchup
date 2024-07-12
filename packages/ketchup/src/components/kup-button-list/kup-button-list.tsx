@@ -64,7 +64,7 @@ export class KupButtonList {
      * Sets the type of the button.
      * @default null
      */
-    @Prop() aligncontent: FButtonAlign = FButtonAlign.CENTER;
+    @Prop() contentAlign: FButtonAlign = FButtonAlign.CENTER;
     /**
      * Number of columns.
      * @default 0
@@ -222,7 +222,7 @@ export class KupButtonList {
         }
 
         const props: FButtonProps = {
-            aligncontent: data.aligncontent,
+            contentAlign: data.contentAlign,
             checked: data.checked,
             disabled: data.disabled,
             fullHeight: data.fullHeight,
@@ -306,8 +306,8 @@ export class KupButtonList {
         if (this.styling != null && this.styling.trim() != '') {
             data.styling = this.styling;
         }
-        if (this.aligncontent != null && this.aligncontent.trim() != '') {
-            data.aligncontent = this.aligncontent;
+        if (this.contentAlign != null && this.contentAlign.trim() != '') {
+            data.contentAlign = this.contentAlign;
         }
         if (data.icon == null) {
             data.icon = node.icon;
