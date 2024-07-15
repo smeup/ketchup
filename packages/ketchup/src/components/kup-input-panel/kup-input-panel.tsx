@@ -787,7 +787,7 @@ export class KupInputPanel {
         fieldLabel: string,
         _currentValue: string
     ) {
-        return { label: fieldLabel, decimals: 2 };
+        return { label: fieldLabel };
     }
 
     #DataTableAdapter(
@@ -819,21 +819,28 @@ export class KupInputPanel {
             }
 
             return {
-                ...data,
+                columns: data.columns.map((col) => ({
+                    ...col,
+                    obj: data.rows[0].cells[col.name].obj,
+                })),
                 rows: data.rows.map((row) => ({
                     ...row,
-                    cells: Object.keys(row.cells).reduce(
-                        (cell, key) => ({
+                    cells: Object.keys(row.cells).reduce((cell, key) => {
+                        const column = data.columns.find(
+                            (col) => col.name === key
+                        );
+                        return {
                             ...cell,
                             [key]: {
                                 ...row.cells[key],
                                 data: {
+                                    ...this.#mapData(row.cells[key], column),
                                     disabled: row.cells[key].editable === false,
+                                    id: column.id,
                                 },
                             },
-                        }),
-                        {}
-                    ),
+                        };
+                    }, {}),
                 })),
             };
         } catch (e) {
@@ -872,8 +879,9 @@ export class KupInputPanel {
                 editableColsId.reduce<KupDataTableRow>(
                     (updatedRow, colId) => {
                         const changed =
+                            beforeTableValue.rows[i].cells[colId] &&
                             row.cells[colId].value !==
-                            beforeTableValue.rows[i].cells[colId].value;
+                                beforeTableValue.rows[i].cells[colId].value;
 
                         if (changed) {
                             return {
