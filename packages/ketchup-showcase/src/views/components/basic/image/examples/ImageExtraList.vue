@@ -323,6 +323,14 @@
             ></kup-image>
             <div class="icon-label">calculator</div>
           </div>
+          <div class="icon-wrapper" title="calculate">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="calculate"
+            ></kup-image>
+            <div class="icon-label">calculate</div>
+          </div>
           <div class="icon-wrapper" title="calendar">
             <kup-image
               size-x="48px"
