@@ -603,6 +603,14 @@
             ></kup-image>
             <div class="icon-label">crop-square</div>
           </div>
+          <div class="icon-wrapper" title="csv">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="csv"
+            ></kup-image>
+            <div class="icon-label">csv</div>
+          </div>
           <div class="icon-wrapper" title="cube-outline">
             <kup-image
               size-x="48px"
