@@ -415,6 +415,14 @@
             ></kup-image>
             <div class="icon-label">checkbox-multiple-marked-outline</div>
           </div>
+          <div class="icon-wrapper" title="checked_answer">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="checked_answer"
+            ></kup-image>
+            <div class="icon-label">checked_answer</div>
+          </div>
           <div class="icon-wrapper" title="chevron_double_down">
             <kup-image
               size-x="48px"
@@ -1698,6 +1706,14 @@
               resource="shape-plus"
             ></kup-image>
             <div class="icon-label">shape-plus</div>
+          </div>
+          <div class="icon-wrapper" title="show_difference">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="show_difference"
+            ></kup-image>
+            <div class="icon-label">show_difference</div>
           </div>
           <div class="icon-wrapper" title="sign-text">
             <kup-image
