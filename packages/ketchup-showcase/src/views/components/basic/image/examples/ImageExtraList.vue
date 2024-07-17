@@ -408,11 +408,7 @@
             <div class="icon-label">chart-pie</div>
           </div>
           <div class="icon-wrapper" title="chat">
-            <kup-image
-              size-x="48px"
-              size-y="48px"
-              resource="chat"
-            ></kup-image>
+            <kup-image size-x="48px" size-y="48px" resource="chat"></kup-image>
             <div class="icon-label">chat</div>
           </div>
           <div class="icon-wrapper" title="checkbox-marked-outline">
@@ -636,11 +632,7 @@
             <div class="icon-label">crop-square</div>
           </div>
           <div class="icon-wrapper" title="csv">
-            <kup-image
-              size-x="48px"
-              size-y="48px"
-              resource="csv"
-            ></kup-image>
+            <kup-image size-x="48px" size-y="48px" resource="csv"></kup-image>
             <div class="icon-label">csv</div>
           </div>
           <div class="icon-wrapper" title="cube-outline">
@@ -1399,12 +1391,8 @@
             ></kup-image>
             <div class="icon-label">magnify-plus</div>
           </div>
-           <div class="icon-wrapper" title="mail">
-            <kup-image
-              size-x="48px"
-              size-y="48px"
-              resource="mail"
-            ></kup-image>
+          <div class="icon-wrapper" title="mail">
+            <kup-image size-x="48px" size-y="48px" resource="mail"></kup-image>
             <div class="icon-label">mail</div>
           </div>
           <div class="icon-wrapper" title="map-marker">
@@ -1528,11 +1516,7 @@
             <div class="icon-label">open_in_new</div>
           </div>
           <div class="icon-wrapper" title="packs">
-            <kup-image
-              size-x="48px"
-              size-y="48px"
-              resource="packs"
-            ></kup-image>
+            <kup-image size-x="48px" size-y="48px" resource="packs"></kup-image>
             <div class="icon-label">packs</div>
           </div>
           <div class="icon-wrapper" title="pause-circle">
@@ -1640,11 +1624,7 @@
             <div class="icon-label">puzzle</div>
           </div>
           <div class="icon-wrapper" title="PWD">
-            <kup-image
-              size-x="48px"
-              size-y="48px"
-              resource="PWD"
-            ></kup-image>
+            <kup-image size-x="48px" size-y="48px" resource="PWD"></kup-image>
             <div class="icon-label">PWD</div>
           </div>
           <div class="icon-wrapper" title="radioactive">
@@ -1700,11 +1680,7 @@
             <div class="icon-label">Reddit</div>
           </div>
           <div class="icon-wrapper" title="redo">
-            <kup-image
-              size-x="48px"
-              size-y="48px"
-              resource="redo"
-            ></kup-image>
+            <kup-image size-x="48px" size-y="48px" resource="redo"></kup-image>
             <div class="icon-label">redo</div>
           </div>
           <div class="icon-wrapper" title="reorder-horizontal">
