@@ -99,7 +99,7 @@
     cursor: pointer;
     display: inline-flex;
     height: var(--kup_button_height);
-    justify-content: space-between;
+    justify-content: center;
     gap: var(--kup_button_gap);
     min-width: 64px;
     outline: none;
@@ -272,6 +272,7 @@
       &:hover {
         --kup_button_background_color_hover: var(--kup-primary-color-60);
         --kup_button_text_color_hover: var(--kup-primary-color-0);
+        --kup_button_text_color: var(--kup-primary-color-0);
         color: var(--kup_button_text_color_hover);
         background-color: var(--kup_button_background_color_hover);
         border-color: transparent;
@@ -285,6 +286,7 @@
       &:focus {
         --kup_button_background_color_focus: var(--kup-primary-color-70);
         --kup_button_text_color_focus: var(--kup-primary-color-0);
+        --kup_button_text_color: var(--kup-primary-color-0);
         color: var(--kup_button_text_color_focus);
         background-color: var(--kup_button_background_color_focus);
       }

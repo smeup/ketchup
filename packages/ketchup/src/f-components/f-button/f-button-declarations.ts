@@ -5,7 +5,7 @@ import type { FComponent, KupComponentSizing } from '../../types/GenericTypes';
 export interface FButtonProps extends FComponent {
     buttonType?: string;
     checked?: boolean;
-    aligncontent?: FButtonAlign;
+    contentAlign?: FButtonAlign;
     disabled?: boolean;
     fullHeight?: boolean;
     fullWidth?: boolean;
