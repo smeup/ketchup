@@ -358,6 +358,9 @@ export class KupInputPanel {
                 id={cellId}
                 data={cell.data}
                 editableData={true}
+                showGroups={true}
+                showFilters={true}
+                showFooter={true}
             ></kup-data-table>
         );
     }
