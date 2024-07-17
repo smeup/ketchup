@@ -1627,6 +1627,14 @@
             <kup-image size-x="48px" size-y="48px" resource="PWD"></kup-image>
             <div class="icon-label">PWD</div>
           </div>
+          <div class="icon-wrapper" title="quality">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="quality"
+            ></kup-image>
+            <div class="icon-label">quality</div>
+          </div>
           <div class="icon-wrapper" title="radioactive">
             <kup-image
               size-x="48px"
@@ -2026,6 +2034,14 @@
               resource="upload"
             ></kup-image>
             <div class="icon-label">upload</div>
+          </div>
+          <div class="icon-wrapper" title="user_attributes">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="user_attributes"
+            ></kup-image>
+            <div class="icon-label">user_attributes</div>
           </div>
           <div class="icon-wrapper" title="vanish">
             <kup-image
