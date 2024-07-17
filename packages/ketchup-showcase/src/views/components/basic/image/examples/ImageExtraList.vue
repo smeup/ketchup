@@ -1667,6 +1667,14 @@
             ></kup-image>
             <div class="icon-label">Reddit</div>
           </div>
+          <div class="icon-wrapper" title="redo">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="redo"
+            ></kup-image>
+            <div class="icon-label">redo</div>
+          </div>
           <div class="icon-wrapper" title="reorder-horizontal">
             <kup-image
               size-x="48px"
