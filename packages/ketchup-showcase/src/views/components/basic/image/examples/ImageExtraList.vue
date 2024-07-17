@@ -1447,6 +1447,14 @@
             ></kup-image>
             <div class="icon-label">monitor</div>
           </div>
+          <div class="icon-wrapper" title="new_note">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="new_note"
+            ></kup-image>
+            <div class="icon-label">new_note</div>
+          </div>
           <div class="icon-wrapper" title="numeric">
             <kup-image
               size-x="48px"
