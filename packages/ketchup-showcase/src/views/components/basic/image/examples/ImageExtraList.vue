@@ -231,6 +231,14 @@
             ></kup-image>
             <div class="icon-label">asterisk</div>
           </div>
+          <div class="icon-wrapper" title="attachment">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="attachment"
+            ></kup-image>
+            <div class="icon-label">attachment</div>
+          </div>
           <div class="icon-wrapper" title="auto-fix">
             <kup-image
               size-x="48px"
@@ -398,6 +406,14 @@
               resource="chart-pie"
             ></kup-image>
             <div class="icon-label">chart-pie</div>
+          </div>
+          <div class="icon-wrapper" title="chat">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="chat"
+            ></kup-image>
+            <div class="icon-label">chat</div>
           </div>
           <div class="icon-wrapper" title="checkbox-marked-outline">
             <kup-image
@@ -1383,6 +1399,14 @@
             ></kup-image>
             <div class="icon-label">magnify-plus</div>
           </div>
+           <div class="icon-wrapper" title="mail">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="mail"
+            ></kup-image>
+            <div class="icon-label">mail</div>
+          </div>
           <div class="icon-wrapper" title="map-marker">
             <kup-image
               size-x="48px"
@@ -1614,6 +1638,14 @@
               resource="puzzle"
             ></kup-image>
             <div class="icon-label">puzzle</div>
+          </div>
+          <div class="icon-wrapper" title="PWD">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="PWD"
+            ></kup-image>
+            <div class="icon-label">PWD</div>
           </div>
           <div class="icon-wrapper" title="radioactive">
             <kup-image
