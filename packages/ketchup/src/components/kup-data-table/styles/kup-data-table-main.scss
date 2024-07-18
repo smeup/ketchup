@@ -177,6 +177,7 @@ table {
   tfoot {
     tr {
       td {
+        background-color: var(--kup_datatable_background_color);
         border-bottom: var(--kup_datatable_border);
         border-right: var(--kup_datatable_border);
         box-sizing: border-box;
