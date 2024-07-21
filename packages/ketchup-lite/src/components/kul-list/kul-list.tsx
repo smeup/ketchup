@@ -22,7 +22,7 @@ import {
     KulListProps,
 } from './kul-list-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KulDataCyAttributes } from '../../types/GenericTypes';
 import { getProps } from '../../utils/componentUtils';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
@@ -318,6 +318,7 @@ export class KulList {
                 aria-selected={isSelected}
                 aria-checked={isSelected}
                 class={className}
+                data-cy={KulDataCyAttributes.NODE}
                 data-index={index.toString()}
                 onBlur={(e) => this.onKulEvent(e, 'blur', node, index)}
                 onClick={(e) => this.onKulEvent(e, 'click', node, index)}

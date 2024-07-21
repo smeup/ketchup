@@ -12,7 +12,10 @@ import {
     State,
     VNode,
 } from '@stencil/core';
-import type { GenericObject } from '../../types/GenericTypes';
+import {
+    KulDataCyAttributes,
+    type GenericObject,
+} from '../../types/GenericTypes';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import {
     KulButtonEventPayload,
@@ -257,7 +260,6 @@ export class KulButton {
     #listManager() {
         return {
             close: () => {
-                this.#list.classList.remove(KUL_DROPDOWN_CLASS_VISIBLE);
                 this.#kulManager.dynamicPosition.stop(this.#list);
                 this.#kulManager.removeClickCallback(this.#clickCb);
             },
@@ -282,7 +284,6 @@ export class KulButton {
                     );
                 }
                 this.#kulManager.dynamicPosition.start(this.#list);
-                this.#list.classList.add(KUL_DROPDOWN_CLASS_VISIBLE);
                 if (!this.#clickCb) {
                     this.#clickCb = {
                         cb: () => {
@@ -513,6 +514,7 @@ export class KulButton {
         return (
             <button
                 class={className}
+                data-cy={KulDataCyAttributes.DROPDOWN_BUTTON}
                 disabled={this.kulDisabled}
                 onClick={() => {
                     this.#listManager().toggle();
@@ -528,6 +530,7 @@ export class KulButton {
                 <kul-image {...image} kulValue={'--kul-dropdown-icon'} />
                 <kul-list
                     class={KUL_DROPDOWN_CLASS}
+                    data-cy={KulDataCyAttributes.DROPDOWN_MENU}
                     kulData={{ nodes: this.kulData.nodes[0].children }}
                     onKul-list-event={eventHandler}
                     ref={(el) => (this.#list = el)}

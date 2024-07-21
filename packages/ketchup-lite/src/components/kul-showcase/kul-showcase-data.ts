@@ -1,6 +1,7 @@
 import { KulArticleDataset, KulDataDataset } from '../../components';
 
 export const COMPONENTS = [
+    'accordion',
     'article',
     'badge',
     'button',
@@ -124,6 +125,12 @@ export const KUL_SHOWCASE_UTILITIES: KulDataDataset = {
 
 export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
     nodes: [
+        {
+            description: 'Displays slots as an accordion.',
+            icon: 'view-sequential',
+            id: 'Accordion',
+            value: 'Accordion',
+        },
         {
             description:
                 'Generates semantic HTML for articles based on a JSON input.',

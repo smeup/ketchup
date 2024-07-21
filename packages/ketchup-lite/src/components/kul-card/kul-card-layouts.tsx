@@ -4,6 +4,7 @@ import { KulCard } from './kul-card';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { RIPPLE_SURFACE_CLASS } from '../../variables/GenericVariables';
 import { KulCardCSSClasses } from './kul-card-declarations';
+import { KulDataCyAttributes } from '../../types/GenericTypes';
 
 export function getLayoutA(component: KulCard, shapes: KulDataShapesMap = {}) {
     // Button
@@ -11,7 +12,11 @@ export function getLayoutA(component: KulCard, shapes: KulDataShapesMap = {}) {
     const actions = hasButtons
         ? shapes.button.map((button, index) => {
               return (
-                  <kul-button id={`button${index}`} {...button}></kul-button>
+                  <kul-button
+                      data-cy={KulDataCyAttributes.SHAPE}
+                      id={`button${index}`}
+                      {...button}
+                  ></kul-button>
               );
           })
         : undefined;
@@ -21,6 +26,7 @@ export function getLayoutA(component: KulCard, shapes: KulDataShapesMap = {}) {
         <div class="section-1">
             <kul-image
                 class={'kul-cover'}
+                data-cy={KulDataCyAttributes.SHAPE}
                 id="image1"
                 {...shapes.image[0]}
                 kulSizeX="100%"
@@ -56,6 +62,7 @@ export function getLayoutA(component: KulCard, shapes: KulDataShapesMap = {}) {
         >
             <div
                 class={RIPPLE_SURFACE_CLASS}
+                data-cy={KulDataCyAttributes.RIPPLE}
                 onPointerDown={(e) => {
                     kulManagerInstance().theme.ripple.trigger(
                         e as PointerEvent,

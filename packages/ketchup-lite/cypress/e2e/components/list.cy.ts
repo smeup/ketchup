@@ -1,39 +1,87 @@
 import {
+    KulListEvent,
     KulListProps,
     KulListPropsInterface,
 } from '../../../src/components/kul-list/kul-list-declarations';
-import { LAZY_EXAMPLES_KEYS } from '../../../src/components/kul-showcase/components/lazy/kul-showcase-lazy-declarations';
+import { LIST_EXAMPLES_KEYS } from '../../../src/components/kul-showcase/components/list/kul-showcase-list-declarations';
+import { KulDataCyAttributes } from '../../../src/types/GenericTypes';
 
 const list = 'list';
 const listCapitalized = list.charAt(0).toUpperCase() + list.slice(1);
 const listTag = 'kul-' + list;
 
-describe(listTag, () => {
+describe('Basic', () => {
     beforeEach(() => {
         cy.navigate(list);
     });
 
-    it(`common: should check that all <${listTag}> exist`, () => {
-        cy.checkComponentExamples(listTag, new Set(LAZY_EXAMPLES_KEYS));
+    it(`Should check that all <${listTag}> exist.`, () => {
+        cy.checkComponentExamples(listTag, new Set(LIST_EXAMPLES_KEYS));
     });
 
-    it(`common: should check that the number of <${listTag}> elements matches the number of examples`, () => {
-        cy.checkComponentExamplesNumber(Array.from(LAZY_EXAMPLES_KEYS));
+    it(`Should check that the number of <${listTag}> elements matches the number of examples.`, () => {
+        cy.checkComponentExamplesNumber(Array.from(LIST_EXAMPLES_KEYS));
+    });
+});
+
+describe('Events', () => {
+    it(`blur`, () => {
+        cy.navigate(list);
+        const eventType: KulListEvent = 'blur';
+        cy.checkEvent(list, eventType);
+        cy.get('@eventElement')
+            .findCyElement(KulDataCyAttributes.NODE)
+            .first()
+            .focus()
+            .blur();
+        cy.getCyElement(KulDataCyAttributes.CHECK).should('exist');
     });
 
-    it('common: should call getDebugInfo and check the structure of the returned object', () => {
+    it(`click`, () => {
+        cy.navigate(list);
+        const eventType: KulListEvent = 'click';
+        cy.checkEvent(list, eventType);
+        cy.get('@eventElement')
+            .findCyElement(KulDataCyAttributes.NODE)
+            .first()
+            .click();
+        cy.getCyElement(KulDataCyAttributes.CHECK).should('exist');
+    });
+
+    it(`focus`, () => {
+        cy.navigate(list);
+        const eventType: KulListEvent = 'focus';
+        cy.checkEvent(list, eventType);
+        cy.get('@eventElement')
+            .findCyElement(KulDataCyAttributes.NODE)
+            .first()
+            .focus();
+        cy.getCyElement(KulDataCyAttributes.CHECK).should('exist');
+    });
+
+    it(`ready`, () => {
+        cy.checkReadyEvent(list);
+    });
+});
+
+describe('Methods', () => {
+    beforeEach(() => {
+        cy.navigate(list);
+    });
+
+    it('getDebugInfo: check the structure of the returned object.', () => {
         cy.checkDebugInfo(listTag);
     });
 
-    it('common: should check for the presence of a <style> element with id kup-style', () => {
-        cy.checkKulStyle();
+    it('getDebugInfo, refresh: check that renderCount has increased after refreshing.', () => {
+        cy.checkRenderCountIncrease(listTag);
     });
 
-    it(`common: should call getProps and check keys against Kul${listCapitalized}Props enum`, () => {
+    it(`getProps: check keys against Kul${listCapitalized}Props enum.`, () => {
         cy.checkProps(listTag, KulListProps);
     });
 
-    it(`common: should call getProps and check keys against Kul${listCapitalized}PropsInterface`, () => {
+    it(`getProps: check keys against Kul${listCapitalized}PropsInterface.`, () => {
         cy.checkPropsInterface(listTag, {
             kulData: null,
             kulNavigation: null,
@@ -42,8 +90,14 @@ describe(listTag, () => {
             kulStyle: null,
         } as Required<KulListPropsInterface>);
     });
+});
 
-    it('common: should call getDebugInfo, refresh, and check that renderCount has increased', () => {
-        cy.checkRenderCountIncrease(listTag);
+describe('Props', () => {
+    beforeEach(() => {
+        cy.navigate(list);
+    });
+
+    it('kulStyle: should check for the presence of a <style> element with id kup-style.', () => {
+        cy.checkKulStyle();
     });
 });

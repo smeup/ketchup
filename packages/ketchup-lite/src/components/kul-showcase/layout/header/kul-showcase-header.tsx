@@ -1,6 +1,7 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { HEADER_DOC, HEADER_EXAMPLES } from './kul-showcase-header-data';
 import { HeaderExample } from './kul-showcase-header-declarations';
+import { KulDataCyAttributes } from '../../../../types/GenericTypes';
 
 @Component({
     tag: 'kul-showcase-header',
@@ -52,7 +53,11 @@ export class KulShowcaseHeader {
                 <div class="examples-title" part="examples-title">
                     Examples
                 </div>
-                <div class="grid" data-cy="wrapper" part="grid">
+                <div
+                    class="grid"
+                    data-cy={KulDataCyAttributes.SHOWCASE_GRID_WRAPPER}
+                    part="grid"
+                >
                     {this.#prepExamples()}
                 </div>
             </Fragment>

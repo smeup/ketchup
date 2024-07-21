@@ -2,6 +2,7 @@ import { KulEventPayload } from '../../types/GenericTypes';
 import { KulDataDataset } from '../../managers/kul-data/kul-data-declarations';
 
 export interface KulButtonEventPayload extends KulEventPayload {
+    eventType: KulButtonEvent;
     value: string;
 }
 

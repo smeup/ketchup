@@ -79,6 +79,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kul-showcase](../kul-showcase)
+ - [kul-showcase-accordion](../kul-showcase/components/accordion)
  - [kul-showcase-article](../kul-showcase/components/article)
  - [kul-showcase-badge](../kul-showcase/components/badge)
  - [kul-showcase-button](../kul-showcase/components/button)
@@ -114,6 +115,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kul-showcase --> kul-article
+  kul-showcase-accordion --> kul-article
   kul-showcase-article --> kul-article
   kul-showcase-badge --> kul-article
   kul-showcase-button --> kul-article

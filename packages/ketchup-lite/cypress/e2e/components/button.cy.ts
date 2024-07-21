@@ -1,40 +1,95 @@
 import {
+    KulButtonEvent,
     KulButtonProps,
     KulButtonPropsInterface,
     KulButtonState,
 } from '../../../src/components/kul-button/kul-button-declarations';
 import { BUTTON_CATEGORIES_KEYS } from '../../../src/components/kul-showcase/components/button/kul-showcase-button-declarations';
+import { KulDataCyAttributes } from '../../../src/types/GenericTypes';
+import { KUL_DROPDOWN_CLASS_VISIBLE } from '../../../src/variables/GenericVariables';
 
 const button = 'button';
 const buttonCapitalized = button.charAt(0).toUpperCase() + button.slice(1);
 const buttonTag = 'kul-' + button;
 
-describe(buttonTag, () => {
+describe('Basic', () => {
     beforeEach(() => {
         cy.navigate(button);
     });
 
-    it(`common: should select all <${buttonTag}> elements matching the composed ID`, () => {
+    it(`Should select all <${buttonTag}> elements matching the composed ID`, () => {
         cy.checkComponentExamplesByCategory(new Set(BUTTON_CATEGORIES_KEYS));
     });
 
-    it(`common: should check that all categories have at least 1 <${buttonTag}>`, () => {
+    it(`Should check that all categories have at least 1 <${buttonTag}>`, () => {
         cy.checkComponentExamplesByCategoryNumber(buttonTag);
     });
+});
 
-    it('common: should call getDebugInfo and check the structure of the returned object', () => {
+describe('Events', () => {
+    it(`blur`, () => {
+        cy.navigate(button);
+        const eventType: KulButtonEvent = 'blur';
+        cy.checkEvent(button, eventType);
+        cy.get('@eventElement').find('button').focus().blur();
+        cy.getCyElement(KulDataCyAttributes.CHECK).should('exist');
+    });
+
+    it(`click`, () => {
+        cy.navigate(button);
+        const eventType: KulButtonEvent = 'click';
+        cy.checkEvent(button, eventType);
+        cy.get('@eventElement').find('button').click();
+        cy.getCyElement(KulDataCyAttributes.CHECK).should('exist');
+    });
+
+    it(`kul-event`, () => {
+        cy.navigate(button);
+        const eventType: KulButtonEvent = 'kul-event';
+        cy.checkEvent(button, eventType);
+        cy.get('#flat-dropdown')
+            .findCyElement(KulDataCyAttributes.DROPDOWN_BUTTON)
+            .click();
+        cy.getCyElement(KulDataCyAttributes.DROPDOWN_MENU)
+            .should('be.visible')
+            .should('have.class', KUL_DROPDOWN_CLASS_VISIBLE);
+        cy.getCyElement(KulDataCyAttributes.NODE).first().click();
+        cy.getCyElement(KulDataCyAttributes.CHECK).should('exist');
+    });
+
+    it(`pointerdown`, () => {
+        cy.navigate(button);
+        const eventType: KulButtonEvent = 'pointerdown';
+        cy.checkEvent(button, eventType);
+        cy.get('@eventElement')
+            .findCyElement(KulDataCyAttributes.RIPPLE)
+            .click();
+        cy.getCyElement(KulDataCyAttributes.CHECK).should('exist');
+    });
+
+    it(`ready`, () => {
+        cy.checkReadyEvent(button);
+    });
+});
+
+describe('Methods', () => {
+    beforeEach(() => {
+        cy.navigate(button);
+    });
+
+    it('getDebugInfo: check the structure of the returned object.', () => {
         cy.checkDebugInfo(buttonTag);
     });
 
-    it('common: should check for the presence of a <style> element with id kup-style', () => {
-        cy.checkKulStyle();
+    it('getDebugInfo, refresh: check that renderCount has increased after refreshing.', () => {
+        cy.checkRenderCountIncrease(buttonTag);
     });
 
-    it(`common: should call getProps and check keys against Kul${buttonCapitalized}Props enum`, () => {
+    it(`getProps: check keys against Kul${buttonCapitalized}Props enum.`, () => {
         cy.checkProps(buttonTag, KulButtonProps);
     });
 
-    it(`common: should call getProps and check keys against Kul${buttonCapitalized}PropsInterface`, () => {
+    it(`getProps: check keys against Kul${buttonCapitalized}PropsInterface.`, () => {
         cy.checkPropsInterface(buttonTag, {
             kulData: null,
             kulDisabled: null,
@@ -51,12 +106,18 @@ describe(buttonTag, () => {
             kulValue: null,
         } as Required<KulButtonPropsInterface>);
     });
+});
 
-    it('common: should call getDebugInfo, refresh, and check that renderCount has increased', () => {
-        cy.checkRenderCountIncrease(buttonTag);
+describe('Props', () => {
+    beforeEach(() => {
+        cy.navigate(button);
     });
 
-    it('#pulsating: should toggle the value of a kul-button with kulToggable set to true', () => {
+    it('kulStyle: Should check for the presence of a <style> element with id kup-style.', () => {
+        cy.checkKulStyle();
+    });
+
+    it('kulToggable: should toggle the value setting it to true.', () => {
         let initialValue: string;
 
         cy.get('@kulComponentShowcase')
