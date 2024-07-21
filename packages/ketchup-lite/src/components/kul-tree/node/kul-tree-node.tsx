@@ -1,6 +1,7 @@
 import { FunctionalComponent, h } from '@stencil/core';
 import { KulTreeNodeProps } from './kul-tree-node-declarations';
 import { TreeNodeContent } from './kul-tree-node-content';
+import { KulDataCyAttributes } from '../../../types/GenericTypes';
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
@@ -60,6 +61,7 @@ export const TreeNode: FunctionalComponent<KulTreeNodeProps> = (
                 class={`node ${expanded ? 'node--expanded' : ''} ${
                     selected ? 'node--selected' : ''
                 }`}
+                data-cy={KulDataCyAttributes.NODE}
                 data-depth={depth.toString()}
                 key={node.id}
                 onClick={events.onClick}

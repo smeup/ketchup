@@ -1,0 +1,45 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+
+:host(.#{$kul-class-borderless}) {
+  --kul-accordion-border: none;
+}
+
+:host(.#{$kul-class-full-height}) {
+  height: 100%;
+}
+
+:host(.#{$kul-class-full-width}) {
+  width: 100%;
+}
+
+:host(.#{$kul-class-danger}) {
+  --kul-accordion-primary-color: var(--kul-danger-color);
+  --kul-accordion-primary-color-rgb: var(--kul-danger-color-rgb);
+  --kul-accordion-text-on-primary-color: white;
+}
+
+:host(.#{$kul-class-info}) {
+  --kul-accordion-primary-color: var(--kul-info-color);
+  --kul-accordion-primary-color-rgb: var(--kul-info-color-rgb);
+  --kul-accordion-text-on-primary-color: white;
+}
+
+:host(.#{$kul-class-secondary}) {
+  --kul-accordion-primary-color: var(--kul-secondary-color);
+  --kul-accordion-primary-color-rgb: var(--kul-secondary-color-rgb);
+  --kul-accordion-text-on-primary-color: var(--kul-text-on-secondary-color);
+}
+
+:host(.#{$kul-class-success}) {
+  --kul-accordion-primary-color: var(--kul-success-color);
+  --kul-accordion-primary-color-rgb: var(--kul-success-color-rgb);
+  --kul-accordion-text-on-primary-color: white;
+}
+
+:host(.#{$kul-class-warning}) {
+  --kul-accordion-primary-color: var(--kul-warning-color);
+  --kul-accordion-primary-color-rgb: var(--kul-warning-color-rgb);
+  --kul-accordion-text-on-primary-color: white;
+}

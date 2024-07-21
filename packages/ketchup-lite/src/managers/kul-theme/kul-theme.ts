@@ -211,6 +211,7 @@ export class KulTheme {
          */
         setup: (el: HTMLElement) => {
             el.classList.add(RIPPLE_SURFACE_CLASS);
+            el.dataset.cy = 'ripple';
         },
         /**
          * Triggers the ripple effect on the specified element based on the location of a pointer event.

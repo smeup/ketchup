@@ -18,7 +18,7 @@ import {
     KulTabbarState,
 } from './kul-tabbar-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KulDataCyAttributes } from '../../types/GenericTypes';
 import { KulScrollOnHoverElement } from '../../managers/kul-scroll-on-hover/kul-scroll-on-hover-declarations';
 import { KulThemeColorValues } from '../../managers/kul-theme/kul-theme-declarations';
 import {
@@ -253,15 +253,16 @@ export class KulTabbar {
                 <button
                     aria-selected={isActive ? true : false}
                     class={tabClass}
-                    role="tab"
-                    tabIndex={i}
-                    title={node.description ? node.description : null}
+                    data-cy={KulDataCyAttributes.BUTTON}
                     onClick={(e) => {
                         this.onKulEvent(e, 'click', i, node);
                     }}
                     onPointerDown={(e) => {
                         this.onKulEvent(e, 'pointerdown', i, node);
                     }}
+                    role="tab"
+                    tabIndex={i}
+                    title={node.description ? node.description : null}
                 >
                     <div
                         ref={(el) => {

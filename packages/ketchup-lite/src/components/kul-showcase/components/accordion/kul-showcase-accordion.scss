@@ -1,0 +1,24 @@
+:host {
+  --template-columns: 1fr;
+
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+kul-accordion {
+  margin: auto;
+}
+
+.slot-content {
+  background: var(--kul-background-color);
+  color: var(--kul-text-color);
+  padding: 0.75em;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  :host {
+    --template-columns: 1fr 1fr;
+  }
+}

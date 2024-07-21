@@ -8,6 +8,7 @@ import type { JSX } from 'ketchup-lite';
 import { defineCustomElements } from 'ketchup-lite/dist/loader';
 
 defineCustomElements();
+export const KulAccordion = /*@__PURE__*/createReactComponent<JSX.KulAccordion, HTMLKulAccordionElement>('kul-accordion');
 export const KulArticle = /*@__PURE__*/createReactComponent<JSX.KulArticle, HTMLKulArticleElement>('kul-article');
 export const KulBadge = /*@__PURE__*/createReactComponent<JSX.KulBadge, HTMLKulBadgeElement>('kul-badge');
 export const KulButton = /*@__PURE__*/createReactComponent<JSX.KulButton, HTMLKulButtonElement>('kul-button');
@@ -21,6 +22,7 @@ export const KulLazy = /*@__PURE__*/createReactComponent<JSX.KulLazy, HTMLKulLaz
 export const KulList = /*@__PURE__*/createReactComponent<JSX.KulList, HTMLKulListElement>('kul-list');
 export const KulPhotoframe = /*@__PURE__*/createReactComponent<JSX.KulPhotoframe, HTMLKulPhotoframeElement>('kul-photoframe');
 export const KulShowcase = /*@__PURE__*/createReactComponent<JSX.KulShowcase, HTMLKulShowcaseElement>('kul-showcase');
+export const KulShowcaseAccordion = /*@__PURE__*/createReactComponent<JSX.KulShowcaseAccordion, HTMLKulShowcaseAccordionElement>('kul-showcase-accordion');
 export const KulShowcaseArticle = /*@__PURE__*/createReactComponent<JSX.KulShowcaseArticle, HTMLKulShowcaseArticleElement>('kul-showcase-article');
 export const KulShowcaseBadge = /*@__PURE__*/createReactComponent<JSX.KulShowcaseBadge, HTMLKulShowcaseBadgeElement>('kul-showcase-badge');
 export const KulShowcaseButton = /*@__PURE__*/createReactComponent<JSX.KulShowcaseButton, HTMLKulShowcaseButtonElement>('kul-showcase-button');

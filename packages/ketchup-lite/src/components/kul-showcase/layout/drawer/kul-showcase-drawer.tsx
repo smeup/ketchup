@@ -1,6 +1,7 @@
 import { Component, Element, Fragment, VNode, h } from '@stencil/core';
 import { DRAWER_DOC, DRAWER_EXAMPLES } from './kul-showcase-drawer-data';
 import { DrawerExample } from './kul-showcase-drawer-declarations';
+import { KulDataCyAttributes } from '../../../../types/GenericTypes';
 
 @Component({
     tag: 'kul-showcase-drawer',
@@ -52,7 +53,11 @@ export class KulShowcaseDrawer {
                 <div class="examples-title" part="examples-title">
                     Examples
                 </div>
-                <div class="grid" data-cy="wrapper" part="grid">
+                <div
+                    class="grid"
+                    data-cy={KulDataCyAttributes.SHOWCASE_GRID_WRAPPER}
+                    part="grid"
+                >
                     {this.#prepExamples()}
                 </div>
             </Fragment>

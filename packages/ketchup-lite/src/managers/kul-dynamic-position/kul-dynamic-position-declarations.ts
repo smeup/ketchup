@@ -7,10 +7,6 @@ export const kulDynamicPositionAttribute = 'kul-dynamic-position';
  */
 export const kulDynamicPositionAnchorAttribute = 'kul-dynamic-position-anchor';
 /**
- * CSS class attached to dynamically positioned elements when the script is running.
- */
-export const kulDynamicPositionActiveClass = 'kul-dynamic-position-active';
-/**
  * Master type extending all subtypes of available anchor points.
  */
 export type KulDynamicPositionAnchor =

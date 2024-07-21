@@ -10,7 +10,10 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import type { GenericObject } from '../../types/GenericTypes';
+import {
+    KulDataCyAttributes,
+    type GenericObject,
+} from '../../types/GenericTypes';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { getProps } from '../../utils/componentUtils';
@@ -256,12 +259,10 @@ export class KulSwitch {
                                         }}
                                     ></div>
                                     <input
-                                        type="checkbox"
                                         class="switch__native-control"
-                                        role="switch"
                                         checked={this.#isOn()}
+                                        data-cy={KulDataCyAttributes.INPUT}
                                         disabled={this.kulDisabled}
-                                        value={this.value ? 'on' : 'off'}
                                         onBlur={(e) => {
                                             this.onKulEvent(e, 'blur');
                                         }}
@@ -277,6 +278,9 @@ export class KulSwitch {
                                         onPointerDown={(e) => {
                                             this.onKulEvent(e, 'pointerdown');
                                         }}
+                                        role="switch"
+                                        type="checkbox"
+                                        value={this.value ? 'on' : 'off'}
                                     ></input>
                                 </div>
                             </div>

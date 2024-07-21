@@ -1,0 +1,243 @@
+:host {
+  /**
+ * @prop --kul-accordion-backdrop-filter: Sets the backdrop filter of the accordion.
+ * Defaults to blur(3.5px).
+ */
+  --kul_accordion_backdrop_filter: var(
+    --kul-accordion-backdrop-filter,
+    blur(3.5px)
+  );
+  /**
+ * @prop --kul-accordion-background-color: Sets background of the component.
+ * Defaults to var(--kul-background-color).
+ */
+  --kul_accordion_background_color: var(
+    --kul-accordion-background-color,
+    var(--kul-background-color)
+  );
+  /**
+ * @prop --kul-accordion-border: Sets borders color of the accordion.
+ * Defaults to 1px solid var(--kul-border-color).
+ */
+  --kul_accordion_border: var(
+    --kul-accordion-border,
+    1px solid var(--kul-border-color)
+  );
+  /**
+ * @prop --kul-accordion-border-radius: Sets border radius of the first and last nodes of the accordion.
+ * Defaults to 4px.
+ */
+  --kul_accordion_border_radius: var(--kul-accordion-border-radius, 4px);
+  /**
+ * @prop --kul-accordion-dropdown-icon-color: Sets color of the dropdown icon.
+ * Defaults to var(--kul-text-color).
+ */
+  --kul-accordion_dropdown_icon_color: var(
+    --kul-accordion-dropdown-icon-color,
+    var(--kul-text-color)
+  );
+  /**
+ * @prop --kul-accordion-font-family: Sets font family of the component.
+ * Defaults to var(--kul-font-family).
+ */
+  --kul_accordion_font_family: var(
+    --kul-accordion-font-family,
+    var(--kul-font-family)
+  );
+  /**
+ * @prop --kul-accordion-font-size: Sets font size of the component.
+ * Defaults to var(--kul-font-size).
+ */
+  --kul_accordion_font_size: var(
+    --kul-accordion-font-size,
+    var(--kul-font-size)
+  );
+  /**
+ * @prop --kul-accordion-background-color-hover: Sets background color of the hover effect.
+ * Defaults to rgba(var(--kul-text-color-rgb), 0.175).
+ */
+  --kul_accordion_background_color_hover: var(
+    --kul-accordion-background-color-hover,
+    rgba(var(--kul-text-color-rgb), 0.175)
+  );
+  /**
+ * @prop --kul-accordion-color-hover: Sets text color of the hover effect.
+ * Defaults to var(--kul-text-color).
+ */
+  --kul_accordion_color_hover: var(
+    --kul-accordion-color-hover,
+    var(--kul-text-color)
+  );
+  /**
+ * @prop --kul-accordion-padding: Sets padding of the accordion's nodes.
+ * Defaults to 1em 1.5em.
+ */
+  --kul_accordion_padding: var(--kul-accordion-padding, 1em 1.5em);
+  /**
+ * @prop --kul-accordion-primary-color: Sets primary color of the component.
+ * Defaults to var(--kul-primary-color).
+ */
+  --kul_accordion_primary_color: var(
+    --kul-accordion-primary-color,
+    var(--kul-primary-color)
+  );
+  /**
+ * @prop --kul-accordion-primary-color-rgb: Sets primary color RGB values of the component.
+ * Defaults to var(--kul-primary-color-rgb).
+ */
+  --kul_accordion_primary_color_rgb: var(
+    --kul-accordion-primary-color-rgb,
+    var(--kul-primary-color-rgb)
+  );
+  /**
+ * @prop --kul-accordion-text-color: Sets text color of the component.
+ * Defaults to var(--kul-text-color).
+ */
+  --kul_accordion_text_color: var(
+    --kul-accordion-text-color,
+    var(--kul-text-color)
+  );
+  /**
+ * @prop --kul-accordion-text-on-primary-color: Sets text on primary color of the component.
+ * Defaults to var(--kul-text-on-primary-color).
+ */
+  --kul_accordion_text_on_primary_color: var(
+    --kul-accordion-text-on-primary-color,
+    var(--kul-text-on-primary-color)
+  );
+  /**
+ * @prop --kul-accordion-transition: Sets transition duration for color and background-color.
+ * Defaults to 80ms.
+ */
+  --kul_accordion_transition: var(--kul-accordion-transition, 80ms);
+
+  display: block;
+  font-family: var(--kul_accordion_font_family);
+  font-size: var(--kul_accordion_font_size);
+}
+
+.accordion {
+  -webkit-backdrop-filter: var(--kul_accordion_backdrop_filter);
+  backdrop-filter: var(--kul_accordion_backdrop_filter);
+  background-color: var(--kul_accordion_background_color);
+  border-bottom: var(--kul_accordion_border);
+  border-radius: var(--kul_accordion_border_radius);
+  border-top: var(--kul_accordion_border);
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%;
+}
+
+.node {
+  border-left: var(--kul_accordion_border);
+  border-right: var(--kul_accordion_border);
+  box-sizing: border-box;
+  width: 100%;
+
+  &:not(:first-of-type) {
+    border-top: var(--kul_accordion_border);
+  }
+
+  &__header {
+    align-items: center;
+    border: none;
+    box-sizing: border-box;
+    color: var(--kul_accordion_text_color);
+    cursor: pointer;
+    display: flex;
+    line-height: 1.75em;
+    outline: none;
+    padding: var(--kul_accordion_padding);
+    position: relative;
+    text-align: left;
+    transition:
+      background-color var(--kul_accordion_transition),
+      color var(--kul_accordion_transition);
+    width: 100%;
+
+    &:hover:not(.node__header--selected) {
+      color: var(--kul_accordion_color_hover);
+      background-color: var(--kul_accordion_background_color_hover);
+    }
+
+    &--expanded {
+      color: var(--kul_accordion_color_hover);
+      background-color: var(--kul_accordion_background_color_hover);
+
+      .node__dropdown {
+        transform: rotate(-180deg);
+      }
+    }
+
+    &--selected {
+      background-color: rgba(var(--kul_accordion_primary_color_rgb), 0.175);
+    }
+  }
+
+  &__text {
+    margin-right: 0.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre;
+
+    &--highlighted {
+      color: var(--kul_accordion_text_on_primary_color);
+      background-color: var(--kul_accordion_primary_color);
+    }
+  }
+
+  &__dropdown,
+  &__expand,
+  &__icon {
+    background-color: var(--kul_accordion_text_color);
+    height: 1.5em;
+    margin: 0;
+    width: 1.5em;
+  }
+
+  &__icon {
+    margin-left: 0;
+    margin-right: 0.5em;
+  }
+
+  &__expand {
+    margin-left: auto;
+    -webkit-mask: var(--kul-dropdown-icon);
+    mask: var(--kul-dropdown-icon);
+    overflow: hidden;
+    transition: transform 125ms ease;
+
+    &:hover {
+      transform: scale(1.25);
+    }
+
+    &--expanded {
+      -webkit-mask: var(--kul-expanded-icon);
+      mask: var(--kul-expanded-icon);
+      transform: rotate(180deg);
+
+      &:hover {
+        transform: rotate(-180deg) scale(1.25);
+      }
+    }
+
+    &--placeholder {
+      visibility: hidden;
+    }
+  }
+
+  &__dropdown {
+    background-color: var(--kul-accordion_dropdown_icon_color);
+    height: 1.5em;
+    margin-left: auto;
+    margin-right: 0;
+    min-width: 1.5em;
+    width: 1.5em;
+    transition: transform var(--kul_accordion_transition);
+  }
+
+  &__content {
+    animation: fade-in 0.25s ease-out;
+  }
+}
