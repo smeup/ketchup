@@ -1,11 +1,377 @@
 {
-  "timestamp": "2024-06-02T15:15:52",
+  "timestamp": "2024-07-21T07:33:30",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
     "typescriptVersion": "5.4.5"
   },
   "components": [
+    {
+      "filePath": "src/components/kul-accordion/kul-accordion.tsx",
+      "encapsulation": "shadow",
+      "tag": "kul-accordion",
+      "readme": "# kul-accordion\r\n\r\n\r\n\r",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "kulData",
+          "type": "KulDataDataset",
+          "complexType": {
+            "original": "KulDataDataset",
+            "resolved": "KulDataDataset",
+            "references": {
+              "KulDataDataset": {
+                "location": "import",
+                "path": "../../managers/kul-data/kul-data-declarations",
+                "id": "src/managers/kul-data/kul-data-declarations.ts::KulDataDataset"
+              }
+            }
+          },
+          "mutable": true,
+          "reflectToAttr": false,
+          "docs": "Actual data of the accordion.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "null"
+            }
+          ],
+          "default": "null",
+          "values": [
+            {
+              "type": "KulDataDataset"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "kulRipple",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": true,
+          "attr": "kul-ripple",
+          "reflectToAttr": true,
+          "docs": "When set to true, the pointerdown event will trigger a ripple effect.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "true"
+            }
+          ],
+          "default": "true",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "kulStyle",
+          "type": "string",
+          "complexType": {
+            "original": "string",
+            "resolved": "string",
+            "references": {}
+          },
+          "mutable": true,
+          "attr": "kul-style",
+          "reflectToAttr": true,
+          "docs": "Custom style of the component.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "\"\""
+            }
+          ],
+          "default": "''",
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        }
+      ],
+      "methods": [
+        {
+          "name": "getDebugInfo",
+          "returns": {
+            "type": "Promise<KulDebugComponentInfo>",
+            "docs": "A promise that resolves with the debug information object."
+          },
+          "complexType": {
+            "signature": "() => Promise<KulDebugComponentInfo>",
+            "parameters": [],
+            "references": {
+              "Promise": {
+                "location": "global",
+                "id": "global::Promise"
+              },
+              "KulDebugComponentInfo": {
+                "location": "import",
+                "path": "../../managers/kul-debug/kul-debug-declarations",
+                "id": "src/managers/kul-debug/kul-debug-declarations.ts::KulDebugComponentInfo"
+              }
+            },
+            "return": "Promise<KulDebugComponentInfo>"
+          },
+          "signature": "getDebugInfo() => Promise<KulDebugComponentInfo>",
+          "parameters": [],
+          "docs": "Fetches debug information of the component's current state.",
+          "docsTags": [
+            {
+              "name": "returns",
+              "text": "A promise that resolves with the debug information object."
+            }
+          ]
+        },
+        {
+          "name": "getProps",
+          "returns": {
+            "type": "Promise<GenericObject<unknown>>",
+            "docs": "Promise resolved with an object containing the component's properties."
+          },
+          "complexType": {
+            "signature": "(descriptions?: boolean) => Promise<GenericObject>",
+            "parameters": [
+              {
+                "name": "descriptions",
+                "type": "boolean",
+                "docs": "- When true, includes descriptions for each property."
+              }
+            ],
+            "references": {
+              "Promise": {
+                "location": "global",
+                "id": "global::Promise"
+              },
+              "GenericObject": {
+                "location": "import",
+                "path": "../../types/GenericTypes",
+                "id": "src/types/GenericTypes.ts::GenericObject"
+              }
+            },
+            "return": "Promise<GenericObject<unknown>>"
+          },
+          "signature": "getProps(descriptions?: boolean) => Promise<GenericObject>",
+          "parameters": [
+            {
+              "name": "descriptions",
+              "type": "boolean",
+              "docs": "- When true, includes descriptions for each property."
+            }
+          ],
+          "docs": "Used to retrieve component's properties and descriptions.",
+          "docsTags": [
+            {
+              "name": "param",
+              "text": "descriptions - When true, includes descriptions for each property."
+            },
+            {
+              "name": "returns",
+              "text": "Promise resolved with an object containing the component's properties."
+            }
+          ]
+        },
+        {
+          "name": "refresh",
+          "returns": {
+            "type": "Promise<void>",
+            "docs": ""
+          },
+          "complexType": {
+            "signature": "() => Promise<void>",
+            "parameters": [],
+            "references": {
+              "Promise": {
+                "location": "global",
+                "id": "global::Promise"
+              }
+            },
+            "return": "Promise<void>"
+          },
+          "signature": "refresh() => Promise<void>",
+          "parameters": [],
+          "docs": "This method is used to trigger a new render of the component.",
+          "docsTags": []
+        },
+        {
+          "name": "toggleNode",
+          "returns": {
+            "type": "Promise<void>",
+            "docs": ""
+          },
+          "complexType": {
+            "signature": "(id: string, e?: Event) => Promise<void>",
+            "parameters": [
+              {
+                "name": "id",
+                "type": "string",
+                "docs": "- Id of the node."
+              },
+              {
+                "name": "e",
+                "type": "Event",
+                "docs": ""
+              }
+            ],
+            "references": {
+              "Promise": {
+                "location": "global",
+                "id": "global::Promise"
+              },
+              "Event": {
+                "location": "import",
+                "path": "@stencil/core",
+                "id": ""
+              }
+            },
+            "return": "Promise<void>"
+          },
+          "signature": "toggleNode(id: string, e?: Event) => Promise<void>",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "docs": "- Id of the node."
+            },
+            {
+              "name": "e",
+              "type": "Event",
+              "docs": ""
+            }
+          ],
+          "docs": "This method activates or deactivates an node.",
+          "docsTags": [
+            {
+              "name": "param",
+              "text": "id - Id of the node."
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "event": "kul-accordion-event",
+          "detail": "KulEventPayload",
+          "bubbles": true,
+          "complexType": {
+            "original": "KulEventPayload",
+            "resolved": "KulEventPayload",
+            "references": {
+              "KulEventPayload": {
+                "location": "import",
+                "path": "../../types/GenericTypes",
+                "id": "src/types/GenericTypes.ts::KulEventPayload"
+              }
+            }
+          },
+          "cancelable": false,
+          "composed": true,
+          "docs": "Describes event emitted.",
+          "docsTags": []
+        }
+      ],
+      "listeners": [],
+      "styles": [
+        {
+          "name": "--kul-accordion-backdrop-filter",
+          "annotation": "prop",
+          "docs": "Sets the backdrop filter of the accordion. Defaults to blur(3.5px)."
+        },
+        {
+          "name": "--kul-accordion-background-color",
+          "annotation": "prop",
+          "docs": "Sets background of the component. Defaults to var(--kul-background-color)."
+        },
+        {
+          "name": "--kul-accordion-background-color-hover",
+          "annotation": "prop",
+          "docs": "Sets background color of the hover effect. Defaults to rgba(var(--kul-text-color-rgb), 0.175)."
+        },
+        {
+          "name": "--kul-accordion-border",
+          "annotation": "prop",
+          "docs": "Sets borders color of the accordion. Defaults to 1px solid var(--kul-border-color)."
+        },
+        {
+          "name": "--kul-accordion-border-radius",
+          "annotation": "prop",
+          "docs": "Sets border radius of the first and last nodes of the accordion. Defaults to 4px."
+        },
+        {
+          "name": "--kul-accordion-color-hover",
+          "annotation": "prop",
+          "docs": "Sets text color of the hover effect. Defaults to var(--kul-text-color)."
+        },
+        {
+          "name": "--kul-accordion-dropdown-icon-color",
+          "annotation": "prop",
+          "docs": "Sets color of the dropdown icon. Defaults to var(--kul-text-color)."
+        },
+        {
+          "name": "--kul-accordion-font-family",
+          "annotation": "prop",
+          "docs": "Sets font family of the component. Defaults to var(--kul-font-family)."
+        },
+        {
+          "name": "--kul-accordion-font-size",
+          "annotation": "prop",
+          "docs": "Sets font size of the component. Defaults to var(--kul-font-size)."
+        },
+        {
+          "name": "--kul-accordion-padding",
+          "annotation": "prop",
+          "docs": "Sets padding of the accordion's nodes. Defaults to 1em 1.5em."
+        },
+        {
+          "name": "--kul-accordion-primary-color",
+          "annotation": "prop",
+          "docs": "Sets primary color of the component. Defaults to var(--kul-primary-color)."
+        },
+        {
+          "name": "--kul-accordion-primary-color-rgb",
+          "annotation": "prop",
+          "docs": "Sets primary color RGB values of the component. Defaults to var(--kul-primary-color-rgb)."
+        },
+        {
+          "name": "--kul-accordion-text-color",
+          "annotation": "prop",
+          "docs": "Sets text color of the component. Defaults to var(--kul-text-color)."
+        },
+        {
+          "name": "--kul-accordion-text-on-primary-color",
+          "annotation": "prop",
+          "docs": "Sets text on primary color of the component. Defaults to var(--kul-text-on-primary-color)."
+        },
+        {
+          "name": "--kul-accordion-transition",
+          "annotation": "prop",
+          "docs": "Sets transition duration for color and background-color. Defaults to 80ms."
+        }
+      ],
+      "slots": [],
+      "parts": [],
+      "dependents": [
+        "kul-showcase-accordion"
+      ],
+      "dependencies": [],
+      "dependencyGraph": {
+        "kul-showcase-accordion": [
+          "kul-accordion"
+        ]
+      }
+    },
     {
       "filePath": "src/components/kul-article/kul-article.tsx",
       "encapsulation": "shadow",
@@ -253,6 +619,7 @@
       "parts": [],
       "dependents": [
         "kul-showcase",
+        "kul-showcase-accordion",
         "kul-showcase-article",
         "kul-showcase-badge",
         "kul-showcase-button",
@@ -287,6 +654,9 @@
       "dependencies": [],
       "dependencyGraph": {
         "kul-showcase": [
+          "kul-article"
+        ],
+        "kul-showcase-accordion": [
           "kul-article"
         ],
         "kul-showcase-article": [
@@ -4752,6 +5122,54 @@
       }
     },
     {
+      "filePath": "src/components/kul-showcase/components/accordion/kul-showcase-accordion.tsx",
+      "encapsulation": "shadow",
+      "tag": "kul-showcase-accordion",
+      "readme": "# kul-showcase-accordion\r\n\r\n\r\n\r",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [
+        {
+          "name": "comp-wrapper",
+          "docs": ""
+        },
+        {
+          "name": "description",
+          "docs": ""
+        },
+        {
+          "name": "example",
+          "docs": ""
+        },
+        {
+          "name": "examples-title",
+          "docs": ""
+        },
+        {
+          "name": "grid",
+          "docs": ""
+        }
+      ],
+      "dependents": [],
+      "dependencies": [
+        "kul-accordion",
+        "kul-article"
+      ],
+      "dependencyGraph": {
+        "kul-showcase-accordion": [
+          "kul-accordion",
+          "kul-article"
+        ]
+      }
+    },
+    {
       "filePath": "src/components/kul-showcase/components/article/kul-showcase-article.tsx",
       "encapsulation": "shadow",
       "tag": "kul-showcase-article",
@@ -7674,7 +8092,7 @@
           },
           "mutable": true,
           "reflectToAttr": false,
-          "docs": "Specifies helper text to display alongside the text field.\nHelper text can provide additional context or instructions to the user.",
+          "docs": "Specifies helper text to display alongside the text field.\r\nHelper text can provide additional context or instructions to the user.",
           "docsTags": [
             {
               "name": "default",
@@ -7706,7 +8124,7 @@
           },
           "mutable": true,
           "reflectToAttr": false,
-          "docs": "Allows customization of the input or textarea element through additional HTML attributes.\nThis can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.",
+          "docs": "Allows customization of the input or textarea element through additional HTML attributes.\r\nThis can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.",
           "docsTags": [
             {
               "name": "default",
@@ -7733,7 +8151,7 @@
           "mutable": true,
           "attr": "kul-icon",
           "reflectToAttr": true,
-          "docs": "Defines the icon to be displayed within the text field.\nIcons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.",
+          "docs": "Defines the icon to be displayed within the text field.\r\nIcons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.",
           "docsTags": [
             {
               "name": "default",
@@ -7760,7 +8178,7 @@
           "mutable": true,
           "attr": "kul-label",
           "reflectToAttr": true,
-          "docs": "Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected.\nLabels are especially important for screen readers and users navigating with keyboard-only controls.",
+          "docs": "Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected.\r\nLabels are especially important for screen readers and users navigating with keyboard-only controls.",
           "docsTags": [
             {
               "name": "default",
@@ -7787,7 +8205,7 @@
           "mutable": true,
           "attr": "kul-style",
           "reflectToAttr": true,
-          "docs": "Accepts custom CSS styles to apply directly to the text field component.\nThis allows for fine-grained control over the appearance of the component beyond predefined styling options.",
+          "docs": "Accepts custom CSS styles to apply directly to the text field component.\r\nThis allows for fine-grained control over the appearance of the component beyond predefined styling options.",
           "docsTags": [
             {
               "name": "default",
@@ -7820,7 +8238,7 @@
           "mutable": true,
           "attr": "kul-styling",
           "reflectToAttr": true,
-          "docs": "Determines the overall styling theme of the text field, affecting its shape and border.\nOptions include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.",
+          "docs": "Determines the overall styling theme of the text field, affecting its shape and border.\r\nOptions include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.",
           "docsTags": [
             {
               "name": "default",
@@ -7887,7 +8305,7 @@
           "mutable": false,
           "attr": "kul-value",
           "reflectToAttr": false,
-          "docs": "Initializes the text field with a default value when the component is first rendered.\nThis can be used to pre-fill forms or set a starting point for user input.",
+          "docs": "Initializes the text field with a default value when the component is first rendered.\r\nThis can be used to pre-fill forms or set a starting point for user input.",
           "docsTags": [
             {
               "name": "default",
@@ -9325,14 +9743,14 @@
     }
   ],
   "typeLibrary": {
-    "src/components/kul-article/kul-article-declarations.ts::KulArticleDataset": {
-      "declaration": "export interface KulArticleDataset extends KulDataDataset {\n    nodes: KulArticleNode[];\n}",
+    "src/managers/kul-data/kul-data-declarations.ts::KulDataDataset": {
+      "declaration": "export interface KulDataDataset {\n    columns?: KulDataColumn[];\n    nodes?: KulDataNode[];\n}",
       "docstring": "",
-      "path": "src/components/kul-article/kul-article-declarations.ts"
+      "path": "src/managers/kul-data/kul-data-declarations.ts"
     },
     "src/types/GenericTypes.ts::KulEventPayload": {
-      "declaration": "export interface KulEventPayload {\n    comp: unknown;\n    eventType:\n        | KulArticleEvent\n        | KulBadgeEvent\n        | KulButtonEvent\n        | KulCardEvent\n        | KulChartEvent\n        | KulCodeEvent\n        | KulDrawerEvent\n        | KulHeaderEvent\n        | KulImageEvent\n        | KulLazyEvent\n        | KulPhotoframeEvent\n        | KulSpinnerEvent\n        | KulSplashEvent\n        | KulTabbarEvent\n        | KulTextfieldEvent\n        | KulToastEvent\n        | KulTreeEvent\n        | KulUploadEvent;\n    id: string;\n    originalEvent: Event;\n}",
-      "docstring": "Generic payload of a kul event.",
+      "declaration": "export interface KulEventPayload {\n    comp: unknown;\n    eventType: KulEventType;\n    id: string;\n    originalEvent: Event;\n}",
+      "docstring": "",
       "path": "src/types/GenericTypes.ts"
     },
     "src/managers/kul-debug/kul-debug-declarations.ts::KulDebugComponentInfo": {
@@ -9342,18 +9760,18 @@
     },
     "src/types/GenericTypes.ts::GenericObject": {
       "declaration": "export interface GenericObject<T = unknown> {\n    [index: string]: T;\n}",
-      "docstring": "Generic object.",
+      "docstring": "",
       "path": "src/types/GenericTypes.ts"
+    },
+    "src/components/kul-article/kul-article-declarations.ts::KulArticleDataset": {
+      "declaration": "export interface KulArticleDataset extends KulDataDataset {\n    nodes: KulArticleNode[];\n}",
+      "docstring": "",
+      "path": "src/components/kul-article/kul-article-declarations.ts"
     },
     "src/components/kul-image/kul-image-declarations.ts::KulImagePropsInterface": {
       "declaration": "export interface KulImagePropsInterface {\n    kulBadgeProps?: KulBadgePropsInterface;\n    kulColor?: string;\n    kulShowSpinner?: boolean;\n    kulSizeX?: string;\n    kulSizeY?: string;\n    kulStyle?: string;\n    kulValue?: string;\n}",
       "docstring": "",
       "path": "src/components/kul-image/kul-image-declarations.ts"
-    },
-    "src/managers/kul-data/kul-data-declarations.ts::KulDataDataset": {
-      "declaration": "export interface KulDataDataset {\n    columns?: KulDataColumn[];\n    nodes?: KulDataNode[];\n}",
-      "docstring": "",
-      "path": "src/managers/kul-data/kul-data-declarations.ts"
     },
     "src/components/kul-button/kul-button-declarations.ts::KulButtonStyling": {
       "declaration": "export type KulButtonStyling =\n    | 'flat'\n    | 'floating'\n    | 'icon'\n    | 'outlined'\n    | 'raised';",
@@ -9361,7 +9779,7 @@
       "path": "src/components/kul-button/kul-button-declarations.ts"
     },
     "src/components/kul-button/kul-button-declarations.ts::KulButtonEventPayload": {
-      "declaration": "export interface KulButtonEventPayload extends KulEventPayload {\n    value: string;\n}",
+      "declaration": "export interface KulButtonEventPayload extends KulEventPayload {\n    eventType: KulButtonEvent;\n    value: string;\n}",
       "docstring": "",
       "path": "src/components/kul-button/kul-button-declarations.ts"
     },
