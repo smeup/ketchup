@@ -608,6 +608,7 @@ export class KupInputPanel {
             [FCellTypes.STRING, this.#ITXAdapter.bind(this)],
             [FCellTypes.SWITCH, this.#SWTAdapter.bind(this)],
             [FCellTypes.TABLE, this.#DataTableAdapter.bind(this)],
+            [FCellTypes.TIME, this.#TimeAdapter.bind(this)],
         ]);
 
         const adapter = dataAdapterMap.get(cellType);
@@ -811,6 +812,22 @@ export class KupInputPanel {
                 },
             },
             initialValue: currentValue,
+        };
+    }
+
+    #TimeAdapter(
+        _options: GenericObject,
+        fieldLabel: string,
+        _currentValue: string,
+    ) {
+
+        return {
+            data: {
+                'kup-text-field': {
+                    label: fieldLabel,
+                },
+            },
+            manageSeconds: true,
         };
     }
 
