@@ -148,7 +148,12 @@ export class KupInputPanel {
             FCellTypes.AUTOCOMPLETE,
             ['kup-autocomplete-input', 'kup-autocomplete-iconclick'],
         ],
+        [
+            FCellTypes.MULTI_AUTOCOMPLETE,
+            ['kup-autocomplete-input', 'kup-autocomplete-iconclick'],
+        ],
         [FCellTypes.COMBOBOX, ['kup-combobox-iconclick']],
+        [FCellTypes.MULTI_COMBOBOX, ['kup-combobox-iconclick']],
     ]);
     #listeners: { event: string; handler: (e) => void }[] = [];
     #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([
@@ -602,6 +607,8 @@ export class KupInputPanel {
             [FCellTypes.CHECKBOX, this.#CHKAdapter.bind(this)],
             [FCellTypes.COLOR_PICKER, this.#CLPAdapter.bind(this)],
             [FCellTypes.COMBOBOX, this.#CMBandACPAdapter.bind(this)],
+            [FCellTypes.MULTI_AUTOCOMPLETE, this.#CHIAdapter.bind(this)],
+            [FCellTypes.MULTI_COMBOBOX, this.#CHIAdapter.bind(this)],
             [FCellTypes.NUMBER, this.#NumberAdapter.bind(this)],
             [FCellTypes.DATE, this.#DateAdapter.bind(this)],
             [FCellTypes.RADIO, this.#RADAdapter.bind(this)],
@@ -621,19 +628,41 @@ export class KupInputPanel {
     #slotData(cell: KupInputPanelCell, col: KupInputPanelColumn) {
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
-        if (
-            cellType !== FCellTypes.CHIP &&
-            cellType !== FCellTypes.MULTI_AUTOCOMPLETE &&
-            cellType !== FCellTypes.MULTI_COMBOBOX &&
-            !cell.editable
-        ) {
+        if (!cell.editable) {
             return null;
         }
 
-        return {
-            trailingIcon: true,
-            label: col.title,
-        };
+        if (cellType === FCellTypes.CHIP) {
+            return {
+                trailingIcon: true,
+                label: col.title,
+                disabled: !cell.editable,
+                id: col.name,
+                fullWidth: false,
+            };
+        }
+
+        if (
+            cellType === FCellTypes.MULTI_AUTOCOMPLETE ||
+            cellType === FCellTypes.MULTI_COMBOBOX
+        ) {
+            return {
+                ...this.#CMBandACPAdapter(
+                    cell.options,
+                    col.title,
+                    cell.value,
+                    cell,
+                    col.name
+                ),
+                showDropDownIcon: true,
+                class: '',
+                style: { width: '100%' },
+                disabled: !cell.editable,
+                id: col.name,
+            };
+        }
+
+        return null;
     }
 
     #CHIAdapter(
@@ -642,7 +671,7 @@ export class KupInputPanel {
         currentValue: string
     ) {
         return {
-            data: currentValue.split(';').map((v) => ({ id: v, value: v })),
+            data: currentValue?.split(';').map((v) => ({ id: v, value: v })),
         };
     }
 
@@ -680,7 +709,7 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        const configCMandACP = {
+        const configCMandACP: GenericObject = {
             data: {
                 'kup-text-field': {
                     trailingIcon: true,
@@ -818,9 +847,8 @@ export class KupInputPanel {
     #TimeAdapter(
         _options: GenericObject,
         fieldLabel: string,
-        _currentValue: string,
+        _currentValue: string
     ) {
-
         return {
             data: {
                 'kup-text-field': {
