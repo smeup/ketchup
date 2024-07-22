@@ -64,7 +64,7 @@
   );
   --kup_datatable_th_border: var(
     --kup-datatable-th-border,
-    1px solid var(--kup-border-subtle)
+    1px solid var(--kup-gray-color-30)
   );
   --kup_datatable_th_resize_handle_width: var(
     --kup-datatable-th-resize-handle-width,
@@ -177,6 +177,7 @@ table {
   tfoot {
     tr {
       td {
+        background-color: var(--kup_datatable_background_color);
         border-bottom: var(--kup_datatable_border);
         border-right: var(--kup_datatable_border);
         box-sizing: border-box;
@@ -397,7 +398,7 @@ tbody {
 
     // grouping
     &.group {
-      background: var(--kup-layer-3);
+      background: var(--kup-layer-1-selected);
       border-top: var(--kup_datatable_border);
       color: var(--kup-text-secondary);
       font-weight: bold;
@@ -432,6 +433,7 @@ tbody {
         }
 
         &.total {
+          border-bottom: 1px solid var(--kup-border-subtle-selected);
           text-align: right;
           padding: 0.5em 0.6em;
 

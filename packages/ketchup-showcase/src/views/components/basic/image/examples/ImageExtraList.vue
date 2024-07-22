@@ -231,6 +231,14 @@
             ></kup-image>
             <div class="icon-label">asterisk</div>
           </div>
+          <div class="icon-wrapper" title="attachment">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="attachment"
+            ></kup-image>
+            <div class="icon-label">attachment</div>
+          </div>
           <div class="icon-wrapper" title="auto-fix">
             <kup-image
               size-x="48px"
@@ -323,6 +331,14 @@
             ></kup-image>
             <div class="icon-label">calculator</div>
           </div>
+          <div class="icon-wrapper" title="calculate">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="calculate"
+            ></kup-image>
+            <div class="icon-label">calculate</div>
+          </div>
           <div class="icon-wrapper" title="calendar">
             <kup-image
               size-x="48px"
@@ -391,6 +407,10 @@
             ></kup-image>
             <div class="icon-label">chart-pie</div>
           </div>
+          <div class="icon-wrapper" title="chat">
+            <kup-image size-x="48px" size-y="48px" resource="chat"></kup-image>
+            <div class="icon-label">chat</div>
+          </div>
           <div class="icon-wrapper" title="checkbox-marked-outline">
             <kup-image
               size-x="48px"
@@ -414,6 +434,14 @@
               resource="checkbox-multiple-marked-outline"
             ></kup-image>
             <div class="icon-label">checkbox-multiple-marked-outline</div>
+          </div>
+          <div class="icon-wrapper" title="checked_answer">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="checked_answer"
+            ></kup-image>
+            <div class="icon-label">checked_answer</div>
           </div>
           <div class="icon-wrapper" title="chevron_double_down">
             <kup-image
@@ -539,6 +567,14 @@
             ></kup-image>
             <div class="icon-label">console</div>
           </div>
+          <div class="icon-wrapper" title="construction">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="construction"
+            ></kup-image>
+            <div class="icon-label">construction</div>
+          </div>
           <div class="icon-wrapper" title="content-copy">
             <kup-image
               size-x="48px"
@@ -594,6 +630,10 @@
               resource="crop-square"
             ></kup-image>
             <div class="icon-label">crop-square</div>
+          </div>
+          <div class="icon-wrapper" title="csv">
+            <kup-image size-x="48px" size-y="48px" resource="csv"></kup-image>
+            <div class="icon-label">csv</div>
           </div>
           <div class="icon-wrapper" title="cube-outline">
             <kup-image
@@ -778,6 +818,14 @@
               resource="emoticon-sad"
             ></kup-image>
             <div class="icon-label">emoticon-sad</div>
+          </div>
+          <div class="icon-wrapper" title="exclamation">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="exclamation"
+            ></kup-image>
+            <div class="icon-label">exclamation</div>
           </div>
           <div class="icon-wrapper" title="eye-off">
             <kup-image
@@ -1343,6 +1391,10 @@
             ></kup-image>
             <div class="icon-label">magnify-plus</div>
           </div>
+          <div class="icon-wrapper" title="mail">
+            <kup-image size-x="48px" size-y="48px" resource="mail"></kup-image>
+            <div class="icon-label">mail</div>
+          </div>
           <div class="icon-wrapper" title="map-marker">
             <kup-image
               size-x="48px"
@@ -1383,6 +1435,14 @@
             ></kup-image>
             <div class="icon-label">message-bulleted</div>
           </div>
+          <div class="icon-wrapper" title="message-closed">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="message-closed"
+            ></kup-image>
+            <div class="icon-label">message-closed</div>
+          </div>
           <div class="icon-wrapper" title="message-processing">
             <kup-image
               size-x="48px"
@@ -1406,6 +1466,14 @@
               resource="monitor"
             ></kup-image>
             <div class="icon-label">monitor</div>
+          </div>
+          <div class="icon-wrapper" title="new_note">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="new_note"
+            ></kup-image>
+            <div class="icon-label">new_note</div>
           </div>
           <div class="icon-wrapper" title="numeric">
             <kup-image
@@ -1447,7 +1515,10 @@
             ></kup-image>
             <div class="icon-label">open_in_new</div>
           </div>
-
+          <div class="icon-wrapper" title="packs">
+            <kup-image size-x="48px" size-y="48px" resource="packs"></kup-image>
+            <div class="icon-label">packs</div>
+          </div>
           <div class="icon-wrapper" title="pause-circle">
             <kup-image
               size-x="48px"
@@ -1552,6 +1623,10 @@
             ></kup-image>
             <div class="icon-label">puzzle</div>
           </div>
+          <div class="icon-wrapper" title="PWD">
+            <kup-image size-x="48px" size-y="48px" resource="PWD"></kup-image>
+            <div class="icon-label">PWD</div>
+          </div>
           <div class="icon-wrapper" title="radioactive">
             <kup-image
               size-x="48px"
@@ -1603,6 +1678,10 @@
               resource="reddit"
             ></kup-image>
             <div class="icon-label">Reddit</div>
+          </div>
+          <div class="icon-wrapper" title="redo">
+            <kup-image size-x="48px" size-y="48px" resource="redo"></kup-image>
+            <div class="icon-label">redo</div>
           </div>
           <div class="icon-wrapper" title="reorder-horizontal">
             <kup-image
@@ -1659,6 +1738,14 @@
               resource="shape-plus"
             ></kup-image>
             <div class="icon-label">shape-plus</div>
+          </div>
+          <div class="icon-wrapper" title="show_difference">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="show_difference"
+            ></kup-image>
+            <div class="icon-label">show_difference</div>
           </div>
           <div class="icon-wrapper" title="sign-text">
             <kup-image
@@ -1727,6 +1814,14 @@
               resource="sort-descending"
             ></kup-image>
             <div class="icon-label">sort-descending</div>
+          </div>
+          <div class="icon-wrapper" title="standard">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="standard"
+            ></kup-image>
+            <div class="icon-label">standard</div>
           </div>
           <div class="icon-wrapper" title="star">
             <kup-image size-x="48px" size-y="48px" resource="star"></kup-image>

@@ -4158,7 +4158,10 @@ export class KupDataTable {
             if (menu) {
                 this.#kupManager.dynamicPosition.register(
                     menu as unknown as KupDynamicPositionElement,
-                    this.#totalMenuCoords
+                    this.#totalMenuCoords,
+                    0,
+                    undefined,
+                    true
                 );
                 this.#clickCb = {
                     cb: () => {
@@ -5603,14 +5606,14 @@ export class KupDataTable {
         tableClass[`density-${this.density}`] = true;
         tableClass[`fontsize-${this.fontsize}`] = true;
 
-        if (this.tableHeight) {
+        if (this.tableHeight && this.tableHeight !== '100%') {
             elStyle = {
                 height: this.tableHeight,
                 overflow: 'auto',
             };
         }
 
-        if (this.tableWidth) {
+        if (this.tableWidth && this.tableWidth !== '100%') {
             elStyle = {
                 ...elStyle,
                 width: this.tableWidth,

@@ -501,17 +501,17 @@ export namespace Components {
           * Sets the type of the button.
           * @default null
          */
-        "aligncontent": FButtonAlign;
-        /**
-          * Sets the type of the button.
-          * @default null
-         */
         "buttonType": string;
         /**
           * When set to true, the icon button state will be on.
           * @default false
          */
         "checked": boolean;
+        /**
+          * Sets the type of the button.
+          * @default null
+         */
+        "contentAlign": FButtonAlign;
         /**
           * Custom style of the component.
           * @default ""
@@ -590,6 +590,11 @@ export namespace Components {
           * @default 0
          */
         "columns": number;
+        /**
+          * Sets the type of the button.
+          * @default null
+         */
+        "contentAlign": FButtonAlign;
         /**
           * Custom style of the component.
           * @default ""
@@ -5847,17 +5852,17 @@ declare namespace LocalJSX {
           * Sets the type of the button.
           * @default null
          */
-        "aligncontent"?: FButtonAlign;
-        /**
-          * Sets the type of the button.
-          * @default null
-         */
         "buttonType"?: string;
         /**
           * When set to true, the icon button state will be on.
           * @default false
          */
         "checked"?: boolean;
+        /**
+          * Sets the type of the button.
+          * @default null
+         */
+        "contentAlign"?: FButtonAlign;
         /**
           * Custom style of the component.
           * @default ""
@@ -5933,6 +5938,11 @@ declare namespace LocalJSX {
           * @default 0
          */
         "columns"?: number;
+        /**
+          * Sets the type of the button.
+          * @default null
+         */
+        "contentAlign"?: FButtonAlign;
         /**
           * Custom style of the component.
           * @default ""

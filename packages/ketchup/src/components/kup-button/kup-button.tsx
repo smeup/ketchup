@@ -71,7 +71,7 @@ export class KupButton {
      * Sets the type of the button.
      * @default null
      */
-    @Prop() aligncontent: FButtonAlign = FButtonAlign.CENTER;
+    @Prop() contentAlign: FButtonAlign = FButtonAlign.CENTER;
     /**
      * Custom style of the component.
      * @default ""
@@ -271,7 +271,7 @@ export class KupButton {
         const props: FButtonProps = {
             buttonType: this.buttonType,
             checked: this.checked,
-            aligncontent: this.aligncontent,
+            contentAlign: this.contentAlign,
             danger: this.rootElement.classList.contains('kup-danger')
                 ? true
                 : false,
