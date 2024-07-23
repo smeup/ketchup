@@ -1451,6 +1451,11 @@ export namespace Components {
          */
         "fixedColumns": number;
         /**
+          * Fixes the given number of columns to the right so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.
+          * @see fixedRows
+         */
+        "fixedColumnsR": number;
+        /**
           * Fixes the given number of rows so that they stay visible when vertically scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedColumns.
           * @see fixedColumns
          */
@@ -6635,6 +6640,11 @@ declare namespace LocalJSX {
           * @see fixedRows
          */
         "fixedColumns"?: number;
+        /**
+          * Fixes the given number of columns to the right so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.
+          * @see fixedRows
+         */
+        "fixedColumnsR"?: number;
         /**
           * Fixes the given number of rows so that they stay visible when vertically scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedColumns.
           * @see fixedColumns

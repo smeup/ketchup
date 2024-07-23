@@ -29,6 +29,7 @@ export enum KupDataTableProps {
     expandGroups = 'Expands groups when set to true.',
     filters = 'List of filters set by the user.',
     fixedColumns = 'Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.',
+    fixedColumnsR = 'Fixes the given number of columns to the right so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.',
     fixedRows = 'Fixes the given number of rows so that they stay visible when vertically scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedColumns.',
     forceOneLine = 'Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.',
     globalFilter = 'When set to true it activates the global filter.',
@@ -203,11 +204,13 @@ export enum GroupLabelDisplayMode {
 //---- Fixed rows and cells classes ----
 export const FixedCellsClasses = {
     columns: 'fixed-column',
+    columnsR: 'fixed-column-r',
     rows: 'fixed-row',
 };
 
 export const FixedCellsCSSVarsBase = {
     columns: '--ddt_column-left-',
+    columnsR: '--ddt_column-right-',
     rows: '--ddt_row-top-',
 };
 

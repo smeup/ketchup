@@ -21,6 +21,12 @@ h3 {
       :data.prop="fixedData3"
     ></kup-lazy>
 
+    <h3>Fixed columns (1 right 1 left)</h3>
+    <kup-lazy
+      component-name="kup-data-table"
+      :data.prop="fixedData8"
+    ></kup-lazy>
+
     <h3>Fixed columns (2) rows (4)</h3>
     <kup-lazy
       component-name="kup-data-table"
@@ -149,6 +155,15 @@ export default {
           },
         ],
         expandGroups: true,
+      },
+      fixedData8: {
+        data: groupDataTable,
+        showFilters: true,
+        fixedColumns: '1',
+        fixedColumnsR: '1',
+        showGrid: 'Complete',
+        tableHeight: '200px',
+        tableWidth: '400px',
       },
       fixedDataTotals: {
         data: groupDataTable,

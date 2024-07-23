@@ -30,7 +30,8 @@ table.custom-size th {
   // This prevents non fixed table cells from overlapping the first th cells.
   z-index: $sticky-header--z-index;
 
-  &.fixed-column {
+  &.fixed-column,
+  &.fixed-column-r {
     z-index: $sticky-header--z-index + 1; // And when the cell is fixed, then we rise that same z-index by one unit to prevent menu of the th to slip underneath
   }
 }
@@ -47,12 +48,14 @@ table.custom-size tfoot td {
 }
 
 tr:hover .fixed-row,
-tr:hover .fixed-column {
+tr:hover .fixed-column,
+tr:hover .fixed-column-r {
   background-color: var(--kup-gray-color-20);
 }
 
 tr.selected .fixed-column,
-tr.selected .fixed-row {
+tr.selected .fixed-row,
+tr.selected .fixed-row-r {
   background-color: var(--kup_datatable_background_color);
   background-image: linear-gradient(
     to right,
@@ -82,12 +85,28 @@ tr.selected .fixed-row {
   }
 }
 
+// For a fixed right column
+// MUST be after to take precedence
+.fixed-column-r {
+  @extend %fixedCellsBase;
+  right: 0;
+  z-index: $sticky-cell--column-z-index; // Must be higher than row
+
+  // When there is both the column and the row fixed
+  &.fixed-row {
+    z-index: $sticky-cell--row-column-z-index; // Must be higher than column
+  }
+}
+
 thead tr .fixed-column,
-thead tr:hover:not(.group):not(.selected) .fixed-column {
+thead tr:hover:not(.group):not(.selected) .fixed-column,
+thead tr .fixed-column-r,
+thead tr:hover:not(.group):not(.selected) .fixed-column-r {
   background-color: var(--kup-gray-color-20);
 }
 
 tfoot tr:hover:not(.group):not(.selected) .fixed-row,
-tfoot tr:hover:not(.group):not(.selected) .fixed-column {
+tfoot tr:hover:not(.group):not(.selected) .fixed-column,
+tfoot tr:hover:not(.group):not(.selected) .fixed-column-r {
   background-color: var(--kup-gray-color-20);
 }
