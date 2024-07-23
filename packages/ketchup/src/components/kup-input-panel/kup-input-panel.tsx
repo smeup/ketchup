@@ -18,6 +18,7 @@ import {
     KupDataCell,
     KupDataTableDataset,
     KupDataTableRow,
+    KupEditorEventPayload,
 } from '../../components';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FCell } from '../../f-components/f-cell/f-cell';
@@ -57,6 +58,7 @@ import {
     KupInputPanelSubmit,
 } from './kup-input-panel-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { KupEditor } from '../kup-editor/kup-editor';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -158,6 +160,7 @@ export class KupInputPanel {
     #listeners: { event: string; handler: (e) => void }[] = [];
     #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([
         [FCellTypes.DATE, 'kup-date-picker'],
+        // [FCellTypes.EDITOR, 'kup-editor'],
     ]);
     #cellCustomRender: Map<
         FCellShapes,
@@ -358,12 +361,33 @@ export class KupInputPanel {
     }
 
     #renderEditor(cell: KupDataCell, cellId: string) {
+        const event = 'kup-editor-save';
+        const handler = (e: CustomEvent<KupEditorEventPayload>) => {
+            const edtCell: KupDataCell =
+                this.inputPanelCells.reduce<KupDataCell>((cell, { cells }) => {
+                    if (!cell) {
+                        return cells.find(
+                            ({ column }) => column.name === cellId
+                        ).cell;
+                    }
+                    return cell;
+                }, null);
+
+            edtCell.value = e.detail.htmlValue;
+        };
+
+        this.rootElement.addEventListener(event, handler);
+
+        this.#listeners.push({
+            event,
+            handler,
+        });
+
         return (
             <kup-editor
-                initialValue={cell.value}
+                {...cell.data}
                 id={cellId}
                 isReadOnly={!cell.isEditable}
-                showSaveButton={false}
                 showToolbar={true}
             ></kup-editor>
         );
@@ -532,7 +556,7 @@ export class KupInputPanel {
                 const el: any = this.rootElement.shadowRoot.querySelector(
                     `${componentQuery}[id=${column.name}]`
                 );
-                el?.setValue(cell.value);
+                el?.setValue ?? el?.setValue(cell.value);
             })
         );
 
@@ -607,6 +631,7 @@ export class KupInputPanel {
             [FCellTypes.CHECKBOX, this.#CHKAdapter.bind(this)],
             [FCellTypes.COLOR_PICKER, this.#CLPAdapter.bind(this)],
             [FCellTypes.COMBOBOX, this.#CMBandACPAdapter.bind(this)],
+            [FCellTypes.EDITOR, this.#EDTAdapter.bind(this)],
             [FCellTypes.MULTI_AUTOCOMPLETE, this.#CHIAdapter.bind(this)],
             [FCellTypes.MULTI_COMBOBOX, this.#CHIAdapter.bind(this)],
             [FCellTypes.NUMBER, this.#NumberAdapter.bind(this)],
