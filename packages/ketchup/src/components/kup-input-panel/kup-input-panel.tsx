@@ -168,6 +168,7 @@ export class KupInputPanel {
     > = new Map<FCellShapes, (cell: KupDataCell, cellId: string) => any>([
         [FCellShapes.BUTTON_LIST, this.#renderButton.bind(this)],
         [FCellShapes.EDITOR, this.#renderEditor.bind(this)],
+        [FCellShapes.LABEL, this.#renderLabel.bind(this)],
         [FCellShapes.TABLE, this.#renderDataTable.bind(this)],
     ]);
     //#endregion
@@ -404,6 +405,10 @@ export class KupInputPanel {
                 showFooter={true}
             ></kup-data-table>
         );
+    }
+
+    #renderLabel(cell: KupDataCell, cellId: string) {
+        return <span id={cellId}>{cell.value}</span>;
     }
 
     #getLabelComponent(cell: KupDataCell, label: string) {
