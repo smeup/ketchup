@@ -2211,6 +2211,14 @@
             ></kup-image>
             <div class="icon-label">zip-box</div>
           </div>
+          <div class="icon-wrapper" title="zoom_in">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="zoom_in"
+            ></kup-image>
+            <div class="icon-label">zoom_in</div>
+          </div>
         </div>
       </div>
     </div>
