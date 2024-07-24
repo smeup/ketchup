@@ -121,6 +121,7 @@ export enum FCellShapes {
     INPUT_CHECKBOX = 'INC',
     INPUT_FIELD = 'INF',
     KNOB = 'KNB',
+    LABEL = 'LBL',
     MULTI_AUTOCOMPLETE = 'AML',
     MULTI_COMBOBOX = 'CML',
     PROGRESS_BAR = 'PGB',
