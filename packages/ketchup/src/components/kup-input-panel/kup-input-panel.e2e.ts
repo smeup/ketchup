@@ -890,4 +890,139 @@ describe('kup-input-panel', () => {
         const value = await inputPanelContent.getProperty('value');
         expect(value).toBe('on');
     });
+
+    it('render inputpanel with multple autocomplete shape', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
+        );
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'CIT',
+                    title: 'City',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        CIT: {
+                            value: '',
+                            obj: {
+                                t: '',
+                                p: '',
+                                k: '',
+                            },
+                            editable: true,
+                            mandatory: true,
+                            options: [
+                                {
+                                    id: 'FLO',
+                                    label: 'Florence',
+                                },
+                                {
+                                    id: 'VEN',
+                                    label: 'Venice',
+                                },
+                                {
+                                    id: 'ROM',
+                                    label: 'Rome',
+                                },
+                                {
+                                    id: 'MAD',
+                                    label: 'Madrid',
+                                },
+                                {
+                                    id: 'BAR',
+                                    label: 'Barcelona',
+                                },
+                                {
+                                    id: 'SEV',
+                                    label: 'Seville',
+                                },
+                            ],
+                            shape: 'AML',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const multiAutocompleteCell = await inputPanelContent.find(
+            '.f-cell.multi-autocomplete-cell'
+        );
+        expect(multiAutocompleteCell).not.toBeNull();
+
+        const input = await multiAutocompleteCell.find(
+            '>>> kup-autocomplete >>> input.mdc-text-field__input'
+        );
+        expect(input).not.toBeNull();
+
+        const chips = await inputPanelContent.findAll('>>> .chip-set__item');
+
+        if (chips.length) {
+            const closeButton = await chips[0].find('.kup-clear-icon');
+            expect(closeButton).not.toBeNull();
+
+            closeButton.click();
+            await page.waitForChanges();
+            const afterClosingChips = await inputPanelContent.findAll(
+                '>>> .chip-set__item'
+            );
+            expect(afterClosingChips.length).toBe(0);
+        }
+
+        await input.focus();
+        await input.press('KeyR');
+        await input.press('KeyO');
+
+        await page.waitForChanges();
+
+        const list = await page.find('div[kup-dynamic-position] kup-list');
+        expect(list).not.toBeNull();
+
+        const listOptions = await page.findAll('kup-list >>> ul.list li');
+        expect(listOptions).not.toBeNull();
+        expect(listOptions).toHaveLength(1);
+
+        const firstOptionValue = await listOptions[0].find('span');
+        expect(firstOptionValue).toEqualText('ROM - Rome');
+        await firstOptionValue.click();
+
+        await page.waitForChanges();
+
+        await input.focus();
+        await input.press('KeyF');
+        await input.press('KeyL');
+
+        await page.waitForChanges();
+
+        const updatedListOptions = await page.findAll(
+            'kup-list >>> ul.list li'
+        );
+        const secondOptionValue = await updatedListOptions[0].find('span');
+        expect(secondOptionValue).toEqualText('FLO - Florence');
+        await secondOptionValue.click();
+
+        await page.waitForChanges();
+
+        const updatedChips = await inputPanelContent.findAll(
+            '>>> .chip-set__item'
+        );
+
+        expect(updatedChips).not.toBeNull();
+        expect(updatedChips.length).toBe(2);
+    });
 });
