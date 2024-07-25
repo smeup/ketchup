@@ -848,4 +848,46 @@ describe('kup-input-panel', () => {
 
         expect(updatedChips.length).toBe(3);
     });
+
+    it('render inputpanel with switch shape', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+
+        const data = {
+            columns: [
+                {
+                    name: 'DAT1',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        DAT1: {
+                            value: '',
+                            editable: true,
+                            shape: 'SWT',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> input[type="checkbox"]'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        inputPanelContent.click();
+
+        await page.waitForChanges();
+        const value = await inputPanelContent.getProperty('value');
+        expect(value).toBe('on');
+    });
 });
