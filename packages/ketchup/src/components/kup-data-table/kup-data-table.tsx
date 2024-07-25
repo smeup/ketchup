@@ -4607,6 +4607,28 @@ export class KupDataTable {
                         </td>
                     </tr>
                 );
+                if (this.#isGroupExpanded(row)) {
+                    row.group.children
+                        // We must pass the previous element of the array to check if we must hide or display the value of the cell
+                        // When the column has specified the parameter hideValuesRepetitions
+                        .map((row, groupRowIndex, currentArray) =>
+                            this.#renderRow(
+                                row,
+                                level + 1,
+                                groupRowIndex,
+                                groupRowIndex > 0
+                                    ? currentArray[groupRowIndex - 1]
+                                    : undefined
+                            )
+                        )
+                        .forEach((jsxRow) => {
+                            if (Array.isArray(jsxRow)) {
+                                jsxRow.forEach((jr) => jsxRows.push(jr));
+                            } else {
+                                jsxRows.push(jsxRow);
+                            }
+                        });
+                }
             }
 
             // grouping row
