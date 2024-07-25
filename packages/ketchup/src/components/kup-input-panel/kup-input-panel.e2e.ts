@@ -759,7 +759,7 @@ describe('kup-input-panel', () => {
                 {
                     cells: {
                         DAT1: {
-                            value: "",
+                            value: '',
                             editable: true,
                             shape: 'EDT',
                         },
@@ -781,4 +781,71 @@ describe('kup-input-panel', () => {
         expect(editCell).not.toBeNull();
     });
 
+    it('render inputpanel with chip shape', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+
+        const data = {
+            columns: [
+                {
+                    name: 'DAT1',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        DAT1: {
+                            value: 'Test1;Test2',
+                            editable: true,
+                            shape: 'CHI',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> kup-chip >>> #kup-component'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const chips = await inputPanelContent.findAll('.chip-set__item');
+        expect(chips).not.toBeNull();
+        expect(chips.length).toBe(2);
+
+        const chip1 = await chips[0].find('.chip__text');
+        expect(chip1).not.toBeNull();
+        expect(chip1).toEqualText('Test1');
+
+        const chip2 = await chips[1].find('.chip__text');
+        expect(chip2).not.toBeNull();
+        expect(chip2).toEqualText('Test2');
+
+        const input = await page.find(
+            'kup-input-panel >>> kup-text-field >>> input'
+        );
+        expect(input).not.toBeNull();
+
+        await input.press('KeyS');
+        await input.press('KeyT');
+        await input.press('KeyR');
+        await input.press('KeyI');
+        await input.press('KeyN');
+        await input.press('KeyG');
+
+        const updatedValue = await input.getProperty('value');
+        expect(updatedValue).toBe('string');
+
+        await input.press('Enter');
+        const updatedChips = await inputPanelContent.findAll('.chip-set__item');
+
+        expect(updatedChips.length).toBe(3);
+    });
 });
