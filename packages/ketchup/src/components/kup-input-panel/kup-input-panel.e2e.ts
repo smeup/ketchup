@@ -701,4 +701,84 @@ describe('kup-input-panel', () => {
             })
         );
     });
+
+    it('render inputpanel with label shape', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+
+        const data = {
+            columns: [
+                {
+                    name: 'LBL',
+                    title: 'Label',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        LBL: {
+                            value: 'Test',
+                            editable: true,
+                            shape: 'LBL',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const labelCell = await inputPanelContent.find('#LBL');
+        expect(labelCell).not.toBeNull();
+    });
+
+    it('render inputpanel with edit shape', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+
+        const data = {
+            columns: [
+                {
+                    name: 'DAT1',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        DAT1: {
+                            value: "",
+                            editable: true,
+                            shape: 'EDT',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const editCell = await inputPanelContent.find('kup-editor');
+        expect(editCell).not.toBeNull();
+    });
+
 });
