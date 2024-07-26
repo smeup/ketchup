@@ -285,6 +285,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'fixedColumnsR',
+          description: 'Amount of frozen columns to the right.',
+          type: 'number',
+          default: '0',
+          try: 'field',
+        },
+        {
           prop: 'fixedRows',
           description: 'Amount of frozen rows.',
           type: 'number',
