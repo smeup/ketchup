@@ -3232,14 +3232,15 @@ export class KupDataTable {
 
         if (validFixedColumnR) {
             const prog =
-                columnCssIndexR -
-                (this.getVisibleColumns().length - this.fixedColumnsR);
+                columnCssIndexR - (this.getVisibleColumns().length - 1);
+            const progIdx = prog - this.fixedColumnsR;
+            const absIdx = Math.abs(progIdx);
             fixedCellClasses[FixedCellsClasses.columnsR] = validFixedColumnR;
             fixedCellClasses['show-column-separator'] =
                 ShowGrid.COMPLETE === this.showGrid ||
                 ShowGrid.COL === this.showGrid;
             fixedCellStyle['right'] =
-                'var(' + FixedCellsCSSVarsBase.columnsR + prog + ')';
+                'var(' + (FixedCellsCSSVarsBase.columnsR + absIdx) + ')'; // right value assignment must be reversed
         }
 
         if (validFixedRowIndex) {
