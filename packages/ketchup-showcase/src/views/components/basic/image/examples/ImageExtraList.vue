@@ -247,6 +247,14 @@
             ></kup-image>
             <div class="icon-label">auto-fix</div>
           </div>
+          <div class="icon-wrapper" title="balance">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="balance"
+            ></kup-image>
+            <div class="icon-label">balance</div>
+          </div>
           <div class="icon-wrapper" title="bank">
             <kup-image size-x="48px" size-y="48px" resource="bank"></kup-image>
             <div class="icon-label">bank</div>
@@ -1346,6 +1354,14 @@
               resource="linkedin"
             ></kup-image>
             <div class="icon-label">linkedin</div>
+          </div>
+          <div class="icon-wrapper" title="lock">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="lock"
+            ></kup-image>
+            <div class="icon-label">lock</div>
           </div>
           <div class="icon-wrapper" title="lock-outline">
             <kup-image
