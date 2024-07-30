@@ -1742,6 +1742,11 @@ export namespace Components {
           * @param value - Value to be set.
          */
         "setValue": (value: string) => Promise<void>;
+        /**
+          * Sets the sizing of the textfield of the datepicker
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing": KupComponentSizing;
     }
     interface KupDialog {
         /**
@@ -3974,7 +3979,7 @@ export namespace Components {
          */
         "size": number;
         /**
-          * Sets the type of the button
+          * Sets the sizing of the textfield
           * @default KupComponentSizing.MEDIUM
          */
         "sizing": KupComponentSizing;
@@ -6909,6 +6914,11 @@ declare namespace LocalJSX {
         "onKup-datepicker-input"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
         "onKup-datepicker-itemclick"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
         "onKup-datepicker-textfieldsubmit"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
+        /**
+          * Sets the sizing of the textfield of the datepicker
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing"?: KupComponentSizing;
     }
     interface KupDialog {
         /**
@@ -8763,7 +8773,7 @@ declare namespace LocalJSX {
          */
         "size"?: number;
         /**
-          * Sets the type of the button
+          * Sets the sizing of the textfield
           * @default KupComponentSizing.MEDIUM
          */
         "sizing"?: KupComponentSizing;

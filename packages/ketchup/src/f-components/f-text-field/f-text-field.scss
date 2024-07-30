@@ -35,11 +35,12 @@
       --kup-textfield-fullwidth-height,
       40px
     );
+    --kup_textfield_extra_small_height: var(--kup-textfield-small-height, 20px);
     --kup_textfield_small_height: var(--kup-textfield-small-height, 32px);
     --kup_textfield_medium_height: var(--kup-textfield-medium-height, 40px);
     --kup_textfield_large_height: var(--kup-textfield-large-height, 48px);
-    --kup_textfield_max_large_height: var(
-      --kup-textfield-max-large-height,
+    --kup_textfield_extra_large_height: var(
+      --kup-textfield-extra-large-height,
       64px
     );
     --kup_textfield_fullwidth_padding: var(
@@ -190,6 +191,10 @@
         }
       }
 
+      &.mdc-text-field--extra-small {
+        height: var(--kup_textfield_extra_small_height) !important;
+      }
+
       &.mdc-text-field--small {
         height: var(--kup_textfield_small_height) !important;
       }
@@ -202,8 +207,8 @@
         height: var(--kup_textfield_large_height) !important;
       }
 
-      &.mdc-text-field--max-large {
-        height: var(--kup_textfield_max_large_height) !important;
+      &.mdc-text-field--extra-large {
+        height: var(--kup_textfield_extra_large_height) !important;
       }
 
       &.mdc-text-field--focused:not(.mdc-text-field--disabled) {

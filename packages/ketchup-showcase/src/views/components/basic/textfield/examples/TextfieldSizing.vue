@@ -26,9 +26,9 @@
             sizing="large"
           ></kup-text-field>
           <kup-text-field
-            label="Size: Max Large"
-            initial-value="Max Large"
-            sizing="max-large"
+            label="Size: Extra Large"
+            initial-value="Extra Large"
+            sizing="extra-large"
           ></kup-text-field>
         </div>
         <p class="centered">Sample markup with 'small' sizing</p>
