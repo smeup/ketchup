@@ -10,6 +10,11 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-text-field
+            label="Size: Extra Small"
+            initial-value="Extra Small"
+            sizing="extra-small"
+          ></kup-text-field>
+          <kup-text-field
             label="Size: Small"
             initial-value="Small"
             sizing="small"

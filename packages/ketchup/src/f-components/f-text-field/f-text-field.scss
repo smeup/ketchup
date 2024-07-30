@@ -35,7 +35,10 @@
       --kup-textfield-fullwidth-height,
       40px
     );
-    --kup_textfield_extra_small_height: var(--kup-textfield-small-height, 20px);
+    --kup_textfield_extra_small_height: var(
+      --kup-textfield-extra-small-height,
+      20px
+    );
     --kup_textfield_small_height: var(--kup-textfield-small-height, 32px);
     --kup_textfield_medium_height: var(--kup-textfield-medium-height, 40px);
     --kup_textfield_large_height: var(--kup-textfield-large-height, 48px);
