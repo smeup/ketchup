@@ -8,7 +8,7 @@ import {
     KupDateTimeFormatOptionsMonth,
     KupDatesFormats,
 } from '../../../managers/kup-dates/kup-dates-declarations';
-import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
+import { KupDom, KupManager } from '../../../managers/kup-manager/kup-manager-declarations';
 import { KupObj } from '../../../managers/kup-objects/kup-objects-declarations';
 import { SourceEvent } from '../../kup-date-picker/kup-date-picker-declarations';
 import { KupCard } from '../kup-card';
@@ -17,9 +17,12 @@ import {
     KupCardBuiltInCalendarOptions,
 } from '../kup-card-declarations';
 import { fillString } from '../../../utils/utils';
+import { KupLanguageGeneric } from '../../../managers/kup-language/kup-language-declarations';
+import { kupManagerInstance } from '../../../managers/kup-manager/kup-manager';
 
 const dom: KupDom = document.documentElement as KupDom;
 
+const kupManager: KupManager = kupManagerInstance();
 export function prepareCalendar(component: KupCard) {
     const el = component.rootElement as KupCardBuiltInCalendar;
     if (!el.kupData) el.kupData = {};
@@ -90,12 +93,23 @@ export function prepareCalendar(component: KupCard) {
         onClick: () => changeView(component),
         id: 'change-view-button',
     };
+    const goToTodayDateButton: FButtonProps = {
+        icon:"calendar",
+        wrapperClass: 'today-navigation-button kup-neutral',
+        styling: FButtonStyling.FLAT,
+        // label: 'Oggi',
+        title: kupManager.language.translate(
+            KupLanguageGeneric.TODAY
+        ),
+        onClick: () => setDateToday(component),
+    };
     //text-transform:capitalize
     return (
         <div id={component.rootElement.id + '_calendar'}>
             <div class="section-1">
                 <div class="sub-1 nav">
                     {prevButtonComp}
+                    <FButton {...goToTodayDateButton} />
                     <FButton {...changeViewButtonProp} />
                     {nextButtonComp}
                 </div>
@@ -157,7 +171,11 @@ function setYear(component: KupCard, value: number) {
 
 function getFirstDayIndex(component: KupCard): number {
     const el = component.rootElement as KupCardBuiltInCalendar;
-    if (el.kupData.firstDayIndex !== null && el.kupData.firstDayIndex !== undefined) return el.kupData.firstDayIndex;
+    if (
+        el.kupData.firstDayIndex !== null &&
+        el.kupData.firstDayIndex !== undefined
+    )
+        return el.kupData.firstDayIndex;
     return 1;
 }
 
@@ -272,12 +290,13 @@ function createDaysCalendar(component: KupCard) {
         }
         daysForRowAdded = 0;
     }
-
     return (
-        <table class="calendar">
-            <thead>{thead}</thead>
-            <tbody>{tbody}</tbody>
-        </table>
+        <div>
+            <table class="calendar">
+                <thead>{thead}</thead>
+                <tbody>{tbody}</tbody>
+            </table>
+        </div>
     );
 }
 
@@ -514,5 +533,10 @@ function onCalendarItemClick(component: KupCard, value: string) {
     }
     setValue(component, d);
     component.onKupClick(component.rootElement.id, value);
+    refresh(component);
+}
+function setDateToday(component: KupCard): void {
+    setValue(component, new Date())
+    component.onKupClick(component.rootElement.id, new Date().toISOString());
     refresh(component);
 }
