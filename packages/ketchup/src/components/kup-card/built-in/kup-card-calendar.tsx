@@ -36,7 +36,7 @@ export function prepareCalendar(component: KupCard) {
                     setValue(component, new Date(opts.initialValue as string));
                 }
             }
-            if (opts.firstDayIndex)
+            if (opts.firstDayIndex !== null && opts.firstDayIndex !== undefined)
                 el.kupData.firstDayIndex = opts.firstDayIndex;
             opts.resetStatus = false;
         }
@@ -157,7 +157,7 @@ function setYear(component: KupCard, value: number) {
 
 function getFirstDayIndex(component: KupCard): number {
     const el = component.rootElement as KupCardBuiltInCalendar;
-    if (el.kupData.firstDayIndex) return el.kupData.firstDayIndex;
+    if (el.kupData.firstDayIndex !== null && el.kupData.firstDayIndex !== undefined) return el.kupData.firstDayIndex;
     return 1;
 }
 
