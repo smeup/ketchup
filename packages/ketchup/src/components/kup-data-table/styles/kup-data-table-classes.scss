@@ -5,7 +5,7 @@
 :host(.#{$kup-class-cross-selection}) {
   #kup-component {
     th.selected {
-      box-shadow: inset 0px 4px 0px 0px var(--kup-secondary-color);
+      box-shadow: inset 0px 4px 0px 0px var(--kup-border-interactive);
     }
 
     td.selected {

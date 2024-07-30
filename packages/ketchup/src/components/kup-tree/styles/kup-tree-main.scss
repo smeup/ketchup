@@ -250,11 +250,13 @@
       &--selected:not(.kup-tree__node--disabled) td {
         background-color: var(--kup_tree_tr_background_color_focus);
       }
+      &--selected:not(.kup-tree__node--disabled) td:nth-of-type(1) {
+        box-shadow: inset 2px 0 0 0 var(--kup-background-brand);
+      }
     }
 
     &[data-show-columns] .kup-tree__node {
       border-bottom: solid 1px var(--kup_tree_border_color);
-      border-left: 2px solid transparent;
       box-sizing: content-box;
     }
   }
