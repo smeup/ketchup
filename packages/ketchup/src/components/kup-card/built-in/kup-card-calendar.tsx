@@ -106,7 +106,7 @@ export function prepareCalendar(component: KupCard) {
 }
 
 function setValue(component: KupCard, value: Date) {
-    if (!!(value instanceof Date)) {
+    if (!(value instanceof Date) || isNaN(value.getTime())) {
         value = new Date();
     }
     const el = component.rootElement as KupCardBuiltInCalendar;
