@@ -2196,6 +2196,14 @@
             ></kup-image>
             <div class="icon-label">traffic-light</div>
           </div>
+          <div class="icon-wrapper" title="transform">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="transform"
+            ></kup-image>
+            <div class="icon-label">transform</div>
+          </div>
           <div class="icon-wrapper" title="trending-down">
             <kup-image
               size-x="48px"
