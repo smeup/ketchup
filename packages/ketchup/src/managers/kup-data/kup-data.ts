@@ -86,6 +86,8 @@ export class KupData {
                         return FCellTypes.COLOR_PICKER;
                     case FCellShapes.COMBOBOX:
                         return FCellTypes.COMBOBOX;
+                    case FCellShapes.DATE:
+                        return FCellTypes.DATE;
                     case FCellShapes.EDITOR:
                         return FCellTypes.EDITOR;
                     case FCellShapes.GAUGE:
@@ -112,6 +114,8 @@ export class KupData {
                         return FCellTypes.TABLE;
                     case FCellShapes.TEXT_FIELD:
                         return FCellTypes.STRING;
+                    case FCellShapes.TIME:
+                        return FCellTypes.TIME;
                 }
             }
 

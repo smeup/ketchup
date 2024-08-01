@@ -59,6 +59,7 @@ import {
 } from './kup-input-panel-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupEditor } from '../kup-editor/kup-editor';
+import { display } from 'html2canvas/dist/types/css/property-descriptors/display';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -160,7 +161,7 @@ export class KupInputPanel {
     #listeners: { event: string; handler: (e) => void }[] = [];
     #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([
         [FCellTypes.DATE, 'kup-date-picker'],
-        // [FCellTypes.EDITOR, 'kup-editor'],
+        [FCellTypes.TIME, 'kup-time-picker'],
     ]);
     #cellCustomRender: Map<
         FCellShapes,
@@ -408,7 +409,18 @@ export class KupInputPanel {
     }
 
     #renderLabel(cell: KupDataCell, cellId: string) {
-        return <span id={cellId}>{cell.value}</span>;
+        const styleObj = {
+            display: 'flex',
+            width: '100%',
+            height: '100%',
+            'align-items': 'center',
+            'justify-content': 'center',
+        };
+        return (
+            <span style={styleObj} id={cellId}>
+                {cell.value}
+            </span>
+        );
     }
 
     #getLabelComponent(cell: KupDataCell, label: string) {
@@ -561,7 +573,7 @@ export class KupInputPanel {
                 const el: any = this.rootElement.shadowRoot.querySelector(
                     `${componentQuery}[id=${column.name}]`
                 );
-                el?.setValue ?? el?.setValue(cell.value);
+                el?.setValue(cell.value);
             })
         );
 
@@ -885,7 +897,6 @@ export class KupInputPanel {
                     label: fieldLabel,
                 },
             },
-            manageSeconds: true,
         };
     }
 

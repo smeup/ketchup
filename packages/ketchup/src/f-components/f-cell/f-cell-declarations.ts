@@ -115,6 +115,7 @@ export enum FCellShapes {
     CHIP = 'CHI',
     COLOR_PICKER = 'CLP',
     COMBOBOX = 'CMB',
+    DATE = 'DAT',
     EDITOR = 'EDT',
     GAUGE = 'GAU',
     IMAGE = 'IMG',
@@ -130,6 +131,7 @@ export enum FCellShapes {
     SWITCH = 'SWT',
     TABLE = 'TBL',
     TEXT_FIELD = 'ITX',
+    TIME = 'TIM',
 }
 /**
  * Supported cell types.
