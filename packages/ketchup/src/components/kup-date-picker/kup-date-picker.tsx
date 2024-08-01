@@ -381,25 +381,32 @@ export class KupDatePicker {
         isOnInputEvent?: boolean
     ) {
         let newValue = eventDetailValue;
-        const dateFormat = this.kupManager.dates.getDateFormat()
-        const parsedDate = dateFormat === "DD/MM/YYYY" ? this.parseDate(newValue) : this.parseDateEn(newValue)
-        if (this.kupManager.dates.isValid(eventDetailValue) && parsedDate) {
-            newValue = this.kupManager.dates.format(
-                this.kupManager.dates.normalize(
-                    eventDetailValue,
-                    KupDatesNormalize.DATE
-                ),
-                KupDatesFormats.ISO_DATE
-            );
-            this.refreshPickerComponentValue(newValue);
-            if (isOnInputEvent != true) {
-                this.setValue(newValue);
+        // check if input contains special codes
+        if (this.isAlphanumeric(newValue)) {
+            this.setValue(newValue);
+        } else {
+            const dateFormat = this.kupManager.dates.getDateFormat();
+            const parsedDate =
+                dateFormat === 'DD/MM/YYYY'
+                    ? this.parseDate(newValue)
+                    : this.parseDateEn(newValue);
+            if (this.kupManager.dates.isValid(eventDetailValue) && parsedDate) {
+                newValue = this.kupManager.dates.format(
+                    this.kupManager.dates.normalize(
+                        eventDetailValue,
+                        KupDatesNormalize.DATE
+                    ),
+                    KupDatesFormats.ISO_DATE
+                );
+                this.refreshPickerComponentValue(newValue);
+                if (isOnInputEvent != true) {
+                    this.setValue(newValue);
+                }
+            } else if (isOnInputEvent != true) {
+                this.setValue('');
+                console.error('Invalid date');
             }
-        }else if(isOnInputEvent != true){
-            this.setValue("")
-            console.error("Invalid date")
         }
-
         if (newValue != null) {
             if (eventToRaise != null) {
                 eventToRaise.emit({
@@ -698,10 +705,18 @@ export class KupDatePicker {
         if (this.value == null || this.value.trim() == '') {
             return '';
         }
+        // check for special code input
+        if (this.isAlphanumeric(this.value)) {
+            return this.value;
+        }
         let v1 = this.kupManager.dates.format(this.value);
         return v1;
     }
 
+    isAlphanumeric(value: string): boolean {
+        const regex = /[A-Za-z]/;
+        return regex.test(value);
+    }
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
