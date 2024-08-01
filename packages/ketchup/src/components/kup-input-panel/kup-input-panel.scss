@@ -28,6 +28,7 @@
   --kup_input_panel_label_alignment: var(--kup-input-panel-label-alignment);
   --kup_input_panel_label_width: var(--kup-input-panel-label-width);
   --kup_input_panel_padding: var(--kup-input-panel-padding, 1em 0);
+  --kup_input_panel_gap: var(--kup-input-panel-gap, var(--kup-space-05));
 
   .input-panel {
     background: var(--kup_input_panel_background_color);
@@ -37,7 +38,7 @@
     overflow: auto;
     padding: var(--kup_input_panel_padding);
     position: relative;
-    gap: 2rem;
+    gap: var(--kup_input_panel_gap);
 
     &--column {
       flex-direction: column;

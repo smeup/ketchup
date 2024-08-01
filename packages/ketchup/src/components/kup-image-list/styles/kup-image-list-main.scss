@@ -25,6 +25,10 @@
     --kup-imagelist-image-min-height,
     var(--kup-space-09)
   );
+  --kup_imagelist_label_title: var(
+    --kup-image-list-label-title,
+    var(--kup-text-secondary)
+  );
   --kup_imagelist_item_border_radius: var(
     --kup-imagelist-item-border-radius,
     var(--kup-radius-00)
@@ -112,6 +116,7 @@
       text-overflow: ellipsis;
       text-transform: uppercase;
       white-space: nowrap;
+      color: var(--kup_imagelist_label_title);
       @include kup-body-compact-01;
     }
   }
@@ -188,6 +193,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     padding: var(--kup-space-03);
+    color: var(--kup_imagelist_label_title);
     @include kup-label-01;
   }
 }
