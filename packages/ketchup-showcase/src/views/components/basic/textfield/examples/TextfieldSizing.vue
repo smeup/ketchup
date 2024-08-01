@@ -10,6 +10,11 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-text-field
+            label="Size: Extra Small"
+            initial-value="Extra Small"
+            sizing="extra-small"
+          ></kup-text-field>
+          <kup-text-field
             label="Size: Small"
             initial-value="Small"
             sizing="small"
@@ -26,9 +31,9 @@
             sizing="large"
           ></kup-text-field>
           <kup-text-field
-            label="Size: Max Large"
-            initial-value="Max Large"
-            sizing="max-large"
+            label="Size: Extra Large"
+            initial-value="Extra Large"
+            sizing="extra-large"
           ></kup-text-field>
         </div>
         <p class="centered">Sample markup with 'small' sizing</p>

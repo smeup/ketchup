@@ -13,9 +13,10 @@ import {
     VNode,
     Watch,
 } from '@stencil/core';
-import type {
+import {
     GenericObject,
     KupComponent,
+    KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import {
@@ -89,6 +90,11 @@ export class KupDatePicker {
      * @default ""
      */
     @Prop() initialValue: string = '';
+    /**
+     * Sets the sizing of the textfield of the datepicker
+     * @default KupComponentSizing.MEDIUM
+     */
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -622,6 +628,7 @@ export class KupDatePicker {
         const fullWidth = this.rootElement.classList.contains('kup-full-width');
         const textfieldData: FTextFieldProps = {
             ...this.data['kup-text-field'],
+            sizing: this.sizing,
         };
         if (!textfieldData.icon) {
             textfieldData.icon = 'calendar';
