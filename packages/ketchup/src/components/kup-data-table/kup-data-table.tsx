@@ -2623,6 +2623,42 @@ export class KupDataTable {
         this.rootElement.shadowRoot.append(this.#detailCard);
     }
 
+    /**
+     * Opens a card containing the actions of the given row.
+     * @param {KupDataTableRow} row - Row for which the actions were requested.
+     * @param {number} x - Initial x coordinates of the card.
+     * @param {number} y - Initial y coordinates of the card.
+     * @private
+     * @memberof KupDataTable
+     */
+    #rowActions(row: KupDataTableRow, x: number, y: number): void {
+        if (!this.#actionsCard) {
+            this.#actionsCard = document.createElement('kup-card');
+            this.#actionsCard.layoutFamily = KupCardFamily.DIALOG;
+            this.#actionsCard.layoutNumber = 4;
+            this.#actionsCard.sizeX = 'auto';
+            this.#actionsCard.sizeY = 'auto';
+        } else {
+            const children: HTMLCollection = Array.prototype.slice.call(
+                this.#actionsCard.children,
+                0
+            );
+            for (let index = 0; index < children.length; index++) {
+                children[index].remove();
+            }
+        }
+
+        this.#actionsCard.data = {} as KupCardData;
+        this.#actionsCard.style.position = 'fixed';
+        this.#actionsCard.style.left = '0';
+        this.#actionsCard.style.top = '0';
+        this.#actionsCard.setAttribute('data-x', x.toString());
+        this.#actionsCard.setAttribute('data-y', y.toString());
+        this.#actionsCard.style.transform =
+            'translate(' + x + 'px,' + y + 'px)';
+        this.rootElement.shadowRoot.append(this.#actionsCard);
+    }
+
     #rowInsertForm() {
         const CARD_WIDTH = 400;
         const CARD_HEIGHT = 400;
@@ -3529,6 +3565,7 @@ export class KupDataTable {
             row,
             type: 'expander',
         });
+        this.#rowActions(row, e.clientX, e.clientY);
     }
 
     #handleRowSelect(row: KupDataTableRow) {
