@@ -945,6 +945,7 @@ export class KupDataTable {
     #filtersRowsInstance: FiltersRows;
     #detailCard: HTMLKupCardElement = null;
     #insertCard: HTMLKupCardElement = null;
+    #actionsCard: HTMLKupCardElement = null;
     #confirmDeleteCard: HTMLKupCardElement = null;
     #confirmDeleteDialog: HTMLKupDialogElement = null;
     #columnMenuCard: HTMLKupCardElement = null;
@@ -3522,7 +3523,6 @@ export class KupDataTable {
 
     #onRowActionExpanderClick(e: MouseEvent, row: KupDataTableRow) {
         e.stopPropagation();
-
         this.kupRowActionClick.emit({
             comp: this,
             id: this.rootElement.id,
