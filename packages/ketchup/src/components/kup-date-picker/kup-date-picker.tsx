@@ -392,10 +392,11 @@ export class KupDatePicker {
             this.setValue(newValue);
         } else {
             const dateFormat = this.kupManager.dates.getDateFormat();
+
             const parsedDate =
                 dateFormat === 'DD/MM/YYYY'
-                    ? this.parseDate(newValue)
-                    : this.parseDateEn(newValue);
+                    ? this.kupManager.dates.parseAndValidateDate(newValue)
+                    : this.kupManager.dates.parseAndValidateDateEn(newValue);
             if (this.kupManager.dates.isValid(eventDetailValue) && parsedDate) {
                 newValue = this.kupManager.dates.format(
                     this.kupManager.dates.normalize(
@@ -423,108 +424,76 @@ export class KupDatePicker {
         }
     }
 
-    parseDate(input: string) {
-        let cleanedInput = input.replace(/[^0-9]/g, '');
-        let dateFormat = null;
-        let day: string, month: string, year: string;
+    // parseAndValidateDateEn(input: string) {
+    //     const cleanedInput = input.replace(/[^0-9]/g, '');
+    //     let day: string, month: string, year: string;
+    //     let dateFormat:
+    //         | 'MMDDYYYY'
+    //         | 'MMDDYY'
+    //         | 'MM/DD/YYYY'
+    //         | 'MM/DD/YY'
+    //         | 'MM-DD-YYYY'
+    //         | 'MM-DD-YY'
+    //         | null = null;
 
-        if (cleanedInput.length === 8) {
-            // DDMMYYYY
-            day = cleanedInput.slice(0, 2);
-            month = cleanedInput.slice(2, 4);
-            year = cleanedInput.slice(4, 8);
-            dateFormat = 'DDMMYYYY';
-        } else if (cleanedInput.length === 6) {
-            // DDMMYY
-            day = cleanedInput.slice(0, 2);
-            month = cleanedInput.slice(2, 4);
-            year = cleanedInput.slice(4, 6);
-            year = (+year >= 50 ? '19' : '20') + year; // Converti in 19xx o 20xx
-            dateFormat = 'DDMMYY';
-        } else if (input.includes('/')) {
-            let parts = input.split('/');
-            day = parts[0];
-            month = parts[1];
-            year = parts[2];
-            if (year && year.length === 2) {
-                year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
-                dateFormat = 'DD/MM/YY';
-            } else if (year && year.length === 4) {
-                dateFormat = 'DD/MM/YYYY';
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
+    //     if (cleanedInput.length === 8) {
+    //         month = cleanedInput.slice(0, 2);
+    //         day = cleanedInput.slice(2, 4);
+    //         year = cleanedInput.slice(4, 8);
+    //         dateFormat = 'MMDDYYYY';
+    //     } else if (cleanedInput.length === 6) {
+    //         month = cleanedInput.slice(0, 2);
+    //         day = cleanedInput.slice(2, 4);
+    //         year = cleanedInput.slice(4, 6);
+    //         year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
+    //         dateFormat = 'MMDDYY';
+    //     } else if (input.includes('/')) {
+    //         const parts = input.split('/');
+    //         if (parts.length !== 3) return null;
 
-        const dayNumber = parseInt(day, 10);
-        const monthNumber = parseInt(month, 10);
-        if (
-            dayNumber < 1 ||
-            dayNumber > 31 ||
-            monthNumber < 1 ||
-            monthNumber > 12
-        ) {
-            return null;
-        }
+    //         month = parts[0];
+    //         day = parts[1];
+    //         year = parts[2];
+    //         if (year && year.length === 2) {
+    //             year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
+    //             dateFormat = 'MM/DD/YY';
+    //         } else if (year && year.length === 4) {
+    //             dateFormat = 'MM/DD/YYYY';
+    //         } else {
+    //             return null;
+    //         }
+    //     } else if (input.includes('-')) {
+    //         const parts = input.split('-');
+    //         if (parts.length !== 3) return null;
 
-        return { day, month, year, dateFormat };
-    }
+    //         month = parts[0];
+    //         day = parts[1];
+    //         year = parts[2];
+    //         if (year && year.length === 2) {
+    //             year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
+    //             dateFormat = 'MM-DD-YY';
+    //         } else if (year && year.length === 4) {
+    //             dateFormat = 'MM-DD-YYYY';
+    //         } else {
+    //             return null;
+    //         }
+    //     } else {
+    //         return null;
+    //     }
 
-    parseDateEn(input: string) {
-        const cleanedInput = input.replace(/[^0-9]/g, '');
-        let day: string, month: string, year: string;
-        let dateFormat:
-            | 'MMDDYYYY'
-            | 'MMDDYY'
-            | 'MM/DD/YYYY'
-            | 'MM/DD/YY'
-            | null = null;
+    //     const dayNumber = parseInt(day, 10);
+    //     const monthNumber = parseInt(month, 10);
+    //     if (
+    //         dayNumber < 1 ||
+    //         dayNumber > 31 ||
+    //         monthNumber < 1 ||
+    //         monthNumber > 12
+    //     ) {
+    //         return null;
+    //     }
 
-        if (cleanedInput.length === 8) {
-            month = cleanedInput.slice(0, 2);
-            day = cleanedInput.slice(2, 4);
-            year = cleanedInput.slice(4, 8);
-            dateFormat = 'MMDDYYYY';
-        } else if (cleanedInput.length === 6) {
-            month = cleanedInput.slice(0, 2);
-            day = cleanedInput.slice(2, 4);
-            year = cleanedInput.slice(4, 6);
-            year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
-            dateFormat = 'MMDDYY';
-        } else if (input.includes('/')) {
-            const parts = input.split('/');
-            if (parts.length !== 3) return null;
-
-            month = parts[0];
-            day = parts[1];
-            year = parts[2];
-            if (year && year.length === 2) {
-                year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
-                dateFormat = 'MM/DD/YY';
-            } else if (year && year.length === 4) {
-                dateFormat = 'MM/DD/YYYY';
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
-
-        const dayNumber = parseInt(day, 10);
-        const monthNumber = parseInt(month, 10);
-        if (
-            dayNumber < 1 ||
-            dayNumber > 31 ||
-            monthNumber < 1 ||
-            monthNumber > 12
-        ) {
-            return null;
-        }
-
-        return { day, month, year, dateFormat };
-    }
+    //     return { day, month, year, dateFormat };
+    // }
 
     refreshPickerComponentValue(value: string) {
         if (!this.isPickerOpened()) {

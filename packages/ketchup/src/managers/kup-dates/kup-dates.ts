@@ -251,7 +251,7 @@ export class KupDates {
     }
 
     /**
-     * Parse and validate a string for date purpose.
+     * Parse and validate a string for date purpose in european format.
      * @param {string} input - The input string to parse.
      * @returns {day: string , month: string , year: string, dateFormat: "DDMMYYYY" | "DDMMYY" | "DD/MM/YYYY" | "DD/MM/YY" | "DD-MM-YYYY" | "DD-MM-YY"} Returns an object with date data and its format.
      */
@@ -322,6 +322,95 @@ export class KupDates {
                 year = cleanedInput.slice(4, 6);
                 year = (+year >= 50 ? '19' : '20') + year;
                 dateFormat = 'DDMMYY';
+            } else {
+                return null;
+            }
+        }
+
+        // check is valid date
+        const date = new Date(`${year}-${month}-${day}`);
+        if (isNaN(date.getTime())) {
+            return null;
+        }
+        if (!this.isDateValidStrict(year, month, day)) {
+            return null;
+        }
+
+        return { day, month, year, dateFormat };
+    }
+
+    /**
+     * Parse and validate a string for date purpose in usa format.
+     * @param {string} input - The input string to parse.
+     * @returns {day: string , month: string , year: string, dateFormat: | 'MMDDYYYY' | 'MMDDYY'| 'MM/DD/YYYY'| 'MM/DD/YY'| 'MM-DD-YYYY' | 'MM-DD-YY'} Returns an object with date data and its format.
+     */
+    parseAndValidateDateEn(input: string): {
+        day: string;
+        month: string;
+        year: string;
+        dateFormat:
+            | 'MMDDYYYY'
+            | 'MMDDYY'
+            | 'MM/DD/YYYY'
+            | 'MM/DD/YY'
+            | 'MM-DD-YYYY'
+            | 'MM-DD-YY';
+    } {
+        let dateFormat:
+            | 'MMDDYYYY'
+            | 'MMDDYY'
+            | 'MM/DD/YYYY'
+            | 'MM/DD/YY'
+            | 'MM-DD-YYYY'
+            | 'MM-DD-YY'
+            | null = null;
+        let day: string, month: string, year: string;
+
+        if (input.includes('/')) {
+            let parts = input.split('/');
+            if (parts.length !== 3) return null;
+
+            month = parts[0];
+            day = parts[1];
+            year = parts[2];
+            if (year.length === 2) {
+                year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
+                dateFormat = 'MM/DD/YY';
+            } else if (year.length === 4) {
+                dateFormat = 'MM/DD/YYYY';
+            } else {
+                return null;
+            }
+        } else if (input.includes('-')) {
+            let parts = input.split('-');
+            if (parts.length !== 3) return null;
+
+            month = parts[0];
+            day = parts[1];
+            year = parts[2];
+            if (year.length === 2) {
+                year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
+                dateFormat = 'MM-DD-YY';
+            } else if (year.length === 4) {
+                dateFormat = 'MM-DD-YYYY';
+            } else {
+                return null;
+            }
+        } else {
+            let cleanedInput = input.replace(/[^0-9]/g, '');
+            if (cleanedInput.length === 8) {
+                // MMDDYYYY
+                month = cleanedInput.slice(0, 2);
+                day = cleanedInput.slice(2, 4);
+                year = cleanedInput.slice(4, 8);
+                dateFormat = 'MMDDYYYY';
+            } else if (cleanedInput.length === 6) {
+                // MMDDYY
+                month = cleanedInput.slice(0, 2);
+                day = cleanedInput.slice(2, 4);
+                year = cleanedInput.slice(4, 6);
+                year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
+                dateFormat = 'MMDDYY';
             } else {
                 return null;
             }
