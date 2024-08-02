@@ -1528,3 +1528,78 @@ export function create15(component: KupCard): VNode {
         </div>
     );
 }
+
+/**
+ * 16th standard card layout, it can be used as a tooltip.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 16th standard layout virtual node.
+ */
+export function create16(component: KupCard): VNode {
+    const textfieldArray: GenericObject[] = component.data['textfield']
+        ? component.data['textfield']
+        : [];
+    const buttonArray: GenericObject[] = component.data['button']
+        ? component.data['button']
+        : [];
+
+    // Setting up text fields.
+    const textfieldsIds: string[] = [];
+    for (let index = 0; index < textfieldArray.length; index++) {
+        const textfield: GenericObject = textfieldArray[index];
+        if (textfield['id']) {
+            textfieldsIds.push(textfield['id']);
+        }
+    }
+    // Setting up buttons.
+    const buttonsIds: string[] = [];
+    for (let index = 0; index < buttonArray.length; index++) {
+        const button: GenericObject = buttonArray[index];
+        if (button['id']) {
+            buttonsIds.push(button['id']);
+        }
+    }
+
+    return (
+        <div class={`standard-layout-${component.layoutNumber} `}>
+            <div class="section-1">
+                <div
+                    class={`sub-field ${
+                        textfieldArray.length > 0
+                            ? KupCardCSSClasses.HAS_CONTENT
+                            : ''
+                    }`}
+                >
+                    {textfieldsIds.includes(
+                        KupColumnMenuIds.TEXTFIELD_FILTER
+                    ) ? (
+                        <kup-text-field
+                            {...textfieldArray.find(
+                                (x) =>
+                                    x.id === KupColumnMenuIds.TEXTFIELD_FILTER
+                            )}
+                        />
+                    ) : null}
+                    {textfieldsIds.includes(KupColumnMenuIds.TEXTFIELD_FROM) ? (
+                        <kup-text-field
+                            {...textfieldArray.find(
+                                (x) => x.id === KupColumnMenuIds.TEXTFIELD_FROM
+                            )}
+                        />
+                    ) : null}
+                    {textfieldsIds.includes(KupColumnMenuIds.TEXTFIELD_TO) ? (
+                        <kup-text-field
+                            {...textfieldArray.find(
+                                (x) => x.id === KupColumnMenuIds.TEXTFIELD_TO
+                            )}
+                        />
+                    ) : null}
+                </div>
+                {buttonArray.length > 0 ? (
+                    <div class="sub-button">
+                        {compList(buttonArray, 'button')}
+                    </div>
+                ) : null}
+            </div>
+        </div>
+    );
+}
