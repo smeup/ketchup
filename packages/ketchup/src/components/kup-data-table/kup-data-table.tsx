@@ -4810,7 +4810,7 @@ export class KupDataTable {
                     // adding expander
                     const props: FImageProps = {
                         color: `var(${KupThemeColorValues.PRIMARY})`,
-                        resource: 'chevron-right',
+                        resource: 'chevron-down',
                         sizeX: '1.5em',
                         sizeY: '1.5em',
                         title: this.#kupManager.language.translate(
