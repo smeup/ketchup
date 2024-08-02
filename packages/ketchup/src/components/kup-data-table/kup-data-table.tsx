@@ -2631,11 +2631,11 @@ export class KupDataTable {
      * @private
      * @memberof KupDataTable
      */
-    #rowActions(row: KupDataTableRow, x: number, y: number): void {
+    #rowActions(rowActions: KupDataRowAction[], x: number, y: number): void {
         if (!this.#actionsCard) {
             this.#actionsCard = document.createElement('kup-card');
-            this.#actionsCard.layoutFamily = KupCardFamily.DIALOG;
-            this.#actionsCard.layoutNumber = 4;
+            this.#actionsCard.layoutFamily = KupCardFamily.FREE;
+            this.#actionsCard.layoutNumber = 1;
             this.#actionsCard.sizeX = 'auto';
             this.#actionsCard.sizeY = 'auto';
         } else {
@@ -2648,7 +2648,6 @@ export class KupDataTable {
             }
         }
 
-        this.#actionsCard.data = {} as KupCardData;
         this.#actionsCard.style.position = 'fixed';
         this.#actionsCard.style.left = '0';
         this.#actionsCard.style.top = '0';
@@ -3557,7 +3556,11 @@ export class KupDataTable {
         });
     }
 
-    #onRowActionExpanderClick(e: MouseEvent, row: KupDataTableRow) {
+    #onRowActionExpanderClick(
+        e: MouseEvent,
+        row: KupDataTableRow,
+        rowActions: KupDataRowAction[]
+    ) {
         e.stopPropagation();
         this.kupRowActionClick.emit({
             comp: this,
@@ -3565,7 +3568,7 @@ export class KupDataTable {
             row,
             type: 'expander',
         });
-        this.#rowActions(row, e.clientX, e.clientY);
+        this.#rowActions(rowActions, e.clientX, e.clientY);
     }
 
     #handleRowSelect(row: KupDataTableRow) {
@@ -4815,7 +4818,11 @@ export class KupDataTable {
                         ),
                         wrapperClass: 'expander',
                         onClick: (e: MouseEvent) => {
-                            this.#onRowActionExpanderClick(e, row);
+                            this.#onRowActionExpanderClick(
+                                e,
+                                row,
+                                this.rowActions
+                            );
                         },
                     };
                     rowActionsCount++;
