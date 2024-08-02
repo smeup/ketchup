@@ -4998,14 +4998,17 @@ export class KupDataTable {
         const dropdownRow = Object.values(row.cells).filter(
             (c) => c.shape === 'BTN'
         );
-        return dropdownRow.flatMap((r) => {
-            const dataNode = r.data?.data?.[0] as KupDataNode;
 
-            return dataNode?.children?.map((c) => ({
-                icon: c.icon,
-                text: c.value,
-            }));
-        });
+        return dropdownRow.length
+            ? dropdownRow.flatMap((r) => {
+                  const dataNode = r.data?.data?.[0] as KupDataNode;
+
+                  return dataNode?.children?.map((c) => ({
+                      icon: c.icon,
+                      text: c.value,
+                  }));
+              })
+            : [];
     }
 
     #renderActions(
