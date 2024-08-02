@@ -114,4 +114,9 @@
     line-height: 2.5em;
     color: var(--kup_card_text_color);
   }
+
+  .today-navigation-button{
+    display: flex;
+    align-items: center; 
+  }
 }
