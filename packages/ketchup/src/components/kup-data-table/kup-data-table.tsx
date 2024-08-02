@@ -168,6 +168,7 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupFormRow } from '../kup-form/kup-form-declarations';
 import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
+import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 @Component({
     tag: 'kup-data-table',
     styleUrl: 'kup-data-table.scss',
@@ -2626,17 +2627,17 @@ export class KupDataTable {
 
     /**
      * Opens a card containing the actions of the given row.
-     * @param {KupDataTableRow} row - Row for which the actions were requested.
+     * @param {KupDataRowAction[]} rowActions - Actions for the row.
      * @param {number} x - Initial x coordinates of the card.
      * @param {number} y - Initial y coordinates of the card.
      * @private
      * @memberof KupDataTable
      */
-    #rowActions(x: number, y: number): void {
+    #rowActions(rowActions: KupDataRowAction[], x: number, y: number): void {
         if (!this.#actionsCard) {
             this.#actionsCard = document.createElement('kup-card');
-            this.#actionsCard.layoutFamily = KupCardFamily.FREE;
-            this.#actionsCard.layoutNumber = 1;
+            this.#actionsCard.layoutFamily = KupCardFamily.STANDARD;
+            this.#actionsCard.layoutNumber = 16;
             this.#actionsCard.sizeX = 'auto';
             this.#actionsCard.sizeY = 'auto';
         } else {
@@ -2649,6 +2650,18 @@ export class KupDataTable {
             }
         }
 
+        this.#actionsCard.data = {
+            textfield: [
+                {
+                    fullWidth: true,
+                    icon: 'magnify',
+                    isClearable: true,
+                    label: 'Search...',
+                    id: KupColumnMenuIds.TEXTFIELD_FILTER,
+                },
+            ],
+            button: rowActions,
+        };
         this.#actionsCard.style.position = 'fixed';
         this.#actionsCard.style.left = '0';
         this.#actionsCard.style.top = '0';
@@ -3559,8 +3572,8 @@ export class KupDataTable {
 
     #onRowActionExpanderClick(
         e: MouseEvent,
-        row: KupDataTableRow
-        // rowActions: KupDataRowAction[]
+        row: KupDataTableRow,
+        rowActions: KupDataRowAction[]
     ) {
         e.stopPropagation();
         this.kupRowActionClick.emit({
@@ -3569,7 +3582,7 @@ export class KupDataTable {
             row,
             type: 'expander',
         });
-        this.#rowActions(e.clientX, e.clientY);
+        this.#rowActions(rowActions, e.clientX, e.clientY);
     }
 
     #handleRowSelect(row: KupDataTableRow) {
@@ -4808,6 +4821,8 @@ export class KupDataTable {
                         'variable'
                     );
                 } else {
+                    const dropdownRowActions =
+                        this.#getActionsFromDropdownRow(row);
                     // adding expander
                     const props: FImageProps = {
                         color: `var(${KupThemeColorValues.PRIMARY})`,
@@ -4821,9 +4836,8 @@ export class KupDataTable {
                         onClick: (e: MouseEvent) => {
                             this.#onRowActionExpanderClick(
                                 e,
-                                row
-                                //this.rowActions,
-                                //this.#getActionsFromDropdownRow(row);
+                                row,
+                                this.rowActions.concat(dropdownRowActions)
                             );
                         },
                     };
