@@ -209,6 +209,49 @@ export class KupDates {
     }
 
     /**
+     * Validates strictly the given date.
+     * @param {string} year - The year component of the date.
+     * @param {string} month - The month component of the date.
+     * @param {string} day - The day component of the date.
+     * @returns {boolean} Returns whether the argument is a valid date or not.
+     */
+    isDateValidStrict(year: string, month: string, day: string): boolean {
+        const yearInt = parseInt(year, 10);
+        const monthInt = parseInt(month, 10);
+        const dayInt = parseInt(day, 10);
+
+        if (
+            isNaN(yearInt) ||
+            isNaN(monthInt) ||
+            isNaN(dayInt) ||
+            yearInt < 0 ||
+            monthInt < 1 ||
+            monthInt > 12 ||
+            dayInt < 1
+        ) {
+            return false;
+        }
+
+        const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        if (monthInt === 2) {
+            const isLeapYear =
+                (yearInt % 4 === 0 && yearInt % 100 !== 0) ||
+                yearInt % 400 === 0;
+            if (isLeapYear) {
+                daysInMonth[1] = 29;
+            }
+        }
+
+        if (dayInt > daysInMonth[monthInt - 1]) {
+            return false;
+        }
+
+        return true;
+    }
+
+    
+    /**
      * Validates the given date as string.
      * @param {string} value time string, formatted by actual browser locale
      * @param {boolean} manageSeconds if manage seconds
