@@ -2631,7 +2631,7 @@ export class KupDataTable {
      * @private
      * @memberof KupDataTable
      */
-    #rowActions(rowActions: KupDataRowAction[], x: number, y: number): void {
+    #rowActions(x: number, y: number): void {
         if (!this.#actionsCard) {
             this.#actionsCard = document.createElement('kup-card');
             this.#actionsCard.layoutFamily = KupCardFamily.FREE;
@@ -3568,7 +3568,7 @@ export class KupDataTable {
             row,
             type: 'expander',
         });
-        this.#rowActions(rowActions, e.clientX, e.clientY);
+        this.#rowActions(e.clientX, e.clientY);
     }
 
     #handleRowSelect(row: KupDataTableRow) {
