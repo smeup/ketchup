@@ -159,6 +159,7 @@ import {
     KupDataDataset,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
+    KupDataNode,
     KupDataRow,
     KupDataRowAction,
     KupDataRowCells,
@@ -3031,9 +3032,9 @@ export class KupDataTable {
 
     getVisibleColumns(): Array<KupDataColumn> {
         // TODO: change into `visible ?? true` when TS dependency has been updated
-        const visibleColumns = this.getColumns().filter(({ visible }) =>
-            visible !== undefined ? visible : true
-        );
+        const visibleColumns = this.getColumns().filter(({ visible }) => {
+            return visible !== undefined ? visible : true;
+        });
 
         // check grouping
         if (this.#isGrouping()) {
@@ -4821,7 +4822,8 @@ export class KupDataTable {
                             this.#onRowActionExpanderClick(
                                 e,
                                 row
-                                //this.rowActions
+                                //this.rowActions,
+                                //this.#getActionsFromDropdownRow(row);
                             );
                         },
                     };
@@ -4990,6 +4992,20 @@ export class KupDataTable {
                 </tr>
             );
         }
+    }
+
+    #getActionsFromDropdownRow(row: KupDataTableRow): KupDataRowAction[] {
+        const dropdownRow = Object.values(row.cells).filter(
+            (c) => c.shape === 'BTN'
+        );
+        return dropdownRow.flatMap((r) => {
+            const dataNode = r.data?.data?.[0] as KupDataNode;
+
+            return dataNode?.children?.map((c) => ({
+                icon: c.icon,
+                text: c.value,
+            }));
+        });
     }
 
     #renderActions(
