@@ -3558,8 +3558,8 @@ export class KupDataTable {
 
     #onRowActionExpanderClick(
         e: MouseEvent,
-        row: KupDataTableRow,
-        rowActions: KupDataRowAction[]
+        row: KupDataTableRow
+        // rowActions: KupDataRowAction[]
     ) {
         e.stopPropagation();
         this.kupRowActionClick.emit({
@@ -4820,8 +4820,8 @@ export class KupDataTable {
                         onClick: (e: MouseEvent) => {
                             this.#onRowActionExpanderClick(
                                 e,
-                                row,
-                                this.rowActions
+                                row
+                                //this.rowActions
                             );
                         },
                     };
