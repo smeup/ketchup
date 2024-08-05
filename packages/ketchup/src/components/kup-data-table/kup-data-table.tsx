@@ -2661,7 +2661,10 @@ export class KupDataTable {
                     id: KupColumnMenuIds.TEXTFIELD_FILTER,
                 },
             ],
-            button: rowActions,
+            button: rowActions.map((r) => ({
+                label: r.text,
+                ...r,
+            })),
         };
         this.#clickCbDropCard = {
             cb: () => {
@@ -3599,7 +3602,6 @@ export class KupDataTable {
             row,
             type: 'expander',
         });
-        console.log(row);
 
         this.#rowActions(rowActions, e.clientX, e.clientY);
     }
