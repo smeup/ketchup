@@ -1595,13 +1595,20 @@ export function create16(component: KupCard): VNode {
                     ) : null}
                 </div>
             </div>
-                <div class="section-2">
-                    {buttonArray.length > 0 ? (
-                        <div class="sub-button">
-                            {compList(buttonArray, 'button')}
-                        </div>
-                    ) : null}
-                </div>
+            <div class="section-2">
+                {buttonArray.length > 0 ? (
+                    <div class="sub-button">
+                        {buttonArray.map((b) => {
+                            return (
+                                <kup-button
+                                    {...b}
+                                    styling={FButtonStyling.OUTLINED}
+                                ></kup-button>
+                            );
+                        })}
+                    </div>
+                ) : null}
+            </div>
         </div>
     );
 }
