@@ -2635,24 +2635,7 @@ export class KupDataTable {
      */
     #rowActions(rowActions: KupDataRowAction[], x: number, y: number): void {
         if (!this.#actionsCard) {
-            this.#actionsCard = document.createElement('kup-card');
-            this.#actionsCard.layoutFamily = KupCardFamily.STANDARD;
-            this.#actionsCard.layoutNumber = 16;
-            this.#actionsCard.menuVisible = true;
-            this.#actionsCard.sizeX = 'auto';
-            this.#actionsCard.sizeY = 'auto';
-            this.#actionsCard.data = {
-                textfield: [
-                    {
-                        fullWidth: true,
-                        icon: 'magnify',
-                        isClearable: true,
-                        label: 'Search...',
-                        id: KupColumnMenuIds.TEXTFIELD_FILTER,
-                    },
-                ],
-                button: rowActions,
-            };
+            this.#createRowActionsCard(rowActions);
         }
 
         this.#actionsCard.style.position = 'fixed';
@@ -2662,17 +2645,39 @@ export class KupDataTable {
         this.#actionsCard.setAttribute('data-y', y.toString());
         this.#actionsCard.style.transform =
             'translate(' + x + 'px,' + y + 'px)';
+
+        this.rootElement.shadowRoot.append(this.#actionsCard);
+    }
+
+    #createRowActionsCard(rowActions: KupDataRowAction[]) {
+        this.#actionsCard = document.createElement('kup-card');
+        this.#actionsCard.layoutFamily = KupCardFamily.STANDARD;
+        this.#actionsCard.layoutNumber = 16;
+        this.#actionsCard.menuVisible = true;
+        this.#actionsCard.sizeX = 'auto';
+        this.#actionsCard.sizeY = 'auto';
+        this.#actionsCard.data = {
+            textfield: [
+                {
+                    fullWidth: true,
+                    icon: 'magnify',
+                    isClearable: true,
+                    label: 'Search...',
+                    id: KupColumnMenuIds.TEXTFIELD_FILTER,
+                },
+            ],
+            button: rowActions,
+        };
         this.#clickCbDropCard = {
             cb: () => {
-                this.#closeRowActions();
+                this.#closeRowActionsCard();
             },
             el: this.#actionsCard,
         };
         this.#kupManager.addClickCallback(this.#clickCbDropCard, true);
-        this.rootElement.shadowRoot.append(this.#actionsCard);
     }
 
-    #closeRowActions() {
+    #closeRowActionsCard() {
         this.#kupManager.dynamicPosition.stop(
             this.#actionsCard as KupDynamicPositionElement
         );
