@@ -59,7 +59,6 @@ import {
 } from './kup-input-panel-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupEditor } from '../kup-editor/kup-editor';
-import { display } from 'html2canvas/dist/types/css/property-descriptors/display';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
