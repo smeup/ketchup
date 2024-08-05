@@ -574,6 +574,13 @@ export class KupDataTable {
      */
     @Prop() fixedColumns: number = 0;
     /**
+     * Fixes the given number of columns to the right so that they stay visible when horizontally scrolling the data-table.
+     * If grouping is active or the value of the prop is <= 0, this prop will have no effect.
+     * Can be combined with fixedRows.
+     * @see fixedRows
+     */
+    @Prop() fixedColumnsR: number = 0;
+    /**
      * Fixes the given number of rows so that they stay visible when vertically scrolling the data-table.
      * If grouping is active or the value of the prop is <= 0, this prop will have no effect.
      * Can be combined with fixedColumns.
@@ -838,12 +845,17 @@ export class KupDataTable {
     }
 
     @Watch('fixedColumns')
+    @Watch('fixedColumnsR')
     @Watch('fixedRows')
     controlFixedRowsColumns() {
         let warnMessage = '';
 
         if (isNaN(this.fixedColumns) || this.fixedColumns < 0) {
             warnMessage += `The value ${this.fixedColumns} set on fixedColumns property is not valid.`;
+        }
+
+        if (isNaN(this.fixedColumnsR) || this.fixedColumnsR < 0) {
+            warnMessage += `The value ${this.fixedColumnsR} set on fixedColumnsR property is not valid.`;
         }
 
         if (isNaN(this.fixedRows) || this.fixedRows < 0) {
@@ -3174,6 +3186,7 @@ export class KupDataTable {
     //==== Fixed columns and rows methods ====
     #composeFixedCellStyleAndClass(
         columnCssIndex: number,
+        columnCssIndexR: number,
         rowCssIndex: number,
         extraCellsCount: number = 0
     ):
@@ -3190,13 +3203,18 @@ export class KupDataTable {
         const validFixedColumn: boolean =
             Number.isInteger(this.fixedColumns) &&
             columnCssIndex <= this.fixedColumns + extraCellsCount;
+        const validFixedColumnR: boolean =
+            this.fixedColumnsR &&
+            Number.isInteger(this.fixedColumnsR) &&
+            columnCssIndexR >
+                this.getVisibleColumns().length - this.fixedColumnsR;
         const validFixedRowIndex =
             Number.isInteger(this.fixedRows) &&
             rowCssIndex > 0 &&
             rowCssIndex <= this.fixedRows;
 
         // When the cell is not valid to be either into a fixed column or into a fixed row, returns null.
-        if (!validFixedRowIndex && !validFixedColumn) {
+        if (!validFixedRowIndex && !validFixedColumn && !validFixedColumnR) {
             return undefined;
         }
 
@@ -3210,6 +3228,19 @@ export class KupDataTable {
                 ShowGrid.COL === this.showGrid;
             fixedCellStyle['left'] =
                 'var(' + FixedCellsCSSVarsBase.columns + columnCssIndex + ')';
+        }
+
+        if (validFixedColumnR) {
+            const prog =
+                columnCssIndexR - (this.getVisibleColumns().length - 1);
+            const progIdx = prog - this.fixedColumnsR;
+            const absIdx = Math.abs(progIdx);
+            fixedCellClasses[FixedCellsClasses.columnsR] = validFixedColumnR;
+            fixedCellClasses['show-column-separator'] =
+                ShowGrid.COMPLETE === this.showGrid ||
+                ShowGrid.COL === this.showGrid;
+            fixedCellStyle['right'] =
+                'var(' + (FixedCellsCSSVarsBase.columnsR + absIdx) + ')'; // right value assignment must be reversed
         }
 
         if (validFixedRowIndex) {
@@ -3284,6 +3315,25 @@ export class KupDataTable {
                 previousWidth += currentCell.getBoundingClientRect().width; // [ffbf]
                 currentCell =
                     currentCell.nextElementSibling as HTMLTableCellElement;
+            }
+            toRet = true;
+        }
+
+        if (this.fixedColumnsR >= 1) {
+            let currentCell: HTMLTableCellElement =
+                this.#tableRef.querySelector(
+                    'tbody > tr:first-of-type > td:last-of-type'
+                );
+            let previousWidth = 0;
+
+            for (let i = 1; i <= this.fixedColumnsR && currentCell; i++) {
+                this.#tableAreaRef.style.setProperty(
+                    FixedCellsCSSVarsBase.columnsR + i,
+                    previousWidth + 'px'
+                );
+                previousWidth += currentCell.getBoundingClientRect().width;
+                currentCell =
+                    currentCell.previousElementSibling as HTMLTableCellElement;
             }
             toRet = true;
         }
@@ -3819,6 +3869,7 @@ export class KupDataTable {
         // For fixed cells styles and classes
         const fixedCellStyle = this.#composeFixedCellStyleAndClass(
             columnIndex + 1 + extraCells,
+            columnIndex + 1,
             0,
             extraCells
         );
@@ -3848,6 +3899,7 @@ export class KupDataTable {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
                 specialExtraCellsCount,
+                0,
                 0,
                 specialExtraCellsCount - 1
             );
@@ -3897,6 +3949,7 @@ export class KupDataTable {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
                 specialExtraCellsCount,
+                0,
                 0,
                 specialExtraCellsCount - 1
             );
@@ -4036,6 +4089,7 @@ export class KupDataTable {
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
                 specialExtraCellsCount,
                 0,
+                0,
                 specialExtraCellsCount - 1
             );
 
@@ -4083,6 +4137,7 @@ export class KupDataTable {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
                 specialExtraCellsCount,
+                0,
                 0,
                 specialExtraCellsCount - 1
             );
@@ -4193,6 +4248,7 @@ export class KupDataTable {
             const fixedCellStyle = this.#composeFixedCellStyleAndClass(
                 extraCells,
                 0,
+                0,
                 extraCells
             );
 
@@ -4214,6 +4270,7 @@ export class KupDataTable {
             extraCells++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
                 extraCells,
+                0,
                 0,
                 extraCells
             );
@@ -4237,6 +4294,7 @@ export class KupDataTable {
             (column: KupDataColumn, columnIndex) => {
                 const fixedCellStyle = this.#composeFixedCellStyleAndClass(
                     columnIndex + 1 + extraCells,
+                    columnIndex + 1,
                     0,
                     extraCells
                 );
@@ -4557,6 +4615,31 @@ export class KupDataTable {
                     </tr>
                 );
 
+                // if group is expanded, add children
+
+                if (this.#isGroupExpanded(row)) {
+                    row.group.children
+                        // We must pass the previous element of the array to check if we must hide or display the value of the cell
+                        // When the column has specified the parameter hideValuesRepetitions
+                        .map((row, groupRowIndex, currentArray) =>
+                            this.#renderRow(
+                                row,
+                                level + 1,
+                                groupRowIndex,
+                                groupRowIndex > 0
+                                    ? currentArray[groupRowIndex - 1]
+                                    : undefined
+                            )
+                        )
+                        .forEach((jsxRow) => {
+                            if (Array.isArray(jsxRow)) {
+                                jsxRow.forEach((jr) => jsxRows.push(jr));
+                            } else {
+                                jsxRows.push(jsxRow);
+                            }
+                        });
+                }
+
                 jsxRows.push(
                     <tr
                         ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
@@ -4582,30 +4665,28 @@ export class KupDataTable {
                         </td>
                     </tr>
                 );
-            }
-
-            // if group is expanded, add children
-            if (this.#isGroupExpanded(row)) {
-                row.group.children
-                    // We must pass the previous element of the array to check if we must hide or display the value of the cell
-                    // When the column has specified the parameter hideValuesRepetitions
-                    .map((row, groupRowIndex, currentArray) =>
-                        this.#renderRow(
-                            row,
-                            level + 1,
-                            groupRowIndex,
-                            groupRowIndex > 0
-                                ? currentArray[groupRowIndex - 1]
-                                : undefined
+                if (this.#isGroupExpanded(row)) {
+                    row.group.children
+                        // We must pass the previous element of the array to check if we must hide or display the value of the cell
+                        // When the column has specified the parameter hideValuesRepetitions
+                        .map((row, groupRowIndex, currentArray) =>
+                            this.#renderRow(
+                                row,
+                                level + 1,
+                                groupRowIndex,
+                                groupRowIndex > 0
+                                    ? currentArray[groupRowIndex - 1]
+                                    : undefined
+                            )
                         )
-                    )
-                    .forEach((jsxRow) => {
-                        if (Array.isArray(jsxRow)) {
-                            jsxRow.forEach((jr) => jsxRows.push(jr));
-                        } else {
-                            jsxRows.push(jsxRow);
-                        }
-                    });
+                        .forEach((jsxRow) => {
+                            if (Array.isArray(jsxRow)) {
+                                jsxRow.forEach((jr) => jsxRows.push(jr));
+                            } else {
+                                jsxRows.push(jsxRow);
+                            }
+                        });
+                }
             }
 
             // grouping row
@@ -4769,6 +4850,7 @@ export class KupDataTable {
                 //-- For fixed cells --
                 const fixedStyles = this.#composeFixedCellStyleAndClass(
                     cellIndex + 1 + specialExtraCellsCount,
+                    cellIndex + 1,
                     rowCssIndex,
                     specialExtraCellsCount
                 );

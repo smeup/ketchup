@@ -210,7 +210,7 @@ export class KupTextField {
      */
     @Prop() size: number = null;
     /**
-     * Sets the type of the button
+     * Sets the sizing of the textfield
      * @default KupComponentSizing.MEDIUM
      */
     @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;

@@ -1451,6 +1451,11 @@ export namespace Components {
          */
         "fixedColumns": number;
         /**
+          * Fixes the given number of columns to the right so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.
+          * @see fixedRows
+         */
+        "fixedColumnsR": number;
+        /**
           * Fixes the given number of rows so that they stay visible when vertically scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedColumns.
           * @see fixedColumns
          */
@@ -1737,6 +1742,11 @@ export namespace Components {
           * @param value - Value to be set.
          */
         "setValue": (value: string) => Promise<void>;
+        /**
+          * Sets the sizing of the textfield of the datepicker
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing": KupComponentSizing;
     }
     interface KupDialog {
         /**
@@ -3969,7 +3979,7 @@ export namespace Components {
          */
         "size": number;
         /**
-          * Sets the type of the button
+          * Sets the sizing of the textfield
           * @default KupComponentSizing.MEDIUM
          */
         "sizing": KupComponentSizing;
@@ -6636,6 +6646,11 @@ declare namespace LocalJSX {
          */
         "fixedColumns"?: number;
         /**
+          * Fixes the given number of columns to the right so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.
+          * @see fixedRows
+         */
+        "fixedColumnsR"?: number;
+        /**
           * Fixes the given number of rows so that they stay visible when vertically scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedColumns.
           * @see fixedColumns
          */
@@ -6899,6 +6914,11 @@ declare namespace LocalJSX {
         "onKup-datepicker-input"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
         "onKup-datepicker-itemclick"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
         "onKup-datepicker-textfieldsubmit"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
+        /**
+          * Sets the sizing of the textfield of the datepicker
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing"?: KupComponentSizing;
     }
     interface KupDialog {
         /**
@@ -8753,7 +8773,7 @@ declare namespace LocalJSX {
          */
         "size"?: number;
         /**
-          * Sets the type of the button
+          * Sets the sizing of the textfield
           * @default KupComponentSizing.MEDIUM
          */
         "sizing"?: KupComponentSizing;
