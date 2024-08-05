@@ -4825,11 +4825,6 @@ export class KupDataTable {
                     );
 
                 rowActionsCount += this.rowActions.length;
-                const defaultRowActions = this.#renderActions(
-                    this.rowActions,
-                    row,
-                    'default'
-                );
 
                 let rowActionExpander = null;
                 let variableActions = null;
@@ -4880,7 +4875,6 @@ export class KupDataTable {
                                 : null
                         }
                     >
-                        {defaultRowActions}
                         {rowActionExpander}
                         {variableActions}
                     </td>
@@ -5010,16 +5004,13 @@ export class KupDataTable {
                 rowClass[row.cssClass] = true;
             }
 
-            const style: GenericObject = {
-                '--kup_datatable_row_actions': rowActionsCount,
-            };
+            
 
             return (
                 <tr
                     ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
                     data-row={row}
                     class={rowClass}
-                    style={style}
                 >
                     {selectRowCell}
                     {rowActionsCell}
