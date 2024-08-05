@@ -2634,22 +2634,17 @@ export class KupDataTable {
      * @memberof KupDataTable
      */
     #rowActions(rowActions: KupDataRowAction[], x: number, y: number): void {
-        if (!this.#actionsCard) {
-            this.#createRowActionsCard(rowActions);
+        if (this.#actionsCard) {
+            this.#closeRowActionsCard();
         }
-
-        this.#actionsCard.style.position = 'fixed';
-        this.#actionsCard.style.left = '0';
-        this.#actionsCard.style.top = '0';
-        this.#actionsCard.setAttribute('data-x', x.toString());
-        this.#actionsCard.setAttribute('data-y', y.toString());
-        this.#actionsCard.style.transform =
-            'translate(' + x + 'px,' + y + 'px)';
-
-        this.rootElement.shadowRoot.append(this.#actionsCard);
+        this.#createRowActionsCard(rowActions, x, y);
     }
 
-    #createRowActionsCard(rowActions: KupDataRowAction[]) {
+    #createRowActionsCard(
+        rowActions: KupDataRowAction[],
+        x: number,
+        y: number
+    ) {
         this.#actionsCard = document.createElement('kup-card');
         this.#actionsCard.layoutFamily = KupCardFamily.STANDARD;
         this.#actionsCard.layoutNumber = 16;
@@ -2675,6 +2670,14 @@ export class KupDataTable {
             el: this.#actionsCard,
         };
         this.#kupManager.addClickCallback(this.#clickCbDropCard, true);
+        this.#actionsCard.style.position = 'fixed';
+        this.#actionsCard.style.left = '0';
+        this.#actionsCard.style.top = '0';
+        this.#actionsCard.setAttribute('data-x', x.toString());
+        this.#actionsCard.setAttribute('data-y', y.toString());
+        this.#actionsCard.style.transform =
+            'translate(' + x + 'px,' + y + 'px)';
+        this.rootElement.shadowRoot.append(this.#actionsCard);
     }
 
     #closeRowActionsCard() {
@@ -3596,6 +3599,8 @@ export class KupDataTable {
             row,
             type: 'expander',
         });
+        console.log(row);
+
         this.#rowActions(rowActions, e.clientX, e.clientY);
     }
 
