@@ -2651,21 +2651,7 @@ export class KupDataTable {
         this.#actionsCard.menuVisible = true;
         this.#actionsCard.sizeX = 'auto';
         this.#actionsCard.sizeY = 'auto';
-        this.#actionsCard.data = {
-            textfield: [
-                {
-                    fullWidth: true,
-                    icon: 'magnify',
-                    isClearable: true,
-                    label: 'Search...',
-                    id: KupColumnMenuIds.TEXTFIELD_FILTER,
-                },
-            ],
-            button: rowActions.map((r) => ({
-                label: r.text,
-                ...r,
-            })),
-        };
+        this.#actionsCard.data = this.#prepareDataForActionsCard(rowActions);
         this.#clickCbDropCard = {
             cb: () => {
                 this.#closeRowActionsCard();
@@ -2690,6 +2676,27 @@ export class KupDataTable {
         this.#kupManager.removeClickCallback(this.#clickCbDropCard);
         this.#actionsCard.remove();
         this.#actionsCard = null;
+    }
+
+    #prepareDataForActionsCard(rowActions: KupDataRowAction[]): KupCardData {
+        const data: KupCardData = {};
+
+        data.button = rowActions.map((r) => ({
+            label: r.text,
+            ...r,
+        }));
+        data.textfield = [
+            {
+                fullWidth: true,
+                icon: 'magnify',
+                isClearable: true,
+                label: 'Search...',
+                key: KupColumnMenuIds.TEXTFIELD_FILTER,
+                id: KupColumnMenuIds.TEXTFIELD_FILTER,
+            },
+        ];
+
+        return data;
     }
 
     #rowInsertForm() {
@@ -5003,8 +5010,6 @@ export class KupDataTable {
             if (row.cssClass) {
                 rowClass[row.cssClass] = true;
             }
-
-            
 
             return (
                 <tr
