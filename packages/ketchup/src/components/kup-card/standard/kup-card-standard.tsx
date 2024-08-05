@@ -1538,8 +1538,8 @@ export function create16(component: KupCard): VNode {
     const textfieldArray: GenericObject[] = component.data['textfield']
         ? component.data['textfield']
         : [];
-    const buttonArray: GenericObject[] = component.data['button']
-        ? component.data['button']
+    const listArray: GenericObject[] = component.data['list']
+        ? component.data['list']
         : [];
 
     // Setting up text fields.
@@ -1551,11 +1551,11 @@ export function create16(component: KupCard): VNode {
         }
     }
     // Setting up buttons.
-    const buttonsIds: string[] = [];
-    for (let index = 0; index < buttonArray.length; index++) {
-        const button: GenericObject = buttonArray[index];
-        if (button['id']) {
-            buttonsIds.push(button['id']);
+    const listIds: string[] = [];
+    for (let index = 0; index < listArray.length; index++) {
+        const el: GenericObject = listArray[index];
+        if (el['id']) {
+            listIds.push(el['id']);
         }
     }
 
@@ -1596,15 +1596,10 @@ export function create16(component: KupCard): VNode {
                 </div>
             </div>
             <div class="section-2">
-                {buttonArray.length > 0 ? (
-                    <div class="sub-button">
-                        {buttonArray.map((b) => {
-                            return (
-                                <kup-button
-                                    {...b}
-                                    styling={FButtonStyling.OUTLINED}
-                                ></kup-button>
-                            );
+                {listArray.length > 0 ? (
+                    <div class="sub-list">
+                        {listArray.map((b) => {
+                            return <kup-list {...b}></kup-list>;
                         })}
                     </div>
                 ) : null}

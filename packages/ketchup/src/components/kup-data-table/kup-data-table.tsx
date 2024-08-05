@@ -169,6 +169,7 @@ import { FButtonStyling } from '../../f-components/f-button/f-button-declaration
 import { KupFormRow } from '../kup-form/kup-form-declarations';
 import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
+import { KupList } from '../kup-list/kup-list';
 @Component({
     tag: 'kup-data-table',
     styleUrl: 'kup-data-table.scss',
@@ -2680,11 +2681,17 @@ export class KupDataTable {
 
     #prepareDataForActionsCard(rowActions: KupDataRowAction[]): KupCardData {
         const data: KupCardData = {};
-
-        data.button = rowActions.map((r) => ({
-            label: r.text,
-            ...r,
-        }));
+        console.log(rowActions);
+        const listObj = [
+            {
+                showIcons: true,
+                data: rowActions.map((r) => ({
+                    value: r.text,
+                    ...r,
+                })),
+            },
+        ];
+        data.list = listObj;
         data.textfield = [
             {
                 fullWidth: true,
