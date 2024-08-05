@@ -701,4 +701,463 @@ describe('kup-input-panel', () => {
             })
         );
     });
+
+    it('render inputpanel with label shape', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+
+        const data = {
+            columns: [
+                {
+                    name: 'LBL',
+                    title: 'Label',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        LBL: {
+                            value: 'Test',
+                            editable: true,
+                            shape: 'LBL',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const labelCell = await inputPanelContent.find('#LBL');
+        expect(labelCell).not.toBeNull();
+    });
+
+    it('render inputpanel with edit shape', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+
+        const data = {
+            columns: [
+                {
+                    name: 'DAT1',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        DAT1: {
+                            value: '',
+                            editable: true,
+                            shape: 'EDT',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const editCell = await inputPanelContent.find('kup-editor');
+        expect(editCell).not.toBeNull();
+    });
+
+    it('render inputpanel with chip shape', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+
+        const data = {
+            columns: [
+                {
+                    name: 'DAT1',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        DAT1: {
+                            value: 'Test1;Test2',
+                            editable: true,
+                            shape: 'CHI',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> kup-chip >>> #kup-component'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const chips = await inputPanelContent.findAll('.chip-set__item');
+        expect(chips).not.toBeNull();
+        expect(chips.length).toBe(2);
+
+        const chip1 = await chips[0].find('.chip__text');
+        expect(chip1).not.toBeNull();
+        expect(chip1).toEqualText('Test1');
+
+        const chip2 = await chips[1].find('.chip__text');
+        expect(chip2).not.toBeNull();
+        expect(chip2).toEqualText('Test2');
+
+        const input = await page.find(
+            'kup-input-panel >>> kup-text-field >>> input'
+        );
+        expect(input).not.toBeNull();
+
+        await input.press('KeyS');
+        await input.press('KeyT');
+        await input.press('KeyR');
+        await input.press('KeyI');
+        await input.press('KeyN');
+        await input.press('KeyG');
+
+        const updatedValue = await input.getProperty('value');
+        expect(updatedValue).toBe('string');
+
+        await input.press('Enter');
+        const updatedChips = await inputPanelContent.findAll('.chip-set__item');
+
+        expect(updatedChips.length).toBe(3);
+    });
+
+    it('render inputpanel with switch shape', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+
+        const data = {
+            columns: [
+                {
+                    name: 'DAT1',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        DAT1: {
+                            value: '',
+                            editable: true,
+                            shape: 'SWT',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> input[type="checkbox"]'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        inputPanelContent.click();
+
+        await page.waitForChanges();
+        const value = await inputPanelContent.getProperty('value');
+        expect(value).toBe('on');
+    });
+
+    it('render inputpanel with multiple autocomplete shape', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
+        );
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'CIT',
+                    title: 'City',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        CIT: {
+                            value: '',
+                            obj: {
+                                t: '',
+                                p: '',
+                                k: '',
+                            },
+                            editable: true,
+                            mandatory: true,
+                            options: [
+                                {
+                                    id: 'FLO',
+                                    label: 'Florence',
+                                },
+                                {
+                                    id: 'VEN',
+                                    label: 'Venice',
+                                },
+                                {
+                                    id: 'ROM',
+                                    label: 'Rome',
+                                },
+                                {
+                                    id: 'MAD',
+                                    label: 'Madrid',
+                                },
+                                {
+                                    id: 'BAR',
+                                    label: 'Barcelona',
+                                },
+                                {
+                                    id: 'SEV',
+                                    label: 'Seville',
+                                },
+                            ],
+                            shape: 'AML',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const multiAutocompleteCell = await inputPanelContent.find(
+            '.f-cell.multi-autocomplete-cell'
+        );
+        expect(multiAutocompleteCell).not.toBeNull();
+
+        const input = await multiAutocompleteCell.find(
+            '>>> kup-autocomplete >>> input.mdc-text-field__input'
+        );
+        expect(input).not.toBeNull();
+
+        const chips = await inputPanelContent.findAll('>>> .chip-set__item');
+
+        if (chips.length) {
+            const closeButton = await chips[0].find('.kup-clear-icon');
+            expect(closeButton).not.toBeNull();
+
+            closeButton.click();
+            await page.waitForChanges();
+            const afterClosingChips = await inputPanelContent.findAll(
+                '>>> .chip-set__item'
+            );
+            expect(afterClosingChips.length).toBe(0);
+        }
+
+        await input.focus();
+        await input.press('KeyR');
+        await input.press('KeyO');
+
+        await page.waitForChanges();
+
+        const list = await page.find('div[kup-dynamic-position] kup-list');
+        expect(list).not.toBeNull();
+
+        const listOptions = await page.findAll('kup-list >>> ul.list li');
+        expect(listOptions).not.toBeNull();
+        expect(listOptions).toHaveLength(1);
+
+        const firstOptionValue = await listOptions[0].find('span');
+        expect(firstOptionValue).toEqualText('ROM - Rome');
+        await firstOptionValue.click();
+
+        await page.waitForChanges();
+
+        await input.focus();
+        await input.press('KeyF');
+        await input.press('KeyL');
+
+        await page.waitForChanges();
+
+        const updatedListOptions = await page.findAll(
+            'kup-list >>> ul.list li'
+        );
+        const secondOptionValue = await updatedListOptions[0].find('span');
+        expect(secondOptionValue).toEqualText('FLO - Florence');
+        await secondOptionValue.click();
+
+        await page.waitForChanges();
+
+        const updatedChips = await inputPanelContent.findAll(
+            '>>> .chip-set__item'
+        );
+
+        expect(updatedChips).not.toBeNull();
+        expect(updatedChips.length).toBe(2);
+    });
+
+    it('render inputpanel with multiple combo shape', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
+        );
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'CIT',
+                    title: 'City',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        CIT: {
+                            value: '',
+                            obj: {
+                                t: '',
+                                p: '',
+                                k: '',
+                            },
+                            editable: true,
+                            mandatory: true,
+                            options: [
+                                {
+                                    id: 'FLO',
+                                    label: 'Florence',
+                                },
+                                {
+                                    id: 'VEN',
+                                    label: 'Venice',
+                                },
+                                {
+                                    id: 'ROM',
+                                    label: 'Rome',
+                                },
+                                {
+                                    id: 'MAD',
+                                    label: 'Madrid',
+                                },
+                                {
+                                    id: 'BAR',
+                                    label: 'Barcelona',
+                                },
+                                {
+                                    id: 'SEV',
+                                    label: 'Seville',
+                                },
+                            ],
+                            shape: 'CML',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const multiComboboxCell = await inputPanelContent.find(
+            '.f-cell.multi-combobox-cell'
+        );
+        expect(multiComboboxCell).not.toBeNull();
+
+        const input = await multiComboboxCell.find(
+            '>>> kup-combobox >>> input.mdc-text-field__input'
+        );
+        expect(input).not.toBeNull();
+
+        const chips = await inputPanelContent.findAll('>>> .chip-set__item');
+
+        if (chips.length) {
+            const closeButton = await chips[0].find('.kup-clear-icon');
+            expect(closeButton).not.toBeNull();
+
+            closeButton.click();
+            await page.waitForChanges();
+            const afterClosingChips = await inputPanelContent.findAll(
+                '>>> .chip-set__item'
+            );
+            expect(afterClosingChips.length).toBe(0);
+        }
+
+        await input.focus();
+        await input.press('KeyR');
+        await input.press('KeyO');
+
+        await page.waitForChanges();
+
+        const list = await page.find('div[kup-dynamic-position] kup-list');
+        expect(list).not.toBeNull();
+
+        const listOptions = await page.findAll('kup-list >>> ul.list li');
+        expect(listOptions).not.toBeNull();
+        expect(listOptions).toHaveLength(1);
+
+        const firstOptionValue = await listOptions[0].find('span');
+        expect(firstOptionValue).toEqualText('ROM - Rome');
+        await firstOptionValue.click();
+
+        await page.waitForChanges();
+
+        await input.focus();
+        await input.press('KeyF');
+        await input.press('KeyL');
+
+        await page.waitForChanges();
+
+        const updatedListOptions = await page.findAll(
+            'kup-list >>> ul.list li'
+        );
+        const secondOptionValue = await updatedListOptions[0].find('span');
+        expect(secondOptionValue).toEqualText('FLO - Florence');
+        await secondOptionValue.click();
+
+        await page.waitForChanges();
+
+        const updatedChips = await inputPanelContent.findAll(
+            '>>> .chip-set__item'
+        );
+
+        expect(updatedChips).not.toBeNull();
+        expect(updatedChips.length).toBe(2);
+    });
 });
