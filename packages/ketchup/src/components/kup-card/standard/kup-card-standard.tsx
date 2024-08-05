@@ -1594,12 +1594,14 @@ export function create16(component: KupCard): VNode {
                         />
                     ) : null}
                 </div>
-                {buttonArray.length > 0 ? (
-                    <div class="sub-button">
-                        {compList(buttonArray, 'button')}
-                    </div>
-                ) : null}
             </div>
+                <div class="section-2">
+                    {buttonArray.length > 0 ? (
+                        <div class="sub-button">
+                            {compList(buttonArray, 'button')}
+                        </div>
+                    ) : null}
+                </div>
         </div>
     );
 }
