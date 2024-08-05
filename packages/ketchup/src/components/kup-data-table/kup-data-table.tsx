@@ -2638,30 +2638,23 @@ export class KupDataTable {
             this.#actionsCard = document.createElement('kup-card');
             this.#actionsCard.layoutFamily = KupCardFamily.STANDARD;
             this.#actionsCard.layoutNumber = 16;
+            this.#actionsCard.menuVisible = true;
             this.#actionsCard.sizeX = 'auto';
             this.#actionsCard.sizeY = 'auto';
-        } else {
-            const children: HTMLCollection = Array.prototype.slice.call(
-                this.#actionsCard.children,
-                0
-            );
-            for (let index = 0; index < children.length; index++) {
-                children[index].remove();
-            }
+            this.#actionsCard.data = {
+                textfield: [
+                    {
+                        fullWidth: true,
+                        icon: 'magnify',
+                        isClearable: true,
+                        label: 'Search...',
+                        id: KupColumnMenuIds.TEXTFIELD_FILTER,
+                    },
+                ],
+                button: rowActions,
+            };
         }
 
-        this.#actionsCard.data = {
-            textfield: [
-                {
-                    fullWidth: true,
-                    icon: 'magnify',
-                    isClearable: true,
-                    label: 'Search...',
-                    id: KupColumnMenuIds.TEXTFIELD_FILTER,
-                },
-            ],
-            button: rowActions,
-        };
         this.#actionsCard.style.position = 'fixed';
         this.#actionsCard.style.left = '0';
         this.#actionsCard.style.top = '0';
@@ -2669,7 +2662,23 @@ export class KupDataTable {
         this.#actionsCard.setAttribute('data-y', y.toString());
         this.#actionsCard.style.transform =
             'translate(' + x + 'px,' + y + 'px)';
+        this.#clickCbDropCard = {
+            cb: () => {
+                this.#closeRowActions();
+            },
+            el: this.#actionsCard,
+        };
+        this.#kupManager.addClickCallback(this.#clickCbDropCard, true);
         this.rootElement.shadowRoot.append(this.#actionsCard);
+    }
+
+    #closeRowActions() {
+        this.#kupManager.dynamicPosition.stop(
+            this.#actionsCard as KupDynamicPositionElement
+        );
+        this.#kupManager.removeClickCallback(this.#clickCbDropCard);
+        this.#actionsCard.remove();
+        this.#actionsCard = null;
     }
 
     #rowInsertForm() {
