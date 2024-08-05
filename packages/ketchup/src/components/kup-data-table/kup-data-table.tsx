@@ -2681,8 +2681,8 @@ export class KupDataTable {
 
     #prepareDataForActionsCard(rowActions: KupDataRowAction[]): KupCardData {
         const data: KupCardData = {};
-        console.log(rowActions);
-        const listObj = [
+
+        data.list = [
             {
                 showIcons: true,
                 data: rowActions.map((r) => ({
@@ -2691,7 +2691,6 @@ export class KupDataTable {
                 })),
             },
         ];
-        data.list = listObj;
         data.textfield = [
             {
                 fullWidth: true,
