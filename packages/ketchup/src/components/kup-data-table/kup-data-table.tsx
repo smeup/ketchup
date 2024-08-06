@@ -2698,7 +2698,8 @@ export class KupDataTable {
             })),
         };
         const filteredList: KupListNode[] = rowActionsList.data.filter(
-            (action: KupListNode) => action.value.includes(input)
+            (action: KupListNode) =>
+                action.value.toLowerCase().includes(input.toLowerCase())
         );
         card.data.list[0].data = filteredList;
         card.refresh();
