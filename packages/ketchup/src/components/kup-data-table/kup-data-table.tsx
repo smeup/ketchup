@@ -2668,8 +2668,27 @@ export class KupDataTable {
         this.#actionsCard.style.transform =
             'translate(' + x + 'px,' + y + 'px)';
         this.rootElement.shadowRoot.append(this.#actionsCard);
+
+        this.#actionsCard.addEventListener(
+            'kup-card-event',
+            (e: CustomEvent<KupCardEventPayload>) => {
+                if (e.detail.event.type === 'kup-textfield-input') {
+                    const input = e.detail.event.detail.value;
+                    this.#filterRowActionsCard(this.#actionsCard, input);
+                }
+            }
+        );
     }
 
+    #filterRowActionsCard(card: HTMLKupCardElement, input: string) {
+        const filteredList = card.data.list[0].data.filter((action: { value: string }) => {
+            return action.value.includes(input);
+        });
+
+        card.data.list[0].data = filteredList;
+        card.refresh();
+    }
+    
     #closeRowActionsCard() {
         this.#kupManager.dynamicPosition.stop(
             this.#actionsCard as KupDynamicPositionElement
