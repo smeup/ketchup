@@ -2681,14 +2681,14 @@ export class KupDataTable {
     }
 
     #filterRowActionsCard(card: HTMLKupCardElement, input: string) {
-        const filteredList = card.data.list[0].data.filter((action: { value: string }) => {
+        const filteredList = card.data.list[0].data.filter(action => {
             return action.value.includes(input);
         });
 
         card.data.list[0].data = filteredList;
         card.refresh();
     }
-    
+
     #closeRowActionsCard() {
         this.#kupManager.dynamicPosition.stop(
             this.#actionsCard as KupDynamicPositionElement
