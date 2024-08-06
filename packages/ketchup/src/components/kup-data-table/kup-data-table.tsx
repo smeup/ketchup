@@ -2701,7 +2701,6 @@ export class KupDataTable {
             (action: KupListNode) => action.value.includes(input)
         );
         card.data.list[0].data = filteredList;
-        console.log('cia', card.data.list[0].data);
         card.refresh();
     }
 
