@@ -954,6 +954,7 @@ export class KupDataTable {
     #columnMenuCard: HTMLKupCardElement = null;
     #columnDropCard: HTMLKupCardElement = null;
     #columnDropCardAnchor: HTMLElement = null;
+    #rowActionsCardAnchor: HTMLElement = null;
     #insertCount = 0;
 
     #BUTTON_CANCEL_ID: string = 'cancel';
@@ -2635,9 +2636,9 @@ export class KupDataTable {
      * @memberof KupDataTable
      */
     #rowActions(rowActions: KupDataRowAction[], x: number, y: number): void {
-        if (this.#actionsCard) {
-            this.#closeRowActionsCard();
-        }
+        // if (this.#actionsCard) {
+        //     this.#closeRowActionsCard();
+        // }
         this.#createRowActionsCard(rowActions, x, y);
     }
 
@@ -2660,16 +2661,26 @@ export class KupDataTable {
             el: this.#actionsCard,
         };
         this.#kupManager.addClickCallback(this.#clickCbDropCard, true);
-        this.#actionsCard.style.position = 'fixed';
+        this.#actionsCard.style.position = 'absolute';
         this.#actionsCard.style.left = '0';
         this.#actionsCard.style.top = '0';
-        this.#actionsCard.style.zIndex = '9999';
-        this.#actionsCard.setAttribute('data-x', x.toString());
-        this.#actionsCard.setAttribute('data-y', y.toString());
-        this.#actionsCard.style.transform =
-            'translate(' + x + 'px,' + y + 'px)';
+        this.#actionsCard.isMenu = true;
+        // this.#actionsCard.style.zIndex = '20';
+        // this.#actionsCard.setAttribute('data-x', x.toString());
+        // this.#actionsCard.setAttribute('data-y', y.toString());
+        // this.#actionsCard.style.transform =
+        //     'translate(' + x + 'px,' + y + 'px)';
         this.rootElement.shadowRoot.append(this.#actionsCard);
-
+        this.#kupManager.dynamicPosition.register(
+            this.#actionsCard,
+            this.#rowActionsCardAnchor as KupDynamicPositionAnchor,
+            0,
+            KupDynamicPositionPlacement.AUTO,
+            true
+        );
+        this.#kupManager.dynamicPosition.start(
+            this.#actionsCard as unknown as KupDynamicPositionElement
+        );
         this.#actionsCard.addEventListener(
             'kup-card-event',
             (e: CustomEvent<KupCardEventPayload>) => {
@@ -3629,6 +3640,8 @@ export class KupDataTable {
         rowActions: KupDataRowAction[]
     ) {
         e.stopPropagation();
+        this.#rowActionsCardAnchor = e.target as HTMLElement
+        console.log("ancora", this.#rowActionsCardAnchor )
         this.kupRowActionClick.emit({
             comp: this,
             id: this.rootElement.id,
