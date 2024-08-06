@@ -1561,7 +1561,11 @@ export function create16(component: KupCard): VNode {
 
     return (
         <div class={`standard-layout-${component.layoutNumber} `}>
-            <div class="section-1">
+            <div class={`section-1 ${
+                    textfieldArray.length > 0 
+                        ? KupCardCSSClasses.HAS_CONTENT
+                        : ''
+                }`}>
                 <div
                     class={`sub-field ${
                         textfieldArray.length > 0

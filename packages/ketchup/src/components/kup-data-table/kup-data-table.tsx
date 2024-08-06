@@ -2663,6 +2663,7 @@ export class KupDataTable {
         this.#actionsCard.style.position = 'fixed';
         this.#actionsCard.style.left = '0';
         this.#actionsCard.style.top = '0';
+        this.#actionsCard.style.zIndex = '9999';
         this.#actionsCard.setAttribute('data-x', x.toString());
         this.#actionsCard.setAttribute('data-y', y.toString());
         this.#actionsCard.style.transform =
