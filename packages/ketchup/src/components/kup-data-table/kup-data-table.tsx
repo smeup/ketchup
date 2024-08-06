@@ -2674,18 +2674,34 @@ export class KupDataTable {
             (e: CustomEvent<KupCardEventPayload>) => {
                 if (e.detail.event.type === 'kup-textfield-input') {
                     const input = e.detail.event.detail.value;
-                    this.#filterRowActionsCard(this.#actionsCard, input);
+
+                    this.#filterRowActionsCard(
+                        this.#actionsCard,
+                        rowActions,
+                        input
+                    );
                 }
             }
         );
     }
 
-    #filterRowActionsCard(card: HTMLKupCardElement, input: string) {
-        const filteredList = card.data.list[0].data.filter(action => {
-            return action.value.includes(input);
-        });
-
+    #filterRowActionsCard(
+        card: HTMLKupCardElement,
+        rowActions: KupDataRowAction[],
+        input: string
+    ) {
+        const rowActionsList: Pick<KupList, 'showIcons' | 'data'> = {
+            showIcons: true,
+            data: rowActions.map((r) => ({
+                value: r.text,
+                ...r,
+            })),
+        };
+        const filteredList: KupListNode[] = rowActionsList.data.filter(
+            (action: KupListNode) => action.value.includes(input)
+        );
         card.data.list[0].data = filteredList;
+        console.log('cia', card.data.list[0].data);
         card.refresh();
     }
 
@@ -2699,27 +2715,27 @@ export class KupDataTable {
     }
 
     #prepareDataForActionsCard(rowActions: KupDataRowAction[]): KupCardData {
-        const data: KupCardData = {};
-
-        data.list = [
-            {
-                showIcons: true,
-                data: rowActions.map((r) => ({
-                    value: r.text,
-                    ...r,
-                })),
-            },
-        ];
-        data.textfield = [
-            {
-                fullWidth: true,
-                icon: 'magnify',
-                isClearable: true,
-                label: 'Search...',
-                key: KupColumnMenuIds.TEXTFIELD_FILTER,
-                id: KupColumnMenuIds.TEXTFIELD_FILTER,
-            },
-        ];
+        const data: KupCardData = {
+            list: [
+                {
+                    showIcons: true,
+                    data: rowActions.map((r) => ({
+                        value: r.text,
+                        ...r,
+                    })),
+                },
+            ],
+            textfield: [
+                {
+                    fullWidth: true,
+                    icon: 'magnify',
+                    isClearable: true,
+                    label: 'Search...',
+                    key: KupColumnMenuIds.TEXTFIELD_FILTER,
+                    id: KupColumnMenuIds.TEXTFIELD_FILTER,
+                },
+            ],
+        };
 
         return data;
     }
