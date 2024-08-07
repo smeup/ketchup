@@ -2635,8 +2635,7 @@ export class KupDataTable {
      * @private
      * @memberof KupDataTable
      */
-    #rowActions(row: KupDataTableRow, rowActions: KupDataRowAction[]) {
-        row.actions;
+    #rowActions(rowActions: KupDataRowAction[]) {
         this.#createRowActionsCard(rowActions);
     }
 
@@ -3658,7 +3657,7 @@ export class KupDataTable {
             row,
             type: 'expander',
         });
-        this.#rowActions(row, rowActions);
+        this.#rowActions(rowActions);
     }
 
     #handleRowSelect(row: KupDataTableRow) {
