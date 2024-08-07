@@ -2635,18 +2635,16 @@ export class KupDataTable {
      * @private
      * @memberof KupDataTable
      */
-    #rowActions(rowActions: KupDataRowAction[], x: number, y: number): void {
-        // if (this.#actionsCard) {
-        //     this.#closeRowActionsCard();
-        // }
-        this.#createRowActionsCard(rowActions, x, y);
+    #rowActions(rowActions: KupDataRowAction[]): void {
+        this.#createRowActionsCard(rowActions);
     }
 
     #createRowActionsCard(
-        rowActions: KupDataRowAction[],
-        x: number,
-        y: number
+        rowActions: KupDataRowAction[]
     ) {
+        if(this.#actionsCard){
+            this.#closeRowActionsCard()
+        }
         this.#actionsCard = document.createElement('kup-card');
         this.#actionsCard.layoutFamily = KupCardFamily.STANDARD;
         this.#actionsCard.layoutNumber = 16;
@@ -2665,11 +2663,6 @@ export class KupDataTable {
         this.#actionsCard.style.left = '0';
         this.#actionsCard.style.top = '0';
         this.#actionsCard.isMenu = true;
-        // this.#actionsCard.style.zIndex = '20';
-        // this.#actionsCard.setAttribute('data-x', x.toString());
-        // this.#actionsCard.setAttribute('data-y', y.toString());
-        // this.#actionsCard.style.transform =
-        //     'translate(' + x + 'px,' + y + 'px)';
         this.rootElement.shadowRoot.append(this.#actionsCard);
         this.#kupManager.dynamicPosition.register(
             this.#actionsCard,
@@ -3657,7 +3650,6 @@ export class KupDataTable {
     ) {
         e.stopPropagation();
         this.#rowActionsCardAnchor = e.target as HTMLElement
-        console.log("ancora", this.#rowActionsCardAnchor )
         this.kupRowActionClick.emit({
             comp: this,
             id: this.rootElement.id,
@@ -3665,7 +3657,7 @@ export class KupDataTable {
             type: 'expander',
         });
 
-        this.#rowActions(rowActions, e.clientX, e.clientY);
+        this.#rowActions(rowActions);
     }
 
     #handleRowSelect(row: KupDataTableRow) {
