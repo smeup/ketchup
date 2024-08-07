@@ -2635,7 +2635,8 @@ export class KupDataTable {
      * @private
      * @memberof KupDataTable
      */
-    #rowActions(rowActions: KupDataRowAction[]): void {
+    #rowActions(row: KupDataTableRow, rowActions: KupDataRowAction[]) {
+        row.actions;
         this.#createRowActionsCard(rowActions);
     }
 
@@ -3657,8 +3658,7 @@ export class KupDataTable {
             row,
             type: 'expander',
         });
-
-        this.#rowActions(rowActions);
+        this.#rowActions(row, rowActions);
     }
 
     #handleRowSelect(row: KupDataTableRow) {
@@ -4894,6 +4894,12 @@ export class KupDataTable {
                 } else {
                     const dropdownRowActions =
                         this.#getActionsFromDropdownRow(row);
+                    const voCodRowActions = this.#getActionsFromVoCodRow(row);
+                    const rowActionsWithCodVer = [
+                        ...this.rowActions,
+                        ...dropdownRowActions,
+                        ...voCodRowActions,
+                    ];
                     // adding expander
                     const props: FImageProps = {
                         color: `var(${KupThemeColorValues.PRIMARY})`,
@@ -4908,7 +4914,7 @@ export class KupDataTable {
                             this.#onRowActionExpanderClick(
                                 e,
                                 row,
-                                this.rowActions.concat(dropdownRowActions)
+                                rowActionsWithCodVer
                             );
                         },
                     };
@@ -5075,18 +5081,32 @@ export class KupDataTable {
 
     #getActionsFromDropdownRow(row: KupDataTableRow): KupDataRowAction[] {
         const dropdownRow = Object.values(row.cells).filter(
-            (c) => c.shape === 'BTN'
+            (c) =>
+                c.shape === 'BTN' && c.obj.p === 'COD_VER' && c.obj.t === 'VO'
         );
 
         return dropdownRow.length
             ? dropdownRow.flatMap((r) => {
                   const dataNode = r.data?.data?.[0] as KupDataNode;
-
                   return dataNode?.children?.map((c) => ({
                       icon: c.icon,
                       text: c.value,
                   }));
               })
+            : [];
+    }
+
+    #getActionsFromVoCodRow(row: KupDataTableRow): KupDataRowAction[] {
+        const dropdownRow = Object.values(row.cells).filter(
+            (c) =>
+                c.shape !== 'BTN' && c.obj.p === 'COD_VER' && c.obj.t === 'VO'
+        );
+
+        return dropdownRow.length
+            ? dropdownRow.map((r) => ({
+                  icon: r.value,
+                  text: r.value,
+              }))
             : [];
     }
 
