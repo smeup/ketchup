@@ -373,7 +373,7 @@ export class KupInputPanel {
                     }
                     return cell;
                 }, null);
-            edtCell.value = e.detail.htmlValue.replace('\n', '<br>');
+            edtCell.value = e.detail.htmlValue.replace(/\n/g, '<br>');
         };
 
         this.rootElement.addEventListener(event, handler);
