@@ -3115,7 +3115,11 @@ export class KupDataTable {
     }
 
     getVisibleColumns(): Array<KupDataColumn> {
-        const visibleColumns = this.getColumns().filter(({ visible }) => {
+        const visibleColumns = this.getColumns().filter(({ visible, obj }) => {
+            if (obj?.p === 'COD_VER' && obj?.t === 'VO') {
+                visible = false;
+            }
+
             return visible ?? true;
         });
 
