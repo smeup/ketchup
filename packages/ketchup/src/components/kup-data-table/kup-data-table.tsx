@@ -2639,11 +2639,9 @@ export class KupDataTable {
         this.#createRowActionsCard(rowActions);
     }
 
-    #createRowActionsCard(
-        rowActions: KupDataRowAction[]
-    ) {
-        if(this.#actionsCard){
-            this.#closeRowActionsCard()
+    #createRowActionsCard(rowActions: KupDataRowAction[]) {
+        if (this.#actionsCard) {
+            this.#closeRowActionsCard();
         }
         this.#actionsCard = document.createElement('kup-card');
         this.#actionsCard.layoutFamily = KupCardFamily.STANDARD;
@@ -3117,9 +3115,8 @@ export class KupDataTable {
     }
 
     getVisibleColumns(): Array<KupDataColumn> {
-        // TODO: change into `visible ?? true` when TS dependency has been updated
         const visibleColumns = this.getColumns().filter(({ visible }) => {
-            return visible !== undefined ? visible : true;
+            return visible ?? true;
         });
 
         // check grouping
@@ -3649,7 +3646,7 @@ export class KupDataTable {
         rowActions: KupDataRowAction[]
     ) {
         e.stopPropagation();
-        this.#rowActionsCardAnchor = e.target as HTMLElement
+        this.#rowActionsCardAnchor = e.target as HTMLElement;
         this.kupRowActionClick.emit({
             comp: this,
             id: this.rootElement.id,
