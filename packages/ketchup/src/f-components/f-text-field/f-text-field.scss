@@ -46,6 +46,14 @@
       --kup-textfield-extra-large-height,
       64px
     );
+    --kup_textfield_extrasmall_padding: var(
+      --kup-textfield-extrasmall-padding,
+      0 4px 0 8px
+    );
+    --kup_textfield_extrasmall_fontsize: var(
+      --kup-textfield-extrasmall-fontsize,
+      12px
+    );
     --kup_textfield_fullwidth_padding: var(
       --kup-textfield-fullwidth-padding,
       16px
@@ -196,6 +204,10 @@
 
       &.mdc-text-field--extra-small {
         height: var(--kup_textfield_extra_small_height) !important;
+        padding: var(--kup_textfield_extrasmall_padding);
+        input {
+          font-size: var(--kup_textfield_extrasmall_fontsize);
+        }
       }
 
       &.mdc-text-field--small {
@@ -251,7 +263,6 @@
 
       &.mdc-text-field--outlined {
         border: 1px solid var(--kup_textfield_border_color);
-        padding: 0 16px;
 
         &.mdc-text-field--focused:not(.mdc-text-field--disabled) {
           border: 1px solid var(--kup_textfield_primary_color);
