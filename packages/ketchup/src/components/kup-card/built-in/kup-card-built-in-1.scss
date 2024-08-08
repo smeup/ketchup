@@ -26,6 +26,7 @@
   height: 100%;
   position: relative;
   width: 100%;
+  max-width: 300px;
   overflow: auto;
   padding: 0.5em;
 
@@ -115,8 +116,8 @@
     color: var(--kup_card_text_color);
   }
 
-  .today-navigation-button{
+  .today-navigation-button {
     display: flex;
-    align-items: center; 
+    align-items: center;
   }
 }

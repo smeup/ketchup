@@ -1,4 +1,4 @@
-import { KupEventPayload } from "../../types/GenericTypes";
+import { KupEventPayload } from '../../types/GenericTypes';
 
 /**
  * Props of the kup-date-picker component.
@@ -10,6 +10,8 @@ export enum KupDatePickerProps {
     disabled = 'Defaults at false. When set to true, the component is disabled.',
     firstDayIndex = 'First day number (0 - sunday, 1 - monday, ...)',
     initialValue = 'Sets the initial value of the component',
+    sizing = 'Sets the size of the component. Medium is the default',
+    showIcon = 'You can set if u want to show the calendar icon to toggle date-picker. True is the default',
 }
 export enum SourceEvent {
     DATE = 'date',

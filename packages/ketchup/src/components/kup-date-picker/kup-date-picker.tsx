@@ -91,10 +91,20 @@ export class KupDatePicker {
      */
     @Prop() initialValue: string = '';
     /**
+     * When set to true, the component will be rendered as an outlined field.
+     * @default false
+     */
+    @Prop() outlined: boolean = false;
+    /**
      * Sets the sizing of the textfield of the datepicker
      * @default KupComponentSizing.MEDIUM
      */
     @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+    /**
+     * Sets the sizing of the textfield of the datepicker
+     * @default true
+     */
+    @Prop() showIcon: boolean = true;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -598,8 +608,10 @@ export class KupDatePicker {
         const textfieldData: FTextFieldProps = {
             ...this.data['kup-text-field'],
             sizing: this.sizing,
+            outlined: this.outlined,
+            showIcon: this.showIcon,
         };
-        if (!textfieldData.icon) {
+        if (!textfieldData.icon && this.showIcon) {
             textfieldData.icon = 'calendar';
         }
         if (textfieldData.icon) {

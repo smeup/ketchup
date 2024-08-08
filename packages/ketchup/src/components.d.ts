@@ -1730,6 +1730,11 @@ export namespace Components {
          */
         "initialValue": string;
         /**
+          * When set to true, the component will be rendered as an outlined field.
+          * @default false
+         */
+        "outlined": boolean;
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
@@ -1742,6 +1747,11 @@ export namespace Components {
           * @param value - Value to be set.
          */
         "setValue": (value: string) => Promise<void>;
+        /**
+          * Sets the sizing of the textfield of the datepicker
+          * @default true
+         */
+        "showIcon": boolean;
         /**
           * Sets the sizing of the textfield of the datepicker
           * @default KupComponentSizing.MEDIUM
@@ -6914,6 +6924,16 @@ declare namespace LocalJSX {
         "onKup-datepicker-input"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
         "onKup-datepicker-itemclick"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
         "onKup-datepicker-textfieldsubmit"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
+        /**
+          * When set to true, the component will be rendered as an outlined field.
+          * @default false
+         */
+        "outlined"?: boolean;
+        /**
+          * Sets the sizing of the textfield of the datepicker
+          * @default true
+         */
+        "showIcon"?: boolean;
         /**
           * Sets the sizing of the textfield of the datepicker
           * @default KupComponentSizing.MEDIUM
