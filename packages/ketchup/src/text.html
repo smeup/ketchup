@@ -45,21 +45,6 @@
         <kup-text> AAA </kup-text>
 
         <script>
-            // For the password field
-            const inPassword = document.querySelector(
-                'kup-text-field[input-type="password"]'
-            );
-            inPassword.addEventListener('ketchupTextInputFocused', (e) => {
-                console.log('Password has been FOCUSED', e);
-            });
-            inPassword.addEventListener('ketchupTextInputBlurred', (e) => {
-                console.log('#Password has been BLURRED', e);
-            });
-            inPassword.addEventListener('ketchupTextInputUpdated', (e) => {
-                console.log('Password has been UPDATED', e);
-            });
-        </script>
-        <script>
             document.addEventListener('kup-manager-ready', () => {
                 const kupManager = document.documentElement.ketchup;
                 kupManager.theme.set('octane');
