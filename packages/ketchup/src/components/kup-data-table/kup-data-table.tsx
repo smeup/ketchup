@@ -155,6 +155,7 @@ import {
     rowsPerPageChange,
 } from '../../f-components/f-paginator/f-paginator-utils';
 import {
+    KupCommands,
     KupDataColumn,
     KupDataDataset,
     KupDataNewColumnOptions,
@@ -679,6 +680,10 @@ export class KupDataTable {
      * Sets the actions of the rows.
      */
     @Prop() rowActions: Array<KupDataRowAction>;
+    /**
+     * Sets the commands for the rows
+     */
+    @Prop() commands: Array<KupCommands>;
     /**
      * Sets the number of rows per page to display.
      */

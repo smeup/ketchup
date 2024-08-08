@@ -12,7 +12,7 @@ import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } fro
 import { BadgeType } from "./components/kup-badge/kup-badge-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxLoadMoreClickEventPayload, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, LoadMoreMode } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+import { KupCommands, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 import { FButtonAlign, FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
@@ -64,7 +64,7 @@ export { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } fro
 export { BadgeType } from "./components/kup-badge/kup-badge-declarations";
 export { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxLoadMoreClickEventPayload, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, LoadMoreMode } from "./components/kup-box/kup-box-declarations";
 export { KupStore } from "./components/kup-state/kup-store";
-export { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+export { KupCommands, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 export { FButtonAlign, FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 export { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 export { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
@@ -1379,6 +1379,10 @@ export namespace Components {
           * Collapses all groups.
          */
         "collapseAll": () => Promise<void>;
+        /**
+          * Sets the commands for the rows
+         */
+        "commands": Array<KupCommands>;
         /**
           * Custom style of the component. For more information: https://smeup.github.io/ketchup/#/customization
          */
@@ -6580,6 +6584,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "autoFillMissingCells"?: boolean;
+        /**
+          * Sets the commands for the rows
+         */
+        "commands"?: Array<KupCommands>;
         /**
           * Custom style of the component. For more information: https://smeup.github.io/ketchup/#/customization
          */
