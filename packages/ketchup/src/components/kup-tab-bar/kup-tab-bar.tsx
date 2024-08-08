@@ -322,6 +322,18 @@ export class KupTabBar {
                             </span>
                         ) : null}
                     </span>
+                    <FImage
+                        resource="app"
+                        sizeX="16px"
+                        sizeY="16px"
+                        onClick={(e) => {
+                            // e.stopPropagation(); Attivarlo per non propagare l'evento alla selezione del tab-bar
+                            console.log('CONSOLE BTN TOOLBAR');
+                        }}
+                        wrapperClass="tab__iconToolbar"
+                    >
+                        Click me
+                    </FImage>
                     <span
                         class={`tab-indicator ${
                             node.active ? ' tab-indicator--active' : ''

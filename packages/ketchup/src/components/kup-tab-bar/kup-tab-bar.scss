@@ -103,6 +103,12 @@
         .tab-indicator .tab-indicator__content--underline {
           --kup_tabindicator_border_bottom_color: var(--kup-border-strong);
         }
+        .tab__iconToolbar {
+          opacity: 0.3;
+        }
+        .tab__iconToolbar:hover {
+          opacity: 1;
+        }
       }
       &.tab--active {
         .tab__content {
@@ -177,6 +183,10 @@
           min-width: 150px;
         }
       }
+    }
+
+    .tab__iconToolbar {
+      opacity: 0;
     }
 
     .tab-indicator {
