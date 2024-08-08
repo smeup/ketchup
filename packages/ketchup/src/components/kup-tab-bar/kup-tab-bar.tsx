@@ -326,7 +326,7 @@ export class KupTabBar {
                         resource="app"
                         sizeX="16px"
                         sizeY="16px"
-                        onClick={(e) => {
+                        onClick={() => {
                             // e.stopPropagation(); Attivarlo per non propagare l'evento alla selezione del tab-bar
                             console.log('CONSOLE BTN TOOLBAR');
                         }}
