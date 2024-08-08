@@ -520,6 +520,12 @@
       }
     }
 
+    &.#{$kup-class-light-mode} {
+      .mdc-text-field-container .mdc-text-field--lightmode {
+        background-color: var(--kup-layer-0);
+      }
+    }
+
     &.#{$kup-class-shaped} {
       .mdc-text-field.mdc-text-field--outlined
         .mdc-notched-outline
