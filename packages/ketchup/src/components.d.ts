@@ -3799,6 +3799,19 @@ export namespace Components {
         "setSelectedTask": (taskId: string) => void;
         "tasks": KupPlannerTask[];
     }
+    interface KupText {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
+         */
+        "customStyle": string;
+        /**
+          * The data of the texxt.
+          * @default []
+         */
+        "data": string;
+    }
     interface KupTextField {
         /**
           * Set alert message
@@ -5357,6 +5370,12 @@ declare global {
         prototype: HTMLKupTaskListTableElement;
         new (): HTMLKupTaskListTableElement;
     };
+    interface HTMLKupTextElement extends Components.KupText, HTMLStencilElement {
+    }
+    var HTMLKupTextElement: {
+        prototype: HTMLKupTextElement;
+        new (): HTMLKupTextElement;
+    };
     interface HTMLKupTextFieldElementEventMap {
         "kup-textfield-blur": KupTextFieldEventPayload;
         "kup-textfield-change": KupTextFieldEventPayload;
@@ -5509,6 +5528,7 @@ declare global {
         "kup-task-list": HTMLKupTaskListElement;
         "kup-task-list-header": HTMLKupTaskListHeaderElement;
         "kup-task-list-table": HTMLKupTaskListTableElement;
+        "kup-text": HTMLKupTextElement;
         "kup-text-field": HTMLKupTextFieldElement;
         "kup-time-picker": HTMLKupTimePickerElement;
         "kup-tooltip": HTMLKupTooltipElement;
@@ -8580,6 +8600,19 @@ declare namespace LocalJSX {
         "setSelectedTask"?: (taskId: string) => void;
         "tasks"?: KupPlannerTask[];
     }
+    interface KupText {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * The data of the texxt.
+          * @default []
+         */
+        "data"?: string;
+    }
     interface KupTextField {
         /**
           * Set alert message
@@ -9089,6 +9122,7 @@ declare namespace LocalJSX {
         "kup-task-list": KupTaskList;
         "kup-task-list-header": KupTaskListHeader;
         "kup-task-list-table": KupTaskListTable;
+        "kup-text": KupText;
         "kup-text-field": KupTextField;
         "kup-time-picker": KupTimePicker;
         "kup-tooltip": KupTooltip;
@@ -9161,6 +9195,7 @@ declare module "@stencil/core" {
             "kup-task-list": LocalJSX.KupTaskList & JSXBase.HTMLAttributes<HTMLKupTaskListElement>;
             "kup-task-list-header": LocalJSX.KupTaskListHeader & JSXBase.HTMLAttributes<HTMLKupTaskListHeaderElement>;
             "kup-task-list-table": LocalJSX.KupTaskListTable & JSXBase.HTMLAttributes<HTMLKupTaskListTableElement>;
+            "kup-text": LocalJSX.KupText & JSXBase.HTMLAttributes<HTMLKupTextElement>;
             "kup-text-field": LocalJSX.KupTextField & JSXBase.HTMLAttributes<HTMLKupTextFieldElement>;
             "kup-time-picker": LocalJSX.KupTimePicker & JSXBase.HTMLAttributes<HTMLKupTimePickerElement>;
             "kup-tooltip": LocalJSX.KupTooltip & JSXBase.HTMLAttributes<HTMLKupTooltipElement>;

@@ -235,6 +235,10 @@ components.data = [
         id: 'time-picker.html',
     },
     {
+        value: 'Text',
+        id: 'text.html',
+    },
+    {
         value: 'Text field',
         id: 'text-field.html',
     },
