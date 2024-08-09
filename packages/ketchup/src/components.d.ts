@@ -3735,6 +3735,11 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * When enabled displays Material's ripple effect on item headers.
+          * @default true
+         */
+        "toolbar": boolean;
     }
     interface KupTaskGantt {
         "barProps": KupPlannerTaskGanttProps['barProps'];
@@ -8516,6 +8521,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "ripple"?: boolean;
+        /**
+          * When enabled displays Material's ripple effect on item headers.
+          * @default true
+         */
+        "toolbar"?: boolean;
     }
     interface KupTaskGantt {
         "barProps"?: KupPlannerTaskGanttProps['barProps'];

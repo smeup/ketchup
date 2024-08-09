@@ -9,6 +9,7 @@ export enum KupTabBarProps {
     customStyle = 'Custom style of the component.',
     data = 'List of elements.',
     ripple = "When enabled displays Material's ripple effect on item headers.",
+    toolbar = 'when true, it will show the toolbar activation icon',
 }
 /**
  * The object of a single radio.
