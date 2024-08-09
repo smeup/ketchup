@@ -8,7 +8,7 @@
       box-shadow: inset 0px 4px 0px 0px var(--kup-secondary-color);
     }
 
-    td.selected {
+    tbody td.selected {
       background-color: rgba(var(--kup-text-color-rgb), 0.075);
 
       &.fixed-column,
