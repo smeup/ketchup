@@ -28,6 +28,7 @@ import {
 import {
     fieldColumn,
     KupDataTableRow,
+    VoCodVerRowEnum,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom, KupManager } from '../kup-manager/kup-manager-declarations';
@@ -625,7 +626,9 @@ export class KupData {
     ): KupDataRowAction[] {
         const actions: KupDataRowAction[] = [];
         const codVerRow = Object.values(row.cells).filter(
-            (cell) => cell.obj.p === 'COD_VER' && cell.obj.t === 'VO'
+            (cell) =>
+                cell.obj.p === VoCodVerRowEnum.P &&
+                cell.obj.t === VoCodVerRowEnum.T
         );
 
         commands.forEach((c) => {

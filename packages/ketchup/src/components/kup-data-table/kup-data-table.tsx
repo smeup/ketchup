@@ -53,6 +53,7 @@ import {
     KupDatatableInsertRowEventPayload,
     KupDataTableInsertMode,
     KupDatatableHistoryEventPayload,
+    VoCodVerRowEnum,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -3121,7 +3122,7 @@ export class KupDataTable {
 
     getVisibleColumns(): Array<KupDataColumn> {
         const visibleColumns = this.getColumns().filter(({ visible, obj }) => {
-            if (obj?.p === 'COD_VER' && obj?.t === 'VO') {
+            if (obj?.p === VoCodVerRowEnum.P && obj?.t === VoCodVerRowEnum.T) {
                 visible = false;
             }
 
