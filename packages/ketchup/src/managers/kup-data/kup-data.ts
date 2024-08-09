@@ -1,4 +1,5 @@
 import {
+    KupCommand,
     KupDataCell,
     KupDataColumn,
     KupDataDataset,
@@ -29,14 +30,13 @@ import {
     KupDataTableRow,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
-import { KupDom } from '../kup-manager/kup-manager-declarations';
+import { KupDom, KupManager } from '../kup-manager/kup-manager-declarations';
 import {
     FCellShapes,
     FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { TreeNodePath } from '../../components/kup-tree/kup-tree-declarations';
 import { ValueDisplayedValue } from '../../utils/filters/filters-declarations';
-
 const dom: KupDom = document.documentElement as KupDom;
 
 /**
@@ -616,19 +616,39 @@ export class KupData {
     /**
      * Creates actions from row with VO COD_VER obj.
      * @param {KupDataTableRow} row single row.
+     * @param {KupCommand[]} commands group of commands.
      * @returns { KupDataRowAction[]} Actions founded.
      */
-    createActionsFromVoCodRow(row: KupDataTableRow): KupDataRowAction[] {
-        const dropdownRow = Object.values(row.cells).filter(
-            (c) =>
-                c.shape !== 'BTN' && c.obj.p === 'COD_VER' && c.obj.t === 'VO'
+    createActionsFromVoCodRow(
+        row: KupDataTableRow,
+        commands: KupCommand[]
+    ): KupDataRowAction[] {
+        const actions: KupDataRowAction[] = [];
+        const codVerRow = Object.values(row.cells).filter(
+            (cell) => cell.obj.p === 'COD_VER' && cell.obj.t === 'VO'
         );
 
-        return dropdownRow.length
-            ? dropdownRow.map((r) => ({
-                  icon: r.value,
-                  text: r.value,
-              }))
-            : [];
+        commands.forEach((c) => {
+            if (codVerRow.some((codVer) => codVer.obj.k === c.obj.k)) {
+                actions.push({
+                    icon: c.icon,
+                    text: c.text,
+                });
+            }
+        });
+
+        codVerRow.forEach((codVer) => {
+            if (
+                !commands.some((command) => command.obj.k === codVer.obj.k) ||
+                !commands.length
+            ) {
+                actions.push({
+                    icon: '',
+                    text: codVer.obj.k,
+                });
+            }
+        });
+
+        return actions;
     }
 }
