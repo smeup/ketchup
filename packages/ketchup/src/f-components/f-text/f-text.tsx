@@ -37,5 +37,5 @@ export const FText: FunctionalComponent<FTextProps> = (
 /*-------------------------------------------------*/
 
 function renderText(props: FTextProps): VNode {
-    return <div>{props.value}</div>;
+    return <span>{props.value}</span>;
 }
