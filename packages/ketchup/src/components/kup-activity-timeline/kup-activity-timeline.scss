@@ -1,0 +1,163 @@
+.atm-container {
+  color: #545454;
+  color: solid var(--kup-gray-color-70);
+  max-width: 800px;
+}
+.atm-container.clickable {
+  cursor: pointer;
+}
+.atm-container .atm-event {
+  margin-bottom: 15px;
+  padding-bottom: 35px;
+  display: flex;
+  position: relative;
+  width: 100%;
+}
+.atm-container .atm-event .atm-icon-wrapper,
+.atm-container .atm-event:after {
+  margin-top: 10px;
+}
+.atm-container .atm-event .atm-thumb {
+  background: #4e908f;
+  background: solid var(--kup-primary-color);
+  display: inline-block;
+  vertical-align: top;
+  width: 40px;
+  height: 43px;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+  z-index: 10;
+  position: relative;
+}
+.atm-container .atm-event .atm-thumb > span.-atm-icon {
+  vertical-align: middle;
+  line-height: 40px;
+  color: white;
+  font-size: 24px;
+}
+.atm-container .atm-event .atm-content {
+  display: inline-block;
+  padding: 0 15px 0 20px;
+  vertical-align: top;
+  width: -webkit-calc(100% - 55px);
+  width: expression(100% - 55px);
+  width: -moz-calc(100% - 55px);
+  width: -o-calc(100% - 55px);
+  width: calc(100% - 55px);
+}
+.atm-container .atm-event .atm-content .atm-content-header h3.atm-title {
+  margin: 0;
+  font-size: 16px;
+  line-height: 18px;
+  float: left;
+  width: -webkit-calc(100% - 110px);
+  width: expression(100% - 110px);
+  width: -moz-calc(100% - 110px);
+  width: -o-calc(100% - 110px);
+  width: calc(100% - 110px);
+}
+.atm-container .atm-event .atm-content .atm-content-header .atm-datetime {
+  font-style: italic;
+  font-size: 12px;
+  line-height: 18px;
+  float: right;
+  width: 110px;
+  text-align: right;
+}
+.atm-container .atm-event .atm-content table.atm-detail {
+  table-layout: fixed;
+  border-spacing: 0;
+  margin-top: 10px;
+}
+.atm-container .atm-event .atm-content table.atm-detail td {
+  padding: 0;
+  font-size: 14px;
+}
+.atm-container .atm-event .atm-content table.atm-detail td.detail-label {
+  white-space: nowrap;
+}
+.atm-container .atm-event .atm-content table.atm-detail td.detail-label,
+.atm-container .atm-event .atm-content table.atm-detail td.detail-value {
+  padding-right: 8px;
+}
+.atm-container .atm-event .atm-content table.atm-detail td.detail-value {
+  min-width: 120px;
+}
+.atm-container
+  .atm-event
+  .atm-content
+  table.atm-detail
+  td.detail-value
+  > a.ui-commandlink.ui-widget {
+  text-decoration: underline;
+  color: #4e908f;
+  color: var(--kup-primary-color);
+  text-decoration: underline;
+}
+.atm-container .atm-event:after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  left: 19px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+}
+.atm-container .atm-event {
+  margin-bottom: 10px;
+  padding-bottom: 25px;
+}
+.atm-container .atm-event .atm-thumb {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--kup-radius-00);
+  border-bottom-width: 2px;
+}
+.atm-container .atm-event .atm-thumb > span.-atm-icon {
+  line-height: 32px;
+  font-size: 20px;
+}
+.atm-container .atm-event .atm-content {
+  padding: 0 6px 0 10px;
+  width: -webkit-calc(100% - 45px);
+  width: expression(100% - 45px);
+  width: -moz-calc(100% - 45px);
+  width: -o-calc(100% - 45px);
+  width: calc(100% - 45px);
+}
+.atm-container .atm-event .atm-content .atm-content-header h3.atm-title {
+  font-size: 15px;
+  line-height: 16px;
+  width: -webkit-calc(100% - 100px);
+  width: expression(100% - 100px);
+  width: -moz-calc(100% - 100px);
+  width: -o-calc(100% - 100px);
+  width: calc(100% - 100px);
+}
+.atm-container .atm-event .atm-content .atm-content-header .atm-datetime {
+  font-size: 11px;
+  line-height: 16px;
+  width: 100px;
+}
+.atm-container .atm-event .atm-content table.atm-detail {
+  margin-top: 8px;
+}
+.atm-container .atm-event .atm-content table.atm-detail td {
+  font-size: 12px;
+}
+.atm-container .atm-event .atm-content table.atm-detail td.detail-label {
+  padding-right: 6px;
+}
+.atm-container .atm-event .atm-content table.atm-detail td.detail-value {
+  min-width: 100px;
+}
+.atm-container .atm-event:after {
+  width: 1px;
+  left: 15px;
+}
+.atm-event:after,
+.atm-thumb {
+  background: rgb(055, 102, 139);
+}

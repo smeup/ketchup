@@ -40,3 +40,12 @@ export enum KupDatesFormats {
     ISO_TIME = 'HH:mm:ss',
     ISO_TIME_WITHOUT_SECONDS = 'HH:mm',
 }
+
+/**
+ * SortOrder
+ */
+
+export enum KupDateOrder {
+    ASC = 'asc',
+    DESC = 'desc',
+}

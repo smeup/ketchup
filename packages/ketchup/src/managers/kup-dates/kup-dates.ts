@@ -11,6 +11,7 @@ import 'dayjs/locale/ru';
 import 'dayjs/locale/zh';
 import { KupComponent } from '../../types/GenericTypes';
 import {
+    KupDateOrder,
     KupDateTimeFormatOptionsMonth,
     KupDatesFormats,
     KupDatesLocales,
@@ -798,4 +799,25 @@ export class KupDates {
     };
 
     formatToLocaleSimple = (date: Date) => dayjs(date).format('DD/MM/YYYY');
+
+    sortDates = (
+        firstDate: string,
+        secondDate: string,
+        order: KupDateOrder = KupDateOrder.ASC
+    ) => {
+        return order === 'asc'
+            ? dayjs(firstDate).diff(dayjs(secondDate))
+            : dayjs(secondDate).diff(dayjs(firstDate));
+    };
+
+    sortTimes = (
+        firstTime: string,
+        secondTime: string,
+        order: KupDateOrder = KupDateOrder.ASC,
+        format: string = 'HH:mm:ss'
+    ) => {
+        const timeA = dayjs(firstTime, format);
+        const timeB = dayjs(secondTime, format);
+        return order === 'asc' ? timeA.diff(timeB) : timeB.diff(timeA);
+    };
 }
