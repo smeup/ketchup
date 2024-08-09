@@ -42,7 +42,9 @@
             };
         </script>
         <h1>Simple text field</h1>
-        <kup-text type="heading-01" text="testo"></kup-text>
+        <kup-text-list id="text-list" value="testo"></kup-text-list>
+        <h1>Textlist toolbar</h1>
+        <kup-text-list id="text-list-toolbar"></kup-text-list>
 
         <script>
             document.addEventListener('kup-manager-ready', () => {
@@ -50,5 +52,6 @@
                 kupManager.theme.set('octane');
             });
         </script>
+        <script src="/assets/text-list.js"></script>
     </body>
 </html>

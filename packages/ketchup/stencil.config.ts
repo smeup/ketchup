@@ -107,6 +107,7 @@ export const config: Config = {
                 { src: 'tab-bar.html' },
                 { src: 'time-picker.html' },
                 { src: 'text.html' },
+                { src: 'text-list.html' },
                 { src: 'text-field.html' },
                 { src: 'tree-performance.html' },
                 { src: 'tree.html' },

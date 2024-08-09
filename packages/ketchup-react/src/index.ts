@@ -71,6 +71,7 @@ export const KupTaskListHeader = /*@__PURE__*/createReactComponent<JSX.KupTaskLi
 export const KupTaskListTable = /*@__PURE__*/createReactComponent<JSX.KupTaskListTable, HTMLKupTaskListTableElement>('kup-task-list-table');
 export const KupText = /*@__PURE__*/createReactComponent<JSX.KupText, HTMLKupTextElement>('kup-text');
 export const KupTextField = /*@__PURE__*/createReactComponent<JSX.KupTextField, HTMLKupTextFieldElement>('kup-text-field');
+export const KupTextList = /*@__PURE__*/createReactComponent<JSX.KupTextList, HTMLKupTextListElement>('kup-text-list');
 export const KupTimePicker = /*@__PURE__*/createReactComponent<JSX.KupTimePicker, HTMLKupTimePickerElement>('kup-time-picker');
 export const KupTooltip = /*@__PURE__*/createReactComponent<JSX.KupTooltip, HTMLKupTooltipElement>('kup-tooltip');
 export const KupTree = /*@__PURE__*/createReactComponent<JSX.KupTree, HTMLKupTreeElement>('kup-tree');

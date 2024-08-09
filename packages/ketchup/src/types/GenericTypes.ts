@@ -105,6 +105,7 @@ export enum KupTagNames {
     TAB_BAR = 'KUP-TAB-BAR',
     TEXT_FIELD = 'KUP-TEXT-FIELD',
     TEXT = 'KUP-TEXT',
+    TEXT_LIST = 'KUP-TEXT-LIST',
     TIME_PICKER = 'KUP-TIME-PICKER',
     TOOLTIP = 'KUP-TOOLTIP',
     TREE = 'KUP-TREE',

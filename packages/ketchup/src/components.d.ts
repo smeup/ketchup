@@ -55,7 +55,9 @@ import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-d
 import { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { FTextType } from "./f-components/f-text/f-text-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
+import { KupTextListNode } from "./components/kup-text-list/kup-text-list-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 export { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
@@ -107,7 +109,9 @@ export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-d
 export { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 export { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 export { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+export { FTextType } from "./f-components/f-text/f-text-declarations";
 export { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
+export { KupTextListNode } from "./components/kup-text-list/kup-text-list-declarations";
 export { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 export namespace Components {
     interface KupAccordion {
@@ -3807,10 +3811,30 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * The data of the texxt.
-          * @default []
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
          */
-        "data": string;
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * This is the context of the text
+          * @default null
+         */
+        "text": string;
+        /**
+          * Sets the sizing of the textfield
+          * @default FTextType.HEADING1
+         */
+        "type": FTextType;
     }
     interface KupTextField {
         /**
@@ -4016,6 +4040,44 @@ export namespace Components {
           * @default false
          */
         "trailingLabel": boolean;
+    }
+    interface KupTextList {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Props of the sub-components.
+          * @default []
+         */
+        "data": KupTextListNode[];
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the sizing of the textfield
+          * @default FTextType.HEADING1
+         */
+        "type": FTextType;
+        /**
+          * This is the context of the text
+          * @default null
+         */
+        "value": string;
     }
     interface KupTimePicker {
         /**
@@ -5402,6 +5464,12 @@ declare global {
         prototype: HTMLKupTextFieldElement;
         new (): HTMLKupTextFieldElement;
     };
+    interface HTMLKupTextListElement extends Components.KupTextList, HTMLStencilElement {
+    }
+    var HTMLKupTextListElement: {
+        prototype: HTMLKupTextListElement;
+        new (): HTMLKupTextListElement;
+    };
     interface HTMLKupTimePickerElementEventMap {
         "kup-timepicker-blur": KupTimePickerEventPayload;
         "kup-timepicker-change": KupTimePickerEventPayload;
@@ -5530,6 +5598,7 @@ declare global {
         "kup-task-list-table": HTMLKupTaskListTableElement;
         "kup-text": HTMLKupTextElement;
         "kup-text-field": HTMLKupTextFieldElement;
+        "kup-text-list": HTMLKupTextListElement;
         "kup-time-picker": HTMLKupTimePickerElement;
         "kup-tooltip": HTMLKupTooltipElement;
         "kup-tree": HTMLKupTreeElement;
@@ -8608,10 +8677,15 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * The data of the texxt.
-          * @default []
+          * This is the context of the text
+          * @default null
          */
-        "data"?: string;
+        "text"?: string;
+        /**
+          * Sets the sizing of the textfield
+          * @default FTextType.HEADING1
+         */
+        "type"?: FTextType;
     }
     interface KupTextField {
         /**
@@ -8830,6 +8904,29 @@ declare namespace LocalJSX {
           * @default false
          */
         "trailingLabel"?: boolean;
+    }
+    interface KupTextList {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Props of the sub-components.
+          * @default []
+         */
+        "data"?: KupTextListNode[];
+        /**
+          * Sets the sizing of the textfield
+          * @default FTextType.HEADING1
+         */
+        "type"?: FTextType;
+        /**
+          * This is the context of the text
+          * @default null
+         */
+        "value"?: string;
     }
     interface KupTimePicker {
         /**
@@ -9124,6 +9221,7 @@ declare namespace LocalJSX {
         "kup-task-list-table": KupTaskListTable;
         "kup-text": KupText;
         "kup-text-field": KupTextField;
+        "kup-text-list": KupTextList;
         "kup-time-picker": KupTimePicker;
         "kup-tooltip": KupTooltip;
         "kup-tree": KupTree;
@@ -9197,6 +9295,7 @@ declare module "@stencil/core" {
             "kup-task-list-table": LocalJSX.KupTaskListTable & JSXBase.HTMLAttributes<HTMLKupTaskListTableElement>;
             "kup-text": LocalJSX.KupText & JSXBase.HTMLAttributes<HTMLKupTextElement>;
             "kup-text-field": LocalJSX.KupTextField & JSXBase.HTMLAttributes<HTMLKupTextFieldElement>;
+            "kup-text-list": LocalJSX.KupTextList & JSXBase.HTMLAttributes<HTMLKupTextListElement>;
             "kup-time-picker": LocalJSX.KupTimePicker & JSXBase.HTMLAttributes<HTMLKupTimePickerElement>;
             "kup-tooltip": LocalJSX.KupTooltip & JSXBase.HTMLAttributes<HTMLKupTooltipElement>;
             "kup-tree": LocalJSX.KupTree & JSXBase.HTMLAttributes<HTMLKupTreeElement>;

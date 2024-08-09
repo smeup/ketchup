@@ -239,6 +239,10 @@ components.data = [
         id: 'text.html',
     },
     {
+        value: 'TextList',
+        id: 'text-list.html',
+    },
+    {
         value: 'Text field',
         id: 'text-field.html',
     },
