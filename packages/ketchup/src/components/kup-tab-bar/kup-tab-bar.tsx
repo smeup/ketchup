@@ -73,7 +73,7 @@ export class KupTabBar {
      */
     @Prop() ripple: boolean = false;
     /**
-     * When enabled displays Material's ripple effect on item headers.
+     * When enabled displays toolbar item inside each single tab.
      * @default true
      */
     @Prop() toolbar: boolean = true;
@@ -333,7 +333,7 @@ export class KupTabBar {
                             sizeX="16px"
                             sizeY="16px"
                             onClick={() => {
-                                // e.stopPropagation(); Attivarlo per non propagare l'evento alla selezione del tab-bar
+                                // e.stopPropagation(); remove comment to stop event propagation to tab-bar
                                 console.log('CONSOLE BTN TOOLBAR');
                             }}
                             wrapperClass="tab__iconToolbar"
