@@ -27,6 +27,7 @@ import {
 } from './kup-data-node-helper';
 import {
     fieldColumn,
+    KupDataTableCell,
     KupDataTableRow,
     VoCodVerRowEnum,
 } from '../../components/kup-data-table/kup-data-table-declarations';
@@ -615,6 +616,18 @@ export class KupData {
         return transposed;
     }
     /**
+     * Get COD_VER rows
+     * @param {KupDataTableRow} row single row.
+     * @returns { KupDataTableCell[]} cells founded
+     */
+    getCodVerRows(row: KupDataTableRow): KupDataTableCell[] {
+        return Object.values(row.cells).filter(
+            (cell) =>
+                cell.obj.p === VoCodVerRowEnum.P &&
+                cell.obj.t === VoCodVerRowEnum.T
+        );
+    }
+    /**
      * Creates actions from row with VO COD_VER obj.
      * @param {KupDataTableRow} row single row.
      * @param {KupCommand[]} commands group of commands.
@@ -625,22 +638,19 @@ export class KupData {
         commands: KupCommand[]
     ): KupDataRowAction[] {
         const actions: KupDataRowAction[] = [];
-        const codVerRow = Object.values(row.cells).filter(
-            (cell) =>
-                cell.obj.p === VoCodVerRowEnum.P &&
-                cell.obj.t === VoCodVerRowEnum.T
-        );
 
-        commands.forEach((c) => {
-            if (codVerRow.some((codVer) => codVer.obj.k === c.obj.k)) {
+        const rows = this.getCodVerRows(row);
+
+        commands.forEach((command) => {
+            if (rows.some((row) => row.obj.k === command.obj.k)) {
                 actions.push({
-                    icon: c.icon,
-                    text: c.text,
+                    icon: command.icon,
+                    text: command.text,
                 });
             }
         });
 
-        codVerRow.forEach((codVer) => {
+        rows.forEach((codVer) => {
             if (
                 !commands.some((command) => command.obj.k === codVer.obj.k) ||
                 !commands.length
