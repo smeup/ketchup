@@ -2681,17 +2681,40 @@ export class KupDataTable {
         this.#actionsCard.addEventListener(
             'kup-card-event',
             (e: CustomEvent<KupCardEventPayload>) => {
-                if (e.detail.event.type === 'kup-textfield-input') {
-                    const input = e.detail.event.detail.value;
+                switch (e.detail.event.type) {
+                    case 'kup-textfield-input':
+                        const input = e.detail.event.detail.value;
 
-                    this.#filterRowActionsCard(
-                        this.#actionsCard,
-                        rowActions,
-                        input
-                    );
+                        this.#filterRowActionsCard(
+                            this.#actionsCard,
+                            rowActions,
+                            input
+                        );
+                        break;
+                    case 'kup-textfield-cleariconclick':
+                        this.#clearSearchActionsCard(
+                            this.#actionsCard,
+                            rowActions
+                        );
+                        break;
                 }
             }
         );
+    }
+
+    #clearSearchActionsCard(
+        card: HTMLKupCardElement,
+        rowActions: KupDataRowAction[]
+    ) {
+        const rowActionsList: Pick<KupList, 'showIcons' | 'data'> = {
+            showIcons: true,
+            data: rowActions.map((r) => ({
+                value: r.text,
+                ...r,
+            })),
+        };
+        card.data.list[0].data = rowActionsList.data;
+        card.refresh();
     }
 
     #filterRowActionsCard(
