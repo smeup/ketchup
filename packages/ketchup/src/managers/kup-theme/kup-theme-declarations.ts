@@ -89,6 +89,8 @@ export const fImageUsers = [
     KupTagNames.SNACKBAR,
     KupTagNames.TAB_BAR,
     KupTagNames.TEXT_FIELD,
+    KupTagNames.TEXT,
+    KupTagNames.TEXT_LIST,
     KupTagNames.TREE,
 ];
 /**

@@ -6,6 +6,7 @@ import type { FComponent } from '../../types/GenericTypes';
 export interface FTextProps extends FComponent {
     type?: FTextType;
     value?: string;
+    toolbar?: boolean;
 }
 
 /**
