@@ -4898,7 +4898,8 @@ export class KupDataTable {
                 } else {
                     const dropdownRowActions =
                         this.#getActionsFromDropdownRow(row);
-                    const voCodRowActions = this.#getActionsFromVoCodRow(row);
+                    const voCodRowActions =
+                        this.#kupManager.data.createActionsFromVoCodRow(row);
                     const rowActionsWithCodVer = [
                         ...this.rowActions,
                         ...dropdownRowActions,
@@ -5097,20 +5098,6 @@ export class KupDataTable {
                       text: c.value,
                   }));
               })
-            : [];
-    }
-
-    #getActionsFromVoCodRow(row: KupDataTableRow): KupDataRowAction[] {
-        const dropdownRow = Object.values(row.cells).filter(
-            (c) =>
-                c.shape !== 'BTN' && c.obj.p === 'COD_VER' && c.obj.t === 'VO'
-        );
-
-        return dropdownRow.length
-            ? dropdownRow.map((r) => ({
-                  icon: r.value,
-                  text: r.value,
-              }))
             : [];
     }
 

@@ -10,6 +10,7 @@ import {
     KupDataNode,
     KupDataNodeDrilldownInfo,
     KupDataRow,
+    KupDataRowAction,
     KupDataRowCells,
 } from './kup-data-declarations';
 import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
@@ -23,7 +24,10 @@ import {
     setPropertiesNode,
     toStreamNode,
 } from './kup-data-node-helper';
-import { fieldColumn } from '../../components/kup-data-table/kup-data-table-declarations';
+import {
+    fieldColumn,
+    KupDataTableRow,
+} from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
@@ -608,5 +612,23 @@ export class KupData {
             }
         }
         return transposed;
+    }
+    /**
+     * Creates actions from row with VO COD_VER obj.
+     * @param {KupDataTableRow} row single row.
+     * @returns { KupDataRowAction[]} Actions founded.
+     */
+    createActionsFromVoCodRow(row: KupDataTableRow): KupDataRowAction[] {
+        const dropdownRow = Object.values(row.cells).filter(
+            (c) =>
+                c.shape !== 'BTN' && c.obj.p === 'COD_VER' && c.obj.t === 'VO'
+        );
+
+        return dropdownRow.length
+            ? dropdownRow.map((r) => ({
+                  icon: r.value,
+                  text: r.value,
+              }))
+            : [];
     }
 }
