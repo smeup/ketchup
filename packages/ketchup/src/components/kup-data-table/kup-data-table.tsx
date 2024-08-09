@@ -155,7 +155,7 @@ import {
     rowsPerPageChange,
 } from '../../f-components/f-paginator/f-paginator-utils';
 import {
-    KupCommands,
+    KupCommand,
     KupDataColumn,
     KupDataDataset,
     KupDataNewColumnOptions,
@@ -683,7 +683,7 @@ export class KupDataTable {
     /**
      * Sets the commands for the rows
      */
-    @Prop() commands: Array<KupCommands>;
+    @Prop() commands: Array<KupCommand>;
     /**
      * Sets the number of rows per page to display.
      */
@@ -4896,13 +4896,13 @@ export class KupDataTable {
                         'variable'
                     );
                 } else {
-                    const dropdownRowActions =
-                        this.#getActionsFromDropdownRow(row);
                     const voCodRowActions =
-                        this.#kupManager.data.createActionsFromVoCodRow(row);
+                        this.#kupManager.data.createActionsFromVoCodRow(
+                            row,
+                            this.commands ?? []
+                        );
                     const rowActionsWithCodVer = [
                         ...this.rowActions,
-                        ...dropdownRowActions,
                         ...voCodRowActions,
                     ];
                     // adding expander
@@ -5082,23 +5082,6 @@ export class KupDataTable {
                 </tr>
             );
         }
-    }
-
-    #getActionsFromDropdownRow(row: KupDataTableRow): KupDataRowAction[] {
-        const dropdownRow = Object.values(row.cells).filter(
-            (c) =>
-                c.shape === 'BTN' && c.obj.p === 'COD_VER' && c.obj.t === 'VO'
-        );
-
-        return dropdownRow.length
-            ? dropdownRow.flatMap((r) => {
-                  const dataNode = r.data?.data?.[0] as KupDataNode;
-                  return dataNode?.children?.map((c) => ({
-                      icon: c.icon,
-                      text: c.value,
-                  }));
-              })
-            : [];
     }
 
     #renderActions(
