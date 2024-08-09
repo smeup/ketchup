@@ -3745,6 +3745,11 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * When enabled displays toolbar item inside each single tab.
+          * @default true
+         */
+        "toolbar": boolean;
     }
     interface KupTaskGantt {
         "barProps": KupPlannerTaskGanttProps['barProps'];
@@ -8536,6 +8541,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "ripple"?: boolean;
+        /**
+          * When enabled displays toolbar item inside each single tab.
+          * @default true
+         */
+        "toolbar"?: boolean;
     }
     interface KupTaskGantt {
         "barProps"?: KupPlannerTaskGanttProps['barProps'];
