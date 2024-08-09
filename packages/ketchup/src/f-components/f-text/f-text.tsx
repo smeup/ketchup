@@ -26,7 +26,7 @@ export const FText: FunctionalComponent<FTextProps> = (
             id={props.id}
             title={props.title}
         >
-            {renderText(props)}
+            {props.value}
             {children}
         </div>
     );
@@ -35,7 +35,3 @@ export const FText: FunctionalComponent<FTextProps> = (
 /*-------------------------------------------------*/
 /*                  M e t h o d s                  */
 /*-------------------------------------------------*/
-
-function renderText(props: FTextProps): VNode {
-    return <span>{props.value}</span>;
-}

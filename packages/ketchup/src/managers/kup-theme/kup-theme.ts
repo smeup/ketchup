@@ -18,6 +18,7 @@ import * as fProgressBarCSS from '../../f-components/f-progress-bar/f-progress-b
 import * as fRadioCSS from '../../f-components/f-radio/f-radio.css';
 import * as fRatingCSS from '../../f-components/f-rating/f-rating.css';
 import * as fSwitchCSS from '../../f-components/f-switch/f-switch.css';
+import * as fTextCSS from '../../f-components/f-text/f-text.css';
 import * as fTextFieldCSS from '../../f-components/f-text-field/f-text-field.css';
 import * as rippleCSS from './mdc-ripple.css';
 import {
@@ -32,6 +33,7 @@ import {
     fRadioUsers,
     fRatingUsers,
     fSwitchUsers,
+    fTextUsers,
     fTextFieldUsers,
     KupThemeColor,
     KupThemeCSSVariables,
@@ -286,6 +288,9 @@ export class KupTheme {
             }
             if (fSwitchUsers.includes(tagName)) {
                 completeStyle += fSwitchCSS['default'];
+            }
+            if (fTextUsers.includes(tagName)) {
+                completeStyle += fTextCSS['default'];
             }
             if (fTextFieldUsers.includes(tagName)) {
                 completeStyle += fTextFieldCSS['default'];

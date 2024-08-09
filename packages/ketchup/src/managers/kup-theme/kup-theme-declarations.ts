@@ -141,6 +141,11 @@ export const fSwitchUsers = [
     KupTagNames.SWITCH,
     KupTagNames.TREE,
 ];
+
+/**
+ * Components using the FSwitch functional component.
+ */
+export const fTextUsers = [KupTagNames.TEXT, KupTagNames.TEXT_LIST];
 /**
  * Components using the FTextField functional component.
  */
