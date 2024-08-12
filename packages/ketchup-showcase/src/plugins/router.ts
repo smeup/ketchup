@@ -19,6 +19,12 @@ const basicRoutes = [
     component: () => import(`@/views/components/basic/accordion/Accordion.vue`),
   },
   {
+    path: `/activitytimeline`,
+    name: 'activitytimeline',
+    component: () =>
+      import(`@/views/components/basic/activitytimeline/ActivityTimeline.vue`),
+  },
+  {
     path: `/autocomplete`,
     name: 'autocomplete',
     component: () =>

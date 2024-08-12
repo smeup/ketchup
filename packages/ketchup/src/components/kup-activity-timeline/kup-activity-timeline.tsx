@@ -122,6 +122,8 @@ export class KupActivityTimeline {
     /*-------------------------------------------------*/
 
     @Watch('data')
+    @Watch('dateColumn')
+    @Watch('timeColumn')
     onDataUpdate() {
         this.timeline = this.#toTimeline(this.data);
     }
