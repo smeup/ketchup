@@ -38,4 +38,25 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
 
         expect(expectedResult).toEqual(result);
     });
+
+    it('should handle VO;CODVER rows with no commands corresponding',() => {
+        const commands = []
+        let result: KupDataRowAction[] = [];
+        const expectedResult = [
+            { icon: '', text: '000050' },
+            { icon: '', text: '000051' },
+            { icon: '', text: '000052' },
+        ]
+
+        mockedRows.forEach((mockedRow) => {
+            const kupDataRowAction = dom.ketchup.data.createActionsFromVoCodRow(
+                mockedRow,
+                commands
+            );
+            result.push(...kupDataRowAction);
+        });
+
+        expect(expectedResult).toEqual(result);
+
+    } )
 });
