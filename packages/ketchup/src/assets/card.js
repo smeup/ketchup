@@ -471,6 +471,20 @@ for (let index = 0; index < cards.length; index++) {
                         id: '4',
                         icon: '3d_rotation',
                         selected: false,
+                        children: [
+                            {
+                                value: 'Aiuto - F1',
+                                id: '31',
+                                icon: '3d_rotation',
+                                selected: false,
+                            },
+                            {
+                                value: 'Aiuto - F2',
+                                id: '31',
+                                icon: '3d_rotation',
+                                selected: false,
+                            },
+                        ],
                     },
                     {
                         value: 'Esterno',

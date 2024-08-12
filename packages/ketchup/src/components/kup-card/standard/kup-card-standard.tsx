@@ -1536,8 +1536,8 @@ export function create15(component: KupCard): VNode {
  */
 
 export function create16(component: KupCard): VNode {
-    const listArray: GenericObject[] = component.data['toolbar']
-        ? component.data['toolbar']
+    const listArray: GenericObject[] = component.data['toolbar2']
+        ? component.data['toolbar2']
         : [];
     const textfieldArray: GenericObject[] = component.data['textfield2']
         ? component.data['textfield2']
@@ -1552,7 +1552,7 @@ export function create16(component: KupCard): VNode {
                         {textfieldArray.length > 0
                             ? compList(textfieldArray, 'textfield')
                             : null}
-                        <kup-list id="list1" {...listArray[0]} />
+                        <kup-list isMenu={false} id="list1" {...listArray[0]} />
                     </div>
                 ) : null}
             </div>
