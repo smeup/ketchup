@@ -623,8 +623,8 @@ for (let index = 0; index < cards.length; index++) {
         textfield2: [
             {
                 fullWidth: true,
-                label: 'Search...',
-                lightmode: true,
+                lightMode: true,
+                label: 'Search option',
             },
         ],
         tree: [

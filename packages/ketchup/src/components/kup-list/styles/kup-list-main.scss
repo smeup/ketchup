@@ -113,6 +113,11 @@
       height: var(--kup_list_group_item_height);
     }
 
+    &:focus {
+      outline: 2px solid var(--kup-border-interactive);
+      outline-offset: -2px;
+    }
+
     &.list-item--activated,
     &.list-item--activated .list-item__graphic,
     &.list-item--selected,
