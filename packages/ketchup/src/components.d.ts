@@ -632,8 +632,13 @@ export namespace Components {
          */
         "showSelection": boolean;
         /**
+          * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
+          * @default KupComponentSizing.SMALL
+         */
+        "sizing": KupComponentSizing;
+        /**
           * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
-          * @default FButtonStyling.OUTLINED
+          * @default FButtonStyling.RAISED
          */
         "styling": FButtonStyling;
     }
@@ -1934,6 +1939,11 @@ export namespace Components {
           * Sets the internal value of the component.
          */
         "setValue": (value: string) => Promise<void>;
+        /**
+          * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
+          * @default KupComponentSizing.SMALL
+         */
+        "sizing": KupComponentSizing;
         /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
@@ -5996,8 +6006,13 @@ declare namespace LocalJSX {
          */
         "showSelection"?: boolean;
         /**
+          * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
+          * @default KupComponentSizing.SMALL
+         */
+        "sizing"?: KupComponentSizing;
+        /**
           * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
-          * @default FButtonStyling.OUTLINED
+          * @default FButtonStyling.RAISED
          */
         "styling"?: FButtonStyling;
     }
@@ -7082,6 +7097,11 @@ declare namespace LocalJSX {
           * @default ItemsDisplayMode.CODE
          */
         "selectMode"?: ItemsDisplayMode;
+        /**
+          * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
+          * @default KupComponentSizing.SMALL
+         */
+        "sizing"?: KupComponentSizing;
         /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
