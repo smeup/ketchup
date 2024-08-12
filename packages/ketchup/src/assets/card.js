@@ -392,6 +392,108 @@ for (let index = 0; index < cards.length; index++) {
                 ],
             },
         ],
+        toolbar: [
+            {
+                data: [
+                    {
+                        value: 'Copia link',
+                        id: '1',
+                        icon: 'add_alert',
+                        trailingIcon: true,
+                        selected: false,
+                    },
+                    {
+                        value: 'Stampa',
+                        id: '2',
+                        selected: false,
+                        icon: 'ac_unit',
+                        separator: true,
+                    },
+                    {
+                        value: 'Aiuto - F1',
+                        id: '3',
+                        icon: '3d_rotation',
+                        selected: false,
+                    },
+                    {
+                        value: 'Estendi',
+                        id: '4',
+                        icon: '3d_rotation',
+                        selected: false,
+                    },
+                    {
+                        value: 'Esterno',
+                        id: '5',
+                        icon: '3d_rotation',
+                        selected: false,
+                    },
+                    {
+                        value: 'Cambia vista',
+                        id: '6',
+                        icon: '3d_rotation',
+                        selected: false,
+                        separator: true,
+                    },
+                    {
+                        value: 'Gestisci setup utente',
+                        id: '7',
+                        icon: '3d_rotation',
+                        selected: false,
+                    },
+                ],
+            },
+        ],
+        toolbar2: [
+            {
+                data: [
+                    {
+                        value: 'Copia link',
+                        id: '1',
+                        icon: 'add_alert',
+                        trailingIcon: true,
+                        selected: false,
+                    },
+                    {
+                        value: 'Stampa',
+                        id: '2',
+                        selected: false,
+                        icon: 'ac_unit',
+                        separator: true,
+                    },
+                    {
+                        value: 'Aiuto - F1',
+                        id: '3',
+                        icon: '3d_rotation',
+                        selected: false,
+                    },
+                    {
+                        value: 'Estendi',
+                        id: '4',
+                        icon: '3d_rotation',
+                        selected: false,
+                    },
+                    {
+                        value: 'Esterno',
+                        id: '5',
+                        icon: '3d_rotation',
+                        selected: false,
+                    },
+                    {
+                        value: 'Cambia vista',
+                        id: '6',
+                        icon: '3d_rotation',
+                        selected: false,
+                        separator: true,
+                    },
+                    {
+                        value: 'Gestisci setup utente',
+                        id: '7',
+                        icon: '3d_rotation',
+                        selected: false,
+                    },
+                ],
+            },
+        ],
         progressbar: [
             {
                 value: 75,
@@ -516,6 +618,13 @@ for (let index = 0; index < cards.length; index++) {
                 icon: 'magnify',
                 isClearable: true,
                 label: 'Search...',
+            },
+        ],
+        textfield2: [
+            {
+                fullWidth: true,
+                label: 'Search...',
+                lightmode: true,
             },
         ],
         tree: [
