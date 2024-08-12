@@ -395,14 +395,14 @@ export class KupButtonList {
         if (this.data == null || this.data.length < 1) {
             return null;
         }
-        if (this.styling === 'raised') {
-            this.kupManager.debug.logMessage(
-                this,
-                'styling="raised" is not allowed, please use "flat" or "outlined" instead.',
-                KupDebugCategory.WARNING
-            );
-            return null;
-        }
+        // if (this.styling === 'raised') {
+        //     this.kupManager.debug.logMessage(
+        //         this,
+        //         'styling="raised" is not allowed, please use "flat" or "outlined" instead.',
+        //         KupDebugCategory.WARNING
+        //     );
+        //     return null;
+        // }
 
         // 08/07/24 --> Removed check all icons for redUP Problem
 
