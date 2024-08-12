@@ -66,6 +66,7 @@ export const fChipUsers = [
  */
 export const fImageUsers = [
     KupTagNames.ACCORDION,
+    KupTagNames.ACTIVITY_TIMELINE,
     KupTagNames.BADGE,
     KupTagNames.BOX,
     KupTagNames.BUTTON,

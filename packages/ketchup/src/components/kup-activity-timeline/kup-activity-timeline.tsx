@@ -389,7 +389,7 @@ export class KupActivityTimeline {
                                                     'rgb(055, 102, 139)',
                                             }}
                                         >
-                                            {/* {this.calendarIcon()} */}
+                                            {this.calendarIcon()}
                                         </div>
                                     </div>
                                     <div class="atm-content">
