@@ -3932,6 +3932,11 @@ export namespace Components {
          */
         "leadingLabel": boolean;
         /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "lightMode": boolean;
+        /**
           * The HTML max attribute specifies the maximum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week.
           * @default null
          */
@@ -8717,6 +8722,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "leadingLabel"?: boolean;
+        /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "lightMode"?: boolean;
         /**
           * The HTML max attribute specifies the maximum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week.
           * @default null
