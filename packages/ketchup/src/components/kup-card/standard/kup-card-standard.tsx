@@ -1536,11 +1536,11 @@ export function create15(component: KupCard): VNode {
  */
 
 export function create16(component: KupCard): VNode {
-    const listArray: GenericObject[] = component.data['toolbar2']
-        ? component.data['toolbar2']
+    const listArray: GenericObject[] = component.data['toolbar']
+        ? component.data['toolbar']
         : [];
-    const textfieldArray: GenericObject[] = component.data['textfield2']
-        ? component.data['textfield2']
+    const textfieldArray: GenericObject[] = component.data['textfield']
+        ? component.data['textfield']
         : [];
     return (
         <div class={`standard-layout-${component.layoutNumber}`}>
