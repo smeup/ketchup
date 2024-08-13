@@ -99,6 +99,11 @@ export class KupButton {
      */
     @Prop() label: string = null;
     /**
+     * When set to true, the label will be on the left of the component.
+     * @default false
+     */
+    @Prop() blackMode: boolean = false;
+    /**
      * When set, the button will show this icon, if icon/image not found.
      * @default null
      */
@@ -292,6 +297,7 @@ export class KupButton {
             large: this.rootElement.classList.contains('kup-large')
                 ? true
                 : false,
+            blackMode: this.blackMode,
             neutral: this.rootElement.classList.contains('kup-neutral')
                 ? true
                 : false,

@@ -37,6 +37,7 @@ export const FButton: FunctionalComponent<FButtonProps> = (
         'kup-success': props.success,
         'kup-warning': props.warning,
         'kup-neutral': props.neutral,
+        'kup-black-mode': props.blackMode,
         [props.wrapperClass]: !!props.wrapperClass,
     };
     return (
