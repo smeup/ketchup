@@ -498,6 +498,11 @@ export namespace Components {
     }
     interface KupButton {
         /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "blackMode": boolean;
+        /**
           * Sets the type of the button.
           * @default null
          */
@@ -5888,6 +5893,11 @@ declare namespace LocalJSX {
         "swipeDisabled"?: boolean;
     }
     interface KupButton {
+        /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "blackMode"?: boolean;
         /**
           * Sets the type of the button.
           * @default null
