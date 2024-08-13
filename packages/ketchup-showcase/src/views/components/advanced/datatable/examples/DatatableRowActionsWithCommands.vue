@@ -18,21 +18,49 @@
 </template>
 
 <script>
-import { defaultDataTable } from '@/mock/dataTable';
+import { dataTableWithCommands } from '@/mock/dataTable';
 
 export default {
   data() {
     return {
       data: {
-        data: defaultDataTable,
+        data: dataTableWithCommands,
         rowActions: [
           {
             text: 'Action #1',
             icon: 'folder',
           },
+        ],
+        commands: [
           {
-            text: 'Action #2',
-            icon: 'account',
+            obj: {
+              k: '000050',
+              p: 'COD_VER',
+              t: 'VO',
+            },
+            icon: 'view-quilt',
+            text: 'Scheda',
+            showIcon: 'true',
+          },
+          {
+            obj: {
+              k: '000050',
+              p: 'COD_VER',
+              t: 'VO',
+            },
+            icon: 'delete',
+            text: 'Elimina',
+            showIcon: 'true',
+          },
+          {
+            obj: {
+              k: '000051',
+              p: 'COD_VER',
+              t: 'VO',
+            },
+            icon: 'modify',
+            text: 'Modifica',
+            showIcon: 'true',
           },
         ],
         ['onkup-datatable-rowactionclick']: (e) => {
