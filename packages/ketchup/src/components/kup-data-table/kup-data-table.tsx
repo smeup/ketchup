@@ -4910,15 +4910,8 @@ export class KupDataTable {
                 rowActionsCount += this.rowActions.length;
 
                 let rowActionExpander = null;
-                let variableActions = null;
                 if (row.actions) {
                     rowActionsCount += row.actions.length;
-                    // adding variable actions
-                    variableActions = this.#renderActions(
-                        row.actions,
-                        row,
-                        'variable'
-                    );
                 } else {
                     const voCodRowActions =
                         this.#kupManager.data.createActionsFromVoCodRow(
@@ -4966,7 +4959,6 @@ export class KupDataTable {
                         }
                     >
                         {rowActionExpander}
-                        {variableActions}
                     </td>
                 );
             }
