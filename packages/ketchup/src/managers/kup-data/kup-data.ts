@@ -627,6 +627,22 @@ export class KupData {
                 cell.obj.t === VoCodVerRowEnum.T
         );
     }
+
+    /**
+     * Check if has COD_VER rows
+     * @param {KupDataColumn } column single column.
+     * @returns { boolean} if COD_VER founded or not.
+     */
+    hasCodVerColumn(column: KupDataColumn): boolean {
+        if (column && column.obj) {
+            const hasCodVerCol =
+                column.obj.p === VoCodVerRowEnum.P &&
+                column.obj.t === VoCodVerRowEnum.T;
+            return hasCodVerCol;
+        }
+        return false;
+    }
+
     /**
      * Creates actions from row with VO COD_VER obj.
      * @param {KupDataTableRow} row single row.
@@ -656,7 +672,7 @@ export class KupData {
                 !commands.length
             ) {
                 actions.push({
-                    icon: '',
+                    icon: codVer.value || '',
                     text: codVer.obj.k,
                 });
             }
