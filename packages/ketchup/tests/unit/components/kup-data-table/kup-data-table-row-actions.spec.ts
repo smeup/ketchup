@@ -23,10 +23,10 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
         let result: KupDataRowAction[] = [];
 
         const expectedResult: KupDataRowAction[] = [
-            { icon: 'view-quilt', text: 'Scheda' },
-            { icon: 'delete', text: 'Elimina' },
-            { icon: 'edit', text: 'Modifica' },
-            { icon: '', text: '000052' },
+            { icon: 'view-quilt', text: 'Scheda' ,obj: { k: "000050", p: "COD_VER", t: "VO"}},
+            { icon: 'delete', text: 'Elimina' ,obj: { k: "000050", p: "COD_VER", t: "VO"}},
+            { icon: 'edit', text: 'Modifica',obj: { k: "000051", p: "COD_VER", t: "VO"} },
+            { icon: '', text: '000052', obj: { k: "000052", p: "COD_VER", t: "VO"} },
         ];
 
         mockedRows.forEach((mockedRow) => {
@@ -44,9 +44,9 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
         const commands = [];
         let result: KupDataRowAction[] = [];
         const expectedResult = [
-            { icon: '', text: '000050' },
-            { icon: '', text: '000051' },
-            { icon: '', text: '000052' },
+            { icon: '', text: '000050' , obj: { k: "000050", p: "COD_VER", t: "VO"}},
+            { icon: '', text: '000051', obj: { k: "000051", p: "COD_VER", t: "VO"} },
+            { icon: '', text: '000052' , obj: { k: "000052", p: "COD_VER", t: "VO"}},
         ];
 
         mockedRows.forEach((mockedRow) => {
@@ -82,7 +82,7 @@ describe('kup data getCodVerRows', () => {
             {
                 isEditable: false,
                 obj: { k: '000050', p: 'COD_VER', t: 'VO' },
-                value: '000050',
+                value: '',
                 element: { 's-hn': 'KUP-DATA-TABLE' },
             },
         ];
