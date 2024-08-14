@@ -127,6 +127,14 @@ export class KupTabBar {
     })
     kupFocus: EventEmitter<KupTabBarEventPayload>;
 
+    @Event({
+        eventName: 'kup-tabbar-icon-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupIconClick: EventEmitter<KupTabBarEventPayload>;
+
     onKupBlur(i: number, node: KupTabBarNode) {
         this.kupBlur.emit({
             comp: this,
@@ -153,6 +161,15 @@ export class KupTabBar {
 
     onKupFocus(i: number, node: KupTabBarNode) {
         this.kupFocus.emit({
+            comp: this,
+            id: this.rootElement.id,
+            index: i,
+            node: node,
+        });
+    }
+
+    onKupIconClick(i: number, node: KupTabBarNode) {
+        this.kupIconClick.emit({
             comp: this,
             id: this.rootElement.id,
             index: i,
@@ -332,10 +349,7 @@ export class KupTabBar {
                             resource="app"
                             sizeX="16px"
                             sizeY="16px"
-                            onClick={() => {
-                                // e.stopPropagation(); remove comment to stop event propagation to tab-bar
-                                console.log('CONSOLE BTN TOOLBAR');
-                            }}
+                            onClick={() => this.onKupIconClick(i, node)}
                             wrapperClass="tab__iconToolbar"
                         >
                             Click me

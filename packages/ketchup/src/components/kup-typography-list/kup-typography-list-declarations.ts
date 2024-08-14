@@ -1,5 +1,5 @@
 import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 
 /**
  * Props of the kup-typography component.
@@ -45,4 +45,9 @@ export enum KupTypographyListType {
 export interface KupTypographyListNode extends KupDataNode {
     children?: KupTypographyListNode[];
     data?: GenericObject;
+}
+
+export interface KupTypographyIconClickEventPayload extends KupEventPayload {
+    index: number;
+    node: KupTypographyListNode;
 }

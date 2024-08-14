@@ -7,6 +7,7 @@ export interface FTypographyProps extends FComponent {
     type?: FTypographyType;
     value?: string;
     toolbar?: boolean;
+    onIconClick?: (event: MouseEvent) => void;
 }
 
 /**

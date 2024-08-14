@@ -1,4 +1,18 @@
-import { FunctionalComponent, h, VNode } from '@stencil/core';
+import {
+    FunctionalComponent,
+    h,
+    VNode,
+    Event,
+    EventEmitter,
+    Component,
+    Element,
+    forceUpdate,
+    Host,
+    Method,
+    Prop,
+    State,
+    Watch,
+} from '@stencil/core';
 import { FImage } from '../f-image/f-image';
 import { FImageProps } from '../f-image/f-image-declarations';
 import { FTypographyProps, FTypographyType } from './f-typography-declarations';
@@ -52,15 +66,10 @@ export const FTypography: FunctionalComponent<FTypographyProps> = (
                 <FImage
                     {...propsFImage}
                     onClick={() => {
-                        // e.stopPropagation(); remove comment to stop event propagation to tab-bar
-                        console.log('CONSOLE BTN TOOLBAR');
+                        props.onIconClick;
                     }}
                 />
             )}
         </div>
     );
 };
-
-/*-------------------------------------------------*/
-/*                  M e t h o d s                  */
-/*-------------------------------------------------*/

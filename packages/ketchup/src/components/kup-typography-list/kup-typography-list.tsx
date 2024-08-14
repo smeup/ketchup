@@ -1,16 +1,20 @@
 import {
     Component,
     Element,
+    Event,
+    EventEmitter,
     forceUpdate,
     h,
     Host,
     Method,
     Prop,
+    State,
     VNode,
     Watch,
 } from '@stencil/core';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
+    KupTypographyIconClickEventPayload,
     KupTypographyListNode,
     KupTypographyListProps,
 } from './kup-typography-list-declarations';
@@ -69,6 +73,26 @@ export class KupTypographyList {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
+
+    @Event({
+        eventName: 'kup-typography-icon-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupIconClick: EventEmitter<KupTypographyIconClickEventPayload>;
+
+    onKupIconClick(i: number, node: KupTypographyListNode) {
+        this.kupIconClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            index: i,
+            node: node,
+        });
+    }
 
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
@@ -162,6 +186,7 @@ export class KupTypographyList {
         const props: FTypographyProps = {
             value: data.value,
             type: data.type,
+            onIconClick: () => this.onKupIconClick(data.i, data.node),
         };
 
         return <FTypography {...props} />;

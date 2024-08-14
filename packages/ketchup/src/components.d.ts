@@ -58,7 +58,7 @@ import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/k
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 import { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
-import { KupTypographyListNode } from "./components/kup-typography-list/kup-typography-list-declarations";
+import { KupTypographyIconClickEventPayload, KupTypographyListNode } from "./components/kup-typography-list/kup-typography-list-declarations";
 export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 export { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 export { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
@@ -112,7 +112,7 @@ export { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/k
 export { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 export { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 export { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
-export { KupTypographyListNode } from "./components/kup-typography-list/kup-typography-list-declarations";
+export { KupTypographyIconClickEventPayload, KupTypographyListNode } from "./components/kup-typography-list/kup-typography-list-declarations";
 export namespace Components {
     interface KupAccordion {
         /**
@@ -4552,6 +4552,10 @@ export interface KupTreeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupTreeElement;
 }
+export interface KupTypographyListCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupTypographyListElement;
+}
 declare global {
     interface HTMLKupAccordionElementEventMap {
         "kup-accordion-itemselected": KupAccordionItemSelectedEventPayload;
@@ -5428,6 +5432,7 @@ declare global {
         "kup-tabbar-blur": KupTabBarEventPayload;
         "kup-tabbar-click": KupTabBarEventPayload;
         "kup-tabbar-focus": KupTabBarEventPayload;
+        "kup-tabbar-icon-click": KupTabBarEventPayload;
     }
     interface HTMLKupTabBarElement extends Components.KupTabBar, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupTabBarElementEventMap>(type: K, listener: (this: HTMLKupTabBarElement, ev: KupTabBarCustomEvent<HTMLKupTabBarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5557,7 +5562,18 @@ declare global {
         prototype: HTMLKupTypographyElement;
         new (): HTMLKupTypographyElement;
     };
+    interface HTMLKupTypographyListElementEventMap {
+        "kup-typography-icon-click": KupTypographyIconClickEventPayload;
+    }
     interface HTMLKupTypographyListElement extends Components.KupTypographyList, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupTypographyListElementEventMap>(type: K, listener: (this: HTMLKupTypographyListElement, ev: KupTypographyListCustomEvent<HTMLKupTypographyListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupTypographyListElementEventMap>(type: K, listener: (this: HTMLKupTypographyListElement, ev: KupTypographyListCustomEvent<HTMLKupTypographyListElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupTypographyListElement: {
         prototype: HTMLKupTypographyListElement;
@@ -8660,6 +8676,7 @@ declare namespace LocalJSX {
           * Triggered when the tab is focused.
          */
         "onKup-tabbar-focus"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
+        "onKup-tabbar-icon-click"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
         /**
           * When enabled displays Material's ripple effect on item headers.
           * @default true
@@ -9208,6 +9225,7 @@ declare namespace LocalJSX {
           * @default []
          */
         "data"?: KupTypographyListNode[];
+        "onKup-typography-icon-click"?: (event: KupTypographyListCustomEvent<KupTypographyIconClickEventPayload>) => void;
         /**
           * Sets the sizing of the textfield
           * @default FTypographyType.HEADING1
