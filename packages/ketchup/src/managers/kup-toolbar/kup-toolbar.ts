@@ -93,9 +93,65 @@ export class KupToolbar {
 
     getFakeData(): any {
         return [
-            { label: 'Item 1', value: 'Value 1' },
-            { label: 'Item 2', value: 'Value 2' },
-            { label: 'Item 3', value: 'Value 3' },
+            {
+                value: 'Copia link',
+                id: '1',
+                icon: 'add_alert',
+                trailingIcon: true,
+                selected: false,
+            },
+            {
+                value: 'Stampa',
+                id: '2',
+                selected: false,
+                icon: 'ac_unit',
+                separator: true,
+            },
+            {
+                value: 'Aiuto - F1',
+                id: '3',
+                icon: '3d_rotation',
+                selected: false,
+            },
+            {
+                value: 'Estendi',
+                id: '4',
+                icon: '3d_rotation',
+                selected: false,
+                children: [
+                    {
+                        value: 'Aiuto - F1',
+                        id: '31',
+                        icon: '3d_rotation',
+                        selected: false,
+                    },
+                    {
+                        value: 'Aiuto - F2',
+                        id: '31',
+                        icon: '3d_rotation',
+                        selected: false,
+                    },
+                ],
+            },
+            {
+                value: 'Esterno',
+                id: '5',
+                icon: '3d_rotation',
+                selected: false,
+            },
+            {
+                value: 'Cambia vista',
+                id: '6',
+                icon: '3d_rotation',
+                selected: false,
+                separator: true,
+            },
+            {
+                value: 'Gestisci setup utente',
+                id: '7',
+                icon: '3d_rotation',
+                selected: false,
+            },
         ];
     }
 
