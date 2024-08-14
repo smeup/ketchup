@@ -514,6 +514,14 @@
         height: var(--kup_button_spinner_height);
       }
     }
+    &.#{$kup-class-black-mode} {
+      .button {
+        --kup_button_text_color: var(--kup-gray-color-0);
+      }
+      .icon-button {
+        --kup_button_text_color: var(--kup-gray-color-0);
+      }
+    }
   }
 
   &.#{$kup-class-full-height} {

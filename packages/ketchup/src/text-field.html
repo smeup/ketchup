@@ -308,6 +308,34 @@
             alert="Alert message"
         ></kup-text-field>
 
+        <h4>Light Mode</h4>
+        <div
+            style="
+                background-color: var(--kup-gray-color-10);
+                padding: 20px;
+                display: flex;
+                gap: 16px;
+                align-content: baseline;
+            "
+        >
+            <kup-text-field
+                label="Alert"
+                input-type="number"
+                input-mode="decimal"
+                alert="Alert message"
+                light-mode
+            ></kup-text-field>
+            <kup-text-field
+                is-clearable
+                label="Error"
+                initial-value="Error initial value"
+                error="Error message for initial value"
+                max-length="10"
+                light-mode
+            ></kup-text-field>
+            <kup-text-field full-width text-area light-mode></kup-text-field>
+        </div>
+
         <script>
             // For the password field
             const inPassword = document.querySelector(

@@ -502,6 +502,11 @@ export namespace Components {
     }
     interface KupButton {
         /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "blackMode": boolean;
+        /**
           * Sets the type of the button.
           * @default null
          */
@@ -636,8 +641,13 @@ export namespace Components {
          */
         "showSelection": boolean;
         /**
+          * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
+          * @default KupComponentSizing.SMALL
+         */
+        "sizing": KupComponentSizing;
+        /**
           * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
-          * @default FButtonStyling.OUTLINED
+          * @default FButtonStyling.RAISED
          */
         "styling": FButtonStyling;
     }
@@ -1938,6 +1948,11 @@ export namespace Components {
           * Sets the internal value of the component.
          */
         "setValue": (value: string) => Promise<void>;
+        /**
+          * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
+          * @default KupComponentSizing.SMALL
+         */
+        "sizing": KupComponentSizing;
         /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
@@ -3935,6 +3950,11 @@ export namespace Components {
           * @default false
          */
         "leadingLabel": boolean;
+        /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "lightMode": boolean;
         /**
           * The HTML max attribute specifies the maximum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week.
           * @default null
@@ -5963,6 +5983,11 @@ declare namespace LocalJSX {
     }
     interface KupButton {
         /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "blackMode"?: boolean;
+        /**
           * Sets the type of the button.
           * @default null
          */
@@ -6080,8 +6105,13 @@ declare namespace LocalJSX {
          */
         "showSelection"?: boolean;
         /**
+          * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
+          * @default KupComponentSizing.SMALL
+         */
+        "sizing"?: KupComponentSizing;
+        /**
           * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
-          * @default FButtonStyling.OUTLINED
+          * @default FButtonStyling.RAISED
          */
         "styling"?: FButtonStyling;
     }
@@ -7166,6 +7196,11 @@ declare namespace LocalJSX {
           * @default ItemsDisplayMode.CODE
          */
         "selectMode"?: ItemsDisplayMode;
+        /**
+          * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
+          * @default KupComponentSizing.SMALL
+         */
+        "sizing"?: KupComponentSizing;
         /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
@@ -8806,6 +8841,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "leadingLabel"?: boolean;
+        /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "lightMode"?: boolean;
         /**
           * The HTML max attribute specifies the maximum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week.
           * @default null

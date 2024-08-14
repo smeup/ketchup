@@ -70,6 +70,7 @@
     --kup_textfield_width: var(--kup-textfield-width, 100%);
     --mdc-theme-primary: var(--kup_textfield_primary_color);
     --mdc-shape-small: 0px;
+    --kup_textfield_border_radius: var(--kup-textfield-border-radius, unset);
 
     display: flex;
     flex-direction: column;
@@ -158,7 +159,7 @@
 
     .mdc-text-field {
       width: var(--kup_textfield_width);
-      border-radius: unset !important;
+      border-radius: var(--kup_textfield_border_radius);
       outline: 2px solid transparent;
       outline-offset: -2px;
       border-bottom: 1px solid var(--kup_textfield_border_color);
@@ -528,6 +529,12 @@
         &:not(.mdc-text-field--textarea) {
           height: var(--kup_textfield_fullwidth_height) !important;
         }
+      }
+    }
+
+    &.#{$kup-class-light-mode} {
+      .mdc-text-field-container .mdc-text-field--lightmode {
+        background-color: var(--kup-layer-0);
       }
     }
 
