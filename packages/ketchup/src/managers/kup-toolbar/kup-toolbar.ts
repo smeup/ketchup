@@ -1,100 +1,182 @@
-import type { KupDom } from '../kup-manager/kup-manager-declarations';
-import { KupToolbarModifierKeys } from './kup-toolbar-declarations';
+import type {
+    KupDom,
+    KupManagerClickCb,
+} from '../kup-manager/kup-manager-declarations';
+import {
+    KupDynamicPositionAnchor,
+    KupDynamicPositionElement,
+} from '../kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
 /**
- * Handles component's toolbar.
+ * Handles application-wide toolbar using card component.
  * @module KupToolbar
  */
 export class KupToolbar {
-    active: boolean;
-    modifiers: KupToolbarModifierKeys[];
-    managedElements: Set<HTMLElement>;
-    #keyEvent: (this: Document, ev: KeyboardEvent) => void;
+    currentAnchor: KupDynamicPositionAnchor = null;
+    element: HTMLKupCardElement = null;
+    managedElements: Set<HTMLElement> = null;
+    #clickCb: KupManagerClickCb = null;
+
     /**
      * Initializes KupToolbar.
      */
     constructor() {
-        this.active = false;
         this.managedElements = new Set();
-        this.modifiers = [
-            KupToolbarModifierKeys.ALT,
-            KupToolbarModifierKeys.CTRL,
-        ];
-        this.#keyEvent = function (e: KeyboardEvent) {
-            const toolbar: KupToolbar = dom.ketchup.toolbar;
-            if (toolbar.managedElements) {
-                for (let index = 0; index < toolbar.modifiers.length; index++) {
-                    if (
-                        toolbar.modifiers[index] ===
-                            KupToolbarModifierKeys.CTRL &&
-                        e.metaKey
-                    ) {
-                        continue;
-                    } else {
-                        if (!e[toolbar.modifiers[index]]) {
-                            {
-                                if (toolbar.active) {
-                                    toolbar.hide();
-                                }
-                                return;
-                            }
-                        }
-                    }
-                }
-                toolbar.show();
+        this.#initializeEventListeners();
+    }
+
+    #initializeEventListeners() {
+        document.addEventListener('click', (e) => {
+            const paths = e.composedPath() as HTMLElement[];
+
+            if (paths.includes(this.element)) {
+                return;
             }
+
+            // Close toolbar if clicking outside
+            if (
+                this.currentAnchor &&
+                !paths.includes(this.currentAnchor as HTMLAnchorElement)
+            ) {
+                this.hide();
+                this.currentAnchor = null;
+            }
+        });
+    }
+
+    #dynPos(anchor: KupDynamicPositionAnchor) {
+        if (dom.ketchup.dynamicPosition.isRegistered(this.element)) {
+            dom.ketchup.dynamicPosition.changeAnchor(this.element, anchor);
+        } else {
+            dom.ketchup.dynamicPosition.register(
+                this.element as KupDynamicPositionElement,
+                anchor,
+                null,
+                null,
+                true
+            );
+        }
+        dom.ketchup.dynamicPosition.start(this.element);
+    }
+
+    #create(options?: Partial<HTMLKupCardElement>) {
+        this.element = document.createElement('kup-card');
+        this.element.id = 'kup-toolbar';
+        this.element.isMenu = true;
+        this.element.layoutNumber = 16;
+        this.element.sizeX = 'auto';
+        this.element.sizeY = 'auto';
+        this.element.data = this.getFakeData(); // Dati fittizi
+        if (options) {
+            this.#setOptions(options);
+        }
+        document.body.appendChild(this.element);
+        this.#clickCb = {
+            cb: () => {
+                this.hide();
+            },
+            el: this.element,
         };
-        document.addEventListener('keydown', this.#keyEvent);
-        document.addEventListener('keyup', this.#keyEvent);
     }
-    /**
-     * Shows components' toolbar.
-     */
-    show(): void {
-        this.managedElements.forEach(function (comp) {
-            if (comp.isConnected) {
-                comp.setAttribute('kup-toolbar', '');
-            }
-        });
-        this.active = true;
-    }
-    /**
-     * Hides components' toolbar.
-     */
-    hide(): void {
-        this.managedElements.forEach(function (comp) {
-            if (comp.isConnected) {
-                comp.removeAttribute('kup-toolbar');
-            }
-        });
-        this.active = false;
-    }
-    /**
-     * Watches the element eligible to move when dragging.
-     * @param {HTMLElement} el - Toolbar-supporting element.
-     */
-    register(el: HTMLElement): void {
-        this.managedElements.add(el);
-    }
-    /**
-     * Removes the elements from the KupToolbar class watchlist.
-     * @param {HTMLElement[]} elements - Elements to remove.
-     */
-    unregister(elements: HTMLElement[]): void {
-        if (this.managedElements) {
-            for (let index = 0; index < elements.length; index++) {
-                this.managedElements.delete(elements[index]);
+
+    #setOptions(options: Partial<HTMLKupCardElement>) {
+        for (const key in options) {
+            if (Object.prototype.hasOwnProperty.call(options, key)) {
+                const prop = options[key];
+                this.element[key] = prop;
             }
         }
     }
+
+    getFakeData(): any {
+        return [
+            { label: 'Item 1', value: 'Value 1' },
+            { label: 'Item 2', value: 'Value 2' },
+            { label: 'Item 3', value: 'Value 3' },
+        ];
+    }
+
     /**
-     * Returns whether an element was previously registered or not.
-     * @param {HTMLElement} el - Element to test.
-     * @returns {boolean} True if the element was registered.
+     * Destroys the toolbar.
      */
-    isRegistered(el: HTMLElement): boolean {
-        return !this.managedElements ? false : this.managedElements.has(el);
+    destroy() {
+        if (this.element) {
+            this.element.remove();
+            this.element = null;
+        }
+    }
+
+    /**
+     * Hides the toolbar.
+     */
+    hide() {
+        if (this.element) {
+            this.element.menuVisible = false;
+            dom.ketchup.dynamicPosition.stop(this.element);
+            dom.ketchup.removeClickCallback(this.#clickCb);
+        }
+    }
+
+    /**
+     * Displays the toolbar.
+     * @param {KupDynamicPositionAnchor} anchor - Anchor point of the toolbar: HTML element or x/y coordinates.
+     * @param {Partial<HTMLKupCardElement>} options - Props/attributes of the toolbar.
+     */
+    show(
+        anchor?: KupDynamicPositionAnchor,
+        options?: Partial<HTMLKupCardElement>
+    ) {
+        // Creates the card or updates it with new options
+        if (!this.element) {
+            this.#create(options);
+        } else if (options) {
+            this.#setOptions(options);
+        }
+
+        // If an anchor was provided, initializes or updates dynamic positioning
+        if (anchor) {
+            this.#dynPos(anchor);
+        }
+
+        // If the toolbar is already visible, it's pointless to go on
+        if (this.element.menuVisible) {
+            return;
+        }
+
+        // If the dynamic positioning is still to be registered, a warning is thrown
+        if (!dom.ketchup.dynamicPosition.isRegistered(this.element)) {
+            dom.ketchup.debug.logMessage(
+                'kup-toolbar',
+                'Unable to display KupToolbar without specifying a valid anchor point.',
+                KupDebugCategory.WARNING
+            );
+            return;
+        }
+
+        this.element.menuVisible = true;
+        // Adding the click callback for toolbar
+        dom.ketchup.addClickCallback(this.#clickCb, true);
+    }
+
+    /**
+     * Registers an HTMLElement as a toolbar anchor.
+     * @param {HTMLElement} element - The HTML element to be registered.
+     */
+    register(element: HTMLElement): void {
+        this.managedElements.add(element);
+    }
+
+    /**
+     * Unregisters an HTMLElement, preventing it from being used as an anchor.
+     *
+     * @param {HTMLElement} element - The HTML element to be unregistered.
+     */
+    unregister(element: HTMLElement): void {
+        if (this.managedElements) {
+            this.managedElements.delete(element);
+        }
     }
 }
