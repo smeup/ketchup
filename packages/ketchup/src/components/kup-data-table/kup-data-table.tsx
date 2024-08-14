@@ -2730,6 +2730,9 @@ export class KupDataTable {
                             type: type,
                             index: index,
                         });
+                        setTimeout(() => {
+                            this.#closeRowActionsCard();
+                        }, 0);
                 }
             }
         );
