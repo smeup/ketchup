@@ -293,6 +293,14 @@ export interface KupDatatableRowActionClickEventPayload
     action?: KupDataRowAction;
     index?: number;
 }
+
+export interface KupDatatableRowActionItemClickEventPayload
+    extends KupEventPayload {
+    row: KupDataRow;
+    obj?: KupObj;
+    column?: KupDataColumn;
+}
+
 export interface KupDataTableCellButtonClickEventPayload
     extends KupEventPayload {
     cell: KupDataTableCell;

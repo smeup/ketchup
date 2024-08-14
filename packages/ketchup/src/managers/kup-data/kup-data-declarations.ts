@@ -61,6 +61,7 @@ export interface KupDataRowCells {
 export interface KupDataRowAction {
     text: string;
     icon: string;
+    obj?: KupObj;
 }
 
 /**

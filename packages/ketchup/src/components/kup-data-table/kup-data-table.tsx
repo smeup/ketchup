@@ -54,6 +54,7 @@ import {
     KupDataTableInsertMode,
     KupDatatableHistoryEventPayload,
     VoCodVerRowEnum,
+    KupDatatableRowActionItemClickEventPayload,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -1132,6 +1133,17 @@ export class KupDataTable {
         bubbles: true,
     })
     kupHistory: EventEmitter<KupDatatableHistoryEventPayload>;
+    
+    /**
+     * Event fired when the history confirm button is pressed.
+     */
+    @Event({
+        eventName: 'kup-datatable-rowaction-item-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupRowActionItemClick: EventEmitter<KupDatatableRowActionItemClickEventPayload>
 
     /**
      * Closes any opened column menu.
@@ -2636,16 +2648,14 @@ export class KupDataTable {
     /**
      * Opens a card containing the actions of the given row.
      * @param {KupDataRowAction[]} rowActions - Actions for the row.
-     * @param {number} x - Initial x coordinates of the card.
-     * @param {number} y - Initial y coordinates of the card.
      * @private
      * @memberof KupDataTable
      */
-    #rowActions(rowActions: KupDataRowAction[]) {
-        this.#createRowActionsCard(rowActions);
+    #rowActions(rowActionsWithCodVer: KupDataRowAction[], row: KupDataTableRow) {
+        this.#createRowActionsCard(rowActionsWithCodVer , row);
     }
 
-    #createRowActionsCard(rowActions: KupDataRowAction[]) {
+    #createRowActionsCard(rowActionsWithCodVer: KupDataRowAction[], row: KupDataTableRow) {
         if (this.#actionsCard) {
             this.#closeRowActionsCard();
         }
@@ -2655,7 +2665,7 @@ export class KupDataTable {
         this.#actionsCard.menuVisible = true;
         this.#actionsCard.sizeX = 'auto';
         this.#actionsCard.sizeY = 'auto';
-        this.#actionsCard.data = this.#prepareDataForActionsCard(rowActions);
+        this.#actionsCard.data = this.#prepareDataForActionsCard(rowActionsWithCodVer);
         this.#clickCbDropCard = {
             cb: () => {
                 this.#closeRowActionsCard();
@@ -2687,16 +2697,25 @@ export class KupDataTable {
 
                         this.#filterRowActionsCard(
                             this.#actionsCard,
-                            rowActions,
+                            rowActionsWithCodVer,
                             input
                         );
                         break;
                     case 'kup-textfield-cleariconclick':
                         this.#clearSearchActionsCard(
                             this.#actionsCard,
-                            rowActions
+                            rowActionsWithCodVer
                         );
                         break;
+                    case 'kup-list-click':
+                        const selectedElObj = e.detail.event.detail.selected.obj
+
+                        this.kupRowActionItemClick.emit({
+                            comp: this,
+                            id: this.rootElement.id,
+                            row: row,
+                            obj: selectedElObj
+                        })
                 }
             }
         );
@@ -3682,7 +3701,7 @@ export class KupDataTable {
     #onRowActionExpanderClick(
         e: MouseEvent,
         row: KupDataTableRow,
-        rowActions: KupDataRowAction[]
+        rowActionsWithCodVer: KupDataRowAction[]
     ) {
         e.stopPropagation();
         this.#rowActionsCardAnchor = e.target as HTMLElement;
@@ -3692,7 +3711,7 @@ export class KupDataTable {
             row,
             type: 'expander',
         });
-        this.#rowActions(rowActions);
+        this.#rowActions(rowActionsWithCodVer , row);
     }
 
     #handleRowSelect(row: KupDataTableRow) {

@@ -39,6 +39,7 @@ import {
 } from '../../f-components/f-cell/f-cell-declarations';
 import { TreeNodePath } from '../../components/kup-tree/kup-tree-declarations';
 import { ValueDisplayedValue } from '../../utils/filters/filters-declarations';
+import { KupObj } from '../kup-objects/kup-objects-declarations';
 const dom: KupDom = document.documentElement as KupDom;
 
 /**
@@ -662,6 +663,7 @@ export class KupData {
                 actions.push({
                     icon: command.icon,
                     text: command.text,
+                    obj: command.obj
                 });
             }
         });
@@ -674,6 +676,7 @@ export class KupData {
                 actions.push({
                     icon: codVer.value || '',
                     text: codVer.obj.k,
+                    obj: codVer.obj
                 });
             }
         });
