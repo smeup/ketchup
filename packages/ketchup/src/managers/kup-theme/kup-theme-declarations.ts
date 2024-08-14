@@ -89,8 +89,8 @@ export const fImageUsers = [
     KupTagNames.SNACKBAR,
     KupTagNames.TAB_BAR,
     KupTagNames.TEXT_FIELD,
-    KupTagNames.TEXT,
-    KupTagNames.TEXT_LIST,
+    KupTagNames.TYPOGRAPHY,
+    KupTagNames.TYPOGRAPHY_LIST,
     KupTagNames.TREE,
 ];
 /**
@@ -147,7 +147,10 @@ export const fSwitchUsers = [
 /**
  * Components using the FSwitch functional component.
  */
-export const fTextUsers = [KupTagNames.TEXT, KupTagNames.TEXT_LIST];
+export const fTypographyUsers = [
+    KupTagNames.TYPOGRAPHY,
+    KupTagNames.TYPOGRAPHY_LIST,
+];
 /**
  * Components using the FTextField functional component.
  */

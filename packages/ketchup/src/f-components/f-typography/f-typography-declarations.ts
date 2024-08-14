@@ -3,8 +3,8 @@ import type { FComponent } from '../../types/GenericTypes';
 /**
  * Props of the f-button component.
  */
-export interface FTextProps extends FComponent {
-    type?: FTextType;
+export interface FTypographyProps extends FComponent {
+    type?: FTypographyType;
     value?: string;
     toolbar?: boolean;
 }
@@ -20,7 +20,7 @@ export interface FTextProps extends FComponent {
  * @property {string} CAPTION - The space between the content is the maximum.
  * @property {string} LABEL - The space is more around .
  */
-export enum FTextType {
+export enum FTypographyType {
     BODY = 'body',
     BODY_COMPACT = 'body-compact',
     HEADING1 = 'heading-01',

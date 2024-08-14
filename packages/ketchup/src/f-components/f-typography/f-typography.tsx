@@ -1,18 +1,18 @@
 import { FunctionalComponent, h, VNode } from '@stencil/core';
-import { FTextProps, FTextType } from './f-text-declarations';
 import { FImage } from '../f-image/f-image';
 import { FImageProps } from '../f-image/f-image-declarations';
+import { FTypographyProps, FTypographyType } from './f-typography-declarations';
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
 /*-------------------------------------------------*/
 
-export const FText: FunctionalComponent<FTextProps> = (
-    props: FTextProps,
+export const FTypography: FunctionalComponent<FTypographyProps> = (
+    props: FTypographyProps,
     children: VNode[]
 ) => {
     if (!props.type) {
-        props.type = FTextType.HEADING1;
+        props.type = FTypographyType.HEADING1;
     }
     if (!props.value) {
         return;
@@ -21,12 +21,12 @@ export const FText: FunctionalComponent<FTextProps> = (
         props.toolbar = true;
     }
     const classObj: Record<string, boolean> = {
-        'f-text': true,
-        [`f-text--${props.type}`]: props.type ? true : false,
+        'f-typography': true,
+        [`f-typography--${props.type}`]: props.type ? true : false,
     };
 
     const classObjParent: Record<string, boolean> = {
-        'f-text--wrap': props.toolbar ? true : false,
+        'f-typography--wrap': props.toolbar ? true : false,
     };
 
     const propsFImage: FImageProps = {

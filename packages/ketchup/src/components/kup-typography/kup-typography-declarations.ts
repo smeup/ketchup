@@ -1,11 +1,8 @@
-import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
-import { GenericObject } from '../../types/GenericTypes';
-
 /**
- * Props of the kup-text component.
+ * Props of the kup-typography component.
  * Used to export every prop in an object.
  */
-export enum KupTextProps {
+export enum KupTypographyProps {
     data = 'the text of the text',
     Style = 'it is the style of the text',
     Border = 'when true it will appear a border',
@@ -32,7 +29,7 @@ export enum KupTextProps {
  * @property {string} CAPTION - The space between the content is the maximum.
  * @property {string} LABEL - The space is more around .
  */
-export enum KupTextType {
+export enum KupTypographyType {
     BODY = 'body',
     BODY_COMPACT = 'body-compact',
     HEADING1 = 'heading-01',

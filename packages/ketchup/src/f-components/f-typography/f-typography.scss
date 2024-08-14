@@ -1,5 +1,5 @@
-.f-text {
-  &.f-text--heading-01 {
+.f-typography {
+  &.f-typography--heading-01 {
     @include kup-heading-compact-01;
   }
 }
@@ -11,7 +11,7 @@
   margin: 0;
 }
 
-.f-text--wrap {
+.f-typography--wrap {
   display: flex;
   align-items: center;
   gap: var(--kup-space-03);

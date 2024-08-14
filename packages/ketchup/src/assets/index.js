@@ -235,12 +235,12 @@ components.data = [
         id: 'time-picker.html',
     },
     {
-        value: 'Text',
-        id: 'text.html',
+        value: 'Typography',
+        id: 'typography.html',
     },
     {
-        value: 'TextList',
-        id: 'text-list.html',
+        value: 'Typography List',
+        id: 'typography-list.html',
     },
     {
         value: 'Text field',

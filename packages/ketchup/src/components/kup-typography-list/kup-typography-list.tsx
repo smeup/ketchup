@@ -9,30 +9,30 @@ import {
     VNode,
     Watch,
 } from '@stencil/core';
-import {
-    FTextProps,
-    FTextType,
-} from '../../f-components/f-text/f-text-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
-    KupTextListNode,
-    KupTextListProps,
-} from './kup-text-list-declarations';
+    KupTypographyListNode,
+    KupTypographyListProps,
+} from './kup-typography-list-declarations';
 import { setProps } from '../../utils/utils';
 import { KupManager } from '../../managers/kup-manager/kup-manager-declarations';
 import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
-import { FText } from '../../f-components/f-text/f-text';
 import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
+import {
+    FTypographyProps,
+    FTypographyType,
+} from '../../f-components/f-typography/f-typography-declarations';
+import { FTypography } from '../../f-components/f-typography/f-typography';
 
 @Component({
-    tag: 'kup-text-list',
-    styleUrl: 'kup-text-list.scss',
+    tag: 'kup-typography-list',
+    styleUrl: 'kup-typography-list.scss',
     shadow: true,
 })
-export class KupTextList {
+export class KupTypographyList {
     /**
-     * References the root HTML element of the component (<kup-text-list>).
+     * References the root HTML element of the component (<kup-typography-list>).
      */
     @Element() rootElement: HTMLElement;
 
@@ -48,14 +48,14 @@ export class KupTextList {
     @Prop() customStyle: string = '';
     /**
      * Sets the sizing of the textfield
-     * @default FTextType.HEADING1
+     * @default FTypographyType.HEADING1
      */
-    @Prop() type: FTextType = FTextType.HEADING1;
+    @Prop() type: FTypographyType = FTypographyType.HEADING1;
     /**
      * Props of the sub-components.
      * @default []
      */
-    @Prop({ mutable: true }) data: KupTextListNode[] = [];
+    @Prop({ mutable: true }) data: KupTypographyListNode[] = [];
     /**
      * This is the context of the text
      * @default null
@@ -75,7 +75,7 @@ export class KupTextList {
     /*-------------------------------------------------*/
 
     @Watch('data')
-    checkDataset(newData: KupTextListNode[] | KupDataDataset) {
+    checkDataset(newData: KupTypographyListNode[] | KupDataDataset) {
         if (!newData) {
             newData = [];
         }
@@ -103,11 +103,14 @@ export class KupTextList {
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         let props: GenericObject = {};
         if (descriptions) {
-            props = KupTextListProps;
+            props = KupTypographyListProps;
         } else {
-            for (const key in KupTextListProps) {
+            for (const key in KupTypographyListProps) {
                 if (
-                    Object.prototype.hasOwnProperty.call(KupTextListProps, key)
+                    Object.prototype.hasOwnProperty.call(
+                        KupTypographyListProps,
+                        key
+                    )
                 ) {
                     props[key] = this[key];
                 }
@@ -128,14 +131,17 @@ export class KupTextList {
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupTextListProps, props);
+        setProps(this, KupTypographyListProps, props);
     }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    private renderText(node: KupTextListNode, index: number): VNode {
+    private renderTypography(
+        node: KupTypographyListNode,
+        index: number
+    ): VNode {
         if (node === null) {
             this.kupManager.debug.logMessage(
                 this,
@@ -153,16 +159,16 @@ export class KupTextList {
             );
             return null;
         }
-        const props: FTextProps = {
+        const props: FTypographyProps = {
             value: data.value,
             type: data.type,
         };
 
-        return <FText {...props} />;
+        return <FTypography {...props} />;
     }
 
     private prepareDataFromTreeNode(
-        node: KupTextListNode,
+        node: KupTypographyListNode,
         index: number
     ): GenericObject {
         const data: GenericObject = node.data != null ? { ...node.data } : {};
@@ -181,12 +187,12 @@ export class KupTextList {
     }
 
     private getKupListDataForChildren(
-        children: KupTextListNode[]
-    ): KupTextListNode[] {
-        const ris: KupTextListNode[] = [];
+        children: KupTypographyListNode[]
+    ): KupTypographyListNode[] {
+        const ris: KupTypographyListNode[] = [];
 
         for (let i = 0; i < children.length; i++) {
-            const tn: KupTextListNode = children[i];
+            const tn: KupTypographyListNode = children[i];
             ris.push({
                 icon: tn.icon,
                 placeholderIcon: tn.placeholderIcon,
@@ -197,15 +203,15 @@ export class KupTextList {
         return ris;
     }
 
-    private renderTexts(): VNode[] {
+    private renderTypographys(): VNode[] {
         if (this.data == null || this.data.length < 1) {
             return null;
         }
         const columns: VNode[] = [];
         for (let i = 0; i < this.data.length; i++) {
-            const node: KupTextListNode = this.data[i];
+            const node: KupTypographyListNode = this.data[i];
             let b: VNode = null;
-            b = this.renderText(node, i);
+            b = this.renderTypography(node, i);
             if (b) {
                 columns.push(b);
             }
@@ -236,7 +242,7 @@ export class KupTextList {
     }
 
     render() {
-        const text: VNode[] = this.renderTexts();
+        const typograhy: VNode[] = this.renderTypographys();
         return (
             <Host>
                 <style>
@@ -244,7 +250,7 @@ export class KupTextList {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div>{text}</div>
+                <div>{typograhy}</div>
             </Host>
         );
     }

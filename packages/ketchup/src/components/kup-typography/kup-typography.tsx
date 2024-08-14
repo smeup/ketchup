@@ -10,29 +10,29 @@ import {
     VNode,
     Watch,
 } from '@stencil/core';
-import {
-    FTextProps,
-    FTextType,
-} from '../../f-components/f-text/f-text-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupTextProps } from './kup-text-declarations';
 import { setProps } from '../../utils/utils';
 import { KupManager } from '../../managers/kup-manager/kup-manager-declarations';
 import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
-import { FText } from '../../f-components/f-text/f-text';
 import { KupListNode } from '../kup-list/kup-list-declarations';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
+import { FTypography } from '../../f-components/f-typography/f-typography';
+import {
+    FTypographyProps,
+    FTypographyType,
+} from '../../f-components/f-typography/f-typography-declarations';
+import { KupTypographyProps } from './kup-typography-declarations';
 
 @Component({
-    tag: 'kup-text',
-    styleUrl: 'kup-text.scss',
+    tag: 'kup-typography',
+    styleUrl: 'kup-typography.scss',
     shadow: true,
 })
-export class KupText {
+export class KupTypography {
     /**
-     * References the root HTML element of the component (<kup-text>).
+     * References the root HTML element of the component (<kup-typography>).
      */
     @Element() rootElement: HTMLElement;
 
@@ -58,9 +58,9 @@ export class KupText {
     @Prop() customStyle: string = '';
     /**
      * Sets the sizing of the textfield
-     * @default FTextType.HEADING1
+     * @default FTypographyType.HEADING1
      */
-    @Prop() type: FTextType = FTextType.HEADING1;
+    @Prop() type: FTypographyType = FTypographyType.HEADING1;
     /**
      * This is the context of the text
      * @default null
@@ -88,10 +88,15 @@ export class KupText {
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         let props: GenericObject = {};
         if (descriptions) {
-            props = KupTextProps;
+            props = KupTypographyProps;
         } else {
-            for (const key in KupTextProps) {
-                if (Object.prototype.hasOwnProperty.call(KupTextProps, key)) {
+            for (const key in KupTypographyProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        KupTypographyProps,
+                        key
+                    )
+                ) {
                     props[key] = this[key];
                 }
             }
@@ -111,7 +116,7 @@ export class KupText {
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupTextProps, props);
+        setProps(this, KupTypographyProps, props);
     }
 
     /*-------------------------------------------------*/
@@ -136,7 +141,7 @@ export class KupText {
     }
 
     render() {
-        const props: FTextProps = {
+        const props: FTypographyProps = {
             value: this.value,
         };
         return (
@@ -146,7 +151,7 @@ export class KupText {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <FText {...props} />
+                <FTypography {...props} />
             </Host>
         );
     }
