@@ -157,6 +157,7 @@ import {
     rowsPerPageChange,
 } from '../../f-components/f-paginator/f-paginator-utils';
 import {
+    DropDownAction,
     KupCommand,
     KupDataColumn,
     KupDataDataset,
@@ -961,7 +962,7 @@ export class KupDataTable {
     #columnMenuCard: HTMLKupCardElement = null;
     #columnDropCard: HTMLKupCardElement = null;
     #columnDropCardAnchor: HTMLElement = null;
-    #rowActionsCardAnchor: HTMLElement = null;
+    #dropDownActionCardAnchor: HTMLElement = null;
     #insertCount = 0;
 
     #BUTTON_CANCEL_ID: string = 'cancel';
@@ -1133,7 +1134,7 @@ export class KupDataTable {
         bubbles: true,
     })
     kupHistory: EventEmitter<KupDatatableHistoryEventPayload>;
-    
+
     /**
      * Event fired when the history confirm button is pressed.
      */
@@ -1143,7 +1144,7 @@ export class KupDataTable {
         cancelable: false,
         bubbles: true,
     })
-    kupRowActionItemClick: EventEmitter<KupDatatableRowActionItemClickEventPayload>
+    kupRowActionItemClick: EventEmitter<KupDatatableRowActionItemClickEventPayload>;
 
     /**
      * Closes any opened column menu.
@@ -2647,15 +2648,21 @@ export class KupDataTable {
 
     /**
      * Opens a card containing the actions of the given row.
-     * @param {KupDataRowAction[]} rowActions - Actions for the row.
+     * @param {KupDataRowAction[]} dropDownActions - Actions for the row.
      * @private
      * @memberof KupDataTable
      */
-    #rowActions(rowActionsWithCodVer: KupDataRowAction[], row: KupDataTableRow) {
-        this.#createRowActionsCard(rowActionsWithCodVer , row);
+    #dropDownActions(
+        dropDownActions: KupDataRowAction[],
+        row: KupDataTableRow
+    ) {
+        this.#createDropDownActionsCard(dropDownActions, row);
     }
 
-    #createRowActionsCard(rowActionsWithCodVer: KupDataRowAction[], row: KupDataTableRow) {
+    #createDropDownActionsCard(
+        dropDownActions: KupDataRowAction[],
+        row: KupDataTableRow
+    ) {
         if (this.#actionsCard) {
             this.#closeRowActionsCard();
         }
@@ -2665,7 +2672,8 @@ export class KupDataTable {
         this.#actionsCard.menuVisible = true;
         this.#actionsCard.sizeX = 'auto';
         this.#actionsCard.sizeY = 'auto';
-        this.#actionsCard.data = this.#prepareDataForActionsCard(rowActionsWithCodVer);
+        this.#actionsCard.data =
+            this.#prepareDataForActionsCard(dropDownActions);
         this.#clickCbDropCard = {
             cb: () => {
                 this.#closeRowActionsCard();
@@ -2680,7 +2688,7 @@ export class KupDataTable {
         this.rootElement.shadowRoot.append(this.#actionsCard);
         this.#kupManager.dynamicPosition.register(
             this.#actionsCard,
-            this.#rowActionsCardAnchor as KupDynamicPositionAnchor,
+            this.#dropDownActionCardAnchor as KupDynamicPositionAnchor,
             0,
             KupDynamicPositionPlacement.AUTO,
             true
@@ -2697,25 +2705,31 @@ export class KupDataTable {
 
                         this.#filterRowActionsCard(
                             this.#actionsCard,
-                            rowActionsWithCodVer,
+                            dropDownActions,
                             input
                         );
                         break;
                     case 'kup-textfield-cleariconclick':
                         this.#clearSearchActionsCard(
                             this.#actionsCard,
-                            rowActionsWithCodVer
+                            dropDownActions
                         );
                         break;
                     case 'kup-list-click':
-                        const selectedElObj = e.detail.event.detail.selected.obj
-
+                        const selectedElObj =
+                            e.detail.event.detail.selected.obj;
+                        const cell = e.detail.event.detail.selected.cell;
+                        const index = e.detail.event.detail.selected.index;
+                        const type = e.detail.event.detail.selected.type;
                         this.kupRowActionItemClick.emit({
                             comp: this,
                             id: this.rootElement.id,
                             row: row,
-                            obj: selectedElObj
-                        })
+                            obj: selectedElObj,
+                            cell: cell,
+                            type: type,
+                            index: index,
+                        });
                 }
             }
         );
@@ -2723,11 +2737,11 @@ export class KupDataTable {
 
     #clearSearchActionsCard(
         card: HTMLKupCardElement,
-        rowActions: KupDataRowAction[]
+        dropDownActions: KupDataRowAction[]
     ) {
         const rowActionsList: Pick<KupList, 'showIcons' | 'data'> = {
             showIcons: true,
-            data: rowActions.map((r) => ({
+            data: dropDownActions.map((r) => ({
                 value: r.text,
                 ...r,
             })),
@@ -2738,12 +2752,12 @@ export class KupDataTable {
 
     #filterRowActionsCard(
         card: HTMLKupCardElement,
-        rowActions: KupDataRowAction[],
+        dropDownActions: KupDataRowAction[],
         input: string
     ) {
         const rowActionsList: Pick<KupList, 'showIcons' | 'data'> = {
             showIcons: true,
-            data: rowActions.map((r) => ({
+            data: dropDownActions.map((r) => ({
                 value: r.text,
                 ...r,
             })),
@@ -2765,12 +2779,14 @@ export class KupDataTable {
         this.#actionsCard = null;
     }
 
-    #prepareDataForActionsCard(rowActions: KupDataRowAction[]): KupCardData {
+    #prepareDataForActionsCard(
+        dropDownActions: KupDataRowAction[]
+    ): KupCardData {
         const data: KupCardData = {
             list: [
                 {
                     showIcons: true,
-                    data: rowActions.map((r) => ({
+                    data: dropDownActions.map((r) => ({
                         value: r.text,
                         ...r,
                     })),
@@ -3265,6 +3281,14 @@ export class KupDataTable {
         return this.rowActions !== undefined;
     }
 
+    #rowActionsAdapter(): KupDataRowAction[] {
+        return this.rowActions.map((rowAction, index) => ({
+            ...rowAction,
+            type: DropDownAction.ROWACTION,
+            index: index,
+        }));
+    }
+
     #hasCodVerColum() {
         return this.data.columns.some((col) =>
             this.#kupManager.data.hasCodVerColumn(col)
@@ -3701,17 +3725,17 @@ export class KupDataTable {
     #onRowActionExpanderClick(
         e: MouseEvent,
         row: KupDataTableRow,
-        rowActionsWithCodVer: KupDataRowAction[]
+        dropDownActions: KupDataRowAction[]
     ) {
         e.stopPropagation();
-        this.#rowActionsCardAnchor = e.target as HTMLElement;
+        this.#dropDownActionCardAnchor = e.target as HTMLElement;
         this.kupRowActionClick.emit({
             comp: this,
             id: this.rootElement.id,
             row,
             type: 'expander',
         });
-        this.#rowActions(rowActionsWithCodVer , row);
+        this.#dropDownActions(dropDownActions, row);
     }
 
     #handleRowSelect(row: KupDataTableRow) {
@@ -4944,7 +4968,7 @@ export class KupDataTable {
                             this.commands ?? []
                         );
                     const rowActionsWithCodVer = this.#hasRowActions()
-                        ? [...this.rowActions, ...voCodRowActions]
+                        ? [...this.#rowActionsAdapter(), ...voCodRowActions]
                         : [...voCodRowActions];
                     // adding expander
                     const props: FImageProps = {

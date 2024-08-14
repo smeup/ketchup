@@ -3,6 +3,7 @@ import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import type { PointerEvent } from '@interactjs/types/index';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import {
+    DropDownAction,
     KupDataCell,
     KupDataColumn,
     KupDataRow,
@@ -297,8 +298,11 @@ export interface KupDatatableRowActionClickEventPayload
 export interface KupDatatableRowActionItemClickEventPayload
     extends KupEventPayload {
     row: KupDataRow;
+    type: DropDownAction.CODVER | DropDownAction.ROWACTION | DropDownAction.CODVERWITHCOMMANDS
     obj?: KupObj;
     column?: KupDataColumn;
+    cell? :KupDataCell;
+    index?: number;
 }
 
 export interface KupDataTableCellButtonClickEventPayload

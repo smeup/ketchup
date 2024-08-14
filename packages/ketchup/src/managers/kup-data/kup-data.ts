@@ -1,4 +1,5 @@
 import {
+    DropDownAction,
     KupCommand,
     KupDataCell,
     KupDataColumn,
@@ -621,7 +622,7 @@ export class KupData {
      * @param {KupDataTableRow} row single row.
      * @returns { KupDataTableCell[]} cells founded
      */
-    getCodVerRows(row: KupDataTableRow): KupDataTableCell[] {
+    getCodVerCells(row: KupDataTableRow): KupDataTableCell[] {
         return Object.values(row.cells).filter(
             (cell) =>
                 cell.obj.p === VoCodVerRowEnum.P &&
@@ -656,27 +657,34 @@ export class KupData {
     ): KupDataRowAction[] {
         const actions: KupDataRowAction[] = [];
 
-        const rows = this.getCodVerRows(row);
+        const cellsCodVer = this.getCodVerCells(row);
 
-        commands.forEach((command) => {
-            if (rows.some((row) => row.obj.k === command.obj.k)) {
-                actions.push({
-                    icon: command.icon,
-                    text: command.text,
-                    obj: command.obj
+        cellsCodVer.forEach((codVer) => {
+            let hasCommands = false;
+            if (commands) {
+                const commandsFiltered = commands.filter(
+                    (command) => command.obj.k === codVer.obj.k
+                );
+                hasCommands = commandsFiltered.length > 0;
+                commandsFiltered.forEach((commandFilter, index) => {
+                    actions.push({
+                        icon: commandFilter.icon,
+                        text: commandFilter.text,
+                        obj: commandFilter.obj,
+                        cell: codVer,
+                        index: index,
+                        type: DropDownAction.CODVERWITHCOMMANDS
+                    });
                 });
             }
-        });
 
-        rows.forEach((codVer) => {
-            if (
-                !commands.some((command) => command.obj.k === codVer.obj.k) ||
-                !commands.length
-            ) {
+            if (!hasCommands) {
                 actions.push({
                     icon: codVer.value || '',
                     text: codVer.obj.k,
-                    obj: codVer.obj
+                    obj: codVer.obj,
+                    cell: codVer,
+                    type: DropDownAction.CODVER
                 });
             }
         });
