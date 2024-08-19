@@ -52,6 +52,7 @@ export enum KupDataTableProps {
     removableColumns = 'Sets the possibility to remove the selected column.',
     resizableColumns = 'Gives the possibility to resize columns by dragging on their right edge.',
     rowActions = 'Sets the actions of the rows.',
+    commands = 'Sets the vo;cod_row actions',
     rowsPerPage = 'Sets the number of rows per page to display.',
     scrollOnHover = 'Activates the scroll on hover function.',
     showCustomization = 'If set to true, displays the button to open the customization panel.',
@@ -114,6 +115,11 @@ export interface SortObject {
 export enum SortMode {
     A = 'A',
     D = 'D',
+}
+
+export enum VoCodVerRowEnum {
+    P = 'COD_VER',
+    T = 'VO',
 }
 
 export type KupDataTableInsertMode = 'form' | 'row' | '';

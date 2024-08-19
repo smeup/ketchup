@@ -12,6 +12,7 @@ import {
     KupDataNode,
     KupDataNodeDrilldownInfo,
     KupDataRow,
+    KupDataRowAction,
     KupDataRowCells,
 } from './kup-data-declarations';
 import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
@@ -25,9 +26,14 @@ import {
     setPropertiesNode,
     toStreamNode,
 } from './kup-data-node-helper';
-import { fieldColumn } from '../../components/kup-data-table/kup-data-table-declarations';
+import {
+    fieldColumn,
+    KupDataTableCell,
+    KupDataTableRow,
+    VoCodVerRowEnum,
+} from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
-import { KupDom } from '../kup-manager/kup-manager-declarations';
+import { KupDom, KupManager } from '../kup-manager/kup-manager-declarations';
 import {
     FCellShapes,
     FCellTypes,
