@@ -2667,7 +2667,7 @@ export class KupDataTable {
         }
         this.#actionsCard = document.createElement('kup-card');
         this.#actionsCard.layoutFamily = KupCardFamily.STANDARD;
-        this.#actionsCard.layoutNumber = 16;
+        this.#actionsCard.layoutNumber = 17;
         this.#actionsCard.menuVisible = true;
         this.#actionsCard.sizeX = 'auto';
         this.#actionsCard.sizeY = 'auto';
