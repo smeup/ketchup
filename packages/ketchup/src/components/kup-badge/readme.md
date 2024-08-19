@@ -117,6 +117,8 @@ Type: `Promise<void>`
  - [kup-text-field](../kup-text-field)
  - [kup-time-picker](../kup-time-picker)
  - [kup-tree](../kup-tree)
+ - [kup-typography](../kup-typography)
+ - [kup-typography-list](../kup-typography-list)
 
 ### Depends on
 
@@ -173,6 +175,8 @@ graph TD;
   kup-numeric-picker --> kup-badge
   kup-planner --> kup-badge
   kup-snackbar --> kup-badge
+  kup-typography --> kup-badge
+  kup-typography-list --> kup-badge
   style kup-badge fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

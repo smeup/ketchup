@@ -7,17 +7,11 @@ import {
     Method,
     Prop,
     State,
-    VNode,
-    Watch,
 } from '@stencil/core';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { KupManager } from '../../managers/kup-manager/kup-manager-declarations';
 import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
-import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
-import { KupListNode } from '../kup-list/kup-list-declarations';
-import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
-import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 import { FTypography } from '../../f-components/f-typography/f-typography';
 import {
     FTypographyProps,

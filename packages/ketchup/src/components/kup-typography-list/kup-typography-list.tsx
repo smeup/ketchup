@@ -8,7 +8,6 @@ import {
     Host,
     Method,
     Prop,
-    State,
     VNode,
     Watch,
 } from '@stencil/core';

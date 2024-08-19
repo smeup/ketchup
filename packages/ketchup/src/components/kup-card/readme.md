@@ -147,6 +147,8 @@ Type: `Promise<void>`
  - [kup-text-field](../kup-text-field)
  - [kup-time-picker](../kup-time-picker)
  - [kup-tree](../kup-tree)
+ - [kup-typography](../kup-typography)
+ - [kup-typography-list](../kup-typography-list)
 
 ### Depends on
 
@@ -164,6 +166,8 @@ Type: `Promise<void>`
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-badge](../kup-badge)
+- [kup-card](.)
+- [kup-dialog](../kup-dialog)
 - [kup-button](../kup-button)
 - [kup-list](../kup-list)
 - [kup-spinner](../kup-spinner)
@@ -173,8 +177,6 @@ Type: `Promise<void>`
 - [kup-tree](../kup-tree)
 - [kup-switch](../kup-switch)
 - [kup-dropdown-button](../kup-dropdown-button)
-- [kup-card](.)
-- [kup-dialog](../kup-dialog)
 
 ### Graph
 ```mermaid
@@ -230,6 +232,8 @@ graph TD;
   kup-probe --> kup-card
   kup-qlik --> kup-card
   kup-snackbar --> kup-card
+  kup-typography --> kup-card
+  kup-typography-list --> kup-card
   style kup-card fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
