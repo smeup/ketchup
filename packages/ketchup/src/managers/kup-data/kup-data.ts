@@ -666,14 +666,20 @@ export class KupData {
                     (command) => command.obj.k === codVer.obj.k
                 );
                 hasCommands = commandsFiltered.length > 0;
-                commandsFiltered.forEach((commandFilter, index) => {
+                commandsFiltered.forEach((commandFilter) => {
+                    const index = commands.findIndex(
+                        (command) =>
+                            command.icon === commandFilter.icon &&
+                            command.text === commandFilter.text &&
+                            command.obj.k === commandFilter.obj.k
+                    );
                     actions.push({
                         icon: commandFilter.icon,
                         text: commandFilter.text,
                         obj: commandFilter.obj,
                         cell: codVer,
                         index: index,
-                        type: DropDownAction.CODVERWITHCOMMANDS
+                        type: DropDownAction.CODVERWITHCOMMANDS,
                     });
                 });
             }
@@ -684,7 +690,7 @@ export class KupData {
                     text: codVer.obj.k,
                     obj: codVer.obj,
                     cell: codVer,
-                    type: DropDownAction.CODVER
+                    type: DropDownAction.CODVER,
                 });
             }
         });
