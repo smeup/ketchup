@@ -11,7 +11,7 @@ import {
     Watch,
 } from '@stencil/core';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { setProps } from '../../utils/utils';
+import { getProps, setProps } from '../../utils/utils';
 import { KupManager } from '../../managers/kup-manager/kup-manager-declarations';
 import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
@@ -86,22 +86,7 @@ export class KupTypography {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupTypographyProps;
-        } else {
-            for (const key in KupTypographyProps) {
-                if (
-                    Object.prototype.hasOwnProperty.call(
-                        KupTypographyProps,
-                        key
-                    )
-                ) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupTypographyProps, descriptions);
     }
     /**
      * This method is used to trigger a new render of the component.

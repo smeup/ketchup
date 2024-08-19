@@ -35,7 +35,7 @@ import {
 import { KupListNode } from '../kup-list/kup-list-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { setProps } from '../../utils/utils';
+import { getProps, setProps } from '../../utils/utils';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
@@ -174,22 +174,7 @@ export class KupButtonList {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupButtonListProps;
-        } else {
-            for (const key in KupButtonListProps) {
-                if (
-                    Object.prototype.hasOwnProperty.call(
-                        KupButtonListProps,
-                        key
-                    )
-                ) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupButtonListProps, descriptions);
     }
     /**
      * This method is used to trigger a new render of the component.
