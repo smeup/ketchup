@@ -21,7 +21,11 @@ import {
     KupListEventPayload,
 } from '../kup-list/kup-list-declarations';
 import { consistencyCheck } from '../kup-list/kup-list-helper';
-import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupComponentSizing,
+} from '../../types/GenericTypes';
 import {
     KupDropdownButtonEventPayload,
     KupDropdownButtonProps,
@@ -108,6 +112,11 @@ export class KupDropdownButton {
      * @default ItemsDisplayMode.CODE
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
+    /**
+     * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
+     * @default KupComponentSizing.SMALL
+     */
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
     /**
      * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
      * @default FButtonStyling.RAISED
@@ -467,6 +476,7 @@ export class KupDropdownButton {
             slim: this.rootElement.classList.contains('kup-slim')
                 ? true
                 : false,
+            sizing: this.sizing,
             styling: this.styling ? this.styling : FButtonStyling.RAISED,
             title: this.rootElement.title,
         };

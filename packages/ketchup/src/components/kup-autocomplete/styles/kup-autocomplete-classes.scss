@@ -19,7 +19,7 @@
 }
 
 :host(.#{$kup-class-danger}) {
-  --kup-textfield-primary-color: var(--kup-danger-color);
+  --kup-textfield-primary-color: var(--kup-danger-color-60);
   --kup-textfield-primary-color-rgb: var(--kup-danger-color-rgb);
 }
 

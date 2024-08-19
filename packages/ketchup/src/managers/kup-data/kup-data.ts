@@ -12,7 +12,6 @@ import {
     KupDataNode,
     KupDataNodeDrilldownInfo,
     KupDataRow,
-    KupDataRowAction,
     KupDataRowCells,
 } from './kup-data-declarations';
 import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
@@ -26,14 +25,9 @@ import {
     setPropertiesNode,
     toStreamNode,
 } from './kup-data-node-helper';
-import {
-    fieldColumn,
-    KupDataTableCell,
-    KupDataTableRow,
-    VoCodVerRowEnum,
-} from '../../components/kup-data-table/kup-data-table-declarations';
+import { fieldColumn } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
-import { KupDom, KupManager } from '../kup-manager/kup-manager-declarations';
+import { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     FCellShapes,
     FCellTypes,
@@ -41,6 +35,7 @@ import {
 import { TreeNodePath } from '../../components/kup-tree/kup-tree-declarations';
 import { ValueDisplayedValue } from '../../utils/filters/filters-declarations';
 import { KupObj } from '../kup-objects/kup-objects-declarations';
+
 const dom: KupDom = document.documentElement as KupDom;
 
 /**
@@ -94,6 +89,8 @@ export class KupData {
                         return FCellTypes.COLOR_PICKER;
                     case FCellShapes.COMBOBOX:
                         return FCellTypes.COMBOBOX;
+                    case FCellShapes.DATE:
+                        return FCellTypes.DATE;
                     case FCellShapes.EDITOR:
                         return FCellTypes.EDITOR;
                     case FCellShapes.GAUGE:
@@ -120,6 +117,8 @@ export class KupData {
                         return FCellTypes.TABLE;
                     case FCellShapes.TEXT_FIELD:
                         return FCellTypes.STRING;
+                    case FCellShapes.TIME:
+                        return FCellTypes.TIME;
                 }
             }
 

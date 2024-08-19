@@ -18,6 +18,7 @@ import {
     KupDataCell,
     KupDataTableDataset,
     KupDataTableRow,
+    KupEditorEventPayload,
 } from '../../components';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FCell } from '../../f-components/f-cell/f-cell';
@@ -57,7 +58,7 @@ import {
     KupInputPanelSubmit,
 } from './kup-input-panel-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
-import { KupDataTable } from '../kup-data-table/kup-data-table';
+import { KupEditor } from '../kup-editor/kup-editor';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -149,17 +150,25 @@ export class KupInputPanel {
             FCellTypes.AUTOCOMPLETE,
             ['kup-autocomplete-input', 'kup-autocomplete-iconclick'],
         ],
+        [
+            FCellTypes.MULTI_AUTOCOMPLETE,
+            ['kup-autocomplete-input', 'kup-autocomplete-iconclick'],
+        ],
         [FCellTypes.COMBOBOX, ['kup-combobox-iconclick']],
+        [FCellTypes.MULTI_COMBOBOX, ['kup-combobox-iconclick']],
     ]);
     #listeners: { event: string; handler: (e) => void }[] = [];
     #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([
         [FCellTypes.DATE, 'kup-date-picker'],
+        [FCellTypes.TIME, 'kup-time-picker'],
     ]);
     #cellCustomRender: Map<
         FCellShapes,
         (cell: KupDataCell, cellId: string) => any
     > = new Map<FCellShapes, (cell: KupDataCell, cellId: string) => any>([
         [FCellShapes.BUTTON_LIST, this.#renderButton.bind(this)],
+        [FCellShapes.EDITOR, this.#renderEditor.bind(this)],
+        [FCellShapes.LABEL, this.#renderLabel.bind(this)],
         [FCellShapes.TABLE, this.#renderDataTable.bind(this)],
     ]);
     //#endregion
@@ -352,6 +361,38 @@ export class KupInputPanel {
         );
     }
 
+    #renderEditor(cell: KupDataCell, cellId: string) {
+        const event = 'kup-editor-save';
+        const handler = (e: CustomEvent<KupEditorEventPayload>) => {
+            const edtCell: KupDataCell =
+                this.inputPanelCells.reduce<KupDataCell>((cell, { cells }) => {
+                    if (!cell) {
+                        return cells.find(
+                            ({ column }) => column.name === cellId
+                        ).cell;
+                    }
+                    return cell;
+                }, null);
+            edtCell.value = e.detail.htmlValue.replace(/\n/g, '<br>');
+        };
+
+        this.rootElement.addEventListener(event, handler);
+
+        this.#listeners.push({
+            event,
+            handler,
+        });
+
+        return (
+            <kup-editor
+                {...cell.data}
+                id={cellId}
+                isReadOnly={!cell.isEditable}
+                showToolbar={true}
+            ></kup-editor>
+        );
+    }
+
     #renderDataTable(cell: KupDataCell, cellId: string) {
         return (
             <kup-data-table
@@ -362,6 +403,21 @@ export class KupInputPanel {
                 showFilters={true}
                 showFooter={true}
             ></kup-data-table>
+        );
+    }
+
+    #renderLabel(cell: KupDataCell, cellId: string) {
+        const styleObj = {
+            display: 'flex',
+            width: '100%',
+            height: '100%',
+            'align-items': 'center',
+            'justify-content': 'center',
+        };
+        return (
+            <span style={styleObj} id={cellId}>
+                {cell.value}
+            </span>
         );
     }
 
@@ -590,11 +646,16 @@ export class KupInputPanel {
             [FCellTypes.CHECKBOX, this.#CHKAdapter.bind(this)],
             [FCellTypes.COLOR_PICKER, this.#CLPAdapter.bind(this)],
             [FCellTypes.COMBOBOX, this.#CMBandACPAdapter.bind(this)],
+            [FCellTypes.EDITOR, this.#EDTAdapter.bind(this)],
+            [FCellTypes.MULTI_AUTOCOMPLETE, this.#CHIAdapter.bind(this)],
+            [FCellTypes.MULTI_COMBOBOX, this.#CHIAdapter.bind(this)],
             [FCellTypes.NUMBER, this.#NumberAdapter.bind(this)],
             [FCellTypes.DATE, this.#DateAdapter.bind(this)],
             [FCellTypes.RADIO, this.#RADAdapter.bind(this)],
             [FCellTypes.STRING, this.#ITXAdapter.bind(this)],
+            [FCellTypes.SWITCH, this.#SWTAdapter.bind(this)],
             [FCellTypes.TABLE, this.#DataTableAdapter.bind(this)],
+            [FCellTypes.TIME, this.#TimeAdapter.bind(this)],
         ]);
 
         const adapter = dataAdapterMap.get(cellType);
@@ -607,34 +668,50 @@ export class KupInputPanel {
     #slotData(cell: KupInputPanelCell, col: KupInputPanelColumn) {
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
-        if (
-            cellType !== FCellTypes.CHIP &&
-            cellType !== FCellTypes.MULTI_AUTOCOMPLETE &&
-            cellType !== FCellTypes.MULTI_COMBOBOX &&
-            !cell.editable
-        ) {
+        if (!cell.editable) {
             return null;
         }
 
-        return {
-            trailingIcon: true,
-            label: col.title,
-        };
+        if (cellType === FCellTypes.CHIP) {
+            return {
+                trailingIcon: true,
+                label: col.title,
+                disabled: !cell.editable,
+                id: col.name,
+                fullWidth: false,
+            };
+        }
+
+        if (
+            cellType === FCellTypes.MULTI_AUTOCOMPLETE ||
+            cellType === FCellTypes.MULTI_COMBOBOX
+        ) {
+            return {
+                ...this.#CMBandACPAdapter(
+                    cell.options,
+                    col.title,
+                    cell.value,
+                    cell,
+                    col.name
+                ),
+                showDropDownIcon: true,
+                class: '',
+                style: { width: '100%' },
+                disabled: !cell.editable,
+                id: col.name,
+            };
+        }
+
+        return null;
     }
 
     #CHIAdapter(
-        options: GenericObject,
+        _options: GenericObject,
         _fieldLabel: string,
         currentValue: string
     ) {
         return {
-            data: options?.length
-                ? options.map((option) => ({
-                      value: option.label,
-                      id: option.id,
-                      selected: currentValue === option.id,
-                  }))
-                : [{ id: currentValue, value: currentValue }],
+            data: currentValue?.split(';').map((v) => ({ id: v, value: v })),
         };
     }
 
@@ -672,7 +749,7 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        const configCMandACP = {
+        const configCMandACP: GenericObject = {
             data: {
                 'kup-text-field': {
                     trailingIcon: true,
@@ -748,6 +825,16 @@ export class KupInputPanel {
         };
     }
 
+    #EDTAdapter(
+        _options: GenericObject,
+        _fieldLabel: string,
+        currentValue: string
+    ) {
+        return {
+            initialValue: currentValue,
+        };
+    }
+
     #ITXAdapter(
         _options: GenericObject,
         fieldLabel: string,
@@ -770,6 +857,18 @@ export class KupInputPanel {
         };
     }
 
+    #SWTAdapter(
+        _options: GenericObject,
+        fieldLabel: string,
+        currentValue: string
+    ) {
+        return {
+            checked: !!currentValue,
+            label: fieldLabel,
+            leadingLabel: true,
+        };
+    }
+
     #DateAdapter(
         _options: GenericObject,
         fieldLabel: string,
@@ -782,6 +881,20 @@ export class KupInputPanel {
                 },
             },
             initialValue: currentValue,
+        };
+    }
+
+    #TimeAdapter(
+        _options: GenericObject,
+        fieldLabel: string,
+        _currentValue: string
+    ) {
+        return {
+            data: {
+                'kup-text-field': {
+                    label: fieldLabel,
+                },
+            },
         };
     }
 

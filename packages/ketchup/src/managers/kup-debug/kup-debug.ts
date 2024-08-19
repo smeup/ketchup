@@ -378,13 +378,14 @@ export class KupDebug {
                 case KupDebugCategory.ERROR:
                     slot.style.backgroundColor =
                         'rgba(var(--kup-danger-color-rgb), 0.15)';
-                    slot.style.borderLeft = '5px solid var(--kup-danger-color)';
+                    slot.style.borderLeft =
+                        '5px solid var(--kup-danger-color-60)';
                     break;
                 case KupDebugCategory.WARNING:
                     slot.style.backgroundColor =
                         'rgba(var(--kup-warning-color-rgb), 0.15)';
                     slot.style.borderLeft =
-                        '5px solid var(--kup-warning-color)';
+                        '5px solid var(--kup-warning-color-40)';
                     break;
                 case KupDebugCategory.INFO:
                 default:

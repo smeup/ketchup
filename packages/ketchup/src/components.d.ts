@@ -498,6 +498,11 @@ export namespace Components {
     }
     interface KupButton {
         /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "blackMode": boolean;
+        /**
           * Sets the type of the button.
           * @default null
          */
@@ -632,8 +637,13 @@ export namespace Components {
          */
         "showSelection": boolean;
         /**
+          * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
+          * @default KupComponentSizing.SMALL
+         */
+        "sizing": KupComponentSizing;
+        /**
           * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
-          * @default FButtonStyling.OUTLINED
+          * @default FButtonStyling.RAISED
          */
         "styling": FButtonStyling;
     }
@@ -1734,6 +1744,11 @@ export namespace Components {
          */
         "initialValue": string;
         /**
+          * When set to true, the component will be rendered as an outlined field.
+          * @default false
+         */
+        "outlined": boolean;
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
@@ -1746,6 +1761,16 @@ export namespace Components {
           * @param value - Value to be set.
          */
         "setValue": (value: string) => Promise<void>;
+        /**
+          * Sets the sizing of the textfield of the datepicker
+          * @default true
+         */
+        "showIcon": boolean;
+        /**
+          * Sets the sizing of the textfield of the datepicker
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing": KupComponentSizing;
     }
     interface KupDialog {
         /**
@@ -1923,6 +1948,11 @@ export namespace Components {
           * Sets the internal value of the component.
          */
         "setValue": (value: string) => Promise<void>;
+        /**
+          * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
+          * @default KupComponentSizing.SMALL
+         */
+        "sizing": KupComponentSizing;
         /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
@@ -3734,6 +3764,11 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * When enabled displays toolbar item inside each single tab.
+          * @default true
+         */
+        "toolbar": boolean;
     }
     interface KupTaskGantt {
         "barProps": KupPlannerTaskGanttProps['barProps'];
@@ -3916,6 +3951,11 @@ export namespace Components {
          */
         "leadingLabel": boolean;
         /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "lightMode": boolean;
+        /**
           * The HTML max attribute specifies the maximum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week.
           * @default null
          */
@@ -3978,7 +4018,7 @@ export namespace Components {
          */
         "size": number;
         /**
-          * Sets the type of the button
+          * Sets the sizing of the textfield
           * @default KupComponentSizing.MEDIUM
          */
         "sizing": KupComponentSizing;
@@ -5859,6 +5899,11 @@ declare namespace LocalJSX {
     }
     interface KupButton {
         /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "blackMode"?: boolean;
+        /**
           * Sets the type of the button.
           * @default null
          */
@@ -5976,8 +6021,13 @@ declare namespace LocalJSX {
          */
         "showSelection"?: boolean;
         /**
+          * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
+          * @default KupComponentSizing.SMALL
+         */
+        "sizing"?: KupComponentSizing;
+        /**
           * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
-          * @default FButtonStyling.OUTLINED
+          * @default FButtonStyling.RAISED
          */
         "styling"?: FButtonStyling;
     }
@@ -6922,6 +6972,21 @@ declare namespace LocalJSX {
         "onKup-datepicker-input"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
         "onKup-datepicker-itemclick"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
         "onKup-datepicker-textfieldsubmit"?: (event: KupDatePickerCustomEvent<KupDatePickerEventPayload>) => void;
+        /**
+          * When set to true, the component will be rendered as an outlined field.
+          * @default false
+         */
+        "outlined"?: boolean;
+        /**
+          * Sets the sizing of the textfield of the datepicker
+          * @default true
+         */
+        "showIcon"?: boolean;
+        /**
+          * Sets the sizing of the textfield of the datepicker
+          * @default KupComponentSizing.MEDIUM
+         */
+        "sizing"?: KupComponentSizing;
     }
     interface KupDialog {
         /**
@@ -7055,6 +7120,11 @@ declare namespace LocalJSX {
           * @default ItemsDisplayMode.CODE
          */
         "selectMode"?: ItemsDisplayMode;
+        /**
+          * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
+          * @default KupComponentSizing.SMALL
+         */
+        "sizing"?: KupComponentSizing;
         /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
@@ -8519,6 +8589,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "ripple"?: boolean;
+        /**
+          * When enabled displays toolbar item inside each single tab.
+          * @default true
+         */
+        "toolbar"?: boolean;
     }
     interface KupTaskGantt {
         "barProps"?: KupPlannerTaskGanttProps['barProps'];
@@ -8691,6 +8766,11 @@ declare namespace LocalJSX {
          */
         "leadingLabel"?: boolean;
         /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "lightMode"?: boolean;
+        /**
           * The HTML max attribute specifies the maximum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week.
           * @default null
          */
@@ -8776,7 +8856,7 @@ declare namespace LocalJSX {
          */
         "size"?: number;
         /**
-          * Sets the type of the button
+          * Sets the sizing of the textfield
           * @default KupComponentSizing.MEDIUM
          */
         "sizing"?: KupComponentSizing;

@@ -12,7 +12,11 @@ import {
     VNode,
     Watch,
 } from '@stencil/core';
-import type { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    KupComponentSizing,
+    type GenericObject,
+    type KupComponent,
+} from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -92,10 +96,15 @@ export class KupButtonList {
      */
     @Prop() showSelection: boolean = true;
     /**
-     * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
-     * @default FButtonStyling.OUTLINED
+     * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
+     * @default KupComponentSizing.SMALL
      */
-    @Prop({ reflect: true }) styling: FButtonStyling = FButtonStyling.OUTLINED;
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
+    /**
+     * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
+     * @default FButtonStyling.RAISED
+     */
+    @Prop({ reflect: true }) styling: FButtonStyling = FButtonStyling.RAISED;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -237,6 +246,7 @@ export class KupButtonList {
                 ? true
                 : false,
             shaped: data.shaped,
+            sizing: data.sizing,
             styling: data.id === this.selected ? 'raised' : data.styling,
             toggable: data.toggable,
             trailingIcon: data.trailingIcon,
@@ -305,6 +315,9 @@ export class KupButtonList {
         }
         if (this.styling != null && this.styling.trim() != '') {
             data.styling = this.styling;
+        }
+        if (this.sizing != null) {
+            data.sizing = this.sizing;
         }
         if (this.contentAlign) {
             data.contentAlign = this.contentAlign;
@@ -382,14 +395,14 @@ export class KupButtonList {
         if (this.data == null || this.data.length < 1) {
             return null;
         }
-        if (this.styling === 'raised') {
-            this.kupManager.debug.logMessage(
-                this,
-                'styling="raised" is not allowed, please use "flat" or "outlined" instead.',
-                KupDebugCategory.WARNING
-            );
-            return null;
-        }
+        // if (this.styling === 'raised') {
+        //     this.kupManager.debug.logMessage(
+        //         this,
+        //         'styling="raised" is not allowed, please use "flat" or "outlined" instead.',
+        //         KupDebugCategory.WARNING
+        //     );
+        //     return null;
+        // }
 
         // 08/07/24 --> Removed check all icons for redUP Problem
 

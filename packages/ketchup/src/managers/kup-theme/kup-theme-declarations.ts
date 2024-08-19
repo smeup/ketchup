@@ -172,6 +172,10 @@ export const rippleUsers = [
     KupTagNames.TREE,
 ];
 /**
+ * Components using the Editor component.
+ */
+export const editorUsers = [KupTagNames.INPUT_PANEL];
+/**
  * Interface of the themes JSON.
  */
 export interface KupThemeJSON {

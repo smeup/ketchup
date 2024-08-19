@@ -72,6 +72,11 @@ export class KupTabBar {
      * @default true
      */
     @Prop() ripple: boolean = false;
+    /**
+     * When enabled displays toolbar item inside each single tab.
+     * @default true
+     */
+    @Prop() toolbar: boolean = true;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -322,6 +327,20 @@ export class KupTabBar {
                             </span>
                         ) : null}
                     </span>
+                    {toolbar && (
+                        <FImage
+                            resource="app"
+                            sizeX="16px"
+                            sizeY="16px"
+                            onClick={() => {
+                                // e.stopPropagation(); remove comment to stop event propagation to tab-bar
+                                console.log('CONSOLE BTN TOOLBAR');
+                            }}
+                            wrapperClass="tab__iconToolbar"
+                        >
+                            Click me
+                        </FImage>
+                    )}
                     <span
                         class={`tab-indicator ${
                             node.active ? ' tab-indicator--active' : ''

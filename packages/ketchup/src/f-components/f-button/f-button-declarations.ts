@@ -14,6 +14,7 @@ export interface FButtonProps extends FComponent {
     placeholderIcon?: string;
     label?: string;
     large?: boolean;
+    blackMode?: boolean;
     neutral?: boolean;
     onClick?: (event: MouseEvent) => void;
     onBlur?: (event: FocusEvent) => void;

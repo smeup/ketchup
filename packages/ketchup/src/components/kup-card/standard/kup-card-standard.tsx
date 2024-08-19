@@ -1530,81 +1530,29 @@ export function create15(component: KupCard): VNode {
 }
 
 /**
- * 16th standard card layout, it can be used as a tooltip.
+ * 16th standard card layout, it can be used as the toolbar.
  * @param {KupCard} component - Card component.
- * @returns {VNode} 16th standard layout virtual node.
+ * @returns {VNode} 15th standard layout virtual node.
  */
+
 export function create16(component: KupCard): VNode {
+    const listArray: GenericObject[] = component.data['toolbar']
+        ? component.data['toolbar']
+        : [];
     const textfieldArray: GenericObject[] = component.data['textfield']
         ? component.data['textfield']
         : [];
-    const listArray: GenericObject[] = component.data['list']
-        ? component.data['list']
-        : [];
-
-    // Setting up text fields.
-    const textfieldsIds: string[] = [];
-    for (let index = 0; index < textfieldArray.length; index++) {
-        const textfield: GenericObject = textfieldArray[index];
-        if (textfield['id']) {
-            textfieldsIds.push(textfield['id']);
-        }
-    }
-    // Setting up buttons.
-    const listIds: string[] = [];
-    for (let index = 0; index < listArray.length; index++) {
-        const el: GenericObject = listArray[index];
-        if (el['id']) {
-            listIds.push(el['id']);
-        }
-    }
-
     return (
-        <div class={`standard-layout-${component.layoutNumber} `}>
-            <div class={`section-1 ${
-                    textfieldArray.length > 0 
-                        ? KupCardCSSClasses.HAS_CONTENT
-                        : ''
-                }`}>
-                <div
-                    class={`sub-field ${
-                        textfieldArray.length > 0
-                            ? KupCardCSSClasses.HAS_CONTENT
-                            : ''
-                    }`}
-                >
-                    {textfieldsIds.includes(
-                        KupColumnMenuIds.TEXTFIELD_FILTER
-                    ) ? (
-                        <kup-text-field
-                            {...textfieldArray.find(
-                                (x) =>
-                                    x.id === KupColumnMenuIds.TEXTFIELD_FILTER
-                            )}
-                        />
-                    ) : null}
-                    {textfieldsIds.includes(KupColumnMenuIds.TEXTFIELD_FROM) ? (
-                        <kup-text-field
-                            {...textfieldArray.find(
-                                (x) => x.id === KupColumnMenuIds.TEXTFIELD_FROM
-                            )}
-                        />
-                    ) : null}
-                    {textfieldsIds.includes(KupColumnMenuIds.TEXTFIELD_TO) ? (
-                        <kup-text-field
-                            {...textfieldArray.find(
-                                (x) => x.id === KupColumnMenuIds.TEXTFIELD_TO
-                            )}
-                        />
-                    ) : null}
-                </div>
-            </div>
-            <div class="section-2">
-                {listArray.length > 0 ? (
-                    <div class="sub-list">
-                        {listArray.map((b) => {
-                            return <kup-list {...b}></kup-list>;
-                        })}
+        <div class={`standard-layout-${component.layoutNumber}`}>
+            {/* <div class="section-1">Titolo</div> */}
+            <div class="section-2">{/* Eventuali UI Popup button */}</div>
+            <div class="section-3">
+                {listArray[0] ? (
+                    <div class="section-list">
+                        {textfieldArray.length > 0
+                            ? compList(textfieldArray, 'textfield')
+                            : null}
+                        <kup-list isMenu={false} id="list1" {...listArray[0]} />
                     </div>
                 ) : null}
             </div>

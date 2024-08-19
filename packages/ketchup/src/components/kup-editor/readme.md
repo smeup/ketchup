@@ -96,6 +96,10 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [kup-input-panel](../kup-input-panel)
+
 ### Depends on
 
 - [kup-card](../kup-card)
@@ -257,6 +261,7 @@ graph TD;
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
+  kup-input-panel --> kup-editor
   style kup-editor fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

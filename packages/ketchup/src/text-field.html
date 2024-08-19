@@ -145,6 +145,11 @@
 
         <h3>Size:</h3>
         <kup-text-field
+            label="Size: Extra Small"
+            initial-value="Extra Small"
+            sizing="extra-small"
+        ></kup-text-field>
+        <kup-text-field
             label="Size: Small"
             initial-value="Small"
             sizing="small"
@@ -160,9 +165,9 @@
             sizing="large"
         ></kup-text-field>
         <kup-text-field
-            label="Size: Max Large"
-            initial-value="Max Large"
-            sizing="max-large"
+            label="Size: Extra Large"
+            initial-value="Extra Large"
+            sizing="extra-large"
         ></kup-text-field>
 
         <h3>Variants:</h3>
@@ -302,6 +307,34 @@
             quantity-buttons
             alert="Alert message"
         ></kup-text-field>
+
+        <h4>Light Mode</h4>
+        <div
+            style="
+                background-color: var(--kup-gray-color-10);
+                padding: 20px;
+                display: flex;
+                gap: 16px;
+                align-content: baseline;
+            "
+        >
+            <kup-text-field
+                label="Alert"
+                input-type="number"
+                input-mode="decimal"
+                alert="Alert message"
+                light-mode
+            ></kup-text-field>
+            <kup-text-field
+                is-clearable
+                label="Error"
+                initial-value="Error initial value"
+                error="Error message for initial value"
+                max-length="10"
+                light-mode
+            ></kup-text-field>
+            <kup-text-field full-width text-area light-mode></kup-text-field>
+        </div>
 
         <script>
             // For the password field

@@ -66,17 +66,6 @@ export interface KupDataRowAction {
     obj?: KupObj;
     cell?:KupDataCell;
 }
-
-/**
- * Commands for actions
- */
-export interface KupCommand {
-    obj: KupObj;
-    icon: string;
-    text: string;
-    showIcon: boolean;
-}
-
 /**
  * Generic cell interface.
  */

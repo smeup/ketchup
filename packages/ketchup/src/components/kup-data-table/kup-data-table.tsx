@@ -163,7 +163,6 @@ import {
     KupDataDataset,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
-    KupDataNode,
     KupDataRow,
     KupDataRowAction,
     KupDataRowCells,
@@ -172,8 +171,6 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupFormRow } from '../kup-form/kup-form-declarations';
 import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
-import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
-import { KupList } from '../kup-list/kup-list';
 @Component({
     tag: 'kup-data-table',
     styleUrl: 'kup-data-table.scss',
@@ -684,10 +681,6 @@ export class KupDataTable {
      */
     @Prop() rowActions: Array<KupDataRowAction>;
     /**
-     * Sets the commands for the rows
-     */
-    @Prop() commands: Array<KupCommand>;
-    /**
      * Sets the number of rows per page to display.
      */
     @Prop() rowsPerPage = 10;
@@ -956,7 +949,6 @@ export class KupDataTable {
     #filtersRowsInstance: FiltersRows;
     #detailCard: HTMLKupCardElement = null;
     #insertCard: HTMLKupCardElement = null;
-    #actionsCard: HTMLKupCardElement = null;
     #confirmDeleteCard: HTMLKupCardElement = null;
     #confirmDeleteDialog: HTMLKupDialogElement = null;
     #columnMenuCard: HTMLKupCardElement = null;
@@ -2809,7 +2801,6 @@ export class KupDataTable {
 
         return data;
     }
-
     #rowInsertForm() {
         const CARD_WIDTH = 400;
         const CARD_HEIGHT = 400;
@@ -3182,13 +3173,10 @@ export class KupDataTable {
     }
 
     getVisibleColumns(): Array<KupDataColumn> {
-        const visibleColumns = this.getColumns().filter(({ visible, obj }) => {
-            if (obj?.p === VoCodVerRowEnum.P && obj?.t === VoCodVerRowEnum.T) {
-                visible = false;
-            }
-
-            return visible ?? true;
-        });
+        // TODO: change into `visible ?? true` when TS dependency has been updated
+        const visibleColumns = this.getColumns().filter(({ visible }) =>
+            visible !== undefined ? visible : true
+        );
 
         // check grouping
         if (this.#isGrouping()) {
@@ -3732,6 +3720,9 @@ export class KupDataTable {
     ) {
         e.stopPropagation();
         this.#dropDownActionCardAnchor = e.target as HTMLElement;
+    #onRowActionExpanderClick(e: MouseEvent, row: KupDataTableRow) {
+        e.stopPropagation();
+
         this.kupRowActionClick.emit({
             comp: this,
             id: this.rootElement.id,
@@ -3739,6 +3730,7 @@ export class KupDataTable {
             type: 'expander',
         });
         this.#dropDownActions(dropDownActions, row);
+
     }
 
     #handleRowSelect(row: KupDataTableRow) {
@@ -4973,10 +4965,11 @@ export class KupDataTable {
                     const rowActionsWithCodVer = this.#hasRowActions()
                         ? [...this.#rowActionsAdapter(), ...voCodRowActions]
                         : [...voCodRowActions];
+
                     // adding expander
                     const props: FImageProps = {
                         color: `var(${KupThemeColorValues.PRIMARY})`,
-                        resource: 'chevron-down',
+                        resource: 'chevron-right',
                         sizeX: '1.5em',
                         sizeY: '1.5em',
                         title: this.#kupManager.language.translate(
@@ -4984,11 +4977,7 @@ export class KupDataTable {
                         ),
                         wrapperClass: 'expander',
                         onClick: (e: MouseEvent) => {
-                            this.#onRowActionExpanderClick(
-                                e,
-                                row,
-                                rowActionsWithCodVer
-                            );
+                            this.#onRowActionExpanderClick(e, row);
                         },
                     };
                     rowActionsCount++;
@@ -5009,6 +4998,7 @@ export class KupDataTable {
                                 : null
                         }
                     >
+                        {defaultRowActions}
                         {rowActionExpander}
                     </td>
                 );
@@ -5137,11 +5127,16 @@ export class KupDataTable {
                 rowClass[row.cssClass] = true;
             }
 
+            const style: GenericObject = {
+                '--kup_datatable_row_actions': rowActionsCount,
+            };
+
             return (
                 <tr
                     ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
                     data-row={row}
                     class={rowClass}
+                    style={style}
                 >
                     {selectRowCell}
                     {rowActionsCell}
