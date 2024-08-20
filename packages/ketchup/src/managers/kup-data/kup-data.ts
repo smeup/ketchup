@@ -627,12 +627,20 @@ export class KupData {
      * @param {KupDataTableRow} row single row.
      * @returns { KupDataTableCell[]} cells founded
      */
-    getCodVerCells(row: KupDataTableRow): KupDataTableCell[] {
-        return Object.values(row.cells).filter(
-            (cell) =>
-                cell.obj.p === VoCodVerRowEnum.P &&
-                cell.obj.t === VoCodVerRowEnum.T
-        );
+    getCodVerCells(row: KupDataTableRow) {
+        const formattedCells = Object.entries(row.cells).map(([key, value]) => {
+            return {
+                name: key,
+                value: value,
+            };
+        });
+
+        return formattedCells.filter((cell) => {
+            return (
+                cell.value.obj.p === VoCodVerRowEnum.P &&
+                cell.value.obj.t === VoCodVerRowEnum.T
+            );
+        });
     }
 
     /**
@@ -668,7 +676,7 @@ export class KupData {
             let hasCommands = false;
             if (commands) {
                 const commandsFiltered = commands.filter(
-                    (command) => command.obj.k === codVer.obj.k
+                    (command) => command.obj.k === codVer.value.obj.k
                 );
                 hasCommands = commandsFiltered.length > 0;
                 commandsFiltered.forEach((commandFilter) => {
@@ -682,20 +690,22 @@ export class KupData {
                         icon: commandFilter.icon,
                         text: commandFilter.text,
                         obj: commandFilter.obj,
-                        cell: codVer,
+                        cell: codVer.value,
                         index: index,
                         type: DropDownAction.CODVERWITHCOMMANDS,
+                        cellName: codVer.name,
                     });
                 });
             }
 
             if (!hasCommands) {
                 actions.push({
-                    icon: codVer.value || '',
-                    text: codVer.obj.k,
-                    obj: codVer.obj,
-                    cell: codVer,
+                    icon: codVer.value.icon || '',
+                    text: codVer.value.obj.k,
+                    obj: codVer.value.obj,
+                    cell: codVer.value,
                     type: DropDownAction.CODVER,
+                    cellName: codVer.name,
                 });
             }
         });
