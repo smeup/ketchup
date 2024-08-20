@@ -2717,15 +2717,19 @@ export class KupDataTable {
                     case 'kup-list-click':
                         const selectedElObj =
                             e.detail.event.detail.selected.obj;
+                        const cellName =
+                            e.detail.event.detail.selected.cellName;
                         const cell = e.detail.event.detail.selected.cell;
                         const index = e.detail.event.detail.selected.index;
                         const type = e.detail.event.detail.selected.type;
+
                         this.kupRowActionItemClick.emit({
                             comp: this,
                             id: this.rootElement.id,
                             row: row,
                             obj: selectedElObj,
                             cell: cell,
+                            cellName: cellName,
                             type: type,
                             index: index,
                         });
