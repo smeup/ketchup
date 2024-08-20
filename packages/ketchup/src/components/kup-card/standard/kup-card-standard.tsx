@@ -1573,6 +1573,7 @@ export function create17(component: KupCard): VNode {
         ? component.data['list']
         : [];
 
+    console.log(textfieldArray);
     // Setting up text fields.
     const textfieldsIds: string[] = [];
     for (let index = 0; index < textfieldArray.length; index++) {
@@ -1592,46 +1593,35 @@ export function create17(component: KupCard): VNode {
 
     return (
         <div class={`standard-layout-${component.layoutNumber} `}>
-            <div
-                class={`section-1 ${
-                    textfieldArray.length > 0
-                        ? KupCardCSSClasses.HAS_CONTENT
-                        : ''
-                }`}
-            >
+            {textfieldArray.length > 0 && (
                 <div
-                    class={`sub-field ${
+                    class={`section-1 ${
                         textfieldArray.length > 0
                             ? KupCardCSSClasses.HAS_CONTENT
                             : ''
                     }`}
                 >
-                    {textfieldsIds.includes(
-                        KupColumnMenuIds.TEXTFIELD_FILTER
-                    ) ? (
-                        <kup-text-field
-                            {...textfieldArray.find(
-                                (x) =>
-                                    x.id === KupColumnMenuIds.TEXTFIELD_FILTER
-                            )}
-                        />
-                    ) : null}
-                    {textfieldsIds.includes(KupColumnMenuIds.TEXTFIELD_FROM) ? (
-                        <kup-text-field
-                            {...textfieldArray.find(
-                                (x) => x.id === KupColumnMenuIds.TEXTFIELD_FROM
-                            )}
-                        />
-                    ) : null}
-                    {textfieldsIds.includes(KupColumnMenuIds.TEXTFIELD_TO) ? (
-                        <kup-text-field
-                            {...textfieldArray.find(
-                                (x) => x.id === KupColumnMenuIds.TEXTFIELD_TO
-                            )}
-                        />
-                    ) : null}
+                    <div
+                        class={`sub-field ${
+                            textfieldArray.length > 0
+                                ? KupCardCSSClasses.HAS_CONTENT
+                                : ''
+                        }`}
+                    >
+                        {textfieldsIds.includes(
+                            KupColumnMenuIds.TEXTFIELD_FILTER
+                        ) ? (
+                            <kup-text-field
+                                {...textfieldArray.find(
+                                    (x) =>
+                                        x.id ===
+                                        KupColumnMenuIds.TEXTFIELD_FILTER
+                                )}
+                            />
+                        ) : null}
+                    </div>
                 </div>
-            </div>
+            )}
             <div class="section-2">
                 {listArray.length > 0 ? (
                     <div class="sub-list">
