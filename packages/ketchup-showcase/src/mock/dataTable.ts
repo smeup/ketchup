@@ -844,7 +844,7 @@ export const dataTableWithCommands = {
             p: 'COD_VER',
             t: 'VO',
           },
-          value: '000052',
+          value: 'edit',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
@@ -4814,7 +4814,7 @@ export const reportDatatable2 = {
         },
         FLD16: {
           data: {
-            icon: 'pencil',
+            icon: 'edit',
             label: 'Modifica',
           },
           obj: {
