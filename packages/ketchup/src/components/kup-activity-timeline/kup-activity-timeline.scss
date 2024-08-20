@@ -1,6 +1,5 @@
 .atm-container {
-  color: #545454;
-  color: solid var(--kup-gray-color-70);
+  color: var(--kup-gray-color-70);
   max-width: 800px;
 }
 .atm-container.clickable {
@@ -18,8 +17,7 @@
   margin-top: 10px;
 }
 .atm-container .atm-event .atm-thumb {
-  background: #4e908f;
-  background: solid var(--kup-primary-color);
+  background: var(--kup-primary-color);
   display: inline-block;
   vertical-align: top;
   width: 40px;
@@ -83,6 +81,7 @@
 }
 .atm-container .atm-event .atm-content table.atm-detail td.detail-value {
   min-width: 120px;
+  cursor: pointer;
 }
 .atm-container
   .atm-event
@@ -91,7 +90,6 @@
   td.detail-value
   > a.ui-commandlink.ui-widget {
   text-decoration: underline;
-  color: #4e908f;
   color: var(--kup-primary-color);
   text-decoration: underline;
 }
@@ -157,7 +155,6 @@
   width: 1px;
   left: 15px;
 }
-.atm-event:after,
-.atm-thumb {
-  background: rgb(055, 102, 139);
+.atm-event:after {
+  background: var(--kup-primary-color);
 }

@@ -34,6 +34,7 @@ import {
     KupDatatableClickEventPayload,
 } from './kup-activity-timeline-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
+import { getCellValueForDisplay } from '../../utils/cell-utils';
 
 @Component({
     tag: 'kup-activity-timeline',
@@ -51,7 +52,7 @@ export class KupActivityTimeline {
     /*-------------------------------------------------*/
 
     @State()
-    timeline: any = [];
+    timeline: ActivityTimeline[] = [];
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -183,7 +184,10 @@ export class KupActivityTimeline {
             return value;
         };
 
-        const chunkArray = (array: any[], chunkSize: number) => {
+        const chunkArray = (
+            array: KupActivityTimelineData[],
+            chunkSize: number
+        ) => {
             const result = [];
             for (let i = 0; i < array.length; i += chunkSize) {
                 result.push(array.slice(i, i + chunkSize));
@@ -192,8 +196,14 @@ export class KupActivityTimeline {
         };
 
         const activitiesByDate = rows.reduce((acc, row) => {
-            const date = row.cells[dateColumn.name].value;
-            const time = row.cells[timeColumn.name].value;
+            const date = getCellValueForDisplay(
+                dateColumn,
+                row.cells[dateColumn.name]
+            );
+            const time = getCellValueForDisplay(
+                timeColumn,
+                row.cells[timeColumn.name]
+            );
 
             if (!acc[date]) {
                 acc[date] = [];
@@ -228,7 +238,7 @@ export class KupActivityTimeline {
         return Object.keys(activitiesByDate)
             .sort(this.#kupManager.dates.sortDates)
             .map((date) => ({
-                date: this.#kupManager.dates.format(date),
+                date,
                 time: activitiesByDate[date][0]!.time,
                 activities: activitiesByDate[date].sort(
                     (acc: KupActivity, activity: KupActivity) =>
@@ -296,7 +306,6 @@ export class KupActivityTimeline {
                                                 </td>
                                                 <td class="detail-value">
                                                     <a
-                                                        href="javascript:void(0)"
                                                         class="ui-commandlink ui-widget"
                                                         onClick={(e) => {
                                                             e.stopPropagation();
@@ -384,13 +393,7 @@ export class KupActivityTimeline {
                             <div class="atm-container" key={timeline.date}>
                                 <div class="atm-event">
                                     <div class="atm-icon-wrapper">
-                                        <div
-                                            class="atm-thumb"
-                                            style={{
-                                                background:
-                                                    'rgb(055, 102, 139)',
-                                            }}
-                                        >
+                                        <div class="atm-thumb">
                                             {this.calendarIcon()}
                                         </div>
                                     </div>
