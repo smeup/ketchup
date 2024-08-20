@@ -1573,7 +1573,6 @@ export function create17(component: KupCard): VNode {
         ? component.data['list']
         : [];
 
-    console.log(textfieldArray);
     // Setting up text fields.
     const textfieldsIds: string[] = [];
     for (let index = 0; index < textfieldArray.length; index++) {
