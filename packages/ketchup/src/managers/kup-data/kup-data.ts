@@ -644,11 +644,11 @@ export class KupData {
     }
 
     /**
-     * Check if has COD_VER rows
+     * Check if column is COD_VER
      * @param {KupDataColumn } column single column.
-     * @returns { boolean} if COD_VER founded or not.
+     * @returns { boolean } if COD_VER founded or not.
      */
-    hasCodVerColumn(column: KupDataColumn): boolean {
+    isCodVerColumn(column: KupDataColumn): boolean {
         if (column && column.obj) {
             const hasCodVerCol =
                 column.obj.p === VoCodVerRowEnum.P &&
@@ -656,6 +656,15 @@ export class KupData {
             return hasCodVerCol;
         }
         return false;
+    }
+
+    /**
+     *  Check if almost one column has COD_VER
+     * @param {KupDataColumn[] } columns single column.
+     * @returns { boolean } if COD_VER founded or not.
+     */
+    hasCodVerColumn(columns: KupDataColumn[]) {
+        return columns.some((col) => this.isCodVerColumn(col));
     }
 
     /**
