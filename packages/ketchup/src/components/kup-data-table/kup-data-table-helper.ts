@@ -18,10 +18,7 @@ import {
 import { FiltersRows } from '../../utils/filters/filters-rows';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
-import {
-    KupDatesFormats,
-    KupDatesNormalize,
-} from '../../managers/kup-dates/kup-dates-declarations';
+import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 

@@ -717,7 +717,8 @@ export class KupData {
 
             if (!hasCommands) {
                 actions.push({
-                    icon: codVer.value.icon || '',
+                    icon:
+                        codVer.value.icon || codVer.value.data?.resource || '',
                     text: codVer.value.obj.k,
                     obj: codVer.value.obj,
                     cell: codVer.value,

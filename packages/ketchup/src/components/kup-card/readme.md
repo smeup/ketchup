@@ -164,6 +164,8 @@ Type: `Promise<void>`
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-badge](../kup-badge)
+- [kup-card](.)
+- [kup-dialog](../kup-dialog)
 - [kup-button](../kup-button)
 - [kup-list](../kup-list)
 - [kup-spinner](../kup-spinner)
@@ -173,8 +175,6 @@ Type: `Promise<void>`
 - [kup-tree](../kup-tree)
 - [kup-switch](../kup-switch)
 - [kup-dropdown-button](../kup-dropdown-button)
-- [kup-card](.)
-- [kup-dialog](../kup-dialog)
 
 ### Graph
 ```mermaid
