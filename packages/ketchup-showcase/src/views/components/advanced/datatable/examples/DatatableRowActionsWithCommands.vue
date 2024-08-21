@@ -58,7 +58,7 @@ export default {
               p: 'COD_VER',
               t: 'VO',
             },
-            icon: 'modify',
+            icon: 'edit',
             text: 'Modifica',
             showIcon: 'true',
           },

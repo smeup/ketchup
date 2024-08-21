@@ -2787,6 +2787,21 @@ export class KupDataTable {
     #prepareDataForActionsCard(
         dropDownActions: KupDataRowAction[]
     ): KupCardData {
+        const hasAlmostTenElements = dropDownActions.length >= 10;
+
+        const textfield = hasAlmostTenElements
+            ? [
+                  {
+                      fullWidth: true,
+                      icon: 'magnify',
+                      isClearable: true,
+                      label: 'Search...',
+                      key: KupColumnMenuIds.TEXTFIELD_FILTER,
+                      id: KupColumnMenuIds.TEXTFIELD_FILTER,
+                  },
+              ]
+            : [];
+
         const data: KupCardData = {
             list: [
                 {
@@ -2797,16 +2812,7 @@ export class KupDataTable {
                     })),
                 },
             ],
-            textfield: [
-                {
-                    fullWidth: true,
-                    icon: 'magnify',
-                    isClearable: true,
-                    label: 'Search...',
-                    key: KupColumnMenuIds.TEXTFIELD_FILTER,
-                    id: KupColumnMenuIds.TEXTFIELD_FILTER,
-                },
-            ],
+            textfield,
         };
 
         return data;

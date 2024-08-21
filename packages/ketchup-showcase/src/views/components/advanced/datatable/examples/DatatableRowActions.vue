@@ -34,6 +34,38 @@ export default {
             text: 'Action #2',
             icon: 'account',
           },
+          {
+            text: 'Action #3',
+            icon: 'folder',
+          },
+          {
+            text: 'Action #4',
+            icon: 'account',
+          },
+          {
+            text: 'Action #5',
+            icon: 'folder',
+          },
+          {
+            text: 'Action #6',
+            icon: 'account',
+          },
+          {
+            text: 'Action #7',
+            icon: 'folder',
+          },
+          {
+            text: 'Action #8',
+            icon: 'account',
+          },
+          {
+            text: 'Action #9',
+            icon: 'folder',
+          },
+          {
+            text: 'Action #10',
+            icon: 'account',
+          },
         ],
         ['onkup-datatable-rowactionclick']: (e) => {
           const action = e.detail.action;
