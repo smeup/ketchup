@@ -5,13 +5,16 @@
 
 ## Properties
 
-| Property        | Attribute         | Description                                                                                   | Type      | Default |
-| --------------- | ----------------- | --------------------------------------------------------------------------------------------- | --------- | ------- |
-| `customStyle`   | `custom-style`    | Custom style of the component.                                                                | `string`  | `''`    |
-| `data`          | --                | Props of the sub-components.                                                                  | `Object`  | `null`  |
-| `disabled`      | `disabled`        | Defaults at false. When set to true, the component is disabled.                               | `boolean` | `false` |
-| `firstDayIndex` | `first-day-index` | First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop | `number`  | `1`     |
-| `initialValue`  | `initial-value`   | Sets the initial value of the component                                                       | `string`  | `''`    |
+| Property        | Attribute         | Description                                                                                   | Type                                                                                                                                                    | Default                     |
+| --------------- | ----------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| `customStyle`   | `custom-style`    | Custom style of the component.                                                                | `string`                                                                                                                                                | `''`                        |
+| `data`          | --                | Props of the sub-components.                                                                  | `Object`                                                                                                                                                | `null`                      |
+| `disabled`      | `disabled`        | Defaults at false. When set to true, the component is disabled.                               | `boolean`                                                                                                                                               | `false`                     |
+| `firstDayIndex` | `first-day-index` | First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop | `number`                                                                                                                                                | `1`                         |
+| `initialValue`  | `initial-value`   | Sets the initial value of the component                                                       | `string`                                                                                                                                                | `''`                        |
+| `outlined`      | `outlined`        | When set to true, the component will be rendered as an outlined field.                        | `boolean`                                                                                                                                               | `false`                     |
+| `showIcon`      | `show-icon`       | Sets the sizing of the textfield of the datepicker                                            | `boolean`                                                                                                                                               | `true`                      |
+| `sizing`        | `sizing`          | Sets the sizing of the textfield of the datepicker                                            | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.MEDIUM` |
 
 
 ## Events

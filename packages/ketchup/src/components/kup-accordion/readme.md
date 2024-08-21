@@ -5,12 +5,12 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                     | Type                                                                                                          | Default                     |
-| ------------- | -------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`                                                                                                      | `''`                        |
-| `data`        | --             | Data of the accordion.                                          | `KupAccordionData`                                                                                            | `null`                      |
-| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`                                                                                                     | `false`                     |
-| `sizing`      | `sizing`       | Sets the type of the button                                     | `KupComponentSizing.LARGE \| KupComponentSizing.MAX \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.MEDIUM` |
+| Property      | Attribute      | Description                                                     | Type                                                                                                                                                    | Default                     |
+| ------------- | -------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`                                                                                                                                                | `''`                        |
+| `data`        | --             | Data of the accordion.                                          | `KupAccordionData`                                                                                                                                      | `null`                      |
+| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`                                                                                                                                               | `false`                     |
+| `sizing`      | `sizing`       | Sets the type of the button                                     | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.MEDIUM` |
 
 
 ## Events
@@ -149,6 +149,8 @@ graph TD;
   kup-card --> kup-gauge
   kup-card --> kup-progress-bar
   kup-card --> kup-badge
+  kup-card --> kup-card
+  kup-card --> kup-dialog
   kup-card --> kup-button
   kup-card --> kup-list
   kup-card --> kup-spinner
@@ -158,8 +160,6 @@ graph TD;
   kup-card --> kup-tree
   kup-card --> kup-switch
   kup-card --> kup-dropdown-button
-  kup-card --> kup-card
-  kup-card --> kup-dialog
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
