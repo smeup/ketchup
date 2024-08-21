@@ -305,7 +305,6 @@ export interface KupDatatableRowActionItemClickEventPayload
     obj?: KupObj;
     column?: KupDataColumn;
     cell?: KupDataCell;
-    cellName?: string;
     index?: number;
 }
 
