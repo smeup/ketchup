@@ -666,6 +666,7 @@ export class KupData {
      */
     createActionsFromVoCodRow(
         row: KupDataTableRow,
+        columns: KupDataColumn[],
         commands: KupCommand[]
     ): KupDataRowAction[] {
         const actions: KupDataRowAction[] = [];
@@ -674,6 +675,13 @@ export class KupData {
 
         cellsCodVer.forEach((codVer) => {
             let hasCommands = false;
+
+            const currentColumn = this.column
+                .find(columns, {
+                    name: codVer.name,
+                })
+                .pop();
+
             if (commands) {
                 const commandsFiltered = commands.filter(
                     (command) => command.obj.k === codVer.value.obj.k
@@ -693,7 +701,7 @@ export class KupData {
                         cell: codVer.value,
                         index: index,
                         type: DropDownAction.CODVERWITHCOMMANDS,
-                        cellName: codVer.name,
+                        column: currentColumn,
                     });
                 });
             }
@@ -705,7 +713,7 @@ export class KupData {
                     obj: codVer.value.obj,
                     cell: codVer.value,
                     type: DropDownAction.CODVER,
-                    cellName: codVer.name,
+                    column: currentColumn,
                 });
             }
         });

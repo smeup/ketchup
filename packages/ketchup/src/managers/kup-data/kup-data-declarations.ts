@@ -68,7 +68,7 @@ export interface KupDataRowAction {
     index?: number;
     obj?: KupObj;
     cell?: KupDataCell;
-    cellName?: string;
+    column?: KupDataColumn;
 }
 
 /**

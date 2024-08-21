@@ -2720,6 +2720,7 @@ export class KupDataTable {
                         const cell = e.detail.event.detail.selected.cell;
                         const index = e.detail.event.detail.selected.index;
                         const type = e.detail.event.detail.selected.type;
+                        const column = e.detail.event.detail.selected.column;
 
                         this.kupRowActionItemClick.emit({
                             comp: this,
@@ -2729,6 +2730,7 @@ export class KupDataTable {
                             cell: cell,
                             type: type,
                             index: index,
+                            column: column,
                         });
                         setTimeout(() => {
                             this.#closeRowActionsCard();
@@ -4967,6 +4969,7 @@ export class KupDataTable {
                     const voCodRowActions =
                         this.#kupManager.data.createActionsFromVoCodRow(
                             row,
+                            this.data.columns,
                             this.commands ?? []
                         );
                     const rowActionsWithCodVer = this.#hasRowActions()
