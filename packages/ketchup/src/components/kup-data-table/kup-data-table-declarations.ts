@@ -298,10 +298,13 @@ export interface KupDatatableRowActionClickEventPayload
 export interface KupDatatableRowActionItemClickEventPayload
     extends KupEventPayload {
     row: KupDataRow;
-    type: DropDownAction.CODVER | DropDownAction.ROWACTION | DropDownAction.CODVERWITHCOMMANDS
+    type:
+        | DropDownAction.CODVER
+        | DropDownAction.ROWACTION
+        | DropDownAction.CODVERWITHCOMMANDS;
     obj?: KupObj;
     column?: KupDataColumn;
-    cell? :KupDataCell;
+    cell?: KupDataCell;
     index?: number;
 }
 

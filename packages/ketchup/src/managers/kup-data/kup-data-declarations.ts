@@ -61,10 +61,14 @@ export interface KupDataRowCells {
 export interface KupDataRowAction {
     text: string;
     icon: string;
-    type: DropDownAction.CODVER | DropDownAction.ROWACTION | DropDownAction.CODVERWITHCOMMANDS
+    type:
+        | DropDownAction.CODVER
+        | DropDownAction.ROWACTION
+        | DropDownAction.CODVERWITHCOMMANDS;
     index?: number;
     obj?: KupObj;
-    cell?:KupDataCell;
+    cell?: KupDataCell;
+    column?: KupDataColumn;
 }
 
 /**
@@ -223,7 +227,7 @@ export enum KupDataNewColumnTypes {
 }
 
 export enum DropDownAction {
-    ROWACTION = "row-action",
-    CODVER = "cod_ver",
-    CODVERWITHCOMMANDS = "cod_ver-with-commands"
+    ROWACTION = 'row-action',
+    CODVER = 'cod_ver',
+    CODVERWITHCOMMANDS = 'cod_ver-with-commands',
 }

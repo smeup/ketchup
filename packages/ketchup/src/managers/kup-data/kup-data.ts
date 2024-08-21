@@ -627,20 +627,28 @@ export class KupData {
      * @param {KupDataTableRow} row single row.
      * @returns { KupDataTableCell[]} cells founded
      */
-    getCodVerCells(row: KupDataTableRow): KupDataTableCell[] {
-        return Object.values(row.cells).filter(
-            (cell) =>
-                cell.obj.p === VoCodVerRowEnum.P &&
-                cell.obj.t === VoCodVerRowEnum.T
-        );
+    getCodVerCells(row: KupDataTableRow) {
+        const formattedCells = Object.entries(row.cells).map(([key, value]) => {
+            return {
+                name: key,
+                value: value,
+            };
+        });
+
+        return formattedCells.filter((cell) => {
+            return (
+                cell.value.obj.p === VoCodVerRowEnum.P &&
+                cell.value.obj.t === VoCodVerRowEnum.T
+            );
+        });
     }
 
     /**
-     * Check if has COD_VER rows
+     * Check if column is COD_VER
      * @param {KupDataColumn } column single column.
-     * @returns { boolean} if COD_VER founded or not.
+     * @returns { boolean } if COD_VER founded or not.
      */
-    hasCodVerColumn(column: KupDataColumn): boolean {
+    isCodVerColumn(column: KupDataColumn): boolean {
         if (column && column.obj) {
             const hasCodVerCol =
                 column.obj.p === VoCodVerRowEnum.P &&
@@ -651,6 +659,15 @@ export class KupData {
     }
 
     /**
+     *  Check if almost one column has COD_VER
+     * @param {KupDataColumn[] } columns single column.
+     * @returns { boolean } if COD_VER founded or not.
+     */
+    hasCodVerColumn(columns: KupDataColumn[]) {
+        return columns.some((col) => this.isCodVerColumn(col));
+    }
+
+    /**
      * Creates actions from row with VO COD_VER obj.
      * @param {KupDataTableRow} row single row.
      * @param {KupCommand[]} commands group of commands.
@@ -658,6 +675,7 @@ export class KupData {
      */
     createActionsFromVoCodRow(
         row: KupDataTableRow,
+        columns: KupDataColumn[],
         commands: KupCommand[]
     ): KupDataRowAction[] {
         const actions: KupDataRowAction[] = [];
@@ -666,9 +684,16 @@ export class KupData {
 
         cellsCodVer.forEach((codVer) => {
             let hasCommands = false;
+
+            const currentColumn = this.column
+                .find(columns, {
+                    name: codVer.name,
+                })
+                .pop();
+
             if (commands) {
                 const commandsFiltered = commands.filter(
-                    (command) => command.obj.k === codVer.obj.k
+                    (command) => command.obj.k === codVer.value.obj.k
                 );
                 hasCommands = commandsFiltered.length > 0;
                 commandsFiltered.forEach((commandFilter) => {
@@ -682,20 +707,22 @@ export class KupData {
                         icon: commandFilter.icon,
                         text: commandFilter.text,
                         obj: commandFilter.obj,
-                        cell: codVer,
+                        cell: codVer.value,
                         index: index,
                         type: DropDownAction.CODVERWITHCOMMANDS,
+                        column: currentColumn,
                     });
                 });
             }
 
             if (!hasCommands) {
                 actions.push({
-                    icon: codVer.value || '',
-                    text: codVer.obj.k,
-                    obj: codVer.obj,
-                    cell: codVer,
+                    icon: codVer.value.icon || '',
+                    text: codVer.value.obj.k,
+                    obj: codVer.value.obj,
+                    cell: codVer.value,
                     type: DropDownAction.CODVER,
+                    column: currentColumn,
                 });
             }
         });

@@ -2720,6 +2720,8 @@ export class KupDataTable {
                         const cell = e.detail.event.detail.selected.cell;
                         const index = e.detail.event.detail.selected.index;
                         const type = e.detail.event.detail.selected.type;
+                        const column = e.detail.event.detail.selected.column;
+
                         this.kupRowActionItemClick.emit({
                             comp: this,
                             id: this.rootElement.id,
@@ -2728,6 +2730,7 @@ export class KupDataTable {
                             cell: cell,
                             type: type,
                             index: index,
+                            column: column,
                         });
                         setTimeout(() => {
                             this.#closeRowActionsCard();
@@ -3296,12 +3299,6 @@ export class KupDataTable {
         }));
     }
 
-    #hasCodVerColum() {
-        return this.data.columns.some((col) =>
-            this.#kupManager.data.hasCodVerColumn(col)
-        );
-    }
-
     #removeGroup(index: number) {
         if (index >= 0) {
             // removing group from prop
@@ -3512,7 +3509,10 @@ export class KupDataTable {
             let previousWidth: number = 0;
             const totalFixedColumns =
                 this.fixedColumns +
-                (this.#hasRowActions() || this.#hasCodVerColum() ? 1 : 0) +
+                (this.#hasRowActions() ||
+                this.#kupManager.data.hasCodVerColumn(this.data.columns)
+                    ? 1
+                    : 0) +
                 (this.selection === SelectionMode.MULTIPLE_CHECKBOX ? 1 : 0);
 
             // @See [CSSCount]
@@ -3736,7 +3736,6 @@ export class KupDataTable {
     ) {
         e.stopPropagation();
         this.#dropDownActionCardAnchor = e.target as HTMLElement;
-        e.stopPropagation();
         this.kupRowActionClick.emit({
             comp: this,
             id: this.rootElement.id,
@@ -3948,7 +3947,10 @@ export class KupDataTable {
             colSpan += 1;
         }
 
-        if (this.#hasRowActions() || this.#hasCodVerColum()) {
+        if (
+            this.#hasRowActions() ||
+            this.#kupManager.data.hasCodVerColumn(this.data.columns)
+        ) {
             colSpan += 1;
         }
 
@@ -4160,7 +4162,10 @@ export class KupDataTable {
 
         // Renders action column
         let actionsColumn = null;
-        if (this.#hasRowActions() || this.#hasCodVerColum()) {
+        if (
+            this.#hasRowActions() ||
+            this.#kupManager.data.hasCodVerColumn(this.data.columns)
+        ) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
                 specialExtraCellsCount,
@@ -4348,7 +4353,10 @@ export class KupDataTable {
 
         // Empty cell for the actions
         let actionsColumn = null;
-        if (this.#hasRowActions() || this.#hasCodVerColum()) {
+        if (
+            this.#hasRowActions() ||
+            this.#kupManager.data.hasCodVerColumn(this.data.columns)
+        ) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
                 specialExtraCellsCount,
@@ -4481,7 +4489,10 @@ export class KupDataTable {
 
         // Action cell
         let actionsCell = null;
-        if (this.#hasRowActions() || this.#hasCodVerColum()) {
+        if (
+            this.#hasRowActions() ||
+            this.#kupManager.data.hasCodVerColumn(this.data.columns)
+        ) {
             extraCells++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
                 extraCells,
@@ -4760,7 +4771,10 @@ export class KupDataTable {
             if (this.#hasTotals()) {
                 //const colSpan = this.multiSelection ? 2 : 1;
                 const cells = [];
-                if (this.#hasRowActions() || this.#hasCodVerColum()) {
+                if (
+                    this.#hasRowActions() ||
+                    this.#kupManager.data.hasCodVerColumn(this.data.columns)
+                ) {
                     cells.push(<td></td>);
                 }
                 if (this.selection === SelectionMode.MULTIPLE_CHECKBOX) {
@@ -4954,7 +4968,10 @@ export class KupDataTable {
             // Renders action cell
             // If active, this can be either the first or second cell
             let rowActionsCell = null;
-            if (this.#hasRowActions() || this.#hasCodVerColum()) {
+            if (
+                this.#hasRowActions() ||
+                this.#kupManager.data.hasCodVerColumn(this.data.columns)
+            ) {
                 // Increments
                 specialExtraCellsCount++;
                 const actionsStyleAndClass =
@@ -4973,6 +4990,7 @@ export class KupDataTable {
                     const voCodRowActions =
                         this.#kupManager.data.createActionsFromVoCodRow(
                             row,
+                            this.data.columns,
                             this.commands ?? []
                         );
                     const rowActionsWithCodVer = this.#hasRowActions()
