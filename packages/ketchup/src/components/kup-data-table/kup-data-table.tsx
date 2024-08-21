@@ -2717,8 +2717,6 @@ export class KupDataTable {
                     case 'kup-list-click':
                         const selectedElObj =
                             e.detail.event.detail.selected.obj;
-                        const cellName =
-                            e.detail.event.detail.selected.cellName;
                         const cell = e.detail.event.detail.selected.cell;
                         const index = e.detail.event.detail.selected.index;
                         const type = e.detail.event.detail.selected.type;
@@ -2729,7 +2727,6 @@ export class KupDataTable {
                             row: row,
                             obj: selectedElObj,
                             cell: cell,
-                            cellName: cellName,
                             type: type,
                             index: index,
                         });
@@ -3734,7 +3731,6 @@ export class KupDataTable {
     ) {
         e.stopPropagation();
         this.#dropDownActionCardAnchor = e.target as HTMLElement;
-        e.stopPropagation();
         this.kupRowActionClick.emit({
             comp: this,
             id: this.rootElement.id,
