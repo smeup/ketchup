@@ -3291,6 +3291,19 @@ export class KupDataTable {
         return this.rowActions !== undefined;
     }
 
+    #buildActions(row: KupDataRow): KupDataRowAction[] {
+        const voCodRowActions = this.#kupManager.data.createActionsFromVoCodRow(
+            row,
+            this.data.columns,
+            this.commands ?? []
+        );
+        const rowActionsWithCodVer = this.#hasRowActions()
+            ? [...this.#rowActionsAdapter(), ...voCodRowActions]
+            : [...voCodRowActions];
+
+        return rowActionsWithCodVer;
+    }
+
     #rowActionsAdapter(): KupDataRowAction[] {
         return this.rowActions.map((rowAction, index) => ({
             ...rowAction,
@@ -4987,15 +5000,7 @@ export class KupDataTable {
                 if (row.actions) {
                     rowActionsCount += row.actions.length;
                 } else {
-                    const voCodRowActions =
-                        this.#kupManager.data.createActionsFromVoCodRow(
-                            row,
-                            this.data.columns,
-                            this.commands ?? []
-                        );
-                    const rowActionsWithCodVer = this.#hasRowActions()
-                        ? [...this.#rowActionsAdapter(), ...voCodRowActions]
-                        : [...voCodRowActions];
+                    const rowActions = this.#buildActions(row);
 
                     // adding expander
                     const props: FImageProps = {
@@ -5008,11 +5013,7 @@ export class KupDataTable {
                         ),
                         wrapperClass: 'expander',
                         onClick: (e: MouseEvent) => {
-                            this.#onRowActionExpanderClick(
-                                e,
-                                row,
-                                rowActionsWithCodVer
-                            );
+                            this.#onRowActionExpanderClick(e, row, rowActions);
                         },
                     };
                     rowActionsCount++;
