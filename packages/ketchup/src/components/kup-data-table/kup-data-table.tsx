@@ -3291,28 +3291,6 @@ export class KupDataTable {
         return this.rowActions !== undefined;
     }
 
-    #buildActions(row: KupDataRow): KupDataRowAction[] {
-        const codVerActions = this.#kupManager.data.createActionsFromVoCodRow(
-            row,
-            this.data.columns,
-            this.commands ?? []
-        );
-
-        const rowActionsWithCodVer = this.#hasRowActions()
-            ? [...this.#rowActionsAdapter(), ...codVerActions]
-            : [...codVerActions];
-
-        return rowActionsWithCodVer;
-    }
-
-    #rowActionsAdapter(): KupDataRowAction[] {
-        return this.rowActions.map((rowAction, index) => ({
-            ...rowAction,
-            type: DropDownAction.ROWACTION,
-            index: index,
-        }));
-    }
-
     #removeGroup(index: number) {
         if (index >= 0) {
             // removing group from prop
@@ -4997,28 +4975,57 @@ export class KupDataTable {
 
                 rowActionsCount += this.rowActions?.length || 0;
 
-                let rowActionExpander = null;
+                const actionsOnRow: FImageProps[] = [];
                 if (row.actions) {
                     rowActionsCount += row.actions.length;
                 } else {
-                    const rowActions = this.#buildActions(row);
+                    const rowActions = this.#kupManager.data.buildRowActions(
+                        row,
+                        this.data.columns,
+                        this.rowActions,
+                        this.commands
+                    );
 
-                    // adding expander
-                    const props: FImageProps = {
-                        color: `var(${KupThemeColorValues.PRIMARY})`,
-                        resource: 'chevron-down',
-                        sizeX: '1.5em',
-                        sizeY: '1.5em',
-                        title: this.#kupManager.language.translate(
-                            KupLanguageGeneric.EXPAND
-                        ),
-                        wrapperClass: 'expander',
-                        onClick: (e: MouseEvent) => {
-                            this.#onRowActionExpanderClick(e, row, rowActions);
-                        },
-                    };
+                    if (rowActions.length === 1) {
+                        const singleAction = rowActions[0];
+                        const prop: FImageProps = {
+                            color: `var(${KupThemeColorValues.PRIMARY})`,
+                            sizeX: '1.5em',
+                            sizeY: '1.5em',
+                            resource: singleAction.icon,
+                            title: singleAction.text,
+                            wrapperClass: 'action',
+                            onClick: () =>
+                                this.#onDefaultRowActionClick({
+                                    action: singleAction,
+                                    row,
+                                    index: 0,
+                                    type: 'default',
+                                }),
+                        };
+                        actionsOnRow.push(prop);
+                    } else if (rowActions.length > 1) {
+                        const prop: FImageProps = {
+                            color: `var(${KupThemeColorValues.PRIMARY})`,
+                            sizeX: '1.5em',
+                            sizeY: '1.5em',
+                            resource: 'chevron-down',
+                            title: this.#kupManager.language.translate(
+                                KupLanguageGeneric.EXPAND
+                            ),
+                            wrapperClass: 'expander',
+                            onClick: (e: MouseEvent) => {
+                                this.#onRowActionExpanderClick(
+                                    e,
+                                    row,
+                                    rowActions
+                                );
+                            },
+                        };
+                        actionsOnRow.push(prop);
+                    }
+
                     rowActionsCount++;
-                    rowActionExpander = <FImage {...props} />;
                 }
 
                 rowActionsCell = (
@@ -5035,7 +5042,9 @@ export class KupDataTable {
                                 : null
                         }
                     >
-                        {rowActionExpander}
+                        {actionsOnRow.map((action) => (
+                            <FImage {...action}></FImage>
+                        ))}
                     </td>
                 );
             }
