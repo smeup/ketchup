@@ -740,4 +740,44 @@ export class KupData {
             value: value,
         }));
     }
+
+    /**
+     * Build actions that must be showed in data table
+     * @param { KupDataRow } row current row
+     * @param { KupDataColumn[] } columns columns of datatable
+     * @param { KupDataRowAction[] } actions actions in component prop
+     * @param { KupCommand[] } commands commands in component prop
+     * @returns { KupDataRowAction[] } action that must be show on row
+     */
+    buildRowActions(
+        row: KupDataRow,
+        columns: KupDataColumn[],
+        actions: KupDataRowAction[],
+        commands: KupCommand[]
+    ): KupDataRowAction[] {
+        const codVerActions = this.createActionsFromVoCodRow(
+            row,
+            columns,
+            commands ?? []
+        );
+
+        const rowActionsWithCodVer = actions.length
+            ? [...this.rowActionsAdapter(actions), ...codVerActions]
+            : [...codVerActions];
+
+        return rowActionsWithCodVer;
+    }
+
+    /**
+     * Adapts row actions to corresponding type
+     * @param { KupDataRowAction[] } rowActions that must be adapted
+     * @returns { KupDataRowAction[] } formatted row actions array
+     */
+    rowActionsAdapter(rowActions: KupDataRowAction[]): KupDataRowAction[] {
+        return rowActions.map((rowAction, index) => ({
+            ...rowAction,
+            type: DropDownAction.ROWACTION,
+            index: index,
+        }));
+    }
 }
