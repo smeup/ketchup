@@ -42,6 +42,8 @@ import {
 import { TreeNodePath } from '../../components/kup-tree/kup-tree-declarations';
 import { ValueDisplayedValue } from '../../utils/filters/filters-declarations';
 import { KupObj } from '../kup-objects/kup-objects-declarations';
+import { FImageProps } from '../../f-components/f-image/f-image-declarations';
+import { KupThemeColorValues } from '../kup-theme/kup-theme-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -713,8 +715,11 @@ export class KupData {
             if (!hasCommands) {
                 actions.push({
                     icon:
-                        codVer.value.icon || codVer.value.data?.resource || '',
-                    text: codVer.value.obj.k,
+                        codVer.value.icon ||
+                        codVer.value.data?.resource ||
+                        codVer.value.data?.icon ||
+                        '',
+                    text: '',
                     obj: codVer.value.obj,
                     cell: codVer.value,
                     type: DropDownAction.CODVER,
@@ -779,5 +784,25 @@ export class KupData {
             type: DropDownAction.ROWACTION,
             index: index,
         }));
+    }
+
+    /**
+     * Build image to show as action in row
+     */
+    buildImagePropAction(
+        resource: string,
+        title: string,
+        wrapperClass: 'action' | 'expander',
+        onClick: (e?: MouseEvent) => void
+    ): FImageProps {
+        return {
+            color: `var(${KupThemeColorValues.PRIMARY})`,
+            sizeX: '1.5em',
+            sizeY: '1.5em',
+            resource,
+            title,
+            wrapperClass,
+            onClick,
+        } as FImageProps;
     }
 }

@@ -4986,43 +4986,66 @@ export class KupDataTable {
                         this.commands
                     );
 
-                    if (rowActions.length === 1) {
+                    if (rowActions.length === 1 && rowActions[0].icon) {
                         const singleAction = rowActions[0];
-                        const prop: FImageProps = {
-                            color: `var(${KupThemeColorValues.PRIMARY})`,
-                            sizeX: '1.5em',
-                            sizeY: '1.5em',
-                            resource: singleAction.icon,
-                            title: singleAction.text,
-                            wrapperClass: 'action',
-                            onClick: () =>
-                                this.#onDefaultRowActionClick({
-                                    action: singleAction,
-                                    row,
-                                    index: 0,
-                                    type: 'default',
-                                }),
-                        };
-                        actionsOnRow.push(prop);
+                        const imageProp: FImageProps =
+                            this.#kupManager.data.buildImagePropAction(
+                                singleAction.icon,
+                                singleAction.text,
+                                'action',
+                                () => {
+                                    this.#onDefaultRowActionClick({
+                                        action: singleAction,
+                                        row,
+                                        index: 0,
+                                        type: 'default',
+                                    });
+                                }
+                            );
+                        actionsOnRow.push(imageProp);
                     } else if (rowActions.length > 1) {
-                        const prop: FImageProps = {
-                            color: `var(${KupThemeColorValues.PRIMARY})`,
-                            sizeX: '1.5em',
-                            sizeY: '1.5em',
-                            resource: 'chevron-down',
-                            title: this.#kupManager.language.translate(
-                                KupLanguageGeneric.EXPAND
-                            ),
-                            wrapperClass: 'expander',
-                            onClick: (e: MouseEvent) => {
-                                this.#onRowActionExpanderClick(
-                                    e,
-                                    row,
-                                    rowActions
+                        // check if actions have only icons or not
+                        if (
+                            rowActions.every(
+                                (action) => action.icon && !action.text
+                            )
+                        ) {
+                            rowActions.forEach((action, index) => {
+                                const imageProp: FImageProps =
+                                    this.#kupManager.data.buildImagePropAction(
+                                        action.icon,
+                                        '',
+                                        'action',
+                                        () =>
+                                            this.#onDefaultRowActionClick({
+                                                action,
+                                                row,
+                                                index,
+                                                type: 'default',
+                                            })
+                                    );
+                                actionsOnRow.push(imageProp);
+                            });
+                        } else {
+                            const imageProp: FImageProps =
+                                this.#kupManager.data.buildImagePropAction(
+                                    'chevron-down',
+                                    this.#kupManager.language.translate(
+                                        KupLanguageGeneric.EXPAND
+                                    ),
+                                    'expander',
+
+                                    (e) => {
+                                        this.#onRowActionExpanderClick(
+                                            e,
+                                            row,
+                                            rowActions
+                                        );
+                                    }
                                 );
-                            },
-                        };
-                        actionsOnRow.push(prop);
+
+                            actionsOnRow.push(imageProp);
+                        }
                     }
 
                     rowActionsCount++;
