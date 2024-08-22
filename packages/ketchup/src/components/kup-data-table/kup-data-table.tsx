@@ -3292,14 +3292,15 @@ export class KupDataTable {
     }
 
     #buildActions(row: KupDataRow): KupDataRowAction[] {
-        const voCodRowActions = this.#kupManager.data.createActionsFromVoCodRow(
+        const codVerActions = this.#kupManager.data.createActionsFromVoCodRow(
             row,
             this.data.columns,
             this.commands ?? []
         );
+
         const rowActionsWithCodVer = this.#hasRowActions()
-            ? [...this.#rowActionsAdapter(), ...voCodRowActions]
-            : [...voCodRowActions];
+            ? [...this.#rowActionsAdapter(), ...codVerActions]
+            : [...codVerActions];
 
         return rowActionsWithCodVer;
     }
