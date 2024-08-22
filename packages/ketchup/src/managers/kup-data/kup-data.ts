@@ -30,6 +30,7 @@ import {
     fieldColumn,
     KupDataTableCell,
     KupDataTableRow,
+    KupDataTableRowCells,
     VoCodVerRowEnum,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
@@ -623,24 +624,18 @@ export class KupData {
         return transposed;
     }
     /**
-     * Get COD_VER rows
+     * Get COD_VER cells
      * @param {KupDataTableRow} row single row.
      * @returns { KupDataTableCell[]} cells founded
      */
     getCodVerCells(row: KupDataTableRow) {
-        const formattedCells = Object.entries(row.cells).map(([key, value]) => {
-            return {
-                name: key,
-                value: value,
-            };
-        });
+        const formattedCells = this.formatCells(row.cells);
 
-        return formattedCells.filter((cell) => {
-            return (
+        return formattedCells.filter(
+            (cell) =>
                 cell.value.obj.p === VoCodVerRowEnum.P &&
                 cell.value.obj.t === VoCodVerRowEnum.T
-            );
-        });
+        );
     }
 
     /**
@@ -660,7 +655,7 @@ export class KupData {
 
     /**
      *  Check if almost one column has COD_VER
-     * @param {KupDataColumn[] } columns single column.
+     * @param { KupDataColumn[] } columns single column.
      * @returns { boolean } if COD_VER founded or not.
      */
     hasCodVerColumn(columns: KupDataColumn[]) {
@@ -729,5 +724,20 @@ export class KupData {
         });
 
         return actions;
+    }
+
+    /**
+     * Given some cells, it creates an object with name of column
+     * and value
+     * @param {KupDataTableRowCells} cells  group of cells .
+     * @returns { { name: string; value: KupDataTableCell }[]} object with name of the column and cell.
+     */
+    formatCells(
+        cells: KupDataTableRowCells
+    ): { name: string; value: KupDataTableCell }[] {
+        return Object.entries(cells).map(([key, value]) => ({
+            name: key,
+            value: value,
+        }));
     }
 }
