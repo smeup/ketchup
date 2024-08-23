@@ -4986,12 +4986,6 @@ export class KupDataTable {
                         this.commands
                     );
 
-                    // [ ]  se c’è una azione mettere solo il bottone
-                    // se hanno solo icona o solo testo?
-                    // [ ]  se ci sono più azioni  che hanno tutte le icone e non hanno label metterle in riga, come tooltip usare text o title colonna
-                    // [ ]  in situazione mista tutto dropdown
-                    // [ ]  togliere il k quando la codver non ha commands, e prendere il cell.value
-
                     if (rowActions.length === 1) {
                         const singleAction = rowActions[0];
                         const imageProp: FImageProps =
