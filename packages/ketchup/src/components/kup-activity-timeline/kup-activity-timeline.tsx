@@ -184,17 +184,6 @@ export class KupActivityTimeline {
             return value;
         };
 
-        const chunkArray = (
-            array: KupActivityTimelineData[],
-            chunkSize: number
-        ) => {
-            const result = [];
-            for (let i = 0; i < array.length; i += chunkSize) {
-                result.push(array.slice(i, i + chunkSize));
-            }
-            return result;
-        };
-
         const activitiesByDate = rows.reduce((acc, row) => {
             const date = getCellValueForDisplay(
                 dateColumn,
@@ -211,25 +200,21 @@ export class KupActivityTimeline {
 
             acc[date].push({
                 time,
-                columns: chunkArray(
-                    columns
-                        .filter(
-                            (column) =>
-                                column.visible || column.visible !== false
-                        )
-                        .map((column) => ({
-                            title: column.title,
-                            value: getColumnValue(
-                                column.name,
-                                row.cells[column.name]!.value,
-                                date,
-                                time
-                            ),
-                            columnName: column.name,
-                            cellId: row.id,
-                        })),
-                    2
-                ),
+                columns: columns
+                    .filter(
+                        (column) => column.visible || column.visible !== false
+                    )
+                    .map((column) => ({
+                        title: column.title,
+                        value: getColumnValue(
+                            column.name,
+                            row.cells[column.name]!.value,
+                            date,
+                            time
+                        ),
+                        columnName: column.name,
+                        cellId: row.id,
+                    })),
             } as KupActivity);
 
             return acc;
@@ -287,53 +272,29 @@ export class KupActivityTimeline {
         });
     }
 
-    activityItem(activity: KupActivity, activityIndex: number) {
+    activityItem(activity: KupActivity) {
         return (
-            <div key={activityIndex}>
-                <table class="atm-detail">
-                    <tbody>
-                        {activity.columns.map(
-                            (
-                                columnChunk: KupActivityTimelineData[],
-                                chunkIndex: number
-                            ) => (
-                                <tr key={chunkIndex}>
-                                    {columnChunk.map(
-                                        (column: KupActivityTimelineData) => (
-                                            <Fragment>
-                                                <td class="detail-label">
-                                                    {column.title} :
-                                                </td>
-                                                <td class="detail-value">
-                                                    <a
-                                                        class="ui-commandlink ui-widget"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            this.onActivityClick(
-                                                                e,
-                                                                column
-                                                            );
-                                                        }}
-                                                        onContextMenu={(e) => {
-                                                            e.stopPropagation();
-                                                            this.onActivityContextMenu(
-                                                                e,
-                                                                column
-                                                            );
-                                                        }}
-                                                    >
-                                                        {column.value}
-                                                    </a>
-                                                </td>
-                                            </Fragment>
-                                        )
-                                    )}
-                                </tr>
-                            )
-                        )}
-                    </tbody>
-                </table>
-                <br />
+            <div class="atm-row">
+                {activity.columns.map((column: KupActivityTimelineData) => (
+                    <div class="atm-col">
+                        <div class="atm-inner-col">
+                            <h3>{column.title}:</h3>
+                        </div>
+                        <div
+                            class="atm-inner-col"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                this.onActivityClick(e, column);
+                            }}
+                            onContextMenu={(e) => {
+                                e.stopPropagation();
+                                this.onActivityContextMenu(e, column);
+                            }}
+                        >
+                            <p>{column.value}</p>
+                        </div>
+                    </div>
+                ))}
             </div>
         );
     }
@@ -408,14 +369,10 @@ export class KupActivityTimeline {
                                             </h3>
                                         </div>
                                         {timeline.activities.map(
-                                            (
-                                                activity: KupActivity,
-                                                activityIndex: number
-                                            ) => (
+                                            (activity: KupActivity) => (
                                                 <Fragment>
                                                     {this.activityItem(
-                                                        activity,
-                                                        activityIndex
+                                                        activity
                                                     )}
                                                 </Fragment>
                                             )

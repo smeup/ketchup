@@ -16,7 +16,7 @@ export interface KupActivityTimelineData {
 
 export interface KupActivity {
     time: string;
-    columns: KupActivityTimelineData[][];
+    columns: KupActivityTimelineData[];
 }
 
 export interface ActivityTimeline {
