@@ -788,6 +788,11 @@ export class KupData {
 
     /**
      * Build image to show as action in row
+     * @param { resource } icon that must be shown
+     * @param { title } title of the ation
+     * @param { wrapperClass }  type of wrapper class
+     * @param { onClick } event that must be fired
+     * @returns { FImageProps } single action
      */
     buildImagePropAction(
         resource: string,
@@ -804,5 +809,14 @@ export class KupData {
             wrapperClass,
             onClick,
         } as FImageProps;
+    }
+
+    /**
+     * Check if given actions have only icons without text
+     * @param { actions } actions on which control is made
+     * @returns { boolean } result of check
+     */
+    checkEveryActionHasOnlyIcon(actions: KupDataRowAction[]) {
+        return actions.every((action) => action.icon && !action.text);
     }
 }
