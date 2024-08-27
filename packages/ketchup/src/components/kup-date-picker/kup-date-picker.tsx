@@ -91,10 +91,20 @@ export class KupDatePicker {
      */
     @Prop() initialValue: string = '';
     /**
+     * When set to true, the component will be rendered as an outlined field.
+     * @default false
+     */
+    @Prop() outlined: boolean = false;
+    /**
      * Sets the sizing of the textfield of the datepicker
      * @default KupComponentSizing.MEDIUM
      */
     @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+    /**
+     * Sets the sizing of the textfield of the datepicker
+     * @default true
+     */
+    @Prop() showIcon: boolean = true;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -387,21 +397,33 @@ export class KupDatePicker {
         isOnInputEvent?: boolean
     ) {
         let newValue = eventDetailValue;
-        if (this.kupManager.dates.isValid(eventDetailValue)) {
-            newValue = this.kupManager.dates.format(
-                this.kupManager.dates.normalize(
-                    eventDetailValue,
-                    KupDatesNormalize.DATE
-                ),
-                KupDatesFormats.ISO_DATE
-            );
+        // check if input contains special codes
+        if (this.isAlphanumeric(newValue)) {
+            this.setValue(newValue);
+        } else {
+            const dateFormat = this.kupManager.dates.getDateFormat();
 
-            this.refreshPickerComponentValue(newValue);
-            if (isOnInputEvent != true) {
-                this.setValue(newValue);
+            const parsedDate =
+                dateFormat === 'DD/MM/YYYY'
+                    ? this.kupManager.dates.parseAndValidateDate(newValue)
+                    : this.kupManager.dates.parseAndValidateDateEn(newValue);
+            if (this.kupManager.dates.isValid(eventDetailValue) && parsedDate) {
+                newValue = this.kupManager.dates.format(
+                    this.kupManager.dates.normalize(
+                        eventDetailValue,
+                        KupDatesNormalize.DATE
+                    ),
+                    KupDatesFormats.ISO_DATE
+                );
+                this.refreshPickerComponentValue(newValue);
+                if (isOnInputEvent != true) {
+                    this.setValue(newValue);
+                }
+            } else if (isOnInputEvent != true) {
+                this.setValue('');
+                console.error('Invalid date');
             }
         }
-
         if (newValue != null) {
             if (eventToRaise != null) {
                 eventToRaise.emit({
@@ -411,6 +433,77 @@ export class KupDatePicker {
             }
         }
     }
+
+    // parseAndValidateDateEn(input: string) {
+    //     const cleanedInput = input.replace(/[^0-9]/g, '');
+    //     let day: string, month: string, year: string;
+    //     let dateFormat:
+    //         | 'MMDDYYYY'
+    //         | 'MMDDYY'
+    //         | 'MM/DD/YYYY'
+    //         | 'MM/DD/YY'
+    //         | 'MM-DD-YYYY'
+    //         | 'MM-DD-YY'
+    //         | null = null;
+
+    //     if (cleanedInput.length === 8) {
+    //         month = cleanedInput.slice(0, 2);
+    //         day = cleanedInput.slice(2, 4);
+    //         year = cleanedInput.slice(4, 8);
+    //         dateFormat = 'MMDDYYYY';
+    //     } else if (cleanedInput.length === 6) {
+    //         month = cleanedInput.slice(0, 2);
+    //         day = cleanedInput.slice(2, 4);
+    //         year = cleanedInput.slice(4, 6);
+    //         year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
+    //         dateFormat = 'MMDDYY';
+    //     } else if (input.includes('/')) {
+    //         const parts = input.split('/');
+    //         if (parts.length !== 3) return null;
+
+    //         month = parts[0];
+    //         day = parts[1];
+    //         year = parts[2];
+    //         if (year && year.length === 2) {
+    //             year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
+    //             dateFormat = 'MM/DD/YY';
+    //         } else if (year && year.length === 4) {
+    //             dateFormat = 'MM/DD/YYYY';
+    //         } else {
+    //             return null;
+    //         }
+    //     } else if (input.includes('-')) {
+    //         const parts = input.split('-');
+    //         if (parts.length !== 3) return null;
+
+    //         month = parts[0];
+    //         day = parts[1];
+    //         year = parts[2];
+    //         if (year && year.length === 2) {
+    //             year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
+    //             dateFormat = 'MM-DD-YY';
+    //         } else if (year && year.length === 4) {
+    //             dateFormat = 'MM-DD-YYYY';
+    //         } else {
+    //             return null;
+    //         }
+    //     } else {
+    //         return null;
+    //     }
+
+    //     const dayNumber = parseInt(day, 10);
+    //     const monthNumber = parseInt(month, 10);
+    //     if (
+    //         dayNumber < 1 ||
+    //         dayNumber > 31 ||
+    //         monthNumber < 1 ||
+    //         monthNumber > 12
+    //     ) {
+    //         return null;
+    //     }
+
+    //     return { day, month, year, dateFormat };
+    // }
 
     refreshPickerComponentValue(value: string) {
         if (!this.isPickerOpened()) {
@@ -515,8 +608,10 @@ export class KupDatePicker {
         const textfieldData: FTextFieldProps = {
             ...this.data['kup-text-field'],
             sizing: this.sizing,
+            outlined: this.outlined,
+            showIcon: this.showIcon,
         };
-        if (!textfieldData.icon) {
+        if (!textfieldData.icon && this.showIcon) {
             textfieldData.icon = 'calendar';
         }
         if (textfieldData.icon) {
@@ -528,6 +623,7 @@ export class KupDatePicker {
                 disabled={this.disabled}
                 fullHeight={fullHeight}
                 fullWidth={fullWidth}
+                maxLength={10}
                 id={this.rootElement.id + '_text-field'}
                 value={initialValue}
                 onBlur={() => this.onKupBlur()}
@@ -597,10 +693,18 @@ export class KupDatePicker {
         if (this.value == null || this.value.trim() == '') {
             return '';
         }
+        // check for special code input
+        if (this.isAlphanumeric(this.value)) {
+            return this.value;
+        }
         let v1 = this.kupManager.dates.format(this.value);
         return v1;
     }
 
+    isAlphanumeric(value: string): boolean {
+        const regex = /[A-Za-z]/;
+        return regex.test(value);
+    }
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/

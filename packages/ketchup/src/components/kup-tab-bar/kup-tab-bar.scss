@@ -105,6 +105,14 @@
         }
       }
       &.tab--active {
+        &:hover {
+          .tab__iconToolbar {
+            opacity: 0.3;
+          }
+          .tab__iconToolbar:hover {
+            opacity: 1;
+          }
+        }
         .tab__content {
           .tab__icon {
             transition-delay: 100ms;
@@ -177,6 +185,10 @@
           min-width: 150px;
         }
       }
+    }
+
+    .tab__iconToolbar {
+      opacity: 0;
     }
 
     .tab-indicator {

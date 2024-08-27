@@ -1,4 +1,6 @@
 import {
+    DropDownAction,
+    KupCommand,
     KupDataCell,
     KupDataColumn,
     KupDataDataset,
@@ -10,6 +12,7 @@ import {
     KupDataNode,
     KupDataNodeDrilldownInfo,
     KupDataRow,
+    KupDataRowAction,
     KupDataRowCells,
 } from './kup-data-declarations';
 import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
@@ -23,15 +26,21 @@ import {
     setPropertiesNode,
     toStreamNode,
 } from './kup-data-node-helper';
-import { fieldColumn } from '../../components/kup-data-table/kup-data-table-declarations';
+import {
+    fieldColumn,
+    KupDataTableCell,
+    KupDataTableRow,
+    VoCodVerRowEnum,
+} from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
-import { KupDom } from '../kup-manager/kup-manager-declarations';
+import { KupDom, KupManager } from '../kup-manager/kup-manager-declarations';
 import {
     FCellShapes,
     FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { TreeNodePath } from '../../components/kup-tree/kup-tree-declarations';
 import { ValueDisplayedValue } from '../../utils/filters/filters-declarations';
+import { KupObj } from '../kup-objects/kup-objects-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -86,6 +95,8 @@ export class KupData {
                         return FCellTypes.COLOR_PICKER;
                     case FCellShapes.COMBOBOX:
                         return FCellTypes.COMBOBOX;
+                    case FCellShapes.DATE:
+                        return FCellTypes.DATE;
                     case FCellShapes.EDITOR:
                         return FCellTypes.EDITOR;
                     case FCellShapes.GAUGE:
@@ -112,6 +123,8 @@ export class KupData {
                         return FCellTypes.TABLE;
                     case FCellShapes.TEXT_FIELD:
                         return FCellTypes.STRING;
+                    case FCellShapes.TIME:
+                        return FCellTypes.TIME;
                 }
             }
 
@@ -608,5 +621,113 @@ export class KupData {
             }
         }
         return transposed;
+    }
+    /**
+     * Get COD_VER rows
+     * @param {KupDataTableRow} row single row.
+     * @returns { KupDataTableCell[]} cells founded
+     */
+    getCodVerCells(row: KupDataTableRow) {
+        const formattedCells = Object.entries(row.cells).map(([key, value]) => {
+            return {
+                name: key,
+                value: value,
+            };
+        });
+
+        return formattedCells.filter((cell) => {
+            return (
+                cell.value.obj.p === VoCodVerRowEnum.P &&
+                cell.value.obj.t === VoCodVerRowEnum.T
+            );
+        });
+    }
+
+    /**
+     * Check if column is COD_VER
+     * @param {KupDataColumn } column single column.
+     * @returns { boolean } if COD_VER founded or not.
+     */
+    isCodVerColumn(column: KupDataColumn): boolean {
+        if (column && column.obj) {
+            const hasCodVerCol =
+                column.obj.p === VoCodVerRowEnum.P &&
+                column.obj.t === VoCodVerRowEnum.T;
+            return hasCodVerCol;
+        }
+        return false;
+    }
+
+    /**
+     *  Check if almost one column has COD_VER
+     * @param {KupDataColumn[] } columns single column.
+     * @returns { boolean } if COD_VER founded or not.
+     */
+    hasCodVerColumn(columns: KupDataColumn[]) {
+        return columns.some((col) => this.isCodVerColumn(col));
+    }
+
+    /**
+     * Creates actions from row with VO COD_VER obj.
+     * @param {KupDataTableRow} row single row.
+     * @param {KupCommand[]} commands group of commands.
+     * @returns { KupDataRowAction[]} Actions founded.
+     */
+    createActionsFromVoCodRow(
+        row: KupDataTableRow,
+        columns: KupDataColumn[],
+        commands: KupCommand[]
+    ): KupDataRowAction[] {
+        const actions: KupDataRowAction[] = [];
+
+        const cellsCodVer = this.getCodVerCells(row);
+
+        cellsCodVer.forEach((codVer) => {
+            let hasCommands = false;
+
+            const currentColumn = this.column
+                .find(columns, {
+                    name: codVer.name,
+                })
+                .pop();
+
+            if (commands) {
+                const commandsFiltered = commands.filter(
+                    (command) => command.obj.k === codVer.value.obj.k
+                );
+                hasCommands = commandsFiltered.length > 0;
+                commandsFiltered.forEach((commandFilter) => {
+                    const index = commands.findIndex(
+                        (command) =>
+                            command.icon === commandFilter.icon &&
+                            command.text === commandFilter.text &&
+                            command.obj.k === commandFilter.obj.k
+                    );
+                    actions.push({
+                        icon: commandFilter.icon,
+                        text: commandFilter.text,
+                        obj: commandFilter.obj,
+                        cell: codVer.value,
+                        index: index,
+                        type: DropDownAction.CODVERWITHCOMMANDS,
+                        column: currentColumn,
+                    });
+                });
+            }
+
+            if (!hasCommands) {
+                actions.push({
+                    icon:
+                        codVer.value.icon || codVer.value.data?.resource || '',
+                    text: codVer.value.obj.k,
+                    obj: codVer.value.obj,
+                    cell: codVer.value,
+                    type: DropDownAction.CODVER,
+                    column: currentColumn,
+                });
+            }
+        });
+
+        return actions;
     }
 }

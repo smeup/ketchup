@@ -22,6 +22,7 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
         'kup-full-height': props.fullHeight,
         'kup-full-width': props.fullWidth,
         'kup-info': props.info,
+        'kup-light-mode': props.lightMode,
         'kup-secondary': props.secondary,
         'kup-shaped': props.shaped,
         'kup-success': props.success,
@@ -143,8 +144,8 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
 
     const propsFImage: FImageProps = {
         color: props.error
-            ? `var(--kup-danger-color)`
-            : `var(--kup-warning-color)`,
+            ? `var(--kup-danger-color-60)`
+            : `var(--kup-warning-color-40)`,
         resource: props.error ? 'error' : 'warning',
         sizeX: '1.25em',
         sizeY: '1.25em',
@@ -164,6 +165,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         'mdc-text-field--filled': !props.fullWidth && !isOutlined,
         'mdc-text-field--no-label': !props.label,
         'mdc-text-field--fullwidth': props.fullWidth,
+        'mdc-text-field--lightmode': props.lightMode,
         'mdc-text-field--outlined': isOutlined,
         'mdc-text-field--textarea': props.textArea,
         'mdc-text-field--with-leading-icon': props.icon && !props.trailingIcon,

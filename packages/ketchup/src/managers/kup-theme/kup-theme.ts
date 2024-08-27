@@ -21,6 +21,7 @@ import * as fSwitchCSS from '../../f-components/f-switch/f-switch.css';
 import * as fTextFieldCSS from '../../f-components/f-text-field/f-text-field.css';
 import * as rippleCSS from './mdc-ripple.css';
 import {
+    editorUsers,
     fButtonUsers,
     fCellUsers,
     fCheckboxUsers,
@@ -288,6 +289,9 @@ export class KupTheme {
             }
             if (fTextFieldUsers.includes(tagName)) {
                 completeStyle += fTextFieldCSS['default'];
+            }
+            if (editorUsers.includes(tagName)) {
+                completeStyle += applicationCSS['default'];
             }
             if (rippleUsers.includes(tagName)) {
                 completeStyle += rippleCSS['default'];
