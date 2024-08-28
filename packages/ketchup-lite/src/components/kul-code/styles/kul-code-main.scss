@@ -95,7 +95,7 @@
 }
 
 .container {
-  overflow: auto;
+  display: grid;
 }
 
 .title {
@@ -109,6 +109,7 @@
   --kul-button-primary-color: var(--kul_code_header_color);
   align-items: center;
   background: var(--kul_code_header_background_color);
+  border-color: var(--kul-primary-color);
   border-left: inset;
   color: var(--kul_code_header_color);
   display: flex;
@@ -167,14 +168,15 @@ pre::selection {
 
 pre {
   box-sizing: border-box;
-  margin: 0 0 0.5em 0;
+  margin: 0;
   min-height: calc(100% - 36px);
+  overflow: auto;
   padding: 1.75em 1em;
 }
 
 :not(pre) > code {
-  padding: 0.1em;
   border-radius: 0.3em;
+  padding: 0.1em;
   white-space: normal;
 }
 
