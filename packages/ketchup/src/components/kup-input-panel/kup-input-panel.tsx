@@ -336,16 +336,17 @@ export class KupInputPanel {
     }
 
     #renderButton(cell: KupDataCell, cellId: string) {
+        const { fun, ...props } = cell.data;
         return (
             <FButton
-                label={cell.data.label}
                 icon={cell.icon}
                 id={cellId}
+                {...props}
                 wrapperClass="form__submit"
                 onClick={() => {
-                    cell.data.fun
+                    fun
                         ? this.customButtonClickHandler({
-                              fun: cell.data.fun,
+                              fun,
                               cellId,
                               currentState: this.#reverseMapCells(),
                           })
@@ -397,11 +398,11 @@ export class KupInputPanel {
         return (
             <kup-data-table
                 id={cellId}
-                data={cell.data}
                 editableData={true}
                 showGroups={true}
                 showFilters={true}
                 showFooter={true}
+                {...cell.data}
             ></kup-data-table>
         );
     }
@@ -541,16 +542,11 @@ export class KupInputPanel {
                           const mappedCell = cell
                               ? {
                                     ...cell,
-                                    data: {
-                                        ...this.#mapData(cell, column),
-                                        disabled: !cell.editable,
-                                        id: column.name,
-                                    },
+                                    data: this.#setProps(cell, column),
                                     slotData: this.#slotData(cell, column),
                                     isEditable: true,
                                 }
                               : null;
-
                           return { column, cell: mappedCell };
                       });
                   return [...inpuPanelCells, { cells, row }];
@@ -578,6 +574,42 @@ export class KupInputPanel {
         this.inputPanelCells = inpuPanelCells;
     }
 
+    #setProps(cell: KupInputPanelCell, column: KupInputPanelColumn) {
+        const defaultProps = {
+            ...this.#mapData(cell, column),
+            disabled: !cell.editable,
+            id: column.name,
+        };
+        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+        const { data, ...noDataProps } = cell.data || {};
+
+        return cellType !== FCellTypes.MULTI_AUTOCOMPLETE &&
+            cellType !== FCellTypes.MULTI_COMBOBOX
+            ? this.#deepObjectsMerge(defaultProps, {
+                  ...cell.data,
+              })
+            : // Add and ovverride defaultProps of Chip host component except data
+              {
+                  ...defaultProps,
+                  ...noDataProps,
+              };
+    }
+
+    #deepObjectsMerge(target: GenericObject, source: GenericObject) {
+        for (const key in source) {
+            if (
+                source[key] instanceof Object &&
+                !Array.isArray(source[key]) &&
+                key in target
+            ) {
+                target[key] = this.#deepObjectsMerge(target[key], source[key]);
+            } else {
+                target[key] = source[key];
+            }
+        }
+        return target;
+    }
+
     #reverseMapCells(): KupInputPanelData {
         return this.inputPanelCells.reduce(
             (data, curr) => {
@@ -591,7 +623,10 @@ export class KupInputPanel {
 
                         if (cellState?.shape === FCellShapes.TABLE) {
                             value = JSON.stringify(
-                                this.#getTableUpdatedCell(cellState.data, key)
+                                this.#getTableUpdatedCell(
+                                    cellState.data.data,
+                                    key
+                                )
                             );
                         }
 
@@ -690,7 +725,7 @@ export class KupInputPanel {
                 ...this.#CMBandACPAdapter(
                     cell.options,
                     col.title,
-                    cell.value,
+                    null,
                     cell,
                     col.name
                 ),
@@ -754,7 +789,6 @@ export class KupInputPanel {
                 'kup-text-field': {
                     trailingIcon: true,
                     label: fieldLabel,
-                    icon: 'arrow_drop_down',
                 },
                 'kup-list': {
                     showIcons: true,
@@ -935,29 +969,35 @@ export class KupInputPanel {
             }
 
             return {
-                columns: data.columns.map((col) => ({
-                    ...col,
-                    obj: data.rows[0].cells[col.name].obj,
-                })),
-                rows: data.rows.map((row) => ({
-                    ...row,
-                    cells: Object.keys(row.cells).reduce((cell, key) => {
-                        const column = data.columns.find(
-                            (col) => col.name === key
-                        );
-                        return {
-                            ...cell,
-                            [key]: {
-                                ...row.cells[key],
-                                data: {
-                                    ...this.#mapData(row.cells[key], column),
-                                    disabled: row.cells[key].editable === false,
-                                    id: column.id,
+                data: {
+                    columns: data.columns.map((col) => ({
+                        ...col,
+                        obj: data.rows[0].cells[col.name].obj,
+                    })),
+                    rows: data.rows.map((row) => ({
+                        ...row,
+                        cells: Object.keys(row.cells).reduce((cell, key) => {
+                            const column = data.columns.find(
+                                (col) => col.name === key
+                            );
+                            return {
+                                ...cell,
+                                [key]: {
+                                    ...row.cells[key],
+                                    data: {
+                                        ...this.#mapData(
+                                            row.cells[key],
+                                            column
+                                        ),
+                                        disabled:
+                                            row.cells[key].editable === false,
+                                        id: column.id,
+                                    },
                                 },
-                            },
-                        };
-                    }, {}),
-                })),
+                            };
+                        }, {}),
+                    })),
+                },
             };
         } catch (e) {
             this.#kupManager.debug.logMessage(
