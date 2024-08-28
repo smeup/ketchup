@@ -94,6 +94,10 @@
   width: 100%;
 }
 
+.container {
+  overflow: auto;
+}
+
 .title {
   font-size: 0.85em;
   letter-spacing: 2px;
@@ -105,6 +109,7 @@
   --kul-button-primary-color: var(--kul_code_header_color);
   align-items: center;
   background: var(--kul_code_header_background_color);
+  border-left: inset;
   color: var(--kul_code_header_color);
   display: flex;
   height: 36px;
@@ -164,7 +169,6 @@ pre {
   box-sizing: border-box;
   margin: 0 0 0.5em 0;
   min-height: calc(100% - 36px);
-  overflow: auto;
   padding: 1.75em 1em;
 }
 
