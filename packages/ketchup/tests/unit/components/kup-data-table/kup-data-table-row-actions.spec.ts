@@ -166,7 +166,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
         const expectedResult: KupDataRowAction[] = [
             {
                 icon: '',
-                text: '',
+                text: 'X$CFG',
                 obj: { k: '000050', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: firstCell,
@@ -186,7 +186,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             },
             {
                 icon: '',
-                text: '',
+                text: 'X$CFG',
                 obj: { k: '000051', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: secondCell,
