@@ -107,7 +107,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             },
             {
                 icon: '',
-                text: '000052',
+                text: '',
                 obj: { k: '000052', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: thirdCell,
@@ -133,7 +133,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
         const expectedResult: KupDataRowAction[] = [
             {
                 icon: '',
-                text: '000050',
+                text: '',
                 obj: { k: '000050', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: firstCell,
@@ -153,7 +153,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             },
             {
                 icon: '',
-                text: '000051',
+                text: '',
                 obj: { k: '000051', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: secondCell,
@@ -173,7 +173,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             },
             {
                 icon: '',
-                text: '000052',
+                text: '',
                 obj: { k: '000052', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: thirdCell,
