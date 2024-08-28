@@ -3291,14 +3291,6 @@ export class KupDataTable {
         return this.rowActions !== undefined;
     }
 
-    #rowActionsAdapter(): KupDataRowAction[] {
-        return this.rowActions.map((rowAction, index) => ({
-            ...rowAction,
-            type: DropDownAction.ROWACTION,
-            index: index,
-        }));
-    }
-
     #removeGroup(index: number) {
         if (index >= 0) {
             // removing group from prop
@@ -3510,7 +3502,7 @@ export class KupDataTable {
             const totalFixedColumns =
                 this.fixedColumns +
                 (this.#hasRowActions() ||
-                this.#kupManager.data.hasCodVerColumn(this.data.columns)
+                this.#kupManager.data.column.hasCodVer(this.data.columns)
                     ? 1
                     : 0) +
                 (this.selection === SelectionMode.MULTIPLE_CHECKBOX ? 1 : 0);
@@ -3949,7 +3941,7 @@ export class KupDataTable {
 
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.hasCodVerColumn(this.data.columns)
+            this.#kupManager.data.column.hasCodVer(this.data.columns)
         ) {
             colSpan += 1;
         }
@@ -4164,7 +4156,7 @@ export class KupDataTable {
         let actionsColumn = null;
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.hasCodVerColumn(this.data.columns)
+            this.#kupManager.data.column.hasCodVer(this.data.columns)
         ) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -4355,7 +4347,7 @@ export class KupDataTable {
         let actionsColumn = null;
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.hasCodVerColumn(this.data.columns)
+            this.#kupManager.data.column.hasCodVer(this.data.columns)
         ) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -4491,7 +4483,7 @@ export class KupDataTable {
         let actionsCell = null;
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.hasCodVerColumn(this.data.columns)
+            this.#kupManager.data.column.hasCodVer(this.data.columns)
         ) {
             extraCells++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -4773,7 +4765,7 @@ export class KupDataTable {
                 const cells = [];
                 if (
                     this.#hasRowActions() ||
-                    this.#kupManager.data.hasCodVerColumn(this.data.columns)
+                    this.#kupManager.data.column.hasCodVer(this.data.columns)
                 ) {
                     cells.push(<td></td>);
                 }
@@ -4970,7 +4962,7 @@ export class KupDataTable {
             let rowActionsCell = null;
             if (
                 this.#hasRowActions() ||
-                this.#kupManager.data.hasCodVerColumn(this.data.columns)
+                this.#kupManager.data.column.hasCodVer(this.data.columns)
             ) {
                 // Increments
                 specialExtraCellsCount++;
@@ -4983,40 +4975,82 @@ export class KupDataTable {
 
                 rowActionsCount += this.rowActions?.length || 0;
 
-                let rowActionExpander = null;
+                const actionsOnRow: FImageProps[] = [];
                 if (row.actions) {
                     rowActionsCount += row.actions.length;
                 } else {
-                    const voCodRowActions =
-                        this.#kupManager.data.createActionsFromVoCodRow(
+                    const rowActions =
+                        this.#kupManager.data.row.buildRowActions(
                             row,
                             this.data.columns,
-                            this.commands ?? []
+                            this.rowActions,
+                            this.commands
                         );
-                    const rowActionsWithCodVer = this.#hasRowActions()
-                        ? [...this.#rowActionsAdapter(), ...voCodRowActions]
-                        : [...voCodRowActions];
 
-                    // adding expander
-                    const props: FImageProps = {
-                        color: `var(${KupThemeColorValues.PRIMARY})`,
-                        resource: 'chevron-down',
-                        sizeX: '1.5em',
-                        sizeY: '1.5em',
-                        title: this.#kupManager.language.translate(
-                            KupLanguageGeneric.EXPAND
-                        ),
-                        wrapperClass: 'expander',
-                        onClick: (e: MouseEvent) => {
-                            this.#onRowActionExpanderClick(
-                                e,
-                                row,
-                                rowActionsWithCodVer
+                    if (rowActions.length === 1) {
+                        const singleAction = rowActions[0];
+                        const imageProp: FImageProps =
+                            this.#kupManager.data.action.buildImageProp(
+                                singleAction.icon ?? '',
+                                singleAction.text ?? '',
+                                'action',
+                                () => {
+                                    this.#onDefaultRowActionClick({
+                                        action: singleAction,
+                                        row,
+                                        index: 0,
+                                        type: 'default',
+                                    });
+                                }
                             );
-                        },
-                    };
+                        actionsOnRow.push(imageProp);
+                    }
+
+                    if (rowActions.length > 1) {
+                        if (
+                            this.#kupManager.data.action.checkEveryActionHasOnlyIcon(
+                                rowActions
+                            )
+                        ) {
+                            rowActions.forEach((action, index) => {
+                                const imageProp: FImageProps =
+                                    this.#kupManager.data.action.buildImageProp(
+                                        action.icon,
+                                        '',
+                                        'action',
+                                        () =>
+                                            this.#onDefaultRowActionClick({
+                                                action,
+                                                row,
+                                                index,
+                                                type: 'default',
+                                            })
+                                    );
+                                actionsOnRow.push(imageProp);
+                            });
+                        } else {
+                            const imageProp: FImageProps =
+                                this.#kupManager.data.action.buildImageProp(
+                                    'chevron-down',
+                                    this.#kupManager.language.translate(
+                                        KupLanguageGeneric.EXPAND
+                                    ),
+                                    'expander',
+
+                                    (e) => {
+                                        this.#onRowActionExpanderClick(
+                                            e,
+                                            row,
+                                            rowActions
+                                        );
+                                    }
+                                );
+
+                            actionsOnRow.push(imageProp);
+                        }
+                    }
+
                     rowActionsCount++;
-                    rowActionExpander = <FImage {...props} />;
                 }
 
                 rowActionsCell = (
@@ -5033,7 +5067,9 @@ export class KupDataTable {
                                 : null
                         }
                     >
-                        {rowActionExpander}
+                        {actionsOnRow.map((action) => (
+                            <FImage {...action}></FImage>
+                        ))}
                     </td>
                 );
             }

@@ -18,6 +18,7 @@ import {
     KupDataCell,
     KupDataColumn,
 } from '../../../../src/managers/kup-data/kup-data-declarations';
+import { KupDataTableCell } from '../../../../src/components/kup-data-table/kup-data-table-declarations';
 
 const mockedData = sampleKupDataDataset.data;
 const mockedColumns = mockedData.columns as KupDataColumn[];
@@ -49,7 +50,7 @@ const firstCell = {
     element: {
         's-hn': 'KUP-DATA-TABLE',
     },
-} as unknown as KupDataCell;
+} as unknown as KupDataTableCell;
 const secondCell = {
     isEditable: false,
     obj: {
@@ -61,7 +62,7 @@ const secondCell = {
     element: {
         's-hn': 'KUP-DATA-TABLE',
     },
-} as unknown as KupDataCell;
+} as unknown as KupDataTableCell;
 const thirdCell = {
     isEditable: false,
     obj: {
@@ -69,11 +70,22 @@ const thirdCell = {
         p: 'COD_VER',
         t: 'VO',
     },
-    value: '',
+    value: 'Test',
     element: {
         's-hn': 'KUP-DATA-TABLE',
     },
-} as unknown as KupDataCell;
+} as unknown as KupDataTableCell;
+const fourthCell = {
+    isEditable: false,
+    obj: {
+        k: '000053',
+        p: 'COD_VER',
+        t: 'VO',
+    },
+    element: {
+        's-hn': 'KUP-DATA-TABLE',
+    },
+} as unknown as KupDataTableCell;
 
 describe('kup datatable dataset with commands and VO;CODVER rows', () => {
     it('should handle both matching and non-matching VO;CODVER/commands', () => {
@@ -107,20 +119,41 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             },
             {
                 icon: '',
-                text: '000052',
+                text: 'Test',
                 obj: { k: '000052', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: thirdCell,
                 column: currentColumn,
             },
+            {
+                icon: '',
+                text: 'X$CFG',
+                obj: { k: '000053', p: 'COD_VER', t: 'VO' },
+                type: DropDownAction.CODVER,
+                cell: fourthCell,
+                column: {
+                    isEditable: false,
+                    isKey: false,
+                    name: 'X$CFG',
+                    obj: {
+                        k: '',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    size: '70px',
+                    title: 'CFG',
+                    tooltip: false,
+                } as KupDataColumn,
+            },
         ];
 
         mockedRows.forEach((mockedRow) => {
-            const kupDataRowAction = dom.ketchup.data.createActionsFromVoCodRow(
-                mockedRow,
-                mockedColumns,
-                mockedCommands
-            );
+            const kupDataRowAction =
+                dom.ketchup.data.action.createActionsFromVoCodRow(
+                    mockedRow,
+                    mockedColumns,
+                    mockedCommands
+                );
             result.push(...kupDataRowAction);
         });
 
@@ -133,7 +166,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
         const expectedResult: KupDataRowAction[] = [
             {
                 icon: '',
-                text: '000050',
+                text: 'X$CFG',
                 obj: { k: '000050', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: firstCell,
@@ -153,7 +186,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             },
             {
                 icon: '',
-                text: '000051',
+                text: 'X$CFG',
                 obj: { k: '000051', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: secondCell,
@@ -173,7 +206,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             },
             {
                 icon: '',
-                text: '000052',
+                text: 'Test',
                 obj: { k: '000052', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: thirdCell,
@@ -191,14 +224,35 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                     tooltip: false,
                 } as KupDataColumn,
             },
+            {
+                icon: '',
+                text: 'X$CFG',
+                obj: { k: '000053', p: 'COD_VER', t: 'VO' },
+                type: DropDownAction.CODVER,
+                cell: fourthCell,
+                column: {
+                    isEditable: false,
+                    isKey: false,
+                    name: 'X$CFG',
+                    obj: {
+                        k: '',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    size: '70px',
+                    title: 'CFG',
+                    tooltip: false,
+                } as KupDataColumn,
+            },
         ];
 
         mockedRows.forEach((mockedRow) => {
-            const kupDataRowAction = dom.ketchup.data.createActionsFromVoCodRow(
-                mockedRow,
-                mockedColumns,
-                commands
-            );
+            const kupDataRowAction =
+                dom.ketchup.data.action.createActionsFromVoCodRow(
+                    mockedRow,
+                    mockedColumns,
+                    commands
+                );
             result.push(...kupDataRowAction);
         });
 
@@ -210,11 +264,12 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
         let result: KupDataRowAction[] = [];
 
         rows.forEach((mockedRow) => {
-            const kupDataRowAction = dom.ketchup.data.createActionsFromVoCodRow(
-                mockedRow,
-                mockedColumns,
-                mockedCommands
-            );
+            const kupDataRowAction =
+                dom.ketchup.data.action.createActionsFromVoCodRow(
+                    mockedRow,
+                    mockedColumns,
+                    mockedCommands
+                );
             result.push(...kupDataRowAction);
         });
 
@@ -235,13 +290,13 @@ describe('kup data getCodVerRows', () => {
                 },
             },
         ];
-        const result = dom.ketchup.data.getCodVerCells(mockedRows[0]);
+        const result = dom.ketchup.data.cell.getCodVer(mockedRows[0]);
 
         expect(result).toEqual(expectedResult);
     });
 
     it('should return an empy array where no VO;CODVER found', () => {
-        const result = dom.ketchup.data.getCodVerCells(
+        const result = dom.ketchup.data.cell.getCodVer(
             sampleKupDataDatasetNoCodVer.rows[0]
         );
 
