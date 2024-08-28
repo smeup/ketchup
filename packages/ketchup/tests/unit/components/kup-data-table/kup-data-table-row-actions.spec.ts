@@ -116,11 +116,12 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
         ];
 
         mockedRows.forEach((mockedRow) => {
-            const kupDataRowAction = dom.ketchup.data.createActionsFromVoCodRow(
-                mockedRow,
-                mockedColumns,
-                mockedCommands
-            );
+            const kupDataRowAction =
+                dom.ketchup.data.action.createActionsFromVoCodRow(
+                    mockedRow,
+                    mockedColumns,
+                    mockedCommands
+                );
             result.push(...kupDataRowAction);
         });
 
@@ -194,11 +195,12 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
         ];
 
         mockedRows.forEach((mockedRow) => {
-            const kupDataRowAction = dom.ketchup.data.createActionsFromVoCodRow(
-                mockedRow,
-                mockedColumns,
-                commands
-            );
+            const kupDataRowAction =
+                dom.ketchup.data.action.createActionsFromVoCodRow(
+                    mockedRow,
+                    mockedColumns,
+                    commands
+                );
             result.push(...kupDataRowAction);
         });
 
@@ -210,11 +212,12 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
         let result: KupDataRowAction[] = [];
 
         rows.forEach((mockedRow) => {
-            const kupDataRowAction = dom.ketchup.data.createActionsFromVoCodRow(
-                mockedRow,
-                mockedColumns,
-                mockedCommands
-            );
+            const kupDataRowAction =
+                dom.ketchup.data.action.createActionsFromVoCodRow(
+                    mockedRow,
+                    mockedColumns,
+                    mockedCommands
+                );
             result.push(...kupDataRowAction);
         });
 
@@ -235,13 +238,13 @@ describe('kup data getCodVerRows', () => {
                 },
             },
         ];
-        const result = dom.ketchup.data.getCodVerCells(mockedRows[0]);
+        const result = dom.ketchup.data.cell.getCodVerCells(mockedRows[0]);
 
         expect(result).toEqual(expectedResult);
     });
 
     it('should return an empy array where no VO;CODVER found', () => {
-        const result = dom.ketchup.data.getCodVerCells(
+        const result = dom.ketchup.data.cell.getCodVerCells(
             sampleKupDataDatasetNoCodVer.rows[0]
         );
 
