@@ -18,6 +18,7 @@ import {
     KupDataCell,
     KupDataColumn,
 } from '../../../../src/managers/kup-data/kup-data-declarations';
+import { KupDataTableCell } from '../../../../src/components/kup-data-table/kup-data-table-declarations';
 
 const mockedData = sampleKupDataDataset.data;
 const mockedColumns = mockedData.columns as KupDataColumn[];
@@ -49,7 +50,7 @@ const firstCell = {
     element: {
         's-hn': 'KUP-DATA-TABLE',
     },
-} as unknown as KupDataCell;
+} as unknown as KupDataTableCell;
 const secondCell = {
     isEditable: false,
     obj: {
@@ -61,7 +62,7 @@ const secondCell = {
     element: {
         's-hn': 'KUP-DATA-TABLE',
     },
-} as unknown as KupDataCell;
+} as unknown as KupDataTableCell;
 const thirdCell = {
     isEditable: false,
     obj: {
@@ -69,11 +70,22 @@ const thirdCell = {
         p: 'COD_VER',
         t: 'VO',
     },
-    value: '',
+    value: 'Test',
     element: {
         's-hn': 'KUP-DATA-TABLE',
     },
-} as unknown as KupDataCell;
+} as unknown as KupDataTableCell;
+const fourthCell = {
+    isEditable: false,
+    obj: {
+        k: '000053',
+        p: 'COD_VER',
+        t: 'VO',
+    },
+    element: {
+        's-hn': 'KUP-DATA-TABLE',
+    },
+} as unknown as KupDataTableCell;
 
 describe('kup datatable dataset with commands and VO;CODVER rows', () => {
     it('should handle both matching and non-matching VO;CODVER/commands', () => {
@@ -107,11 +119,31 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             },
             {
                 icon: '',
-                text: '',
+                text: 'Test',
                 obj: { k: '000052', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: thirdCell,
                 column: currentColumn,
+            },
+            {
+                icon: '',
+                text: 'X$CFG',
+                obj: { k: '000053', p: 'COD_VER', t: 'VO' },
+                type: DropDownAction.CODVER,
+                cell: fourthCell,
+                column: {
+                    isEditable: false,
+                    isKey: false,
+                    name: 'X$CFG',
+                    obj: {
+                        k: '',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    size: '70px',
+                    title: 'CFG',
+                    tooltip: false,
+                } as KupDataColumn,
             },
         ];
 
@@ -174,10 +206,30 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             },
             {
                 icon: '',
-                text: '',
+                text: 'Test',
                 obj: { k: '000052', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: thirdCell,
+                column: {
+                    isEditable: false,
+                    isKey: false,
+                    name: 'X$CFG',
+                    obj: {
+                        k: '',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    size: '70px',
+                    title: 'CFG',
+                    tooltip: false,
+                } as KupDataColumn,
+            },
+            {
+                icon: '',
+                text: 'X$CFG',
+                obj: { k: '000053', p: 'COD_VER', t: 'VO' },
+                type: DropDownAction.CODVER,
+                cell: fourthCell,
                 column: {
                     isEditable: false,
                     isKey: false,
