@@ -18,6 +18,7 @@ import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declar
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
 import Prism from 'prismjs';
 import { KulButton } from '../kul-button/kul-button';
+import { KulButtonEventPayload } from '../kul-button/kul-button-declarations';
 
 @Component({
     tag: 'kul-code',
@@ -44,33 +45,42 @@ export class KulCode {
         renderStart: 0,
         startTime: performance.now(),
     };
+    /**
+     * Value.
+     */
+    @State() value: string = '';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
 
     /**
+     * Automatically formats the value.
+     * @default true
+     */
+    @Prop({ mutable: true, reflect: true }) kulFormat = true;
+    /**
      * Sets the language of the snippet.
      * @default "javascript"
      */
     @Prop({ mutable: true, reflect: true }) kulLanguage = 'javascript';
-
     /**
      * Enables customization of the component's style.
      * @default "" - No custom style applied by default.
      */
     @Prop({ mutable: true, reflect: true }) kulStyle = '';
-
     /**
      * String containing the snippet of code to display.
      * @default ""
      */
-    @Prop({ mutable: true, reflect: true }) kulValue = '';
+    @Prop({ mutable: true, reflect: false }) kulValue = '';
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
+    #copyTimeoutId: NodeJS.Timeout;
+    #el: HTMLPreElement;
     #kulManager = kulManagerInstance();
 
     /*-------------------------------------------------*/
@@ -130,7 +140,64 @@ export class KulCode {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    #el: HTMLPreElement;
+    #copy(e: CustomEvent<KulButtonEventPayload>) {
+        if (e.detail.eventType === 'pointerdown') {
+            const button = e.detail.comp as KulButton;
+            navigator.clipboard.writeText(this.kulValue);
+
+            button.kulLabel = 'Copied!';
+            button.kulIcon = 'check';
+
+            if (this.#copyTimeoutId) {
+                clearTimeout(this.#copyTimeoutId);
+            }
+
+            this.#copyTimeoutId = setTimeout(() => {
+                button.kulLabel = 'Copy';
+                button.kulIcon = 'content_copy';
+                this.#copyTimeoutId = null;
+            }, 1000);
+        }
+    }
+
+    #format(value: string) {
+        if (typeof value === 'string' && /^[\{\}]\s*$/i.test(value)) {
+            return value.trim();
+        } else if (this.#isJson(value)) {
+            const parsed = JSON.parse(value);
+            return JSON.stringify(parsed, null, 2);
+        } else {
+            return this.#kulManager.data.cell.stringify(value);
+        }
+    }
+
+    #isObjectLike(
+        obj: unknown
+    ): obj is Record<string | number | symbol, unknown> {
+        return typeof obj === 'object' && obj !== null;
+    }
+
+    #isDictionary(
+        obj: unknown
+    ): obj is Record<string | number | symbol, unknown> {
+        return (
+            this.#isObjectLike(obj) &&
+            Object.values(obj).every((value) => value != null)
+        );
+    }
+
+    #isJson(value: string | Record<string, unknown>) {
+        return (
+            this.kulLanguage?.toLowerCase() === 'json' ||
+            this.#isDictionary(value)
+        );
+    }
+
+    #updateValue() {
+        this.value = this.kulFormat
+            ? this.#format(this.kulValue)
+            : this.kulValue;
+    }
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
@@ -138,11 +205,16 @@ export class KulCode {
 
     componentWillLoad() {
         this.#kulManager.theme.register(this);
+        this.#updateValue();
     }
 
     componentDidLoad() {
         this.onKulEvent(new CustomEvent('ready'), 'ready');
         this.#kulManager.debug.updateDebugInfo(this, 'did-load');
+    }
+
+    componentWillUpdate() {
+        this.value = this.#format(this.kulValue);
     }
 
     componentWillRender() {
@@ -155,49 +227,43 @@ export class KulCode {
     }
 
     render() {
-        const isJson = this.kulLanguage.toLowerCase() === 'json';
-        const language = isJson ? 'javascript' : this.kulLanguage;
-        const value = isJson
-            ? JSON.stringify(JSON.parse(this.kulValue), null, 2)
-            : this.kulValue;
+        const prismLanguage = this.#isJson(this.value)
+            ? 'javascript'
+            : this.kulLanguage;
+
         return (
             <Host>
-                {this.kulStyle ? (
+                {this.kulStyle && (
                     <style id={KUL_STYLE_ID}>
                         {this.#kulManager.theme.setKulStyle(this)}
                     </style>
-                ) : undefined}
+                )}
                 <div id={KUL_WRAPPER_ID}>
-                    {
+                    <div class="container">
                         <div class="header">
                             <span class="title">{this.kulLanguage}</span>
                             <kul-button
-                                class={'kul-slim'}
+                                class={'kul-slim kul-full-height'}
                                 kulIcon="content_copy"
                                 kulLabel="Copy"
                                 kulStyling="flat"
-                                onKul-button-event={(e) => {
-                                    if (e.detail.eventType === 'pointerdown') {
-                                        const button = e.detail
-                                            .comp as KulButton;
-                                        navigator.clipboard.writeText(
-                                            this.kulValue
-                                        );
-                                        button.kulLabel = 'Copied!';
-                                        button.kulIcon = 'check';
-                                    }
-                                }}
+                                onKul-button-event={(
+                                    e: CustomEvent<KulButtonEventPayload>
+                                ) => this.#copy(e)}
                             ></kul-button>
                         </div>
-                    }
-                    <pre
-                        class={'language-' + language}
-                        ref={(el) => {
-                            this.#el = el;
-                        }}
-                    >
-                        <code>{value}</code>
-                    </pre>
+                        <pre
+                            class={'language-' + prismLanguage}
+                            key={this.value}
+                            ref={(el: HTMLPreElement) => {
+                                if (el) {
+                                    this.#el = el;
+                                }
+                            }}
+                        >
+                            <code>{this.value}</code>
+                        </pre>
+                    </div>
                 </div>
             </Host>
         );

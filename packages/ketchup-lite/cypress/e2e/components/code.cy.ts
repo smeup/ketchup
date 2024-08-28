@@ -47,6 +47,7 @@ describe('Methods', () => {
 
     it(`getProps: check keys against Kul${codeCapitalized}PropsInterface.`, () => {
         cy.checkPropsInterface(codeTag, {
+            kulFormat: null,
             kulLanguage: null,
             kulStyle: null,
             kulValue: null,

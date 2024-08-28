@@ -45,57 +45,74 @@
   * @prop --kul-code-token-color-1: Sets the background color of: boolean, constant, deleted, number, property, symbol, tag.
   * Defaults to rgb(231, 0, 127)
   */
-  --kul_code_token_color_1: var(--kul-code-token-color-1, rgb(231, 0, 127));
+  --kul_code_token_color_1: var(
+    --kul-code-token-color-1,
+    var(--kul-chart-color-1)
+  );
   /**
   * @prop --kul-code-token-color-2: Sets the background color of: attr-name, builtin, char, inserted, selector, string.
   * Defaults to rgb(146, 219, 0)
   */
-  --kul_code_token_color_2: var(--kul-code-token-color-2, rgb(146, 219, 0));
+  --kul_code_token_color_2: var(
+    --kul-code-token-color-2,
+    var(--kul-chart-color-2)
+  );
   /**
   * @prop --kul-code-token-color-3: Sets the background color of: atrule, attr-value, keyword.
   * Defaults to rgb(0, 165, 236)
   */
-  --kul_code_token_color_3: var(--kul-code-token-color-3, rgb(0, 165, 236));
+  --kul_code_token_color_3: var(
+    --kul-code-token-color-3,
+    var(--kul-chart-color-3)
+  );
   /**
   * @prop --kul-code-token-color-4: Sets the background color of: class-name, function.
   * Defaults to #ff6363
   */
-  --kul_code_token_color_4: var(--kul-code-token-color-4, #ff6363);
+  --kul_code_token_color_4: var(
+    --kul-code-token-color-4,
+    var(--kul-chart-color-4)
+  );
   /**
   * @prop --kul-code-token-color-5: Sets the background color of: important, regex, variable.
   * Defaults to rgb(255, 196, 86)
   */
-  --kul_code_token_color_5: var(--kul-code-token-color-5, rgb(255, 196, 86));
+  --kul_code_token_color_5: var(
+    --kul-code-token-color-5,
+    var(--kul-chart-color-5)
+  );
 
   display: block;
   height: 100%;
   width: 100%;
 }
 
-:host([kul-light-theme]) {
-  --kul_code_token_color_1: var(--kul-code-token-color-1, #905);
-  --kul_code_token_color_2: var(--kul-code-token-color-2, #690);
-  --kul_code_token_color_3: var(--kul-code-token-color-3, #07a);
-  --kul_code_token_color_4: var(--kul-code-token-color-4, #dd4a68);
-  --kul_code_token_color_5: var(--kul-code-token-color-5, #e90);
+#kul-component,
+.container {
+  height: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .title {
-  align-items: center;
   font-size: 0.85em;
   letter-spacing: 2px;
+  padding: 0.5em;
   text-transform: uppercase;
 }
 
 .header {
   --kul-button-primary-color: var(--kul_code_header_color);
-
-  align-items: baseline;
+  align-items: center;
   background: var(--kul_code_header_background_color);
   color: var(--kul_code_header_color);
   display: flex;
+  height: 36px;
   justify-content: space-between;
   padding: 0.25em 0.75em;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 :not(pre) > code,
@@ -144,9 +161,11 @@ pre::selection {
 }
 
 pre {
-  padding: 1.75em 1em;
+  box-sizing: border-box;
   margin: 0 0 0.5em 0;
+  min-height: calc(100% - 36px);
   overflow: auto;
+  padding: 1.75em 1em;
 }
 
 :not(pre) > code {

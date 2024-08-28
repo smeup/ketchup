@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-07-21T07:33:30",
+  "timestamp": "2024-08-28T16:09:32",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -2127,7 +2127,7 @@
       "filePath": "src/components/kul-chart/kul-chart.tsx",
       "encapsulation": "shadow",
       "tag": "kul-chart",
-      "readme": "# kul-chart\n\n\n",
+      "readme": "# kul-chart\r\n\r\n\r\n\r",
       "docs": "",
       "docsTags": [],
       "usage": {},
@@ -2645,6 +2645,33 @@
       "usage": {},
       "props": [
         {
+          "name": "kulFormat",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": true,
+          "attr": "kul-format",
+          "reflectToAttr": true,
+          "docs": "Automatically formats the value.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "true"
+            }
+          ],
+          "default": "true",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
           "name": "kulLanguage",
           "type": "string",
           "complexType": {
@@ -2708,7 +2735,7 @@
           },
           "mutable": true,
           "attr": "kul-value",
-          "reflectToAttr": true,
+          "reflectToAttr": false,
           "docs": "String containing the snippet of code to display.",
           "docsTags": [
             {
@@ -8978,7 +9005,7 @@
       "filePath": "src/components/kul-tree/kul-tree.tsx",
       "encapsulation": "shadow",
       "tag": "kul-tree",
-      "readme": "# kul-badge\n\n\n",
+      "readme": "# kul-badge\r\n\r\n\r\n\r",
       "docs": "",
       "docsTags": [],
       "usage": {},
@@ -9794,17 +9821,17 @@
       "path": "src/managers/kul-data/kul-data-declarations.ts"
     },
     "src/components/kul-chart/kul-chart-declarations.tsx::KulChartLegendPlacement": {
-      "declaration": "export type KulChartLegendPlacement =\n    | 'bottom'\n    | 'left'\n    | 'hidden'\n    | 'right'\n    | 'top';",
+      "declaration": "export type KulChartLegendPlacement =\r\n    | 'bottom'\r\n    | 'left'\r\n    | 'hidden'\r\n    | 'right'\r\n    | 'top';",
       "docstring": "",
       "path": "src/components/kul-chart/kul-chart-declarations.tsx"
     },
     "src/components/kul-chart/kul-chart-declarations.tsx::KulChartType": {
-      "declaration": "export type KulChartType =\n    | 'area'\n    | 'bar'\n    | 'bubble'\n    | 'calendar'\n    | 'candle'\n    | 'funnel'\n    | 'gaussian'\n    | 'hbar'\n    | 'line'\n    | 'pie'\n    | 'radar'\n    | 'sankey'\n    | 'scatter';",
+      "declaration": "export type KulChartType =\r\n    | 'area'\r\n    | 'bar'\r\n    | 'bubble'\r\n    | 'calendar'\r\n    | 'candle'\r\n    | 'funnel'\r\n    | 'gaussian'\r\n    | 'hbar'\r\n    | 'line'\r\n    | 'pie'\r\n    | 'radar'\r\n    | 'sankey'\r\n    | 'scatter';",
       "docstring": "",
       "path": "src/components/kul-chart/kul-chart-declarations.tsx"
     },
     "src/components/kul-chart/kul-chart-declarations.tsx::KulChartEventPayload": {
-      "declaration": "export interface KulChartEventPayload extends KulEventPayload {\n    column: KulDataColumn;\n    node: KulDataNode;\n    x: number | string;\n    y: number | string;\n}",
+      "declaration": "export interface KulChartEventPayload extends KulEventPayload {\r\n    column: KulDataColumn;\r\n    node: KulDataNode;\r\n    x: number | string;\r\n    y: number | string;\r\n}",
       "docstring": "",
       "path": "src/components/kul-chart/kul-chart-declarations.tsx"
     },

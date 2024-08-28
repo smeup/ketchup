@@ -368,6 +368,11 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * Automatically formats the value.
+          * @default true
+         */
+        "kulFormat": boolean;
+        /**
           * Sets the language of the snippet.
           * @default "javascript"
          */
@@ -2071,6 +2076,11 @@ declare namespace LocalJSX {
         "onKul-chart-event"?: (event: KulChartCustomEvent<KulChartEventPayload>) => void;
     }
     interface KulCode {
+        /**
+          * Automatically formats the value.
+          * @default true
+         */
+        "kulFormat"?: boolean;
         /**
           * Sets the language of the snippet.
           * @default "javascript"

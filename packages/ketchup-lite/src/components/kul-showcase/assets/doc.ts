@@ -658,6 +658,11 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
     props: [
       {
+        name: "kulFormat",
+        docs: "Automatically formats the value.",
+        type: "boolean",
+      },
+      {
         name: "kulLanguage",
         docs: "Sets the language of the snippet.",
         type: "string",

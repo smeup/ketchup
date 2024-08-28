@@ -7,11 +7,12 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                       | Type     | Default        |
-| ------------- | -------------- | ------------------------------------------------- | -------- | -------------- |
-| `kulLanguage` | `kul-language` | Sets the language of the snippet.                 | `string` | `'javascript'` |
-| `kulStyle`    | `kul-style`    | Enables customization of the component's style.   | `string` | `''`           |
-| `kulValue`    | `kul-value`    | String containing the snippet of code to display. | `string` | `''`           |
+| Property      | Attribute      | Description                                       | Type      | Default        |
+| ------------- | -------------- | ------------------------------------------------- | --------- | -------------- |
+| `kulFormat`   | `kul-format`   | Automatically formats the value.                  | `boolean` | `true`         |
+| `kulLanguage` | `kul-language` | Sets the language of the snippet.                 | `string`  | `'javascript'` |
+| `kulStyle`    | `kul-style`    | Enables customization of the component's style.   | `string`  | `''`           |
+| `kulValue`    | `kul-value`    | String containing the snippet of code to display. | `string`  | `''`           |
 
 
 ## Events
