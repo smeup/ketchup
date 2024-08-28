@@ -3502,7 +3502,7 @@ export class KupDataTable {
             const totalFixedColumns =
                 this.fixedColumns +
                 (this.#hasRowActions() ||
-                this.#kupManager.data.column.hasCodVerColumn(this.data.columns)
+                this.#kupManager.data.column.hasCodVer(this.data.columns)
                     ? 1
                     : 0) +
                 (this.selection === SelectionMode.MULTIPLE_CHECKBOX ? 1 : 0);
@@ -3941,7 +3941,7 @@ export class KupDataTable {
 
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.column.hasCodVerColumn(this.data.columns)
+            this.#kupManager.data.column.hasCodVer(this.data.columns)
         ) {
             colSpan += 1;
         }
@@ -4156,7 +4156,7 @@ export class KupDataTable {
         let actionsColumn = null;
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.column.hasCodVerColumn(this.data.columns)
+            this.#kupManager.data.column.hasCodVer(this.data.columns)
         ) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -4347,7 +4347,7 @@ export class KupDataTable {
         let actionsColumn = null;
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.column.hasCodVerColumn(this.data.columns)
+            this.#kupManager.data.column.hasCodVer(this.data.columns)
         ) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -4483,7 +4483,7 @@ export class KupDataTable {
         let actionsCell = null;
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.column.hasCodVerColumn(this.data.columns)
+            this.#kupManager.data.column.hasCodVer(this.data.columns)
         ) {
             extraCells++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -4765,9 +4765,7 @@ export class KupDataTable {
                 const cells = [];
                 if (
                     this.#hasRowActions() ||
-                    this.#kupManager.data.column.hasCodVerColumn(
-                        this.data.columns
-                    )
+                    this.#kupManager.data.column.hasCodVer(this.data.columns)
                 ) {
                     cells.push(<td></td>);
                 }
@@ -4964,7 +4962,7 @@ export class KupDataTable {
             let rowActionsCell = null;
             if (
                 this.#hasRowActions() ||
-                this.#kupManager.data.column.hasCodVerColumn(this.data.columns)
+                this.#kupManager.data.column.hasCodVer(this.data.columns)
             ) {
                 // Increments
                 specialExtraCellsCount++;
@@ -4992,7 +4990,7 @@ export class KupDataTable {
                     if (rowActions.length === 1) {
                         const singleAction = rowActions[0];
                         const imageProp: FImageProps =
-                            this.#kupManager.data.action.buildImagePropAction(
+                            this.#kupManager.data.action.buildImageProp(
                                 singleAction.icon ?? '',
                                 singleAction.text ?? '',
                                 'action',
@@ -5016,7 +5014,7 @@ export class KupDataTable {
                         ) {
                             rowActions.forEach((action, index) => {
                                 const imageProp: FImageProps =
-                                    this.#kupManager.data.action.buildImagePropAction(
+                                    this.#kupManager.data.action.buildImageProp(
                                         action.icon,
                                         '',
                                         'action',
@@ -5032,7 +5030,7 @@ export class KupDataTable {
                             });
                         } else {
                             const imageProp: FImageProps =
-                                this.#kupManager.data.action.buildImagePropAction(
+                                this.#kupManager.data.action.buildImageProp(
                                     'chevron-down',
                                     this.#kupManager.language.translate(
                                         KupLanguageGeneric.EXPAND

@@ -187,7 +187,7 @@ export class KupData {
          * @param {KupDataTableRow} row single row.
          * @returns { { name: string; value: KupDataTableCell }[]} cells founded
          */
-        getCodVerCells: (
+        getCodVer: (
             row: KupDataTableRow
         ): { name: string; value: KupDataTableCell }[] => {
             const formattedCells = this.cell.formatCells(row.cells);
@@ -224,7 +224,7 @@ export class KupData {
          * @param {KupDataColumn } column single column.
          * @returns { boolean } if COD_VER founded or not.
          */
-        isCodVerColumn(column: KupDataColumn): boolean {
+        isCodVer(column: KupDataColumn): boolean {
             if (column && column.obj) {
                 const hasCodVerCol =
                     column.obj.p === VoCodVerRowEnum.P &&
@@ -238,8 +238,8 @@ export class KupData {
          * @param { KupDataColumn[] } columns single column.
          * @returns { boolean } if COD_VER founded or not.
          */
-        hasCodVerColumn: (columns: KupDataColumn[]) => {
-            return columns.some((col) => this.column.isCodVerColumn(col));
+        hasCodVer: (columns: KupDataColumn[]) => {
+            return columns.some((col) => this.column.isCodVer(col));
         },
     };
     node = {
@@ -336,7 +336,7 @@ export class KupData {
          * @param { onClick } event that must be fired
          * @returns { FImageProps } single action
          */
-        buildImagePropAction: (
+        buildImageProp: (
             resource: string,
             title: string,
             wrapperClass: 'action' | 'expander',
@@ -373,7 +373,7 @@ export class KupData {
         ): KupDataRowAction[] => {
             const actions: KupDataRowAction[] = [];
 
-            const cellsCodVer = this.cell.getCodVerCells(row);
+            const cellsCodVer = this.cell.getCodVer(row);
 
             cellsCodVer.forEach((codVer) => {
                 let hasCommands = false;
