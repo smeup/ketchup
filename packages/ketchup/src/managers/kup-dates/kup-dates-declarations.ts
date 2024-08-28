@@ -45,7 +45,7 @@ export enum KupDatesFormats {
  * SortOrder
  */
 
-export enum KupDateOrder {
+export enum KupDatesOrder {
     ASC = 'asc',
     DESC = 'desc',
 }

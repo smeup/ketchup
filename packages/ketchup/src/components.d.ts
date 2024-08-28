@@ -4538,9 +4538,9 @@ declare global {
         new (): HTMLKupAccordionElement;
     };
     interface HTMLKupActivityTimelineElementEventMap {
-        "kup-activity-timeline-click": KupDatatableClickEventPayload;
-        "kup-activity-timeline-contextmenu": KupDatatableClickEventPayload;
-        "kup-activity-timeline-ready": KupEventPayload;
+        "kup-activitytimeline-click": KupDatatableClickEventPayload;
+        "kup-activitytimeline-contextmenu": KupDatatableClickEventPayload;
+        "kup-activitytimeline-ready": KupEventPayload;
     }
     interface HTMLKupActivityTimelineElement extends Components.KupActivityTimeline, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupActivityTimelineElementEventMap>(type: K, listener: (this: HTMLKupActivityTimelineElement, ev: KupActivityTimelineCustomEvent<HTMLKupActivityTimelineElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5656,15 +5656,15 @@ declare namespace LocalJSX {
         /**
           * Generic click event on activity.
          */
-        "onKup-activity-timeline-click"?: (event: KupActivityTimelineCustomEvent<KupDatatableClickEventPayload>) => void;
+        "onKup-activitytimeline-click"?: (event: KupActivityTimelineCustomEvent<KupDatatableClickEventPayload>) => void;
         /**
           * Generic right click event on activity.
          */
-        "onKup-activity-timeline-contextmenu"?: (event: KupActivityTimelineCustomEvent<KupDatatableClickEventPayload>) => void;
+        "onKup-activitytimeline-contextmenu"?: (event: KupActivityTimelineCustomEvent<KupDatatableClickEventPayload>) => void;
         /**
           * Triggered when the component is ready.
          */
-        "onKup-activity-timeline-ready"?: (event: KupActivityTimelineCustomEvent<KupEventPayload>) => void;
+        "onKup-activitytimeline-ready"?: (event: KupActivityTimelineCustomEvent<KupEventPayload>) => void;
         /**
           * Columns containing times.
           * @default null

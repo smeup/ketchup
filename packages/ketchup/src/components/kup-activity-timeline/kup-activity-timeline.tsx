@@ -11,7 +11,6 @@ import {
     Prop,
     State,
     VNode,
-    Watch,
 } from '@stencil/core';
 import {
     KupManager,
@@ -27,7 +26,7 @@ import {
 import { getProps, setProps } from '../../utils/utils';
 import {
     ActivityTimeline,
-    KupActivity,
+    KupActivityTimelineActivity,
     KupActivityTimelineAction,
     KupActivityTimelineData,
     KupActivityTimelineProps,
@@ -89,7 +88,7 @@ export class KupActivityTimeline {
      * Generic click event on activity.
      */
     @Event({
-        eventName: 'kup-activity-timeline-click',
+        eventName: 'kup-activitytimeline-click',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -100,7 +99,7 @@ export class KupActivityTimeline {
      * Generic right click event on activity.
      */
     @Event({
-        eventName: 'kup-activity-timeline-contextmenu',
+        eventName: 'kup-activitytimeline-contextmenu',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -111,23 +110,12 @@ export class KupActivityTimeline {
      * Triggered when the component is ready.
      */
     @Event({
-        eventName: 'kup-activity-timeline-ready',
+        eventName: 'kup-activitytimeline-ready',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
     kupReady: EventEmitter<KupEventPayload>;
-
-    /*-------------------------------------------------*/
-    /*                  W a t c h e r s                */
-    /*-------------------------------------------------*/
-
-    @Watch('data')
-    @Watch('dateColumn')
-    @Watch('timeColumn')
-    onDataUpdate() {
-        this.timeline = this.#toTimeline(this.data);
-    }
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -215,7 +203,7 @@ export class KupActivityTimeline {
                         columnName: column.name,
                         cellId: row.id,
                     })),
-            } as KupActivity);
+            } as KupActivityTimelineActivity);
 
             return acc;
         }, {});
@@ -226,7 +214,10 @@ export class KupActivityTimeline {
                 date,
                 time: activitiesByDate[date][0]!.time,
                 activities: activitiesByDate[date].sort(
-                    (acc: KupActivity, activity: KupActivity) =>
+                    (
+                        acc: KupActivityTimelineActivity,
+                        activity: KupActivityTimelineActivity
+                    ) =>
                         this.#kupManager.dates.sortTimes(
                             acc.time,
                             activity.time
@@ -272,7 +263,7 @@ export class KupActivityTimeline {
         });
     }
 
-    activityItem(activity: KupActivity) {
+    activityItem(activity: KupActivityTimelineActivity) {
         return (
             <div class="atm-row">
                 {activity.columns.map((column: KupActivityTimelineData) => (
@@ -325,8 +316,6 @@ export class KupActivityTimeline {
             id: this.rootElement.id,
         });
         this.#kupManager.debug.logLoad(this, true);
-
-        this.timeline = this.#toTimeline(this.data);
     }
 
     componentWillRender() {
@@ -338,6 +327,7 @@ export class KupActivityTimeline {
     }
 
     render() {
+        this.timeline = this.#toTimeline(this.data);
         return (
             <Host>
                 <style>
@@ -369,7 +359,9 @@ export class KupActivityTimeline {
                                             </h3>
                                         </div>
                                         {timeline.activities.map(
-                                            (activity: KupActivity) => (
+                                            (
+                                                activity: KupActivityTimelineActivity
+                                            ) => (
                                                 <Fragment>
                                                     {this.activityItem(
                                                         activity

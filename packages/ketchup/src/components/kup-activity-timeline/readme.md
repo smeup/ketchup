@@ -16,11 +16,11 @@
 
 ## Events
 
-| Event                               | Description                            | Type                                         |
-| ----------------------------------- | -------------------------------------- | -------------------------------------------- |
-| `kup-activity-timeline-click`       | Generic click event on activity.       | `CustomEvent<KupDatatableClickEventPayload>` |
-| `kup-activity-timeline-contextmenu` | Generic right click event on activity. | `CustomEvent<KupDatatableClickEventPayload>` |
-| `kup-activity-timeline-ready`       | Triggered when the component is ready. | `CustomEvent<KupEventPayload>`               |
+| Event                              | Description                            | Type                                         |
+| ---------------------------------- | -------------------------------------- | -------------------------------------------- |
+| `kup-activitytimeline-click`       | Generic click event on activity.       | `CustomEvent<KupDatatableClickEventPayload>` |
+| `kup-activitytimeline-contextmenu` | Generic right click event on activity. | `CustomEvent<KupDatatableClickEventPayload>` |
+| `kup-activitytimeline-ready`       | Triggered when the component is ready. | `CustomEvent<KupEventPayload>`               |
 
 
 ## Methods

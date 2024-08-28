@@ -14,7 +14,7 @@ export interface KupActivityTimelineData {
     cellId: string;
 }
 
-export interface KupActivity {
+export interface KupActivityTimelineActivity {
     time: string;
     columns: KupActivityTimelineData[];
 }
@@ -22,7 +22,7 @@ export interface KupActivity {
 export interface ActivityTimeline {
     date: string;
     time: string;
-    activities: KupActivity[];
+    activities: KupActivityTimelineActivity[];
 }
 
 export interface KupDatatableClickEventPayload extends KupEventPayload {

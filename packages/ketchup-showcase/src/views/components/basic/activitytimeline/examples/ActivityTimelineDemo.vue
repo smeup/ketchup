@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { defaultData, mockedProps } from '@/mock/activityTimeline';
+import { mockedProps } from '@/mock/activityTimeline';
 import Demo from '@/views/templates/Demo';
 
 export default {
@@ -23,15 +23,15 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kup-activity-timeline-click',
+          name: 'kup-activitytimeline-click',
           type: 'CustomEvent',
         },
         {
-          name: 'kup-activity-timeline-contextmenu',
+          name: 'kup-activitytimeline-contextmenu',
           type: 'CustomEvent',
         },
         {
-          name: 'kup-activity-timeline-ready',
+          name: 'kup-activitytimeline-ready',
           type: 'CustomEvent',
         },
       ],
@@ -81,8 +81,6 @@ export default {
 function createComp() {
   const comp = document.createElement('kup-activity-timeline');
   comp.id = 'demo-component';
-
-  comp.data = defaultData;
 
   for (const key in mockedProps) {
     const prop = mockedProps[key];

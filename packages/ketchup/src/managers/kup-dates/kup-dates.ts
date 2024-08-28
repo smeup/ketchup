@@ -11,11 +11,11 @@ import 'dayjs/locale/ru';
 import 'dayjs/locale/zh';
 import { KupComponent } from '../../types/GenericTypes';
 import {
-    KupDateOrder,
     KupDateTimeFormatOptionsMonth,
     KupDatesFormats,
     KupDatesLocales,
     KupDatesNormalize,
+    KupDatesOrder,
 } from './kup-dates-declarations';
 
 /**
@@ -1023,7 +1023,7 @@ export class KupDates {
     sortDates = (
         firstDate: string,
         secondDate: string,
-        order: KupDateOrder = KupDateOrder.ASC
+        order: KupDatesOrder = KupDatesOrder.ASC
     ) => {
         return order === 'asc'
             ? dayjs(firstDate).diff(dayjs(secondDate))
@@ -1033,7 +1033,7 @@ export class KupDates {
     sortTimes = (
         firstTime: string,
         secondTime: string,
-        order: KupDateOrder = KupDateOrder.ASC,
+        order: KupDatesOrder = KupDatesOrder.ASC,
         format: string = 'HH:mm:ss'
     ) => {
         const timeA = dayjs(firstTime, format);

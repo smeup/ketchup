@@ -1,14 +1,14 @@
 const comp = document.getElementById('activity-timeline');
 
-comp.addEventListener('kup-activity-timeline-ready', (e) => {
+comp.addEventListener('kup-activitytimeline-ready', (e) => {
     console.log('Activity timeline ready', e);
 });
 
-comp.addEventListener('kup-activity-timeline-click', (e) => {
+comp.addEventListener('kup-activitytimeline-click', (e) => {
     console.log('Activity timeline clicked', e);
 });
 
-comp.addEventListener('kup-activity-timeline-contextmenu', (e) => {
+comp.addEventListener('kup-activitytimeline-contextmenu', (e) => {
     console.log('Activity timeline contextmenu', e);
 });
 
