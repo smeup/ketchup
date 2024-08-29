@@ -353,7 +353,7 @@ export class KupTabBar {
                             </span>
                         ) : null}
                     </span>
-                    {toolbar && (
+                    {this.toolbar && (
                         <FImage
                             resource="app"
                             sizeX="16px"
@@ -362,9 +362,7 @@ export class KupTabBar {
                                 this.onKupIconClick(i, node);
                             }}
                             wrapperClass="tab__iconToolbar"
-                        >
-                            Click me
-                        </FImage>
+                        ></FImage>
                     )}
                     <span
                         class={`tab-indicator ${
