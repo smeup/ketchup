@@ -161,6 +161,8 @@ export class KupInputPanel {
     #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([
         [FCellTypes.DATE, 'kup-date-picker'],
         [FCellTypes.TIME, 'kup-time-picker'],
+        [FCellTypes.AUTOCOMPLETE, 'kup-autocomplete'],
+        [FCellTypes.COMBOBOX, 'kup-combobox'],
     ]);
     #cellCustomRender: Map<
         FCellShapes,
@@ -746,7 +748,10 @@ export class KupInputPanel {
         currentValue: string
     ) {
         return {
-            data: currentValue?.split(';').map((v) => ({ id: v, value: v })),
+            data: currentValue
+                ?.split(';')
+                .map((v) => ({ id: v, value: v }))
+                .filter((value) => !!value),
         };
     }
 
