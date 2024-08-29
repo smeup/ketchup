@@ -19,7 +19,7 @@ export interface KupActivityTimelineActivity {
     columns: KupActivityTimelineData[];
 }
 
-export interface ActivityTimeline {
+export interface KupActivityTimelineDatapoint {
     date: string;
     time: string;
     activities: KupActivityTimelineActivity[];

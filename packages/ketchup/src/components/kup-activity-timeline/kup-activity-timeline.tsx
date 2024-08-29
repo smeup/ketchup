@@ -25,7 +25,7 @@ import {
 } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import {
-    ActivityTimeline,
+    KupActivityTimelineDatapoint,
     KupActivityTimelineActivity,
     KupActivityTimelineAction,
     KupActivityTimelineData,
@@ -51,7 +51,7 @@ export class KupActivityTimeline {
     /*-------------------------------------------------*/
 
     @State()
-    timeline: ActivityTimeline[] = [];
+    timeline: KupActivityTimelineDatapoint[] = [];
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -150,7 +150,7 @@ export class KupActivityTimeline {
     /*          P r i v a t e   M e t h o d s          */
     /*-------------------------------------------------*/
 
-    #toTimeline(data: KupDataDataset): ActivityTimeline[] {
+    #toTimeline(data: KupDataDataset): KupActivityTimelineDatapoint[] {
         const columns = data.columns;
         const rows = data.rows;
 
@@ -340,39 +340,41 @@ export class KupActivityTimeline {
                         key={this.rootElement.id}
                         class="kup-activity-timeline"
                     >
-                        {this.timeline.map((timeline: ActivityTimeline) => (
-                            <div class="atm-container" key={timeline.date}>
-                                <div class="atm-event">
-                                    <div class="atm-icon-wrapper">
-                                        <div class="atm-thumb">
-                                            {this.calendarIcon()}
+                        {this.timeline.map(
+                            (timeline: KupActivityTimelineDatapoint) => (
+                                <div class="atm-container" key={timeline.date}>
+                                    <div class="atm-event">
+                                        <div class="atm-icon-wrapper">
+                                            <div class="atm-thumb">
+                                                {this.calendarIcon()}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="atm-content">
-                                        <div>
-                                            <h3>
-                                                <span>
-                                                    {timeline.date}{' '}
-                                                    {timeline.time}
-                                                </span>
-                                                <span></span>
-                                            </h3>
+                                        <div class="atm-content">
+                                            <div>
+                                                <h3>
+                                                    <span>
+                                                        {timeline.date}{' '}
+                                                        {timeline.time}
+                                                    </span>
+                                                    <span></span>
+                                                </h3>
+                                            </div>
+                                            {timeline.activities.map(
+                                                (
+                                                    activity: KupActivityTimelineActivity
+                                                ) => (
+                                                    <Fragment>
+                                                        {this.activityItem(
+                                                            activity
+                                                        )}
+                                                    </Fragment>
+                                                )
+                                            )}
                                         </div>
-                                        {timeline.activities.map(
-                                            (
-                                                activity: KupActivityTimelineActivity
-                                            ) => (
-                                                <Fragment>
-                                                    {this.activityItem(
-                                                        activity
-                                                    )}
-                                                </Fragment>
-                                            )
-                                        )}
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            )
+                        )}
                     </div>
                 </div>
             </Host>
