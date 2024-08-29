@@ -25,7 +25,7 @@ export interface ActivityTimeline {
     activities: KupActivityTimelineActivity[];
 }
 
-export interface KupDatatableClickEventPayload extends KupEventPayload {
+export interface KupActivityTimelineClickEventPayload extends KupEventPayload {
     details: KupActivityTimelineEventHandlerDetails;
 }
 

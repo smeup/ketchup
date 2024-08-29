@@ -30,7 +30,7 @@ import {
     KupActivityTimelineAction,
     KupActivityTimelineData,
     KupActivityTimelineProps,
-    KupDatatableClickEventPayload,
+    KupActivityTimelineClickEventPayload,
 } from './kup-activity-timeline-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { getCellValueForDisplay } from '../../utils/cell-utils';
@@ -93,7 +93,7 @@ export class KupActivityTimeline {
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<KupDatatableClickEventPayload>;
+    kupClick: EventEmitter<KupActivityTimelineClickEventPayload>;
 
     /**
      * Generic right click event on activity.
@@ -104,7 +104,7 @@ export class KupActivityTimeline {
         cancelable: false,
         bubbles: true,
     })
-    kupContextMenu: EventEmitter<KupDatatableClickEventPayload>;
+    kupContextMenu: EventEmitter<KupActivityTimelineClickEventPayload>;
 
     /**
      * Triggered when the component is ready.
