@@ -2682,6 +2682,60 @@ const dataAttributeTest = {
     },
 };
 
+const keyToLunchClick = 'F5';
+const keyButtonClickTest = {
+    columns: [
+        {
+            name: 'BTN',
+            title: 'Button',
+            visible: true,
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                BTN: {
+                    value: `Click or press ${keyToLunchClick}`,
+                    obj: { t: '', p: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'BTN',
+                    data: {
+                        disabled: false,
+                        styling: 'outlined',
+                        keyToLunchClick,
+                    },
+                },
+            },
+            layout: {
+                type: 'SmeupDataLayout',
+                horizontal: false,
+                sections: [
+                    {
+                        content: [
+                            {
+                                id: 'BTN',
+                            },
+                        ],
+                        sections: [],
+                        horizontal: false,
+                        gridCols: 1,
+                        gridRows: 1,
+                        gap: 2,
+                        title: 'Test key click button',
+                    },
+                ],
+            },
+        },
+    ],
+    debugInfo: {
+        executionTime_ms: 51,
+        initialTimestamp: '2024-06-11T15:02:17.854994131Z',
+        finalTimestamp: '2024-06-11T15:02:17.906443131Z',
+        runtime: 'Java 21',
+    },
+};
+
 // Example of rerender configuration
 // const data1 = {
 //     columns: [
@@ -2879,7 +2933,7 @@ const dataAttributeTest = {
 // };
 
 const inputPanel = document.getElementById('input-panel');
-inputPanel.data = dataAttributeTest;
+inputPanel.data = keyButtonClickTest;
 inputPanel.optionsHandler = (fun, inputValue, currentState) => {
     console.log('optionsHandler event', { fun, inputValue, currentState });
 

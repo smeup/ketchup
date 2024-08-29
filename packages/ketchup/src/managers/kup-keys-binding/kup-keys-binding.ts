@@ -6,10 +6,10 @@ import { GenericCallback, KupKey } from './kup-keys-binding-declarations';
  * @module KupKeysBinding
  */
 export class KupKeysBinding {
-    keysEvents: Map<string, GenericCallback>;
+    #keysEvents: Map<string, GenericCallback>;
 
     constructor() {
-        this.keysEvents = new Map();
+        this.#keysEvents = new Map();
         document.addEventListener('keydown', this.#checkEvent.bind(this));
     }
 
@@ -20,7 +20,7 @@ export class KupKeysBinding {
      */
     register(key: KupKey, event: GenericCallback): void {
         console.log('Registered', key, event);
-        this.keysEvents.set(key, event);
+        this.#keysEvents.set(key, event);
     }
 
     /**
@@ -28,12 +28,12 @@ export class KupKeysBinding {
      * @param {KupKey} key - Key to remove.
      */
     unregister(key: KupKey): void {
-        this.keysEvents.delete(key);
+        this.#keysEvents.delete(key);
     }
 
     #checkEvent(keyboardEvent: KeyboardEvent) {
         console.log('check event');
-        const event = this.keysEvents.get(keyboardEvent.key);
+        const event = this.#keysEvents.get(keyboardEvent.key);
         if (event) event();
     }
 }

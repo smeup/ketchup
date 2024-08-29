@@ -19,6 +19,7 @@ import {
     KupDataTableDataset,
     KupDataTableRow,
     KupEditorEventPayload,
+    KupKey,
 } from '../../components';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FCell } from '../../f-components/f-cell/f-cell';
@@ -171,6 +172,7 @@ export class KupInputPanel {
         [FCellShapes.LABEL, this.#renderLabel.bind(this)],
         [FCellShapes.TABLE, this.#renderDataTable.bind(this)],
     ]);
+    #keyToLunchClick: KupKey;
     //#endregion
 
     //#region WATCHERS
@@ -336,28 +338,38 @@ export class KupInputPanel {
     }
 
     #renderButton(cell: KupDataCell, cellId: string) {
-        const { fun, ...props } = cell.data;
+        const clickHandler = () => {
+            console.log('Button click');
+            fun
+                ? this.customButtonClickHandler({
+                      fun,
+                      cellId,
+                      currentState: this.#reverseMapCells(),
+                  })
+                : this.submitCb({
+                      value: {
+                          before: { ...this.#originalData },
+                          after: this.#reverseMapCells(),
+                      },
+                      cell: cellId,
+                  });
+        };
+        const { fun, keyToLunchClick, ...props } = cell.data;
+        if (keyToLunchClick) {
+            this.#keyToLunchClick = keyToLunchClick;
+            this.#kupManager.keysBinding.register(
+                keyToLunchClick,
+                clickHandler.bind(this)
+            );
+        }
+
         return (
             <FButton
                 icon={cell.icon}
                 id={cellId}
                 {...props}
                 wrapperClass="form__submit"
-                onClick={() => {
-                    fun
-                        ? this.customButtonClickHandler({
-                              fun,
-                              cellId,
-                              currentState: this.#reverseMapCells(),
-                          })
-                        : this.submitCb({
-                              value: {
-                                  before: { ...this.#originalData },
-                                  after: this.#reverseMapCells(),
-                              },
-                              cell: cellId,
-                          });
-                }}
+                onClick={clickHandler}
             ></FButton>
         );
     }
@@ -1204,6 +1216,7 @@ export class KupInputPanel {
     disconnectedCallback() {
         this.#kupManager.language.unregister(this);
         this.#kupManager.theme.unregister(this);
+        this.#kupManager.keysBinding.unregister(this.#keyToLunchClick);
     }
     //#endregion
 }
