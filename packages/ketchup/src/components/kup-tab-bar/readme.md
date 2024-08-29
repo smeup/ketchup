@@ -16,11 +16,12 @@
 
 ## Events
 
-| Event              | Description                         | Type                                 |
-| ------------------ | ----------------------------------- | ------------------------------------ |
-| `kup-tabbar-blur`  | Triggered when the tab loses focus. | `CustomEvent<KupTabBarEventPayload>` |
-| `kup-tabbar-click` | Triggered when the tab is clicked.  | `CustomEvent<KupTabBarEventPayload>` |
-| `kup-tabbar-focus` | Triggered when the tab is focused.  | `CustomEvent<KupTabBarEventPayload>` |
+| Event                   | Description                         | Type                                 |
+| ----------------------- | ----------------------------------- | ------------------------------------ |
+| `kup-tabbar-blur`       | Triggered when the tab loses focus. | `CustomEvent<KupTabBarEventPayload>` |
+| `kup-tabbar-click`      | Triggered when the tab is clicked.  | `CustomEvent<KupTabBarEventPayload>` |
+| `kup-tabbar-focus`      | Triggered when the tab is focused.  | `CustomEvent<KupTabBarEventPayload>` |
+| `kup-tabbar-icon-click` | Triggered when the tab is clicked.  | `CustomEvent<KupTabBarEventPayload>` |
 
 
 ## Methods

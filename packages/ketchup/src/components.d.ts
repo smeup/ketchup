@@ -5414,6 +5414,7 @@ declare global {
     interface HTMLKupTabBarElementEventMap {
         "kup-tabbar-blur": KupTabBarEventPayload;
         "kup-tabbar-click": KupTabBarEventPayload;
+        "kup-tabbar-icon-click": KupTabBarEventPayload;
         "kup-tabbar-focus": KupTabBarEventPayload;
     }
     interface HTMLKupTabBarElement extends Components.KupTabBar, HTMLStencilElement {
@@ -8671,6 +8672,10 @@ declare namespace LocalJSX {
           * Triggered when the tab is focused.
          */
         "onKup-tabbar-focus"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
+        /**
+          * Triggered when the tab is clicked.
+         */
+        "onKup-tabbar-icon-click"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
         /**
           * When enabled displays Material's ripple effect on item headers.
           * @default true
