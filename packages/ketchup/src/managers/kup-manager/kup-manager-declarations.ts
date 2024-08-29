@@ -23,10 +23,12 @@ import { KupMathLocales } from '../kup-math/kup-math-declarations';
 import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
 import { Options } from 'html2canvas';
 import { KupOpenAI } from '../kup-openai/kup-openai';
+import { KupKeysBinding } from '../kup-keys-binding/kup-keys-binding';
 /**
  * Interface used to define the HTML element with Ketchup specific properties.
  */
 export interface KupDom extends HTMLHtmlElement {
+    dom: import('/workspaces/ketchup/packages/ketchup/src/managers/kup-manager/kup-manager').KupManager;
     ketchup: KupManager;
     ketchupInit: KupManagerInitialization;
 }
@@ -52,6 +54,7 @@ export interface KupManager {
     theme: KupTheme;
     toolbar: KupToolbar;
     tooltip: KupTooltip;
+    keysBinding: KupKeysBinding;
     utilities: KupManagerUtilities;
     showMagicBox: () => void;
     hideMagicBox: () => void;

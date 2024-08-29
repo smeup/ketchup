@@ -296,10 +296,33 @@
         </kup-button>
         <hr />
 
+        <h1>TEST</h1>
+        <kup-button
+            id="TestBtn"
+            label="Small"
+            sizing="small"
+            class="kup-neutral"
+            icon="favorite"
+            styling="outlined"
+            key-to-lunch-click="F5"
+        ></kup-button>
+
         <script>
             document.addEventListener('kup-manager-ready', () => {
                 const kupManager = document.documentElement.ketchup;
                 kupManager.theme.set('octane');
+
+                // TEST
+                const button = document.getElementById('TestBtn');
+                if (button) {
+                    button.keyEvent = {
+                        key: 'F6',
+                        event: () => {
+                            console.log('F6 pressed, lunch button event!');
+                        },
+                    };
+                }
+                // --------------------------------------------------
             });
         </script>
     </body>

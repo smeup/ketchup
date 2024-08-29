@@ -38,6 +38,7 @@ import { setAssetPath } from '@stencil/core';
 import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
 import html2canvas, { Options } from 'html2canvas';
 import { KupOpenAI } from '../kup-openai/kup-openai';
+import { KupKeysBinding } from '../kup-keys-binding/kup-keys-binding';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -64,6 +65,7 @@ export class KupManager {
     utilities: KupManagerUtilities;
     theme: KupTheme;
     toolbar: KupToolbar;
+    keysBinding: KupKeysBinding;
     tooltip: KupTooltip;
     /**
      * Initializes KupManager.
@@ -195,6 +197,7 @@ export class KupManager {
         };
         this.theme = new KupTheme(themeList, themeName);
         this.toolbar = new KupToolbar();
+        this.keysBinding = new KupKeysBinding();
         this.tooltip = new KupTooltip(
             tooltipDelay,
             tooltipFCellCallbacks,
