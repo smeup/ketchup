@@ -4995,11 +4995,15 @@ export class KupDataTable {
                                 singleAction.text ?? '',
                                 'action',
                                 () => {
-                                    this.#onDefaultRowActionClick({
-                                        action: singleAction,
-                                        row,
-                                        index: 0,
-                                        type: 'default',
+                                    this.kupRowActionItemClick.emit({
+                                        comp: this,
+                                        id: this.rootElement.id,
+                                        row: row,
+                                        obj: singleAction.obj,
+                                        cell: singleAction.cell,
+                                        type: singleAction.type,
+                                        //  index: index,
+                                        column: singleAction.column,
                                     });
                                 }
                             );
@@ -5018,13 +5022,18 @@ export class KupDataTable {
                                         action.icon,
                                         '',
                                         'action',
-                                        () =>
-                                            this.#onDefaultRowActionClick({
-                                                action,
-                                                row,
-                                                index,
-                                                type: 'default',
-                                            })
+                                        () => {
+                                            this.kupRowActionItemClick.emit({
+                                                comp: this,
+                                                id: this.rootElement.id,
+                                                row: row,
+                                                obj: action.obj,
+                                                cell: action.cell,
+                                                type: action.type,
+                                                index: index,
+                                                column: action.column,
+                                            });
+                                        }
                                     );
                                 actionsOnRow.push(imageProp);
                             });
