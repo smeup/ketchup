@@ -170,8 +170,41 @@
             Unregisters a KupComponent, so it won't be refreshed when the locale
             changes.<br /><br />
             - <strong>component (any)</strong> - The Ketchup component to be
-            unregistered.<br /> </p></div
-      ></kup-accordion>
+            unregistered.<br /> </p
+        ></div>
+        <div class="accordion-slot" slot="14">
+          <p>
+            <span class="code-word"
+              >sortDates(firstDate, secondDate, order?): number</span
+            ><br />
+            Sorts two dates based on the provided order.<br /><br />
+            - <strong>firstDate (string)</strong> - The first date to
+            compare.<br />
+            - <strong>secondDate (string)</strong> - The second date to
+            compare.<br />
+            - <strong>order (KupDatesOrder)</strong> - The sorting order, either
+            "asc" or "desc" (default: "asc").<br /><br />
+            Returns the difference between the two dates.
+          </p>
+        </div>
+        <div class="accordion-slot" slot="15">
+          <p>
+            <span class="code-word"
+              >sortTimes(firstTime, secondTime, order?, format?): number</span
+            ><br />
+            Sorts two times based on the provided order and format.<br /><br />
+            - <strong>firstTime (string)</strong> - The first time to
+            compare.<br />
+            - <strong>secondTime (string)</strong> - The second time to
+            compare.<br />
+            - <strong>order (KupDatesOrder)</strong> - The sorting order, either
+            "asc" or "desc" (default: "asc").<br />
+            - <strong>format (string)</strong> - The format of the time
+            (default: "HH:mm:ss").<br /><br />
+            Returns the difference between the two times.
+          </p>
+        </div>
+      </kup-accordion>
     </div>
   </div>
 </template>
@@ -269,6 +302,14 @@ export default {
           {
             name: '13',
             title: 'unregister',
+          },
+          {
+            name: '14',
+            title: 'sortDates',
+          },
+          {
+            name: '15',
+            title: 'sortTimes',
           },
         ],
       };

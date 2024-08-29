@@ -23,6 +23,10 @@ components.data = [
         id: 'accordion.html',
     },
     {
+        value: 'Activity Timeline',
+        id: 'activity-timeline.html',
+    },
+    {
         value: 'Autocomplete',
         id: 'autocomplete.html',
     },
