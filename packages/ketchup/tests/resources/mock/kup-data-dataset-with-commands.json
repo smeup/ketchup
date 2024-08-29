@@ -229,7 +229,82 @@
                             "p": "COD_VER",
                             "t": "VO"
                         },
-                        "value": "",
+                        "value": "Test",
+                        "element": {
+                            "s-hn": "KUP-DATA-TABLE"
+                        }
+                    },
+                    "X$ARTI": {
+                        "data": {
+                            "size": 80,
+                            "helperEnabled": false,
+                            "hiddenCounter": true,
+                            "maxLength": 80
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "MEP000001 METALLIC PLIER",
+                            "p": "",
+                            "t": ""
+                        },
+                        "value": "MEP000001 METALLIC PLIER",
+                        "element": {
+                            "s-hn": "KUP-DATA-TABLE"
+                        }
+                    },
+                    "X$QTA": {
+                        "data": {
+                            "size": 15,
+                            "helperEnabled": false,
+                            "maxLength": 15,
+                            "integers": 15
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "1",
+                            "p": "",
+                            "t": "NR"
+                        },
+                        "value": "1",
+                        "displayedValue": "1",
+                        "element": {
+                            "s-hn": "KUP-DATA-TABLE"
+                        }
+                    }
+                },
+                "cssClass": "clickable",
+                "id": "2",
+                "object": "",
+                "readOnly": true
+            },
+            {
+                "cells": {
+                    "X$RIGA": {
+                        "data": {
+                            "size": 4,
+                            "helperEnabled": false,
+                            "maxLength": 4,
+                            "integers": 4
+                        },
+                        "isEditable": false,
+                        "obj": {
+                            "k": "3",
+                            "p": "",
+                            "t": "NR"
+                        },
+                        "value": "3",
+                        "displayedValue": "3",
+                        "element": {
+                            "s-hn": "KUP-DATA-TABLE"
+                        }
+                    },
+                    "X$CFG": {
+                        "isEditable": false,
+                        "obj": {
+                            "k": "000053",
+                            "p": "COD_VER",
+                            "t": "VO"
+                        },
                         "element": {
                             "s-hn": "KUP-DATA-TABLE"
                         }
@@ -285,7 +360,7 @@
             "icon": "delete"
         },
         {
-            "text":"'Action #2",
+            "text": "'Action #2",
             "icon": "account"
         }
     ],
@@ -321,4 +396,4 @@
             "showIcon": "true"
         }
     ]
-  }
+}
