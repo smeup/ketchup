@@ -19,7 +19,6 @@ import {
     KupDataTableDataset,
     KupDataTableRow,
     KupEditorEventPayload,
-    KupKey,
 } from '../../components';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FCell } from '../../f-components/f-cell/f-cell';
@@ -172,7 +171,7 @@ export class KupInputPanel {
         [FCellShapes.LABEL, this.#renderLabel.bind(this)],
         [FCellShapes.TABLE, this.#renderDataTable.bind(this)],
     ]);
-    #keyToLunchClick: KupKey;
+    #keysShortcut: string[] = [];
     //#endregion
 
     //#region WATCHERS
@@ -189,6 +188,13 @@ export class KupInputPanel {
                 this.rootElement.removeEventListener(event, handler);
             });
             this.#listeners = [];
+        }
+
+        if (this.#keysShortcut.length) {
+            this.#keysShortcut.map((key) => {
+                this.#kupManager.keysBinding.unregister(key);
+            });
+            this.#keysShortcut = [];
         }
 
         this.#mapCells(this.data);
@@ -338,38 +344,12 @@ export class KupInputPanel {
     }
 
     #renderButton(cell: KupDataCell, cellId: string) {
-        const clickHandler = () => {
-            console.log('Button click');
-            fun
-                ? this.customButtonClickHandler({
-                      fun,
-                      cellId,
-                      currentState: this.#reverseMapCells(),
-                  })
-                : this.submitCb({
-                      value: {
-                          before: { ...this.#originalData },
-                          after: this.#reverseMapCells(),
-                      },
-                      cell: cellId,
-                  });
-        };
-        const { fun, keyToLunchClick, ...props } = cell.data;
-        if (keyToLunchClick) {
-            this.#keyToLunchClick = keyToLunchClick;
-            this.#kupManager.keysBinding.register(
-                keyToLunchClick,
-                clickHandler.bind(this)
-            );
-        }
-
         return (
             <FButton
                 icon={cell.icon}
                 id={cellId}
-                {...props}
+                {...cell.data}
                 wrapperClass="form__submit"
-                onClick={clickHandler}
             ></FButton>
         );
     }
@@ -781,11 +761,37 @@ export class KupInputPanel {
         _options: GenericObject,
         _fieldLabel: string,
         _currentValue: string,
-        cell: KupInputPanelCell
+        cell: KupInputPanelCell,
+        id: string
     ) {
+        const { fun, keyShortcut: key } = cell.data;
+        cell.data.onClick = () => {
+            fun
+                ? this.customButtonClickHandler({
+                      fun,
+                      cellId: id,
+                      currentState: this.#reverseMapCells(),
+                  })
+                : this.submitCb({
+                      value: {
+                          before: { ...this.#originalData },
+                          after: this.#reverseMapCells(),
+                      },
+                      cell: id,
+                  });
+        };
+        if (key && !cell.data?.disabled) {
+            this.#keysShortcut.push(key);
+            this.#kupManager.keysBinding.register(
+                key,
+                cell.data.onClick.bind(this)
+            );
+        }
+
         return {
             label: cell.value,
             fun: cell.fun,
+            ...cell.data,
         };
     }
 
@@ -1216,7 +1222,6 @@ export class KupInputPanel {
     disconnectedCallback() {
         this.#kupManager.language.unregister(this);
         this.#kupManager.theme.unregister(this);
-        this.#kupManager.keysBinding.unregister(this.#keyToLunchClick);
     }
     //#endregion
 }

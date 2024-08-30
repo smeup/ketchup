@@ -2682,20 +2682,30 @@ const dataAttributeTest = {
     },
 };
 
-const keyToLunchClick = 'F5';
+const keysShortcut = ['f5', 'F6', 'control+s'];
 const keyButtonClickTest = {
     columns: [
         {
-            name: 'BTN',
-            title: 'Button',
+            name: 'BUTTON1',
+            title: 'Button1',
+            visible: true,
+        },
+        {
+            name: 'BUTTON2',
+            title: 'Button2',
+            visible: true,
+        },
+        {
+            name: 'BUTTON3',
+            title: 'Button2',
             visible: true,
         },
     ],
     rows: [
         {
             cells: {
-                BTN: {
-                    value: `Click or press ${keyToLunchClick}`,
+                BUTTON1: {
+                    value: `Click or press ${keysShortcut[0]}`,
                     obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
@@ -2703,7 +2713,31 @@ const keyButtonClickTest = {
                     data: {
                         disabled: false,
                         styling: 'outlined',
-                        keyToLunchClick,
+                        keyShortcut: keysShortcut[0],
+                    },
+                },
+                BUTTON2: {
+                    value: `Click or press ${keysShortcut[1]}`,
+                    obj: { t: '', p: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'BTN',
+                    data: {
+                        disabled: true,
+                        styling: 'flat',
+                        keyShortcut: keysShortcut[1],
+                    },
+                },
+                BUTTON3: {
+                    value: `Click or press ${keysShortcut[2]}`,
+                    obj: { t: '', p: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'BTN',
+                    data: {
+                        disabled: false,
+                        styling: 'outlined',
+                        keyShortcut: keysShortcut[2],
                     },
                 },
             },
@@ -2713,8 +2747,14 @@ const keyButtonClickTest = {
                 sections: [
                     {
                         content: [
+                            // {
+                            //     id: 'BUTTON1',
+                            // },
                             {
-                                id: 'BTN',
+                                id: 'BUTTON2',
+                            },
+                            {
+                                id: 'BUTTON3',
                             },
                         ],
                         sections: [],

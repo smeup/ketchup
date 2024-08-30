@@ -14,7 +14,6 @@ import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMen
 import { KupStore } from "./components/kup-state/kup-store";
 import { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 import { FButtonAlign, FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
-import { GenericCallback, KupKey } from "./managers/kup-keys-binding/kup-keys-binding-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
 import { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
@@ -67,7 +66,6 @@ export { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMen
 export { KupStore } from "./components/kup-state/kup-store";
 export { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 export { FButtonAlign, FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
-export { GenericCallback, KupKey } from "./managers/kup-keys-binding/kup-keys-binding-declarations";
 export { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 export { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
 export { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
@@ -546,11 +544,7 @@ export namespace Components {
           * @default null
          */
         "iconOff": string;
-        "keyEvent": {
-        key: KupKey;
-        event: GenericCallback;
-    };
-        "keyToLunchClick": KupKey;
+        "keyShortcut": string;
         /**
           * When set, the button will show this text.
           * @default null
@@ -5946,11 +5940,7 @@ declare namespace LocalJSX {
           * @default null
          */
         "iconOff"?: string;
-        "keyEvent"?: {
-        key: KupKey;
-        event: GenericCallback;
-    };
-        "keyToLunchClick"?: KupKey;
+        "keyShortcut"?: string;
         /**
           * When set, the button will show this text.
           * @default null

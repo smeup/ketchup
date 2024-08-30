@@ -32,10 +32,6 @@ import {
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import {
-    GenericCallback,
-    KupKey,
-} from '../../managers/kup-keys-binding/kup-keys-binding-declarations';
 
 @Component({
     tag: 'kup-button',
@@ -138,12 +134,7 @@ export class KupButton {
      */
     @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
 
-    @Prop() keyToLunchClick: KupKey;
-
-    @Prop() keyEvent: {
-        key: KupKey;
-        event: GenericCallback;
-    };
+    @Prop() keyShortcut: string;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -198,7 +189,6 @@ export class KupButton {
     }
 
     onKupClick() {
-        console.log('onKupClick lunched');
         if (!this.label && this.icon) {
             if (this.checked) {
                 this.checked = false;
@@ -279,13 +269,9 @@ export class KupButton {
             this.value = 'N/A';
         }
 
-        if (this.keyEvent) {
-            const { key, event } = this.keyEvent;
-            this.kupManager.keysBinding.register(key, event);
-        }
-        if (this.keyToLunchClick) {
+        if (this.keyShortcut) {
             this.kupManager.keysBinding.register(
-                this.keyToLunchClick,
+                this.keyShortcut,
                 this.onKupClick.bind(this)
             );
         }
@@ -378,7 +364,6 @@ export class KupButton {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
-        this.kupManager.keysBinding.unregister(this.keyEvent.key);
-        this.kupManager.keysBinding.unregister(this.keyToLunchClick);
+        this.kupManager.keysBinding.unregister(this.keyShortcut);
     }
 }
