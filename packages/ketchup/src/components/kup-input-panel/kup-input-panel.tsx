@@ -746,7 +746,10 @@ export class KupInputPanel {
         currentValue: string
     ) {
         return {
-            data: currentValue?.split(';').map((v) => ({ id: v, value: v })),
+            data: currentValue
+                ?.split(';')
+                .map((v) => ({ id: v, value: v }))
+                .filter((value) => !!value),
         };
     }
 
