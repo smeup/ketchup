@@ -14,6 +14,9 @@ export class KupKeysBinding {
         this.#pressedKeys = new Set();
         document.addEventListener('keydown', this.#checkEvent.bind(this));
         document.addEventListener('keyup', this.#clearKey.bind(this));
+        window.addEventListener('blur', () => {
+            this.#pressedKeys.clear();
+        });
     }
 
     /**
@@ -41,9 +44,6 @@ export class KupKeysBinding {
             keyEvent.event();
             keyEvent.isLunched = true;
         }
-        setTimeout(() => {
-            this.#pressedKeys.delete(keyPressed);
-        }, 1000);
     }
 
     #clearKey(keyboardEvent: KeyboardEvent) {
