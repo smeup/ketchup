@@ -117,7 +117,7 @@ export class KupTabBar {
     kupClick: EventEmitter<KupTabBarEventPayload>;
 
     /**
-     * Triggered when the tab is clicked.
+     * Triggered when the icon inside tab is clicked.
      */
     @Event({
         eventName: 'kup-tabbar-icon-click',
@@ -163,12 +163,6 @@ export class KupTabBar {
     }
 
     onKupIconClick(i: number, node: KupTabBarNode) {
-        for (let i = 0; i < this.data.length; i++) {
-            this.data[i].active = false;
-        }
-        this.data[i].active = true;
-        this.value = node.id;
-
         this.kupIconClick.emit({
             comp: this,
             id: this.rootElement.id,
@@ -358,9 +352,7 @@ export class KupTabBar {
                             resource="app"
                             sizeX="16px"
                             sizeY="16px"
-                            onClick={() => {
-                                this.onKupIconClick(i, node);
-                            }}
+                            onClick={() => this.onKupIconClick(i, node)}
                             wrapperClass="tab__iconToolbar"
                         ></FImage>
                     )}

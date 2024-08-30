@@ -8673,7 +8673,7 @@ declare namespace LocalJSX {
          */
         "onKup-tabbar-focus"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
         /**
-          * Triggered when the tab is clicked.
+          * Triggered when the icon inside tab is clicked.
          */
         "onKup-tabbar-icon-click"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
         /**
