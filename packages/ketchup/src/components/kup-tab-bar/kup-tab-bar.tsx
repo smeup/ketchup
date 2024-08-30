@@ -120,7 +120,7 @@ export class KupTabBar {
      * Triggered when the icon inside tab is clicked.
      */
     @Event({
-        eventName: 'kup-tabbar-icon-click',
+        eventName: 'kup-tabbar-iconclick',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -352,7 +352,9 @@ export class KupTabBar {
                             resource="app"
                             sizeX="16px"
                             sizeY="16px"
-                            onClick={() => this.onKupIconClick(i, node)}
+                            onClick={() => {
+                                this.onKupIconClick(i, node);
+                            }}
                             wrapperClass="tab__iconToolbar"
                         ></FImage>
                     )}
