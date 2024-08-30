@@ -2705,7 +2705,7 @@ const keyButtonClickTest = {
         {
             cells: {
                 BUTTON1: {
-                    value: `Click or press ${keysShortcut[0]}`,
+                    value: `Click or press '${keysShortcut[0]}'`,
                     obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
@@ -2717,7 +2717,7 @@ const keyButtonClickTest = {
                     },
                 },
                 BUTTON2: {
-                    value: `Click or press ${keysShortcut[1]}`,
+                    value: `Click or press '${keysShortcut[1]}'`,
                     obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
@@ -2729,7 +2729,7 @@ const keyButtonClickTest = {
                     },
                 },
                 BUTTON3: {
-                    value: `Click or press ${keysShortcut[2]}`,
+                    value: `Click or press 'Ctrl+S'`,
                     obj: { t: '', p: '' },
                     editable: true,
                     mandatory: true,
@@ -2762,7 +2762,7 @@ const keyButtonClickTest = {
                         gridCols: 1,
                         gridRows: 1,
                         gap: 2,
-                        title: 'Test key click button',
+                        title: 'Test keys bindings with button clicks',
                     },
                 ],
             },
