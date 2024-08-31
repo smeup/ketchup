@@ -25,7 +25,7 @@ import {
     KulDataDataset,
     KulDataShapesMap,
 } from '../../managers/kul-data/kul-data-declarations';
-import { getLayoutA } from './kul-card-layouts';
+import { getLayoutA } from './layouts/kul-card-layout-a';
 
 @Component({
     tag: 'kul-card',
@@ -181,7 +181,7 @@ export class KulCard {
      * Sets the event listeners on the sub-components, in order to properly emit the generic kul-card-event.
      */
     registerListeners(): void {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
+        const root = this.rootElement.shadowRoot;
         root.addEventListener('kul-badge-event', this.#cardEvent);
         root.addEventListener('kul-button-event', this.#cardEvent);
         root.addEventListener('kul-code-event', this.#cardEvent);
