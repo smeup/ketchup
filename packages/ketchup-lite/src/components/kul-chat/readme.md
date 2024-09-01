@@ -7,12 +7,15 @@
 
 ## Properties
 
-| Property            | Attribute             | Description                                                 | Type     | Default |
-| ------------------- | --------------------- | ----------------------------------------------------------- | -------- | ------- |
-| `kulEndpointUrl`    | `kul-endpoint-url`    | Enables customization of the component's style.             | `string` | `''`    |
-| `kulSttCallback`    | `kul-stt-callback`    | Callback invoked when the Speech to Text button is pressed. | `any`    | `null`  |
-| `kulStyle`          | `kul-style`           | Enables customization of the component's style.             | `string` | `''`    |
-| `kulSubmitCallback` | `kul-submit-callback` | Callback invoked when the submit button is pressed.         | `any`    | `null`  |
+| Property         | Attribute          | Description                                               | Type             | Default                                                                                 |
+| ---------------- | ------------------ | --------------------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------- |
+| `kulEndpointUrl` | `kul-endpoint-url` | Enables customization of the component's style.           | `string`         | `'http://localhost:5001'`                                                               |
+| `kulMaxTokens`   | `kul-max-tokens`   | The maximum amount of tokens allowed in the LLM's answer. | `number`         | `250`                                                                                   |
+| `kulSeed`        | `kul-seed`         | The seed of the LLM's answer.                             | `number`         | `-1`                                                                                    |
+| `kulStyle`       | `kul-style`        | Enables customization of the component's style.           | `string`         | `''`                                                                                    |
+| `kulSystem`      | `kul-system`       | System message for the LLM.                               | `string`         | `'You are a helpful and cheerful assistant eager to help the user out with his tasks.'` |
+| `kulTemperature` | `kul-temperature`  | Sets the creative boundaries of the LLM.                  | `number`         | `0.7`                                                                                   |
+| `kulValue`       | --                 | Sets the initial history of the chat.                     | `KulChatState[]` | `[]`                                                                                    |
 
 
 ## Events

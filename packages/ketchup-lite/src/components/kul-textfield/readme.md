@@ -76,6 +76,16 @@ Type: `Promise<void>`
 
 
 
+### `setFocus() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setValue(value: string) => Promise<void>`
 
 Sets the component's state.

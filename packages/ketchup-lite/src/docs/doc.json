@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-09-01T15:07:01",
+  "timestamp": "2024-09-01T23:13:51",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -1378,7 +1378,7 @@
           "name": "kulType",
           "type": "\"button\" | \"reset\" | \"submit\"",
           "complexType": {
-            "original": "| 'button'\r\n        | 'reset'\r\n        | 'submit'",
+            "original": "| 'button'\n        | 'reset'\n        | 'submit'",
             "resolved": "\"button\" | \"reset\" | \"submit\"",
             "references": {}
           },
@@ -2647,6 +2647,7 @@
       "filePath": "src/components/kul-chat/kul-chat.tsx",
       "encapsulation": "shadow",
       "tag": "kul-chat",
+      "readme": "# kul-chat\n\n\n",
       "docs": "",
       "docsTags": [],
       "usage": {},
@@ -2661,7 +2662,7 @@
           },
           "mutable": true,
           "attr": "kul-endpoint-url",
-          "reflectToAttr": true,
+          "reflectToAttr": false,
           "docs": "Enables customization of the component's style.",
           "docsTags": [
             {
@@ -2669,7 +2670,7 @@
               "text": "\"\" - No custom style applied by default."
             }
           ],
-          "default": "''",
+          "default": "'http://localhost:5001'",
           "values": [
             {
               "type": "string"
@@ -2679,27 +2680,54 @@
           "required": false
         },
         {
-          "name": "kulSttCallback",
-          "type": "any",
+          "name": "kulMaxTokens",
+          "type": "number",
           "complexType": {
-            "original": "any",
-            "resolved": "any",
+            "original": "number",
+            "resolved": "number",
             "references": {}
           },
           "mutable": true,
-          "attr": "kul-stt-callback",
+          "attr": "kul-max-tokens",
           "reflectToAttr": false,
-          "docs": "Callback invoked when the Speech to Text button is pressed.",
+          "docs": "The maximum amount of tokens allowed in the LLM's answer.",
           "docsTags": [
             {
               "name": "default",
               "text": "\"\""
             }
           ],
-          "default": "null",
+          "default": "250",
           "values": [
             {
-              "type": "any"
+              "type": "number"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "kulSeed",
+          "type": "number",
+          "complexType": {
+            "original": "number",
+            "resolved": "number",
+            "references": {}
+          },
+          "mutable": true,
+          "attr": "kul-seed",
+          "reflectToAttr": false,
+          "docs": "The seed of the LLM's answer.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "\"\""
+            }
+          ],
+          "default": "-1",
+          "values": [
+            {
+              "type": "number"
             }
           ],
           "optional": false,
@@ -2733,27 +2761,86 @@
           "required": false
         },
         {
-          "name": "kulSubmitCallback",
-          "type": "any",
+          "name": "kulSystem",
+          "type": "string",
           "complexType": {
-            "original": "any",
-            "resolved": "any",
+            "original": "string",
+            "resolved": "string",
             "references": {}
           },
           "mutable": true,
-          "attr": "kul-submit-callback",
+          "attr": "kul-system",
           "reflectToAttr": false,
-          "docs": "Callback invoked when the submit button is pressed.",
+          "docs": "System message for the LLM.",
           "docsTags": [
             {
               "name": "default",
               "text": "\"\""
             }
           ],
-          "default": "null",
+          "default": "'You are a helpful and cheerful assistant eager to help the user out with his tasks.'",
           "values": [
             {
-              "type": "any"
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "kulTemperature",
+          "type": "number",
+          "complexType": {
+            "original": "number",
+            "resolved": "number",
+            "references": {}
+          },
+          "mutable": true,
+          "attr": "kul-temperature",
+          "reflectToAttr": false,
+          "docs": "Sets the creative boundaries of the LLM.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "\"\""
+            }
+          ],
+          "default": "0.7",
+          "values": [
+            {
+              "type": "number"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "kulValue",
+          "type": "KulChatState[]",
+          "complexType": {
+            "original": "KulChatState[]",
+            "resolved": "KulChatState[]",
+            "references": {
+              "KulChatState": {
+                "location": "import",
+                "path": "./kul-chat-declarations",
+                "id": "src/components/kul-chat/kul-chat-declarations.ts::KulChatState"
+              }
+            }
+          },
+          "mutable": true,
+          "reflectToAttr": false,
+          "docs": "Sets the initial history of the chat.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "\"\""
+            }
+          ],
+          "default": "[]",
+          "values": [
+            {
+              "type": "KulChatState[]"
             }
           ],
           "optional": false,
@@ -5785,6 +5872,7 @@
       "filePath": "src/components/kul-showcase/components/chat/kul-showcase-chat.tsx",
       "encapsulation": "shadow",
       "tag": "kul-showcase-chat",
+      "readme": "# kul-showcase-chat\n\n\n",
       "docs": "",
       "docsTags": [],
       "usage": {},
@@ -8491,7 +8579,7 @@
           },
           "mutable": true,
           "reflectToAttr": false,
-          "docs": "Specifies helper text to display alongside the text field.\r\nHelper text can provide additional context or instructions to the user.",
+          "docs": "Specifies helper text to display alongside the text field.\nHelper text can provide additional context or instructions to the user.",
           "docsTags": [
             {
               "name": "default",
@@ -8523,7 +8611,7 @@
           },
           "mutable": true,
           "reflectToAttr": false,
-          "docs": "Allows customization of the input or textarea element through additional HTML attributes.\r\nThis can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.",
+          "docs": "Allows customization of the input or textarea element through additional HTML attributes.\nThis can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.",
           "docsTags": [
             {
               "name": "default",
@@ -8550,7 +8638,7 @@
           "mutable": true,
           "attr": "kul-icon",
           "reflectToAttr": true,
-          "docs": "Defines the icon to be displayed within the text field.\r\nIcons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.",
+          "docs": "Defines the icon to be displayed within the text field.\nIcons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.",
           "docsTags": [
             {
               "name": "default",
@@ -8577,7 +8665,7 @@
           "mutable": true,
           "attr": "kul-label",
           "reflectToAttr": true,
-          "docs": "Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected.\r\nLabels are especially important for screen readers and users navigating with keyboard-only controls.",
+          "docs": "Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected.\nLabels are especially important for screen readers and users navigating with keyboard-only controls.",
           "docsTags": [
             {
               "name": "default",
@@ -8604,7 +8692,7 @@
           "mutable": true,
           "attr": "kul-style",
           "reflectToAttr": true,
-          "docs": "Accepts custom CSS styles to apply directly to the text field component.\r\nThis allows for fine-grained control over the appearance of the component beyond predefined styling options.",
+          "docs": "Accepts custom CSS styles to apply directly to the text field component.\nThis allows for fine-grained control over the appearance of the component beyond predefined styling options.",
           "docsTags": [
             {
               "name": "default",
@@ -8637,7 +8725,7 @@
           "mutable": true,
           "attr": "kul-styling",
           "reflectToAttr": true,
-          "docs": "Determines the overall styling theme of the text field, affecting its shape and border.\r\nOptions include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.",
+          "docs": "Determines the overall styling theme of the text field, affecting its shape and border.\nOptions include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.",
           "docsTags": [
             {
               "name": "default",
@@ -8704,7 +8792,7 @@
           "mutable": false,
           "attr": "kul-value",
           "reflectToAttr": false,
-          "docs": "Initializes the text field with a default value when the component is first rendered.\r\nThis can be used to pre-fill forms or set a starting point for user input.",
+          "docs": "Initializes the text field with a default value when the component is first rendered.\nThis can be used to pre-fill forms or set a starting point for user input.",
           "docsTags": [
             {
               "name": "default",
@@ -8849,6 +8937,28 @@
           "signature": "refresh() => Promise<void>",
           "parameters": [],
           "docs": "This method is used to trigger a new render of the component.",
+          "docsTags": []
+        },
+        {
+          "name": "setFocus",
+          "returns": {
+            "type": "Promise<void>",
+            "docs": ""
+          },
+          "complexType": {
+            "signature": "() => Promise<void>",
+            "parameters": [],
+            "references": {
+              "Promise": {
+                "location": "global",
+                "id": "global::Promise"
+              }
+            },
+            "return": "Promise<void>"
+          },
+          "signature": "setFocus() => Promise<void>",
+          "parameters": [],
+          "docs": "",
           "docsTags": []
         },
         {
@@ -10210,6 +10320,11 @@
       "declaration": "export interface KulChartEventPayload extends KulEventPayload {\r\n    column: KulDataColumn;\r\n    node: KulDataNode;\r\n    x: number | string;\r\n    y: number | string;\r\n}",
       "docstring": "",
       "path": "src/components/kul-chart/kul-chart-declarations.tsx"
+    },
+    "src/components/kul-chat/kul-chat-declarations.ts::KulChatState": {
+      "declaration": "export type KulChatState = 'connecting' | 'listening' | 'offline' | 'ready';",
+      "docstring": "",
+      "path": "src/components/kul-chat/kul-chat-declarations.ts"
     },
     "src/components.d.ts::KulDebugComponentInfo": {
       "declaration": "any",
