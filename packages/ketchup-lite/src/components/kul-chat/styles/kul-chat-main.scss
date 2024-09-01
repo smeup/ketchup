@@ -1,0 +1,140 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+#kul-component {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-rows: 3fr;
+  place-items: center;
+  margin: auto;
+
+  &--ready {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.password {
+  padding: 2.5em 0 2em 0;
+}
+
+.query-area {
+  width: 100%;
+}
+
+.chat-area {
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: 1fr;
+  overflow: auto;
+  padding-top: 1.25em;
+  white-space: pre-line;
+  width: 100%;
+  word-break: normal;
+}
+
+.spinner {
+  height: 48px;
+  margin: auto;
+  width: 48px;
+}
+
+.title {
+  text-align: center;
+  font-size: 2em;
+}
+
+.empty,
+.text {
+  font-size: 0.875em;
+  font-style: italic;
+  opacity: 0.5;
+  text-align: center;
+}
+
+.buttons {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1em 0;
+}
+
+.stt {
+  padding: 0 1em;
+}
+
+.request,
+.response {
+  padding: 0.5em 1em 1em 1em;
+}
+
+.request {
+  font-weight: bold;
+}
+
+.response {
+  margin-bottom: 1em;
+}
+
+.user {
+  display: flex;
+  justify-content: end;
+  width: max-content;
+}
+
+.user,
+.llm {
+  font-size: calc(var(--kul-font-size) * 1.25);
+  padding: 12px;
+}
+
+.message-container {
+  & {
+    backdrop-filter: blur(3.5px);
+    background-color: rgba(var(--kul-background-color-rgb), 0.125);
+    border: 1px solid rgba(var(--kul-text-color-rgb), 0.5);
+    border-radius: 8px;
+    max-width: 80%;
+    position: relative;
+    transition: background-color 225ms ease;
+  }
+
+  &:hover {
+    background-color: rgba(var(--kup-primary-color-rgb), 0.325);
+  }
+
+  &--assistant {
+    justify-self: start;
+  }
+
+  &--user {
+    justify-self: end;
+  }
+}
+
+.toolbar {
+  & {
+    background: rgba(var(--kul-background-color-rgb), 0.775);
+    border: 0;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top: 1px inset rgba(var(--kul-text-color-rgb), 0.225);
+    display: flex;
+    justify-content: end;
+    padding: 8px;
+  }
+
+  &__button {
+    margin: 0 4px;
+  }
+}

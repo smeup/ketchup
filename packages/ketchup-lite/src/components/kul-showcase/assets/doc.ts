@@ -626,6 +626,60 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
     styles: [],
   },
+  "kul-chat": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Retrieves the debug information reflecting the current state of the component.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves to a KulDebugComponentInfo object containing debug information.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Retrieves the properties of the component, with optional descriptions.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "A promise that resolves to an object where each key is a property name, optionally with its description.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "refresh",
+        docs: "Triggers a re-render of the component to reflect any state changes.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
+    props: [
+      {
+        name: "kulEndpointUrl",
+        docs: "Enables customization of the component's style.",
+        type: "string",
+      },
+      {
+        name: "kulSttCallback",
+        docs: "Callback invoked when the Speech to Text button is pressed.",
+        type: "any",
+      },
+      {
+        name: "kulStyle",
+        docs: "Enables customization of the component's style.",
+        type: "string",
+      },
+      {
+        name: "kulSubmitCallback",
+        docs: "Callback invoked when the submit button is pressed.",
+        type: "any",
+      },
+    ],
+    styles: [],
+  },
   "kul-code": {
     methods: [
       {
@@ -1319,6 +1373,11 @@ export const KUL_DOC: KulShowcaseDoc = {
     styles: [],
   },
   "kul-showcase-chart": {
+    methods: [],
+    props: [],
+    styles: [],
+  },
+  "kul-showcase-chat": {
     methods: [],
     props: [],
     styles: [],

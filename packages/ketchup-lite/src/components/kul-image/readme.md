@@ -71,6 +71,7 @@ Type: `Promise<void>`
  - [kul-badge](../kul-badge)
  - [kul-button](../kul-button)
  - [kul-card](../kul-card)
+ - [kul-chat](../kul-chat)
  - [kul-showcase-image](../kul-showcase/components/image)
  - [kul-tabbar](../kul-tabbar)
  - [kul-toast](../kul-toast)
@@ -89,6 +90,7 @@ graph TD;
   kul-badge --> kul-image
   kul-button --> kul-image
   kul-card --> kul-image
+  kul-chat --> kul-image
   kul-showcase-image --> kul-image
   kul-tabbar --> kul-image
   kul-toast --> kul-image
