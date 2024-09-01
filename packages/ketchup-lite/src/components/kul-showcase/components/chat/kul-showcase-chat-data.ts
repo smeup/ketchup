@@ -36,7 +36,7 @@ export const CHAT_DOC: KulArticleDataset = {
                                         },
                                         {
                                             id: '0.0.0.0.2',
-                                            value: ' component is a customizable web component designed to display chat snippets with syntax highlighting.',
+                                            value: ' component lets you chat with an LLM running locally. It is designed to work along with Koboldcpp.',
                                         },
                                     ],
                                     id: '0.0.0.0',
@@ -65,16 +65,16 @@ export const CHAT_DOC: KulArticleDataset = {
                                         },
                                         {
                                             id: '0.2.0.0.2',
-                                            value: ' component, include it in your HTML and provide the ',
+                                            value: ' component, include it in your HTML and set the ',
                                         },
                                         {
                                             id: '0.2.0.0.3',
                                             tagName: 'strong',
-                                            value: 'kulValue',
+                                            value: 'kulEndpointUrl',
                                         },
                                         {
                                             id: '0.2.0.0.4',
-                                            value: ' property with the chat snippet you wish to display.',
+                                            value: ' property with the endpoint of your Koboldcpp instance.',
                                         },
                                     ],
                                     id: '0.2.0.0',
@@ -86,7 +86,7 @@ export const CHAT_DOC: KulArticleDataset = {
                                                 kulChat: {
                                                     shape: 'code',
                                                     kulLanguage: 'markup',
-                                                    value: '<kul-chat kul-value="console.log(\'Hello, World!\');"></kul-chat>',
+                                                    value: '<kul-chat kul-endpoint-url="http://localhost:5001"></kul-chat>',
                                                 },
                                             },
                                             id: '0.2.0.1.0',

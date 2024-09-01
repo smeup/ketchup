@@ -27,11 +27,23 @@ export type KulChatEvent = 'ready';
 export type KulChatHistory = KulChatChoiceMessage[];
 
 export enum KulChatProps {
-    kulStyle = 'Custom style of the component.',
+    kulEndpointUrl = 'URL of the endpoint where the LLM is hosted',
+    kulMaxTokens = "Maximum number of tokens allowed in the LLM's answer",
+    kulSeed = "Seed value for the LLM's answer generation",
+    kulStyle = 'Custom style of the component',
+    kulSystem = 'System message for the LLM',
+    kulTemperature = 'Sets the creative boundaries of the LLM',
+    kulValue = 'Initial history of the chat',
 }
 
 export interface KulChatPropsInterface {
+    kulEndpointUrl?: string;
+    kulMaxTokens?: number;
+    kulSeed?: number;
     kulStyle?: string;
+    kulSystem?: string;
+    kulTemperature?: number;
+    kulValue?: KulChatState[];
 }
 
 export interface KulChatSendArguments {
