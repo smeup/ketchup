@@ -76,6 +76,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kul-chat](../kul-chat)
  - [kul-image](../kul-image)
  - [kul-showcase-button](../kul-showcase/components/button)
  - [kul-showcase-spinner](../kul-showcase/components/spinner)
@@ -84,6 +85,7 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
+  kul-chat --> kul-spinner
   kul-image --> kul-spinner
   kul-showcase-button --> kul-spinner
   kul-showcase-spinner --> kul-spinner

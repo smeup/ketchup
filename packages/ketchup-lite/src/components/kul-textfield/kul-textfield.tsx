@@ -130,6 +130,7 @@ export class KulTextfield {
     /*-------------------------------------------------*/
 
     #hasOutline: boolean;
+    #input: HTMLInputElement | HTMLTextAreaElement;
     #kulManager = kulManagerInstance();
     #maxLength: number;
 
@@ -206,6 +207,12 @@ export class KulTextfield {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
+    } /**
+     * Focuses the input element.
+     */
+    @Method()
+    async setFocus(): Promise<void> {
+        this.#input.focus();
     }
     /**
      * Sets the component's state.
@@ -307,7 +314,12 @@ export class KulTextfield {
                     this.onKulEvent(e, 'input');
                 }}
                 placeholder={this.kulFullWidth ? this.kulLabel : undefined}
-                value={this.kulValue}
+                ref={(el) => {
+                    if (el) {
+                        this.#input = el;
+                    }
+                }}
+                value={this.value}
             ></input>
         );
     }
@@ -369,7 +381,12 @@ export class KulTextfield {
                     onInput={(e) => {
                         this.onKulEvent(e, 'input');
                     }}
-                    value={this.kulValue}
+                    ref={(el) => {
+                        if (el) {
+                            this.#input = el;
+                        }
+                    }}
+                    value={this.value}
                 ></textarea>
             </span>
         );

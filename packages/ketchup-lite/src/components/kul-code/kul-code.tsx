@@ -4,6 +4,7 @@ import {
     Event,
     EventEmitter,
     forceUpdate,
+    getAssetPath,
     h,
     Host,
     Method,
@@ -17,10 +18,12 @@ import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
 import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
 import Prism from 'prismjs';
+import 'prismjs/components/';
 import { KulButton } from '../kul-button/kul-button';
 import { KulButtonEventPayload } from '../kul-button/kul-button-declarations';
 
 @Component({
+    assetsDirs: ['assets/prism'],
     tag: 'kul-code',
     styleUrl: 'kul-code.scss',
     shadow: true,
@@ -48,7 +51,7 @@ export class KulCode {
     /**
      * Value.
      */
-    @State() value: string = '';
+    @State() value = '';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -171,6 +174,16 @@ export class KulCode {
         }
     }
 
+    async #highlightCode(): Promise<void> {
+        try {
+            await this.#loadLanguage();
+            Prism.highlightElement(this.#el);
+        } catch (error) {
+            console.error('Failed to highlight code:', error);
+            this.#el.innerHTML = this.value;
+        }
+    }
+
     #isObjectLike(
         obj: unknown
     ): obj is Record<string | number | symbol, unknown> {
@@ -191,6 +204,21 @@ export class KulCode {
             this.kulLanguage?.toLowerCase() === 'json' ||
             this.#isDictionary(value)
         );
+    }
+
+    async #loadLanguage() {
+        try {
+            const module = getAssetPath(
+                `./assets/prism/prism-${this.kulLanguage}.min.js`
+            );
+            await import(module);
+            Prism.highlightAll();
+        } catch (error) {
+            console.error(
+                `Failed to load Prism.js component for ${this.kulLanguage}:`,
+                error
+            );
+        }
     }
 
     #updateValue() {
@@ -222,15 +250,13 @@ export class KulCode {
     }
 
     componentDidRender() {
-        Prism.highlightElement(this.#el);
+        if (this.#el) {
+            this.#highlightCode();
+        }
         this.#kulManager.debug.updateDebugInfo(this, 'did-render');
     }
 
     render() {
-        const prismLanguage = this.#isJson(this.value)
-            ? 'javascript'
-            : this.kulLanguage;
-
         return (
             <Host>
                 {this.kulStyle && (
@@ -253,7 +279,7 @@ export class KulCode {
                             ></kul-button>
                         </div>
                         <pre
-                            class={'language-' + prismLanguage}
+                            class={'language-' + this.kulLanguage}
                             key={this.value}
                             ref={(el: HTMLPreElement) => {
                                 if (el) {

@@ -7,6 +7,7 @@ export const COMPONENTS = [
     'button',
     'card',
     'chart',
+    'chat',
     'code',
     'image',
     'lazy',
@@ -165,6 +166,12 @@ export const KUL_SHOWCASE_COMPONENTS: KulDataDataset = {
             icon: 'pie_chart',
             id: 'Chart',
             value: 'Chart',
+        },
+        {
+            description: 'A simple chat module to interact with a local LLM.',
+            icon: 'message',
+            id: 'Chat',
+            value: 'Chat',
         },
         {
             description: 'Visualizes code in a readable format.',
