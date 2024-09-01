@@ -14,7 +14,9 @@ import {
 import {
     KulChatChoiceMessage,
     KulChatEvent,
+    KulChatHistory,
     KulChatProps,
+    KulChatSendArguments,
     KulChatState,
 } from './kul-chat-declarations';
 import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
@@ -53,11 +55,11 @@ export class KulChat {
     /**
      * History of the messages.
      */
-    @State() history: KulChatChoiceMessage[] = [];
+    @State() history: KulChatHistory = [];
     /**
      * State of the component.
      */
-    @State() state: KulChatState = 'offline';
+    @State() state: KulChatState = 'connecting';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -67,31 +69,50 @@ export class KulChat {
      * Enables customization of the component's style.
      * @default "" - No custom style applied by default.
      */
-    @Prop({ mutable: true, reflect: true }) kulEndpointUrl =
-        'http://localhost:5001';
+    @Prop({ mutable: true }) kulEndpointUrl = 'http://localhost:5001';
+    /**
+     * The maximum amount of tokens allowed in the LLM's answer.
+     * @default ""
+     */
+    @Prop({ mutable: true }) kulMaxTokens = 250;
+    /**
+     * The seed of the LLM's answer.
+     * @default ""
+     */
+    @Prop({ mutable: true }) kulSeed = -1;
     /**
      * Enables customization of the component's style.
      * @default "" - No custom style applied by default.
      */
     @Prop({ mutable: true, reflect: true }) kulStyle = '';
     /**
+     * System message for the LLM.
+     * @default ""
+     */
+    @Prop({ mutable: true }) kulSystem =
+        'You are a helpful and cheerful assistant eager to help the user out with his tasks.';
+    /**
+     * Sets the creative boundaries of the LLM.
+     * @default ""
+     */
+    @Prop({ mutable: true }) kulTemperature = 0.7;
+    /**
      * Sets the initial history of the chat.
      * @default ""
      */
-    @Prop({ mutable: true, reflect: false }) kulValue = null;
+    @Prop({ mutable: true }) kulValue: KulChatState[] = [];
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
     #clearButton: HTMLKulButtonElement;
-    #statusinterval: NodeJS.Timeout;
-    #copyTimeoutId: NodeJS.Timeout;
-    #el: HTMLPreElement;
     #kulManager = kulManagerInstance();
-    #textarea: HTMLKulTextfieldElement;
-    #submitButton: HTMLKulButtonElement;
+    #spinnerBar: HTMLKulSpinnerElement;
+    #statusinterval: NodeJS.Timeout;
     #sttButton: HTMLKulButtonElement;
+    #submitButton: HTMLKulButtonElement;
+    #textarea: HTMLKulTextfieldElement;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -151,12 +172,15 @@ export class KulChat {
     /*-------------------------------------------------*/
 
     async #checkLLMStatus() {
+        if (this.state === 'offline') {
+            this.state = 'connecting';
+        }
         try {
             const response = await fetch(this.kulEndpointUrl);
 
             if (!response.ok) {
                 this.state = 'offline';
-            } else if (this.state === 'offline') {
+            } else {
                 this.state = 'ready';
             }
         } catch (error) {
@@ -203,18 +227,23 @@ export class KulChat {
                                 }}
                                 title="Copy text to clipboard."
                             ></kul-button>
-                            <kul-button
-                                class={cssClass}
-                                kulIcon="refresh"
-                                onClick={() => {
-                                    const index = this.history.indexOf(m);
-                                    if (index !== -1) {
-                                        this.history.splice(index, 1);
-                                        this.refresh();
-                                    }
-                                }}
-                                title="Regenerate answer."
-                            ></kul-button>
+                            {m.role === 'user' ? (
+                                <kul-button
+                                    class={cssClass}
+                                    kulIcon="refresh"
+                                    onClick={() => {
+                                        const index = this.history.indexOf(m);
+                                        if (index !== -1) {
+                                            this.history = this.history.slice(
+                                                0,
+                                                index + 1
+                                            );
+                                            this.#sendPrompt();
+                                        }
+                                    }}
+                                    title="Regenerate answer to this question."
+                                ></kul-button>
+                            ) : null}
                         </div>
                     </div>
                 );
@@ -236,7 +265,7 @@ export class KulChat {
                 />
             </div>,
             <div class="title">Just a moment.</div>,
-            <div class="text">Connecting you to your LLM endpoint...</div>,
+            <div class="text">Contacting your LLM endpoint...</div>,
         ];
     };
 
@@ -266,11 +295,15 @@ export class KulChat {
                 elements.push(<div class="paragraph">{textPart}</div>);
             }
 
-            const language = match[1] ? match[1].trim() : 'plaintext';
+            const language = match[1] ? match[1].trim() : 'text';
             const codePart = match[2].trim();
 
             elements.push(
-                <kul-code kulLanguage={language} kulValue={codePart}></kul-code>
+                <kul-code
+                    class={'code'}
+                    kulLanguage={language}
+                    kulValue={codePart}
+                ></kul-code>
             );
 
             lastIndex = match.index + match[0].length;
@@ -337,8 +370,16 @@ export class KulChat {
                     <kul-button
                         kulIcon="check"
                         kulLabel="Send"
-                        onClick={() => {
-                            this.#sendPrompt();
+                        onClick={async () => {
+                            const value = await this.#textarea.getValue();
+                            if (value) {
+                                const newMessage: KulChatChoiceMessage = {
+                                    role: 'user',
+                                    content: value,
+                                };
+                                this.history = [...this.history, newMessage];
+                                this.#sendPrompt();
+                            }
                         }}
                         ref={(el) => {
                             if (el) {
@@ -355,20 +396,38 @@ export class KulChat {
                 </div>
             </div>,
             <div class={`chat-area`}>{this.#prepChat()}</div>,
+            <div class="spinner-bar-wrapper">
+                <kul-spinner
+                    kulBarVariant={true}
+                    ref={(el) => {
+                        if (el) this.#spinnerBar = el;
+                    }}
+                ></kul-spinner>
+            </div>,
         ];
     }
 
     async #sendPrompt() {
+        this.#spinnerBar.kulActive = true;
+
         this.#disableInteractivity(true);
-        const success = await send(
-            await this.#textarea.getValue(),
-            this.history,
-            this.kulEndpointUrl
-        );
+        const sendArgs: KulChatSendArguments = {
+            history: this.history,
+            max_tokens: this.kulMaxTokens,
+            seed: this.kulSeed,
+            system: this.kulSystem,
+            temperature: this.kulTemperature,
+            url: this.kulEndpointUrl,
+        };
+        const success = await send(sendArgs);
         if (success) {
-            await this.#textarea.setValue('');
-            await this.refresh();
             this.#disableInteractivity(false);
+            await this.#textarea.setValue('');
+            this.#spinnerBar.kulActive = false;
+            await this.refresh();
+            this.#textarea.setFocus();
+        } else {
+            this.history.pop();
         }
     }
 

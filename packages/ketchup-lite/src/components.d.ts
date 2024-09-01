@@ -14,6 +14,7 @@ import { KulImagePropsInterface } from "./components/kul-image/kul-image-declara
 import { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 import { KulChartEventPayload, KulChartLegendPlacement, KulChartType } from "./components/kul-chart/kul-chart-declarations";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
+import { KulChatState } from "./components/kul-chat/kul-chat-declarations";
 import { KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 import { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
@@ -33,6 +34,7 @@ export { KulImagePropsInterface } from "./components/kul-image/kul-image-declara
 export { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 export { KulChartEventPayload, KulChartLegendPlacement, KulChartType } from "./components/kul-chart/kul-chart-declarations";
 export { XAXisComponentOption, YAXisComponentOption } from "echarts";
+export { KulChatState } from "./components/kul-chat/kul-chat-declarations";
 export { KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 export { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
@@ -373,15 +375,35 @@ export namespace Components {
          */
         "kulEndpointUrl": string;
         /**
+          * The maximum amount of tokens allowed in the LLM's answer.
+          * @default ""
+         */
+        "kulMaxTokens": number;
+        /**
+          * The seed of the LLM's answer.
+          * @default ""
+         */
+        "kulSeed": number;
+        /**
           * Enables customization of the component's style.
           * @default "" - No custom style applied by default.
          */
         "kulStyle": string;
         /**
+          * System message for the LLM.
+          * @default ""
+         */
+        "kulSystem": string;
+        /**
+          * Sets the creative boundaries of the LLM.
+          * @default ""
+         */
+        "kulTemperature": number;
+        /**
           * Sets the initial history of the chat.
           * @default ""
          */
-        "kulValue": any;
+        "kulValue": KulChatState[];
         /**
           * Triggers a re-render of the component to reflect any state changes.
          */
@@ -2146,15 +2168,35 @@ declare namespace LocalJSX {
          */
         "kulEndpointUrl"?: string;
         /**
+          * The maximum amount of tokens allowed in the LLM's answer.
+          * @default ""
+         */
+        "kulMaxTokens"?: number;
+        /**
+          * The seed of the LLM's answer.
+          * @default ""
+         */
+        "kulSeed"?: number;
+        /**
           * Enables customization of the component's style.
           * @default "" - No custom style applied by default.
          */
         "kulStyle"?: string;
         /**
+          * System message for the LLM.
+          * @default ""
+         */
+        "kulSystem"?: string;
+        /**
+          * Sets the creative boundaries of the LLM.
+          * @default ""
+         */
+        "kulTemperature"?: number;
+        /**
           * Sets the initial history of the chat.
           * @default ""
          */
-        "kulValue"?: any;
+        "kulValue"?: KulChatState[];
         /**
           * Describes event emitted.
          */

@@ -24,12 +24,23 @@ export interface KulChatCompletionObject {
 
 export type KulChatEvent = 'ready';
 
+export type KulChatHistory = KulChatChoiceMessage[];
+
 export enum KulChatProps {
     kulStyle = 'Custom style of the component.',
 }
 
 export interface KulChatPropsInterface {
     kulStyle?: string;
+}
+
+export interface KulChatSendArguments {
+    history: KulChatHistory;
+    max_tokens: number;
+    seed: number;
+    system: string;
+    temperature: number;
+    url: string;
 }
 
 export type KulChatState = 'connecting' | 'listening' | 'offline' | 'ready';

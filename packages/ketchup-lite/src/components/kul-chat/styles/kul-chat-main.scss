@@ -11,8 +11,12 @@
 }
 
 .wrapper {
+  backdrop-filter: blur(3.5px);
+  box-sizing: border-box;
   display: grid;
-  grid-template-rows: 3fr;
+  grid-template-rows: repeat(3, 1fr);
+  height: 100%;
+  padding: 16px 0;
   place-items: center;
   margin: auto;
 
@@ -37,7 +41,7 @@
   grid-gap: 16px;
   grid-template-columns: 1fr;
   overflow: auto;
-  padding-top: 1.25em;
+  margin-top: 1.25em;
   white-space: pre-line;
   width: 100%;
   word-break: normal;
@@ -52,6 +56,10 @@
 .title {
   text-align: center;
   font-size: 2em;
+}
+
+code {
+  margin: 12px 0;
 }
 
 .empty,
@@ -137,4 +145,12 @@
   &__button {
     margin: 0 4px;
   }
+}
+
+.spinner-bar-wrapper {
+  bottom: 0;
+  height: 4px;
+  left: 0;
+  position: absolute;
+  width: 100%;
 }

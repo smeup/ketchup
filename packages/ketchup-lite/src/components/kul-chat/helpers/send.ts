@@ -1,40 +1,44 @@
-import { KulChatChoiceMessage } from '../kul-chat-declarations';
+import {
+    KulChatChoiceMessage,
+    KulChatSendArguments,
+} from '../kul-chat-declarations';
 
-export const send = async (
-    message: string,
-    history: KulChatChoiceMessage[],
-    url: string
-): Promise<boolean> => {
-    if (message) {
-        const request = {
-            temperature: 0.5,
-            max_tokens: 200,
-            seed: 0,
-            messages: [
-                {
-                    role: 'user',
-                    content: message,
-                },
-            ],
+export const send: (args: KulChatSendArguments) => Promise<boolean> = async ({
+    history,
+    max_tokens,
+    seed,
+    system,
+    temperature,
+    url,
+}): Promise<boolean> => {
+    const request = {
+        temperature,
+        max_tokens,
+        seed,
+        messages: history.map((msg) => ({
+            role: msg.role,
+            content: msg.content,
+        })),
+    };
+
+    if (system) {
+        request.messages.unshift({
+            role: 'system',
+            content: system,
+        });
+    }
+
+    try {
+        const response = await callLLM(request, url);
+        const llmMessage: KulChatChoiceMessage = {
+            role: 'llm',
+            content: response,
         };
-
-        try {
-            const response = await callLLM(request, url);
-            const newMessage: KulChatChoiceMessage = {
-                role: 'user',
-                content: message,
-            };
-            const llmMessage: KulChatChoiceMessage = {
-                role: 'llm',
-                content: response,
-            };
-            history.push(newMessage);
-            history.push(llmMessage);
-            return true;
-        } catch (error) {
-            console.error('Error calling LLM:', error);
-            return false;
-        }
+        history.push(llmMessage);
+        return true;
+    } catch (error) {
+        console.error('Error calling LLM:', error);
+        return false;
     }
 };
 
