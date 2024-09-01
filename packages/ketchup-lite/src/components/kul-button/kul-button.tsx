@@ -324,7 +324,10 @@ export class KulButton {
 
     #prepIcon(image: KulImagePropsInterface) {
         return this.kulIcon ? (
-            <kul-image class="button__icon kul-icon" {...image} />
+            <kul-image
+                class={`button__icon kul-icon ${this.kulShowSpinner ? 'button__icon--hidden' : ''}`}
+                {...image}
+            />
         ) : undefined;
     }
 

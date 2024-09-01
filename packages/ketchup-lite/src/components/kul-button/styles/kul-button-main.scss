@@ -332,6 +332,10 @@
   &__icon {
     margin-left: -0.25em;
     margin-right: 0.75em;
+
+    &--hidden {
+      visibility: hidden;
+    }
   }
 
   &__label + .button__icon {
