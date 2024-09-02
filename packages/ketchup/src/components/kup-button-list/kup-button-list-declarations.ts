@@ -11,6 +11,7 @@ import {
  * Used to export every prop in an object.
  */
 export enum KupButtonListProps {
+    blackMode = 'Forced component on a black background. It prescinds the theme',
     contentAlign = 'Manage the align contents of the button. It could be right, left, center, around, evenly, between. Center is the default',
     columns = 'Number of columns.',
     customStyle = 'Custom style of the component.',
