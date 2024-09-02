@@ -150,13 +150,23 @@ export class KulChat {
     async getDebugInfo(): Promise<KulDebugComponentInfo> {
         return this.debugInfo;
     }
-
+    /**
+     * Returns the full history as a string.
+     * @returns {string} Full history of the chat.
+     */
+    getHistory(): string {
+        try {
+            return JSON.stringify(this.history);
+        } catch {
+            return '';
+        }
+    }
     /**
      * Returns the last message as a string.
      * @returns {string} The last message of the history.
      */
     getLastMessage(): string {
-        return this.history?.slice(-1)?.[0]?.content;
+        return this.history?.slice(-1)?.[0]?.content ?? '';
     }
     /**
      * Retrieves the properties of the component, with optional descriptions.

@@ -16,9 +16,8 @@
   display: grid;
   grid-template-rows: repeat(3, 1fr);
   height: 100%;
-  padding: 16px 0;
-  place-items: center;
   margin: auto;
+  padding: 18px 0;
 
   &--ready {
     display: flex;
@@ -35,7 +34,6 @@
 .query-area {
   box-sizing: border-box;
   max-width: 100%;
-  padding: 12px;
   width: 100%;
 }
 
