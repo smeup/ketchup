@@ -320,7 +320,7 @@ export class KupData {
                 commands ?? []
             );
 
-            const rowActionsWithCodVer = actions !== undefined 
+            const rowActionsWithCodVer = actions && actions.length
                 ? [...this.row.rowActionsAdapter(actions), ...codVerActions]
                 : [...codVerActions];
 
