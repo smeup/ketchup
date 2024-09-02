@@ -82,6 +82,7 @@
 }
 
 .chat-area {
+  align-content: start;
   display: grid;
   grid-gap: var(--kul_chat_grid_gap);
   grid-template-columns: 1fr;
