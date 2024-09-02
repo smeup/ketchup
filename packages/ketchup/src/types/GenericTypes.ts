@@ -60,6 +60,7 @@ export interface KupEventPayload {
  */
 export enum KupTagNames {
     ACCORDION = 'KUP-ACCORDION',
+    ACTIVITY_TIMELINE = 'KUP-ACTIVITY-TIMELINE',
     AUTOCOMPLETE = 'KUP-AUTOCOMPLETE',
     BADGE = 'KUP-BADGE',
     BOX = 'KUP-BOX',

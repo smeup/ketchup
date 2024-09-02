@@ -455,6 +455,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'activitytimeline',
+                  },
+                },
+                icon: 'calendar',
+                value: 'Activity Timeline',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'autocomplete',
                   },
                 },

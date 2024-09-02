@@ -1,0 +1,142 @@
+.atm-container {
+  color: var(--kup-gray-color-70);
+
+  &.clickable {
+    cursor: pointer;
+  }
+
+  .atm-event {
+    margin-bottom: 10px;
+    padding-bottom: 25px;
+    display: flex;
+    position: relative;
+    width: 100%;
+
+    &:after {
+      content: '';
+      display: inline-block;
+      width: 1px;
+      left: 15px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 1;
+      background: var(--kup-primary-color);
+    }
+
+    .atm-icon-wrapper {
+      margin-top: 10px;
+    }
+
+    .atm-thumb {
+      background: var(--kup-primary-color);
+      display: inline-block;
+      vertical-align: top;
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: var(--kup-radius-00);
+      text-align: center;
+      z-index: 10;
+      position: relative;
+      border-bottom-width: 2px;
+
+      > span.-atm-icon {
+        vertical-align: middle;
+        line-height: 32px;
+        color: white;
+        font-size: 20px;
+      }
+    }
+
+    .atm-content {
+      display: inline-block;
+      padding: 0 6px 0 10px;
+      vertical-align: top;
+      width: calc(100% - 45px);
+
+      .atm-content-header {
+        h3.atm-title {
+          margin: 0;
+          font-size: 15px;
+          line-height: 16px;
+          float: left;
+          width: calc(100% - 100px);
+        }
+
+        .atm-datetime {
+          font-style: italic;
+          font-size: 11px;
+          line-height: 16px;
+          float: right;
+          width: 100px;
+          text-align: right;
+        }
+      }
+      .atm-row {
+        max-width: calc(100% - 30px);
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-gap: 0px 0px;
+        padding-bottom: 10px;
+
+        .atm-col {
+          display: flex;
+          align-items: baseline;
+          justify-content: center;
+          gap: 3px;
+          width: 100%;
+
+          .atm-inner-col {
+            width: 50%;
+
+            h3 {
+              margin-bottom: 7px;
+              font-size: 12px;
+              word-break: break-word;
+              padding-right: 6px;
+              font-weight: 400;
+            }
+
+            p {
+              font-size: 12px;
+              word-break: break-word;
+              text-decoration: underline;
+              color: var(--kup-primary-color);
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1799px) {
+  .atm-container .atm-event .atm-content .atm-row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .atm-container .atm-event .atm-content .atm-row .atm-col {
+    justify-content: start;
+  }
+}
+
+@media (max-width: 1365px) {
+  .atm-container .atm-event .atm-content .atm-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 991px) {
+  .atm-container .atm-event .atm-content .atm-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 575px) {
+  .atm-container .atm-event .atm-content .atm-row {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
