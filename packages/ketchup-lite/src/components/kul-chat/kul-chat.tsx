@@ -150,6 +150,14 @@ export class KulChat {
     async getDebugInfo(): Promise<KulDebugComponentInfo> {
         return this.debugInfo;
     }
+
+    /**
+     * Returns the last message as a string.
+     * @returns {string} The last message of the history.
+     */
+    getLastMessage(): string {
+        return this.history?.slice(-1)?.[0]?.content;
+    }
     /**
      * Retrieves the properties of the component, with optional descriptions.
      * @param {boolean} descriptions - If true, returns properties with descriptions; otherwise, returns properties only.
@@ -208,7 +216,7 @@ export class KulChat {
                         <div class={m.role}>{this.#prepMessage(m)}</div>
                         <div class="toolbar">
                             <kul-button
-                                class={cssClass}
+                                class={cssClass + ' kul-danger'}
                                 kulIcon="delete"
                                 onClick={() => {
                                     const index = this.history.indexOf(m);
