@@ -196,6 +196,16 @@ export class KulChat {
     async refresh(): Promise<void> {
         forceUpdate(this);
     }
+    /**
+     * Sets the history of the component through a string.
+     */
+    @Method()
+    async setHistory(history: string): Promise<void> {
+        try {
+            const cb = () => (this.history = JSON.parse(history));
+            this.#updateHistory(cb);
+        } catch {}
+    }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */

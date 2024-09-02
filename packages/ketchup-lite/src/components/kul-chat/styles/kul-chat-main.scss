@@ -11,13 +11,15 @@
 }
 
 .wrapper {
-  backdrop-filter: blur(3.5px);
-  box-sizing: border-box;
-  display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  height: 100%;
-  margin: auto;
-  padding: 18px 0;
+  & {
+    backdrop-filter: blur(3.5px);
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
+    margin: auto;
+    padding: 18px;
+  }
 
   &--ready {
     display: flex;
@@ -113,6 +115,7 @@ code {
     background-color: rgba(var(--kul-background-color-rgb), 0.125);
     border: 1px solid rgba(var(--kul-text-color-rgb), 0.5);
     border-radius: 8px;
+    height: max-content;
     max-width: 80%;
     position: relative;
     transition: background-color 225ms ease;
