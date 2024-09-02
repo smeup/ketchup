@@ -7,22 +7,23 @@
 
 ## Properties
 
-| Property         | Attribute          | Description                                               | Type             | Default                                                                                 |
-| ---------------- | ------------------ | --------------------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------- |
-| `kulEndpointUrl` | `kul-endpoint-url` | Enables customization of the component's style.           | `string`         | `'http://localhost:5001'`                                                               |
-| `kulMaxTokens`   | `kul-max-tokens`   | The maximum amount of tokens allowed in the LLM's answer. | `number`         | `250`                                                                                   |
-| `kulSeed`        | `kul-seed`         | The seed of the LLM's answer.                             | `number`         | `-1`                                                                                    |
-| `kulStyle`       | `kul-style`        | Enables customization of the component's style.           | `string`         | `''`                                                                                    |
-| `kulSystem`      | `kul-system`       | System message for the LLM.                               | `string`         | `'You are a helpful and cheerful assistant eager to help the user out with his tasks.'` |
-| `kulTemperature` | `kul-temperature`  | Sets the creative boundaries of the LLM.                  | `number`         | `0.7`                                                                                   |
-| `kulValue`       | --                 | Sets the initial history of the chat.                     | `KulChatState[]` | `[]`                                                                                    |
+| Property             | Attribute              | Description                                                               | Type             | Default                                                                                 |
+| -------------------- | ---------------------- | ------------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------- |
+| `kulEndpointUrl`     | `kul-endpoint-url`     | Enables customization of the component's style.                           | `string`         | `'http://localhost:5001'`                                                               |
+| `kulMaxTokens`       | `kul-max-tokens`       | The maximum amount of tokens allowed in the LLM's answer.                 | `number`         | `250`                                                                                   |
+| `kulPollingInterval` | `kul-polling-interval` | How often the component checks whether the LLM endpoint is online or not. | `number`         | `10000`                                                                                 |
+| `kulSeed`            | `kul-seed`             | The seed of the LLM's answer.                                             | `number`         | `-1`                                                                                    |
+| `kulStyle`           | `kul-style`            | Enables customization of the component's style.                           | `string`         | `''`                                                                                    |
+| `kulSystem`          | `kul-system`           | System message for the LLM.                                               | `string`         | `'You are a helpful and cheerful assistant eager to help the user out with his tasks.'` |
+| `kulTemperature`     | `kul-temperature`      | Sets the creative boundaries of the LLM.                                  | `number`         | `0.7`                                                                                   |
+| `kulValue`           | --                     | Sets the initial history of the chat.                                     | `KulChatState[]` | `[]`                                                                                    |
 
 
 ## Events
 
-| Event            | Description              | Type                           |
-| ---------------- | ------------------------ | ------------------------------ |
-| `kul-chat-event` | Describes event emitted. | `CustomEvent<KulEventPayload>` |
+| Event            | Description              | Type                               |
+| ---------------- | ------------------------ | ---------------------------------- |
+| `kul-chat-event` | Describes event emitted. | `CustomEvent<KulChatEventPayload>` |
 
 
 ## Methods
@@ -36,6 +37,26 @@ Retrieves the debug information reflecting the current state of the component.
 Type: `Promise<KulDebugComponentInfo>`
 
 A promise that resolves to a KulDebugComponentInfo object containing debug information.
+
+### `getHistory() => Promise<string>`
+
+Returns the full history as a string.
+
+#### Returns
+
+Type: `Promise<string>`
+
+Full history of the chat.
+
+### `getLastMessage() => Promise<string>`
+
+Returns the last message as a string.
+
+#### Returns
+
+Type: `Promise<string>`
+
+The last message of the history.
 
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 

@@ -1,3 +1,5 @@
+import { KulEventPayload } from '../../components';
+
 export interface KulChatChoice {
     index: number;
     message: KulChatChoiceMessage;
@@ -22,23 +24,30 @@ export interface KulChatCompletionObject {
     choices: KulChatCompletionChoice[];
 }
 
-export type KulChatEvent = 'ready';
+export type KulChatEvent = 'update' | 'ready';
+
+export interface KulChatEventPayload extends KulEventPayload {
+    eventType: KulChatEvent;
+    history: string;
+}
 
 export type KulChatHistory = KulChatChoiceMessage[];
 
 export enum KulChatProps {
-    kulEndpointUrl = 'URL of the endpoint where the LLM is hosted',
-    kulMaxTokens = "Maximum number of tokens allowed in the LLM's answer",
-    kulSeed = "Seed value for the LLM's answer generation",
-    kulStyle = 'Custom style of the component',
-    kulSystem = 'System message for the LLM',
-    kulTemperature = 'Sets the creative boundaries of the LLM',
-    kulValue = 'Initial history of the chat',
+    kulEndpointUrl = 'URL of the endpoint where the LLM is hosted.',
+    kulMaxTokens = "Maximum number of tokens allowed in the LLM's answer.",
+    kulPollingInterval = 'How often the component checks whether the LLM endpoint is online or not.',
+    kulSeed = "Seed value for the LLM's answer generation.",
+    kulStyle = 'Custom style of the component.',
+    kulSystem = 'System message for the LLM.',
+    kulTemperature = 'Sets the creative boundaries of the LLM.',
+    kulValue = 'Initial history of the chat.',
 }
 
 export interface KulChatPropsInterface {
     kulEndpointUrl?: string;
     kulMaxTokens?: number;
+    kulPollingInterval?: number;
     kulSeed?: number;
     kulStyle?: string;
     kulSystem?: string;
@@ -55,7 +64,7 @@ export interface KulChatSendArguments {
     url: string;
 }
 
-export type KulChatState = 'connecting' | 'listening' | 'offline' | 'ready';
+export type KulChatState = 'connecting' | 'offline' | 'ready';
 
 export interface KulChatUsage {
     usage: KulChatUsageTokens;
