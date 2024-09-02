@@ -29,6 +29,20 @@ import { KupScrollOnHoverElement } from '../../managers/kup-scroll-on-hover/kup-
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupDataRowAction } from '../../managers/kup-data/kup-data-declarations';
+import { KupDataTableRow } from '../kup-data-table/kup-data-table-declarations';
+import {
+    KupDynamicPositionAnchor,
+    KupDynamicPositionElement,
+    KupDynamicPositionPlacement,
+} from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
+import {
+    KupCardData,
+    KupCardEventPayload,
+    KupCardFamily,
+} from '../kup-card/kup-card-declarations';
+import { Mouse } from 'puppeteer';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -90,6 +104,7 @@ export class KupTabBar {
      * Element scrollable on mouse hover.
      */
     private scrollArea: KupScrollOnHoverElement = null;
+    #clickCbDropCard: KupManagerClickCb = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -137,6 +152,8 @@ export class KupTabBar {
         bubbles: true,
     })
     kupFocus: EventEmitter<KupTabBarEventPayload>;
+    #dropDownActionCardAnchor: HTMLElement = null;
+    actionsCard: HTMLKupCardElement;
 
     onKupBlur(i: number, node: KupTabBarNode) {
         this.kupBlur.emit({
@@ -162,13 +179,15 @@ export class KupTabBar {
         });
     }
 
-    onKupIconClick(i: number, node: KupTabBarNode) {
+    onKupIconClick(i: number, node: KupTabBarNode, el: HTMLElement) {
+        this.#dropDownActionCardAnchor = el;
         this.kupIconClick.emit({
             comp: this,
             id: this.rootElement.id,
             index: i,
             node: node,
         });
+        this.createDropDownActionsCard();
     }
 
     onKupFocus(i: number, node: KupTabBarNode) {
@@ -245,6 +264,149 @@ export class KupTabBar {
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
+
+    closeRowActionsCard() {
+        this.kupManager.dynamicPosition.stop(
+            this.actionsCard as KupDynamicPositionElement
+        );
+        this.kupManager.removeClickCallback(this.#clickCbDropCard);
+        this.actionsCard.remove();
+        this.actionsCard = null;
+    }
+
+    prepareDataForActionsCard(): KupCardData {
+        const data: KupCardData = {
+            list: [
+                {
+                    data: [
+                        {
+                            value: 'Copia link',
+                            id: '1',
+                            icon: 'add_alert',
+                            trailingIcon: true,
+                            selected: false,
+                        },
+                        {
+                            value: 'Stampa',
+                            id: '2',
+                            selected: false,
+                            icon: 'ac_unit',
+                            separator: true,
+                        },
+                        {
+                            value: 'Aiuto - F1',
+                            id: '3',
+                            icon: '3d_rotation',
+                            selected: false,
+                        },
+                        {
+                            value: 'Estendi',
+                            id: '4',
+                            icon: '3d_rotation',
+                            selected: false,
+                            children: [
+                                {
+                                    value: 'Aiuto - F1',
+                                    id: '31',
+                                    icon: '3d_rotation',
+                                    selected: false,
+                                },
+                                {
+                                    value: 'Aiuto - F2',
+                                    id: '31',
+                                    icon: '3d_rotation',
+                                    selected: false,
+                                },
+                            ],
+                        },
+                        {
+                            value: 'Esterno',
+                            id: '5',
+                            icon: '3d_rotation',
+                            selected: false,
+                        },
+                        {
+                            value: 'Cambia vista',
+                            id: '6',
+                            icon: '3d_rotation',
+                            selected: false,
+                            separator: true,
+                        },
+                        {
+                            value: 'Gestisci setup utente',
+                            id: '7',
+                            icon: '3d_rotation',
+                            selected: false,
+                        },
+                    ],
+                },
+            ],
+        };
+        return data;
+    }
+
+    createDropDownActionsCard() {
+        if (this.actionsCard) {
+            this.closeRowActionsCard();
+        }
+        this.actionsCard = document.createElement('kup-card');
+        this.actionsCard.layoutFamily = KupCardFamily.STANDARD;
+        this.actionsCard.layoutNumber = 16;
+        this.actionsCard.menuVisible = true;
+        this.actionsCard.sizeX = 'auto';
+        this.actionsCard.sizeY = 'auto';
+        this.actionsCard.data = this.prepareDataForActionsCard();
+        this.#clickCbDropCard = {
+            cb: () => {
+                this.closeRowActionsCard();
+            },
+            el: this.actionsCard,
+        };
+        this.kupManager.addClickCallback(this.#clickCbDropCard, true);
+        this.actionsCard.style.position = 'absolute';
+        this.actionsCard.style.left = '0';
+        this.actionsCard.style.top = '0';
+        this.actionsCard.isMenu = true;
+        this.rootElement.shadowRoot.append(this.actionsCard);
+        this.kupManager.dynamicPosition.register(
+            this.actionsCard,
+            this.#dropDownActionCardAnchor as KupDynamicPositionAnchor,
+            0,
+            KupDynamicPositionPlacement.AUTO,
+            true
+        );
+        this.kupManager.dynamicPosition.start(
+            this.actionsCard as unknown as KupDynamicPositionElement
+        );
+        this.actionsCard.addEventListener(
+            'kup-card-event',
+            (e: CustomEvent<KupCardEventPayload>) => {
+                switch (e.detail.event.type) {
+                    case 'kup-list-click':
+                        const selectedElObj =
+                            e.detail.event.detail.selected.obj;
+                        const cell = e.detail.event.detail.selected.cell;
+                        const index = e.detail.event.detail.selected.index;
+                        const type = e.detail.event.detail.selected.type;
+                        const column = e.detail.event.detail.selected.column;
+
+                        // this.kupRowActionItemClick.emit({
+                        //     comp: this,
+                        //     id: this.rootElement.id,
+                        //     row: row,
+                        //     obj: selectedElObj,
+                        //     cell: cell,
+                        //     type: type,
+                        //     index: index,
+                        //     column: column,
+                        // });
+                        setTimeout(() => {
+                            this.closeRowActionsCard();
+                        }, 0);
+                }
+            }
+        );
+    }
 
     private consistencyCheck() {
         let activeTabs: number = 0;
@@ -352,8 +514,13 @@ export class KupTabBar {
                             resource="app"
                             sizeX="16px"
                             sizeY="16px"
-                            onClick={() => {
-                                this.onKupIconClick(i, node);
+                            onClick={(event: MouseEvent) => {
+                                event.stopPropagation();
+                                this.onKupIconClick(
+                                    i,
+                                    node,
+                                    event.currentTarget as HTMLElement
+                                );
                             }}
                             wrapperClass="tab__iconToolbar"
                         ></FImage>
