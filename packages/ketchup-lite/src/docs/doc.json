@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-09-02T10:26:05",
+  "timestamp": "2024-09-02T12:21:29",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -3030,6 +3030,40 @@
           "parameters": [],
           "docs": "Triggers a re-render of the component to reflect any state changes.",
           "docsTags": []
+        },
+        {
+          "name": "setHistory",
+          "returns": {
+            "type": "Promise<void>",
+            "docs": ""
+          },
+          "complexType": {
+            "signature": "(history: string) => Promise<void>",
+            "parameters": [
+              {
+                "name": "history",
+                "type": "string",
+                "docs": ""
+              }
+            ],
+            "references": {
+              "Promise": {
+                "location": "global",
+                "id": "global::Promise"
+              }
+            },
+            "return": "Promise<void>"
+          },
+          "signature": "setHistory(history: string) => Promise<void>",
+          "parameters": [
+            {
+              "name": "history",
+              "type": "string",
+              "docs": ""
+            }
+          ],
+          "docs": "Sets the history of the component through a string.",
+          "docsTags": []
         }
       ],
       "events": [
@@ -3055,7 +3089,53 @@
         }
       ],
       "listeners": [],
-      "styles": [],
+      "styles": [
+        {
+          "name": "--kul-chat-blur-radius",
+          "annotation": "prop",
+          "docs": "Sets the blur radius for backdrop filters. Defaults to 3.5px."
+        },
+        {
+          "name": "--kul-chat-border-radius",
+          "annotation": "prop",
+          "docs": "Sets the border-radius for elements. Defaults to 8px."
+        },
+        {
+          "name": "--kul-chat-grid-gap",
+          "annotation": "prop",
+          "docs": "Sets the gap between grid elements. Defaults to 16px."
+        },
+        {
+          "name": "--kul-chat-margin-bottom-em",
+          "annotation": "prop",
+          "docs": "Sets the margin bottom in em units. Defaults to 1em."
+        },
+        {
+          "name": "--kul-chat-margin-top-em",
+          "annotation": "prop",
+          "docs": "Sets the margin top in em units. Defaults to 1.25em."
+        },
+        {
+          "name": "--kul-chat-padding",
+          "annotation": "prop",
+          "docs": "Sets the default padding for various elements. Defaults to 18px."
+        },
+        {
+          "name": "--kul-chat-small-font-size",
+          "annotation": "prop",
+          "docs": "Sets the font size for small text elements. Defaults to 0.875em."
+        },
+        {
+          "name": "--kul-chat-spinner-size",
+          "annotation": "prop",
+          "docs": "Sets the size of the spinner. Defaults to 48px."
+        },
+        {
+          "name": "--kul-chat-title-font-size",
+          "annotation": "prop",
+          "docs": "Sets the font size for titles. Defaults to 2em."
+        }
+      ],
       "slots": [],
       "parts": [],
       "dependents": [

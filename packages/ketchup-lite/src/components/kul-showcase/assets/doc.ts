@@ -673,6 +673,15 @@ export const KUL_DOC: KulShowcaseDoc = {
         },
         signature: "() => Promise<void>",
       },
+      {
+        name: "setHistory",
+        docs: "Sets the history of the component through a string.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "(history: string) => Promise<void>",
+      },
     ],
     props: [
       {
@@ -716,7 +725,44 @@ export const KUL_DOC: KulShowcaseDoc = {
         type: "KulChatState[]",
       },
     ],
-    styles: [],
+    styles: [
+      {
+        name: "--kul-chat-blur-radius",
+        docs: "Sets the blur radius for backdrop filters. Defaults to 3.5px.",
+      },
+      {
+        name: "--kul-chat-border-radius",
+        docs: "Sets the border-radius for elements. Defaults to 8px.",
+      },
+      {
+        name: "--kul-chat-grid-gap",
+        docs: "Sets the gap between grid elements. Defaults to 16px.",
+      },
+      {
+        name: "--kul-chat-margin-bottom-em",
+        docs: "Sets the margin bottom in em units. Defaults to 1em.",
+      },
+      {
+        name: "--kul-chat-margin-top-em",
+        docs: "Sets the margin top in em units. Defaults to 1.25em.",
+      },
+      {
+        name: "--kul-chat-padding",
+        docs: "Sets the default padding for various elements. Defaults to 18px.",
+      },
+      {
+        name: "--kul-chat-small-font-size",
+        docs: "Sets the font size for small text elements. Defaults to 0.875em.",
+      },
+      {
+        name: "--kul-chat-spinner-size",
+        docs: "Sets the size of the spinner. Defaults to 48px.",
+      },
+      {
+        name: "--kul-chat-title-font-size",
+        docs: "Sets the font size for titles. Defaults to 2em.",
+      },
+    ],
   },
   "kul-code": {
     methods: [

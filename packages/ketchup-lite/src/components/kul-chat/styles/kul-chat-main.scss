@@ -1,4 +1,50 @@
 :host {
+  /**
+     * @prop --kul-chat-blur-radius: Sets the blur radius for backdrop filters.
+     * Defaults to 3.5px.
+     */
+  --kul_chat_blur_radius: var(--kul-chat-blur-radius, 3.5px);
+  /**
+     * @prop --kul-chat-padding: Sets the default padding for various elements.
+     * Defaults to 18px.
+     */
+  --kul_chat_padding: var(--kul-chat-padding, 18px);
+  /**
+     * @prop --kul-chat-grid-gap: Sets the gap between grid elements.
+     * Defaults to 16px.
+     */
+  --kul_chat_grid_gap: var(--kul-chat-grid-gap, 16px);
+  /**
+     * @prop --kul-chat-title-font-size: Sets the font size for titles.
+     * Defaults to 2em.
+     */
+  --kul_chat_title_font_size: var(--kul-chat-title-font-size, 2em);
+  /**
+     * @prop --kul-chat-small-font-size: Sets the font size for small text elements.
+     * Defaults to 0.875em.
+     */
+  --kul-chat_small_font_size: var(--kul-chat-small-font-size, 0.875em);
+  /**
+     * @prop --kul-chat-spinner-size: Sets the size of the spinner.
+     * Defaults to 48px.
+     */
+  --kul_chat_spinner_size: var(--kul-chat-spinner-size, 48px);
+  /**
+     * @prop --kul-chat-margin-top-em: Sets the margin top in em units.
+     * Defaults to 1.25em.
+     */
+  --kul_chat_margin_top: var(--kul-chat-margin-top-em, 1.25em);
+  /**
+     * @prop --kul-chat-margin-bottom-em: Sets the margin bottom in em units.
+     * Defaults to 1em.
+     */
+  --kul_chat_margin_bottom: var(--kul-chat-margin-bottom-em, 1em);
+  /**
+     * @prop --kul-chat-border-radius: Sets the border-radius for elements.
+     * Defaults to 8px.
+     */
+  --kul_chat_border_radius: var(--kul-chat-border-radius, 8px);
+
   display: block;
   height: 100%;
   width: 100%;
@@ -12,13 +58,13 @@
 
 .wrapper {
   & {
-    backdrop-filter: blur(3.5px);
+    backdrop-filter: blur(var(--kul_chat_blur_radius));
     box-sizing: border-box;
     display: grid;
     grid-template-rows: auto 1fr auto;
     height: 100%;
     margin: auto;
-    padding: 18px;
+    padding: var(--kul_chat_padding);
   }
 
   &--ready {
@@ -29,10 +75,6 @@
   }
 }
 
-.password {
-  padding: 2.5em 0 2em 0;
-}
-
 .query-area {
   box-sizing: border-box;
   max-width: 100%;
@@ -41,33 +83,29 @@
 
 .chat-area {
   display: grid;
-  grid-gap: 16px;
+  grid-gap: var(--kul_chat_grid_gap);
   grid-template-columns: 1fr;
   overflow: auto;
-  margin-top: 1.25em;
+  margin-top: var(--kul_chat_margin_top);
   white-space: pre-line;
   width: 100%;
   word-break: normal;
 }
 
 .spinner {
-  height: 48px;
+  height: var(--kul_chat_spinner_size);
   margin: auto;
-  width: 48px;
+  width: var(--kul_chat_spinner_size);
 }
 
 .title {
   text-align: center;
-  font-size: 2em;
-}
-
-code {
-  margin: 12px 0;
+  font-size: var(--kul_chat_title_font_size);
 }
 
 .empty,
 .text {
-  font-size: 0.875em;
+  font-size: var(--kul_chat_small_font_size);
   font-style: italic;
   opacity: 0.5;
   text-align: center;
@@ -84,37 +122,25 @@ code {
   padding: 0 1em;
 }
 
-.request,
-.response {
-  padding: 0.5em 1em 1em 1em;
-}
-
-.request {
-  font-weight: bold;
-}
-
-.response {
-  margin-bottom: 1em;
-}
-
 .user {
   display: flex;
   justify-content: end;
-  width: max-content;
 }
 
 .user,
 .llm {
-  font-size: calc(var(--kul-font-size) * 1.25);
+  font-family: var(--kul-font-family);
+  font-size: calc(var(--kul-font-size) * 1.125);
+  max-width: 100%;
   padding: 12px;
 }
 
 .message-container {
   & {
-    backdrop-filter: blur(3.5px);
+    backdrop-filter: blur(var(--kul_chat_blur_radius));
     background-color: rgba(var(--kul-background-color-rgb), 0.125);
     border: 1px solid rgba(var(--kul-text-color-rgb), 0.5);
-    border-radius: 8px;
+    border-radius: var(--kul_chat_border_radius);
     height: max-content;
     max-width: 80%;
     position: relative;
@@ -132,18 +158,34 @@ code {
   &--user {
     justify-self: end;
   }
+
+  &:hover {
+    & .toolbar {
+      height: 50px;
+      opacity: 1;
+      padding: 8px;
+    }
+  }
 }
 
 .toolbar {
   & {
     background: rgba(var(--kul-background-color-rgb), 0.775);
     border: 0;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: var(--kul_chat_border_radius);
+    border-bottom-right-radius: var(--kul_chat_border_radius);
     border-top: 1px inset rgba(var(--kul-text-color-rgb), 0.225);
+    box-sizing: border-box;
     display: flex;
+    height: 0;
     justify-content: end;
-    padding: 8px;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0;
+    transition:
+      height 125ms ease,
+      opacity 125ms ease,
+      padding 125ms ease;
   }
 
   &__button {

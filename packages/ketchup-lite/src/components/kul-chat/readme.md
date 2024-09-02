@@ -84,6 +84,37 @@ Type: `Promise<void>`
 
 
 
+### `setHistory(history: string) => Promise<void>`
+
+Sets the history of the component through a string.
+
+#### Parameters
+
+| Name      | Type     | Description |
+| --------- | -------- | ----------- |
+| `history` | `string` |             |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
+## CSS Custom Properties
+
+| Name                          | Description                                                      |
+| ----------------------------- | ---------------------------------------------------------------- |
+| `--kul-chat-blur-radius`      | Sets the blur radius for backdrop filters. Defaults to 3.5px.    |
+| `--kul-chat-border-radius`    | Sets the border-radius for elements. Defaults to 8px.            |
+| `--kul-chat-grid-gap`         | Sets the gap between grid elements. Defaults to 16px.            |
+| `--kul-chat-margin-bottom-em` | Sets the margin bottom in em units. Defaults to 1em.             |
+| `--kul-chat-margin-top-em`    | Sets the margin top in em units. Defaults to 1.25em.             |
+| `--kul-chat-padding`          | Sets the default padding for various elements. Defaults to 18px. |
+| `--kul-chat-small-font-size`  | Sets the font size for small text elements. Defaults to 0.875em. |
+| `--kul-chat-spinner-size`     | Sets the size of the spinner. Defaults to 48px.                  |
+| `--kul-chat-title-font-size`  | Sets the font size for titles. Defaults to 2em.                  |
+
 
 ## Dependencies
 

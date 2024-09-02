@@ -423,6 +423,10 @@ export namespace Components {
           * Triggers a re-render of the component to reflect any state changes.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the history of the component through a string.
+         */
+        "setHistory": (history: string) => Promise<void>;
     }
     interface KulCode {
         /**
