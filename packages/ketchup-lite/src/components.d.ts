@@ -14,7 +14,7 @@ import { KulImagePropsInterface } from "./components/kul-image/kul-image-declara
 import { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 import { KulChartEventPayload, KulChartLegendPlacement, KulChartType } from "./components/kul-chart/kul-chart-declarations";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
-import { KulChatState } from "./components/kul-chat/kul-chat-declarations";
+import { KulChatEventPayload, KulChatState } from "./components/kul-chat/kul-chat-declarations";
 import { KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 import { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
@@ -34,7 +34,7 @@ export { KulImagePropsInterface } from "./components/kul-image/kul-image-declara
 export { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 export { KulChartEventPayload, KulChartLegendPlacement, KulChartType } from "./components/kul-chart/kul-chart-declarations";
 export { XAXisComponentOption, YAXisComponentOption } from "echarts";
-export { KulChatState } from "./components/kul-chat/kul-chat-declarations";
+export { KulChatEventPayload, KulChatState } from "./components/kul-chat/kul-chat-declarations";
 export { KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 export { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
@@ -364,6 +364,16 @@ export namespace Components {
          */
         "getDebugInfo": () => Promise<KulDebugComponentInfo>;
         /**
+          * Returns the full history as a string.
+          * @returns Full history of the chat.
+         */
+        "getHistory": () => Promise<string>;
+        /**
+          * Returns the last message as a string.
+          * @returns The last message of the history.
+         */
+        "getLastMessage": () => Promise<string>;
+        /**
           * Retrieves the properties of the component, with optional descriptions.
           * @param descriptions - If true, returns properties with descriptions; otherwise, returns properties only.
           * @returns A promise that resolves to an object where each key is a property name, optionally with its description.
@@ -379,6 +389,11 @@ export namespace Components {
           * @default ""
          */
         "kulMaxTokens": number;
+        /**
+          * How often the component checks whether the LLM endpoint is online or not.
+          * @default 10000
+         */
+        "kulPollingInterval": number;
         /**
           * The seed of the LLM's answer.
           * @default ""
@@ -408,6 +423,10 @@ export namespace Components {
           * Triggers a re-render of the component to reflect any state changes.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the history of the component through a string.
+         */
+        "setHistory": (history: string) => Promise<void>;
     }
     interface KulCode {
         /**
@@ -1401,7 +1420,7 @@ declare global {
         new (): HTMLKulChartElement;
     };
     interface HTMLKulChatElementEventMap {
-        "kul-chat-event": KulEventPayload;
+        "kul-chat-event": KulChatEventPayload;
     }
     interface HTMLKulChatElement extends Components.KulChat, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKulChatElementEventMap>(type: K, listener: (this: HTMLKulChatElement, ev: KulChatCustomEvent<HTMLKulChatElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -2173,6 +2192,11 @@ declare namespace LocalJSX {
          */
         "kulMaxTokens"?: number;
         /**
+          * How often the component checks whether the LLM endpoint is online or not.
+          * @default 10000
+         */
+        "kulPollingInterval"?: number;
+        /**
           * The seed of the LLM's answer.
           * @default ""
          */
@@ -2200,7 +2224,7 @@ declare namespace LocalJSX {
         /**
           * Describes event emitted.
          */
-        "onKul-chat-event"?: (event: KulChatCustomEvent<KulEventPayload>) => void;
+        "onKul-chat-event"?: (event: KulChatCustomEvent<KulChatEventPayload>) => void;
     }
     interface KulCode {
         /**

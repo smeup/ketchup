@@ -638,6 +638,24 @@ export const KUL_DOC: KulShowcaseDoc = {
         signature: "() => Promise<KulDebugComponentInfo>",
       },
       {
+        name: "getHistory",
+        docs: "Returns the full history as a string.",
+        returns: {
+          type: "Promise<string>",
+          docs: "Full history of the chat.",
+        },
+        signature: "() => Promise<string>",
+      },
+      {
+        name: "getLastMessage",
+        docs: "Returns the last message as a string.",
+        returns: {
+          type: "Promise<string>",
+          docs: "The last message of the history.",
+        },
+        signature: "() => Promise<string>",
+      },
+      {
         name: "getProps",
         docs: "Retrieves the properties of the component, with optional descriptions.",
         returns: {
@@ -655,6 +673,15 @@ export const KUL_DOC: KulShowcaseDoc = {
         },
         signature: "() => Promise<void>",
       },
+      {
+        name: "setHistory",
+        docs: "Sets the history of the component through a string.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "(history: string) => Promise<void>",
+      },
     ],
     props: [
       {
@@ -665,6 +692,11 @@ export const KUL_DOC: KulShowcaseDoc = {
       {
         name: "kulMaxTokens",
         docs: "The maximum amount of tokens allowed in the LLM's answer.",
+        type: "number",
+      },
+      {
+        name: "kulPollingInterval",
+        docs: "How often the component checks whether the LLM endpoint is online or not.",
         type: "number",
       },
       {
@@ -693,7 +725,44 @@ export const KUL_DOC: KulShowcaseDoc = {
         type: "KulChatState[]",
       },
     ],
-    styles: [],
+    styles: [
+      {
+        name: "--kul-chat-blur-radius",
+        docs: "Sets the blur radius for backdrop filters. Defaults to 3.5px.",
+      },
+      {
+        name: "--kul-chat-border-radius",
+        docs: "Sets the border-radius for elements. Defaults to 8px.",
+      },
+      {
+        name: "--kul-chat-grid-gap",
+        docs: "Sets the gap between grid elements. Defaults to 16px.",
+      },
+      {
+        name: "--kul-chat-margin-bottom-em",
+        docs: "Sets the margin bottom in em units. Defaults to 1em.",
+      },
+      {
+        name: "--kul-chat-margin-top-em",
+        docs: "Sets the margin top in em units. Defaults to 1.25em.",
+      },
+      {
+        name: "--kul-chat-padding",
+        docs: "Sets the default padding for various elements. Defaults to 18px.",
+      },
+      {
+        name: "--kul-chat-small-font-size",
+        docs: "Sets the font size for small text elements. Defaults to 0.875em.",
+      },
+      {
+        name: "--kul-chat-spinner-size",
+        docs: "Sets the size of the spinner. Defaults to 48px.",
+      },
+      {
+        name: "--kul-chat-title-font-size",
+        docs: "Sets the font size for titles. Defaults to 2em.",
+      },
+    ],
   },
   "kul-code": {
     methods: [
@@ -1973,32 +2042,32 @@ export const KUL_DOC: KulShowcaseDoc = {
       },
       {
         name: "kulHelper",
-        docs: "Specifies helper text to display alongside the text field.\nHelper text can provide additional context or instructions to the user.",
+        docs: "Specifies helper text to display alongside the text field.\r\nHelper text can provide additional context or instructions to the user.",
         type: "KulTextfieldHelper",
       },
       {
         name: "kulHtmlAttributes",
-        docs: "Allows customization of the input or textarea element through additional HTML attributes.\nThis can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.",
+        docs: "Allows customization of the input or textarea element through additional HTML attributes.\r\nThis can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.",
         type: "GenericObject<unknown>",
       },
       {
         name: "kulIcon",
-        docs: "Defines the icon to be displayed within the text field.\nIcons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.",
+        docs: "Defines the icon to be displayed within the text field.\r\nIcons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.",
         type: "string",
       },
       {
         name: "kulLabel",
-        docs: "Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected.\nLabels are especially important for screen readers and users navigating with keyboard-only controls.",
+        docs: "Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected.\r\nLabels are especially important for screen readers and users navigating with keyboard-only controls.",
         type: "string",
       },
       {
         name: "kulStyle",
-        docs: "Accepts custom CSS styles to apply directly to the text field component.\nThis allows for fine-grained control over the appearance of the component beyond predefined styling options.",
+        docs: "Accepts custom CSS styles to apply directly to the text field component.\r\nThis allows for fine-grained control over the appearance of the component beyond predefined styling options.",
         type: "string",
       },
       {
         name: "kulStyling",
-        docs: "Determines the overall styling theme of the text field, affecting its shape and border.\nOptions include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.",
+        docs: "Determines the overall styling theme of the text field, affecting its shape and border.\r\nOptions include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.",
         type: '"flat" | "outlined" | "raised" | "textarea"',
       },
       {
@@ -2008,7 +2077,7 @@ export const KUL_DOC: KulShowcaseDoc = {
       },
       {
         name: "kulValue",
-        docs: "Initializes the text field with a default value when the component is first rendered.\nThis can be used to pre-fill forms or set a starting point for user input.",
+        docs: "Initializes the text field with a default value when the component is first rendered.\r\nThis can be used to pre-fill forms or set a starting point for user input.",
         type: "string",
       },
     ],

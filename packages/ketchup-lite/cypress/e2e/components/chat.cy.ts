@@ -49,6 +49,7 @@ describe('Methods', () => {
         cy.checkPropsInterface(chatTag, {
             kulEndpointUrl: null,
             kulMaxTokens: null,
+            kulPollingInterval: null,
             kulSeed: null,
             kulStyle: null,
             kulSystem: null,

@@ -18,6 +18,8 @@ import { KulLazyEvent } from '../components/kul-lazy/kul-lazy-declarations';
 import { KulPhotoframeEvent } from '../components/kul-photoframe/kul-photoframe-declarations';
 import { KulTabbarEvent } from '../components/kul-tabbar/kul-tabbar-declarations';
 import { KulTreeEvent } from '../components/kul-tree/kul-tree-declarations';
+import { KulAccordionEvent } from '../components/kul-accordion/kul-accordion-declarations';
+import { KulChatEvent } from '../components/kul-chat/kul-chat-declarations';
 
 export interface GenericMap {
     [index: string]: string;
@@ -55,9 +57,11 @@ export interface KulEventPayload {
 
 export type KulEventType =
     | KulArticleEvent
+    | KulAccordionEvent
     | KulBadgeEvent
     | KulButtonEvent
     | KulCardEvent
+    | KulChatEvent
     | KulChartEvent
     | KulCodeEvent
     | KulDrawerEvent

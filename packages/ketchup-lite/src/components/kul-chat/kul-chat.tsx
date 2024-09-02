@@ -14,6 +14,7 @@ import {
 import {
     KulChatChoiceMessage,
     KulChatEvent,
+    KulChatEventPayload,
     KulChatHistory,
     KulChatProps,
     KulChatSendArguments,
@@ -23,7 +24,7 @@ import { kulManagerInstance } from '../../managers/kul-manager/kul-manager';
 import { getProps } from '../../utils/componentUtils';
 import { KUL_STYLE_ID, KUL_WRAPPER_ID } from '../../variables/GenericVariables';
 import { KulDebugComponentInfo } from '../../managers/kul-debug/kul-debug-declarations';
-import { GenericObject, KulEventPayload } from '../../types/GenericTypes';
+import { GenericObject } from '../../types/GenericTypes';
 import { speechToText } from './helpers/speechToText';
 import { send } from './helpers/send';
 
@@ -76,6 +77,11 @@ export class KulChat {
      */
     @Prop({ mutable: true }) kulMaxTokens = 250;
     /**
+     * How often the component checks whether the LLM endpoint is online or not.
+     * @default 10000
+     */
+    @Prop({ mutable: false }) kulPollingInterval = 10000;
+    /**
      * The seed of the LLM's answer.
      * @default ""
      */
@@ -127,14 +133,18 @@ export class KulChat {
         cancelable: false,
         bubbles: true,
     })
-    kulEvent: EventEmitter<KulEventPayload>;
+    kulEvent: EventEmitter<KulChatEventPayload>;
 
-    onKulEvent(e: Event | CustomEvent, eventType: KulChatEvent) {
+    onKulEvent(
+        e: Event | CustomEvent<KulChatEventPayload>,
+        eventType: KulChatEvent
+    ) {
         this.kulEvent.emit({
             comp: this,
             eventType,
             id: this.rootElement.id,
             originalEvent: e,
+            history: JSON.stringify(this.history) || '',
         });
     }
 
@@ -151,6 +161,26 @@ export class KulChat {
         return this.debugInfo;
     }
     /**
+     * Returns the full history as a string.
+     * @returns {Promise<string>} Full history of the chat.
+     */
+    @Method()
+    async getHistory(): Promise<string> {
+        try {
+            return JSON.stringify(this.history);
+        } catch {
+            return '';
+        }
+    }
+    /**
+     * Returns the last message as a string.
+     * @returns {Promise<string>} The last message of the history.
+     */
+    @Method()
+    async getLastMessage(): Promise<string> {
+        return this.history?.slice(-1)?.[0]?.content ?? '';
+    }
+    /**
      * Retrieves the properties of the component, with optional descriptions.
      * @param {boolean} descriptions - If true, returns properties with descriptions; otherwise, returns properties only.
      * @returns {Promise<GenericObject>} A promise that resolves to an object where each key is a property name, optionally with its description.
@@ -165,6 +195,16 @@ export class KulChat {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
+    }
+    /**
+     * Sets the history of the component through a string.
+     */
+    @Method()
+    async setHistory(history: string): Promise<void> {
+        try {
+            const cb = () => (this.history = JSON.parse(history));
+            this.#updateHistory(cb);
+        } catch {}
     }
 
     /*-------------------------------------------------*/
@@ -208,12 +248,14 @@ export class KulChat {
                         <div class={m.role}>{this.#prepMessage(m)}</div>
                         <div class="toolbar">
                             <kul-button
-                                class={cssClass}
+                                class={cssClass + ' kul-danger'}
                                 kulIcon="delete"
                                 onClick={() => {
                                     const index = this.history.indexOf(m);
                                     if (index !== -1) {
-                                        this.history.splice(index, 1);
+                                        const cb = () =>
+                                            this.history.splice(index, 1);
+                                        this.#updateHistory(cb);
                                         this.refresh();
                                     }
                                 }}
@@ -234,10 +276,13 @@ export class KulChat {
                                     onClick={() => {
                                         const index = this.history.indexOf(m);
                                         if (index !== -1) {
-                                            this.history = this.history.slice(
-                                                0,
-                                                index + 1
-                                            );
+                                            const cb = () =>
+                                                (this.history =
+                                                    this.history.slice(
+                                                        0,
+                                                        index + 1
+                                                    ));
+                                            this.#updateHistory(cb);
                                             this.#sendPrompt();
                                         }
                                     }}
@@ -377,7 +422,12 @@ export class KulChat {
                                     role: 'user',
                                     content: value,
                                 };
-                                this.history = [...this.history, newMessage];
+                                const cb = () =>
+                                    (this.history = [
+                                        ...this.history,
+                                        newMessage,
+                                    ]);
+                                this.#updateHistory(cb);
                                 this.#sendPrompt();
                             }
                         }}
@@ -419,16 +469,24 @@ export class KulChat {
             temperature: this.kulTemperature,
             url: this.kulEndpointUrl,
         };
-        const success = await send(sendArgs);
-        if (success) {
+        const llmMessage = await send(sendArgs);
+        if (llmMessage) {
+            const cb = () => this.history.push(llmMessage);
+            this.#updateHistory(cb);
             this.#disableInteractivity(false);
             await this.#textarea.setValue('');
             this.#spinnerBar.kulActive = false;
             await this.refresh();
             this.#textarea.setFocus();
         } else {
-            this.history.pop();
+            const cb = () => this.history.pop();
+            this.#updateHistory(cb);
         }
+    }
+
+    #updateHistory(cb: () => unknown) {
+        cb();
+        this.onKulEvent(new CustomEvent('update'), 'update');
     }
 
     /*-------------------------------------------------*/
@@ -443,7 +501,8 @@ export class KulChat {
                     typeof this.kulValue === 'string'
                         ? JSON.parse(this.kulValue)
                         : this.kulValue;
-                this.history = parsedValue;
+                const cb = () => (this.history = parsedValue);
+                this.#updateHistory(cb);
             } catch (error) {
                 this.#kulManager.debug.logMessage(
                     this,
@@ -457,8 +516,9 @@ export class KulChat {
     componentDidLoad() {
         this.#statusinterval = setInterval(() => {
             this.#checkLLMStatus();
-        }, 2000);
+        }, this.kulPollingInterval);
         this.onKulEvent(new CustomEvent('ready'), 'ready');
+        this.#checkLLMStatus();
         this.#kulManager.debug.updateDebugInfo(this, 'did-load');
     }
 

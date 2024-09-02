@@ -3,14 +3,16 @@ import {
     KulChatSendArguments,
 } from '../kul-chat-declarations';
 
-export const send: (args: KulChatSendArguments) => Promise<boolean> = async ({
+export const send: (
+    args: KulChatSendArguments
+) => Promise<KulChatChoiceMessage> = async ({
     history,
     max_tokens,
     seed,
     system,
     temperature,
     url,
-}): Promise<boolean> => {
+}) => {
     const request = {
         temperature,
         max_tokens,
@@ -34,11 +36,10 @@ export const send: (args: KulChatSendArguments) => Promise<boolean> = async ({
             role: 'llm',
             content: response,
         };
-        history.push(llmMessage);
-        return true;
+        return llmMessage;
     } catch (error) {
         console.error('Error calling LLM:', error);
-        return false;
+        return undefined;
     }
 };
 
