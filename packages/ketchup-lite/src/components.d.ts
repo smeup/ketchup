@@ -14,6 +14,7 @@ import { KulImagePropsInterface } from "./components/kul-image/kul-image-declara
 import { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 import { KulChartEventPayload, KulChartLegendPlacement, KulChartType } from "./components/kul-chart/kul-chart-declarations";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
+import { KulChatState } from "./components/kul-chat/kul-chat-declarations";
 import { KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 import { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 import { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
@@ -33,6 +34,7 @@ export { KulImagePropsInterface } from "./components/kul-image/kul-image-declara
 export { KulButtonEventPayload, KulButtonState, KulButtonStyling } from "./components/kul-button/kul-button-declarations";
 export { KulChartEventPayload, KulChartLegendPlacement, KulChartType } from "./components/kul-chart/kul-chart-declarations";
 export { XAXisComponentOption, YAXisComponentOption } from "echarts";
+export { KulChatState } from "./components/kul-chat/kul-chat-declarations";
 export { KulDataDataset as KulDataDataset1, KulDebugComponentInfo as KulDebugComponentInfo1 } from "./components";
 export { KulBadgePropsInterface } from "./components/kul-badge/kul-badge-declarations";
 export { KulLazyRenderMode } from "./components/kul-lazy/kul-lazy-declarations";
@@ -352,6 +354,58 @@ export namespace Components {
         "kulYAxis": YAXisComponentOption;
         /**
           * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+    }
+    interface KulChat {
+        /**
+          * Retrieves the debug information reflecting the current state of the component.
+          * @returns A promise that resolves to a KulDebugComponentInfo object containing debug information.
+         */
+        "getDebugInfo": () => Promise<KulDebugComponentInfo>;
+        /**
+          * Retrieves the properties of the component, with optional descriptions.
+          * @param descriptions - If true, returns properties with descriptions; otherwise, returns properties only.
+          * @returns A promise that resolves to an object where each key is a property name, optionally with its description.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Enables customization of the component's style.
+          * @default "" - No custom style applied by default.
+         */
+        "kulEndpointUrl": string;
+        /**
+          * The maximum amount of tokens allowed in the LLM's answer.
+          * @default ""
+         */
+        "kulMaxTokens": number;
+        /**
+          * The seed of the LLM's answer.
+          * @default ""
+         */
+        "kulSeed": number;
+        /**
+          * Enables customization of the component's style.
+          * @default "" - No custom style applied by default.
+         */
+        "kulStyle": string;
+        /**
+          * System message for the LLM.
+          * @default ""
+         */
+        "kulSystem": string;
+        /**
+          * Sets the creative boundaries of the LLM.
+          * @default ""
+         */
+        "kulTemperature": number;
+        /**
+          * Sets the initial history of the chat.
+          * @default ""
+         */
+        "kulValue": KulChatState[];
+        /**
+          * Triggers a re-render of the component to reflect any state changes.
          */
         "refresh": () => Promise<void>;
     }
@@ -684,6 +738,8 @@ export namespace Components {
     }
     interface KulShowcaseChart {
     }
+    interface KulShowcaseChat {
+    }
     interface KulShowcaseCode {
     }
     interface KulShowcaseDebug {
@@ -1000,6 +1056,7 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        "setFocus": () => Promise<void>;
         /**
           * Sets the component's state.
           * @param value - The new state to be set on the component.
@@ -1172,6 +1229,10 @@ export interface KulChartCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulChartElement;
 }
+export interface KulChatCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKulChatElement;
+}
 export interface KulCodeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKulCodeElement;
@@ -1338,6 +1399,23 @@ declare global {
     var HTMLKulChartElement: {
         prototype: HTMLKulChartElement;
         new (): HTMLKulChartElement;
+    };
+    interface HTMLKulChatElementEventMap {
+        "kul-chat-event": KulEventPayload;
+    }
+    interface HTMLKulChatElement extends Components.KulChat, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKulChatElementEventMap>(type: K, listener: (this: HTMLKulChatElement, ev: KulChatCustomEvent<HTMLKulChatElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKulChatElementEventMap>(type: K, listener: (this: HTMLKulChatElement, ev: KulChatCustomEvent<HTMLKulChatElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKulChatElement: {
+        prototype: HTMLKulChatElement;
+        new (): HTMLKulChatElement;
     };
     interface HTMLKulCodeElementEventMap {
         "kul-code-event": KulEventPayload;
@@ -1510,6 +1588,12 @@ declare global {
     var HTMLKulShowcaseChartElement: {
         prototype: HTMLKulShowcaseChartElement;
         new (): HTMLKulShowcaseChartElement;
+    };
+    interface HTMLKulShowcaseChatElement extends Components.KulShowcaseChat, HTMLStencilElement {
+    }
+    var HTMLKulShowcaseChatElement: {
+        prototype: HTMLKulShowcaseChatElement;
+        new (): HTMLKulShowcaseChatElement;
     };
     interface HTMLKulShowcaseCodeElement extends Components.KulShowcaseCode, HTMLStencilElement {
     }
@@ -1804,6 +1888,7 @@ declare global {
         "kul-button": HTMLKulButtonElement;
         "kul-card": HTMLKulCardElement;
         "kul-chart": HTMLKulChartElement;
+        "kul-chat": HTMLKulChatElement;
         "kul-code": HTMLKulCodeElement;
         "kul-drawer": HTMLKulDrawerElement;
         "kul-header": HTMLKulHeaderElement;
@@ -1818,6 +1903,7 @@ declare global {
         "kul-showcase-button": HTMLKulShowcaseButtonElement;
         "kul-showcase-card": HTMLKulShowcaseCardElement;
         "kul-showcase-chart": HTMLKulShowcaseChartElement;
+        "kul-showcase-chat": HTMLKulShowcaseChatElement;
         "kul-showcase-code": HTMLKulShowcaseCodeElement;
         "kul-showcase-debug": HTMLKulShowcaseDebugElement;
         "kul-showcase-drawer": HTMLKulShowcaseDrawerElement;
@@ -2075,6 +2161,47 @@ declare namespace LocalJSX {
         "kulYAxis"?: YAXisComponentOption;
         "onKul-chart-event"?: (event: KulChartCustomEvent<KulChartEventPayload>) => void;
     }
+    interface KulChat {
+        /**
+          * Enables customization of the component's style.
+          * @default "" - No custom style applied by default.
+         */
+        "kulEndpointUrl"?: string;
+        /**
+          * The maximum amount of tokens allowed in the LLM's answer.
+          * @default ""
+         */
+        "kulMaxTokens"?: number;
+        /**
+          * The seed of the LLM's answer.
+          * @default ""
+         */
+        "kulSeed"?: number;
+        /**
+          * Enables customization of the component's style.
+          * @default "" - No custom style applied by default.
+         */
+        "kulStyle"?: string;
+        /**
+          * System message for the LLM.
+          * @default ""
+         */
+        "kulSystem"?: string;
+        /**
+          * Sets the creative boundaries of the LLM.
+          * @default ""
+         */
+        "kulTemperature"?: number;
+        /**
+          * Sets the initial history of the chat.
+          * @default ""
+         */
+        "kulValue"?: KulChatState[];
+        /**
+          * Describes event emitted.
+         */
+        "onKul-chat-event"?: (event: KulChatCustomEvent<KulEventPayload>) => void;
+    }
     interface KulCode {
         /**
           * Automatically formats the value.
@@ -2275,6 +2402,8 @@ declare namespace LocalJSX {
     interface KulShowcaseCard {
     }
     interface KulShowcaseChart {
+    }
+    interface KulShowcaseChat {
     }
     interface KulShowcaseCode {
     }
@@ -2613,6 +2742,7 @@ declare namespace LocalJSX {
         "kul-button": KulButton;
         "kul-card": KulCard;
         "kul-chart": KulChart;
+        "kul-chat": KulChat;
         "kul-code": KulCode;
         "kul-drawer": KulDrawer;
         "kul-header": KulHeader;
@@ -2627,6 +2757,7 @@ declare namespace LocalJSX {
         "kul-showcase-button": KulShowcaseButton;
         "kul-showcase-card": KulShowcaseCard;
         "kul-showcase-chart": KulShowcaseChart;
+        "kul-showcase-chat": KulShowcaseChat;
         "kul-showcase-code": KulShowcaseCode;
         "kul-showcase-debug": KulShowcaseDebug;
         "kul-showcase-drawer": KulShowcaseDrawer;
@@ -2672,6 +2803,7 @@ declare module "@stencil/core" {
             "kul-button": LocalJSX.KulButton & JSXBase.HTMLAttributes<HTMLKulButtonElement>;
             "kul-card": LocalJSX.KulCard & JSXBase.HTMLAttributes<HTMLKulCardElement>;
             "kul-chart": LocalJSX.KulChart & JSXBase.HTMLAttributes<HTMLKulChartElement>;
+            "kul-chat": LocalJSX.KulChat & JSXBase.HTMLAttributes<HTMLKulChatElement>;
             "kul-code": LocalJSX.KulCode & JSXBase.HTMLAttributes<HTMLKulCodeElement>;
             "kul-drawer": LocalJSX.KulDrawer & JSXBase.HTMLAttributes<HTMLKulDrawerElement>;
             "kul-header": LocalJSX.KulHeader & JSXBase.HTMLAttributes<HTMLKulHeaderElement>;
@@ -2686,6 +2818,7 @@ declare module "@stencil/core" {
             "kul-showcase-button": LocalJSX.KulShowcaseButton & JSXBase.HTMLAttributes<HTMLKulShowcaseButtonElement>;
             "kul-showcase-card": LocalJSX.KulShowcaseCard & JSXBase.HTMLAttributes<HTMLKulShowcaseCardElement>;
             "kul-showcase-chart": LocalJSX.KulShowcaseChart & JSXBase.HTMLAttributes<HTMLKulShowcaseChartElement>;
+            "kul-showcase-chat": LocalJSX.KulShowcaseChat & JSXBase.HTMLAttributes<HTMLKulShowcaseChatElement>;
             "kul-showcase-code": LocalJSX.KulShowcaseCode & JSXBase.HTMLAttributes<HTMLKulShowcaseCodeElement>;
             "kul-showcase-debug": LocalJSX.KulShowcaseDebug & JSXBase.HTMLAttributes<HTMLKulShowcaseDebugElement>;
             "kul-showcase-drawer": LocalJSX.KulShowcaseDrawer & JSXBase.HTMLAttributes<HTMLKulShowcaseDrawerElement>;

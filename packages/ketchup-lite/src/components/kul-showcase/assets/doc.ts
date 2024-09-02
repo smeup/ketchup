@@ -626,6 +626,75 @@ export const KUL_DOC: KulShowcaseDoc = {
     ],
     styles: [],
   },
+  "kul-chat": {
+    methods: [
+      {
+        name: "getDebugInfo",
+        docs: "Retrieves the debug information reflecting the current state of the component.",
+        returns: {
+          type: "Promise<KulDebugComponentInfo>",
+          docs: "A promise that resolves to a KulDebugComponentInfo object containing debug information.",
+        },
+        signature: "() => Promise<KulDebugComponentInfo>",
+      },
+      {
+        name: "getProps",
+        docs: "Retrieves the properties of the component, with optional descriptions.",
+        returns: {
+          type: "Promise<GenericObject<unknown>>",
+          docs: "A promise that resolves to an object where each key is a property name, optionally with its description.",
+        },
+        signature: "(descriptions?: boolean) => Promise<GenericObject>",
+      },
+      {
+        name: "refresh",
+        docs: "Triggers a re-render of the component to reflect any state changes.",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+    ],
+    props: [
+      {
+        name: "kulEndpointUrl",
+        docs: "Enables customization of the component's style.",
+        type: "string",
+      },
+      {
+        name: "kulMaxTokens",
+        docs: "The maximum amount of tokens allowed in the LLM's answer.",
+        type: "number",
+      },
+      {
+        name: "kulSeed",
+        docs: "The seed of the LLM's answer.",
+        type: "number",
+      },
+      {
+        name: "kulStyle",
+        docs: "Enables customization of the component's style.",
+        type: "string",
+      },
+      {
+        name: "kulSystem",
+        docs: "System message for the LLM.",
+        type: "string",
+      },
+      {
+        name: "kulTemperature",
+        docs: "Sets the creative boundaries of the LLM.",
+        type: "number",
+      },
+      {
+        name: "kulValue",
+        docs: "Sets the initial history of the chat.",
+        type: "KulChatState[]",
+      },
+    ],
+    styles: [],
+  },
   "kul-code": {
     methods: [
       {
@@ -1323,6 +1392,11 @@ export const KUL_DOC: KulShowcaseDoc = {
     props: [],
     styles: [],
   },
+  "kul-showcase-chat": {
+    methods: [],
+    props: [],
+    styles: [],
+  },
   "kul-showcase-code": {
     methods: [],
     props: [],
@@ -1868,6 +1942,15 @@ export const KUL_DOC: KulShowcaseDoc = {
         signature: "() => Promise<void>",
       },
       {
+        name: "setFocus",
+        docs: "",
+        returns: {
+          type: "Promise<void>",
+          docs: "",
+        },
+        signature: "() => Promise<void>",
+      },
+      {
         name: "setValue",
         docs: "Sets the component's state.",
         returns: {
@@ -1890,32 +1973,32 @@ export const KUL_DOC: KulShowcaseDoc = {
       },
       {
         name: "kulHelper",
-        docs: "Specifies helper text to display alongside the text field.\r\nHelper text can provide additional context or instructions to the user.",
+        docs: "Specifies helper text to display alongside the text field.\nHelper text can provide additional context or instructions to the user.",
         type: "KulTextfieldHelper",
       },
       {
         name: "kulHtmlAttributes",
-        docs: "Allows customization of the input or textarea element through additional HTML attributes.\r\nThis can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.",
+        docs: "Allows customization of the input or textarea element through additional HTML attributes.\nThis can include attributes like 'readonly', 'placeholder', etc., to further customize the behavior or appearance of the input.",
         type: "GenericObject<unknown>",
       },
       {
         name: "kulIcon",
-        docs: "Defines the icon to be displayed within the text field.\r\nIcons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.",
+        docs: "Defines the icon to be displayed within the text field.\nIcons can indicate actions such as search, clear, or provide visual cues related to the input's purpose.",
         type: "string",
       },
       {
         name: "kulLabel",
-        docs: "Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected.\r\nLabels are especially important for screen readers and users navigating with keyboard-only controls.",
+        docs: "Assigns a label to the text field, improving accessibility and providing context to the user about what kind of input is expected.\nLabels are especially important for screen readers and users navigating with keyboard-only controls.",
         type: "string",
       },
       {
         name: "kulStyle",
-        docs: "Accepts custom CSS styles to apply directly to the text field component.\r\nThis allows for fine-grained control over the appearance of the component beyond predefined styling options.",
+        docs: "Accepts custom CSS styles to apply directly to the text field component.\nThis allows for fine-grained control over the appearance of the component beyond predefined styling options.",
         type: "string",
       },
       {
         name: "kulStyling",
-        docs: "Determines the overall styling theme of the text field, affecting its shape and border.\r\nOptions include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.",
+        docs: "Determines the overall styling theme of the text field, affecting its shape and border.\nOptions include 'default', 'outlined', or 'textarea', each offering a distinct visual presentation.",
         type: '"flat" | "outlined" | "raised" | "textarea"',
       },
       {
@@ -1925,7 +2008,7 @@ export const KUL_DOC: KulShowcaseDoc = {
       },
       {
         name: "kulValue",
-        docs: "Initializes the text field with a default value when the component is first rendered.\r\nThis can be used to pre-fill forms or set a starting point for user input.",
+        docs: "Initializes the text field with a default value when the component is first rendered.\nThis can be used to pre-fill forms or set a starting point for user input.",
         type: "string",
       },
     ],

@@ -144,6 +144,23 @@ export class KulLanguage {
         return result;
     }
     /**
+     * Gets the BCP47 language code of the specified language.
+     * @param {string} language - Language to check.
+     * @returns {string} BCP47 code
+     */
+    getBCP47(language: string = this.name?.split('_')[0]): string {
+        const bcp47Map: Record<KulLanguageDefaults, string> = {
+            chinese: 'zh-CN',
+            english: 'en-US',
+            spanish: 'es-ES',
+            italian: 'it-IT',
+            french: 'fr-FR',
+            polish: 'pl-PL',
+            russian: 'ru-RU',
+        };
+        return bcp47Map[language];
+    }
+    /**
      * Gets the name of available languages and variants.
      * @returns {Array<string>} Array of languages' names.
      */
