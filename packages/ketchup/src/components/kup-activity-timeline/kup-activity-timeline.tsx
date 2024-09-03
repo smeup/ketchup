@@ -231,8 +231,7 @@ export class KupActivityTimeline {
             column: this.data.columns.find(
                 (column) => column.name === activityData.columnName
             ),
-            row: this.data.rows.find((row) => row.id === activityData.cellId)
-                ?.cells?.[activityData.columnName],
+            row: this.data.rows.find((row) => row.id === activityData.cellId),
         };
     }
 
@@ -278,7 +277,6 @@ export class KupActivityTimeline {
                                 this.onActivityClick(e, column);
                             }}
                             onContextMenu={(e) => {
-                                e.stopPropagation();
                                 this.onActivityContextMenu(e, column);
                             }}
                         >
@@ -339,6 +337,9 @@ export class KupActivityTimeline {
                     <div
                         key={this.rootElement.id}
                         class="kup-activity-timeline"
+                        onContextMenu={(e) => {
+                            e.preventDefault();
+                        }}
                     >
                         {this.timeline.map(
                             (timeline: KupActivityTimelineDatapoint) => (
