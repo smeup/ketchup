@@ -269,7 +269,7 @@ export class KupButton {
             this.value = 'N/A';
         }
 
-        if (this.keyShortcut) {
+        if (this.keyShortcut && !this.disabled) {
             this.kupManager.keysBinding.register(
                 this.keyShortcut,
                 this.onKupClick.bind(this)
