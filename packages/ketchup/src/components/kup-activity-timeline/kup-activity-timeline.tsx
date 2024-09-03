@@ -201,7 +201,7 @@ export class KupActivityTimeline {
                             time
                         ),
                         columnName: column.name,
-                        cellId: row.id,
+                        rowId: row.id,
                     })),
             } as KupActivityTimelineActivity);
 
@@ -231,7 +231,7 @@ export class KupActivityTimeline {
             column: this.data.columns.find(
                 (column) => column.name === activityData.columnName
             ),
-            row: this.data.rows.find((row) => row.id === activityData.cellId),
+            row: this.data.rows.find((row) => row.id === activityData.rowId),
         };
     }
 
