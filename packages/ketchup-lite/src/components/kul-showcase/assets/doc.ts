@@ -1254,6 +1254,11 @@ export const KUL_DOC: KulShowcaseDoc = {
         type: "KulDataDataset",
       },
       {
+        name: "kulEnableDeletions",
+        docs: "Defines whether items can be removed from the list or not.",
+        type: "boolean",
+      },
+      {
         name: "kulNavigation",
         docs: "When true, enables items' navigation through arrow keys.",
         type: "boolean",

@@ -74,6 +74,11 @@ export class KulList {
      */
     @Prop({ mutable: true }) kulData: KulDataDataset = null;
     /**
+     * Defines whether items can be removed from the list or not.
+     * @default false
+     */
+    @Prop() kulEnableDeletions = false;
+    /**
      * When true, enables items' navigation through arrow keys.
      * @default true
      */
@@ -99,7 +104,7 @@ export class KulList {
     /*-------------------------------------------------*/
 
     #kulManager = kulManagerInstance();
-    #listItems: HTMLLIElement[] = [];
+    #listItems: HTMLDivElement[] = [];
     #rippleSurface: HTMLElement[] = [];
 
     /*-------------------------------------------------*/
@@ -130,6 +135,12 @@ export class KulList {
             case 'click':
                 this.focused = index;
                 this.#handleSelection(index);
+                break;
+            case 'delete':
+                if (index > -1) {
+                    this.kulData.nodes.splice(index, 1);
+                    this.refresh();
+                }
                 break;
             case 'focus':
                 this.focused = index;
@@ -281,23 +292,37 @@ export class KulList {
         }
     }
 
-    #prepSubtitle(node: KulDataNode) {
-        return node.description ? (
-            <div class="node__subtitle">{node.description}</div>
-        ) : undefined;
+    #prepDeleteIcon(node: KulDataNode) {
+        const path = getAssetPath(`./assets/svg/clear.svg`);
+        const style = {
+            mask: `url('${path}') no-repeat center`,
+            webkitMask: `url('${path}') no-repeat center`,
+        };
+        return (
+            <div
+                class="delete"
+                data-cy={KulDataCyAttributes.BUTTON}
+                onClick={(e) => {
+                    const index = this.kulData?.nodes?.indexOf(node);
+                    this.onKulEvent(e, 'delete', node, index);
+                }}
+            >
+                <div
+                    class="delete__icon"
+                    key={node.id + '_delete'}
+                    style={style}
+                ></div>
+            </div>
+        );
     }
 
     #prepIcon(node: KulDataNode) {
-        if (!node.icon) {
-            return;
-        } else {
-            const path = getAssetPath(`./assets/svg/${node.icon}.svg`);
-            const style = {
-                mask: `url('${path}') no-repeat center`,
-                webkitMask: `url('${path}') no-repeat center`,
-            };
-            return <div class="node__icon" style={style}></div>;
-        }
+        const path = getAssetPath(`./assets/svg/${node.icon}.svg`);
+        const style = {
+            mask: `url('${path}') no-repeat center`,
+            webkitMask: `url('${path}') no-repeat center`,
+        };
+        return <div class="node__icon" style={style}></div>;
     }
 
     #prepNode(node: KulDataNode, index: number) {
@@ -314,40 +339,49 @@ export class KulList {
             'node--selected': isSelected,
         };
         return (
-            <li
-                aria-selected={isSelected}
-                aria-checked={isSelected}
-                class={className}
-                data-cy={KulDataCyAttributes.NODE}
-                data-index={index.toString()}
-                onBlur={(e) => this.onKulEvent(e, 'blur', node, index)}
-                onClick={(e) => this.onKulEvent(e, 'click', node, index)}
-                onFocus={(e) => this.onKulEvent(e, 'focus', node, index)}
-                onPointerDown={(e) =>
-                    this.onKulEvent(e, 'pointerdown', node, index)
-                }
-                ref={(el) => {
-                    if (el) {
-                        this.#listItems.push(el);
-                    }
-                }}
-                role={'option'}
-                tabindex={isSelected ? '0' : '-1'}
-            >
+            <li class="list-item">
+                {this.kulEnableDeletions ? this.#prepDeleteIcon(node) : null}
                 <div
+                    aria-selected={isSelected}
+                    aria-checked={isSelected}
+                    class={className}
+                    data-cy={KulDataCyAttributes.NODE}
+                    data-index={index.toString()}
+                    onBlur={(e) => this.onKulEvent(e, 'blur', node, index)}
+                    onClick={(e) => this.onKulEvent(e, 'click', node, index)}
+                    onFocus={(e) => this.onKulEvent(e, 'focus', node, index)}
+                    onPointerDown={(e) =>
+                        this.onKulEvent(e, 'pointerdown', node, index)
+                    }
                     ref={(el) => {
-                        if (this.kulRipple && el) {
-                            this.#rippleSurface.push(el);
+                        if (el) {
+                            this.#listItems.push(el);
                         }
                     }}
-                ></div>
-                {this.#prepIcon(node)}
-                <span class="node__text">
-                    {this.#prepTitle(node)}
-                    {this.#prepSubtitle(node)}
-                </span>
+                    role={'option'}
+                    tabindex={isSelected ? '0' : '-1'}
+                >
+                    <div
+                        ref={(el) => {
+                            if (this.kulRipple && el) {
+                                this.#rippleSurface.push(el);
+                            }
+                        }}
+                    ></div>
+                    {node.icon ? this.#prepIcon(node) : null}
+                    <span class="node__text">
+                        {this.#prepTitle(node)}
+                        {this.#prepSubtitle(node)}
+                    </span>
+                </div>
             </li>
         );
+    }
+
+    #prepSubtitle(node: KulDataNode) {
+        return node.description ? (
+            <div class="node__subtitle">{node.description}</div>
+        ) : undefined;
     }
 
     #prepTitle(node: KulDataNode) {

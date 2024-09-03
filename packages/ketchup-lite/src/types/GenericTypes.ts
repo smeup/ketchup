@@ -20,6 +20,7 @@ import { KulTabbarEvent } from '../components/kul-tabbar/kul-tabbar-declarations
 import { KulTreeEvent } from '../components/kul-tree/kul-tree-declarations';
 import { KulAccordionEvent } from '../components/kul-accordion/kul-accordion-declarations';
 import { KulChatEvent } from '../components/kul-chat/kul-chat-declarations';
+import { KulListEvent } from '../components/kul-list/kul-list-declarations';
 
 export interface GenericMap {
     [index: string]: string;
@@ -68,6 +69,7 @@ export type KulEventType =
     | KulHeaderEvent
     | KulImageEvent
     | KulLazyEvent
+    | KulListEvent
     | KulPhotoframeEvent
     | KulSpinnerEvent
     | KulSplashEvent

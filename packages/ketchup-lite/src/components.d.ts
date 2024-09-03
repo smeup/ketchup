@@ -657,6 +657,11 @@ export namespace Components {
          */
         "kulData": KulDataDataset;
         /**
+          * Defines whether items can be removed from the list or not.
+          * @default false
+         */
+        "kulEnableDeletions": boolean;
+        /**
           * When true, enables items' navigation through arrow keys.
           * @default true
          */
@@ -2353,6 +2358,11 @@ declare namespace LocalJSX {
           * @default []
          */
         "kulData"?: KulDataDataset;
+        /**
+          * Defines whether items can be removed from the list or not.
+          * @default false
+         */
+        "kulEnableDeletions"?: boolean;
         /**
           * When true, enables items' navigation through arrow keys.
           * @default true

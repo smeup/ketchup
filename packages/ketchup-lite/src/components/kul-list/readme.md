@@ -7,13 +7,14 @@
 
 ## Properties
 
-| Property        | Attribute        | Description                                                           | Type             | Default |
-| --------------- | ---------------- | --------------------------------------------------------------------- | ---------------- | ------- |
-| `kulData`       | --               | The data of the list.                                                 | `KulDataDataset` | `null`  |
-| `kulNavigation` | `kul-navigation` | When true, enables items' navigation through arrow keys.              | `boolean`        | `true`  |
-| `kulRipple`     | `kul-ripple`     | When set to true, the pointerdown event will trigger a ripple effect. | `boolean`        | `true`  |
-| `kulSelectable` | `kul-selectable` | Defines whether items are selectable or not.                          | `boolean`        | `true`  |
-| `kulStyle`      | `kul-style`      | Custom style of the component.                                        | `string`         | `''`    |
+| Property             | Attribute              | Description                                                           | Type             | Default |
+| -------------------- | ---------------------- | --------------------------------------------------------------------- | ---------------- | ------- |
+| `kulData`            | --                     | The data of the list.                                                 | `KulDataDataset` | `null`  |
+| `kulEnableDeletions` | `kul-enable-deletions` | Defines whether items can be removed from the list or not.            | `boolean`        | `false` |
+| `kulNavigation`      | `kul-navigation`       | When true, enables items' navigation through arrow keys.              | `boolean`        | `true`  |
+| `kulRipple`          | `kul-ripple`           | When set to true, the pointerdown event will trigger a ripple effect. | `boolean`        | `true`  |
+| `kulSelectable`      | `kul-selectable`       | Defines whether items are selectable or not.                          | `boolean`        | `true`  |
+| `kulStyle`           | `kul-style`            | Custom style of the component.                                        | `string`         | `''`    |
 
 
 ## Events
