@@ -21,7 +21,7 @@ export default {
   },
   data() {
     return {
-      headtitle: 'Kup keys binding',
+      headtitle: 'KupKeysBinding',
       titles: ['What is it?', 'Features'],
     };
   },
