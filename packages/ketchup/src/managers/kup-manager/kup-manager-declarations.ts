@@ -28,7 +28,6 @@ import { KupKeysBinding } from '../kup-keys-binding/kup-keys-binding';
  * Interface used to define the HTML element with Ketchup specific properties.
  */
 export interface KupDom extends HTMLHtmlElement {
-    dom: import('/workspaces/ketchup/packages/ketchup/src/managers/kup-manager/kup-manager').KupManager;
     ketchup: KupManager;
     ketchupInit: KupManagerInitialization;
 }
