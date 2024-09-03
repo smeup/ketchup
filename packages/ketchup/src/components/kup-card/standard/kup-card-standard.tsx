@@ -1536,9 +1536,6 @@ export function create15(component: KupCard): VNode {
  */
 
 export function create16(component: KupCard): VNode {
-    const textfieldArray: GenericObject[] = component.data['textfield']
-        ? component.data['textfield']
-        : [];
     const listArray: GenericObject[] = component.data['list']
         ? component.data['list']
         : [];

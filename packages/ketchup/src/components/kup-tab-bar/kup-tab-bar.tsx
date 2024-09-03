@@ -17,6 +17,8 @@ import {
     KupTabBarNode,
     KupTabBarEventPayload,
     KupTabBarProps,
+    ToolbarOptionsHandler,
+    KupTabbarItemClickEventPayload,
 } from './kup-tab-bar-declarations';
 import {
     KupManager,
@@ -43,6 +45,7 @@ import {
     KupCardFamily,
 } from '../kup-card/kup-card-declarations';
 import { Mouse } from 'puppeteer';
+import { KupListEventPayload } from '../kup-list/kup-list-declarations';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -91,6 +94,12 @@ export class KupTabBar {
      * @default true
      */
     @Prop() toolbar: boolean = true;
+
+    /**
+     * Sets the callback function on loading options via FUN
+     * @default null
+     */
+    @Prop() toolbarOptionHandler: ToolbarOptionsHandler = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -199,6 +208,28 @@ export class KupTabBar {
         });
     }
 
+    /**
+     * Triggered when a list item is clicked.
+     */
+    @Event({
+        eventName: 'kup-tabbar-itemclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupItemClick: EventEmitter<KupTabbarItemClickEventPayload>;
+
+    onKupTabbarItemClick(e: CustomEvent) {
+        this.kupItemClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: this.value,
+            node: e.detail.selected,
+        });
+
+        console.log('tab bar item');
+    }
+
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
     /*-------------------------------------------------*/
@@ -280,62 +311,18 @@ export class KupTabBar {
                 {
                     data: [
                         {
-                            value: 'Copia link',
-                            id: '1',
+                            value: 'Refresh',
+                            id: 'refresh',
                             icon: 'add_alert',
                             trailingIcon: true,
                             selected: false,
+                            separator: true,
                         },
                         {
-                            value: 'Stampa',
-                            id: '2',
-                            selected: false,
+                            value: 'Maximize Section',
+                            id: 'maximize',
                             icon: 'ac_unit',
-                            separator: true,
-                        },
-                        {
-                            value: 'Aiuto - F1',
-                            id: '3',
-                            icon: '3d_rotation',
-                            selected: false,
-                        },
-                        {
-                            value: 'Estendi',
-                            id: '4',
-                            icon: '3d_rotation',
-                            selected: false,
-                            children: [
-                                {
-                                    value: 'Aiuto - F1',
-                                    id: '31',
-                                    icon: '3d_rotation',
-                                    selected: false,
-                                },
-                                {
-                                    value: 'Aiuto - F2',
-                                    id: '31',
-                                    icon: '3d_rotation',
-                                    selected: false,
-                                },
-                            ],
-                        },
-                        {
-                            value: 'Esterno',
-                            id: '5',
-                            icon: '3d_rotation',
-                            selected: false,
-                        },
-                        {
-                            value: 'Cambia vista',
-                            id: '6',
-                            icon: '3d_rotation',
-                            selected: false,
-                            separator: true,
-                        },
-                        {
-                            value: 'Gestisci setup utente',
-                            id: '7',
-                            icon: '3d_rotation',
+                            trailingIcon: true,
                             selected: false,
                         },
                     ],
@@ -383,26 +370,13 @@ export class KupTabBar {
             (e: CustomEvent<KupCardEventPayload>) => {
                 switch (e.detail.event.type) {
                     case 'kup-list-click':
-                        const selectedElObj =
-                            e.detail.event.detail.selected.obj;
-                        const cell = e.detail.event.detail.selected.cell;
-                        const index = e.detail.event.detail.selected.index;
-                        const type = e.detail.event.detail.selected.type;
-                        const column = e.detail.event.detail.selected.column;
-
-                        // this.kupRowActionItemClick.emit({
-                        //     comp: this,
-                        //     id: this.rootElement.id,
-                        //     row: row,
-                        //     obj: selectedElObj,
-                        //     cell: cell,
-                        //     type: type,
-                        //     index: index,
-                        //     column: column,
-                        // });
+                        (e: CustomEvent<KupListEventPayload>) => {
+                            this.onKupTabbarItemClick(e);
+                        };
                         setTimeout(() => {
                             this.closeRowActionsCard();
                         }, 0);
+                        console.log('function launched', e);
                 }
             }
         );

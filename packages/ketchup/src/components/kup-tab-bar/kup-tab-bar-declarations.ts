@@ -1,5 +1,7 @@
 import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
-import { KupEventPayload } from '../../types/GenericTypes';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
+import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
+import { KupListNode } from '../kup-list/kup-list-declarations';
 
 /**
  * Props of the kup-tab-bar component.
@@ -22,3 +24,10 @@ export interface KupTabBarEventPayload extends KupEventPayload {
     node: KupTabBarNode;
     index: number;
 }
+
+export interface KupTabbarItemClickEventPayload extends KupEventPayload {
+    value?: string;
+    node?: KupListNode;
+}
+
+export type ToolbarOptionsHandler = (fun: string) => Promise<GenericObject>;
