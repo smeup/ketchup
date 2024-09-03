@@ -3188,9 +3188,16 @@ export class KupDataTable {
     }
 
     getVisibleColumns(): Array<KupDataColumn> {
-        const visibleColumns = this.getColumns().filter(
-            ({ visible }) => visible ?? true
-        );
+        const visibleColumns = this.getColumns()
+            .map((c) => {
+                if (c.visible === undefined) {
+                    c.visible = true;
+                }
+                return c;
+            })
+            .filter(
+                (c) => c.visible && !this.#kupManager.data.column.isCodVer(c)
+            );
 
         // check grouping
         if (this.#isGrouping()) {
@@ -4939,7 +4946,7 @@ export class KupDataTable {
             let rowActionsCell = null;
             if (
                 this.#hasRowActions() ||
-                this.#kupManager.data.column.hasCodVer(this.getVisibleColumns())
+                this.#kupManager.data.column.hasCodVer(this.data.columns)
             ) {
                 // Increments
                 specialExtraCellsCount++;
@@ -4959,7 +4966,7 @@ export class KupDataTable {
                     const rowActions =
                         this.#kupManager.data.row.buildRowActions(
                             row,
-                            this.getVisibleColumns(),
+                            this.data.columns,
                             this.rowActions,
                             this.commands
                         );
