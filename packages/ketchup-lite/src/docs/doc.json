@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-09-02T16:40:34",
+  "timestamp": "2024-09-03T16:38:57",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.18.1",
@@ -4776,6 +4776,33 @@
           "values": [
             {
               "type": "KulDataDataset"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "kulEnableDeletions",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "kul-enable-deletions",
+          "reflectToAttr": false,
+          "docs": "Defines whether items can be removed from the list or not.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "false"
+            }
+          ],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
             }
           ],
           "optional": false,
