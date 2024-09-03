@@ -19,6 +19,7 @@ import {
     KupDataTableDataset,
     KupDataTableRow,
     KupEditorEventPayload,
+    KupTabBarEventPayload,
     KupTabBarNode,
 } from '../../components';
 import { FButton } from '../../f-components/f-button/f-button';
@@ -516,9 +517,12 @@ export class KupInputPanel {
         cells: InputPanelCells,
         sections: KupInputPanelLayoutSection[]
     ) {
-        this.tabSelected = '0';
+        if (!this.tabSelected) {
+            this.tabSelected = '0';
+        }
+
         const tabNodes: KupTabBarNode[] = sections.map((section, i) => ({
-            active: i === 1,
+            active: `${i}` === this.tabSelected,
             value: section.title,
             icon: section.icon,
             id: section.id || `${i}`,
@@ -533,6 +537,19 @@ export class KupInputPanel {
 
         const tabCustomStyle =
             '.tab-bar .tab-scroller .tab .tab__content { justify-content: flex-start; }';
+
+        if (!this.#listeners.map((l) => l.event).includes('kup-tabbar-click')) {
+            const event = 'kup-tabbar-click';
+            const handler = (e: CustomEvent<KupTabBarEventPayload>) => {
+                this.tabSelected = e.detail.node.id;
+            };
+
+            this.rootElement.addEventListener(event, handler);
+            this.#listeners.push({
+                event,
+                handler,
+            });
+        }
 
         return (
             <div class={{ 'input-panel__tabs_container': true }}>
