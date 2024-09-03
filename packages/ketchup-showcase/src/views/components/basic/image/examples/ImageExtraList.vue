@@ -324,11 +324,7 @@
             <div class="icon-label">book-open</div>
           </div>
           <div class="icon-wrapper" title="brain">
-            <kup-image
-              size-x="48px"
-              size-y="48px"
-              resource="brain"
-            ></kup-image>
+            <kup-image size-x="48px" size-y="48px" resource="brain"></kup-image>
             <div class="icon-label">brain</div>
           </div>
           <div class="icon-wrapper" title="briefcase">
@@ -607,7 +603,7 @@
             ></kup-image>
             <div class="icon-label">code-array</div>
           </div>
-          
+
           <div class="icon-wrapper" title="comment-check-outline">
             <kup-image
               size-x="48px"
@@ -845,11 +841,7 @@
             <div class="icon-label">dropbox</div>
           </div>
           <div class="icon-wrapper" title="edit">
-            <kup-image
-              size-x="48px"
-              size-y="48px"
-              resource="edit"
-            ></kup-image>
+            <kup-image size-x="48px" size-y="48px" resource="edit"></kup-image>
             <div class="icon-label">edit</div>
           </div>
           <div class="icon-wrapper" title="edit-key">
@@ -1076,7 +1068,7 @@
             ></kup-image>
             <div class="icon-label">filter-remove</div>
           </div>
-           <div class="icon-wrapper" title="fitness_center">
+          <div class="icon-wrapper" title="fitness_center">
             <kup-image
               size-x="48px"
               size-y="48px"
@@ -1341,11 +1333,7 @@
             <div class="icon-label">information-variant</div>
           </div>
           <div class="icon-wrapper" title="join">
-            <kup-image
-              size-x="48px"
-              size-y="48px"
-              resource="join"
-            ></kup-image>
+            <kup-image size-x="48px" size-y="48px" resource="join"></kup-image>
             <div class="icon-label">join</div>
           </div>
           <div class="icon-wrapper" title="join_inner">
@@ -1361,11 +1349,7 @@
             <div class="icon-label">json</div>
           </div>
           <div class="icon-wrapper" title="keep">
-            <kup-image
-              size-x="48px"
-              size-y="48px"
-              resource="keep"
-            ></kup-image>
+            <kup-image size-x="48px" size-y="48px" resource="keep"></kup-image>
             <div class="icon-label">keep</div>
           </div>
           <div class="icon-wrapper" title="ketchup">
@@ -1477,11 +1461,7 @@
             <div class="icon-label">link_off</div>
           </div>
           <div class="icon-wrapper" title="link">
-            <kup-image
-              size-x="48px"
-              size-y="48px"
-              resource="link"
-            ></kup-image>
+            <kup-image size-x="48px" size-y="48px" resource="link"></kup-image>
             <div class="icon-label">link</div>
           </div>
           <div class="icon-wrapper" title="linkedin">
@@ -1501,11 +1481,7 @@
             <div class="icon-label">local_shipping</div>
           </div>
           <div class="icon-wrapper" title="lock">
-            <kup-image
-              size-x="48px"
-              size-y="48px"
-              resource="lock"
-            ></kup-image>
+            <kup-image size-x="48px" size-y="48px" resource="lock"></kup-image>
             <div class="icon-label">lock</div>
           </div>
           <div class="icon-wrapper" title="lock-outline">
@@ -1677,11 +1653,7 @@
             <div class="icon-label">open_in_new</div>
           </div>
           <div class="icon-wrapper" title="order">
-            <kup-image
-              size-x="48px"
-              size-y="48px"
-              resource="order"
-            ></kup-image>
+            <kup-image size-x="48px" size-y="48px" resource="order"></kup-image>
             <div class="icon-label">order</div>
           </div>
           <div class="icon-wrapper" title="packs">
