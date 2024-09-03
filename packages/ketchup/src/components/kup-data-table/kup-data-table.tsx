@@ -53,7 +53,6 @@ import {
     KupDatatableInsertRowEventPayload,
     KupDataTableInsertMode,
     KupDatatableHistoryEventPayload,
-    VoCodVerRowEnum,
     KupDatatableRowActionItemClickEventPayload,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
@@ -3705,17 +3704,6 @@ export class KupDataTable {
         }
     }
 
-    #onDefaultRowActionClick({ action, row, type, index }) {
-        this.kupRowActionClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            action,
-            index,
-            row,
-            type,
-        });
-    }
-
     #onRowActionExpanderClick(
         e: MouseEvent,
         row: KupDataTableRow,
@@ -3723,12 +3711,6 @@ export class KupDataTable {
     ) {
         e.stopPropagation();
         this.#dropDownActionCardAnchor = e.target as HTMLElement;
-        this.kupRowActionClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            row,
-            type: 'expander',
-        });
         this.#dropDownActions(dropDownActions, row);
     }
 
@@ -5038,7 +5020,6 @@ export class KupDataTable {
                                         KupLanguageGeneric.EXPAND
                                     ),
                                     'expander',
-
                                     (e) => {
                                         this.#onRowActionExpanderClick(
                                             e,
@@ -5211,31 +5192,6 @@ export class KupDataTable {
                 </tr>
             );
         }
-    }
-
-    #renderActions(
-        actions: Array<KupDataRowAction>,
-        row: KupDataTableRow,
-        type: string
-    ): JSX.Element[] {
-        return actions.map((action, index) => {
-            const props: FImageProps = {
-                color: `var(${KupThemeColorValues.PRIMARY})`,
-                resource: action.icon,
-                sizeX: '1.5em',
-                sizeY: '1.5em',
-                title: action.text,
-                wrapperClass: 'action',
-                onClick: () =>
-                    this.#onDefaultRowActionClick({
-                        action,
-                        row,
-                        index,
-                        type,
-                    }),
-            };
-            return <FImage {...props} />;
-        });
     }
 
     #onCustomSettingsClick() {
