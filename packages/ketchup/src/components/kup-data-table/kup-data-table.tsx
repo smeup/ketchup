@@ -3189,13 +3189,9 @@ export class KupDataTable {
     }
 
     getVisibleColumns(): Array<KupDataColumn> {
-        const visibleColumns = this.getColumns().filter(({ visible, obj }) => {
-            if (obj?.p === VoCodVerRowEnum.P && obj?.t === VoCodVerRowEnum.T) {
-                visible = false;
-            }
-
-            return visible ?? true;
-        });
+        const visibleColumns = this.getColumns().filter(
+            ({ visible }) => visible ?? true
+        );
 
         // check grouping
         if (this.#isGrouping()) {
@@ -3221,7 +3217,6 @@ export class KupDataTable {
                 return true;
             });
         }
-
         return visibleColumns;
     }
 
@@ -4962,7 +4957,7 @@ export class KupDataTable {
             let rowActionsCell = null;
             if (
                 this.#hasRowActions() ||
-                this.#kupManager.data.column.hasCodVer(this.data.columns)
+                this.#kupManager.data.column.hasCodVer(this.getVisibleColumns())
             ) {
                 // Increments
                 specialExtraCellsCount++;
@@ -4982,17 +4977,17 @@ export class KupDataTable {
                     const rowActions =
                         this.#kupManager.data.row.buildRowActions(
                             row,
-                            this.data.columns,
+                            this.getVisibleColumns(),
                             this.rowActions,
                             this.commands
                         );
-
-                    if (rowActions.length === 1) {
+                    console.log('actions', rowActions);
+                    if (rowActions.length === 1 && rowActions[0].icon) {
                         const singleAction = rowActions[0];
                         const imageProp: FImageProps =
                             this.#kupManager.data.action.buildImageProp(
-                                singleAction.icon ?? '',
-                                singleAction.text ?? '',
+                                singleAction.icon,
+                                singleAction.column.title,
                                 'action',
                                 () => {
                                     this.kupRowActionItemClick.emit({
@@ -5002,7 +4997,6 @@ export class KupDataTable {
                                         obj: singleAction.obj,
                                         cell: singleAction.cell,
                                         type: singleAction.type,
-                                        //  index: index,
                                         column: singleAction.column,
                                     });
                                 }
@@ -5020,7 +5014,7 @@ export class KupDataTable {
                                 const imageProp: FImageProps =
                                     this.#kupManager.data.action.buildImageProp(
                                         action.icon,
-                                        '',
+                                        action.column.title,
                                         'action',
                                         () => {
                                             this.kupRowActionItemClick.emit({
