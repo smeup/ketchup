@@ -11,7 +11,7 @@ export interface KupActivityTimelineData {
     title: string;
     value: string;
     columnName: string;
-    cellId: string;
+    rowId: string;
 }
 
 export interface KupActivityTimelineActivity {
