@@ -53,12 +53,12 @@ import {
     KupInputPanelData,
     KupInputPanelLayoutField,
     KupInputPanelLayoutSection,
+    KupInputPanelLayoutSectionType,
     KupInputPanelProps,
     KupInputPanelRow,
     KupInputPanelSubmit,
 } from './kup-input-panel-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
-import { KupEditor } from '../kup-editor/kup-editor';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -171,6 +171,15 @@ export class KupInputPanel {
         [FCellShapes.LABEL, this.#renderLabel.bind(this)],
         [FCellShapes.TABLE, this.#renderDataTable.bind(this)],
     ]);
+    #sectionRenderMap: Map<
+        KupInputPanelLayoutSectionType,
+        (cells: InputPanelCells, sections: KupInputPanelLayoutSection[]) => any
+    > = new Map<
+        KupInputPanelLayoutSectionType,
+        (cells: InputPanelCells, sections: KupInputPanelLayoutSection[]) => any
+    >([
+        [KupInputPanelLayoutSectionType.TAB, this.#renderSectionTab.bind(this)],
+    ]);
     //#endregion
 
     //#region WATCHERS
@@ -257,9 +266,15 @@ export class KupInputPanel {
                 this.#renderCell(cell.cell, inputPanelCell.row, cell.column)
             );
         } else {
-            rowContent = layout.sections.map((section) =>
-                this.#renderSection(inputPanelCell, section)
+            const sectionRender = this.#sectionRenderMap.get(
+                layout.sectionsType
             );
+
+            rowContent = sectionRender
+                ? sectionRender(inputPanelCell, layout.sections)
+                : layout.sections.map((section) =>
+                      this.#renderSection(inputPanelCell, section)
+                  );
         }
 
         const classObj = {
@@ -438,7 +453,8 @@ export class KupInputPanel {
 
     #renderSection(
         cells: InputPanelCells,
-        section: KupInputPanelLayoutSection
+        section: KupInputPanelLayoutSection,
+        styleObj: GenericObject = {}
     ) {
         let content = [];
 
@@ -457,7 +473,8 @@ export class KupInputPanel {
             'input-panel__horizontal-section': section.horizontal,
         };
 
-        const styleObj: GenericObject = {
+        styleObj = {
+            ...styleObj,
             gap: +section.gap > 0 ? `${section.gap}rem` : '',
             'grid-template-columns':
                 +section.gridCols > 0 ? `repeat(${section.gridCols}, 1fr)` : '',
@@ -485,6 +502,13 @@ export class KupInputPanel {
         ) : (
             sectionContent
         );
+    }
+
+    #renderSectionTab(
+        cells: InputPanelCells,
+        sections: KupInputPanelLayoutSection[]
+    ) {
+        return <span>TAB LAYOUT</span>;
     }
 
     #renderField(cells: InputPanelCells, field: KupInputPanelLayoutField) {

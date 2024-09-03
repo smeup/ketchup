@@ -48,6 +48,11 @@ export interface KupInputPanelCellOptions {
 export interface KupInputPanelLayout {
     horizontal?: boolean;
     sections?: KupInputPanelLayoutSection[];
+    sectionsType?: KupInputPanelLayoutSectionType;
+}
+
+export enum KupInputPanelLayoutSectionType {
+    TAB = 'tab',
 }
 
 export interface KupInputPanelLayoutSection {
@@ -61,6 +66,7 @@ export interface KupInputPanelLayoutSection {
     gridRows?: number;
     // Gap is in rem
     gap?: number;
+    sectionsType?: KupInputPanelLayoutSectionType;
 }
 
 export interface KupInputPanelLayoutField {
