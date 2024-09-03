@@ -23,6 +23,11 @@ export const LIST_EXAMPLES: ListData = {
         ['data-description']: 'Simple list',
         kulData,
     },
+    enableDeletion: {
+        ['data-description']: 'List with deletable items',
+        kulData,
+        kulEnableDeletions: true,
+    },
     style: {
         ['data-description']: 'List with custom style',
         'data-dynamic': 'custom',
