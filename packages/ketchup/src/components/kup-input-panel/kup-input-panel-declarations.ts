@@ -58,6 +58,7 @@ export enum KupInputPanelLayoutSectionType {
 export interface KupInputPanelLayoutSection {
     id?: string;
     title?: string;
+    icon?: string;
     content?: KupInputPanelLayoutField[];
     sections?: KupInputPanelLayoutSection[];
     dim?: string;

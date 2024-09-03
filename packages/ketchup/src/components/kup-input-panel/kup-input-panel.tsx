@@ -19,6 +19,7 @@ import {
     KupDataTableDataset,
     KupDataTableRow,
     KupEditorEventPayload,
+    KupTabBarNode,
 } from '../../components';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FCell } from '../../f-components/f-cell/f-cell';
@@ -125,6 +126,12 @@ export class KupInputPanel {
      * @default []
      */
     @State() private inputPanelCells: InputPanelCells[] = [];
+
+    /**
+     * Id of selected tab if exists
+     * @default null
+     */
+    @State() private tabSelected: string = null;
     //#endregion
 
     //#region VARIABLES
@@ -454,6 +461,7 @@ export class KupInputPanel {
     #renderSection(
         cells: InputPanelCells,
         section: KupInputPanelLayoutSection,
+        customLabelRender: boolean = false,
         styleObj: GenericObject = {}
     ) {
         let content = [];
@@ -473,7 +481,7 @@ export class KupInputPanel {
             'input-panel__horizontal-section': section.horizontal,
         };
 
-        styleObj = {
+        const sectionStyle = {
             ...styleObj,
             gap: +section.gap > 0 ? `${section.gap}rem` : '',
             'grid-template-columns':
@@ -489,12 +497,12 @@ export class KupInputPanel {
         }
 
         const sectionContent = (
-            <div class={classObj} style={styleObj}>
+            <div class={classObj} style={sectionStyle}>
                 {content}
             </div>
         );
 
-        return section.title ? (
+        return section.title && !customLabelRender ? (
             <div class={{ 'input-panel__section_label_container': true }}>
                 <h3>{section.title}</h3>
                 {sectionContent}
@@ -508,7 +516,33 @@ export class KupInputPanel {
         cells: InputPanelCells,
         sections: KupInputPanelLayoutSection[]
     ) {
-        return <span>TAB LAYOUT</span>;
+        this.tabSelected = '0';
+        const tabNodes: KupTabBarNode[] = sections.map((section, i) => ({
+            active: i === 1,
+            value: section.title,
+            icon: section.icon,
+            id: section.id || `${i}`,
+        }));
+
+        const sectionContent = sections.map((section, i) => {
+            const sectionId = section.id || `${i}`;
+            return this.#renderSection(cells, section, true, {
+                display: this.tabSelected !== sectionId ? 'none' : 'grid',
+            });
+        });
+
+        const tabCustomStyle =
+            '.tab-bar .tab-scroller .tab .tab__content { justify-content: flex-start; }';
+
+        return (
+            <div class={{ 'input-panel__tabs_container': true }}>
+                <kup-tab-bar
+                    data={tabNodes}
+                    customStyle={tabCustomStyle}
+                ></kup-tab-bar>
+                {sectionContent}
+            </div>
+        );
     }
 
     #renderField(cells: InputPanelCells, field: KupInputPanelLayoutField) {
