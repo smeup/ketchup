@@ -4981,7 +4981,6 @@ export class KupDataTable {
                             this.rowActions,
                             this.commands
                         );
-                    console.log('actions', rowActions);
                     if (rowActions.length === 1 && rowActions[0].icon) {
                         const singleAction = rowActions[0];
                         const imageProp: FImageProps =
