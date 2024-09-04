@@ -45,7 +45,10 @@ import {
     KupCardFamily,
 } from '../kup-card/kup-card-declarations';
 import { Mouse } from 'puppeteer';
-import { KupListEventPayload } from '../kup-list/kup-list-declarations';
+import {
+    KupListEventPayload,
+    KupListNode,
+} from '../kup-list/kup-list-declarations';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -109,11 +112,11 @@ export class KupTabBar {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
+    #clickCbDropCard: KupManagerClickCb = null;
     /**
      * Element scrollable on mouse hover.
      */
     private scrollArea: KupScrollOnHoverElement = null;
-    #clickCbDropCard: KupManagerClickCb = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -162,7 +165,7 @@ export class KupTabBar {
     })
     kupFocus: EventEmitter<KupTabBarEventPayload>;
     #dropDownActionCardAnchor: HTMLElement = null;
-    actionsCard: HTMLKupCardElement;
+    toolbarList;
 
     onKupBlur(i: number, node: KupTabBarNode) {
         this.kupBlur.emit({
@@ -196,7 +199,7 @@ export class KupTabBar {
             index: i,
             node: node,
         });
-        this.createDropDownActionsCard();
+        this.createDropDownToolbarList();
     }
 
     onKupFocus(i: number, node: KupTabBarNode) {
@@ -226,8 +229,6 @@ export class KupTabBar {
             value: this.value,
             node: e.detail.selected,
         });
-
-        console.log('tab bar item');
     }
 
     /*-------------------------------------------------*/
@@ -296,90 +297,68 @@ export class KupTabBar {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    closeRowActionsCard() {
+    closeRowToolbarList() {
         this.kupManager.dynamicPosition.stop(
-            this.actionsCard as KupDynamicPositionElement
+            this.toolbarList as KupDynamicPositionElement
         );
         this.kupManager.removeClickCallback(this.#clickCbDropCard);
-        this.actionsCard.remove();
-        this.actionsCard = null;
+        this.toolbarList.remove();
+        this.toolbarList = null;
     }
 
-    prepareDataForActionsCard(): KupCardData {
-        const data: KupCardData = {
-            list: [
-                {
-                    data: [
-                        {
-                            value: 'Refresh',
-                            id: 'refresh',
-                            icon: 'add_alert',
-                            trailingIcon: true,
-                            selected: false,
-                            separator: true,
-                        },
-                        {
-                            value: 'Maximize Section',
-                            id: 'maximize',
-                            icon: 'ac_unit',
-                            trailingIcon: true,
-                            selected: false,
-                        },
-                    ],
-                },
-            ],
-        };
-        return data;
-    }
+    listItemData: KupListNode[] = [
+        {
+            value: 'Maximize',
+            id: 'maximize',
+            icon: 'add_alert',
+            selected: false,
+        },
+        {
+            value: 'Refresh',
+            id: 'refresh',
+            selected: true,
+            icon: 'ac_unit',
+            separator: true,
+        },
+    ];
 
-    createDropDownActionsCard() {
-        if (this.actionsCard) {
-            this.closeRowActionsCard();
+    createDropDownToolbarList() {
+        if (this.toolbarList) {
+            this.closeRowToolbarList();
         }
-        this.actionsCard = document.createElement('kup-card');
-        this.actionsCard.layoutFamily = KupCardFamily.STANDARD;
-        this.actionsCard.layoutNumber = 16;
-        this.actionsCard.menuVisible = true;
-        this.actionsCard.sizeX = 'auto';
-        this.actionsCard.sizeY = 'auto';
-        this.actionsCard.data = this.prepareDataForActionsCard();
+        const listEl = document.createElement('kup-list');
+        listEl.data = this.listItemData;
+        listEl.isMenu = true;
+        listEl.menuVisible = true;
+        listEl.addEventListener('kup-list-click', (e: CustomEvent) => {
+            console.log(e.detail.selected);
+            this.onKupTabbarItemClick(e);
+            setTimeout(() => {
+                this.closeRowToolbarList();
+            }, 0);
+        });
+        this.toolbarList = listEl;
         this.#clickCbDropCard = {
             cb: () => {
-                this.closeRowActionsCard();
+                this.closeRowToolbarList();
             },
-            el: this.actionsCard,
+            el: this.toolbarList,
         };
+
         this.kupManager.addClickCallback(this.#clickCbDropCard, true);
-        this.actionsCard.style.position = 'absolute';
-        this.actionsCard.style.left = '0';
-        this.actionsCard.style.top = '0';
-        this.actionsCard.isMenu = true;
-        this.rootElement.shadowRoot.append(this.actionsCard);
-        this.kupManager.dynamicPosition.register(
-            this.actionsCard,
-            this.#dropDownActionCardAnchor as KupDynamicPositionAnchor,
-            0,
-            KupDynamicPositionPlacement.AUTO,
-            true
-        );
-        this.kupManager.dynamicPosition.start(
-            this.actionsCard as unknown as KupDynamicPositionElement
-        );
-        this.actionsCard.addEventListener(
-            'kup-card-event',
-            (e: CustomEvent<KupCardEventPayload>) => {
-                switch (e.detail.event.type) {
-                    case 'kup-list-click':
-                        (e: CustomEvent<KupListEventPayload>) => {
-                            this.onKupTabbarItemClick(e);
-                        };
-                        setTimeout(() => {
-                            this.closeRowActionsCard();
-                        }, 0);
-                        console.log('function launched', e);
-                }
-            }
-        );
+        this.rootElement.shadowRoot.appendChild(this.toolbarList);
+        requestAnimationFrame(() => {
+            this.kupManager.dynamicPosition.register(
+                this.toolbarList as unknown as KupDynamicPositionElement,
+                this.#dropDownActionCardAnchor as KupDynamicPositionAnchor,
+                0,
+                KupDynamicPositionPlacement.AUTO,
+                true
+            );
+            this.kupManager.dynamicPosition.start(
+                this.toolbarList as unknown as KupDynamicPositionElement
+            );
+        });
     }
 
     private consistencyCheck() {
