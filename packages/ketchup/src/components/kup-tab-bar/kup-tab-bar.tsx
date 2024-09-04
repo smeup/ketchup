@@ -37,6 +37,7 @@ import {
 } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupListNode } from '../kup-list/kup-list-declarations';
+import { KupList } from '../kup-list/kup-list';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -102,7 +103,7 @@ export class KupTabBar {
     /**
      * Toolbar List.
      */
-    private toolbarList;
+    private toolbarList: KupDynamicPositionElement;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
