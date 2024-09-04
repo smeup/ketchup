@@ -22,6 +22,7 @@ import { KupMathLocales } from '../kup-math/kup-math-declarations';
 import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
 import { Options } from 'html2canvas';
 import { KupOpenAI } from '../kup-openai/kup-openai';
+import { KupToolbar } from '../kup-toolbar/kup-toolbar';
 /**
  * Interface used to define the HTML element with Ketchup specific properties.
  */
@@ -50,6 +51,7 @@ export interface KupManager {
     search: KupSearch;
     theme: KupTheme;
     tooltip: KupTooltip;
+    toolbar: KupToolbar;
     utilities: KupManagerUtilities;
     showMagicBox: () => void;
     hideMagicBox: () => void;

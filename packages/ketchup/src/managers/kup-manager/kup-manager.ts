@@ -17,6 +17,7 @@ import { KupLanguage } from '../kup-language/kup-language';
 import { KupObjects } from '../kup-objects/kup-objects';
 import { KupScrollOnHover } from '../kup-scroll-on-hover/kup-scroll-on-hover';
 import { KupTheme } from '../kup-theme/kup-theme';
+import { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import { ResizeObserver } from 'resize-observer';
 import {
     KupLanguageDefaults,
@@ -62,6 +63,7 @@ export class KupManager {
     search: KupSearch;
     utilities: KupManagerUtilities;
     theme: KupTheme;
+    toolbar: KupToolbar;
     tooltip: KupTooltip;
     /**
      * Initializes KupManager.
@@ -192,6 +194,7 @@ export class KupManager {
             lastPointerDownString: null,
         };
         this.theme = new KupTheme(themeList, themeName);
+        this.toolbar = new KupToolbar();
         this.tooltip = new KupTooltip(
             tooltipDelay,
             tooltipFCellCallbacks,
