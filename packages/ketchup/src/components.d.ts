@@ -8,6 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 import { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+import { KupDatesOrder } from "./managers/kup-dates/kup-dates-declarations";
 import { KupActivityTimelineClickEventPayload } from "./components/kup-activity-timeline/kup-activity-timeline-declarations";
 import { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
@@ -61,6 +62,7 @@ import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time
 export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 export { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 export { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+export { KupDatesOrder } from "./managers/kup-dates/kup-dates-declarations";
 export { KupActivityTimelineClickEventPayload } from "./components/kup-activity-timeline/kup-activity-timeline-declarations";
 export { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 export { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
@@ -189,6 +191,11 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Order for sorting.
+          * @default 'desc'
+         */
+        "sortOrder": KupDatesOrder;
         /**
           * Columns containing times.
           * @default null
@@ -5670,6 +5677,11 @@ declare namespace LocalJSX {
           * Triggered when the component is ready.
          */
         "onKup-activitytimeline-ready"?: (event: KupActivityTimelineCustomEvent<KupEventPayload>) => void;
+        /**
+          * Order for sorting.
+          * @default 'desc'
+         */
+        "sortOrder"?: KupDatesOrder;
         /**
           * Columns containing times.
           * @default null

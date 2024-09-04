@@ -34,6 +34,7 @@ import {
 } from './kup-activity-timeline-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { getCellValueForDisplay } from '../../utils/cell-utils';
+import { KupDatesOrder } from '../../managers/kup-dates/kup-dates-declarations';
 
 @Component({
     tag: 'kup-activity-timeline',
@@ -68,6 +69,12 @@ export class KupActivityTimeline {
      * @default null
      */
     @Prop() dateColumn: string;
+
+    /**
+     *  Order for sorting.
+     * @default 'desc'
+     */
+    @Prop() sortOrder: KupDatesOrder = KupDatesOrder.DESC;
 
     /**
      *  Columns containing times.
@@ -209,7 +216,9 @@ export class KupActivityTimeline {
         }, {});
 
         return Object.keys(activitiesByDate)
-            .sort(this.#kupManager.dates.sortDates)
+            .sort((date1, date2) =>
+                this.#kupManager.dates.sortDates(date1, date2, this.sortOrder)
+            )
             .map((date) => ({
                 date,
                 time: activitiesByDate[date][0]!.time,
