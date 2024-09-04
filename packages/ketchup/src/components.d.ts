@@ -8,6 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 import { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+import { KupDatesOrder } from "./managers/kup-dates/kup-dates-declarations";
 import { KupActivityTimelineClickEventPayload } from "./components/kup-activity-timeline/kup-activity-timeline-declarations";
 import { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
@@ -55,12 +56,13 @@ import { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-dec
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 import { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
-import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { KupTabBarEventPayload, KupTabbarItemClickEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 export { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 export { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+export { KupDatesOrder } from "./managers/kup-dates/kup-dates-declarations";
 export { KupActivityTimelineClickEventPayload } from "./components/kup-activity-timeline/kup-activity-timeline-declarations";
 export { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 export { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
@@ -108,7 +110,7 @@ export { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-dec
 export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 export { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 export { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
-export { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+export { KupTabBarEventPayload, KupTabbarItemClickEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 export { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 export { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 export namespace Components {
@@ -189,6 +191,11 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Order for sorting.
+          * @default 'desc'
+         */
+        "sortOrder": KupDatesOrder;
         /**
           * Columns containing times.
           * @default null
@@ -5419,7 +5426,9 @@ declare global {
     interface HTMLKupTabBarElementEventMap {
         "kup-tabbar-blur": KupTabBarEventPayload;
         "kup-tabbar-click": KupTabBarEventPayload;
+        "kup-tabbar-iconclick": KupTabBarEventPayload;
         "kup-tabbar-focus": KupTabBarEventPayload;
+        "kup-tabbar-itemclick": KupTabbarItemClickEventPayload;
     }
     interface HTMLKupTabBarElement extends Components.KupTabBar, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupTabBarElementEventMap>(type: K, listener: (this: HTMLKupTabBarElement, ev: KupTabBarCustomEvent<HTMLKupTabBarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5670,6 +5679,11 @@ declare namespace LocalJSX {
           * Triggered when the component is ready.
          */
         "onKup-activitytimeline-ready"?: (event: KupActivityTimelineCustomEvent<KupEventPayload>) => void;
+        /**
+          * Order for sorting.
+          * @default 'desc'
+         */
+        "sortOrder"?: KupDatesOrder;
         /**
           * Columns containing times.
           * @default null
@@ -8681,6 +8695,14 @@ declare namespace LocalJSX {
           * Triggered when the tab is focused.
          */
         "onKup-tabbar-focus"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
+        /**
+          * Triggered when the icon inside tab is clicked.
+         */
+        "onKup-tabbar-iconclick"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
+        /**
+          * Triggered when a list item is clicked.
+         */
+        "onKup-tabbar-itemclick"?: (event: KupTabBarCustomEvent<KupTabbarItemClickEventPayload>) => void;
         /**
           * When enabled displays Material's ripple effect on item headers.
           * @default true

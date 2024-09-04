@@ -7,11 +7,12 @@
 
 ## Properties
 
-| Property     | Attribute     | Description                             | Type             | Default     |
-| ------------ | ------------- | --------------------------------------- | ---------------- | ----------- |
-| `data`       | --            | Dataset containing the activities list. | `KupDataDataset` | `undefined` |
-| `dateColumn` | `date-column` | Columns containing dates.               | `string`         | `undefined` |
-| `timeColumn` | `time-column` | Columns containing times.               | `string`         | `undefined` |
+| Property     | Attribute     | Description                             | Type                                      | Default              |
+| ------------ | ------------- | --------------------------------------- | ----------------------------------------- | -------------------- |
+| `data`       | --            | Dataset containing the activities list. | `KupDataDataset`                          | `undefined`          |
+| `dateColumn` | `date-column` | Columns containing dates.               | `string`                                  | `undefined`          |
+| `sortOrder`  | `sort-order`  | Order for sorting.                      | `KupDatesOrder.ASC \| KupDatesOrder.DESC` | `KupDatesOrder.DESC` |
+| `timeColumn` | `time-column` | Columns containing times.               | `string`                                  | `undefined`          |
 
 
 ## Events
@@ -213,6 +214,7 @@ graph TD;
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
+  kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge

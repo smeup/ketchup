@@ -25,7 +25,7 @@
     var(--kup-layer-1-hover)
   );
 
-  --kup_list_focus_color: var(--kup-list-focus-color, var(--kup-text-main));
+  --kup_list_focus_color: var(--kup-list-focus-color, var(--kup-border-subtle));
   --kup_list_text_color: var(--kup-list-text-color, var(--kup-text-secondary));
   --kup_list_item_text_color: var(
     --kup-list-item-text-color,
