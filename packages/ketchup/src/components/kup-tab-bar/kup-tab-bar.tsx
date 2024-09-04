@@ -17,7 +17,6 @@ import {
     KupTabBarNode,
     KupTabBarEventPayload,
     KupTabBarProps,
-    ToolbarOptionsHandler,
     KupTabbarItemClickEventPayload,
 } from './kup-tab-bar-declarations';
 import {
@@ -86,12 +85,6 @@ export class KupTabBar {
      * @default true
      */
     @Prop() toolbar: boolean = true;
-
-    /**
-     * Sets the callback function on loading options via FUN
-     * @default null
-     */
-    @Prop() toolbarOptionHandler: ToolbarOptionsHandler = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */

@@ -29,5 +29,3 @@ export interface KupTabbarItemClickEventPayload extends KupEventPayload {
     value?: string;
     node?: KupListNode;
 }
-
-export type ToolbarOptionsHandler = (fun: string) => Promise<GenericObject>;

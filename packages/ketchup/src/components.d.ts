@@ -56,7 +56,7 @@ import { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-dec
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 import { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
-import { KupTabBarEventPayload, KupTabbarItemClickEventPayload, KupTabBarNode, ToolbarOptionsHandler } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { KupTabBarEventPayload, KupTabbarItemClickEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
@@ -110,7 +110,7 @@ export { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-dec
 export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 export { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 export { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
-export { KupTabBarEventPayload, KupTabbarItemClickEventPayload, KupTabBarNode, ToolbarOptionsHandler } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+export { KupTabBarEventPayload, KupTabbarItemClickEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 export { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 export { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 export namespace Components {
@@ -3815,11 +3815,6 @@ export namespace Components {
           * @default true
          */
         "toolbar": boolean;
-        /**
-          * Sets the callback function on loading options via FUN
-          * @default null
-         */
-        "toolbarOptionHandler": ToolbarOptionsHandler;
     }
     interface KupTaskGantt {
         "barProps": KupPlannerTaskGanttProps['barProps'];
@@ -8718,11 +8713,6 @@ declare namespace LocalJSX {
           * @default true
          */
         "toolbar"?: boolean;
-        /**
-          * Sets the callback function on loading options via FUN
-          * @default null
-         */
-        "toolbarOptionHandler"?: ToolbarOptionsHandler;
     }
     interface KupTaskGantt {
         "barProps"?: KupPlannerTaskGanttProps['barProps'];
