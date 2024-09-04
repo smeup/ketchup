@@ -3188,16 +3188,11 @@ export class KupDataTable {
     }
 
     getVisibleColumns(): Array<KupDataColumn> {
-        const visibleColumns = this.getColumns()
-            .map((c) => {
-                if (c.visible === undefined) {
-                    c.visible = true;
-                }
-                return c;
-            })
-            .filter(
-                (c) => c.visible && !this.#kupManager.data.column.isCodVer(c)
-            );
+        const visibleColumns = this.getColumns().filter(
+            (col) =>
+                !this.#kupManager.data.column.isCodVer(col) &&
+                (!('visible' in col) || col.visible)
+        );
 
         // check grouping
         if (this.#isGrouping()) {
