@@ -119,7 +119,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             },
             {
                 icon: '',
-                text: 'Test',
+                text: 'X$CFG',
                 obj: { k: '000052', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: thirdCell,
@@ -206,7 +206,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             },
             {
                 icon: '',
-                text: 'Test',
+                text: 'X$CFG',
                 obj: { k: '000052', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: thirdCell,
