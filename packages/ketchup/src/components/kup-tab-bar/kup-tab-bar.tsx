@@ -17,6 +17,8 @@ import {
     KupTabBarNode,
     KupTabBarEventPayload,
     KupTabBarProps,
+    ToolbarOptionsHandler,
+    KupTabbarItemClickEventPayload,
 } from './kup-tab-bar-declarations';
 import {
     KupManager,
@@ -29,6 +31,13 @@ import { KupScrollOnHoverElement } from '../../managers/kup-scroll-on-hover/kup-
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import {
+    KupDynamicPositionAnchor,
+    KupDynamicPositionElement,
+    KupDynamicPositionPlacement,
+} from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
+import { KupListNode } from '../kup-list/kup-list-declarations';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -78,6 +87,12 @@ export class KupTabBar {
      */
     @Prop() toolbar: boolean = true;
 
+    /**
+     * Sets the callback function on loading options via FUN
+     * @default null
+     */
+    @Prop() toolbarOptionHandler: ToolbarOptionsHandler = null;
+
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -86,6 +101,7 @@ export class KupTabBar {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
+    #clickCbDropCard: KupManagerClickCb = null;
     /**
      * Element scrollable on mouse hover.
      */
@@ -117,6 +133,17 @@ export class KupTabBar {
     kupClick: EventEmitter<KupTabBarEventPayload>;
 
     /**
+     * Triggered when the icon inside tab is clicked.
+     */
+    @Event({
+        eventName: 'kup-tabbar-iconclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupIconClick: EventEmitter<KupTabBarEventPayload>;
+
+    /**
      * Triggered when the tab is focused.
      */
     @Event({
@@ -126,6 +153,8 @@ export class KupTabBar {
         bubbles: true,
     })
     kupFocus: EventEmitter<KupTabBarEventPayload>;
+    #dropDownActionCardAnchor: HTMLElement = null;
+    toolbarList;
 
     onKupBlur(i: number, node: KupTabBarNode) {
         this.kupBlur.emit({
@@ -151,12 +180,43 @@ export class KupTabBar {
         });
     }
 
+    onKupIconClick(i: number, node: KupTabBarNode, el: HTMLElement) {
+        this.#dropDownActionCardAnchor = el;
+        this.kupIconClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            index: i,
+            node: node,
+        });
+        this.createDropDownToolbarList();
+    }
+
     onKupFocus(i: number, node: KupTabBarNode) {
         this.kupFocus.emit({
             comp: this,
             id: this.rootElement.id,
             index: i,
             node: node,
+        });
+    }
+
+    /**
+     * Triggered when a list item is clicked.
+     */
+    @Event({
+        eventName: 'kup-tabbar-itemclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupItemClick: EventEmitter<KupTabbarItemClickEventPayload>;
+
+    onKupTabbarItemClick(e: CustomEvent) {
+        this.kupItemClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: this.value,
+            node: e.detail.selected,
         });
     }
 
@@ -225,6 +285,70 @@ export class KupTabBar {
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
+
+    closeRowToolbarList() {
+        this.kupManager.dynamicPosition.stop(
+            this.toolbarList as KupDynamicPositionElement
+        );
+        this.kupManager.removeClickCallback(this.#clickCbDropCard);
+        this.toolbarList.remove();
+        this.toolbarList = null;
+    }
+
+    listItemData: KupListNode[] = [
+        {
+            value: 'Maximize',
+            id: 'maximize',
+            icon: 'add_alert',
+            selected: false,
+        },
+        {
+            value: 'Refresh',
+            id: 'refresh',
+            selected: true,
+            icon: 'ac_unit',
+            separator: true,
+        },
+    ];
+
+    createDropDownToolbarList() {
+        if (this.toolbarList) {
+            this.closeRowToolbarList();
+        }
+        const listEl = document.createElement('kup-list');
+        listEl.data = this.listItemData;
+        listEl.isMenu = true;
+        listEl.menuVisible = true;
+        listEl.addEventListener('kup-list-click', (e: CustomEvent) => {
+            console.log(e.detail.selected);
+            this.onKupTabbarItemClick(e);
+            setTimeout(() => {
+                this.closeRowToolbarList();
+            }, 0);
+        });
+        this.toolbarList = listEl;
+        this.#clickCbDropCard = {
+            cb: () => {
+                this.closeRowToolbarList();
+            },
+            el: this.toolbarList,
+        };
+
+        this.kupManager.addClickCallback(this.#clickCbDropCard, true);
+        this.rootElement.shadowRoot.appendChild(this.toolbarList);
+        requestAnimationFrame(() => {
+            this.kupManager.dynamicPosition.register(
+                this.toolbarList as unknown as KupDynamicPositionElement,
+                this.#dropDownActionCardAnchor as KupDynamicPositionAnchor,
+                0,
+                KupDynamicPositionPlacement.AUTO,
+                true
+            );
+            this.kupManager.dynamicPosition.start(
+                this.toolbarList as unknown as KupDynamicPositionElement
+            );
+        });
+    }
 
     private consistencyCheck() {
         let activeTabs: number = 0;
@@ -327,19 +451,21 @@ export class KupTabBar {
                             </span>
                         ) : null}
                     </span>
-                    {toolbar && (
+                    {this.toolbar && (
                         <FImage
                             resource="app"
                             sizeX="16px"
                             sizeY="16px"
-                            onClick={() => {
-                                // e.stopPropagation(); remove comment to stop event propagation to tab-bar
-                                console.log('CONSOLE BTN TOOLBAR');
+                            onClick={(event: MouseEvent) => {
+                                event.stopPropagation();
+                                this.onKupIconClick(
+                                    i,
+                                    node,
+                                    event.currentTarget as HTMLElement
+                                );
                             }}
                             wrapperClass="tab__iconToolbar"
-                        >
-                            Click me
-                        </FImage>
+                        ></FImage>
                     )}
                     <span
                         class={`tab-indicator ${
