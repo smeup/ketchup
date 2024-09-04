@@ -7,11 +7,12 @@
 
 ## Properties
 
-| Property     | Attribute     | Description                             | Type             | Default     |
-| ------------ | ------------- | --------------------------------------- | ---------------- | ----------- |
-| `data`       | --            | Dataset containing the activities list. | `KupDataDataset` | `undefined` |
-| `dateColumn` | `date-column` | Columns containing dates.               | `string`         | `undefined` |
-| `timeColumn` | `time-column` | Columns containing times.               | `string`         | `undefined` |
+| Property     | Attribute     | Description                             | Type                                      | Default              |
+| ------------ | ------------- | --------------------------------------- | ----------------------------------------- | -------------------- |
+| `data`       | --            | Dataset containing the activities list. | `KupDataDataset`                          | `undefined`          |
+| `dateColumn` | `date-column` | Columns containing dates.               | `string`                                  | `undefined`          |
+| `sortOrder`  | `sort-order`  | Order for sorting.                      | `KupDatesOrder.ASC \| KupDatesOrder.DESC` | `KupDatesOrder.DESC` |
+| `timeColumn` | `time-column` | Columns containing times.               | `string`                                  | `undefined`          |
 
 
 ## Events

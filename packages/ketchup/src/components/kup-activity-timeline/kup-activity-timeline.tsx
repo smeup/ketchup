@@ -34,6 +34,7 @@ import {
 } from './kup-activity-timeline-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { getCellValueForDisplay } from '../../utils/cell-utils';
+import { KupDatesOrder } from '../../managers/kup-dates/kup-dates-declarations';
 
 @Component({
     tag: 'kup-activity-timeline',
@@ -68,6 +69,12 @@ export class KupActivityTimeline {
      * @default null
      */
     @Prop() dateColumn: string;
+
+    /**
+     *  Order for sorting.
+     * @default 'desc'
+     */
+    @Prop() sortOrder: KupDatesOrder = KupDatesOrder.DESC;
 
     /**
      *  Columns containing times.
@@ -201,7 +208,7 @@ export class KupActivityTimeline {
                             time
                         ),
                         columnName: column.name,
-                        cellId: row.id,
+                        rowId: row.id,
                     })),
             } as KupActivityTimelineActivity);
 
@@ -209,7 +216,9 @@ export class KupActivityTimeline {
         }, {});
 
         return Object.keys(activitiesByDate)
-            .sort(this.#kupManager.dates.sortDates)
+            .sort((date1, date2) =>
+                this.#kupManager.dates.sortDates(date1, date2, this.sortOrder)
+            )
             .map((date) => ({
                 date,
                 time: activitiesByDate[date][0]!.time,
@@ -231,8 +240,7 @@ export class KupActivityTimeline {
             column: this.data.columns.find(
                 (column) => column.name === activityData.columnName
             ),
-            row: this.data.rows.find((row) => row.id === activityData.cellId)
-                ?.cells?.[activityData.columnName],
+            row: this.data.rows.find((row) => row.id === activityData.rowId),
         };
     }
 
@@ -278,7 +286,6 @@ export class KupActivityTimeline {
                                 this.onActivityClick(e, column);
                             }}
                             onContextMenu={(e) => {
-                                e.stopPropagation();
                                 this.onActivityContextMenu(e, column);
                             }}
                         >
@@ -339,6 +346,9 @@ export class KupActivityTimeline {
                     <div
                         key={this.rootElement.id}
                         class="kup-activity-timeline"
+                        onContextMenu={(e) => {
+                            e.preventDefault();
+                        }}
                     >
                         {this.timeline.map(
                             (timeline: KupActivityTimelineDatapoint) => (

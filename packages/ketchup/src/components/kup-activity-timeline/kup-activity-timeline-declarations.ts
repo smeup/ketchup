@@ -5,13 +5,14 @@ export enum KupActivityTimelineProps {
     data = 'Dataset containing the activities list',
     dateColumn = 'Column containing dates',
     timeColumn = 'Column containing times',
+    sortOrder = 'Order for sorting',
 }
 
 export interface KupActivityTimelineData {
     title: string;
     value: string;
     columnName: string;
-    cellId: string;
+    rowId: string;
 }
 
 export interface KupActivityTimelineActivity {
