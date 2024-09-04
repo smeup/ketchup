@@ -99,6 +99,10 @@ export class KupTabBar {
      * Element scrollable on mouse hover.
      */
     private scrollArea: KupScrollOnHoverElement = null;
+    /**
+     * Toolbar List.
+     */
+    private toolbarList;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -147,7 +151,6 @@ export class KupTabBar {
     })
     kupFocus: EventEmitter<KupTabBarEventPayload>;
     #dropDownActionCardAnchor: HTMLElement = null;
-    toolbarList;
 
     onKupBlur(i: number, node: KupTabBarNode) {
         this.kupBlur.emit({
@@ -288,7 +291,7 @@ export class KupTabBar {
         this.toolbarList = null;
     }
 
-    listItemData: KupListNode[] = [
+    private listItemData: KupListNode[] = [
         {
             value: 'Maximize',
             id: 'maximize',
@@ -313,7 +316,6 @@ export class KupTabBar {
         listEl.isMenu = true;
         listEl.menuVisible = true;
         listEl.addEventListener('kup-list-click', (e: CustomEvent) => {
-            console.log(e.detail.selected);
             this.onKupTabbarItemClick(e);
             setTimeout(() => {
                 this.closeRowToolbarList();

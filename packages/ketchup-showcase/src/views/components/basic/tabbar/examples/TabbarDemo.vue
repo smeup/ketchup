@@ -61,6 +61,10 @@ export default {
           name: 'kup-tabbar-blur',
           type: 'blur',
         },
+        {
+          name: 'kup-tabbar-iconclick',
+          type: 'iconclick',
+        },
       ],
       demoMethods: [
         {
