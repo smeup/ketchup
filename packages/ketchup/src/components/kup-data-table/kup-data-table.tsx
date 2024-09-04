@@ -4970,76 +4970,53 @@ export class KupDataTable {
                             this.rowActions,
                             this.commands
                         );
-                    if (rowActions.length === 1 && rowActions[0].icon) {
-                        const singleAction = rowActions[0];
-                        const imageProp: FImageProps =
-                            this.#kupManager.data.action.buildImageProp(
-                                singleAction.icon,
-                                singleAction.column.title,
-                                'action',
-                                () => {
-                                    this.kupRowActionItemClick.emit({
-                                        comp: this,
-                                        id: this.rootElement.id,
-                                        row: row,
-                                        obj: singleAction.obj,
-                                        cell: singleAction.cell,
-                                        type: singleAction.type,
-                                        column: singleAction.column,
-                                    });
-                                }
-                            );
-                        actionsOnRow.push(imageProp);
-                    }
 
-                    if (rowActions.length > 1) {
-                        if (
-                            this.#kupManager.data.action.checkEveryActionHasOnlyIcon(
-                                rowActions
-                            )
-                        ) {
-                            rowActions.forEach((action, index) => {
-                                const imageProp: FImageProps =
-                                    this.#kupManager.data.action.buildImageProp(
-                                        action.icon,
-                                        action.column.title,
-                                        'action',
-                                        () => {
-                                            this.kupRowActionItemClick.emit({
-                                                comp: this,
-                                                id: this.rootElement.id,
-                                                row: row,
-                                                obj: action.obj,
-                                                cell: action.cell,
-                                                type: action.type,
-                                                index: index,
-                                                column: action.column,
-                                            });
-                                        }
-                                    );
-                                actionsOnRow.push(imageProp);
-                            });
-                        } else {
+                    if (
+                        this.#kupManager.data.action.checkEveryActionHasOnlyIcon(
+                            rowActions
+                        ) ||
+                        (rowActions.length === 1 && rowActions[0].icon)
+                    ) {
+                        rowActions.forEach((action, index) => {
                             const imageProp: FImageProps =
                                 this.#kupManager.data.action.buildImageProp(
-                                    'chevron-down',
-                                    this.#kupManager.language.translate(
-                                        KupLanguageGeneric.EXPAND
-                                    ),
-                                    'expander',
-                                    (e) => {
-                                        this.#onRowActionExpanderClick(
-                                            e,
-                                            row,
-                                            rowActions
-                                        );
+                                    action.icon,
+                                    action.column.title,
+                                    'action',
+                                    () => {
+                                        this.kupRowActionItemClick.emit({
+                                            comp: this,
+                                            id: this.rootElement.id,
+                                            row: row,
+                                            obj: action.obj,
+                                            cell: action.cell,
+                                            type: action.type,
+                                            index: index,
+                                            column: action.column,
+                                        });
                                     }
                                 );
-
                             actionsOnRow.push(imageProp);
-                        }
-                    }
+                        });
+                    } else {
+                        const imageProp: FImageProps =
+                            this.#kupManager.data.action.buildImageProp(
+                                'chevron-down',
+                                this.#kupManager.language.translate(
+                                    KupLanguageGeneric.EXPAND
+                                ),
+                                'expander',
+                                (e) => {
+                                    this.#onRowActionExpanderClick(
+                                        e,
+                                        row,
+                                        rowActions
+                                    );
+                                }
+                            );
 
+                        actionsOnRow.push(imageProp);
+                    }
                     rowActionsCount++;
                 }
 
