@@ -625,6 +625,11 @@ export namespace Components {
     }
     interface KupButtonList {
         /**
+          * Sets the type of the button.
+          * @default false
+         */
+        "blackMode": boolean;
+        /**
           * Number of columns.
           * @default 0
          */
@@ -6075,6 +6080,11 @@ declare namespace LocalJSX {
         "trailingIcon"?: boolean;
     }
     interface KupButtonList {
+        /**
+          * Sets the type of the button.
+          * @default false
+         */
+        "blackMode"?: boolean;
         /**
           * Number of columns.
           * @default 0
