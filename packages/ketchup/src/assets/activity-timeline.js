@@ -14422,6 +14422,7 @@ const props = {
     },
     dateColumn: 'XXDATA',
     timeColumn: 'XXORA',
+    sortOrder: 'asc',
 };
 
 if (props) {

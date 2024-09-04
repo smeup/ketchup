@@ -67,6 +67,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'sortOrder',
+          description: 'Order for sorting',
+          type: 'KupDatesOrder',
+          default: 'desc',
+          try: 'field',
+        },
+        {
           prop: 'timeColumn',
           description: 'Column containing times',
           type: 'string',
