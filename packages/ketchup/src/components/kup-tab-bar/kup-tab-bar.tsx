@@ -151,6 +151,18 @@ export class KupTabBar {
         bubbles: true,
     })
     kupFocus: EventEmitter<KupTabBarEventPayload>;
+
+    /**
+     * Triggered when a list item is clicked.
+     */
+    @Event({
+        eventName: 'kup-tabbar-itemclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupItemClick: EventEmitter<KupTabbarItemClickEventPayload>;
+
     #dropDownActionCardAnchor: HTMLElement = null;
 
     onKupBlur(i: number, node: KupTabBarNode) {
@@ -196,17 +208,6 @@ export class KupTabBar {
             node: node,
         });
     }
-
-    /**
-     * Triggered when a list item is clicked.
-     */
-    @Event({
-        eventName: 'kup-tabbar-itemclick',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupItemClick: EventEmitter<KupTabbarItemClickEventPayload>;
 
     onKupTabbarItemClick(e: CustomEvent) {
         this.kupItemClick.emit({

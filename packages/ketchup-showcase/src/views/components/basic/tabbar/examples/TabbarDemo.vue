@@ -65,6 +65,10 @@ export default {
           name: 'kup-tabbar-iconclick',
           type: 'iconclick',
         },
+        {
+          name: 'kup-tabbar-itemclick',
+          type: 'itemclick',
+        },
       ],
       demoMethods: [
         {
