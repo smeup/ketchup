@@ -31,24 +31,13 @@ import { KupScrollOnHoverElement } from '../../managers/kup-scroll-on-hover/kup-
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupDataRowAction } from '../../managers/kup-data/kup-data-declarations';
-import { KupDataTableRow } from '../kup-data-table/kup-data-table-declarations';
 import {
     KupDynamicPositionAnchor,
     KupDynamicPositionElement,
     KupDynamicPositionPlacement,
 } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
-import {
-    KupCardData,
-    KupCardEventPayload,
-    KupCardFamily,
-} from '../kup-card/kup-card-declarations';
-import { Mouse } from 'puppeteer';
-import {
-    KupListEventPayload,
-    KupListNode,
-} from '../kup-list/kup-list-declarations';
+import { KupListNode } from '../kup-list/kup-list-declarations';
 
 @Component({
     tag: 'kup-tab-bar',
