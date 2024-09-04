@@ -397,7 +397,10 @@ export class KupData {
                                 command.text === commandFilter.text &&
                                 command.obj.k === commandFilter.obj.k
                         );
-                        if (currentColumn.visible) {
+                        if (
+                            !('visible' in currentColumn) ||
+                            currentColumn.visible
+                        ) {
                             actions.push({
                                 icon: commandFilter.icon,
                                 text: commandFilter.text,
@@ -412,7 +415,10 @@ export class KupData {
                 }
 
                 if (!hasCommands) {
-                    if (currentColumn.visible) {
+                    if (
+                        !('visible' in currentColumn) ||
+                        currentColumn.visible
+                    ) {
                         actions.push({
                             icon:
                                 codVer.value.icon ||
