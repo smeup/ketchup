@@ -16,7 +16,6 @@ import type { KupScrollOnHover } from '../kup-scroll-on-hover/kup-scroll-on-hove
 import type { KupSearch } from '../kup-search/kup-search';
 import type { KupTheme } from '../kup-theme/kup-theme';
 import type { KupThemeJSON } from '../kup-theme/kup-theme-declarations';
-import type { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import type { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import type { ResizeObserver } from 'resize-observer';
 import { KupMathLocales } from '../kup-math/kup-math-declarations';
@@ -50,7 +49,6 @@ export interface KupManager {
     scrollOnHover: KupScrollOnHover;
     search: KupSearch;
     theme: KupTheme;
-    toolbar: KupToolbar;
     tooltip: KupTooltip;
     utilities: KupManagerUtilities;
     showMagicBox: () => void;

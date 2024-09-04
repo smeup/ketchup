@@ -2336,7 +2336,6 @@ export class KupDataTable {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.language.register(this);
         this.#kupManager.theme.register(this);
-        this.#kupManager.toolbar.register(this.rootElement);
         if (!this.emptyDataLabel) {
             this.emptyDataLabel = this.#kupManager.language.translate(
                 KupLanguageGeneric.EMPTY_DATA

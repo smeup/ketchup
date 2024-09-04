@@ -1530,33 +1530,6 @@ export function create15(component: KupCard): VNode {
 }
 
 /**
- * 16th standard card layout, it can be used as the toolbar.
- * @param {KupCard} component - Card component.
- * @returns {VNode} 16th standard layout virtual node.
- */
-
-export function create16(component: KupCard): VNode {
-    const listArray: GenericObject[] = component.data['list']
-        ? component.data['list']
-        : [];
-    return (
-        <div class={`standard-layout-${component.layoutNumber}`}>
-            {/* <div class="section-1">Titolo</div> */}
-            <div class="section-2">{/* Eventuali UI Popup button */}</div>
-            <div class="section-3">
-                {listArray.length > 0 ? (
-                    <div class="sub-list">
-                        {listArray.map((b) => {
-                            return <kup-list {...b}></kup-list>;
-                        })}
-                    </div>
-                ) : null}
-            </div>
-        </div>
-    );
-}
-
-/**
  * 17th standard card layout, it can be used as a tooltip.
  * @param {KupCard} component - Card component.
  * @returns {VNode} 17th standard layout virtual node.
