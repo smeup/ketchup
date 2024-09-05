@@ -25,6 +25,10 @@ export class KupKeysBinding {
      * @param {GenericCallback} event - Event to start when key is pressed
      */
     register(key: string, event: GenericCallback): void {
+        if (!key || !event) {
+            return;
+        }
+
         this.#keysEvents.set(key.toLowerCase(), { event, isLunched: false });
     }
 
@@ -33,6 +37,9 @@ export class KupKeysBinding {
      * @param {string} key - Key to remove.
      */
     unregister(key: string): void {
+        if (!key) {
+            return;
+        }
         this.#keysEvents.delete(key.toLowerCase());
     }
 
