@@ -1054,16 +1054,6 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableColumnMenu: EventEmitter<KupDatatableColumnMenuEventPayload>;
-    /**
-     * When a row action is clicked
-     */
-    @Event({
-        eventName: 'kup-datatable-rowactionclick',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupRowActionClick: EventEmitter<KupDatatableRowActionClickEventPayload>;
 
     @Event({
         eventName: 'kup-datatable-loadmoreclick',
