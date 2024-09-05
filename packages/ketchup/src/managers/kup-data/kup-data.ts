@@ -425,7 +425,7 @@ export class KupData {
                                 codVer.value.data?.resource ||
                                 codVer.value.data?.icon ||
                                 '',
-                            text: currentColumn.name,
+                            text: currentColumn.title || currentColumn.name,
                             obj: codVer.value.obj,
                             cell: codVer.value,
                             type: DropDownAction.CODVER,
