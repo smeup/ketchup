@@ -16,6 +16,12 @@ export interface KupInputPanelSubmitValue {
 export interface KupInputPanelData {
     columns?: KupDataColumn[];
     rows?: KupInputPanelRow[];
+    actions?: KupInputPanelAction[];
+}
+
+export interface KupInputPanelAction {
+    type?: string;
+    fun?: string;
 }
 
 export interface KupInputPanelColumn {
