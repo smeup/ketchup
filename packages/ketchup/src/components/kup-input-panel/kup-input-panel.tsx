@@ -519,11 +519,11 @@ export class KupInputPanel {
         sections: KupInputPanelLayoutSection[]
     ) {
         if (!this.tabSelected) {
-            this.tabSelected = '0';
+            this.tabSelected = sections[0].id || '0';
         }
 
         const tabNodes: KupTabBarNode[] = sections.map((section, i) => ({
-            active: `${i}` === this.tabSelected,
+            active: (section.id || `${i}`) === this.tabSelected,
             value: section.title,
             icon: section.icon,
             id: section.id || `${i}`,
