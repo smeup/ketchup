@@ -1335,7 +1335,7 @@ export const dataTableWithNoCommandsMatching = {
             t: 'VO',
           },
           icon: 'subject',
-          value: '000050',
+          value: 'CFG',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
@@ -1407,89 +1407,12 @@ export const dataTableWithNoCommandsMatching = {
         X$CFG: {
           isEditable: false,
           obj: {
-            k: '000051',
-            p: 'COD_VER',
-            t: 'VO',
-          },
-          // icon: 'subject',
-          value: '000051',
-          element: {
-            's-hn': 'KUP-DATA-TABLE',
-          },
-        },
-        X$ARTI: {
-          data: {
-            size: 80,
-            helperEnabled: false,
-            hiddenCounter: true,
-            maxLength: 80,
-          },
-          isEditable: false,
-          obj: {
-            k: 'MAP000014 PRESSED TUBE PTFE G200 25x25x200',
-            p: '',
-            t: '',
-          },
-          value: 'CODVER WITH ONLY TEXT',
-          element: {
-            's-hn': 'KUP-DATA-TABLE',
-          },
-        },
-        X$QTA: {
-          data: {
-            size: 15,
-            helperEnabled: false,
-            maxLength: 15,
-            integers: 15,
-          },
-          isEditable: false,
-          obj: {
-            k: '5',
-            p: '',
-            t: 'NR',
-          },
-          value: '5',
-          displayedValue: '5',
-          element: {
-            's-hn': 'KUP-DATA-TABLE',
-          },
-        },
-      },
-      cssClass: 'clickable',
-      id: '1',
-      object: '',
-      readOnly: true,
-    },
-    {
-      cells: {
-        X$RIGA: {
-          data: {
-            size: 4,
-            helperEnabled: false,
-            maxLength: 4,
-            integers: 4,
-          },
-          isEditable: false,
-          obj: {
-            k: '3',
-            p: '',
-            t: 'NR',
-          },
-          value: '3',
-          displayedValue: '3',
-          element: {
-            's-hn': 'KUP-DATA-TABLE',
-          },
-        },
-        X$CFG: {
-          isEditable: false,
-          obj: {
             k: '000052',
             p: 'COD_VER',
             t: 'VO',
           },
           // icon: 'subject',
-          // value: '000052',
+          // value: ' 000052',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
