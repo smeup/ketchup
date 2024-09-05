@@ -364,6 +364,9 @@ export class KupButton {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
-        this.kupManager.keysBinding.unregister(this.keyShortcut);
+
+        if (this.keyShortcut) {
+            this.kupManager.keysBinding.unregister(this.keyShortcut);
+        }
     }
 }
