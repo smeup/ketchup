@@ -822,10 +822,12 @@ export class KupInputPanel {
         currentValue: string
     ) {
         return {
-            data: currentValue
-                ?.split(';')
-                .map((v) => ({ id: v, value: v }))
-                .filter((value) => !!value),
+            data: currentValue?.length
+                ? currentValue
+                      .split(';')
+                      .map((v) => ({ id: v, value: v }))
+                      .filter((value) => !!value)
+                : null,
         };
     }
 
