@@ -119,7 +119,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             },
             {
                 icon: '',
-                text: 'X$CFG',
+                text: 'CFG',
                 obj: { k: '000052', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: thirdCell,
@@ -127,7 +127,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             },
             {
                 icon: '',
-                text: 'X$CFG',
+                text: 'CFG',
                 obj: { k: '000053', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: fourthCell,
@@ -166,7 +166,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
         const expectedResult: KupDataRowAction[] = [
             {
                 icon: '',
-                text: 'X$CFG',
+                text: 'CFG',
                 obj: { k: '000050', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: firstCell,
@@ -186,7 +186,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             },
             {
                 icon: '',
-                text: 'X$CFG',
+                text: 'CFG',
                 obj: { k: '000051', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: secondCell,
@@ -206,7 +206,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             },
             {
                 icon: '',
-                text: 'X$CFG',
+                text: 'CFG',
                 obj: { k: '000052', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: thirdCell,
@@ -226,7 +226,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
             },
             {
                 icon: '',
-                text: 'X$CFG',
+                text: 'CFG',
                 obj: { k: '000053', p: 'COD_VER', t: 'VO' },
                 type: DropDownAction.CODVER,
                 cell: fourthCell,
