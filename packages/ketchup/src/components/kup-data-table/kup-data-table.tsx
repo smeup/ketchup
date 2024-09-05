@@ -53,7 +53,6 @@ import {
     KupDatatableInsertRowEventPayload,
     KupDataTableInsertMode,
     KupDatatableHistoryEventPayload,
-    VoCodVerRowEnum,
     KupDatatableRowActionItemClickEventPayload,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
@@ -1055,16 +1054,6 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableColumnMenu: EventEmitter<KupDatatableColumnMenuEventPayload>;
-    /**
-     * When a row action is clicked
-     */
-    @Event({
-        eventName: 'kup-datatable-rowactionclick',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupRowActionClick: EventEmitter<KupDatatableRowActionClickEventPayload>;
 
     @Event({
         eventName: 'kup-datatable-loadmoreclick',
@@ -3189,13 +3178,11 @@ export class KupDataTable {
     }
 
     getVisibleColumns(): Array<KupDataColumn> {
-        const visibleColumns = this.getColumns().filter(({ visible, obj }) => {
-            if (obj?.p === VoCodVerRowEnum.P && obj?.t === VoCodVerRowEnum.T) {
-                visible = false;
-            }
-
-            return visible ?? true;
-        });
+        const visibleColumns = this.getColumns().filter(
+            (col) =>
+                !this.#kupManager.data.column.isCodVer(col) &&
+                (!('visible' in col) || col.visible)
+        );
 
         // check grouping
         if (this.#isGrouping()) {
@@ -3221,7 +3208,6 @@ export class KupDataTable {
                 return true;
             });
         }
-
         return visibleColumns;
     }
 
@@ -3710,17 +3696,6 @@ export class KupDataTable {
         }
     }
 
-    #onDefaultRowActionClick({ action, row, type, index }) {
-        this.kupRowActionClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            action,
-            index,
-            row,
-            type,
-        });
-    }
-
     #onRowActionExpanderClick(
         e: MouseEvent,
         row: KupDataTableRow,
@@ -3728,12 +3703,6 @@ export class KupDataTable {
     ) {
         e.stopPropagation();
         this.#dropDownActionCardAnchor = e.target as HTMLElement;
-        this.kupRowActionClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            row,
-            type: 'expander',
-        });
         this.#dropDownActions(dropDownActions, row);
     }
 
@@ -4987,78 +4956,52 @@ export class KupDataTable {
                             this.commands
                         );
 
-                    if (rowActions.length === 1) {
-                        const singleAction = rowActions[0];
-                        const imageProp: FImageProps =
-                            this.#kupManager.data.action.buildImageProp(
-                                singleAction.icon ?? '',
-                                singleAction.text ?? '',
-                                'action',
-                                () => {
-                                    this.kupRowActionItemClick.emit({
-                                        comp: this,
-                                        id: this.rootElement.id,
-                                        row: row,
-                                        obj: singleAction.obj,
-                                        cell: singleAction.cell,
-                                        type: singleAction.type,
-                                        //  index: index,
-                                        column: singleAction.column,
-                                    });
-                                }
-                            );
-                        actionsOnRow.push(imageProp);
-                    }
-
-                    if (rowActions.length > 1) {
-                        if (
-                            this.#kupManager.data.action.checkEveryActionHasOnlyIcon(
-                                rowActions
-                            )
-                        ) {
-                            rowActions.forEach((action, index) => {
-                                const imageProp: FImageProps =
-                                    this.#kupManager.data.action.buildImageProp(
-                                        action.icon,
-                                        '',
-                                        'action',
-                                        () => {
-                                            this.kupRowActionItemClick.emit({
-                                                comp: this,
-                                                id: this.rootElement.id,
-                                                row: row,
-                                                obj: action.obj,
-                                                cell: action.cell,
-                                                type: action.type,
-                                                index: index,
-                                                column: action.column,
-                                            });
-                                        }
-                                    );
-                                actionsOnRow.push(imageProp);
-                            });
-                        } else {
+                    if (
+                        this.#kupManager.data.action.checkEveryActionHasOnlyIcon(
+                            rowActions
+                        ) ||
+                        (rowActions.length === 1 && rowActions[0].icon)
+                    ) {
+                        rowActions.forEach((action, index) => {
                             const imageProp: FImageProps =
                                 this.#kupManager.data.action.buildImageProp(
-                                    'chevron-down',
-                                    this.#kupManager.language.translate(
-                                        KupLanguageGeneric.EXPAND
-                                    ),
-                                    'expander',
-
-                                    (e) => {
-                                        this.#onRowActionExpanderClick(
-                                            e,
-                                            row,
-                                            rowActions
-                                        );
+                                    action.icon,
+                                    action.text || action.column.title,
+                                    'action',
+                                    () => {
+                                        this.kupRowActionItemClick.emit({
+                                            comp: this,
+                                            id: this.rootElement.id,
+                                            row: row,
+                                            obj: action.obj,
+                                            cell: action.cell,
+                                            type: action.type,
+                                            index: index,
+                                            column: action.column,
+                                        });
                                     }
                                 );
-
                             actionsOnRow.push(imageProp);
-                        }
-                    }
+                        });
+                    } else {
+                        const imageProp: FImageProps =
+                            this.#kupManager.data.action.buildImageProp(
+                                'chevron-down',
+                                this.#kupManager.language.translate(
+                                    KupLanguageGeneric.EXPAND
+                                ),
+                                'expander',
+                                (e) => {
+                                    this.#onRowActionExpanderClick(
+                                        e,
+                                        row,
+                                        rowActions
+                                    );
+                                }
+                            );
 
+                        actionsOnRow.push(imageProp);
+                    }
                     rowActionsCount++;
                 }
 
@@ -5218,31 +5161,6 @@ export class KupDataTable {
                 </tr>
             );
         }
-    }
-
-    #renderActions(
-        actions: Array<KupDataRowAction>,
-        row: KupDataTableRow,
-        type: string
-    ): JSX.Element[] {
-        return actions.map((action, index) => {
-            const props: FImageProps = {
-                color: `var(${KupThemeColorValues.PRIMARY})`,
-                resource: action.icon,
-                sizeX: '1.5em',
-                sizeY: '1.5em',
-                title: action.text,
-                wrapperClass: 'action',
-                onClick: () =>
-                    this.#onDefaultRowActionClick({
-                        action,
-                        row,
-                        index,
-                        type,
-                    }),
-            };
-            return <FImage {...props} />;
-        });
     }
 
     #onCustomSettingsClick() {
