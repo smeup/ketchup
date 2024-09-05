@@ -88,6 +88,7 @@ Type: `Promise<void>`
 
 - [kup-editor](../kup-editor)
 - [kup-data-table](../kup-data-table)
+- [kup-tab-bar](../kup-tab-bar)
 - [kup-badge](../kup-badge)
 - [kup-autocomplete](../kup-autocomplete)
 - [kup-chip](../kup-chip)
@@ -110,6 +111,7 @@ Type: `Promise<void>`
 graph TD;
   kup-input-panel --> kup-editor
   kup-input-panel --> kup-data-table
+  kup-input-panel --> kup-tab-bar
   kup-input-panel --> kup-badge
   kup-input-panel --> kup-autocomplete
   kup-input-panel --> kup-chip
