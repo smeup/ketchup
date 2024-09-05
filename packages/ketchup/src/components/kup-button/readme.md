@@ -15,6 +15,7 @@
 | `disabled`        | `disabled`         | Defaults at false. When set to true, the component is disabled.                                                             | `boolean`                                                                                                                                               | `false`                     |
 | `icon`            | `icon`             | When set, the button will show this icon.                                                                                   | `string`                                                                                                                                                | `null`                      |
 | `iconOff`         | `icon-off`         | When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed. | `string`                                                                                                                                                | `null`                      |
+| `keyShortcut`     | `key-shortcut`     |                                                                                                                             | `string`                                                                                                                                                | `undefined`                 |
 | `label`           | `label`            | When set, the button will show this text.                                                                                   | `string`                                                                                                                                                | `null`                      |
 | `placeholderIcon` | `placeholder-icon` | When set, the button will show this icon, if icon/image not found.                                                          | `string`                                                                                                                                                | `null`                      |
 | `showSpinner`     | `show-spinner`     | When set to true, the button show a spinner received in slot.                                                               | `boolean`                                                                                                                                               | `false`                     |
@@ -202,6 +203,7 @@ graph TD;
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
+  kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge

@@ -320,9 +320,10 @@ export class KupData {
                 commands ?? []
             );
 
-            const rowActionsWithCodVer = actions !== undefined 
-                ? [...this.row.rowActionsAdapter(actions), ...codVerActions]
-                : [...codVerActions];
+            const rowActionsWithCodVer =
+                actions && actions.length
+                    ? [...this.row.rowActionsAdapter(actions), ...codVerActions]
+                    : [...codVerActions];
 
             return rowActionsWithCodVer;
         },
@@ -396,31 +397,41 @@ export class KupData {
                                 command.text === commandFilter.text &&
                                 command.obj.k === commandFilter.obj.k
                         );
-                        actions.push({
-                            icon: commandFilter.icon,
-                            text: commandFilter.text,
-                            obj: commandFilter.obj,
-                            cell: codVer.value,
-                            index: index,
-                            type: DropDownAction.CODVERWITHCOMMANDS,
-                            column: currentColumn,
-                        });
+                        if (
+                            !('visible' in currentColumn) ||
+                            currentColumn.visible
+                        ) {
+                            actions.push({
+                                icon: commandFilter.icon,
+                                text: commandFilter.text,
+                                obj: commandFilter.obj,
+                                cell: codVer.value,
+                                index: index,
+                                type: DropDownAction.CODVERWITHCOMMANDS,
+                                column: currentColumn,
+                            });
+                        }
                     });
                 }
 
                 if (!hasCommands) {
-                    actions.push({
-                        icon:
-                            codVer.value.icon ||
-                            codVer.value.data?.resource ||
-                            codVer.value.data?.icon ||
-                            '',
-                        text: codVer.value.value || currentColumn.name,
-                        obj: codVer.value.obj,
-                        cell: codVer.value,
-                        type: DropDownAction.CODVER,
-                        column: currentColumn,
-                    });
+                    if (
+                        !('visible' in currentColumn) ||
+                        currentColumn.visible
+                    ) {
+                        actions.push({
+                            icon:
+                                codVer.value.icon ||
+                                codVer.value.data?.resource ||
+                                codVer.value.data?.icon ||
+                                '',
+                            text: currentColumn.name,
+                            obj: codVer.value.obj,
+                            cell: codVer.value,
+                            type: DropDownAction.CODVER,
+                            column: currentColumn,
+                        });
+                    }
                 }
             });
 

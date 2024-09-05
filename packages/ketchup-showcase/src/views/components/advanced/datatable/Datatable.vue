@@ -46,51 +46,57 @@
       <datatable-row-actions-with-commands></datatable-row-actions-with-commands>
     </template>
     <template v-slot:15>
-      <datatable-row-selection></datatable-row-selection>
+      <datatable-codver-matching></datatable-codver-matching>
     </template>
     <template v-slot:16>
-      <datatable-without-row-selection></datatable-without-row-selection>
+      <datatable-codver-not-matching></datatable-codver-not-matching>
     </template>
     <template v-slot:17>
-      <datatable-rows-repetition></datatable-rows-repetition>
+      <datatable-row-selection></datatable-row-selection>
     </template>
     <template v-slot:18>
-      <datatable-sort></datatable-sort>
+      <datatable-without-row-selection></datatable-without-row-selection>
     </template>
     <template v-slot:19>
-      <datatable-sortable-columns></datatable-sortable-columns>
+      <datatable-rows-repetition></datatable-rows-repetition>
     </template>
     <template v-slot:20>
-      <datatable-total></datatable-total>
+      <datatable-sort></datatable-sort>
     </template>
     <template v-slot:21>
-      <datatable-j4ico></datatable-j4ico>
+      <datatable-sortable-columns></datatable-sortable-columns>
     </template>
     <template v-slot:22>
-      <datatable-images-and-badges />
+      <datatable-total></datatable-total>
     </template>
     <template v-slot:23>
-      <datatable-shapes></datatable-shapes>
+      <datatable-j4ico></datatable-j4ico>
     </template>
     <template v-slot:24>
-      <datatable-cell-classes></datatable-cell-classes>
+      <datatable-images-and-badges />
     </template>
     <template v-slot:25>
-      <datatable-j1col></datatable-j1col>
+      <datatable-shapes></datatable-shapes>
     </template>
     <template v-slot:26>
-      <datatable-jl></datatable-jl>
+      <datatable-cell-classes></datatable-cell-classes>
     </template>
     <template v-slot:27>
-      <datatable-report-like></datatable-report-like>
+      <datatable-j1col></datatable-j1col>
     </template>
     <template v-slot:28>
-      <datatable-document-like></datatable-document-like>
+      <datatable-jl></datatable-jl>
     </template>
     <template v-slot:29>
-      <datatable-merge></datatable-merge>
+      <datatable-report-like></datatable-report-like>
     </template>
     <template v-slot:30>
+      <datatable-document-like></datatable-document-like>
+    </template>
+    <template v-slot:31>
+      <datatable-merge></datatable-merge>
+    </template>
+    <template v-slot:32>
       <datatable-formula></datatable-formula>
     </template>
   </comp>
@@ -123,6 +129,8 @@ import DatatableProgressbar from '@/views/components/advanced/datatable/examples
 import DatatableRadio from '@/views/components/advanced/datatable/examples/DatatableRadio';
 import DatatableRowActions from '@/views/components/advanced/datatable/examples/DatatableRowActions';
 import DatatableRowActionsWithCommands from '@/views/components/advanced/datatable/examples/DatatableRowActionsWithCommands';
+import DatatableCodverMatching from '@/views/components/advanced/datatable/examples/DatatableCodverMatching';
+import DatatableCodverNotMatching from '@/views/components/advanced/datatable/examples/DatatableCodverNotMatching';
 import DatatableRowSelection from '@/views/components/advanced/datatable/examples/DatatableRowSelection';
 import DatatableWithoutRowSelection from '@/views/components/advanced/datatable/examples/DatatableWithoutRowSelection';
 import DatatableRowsRepetition from '@/views/components/advanced/datatable/examples/DatatableRowsRepetition';
@@ -156,6 +164,8 @@ export default {
     DatatableRadio,
     DatatableRowActions,
     DatatableRowActionsWithCommands,
+    DatatableCodverMatching,
+    DatatableCodverNotMatching,
     DatatableRowSelection,
     DatatableWithoutRowSelection,
     DatatableRowsRepetition,
@@ -194,6 +204,8 @@ export default {
         'With radio buttons',
         'With row actions',
         'Row actions with commands',
+        'Codver with commands matching',
+        'Codver with no commands matching',
         'With row selection',
         'Without row selection',
         'With row repetition',

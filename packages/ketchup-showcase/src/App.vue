@@ -850,6 +850,16 @@ export default {
           {
             cells: {
               ROUTE: {
+                value: 'kup-keys-binding',
+              },
+            },
+            icon: 'wrench',
+            value: 'KupKeysBinding',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
                 value: 'kup-language',
               },
             },

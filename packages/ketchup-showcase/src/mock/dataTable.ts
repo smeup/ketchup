@@ -895,6 +895,651 @@ export const dataTableWithCommands = {
   ],
 };
 
+export const dataTableWithCommandsMatching = {
+  columns: [
+    {
+      decimals: 0,
+      isEditable: false,
+      isKey: false,
+      name: 'X$RIGA',
+      obj: {
+        k: '',
+        p: '',
+        t: 'NR',
+      },
+      title: 'ROW',
+      tooltip: false,
+    },
+    {
+      isEditable: false,
+      isKey: false,
+      name: 'X$ARTI',
+      title: 'ITEM',
+      tooltip: false,
+    },
+    {
+      decimals: 0,
+      isEditable: false,
+      isKey: false,
+      name: 'X$QTA',
+      obj: {
+        k: '',
+        p: '',
+        t: 'NR',
+      },
+      title: 'QTY\nCART',
+      tooltip: false,
+    },
+    {
+      isEditable: false,
+      isKey: false,
+      name: 'X$CFG',
+      obj: {
+        k: '',
+        p: 'COD_VER',
+        t: 'VO',
+      },
+      size: '70px',
+      title: 'CFG',
+      tooltip: false,
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        X$RIGA: {
+          data: {
+            size: 4,
+            helperEnabled: false,
+            maxLength: 4,
+            integers: 4,
+          },
+          isEditable: false,
+          obj: {
+            k: '1',
+            p: '',
+            t: 'NR',
+          },
+          value: '1',
+          displayedValue: '1',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$CFG: {
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          icon: 'subject',
+          value: '000050',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$ARTI: {
+          data: {
+            size: 80,
+            helperEnabled: false,
+            hiddenCounter: true,
+            maxLength: 80,
+          },
+          isEditable: false,
+          obj: {
+            k: 'MAP000061 PRESSED TUBE PTFE G400 50x25x300',
+            p: '',
+            t: '',
+          },
+          value: 'CODVER MATCHING WITH ICON AND TEXT',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$QTA: {
+          data: {
+            size: 15,
+            helperEnabled: false,
+            maxLength: 15,
+            integers: 15,
+          },
+          isEditable: false,
+          obj: {
+            k: '2',
+            p: '',
+            t: 'NR',
+          },
+          value: '2',
+          displayedValue: '2',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+      },
+      cssClass: 'clickable',
+      id: '0',
+      object: '',
+      readOnly: true,
+    },
+    {
+      cells: {
+        X$RIGA: {
+          data: {
+            size: 4,
+            helperEnabled: false,
+            maxLength: 4,
+            integers: 4,
+          },
+          isEditable: false,
+          obj: {
+            k: '2',
+            p: '',
+            t: 'NR',
+          },
+          value: '2',
+          displayedValue: '2',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$CFG: {
+          isEditable: false,
+          obj: {
+            k: '000051',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          // icon: 'subject',
+          value: '000051',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$ARTI: {
+          data: {
+            size: 80,
+            helperEnabled: false,
+            hiddenCounter: true,
+            maxLength: 80,
+          },
+          isEditable: false,
+          obj: {
+            k: 'MAP000014 PRESSED TUBE PTFE G200 25x25x200',
+            p: '',
+            t: '',
+          },
+          value: 'CODVER WITH SINGLE MATCHING',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$QTA: {
+          data: {
+            size: 15,
+            helperEnabled: false,
+            maxLength: 15,
+            integers: 15,
+          },
+          isEditable: false,
+          obj: {
+            k: '5',
+            p: '',
+            t: 'NR',
+          },
+          value: '5',
+          displayedValue: '5',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+      },
+      cssClass: 'clickable',
+      id: '1',
+      object: '',
+      readOnly: true,
+    },
+    {
+      cells: {
+        X$RIGA: {
+          data: {
+            size: 4,
+            helperEnabled: false,
+            maxLength: 4,
+            integers: 4,
+          },
+          isEditable: false,
+          obj: {
+            k: '3',
+            p: '',
+            t: 'NR',
+          },
+          value: '3',
+          displayedValue: '3',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$CFG: {
+          isEditable: false,
+          obj: {
+            k: '000052',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          // icon: 'subject',
+          // value: '000052',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$ARTI: {
+          data: {
+            size: 80,
+            helperEnabled: false,
+            hiddenCounter: true,
+            maxLength: 80,
+          },
+          isEditable: false,
+          obj: {
+            k: 'MEP000001 METALLIC PLIER',
+            p: '',
+            t: '',
+          },
+          value: 'CODVER WITH MORE COMMANDS MATCHING AND NO TEXT',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$QTA: {
+          data: {
+            size: 15,
+            helperEnabled: false,
+            maxLength: 15,
+            integers: 15,
+          },
+          isEditable: false,
+          obj: {
+            k: '1',
+            p: '',
+            t: 'NR',
+          },
+          value: '1',
+          displayedValue: '1',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+      },
+      cssClass: 'clickable',
+      id: '2',
+      object: '',
+      readOnly: true,
+    },
+    {
+      cells: {
+        X$RIGA: {
+          data: {
+            size: 4,
+            helperEnabled: false,
+            maxLength: 4,
+            integers: 4,
+          },
+          isEditable: false,
+          obj: {
+            k: '3',
+            p: '',
+            t: 'NR',
+          },
+          value: '3',
+          displayedValue: '3',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$CFG: {
+          isEditable: false,
+          obj: {
+            k: '000053',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          // icon: 'subject',
+          // value: '000052',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$ARTI: {
+          data: {
+            size: 80,
+            helperEnabled: false,
+            hiddenCounter: true,
+            maxLength: 80,
+          },
+          isEditable: false,
+          obj: {
+            k: 'MEP000001 METALLIC PLIER',
+            p: '',
+            t: '',
+          },
+          value: 'CODVER WITH MORE THAN 10 COMMANDS MATCHING',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$QTA: {
+          data: {
+            size: 15,
+            helperEnabled: false,
+            maxLength: 15,
+            integers: 15,
+          },
+          isEditable: false,
+          obj: {
+            k: '1',
+            p: '',
+            t: 'NR',
+          },
+          value: '1',
+          displayedValue: '1',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+      },
+      cssClass: 'clickable',
+      id: '2',
+      object: '',
+      readOnly: true,
+    },
+  ],
+};
+
+export const dataTableWithNoCommandsMatching = {
+  columns: [
+    {
+      decimals: 0,
+      isEditable: false,
+      isKey: false,
+      name: 'X$RIGA',
+      obj: {
+        k: '',
+        p: '',
+        t: 'NR',
+      },
+      title: 'ROW',
+      tooltip: false,
+    },
+    {
+      isEditable: false,
+      isKey: false,
+      name: 'X$ARTI',
+      title: 'ITEM',
+      tooltip: false,
+    },
+    {
+      decimals: 0,
+      isEditable: false,
+      isKey: false,
+      name: 'X$QTA',
+      obj: {
+        k: '',
+        p: '',
+        t: 'NR',
+      },
+      title: 'QTY\nCART',
+      tooltip: false,
+    },
+    {
+      isEditable: false,
+      isKey: false,
+      name: 'X$CFG',
+      obj: {
+        k: '',
+        p: 'COD_VER',
+        t: 'VO',
+      },
+      size: '70px',
+      title: 'CFG',
+      tooltip: false,
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        X$RIGA: {
+          data: {
+            size: 4,
+            helperEnabled: false,
+            maxLength: 4,
+            integers: 4,
+          },
+          isEditable: false,
+          obj: {
+            k: '1',
+            p: '',
+            t: 'NR',
+          },
+          value: '1',
+          displayedValue: '1',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$CFG: {
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          icon: 'subject',
+          value: '000050',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$ARTI: {
+          data: {
+            size: 80,
+            helperEnabled: false,
+            hiddenCounter: true,
+            maxLength: 80,
+          },
+          isEditable: false,
+          obj: {
+            k: 'MAP000061 PRESSED TUBE PTFE G400 50x25x300',
+            p: '',
+            t: '',
+          },
+          value: 'CODVER WITH ICON AND TEXT',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$QTA: {
+          data: {
+            size: 15,
+            helperEnabled: false,
+            maxLength: 15,
+            integers: 15,
+          },
+          isEditable: false,
+          obj: {
+            k: '2',
+            p: '',
+            t: 'NR',
+          },
+          value: '2',
+          displayedValue: '2',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+      },
+      cssClass: 'clickable',
+      id: '0',
+      object: '',
+      readOnly: true,
+    },
+    {
+      cells: {
+        X$RIGA: {
+          data: {
+            size: 4,
+            helperEnabled: false,
+            maxLength: 4,
+            integers: 4,
+          },
+          isEditable: false,
+          obj: {
+            k: '2',
+            p: '',
+            t: 'NR',
+          },
+          value: '2',
+          displayedValue: '2',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$CFG: {
+          isEditable: false,
+          obj: {
+            k: '000051',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          // icon: 'subject',
+          value: '000051',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$ARTI: {
+          data: {
+            size: 80,
+            helperEnabled: false,
+            hiddenCounter: true,
+            maxLength: 80,
+          },
+          isEditable: false,
+          obj: {
+            k: 'MAP000014 PRESSED TUBE PTFE G200 25x25x200',
+            p: '',
+            t: '',
+          },
+          value: 'CODVER WITH ONLY TEXT',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$QTA: {
+          data: {
+            size: 15,
+            helperEnabled: false,
+            maxLength: 15,
+            integers: 15,
+          },
+          isEditable: false,
+          obj: {
+            k: '5',
+            p: '',
+            t: 'NR',
+          },
+          value: '5',
+          displayedValue: '5',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+      },
+      cssClass: 'clickable',
+      id: '1',
+      object: '',
+      readOnly: true,
+    },
+    {
+      cells: {
+        X$RIGA: {
+          data: {
+            size: 4,
+            helperEnabled: false,
+            maxLength: 4,
+            integers: 4,
+          },
+          isEditable: false,
+          obj: {
+            k: '3',
+            p: '',
+            t: 'NR',
+          },
+          value: '3',
+          displayedValue: '3',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$CFG: {
+          isEditable: false,
+          obj: {
+            k: '000052',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          // icon: 'subject',
+          // value: '000052',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$ARTI: {
+          data: {
+            size: 80,
+            helperEnabled: false,
+            hiddenCounter: true,
+            maxLength: 80,
+          },
+          isEditable: false,
+          obj: {
+            k: 'MEP000001 METALLIC PLIER',
+            p: '',
+            t: '',
+          },
+          value: 'CODVER WITH NO TEXT AND NO ICON',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$QTA: {
+          data: {
+            size: 15,
+            helperEnabled: false,
+            maxLength: 15,
+            integers: 15,
+          },
+          isEditable: false,
+          obj: {
+            k: '1',
+            p: '',
+            t: 'NR',
+          },
+          value: '1',
+          displayedValue: '1',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+      },
+      cssClass: 'clickable',
+      id: '2',
+      object: '',
+      readOnly: true,
+    },
+  ],
+};
+
 export const hiddenColumnsData = {
   columns: [
     {

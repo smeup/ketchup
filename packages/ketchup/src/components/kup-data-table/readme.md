@@ -113,7 +113,6 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `kup-datatable-loadmoreclick`        |                                                                                       | `CustomEvent<KupDatatableLoadMoreClickEventPayload>`      |
 | `kup-datatable-resetselectedrows`    | When rows selections reset                                                            | `CustomEvent<KupEventPayload>`                            |
 | `kup-datatable-rowaction-item-click` | Event fired when the history confirm button is pressed.                               | `CustomEvent<KupDatatableRowActionItemClickEventPayload>` |
-| `kup-datatable-rowactionclick`       | When a row action is clicked                                                          | `CustomEvent<KupDatatableRowActionClickEventPayload>`     |
 | `kup-datatable-rowselected`          | When a row is selected                                                                | `CustomEvent<KupDatatableRowSelectedEventPayload>`        |
 | `kup-datatable-save`                 | Event fired when the save button is pressed.                                          | `CustomEvent<KupDatatableInsertRowEventPayload>`          |
 
@@ -550,6 +549,7 @@ graph TD;
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
   kup-checkbox --> kup-badge
+  kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge

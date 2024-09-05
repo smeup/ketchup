@@ -2682,6 +2682,100 @@ const dataAttributeTest = {
     },
 };
 
+const keysShortcut = ['f5', 'F6', 'control+s'];
+const keyButtonClickTest = {
+    columns: [
+        {
+            name: 'BUTTON1',
+            title: 'Button1',
+            visible: true,
+        },
+        {
+            name: 'BUTTON2',
+            title: 'Button2',
+            visible: true,
+        },
+        {
+            name: 'BUTTON3',
+            title: 'Button2',
+            visible: true,
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                BUTTON1: {
+                    value: `Click or press '${keysShortcut[0]}'`,
+                    obj: { t: '', p: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'BTN',
+                    data: {
+                        disabled: false,
+                        styling: 'outlined',
+                        keyShortcut: keysShortcut[0],
+                    },
+                },
+                BUTTON2: {
+                    value: `Click or press '${keysShortcut[1]}'`,
+                    obj: { t: '', p: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'BTN',
+                    data: {
+                        disabled: true,
+                        styling: 'flat',
+                        keyShortcut: keysShortcut[1],
+                    },
+                },
+                BUTTON3: {
+                    value: `Click or press 'Ctrl+S'`,
+                    obj: { t: '', p: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'BTN',
+                    data: {
+                        disabled: false,
+                        styling: 'outlined',
+                        keyShortcut: keysShortcut[2],
+                    },
+                },
+            },
+            layout: {
+                type: 'SmeupDataLayout',
+                horizontal: false,
+                sections: [
+                    {
+                        content: [
+                            // {
+                            //     id: 'BUTTON1',
+                            // },
+                            {
+                                id: 'BUTTON2',
+                            },
+                            {
+                                id: 'BUTTON3',
+                            },
+                        ],
+                        sections: [],
+                        horizontal: false,
+                        gridCols: 1,
+                        gridRows: 1,
+                        gap: 2,
+                        title: 'Test keys bindings with button clicks',
+                    },
+                ],
+            },
+        },
+    ],
+    debugInfo: {
+        executionTime_ms: 51,
+        initialTimestamp: '2024-06-11T15:02:17.854994131Z',
+        finalTimestamp: '2024-06-11T15:02:17.906443131Z',
+        runtime: 'Java 21',
+    },
+};
+
 // Example of rerender configuration
 // const data1 = {
 //     columns: [
@@ -2879,7 +2973,7 @@ const dataAttributeTest = {
 // };
 
 const inputPanel = document.getElementById('input-panel');
-inputPanel.data = dataAttributeTest;
+inputPanel.data = keyButtonClickTest;
 inputPanel.optionsHandler = (fun, inputValue, currentState) => {
     console.log('optionsHandler event', { fun, inputValue, currentState });
 
