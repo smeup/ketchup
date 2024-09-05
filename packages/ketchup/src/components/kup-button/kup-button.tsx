@@ -134,6 +134,8 @@ export class KupButton {
      */
     @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
 
+    @Prop() keyShortcut: string;
+
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -266,6 +268,13 @@ export class KupButton {
         } else {
             this.value = 'N/A';
         }
+
+        if (this.keyShortcut && !this.disabled) {
+            this.kupManager.keysBinding.register(
+                this.keyShortcut,
+                this.onKupClick.bind(this)
+            );
+        }
     }
 
     componentDidRender() {
@@ -355,5 +364,6 @@ export class KupButton {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
+        this.kupManager.keysBinding.unregister(this.keyShortcut);
     }
 }

@@ -171,6 +171,7 @@ export class KupInputPanel {
         [FCellShapes.LABEL, this.#renderLabel.bind(this)],
         [FCellShapes.TABLE, this.#renderDataTable.bind(this)],
     ]);
+    #keysShortcut: string[] = [];
     //#endregion
 
     //#region WATCHERS
@@ -187,6 +188,13 @@ export class KupInputPanel {
                 this.rootElement.removeEventListener(event, handler);
             });
             this.#listeners = [];
+        }
+
+        if (this.#keysShortcut.length) {
+            this.#keysShortcut.map((key) => {
+                this.#kupManager.keysBinding.unregister(key);
+            });
+            this.#keysShortcut = [];
         }
 
         this.#mapCells(this.data);
@@ -336,28 +344,12 @@ export class KupInputPanel {
     }
 
     #renderButton(cell: KupDataCell, cellId: string) {
-        const { fun, ...props } = cell.data;
         return (
             <FButton
                 icon={cell.icon}
                 id={cellId}
-                {...props}
+                {...cell.data}
                 wrapperClass="form__submit"
-                onClick={() => {
-                    fun
-                        ? this.customButtonClickHandler({
-                              fun,
-                              cellId,
-                              currentState: this.#reverseMapCells(),
-                          })
-                        : this.submitCb({
-                              value: {
-                                  before: { ...this.#originalData },
-                                  after: this.#reverseMapCells(),
-                              },
-                              cell: cellId,
-                          });
-                }}
             ></FButton>
         );
     }
@@ -772,11 +764,37 @@ export class KupInputPanel {
         _options: GenericObject,
         _fieldLabel: string,
         _currentValue: string,
-        cell: KupInputPanelCell
+        cell: KupInputPanelCell,
+        id: string
     ) {
+        const { fun, keyShortcut: key } = cell.data;
+        cell.data.onClick = () => {
+            fun
+                ? this.customButtonClickHandler({
+                      fun,
+                      cellId: id,
+                      currentState: this.#reverseMapCells(),
+                  })
+                : this.submitCb({
+                      value: {
+                          before: { ...this.#originalData },
+                          after: this.#reverseMapCells(),
+                      },
+                      cell: id,
+                  });
+        };
+        if (key && !cell.data?.disabled) {
+            this.#keysShortcut.push(key);
+            this.#kupManager.keysBinding.register(
+                key,
+                cell.data.onClick.bind(this)
+            );
+        }
+
         return {
             label: cell.value,
             fun: cell.fun,
+            ...cell.data,
         };
     }
 

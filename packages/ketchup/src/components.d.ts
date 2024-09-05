@@ -585,6 +585,7 @@ export namespace Components {
           * @default null
          */
         "iconOff": string;
+        "keyShortcut": string;
         /**
           * When set, the button will show this text.
           * @default null
@@ -6045,6 +6046,7 @@ declare namespace LocalJSX {
           * @default null
          */
         "iconOff"?: string;
+        "keyShortcut"?: string;
         /**
           * When set, the button will show this text.
           * @default null
