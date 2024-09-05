@@ -214,7 +214,7 @@ export default {
             showIcon: 'true',
           },
         ],
-        ['onkup-datatable-rowactionclick']: (e) => {
+        ['onkup-datatable-rowaction-item-click']: (e) => {
           const action = e.detail.action;
           const index = e.detail.index;
           const type = e.detail.type;

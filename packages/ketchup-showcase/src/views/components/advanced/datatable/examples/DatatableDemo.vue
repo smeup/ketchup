@@ -96,16 +96,16 @@ export default {
           type: 'click',
         },
         {
-          name: 'kup-datatable-rowactionclick',
-          type: 'click',
-        },
-        {
           name: 'kup-datatable-loadmoreclick',
           type: 'click',
         },
         {
           name: 'kup-datatable-save',
           type: 'CustomEvent',
+        },
+        {
+          name: 'kup-datatable-rowaction-item-click',
+          type: 'click',
         },
       ],
       demoMethods: [
