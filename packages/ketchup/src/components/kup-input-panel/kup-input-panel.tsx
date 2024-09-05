@@ -851,11 +851,12 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        const { fun, keyShortcut: key } = cell.data;
+        cell.data = cell.data || {};
+
         cell.data.onClick = () => {
-            fun
+            cell.fun
                 ? this.customButtonClickHandler({
-                      fun,
+                      fun: cell.fun,
                       cellId: id,
                       currentState: this.#reverseMapCells(),
                   })
@@ -867,10 +868,11 @@ export class KupInputPanel {
                       cell: id,
                   });
         };
-        if (key && !cell.data?.disabled) {
-            this.#keysShortcut.push(key);
+
+        if (cell.data?.key && !cell.data?.disabled) {
+            this.#keysShortcut.push(cell.data?.key);
             this.#kupManager.keysBinding.register(
-                key,
+                cell.data?.key,
                 cell.data.onClick.bind(this)
             );
         }
