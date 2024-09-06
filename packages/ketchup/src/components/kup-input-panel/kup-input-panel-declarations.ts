@@ -112,7 +112,8 @@ export type InputPanelEvent = {
 export type InputPanelOptionsHandler = (
     fun: string,
     inputValue: string,
-    currentState: KupInputPanelData
+    currentState: KupInputPanelData,
+    cellId: string
 ) => Promise<GenericObject>;
 
 export type InputPanelButtonClickHandler = (event: {

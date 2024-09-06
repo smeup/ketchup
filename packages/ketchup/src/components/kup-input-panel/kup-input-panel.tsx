@@ -1240,7 +1240,8 @@ export class KupInputPanel {
         this.optionsHandler(
             fun,
             detail.inputValue,
-            this.#reverseMapCells()
+            this.#reverseMapCells(),
+            detail.id
         ).then((options) => {
             data.data['kup-list'].data =
                 this.#optionsTreeComboAdapter(options, currentValue) ?? [];
