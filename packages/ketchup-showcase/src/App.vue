@@ -455,6 +455,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'activitytimeline',
+                  },
+                },
+                icon: 'calendar',
+                value: 'Activity Timeline',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'autocomplete',
                   },
                 },
@@ -835,6 +845,16 @@ export default {
             },
             icon: 'touch_app',
             value: 'KupInteract',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-keys-binding',
+              },
+            },
+            icon: 'wrench',
+            value: 'KupKeysBinding',
             visible: true,
           },
           {

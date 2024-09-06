@@ -3,6 +3,7 @@ import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import type { PointerEvent } from '@interactjs/types/index';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import {
+    DropDownAction,
     KupDataCell,
     KupDataColumn,
     KupDataRow,
@@ -29,6 +30,7 @@ export enum KupDataTableProps {
     expandGroups = 'Expands groups when set to true.',
     filters = 'List of filters set by the user.',
     fixedColumns = 'Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.',
+    fixedColumnsR = 'Fixes the given number of columns to the right so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.',
     fixedRows = 'Fixes the given number of rows so that they stay visible when vertically scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedColumns.',
     forceOneLine = 'Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.',
     globalFilter = 'When set to true it activates the global filter.',
@@ -50,6 +52,7 @@ export enum KupDataTableProps {
     removableColumns = 'Sets the possibility to remove the selected column.',
     resizableColumns = 'Gives the possibility to resize columns by dragging on their right edge.',
     rowActions = 'Sets the actions of the rows.',
+    commands = 'Sets the vo;cod_row actions',
     rowsPerPage = 'Sets the number of rows per page to display.',
     scrollOnHover = 'Activates the scroll on hover function.',
     showCustomization = 'If set to true, displays the button to open the customization panel.',
@@ -112,6 +115,11 @@ export interface SortObject {
 export enum SortMode {
     A = 'A',
     D = 'D',
+}
+
+export enum VoCodVerRowEnum {
+    P = 'COD_VER',
+    T = 'VO',
 }
 
 export type KupDataTableInsertMode = 'form' | 'row' | '';
@@ -203,11 +211,13 @@ export enum GroupLabelDisplayMode {
 //---- Fixed rows and cells classes ----
 export const FixedCellsClasses = {
     columns: 'fixed-column',
+    columnsR: 'fixed-column-r',
     rows: 'fixed-row',
 };
 
 export const FixedCellsCSSVarsBase = {
     columns: '--ddt_column-left-',
+    columnsR: '--ddt_column-right-',
     rows: '--ddt_row-top-',
 };
 
@@ -284,6 +294,20 @@ export interface KupDatatableRowActionClickEventPayload
     action?: KupDataRowAction;
     index?: number;
 }
+
+export interface KupDatatableRowActionItemClickEventPayload
+    extends KupEventPayload {
+    row: KupDataRow;
+    type:
+        | DropDownAction.CODVER
+        | DropDownAction.ROWACTION
+        | DropDownAction.CODVERWITHCOMMANDS;
+    obj?: KupObj;
+    column?: KupDataColumn;
+    cell?: KupDataCell;
+    index?: number;
+}
+
 export interface KupDataTableCellButtonClickEventPayload
     extends KupEventPayload {
     cell: KupDataTableCell;

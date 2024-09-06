@@ -73,10 +73,11 @@
         </div>
         <!-- -->
         <h4>Size:</h4>
+        <kup-button label="Extra Small" sizing="extra-small"></kup-button>
         <kup-button label="Small" sizing="small"></kup-button>
         <kup-button label="Medium" sizing="medium"></kup-button>
         <kup-button label="Large" sizing="large"></kup-button>
-        <kup-button label="Max Large" sizing="max-large"></kup-button>
+        <kup-button label="Extra Large" sizing="extra-large"></kup-button>
 
         <h4>Neutral:</h4>
         <kup-button label="Raised" class="kup-neutral"></kup-button>
@@ -113,6 +114,27 @@
             styling="flat"
             disabled
         ></kup-button>
+        <h5>Neutral : Black mode</h5>
+        <div style="background-color: #262626; padding: 16px">
+            <kup-button
+                label="Flat"
+                class="kup-neutral"
+                styling="flat"
+                black-mode
+            ></kup-button>
+            <kup-button
+                label="Flat"
+                class="kup-neutral"
+                styling="flat"
+                icon="favorite"
+                black-mode
+            ></kup-button>
+            <kup-button
+                class="kup-large kup-neutral"
+                icon="favorite"
+                black-mode
+            ></kup-button>
+        </div>
 
         <h4>Danger:</h4>
         <kup-button label="Raised" class="kup-danger"></kup-button>
@@ -191,8 +213,24 @@
             styling="outlined"
             label="Shaped & outlined"
         ></kup-button>
-        <kup-image color="red" resource="favorite"></kup-image>
-        <kup-image resource="favorite"></kup-image>
+
+        <h4>ALIGN</h4>
+        <kup-button
+            class="shaped"
+            styling="outlined"
+            label="Shaped & outlined"
+            content-align="left"
+            icon="favorite"
+            style="width: 250px"
+        ></kup-button>
+        <kup-button
+            class="shaped"
+            styling="outlined "
+            label="Shaped & outlined"
+            content-align="left"
+            icon="favorite"
+            style="width: 250px"
+        ></kup-button>
 
         <kup-button class="kup-full-width" label="Fill space"></kup-button>
         <kup-button

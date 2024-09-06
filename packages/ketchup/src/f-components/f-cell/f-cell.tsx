@@ -941,8 +941,8 @@ function setDefaults(cellType: string, cell: KupDataCell): void {
     cell.data = {};
 
     const createDataset = () => {
-        const parts = cell.value.split(';');
-        if (parts[parts.length - 1].trim() === '') {
+        const parts = cell.value?.split(';');
+        if (parts?.[parts.length - 1].trim() === '') {
             parts.pop();
         }
         if (parts && parts.length) {

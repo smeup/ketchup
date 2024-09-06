@@ -37,6 +37,7 @@ export const FButton: FunctionalComponent<FButtonProps> = (
         'kup-success': props.success,
         'kup-warning': props.warning,
         'kup-neutral': props.neutral,
+        'kup-black-mode': props.blackMode,
         [props.wrapperClass]: !!props.wrapperClass,
     };
     return (
@@ -92,6 +93,7 @@ function renderButton(props: FButtonProps): VNode {
         'button--with-spinner':
             props.showSpinner && !props.disabled ? true : false,
         [`button--${props.sizing}`]: props.sizing ? true : false,
+        [`button--${props.contentAlign}`]: props.contentAlign ? true : false,
     };
 
     const classLabelObj: Record<string, boolean> = {

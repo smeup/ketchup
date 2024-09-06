@@ -74,10 +74,11 @@
   --kup_button_font_size: var(--kup-button-font-size, var(--kup-font-size));
   --kup_button_font_weight: var(--kup-button-font-weight, 400);
   --kup_button_height: var(--kup-button-height, 3em);
+  --kup_button_extra_small_height: var(--kup-button-extra-small-height, 20px);
   --kup_button_small_height: var(--kup-button-small-height, 32px);
   --kup_button_medium_height: var(--kup-button-medium-height, 40px);
   --kup_button_large_height: var(--kup-button-large-height, 48px);
-  --kup_button_max_large_height: var(--kup-button-max-large-height, 64px);
+  --kup_button_extra_large_height: var(--kup-button-extra-large-height, 64px);
   --kup_button_padding: var(--kup-button-padding, 0 1.25em);
   --kup_button_gap: var(--kup-button-gap, --kup-space-03);
   --kup_button_text_transform: var(--kup-button-text-transform, capitalize);
@@ -99,7 +100,7 @@
     cursor: pointer;
     display: inline-flex;
     height: var(--kup_button_height);
-    justify-content: space-between;
+    justify-content: center;
     gap: var(--kup_button_gap);
     min-width: 64px;
     outline: none;
@@ -154,6 +155,10 @@
       margin-right: -0.25em;
     }
 
+    &.button--extra-small {
+      height: var(--kup_button_extra_small_height);
+    }
+
     &.button--small {
       height: var(--kup_button_small_height);
     }
@@ -166,8 +171,28 @@
       height: var(--kup_button_large_height);
     }
 
-    &.button--max-large {
-      height: var(--kup_button_max_large_height);
+    &.button--extra-large {
+      height: var(--kup_button_extra_large_height);
+    }
+
+    &.button--left {
+      justify-content: left;
+    }
+
+    &.button--right {
+      justify-content: right;
+    }
+
+    &.button--around {
+      justify-content: space-around;
+    }
+
+    &.button--between {
+      justify-content: space-between;
+    }
+
+    &.button--evenly {
+      justify-content: space-evenly;
     }
 
     // RAISED AND FLOATING BUTTON
@@ -256,6 +281,7 @@
       &:hover {
         --kup_button_background_color_hover: var(--kup-primary-color-60);
         --kup_button_text_color_hover: var(--kup-primary-color-0);
+        --kup_button_text_color: var(--kup-primary-color-0);
         color: var(--kup_button_text_color_hover);
         background-color: var(--kup_button_background_color_hover);
         border-color: transparent;
@@ -270,6 +296,7 @@
       &:focus {
         --kup_button_background_color_focus: var(--kup-primary-color-70);
         --kup_button_text_color_focus: var(--kup-primary-color-0);
+        --kup_button_text_color: var(--kup-primary-color-0);
         color: var(--kup_button_text_color_focus);
         background-color: var(--kup_button_background_color_focus);
       }
@@ -496,6 +523,30 @@
       .icon-button__spinner-container {
         width: var(--kup_button_spinner_width);
         height: var(--kup_button_spinner_height);
+      }
+    }
+    &.#{$kup-class-black-mode} {
+      .button {
+        --kup_button_text_color: #fff;
+        --kup_button_background_color_hover: #393939;
+        --kup_button_background_color_focus: #525252;
+        --kup_button_background_color_active: #525252;
+        .f-image .iconWrapper .f-image__icon {
+          background: #fff !important;
+        }
+      }
+      .icon-button {
+        --kup_button_text_color: #fff;
+        .f-image .iconWrapper .f-image__icon {
+          background: #fff !important;
+        }
+        &:hover {
+          background-color: #393939;
+        }
+        &:focus,
+        &:active {
+          background-color: #525252;
+        }
       }
     }
   }

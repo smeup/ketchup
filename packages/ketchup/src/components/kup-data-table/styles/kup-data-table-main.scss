@@ -64,7 +64,7 @@
   );
   --kup_datatable_th_border: var(
     --kup-datatable-th-border,
-    1px solid var(--kup-border-subtle)
+    1px solid var(--kup-gray-color-30)
   );
   --kup_datatable_th_resize_handle_width: var(
     --kup-datatable-th-resize-handle-width,
@@ -177,13 +177,14 @@ table {
   tfoot {
     tr {
       td {
+        background-color: var(--kup_datatable_background_color);
         border-bottom: var(--kup_datatable_border);
         border-right: var(--kup_datatable_border);
         box-sizing: border-box;
         height: 36px;
         text-align: right;
         font-weight: bold;
-        padding: 0.5em 0.6em;
+        padding: 0.5em var(--kup-space-03);
         &:hover {
           background-color: var(--kup_datatable_background_color);
         }
@@ -308,7 +309,7 @@ th {
     color: var(--kup-text-primary);
     display: flex;
     justify-content: space-between;
-    padding: 0.5em 0.6em;
+    padding: 0.5em var(--kup-space-03);
     text-overflow: ellipsis;
     white-space: nowrap;
     @include kup-heading-compact-01;
@@ -397,7 +398,7 @@ tbody {
 
     // grouping
     &.group {
-      background: var(--kup-layer-3);
+      background: var(--kup-layer-1-selected);
       border-top: var(--kup_datatable_border);
       color: var(--kup-text-secondary);
       font-weight: bold;
@@ -432,8 +433,10 @@ tbody {
         }
 
         &.total {
+          border-bottom: 1px solid var(--kup-border-subtle-selected);
           text-align: right;
-          padding: 0.5em 0.6em;
+          padding: 0.5em var(--kup-space-03);
+          font-family: var(--kup_datatable_font_family_monospace);
 
           &.negative-number {
             color: var(--kup-danger-color-60);
@@ -519,6 +522,9 @@ th.obj:hover span:not(.overlay-action) {
 
 .totals-value {
   font-weight: bold;
+  @include kup-heading-compact-01;
+  font-size: 13px;
+  font-family: var(--kup_datatable_font_family_monospace);
 }
 
 .settings-trigger {
@@ -625,7 +631,7 @@ th.obj:hover span:not(.overlay-action) {
 
 :host([legacy-look]) {
   th .header-cell__content {
-    font-family: var(--kup-font-family-monospace);
+    font-family: var(--kup_datatable_font_family_monospace);
     white-space: pre !important;
     font-size: 11px;
   }

@@ -161,6 +161,11 @@ export class KupTextField {
      * When set to true, the label will be on the left of the component.
      * @default false
      */
+    @Prop() lightMode: boolean = false;
+    /**
+     * When set to true, the label will be on the left of the component.
+     * @default false
+     */
     @Prop() leadingLabel: boolean = false;
     /**
      * The HTML max attribute specifies the maximum value for the input element.
@@ -210,7 +215,7 @@ export class KupTextField {
      */
     @Prop() size: number = null;
     /**
-     * Sets the type of the button
+     * Sets the sizing of the textfield
      * @default KupComponentSizing.MEDIUM
      */
     @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
@@ -617,6 +622,7 @@ export class KupTextField {
             isClearable: this.isClearable,
             label: this.label,
             leadingLabel: this.leadingLabel,
+            lightMode: this.lightMode,
             max: this.max,
             maxLength: this.maxLength,
             min: this.min,

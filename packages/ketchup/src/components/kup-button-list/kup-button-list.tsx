@@ -12,13 +12,18 @@ import {
     VNode,
     Watch,
 } from '@stencil/core';
-import type { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    KupComponentSizing,
+    type GenericObject,
+    type KupComponent,
+} from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
 import {
+    FButtonAlign,
     FButtonProps,
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
@@ -60,6 +65,16 @@ export class KupButtonList {
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
     /**
+     * Sets the type of the button.
+     * @default false
+     */
+    @Prop() blackMode: boolean = false;
+    /**
+     * Sets the type of the button.
+     * @default null
+     */
+    @Prop() contentAlign: FButtonAlign = FButtonAlign.CENTER;
+    /**
      * Number of columns.
      * @default 0
      */
@@ -86,10 +101,15 @@ export class KupButtonList {
      */
     @Prop() showSelection: boolean = true;
     /**
-     * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
-     * @default FButtonStyling.OUTLINED
+     * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
+     * @default KupComponentSizing.SMALL
      */
-    @Prop({ reflect: true }) styling: FButtonStyling = FButtonStyling.OUTLINED;
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
+    /**
+     * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
+     * @default FButtonStyling.RAISED
+     */
+    @Prop({ reflect: true }) styling: FButtonStyling = FButtonStyling.RAISED;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -216,6 +236,8 @@ export class KupButtonList {
         }
 
         const props: FButtonProps = {
+            blackMode: data.blackMode,
+            contentAlign: data.contentAlign,
             checked: data.checked,
             disabled: data.disabled,
             fullHeight: data.fullHeight,
@@ -230,7 +252,8 @@ export class KupButtonList {
                 ? true
                 : false,
             shaped: data.shaped,
-            styling: index === Number(this.selected) ? 'raised' : data.styling,
+            sizing: data.sizing,
+            styling: data.id === this.selected ? 'raised' : data.styling,
             toggable: data.toggable,
             trailingIcon: data.trailingIcon,
             title: data.title,
@@ -268,8 +291,8 @@ export class KupButtonList {
                 showIcons: true,
             },
         };
-        data.styling =
-            index === Number(this.selected) ? 'raised' : data.styling;
+        data.styling = data.id === this.selected ? 'raised' : data.styling;
+        data.contentalign = data.contentalign;
         return (
             <kup-dropdown-button
                 class={this.rootElement.className + ' ' + data.wrapperClass}
@@ -293,11 +316,20 @@ export class KupButtonList {
         if (this.customStyle != null && this.customStyle.trim() != '') {
             data.customStyle = this.customStyle;
         }
+        if (this.blackMode == true) {
+            data.blackMode = true;
+        }
         if (this.disabled == true || node.disabled == true) {
             data.disabled = true;
         }
         if (this.styling != null && this.styling.trim() != '') {
             data.styling = this.styling;
+        }
+        if (this.sizing != null) {
+            data.sizing = this.sizing;
+        }
+        if (this.contentAlign) {
+            data.contentAlign = this.contentAlign;
         }
         if (data.icon == null) {
             data.icon = node.icon;
@@ -372,29 +404,31 @@ export class KupButtonList {
         if (this.data == null || this.data.length < 1) {
             return null;
         }
-        if (this.styling === 'raised') {
-            this.kupManager.debug.logMessage(
-                this,
-                'styling="raised" is not allowed, please use "flat" or "outlined" instead.',
-                KupDebugCategory.WARNING
-            );
-            return null;
-        }
+        // if (this.styling === 'raised') {
+        //     this.kupManager.debug.logMessage(
+        //         this,
+        //         'styling="raised" is not allowed, please use "flat" or "outlined" instead.',
+        //         KupDebugCategory.WARNING
+        //     );
+        //     return null;
+        // }
 
-        const haveIcons: boolean = this.data.some((button) => button.icon);
-        if (haveIcons) {
-            const allButtonsHaveIconsOrDropdown: boolean = this.data.every(
-                (button) => button.icon || button.data.dropdownOnly
-            );
-            if (!allButtonsHaveIconsOrDropdown) {
-                this.kupManager.debug.logMessage(
-                    this,
-                    'Not all buttons have icons, please add icons to all buttons or remove them from all buttons.',
-                    KupDebugCategory.WARNING
-                );
-                return null;
-            }
-        }
+        // 08/07/24 --> Removed check all icons for redUP Problem
+
+        // const haveIcons: boolean = this.data.some((button) => button.icon);
+        // if (haveIcons) {
+        //     const allButtonsHaveIconsOrDropdown: boolean = this.data.every(
+        //         (button) => button.icon || button.data.dropdownOnly
+        //     );
+        //     // if (!allButtonsHaveIconsOrDropdown) {
+        //     //     this.kupManager.debug.logMessage(
+        //     //         this,
+        //     //         'Not all buttons have icons, please add icons to all buttons or remove them from all buttons.',
+        //     //         KupDebugCategory.WARNING
+        //     //     );
+        //     //     return null;
+        //     // }
+        // }
 
         const columns: VNode[] = [];
         for (let i = 0; i < this.data.length; i++) {

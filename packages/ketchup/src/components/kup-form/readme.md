@@ -157,6 +157,8 @@ graph TD;
   kup-card --> kup-gauge
   kup-card --> kup-progress-bar
   kup-card --> kup-badge
+  kup-card --> kup-card
+  kup-card --> kup-dialog
   kup-card --> kup-button
   kup-card --> kup-list
   kup-card --> kup-spinner
@@ -166,8 +168,6 @@ graph TD;
   kup-card --> kup-tree
   kup-card --> kup-switch
   kup-card --> kup-dropdown-button
-  kup-card --> kup-card
-  kup-card --> kup-dialog
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
@@ -237,6 +237,7 @@ graph TD;
   kup-data-table --> kup-form
   kup-switch --> kup-card
   kup-switch --> kup-dialog
+  kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge

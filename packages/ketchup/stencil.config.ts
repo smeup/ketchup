@@ -46,6 +46,7 @@ export const config: Config = {
             type: 'www',
             copy: [
                 { src: 'accordion.html' },
+                { src: 'activity-timeline.html' },
                 { src: 'autocomplete.html' },
                 { src: 'badge.html' },
                 { src: 'box.html' },

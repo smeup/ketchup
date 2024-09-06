@@ -96,16 +96,16 @@ export default {
           type: 'click',
         },
         {
-          name: 'kup-datatable-rowactionclick',
-          type: 'click',
-        },
-        {
           name: 'kup-datatable-loadmoreclick',
           type: 'click',
         },
         {
           name: 'kup-datatable-save',
           type: 'CustomEvent',
+        },
+        {
+          name: 'kup-datatable-rowaction-item-click',
+          type: 'click',
         },
       ],
       demoMethods: [
@@ -280,6 +280,13 @@ export default {
         {
           prop: 'fixedColumns',
           description: 'Amount of frozen columns.',
+          type: 'number',
+          default: '0',
+          try: 'field',
+        },
+        {
+          prop: 'fixedColumnsR',
+          description: 'Amount of frozen columns to the right.',
           type: 'number',
           default: '0',
           try: 'field',

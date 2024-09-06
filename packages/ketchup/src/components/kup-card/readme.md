@@ -97,6 +97,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-accordion](../kup-accordion)
+ - [kup-activity-timeline](../kup-activity-timeline)
  - [kup-autocomplete](../kup-autocomplete)
  - [kup-badge](../kup-badge)
  - [kup-box](../kup-box)
@@ -164,6 +165,8 @@ Type: `Promise<void>`
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-badge](../kup-badge)
+- [kup-card](.)
+- [kup-dialog](../kup-dialog)
 - [kup-button](../kup-button)
 - [kup-list](../kup-list)
 - [kup-spinner](../kup-spinner)
@@ -173,8 +176,6 @@ Type: `Promise<void>`
 - [kup-tree](../kup-tree)
 - [kup-switch](../kup-switch)
 - [kup-dropdown-button](../kup-dropdown-button)
-- [kup-card](.)
-- [kup-dialog](../kup-dialog)
 
 ### Graph
 ```mermaid
@@ -207,6 +208,7 @@ graph TD;
   kup-tab-bar --> kup-card
   kup-tree --> kup-card
   kup-accordion --> kup-card
+  kup-activity-timeline --> kup-card
   kup-box --> kup-card
   kup-calendar --> kup-card
   kup-card-list --> kup-card

@@ -26,6 +26,7 @@
   height: 100%;
   position: relative;
   width: 100%;
+  max-width: 300px;
   overflow: auto;
   padding: 0.5em;
 
@@ -113,5 +114,10 @@
     @include kup-body-compact-01;
     line-height: 2.5em;
     color: var(--kup_card_text_color);
+  }
+
+  .today-navigation-button {
+    display: flex;
+    align-items: center;
   }
 }

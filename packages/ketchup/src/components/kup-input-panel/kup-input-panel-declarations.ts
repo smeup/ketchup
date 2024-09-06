@@ -16,6 +16,12 @@ export interface KupInputPanelSubmitValue {
 export interface KupInputPanelData {
     columns?: KupDataColumn[];
     rows?: KupInputPanelRow[];
+    actions?: KupInputPanelAction[];
+}
+
+export interface KupInputPanelAction {
+    type?: string;
+    fun?: string;
 }
 
 export interface KupInputPanelColumn {
@@ -48,11 +54,17 @@ export interface KupInputPanelCellOptions {
 export interface KupInputPanelLayout {
     horizontal?: boolean;
     sections?: KupInputPanelLayoutSection[];
+    sectionsType?: KupInputPanelLayoutSectionType;
+}
+
+export enum KupInputPanelLayoutSectionType {
+    TAB = 'tab',
 }
 
 export interface KupInputPanelLayoutSection {
     id?: string;
     title?: string;
+    icon?: string;
     content?: KupInputPanelLayoutField[];
     sections?: KupInputPanelLayoutSection[];
     dim?: string;
@@ -61,6 +73,7 @@ export interface KupInputPanelLayoutSection {
     gridRows?: number;
     // Gap is in rem
     gap?: number;
+    sectionsType?: KupInputPanelLayoutSectionType;
 }
 
 export interface KupInputPanelLayoutField {

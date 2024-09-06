@@ -101,6 +101,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-accordion](../kup-accordion)
+ - [kup-activity-timeline](../kup-activity-timeline)
  - [kup-autocomplete](../kup-autocomplete)
  - [kup-badge](../kup-badge)
  - [kup-box](../kup-box)
@@ -189,6 +190,7 @@ graph TD;
   kup-tab-bar --> kup-dialog
   kup-tree --> kup-dialog
   kup-accordion --> kup-dialog
+  kup-activity-timeline --> kup-dialog
   kup-box --> kup-dialog
   kup-calendar --> kup-dialog
   kup-card-list --> kup-dialog

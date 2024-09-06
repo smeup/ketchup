@@ -21,6 +21,7 @@ import {
 } from '../../managers/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
 import {
+    FButtonAlign,
     FButtonProps,
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
@@ -56,7 +57,6 @@ export class KupButton {
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
-
     /**
      * Sets the type of the button.
      * @default null
@@ -67,6 +67,11 @@ export class KupButton {
      * @default false
      */
     @Prop({ mutable: true }) checked: boolean = false;
+    /**
+     * Sets the type of the button.
+     * @default null
+     */
+    @Prop() contentAlign: FButtonAlign = FButtonAlign.CENTER;
     /**
      * Custom style of the component.
      * @default ""
@@ -93,6 +98,11 @@ export class KupButton {
      * @default null
      */
     @Prop() label: string = null;
+    /**
+     * When set to true, the label will be on the left of the component.
+     * @default false
+     */
+    @Prop() blackMode: boolean = false;
     /**
      * When set, the button will show this icon, if icon/image not found.
      * @default null
@@ -123,6 +133,8 @@ export class KupButton {
      * @default KupComponentSizing.MEDIUM
      */
     @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
+
+    @Prop() keyShortcut: string;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -256,6 +268,13 @@ export class KupButton {
         } else {
             this.value = 'N/A';
         }
+
+        if (this.keyShortcut && !this.disabled) {
+            this.kupManager.keysBinding.register(
+                this.keyShortcut,
+                this.onKupClick.bind(this)
+            );
+        }
     }
 
     componentDidRender() {
@@ -266,6 +285,7 @@ export class KupButton {
         const props: FButtonProps = {
             buttonType: this.buttonType,
             checked: this.checked,
+            contentAlign: this.contentAlign,
             danger: this.rootElement.classList.contains('kup-danger')
                 ? true
                 : false,
@@ -286,6 +306,7 @@ export class KupButton {
             large: this.rootElement.classList.contains('kup-large')
                 ? true
                 : false,
+            blackMode: this.blackMode,
             neutral: this.rootElement.classList.contains('kup-neutral')
                 ? true
                 : false,
@@ -343,5 +364,9 @@ export class KupButton {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
+
+        if (this.keyShortcut) {
+            this.kupManager.keysBinding.unregister(this.keyShortcut);
+        }
     }
 }
