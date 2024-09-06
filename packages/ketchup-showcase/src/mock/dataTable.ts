@@ -1304,6 +1304,19 @@ export const dataTableWithNoCommandsMatching = {
       title: 'CFG',
       tooltip: false,
     },
+    {
+      isEditable: false,
+      isKey: false,
+      name: 'X$MOD',
+      obj: {
+        k: '',
+        p: 'COD_VER',
+        t: 'VO',
+      },
+      size: '70px',
+      title: 'MODIFICA',
+      tooltip: false,
+    },
   ],
   rows: [
     {
@@ -1408,6 +1421,19 @@ export const dataTableWithNoCommandsMatching = {
           isEditable: false,
           obj: {
             k: '000052',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          icon: 'settings',
+          // value: ' 000052',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$MOD: {
+          isEditable: false,
+          obj: {
+            k: '000053',
             p: 'COD_VER',
             t: 'VO',
           },
