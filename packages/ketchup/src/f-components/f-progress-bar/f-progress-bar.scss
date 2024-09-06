@@ -258,7 +258,7 @@
   }
 
   &.#{$kup-class-info} {
-    --kup-progressbar-primary-color: var(--kup-info-color);
+    --kup-progressbar-primary-color: var(--kup-info-color-50);
     --kup-progressbar-text-on-primary-color: white;
   }
 
@@ -273,7 +273,7 @@
   }
 
   &.#{$kup-class-warning} {
-    --kup-progressbar-primary-color: var(--kup-warning-color);
+    --kup-progressbar-primary-color: var(--kup-warning-color-40);
     --kup-progressbar-text-on-primary-color: white;
   }
 

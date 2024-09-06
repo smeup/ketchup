@@ -31,7 +31,7 @@
 }
 
 :host(.#{$kup-class-danger}) {
-  --kup-button-primary-color: var(--kup-danger-color);
+  --kup-button-primary-color: var(--kup-danger-color-60);
   --kup-button-primary-color-h: var(--kup-danger-color-h);
   --kup-button-primary-color-s: var(--kup-danger-color-s);
   --kup-button-primary-color-l: var(--kup-danger-color-l);

@@ -2624,8 +2624,8 @@ export class KupDataTable {
             'kup-form { max-height: 40vh; overflow: auto; } .page-wrapper { display: grid; } ' +
             '.button-wrapper { padding-top: 20px; display: flex; justify-content: space-around; z-index: var(--kup-card-zindex); } ' +
             '.message-wrapper { display: none; justify-content: start; padding-top: 5px; padding-bottom: 5px; } ' +
-            '.errorIcon { --kup-icon-color: var(--kup-danger-color); } ' +
-            '.message { background-color: var(--kup-danger-color); color: white; padding: 3px; } ';
+            '.errorIcon { --kup-icon-color: var(--kup-danger-color-60); } ' +
+            '.message { background-color: var(--kup-danger-color-60); color: white; padding: 3px; } ';
         this.#insertCard.append(style);
 
         const pageWrapper = document.createElement('div');

@@ -11,7 +11,7 @@
 }
 
 :host(.#{$kup-class-danger}) {
-  --kup-button-primary-color: var(--kup-danger-color);
+  --kup-button-primary-color: var(--kup-danger-color-60);
   --kup-button-primary-color-h: var(--kup-danger-color-h);
   --kup-button-primary-color-s: var(--kup-danger-color-s);
   --kup-button-primary-color-l: var(--kup-danger-color-l);
@@ -47,7 +47,7 @@
 }
 
 :host(.#{$kup-class-warning}) {
-  --kup-button-primary-color: var(--kup-warning-color);
+  --kup-button-primary-color: var(--kup-warning-color-40);
   --kup-button-primary-color-h: var(--kup-warning-color-h);
   --kup-button-primary-color-s: var(--kup-warning-color-s);
   --kup-button-primary-color-l: var(--kup-warning-color-l);

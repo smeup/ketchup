@@ -291,7 +291,7 @@ export enum KupThemeColorValues {
     TITLE = '--kup-title-color',
     ICON = '--kup-text-secondary',
     BORDER = '--kup-border-subtle',
-    INFO = '--kup-info-color',
+    INFO = '--kup-info-color-50',
     SUCCESS = '--kup-success-color-40',
     WARNING = '--kup-warning-color-40',
     DANGER = '--kup-danger-color-50',
