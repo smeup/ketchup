@@ -145,7 +145,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
     const propsFImage: FImageProps = {
         color: props.error
             ? `var(--kup-danger-color-60)`
-            : `var(--kup-warning-color-40)`,
+            : `var(--kup-warning-color-50)`,
         resource: props.error ? 'error' : 'warning',
         sizeX: '1.25em',
         sizeY: '1.25em',

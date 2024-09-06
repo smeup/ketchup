@@ -15675,7 +15675,7 @@ export const subfile = {
           span: {
             col: 18,
           },
-          style: { backgroundColor: 'var(--kup-warning-color-40)' },
+          style: { backgroundColor: 'var(--kup-warning-color-50)' },
         },
         COL01: {
           value: '1000',
@@ -15684,7 +15684,7 @@ export const subfile = {
             p: '',
             k: '1000',
           },
-          style: { backgroundColor: 'var(--kup-warning-color-40)' },
+          style: { backgroundColor: 'var(--kup-warning-color-50)' },
         },
         COL02: {
           value: '1000',
@@ -15693,7 +15693,7 @@ export const subfile = {
             p: '',
             k: '1000',
           },
-          style: { backgroundColor: 'var(--kup-warning-color-40)' },
+          style: { backgroundColor: 'var(--kup-warning-color-50)' },
         },
         COL03: {
           value: '1000',
@@ -15711,7 +15711,7 @@ export const subfile = {
             p: '',
             k: '1000',
           },
-          style: { backgroundColor: 'var(--kup-warning-color-40)' },
+          style: { backgroundColor: 'var(--kup-warning-color-50)' },
         },
         COL05: {
           value: '1000',
@@ -15720,7 +15720,7 @@ export const subfile = {
             p: '',
             k: '1000',
           },
-          style: { backgroundColor: 'var(--kup-warning-color-40)' },
+          style: { backgroundColor: 'var(--kup-warning-color-50)' },
         },
       },
     },

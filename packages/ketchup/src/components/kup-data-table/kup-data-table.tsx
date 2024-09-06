@@ -5020,7 +5020,10 @@ export class KupDataTable {
                         }
                     >
                         {actionsOnRow.map((action) => (
-                            <FImage {...action}></FImage>
+                            <FImage
+                                {...action}
+                                color="var(--kup-text-secondary)"
+                            ></FImage>
                         ))}
                     </td>
                 );

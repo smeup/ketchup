@@ -264,8 +264,8 @@
   }
 
   &.warning-text {
-    --kup-textfield-color: var(--kup-warning-color-40) !important;
-    color: var(--kup-warning-color-40) !important;
+    --kup-textfield-color: var(--kup-warning-color-50) !important;
+    color: var(--kup-warning-color-50) !important;
   }
 
   &.danger-text {
@@ -284,7 +284,7 @@
   }
 
   &.warning-bg {
-    background: var(--kup-warning-color-40) !important;
+    background: var(--kup-warning-color-50) !important;
     color: var(--kup-gray-color-0) !important;
   }
 
@@ -442,7 +442,7 @@
 
   &.c-warning-bg {
     .f-cell__content {
-      background: var(--kup-warning-color-40) !important;
+      background: var(--kup-warning-color-50) !important;
     }
   }
 
