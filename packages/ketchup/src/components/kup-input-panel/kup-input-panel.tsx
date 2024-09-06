@@ -822,10 +822,12 @@ export class KupInputPanel {
         currentValue: string
     ) {
         return {
-            data: currentValue
-                ?.split(';')
-                .map((v) => ({ id: v, value: v }))
-                .filter((value) => !!value),
+            data: currentValue?.length
+                ? currentValue
+                      .split(';')
+                      .map((v) => ({ id: v, value: v }))
+                      .filter((value) => !!value)
+                : null,
         };
     }
 
@@ -851,11 +853,12 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        const { fun, keyShortcut: key } = cell.data;
+        cell.data = cell.data || {};
+
         cell.data.onClick = () => {
-            fun
+            cell.fun
                 ? this.customButtonClickHandler({
-                      fun,
+                      fun: cell.fun,
                       cellId: id,
                       currentState: this.#reverseMapCells(),
                   })
@@ -867,10 +870,11 @@ export class KupInputPanel {
                       cell: id,
                   });
         };
-        if (key && !cell.data?.disabled) {
-            this.#keysShortcut.push(key);
+
+        if (cell.data?.key && !cell.data?.disabled) {
+            this.#keysShortcut.push(cell.data?.key);
             this.#kupManager.keysBinding.register(
-                key,
+                cell.data?.key,
                 cell.data.onClick.bind(this)
             );
         }
@@ -1236,7 +1240,8 @@ export class KupInputPanel {
         this.optionsHandler(
             fun,
             detail.inputValue,
-            this.#reverseMapCells()
+            this.#reverseMapCells(),
+            detail.id
         ).then((options) => {
             data.data['kup-list'].data =
                 this.#optionsTreeComboAdapter(options, currentValue) ?? [];
