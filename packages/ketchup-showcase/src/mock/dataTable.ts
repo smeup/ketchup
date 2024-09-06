@@ -15702,7 +15702,7 @@ export const subfile = {
             p: '',
             k: '1000',
           },
-          style: { backgroundColor: 'var(--kup-warning-colo-40)' },
+          style: { backgroundColor: 'var(--kup-warning-colo-50)' },
         },
         COL04: {
           value: '1000',
