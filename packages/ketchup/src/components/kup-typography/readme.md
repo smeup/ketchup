@@ -7,11 +7,13 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                      | Type                                                                                                                                                                                           | Default                    |
-| ------------- | -------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| `customStyle` | `custom-style` | Custom style of the component.   | `string`                                                                                                                                                                                       | `''`                       |
-| `text`        | `text`         | This is the context of the text  | `string`                                                                                                                                                                                       | `null`                     |
-| `type`        | `type`         | Sets the sizing of the textfield | `FTypographyType.BODY \| FTypographyType.BODY_COMPACT \| FTypographyType.CAPTION \| FTypographyType.HEADING1 \| FTypographyType.HEADING2 \| FTypographyType.HEADING3 \| FTypographyType.LABEL` | `FTypographyType.HEADING1` |
+| Property      | Attribute      | Description                                                   | Type                                                                                                                                                                                                                   | Default                        |
+| ------------- | -------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `customStyle` | `custom-style` | Custom style of the component.                                | `string`                                                                                                                                                                                                               | `''`                           |
+| `data`        | --             | Props of the sub-components.                                  | `KupDataNode[]`                                                                                                                                                                                                        | `[]`                           |
+| `toolbar`     | `toolbar`      | Manage the toolbar icon. If true is visible, otherwise is not | `boolean`                                                                                                                                                                                                              | `false`                        |
+| `type`        | `type`         | Sets the sizing of the textfield                              | `FTypographyType.BODY \| FTypographyType.BODY_COMPACT \| FTypographyType.CAPTION \| FTypographyType.CODE \| FTypographyType.HEADING1 \| FTypographyType.HEADING2 \| FTypographyType.HEADING3 \| FTypographyType.LABEL` | `FTypographyType.BODY_COMPACT` |
+| `value`       | `value`        | This is the context of the text                               | `string`                                                                                                                                                                                                               | `null`                         |
 
 
 ## Methods
@@ -204,6 +206,7 @@ graph TD;
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
+  kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge

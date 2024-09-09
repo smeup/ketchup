@@ -14,7 +14,7 @@ const simpleData = [
         value: 'Button Flat 2',
     },
     {
-        value: 'Button Flat 3',
+        value: 'This is a text that will be outputted as text for the LAB component also called in ketchup typography.',
     },
     {
         value: 'Button Flat 5',
@@ -26,9 +26,6 @@ textList.data = simpleData;
 
 const toolbarTitle = [
     {
-        data: {
-            type: 'heading-01',
-        },
         value: 'Button Flat 1',
         obj: {
             t: '',

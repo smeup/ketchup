@@ -6,7 +6,6 @@ import {
     Host,
     Method,
     Prop,
-    State,
 } from '@stencil/core';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
@@ -18,6 +17,7 @@ import {
     FTypographyType,
 } from '../../f-components/f-typography/f-typography-declarations';
 import { KupTypographyProps } from './kup-typography-declarations';
+import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-typography',
@@ -31,16 +31,6 @@ export class KupTypography {
     @Element() rootElement: HTMLElement;
 
     /*-------------------------------------------------*/
-    /*                   S t a t e s                   */
-    /*-------------------------------------------------*/
-
-    /**
-     * The value of the component.
-     * @default ""
-     */
-    @State() value: string = '';
-
-    /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
 
@@ -51,15 +41,26 @@ export class KupTypography {
      */
     @Prop() customStyle: string = '';
     /**
-     * Sets the sizing of the textfield
-     * @default FTypographyType.HEADING1
+     * Props of the sub-components.
+     * @default []
      */
-    @Prop() type: FTypographyType = FTypographyType.HEADING1;
+    @Prop({ mutable: true }) data: KupDataNode[] = [];
+    /**
+     * Manage the toolbar icon. If true is visible, otherwise is not
+     * @default null
+     */
+    @Prop() toolbar: boolean = false;
+    /**
+     * Sets the sizing of the textfield
+     * @default FTypographyType.BODY_COMPACT
+     */
+    @Prop() type: FTypographyType = FTypographyType.BODY_COMPACT;
     /**
      * This is the context of the text
      * @default null
      */
-    @Prop() text: string = null;
+    @Prop() value: string = null;
+
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/

@@ -1,6 +1,16 @@
 .f-typography {
+  @include kup-body-compact-01;
+  &.f-typography--body {
+    @include kup-body-01;
+  }
   &.f-typography--heading-01 {
     @include kup-heading-compact-01;
+  }
+  &.f-typography--heading-02 {
+    @include kup-heading-02;
+  }
+  &.f-typography--code {
+    @include kup-code-01;
   }
 }
 

@@ -12,14 +12,12 @@ export const FTypography: FunctionalComponent<FTypographyProps> = (
     children: VNode[]
 ) => {
     if (!props.type) {
-        props.type = FTypographyType.HEADING1;
+        props.type = FTypographyType.BODY_COMPACT;
     }
     if (!props.value) {
         return;
     }
-    if (!props.toolbar) {
-        props.toolbar = true;
-    }
+
     const classObj: Record<string, boolean> = {
         'f-typography': true,
         [`f-typography--${props.type}`]: props.type ? true : false,
@@ -38,7 +36,7 @@ export const FTypography: FunctionalComponent<FTypographyProps> = (
     };
 
     return (
-        <div class={classObjParent}>
+        <div class={classObjParent} onClick={() => props.onClick}>
             <span
                 class={classObj}
                 {...props.dataSet}
@@ -48,7 +46,7 @@ export const FTypography: FunctionalComponent<FTypographyProps> = (
                 {props.value}
                 {children}
             </span>
-            {toolbar && (
+            {props.toolbar && (
                 <FImage
                     {...propsFImage}
                     onClick={() => {

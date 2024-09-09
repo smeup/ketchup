@@ -13,20 +13,25 @@ import {
 } from '@stencil/core';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
+    KupTypographyClickEventPayload,
     KupTypographyIconClickEventPayload,
-    KupTypographyListNode,
     KupTypographyListProps,
 } from './kup-typography-list-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { KupManager } from '../../managers/kup-manager/kup-manager-declarations';
 import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
-import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataDataset,
+    KupDataNode,
+} from '../../managers/kup-data/kup-data-declarations';
 import {
     FTypographyProps,
     FTypographyType,
 } from '../../f-components/f-typography/f-typography-declarations';
 import { FTypography } from '../../f-components/f-typography/f-typography';
+import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
 @Component({
     tag: 'kup-typography-list',
@@ -51,19 +56,25 @@ export class KupTypographyList {
     @Prop() customStyle: string = '';
     /**
      * Sets the sizing of the textfield
-     * @default FTypographyType.HEADING1
+     * @default FTypographyType.BODY_COMPACT
      */
-    @Prop() type: FTypographyType = FTypographyType.HEADING1;
+    @Prop() type: FTypographyType = FTypographyType.BODY_COMPACT;
     /**
      * Props of the sub-components.
      * @default []
      */
-    @Prop({ mutable: true }) data: KupTypographyListNode[] = [];
+    @Prop({ mutable: true }) data: KupDataNode[] = [];
     /**
      * This is the context of the text
      * @default null
      */
     @Prop() value: string = null;
+
+    /**
+     * Manage the toolbar icon. If true is visible, otherwise is not
+     * @default null
+     */
+    @Prop() toolbar: boolean = false;
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -84,7 +95,25 @@ export class KupTypographyList {
     })
     kupIconClick: EventEmitter<KupTypographyIconClickEventPayload>;
 
-    onKupIconClick(i: number, node: KupTypographyListNode) {
+    @Event({
+        eventName: 'kup-typography-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    KupClick: EventEmitter<KupTypographyClickEventPayload>;
+
+    onKupClick(index: string, subIndex: string): void {
+        this.KupClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            index: index,
+            subIndex: subIndex,
+            obj: this.getObjForEvent(index, subIndex),
+        });
+    }
+
+    onKupIconClick(i: number, node: KupDataNode) {
         this.kupIconClick.emit({
             comp: this,
             id: this.rootElement.id,
@@ -98,7 +127,7 @@ export class KupTypographyList {
     /*-------------------------------------------------*/
 
     @Watch('data')
-    checkDataset(newData: KupTypographyListNode[] | KupDataDataset) {
+    checkDataset(newData: KupDataNode[] | KupDataDataset) {
         if (!newData) {
             newData = [];
         }
@@ -146,10 +175,7 @@ export class KupTypographyList {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    private renderTypography(
-        node: KupTypographyListNode,
-        index: number
-    ): VNode {
+    private renderTypography(node: KupDataNode, index: number): VNode {
         if (node === null) {
             this.kupManager.debug.logMessage(
                 this,
@@ -170,14 +196,16 @@ export class KupTypographyList {
         const props: FTypographyProps = {
             value: data.value,
             type: data.type,
+            toolbar: data.toolbar,
             onIconClick: () => this.onKupIconClick(data.i, data.node),
+            onClick: () => this.onKupClick(data.i, data.node),
         };
 
         return <FTypography {...props} />;
     }
 
     private prepareDataFromTreeNode(
-        node: KupTypographyListNode,
+        node: KupDataNode,
         index: number
     ): GenericObject {
         const data: GenericObject = node.data != null ? { ...node.data } : {};
@@ -191,25 +219,15 @@ export class KupTypographyList {
         if (!data.wrapperClass) {
             data.wrapperClass = '';
         }
+        if (this.type != null) {
+            data.type = this.type;
+            console.log(this.type + 'and' + data.type);
+        }
+        if (this.toolbar != null) {
+            data.toolbar = this.toolbar;
+        }
         data.id = index.toString();
         return data;
-    }
-
-    private getKupListDataForChildren(
-        children: KupTypographyListNode[]
-    ): KupTypographyListNode[] {
-        const ris: KupTypographyListNode[] = [];
-
-        for (let i = 0; i < children.length; i++) {
-            const tn: KupTypographyListNode = children[i];
-            ris.push({
-                icon: tn.icon,
-                placeholderIcon: tn.placeholderIcon,
-                id: i.toString(),
-                value: tn.value,
-            });
-        }
-        return ris;
     }
 
     private renderTypographys(): VNode[] {
@@ -218,7 +236,7 @@ export class KupTypographyList {
         }
         const columns: VNode[] = [];
         for (let i = 0; i < this.data.length; i++) {
-            const node: KupTypographyListNode = this.data[i];
+            const node: KupDataNode = this.data[i];
             let b: VNode = null;
             b = this.renderTypography(node, i);
             if (b) {
@@ -226,6 +244,20 @@ export class KupTypographyList {
             }
         }
         return columns;
+    }
+
+    private getObjForEvent(index: string, subIndex: string): KupObj {
+        let indexInt: number = Number(index);
+        let subIndexInt: number = -1;
+        if (subIndex != null && subIndex.trim() != '') {
+            subIndexInt = Number(subIndex);
+        }
+
+        let tn: KupDataNode = this.data[indexInt];
+        if (subIndexInt != -1) {
+            return tn.children[subIndexInt].obj;
+        }
+        return tn.obj;
     }
 
     /*-------------------------------------------------*/
@@ -259,7 +291,9 @@ export class KupTypographyList {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div>{typograhy}</div>
+                <div id={componentWrapperId}>
+                    <div class="typographies-wrapper">{typograhy}</div>
+                </div>
             </Host>
         );
     }

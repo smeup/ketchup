@@ -8,6 +8,7 @@ export interface FTypographyProps extends FComponent {
     value?: string;
     toolbar?: boolean;
     onIconClick?: (event: MouseEvent) => void;
+    onClick?: (event: MouseEvent) => void;
 }
 
 /**
@@ -29,4 +30,5 @@ export enum FTypographyType {
     HEADING3 = 'heading-03',
     CAPTION = 'caption',
     LABEL = 'label',
+    CODE = 'code',
 }

@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
-import { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+import { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode as KupDataNode1, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 import { KupDatesOrder } from "./managers/kup-dates/kup-dates-declarations";
 import { KupActivityTimelineClickEventPayload } from "./components/kup-activity-timeline/kup-activity-timeline-declarations";
 import { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
@@ -30,7 +30,7 @@ import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-co
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
-import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowActionItemClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionItemClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
@@ -57,13 +57,14 @@ import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-d
 import { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 import { KupTabBarEventPayload, KupTabbarItemClickEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { KupDataNode } from "./components";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 import { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
-import { KupTypographyIconClickEventPayload, KupTypographyListNode } from "./components/kup-typography-list/kup-typography-list-declarations";
+import { KupTypographyClickEventPayload, KupTypographyIconClickEventPayload } from "./components/kup-typography-list/kup-typography-list-declarations";
 export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 export { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
-export { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+export { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode as KupDataNode1, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 export { KupDatesOrder } from "./managers/kup-dates/kup-dates-declarations";
 export { KupActivityTimelineClickEventPayload } from "./components/kup-activity-timeline/kup-activity-timeline-declarations";
 export { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
@@ -86,7 +87,7 @@ export { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-co
 export { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 export { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 export { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
-export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowActionItemClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionItemClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 export { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 export { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 export { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
@@ -113,10 +114,11 @@ export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-d
 export { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 export { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 export { KupTabBarEventPayload, KupTabbarItemClickEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+export { KupDataNode } from "./components";
 export { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 export { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 export { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
-export { KupTypographyIconClickEventPayload, KupTypographyListNode } from "./components/kup-typography-list/kup-typography-list-declarations";
+export { KupTypographyClickEventPayload, KupTypographyIconClickEventPayload } from "./components/kup-typography-list/kup-typography-list-declarations";
 export namespace Components {
     interface KupAccordion {
         /**
@@ -3820,6 +3822,11 @@ export namespace Components {
           * @default true
          */
         "toolbar": boolean;
+        /**
+          * Display DataNode Toolbar.
+          * @default null
+         */
+        "toolbarData": KupDataNode[];
     }
     interface KupTaskGantt {
         "barProps": KupPlannerTaskGanttProps['barProps'];
@@ -4355,6 +4362,11 @@ export namespace Components {
          */
         "customStyle": string;
         /**
+          * Props of the sub-components.
+          * @default []
+         */
+        "data": KupDataNode1[];
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
@@ -4370,15 +4382,20 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
+          * Manage the toolbar icon. If true is visible, otherwise is not
+          * @default null
+         */
+        "toolbar": boolean;
+        /**
+          * Sets the sizing of the textfield
+          * @default FTypographyType.BODY_COMPACT
+         */
+        "type": FTypographyType;
+        /**
           * This is the context of the text
           * @default null
          */
-        "text": string;
-        /**
-          * Sets the sizing of the textfield
-          * @default FTypographyType.HEADING1
-         */
-        "type": FTypographyType;
+        "value": string;
     }
     interface KupTypographyList {
         /**
@@ -4391,7 +4408,7 @@ export namespace Components {
           * Props of the sub-components.
           * @default []
          */
-        "data": KupTypographyListNode[];
+        "data": KupDataNode1[];
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -4408,8 +4425,13 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
+          * Manage the toolbar icon. If true is visible, otherwise is not
+          * @default null
+         */
+        "toolbar": boolean;
+        /**
           * Sets the sizing of the textfield
-          * @default FTypographyType.HEADING1
+          * @default FTypographyType.BODY_COMPACT
          */
         "type": FTypographyType;
         /**
@@ -4947,7 +4969,6 @@ declare global {
         "kup-datatable-contextmenu": KupDatatableClickEventPayload;
         "kup-datatable-dblclick": KupDatatableClickEventPayload;
         "kup-datatable-columnmenu": KupDatatableColumnMenuEventPayload;
-        "kup-datatable-rowactionclick": KupDatatableRowActionClickEventPayload;
         "kup-datatable-loadmoreclick": KupDatatableLoadMoreClickEventPayload;
         "kup-datatable-columnmove": KupDatatableColumnMoveEventPayload;
         "kup-datatable-columnremove": KupDatatableColumnRemoveEventPayload;
@@ -5640,6 +5661,7 @@ declare global {
     };
     interface HTMLKupTypographyListElementEventMap {
         "kup-typography-icon-click": KupTypographyIconClickEventPayload;
+        "kup-typography-click": KupTypographyClickEventPayload;
     }
     interface HTMLKupTypographyListElement extends Components.KupTypographyList, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupTypographyListElementEventMap>(type: K, listener: (this: HTMLKupTypographyListElement, ev: KupTypographyListCustomEvent<HTMLKupTypographyListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -7041,10 +7063,6 @@ declare namespace LocalJSX {
           * Event fired when the history confirm button is pressed.
          */
         "onKup-datatable-rowaction-item-click"?: (event: KupDataTableCustomEvent<KupDatatableRowActionItemClickEventPayload>) => void;
-        /**
-          * When a row action is clicked
-         */
-        "onKup-datatable-rowactionclick"?: (event: KupDataTableCustomEvent<KupDatatableRowActionClickEventPayload>) => void;
         /**
           * When a row is selected
          */
@@ -8801,7 +8819,6 @@ declare namespace LocalJSX {
           * Triggered when the tab is focused.
          */
         "onKup-tabbar-focus"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
-        "onKup-tabbar-icon-click"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
         /**
           * Triggered when the icon inside tab is clicked.
          */
@@ -8820,6 +8837,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "toolbar"?: boolean;
+        /**
+          * Display DataNode Toolbar.
+          * @default null
+         */
+        "toolbarData"?: KupDataNode[];
     }
     interface KupTaskGantt {
         "barProps"?: KupPlannerTaskGanttProps['barProps'];
@@ -9336,15 +9358,25 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
+          * Props of the sub-components.
+          * @default []
+         */
+        "data"?: KupDataNode1[];
+        /**
+          * Manage the toolbar icon. If true is visible, otherwise is not
+          * @default null
+         */
+        "toolbar"?: boolean;
+        /**
+          * Sets the sizing of the textfield
+          * @default FTypographyType.BODY_COMPACT
+         */
+        "type"?: FTypographyType;
+        /**
           * This is the context of the text
           * @default null
          */
-        "text"?: string;
-        /**
-          * Sets the sizing of the textfield
-          * @default FTypographyType.HEADING1
-         */
-        "type"?: FTypographyType;
+        "value"?: string;
     }
     interface KupTypographyList {
         /**
@@ -9357,11 +9389,17 @@ declare namespace LocalJSX {
           * Props of the sub-components.
           * @default []
          */
-        "data"?: KupTypographyListNode[];
+        "data"?: KupDataNode1[];
+        "onKup-typography-click"?: (event: KupTypographyListCustomEvent<KupTypographyClickEventPayload>) => void;
         "onKup-typography-icon-click"?: (event: KupTypographyListCustomEvent<KupTypographyIconClickEventPayload>) => void;
         /**
+          * Manage the toolbar icon. If true is visible, otherwise is not
+          * @default null
+         */
+        "toolbar"?: boolean;
+        /**
           * Sets the sizing of the textfield
-          * @default FTypographyType.HEADING1
+          * @default FTypographyType.BODY_COMPACT
          */
         "type"?: FTypographyType;
         /**

@@ -38,6 +38,7 @@ import {
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupListNode } from '../kup-list/kup-list-declarations';
 import { KupList } from '../kup-list/kup-list';
+import { KupDataNode } from '../../components';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -86,6 +87,11 @@ export class KupTabBar {
      * @default true
      */
     @Prop() toolbar: boolean = true;
+    /**
+     * Display DataNode Toolbar.
+     * @default null
+     */
+    @Prop() toolbarData: KupDataNode[];
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -293,28 +299,12 @@ export class KupTabBar {
         this.toolbarList = null;
     }
 
-    private listItemData: KupListNode[] = [
-        {
-            value: 'Maximize',
-            id: 'maximize',
-            icon: 'add_alert',
-            selected: false,
-        },
-        {
-            value: 'Refresh',
-            id: 'refresh',
-            selected: true,
-            icon: 'ac_unit',
-            separator: true,
-        },
-    ];
-
     createDropDownToolbarList() {
         if (this.toolbarList) {
             this.closeRowToolbarList();
         }
         const listEl = document.createElement('kup-list');
-        listEl.data = this.listItemData;
+        listEl.data = this.toolbarData;
         listEl.isMenu = true;
         listEl.menuVisible = true;
         listEl.addEventListener('kup-list-click', (e: CustomEvent) => {
