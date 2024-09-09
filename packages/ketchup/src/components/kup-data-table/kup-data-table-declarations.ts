@@ -301,7 +301,8 @@ export interface KupDatatableRowActionItemClickEventPayload
     type:
         | DropDownAction.CODVER
         | DropDownAction.ROWACTION
-        | DropDownAction.CODVERWITHCOMMANDS;
+        | DropDownAction.CODVERWITHCOMMANDS
+        | DropDownAction.COMMANDWITHEMPTYOBJ;
     obj?: KupObj;
     column?: KupDataColumn;
     cell?: KupDataCell;
