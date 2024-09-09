@@ -7,12 +7,14 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
+import { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+import { KupDatesOrder } from "./managers/kup-dates/kup-dates-declarations";
+import { KupActivityTimelineClickEventPayload } from "./components/kup-activity-timeline/kup-activity-timeline-declarations";
 import { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { BadgeType } from "./components/kup-badge/kup-badge-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxLoadMoreClickEventPayload, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, LoadMoreMode } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 import { FButtonAlign, FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
@@ -28,7 +30,7 @@ import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-co
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 import { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
-import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowActionItemClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
@@ -54,19 +56,21 @@ import { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-dec
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 import { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
-import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { KupTabBarEventPayload, KupTabbarItemClickEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 import { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
 import { KupTypographyIconClickEventPayload, KupTypographyListNode } from "./components/kup-typography-list/kup-typography-list-declarations";
 export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 export { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
+export { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+export { KupDatesOrder } from "./managers/kup-dates/kup-dates-declarations";
+export { KupActivityTimelineClickEventPayload } from "./components/kup-activity-timeline/kup-activity-timeline-declarations";
 export { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 export { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 export { BadgeType } from "./components/kup-badge/kup-badge-declarations";
 export { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxLoadMoreClickEventPayload, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, LoadMoreMode } from "./components/kup-box/kup-box-declarations";
 export { KupStore } from "./components/kup-state/kup-store";
-export { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 export { FButtonAlign, FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 export { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 export { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
@@ -82,7 +86,7 @@ export { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-co
 export { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 export { KupGanttPlannerProps, KupPlannerBarDisplayProps, KupPlannerBarTask, KupPlannerCalendarProps, KupPlannerClickEventPayload, KupPlannerEventOption, KupPlannerEventPayload, KupPlannerGanttEvent, KupPlannerGanttProps, KupPlannerGanttRow, KupPlannerGanttTask, KupPlannerGanttTaskN, KupPlannerItemDetail, KupPlannerPhase, KupPlannerSwitcherProps, KupPlannerTask, KupPlannerTaskGanttContentProps, KupPlannerTaskGanttProps, KupPlannerTaskItemProps, KupPlannerTaskListProps, KupPlannerTaskType, KupPlannerUnloadEventPayload, KupPlannerViewMode, PlannerProps } from "./components/kup-planner/kup-planner-declarations";
 export { KupDashboardEventPayload, KupDataDashboard } from "./components/kup-dashboard/kup-dashboard-declarations";
-export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowActionItemClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 export { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 export { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 export { KupDialogAutoCenter, KupDialogHeader, KupDialogModal } from "./components/kup-dialog/kup-dialog-declarations";
@@ -108,7 +112,7 @@ export { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-dec
 export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 export { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 export { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
-export { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+export { KupTabBarEventPayload, KupTabbarItemClickEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 export { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 export { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 export { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
@@ -164,6 +168,43 @@ export namespace Components {
           * @param itemName - Name of the item.
          */
         "toggleItem": (itemName: string) => Promise<void>;
+    }
+    interface KupActivityTimeline {
+        /**
+          * Dataset containing the activities list.
+          * @default null
+         */
+        "data": KupDataDataset;
+        /**
+          * Columns containing dates.
+          * @default null
+         */
+        "dateColumn": string;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Order for sorting.
+          * @default 'desc'
+         */
+        "sortOrder": KupDatesOrder;
+        /**
+          * Columns containing times.
+          * @default null
+         */
+        "timeColumn": string;
     }
     interface KupAutocomplete {
         /**
@@ -548,6 +589,7 @@ export namespace Components {
           * @default null
          */
         "iconOff": string;
+        "keyShortcut": string;
         /**
           * When set, the button will show this text.
           * @default null
@@ -594,6 +636,11 @@ export namespace Components {
         "trailingIcon": boolean;
     }
     interface KupButtonList {
+        /**
+          * Sets the type of the button.
+          * @default false
+         */
+        "blackMode": boolean;
         /**
           * Number of columns.
           * @default 0
@@ -1393,6 +1440,10 @@ export namespace Components {
           * Collapses all groups.
          */
         "collapseAll": () => Promise<void>;
+        /**
+          * Sets the commands for the rows
+         */
+        "commands": Array<KupCommand>;
         /**
           * Custom style of the component. For more information: https://smeup.github.io/ketchup/#/customization
          */
@@ -4380,6 +4431,10 @@ export interface KupAccordionCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupAccordionElement;
 }
+export interface KupActivityTimelineCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupActivityTimelineElement;
+}
 export interface KupAutocompleteCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupAutocompleteElement;
@@ -4573,6 +4628,25 @@ declare global {
     var HTMLKupAccordionElement: {
         prototype: HTMLKupAccordionElement;
         new (): HTMLKupAccordionElement;
+    };
+    interface HTMLKupActivityTimelineElementEventMap {
+        "kup-activitytimeline-click": KupActivityTimelineClickEventPayload;
+        "kup-activitytimeline-contextmenu": KupActivityTimelineClickEventPayload;
+        "kup-activitytimeline-ready": KupEventPayload;
+    }
+    interface HTMLKupActivityTimelineElement extends Components.KupActivityTimeline, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupActivityTimelineElementEventMap>(type: K, listener: (this: HTMLKupActivityTimelineElement, ev: KupActivityTimelineCustomEvent<HTMLKupActivityTimelineElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupActivityTimelineElementEventMap>(type: K, listener: (this: HTMLKupActivityTimelineElement, ev: KupActivityTimelineCustomEvent<HTMLKupActivityTimelineElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKupActivityTimelineElement: {
+        prototype: HTMLKupActivityTimelineElement;
+        new (): HTMLKupActivityTimelineElement;
     };
     interface HTMLKupAutocompleteElementEventMap {
         "kup-autocomplete-blur": KupAutocompleteEventPayload;
@@ -4881,6 +4955,7 @@ declare global {
         "kup-datatable-save": KupDatatableInsertRowEventPayload;
         "kup-datatable-insert-row": KupDatatableInsertRowEventPayload;
         "kup-datatable-history": KupDatatableHistoryEventPayload;
+        "kup-datatable-rowaction-item-click": KupDatatableRowActionItemClickEventPayload;
     }
     interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupDataTableElementEventMap>(type: K, listener: (this: HTMLKupDataTableElement, ev: KupDataTableCustomEvent<HTMLKupDataTableElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5431,8 +5506,9 @@ declare global {
     interface HTMLKupTabBarElementEventMap {
         "kup-tabbar-blur": KupTabBarEventPayload;
         "kup-tabbar-click": KupTabBarEventPayload;
+        "kup-tabbar-iconclick": KupTabBarEventPayload;
         "kup-tabbar-focus": KupTabBarEventPayload;
-        "kup-tabbar-icon-click": KupTabBarEventPayload;
+        "kup-tabbar-itemclick": KupTabbarItemClickEventPayload;
     }
     interface HTMLKupTabBarElement extends Components.KupTabBar, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupTabBarElementEventMap>(type: K, listener: (this: HTMLKupTabBarElement, ev: KupTabBarCustomEvent<HTMLKupTabBarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5587,6 +5663,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "kup-accordion": HTMLKupAccordionElement;
+        "kup-activity-timeline": HTMLKupActivityTimelineElement;
         "kup-autocomplete": HTMLKupAutocompleteElement;
         "kup-badge": HTMLKupBadgeElement;
         "kup-box": HTMLKupBoxElement;
@@ -5683,6 +5760,40 @@ declare namespace LocalJSX {
           * @default KupComponentSizing.MEDIUM
          */
         "sizing"?: KupComponentSizing;
+    }
+    interface KupActivityTimeline {
+        /**
+          * Dataset containing the activities list.
+          * @default null
+         */
+        "data"?: KupDataDataset;
+        /**
+          * Columns containing dates.
+          * @default null
+         */
+        "dateColumn"?: string;
+        /**
+          * Generic click event on activity.
+         */
+        "onKup-activitytimeline-click"?: (event: KupActivityTimelineCustomEvent<KupActivityTimelineClickEventPayload>) => void;
+        /**
+          * Generic right click event on activity.
+         */
+        "onKup-activitytimeline-contextmenu"?: (event: KupActivityTimelineCustomEvent<KupActivityTimelineClickEventPayload>) => void;
+        /**
+          * Triggered when the component is ready.
+         */
+        "onKup-activitytimeline-ready"?: (event: KupActivityTimelineCustomEvent<KupEventPayload>) => void;
+        /**
+          * Order for sorting.
+          * @default 'desc'
+         */
+        "sortOrder"?: KupDatesOrder;
+        /**
+          * Columns containing times.
+          * @default null
+         */
+        "timeColumn"?: string;
     }
     interface KupAutocomplete {
         /**
@@ -6039,6 +6150,7 @@ declare namespace LocalJSX {
           * @default null
          */
         "iconOff"?: string;
+        "keyShortcut"?: string;
         /**
           * When set, the button will show this text.
           * @default null
@@ -6088,6 +6200,11 @@ declare namespace LocalJSX {
         "trailingIcon"?: boolean;
     }
     interface KupButtonList {
+        /**
+          * Sets the type of the button.
+          * @default false
+         */
+        "blackMode"?: boolean;
         /**
           * Number of columns.
           * @default 0
@@ -6736,6 +6853,10 @@ declare namespace LocalJSX {
          */
         "autoFillMissingCells"?: boolean;
         /**
+          * Sets the commands for the rows
+         */
+        "commands"?: Array<KupCommand>;
+        /**
           * Custom style of the component. For more information: https://smeup.github.io/ketchup/#/customization
          */
         "customStyle"?: string;
@@ -6916,6 +7037,10 @@ declare namespace LocalJSX {
           * When rows selections reset
          */
         "onKup-datatable-resetselectedrows"?: (event: KupDataTableCustomEvent<KupEventPayload>) => void;
+        /**
+          * Event fired when the history confirm button is pressed.
+         */
+        "onKup-datatable-rowaction-item-click"?: (event: KupDataTableCustomEvent<KupDatatableRowActionItemClickEventPayload>) => void;
         /**
           * When a row action is clicked
          */
@@ -8678,6 +8803,14 @@ declare namespace LocalJSX {
         "onKup-tabbar-focus"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
         "onKup-tabbar-icon-click"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
         /**
+          * Triggered when the icon inside tab is clicked.
+         */
+        "onKup-tabbar-iconclick"?: (event: KupTabBarCustomEvent<KupTabBarEventPayload>) => void;
+        /**
+          * Triggered when a list item is clicked.
+         */
+        "onKup-tabbar-itemclick"?: (event: KupTabBarCustomEvent<KupTabbarItemClickEventPayload>) => void;
+        /**
           * When enabled displays Material's ripple effect on item headers.
           * @default true
          */
@@ -9247,6 +9380,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "kup-accordion": KupAccordion;
+        "kup-activity-timeline": KupActivityTimeline;
         "kup-autocomplete": KupAutocomplete;
         "kup-badge": KupBadge;
         "kup-box": KupBox;
@@ -9321,6 +9455,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "kup-accordion": LocalJSX.KupAccordion & JSXBase.HTMLAttributes<HTMLKupAccordionElement>;
+            "kup-activity-timeline": LocalJSX.KupActivityTimeline & JSXBase.HTMLAttributes<HTMLKupActivityTimelineElement>;
             "kup-autocomplete": LocalJSX.KupAutocomplete & JSXBase.HTMLAttributes<HTMLKupAutocompleteElement>;
             "kup-badge": LocalJSX.KupBadge & JSXBase.HTMLAttributes<HTMLKupBadgeElement>;
             "kup-box": LocalJSX.KupBox & JSXBase.HTMLAttributes<HTMLKupBoxElement>;

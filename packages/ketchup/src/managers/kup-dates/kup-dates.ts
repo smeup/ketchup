@@ -15,6 +15,7 @@ import {
     KupDatesFormats,
     KupDatesLocales,
     KupDatesNormalize,
+    KupDatesOrder,
 } from './kup-dates-declarations';
 
 /**
@@ -1018,4 +1019,25 @@ export class KupDates {
     };
 
     formatToLocaleSimple = (date: Date) => dayjs(date).format('DD/MM/YYYY');
+
+    sortDates = (
+        firstDate: string,
+        secondDate: string,
+        order: KupDatesOrder = KupDatesOrder.ASC
+    ) => {
+        return order === 'asc'
+            ? dayjs(firstDate).diff(dayjs(secondDate))
+            : dayjs(secondDate).diff(dayjs(firstDate));
+    };
+
+    sortTimes = (
+        firstTime: string,
+        secondTime: string,
+        order: KupDatesOrder = KupDatesOrder.ASC,
+        format: string = 'HH:mm:ss'
+    ) => {
+        const timeA = dayjs(firstTime, format);
+        const timeB = dayjs(secondTime, format);
+        return order === 'asc' ? timeA.diff(timeB) : timeB.diff(timeA);
+    };
 }

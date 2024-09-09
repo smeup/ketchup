@@ -7,14 +7,14 @@
 
 ## Properties
 
-| Property                   | Attribute              | Description                                                            | Type                                                                                           | Default |
-| -------------------------- | ---------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `customButtonClickHandler` | --                     | Sets the handler to use when click on custom buttons                   | `(event: { fun: string; cellId: string; currentState: KupInputPanelData; }) => void`           | `null`  |
-| `customStyle`              | `custom-style`         | Custom style of the component.                                         | `string`                                                                                       | `''`    |
-| `data`                     | --                     | Actual data of the form.                                               | `KupInputPanelData`                                                                            | `null`  |
-| `hiddenSubmitButton`       | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean`                                                                                      | `false` |
-| `optionsHandler`           | --                     | Sets the callback function on loading options via FUN                  | `(fun: string, inputValue: string, currentState: KupInputPanelData) => Promise<GenericObject>` | `null`  |
-| `submitCb`                 | --                     | Sets the callback function on submit form                              | `(e: KupInputPanelSubmit) => unknown`                                                          | `null`  |
+| Property                   | Attribute              | Description                                                            | Type                                                                                                           | Default |
+| -------------------------- | ---------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ------- |
+| `customButtonClickHandler` | --                     | Sets the handler to use when click on custom buttons                   | `(event: { fun: string; cellId: string; currentState: KupInputPanelData; }) => void`                           | `null`  |
+| `customStyle`              | `custom-style`         | Custom style of the component.                                         | `string`                                                                                                       | `''`    |
+| `data`                     | --                     | Actual data of the form.                                               | `KupInputPanelData`                                                                                            | `null`  |
+| `hiddenSubmitButton`       | `hidden-submit-button` | Creates a hidden submit button in order to submit the form with enter. | `boolean`                                                                                                      | `false` |
+| `optionsHandler`           | --                     | Sets the callback function on loading options via FUN                  | `(fun: string, inputValue: string, currentState: KupInputPanelData, cellId: string) => Promise<GenericObject>` | `null`  |
+| `submitCb`                 | --                     | Sets the callback function on submit form                              | `(e: KupInputPanelSubmit) => unknown`                                                                          | `null`  |
 
 
 ## Events
@@ -88,6 +88,7 @@ Type: `Promise<void>`
 
 - [kup-editor](../kup-editor)
 - [kup-data-table](../kup-data-table)
+- [kup-tab-bar](../kup-tab-bar)
 - [kup-badge](../kup-badge)
 - [kup-autocomplete](../kup-autocomplete)
 - [kup-chip](../kup-chip)
@@ -110,6 +111,7 @@ Type: `Promise<void>`
 graph TD;
   kup-input-panel --> kup-editor
   kup-input-panel --> kup-data-table
+  kup-input-panel --> kup-tab-bar
   kup-input-panel --> kup-badge
   kup-input-panel --> kup-autocomplete
   kup-input-panel --> kup-chip
@@ -259,6 +261,7 @@ graph TD;
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
+  kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge

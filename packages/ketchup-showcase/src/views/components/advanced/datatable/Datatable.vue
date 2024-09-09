@@ -43,56 +43,65 @@
       <datatable-row-actions></datatable-row-actions>
     </template>
     <template v-slot:14>
-      <datatable-row-selection></datatable-row-selection>
+      <datatable-row-actions-with-commands></datatable-row-actions-with-commands>
     </template>
     <template v-slot:15>
-      <datatable-without-row-selection></datatable-without-row-selection>
+      <datatable-codver-matching></datatable-codver-matching>
     </template>
     <template v-slot:16>
-      <datatable-rows-repetition></datatable-rows-repetition>
+      <datatable-codver-not-matching></datatable-codver-not-matching>
     </template>
     <template v-slot:17>
-      <datatable-sort></datatable-sort>
+      <datatable-row-selection></datatable-row-selection>
     </template>
     <template v-slot:18>
-      <datatable-sortable-columns></datatable-sortable-columns>
+      <datatable-without-row-selection></datatable-without-row-selection>
     </template>
     <template v-slot:19>
-      <datatable-total></datatable-total>
+      <datatable-rows-repetition></datatable-rows-repetition>
     </template>
     <template v-slot:20>
-      <datatable-j4ico></datatable-j4ico>
+      <datatable-sort></datatable-sort>
     </template>
     <template v-slot:21>
-      <datatable-images-and-badges />
+      <datatable-sortable-columns></datatable-sortable-columns>
     </template>
     <template v-slot:22>
-      <datatable-shapes></datatable-shapes>
+      <datatable-total></datatable-total>
     </template>
     <template v-slot:23>
-      <datatable-cell-classes></datatable-cell-classes>
+      <datatable-j4ico></datatable-j4ico>
     </template>
     <template v-slot:24>
-      <datatable-j1col></datatable-j1col>
+      <datatable-images-and-badges />
     </template>
     <template v-slot:25>
-      <datatable-jl></datatable-jl>
+      <datatable-shapes></datatable-shapes>
     </template>
     <template v-slot:26>
-      <datatable-report-like></datatable-report-like>
+      <datatable-cell-classes></datatable-cell-classes>
     </template>
     <template v-slot:27>
-      <datatable-document-like></datatable-document-like>
+      <datatable-j1col></datatable-j1col>
     </template>
     <template v-slot:28>
-      <datatable-merge></datatable-merge>
+      <datatable-jl></datatable-jl>
     </template>
     <template v-slot:29>
+      <datatable-report-like></datatable-report-like>
+    </template>
+    <template v-slot:30>
+      <datatable-document-like></datatable-document-like>
+    </template>
+    <template v-slot:31>
+      <datatable-merge></datatable-merge>
+    </template>
+    <template v-slot:32>
       <datatable-formula></datatable-formula>
     </template>
   </comp>
 </template>
-
+ß
 <style>
 kup-lazy.to-be-loaded {
   min-height: 300px;
@@ -119,6 +128,9 @@ import DatatablePagination from '@/views/components/advanced/datatable/examples/
 import DatatableProgressbar from '@/views/components/advanced/datatable/examples/DatatableProgressbar';
 import DatatableRadio from '@/views/components/advanced/datatable/examples/DatatableRadio';
 import DatatableRowActions from '@/views/components/advanced/datatable/examples/DatatableRowActions';
+import DatatableRowActionsWithCommands from '@/views/components/advanced/datatable/examples/DatatableRowActionsWithCommands';
+import DatatableCodverMatching from '@/views/components/advanced/datatable/examples/DatatableCodverMatching';
+import DatatableCodverNotMatching from '@/views/components/advanced/datatable/examples/DatatableCodverNotMatching';
 import DatatableRowSelection from '@/views/components/advanced/datatable/examples/DatatableRowSelection';
 import DatatableWithoutRowSelection from '@/views/components/advanced/datatable/examples/DatatableWithoutRowSelection';
 import DatatableRowsRepetition from '@/views/components/advanced/datatable/examples/DatatableRowsRepetition';
@@ -151,6 +163,9 @@ export default {
     DatatableProgressbar,
     DatatableRadio,
     DatatableRowActions,
+    DatatableRowActionsWithCommands,
+    DatatableCodverMatching,
+    DatatableCodverNotMatching,
     DatatableRowSelection,
     DatatableWithoutRowSelection,
     DatatableRowsRepetition,
@@ -188,6 +203,9 @@ export default {
         'With progress bar',
         'With radio buttons',
         'With row actions',
+        'Row actions with commands',
+        'Codver with commands matching',
+        'Codver with no commands matching',
         'With row selection',
         'Without row selection',
         'With row repetition',

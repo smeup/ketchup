@@ -19,6 +19,12 @@ const basicRoutes = [
     component: () => import(`@/views/components/basic/accordion/Accordion.vue`),
   },
   {
+    path: `/activitytimeline`,
+    name: 'activitytimeline',
+    component: () =>
+      import(`@/views/components/basic/activitytimeline/ActivityTimeline.vue`),
+  },
+  {
     path: `/autocomplete`,
     name: 'autocomplete',
     component: () =>
@@ -320,6 +326,12 @@ const frameworkRoutes = [
     path: `/kup-manager`,
     name: 'kup-manager',
     component: () => import(`@/views/framework/kup-manager/KupManager.vue`),
+  },
+  {
+    path: `/kup-keys-binding`,
+    name: 'kup-keys-binding',
+    component: () =>
+      import(`@/views/framework/kup-keys-binding/KupKeysBinding.vue`),
   },
   {
     path: `/kup-math`,

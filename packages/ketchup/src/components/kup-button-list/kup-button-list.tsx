@@ -66,6 +66,11 @@ export class KupButtonList {
     /*-------------------------------------------------*/
     /**
      * Sets the type of the button.
+     * @default false
+     */
+    @Prop() blackMode: boolean = false;
+    /**
+     * Sets the type of the button.
      * @default null
      */
     @Prop() contentAlign: FButtonAlign = FButtonAlign.CENTER;
@@ -216,6 +221,7 @@ export class KupButtonList {
         }
 
         const props: FButtonProps = {
+            blackMode: data.blackMode,
             contentAlign: data.contentAlign,
             checked: data.checked,
             disabled: data.disabled,
@@ -294,6 +300,9 @@ export class KupButtonList {
 
         if (this.customStyle != null && this.customStyle.trim() != '') {
             data.customStyle = this.customStyle;
+        }
+        if (this.blackMode == true) {
+            data.blackMode = true;
         }
         if (this.disabled == true || node.disabled == true) {
             data.disabled = true;

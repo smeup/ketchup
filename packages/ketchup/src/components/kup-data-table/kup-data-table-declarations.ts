@@ -3,6 +3,7 @@ import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import type { PointerEvent } from '@interactjs/types/index';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import {
+    DropDownAction,
     KupDataCell,
     KupDataColumn,
     KupDataRow,
@@ -51,6 +52,7 @@ export enum KupDataTableProps {
     removableColumns = 'Sets the possibility to remove the selected column.',
     resizableColumns = 'Gives the possibility to resize columns by dragging on their right edge.',
     rowActions = 'Sets the actions of the rows.',
+    commands = 'Sets the vo;cod_row actions',
     rowsPerPage = 'Sets the number of rows per page to display.',
     scrollOnHover = 'Activates the scroll on hover function.',
     showCustomization = 'If set to true, displays the button to open the customization panel.',
@@ -113,6 +115,11 @@ export interface SortObject {
 export enum SortMode {
     A = 'A',
     D = 'D',
+}
+
+export enum VoCodVerRowEnum {
+    P = 'COD_VER',
+    T = 'VO',
 }
 
 export type KupDataTableInsertMode = 'form' | 'row' | '';
@@ -287,6 +294,20 @@ export interface KupDatatableRowActionClickEventPayload
     action?: KupDataRowAction;
     index?: number;
 }
+
+export interface KupDatatableRowActionItemClickEventPayload
+    extends KupEventPayload {
+    row: KupDataRow;
+    type:
+        | DropDownAction.CODVER
+        | DropDownAction.ROWACTION
+        | DropDownAction.CODVERWITHCOMMANDS;
+    obj?: KupObj;
+    column?: KupDataColumn;
+    cell?: KupDataCell;
+    index?: number;
+}
+
 export interface KupDataTableCellButtonClickEventPayload
     extends KupEventPayload {
     cell: KupDataTableCell;

@@ -516,10 +516,26 @@
     }
     &.#{$kup-class-black-mode} {
       .button {
-        --kup_button_text_color: var(--kup-gray-color-0);
+        --kup_button_text_color: #fff;
+        --kup_button_background_color_hover: #393939;
+        --kup_button_background_color_focus: #525252;
+        --kup_button_background_color_active: #525252;
+        .f-image .iconWrapper .f-image__icon {
+          background: #fff !important;
+        }
       }
       .icon-button {
-        --kup_button_text_color: var(--kup-gray-color-0);
+        --kup_button_text_color: #fff;
+        .f-image .iconWrapper .f-image__icon {
+          background: #fff !important;
+        }
+        &:hover {
+          background-color: #393939;
+        }
+        &:focus,
+        &:active {
+          background-color: #525252;
+        }
       }
     }
   }
