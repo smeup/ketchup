@@ -109,6 +109,7 @@
   }
 
   &.image-cell {
+    max-height: 100%;
     .f-cell__content .imageWrapIcon {
       position: relative;
       width: 100%;
