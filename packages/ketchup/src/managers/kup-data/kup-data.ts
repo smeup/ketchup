@@ -317,7 +317,7 @@ export class KupData {
             const codVerActions = this.action.createActionsFromVoCodRow(
                 row,
                 columns,
-                commands ?? []
+                commands
             );
 
             const commandsWithEmptyObj =
@@ -447,18 +447,20 @@ export class KupData {
         createCommandsWithEmptyObj: (
             commands: KupCommand[]
         ): KupDataRowAction[] => {
-            return commands
-                .filter((c) => !c.obj.k && !c.obj.t && !c.obj.p)
-                .map(
-                    (c, index) =>
-                        ({
-                            text: c.text || '',
-                            icon: c.icon || '',
-                            obj: c.obj,
-                            index: index,
-                            type: DropDownAction.COMMANDWITHEMPTYOBJ,
-                        } as KupDataRowAction)
-                );
+            return commands.length
+                ? commands
+                      .filter((c) => !c.obj.k && !c.obj.t && !c.obj.p)
+                      .map(
+                          (c, index) =>
+                              ({
+                                  text: c.text || '',
+                                  icon: c.icon || '',
+                                  obj: c.obj,
+                                  index: index,
+                                  type: DropDownAction.COMMANDWITHEMPTYOBJ,
+                              } as KupDataRowAction)
+                      )
+                : [];
         },
     };
     /**

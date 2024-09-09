@@ -4953,7 +4953,7 @@ export class KupDataTable {
                             row,
                             this.data.columns,
                             this.rowActions,
-                            this.commands
+                            this.commands ?? []
                         );
 
                     if (
