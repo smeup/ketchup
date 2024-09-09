@@ -13,10 +13,12 @@ if (!dom.ketchup) {
 
 import sampleKupDataDatasetNoCodVer from '../../../resources/mock/kup-data-dataset-with-places-and-nrs.json';
 import sampleKupDataDataset from '../../../resources/mock/kup-data-dataset-with-commands.json';
+import sampleKupDataCommandsWithEmptyObj from '../../../resources/mock/kup-data-dataset-commands-with-empty-obj.json';
 import {
     DropDownAction,
     KupDataCell,
     KupDataColumn,
+    KupDataRow,
 } from '../../../../src/managers/kup-data/kup-data-declarations';
 import { KupDataTableCell } from '../../../../src/components/kup-data-table/kup-data-table-declarations';
 
@@ -301,5 +303,29 @@ describe('kup data getCodVerRows', () => {
         );
 
         expect(result).toEqual([]);
+    });
+});
+
+describe('kup data createCommandsEmptyObj', () => {
+    it('should handle empty obj commands actions', () => {
+        let result: KupDataRowAction[] = [];
+        const commands =
+            sampleKupDataCommandsWithEmptyObj.commands as unknown as KupCommand[];
+        const expectedResult: KupDataRowAction[] = [
+            {
+                icon: 'magnify',
+                text: 'Dettaglio',
+                obj: { k: '', p: '', t: '' },
+                type: DropDownAction.COMMANDWITHEMPTYOBJ,
+                index: 0,
+            },
+        ];
+
+        const kupDataRowAction =
+            dom.ketchup.data.action.createCommandsWithEmptyObj(commands);
+
+        result.push(...kupDataRowAction);
+
+        expect(result).toEqual(expectedResult);
     });
 });
