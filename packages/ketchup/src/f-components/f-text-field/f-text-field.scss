@@ -6,8 +6,8 @@
 
 #kup-component {
   .f-text-field {
-    --kup_textfield_background_color_rgb: var(
-      --kup-textfield-background-color-rgb,
+    --kup_textfield_background_color: var(
+      --kup-textfield-background-color,
       var(--kup-layer-1)
     );
     --kup_textfield_background_color: var(
@@ -24,6 +24,10 @@
     );
     --kup_textfield_border_color_hover: var(
       --kup-textfield-border-color-hover,
+      var(--kup-border-interactive)
+    );
+    --kup_textfield_outline_color: var(
+      --kup-textfield-outline-color,
       var(--kup-border-interactive)
     );
     --kup_textfield_color: var(--kup-textfield-color, var(--kup-text-primary));
@@ -100,6 +104,7 @@
       }
 
       .mdc-text-field__input {
+        caret-color: var(--kup_textfield_color);
         box-sizing: border-box;
         @include kup-body-compact-01;
         padding: 6px 0px;
@@ -163,7 +168,7 @@
       outline: 2px solid transparent;
       outline-offset: -2px;
       border-bottom: 1px solid var(--kup_textfield_border_color);
-      background-color: var(--kup_textfield_background_color_rgb);
+      background-color: var(--kup_textfield_background_color);
       align-items: center;
       padding: 0px var(--kup-space-05);
 
@@ -195,7 +200,7 @@
 
       &.mdc-text-field--read-only {
         --kup_textfield_border_color: var(--kup-border-disabled);
-        --kup_textfield_background_color_rgb: var(--kup-layer-0);
+        --kup_textfield_background_color: var(--kup-layer-0);
         pointer-events: none;
         .#{$kup-icon},
         button {
@@ -228,7 +233,7 @@
       }
 
       &.mdc-text-field--focused:not(.mdc-text-field--disabled) {
-        outline: 2px solid var(--kup_textfield_border_color_hover);
+        outline: 2px solid var(--kup_textfield_outline_color);
       }
 
       &.mdc-text-field--filled:not(.mdc-text-field--disabled)
@@ -346,7 +351,7 @@
         }
 
         &:not(.mdc-text-field--disabled) {
-          background-color: var(--kup_textfield_background_color_rgb);
+          background-color: var(--kup_textfield_background_color);
         }
       }
 
@@ -573,8 +578,8 @@
     }
 
     &.#{$kup-class-warning} {
-      --kup-textfield-primary-color: var(--kup-warning-40-color);
-      --kup-textfield-primary-color-rgb: var(--kup-warning-color-40-rgb);
+      --kup-textfield-primary-color: var(--kup-warning-50-color);
+      --kup-textfield-primary-color-rgb: var(--kup-warning-color-50-rgb);
     }
 
     .#{$kup-icon}.#{$kup-icon-clear} {
