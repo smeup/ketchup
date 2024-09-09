@@ -52,51 +52,54 @@
       <datatable-codver-not-matching></datatable-codver-not-matching>
     </template>
     <template v-slot:17>
-      <datatable-row-selection></datatable-row-selection>
+      <datatable-commands-with-empty-obj></datatable-commands-with-empty-obj>
     </template>
     <template v-slot:18>
-      <datatable-without-row-selection></datatable-without-row-selection>
+      <datatable-row-selection></datatable-row-selection>
     </template>
     <template v-slot:19>
-      <datatable-rows-repetition></datatable-rows-repetition>
+      <datatable-without-row-selection></datatable-without-row-selection>
     </template>
     <template v-slot:20>
-      <datatable-sort></datatable-sort>
+      <datatable-rows-repetition></datatable-rows-repetition>
     </template>
     <template v-slot:21>
-      <datatable-sortable-columns></datatable-sortable-columns>
+      <datatable-sort></datatable-sort>
     </template>
     <template v-slot:22>
-      <datatable-total></datatable-total>
+      <datatable-sortable-columns></datatable-sortable-columns>
     </template>
     <template v-slot:23>
-      <datatable-j4ico></datatable-j4ico>
+      <datatable-total></datatable-total>
     </template>
     <template v-slot:24>
-      <datatable-images-and-badges />
+      <datatable-j4ico></datatable-j4ico>
     </template>
     <template v-slot:25>
-      <datatable-shapes></datatable-shapes>
+      <datatable-images-and-badges />
     </template>
     <template v-slot:26>
-      <datatable-cell-classes></datatable-cell-classes>
+      <datatable-shapes></datatable-shapes>
     </template>
     <template v-slot:27>
-      <datatable-j1col></datatable-j1col>
+      <datatable-cell-classes></datatable-cell-classes>
     </template>
     <template v-slot:28>
-      <datatable-jl></datatable-jl>
+      <datatable-j1col></datatable-j1col>
     </template>
     <template v-slot:29>
-      <datatable-report-like></datatable-report-like>
+      <datatable-jl></datatable-jl>
     </template>
     <template v-slot:30>
-      <datatable-document-like></datatable-document-like>
+      <datatable-report-like></datatable-report-like>
     </template>
     <template v-slot:31>
-      <datatable-merge></datatable-merge>
+      <datatable-document-like></datatable-document-like>
     </template>
     <template v-slot:32>
+      <datatable-merge></datatable-merge>
+    </template>
+    <template v-slot:33>
       <datatable-formula></datatable-formula>
     </template>
   </comp>
@@ -131,6 +134,7 @@ import DatatableRowActions from '@/views/components/advanced/datatable/examples/
 import DatatableRowActionsWithCommands from '@/views/components/advanced/datatable/examples/DatatableRowActionsWithCommands';
 import DatatableCodverMatching from '@/views/components/advanced/datatable/examples/DatatableCodverMatching';
 import DatatableCodverNotMatching from '@/views/components/advanced/datatable/examples/DatatableCodverNotMatching';
+import DatatableCommandsWithEmptyObj from '@/views/components/advanced/datatable/examples/DatatableCommandsWithEmptyObj';
 import DatatableRowSelection from '@/views/components/advanced/datatable/examples/DatatableRowSelection';
 import DatatableWithoutRowSelection from '@/views/components/advanced/datatable/examples/DatatableWithoutRowSelection';
 import DatatableRowsRepetition from '@/views/components/advanced/datatable/examples/DatatableRowsRepetition';
@@ -166,6 +170,7 @@ export default {
     DatatableRowActionsWithCommands,
     DatatableCodverMatching,
     DatatableCodverNotMatching,
+    DatatableCommandsWithEmptyObj,
     DatatableRowSelection,
     DatatableWithoutRowSelection,
     DatatableRowsRepetition,
@@ -206,6 +211,7 @@ export default {
         'Row actions with commands',
         'Codver with commands matching',
         'Codver with no commands matching',
+        'Actions from commands with empty obj',
         'With row selection',
         'Without row selection',
         'With row repetition',

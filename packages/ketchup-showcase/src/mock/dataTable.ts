@@ -1463,6 +1463,135 @@ export const dataTableWithNoCommandsMatching = {
   ],
 };
 
+export const dataTableWithEmptyObjCommands = {
+  columns: [
+    {
+      decimals: 0,
+      isEditable: false,
+      isKey: false,
+      name: 'X$RIGA',
+      obj: {
+        k: '',
+        p: '',
+        t: 'NR',
+      },
+      title: 'ROW',
+      tooltip: false,
+    },
+    {
+      isEditable: false,
+      isKey: false,
+      name: 'X$ARTI',
+      title: 'ITEM',
+      tooltip: false,
+    },
+    {
+      decimals: 0,
+      isEditable: false,
+      isKey: false,
+      name: 'X$QTA',
+      obj: {
+        k: '',
+        p: '',
+        t: 'NR',
+      },
+      title: 'QTY\nCART',
+      tooltip: false,
+    },
+    {
+      isEditable: false,
+      isKey: false,
+      name: 'X$CFG',
+      obj: {
+        k: '',
+        p: 'COD_VER',
+        t: 'VO',
+      },
+      size: '70px',
+      title: 'CFG',
+      tooltip: false,
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        X$RIGA: {
+          data: {
+            size: 4,
+            helperEnabled: false,
+            maxLength: 4,
+            integers: 4,
+          },
+          isEditable: false,
+          obj: {
+            k: '2',
+            p: '',
+            t: 'NR',
+          },
+          value: '2',
+          displayedValue: '2',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$CFG: {
+          isEditable: false,
+          obj: {
+            k: '',
+            p: '',
+            t: '',
+          },
+          value: '',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$ARTI: {
+          data: {
+            size: 80,
+            helperEnabled: false,
+            hiddenCounter: true,
+            maxLength: 80,
+          },
+          isEditable: false,
+          obj: {
+            k: 'MAP000014 PRESSED TUBE PTFE G200 25x25x200',
+            p: '',
+            t: '',
+          },
+          value: 'COMMAND WITH TEXT AND ICON AND EMPTY T P K',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$QTA: {
+          data: {
+            size: 15,
+            helperEnabled: false,
+            maxLength: 15,
+            integers: 15,
+          },
+          isEditable: false,
+          obj: {
+            k: '5',
+            p: '',
+            t: 'NR',
+          },
+          value: '5',
+          displayedValue: '5',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+      },
+      cssClass: 'clickable',
+      id: '1',
+      object: '',
+      readOnly: true,
+    },
+  ],
+};
+
 export const hiddenColumnsData = {
   columns: [
     {
