@@ -320,10 +320,27 @@ export class KupData {
                 commands ?? []
             );
 
+            const commandsWithEmptyObj = commands
+                .filter((c) => !c.obj.k && !c.obj.t && !c.obj.p)
+                .map(
+                    (c, index) =>
+                        ({
+                            text: c.text,
+                            icon: c.icon,
+                            obj: c.obj,
+                            index: index,
+                            type: DropDownAction.COMMANDWITHEMPTYOBJ,
+                        } as KupDataRowAction)
+                );
+
             const rowActionsWithCodVer =
                 actions && actions.length
-                    ? [...this.row.rowActionsAdapter(actions), ...codVerActions]
-                    : [...codVerActions];
+                    ? [
+                          ...this.row.rowActionsAdapter(actions),
+                          ...codVerActions,
+                          ...commandsWithEmptyObj,
+                      ]
+                    : [...codVerActions, ...commandsWithEmptyObj];
 
             return rowActionsWithCodVer;
         },
