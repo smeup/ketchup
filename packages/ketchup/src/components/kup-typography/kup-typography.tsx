@@ -1,11 +1,15 @@
 import {
     Component,
     Element,
+    Event,
+    EventEmitter,
     forceUpdate,
     h,
     Host,
     Method,
     Prop,
+    VNode,
+    Watch,
 } from '@stencil/core';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
@@ -16,8 +20,17 @@ import {
     FTypographyProps,
     FTypographyType,
 } from '../../f-components/f-typography/f-typography-declarations';
-import { KupTypographyProps } from './kup-typography-declarations';
-import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupTypographyClickEventPayload,
+    KupTypographyIconClickEventPayload,
+    KupTypographyProps,
+} from './kup-typography-declarations';
+import {
+    KupDataDataset,
+    KupDataNode,
+} from '../../managers/kup-data/kup-data-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
 @Component({
     tag: 'kup-typography',
@@ -41,11 +54,6 @@ export class KupTypography {
      */
     @Prop() customStyle: string = '';
     /**
-     * Props of the sub-components.
-     * @default []
-     */
-    @Prop({ mutable: true }) data: KupDataNode[] = [];
-    /**
      * Manage the toolbar icon. If true is visible, otherwise is not
      * @default null
      */
@@ -56,7 +64,7 @@ export class KupTypography {
      */
     @Prop() type: FTypographyType = FTypographyType.BODY_COMPACT;
     /**
-     * This is the context of the text
+     * This is the content of the text
      * @default null
      */
     @Prop() value: string = null;
@@ -69,6 +77,42 @@ export class KupTypography {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
+
+    @Event({
+        eventName: 'kup-typography-icon-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupIconClick: EventEmitter<KupTypographyIconClickEventPayload>;
+
+    @Event({
+        eventName: 'kup-typography-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<KupTypographyClickEventPayload>;
+
+    onKupClick() {
+        this.kupClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: this.value,
+        });
+    }
+
+    onKupIconClick(i: number, node: KupDataNode) {
+        this.kupIconClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            index: i,
+            node: node,
+        });
+    }
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -124,6 +168,10 @@ export class KupTypography {
         const props: FTypographyProps = {
             value: this.value,
         };
+
+        if (!this.value) {
+            console.log('error - No value in this title');
+        }
         return (
             <Host>
                 <style>

@@ -1,3 +1,7 @@
+import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
+import { KupEventPayload } from '../../types/GenericTypes';
+
 /**
  * Props of the kup-typography component.
  * Used to export every prop in an object.
@@ -37,4 +41,13 @@ export enum KupTypographyType {
     HEADING3 = 'heading-03',
     CAPTION = 'caption',
     LABEL = 'label',
+}
+
+export interface KupTypographyIconClickEventPayload extends KupEventPayload {
+    index: number;
+    node: KupDataNode;
+}
+
+export interface KupTypographyClickEventPayload extends KupEventPayload {
+    value: string;
 }

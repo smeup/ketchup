@@ -36,9 +36,7 @@ import {
     KupDynamicPositionPlacement,
 } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
-import { KupListNode } from '../kup-list/kup-list-declarations';
-import { KupList } from '../kup-list/kup-list';
-import { KupDataNode } from '../../components';
+import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-tab-bar',

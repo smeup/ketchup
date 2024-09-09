@@ -13,8 +13,8 @@ import {
 } from '@stencil/core';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
-    KupTypographyClickEventPayload,
-    KupTypographyIconClickEventPayload,
+    KupTypographyListClickEventPayload,
+    KupTypographyListIconClickEventPayload,
     KupTypographyListProps,
 } from './kup-typography-list-declarations';
 import { getProps, setProps } from '../../utils/utils';
@@ -55,15 +55,16 @@ export class KupTypographyList {
      */
     @Prop() customStyle: string = '';
     /**
-     * Sets the sizing of the textfield
-     * @default FTypographyType.BODY_COMPACT
-     */
-    @Prop() type: FTypographyType = FTypographyType.BODY_COMPACT;
-    /**
      * Props of the sub-components.
      * @default []
      */
     @Prop({ mutable: true }) data: KupDataNode[] = [];
+    /**
+     * Sets the type of the typography from a list. body-compact is the default
+     * @default FTypographyType.BODY_COMPACT
+     */
+    @Prop() type: FTypographyType = FTypographyType.BODY_COMPACT;
+
     /**
      * This is the context of the text
      * @default null
@@ -88,20 +89,20 @@ export class KupTypographyList {
     /*-------------------------------------------------*/
 
     @Event({
-        eventName: 'kup-typography-icon-click',
+        eventName: 'kup-typographylist-icon-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupIconClick: EventEmitter<KupTypographyIconClickEventPayload>;
+    kupIconClick: EventEmitter<KupTypographyListIconClickEventPayload>;
 
     @Event({
-        eventName: 'kup-typography-click',
+        eventName: 'kup-typographylist-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    KupClick: EventEmitter<KupTypographyClickEventPayload>;
+    KupClick: EventEmitter<KupTypographyListClickEventPayload>;
 
     onKupClick(index: string, subIndex: string): void {
         this.KupClick.emit({
@@ -221,7 +222,6 @@ export class KupTypographyList {
         }
         if (this.type != null) {
             data.type = this.type;
-            console.log(this.type + 'and' + data.type);
         }
         if (this.toolbar != null) {
             data.toolbar = this.toolbar;

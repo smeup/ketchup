@@ -8,8 +8,8 @@ import { FTypographyProps, FTypographyType } from './f-typography-declarations';
 /*-------------------------------------------------*/
 
 export const FTypography: FunctionalComponent<FTypographyProps> = (
-    props: FTypographyProps,
-    children: VNode[]
+    props: FTypographyProps
+    // children: VNode[]
 ) => {
     if (!props.type) {
         props.type = FTypographyType.BODY_COMPACT;
@@ -44,7 +44,7 @@ export const FTypography: FunctionalComponent<FTypographyProps> = (
                 title={props.title}
             >
                 {props.value}
-                {children}
+                {/* {children} */}
             </span>
             {props.toolbar && (
                 <FImage

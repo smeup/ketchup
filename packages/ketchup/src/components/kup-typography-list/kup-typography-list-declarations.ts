@@ -22,12 +22,13 @@ export enum KupTypographyListProps {
     Type = 'it is the type of the font. It is an enum that can take from different variant such as body, heading1, caption and so on',
 }
 
-export interface KupTypographyIconClickEventPayload extends KupEventPayload {
+export interface KupTypographyListIconClickEventPayload
+    extends KupEventPayload {
     index: number;
     node: KupDataNode;
 }
 
-export interface KupTypographyClickEventPayload extends KupEventPayload {
+export interface KupTypographyListClickEventPayload extends KupEventPayload {
     index: string;
     subIndex: string;
     obj: KupObj;
