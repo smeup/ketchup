@@ -325,8 +325,8 @@ export class KupData {
                 .map(
                     (c, index) =>
                         ({
-                            text: c.text,
-                            icon: c.icon,
+                            text: c.text ?? '',
+                            icon: c.icon ?? '',
                             obj: c.obj,
                             index: index,
                             type: DropDownAction.COMMANDWITHEMPTYOBJ,

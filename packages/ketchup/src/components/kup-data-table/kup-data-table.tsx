@@ -4966,7 +4966,7 @@ export class KupDataTable {
                             const imageProp: FImageProps =
                                 this.#kupManager.data.action.buildImageProp(
                                     action.icon,
-                                    action.text || action.column.title,
+                                    action.text || action.column?.title || '',
                                     'action',
                                     () => {
                                         this.kupRowActionItemClick.emit({
