@@ -317,13 +317,20 @@ export class KupData {
             const codVerActions = this.action.createActionsFromVoCodRow(
                 row,
                 columns,
-                commands ?? []
+                commands
             );
+
+            const commandsWithEmptyObj =
+                this.action.createCommandsWithEmptyObj(commands);
 
             const rowActionsWithCodVer =
                 actions && actions.length
-                    ? [...this.row.rowActionsAdapter(actions), ...codVerActions]
-                    : [...codVerActions];
+                    ? [
+                          ...this.row.rowActionsAdapter(actions),
+                          ...codVerActions,
+                          ...commandsWithEmptyObj,
+                      ]
+                    : [...codVerActions, ...commandsWithEmptyObj];
 
             return rowActionsWithCodVer;
         },
@@ -441,6 +448,34 @@ export class KupData {
             });
 
             return actions;
+        },
+        createCommandsWithEmptyObj: (
+            commands: KupCommand[]
+        ): KupDataRowAction[] => {
+            return commands.length
+                ? commands
+                      .filter((c) => !c.obj.k && !c.obj.t && !c.obj.p)
+                      .map(
+                          (c, index) =>
+                              ({
+                                  text: c.text || '',
+                                  icon: c.icon || '',
+                                  obj: c.obj,
+                                  index: index,
+                                  type: DropDownAction.COMMANDWITHEMPTYOBJ,
+                              } as KupDataRowAction)
+                      )
+                : [];
+        },
+        /**
+         * Check whenever commands got blank uiPopup obj
+         * @param { commands } commands[] on which control is made
+         * @returns { boolean } result of check
+         */
+        hasCommandsWithBlankObj: (commands: KupCommand[]): boolean => {
+            return commands
+                ? commands.some((c) => !c.obj.k && !c.obj.t && !c.obj.p)
+                : false;
         },
     };
     /**
