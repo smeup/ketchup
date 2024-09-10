@@ -385,11 +385,12 @@ export class KupDebug {
                     slot.style.backgroundColor =
                         'rgba(var(--kup-warning-color-rgb), 0.15)';
                     slot.style.borderLeft =
-                        '5px solid var(--kup-warning-color-40)';
+                        '5px solid var(--kup-warning-color-50)';
                     break;
                 case KupDebugCategory.INFO:
                 default:
-                    slot.style.borderLeft = '5px solid var(--kup-info-color)';
+                    slot.style.borderLeft =
+                        '5px solid var(--kup-info-color-50)';
                     break;
             }
             // If the log is tied to a KupComponent, on click its props will be downloaded.

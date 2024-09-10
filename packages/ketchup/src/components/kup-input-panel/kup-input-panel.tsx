@@ -147,6 +147,7 @@ export class KupInputPanel {
         (options: any, currentValue: string) => GenericObject[]
     >([
         ['SmeupTreeNode', this.#treeOptionsNodeAdapter.bind(this)],
+        ['SmeupDataTree', this.#dataTreeOptionsChildrenAdapter.bind(this)],
         ['SmeupTable', this.#tableOptionsAdapter.bind(this)],
         ['SmeupDataTable', this.#tableOptionsAdapter.bind(this)],
     ]);
@@ -822,10 +823,12 @@ export class KupInputPanel {
         currentValue: string
     ) {
         return {
-            data: currentValue
-                ?.split(';')
-                .map((v) => ({ id: v, value: v }))
-                .filter((value) => !!value),
+            data: currentValue?.length
+                ? currentValue
+                      .split(';')
+                      .map((v) => ({ id: v, value: v }))
+                      .filter((value) => !!value)
+                : null,
         };
     }
 
@@ -851,11 +854,12 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        const { fun, keyShortcut: key } = cell.data;
+        cell.data = cell.data || {};
+
         cell.data.onClick = () => {
-            fun
+            cell.fun
                 ? this.customButtonClickHandler({
-                      fun,
+                      fun: cell.fun,
                       cellId: id,
                       currentState: this.#reverseMapCells(),
                   })
@@ -867,10 +871,11 @@ export class KupInputPanel {
                       cell: id,
                   });
         };
-        if (key && !cell.data?.disabled) {
-            this.#keysShortcut.push(key);
+
+        if (cell.data?.key && !cell.data?.disabled) {
+            this.#keysShortcut.push(cell.data?.key);
             this.#kupManager.keysBinding.register(
-                key,
+                cell.data?.key,
                 cell.data.onClick.bind(this)
             );
         }
@@ -1202,22 +1207,31 @@ export class KupInputPanel {
         }));
     }
 
-    #tableOptionsAdapter(options: any, currentValue: string): GenericObject[] {
-        return options.rows
-            .filter((row) => row.fields)
-            .map(({ fields }) => {
-                const keys = Object.keys(fields);
+    #dataTreeOptionsChildrenAdapter(
+        options: any,
+        currentValue: string
+    ): GenericObject[] {
+        return options.children.map((child) => ({
+            id: child.obj.k,
+            value: child.value,
+            selected: currentValue === child.obj.k,
+            children: child.children?.length
+                ? this.#dataTreeOptionsChildrenAdapter(child, currentValue)
+                : [],
+        }));
+    }
 
-                return keys
-                    .filter((key) => !['RowId', 'ID'].includes(key))
-                    .map((key) => ({
-                        id: fields[key].smeupObject.codice,
-                        value: fields[key].smeupObject.testo,
-                        selected:
-                            currentValue === fields[key].smeupObject.codice,
-                    }));
-            })
-            .flat();
+    #tableOptionsAdapter(options: any, currentValue: string): GenericObject[] {
+        return options.rows.map((row) => {
+            const cells = row.fields || row.cells;
+            const [id, value] = Object.keys(cells);
+
+            return {
+                id: cells[id].value,
+                value: cells[value]?.value || cells[id].value,
+                selected: currentValue === cells[id].value,
+            };
+        });
     }
 
     #getAutocompleteEventCallback(
@@ -1236,7 +1250,8 @@ export class KupInputPanel {
         this.optionsHandler(
             fun,
             detail.inputValue,
-            this.#reverseMapCells()
+            this.#reverseMapCells(),
+            detail.id
         ).then((options) => {
             data.data['kup-list'].data =
                 this.#optionsTreeComboAdapter(options, currentValue) ?? [];

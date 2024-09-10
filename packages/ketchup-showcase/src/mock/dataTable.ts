@@ -1304,6 +1304,19 @@ export const dataTableWithNoCommandsMatching = {
       title: 'CFG',
       tooltip: false,
     },
+    {
+      isEditable: false,
+      isKey: false,
+      name: 'X$MOD',
+      obj: {
+        k: '',
+        p: 'COD_VER',
+        t: 'VO',
+      },
+      size: '70px',
+      title: 'MODIFICA',
+      tooltip: false,
+    },
   ],
   rows: [
     {
@@ -1408,6 +1421,19 @@ export const dataTableWithNoCommandsMatching = {
           isEditable: false,
           obj: {
             k: '000052',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          icon: 'settings',
+          // value: ' 000052',
+          element: {
+            's-hn': 'KUP-DATA-TABLE',
+          },
+        },
+        X$MOD: {
+          isEditable: false,
+          obj: {
+            k: '000053',
             p: 'COD_VER',
             t: 'VO',
           },
@@ -15804,7 +15830,7 @@ export const subfile = {
           span: {
             col: 18,
           },
-          style: { backgroundColor: 'var(--kup-warning-color)' },
+          style: { backgroundColor: 'var(--kup-warning-color-50)' },
         },
         COL01: {
           value: '1000',
@@ -15813,7 +15839,7 @@ export const subfile = {
             p: '',
             k: '1000',
           },
-          style: { backgroundColor: 'var(--kup-warning-color)' },
+          style: { backgroundColor: 'var(--kup-warning-color-50)' },
         },
         COL02: {
           value: '1000',
@@ -15822,7 +15848,7 @@ export const subfile = {
             p: '',
             k: '1000',
           },
-          style: { backgroundColor: 'var(--kup-warning-color)' },
+          style: { backgroundColor: 'var(--kup-warning-color-50)' },
         },
         COL03: {
           value: '1000',
@@ -15831,7 +15857,7 @@ export const subfile = {
             p: '',
             k: '1000',
           },
-          style: { backgroundColor: 'var(--kup-warning-color)' },
+          style: { backgroundColor: 'var(--kup-warning-colo-50)' },
         },
         COL04: {
           value: '1000',
@@ -15840,7 +15866,7 @@ export const subfile = {
             p: '',
             k: '1000',
           },
-          style: { backgroundColor: 'var(--kup-warning-color)' },
+          style: { backgroundColor: 'var(--kup-warning-color-50)' },
         },
         COL05: {
           value: '1000',
@@ -15849,7 +15875,7 @@ export const subfile = {
             p: '',
             k: '1000',
           },
-          style: { backgroundColor: 'var(--kup-warning-color)' },
+          style: { backgroundColor: 'var(--kup-warning-color-50)' },
         },
       },
     },

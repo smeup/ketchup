@@ -1184,7 +1184,7 @@ const dataTableFiltersTest = {
                         k: 'CASFRA',
                     },
                     info: {
-                        color: 'var(--kup-warning-color)',
+                        color: 'var(--kup-warning-color-50)',
                         icon: 'warning',
                         message: 'Warning message, thread carefully!',
                     },
