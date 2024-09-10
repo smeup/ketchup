@@ -872,10 +872,10 @@ export class KupInputPanel {
                   });
         };
 
-        if (cell.data?.key && !cell.data?.disabled) {
-            this.#keysShortcut.push(cell.data?.key);
+        if (cell.data?.keyShortcut && !cell.data?.disabled) {
+            this.#keysShortcut.push(cell.data?.keyShortcut);
             this.#kupManager.keysBinding.register(
-                cell.data?.key,
+                cell.data?.keyShortcut,
                 cell.data.onClick.bind(this)
             );
         }
