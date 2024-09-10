@@ -211,7 +211,7 @@ export default {
         'Row actions with commands',
         'Codver with commands matching',
         'Codver with no commands matching',
-        'Actions from commands with empty obj',
+        'Actions from commands with blank tpk obj',
         'With row selection',
         'Without row selection',
         'With row repetition',

@@ -1528,8 +1528,8 @@ export const dataTableWithEmptyObjCommands = {
             p: '',
             t: 'NR',
           },
-          value: '2',
-          displayedValue: '2',
+          value: '1',
+          displayedValue: '1',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
@@ -1559,7 +1559,7 @@ export const dataTableWithEmptyObjCommands = {
             p: '',
             t: '',
           },
-          value: 'COMMAND WITH TEXT AND ICON AND EMPTY T P K',
+          value: 'COMMAND WITH TEXT AND ICON AND BLANK T P K',
           element: {
             's-hn': 'KUP-DATA-TABLE',
           },
