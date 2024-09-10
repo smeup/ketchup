@@ -3489,7 +3489,7 @@ export class KupDataTable {
                 this.fixedColumns +
                 (this.#hasRowActions() ||
                 this.#kupManager.data.column.hasCodVer(this.data.columns) ||
-                this.#kupManager.data.action.checkCommandsGotBlankObj(
+                this.#kupManager.data.action.hasCommandsWithBlankObj(
                     this.commands
                 )
                     ? 1
@@ -3914,7 +3914,7 @@ export class KupDataTable {
         if (
             this.#hasRowActions() ||
             this.#kupManager.data.column.hasCodVer(this.data.columns) ||
-            this.#kupManager.data.action.checkCommandsGotBlankObj(this.commands)
+            this.#kupManager.data.action.hasCommandsWithBlankObj(this.commands)
         ) {
             colSpan += 1;
         }
@@ -4130,7 +4130,7 @@ export class KupDataTable {
         if (
             this.#hasRowActions() ||
             this.#kupManager.data.column.hasCodVer(this.data.columns) ||
-            this.#kupManager.data.action.checkCommandsGotBlankObj(this.commands)
+            this.#kupManager.data.action.hasCommandsWithBlankObj(this.commands)
         ) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -4322,7 +4322,7 @@ export class KupDataTable {
         if (
             this.#hasRowActions() ||
             this.#kupManager.data.column.hasCodVer(this.data.columns) ||
-            this.#kupManager.data.action.checkCommandsGotBlankObj(this.commands)
+            this.#kupManager.data.action.hasCommandsWithBlankObj(this.commands)
         ) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -4459,7 +4459,7 @@ export class KupDataTable {
         if (
             this.#hasRowActions() ||
             this.#kupManager.data.column.hasCodVer(this.data.columns) ||
-            this.#kupManager.data.action.checkCommandsGotBlankObj(this.commands)
+            this.#kupManager.data.action.hasCommandsWithBlankObj(this.commands)
         ) {
             extraCells++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -4742,7 +4742,7 @@ export class KupDataTable {
                 if (
                     this.#hasRowActions() ||
                     this.#kupManager.data.column.hasCodVer(this.data.columns) ||
-                    this.#kupManager.data.action.checkCommandsGotBlankObj(
+                    this.#kupManager.data.action.hasCommandsWithBlankObj(
                         this.commands
                     )
                 ) {
@@ -4942,7 +4942,7 @@ export class KupDataTable {
             if (
                 this.#hasRowActions() ||
                 this.#kupManager.data.column.hasCodVer(this.data.columns) ||
-                this.#kupManager.data.action.checkCommandsGotBlankObj(
+                this.#kupManager.data.action.hasCommandsWithBlankObj(
                     this.commands
                 )
             ) {
