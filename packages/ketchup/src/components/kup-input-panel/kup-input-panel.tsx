@@ -147,6 +147,7 @@ export class KupInputPanel {
         (options: any, currentValue: string) => GenericObject[]
     >([
         ['SmeupTreeNode', this.#treeOptionsNodeAdapter.bind(this)],
+        ['SmeupDataTree', this.#dataTreeOptionsChildrenAdapter.bind(this)],
         ['SmeupTable', this.#tableOptionsAdapter.bind(this)],
         ['SmeupDataTable', this.#tableOptionsAdapter.bind(this)],
     ]);
@@ -1206,22 +1207,31 @@ export class KupInputPanel {
         }));
     }
 
-    #tableOptionsAdapter(options: any, currentValue: string): GenericObject[] {
-        return options.rows
-            .filter((row) => row.fields)
-            .map(({ fields }) => {
-                const keys = Object.keys(fields);
+    #dataTreeOptionsChildrenAdapter(
+        options: any,
+        currentValue: string
+    ): GenericObject[] {
+        return options.children.map((child) => ({
+            id: child.obj.k,
+            value: child.value,
+            selected: currentValue === child.obj.k,
+            children: child.children?.length
+                ? this.#dataTreeOptionsChildrenAdapter(child, currentValue)
+                : [],
+        }));
+    }
 
-                return keys
-                    .filter((key) => !['RowId', 'ID'].includes(key))
-                    .map((key) => ({
-                        id: fields[key].smeupObject.codice,
-                        value: fields[key].smeupObject.testo,
-                        selected:
-                            currentValue === fields[key].smeupObject.codice,
-                    }));
-            })
-            .flat();
+    #tableOptionsAdapter(options: any, currentValue: string): GenericObject[] {
+        return options.rows.map((row) => {
+            const cells = row.fields || row.cells;
+            const [id, value] = Object.keys(cells);
+
+            return {
+                id: cells[id].value,
+                value: cells[value]?.value || cells[id].value,
+                selected: currentValue === cells[id].value,
+            };
+        });
     }
 
     #getAutocompleteEventCallback(
