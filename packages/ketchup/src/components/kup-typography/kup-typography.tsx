@@ -13,7 +13,10 @@ import {
 } from '@stencil/core';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
-import { KupManager } from '../../managers/kup-manager/kup-manager-declarations';
+import {
+    KupManager,
+    KupManagerClickCb,
+} from '../../managers/kup-manager/kup-manager-declarations';
 import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
 import { FTypography } from '../../f-components/f-typography/f-typography';
 import {
@@ -23,6 +26,7 @@ import {
 import {
     KupTypographyClickEventPayload,
     KupTypographyIconClickEventPayload,
+    KupTypographyItemClickEventPayload,
     KupTypographyProps,
 } from './kup-typography-declarations';
 import {
@@ -31,6 +35,14 @@ import {
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
+import {
+    KupDynamicPositionAnchor,
+    KupDynamicPositionElement,
+    KupDynamicPositionPlacement,
+} from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
+import { FImage } from '../../f-components/f-image/f-image';
+import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 
 @Component({
     tag: 'kup-typography',
@@ -57,7 +69,12 @@ export class KupTypography {
      * Manage the toolbar icon. If true is visible, otherwise is not
      * @default null
      */
-    @Prop() toolbar: boolean = false;
+    @Prop() toolbar: boolean = true;
+    /**
+     * Display DataNode Toolbar.
+     * @default null
+     */
+    @Prop() toolbarData: KupDataNode[];
     /**
      * Sets the sizing of the textfield
      * @default FTypographyType.BODY_COMPACT
@@ -77,6 +94,13 @@ export class KupTypography {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
+    #clickCbDropCard: KupManagerClickCb = null;
+    /**
+     * Toolbar List.
+     */
+    private toolbarList: KupDynamicPositionElement;
+    #dropDownActionCardAnchor: HTMLElement = null;
+
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
@@ -97,6 +121,14 @@ export class KupTypography {
     })
     kupClick: EventEmitter<KupTypographyClickEventPayload>;
 
+    @Event({
+        eventName: 'kup-typography-itemclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupItemClick: EventEmitter<KupTypographyItemClickEventPayload>;
+
     onKupClick() {
         this.kupClick.emit({
             comp: this,
@@ -105,12 +137,70 @@ export class KupTypography {
         });
     }
 
-    onKupIconClick(i: number, node: KupDataNode) {
+    onKupIconClick(el: HTMLElement) {
+        this.#dropDownActionCardAnchor = el;
         this.kupIconClick.emit({
             comp: this,
             id: this.rootElement.id,
-            index: i,
-            node: node,
+        });
+        this.createDropDownToolbarList();
+    }
+
+    onKupTypographyItemClick() {
+        this.kupItemClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+        });
+    }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    closeRowToolbarList() {
+        this.kupManager.dynamicPosition.stop(
+            this.toolbarList as KupDynamicPositionElement
+        );
+        this.kupManager.removeClickCallback(this.#clickCbDropCard);
+        this.toolbarList.remove();
+        this.toolbarList = null;
+    }
+
+    createDropDownToolbarList() {
+        if (this.toolbarList) {
+            this.closeRowToolbarList();
+        }
+        const listEl = document.createElement('kup-list');
+        listEl.data = this.toolbarData;
+        listEl.isMenu = true;
+        listEl.menuVisible = true;
+        listEl.addEventListener('kup-list-click', () => {
+            this.onKupTypographyItemClick();
+            setTimeout(() => {
+                this.closeRowToolbarList();
+            }, 0);
+        });
+        this.toolbarList = listEl;
+        this.#clickCbDropCard = {
+            cb: () => {
+                this.closeRowToolbarList();
+            },
+            el: this.toolbarList,
+        };
+
+        this.kupManager.addClickCallback(this.#clickCbDropCard, true);
+        this.rootElement.shadowRoot.appendChild(this.toolbarList);
+        requestAnimationFrame(() => {
+            this.kupManager.dynamicPosition.register(
+                this.toolbarList as unknown as KupDynamicPositionElement,
+                this.#dropDownActionCardAnchor as KupDynamicPositionAnchor,
+                0,
+                KupDynamicPositionPlacement.AUTO,
+                true
+            );
+            this.kupManager.dynamicPosition.start(
+                this.toolbarList as unknown as KupDynamicPositionElement
+            );
         });
     }
 
@@ -166,12 +256,20 @@ export class KupTypography {
 
     render() {
         const props: FTypographyProps = {
+            toolbar: this.toolbar,
             value: this.value,
         };
 
-        if (!this.value) {
-            console.log('error - No value in this title');
-        }
+        const propsFImage: FImageProps = {
+            color: 'var(--kup-gray-color-70)',
+            resource: 'app',
+            sizeX: '16px',
+            sizeY: '16px',
+            wrapperClass: 'image__iconToolbar',
+        };
+        const classObjParent: Record<string, boolean> = {
+            'kup-typography--wrap': props.toolbar ? true : false,
+        };
         return (
             <Host>
                 <style>
@@ -179,7 +277,22 @@ export class KupTypography {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <FTypography {...props} />
+                <div
+                    id={componentWrapperId}
+                    class={classObjParent}
+                    onClick={() => this.onKupClick}
+                >
+                    <FTypography {...props} />
+                    <FImage
+                        {...propsFImage}
+                        onClick={(event: MouseEvent) => {
+                            event.stopPropagation();
+                            this.onKupIconClick(
+                                event.currentTarget as HTMLElement
+                            );
+                        }}
+                    />
+                </div>
             </Host>
         );
     }

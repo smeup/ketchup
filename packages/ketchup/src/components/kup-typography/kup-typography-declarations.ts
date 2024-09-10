@@ -43,11 +43,10 @@ export enum KupTypographyType {
     LABEL = 'label',
 }
 
-export interface KupTypographyIconClickEventPayload extends KupEventPayload {
-    index: number;
-    node: KupDataNode;
-}
+export interface KupTypographyIconClickEventPayload extends KupEventPayload {}
 
 export interface KupTypographyClickEventPayload extends KupEventPayload {
     value: string;
 }
+
+export interface KupTypographyItemClickEventPayload extends KupEventPayload {}

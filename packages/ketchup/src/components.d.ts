@@ -60,7 +60,7 @@ import { KupTabBarEventPayload, KupTabbarItemClickEventPayload, KupTabBarNode } 
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 import { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
-import { KupTypographyClickEventPayload, KupTypographyIconClickEventPayload } from "./components/kup-typography/kup-typography-declarations";
+import { KupTypographyClickEventPayload, KupTypographyIconClickEventPayload, KupTypographyItemClickEventPayload } from "./components/kup-typography/kup-typography-declarations";
 import { KupTypographyListClickEventPayload, KupTypographyListIconClickEventPayload } from "./components/kup-typography-list/kup-typography-list-declarations";
 export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 export { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
@@ -117,7 +117,7 @@ export { KupTabBarEventPayload, KupTabbarItemClickEventPayload, KupTabBarNode } 
 export { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 export { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 export { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
-export { KupTypographyClickEventPayload, KupTypographyIconClickEventPayload } from "./components/kup-typography/kup-typography-declarations";
+export { KupTypographyClickEventPayload, KupTypographyIconClickEventPayload, KupTypographyItemClickEventPayload } from "./components/kup-typography/kup-typography-declarations";
 export { KupTypographyListClickEventPayload, KupTypographyListIconClickEventPayload } from "./components/kup-typography-list/kup-typography-list-declarations";
 export namespace Components {
     interface KupAccordion {
@@ -4382,6 +4382,11 @@ export namespace Components {
          */
         "toolbar": boolean;
         /**
+          * Display DataNode Toolbar.
+          * @default null
+         */
+        "toolbarData": KupDataNode[];
+        /**
           * Sets the sizing of the textfield
           * @default FTypographyType.BODY_COMPACT
          */
@@ -5655,6 +5660,7 @@ declare global {
     interface HTMLKupTypographyElementEventMap {
         "kup-typography-icon-click": KupTypographyIconClickEventPayload;
         "kup-typography-click": KupTypographyClickEventPayload;
+        "kup-typography-itemclick": KupTypographyItemClickEventPayload;
     }
     interface HTMLKupTypographyElement extends Components.KupTypography, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupTypographyElementEventMap>(type: K, listener: (this: HTMLKupTypographyElement, ev: KupTypographyCustomEvent<HTMLKupTypographyElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -9370,11 +9376,17 @@ declare namespace LocalJSX {
         "customStyle"?: string;
         "onKup-typography-click"?: (event: KupTypographyCustomEvent<KupTypographyClickEventPayload>) => void;
         "onKup-typography-icon-click"?: (event: KupTypographyCustomEvent<KupTypographyIconClickEventPayload>) => void;
+        "onKup-typography-itemclick"?: (event: KupTypographyCustomEvent<KupTypographyItemClickEventPayload>) => void;
         /**
           * Manage the toolbar icon. If true is visible, otherwise is not
           * @default null
          */
         "toolbar"?: boolean;
+        /**
+          * Display DataNode Toolbar.
+          * @default null
+         */
+        "toolbarData"?: KupDataNode[];
         /**
           * Sets the sizing of the textfield
           * @default FTypographyType.BODY_COMPACT

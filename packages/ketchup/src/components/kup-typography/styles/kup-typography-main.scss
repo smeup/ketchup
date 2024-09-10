@@ -1,0 +1,13 @@
+.kup-typography--wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--kup-space-03);
+  &:hover {
+    .image__iconToolbar {
+      opacity: 0.3;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}

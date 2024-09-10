@@ -1,5 +1,4 @@
 .f-typography {
-  @include kup-body-compact-01;
   &.f-typography--body {
     @include kup-body-01;
   }
@@ -11,26 +10,5 @@
   }
   &.f-typography--code {
     @include kup-code-01;
-  }
-}
-
-.image__iconToolbar {
-  width: 16px;
-  height: 16px;
-  opacity: 0;
-  margin: 0;
-}
-
-.f-typography--wrap {
-  display: flex;
-  align-items: center;
-  gap: var(--kup-space-03);
-  &:hover {
-    .image__iconToolbar {
-      opacity: 0.3;
-      &:hover {
-        opacity: 1;
-      }
-    }
   }
 }

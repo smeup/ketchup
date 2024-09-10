@@ -198,8 +198,6 @@ export class KupTypographyList {
             value: data.value,
             type: data.type,
             toolbar: data.toolbar,
-            onIconClick: () => this.onKupIconClick(data.i, data.node),
-            onClick: () => this.onKupClick(data.i, data.node),
         };
 
         return <FTypography {...props} />;
