@@ -472,8 +472,10 @@ export class KupData {
          * @param { commands } commands[] on which control is made
          * @returns { boolean } result of check
          */
-        checkCommandsGotEmptyObj: (commands: KupCommand[]): boolean => {
-            return commands.some((c) => !c.obj.k && !c.obj.t && !c.obj.p);
+        checkCommandsGotBlankObj: (commands: KupCommand[]): boolean => {
+            return commands
+                ? commands.some((c) => !c.obj.k && !c.obj.t && !c.obj.p)
+                : false;
         },
     };
     /**
