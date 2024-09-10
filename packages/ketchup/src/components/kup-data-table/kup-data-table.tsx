@@ -3488,7 +3488,10 @@ export class KupDataTable {
             const totalFixedColumns =
                 this.fixedColumns +
                 (this.#hasRowActions() ||
-                this.#kupManager.data.column.hasCodVer(this.data.columns)
+                this.#kupManager.data.column.hasCodVer(this.data.columns) ||
+                this.#kupManager.data.action.checkCommandsGotBlankObj(
+                    this.commands
+                )
                     ? 1
                     : 0) +
                 (this.selection === SelectionMode.MULTIPLE_CHECKBOX ? 1 : 0);
@@ -3910,7 +3913,8 @@ export class KupDataTable {
 
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.column.hasCodVer(this.data.columns)
+            this.#kupManager.data.column.hasCodVer(this.data.columns) ||
+            this.#kupManager.data.action.checkCommandsGotBlankObj(this.commands)
         ) {
             colSpan += 1;
         }
@@ -4125,7 +4129,8 @@ export class KupDataTable {
         let actionsColumn = null;
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.column.hasCodVer(this.data.columns)
+            this.#kupManager.data.column.hasCodVer(this.data.columns) ||
+            this.#kupManager.data.action.checkCommandsGotBlankObj(this.commands)
         ) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -4316,7 +4321,8 @@ export class KupDataTable {
         let actionsColumn = null;
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.column.hasCodVer(this.data.columns)
+            this.#kupManager.data.column.hasCodVer(this.data.columns) ||
+            this.#kupManager.data.action.checkCommandsGotBlankObj(this.commands)
         ) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -4452,7 +4458,8 @@ export class KupDataTable {
         let actionsCell = null;
         if (
             this.#hasRowActions() ||
-            this.#kupManager.data.column.hasCodVer(this.data.columns)
+            this.#kupManager.data.column.hasCodVer(this.data.columns) ||
+            this.#kupManager.data.action.checkCommandsGotBlankObj(this.commands)
         ) {
             extraCells++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
@@ -4734,7 +4741,10 @@ export class KupDataTable {
                 const cells = [];
                 if (
                     this.#hasRowActions() ||
-                    this.#kupManager.data.column.hasCodVer(this.data.columns)
+                    this.#kupManager.data.column.hasCodVer(this.data.columns) ||
+                    this.#kupManager.data.action.checkCommandsGotBlankObj(
+                        this.commands
+                    )
                 ) {
                     cells.push(<td></td>);
                 }
@@ -4931,7 +4941,10 @@ export class KupDataTable {
             let rowActionsCell = null;
             if (
                 this.#hasRowActions() ||
-                this.#kupManager.data.column.hasCodVer(this.data.columns)
+                this.#kupManager.data.column.hasCodVer(this.data.columns) ||
+                this.#kupManager.data.action.checkCommandsGotBlankObj(
+                    this.commands
+                )
             ) {
                 // Increments
                 specialExtraCellsCount++;
