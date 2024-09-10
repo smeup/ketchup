@@ -4953,7 +4953,7 @@ export class KupDataTable {
                             row,
                             this.data.columns,
                             this.rowActions,
-                            this.commands
+                            this.commands ?? []
                         );
 
                     if (
@@ -4966,7 +4966,7 @@ export class KupDataTable {
                             const imageProp: FImageProps =
                                 this.#kupManager.data.action.buildImageProp(
                                     action.icon,
-                                    action.text || action.column.title,
+                                    action.text || action.column?.title || '',
                                     'action',
                                     () => {
                                         this.kupRowActionItemClick.emit({
