@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
-import { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+import { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 import { KupDatesOrder } from "./managers/kup-dates/kup-dates-declarations";
 import { KupActivityTimelineClickEventPayload } from "./components/kup-activity-timeline/kup-activity-timeline-declarations";
 import { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
@@ -56,12 +56,16 @@ import { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-dec
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 import { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
-import { KupTabBarEventPayload, KupTabbarItemClickEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { KupToolbarItemClickEventPayload } from "./managers/kup-toolbar/kup-toolbar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
+import { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
+import { KupTypographyClickEventPayload, KupTypographyIconClickEventPayload } from "./components/kup-typography/kup-typography-declarations";
+import { KupTypographyListClickEventPayload, KupTypographyListIconClickEventPayload } from "./components/kup-typography-list/kup-typography-list-declarations";
 export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 export { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
-export { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+export { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 export { KupDatesOrder } from "./managers/kup-dates/kup-dates-declarations";
 export { KupActivityTimelineClickEventPayload } from "./components/kup-activity-timeline/kup-activity-timeline-declarations";
 export { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
@@ -110,9 +114,13 @@ export { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-dec
 export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 export { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 export { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
-export { KupTabBarEventPayload, KupTabbarItemClickEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+export { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+export { KupToolbarItemClickEventPayload } from "./managers/kup-toolbar/kup-toolbar-declarations";
 export { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 export { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
+export { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
+export { KupTypographyClickEventPayload, KupTypographyIconClickEventPayload } from "./components/kup-typography/kup-typography-declarations";
+export { KupTypographyListClickEventPayload, KupTypographyListIconClickEventPayload } from "./components/kup-typography-list/kup-typography-list-declarations";
 export namespace Components {
     interface KupAccordion {
         /**
@@ -3816,6 +3824,11 @@ export namespace Components {
           * @default true
          */
         "toolbar": boolean;
+        /**
+          * Display DataNode Toolbar.
+          * @default null
+         */
+        "toolbarData": KupDataNode[];
     }
     interface KupTaskGantt {
         "barProps": KupPlannerTaskGanttProps['barProps'];
@@ -4343,6 +4356,87 @@ export namespace Components {
          */
         "useDynamicExpansion": boolean;
     }
+    interface KupTypography {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Manage the toolbar icon. If true is visible, otherwise is not
+          * @default null
+         */
+        "toolbar": boolean;
+        /**
+          * Display DataNode Toolbar.
+          * @default null
+         */
+        "toolbarData": KupDataNode[];
+        /**
+          * Sets the sizing of the textfield
+          * @default FTypographyType.BODY_COMPACT
+         */
+        "type": FTypographyType;
+        /**
+          * This is the content of the text
+          * @default null
+         */
+        "value": string;
+    }
+    interface KupTypographyList {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Props of the sub-components.
+          * @default []
+         */
+        "data": KupDataNode[];
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Manage the toolbar icon. If true is visible, otherwise is not
+          * @default null
+         */
+        "toolbar": boolean;
+        /**
+          * Sets the type of the typography from a list. body-compact is the default
+          * @default FTypographyType.BODY_COMPACT
+         */
+        "type": FTypographyType;
+    }
     interface KupVerticalScroll {
         "ganttFullHeight": number;
         "ganttHeight": number;
@@ -4531,6 +4625,14 @@ export interface KupTimePickerCustomEvent<T> extends CustomEvent<T> {
 export interface KupTreeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupTreeElement;
+}
+export interface KupTypographyCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupTypographyElement;
+}
+export interface KupTypographyListCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupTypographyListElement;
 }
 declare global {
     interface HTMLKupAccordionElementEventMap {
@@ -5428,7 +5530,7 @@ declare global {
         "kup-tabbar-click": KupTabBarEventPayload;
         "kup-tabbar-iconclick": KupTabBarEventPayload;
         "kup-tabbar-focus": KupTabBarEventPayload;
-        "kup-tabbar-itemclick": KupTabbarItemClickEventPayload;
+        "kup-tabbar-itemclick": KupToolbarItemClickEventPayload;
     }
     interface HTMLKupTabBarElement extends Components.KupTabBar, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupTabBarElementEventMap>(type: K, listener: (this: HTMLKupTabBarElement, ev: KupTabBarCustomEvent<HTMLKupTabBarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5552,6 +5654,43 @@ declare global {
         prototype: HTMLKupTreeElement;
         new (): HTMLKupTreeElement;
     };
+    interface HTMLKupTypographyElementEventMap {
+        "kup-typography-icon-click": KupTypographyIconClickEventPayload;
+        "kup-typography-click": KupTypographyClickEventPayload;
+        "kup-typography-itemclick": KupToolbarItemClickEventPayload;
+    }
+    interface HTMLKupTypographyElement extends Components.KupTypography, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupTypographyElementEventMap>(type: K, listener: (this: HTMLKupTypographyElement, ev: KupTypographyCustomEvent<HTMLKupTypographyElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupTypographyElementEventMap>(type: K, listener: (this: HTMLKupTypographyElement, ev: KupTypographyCustomEvent<HTMLKupTypographyElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKupTypographyElement: {
+        prototype: HTMLKupTypographyElement;
+        new (): HTMLKupTypographyElement;
+    };
+    interface HTMLKupTypographyListElementEventMap {
+        "kup-typographylist-icon-click": KupTypographyListIconClickEventPayload;
+        "kup-typographylist-click": KupTypographyListClickEventPayload;
+    }
+    interface HTMLKupTypographyListElement extends Components.KupTypographyList, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupTypographyListElementEventMap>(type: K, listener: (this: HTMLKupTypographyListElement, ev: KupTypographyListCustomEvent<HTMLKupTypographyListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupTypographyListElementEventMap>(type: K, listener: (this: HTMLKupTypographyListElement, ev: KupTypographyListCustomEvent<HTMLKupTypographyListElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKupTypographyListElement: {
+        prototype: HTMLKupTypographyListElement;
+        new (): HTMLKupTypographyListElement;
+    };
     interface HTMLKupVerticalScrollElement extends Components.KupVerticalScroll, HTMLStencilElement {
     }
     var HTMLKupVerticalScrollElement: {
@@ -5625,6 +5764,8 @@ declare global {
         "kup-time-picker": HTMLKupTimePickerElement;
         "kup-tooltip": HTMLKupTooltipElement;
         "kup-tree": HTMLKupTreeElement;
+        "kup-typography": HTMLKupTypographyElement;
+        "kup-typography-list": HTMLKupTypographyListElement;
         "kup-vertical-scroll": HTMLKupVerticalScrollElement;
     }
 }
@@ -8699,7 +8840,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when a list item is clicked.
          */
-        "onKup-tabbar-itemclick"?: (event: KupTabBarCustomEvent<KupTabbarItemClickEventPayload>) => void;
+        "onKup-tabbar-itemclick"?: (event: KupTabBarCustomEvent<KupToolbarItemClickEventPayload>) => void;
         /**
           * When enabled displays Material's ripple effect on item headers.
           * @default true
@@ -8710,6 +8851,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "toolbar"?: boolean;
+        /**
+          * Display DataNode Toolbar.
+          * @default null
+         */
+        "toolbarData"?: KupDataNode[];
     }
     interface KupTaskGantt {
         "barProps"?: KupPlannerTaskGanttProps['barProps'];
@@ -9218,6 +9364,62 @@ declare namespace LocalJSX {
          */
         "useDynamicExpansion"?: boolean;
     }
+    interface KupTypography {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
+         */
+        "customStyle"?: string;
+        "onKup-typography-click"?: (event: KupTypographyCustomEvent<KupTypographyClickEventPayload>) => void;
+        "onKup-typography-icon-click"?: (event: KupTypographyCustomEvent<KupTypographyIconClickEventPayload>) => void;
+        "onKup-typography-itemclick"?: (event: KupTypographyCustomEvent<KupToolbarItemClickEventPayload>) => void;
+        /**
+          * Manage the toolbar icon. If true is visible, otherwise is not
+          * @default null
+         */
+        "toolbar"?: boolean;
+        /**
+          * Display DataNode Toolbar.
+          * @default null
+         */
+        "toolbarData"?: KupDataNode[];
+        /**
+          * Sets the sizing of the textfield
+          * @default FTypographyType.BODY_COMPACT
+         */
+        "type"?: FTypographyType;
+        /**
+          * This is the content of the text
+          * @default null
+         */
+        "value"?: string;
+    }
+    interface KupTypographyList {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://smeup.github.io/ketchup/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Props of the sub-components.
+          * @default []
+         */
+        "data"?: KupDataNode[];
+        "onKup-typographylist-click"?: (event: KupTypographyListCustomEvent<KupTypographyListClickEventPayload>) => void;
+        "onKup-typographylist-icon-click"?: (event: KupTypographyListCustomEvent<KupTypographyListIconClickEventPayload>) => void;
+        /**
+          * Manage the toolbar icon. If true is visible, otherwise is not
+          * @default null
+         */
+        "toolbar"?: boolean;
+        /**
+          * Sets the type of the typography from a list. body-compact is the default
+          * @default FTypographyType.BODY_COMPACT
+         */
+        "type"?: FTypographyType;
+    }
     interface KupVerticalScroll {
         "ganttFullHeight"?: number;
         "ganttHeight"?: number;
@@ -9293,6 +9495,8 @@ declare namespace LocalJSX {
         "kup-time-picker": KupTimePicker;
         "kup-tooltip": KupTooltip;
         "kup-tree": KupTree;
+        "kup-typography": KupTypography;
+        "kup-typography-list": KupTypographyList;
         "kup-vertical-scroll": KupVerticalScroll;
     }
 }
@@ -9366,6 +9570,8 @@ declare module "@stencil/core" {
             "kup-time-picker": LocalJSX.KupTimePicker & JSXBase.HTMLAttributes<HTMLKupTimePickerElement>;
             "kup-tooltip": LocalJSX.KupTooltip & JSXBase.HTMLAttributes<HTMLKupTooltipElement>;
             "kup-tree": LocalJSX.KupTree & JSXBase.HTMLAttributes<HTMLKupTreeElement>;
+            "kup-typography": LocalJSX.KupTypography & JSXBase.HTMLAttributes<HTMLKupTypographyElement>;
+            "kup-typography-list": LocalJSX.KupTypographyList & JSXBase.HTMLAttributes<HTMLKupTypographyListElement>;
             "kup-vertical-scroll": LocalJSX.KupVerticalScroll & JSXBase.HTMLAttributes<HTMLKupVerticalScrollElement>;
         }
     }

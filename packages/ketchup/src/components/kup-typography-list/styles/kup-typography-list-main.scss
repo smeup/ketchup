@@ -1,0 +1,12 @@
+:host {
+  --kup_typographylist_wrapper_gap: var(
+    --kup-typographylist-wrapper-gap,
+    var(--kup-space-00) ;
+  );
+}
+
+.typographies-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--kup_typographylist_wrapper_gap);
+}

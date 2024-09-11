@@ -239,6 +239,14 @@ components.data = [
         id: 'time-picker.html',
     },
     {
+        value: 'Typography',
+        id: 'typography.html',
+    },
+    {
+        value: 'Typography List',
+        id: 'typography-list.html',
+    },
+    {
         value: 'Text field',
         id: 'text-field.html',
     },

@@ -116,6 +116,7 @@ export interface KupDataNode extends KupDataRow {
     placeholderIcon?: string;
     isExpanded?: boolean;
     title?: string;
+    data?: GenericObject;
 }
 /**
  * Interface related to cells operations.
