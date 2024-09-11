@@ -20,6 +20,8 @@ export enum KupTypographyProps {
     Type = 'it is the type of the font. It is an enum that can take from different variant such as body, heading1, caption and so on',
 }
 
+export interface KupTypographyIconClickEventPayload extends KupEventPayload {}
+
 export interface KupTypographyClickEventPayload extends KupEventPayload {
     value: string;
 }
