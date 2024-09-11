@@ -24,8 +24,3 @@ export interface KupTabBarEventPayload extends KupEventPayload {
     node: KupTabBarNode;
     index: number;
 }
-
-export interface KupTabbarItemClickEventPayload extends KupEventPayload {
-    value?: string;
-    node?: KupListNode;
-}

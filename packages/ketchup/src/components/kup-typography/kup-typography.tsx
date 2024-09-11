@@ -8,8 +8,6 @@ import {
     Host,
     Method,
     Prop,
-    VNode,
-    Watch,
 } from '@stencil/core';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
@@ -26,15 +24,9 @@ import {
 import {
     KupTypographyClickEventPayload,
     KupTypographyIconClickEventPayload,
-    KupTypographyItemClickEventPayload,
     KupTypographyProps,
 } from './kup-typography-declarations';
-import {
-    KupDataDataset,
-    KupDataNode,
-} from '../../managers/kup-data/kup-data-declarations';
-import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
-import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
+import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
 import {
     KupDynamicPositionAnchor,
     KupDynamicPositionElement,
@@ -43,6 +35,7 @@ import {
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FImageProps } from '../../f-components/f-image/f-image-declarations';
+import { KupToolbarItemClickEventPayload } from '../../managers/kup-toolbar/kup-toolbar-declarations';
 
 @Component({
     tag: 'kup-typography',
@@ -127,7 +120,7 @@ export class KupTypography {
         cancelable: false,
         bubbles: true,
     })
-    kupItemClick: EventEmitter<KupTypographyItemClickEventPayload>;
+    kupItemClick: EventEmitter<KupToolbarItemClickEventPayload>;
 
     onKupClick() {
         this.kupClick.emit({
@@ -146,10 +139,12 @@ export class KupTypography {
         this.createDropDownToolbarList();
     }
 
-    onKupTypographyItemClick() {
+    onKupToolbarItemClick(e: CustomEvent) {
         this.kupItemClick.emit({
             comp: this,
             id: this.rootElement.id,
+            value: this.value,
+            node: e.detail.selected,
         });
     }
 
@@ -174,8 +169,8 @@ export class KupTypography {
         listEl.data = this.toolbarData;
         listEl.isMenu = true;
         listEl.menuVisible = true;
-        listEl.addEventListener('kup-list-click', () => {
-            this.onKupTypographyItemClick();
+        listEl.addEventListener('kup-list-click', (e: CustomEvent) => {
+            this.onKupToolbarItemClick(e);
             setTimeout(() => {
                 this.closeRowToolbarList();
             }, 0);

@@ -75,14 +75,12 @@ Type: `Promise<void>`
 
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
-- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-typography-list --> kup-card
   kup-typography-list --> kup-dialog
-  kup-typography-list --> kup-badge
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field

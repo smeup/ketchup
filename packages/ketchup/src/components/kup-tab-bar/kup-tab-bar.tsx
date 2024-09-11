@@ -17,7 +17,6 @@ import {
     KupTabBarNode,
     KupTabBarEventPayload,
     KupTabBarProps,
-    KupTabbarItemClickEventPayload,
 } from './kup-tab-bar-declarations';
 import {
     KupManager,
@@ -37,6 +36,7 @@ import {
 } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
+import { KupToolbarItemClickEventPayload } from '../../managers/kup-toolbar/kup-toolbar-declarations';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -165,7 +165,7 @@ export class KupTabBar {
         cancelable: false,
         bubbles: true,
     })
-    kupItemClick: EventEmitter<KupTabbarItemClickEventPayload>;
+    kupItemClick: EventEmitter<KupToolbarItemClickEventPayload>;
 
     #dropDownActionCardAnchor: HTMLElement = null;
 
@@ -213,7 +213,7 @@ export class KupTabBar {
         });
     }
 
-    onKupTabbarItemClick(e: CustomEvent) {
+    onKupToolbarItemClick(e: CustomEvent) {
         this.kupItemClick.emit({
             comp: this,
             id: this.rootElement.id,
@@ -306,7 +306,7 @@ export class KupTabBar {
         listEl.isMenu = true;
         listEl.menuVisible = true;
         listEl.addEventListener('kup-list-click', (e: CustomEvent) => {
-            this.onKupTabbarItemClick(e);
+            this.onKupToolbarItemClick(e);
             setTimeout(() => {
                 this.closeRowToolbarList();
             }, 0);

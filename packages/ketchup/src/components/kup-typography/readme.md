@@ -10,7 +10,8 @@
 | Property      | Attribute      | Description                                                   | Type                                                                                                                                                                                                                   | Default                        |
 | ------------- | -------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
 | `customStyle` | `custom-style` | Custom style of the component.                                | `string`                                                                                                                                                                                                               | `''`                           |
-| `toolbar`     | `toolbar`      | Manage the toolbar icon. If true is visible, otherwise is not | `boolean`                                                                                                                                                                                                              | `false`                        |
+| `toolbar`     | `toolbar`      | Manage the toolbar icon. If true is visible, otherwise is not | `boolean`                                                                                                                                                                                                              | `true`                         |
+| `toolbarData` | --             | Display DataNode Toolbar.                                     | `KupDataNode[]`                                                                                                                                                                                                        | `undefined`                    |
 | `type`        | `type`         | Sets the sizing of the textfield                              | `FTypographyType.BODY \| FTypographyType.BODY_COMPACT \| FTypographyType.CAPTION \| FTypographyType.CODE \| FTypographyType.HEADING1 \| FTypographyType.HEADING2 \| FTypographyType.HEADING3 \| FTypographyType.LABEL` | `FTypographyType.BODY_COMPACT` |
 | `value`       | `value`        | This is the content of the text                               | `string`                                                                                                                                                                                                               | `null`                         |
 
@@ -21,6 +22,7 @@
 | --------------------------- | ----------- | ------------------------------------------------- |
 | `kup-typography-click`      |             | `CustomEvent<KupTypographyClickEventPayload>`     |
 | `kup-typography-icon-click` |             | `CustomEvent<KupTypographyIconClickEventPayload>` |
+| `kup-typography-itemclick`  |             | `CustomEvent<KupToolbarItemClickEventPayload>`    |
 
 
 ## Methods
@@ -72,6 +74,7 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-list](../kup-list)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
 - [kup-badge](../kup-badge)
@@ -79,9 +82,17 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
+  kup-typography --> kup-list
   kup-typography --> kup-card
   kup-typography --> kup-dialog
   kup-typography --> kup-badge
+  kup-list --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-card
+  kup-list --> kup-dialog
+  kup-list --> kup-badge
+  kup-radio --> kup-card
+  kup-radio --> kup-dialog
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -111,13 +122,6 @@ graph TD;
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
   kup-autocomplete --> kup-badge
-  kup-list --> kup-list
-  kup-list --> kup-radio
-  kup-list --> kup-card
-  kup-list --> kup-dialog
-  kup-list --> kup-badge
-  kup-radio --> kup-card
-  kup-radio --> kup-dialog
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog

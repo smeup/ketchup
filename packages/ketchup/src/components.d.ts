@@ -56,11 +56,12 @@ import { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-dec
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 import { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
-import { KupTabBarEventPayload, KupTabbarItemClickEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { KupToolbarItemClickEventPayload } from "./managers/kup-toolbar/kup-toolbar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 import { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
-import { KupTypographyClickEventPayload, KupTypographyIconClickEventPayload, KupTypographyItemClickEventPayload } from "./components/kup-typography/kup-typography-declarations";
+import { KupTypographyClickEventPayload, KupTypographyIconClickEventPayload } from "./components/kup-typography/kup-typography-declarations";
 import { KupTypographyListClickEventPayload, KupTypographyListIconClickEventPayload } from "./components/kup-typography-list/kup-typography-list-declarations";
 export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 export { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
@@ -113,11 +114,12 @@ export { KupRadioChangeEventPayload } from "./components/kup-radio/kup-radio-dec
 export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 export { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 export { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
-export { KupTabBarEventPayload, KupTabbarItemClickEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+export { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+export { KupToolbarItemClickEventPayload } from "./managers/kup-toolbar/kup-toolbar-declarations";
 export { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 export { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 export { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
-export { KupTypographyClickEventPayload, KupTypographyIconClickEventPayload, KupTypographyItemClickEventPayload } from "./components/kup-typography/kup-typography-declarations";
+export { KupTypographyClickEventPayload, KupTypographyIconClickEventPayload } from "./components/kup-typography/kup-typography-declarations";
 export { KupTypographyListClickEventPayload, KupTypographyListIconClickEventPayload } from "./components/kup-typography-list/kup-typography-list-declarations";
 export namespace Components {
     interface KupAccordion {
@@ -5533,7 +5535,7 @@ declare global {
         "kup-tabbar-click": KupTabBarEventPayload;
         "kup-tabbar-iconclick": KupTabBarEventPayload;
         "kup-tabbar-focus": KupTabBarEventPayload;
-        "kup-tabbar-itemclick": KupTabbarItemClickEventPayload;
+        "kup-tabbar-itemclick": KupToolbarItemClickEventPayload;
     }
     interface HTMLKupTabBarElement extends Components.KupTabBar, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupTabBarElementEventMap>(type: K, listener: (this: HTMLKupTabBarElement, ev: KupTabBarCustomEvent<HTMLKupTabBarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5660,7 +5662,7 @@ declare global {
     interface HTMLKupTypographyElementEventMap {
         "kup-typography-icon-click": KupTypographyIconClickEventPayload;
         "kup-typography-click": KupTypographyClickEventPayload;
-        "kup-typography-itemclick": KupTypographyItemClickEventPayload;
+        "kup-typography-itemclick": KupToolbarItemClickEventPayload;
     }
     interface HTMLKupTypographyElement extends Components.KupTypography, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupTypographyElementEventMap>(type: K, listener: (this: HTMLKupTypographyElement, ev: KupTypographyCustomEvent<HTMLKupTypographyElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -8843,7 +8845,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when a list item is clicked.
          */
-        "onKup-tabbar-itemclick"?: (event: KupTabBarCustomEvent<KupTabbarItemClickEventPayload>) => void;
+        "onKup-tabbar-itemclick"?: (event: KupTabBarCustomEvent<KupToolbarItemClickEventPayload>) => void;
         /**
           * When enabled displays Material's ripple effect on item headers.
           * @default true
@@ -9376,7 +9378,7 @@ declare namespace LocalJSX {
         "customStyle"?: string;
         "onKup-typography-click"?: (event: KupTypographyCustomEvent<KupTypographyClickEventPayload>) => void;
         "onKup-typography-icon-click"?: (event: KupTypographyCustomEvent<KupTypographyIconClickEventPayload>) => void;
-        "onKup-typography-itemclick"?: (event: KupTypographyCustomEvent<KupTypographyItemClickEventPayload>) => void;
+        "onKup-typography-itemclick"?: (event: KupTypographyCustomEvent<KupToolbarItemClickEventPayload>) => void;
         /**
           * Manage the toolbar icon. If true is visible, otherwise is not
           * @default null
