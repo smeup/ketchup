@@ -4436,11 +4436,6 @@ export namespace Components {
           * @default FTypographyType.BODY_COMPACT
          */
         "type": FTypographyType;
-        /**
-          * This is the context of the text
-          * @default null
-         */
-        "value": string;
     }
     interface KupVerticalScroll {
         "ganttFullHeight": number;
@@ -9424,11 +9419,6 @@ declare namespace LocalJSX {
           * @default FTypographyType.BODY_COMPACT
          */
         "type"?: FTypographyType;
-        /**
-          * This is the context of the text
-          * @default null
-         */
-        "value"?: string;
     }
     interface KupVerticalScroll {
         "ganttFullHeight"?: number;

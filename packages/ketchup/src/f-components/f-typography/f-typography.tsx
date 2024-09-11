@@ -1,6 +1,4 @@
-import { FunctionalComponent, h, VNode } from '@stencil/core';
-import { FImage } from '../f-image/f-image';
-import { FImageProps } from '../f-image/f-image-declarations';
+import { FunctionalComponent, h } from '@stencil/core';
 import { FTypographyProps, FTypographyType } from './f-typography-declarations';
 
 /*-------------------------------------------------*/

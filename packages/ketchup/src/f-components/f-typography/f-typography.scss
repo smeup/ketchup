@@ -2,13 +2,46 @@
   &.f-typography--body {
     @include kup-body-01;
   }
-  &.f-typography--heading-01 {
+  &.f-typography--body-compact-01 {
+    @include kup-body-compact-01;
+  }
+  &.f-typography--heading-compact-01 {
     @include kup-heading-compact-01;
+  }
+  &.f-typography--heading-01 {
+    @include kup-heading-01;
   }
   &.f-typography--heading-02 {
     @include kup-heading-02;
   }
+  &.f-typography--heading-03 {
+    @include kup-heading-03;
+  }
+  &.f-typography--heading-04 {
+    @include kup-heading-04;
+  }
+  &.f-typography--heading-05 {
+    @include kup-heading-05;
+  }
+  &.f-typography--heading-06 {
+    @include kup-heading-06;
+  }
+  &.f-typography--heading-07 {
+    @include kup-heading-07;
+  }
+  &.f-typography--heading-08 {
+    @include kup-heading-08;
+  }
   &.f-typography--code {
     @include kup-code-01;
+  }
+  &.f-typography--label {
+    @include kup-label-01;
+  }
+  &.f-typography--caption-01 {
+    @include kup-caption-01;
+  }
+  &.f-typography--caption-02 {
+    @include kup-caption-02;
   }
 }

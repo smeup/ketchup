@@ -66,12 +66,6 @@ export class KupTypographyList {
     @Prop() type: FTypographyType = FTypographyType.BODY_COMPACT;
 
     /**
-     * This is the context of the text
-     * @default null
-     */
-    @Prop() value: string = null;
-
-    /**
      * Manage the toolbar icon. If true is visible, otherwise is not
      * @default null
      */

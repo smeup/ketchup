@@ -253,6 +253,7 @@ export class KupTypography {
         const props: FTypographyProps = {
             toolbar: this.toolbar,
             value: this.value,
+            type: this.type,
         };
 
         const propsFImage: FImageProps = {
