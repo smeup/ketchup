@@ -18,11 +18,11 @@
 
 ## Events
 
-| Event                       | Description | Type                                              |
-| --------------------------- | ----------- | ------------------------------------------------- |
-| `kup-typography-click`      |             | `CustomEvent<KupTypographyClickEventPayload>`     |
-| `kup-typography-icon-click` |             | `CustomEvent<KupTypographyIconClickEventPayload>` |
-| `kup-typography-itemclick`  |             | `CustomEvent<KupToolbarItemClickEventPayload>`    |
+| Event                      | Description | Type                                              |
+| -------------------------- | ----------- | ------------------------------------------------- |
+| `kup-typography-click`     |             | `CustomEvent<KupTypographyClickEventPayload>`     |
+| `kup-typography-iconclick` |             | `CustomEvent<KupTypographyIconClickEventPayload>` |
+| `kup-typography-itemclick` |             | `CustomEvent<KupToolbarItemClickEventPayload>`    |
 
 
 ## Methods

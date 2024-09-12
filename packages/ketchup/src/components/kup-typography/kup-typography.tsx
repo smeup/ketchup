@@ -99,7 +99,7 @@ export class KupTypography {
     /*-------------------------------------------------*/
 
     @Event({
-        eventName: 'kup-typography-icon-click',
+        eventName: 'kup-typography-iconclick',
         composed: true,
         cancelable: false,
         bubbles: true,
