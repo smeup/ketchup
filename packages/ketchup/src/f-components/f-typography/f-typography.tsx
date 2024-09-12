@@ -21,11 +21,10 @@ export const FTypography: FunctionalComponent<FTypographyProps> = (
     };
     return (
         <span
+            {...props.dataSet}
             onClick={() => props.onClick}
             class={classObj}
-            {...props.dataSet}
             id={props.id}
-            title={props.title}
         >
             {props.value}
         </span>

@@ -5655,7 +5655,7 @@ declare global {
         new (): HTMLKupTreeElement;
     };
     interface HTMLKupTypographyElementEventMap {
-        "kup-typography-icon-click": KupTypographyIconClickEventPayload;
+        "kup-typography-iconclick": KupTypographyIconClickEventPayload;
         "kup-typography-click": KupTypographyClickEventPayload;
         "kup-typography-itemclick": KupToolbarItemClickEventPayload;
     }
@@ -9372,7 +9372,7 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         "onKup-typography-click"?: (event: KupTypographyCustomEvent<KupTypographyClickEventPayload>) => void;
-        "onKup-typography-icon-click"?: (event: KupTypographyCustomEvent<KupTypographyIconClickEventPayload>) => void;
+        "onKup-typography-iconclick"?: (event: KupTypographyCustomEvent<KupTypographyIconClickEventPayload>) => void;
         "onKup-typography-itemclick"?: (event: KupTypographyCustomEvent<KupToolbarItemClickEventPayload>) => void;
         /**
           * Manage the toolbar icon. If true is visible, otherwise is not
