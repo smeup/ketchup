@@ -80,6 +80,18 @@
     var(--kup-text-primary)
   );
   --kup_card_text_color: var(--kup-card-text-color, var(--kup-text-secondary));
+  --kup_fcell_padding_dense: var(
+    --kup-fcell-padding-dense,
+    var(--kup-space-01) var(--kup-space-03)
+  );
+  --kup_fcell_padding_medium: var(
+    --kup-fcell-padding-medium,
+    var(--kup-space-02) var(--kup-space-03)
+  );
+  --kup_fcell_padding_wide: var(
+    --kup-fcell-padding-wide,
+    var(--kup-space-04) var(--kup-space-03)
+  );
 
   display: block;
   font-family: var(--kup_datatable_font_family);
@@ -247,13 +259,29 @@ table {
 
 .density- {
   &dense {
+    .header-cell__content {
+      padding: var(--kup-fcell-padding-dense, var(--kup_fcell_padding_dense));
+    }
     tbody > tr.group td {
       padding-top: 0.25em;
       padding-bottom: 0.25em;
     }
   }
 
+  &medium {
+    .header-cell__content {
+      padding: var(--kup-fcell-padding-medium, var(--kup_fcell_padding_medium));
+    }
+    tbody > tr.group > td {
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+    }
+  }
+
   &wide {
+    .header-cell__content {
+      padding: var(--kup-fcell-padding-wide, var(--kup_fcell_padding_wide));
+    }
     tbody > tr.group > td {
       padding-top: 0.75em;
       padding-bottom: 0.75em;
