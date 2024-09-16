@@ -67,11 +67,12 @@ export default {
           try: 'field',
         },
         {
-          prop: 'sortOrder',
-          description: 'Order for sorting',
-          type: 'KupDatesOrder',
-          default: 'desc',
-          try: 'field',
+          prop: 'sort',
+          description: 'Defines the current sorting options',
+          type: 'SortObject',
+          isArray: true,
+          default: '[]',
+          try: 'json',
         },
         {
           prop: 'timeColumn',
