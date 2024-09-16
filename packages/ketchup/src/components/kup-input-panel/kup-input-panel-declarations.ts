@@ -52,15 +52,22 @@ export interface KupInputPanelCellOptions {
 }
 
 export interface KupInputPanelLayout {
+    type: KupInputPanelLayoutType;
     horizontal?: boolean;
-    sections?: KupInputPanelLayoutSection[];
+    sections?:
+        | KupInputPanelLayoutSection[]
+        | KupInputPanelLayoutAbsoluteSection[];
     sectionsType?: KupInputPanelLayoutSectionType;
+}
+
+export enum KupInputPanelLayoutType {
+    GRID = 'SmeupDataLayout',
+    ABSOLUTE = 'SmeupDataLayoutAbsolute',
 }
 
 export enum KupInputPanelLayoutSectionType {
     TAB = 'tab',
 }
-
 export interface KupInputPanelLayoutSection {
     id?: string;
     title?: string;
@@ -76,6 +83,12 @@ export interface KupInputPanelLayoutSection {
     sectionsType?: KupInputPanelLayoutSectionType;
 }
 
+export interface KupInputPanelLayoutAbsoluteSection {
+    attributes: KupInputPanelLayoutAbsoluteSectionAttributes;
+    fields: KupInputPanelLayoutAbsoluteFields[];
+    sections?: KupInputPanelLayoutAbsoluteSection[];
+}
+
 export interface KupInputPanelLayoutField {
     id: string;
     // Span is referred to start
@@ -86,6 +99,28 @@ export interface KupInputPanelLayoutField {
     rowSpan?: number;
     rowStart?: number;
     rowEnd?: number;
+}
+
+export interface KupInputPanelLayoutAbsoluteFields {
+    attributes: KupInputPanelLayoutAbsoluteFieldsAttributes;
+}
+
+export interface KupInputPanelLayoutAbsoluteSectionAttributes {
+    Col: string;
+    Wid: string;
+    Left: string;
+    Pos: string;
+    Dim: string;
+    Nam: string;
+    Row: string;
+    Hei: string;
+}
+
+export interface KupInputPanelLayoutAbsoluteFieldsAttributes {
+    Col: string;
+    Lun: string;
+    Nam: string;
+    Row: string;
 }
 
 export type DataAdapterFn = (

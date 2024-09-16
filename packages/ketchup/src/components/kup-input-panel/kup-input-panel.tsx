@@ -53,9 +53,11 @@ import {
     KupInputPanelCell,
     KupInputPanelColumn,
     KupInputPanelData,
+    KupInputPanelLayout,
     KupInputPanelLayoutField,
     KupInputPanelLayoutSection,
     KupInputPanelLayoutSectionType,
+    KupInputPanelLayoutType,
     KupInputPanelProps,
     KupInputPanelRow,
     KupInputPanelSubmit,
@@ -180,6 +182,16 @@ export class KupInputPanel {
         [FCellShapes.LABEL, this.#renderLabel.bind(this)],
         [FCellShapes.TABLE, this.#renderDataTable.bind(this)],
     ]);
+    #layoutRender: Map<
+        KupInputPanelLayoutType,
+        (inputPanelCell: InputPanelCells, layout: KupInputPanelLayout) => any
+    > = new Map<KupInputPanelLayoutType, () => any>([
+        [KupInputPanelLayoutType.GRID, this.#renderGridLayout.bind(this)],
+        [
+            KupInputPanelLayoutType.ABSOLUTE,
+            this.#renderAbsoluteLayout.bind(this),
+        ],
+    ]);
     #sectionRenderMap: Map<
         KupInputPanelLayoutSectionType,
         (cells: InputPanelCells, sections: KupInputPanelLayoutSection[]) => any
@@ -283,6 +295,7 @@ export class KupInputPanel {
 
     #renderRow(inputPanelCell: InputPanelCells) {
         const layout = inputPanelCell.row.layout;
+
         const horizontal = layout?.horizontal || false;
 
         let rowContent: VNode[];
@@ -292,15 +305,8 @@ export class KupInputPanel {
                 this.#renderCell(cell.cell, inputPanelCell.row, cell.column)
             );
         } else {
-            const sectionRender = this.#sectionRenderMap.get(
-                layout.sectionsType
-            );
-
-            rowContent = sectionRender
-                ? sectionRender(inputPanelCell, layout.sections)
-                : layout.sections.map((section) =>
-                      this.#renderSection(inputPanelCell, section)
-                  );
+            const layoutRender = this.#layoutRender.get(layout.type);
+            rowContent = layoutRender(inputPanelCell, layout);
         }
 
         const classObj = {
@@ -460,6 +466,21 @@ export class KupInputPanel {
 
         return null;
     }
+
+    #renderGridLayout(
+        inputPanelCell: InputPanelCells,
+        layout: KupInputPanelLayout
+    ) {
+        const sectionRender = this.#sectionRenderMap.get(layout.sectionsType);
+
+        return sectionRender
+            ? sectionRender(inputPanelCell, layout.sections)
+            : layout.sections.map((section) =>
+                  this.#renderSection(inputPanelCell, section)
+              );
+    }
+
+    #renderAbsoluteLayout() {}
 
     #renderSection(
         cells: InputPanelCells,
