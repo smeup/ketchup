@@ -510,7 +510,6 @@ export class KupImageList {
     render() {
         const hasNavigation = !!this.currentNode;
         let gridColumnsStyle: { [key: string]: string } = {};
-
         if (this.columns) {
             if (typeof this.columns === 'number') {
                 gridColumnsStyle[
@@ -519,18 +518,18 @@ export class KupImageList {
             } else if (this.columns.length === 1) {
                 gridColumnsStyle[
                     'grid-template-columns'
-                ] = `repeat(${this.columns[0]}, minmax(0px, 1fr))`;
+                ] = `repeat(${this.columns[0].value}, minmax(0px, 1fr))`;
             } else if (this.columns.length === 2) {
                 gridColumnsStyle = {
-                    '--kup-imagelist-columns-mobile': `${this.columns[0]}`,
-                    '--kup-imagelist-columns-tablet': `${this.columns[0]}`,
-                    '--kup-imagelist-columns-desktop': `${this.columns[1]}`,
+                    '--kup-imagelist-columns-mobile': `${this.columns[0].value}`,
+                    '--kup-imagelist-columns-tablet': `${this.columns[0].value}`,
+                    '--kup-imagelist-columns-desktop': `${this.columns[1].value}`,
                 };
             } else if (this.columns.length === 3) {
                 gridColumnsStyle = {
-                    '--kup-imagelist-columns-mobile': `${this.columns[0]}`,
-                    '--kup-imagelist-columns-tablet': `${this.columns[1]}`,
-                    '--kup-imagelist-columns-desktop': `${this.columns[2]}`,
+                    '--kup-imagelist-columns-mobile': `${this.columns[0].value}`,
+                    '--kup-imagelist-columns-tablet': `${this.columns[1].value}`,
+                    '--kup-imagelist-columns-desktop': `${this.columns[2].value}`,
                 };
             }
         }
