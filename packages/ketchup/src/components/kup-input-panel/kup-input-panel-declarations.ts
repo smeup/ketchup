@@ -85,7 +85,7 @@ export interface KupInputPanelLayoutSection {
 
 export interface KupInputPanelLayoutAbsoluteSection {
     attributes: KupInputPanelLayoutAbsoluteSectionAttributes;
-    fields: KupInputPanelLayoutAbsoluteFields[];
+    fields: KupInputPanelLayoutAbsoluteField[];
     sections?: KupInputPanelLayoutAbsoluteSection[];
 }
 
@@ -101,7 +101,7 @@ export interface KupInputPanelLayoutField {
     rowEnd?: number;
 }
 
-export interface KupInputPanelLayoutAbsoluteFields {
+export interface KupInputPanelLayoutAbsoluteField {
     attributes: KupInputPanelLayoutAbsoluteFieldsAttributes;
 }
 
