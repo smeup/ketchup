@@ -68,8 +68,9 @@ export class KupInteract {
         >
     ) {
         interact.dynamicDrop(true);
-        const tolerance = this.isMobileDevice() ? 100 : 0; // Set tolerance based on device
-        interact.pointerMoveTolerance(tolerance);
+        if (this.isMobileDevice()) {
+            interact.pointerMoveTolerance(100);
+        }
         this.container = document.createElement('div');
         this.container.setAttribute('kup-interact', '');
         this.modalBackdrop = document.createElement('div');

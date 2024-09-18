@@ -154,6 +154,7 @@ Type: `Promise<void>`
  - [kup-tab-bar](../kup-tab-bar)
  - [kup-time-picker](../kup-time-picker)
  - [kup-tree](../kup-tree)
+ - [kup-typography](../kup-typography)
 
 ### Depends on
 
@@ -238,6 +239,7 @@ graph TD;
   kup-form --> kup-badge
   kup-tab-bar --> kup-list
   kup-tree --> kup-list
+  kup-typography --> kup-list
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -16,13 +16,11 @@ export interface KupActivityTimelineData {
 }
 
 export interface KupActivityTimelineActivity {
-    time: string;
     columns: KupActivityTimelineData[];
 }
 
 export interface KupActivityTimelineDatapoint {
     date: string;
-    time: string;
     activities: KupActivityTimelineActivity[];
 }
 

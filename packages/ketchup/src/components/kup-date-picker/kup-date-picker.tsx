@@ -43,6 +43,7 @@ import {
     KupCardData,
     KupCardFamily,
 } from '../kup-card/kup-card-declarations';
+import { getProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-date-picker',
@@ -345,22 +346,7 @@ export class KupDatePicker {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupDatePickerProps;
-        } else {
-            for (const key in KupDatePickerProps) {
-                if (
-                    Object.prototype.hasOwnProperty.call(
-                        KupDatePickerProps,
-                        key
-                    )
-                ) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupDatePickerProps, descriptions);
     }
     /**
      * This method is used to trigger a new render of the component.

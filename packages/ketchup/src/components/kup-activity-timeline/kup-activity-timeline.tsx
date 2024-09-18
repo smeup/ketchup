@@ -34,7 +34,8 @@ import {
 } from './kup-activity-timeline-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { getCellValueForDisplay } from '../../utils/cell-utils';
-import { KupDatesOrder } from '../../managers/kup-dates/kup-dates-declarations';
+import { SortObject } from '../kup-data-table/kup-data-table-declarations';
+import { sortRows } from '../kup-data-table/kup-data-table-helper';
 
 @Component({
     tag: 'kup-activity-timeline',
@@ -71,10 +72,9 @@ export class KupActivityTimeline {
     @Prop() dateColumn: string;
 
     /**
-     *  Order for sorting.
-     * @default 'desc'
+     * Defines the current sorting options.
      */
-    @Prop() sortOrder: KupDatesOrder = KupDatesOrder.DESC;
+    @Prop() sort: Array<SortObject> = [];
 
     /**
      *  Columns containing times.
@@ -158,81 +158,48 @@ export class KupActivityTimeline {
     /*-------------------------------------------------*/
 
     #toTimeline(data: KupDataDataset): KupActivityTimelineDatapoint[] {
-        const columns = data.columns;
-        const rows = data.rows;
-
+        const { columns, rows } = data;
         const dateColumn = columns.find((col) => col.name === this.dateColumn);
         const timeColumn = columns.find((col) => col.name === this.timeColumn);
 
-        if (!dateColumn || !timeColumn) {
-            return [];
-        }
+        if (!dateColumn || !timeColumn) return [];
 
-        const getColumnValue = (
-            columnName: string,
-            value: string,
-            date: string,
-            time: string
-        ) => {
-            if (columnName == dateColumn.name) return date;
-            if (columnName == timeColumn.name) return time;
-            return value;
-        };
+        const activitiesByDate = sortRows(rows, this.sort).reduce(
+            (acc, row) => {
+                const date = getCellValueForDisplay(
+                    dateColumn,
+                    row.cells[dateColumn.name]
+                );
+                const time = getCellValueForDisplay(
+                    timeColumn,
+                    row.cells[timeColumn.name]
+                );
+                const key = `${date} ${time}`;
 
-        const activitiesByDate = rows.reduce((acc, row) => {
-            const date = getCellValueForDisplay(
-                dateColumn,
-                row.cells[dateColumn.name]
-            );
-            const time = getCellValueForDisplay(
-                timeColumn,
-                row.cells[timeColumn.name]
-            );
+                acc[key] = acc[key] || [];
+                acc[key].push({
+                    columns: columns
+                        .filter((col) => col.visible !== false)
+                        .map((col) => ({
+                            title: col.title,
+                            value: getCellValueForDisplay(
+                                col,
+                                row.cells[col.name]
+                            ),
+                            columnName: col.name,
+                            rowId: row.id,
+                        })),
+                } as KupActivityTimelineActivity);
 
-            if (!acc[date]) {
-                acc[date] = [];
-            }
+                return acc;
+            },
+            {}
+        );
 
-            acc[date].push({
-                time,
-                columns: columns
-                    .filter(
-                        (column) => column.visible || column.visible !== false
-                    )
-                    .map((column) => ({
-                        title: column.title,
-                        value: getColumnValue(
-                            column.name,
-                            row.cells[column.name]!.value,
-                            date,
-                            time
-                        ),
-                        columnName: column.name,
-                        rowId: row.id,
-                    })),
-            } as KupActivityTimelineActivity);
-
-            return acc;
-        }, {});
-
-        return Object.keys(activitiesByDate)
-            .sort((date1, date2) =>
-                this.#kupManager.dates.sortDates(date1, date2, this.sortOrder)
-            )
-            .map((date) => ({
-                date,
-                time: activitiesByDate[date][0]!.time,
-                activities: activitiesByDate[date].sort(
-                    (
-                        acc: KupActivityTimelineActivity,
-                        activity: KupActivityTimelineActivity
-                    ) =>
-                        this.#kupManager.dates.sortTimes(
-                            acc.time,
-                            activity.time
-                        )
-                ),
-            }));
+        return Object.entries(activitiesByDate).map(([date, activities]) => ({
+            date,
+            activities,
+        }));
     }
 
     getActivity(activityData: KupActivityTimelineData) {
@@ -362,11 +329,7 @@ export class KupActivityTimeline {
                                         <div class="atm-content">
                                             <div>
                                                 <h3>
-                                                    <span>
-                                                        {timeline.date}{' '}
-                                                        {timeline.time}
-                                                    </span>
-                                                    <span></span>
+                                                    <span>{timeline.date}</span>
                                                 </h3>
                                             </div>
                                             {timeline.activities.map(

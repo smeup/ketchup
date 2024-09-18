@@ -107,6 +107,8 @@ export const config: Config = {
                 { src: 'snackbar.html' },
                 { src: 'tab-bar.html' },
                 { src: 'time-picker.html' },
+                { src: 'typography.html' },
+                { src: 'typography-list.html' },
                 { src: 'text-field.html' },
                 { src: 'tree-performance.html' },
                 { src: 'tree.html' },
@@ -126,6 +128,9 @@ export const config: Config = {
             type: 'dist-custom-elements',
         },
     ],
+    extras: {
+        enableImportInjection: true,
+    },
     plugins: [
         sass({
             includePaths: ['./node_modules', './src/f-components'],

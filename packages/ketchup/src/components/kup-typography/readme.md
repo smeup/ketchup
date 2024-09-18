@@ -1,29 +1,28 @@
-# kup-tab-bar
+# kup-typography
+
+
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property      | Attribute      | Description                                                     | Type              | Default     |
-| ------------- | -------------- | --------------------------------------------------------------- | ----------------- | ----------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`          | `''`        |
-| `data`        | --             | List of elements.                                               | `KupTabBarNode[]` | `null`      |
-| `dense`       | `dense`        | Defaults at false. When set to true, the component is dense.    | `boolean`         | `false`     |
-| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`         | `false`     |
-| `toolbar`     | `toolbar`      | When enabled displays toolbar item inside each single tab.      | `boolean`         | `true`      |
-| `toolbarData` | --             | Display DataNode Toolbar.                                       | `KupDataNode[]`   | `undefined` |
+| Property      | Attribute      | Description                                                   | Type                                                                                                                                                                                                                   | Default                        |
+| ------------- | -------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `customStyle` | `custom-style` | Custom style of the component.                                | `string`                                                                                                                                                                                                               | `''`                           |
+| `toolbar`     | `toolbar`      | Manage the toolbar icon. If true is visible, otherwise is not | `boolean`                                                                                                                                                                                                              | `true`                         |
+| `toolbarData` | --             | Display DataNode Toolbar.                                     | `KupDataNode[]`                                                                                                                                                                                                        | `undefined`                    |
+| `type`        | `type`         | Sets the sizing of the textfield                              | `FTypographyType.BODY \| FTypographyType.BODY_COMPACT \| FTypographyType.CAPTION \| FTypographyType.CODE \| FTypographyType.HEADING1 \| FTypographyType.HEADING2 \| FTypographyType.HEADING3 \| FTypographyType.LABEL` | `FTypographyType.BODY_COMPACT` |
+| `value`       | `value`        | This is the content of the text                               | `string`                                                                                                                                                                                                               | `null`                         |
 
 
 ## Events
 
-| Event                  | Description                                    | Type                                           |
-| ---------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| `kup-tabbar-blur`      | Triggered when the tab loses focus.            | `CustomEvent<KupTabBarEventPayload>`           |
-| `kup-tabbar-click`     | Triggered when the tab is clicked.             | `CustomEvent<KupTabBarEventPayload>`           |
-| `kup-tabbar-focus`     | Triggered when the tab is focused.             | `CustomEvent<KupTabBarEventPayload>`           |
-| `kup-tabbar-iconclick` | Triggered when the icon inside tab is clicked. | `CustomEvent<KupTabBarEventPayload>`           |
-| `kup-tabbar-itemclick` | Triggered when a list item is clicked.         | `CustomEvent<KupToolbarItemClickEventPayload>` |
+| Event                      | Description | Type                                              |
+| -------------------------- | ----------- | ------------------------------------------------- |
+| `kup-typography-click`     |             | `CustomEvent<KupTypographyClickEventPayload>`     |
+| `kup-typography-iconclick` |             | `CustomEvent<KupTypographyIconClickEventPayload>` |
+| `kup-typography-itemclick` |             | `CustomEvent<KupToolbarItemClickEventPayload>`    |
 
 
 ## Methods
@@ -43,16 +42,6 @@ Used to retrieve component's props values.
 Type: `Promise<GenericObject>`
 
 List of props as object, each key will be a prop.
-
-### `getSelectedNode() => Promise<KupTabBarNode>`
-
-Returns the selected node.
-
-#### Returns
-
-Type: `Promise<KupTabBarNode>`
-
-Selected node.
 
 ### `refresh() => Promise<void>`
 
@@ -81,25 +70,7 @@ Type: `Promise<void>`
 
 
 
-## CSS Custom Properties
-
-| Name                             | Description                                                        |
-| -------------------------------- | ------------------------------------------------------------------ |
-| `--kup-tabbar-font-family`       | Sets font family of the component.                                 |
-| `--kup-tabbar-font-size`         | Sets font size of the component.                                   |
-| `--kup-tabbar-font-weight`       | Sets font weight of the component.                                 |
-| `--kup-tabbar-height`            | Sets height of the component.                                      |
-| `--kup-tabbar-primary-color`     | Sets primary color of the component.                               |
-| `--kup-tabbar-primary-color-rgb` | Sets primary color RGB values of the component (used for shaders). |
-| `--kup-tabbar-tab-padding`       | Sets padding of each tab.                                          |
-
-
 ## Dependencies
-
-### Used by
-
- - [kup-card](../kup-card)
- - [kup-input-panel](../kup-input-panel)
 
 ### Depends on
 
@@ -111,10 +82,10 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
-  kup-tab-bar --> kup-list
-  kup-tab-bar --> kup-card
-  kup-tab-bar --> kup-dialog
-  kup-tab-bar --> kup-badge
+  kup-typography --> kup-list
+  kup-typography --> kup-card
+  kup-typography --> kup-dialog
+  kup-typography --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-card
@@ -122,7 +93,31 @@ graph TD;
   kup-list --> kup-badge
   kup-radio --> kup-card
   kup-radio --> kup-dialog
+  kup-card --> kup-autocomplete
+  kup-card --> kup-chip
+  kup-card --> kup-text-field
+  kup-card --> kup-color-picker
+  kup-card --> kup-combobox
+  kup-card --> kup-date-picker
+  kup-card --> kup-rating
+  kup-card --> kup-time-picker
+  kup-card --> kup-image
+  kup-card --> kup-button-list
+  kup-card --> kup-chart
+  kup-card --> kup-gauge
+  kup-card --> kup-progress-bar
+  kup-card --> kup-badge
+  kup-card --> kup-card
+  kup-card --> kup-dialog
+  kup-card --> kup-button
+  kup-card --> kup-list
+  kup-card --> kup-spinner
+  kup-card --> kup-checkbox
+  kup-card --> kup-data-table
   kup-card --> kup-tab-bar
+  kup-card --> kup-tree
+  kup-card --> kup-switch
+  kup-card --> kup-dropdown-button
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
@@ -222,6 +217,10 @@ graph TD;
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
+  kup-tab-bar --> kup-list
+  kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-dialog
+  kup-tab-bar --> kup-badge
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field
@@ -239,8 +238,7 @@ graph TD;
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
-  kup-input-panel --> kup-tab-bar
-  style kup-tab-bar fill:#f9f,stroke:#333,stroke-width:4px
+  style kup-typography fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

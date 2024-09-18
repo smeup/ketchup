@@ -219,15 +219,6 @@ export class KupInputPanel {
 
     @Watch('data')
     onDataChanged() {
-        if (this.data.actions?.length && this.data.actions[0].fun) {
-            this.customButtonClickHandler({
-                fun: this.data.actions[0].fun,
-                cellId: null,
-                currentState: null,
-            });
-            return;
-        }
-
         this.#originalData = structuredClone(this.data);
 
         if (this.#listeners.length) {

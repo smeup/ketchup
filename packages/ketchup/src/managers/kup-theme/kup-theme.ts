@@ -19,6 +19,7 @@ import * as fRadioCSS from '../../f-components/f-radio/f-radio.css';
 import * as fRatingCSS from '../../f-components/f-rating/f-rating.css';
 import * as fSwitchCSS from '../../f-components/f-switch/f-switch.css';
 import * as fTextFieldCSS from '../../f-components/f-text-field/f-text-field.css';
+import * as FTypographyCSS from '../../f-components/f-typography/f-typography.css';
 import * as rippleCSS from './mdc-ripple.css';
 import {
     editorUsers,
@@ -32,6 +33,7 @@ import {
     fRadioUsers,
     fRatingUsers,
     fSwitchUsers,
+    fTypographyUsers,
     fTextFieldUsers,
     KupThemeColor,
     KupThemeCSSVariables,
@@ -43,6 +45,7 @@ import {
     rippleUsers,
 } from './kup-theme-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
+import { FTypography } from '../../f-components/f-typography/f-typography';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -286,6 +289,9 @@ export class KupTheme {
             }
             if (fSwitchUsers.includes(tagName)) {
                 completeStyle += fSwitchCSS['default'];
+            }
+            if (fTypographyUsers.includes(tagName)) {
+                completeStyle += FTypographyCSS['default'];
             }
             if (fTextFieldUsers.includes(tagName)) {
                 completeStyle += fTextFieldCSS['default'];

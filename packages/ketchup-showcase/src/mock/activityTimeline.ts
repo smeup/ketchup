@@ -14408,7 +14408,16 @@ const defaultData = {
 
 export const mockedProps = {
   dateColumn: 'XXDATA',
-  sortOrder: 'desc',
+  sort: [
+    {
+      column: 'XXDATA',
+      sortMode: 'A',
+    },
+    {
+      column: 'XXORA',
+      sortMode: 'D',
+    },
+  ],
   timeColumn: 'XXORA',
   data: defaultData,
 };
