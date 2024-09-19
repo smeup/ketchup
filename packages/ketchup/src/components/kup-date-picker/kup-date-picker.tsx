@@ -393,7 +393,7 @@ export class KupDatePicker {
                 dateFormat === 'DD/MM/YYYY'
                     ? this.kupManager.dates.parseAndValidateDate(newValue)
                     : this.kupManager.dates.parseAndValidateDateEn(newValue);
-            if (this.kupManager.dates.isValid(eventDetailValue) && parsedDate) {
+            if (this.kupManager.dates.isValid(eventDetailValue, parsedDate?.dateFormat) && parsedDate) {
                 newValue = this.kupManager.dates.format(
                     this.kupManager.dates.normalize(
                         eventDetailValue,
@@ -419,77 +419,6 @@ export class KupDatePicker {
             }
         }
     }
-
-    // parseAndValidateDateEn(input: string) {
-    //     const cleanedInput = input.replace(/[^0-9]/g, '');
-    //     let day: string, month: string, year: string;
-    //     let dateFormat:
-    //         | 'MMDDYYYY'
-    //         | 'MMDDYY'
-    //         | 'MM/DD/YYYY'
-    //         | 'MM/DD/YY'
-    //         | 'MM-DD-YYYY'
-    //         | 'MM-DD-YY'
-    //         | null = null;
-
-    //     if (cleanedInput.length === 8) {
-    //         month = cleanedInput.slice(0, 2);
-    //         day = cleanedInput.slice(2, 4);
-    //         year = cleanedInput.slice(4, 8);
-    //         dateFormat = 'MMDDYYYY';
-    //     } else if (cleanedInput.length === 6) {
-    //         month = cleanedInput.slice(0, 2);
-    //         day = cleanedInput.slice(2, 4);
-    //         year = cleanedInput.slice(4, 6);
-    //         year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
-    //         dateFormat = 'MMDDYY';
-    //     } else if (input.includes('/')) {
-    //         const parts = input.split('/');
-    //         if (parts.length !== 3) return null;
-
-    //         month = parts[0];
-    //         day = parts[1];
-    //         year = parts[2];
-    //         if (year && year.length === 2) {
-    //             year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
-    //             dateFormat = 'MM/DD/YY';
-    //         } else if (year && year.length === 4) {
-    //             dateFormat = 'MM/DD/YYYY';
-    //         } else {
-    //             return null;
-    //         }
-    //     } else if (input.includes('-')) {
-    //         const parts = input.split('-');
-    //         if (parts.length !== 3) return null;
-
-    //         month = parts[0];
-    //         day = parts[1];
-    //         year = parts[2];
-    //         if (year && year.length === 2) {
-    //             year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
-    //             dateFormat = 'MM-DD-YY';
-    //         } else if (year && year.length === 4) {
-    //             dateFormat = 'MM-DD-YYYY';
-    //         } else {
-    //             return null;
-    //         }
-    //     } else {
-    //         return null;
-    //     }
-
-    //     const dayNumber = parseInt(day, 10);
-    //     const monthNumber = parseInt(month, 10);
-    //     if (
-    //         dayNumber < 1 ||
-    //         dayNumber > 31 ||
-    //         monthNumber < 1 ||
-    //         monthNumber > 12
-    //     ) {
-    //         return null;
-    //     }
-
-    //     return { day, month, year, dateFormat };
-    // }
 
     refreshPickerComponentValue(value: string) {
         if (!this.isPickerOpened()) {
