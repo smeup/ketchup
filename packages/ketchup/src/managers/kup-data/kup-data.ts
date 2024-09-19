@@ -198,6 +198,41 @@ export class KupData {
                     cell.value.obj.t === VoCodVerRowEnum.T
             );
         },
+        buildCellActions: (
+            row: KupDataRow,
+            column: KupDataColumn,
+            actions: KupDataRowAction[],
+            commands: KupCommand[]
+        ): KupDataRowAction[] => {
+            const currentCell = row.cells[column.name];
+
+            let cellActions = [];
+
+            if (
+                !currentCell.obj.k &&
+                !currentCell.obj.t &&
+                !currentCell.obj.p
+            ) {
+                const commandsWithEmptyObj = commands.length
+                    ? commands
+                          .filter((c) => !c.obj.k && !c.obj.t && !c.obj.p)
+                          .map(
+                              (c, index) =>
+                                  ({
+                                      text: c.text || '',
+                                      icon: c.icon || '',
+                                      obj: c.obj,
+                                      index: index,
+                                      type: DropDownAction.COMMANDWITHEMPTYOBJ,
+                                  } as KupDataRowAction)
+                          )
+                    : [];
+
+                cellActions = [...commandsWithEmptyObj];
+            }
+
+            return cellActions;
+        },
     };
     column = {
         find(
@@ -320,17 +355,10 @@ export class KupData {
                 commands
             );
 
-            const commandsWithEmptyObj =
-                this.action.createCommandsWithEmptyObj(commands);
-
             const rowActionsWithCodVer =
                 actions && actions.length
-                    ? [
-                          ...this.row.rowActionsAdapter(actions),
-                          ...codVerActions,
-                          ...commandsWithEmptyObj,
-                      ]
-                    : [...codVerActions, ...commandsWithEmptyObj];
+                    ? [...this.row.rowActionsAdapter(actions), ...codVerActions]
+                    : [...codVerActions];
 
             return rowActionsWithCodVer;
         },
