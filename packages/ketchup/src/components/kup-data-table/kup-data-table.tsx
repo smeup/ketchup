@@ -3158,7 +3158,7 @@ export class KupDataTable {
                 this.openColumnMenu(details.column.name);
                 return details;
             }
-        } else if (details.area === 'body') {
+        } else if (details.area === 'body' && details.cell) {
             const cellActions = this.#kupManager.data.cell.buildCellActions(
                 details.row,
                 details.column,
