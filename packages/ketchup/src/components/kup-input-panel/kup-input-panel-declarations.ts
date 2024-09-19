@@ -103,9 +103,6 @@ export interface KupInputPanelLayoutAbsoluteField {
 export interface KupInputPanelLayoutAbsoluteSectionAttributes {
     Col: string;
     Wid: string;
-    Left: string;
-    Pos: string;
-    Dim: string;
     Nam: string;
     Row: string;
     Hei: string;
