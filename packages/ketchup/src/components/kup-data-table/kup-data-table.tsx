@@ -4999,7 +4999,7 @@ export class KupDataTable {
                     } else {
                         const textPopulatedRowActions = rowActions.map(rowAction => ({
                             ...rowAction,
-                            text: rowAction.text || rowAction.column.title 
+                            text: rowAction.text || rowAction.column?.title || rowAction.column?.name
                         }))
 
                         const imageProp: FImageProps =
