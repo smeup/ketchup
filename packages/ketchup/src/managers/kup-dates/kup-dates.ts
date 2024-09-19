@@ -95,8 +95,8 @@ export class KupDates {
      * @returns {Array<KupDatesLocales>} Array of locales' names.
      */
     getLocales(): Array<KupDatesLocales> {
-        const items: Array<KupDatesLocales> = Object.keys(KupDatesLocales)
-            .map((key) => KupDatesLocales[key])
+        const items:Array<KupDatesLocales> = Object.keys(KupDatesLocales)
+            .map((key) => KupDatesLocales[key as keyof typeof KupDatesLocales])
             .filter((value) => typeof value === 'string');
         return items;
     }
