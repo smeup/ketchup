@@ -3162,11 +3162,9 @@ export class KupDataTable {
             const cellActions = this.#kupManager.data.cell.buildCellActions(
                 details.row,
                 details.column,
-                this.rowActions,
                 this.commands ?? []
             );
 
-            
             this.#onRowActionExpanderClick(e, details.row, cellActions);
         } else if (details.area === 'footer') {
             if (details.td && details.column) {

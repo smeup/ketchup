@@ -201,34 +201,34 @@ export class KupData {
         buildCellActions: (
             row: KupDataRow,
             column: KupDataColumn,
-            actions: KupDataRowAction[],
             commands: KupCommand[]
         ): KupDataRowAction[] => {
+            const cellActions: KupDataRowAction[] = [];
             const currentCell = row.cells[column.name];
 
-            let cellActions = [];
+            if (commands) {
+                const commandsFiltered = commands.filter(
+                    (command) => command.obj.k === currentCell.obj.k
+                );
 
-            if (
-                !currentCell.obj.k &&
-                !currentCell.obj.t &&
-                !currentCell.obj.p
-            ) {
-                const commandsWithEmptyObj = commands.length
-                    ? commands
-                          .filter((c) => !c.obj.k && !c.obj.t && !c.obj.p)
-                          .map(
-                              (c, index) =>
-                                  ({
-                                      text: c.text || '',
-                                      icon: c.icon || '',
-                                      obj: c.obj,
-                                      index: index,
-                                      type: DropDownAction.COMMANDWITHEMPTYOBJ,
-                                  } as KupDataRowAction)
-                          )
-                    : [];
+                commandsFiltered.forEach((commandFilter) => {
+                    const index = commands.findIndex(
+                        (command) =>
+                            command.icon === commandFilter.icon &&
+                            command.text === commandFilter.text &&
+                            command.obj.k === commandFilter.obj.k
+                    );
 
-                cellActions = [...commandsWithEmptyObj];
+                    cellActions.push({
+                        icon: commandFilter.icon,
+                        text: commandFilter.text,
+                        obj: commandFilter.obj,
+                        cell: currentCell,
+                        index: index,
+                        type: DropDownAction.ROWACTION,
+                        column: column,
+                    });
+                });
             }
 
             return cellActions;
