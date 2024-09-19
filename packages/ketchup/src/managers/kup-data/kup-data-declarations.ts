@@ -65,7 +65,8 @@ export interface KupDataRowAction {
         | DropDownAction.CODVER
         | DropDownAction.ROWACTION
         | DropDownAction.CODVERWITHCOMMANDS
-        | DropDownAction.COMMANDWITHEMPTYOBJ;
+        | DropDownAction.COMMANDWITHEMPTYOBJ
+        | DropDownAction.CELLACTION;
     index?: number;
     obj?: KupObj;
     cell?: KupDataCell;
@@ -233,4 +234,5 @@ export enum DropDownAction {
     CODVER = 'cod_ver',
     CODVERWITHCOMMANDS = 'cod_ver-with-commands',
     COMMANDWITHEMPTYOBJ = 'command-with-empty-obj',
+    CELLACTION = 'cell-action',
 }

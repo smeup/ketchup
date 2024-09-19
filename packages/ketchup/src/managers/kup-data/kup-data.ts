@@ -225,7 +225,7 @@ export class KupData {
                         obj: commandFilter.obj,
                         cell: currentCell,
                         index: index,
-                        type: DropDownAction.ROWACTION,
+                        type: DropDownAction.CELLACTION,
                         column: column,
                     });
                 });
