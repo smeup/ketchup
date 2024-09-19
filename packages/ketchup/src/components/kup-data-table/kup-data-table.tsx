@@ -54,6 +54,7 @@ import {
     KupDataTableInsertMode,
     KupDatatableHistoryEventPayload,
     KupDatatableRowActionItemClickEventPayload,
+    KupDataTableRowGroup,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -1319,6 +1320,109 @@ export class KupDataTable {
         });
         this.refresh();
     }
+    /**
+     * Adds/subtracts the input number from the first group's depth level.
+     */
+
+    @Method()
+    async setGroupExpansionByDepth(modifier: number) {
+        const toStream = () => {
+            const streamlined: KupDataTableRow[] = [];
+            for (let index = 0; index < this.#paginatedRows.length; index++) {
+                const row = this.#paginatedRows[index];
+                const group = row.group;
+                if (group) {
+                    recursive(row);
+                }
+
+                function recursive(row: KupDataTableRow) {
+                    const group = row.group;
+                    streamlined.push(row);
+                    for (
+                        let index = 0;
+                        group?.children && index < group.children.length;
+                        index++
+                    ) {
+                        recursive(group.children[index]);
+                    }
+                }
+            }
+            return streamlined;
+        };
+        const handleChildren = (
+            row: KupDataTableRow,
+            expand: boolean,
+            maxDepth?: number,
+            depth?: number
+        ) => {
+            const group = row.group;
+
+            if (row.hasOwnProperty('group')) {
+                const shouldExpand = depth <= maxDepth ? true : false;
+                group.expanded = shouldExpand;
+                this.groupState[group.id] = { expanded: shouldExpand };
+                const paginated = paginatedStream?.find(
+                    (r) => r.group?.id === group.id
+                )?.group;
+                if (paginated) {
+                    paginated.expanded = shouldExpand;
+                }
+                if (group.children) {
+                    for (
+                        let index = 0;
+                        index < group.children.length;
+                        index++
+                    ) {
+                        const child = group.children[index];
+                        handleChildren(child, expand, maxDepth, depth + 1);
+                    }
+                }
+            }
+        };
+        const getGroupDepth = (): number => {
+            const firstGroup = this.#rows[0];
+            let maxDepth = 0;
+
+            const traverseGroup = (
+                row: KupDataTableRow,
+                currentDepth: number
+            ): void => {
+                const group = row.group;
+                for (
+                    let index = 0;
+                    group && index < group.children.length;
+                    index++
+                ) {
+                    maxDepth = Math.max(maxDepth, currentDepth);
+                    const child = group.children[index];
+                    if (child.group?.children && child.group?.expanded) {
+                        traverseGroup(child, currentDepth + 1);
+                    }
+                }
+            };
+
+            if (firstGroup) {
+                traverseGroup(firstGroup, 0);
+            }
+
+            return maxDepth;
+        };
+        const paginatedStream = toStream();
+
+        let maxDepth = getGroupDepth() + modifier;
+
+        for (let index = 0; index < this.#rows.length; index++) {
+            const row = this.#rows[index];
+            const group = row.group;
+            if (group) {
+                handleChildren(row, false, maxDepth, 0);
+            }
+        }
+
+        this.#adjustGroupState();
+        this.refresh();
+    }
+
     /**
      * Invokes the KupData API for column creation, then refreshes the component in case no errors were catched.
      * @param {KupDataNewColumnTypes} type - Type of the column creation.
@@ -3842,7 +3946,6 @@ export class KupDataTable {
             // no grouping
             return;
         }
-
         this.#rows.forEach((r) => this.#adjustGroupStateFromRow(r));
     }
 

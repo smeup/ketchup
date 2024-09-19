@@ -227,6 +227,22 @@ Type: `Promise<void>`
 
 
 
+### `setExpansionByDepth(modifier: number) => Promise<void>`
+
+Adds/subtracts the input number from the first node's depth level.
+
+#### Parameters
+
+| Name       | Type     | Description |
+| ---------- | -------- | ----------- |
+| `modifier` | `number` |             |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.

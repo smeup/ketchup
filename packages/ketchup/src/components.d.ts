@@ -1682,6 +1682,10 @@ export namespace Components {
          */
         "setFocus": (column: string, rowId: string) => Promise<void>;
         /**
+          * Adds/subtracts the input number from the first group's depth level.
+         */
+        "setGroupExpansionByDepth": (modifier: number) => Promise<void>;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
