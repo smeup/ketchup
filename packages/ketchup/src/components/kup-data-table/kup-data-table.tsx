@@ -1035,6 +1035,16 @@ export class KupDataTable {
     })
     kupDataTableContextMenu: EventEmitter<KupDatatableClickEventPayload>;
     /**
+     * Generic right click event on a cell in data table.
+     */
+    @Event({
+        eventName: 'kup-datatable-cell-actions-menu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableCellActionsMenu: EventEmitter<KupDatatableClickEventPayload>;
+    /**
      * Generic double click event on data table.
      */
     @Event({
@@ -3148,6 +3158,16 @@ export class KupDataTable {
                 this.openColumnMenu(details.column.name);
                 return details;
             }
+        } else if (details.area === 'body') {
+            const cellActions = this.#kupManager.data.cell.buildCellActions(
+                details.row,
+                details.column,
+                this.rowActions,
+                this.commands ?? []
+            );
+
+            
+            this.#onRowActionExpanderClick(e, details.row, cellActions);
         } else if (details.area === 'footer') {
             if (details.td && details.column) {
                 this.#totalMenuCoords = { x: e.clientX, y: e.clientY };
@@ -3700,7 +3720,7 @@ export class KupDataTable {
     }
 
     #onRowActionExpanderClick(
-        e: MouseEvent,
+        e: MouseEvent | PointerEvent,
         row: KupDataTableRow,
         dropDownActions: KupDataRowAction[]
     ) {
