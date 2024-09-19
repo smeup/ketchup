@@ -384,7 +384,7 @@ export class KupDatePicker {
     ) {
         let newValue = eventDetailValue;
         // check if input contains special codes
-        if (this.isAlphanumeric(newValue)) {
+        if (this.#isAlphanumeric(newValue)) {
             this.setValue(newValue);
         } else {
             const dateFormat = this.kupManager.dates.getDateFormat();
@@ -393,7 +393,13 @@ export class KupDatePicker {
                 dateFormat === 'DD/MM/YYYY'
                     ? this.kupManager.dates.parseAndValidateDate(newValue)
                     : this.kupManager.dates.parseAndValidateDateEn(newValue);
-            if (this.kupManager.dates.isValid(eventDetailValue, parsedDate?.dateFormat) && parsedDate) {
+            if (
+                this.kupManager.dates.isValid(
+                    eventDetailValue,
+                    parsedDate?.dateFormat
+                ) &&
+                parsedDate
+            ) {
                 newValue = this.kupManager.dates.format(
                     this.kupManager.dates.normalize(
                         eventDetailValue,
@@ -609,15 +615,15 @@ export class KupDatePicker {
             return '';
         }
         // check for special code input
-        if (this.isAlphanumeric(this.value)) {
+        if (this.#isAlphanumeric(this.value)) {
             return this.value;
         }
         let v1 = this.kupManager.dates.format(this.value);
         return v1;
     }
 
-    isAlphanumeric(value: string): boolean {
-        const regex = /[A-Za-z]/;
+    #isAlphanumeric(value: string): boolean {
+        const regex = /[^0-9\-\/]+/;
         return regex.test(value);
     }
     /*-------------------------------------------------*/
