@@ -59,7 +59,6 @@ import {
     KupInputPanelLayoutField,
     KupInputPanelLayoutSection,
     KupInputPanelLayoutSectionType,
-    KupInputPanelLayoutType,
     KupInputPanelProps,
     KupInputPanelRow,
     KupInputPanelSubmit,
@@ -190,16 +189,6 @@ export class KupInputPanel {
         [FCellShapes.LABEL, this.#renderLabel.bind(this)],
         [FCellShapes.TABLE, this.#renderDataTable.bind(this)],
     ]);
-    #layoutRender: Map<
-        KupInputPanelLayoutType,
-        (inputPanelCell: InputPanelCells, layout: KupInputPanelLayout) => any
-    > = new Map<KupInputPanelLayoutType, () => any>([
-        [KupInputPanelLayoutType.GRID, this.#renderGridLayout.bind(this)],
-        [
-            KupInputPanelLayoutType.ABSOLUTE,
-            this.#renderAbsoluteLayout.bind(this),
-        ],
-    ]);
     #sectionRenderMap: Map<
         KupInputPanelLayoutSectionType,
         (cells: InputPanelCells, sections: KupInputPanelLayoutSection[]) => any
@@ -220,7 +209,6 @@ export class KupInputPanel {
     @Watch('data')
     onDataChanged() {
         this.#originalData = structuredClone(this.data);
-
         if (this.#listeners.length) {
             this.#listeners.map(({ event, handler }) => {
                 this.rootElement.removeEventListener(event, handler);
@@ -304,15 +292,15 @@ export class KupInputPanel {
                 this.#renderCell(cell.cell, inputPanelCell.row, cell.column)
             );
         } else {
-            const layoutRender = this.#layoutRender.get(layout.type);
-            rowContent = layoutRender(inputPanelCell, layout);
+            rowContent = layout.absolute
+                ? this.#renderAbsoluteLayout(inputPanelCell, layout)
+                : this.#renderGridLayout(inputPanelCell, layout);
         }
 
         const classObj = {
             'input-panel': true,
             'input-panel--column': !horizontal,
-            'input-panel--absolute':
-                layout?.type === KupInputPanelLayoutType.ABSOLUTE,
+            'input-panel--absolute': layout?.absolute,
         };
 
         // We create a form for each row in data

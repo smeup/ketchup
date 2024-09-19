@@ -52,17 +52,12 @@ export interface KupInputPanelCellOptions {
 }
 
 export interface KupInputPanelLayout {
-    type: KupInputPanelLayoutType;
     horizontal?: boolean;
+    absolute?: boolean;
     sections?:
         | KupInputPanelLayoutSection[]
         | KupInputPanelLayoutAbsoluteSection[];
     sectionsType?: KupInputPanelLayoutSectionType;
-}
-
-export enum KupInputPanelLayoutType {
-    GRID = 'SmeupDataLayout',
-    ABSOLUTE = 'SmeupDataLayoutAbsolute',
 }
 
 export enum KupInputPanelLayoutSectionType {
