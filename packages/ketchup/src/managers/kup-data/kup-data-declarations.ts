@@ -38,6 +38,7 @@ export interface KupDataColumn {
     style?: GenericMap;
     cellData?: GenericObject;
     cellSlotData?: GenericObject;
+    tooltip?: boolean;
 }
 export interface KupDataColumnChild {
     name: string;
