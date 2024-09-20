@@ -4997,10 +4997,10 @@ export class KupDataTable {
                             actionsOnRow.push(imageProp);
                         });
                     } else {
-                        const textPopulatedRowActions = rowActions.map(rowAction => ({
-                            ...rowAction,
-                            text: rowAction.text || rowAction.column?.title || rowAction.column?.name
-                        }))
+                        const textPopulatedRowActions =
+                            this.#kupManager.data.action.createActionsWithText(
+                                rowActions
+                            );
 
                         const imageProp: FImageProps =
                             this.#kupManager.data.action.buildImageProp(
