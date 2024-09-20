@@ -1679,6 +1679,10 @@ export namespace Components {
          */
         "setFocus": (column: string, rowId: string) => Promise<void>;
         /**
+          * Adds/subtracts the input number from the first group's depth level.
+         */
+        "setGroupExpansionByDepth": (modifier: number) => Promise<void>;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
@@ -4309,6 +4313,10 @@ export namespace Components {
           * Activates the scroll on hover function.
          */
         "scrollOnHover": boolean;
+        /**
+          * Adds/subtracts the input number from the first node's depth level.
+         */
+        "setExpansionByDepth": (modifier: number) => Promise<void>;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.

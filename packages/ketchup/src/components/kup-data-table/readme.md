@@ -376,6 +376,22 @@ Type: `Promise<void>`
 
 
 
+### `setGroupExpansionByDepth(modifier: number) => Promise<void>`
+
+Adds/subtracts the input number from the first group's depth level.
+
+#### Parameters
+
+| Name       | Type     | Description |
+| ---------- | -------- | ----------- |
+| `modifier` | `number` |             |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
