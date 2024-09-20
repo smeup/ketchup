@@ -162,6 +162,11 @@ export default {
           description: 'Sets the focus on an editable table cell.',
         },
         {
+          name: 'setGroupExpansionByDepth',
+          description:
+            "Adds/subtracts the input number from the first group's depth level.",
+        },
+        {
           name: 'setProps',
           description: 'Sets the props to the component.',
         },

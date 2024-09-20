@@ -631,6 +631,55 @@ export class KupTree {
         this.refresh();
     }
     /**
+     * Adds/subtracts the input number from the first node's depth level.
+     */
+    @Method()
+    async setExpansionByDepth(modifier: number) {
+        const getNodeDepth = (): number => {
+            const firstNode = this.data[0];
+            let maxDepth = 0;
+
+            const traverseNode = (
+                node: KupTreeNode,
+                currentDepth: number
+            ): void => {
+                if (node.isExpanded) {
+                    maxDepth = Math.max(maxDepth, currentDepth);
+                    if (node.children && node.children.length > 0) {
+                        node.children.forEach((child) => {
+                            traverseNode(child, currentDepth + 1);
+                        });
+                    }
+                }
+            };
+
+            if (firstNode) {
+                traverseNode(firstNode, 0);
+            }
+
+            return maxDepth;
+        };
+
+        let maxDepth = getNodeDepth() + modifier;
+        if (maxDepth < 0) {
+            maxDepth = 0;
+        }
+
+        if (!this.useDynamicExpansion) {
+            for (let index = 0; index < this.data.length; index++) {
+                this.data[index].isExpanded = maxDepth ? true : false;
+                this.handleChildren(this.data[index], false, maxDepth, 0);
+            }
+        } else {
+            this.kupTreeDynamicMassExpansion.emit({
+                comp: this,
+                id: this.rootElement.id,
+                expandAll: false,
+            });
+        }
+        this.refresh();
+    }
+    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -1166,13 +1215,27 @@ export class KupTree {
         return this.totals && Object.keys(this.totals).length > 0;
     }
 
-    private handleChildren(treeNode: KupTreeNode, expand: boolean) {
+    private handleChildren(
+        treeNode: KupTreeNode,
+        expand: boolean,
+        maxDepth?: number,
+        depth?: number
+    ) {
         for (let index = 0; index < treeNode.children.length; index++) {
             let node = treeNode.children[index];
-            if (!node.disabled) {
+            if (
+                maxDepth === undefined &&
+                depth === undefined &&
+                !node.disabled
+            ) {
                 node.isExpanded = expand;
                 if (node.children) {
                     this.handleChildren(node, expand);
+                }
+            } else {
+                node.isExpanded = depth <= maxDepth ? true : false;
+                if (node.children) {
+                    this.handleChildren(node, expand, maxDepth, depth++);
                 }
             }
         }
