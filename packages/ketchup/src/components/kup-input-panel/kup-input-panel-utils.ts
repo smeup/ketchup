@@ -30,7 +30,7 @@ export const getAbsoluteTop = (row: number) => {
         return null;
     }
 
-    return row * ROW_HEIGHT;
+    return (row - 1) * ROW_HEIGHT;
 };
 
 export const getAbsoluteLeft = (col: number) => {

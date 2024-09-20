@@ -54,15 +54,14 @@ export interface KupInputPanelCellOptions {
 export interface KupInputPanelLayout {
     horizontal?: boolean;
     absolute?: boolean;
-    sections?:
-        | KupInputPanelLayoutSection[]
-        | KupInputPanelLayoutAbsoluteSection[];
+    sections?: KupInputPanelLayoutSection[];
     sectionsType?: KupInputPanelLayoutSectionType;
 }
 
 export enum KupInputPanelLayoutSectionType {
     TAB = 'tab',
 }
+
 export interface KupInputPanelLayoutSection {
     id?: string;
     title?: string;
@@ -76,12 +75,11 @@ export interface KupInputPanelLayoutSection {
     // Gap is in rem
     gap?: number;
     sectionsType?: KupInputPanelLayoutSectionType;
-}
-
-export interface KupInputPanelLayoutAbsoluteSection {
-    attributes: KupInputPanelLayoutAbsoluteSectionAttributes;
-    fields: KupInputPanelLayoutAbsoluteField[];
-    sections?: KupInputPanelLayoutAbsoluteSection[];
+    // absolute Attributes
+    absoluteColumn?: number;
+    absoluteWidth?: number;
+    absoluteRow?: number;
+    absoluteHeight?: number;
 }
 
 export interface KupInputPanelLayoutField {
@@ -94,25 +92,10 @@ export interface KupInputPanelLayoutField {
     rowSpan?: number;
     rowStart?: number;
     rowEnd?: number;
-}
-
-export interface KupInputPanelLayoutAbsoluteField {
-    attributes: KupInputPanelLayoutAbsoluteFieldsAttributes;
-}
-
-export interface KupInputPanelLayoutAbsoluteSectionAttributes {
-    Col: string;
-    Wid: string;
-    Nam: string;
-    Row: string;
-    Hei: string;
-}
-
-export interface KupInputPanelLayoutAbsoluteFieldsAttributes {
-    Col: string;
-    Lun: string;
-    Nam: string;
-    Row: string;
+    // absolute Attributes
+    absoluteColumn?: number;
+    absoluteRow?: number;
+    absoluteLength?: number;
 }
 
 export type DataAdapterFn = (
