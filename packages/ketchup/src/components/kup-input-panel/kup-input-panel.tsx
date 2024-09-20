@@ -53,6 +53,9 @@ import {
     KupInputPanelCell,
     KupInputPanelColumn,
     KupInputPanelData,
+    KupInputPanelLayout,
+    KupInputPanelLayoutAbsoluteField,
+    KupInputPanelLayoutAbsoluteSection,
     KupInputPanelLayoutField,
     KupInputPanelLayoutSection,
     KupInputPanelLayoutSectionType,
@@ -61,6 +64,12 @@ import {
     KupInputPanelSubmit,
 } from './kup-input-panel-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import {
+    getAbsoluteHeight,
+    getAbsoluteLeft,
+    getAbsoluteTop,
+    getAbsoluteWidth,
+} from './kup-input-panel-utils';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -200,7 +209,6 @@ export class KupInputPanel {
     @Watch('data')
     onDataChanged() {
         this.#originalData = structuredClone(this.data);
-
         if (this.#listeners.length) {
             this.#listeners.map(({ event, handler }) => {
                 this.rootElement.removeEventListener(event, handler);
@@ -274,6 +282,7 @@ export class KupInputPanel {
 
     #renderRow(inputPanelCell: InputPanelCells) {
         const layout = inputPanelCell.row.layout;
+
         const horizontal = layout?.horizontal || false;
 
         let rowContent: VNode[];
@@ -283,20 +292,15 @@ export class KupInputPanel {
                 this.#renderCell(cell.cell, inputPanelCell.row, cell.column)
             );
         } else {
-            const sectionRender = this.#sectionRenderMap.get(
-                layout.sectionsType
-            );
-
-            rowContent = sectionRender
-                ? sectionRender(inputPanelCell, layout.sections)
-                : layout.sections.map((section) =>
-                      this.#renderSection(inputPanelCell, section)
-                  );
+            rowContent = layout.absolute
+                ? this.#renderAbsoluteLayout(inputPanelCell, layout)
+                : this.#renderGridLayout(inputPanelCell, layout);
         }
 
         const classObj = {
             'input-panel': true,
             'input-panel--column': !horizontal,
+            'input-panel--absolute': layout?.absolute,
         };
 
         // We create a form for each row in data
@@ -424,15 +428,8 @@ export class KupInputPanel {
     }
 
     #renderLabel(cell: KupDataCell, cellId: string) {
-        const styleObj = {
-            display: 'flex',
-            width: '100%',
-            height: '100%',
-            'align-items': 'center',
-            'justify-content': 'center',
-        };
         return (
-            <span style={styleObj} id={cellId}>
+            <span class="input-panel-label" id={cellId}>
                 {cell.value}
             </span>
         );
@@ -450,6 +447,28 @@ export class KupInputPanel {
         }
 
         return null;
+    }
+
+    #renderGridLayout(
+        inputPanelCell: InputPanelCells,
+        layout: KupInputPanelLayout
+    ) {
+        const sectionRender = this.#sectionRenderMap.get(layout.sectionsType);
+
+        return sectionRender
+            ? sectionRender(inputPanelCell, layout.sections)
+            : layout.sections.map((section) =>
+                  this.#renderSection(inputPanelCell, section)
+              );
+    }
+
+    #renderAbsoluteLayout(
+        inputPanelCell: InputPanelCells,
+        layout: KupInputPanelLayout
+    ) {
+        return layout.sections.map((section) =>
+            this.#renderAbsoluteSection(inputPanelCell, section)
+        );
     }
 
     #renderSection(
@@ -504,6 +523,43 @@ export class KupInputPanel {
         ) : (
             sectionContent
         );
+    }
+
+    #renderAbsoluteSection(
+        cells: InputPanelCells,
+        section: KupInputPanelLayoutAbsoluteSection
+    ) {
+        let content = [];
+
+        if (section.sections?.length) {
+            content = section.sections.map((innerSection) =>
+                this.#renderAbsoluteSection(cells, innerSection)
+            );
+        } else if (section.fields?.length) {
+            content = section.fields.map((field) =>
+                this.#renderAbsoluteField(cells, field)
+            );
+        }
+
+        const width = `${getAbsoluteWidth(+section.attributes.Wid)}px`;
+        const height = `${getAbsoluteHeight(+section.attributes.Hei)}px`;
+        const top = `${getAbsoluteTop(+section.attributes.Row)}px`;
+        const left = `${getAbsoluteLeft(+section.attributes.Col)}px`;
+
+        const sectionStyle = {
+            position: 'absolute',
+            width,
+            'min-width': width,
+            'max-width': width,
+            height,
+            'min-height': height,
+            'max-height': height,
+            top,
+            left,
+            overflow: 'auto',
+        };
+
+        return <div style={sectionStyle}>{content}</div>;
     }
 
     #renderSectionTab(
@@ -596,6 +652,59 @@ export class KupInputPanel {
         return (
             <div style={styleObj}>
                 {this.#renderCell(fieldCell.cell, cells.row, fieldCell.column)}
+            </div>
+        );
+    }
+
+    #renderAbsoluteField(
+        cells: InputPanelCells,
+        field: KupInputPanelLayoutAbsoluteField
+    ) {
+        const fieldCell = cells.cells.find(
+            (cell) => cell.column.name === field.attributes.Nam
+        );
+        if (!fieldCell || !fieldCell.cell) {
+            return;
+        }
+
+        let length: number;
+        if (fieldCell.cell.shape == FCellShapes.DATE) {
+            length = +field.attributes.Lun > 8 ? +field.attributes.Lun : 8;
+        } else {
+            length = +field.attributes.Lun;
+        }
+
+        const width = `${getAbsoluteWidth(length)}px`;
+        const height = `${getAbsoluteHeight(1)}px`;
+        const top = `${getAbsoluteTop(+field.attributes.Row)}px`;
+        const left = `${getAbsoluteLeft(+field.attributes.Col)}px`;
+
+        const styleObj = {
+            position: 'absolute',
+            width,
+            'min-width': width,
+            'max-width': width,
+            height,
+            'min-height': height,
+            'max-height': height,
+            top,
+            left,
+            overflow: 'auto',
+        };
+
+        const cell = {
+            ...fieldCell.cell,
+            data: {
+                ...fieldCell.cell.data,
+                customStyle:
+                    (fieldCell.cell.data.customStyle || '') +
+                    '.mdc-text-field {height: unset !important;}',
+            },
+        };
+
+        return (
+            <div style={styleObj}>
+                {this.#renderCell(cell, cells.row, fieldCell.column)}
             </div>
         );
     }

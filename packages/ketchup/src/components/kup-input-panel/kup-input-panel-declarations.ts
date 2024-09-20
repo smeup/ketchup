@@ -53,14 +53,16 @@ export interface KupInputPanelCellOptions {
 
 export interface KupInputPanelLayout {
     horizontal?: boolean;
-    sections?: KupInputPanelLayoutSection[];
+    absolute?: boolean;
+    sections?:
+        | KupInputPanelLayoutSection[]
+        | KupInputPanelLayoutAbsoluteSection[];
     sectionsType?: KupInputPanelLayoutSectionType;
 }
 
 export enum KupInputPanelLayoutSectionType {
     TAB = 'tab',
 }
-
 export interface KupInputPanelLayoutSection {
     id?: string;
     title?: string;
@@ -76,6 +78,12 @@ export interface KupInputPanelLayoutSection {
     sectionsType?: KupInputPanelLayoutSectionType;
 }
 
+export interface KupInputPanelLayoutAbsoluteSection {
+    attributes: KupInputPanelLayoutAbsoluteSectionAttributes;
+    fields: KupInputPanelLayoutAbsoluteField[];
+    sections?: KupInputPanelLayoutAbsoluteSection[];
+}
+
 export interface KupInputPanelLayoutField {
     id: string;
     // Span is referred to start
@@ -86,6 +94,25 @@ export interface KupInputPanelLayoutField {
     rowSpan?: number;
     rowStart?: number;
     rowEnd?: number;
+}
+
+export interface KupInputPanelLayoutAbsoluteField {
+    attributes: KupInputPanelLayoutAbsoluteFieldsAttributes;
+}
+
+export interface KupInputPanelLayoutAbsoluteSectionAttributes {
+    Col: string;
+    Wid: string;
+    Nam: string;
+    Row: string;
+    Hei: string;
+}
+
+export interface KupInputPanelLayoutAbsoluteFieldsAttributes {
+    Col: string;
+    Lun: string;
+    Nam: string;
+    Row: string;
 }
 
 export type DataAdapterFn = (

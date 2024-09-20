@@ -128,6 +128,9 @@ export const config: Config = {
             type: 'dist-custom-elements',
         },
     ],
+    extras: {
+        enableImportInjection: true,
+    },
     plugins: [
         sass({
             includePaths: ['./node_modules', './src/f-components'],
