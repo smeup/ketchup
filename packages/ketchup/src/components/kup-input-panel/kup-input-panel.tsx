@@ -54,8 +54,6 @@ import {
     KupInputPanelColumn,
     KupInputPanelData,
     KupInputPanelLayout,
-    KupInputPanelLayoutAbsoluteField,
-    KupInputPanelLayoutAbsoluteSection,
     KupInputPanelLayoutField,
     KupInputPanelLayoutSection,
     KupInputPanelLayoutSectionType,
@@ -527,7 +525,7 @@ export class KupInputPanel {
 
     #renderAbsoluteSection(
         cells: InputPanelCells,
-        section: KupInputPanelLayoutAbsoluteSection
+        section: KupInputPanelLayoutSection
     ) {
         let content = [];
 
@@ -535,16 +533,16 @@ export class KupInputPanel {
             content = section.sections.map((innerSection) =>
                 this.#renderAbsoluteSection(cells, innerSection)
             );
-        } else if (section.fields?.length) {
-            content = section.fields.map((field) =>
+        } else if (section.content?.length) {
+            content = section.content.map((field) =>
                 this.#renderAbsoluteField(cells, field)
             );
         }
 
-        const width = `${getAbsoluteWidth(+section.attributes.Wid)}px`;
-        const height = `${getAbsoluteHeight(+section.attributes.Hei)}px`;
-        const top = `${getAbsoluteTop(+section.attributes.Row)}px`;
-        const left = `${getAbsoluteLeft(+section.attributes.Col)}px`;
+        const width = `${getAbsoluteWidth(section.absoluteWidth)}px`;
+        const height = `${getAbsoluteHeight(section.absoluteHeight)}px`;
+        const top = `${getAbsoluteTop(section.absoluteRow)}px`;
+        const left = `${getAbsoluteLeft(section.absoluteColumn)}px`;
 
         const sectionStyle = {
             position: 'absolute',
@@ -658,10 +656,10 @@ export class KupInputPanel {
 
     #renderAbsoluteField(
         cells: InputPanelCells,
-        field: KupInputPanelLayoutAbsoluteField
+        field: KupInputPanelLayoutField
     ) {
         const fieldCell = cells.cells.find(
-            (cell) => cell.column.name === field.attributes.Nam
+            (cell) => cell.column.name === field.id
         );
         if (!fieldCell || !fieldCell.cell) {
             return;
@@ -669,15 +667,15 @@ export class KupInputPanel {
 
         let length: number;
         if (fieldCell.cell.shape == FCellShapes.DATE) {
-            length = +field.attributes.Lun > 8 ? +field.attributes.Lun : 8;
+            length = field.absoluteLength > 8 ? field.absoluteLength : 8;
         } else {
-            length = +field.attributes.Lun;
+            length = field.absoluteLength;
         }
 
         const width = `${getAbsoluteWidth(length)}px`;
         const height = `${getAbsoluteHeight(1)}px`;
-        const top = `${getAbsoluteTop(+field.attributes.Row)}px`;
-        const left = `${getAbsoluteLeft(+field.attributes.Col)}px`;
+        const top = `${getAbsoluteTop(field.absoluteRow)}px`;
+        const left = `${getAbsoluteLeft(field.absoluteColumn)}px`;
 
         const styleObj = {
             position: 'absolute',
