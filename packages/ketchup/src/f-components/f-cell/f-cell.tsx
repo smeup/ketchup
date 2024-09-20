@@ -73,8 +73,15 @@ export const FCell: FunctionalComponent<FCellProps> = (
         ? column.shape
         : null;
     const hasObj = !dom.ketchup.objects.isEmptyKupObj(cell.obj);
-    const isEditable =
-        (cell.isEditable || column.isEditable) && props.editable ? true : false;
+
+    let isEditable = false;
+    if (cell.hasOwnProperty('isEditable')) {
+        isEditable = cell.isEditable;
+    } else if (column.hasOwnProperty('isEditable')) {
+        isEditable = column.isEditable;
+    }
+    isEditable = isEditable && props.editable;
+
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
     const cellType = dom.ketchup.data.cell.getType(cell, shape);
     const subcomponentProps: unknown = { ...cell.data };
