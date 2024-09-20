@@ -5100,6 +5100,11 @@ export class KupDataTable {
                             actionsOnRow.push(imageProp);
                         });
                     } else {
+                        const textPopulatedRowActions =
+                            this.#kupManager.data.action.createActionsWithText(
+                                rowActions
+                            );
+
                         const imageProp: FImageProps =
                             this.#kupManager.data.action.buildImageProp(
                                 'chevron-down',
@@ -5111,7 +5116,7 @@ export class KupDataTable {
                                     this.#onRowActionExpanderClick(
                                         e,
                                         row,
-                                        rowActions
+                                        textPopulatedRowActions
                                     );
                                 }
                             );
