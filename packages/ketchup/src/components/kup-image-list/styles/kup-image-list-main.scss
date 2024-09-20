@@ -15,6 +15,10 @@
 */
 
 :host {
+  --kup_imagelist_columns_mobile: var(--kup-imagelist-columns-mobile, 4);
+  --kup_imagelist_columns_tablet: var(--kup-imagelist-columns-tablet, 6);
+  --kup_imagelist_columns_desktop: var(--kup-imagelist-columns-desktop, 8);
+
   --kup_imagelist_background_color: var(
     --kup-imagelist-background-color,
     transparent
@@ -122,7 +126,7 @@
   display: grid;
   grid-gap: var(--kup_imagelist_grid_gap);
   grid-template-columns: repeat(
-    var(--kup_imagelist_columns, 4),
+    var(--kup-imagelist-columns-mobile, var(--kup_imagelist_columns_mobile)),
     minmax(0px, 1fr)
   );
   margin-top: 1em;
@@ -193,13 +197,22 @@
 }
 
 @media screen and (min-width: 678px) {
-  :host {
-    --kup_imagelist_columns: var(--kup-imagelist-columns, 8);
-  }
-
   .image-list {
     grid-template-columns: repeat(
-      var(--kup_imagelist_columns, 8),
+      var(--kup-imagelist-columns-tablet, var(--kup_imagelist_columns_tablet)),
+      minmax(0px, 1fr)
+    );
+    grid-gap: var(--kup-space-05);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .image-list {
+    grid-template-columns: repeat(
+      var(
+        --kup-imagelist-columns-desktop,
+        var(--kup_imagelist_columns_desktop)
+      ),
       minmax(0px, 1fr)
     );
     grid-gap: var(--kup-space-05);

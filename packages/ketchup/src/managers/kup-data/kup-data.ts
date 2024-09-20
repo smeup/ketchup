@@ -460,12 +460,7 @@ export class KupData {
                                 codVer.value.data?.resource ||
                                 codVer.value.data?.icon ||
                                 '',
-                            text:
-                                codVer.value.icon ||
-                                codVer.value.data?.resource ||
-                                codVer.value.data?.icon
-                                    ? ''
-                                    : currentColumn.title || currentColumn.name,
+                            text: '',
                             obj: codVer.value.obj,
                             cell: codVer.value,
                             type: DropDownAction.CODVER,
@@ -504,6 +499,23 @@ export class KupData {
             return commands
                 ? commands.some((c) => !c.obj.k && !c.obj.t && !c.obj.p)
                 : false;
+        },
+        /**
+         * When actions must be placed in dropdown, this function maps
+         * actions with text
+         * @param { rowActions }  rowActions[] that must be mapped
+         * @returns { KupDataRowAction[] } correctly mapped
+         */
+        createActionsWithText: (
+            rowActions: KupDataRowAction[]
+        ): KupDataRowAction[] => {
+            return rowActions.map((rowAction) => ({
+                ...rowAction,
+                text:
+                    rowAction.text ||
+                    rowAction.column?.title ||
+                    rowAction.column?.name,
+            }));
         },
     };
     /**
