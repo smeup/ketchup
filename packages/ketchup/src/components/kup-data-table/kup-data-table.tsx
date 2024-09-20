@@ -3158,14 +3158,15 @@ export class KupDataTable {
                 this.openColumnMenu(details.column.name);
                 return details;
             }
-        } else if (details.area === 'body' && details.cell) {
-            const cellActions = this.#kupManager.data.cell.buildCellActions(
-                details.row,
-                details.column,
-                this.commands ?? []
-            );
-
-            this.#onRowActionExpanderClick(e, details.row, cellActions);
+        } else if (details.area === 'body') {
+            if (details.cell && !details.column.tooltip) {
+                const cellActions = this.#kupManager.data.cell.buildCellActions(
+                    details.row,
+                    details.column,
+                    this.commands ?? []
+                );
+                this.#onRowActionExpanderClick(e, details.row, cellActions);
+            }
         } else if (details.area === 'footer') {
             if (details.td && details.column) {
                 this.#totalMenuCoords = { x: e.clientX, y: e.clientY };
