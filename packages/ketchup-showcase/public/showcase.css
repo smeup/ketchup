@@ -248,6 +248,7 @@ table#customstyle-tab kup-text-field {
 }
 
 #json-warning,
+#setup-warning,
 #json-setter,
 #json-setter-opener,
 #css-setter,
@@ -269,7 +270,8 @@ table#customstyle-tab kup-text-field {
 
 #json-setter-opener,
 #css-setter-opener,
-#json-warning {
+#json-warning,
+#setup-warning {
   bottom: 10px;
   right: 10px;
 }
@@ -282,7 +284,8 @@ table#customstyle-tab kup-text-field {
 #json-setter-opener.visible,
 #css-setter.visible,
 #css-setter-opener.visible,
-#json-warning.visible {
+#json-warning.visible,
+#setup-warning.visible {
   display: block;
 }
 

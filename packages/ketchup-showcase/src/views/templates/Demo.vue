@@ -139,6 +139,14 @@
             </tr>
           </tbody>
         </table>
+        <div id="setup-tab" class="sample-section padded">
+          <textarea id="setup-textarea" style="display: none"></textarea>
+          <kup-button
+            id="setup-warning"
+            icon="warning"
+            title="Invalid JSON. You can ignore this warning if the prop you're changing isn't an object."
+          ></kup-button>
+        </div>
         <div id="json-tab" class="sample-section padded">
           <textarea id="json-textarea" style="display: none"></textarea>
           <kup-text-field
@@ -248,7 +256,8 @@ enum DemoTabs {
   CLASSES = 'Classes',
   METHODS = 'Methods',
   EVENTS = 'Events',
-  JSON = 'JSON',
+  SETUP = 'Setup',
+  JSON = 'View prop',
   CSS = 'CSS',
 }
 
@@ -840,9 +849,12 @@ let demoComponent: HTMLElement = null,
   eventsView: HTMLElement = null,
   jsonView: HTMLElement = null,
   cssView: HTMLElement = null,
+  setupView: HTMLElement = null,
   // Textareas
   cssTextarea: HTMLTextAreaElement = null,
   jsonTextarea: HTMLTextAreaElement = null,
+  setupTextarea: HTMLTextAreaElement = null,
+  setupWarning: HTMLKupButtonElement = null,
   // JSON tab sub-components
   jsonSetter: HTMLKupTextFieldElement = null,
   jsonSetterOpener: HTMLKupButtonElement = null,
@@ -885,11 +897,14 @@ export default {
       methodsView = document.querySelector('#methods-tab');
       jsonView = document.querySelector('#json-tab');
       cssView = document.querySelector('#css-tab');
+      setupView = document.querySelector('#setup-tab');
       cssTextarea = document.querySelector('#css-textarea');
       jsonSetter = document.querySelector('#json-setter');
       jsonSetterOpener = document.querySelector('#json-setter-opener');
       jsonTextarea = document.querySelector('#json-textarea');
       jsonWarning = document.querySelector('#json-warning');
+      setupTextarea = document.querySelector('#setup-textarea');
+      setupWarning = document.querySelector('#setup-warning');
       sampleWrapper = document.querySelector('#sample-wrapper');
       sampleComp = document.querySelector('#sample-comp');
       sampleDynamic = document.querySelector('#sample-dynamic');
@@ -985,6 +1000,12 @@ export default {
           value: DemoTabs.EVENTS,
         });
       }
+      data.push({
+        id: DemoTabs.SETUP,
+        icon: 'settings',
+        title: 'Here you can change props massively by pasting a valid JSON.',
+        value: DemoTabs.SETUP,
+      });
       data.push({
         id: DemoTabs.JSON,
         icon: 'json',
@@ -1163,6 +1184,7 @@ export default {
       eventsView.classList.remove(visibleClass);
       jsonView.classList.remove(visibleClass);
       cssView.classList.remove(visibleClass);
+      setupView.classList.remove(visibleClass);
 
       switch (tabBar.data[i].value) {
         case DemoTabs.PROPS:
@@ -1183,6 +1205,10 @@ export default {
         case DemoTabs.CSS:
           cssView.classList.add(visibleClass);
           this.prepareCssView();
+          break;
+        case DemoTabs.SETUP:
+          setupView.classList.add(visibleClass);
+          this.prepareSetupView();
           break;
       }
     },
@@ -1257,6 +1283,41 @@ export default {
       }).on('change', function (cm: any) {
         cm.save();
         demoComponent['customStyle'] = cssTextarea.value;
+      });
+    },
+    prepareSetupView() {
+      (demoComponent as Partial<KupComponent>).getProps().then((r) => {
+        setupTextarea.value = JSON.stringify(r, null, 2);
+        const codemirrorTextarea = document.querySelector(
+          '#setup-tab .CodeMirror'
+        );
+        if (codemirrorTextarea) {
+          codemirrorTextarea.remove();
+        }
+        setTimeout(() => {
+          //@ts-ignore
+          CodeMirror.fromTextArea(setupTextarea, {
+            mode: { name: 'javascript', json: true },
+            lineNumbers: true,
+            lineWrapping: true,
+            foldGutter: true,
+            gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+          }).on('change', function (cm: any) {
+            cm.save();
+            try {
+              const parsed = JSON.parse(setupTextarea.value);
+              for (const key in parsed) {
+                if (Object.prototype.hasOwnProperty.call(parsed, key)) {
+                  const p = parsed[key];
+                  demoComponent[key] = p;
+                }
+              }
+              setupWarning.classList.remove(visibleClass);
+            } catch (error) {
+              setupWarning.classList.add(visibleClass);
+            }
+          });
+        }, 875);
       });
     },
   },
