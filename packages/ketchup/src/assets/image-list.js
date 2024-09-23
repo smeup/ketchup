@@ -1179,17 +1179,7 @@ const data = [
 
 const imageList = document.querySelector('kup-image-list');
 imageList.data = data;
-imageList.columns = [
-    {
-        value: 5,
-    },
-    {
-        value: 3,
-    },
-    {
-        value: 2,
-    },
-];
+imageList.columns = [5, 3, 2];
 
 document.addEventListener('kup-imagelist-click', (e) => {
     console.log(e);

@@ -110,7 +110,7 @@ export class KupImageList {
      * Number of columns to display in the grid layout.
      * @default null
      */
-    @Prop() columns: KupDataNode[] = null;
+    @Prop() columns: number[] = [];
     /**
      * Custom style of the component.
      * @default ""
@@ -511,25 +511,29 @@ export class KupImageList {
         const hasNavigation = !!this.currentNode;
         let gridColumnsStyle: { [key: string]: string } = {};
         if (this.columns) {
-            if (typeof this.columns === 'number') {
-                gridColumnsStyle[
-                    'grid-template-columns'
-                ] = `repeat(${this.columns}, minmax(0px, 1fr))`;
+            if (this.columns.length === 0) {
+                gridColumnsStyle = {
+                    '--kup-imagelist-columns-mobile': `4`,
+                    '--kup-imagelist-columns-tablet': `4`,
+                    '--kup-imagelist-columns-desktop': `4`,
+                };
             } else if (this.columns.length === 1) {
-                gridColumnsStyle[
-                    'grid-template-columns'
-                ] = `repeat(${this.columns[0].value}, minmax(0px, 1fr))`;
+                gridColumnsStyle = {
+                    '--kup-imagelist-columns-mobile': `${this.columns[0]}`,
+                    '--kup-imagelist-columns-tablet': `${this.columns[0]}`,
+                    '--kup-imagelist-columns-desktop': `${this.columns[0]}`,
+                };
             } else if (this.columns.length === 2) {
                 gridColumnsStyle = {
-                    '--kup-imagelist-columns-mobile': `${this.columns[0].value}`,
-                    '--kup-imagelist-columns-tablet': `${this.columns[0].value}`,
-                    '--kup-imagelist-columns-desktop': `${this.columns[1].value}`,
+                    '--kup-imagelist-columns-mobile': `${this.columns[0]}`,
+                    '--kup-imagelist-columns-tablet': `${this.columns[0]}`,
+                    '--kup-imagelist-columns-desktop': `${this.columns[1]}`,
                 };
             } else if (this.columns.length === 3) {
                 gridColumnsStyle = {
-                    '--kup-imagelist-columns-mobile': `${this.columns[0].value}`,
-                    '--kup-imagelist-columns-tablet': `${this.columns[1].value}`,
-                    '--kup-imagelist-columns-desktop': `${this.columns[2].value}`,
+                    '--kup-imagelist-columns-mobile': `${this.columns[0]}`,
+                    '--kup-imagelist-columns-tablet': `${this.columns[1]}`,
+                    '--kup-imagelist-columns-desktop': `${this.columns[2]}`,
                 };
             }
         }
