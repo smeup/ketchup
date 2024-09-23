@@ -110,7 +110,7 @@ export class KupImageList {
      * Number of columns to display in the grid layout.
      * @default null
      */
-    @Prop() columns: number[] = null;
+    @Prop() columns: number[] = [];
     /**
      * Custom style of the component.
      * @default ""
