@@ -210,7 +210,7 @@ export class KupDates {
     }
 
     /**
-     * Validates strictly the given date.
+     * Validates the given date strictly, checking for leap years and ensuring that each month has the correct number of days.
      * @param {string} year - The year component of the date.
      * @param {string} month - The month component of the date.
      * @param {string} day - The day component of the date.
