@@ -511,7 +511,13 @@ export class KupImageList {
         const hasNavigation = !!this.currentNode;
         let gridColumnsStyle: { [key: string]: string } = {};
         if (this.columns) {
-            if (this.columns.length === 1) {
+            if (this.columns.length === 0) {
+                gridColumnsStyle = {
+                    '--kup-imagelist-columns-mobile': `4`,
+                    '--kup-imagelist-columns-tablet': `4`,
+                    '--kup-imagelist-columns-desktop': `4`,
+                };
+            } else if (this.columns.length === 1) {
                 gridColumnsStyle = {
                     '--kup-imagelist-columns-mobile': `${this.columns[0]}`,
                     '--kup-imagelist-columns-tablet': `${this.columns[0]}`,
@@ -530,12 +536,6 @@ export class KupImageList {
                     '--kup-imagelist-columns-desktop': `${this.columns[2]}`,
                 };
             }
-        } else {
-            gridColumnsStyle = {
-                '--kup-imagelist-columns-mobile': '4',
-                '--kup-imagelist-columns-tablet': '4',
-                '--kup-imagelist-columns-desktop': '4',
-            };
         }
         let combinedGridStyle: { [key: string]: string } = {
             ...gridColumnsStyle,
