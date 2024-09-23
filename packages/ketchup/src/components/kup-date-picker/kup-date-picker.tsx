@@ -58,7 +58,8 @@ export class KupDatePicker {
     /*-------------------------------------------------*/
 
     @State() stateSwitcher: boolean = false;
-    @State() value: string = '';
+    @State() ISOvalue: string = '';
+    @State() notISOvalue: string = '';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -205,13 +206,13 @@ export class KupDatePicker {
         this.kupChange.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: this.ISOvalue,
         });
 
         this.kupItemClick.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: this.ISOvalue,
         });
 
         this.setFocus();
@@ -223,7 +224,7 @@ export class KupDatePicker {
         this.kupChange.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: this.ISOvalue,
         });
 
         this.kupClearIconClick.emit({
@@ -235,7 +236,7 @@ export class KupDatePicker {
     onKupBlur() {
         this.kupBlur.emit({
             id: this.rootElement.id,
-            value: this.value,
+            value: this.ISOvalue,
             comp: this,
         });
     }
@@ -251,7 +252,7 @@ export class KupDatePicker {
         this.kupClick.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: this.ISOvalue,
         });
     }
 
@@ -259,7 +260,7 @@ export class KupDatePicker {
         this.kupFocus.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: this.ISOvalue,
         });
     }
 
@@ -289,7 +290,7 @@ export class KupDatePicker {
         this.kupIconClick.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: this.ISOvalue,
         });
     }
 
@@ -337,7 +338,7 @@ export class KupDatePicker {
      */
     @Method()
     async getValue(): Promise<string> {
-        return this.value;
+        return this.ISOvalue;
     }
     /**
      * Used to retrieve component's props values.
@@ -365,12 +366,23 @@ export class KupDatePicker {
         }
     }
     /**
-     * Sets the component's value.
-     * @param {string} value - Value to be set.
+     * Sets the component's ISO value.
+     * @param {string} ISOvalue - Value to be set.
      */
     @Method()
-    async setValue(value: string) {
-        this.value = value;
+    async setISOValue(ISOvalue: string) {
+        this.notISOvalue = '';
+        this.ISOvalue = ISOvalue;
+    }
+
+    /**
+     * Sets the component's not ISO value.
+     * @param {string} notISOvalue - Value to be set.
+     */
+    @Method()
+    async setNotISOValue(notISOvalue: string) {
+        this.notISOvalue = notISOvalue;
+        this.ISOvalue = '';
     }
 
     /*-------------------------------------------------*/
@@ -383,39 +395,38 @@ export class KupDatePicker {
         isOnInputEvent?: boolean
     ) {
         let newValue = eventDetailValue;
-        // check if input contains special codes
-        if (this.#isAlphanumeric(newValue)) {
-            this.setValue(newValue);
-        } else {
-            const dateFormat = this.kupManager.dates.getDateFormat();
 
-            const parsedDate =
-                dateFormat === 'DD/MM/YYYY'
-                    ? this.kupManager.dates.parseAndValidateDate(newValue)
-                    : this.kupManager.dates.parseAndValidateDateEn(newValue);
-            if (
-                this.kupManager.dates.isValid(
+        const dateFormat = this.kupManager.dates.getDateFormat();
+
+        const parsedDate =
+            dateFormat === 'DD/MM/YYYY'
+                ? this.kupManager.dates.parseAndValidateDate(newValue)
+                : this.kupManager.dates.parseAndValidateDateEn(newValue);
+
+        if (
+            this.kupManager.dates.isValid(
+                eventDetailValue,
+                parsedDate?.dateFormat,
+                true
+            ) &&
+            parsedDate
+        ) {
+            newValue = this.kupManager.dates.format(
+                this.kupManager.dates.normalize(
                     eventDetailValue,
-                    parsedDate?.dateFormat
-                ) &&
-                parsedDate
-            ) {
-                newValue = this.kupManager.dates.format(
-                    this.kupManager.dates.normalize(
-                        eventDetailValue,
-                        KupDatesNormalize.DATE
-                    ),
-                    KupDatesFormats.ISO_DATE
-                );
-                this.refreshPickerComponentValue(newValue);
-                if (isOnInputEvent != true) {
-                    this.setValue(newValue);
-                }
-            } else if (isOnInputEvent != true) {
-                this.setValue('');
-                console.error('Invalid date');
+                    KupDatesNormalize.DATE
+                ),
+                KupDatesFormats.ISO_DATE
+            );
+            this.refreshPickerComponentValue(newValue);
+            if (isOnInputEvent != true) {
+                this.setISOValue(newValue);
             }
+        } else if (isOnInputEvent != true) {
+            this.setNotISOValue(newValue);
+            console.error('Invalid date');
         }
+
         if (newValue != null) {
             if (eventToRaise != null) {
                 eventToRaise.emit({
@@ -452,7 +463,7 @@ export class KupDatePicker {
         if (newValue == null) {
             return;
         }
-        this.setValue(newValue);
+        this.setISOValue(newValue);
     }
 
     getPickerValueSelected(): string {
@@ -460,7 +471,7 @@ export class KupDatePicker {
     }
 
     getValueForPickerComponent() {
-        return this.value;
+        return this.ISOvalue;
     }
 
     openPicker() {
@@ -588,7 +599,7 @@ export class KupDatePicker {
     prepDatePicker() {
         const data: KupCardData = {
             options: {
-                initialValue: this.value,
+                initialValue: this.ISOvalue,
                 firstDayIndex: this.firstDayIndex,
                 resetStatus: true,
             },
@@ -611,21 +622,14 @@ export class KupDatePicker {
     }
 
     getDateForOutput(): string {
-        if (this.value == null || this.value.trim() == '') {
-            return '';
+        if (!this.ISOvalue || this.ISOvalue.trim() == '') {
+            return this.notISOvalue;
         }
-        // check for special code input
-        if (this.#isAlphanumeric(this.value)) {
-            return this.value;
-        }
-        let v1 = this.kupManager.dates.format(this.value);
+
+        let v1 = this.kupManager.dates.format(this.ISOvalue);
         return v1;
     }
 
-    #isAlphanumeric(value: string): boolean {
-        const regex = /[^0-9\-\/]+/;
-        return regex.test(value);
-    }
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -635,7 +639,7 @@ export class KupDatePicker {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
         this.watchFirstDayIndex();
-        this.value = this.initialValue;
+        this.ISOvalue = this.initialValue;
         if (!this.data) {
             this.data = {
                 'kup-text-field': {},
