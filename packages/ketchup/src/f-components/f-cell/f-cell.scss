@@ -178,7 +178,7 @@
     border-bottom: 1px solid var(--kup-border-strong);
     height: var(--kup_textfield_fullwidth_height) !important;
     outline: none;
-    padding: 4px;
+    padding: var(--fcell-inputfield-padding, 4px);
     transition: border 125ms ease;
     width: 100%;
 
