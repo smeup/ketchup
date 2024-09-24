@@ -1414,7 +1414,6 @@ export class KupDataTable {
         const paginatedStream = toStream();
 
         let maxDepth = getGroupDepth() + modifier;
-        console.log(maxDepth);
 
         for (let index = 0; index < this.#rows.length; index++) {
             const row = this.#rows[index];
