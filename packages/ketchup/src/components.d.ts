@@ -2695,7 +2695,7 @@ export namespace Components {
           * Number of columns to display in the grid layout.
           * @default null
          */
-        "columns": KupDataNode[];
+        "columns": number[];
         /**
           * Custom style of the component.
           * @default ""
@@ -7934,7 +7934,7 @@ declare namespace LocalJSX {
           * Number of columns to display in the grid layout.
           * @default null
          */
-        "columns"?: KupDataNode[];
+        "columns"?: number[];
         /**
           * Custom style of the component.
           * @default ""
