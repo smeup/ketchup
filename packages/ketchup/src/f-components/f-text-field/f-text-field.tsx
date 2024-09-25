@@ -28,6 +28,7 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
         'kup-success': props.success,
         'kup-warning': props.warning,
         [props.wrapperClass]: !!props.wrapperClass,
+        'kup-fit-content-size': !!props.size,
     };
     return (
         <div
