@@ -96,7 +96,7 @@ export class KupDates {
      */
     getLocales(): Array<KupDatesLocales> {
         const items: Array<KupDatesLocales> = Object.keys(KupDatesLocales)
-            .map((key) => KupDatesLocales[key])
+            .map((key) => KupDatesLocales[key as keyof typeof KupDatesLocales])
             .filter((value) => typeof value === 'string');
         return items;
     }
@@ -190,6 +190,14 @@ export class KupDates {
         }
         return time.toLocaleTimeString(this.getLocale() + '-u-hc-h23', options);
     }
+
+    isIsoDate(dateString: string): boolean {
+        const isoDate = dayjs(dateString, [
+            'YYYY-MM-DD',
+            'YYYY-MM-DDTHH:mm:ss.SSSZ',
+        ]);
+        return isoDate.isValid();
+    }
     /**
      * Validates the given date.
      * @param {dayjs.ConfigType} date - Date to be validated.
@@ -205,228 +213,11 @@ export class KupDates {
         if (format && format != null) {
             return dayjs(date, format, strict).isValid();
         } else {
+            if (typeof date == 'string') {
+                date = this.cleanInputDateString(date);
+            }
             return dayjs(date, undefined, strict).isValid();
         }
-    }
-
-    /**
-     * Validates strictly the given date.
-     * @param {string} year - The year component of the date.
-     * @param {string} month - The month component of the date.
-     * @param {string} day - The day component of the date.
-     * @returns {boolean} Returns whether the argument is a valid date or not.
-     */
-    isDateValidStrict(year: string, month: string, day: string): boolean {
-        const yearInt = parseInt(year, 10);
-        const monthInt = parseInt(month, 10);
-        const dayInt = parseInt(day, 10);
-
-        if (
-            isNaN(yearInt) ||
-            isNaN(monthInt) ||
-            isNaN(dayInt) ||
-            yearInt < 0 ||
-            monthInt < 1 ||
-            monthInt > 12 ||
-            dayInt < 1
-        ) {
-            return false;
-        }
-
-        const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-        if (monthInt === 2) {
-            const isLeapYear =
-                (yearInt % 4 === 0 && yearInt % 100 !== 0) ||
-                yearInt % 400 === 0;
-            if (isLeapYear) {
-                daysInMonth[1] = 29;
-            }
-        }
-
-        if (dayInt > daysInMonth[monthInt - 1]) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Parse and validate a string for date purpose in european format.
-     * @param {string} input - The input string to parse.
-     * @returns {day: string , month: string , year: string, dateFormat: "DDMMYYYY" | "DDMMYY" | "DD/MM/YYYY" | "DD/MM/YY" | "DD-MM-YYYY" | "DD-MM-YY"} Returns an object with date data and its format.
-     */
-    parseAndValidateDate(input: string): {
-        day: string;
-        month: string;
-        year: string;
-        dateFormat:
-            | 'DDMMYYYY'
-            | 'DDMMYY'
-            | 'DD/MM/YYYY'
-            | 'DD/MM/YY'
-            | 'DD-MM-YYYY'
-            | 'DD-MM-YY';
-    } {
-        let dateFormat:
-            | 'DDMMYYYY'
-            | 'DDMMYY'
-            | 'DD/MM/YYYY'
-            | 'DD/MM/YY'
-            | 'DD-MM-YYYY'
-            | 'DD-MM-YY'
-            | null = null;
-        let day: string, month: string, year: string;
-
-        if (input.includes('/')) {
-            let parts = input.split('/');
-            if (parts.length !== 3) return null;
-
-            day = parts[0];
-            month = parts[1];
-            year = parts[2];
-            if (year.length === 2) {
-                year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
-                dateFormat = 'DD/MM/YY';
-            } else if (year.length === 4) {
-                dateFormat = 'DD/MM/YYYY';
-            } else {
-                return null;
-            }
-        } else if (input.includes('-')) {
-            let parts = input.split('-');
-            if (parts.length !== 3) return null;
-
-            day = parts[0];
-            month = parts[1];
-            year = parts[2];
-            if (year.length === 2) {
-                year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
-                dateFormat = 'DD-MM-YY';
-            } else if (year.length === 4) {
-                dateFormat = 'DD-MM-YYYY';
-            } else {
-                return null;
-            }
-        } else {
-            let cleanedInput = input.replace(/[^0-9]/g, '');
-            if (cleanedInput.length === 8) {
-                // DDMMYYYY
-                day = cleanedInput.slice(0, 2);
-                month = cleanedInput.slice(2, 4);
-                year = cleanedInput.slice(4, 8);
-                dateFormat = 'DDMMYYYY';
-            } else if (cleanedInput.length === 6) {
-                // DDMMYY
-                day = cleanedInput.slice(0, 2);
-                month = cleanedInput.slice(2, 4);
-                year = cleanedInput.slice(4, 6);
-                year = (+year >= 50 ? '19' : '20') + year;
-                dateFormat = 'DDMMYY';
-            } else {
-                return null;
-            }
-        }
-
-        // check is valid date
-        const date = new Date(`${year}-${month}-${day}`);
-        if (isNaN(date.getTime())) {
-            return null;
-        }
-        if (!this.isDateValidStrict(year, month, day)) {
-            return null;
-        }
-
-        return { day, month, year, dateFormat };
-    }
-
-    /**
-     * Parse and validate a string for date purpose in usa format.
-     * @param {string} input - The input string to parse.
-     * @returns {day: string , month: string , year: string, dateFormat: | 'MMDDYYYY' | 'MMDDYY'| 'MM/DD/YYYY'| 'MM/DD/YY'| 'MM-DD-YYYY' | 'MM-DD-YY'} Returns an object with date data and its format.
-     */
-    parseAndValidateDateEn(input: string): {
-        day: string;
-        month: string;
-        year: string;
-        dateFormat:
-            | 'MMDDYYYY'
-            | 'MMDDYY'
-            | 'MM/DD/YYYY'
-            | 'MM/DD/YY'
-            | 'MM-DD-YYYY'
-            | 'MM-DD-YY';
-    } {
-        let dateFormat:
-            | 'MMDDYYYY'
-            | 'MMDDYY'
-            | 'MM/DD/YYYY'
-            | 'MM/DD/YY'
-            | 'MM-DD-YYYY'
-            | 'MM-DD-YY'
-            | null = null;
-        let day: string, month: string, year: string;
-
-        if (input.includes('/')) {
-            let parts = input.split('/');
-            if (parts.length !== 3) return null;
-
-            month = parts[0];
-            day = parts[1];
-            year = parts[2];
-            if (year.length === 2) {
-                year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
-                dateFormat = 'MM/DD/YY';
-            } else if (year.length === 4) {
-                dateFormat = 'MM/DD/YYYY';
-            } else {
-                return null;
-            }
-        } else if (input.includes('-')) {
-            let parts = input.split('-');
-            if (parts.length !== 3) return null;
-
-            month = parts[0];
-            day = parts[1];
-            year = parts[2];
-            if (year.length === 2) {
-                year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
-                dateFormat = 'MM-DD-YY';
-            } else if (year.length === 4) {
-                dateFormat = 'MM-DD-YYYY';
-            } else {
-                return null;
-            }
-        } else {
-            let cleanedInput = input.replace(/[^0-9]/g, '');
-            if (cleanedInput.length === 8) {
-                // MMDDYYYY
-                month = cleanedInput.slice(0, 2);
-                day = cleanedInput.slice(2, 4);
-                year = cleanedInput.slice(4, 8);
-                dateFormat = 'MMDDYYYY';
-            } else if (cleanedInput.length === 6) {
-                // MMDDYY
-                month = cleanedInput.slice(0, 2);
-                day = cleanedInput.slice(2, 4);
-                year = cleanedInput.slice(4, 6);
-                year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
-                dateFormat = 'MMDDYY';
-            } else {
-                return null;
-            }
-        }
-
-        // check is valid date
-        const date = new Date(`${year}-${month}-${day}`);
-        if (isNaN(date.getTime())) {
-            return null;
-        }
-        if (!this.isDateValidStrict(year, month, day)) {
-            return null;
-        }
-
-        return { day, month, year, dateFormat };
     }
 
     /**
@@ -468,13 +259,11 @@ export class KupDates {
     }
 
     /**
-     * Returns a computed ISO date/time from a partial string.
-     * @param {string} input - Input string containing a partial date/time (i.e.: 011221).
-     * @param {KupDatesNormalize} type - Type of the input string.
-     * @returns {dayjs.Dayjs} Dayjs object of the normalized date.
+     * Removes undesired characters in input string, for manage as date
+     * @param input
+     * @returns
      */
-    normalize(input: string, type?: KupDatesNormalize): dayjs.Dayjs {
-        const l = dayjs.Ls[this.locale].formats.L;
+    cleanInputDateString(input: string): string {
         // array e for-each con contains
         const allowedChars: Array<string> = [
             '0',
@@ -495,7 +284,19 @@ export class KupDates {
                 inputCleaned += ch;
             }
         }
-        input = inputCleaned;
+        return inputCleaned;
+    }
+
+    /**
+     * Returns a computed ISO date/time from a partial string.
+     * @param {string} input - Input string containing a partial date/time (i.e.: 011221).
+     * @param {KupDatesNormalize} type - Type of the input string.
+     * @returns {dayjs.Dayjs} Dayjs object of the normalized date.
+     */
+    normalize(input: string, type?: KupDatesNormalize): dayjs.Dayjs {
+        const l = dayjs.Ls[this.locale].formats.L;
+
+        input = this.cleanInputDateString(input);
         switch (type) {
             case KupDatesNormalize.TIME:
                 const time = normalizeTime();
