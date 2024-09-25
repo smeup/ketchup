@@ -278,14 +278,9 @@ export class KupDynamicPosition {
                 el.style.left = `${left}px`;
             }
         }
-        // Recursive
-        if (!el.kupDynamicPosition.detach) {
-            el.kupDynamicPosition.rAF = requestAnimationFrame(function () {
-                dom.ketchup.dynamicPosition.run(el);
-            });
-        } else {
-            cancelAnimationFrame(el.kupDynamicPosition.rAF);
-            return;
-        }
+        // Testing behavior: always anchored - 2024-09-25
+        el.kupDynamicPosition.rAF = requestAnimationFrame(function () {
+            dom.ketchup.dynamicPosition.run(el);
+        });
     }
 }
