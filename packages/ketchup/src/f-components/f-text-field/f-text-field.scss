@@ -79,7 +79,6 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    min-width: max-content;
     @include kup-body-compact-01;
 
     .mdc-text-field-container {
@@ -607,6 +606,9 @@
   @media screen and (min-width: 678px) {
     .f-text-field.kup-fit-content-size {
       max-width: fit-content;
+    }
+    .f-text-field.kup-fit-content-size:has(.mdc-text-field--extra-small) {
+      max-width: 100%;
     }
   }
 }
