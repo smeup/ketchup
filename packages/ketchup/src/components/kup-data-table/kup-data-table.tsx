@@ -1394,14 +1394,7 @@ export class KupDataTable {
                         maxDepth = Math.max(maxDepth, currentDepth);
                         maxDepth += 1;
                     }
-                    for (
-                        let index = 0;
-                        group && index < group.children.length;
-                        index++
-                    ) {
-                        const child = group.children[index];
-                        traverseGroup(child, currentDepth + 1);
-                    }
+                    traverseGroup(group.children[0], currentDepth + 1);
                 }
             };
 
