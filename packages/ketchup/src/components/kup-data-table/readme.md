@@ -445,6 +445,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-card](../kup-card)
+ - [kup-editable-table](../kup-editable-table)
  - [kup-input-panel](../kup-input-panel)
  - [kup-magic-box](../kup-magic-box)
 
@@ -604,6 +605,7 @@ graph TD;
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
+  kup-editable-table --> kup-data-table
   kup-input-panel --> kup-data-table
   kup-magic-box --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
