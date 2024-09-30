@@ -467,7 +467,11 @@ function updateGroupTotal(
                         cell.value &&
                         dom.ketchup.objects.isDate(cell.obj)
                     ) {
-                        if (dom.ketchup.dates.isValid(cell.value)) {
+                        if (
+                            dom.ketchup.dates.isValidFormattedStringDate(
+                                cell.value
+                            )
+                        ) {
                             const currentMinValue = groupRow.group.totals[key];
                             if (currentMinValue) {
                                 let moments = [];
@@ -553,7 +557,11 @@ function updateGroupTotal(
                         cell.value &&
                         dom.ketchup.objects.isDate(cell.obj)
                     ) {
-                        if (dom.ketchup.dates.isValid(cell.value)) {
+                        if (
+                            dom.ketchup.dates.isValidFormattedStringDate(
+                                cell.value
+                            )
+                        ) {
                             const currentMaxValue = groupRow.group.totals[key];
                             if (currentMaxValue) {
                                 let moments = [];
@@ -868,7 +876,11 @@ export function calcTotals(
                         if (dateColumns.indexOf(key) == -1) {
                             dateColumns.push(key);
                         }
-                        if (dom.ketchup.dates.isValid(cell.value)) {
+                        if (
+                            dom.ketchup.dates.isValidFormattedStringDate(
+                                cell.value
+                            )
+                        ) {
                             const cellValue = dom.ketchup.dates.toDate(
                                 dom.ketchup.dates.toDayjs(cell.value)
                             );
