@@ -417,6 +417,8 @@ export class KupDatePicker {
                 this.ISOvalue = newValue;
                 this.notISOvalue = '';
             }
+        } else {
+            /** donothing */
         }
 
         if (newValue != null && eventToRaise) {
@@ -432,7 +434,7 @@ export class KupDatePicker {
             return;
         }
         let d: Date;
-        if (this.kupManager.dates.isValid(value, KupDatesFormats.ISO_DATE)) {
+        if (this.kupManager.dates.isIsoDate(value)) {
             d = new Date(value);
         } else {
             d = new Date();

@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
@@ -193,10 +193,24 @@ export class KupDates {
 
     isIsoDate(dateString: string): boolean {
         const isoDate = dayjs(dateString, [
-            'YYYY-MM-DD',
+            KupDatesFormats.ISO_DATE,
+            KupDatesFormats.ISO_DATE_TIME,
             'YYYY-MM-DDTHH:mm:ss.SSSZ',
         ]);
-        return isoDate.isValid();
+        if (!isoDate.isValid()) {
+            return false;
+        }
+
+        if (Number(dateString.substring(0, 4)) != isoDate.year()) {
+            return false;
+        }
+        if (Number(dateString.substring(5, 7)) != isoDate.month() + 1) {
+            return false;
+        }
+        if (Number(dateString.substring(8, 10)) != isoDate.date()) {
+            return false;
+        }
+        return true;
     }
     /**
      * Validates the given date.
@@ -205,19 +219,32 @@ export class KupDates {
      * @param {boolean} strict - Strict parsing requires that the format and input match exactly, including delimiters.
      * @returns {boolean} Returns whether the argument is a valid date or not.
      */
-    isValid(
-        date: dayjs.ConfigType,
-        format?: string,
-        strict?: boolean
-    ): boolean {
+    isValid(date: string, format?: string, strict?: boolean): boolean {
+        let isValidDate = false;
+
+        const cleanedDate = this.cleanInputDateString(date);
+        let parsedDate = null;
         if (format && format != null) {
-            return dayjs(date, format, strict).isValid();
+            parsedDate = dayjs(cleanedDate, format, strict);
+            isValidDate = parsedDate.isValid();
         } else {
-            if (typeof date == 'string') {
-                date = this.cleanInputDateString(date);
-            }
-            return dayjs(date, undefined, strict).isValid();
+            parsedDate = this.normalize(cleanedDate);
+            isValidDate = parsedDate.isValid();
         }
+        if (!isValidDate) {
+            return false;
+        }
+
+        const formatter = new Intl.DateTimeFormat(this.getLocale(), {
+            year: cleanedDate.length < 8 ? '2-digit' : 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+        });
+
+        const formattedDate = formatter.format(parsedDate.toDate());
+        const cleanedDateNew = this.cleanInputDateString(formattedDate);
+        isValidDate = cleanedDateNew == cleanedDate;
+        return isValidDate;
     }
 
     /**
@@ -264,27 +291,10 @@ export class KupDates {
      * @returns
      */
     cleanInputDateString(input: string): string {
-        // array e for-each con contains
-        const allowedChars: Array<string> = [
-            '0',
-            '1',
-            '2',
-            '3',
-            '4',
-            '5',
-            '6',
-            '7',
-            '8',
-            '9',
-        ];
-        let inputCleaned = '';
-        for (let i = 0; i < input.length; i++) {
-            let ch: string = input.charAt(i);
-            if (allowedChars.includes(ch)) {
-                inputCleaned += ch;
-            }
+        if (!input) {
+            return '';
         }
-        return inputCleaned;
+        return input.replace(/[^0-9]/g, '').trim();
     }
 
     /**
@@ -294,7 +304,7 @@ export class KupDates {
      * @returns {dayjs.Dayjs} Dayjs object of the normalized date.
      */
     normalize(input: string, type?: KupDatesNormalize): dayjs.Dayjs {
-        const l = dayjs.Ls[this.locale].formats.L;
+        const l = dayjs.Ls[this.getLocale()].formats.L;
 
         input = this.cleanInputDateString(input);
         switch (type) {
@@ -340,8 +350,11 @@ export class KupDates {
                 case 6:
                     sub1 = parseInt(input.substring(0, 2));
                     sub2 = parseInt(input.substring(2, 4));
-                    year = today.getFullYear().toString();
-                    year = year.substring(0, 2) + input.substring(4);
+                    if (Number(input.substring(4)) > 50) {
+                        year = '19' + input.substring(4);
+                    } else {
+                        year = '20' + input.substring(4);
+                    }
                     if (mIndex === 0) {
                         today.setFullYear(parseInt(year), sub1 - 1, sub2);
                     } else if (dIndex === 0) {

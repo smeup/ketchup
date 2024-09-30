@@ -51,7 +51,7 @@ export class Filters {
             return newValue;
         }
         if (dom.ketchup.objects.isDate(smeupObj)) {
-            if (dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE)) {
+            if (dom.ketchup.dates.isIsoDate(value)) {
                 return newValue;
             }
             if (dom.ketchup.dates.isValid(value)) {
@@ -87,9 +87,7 @@ export class Filters {
                 );
             }
         } else if (dom.ketchup.objects.isTimestamp(smeupObj)) {
-            if (
-                dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE_TIME)
-            ) {
+            if (dom.ketchup.dates.isIsoDate(value)) {
                 return newValue;
             }
             if (dom.ketchup.dates.isValidFormattedStringTime(value, true)) {

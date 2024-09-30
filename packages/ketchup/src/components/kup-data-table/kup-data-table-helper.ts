@@ -467,8 +467,7 @@ function updateGroupTotal(
                         cell.value &&
                         dom.ketchup.objects.isDate(cell.obj)
                     ) {
-                        const cellValue = dom.ketchup.dates.toDayjs(cell.value);
-                        if (dom.ketchup.dates.isValid(cellValue)) {
+                        if (dom.ketchup.dates.isValid(cell.value)) {
                             const currentMinValue = groupRow.group.totals[key];
                             if (currentMinValue) {
                                 let moments = [];
@@ -554,8 +553,7 @@ function updateGroupTotal(
                         cell.value &&
                         dom.ketchup.objects.isDate(cell.obj)
                     ) {
-                        const cellValue = dom.ketchup.dates.toDayjs(cell.value);
-                        if (dom.ketchup.dates.isValid(cellValue)) {
+                        if (dom.ketchup.dates.isValid(cell.value)) {
                             const currentMaxValue = groupRow.group.totals[key];
                             if (currentMaxValue) {
                                 let moments = [];
@@ -870,12 +868,10 @@ export function calcTotals(
                         if (dateColumns.indexOf(key) == -1) {
                             dateColumns.push(key);
                         }
-                        const momentValue = dom.ketchup.dates.toDayjs(
-                            cell.value
-                        );
-                        if (dom.ketchup.dates.isValid(momentValue)) {
-                            const cellValue =
-                                dom.ketchup.dates.toDate(momentValue);
+                        if (dom.ketchup.dates.isValid(cell.value)) {
+                            const cellValue = dom.ketchup.dates.toDate(
+                                dom.ketchup.dates.toDayjs(cell.value)
+                            );
                             const currentFooterValue = footerRow[key]
                                 ? dom.ketchup.dates.toDate(
                                       dom.ketchup.dates.toDayjs(footerRow[key])

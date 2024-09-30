@@ -1796,12 +1796,7 @@ export class KupDataTable {
                 if (!totalValue) {
                     totalValue = row.group.id;
                 }
-                if (
-                    this.#kupManager.dates.isValid(
-                        totalValue,
-                        KupDatesFormats.ISO_DATE
-                    )
-                ) {
+                if (this.#kupManager.dates.isIsoDate(totalValue)) {
                     totalValue = this.#kupManager.dates.format(totalValue);
                 }
                 cells[id] = {
@@ -4880,10 +4875,7 @@ export class KupDataTable {
                         if (this.#kupManager.objects.isDate(column.obj)) {
                             if (totalValue) {
                                 if (
-                                    this.#kupManager.dates.isValid(
-                                        totalValue,
-                                        KupDatesFormats.ISO_DATE
-                                    )
+                                    this.#kupManager.dates.isIsoDate(totalValue)
                                 ) {
                                     value =
                                         this.#kupManager.dates.format(
