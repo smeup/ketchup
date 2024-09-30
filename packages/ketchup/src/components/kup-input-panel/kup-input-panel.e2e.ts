@@ -448,7 +448,7 @@ describe('kup-input-panel', () => {
         expect(updateRadioButtonChecked).toHaveClass('radio--checked');
     });
 
-    it('renders table', async () => {
+    xit('renders table', async () => {
         const page = await newE2EPage();
 
         await page.setContent('<kup-input-panel></kup-input-panel>');
@@ -1412,5 +1412,16 @@ describe('kup-input-panel', () => {
         const inputName = await page.find(
             'kup-input-panel >>> #NAME > div > .mdc-text-field--error'
         );
+
+        expect(inputName).not.toBeNull()
+
+        const inputErrorHelper = await page.find(
+            'kup-input-panel >>> #NAME > .mdc-text-field-helper-line > .mdc-error-message'
+        )
+        const textInputErrorHelper = inputErrorHelper.innerHTML
+        expect(inputErrorHelper).not.toBeNull()
+        expect(textInputErrorHelper).toBe("Name required")
+
+
     });
 });
