@@ -66,7 +66,6 @@ export interface KupDataRowAction {
         | DropDownAction.CODVER
         | DropDownAction.ROWACTION
         | DropDownAction.CODVERWITHCOMMANDS
-        | DropDownAction.COMMANDWITHEMPTYOBJ
         | DropDownAction.CELLACTION;
     index?: number;
     obj?: KupObj;

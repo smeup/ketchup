@@ -485,7 +485,7 @@ export class KupData {
                                   icon: c.icon || '',
                                   obj: c.obj,
                                   index: index,
-                                  type: DropDownAction.COMMANDWITHEMPTYOBJ,
+                                  type: DropDownAction.CODVERWITHCOMMANDS,
                               } as KupDataRowAction)
                       )
                 : [];

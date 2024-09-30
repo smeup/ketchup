@@ -316,7 +316,7 @@ describe('kup data createCommandsEmptyObj', () => {
                 icon: 'magnify',
                 text: 'Dettaglio',
                 obj: { k: '', p: '', t: '' },
-                type: DropDownAction.COMMANDWITHEMPTYOBJ,
+                type: DropDownAction.CODVERWITHCOMMANDS,
                 index: 0,
             },
         ];
