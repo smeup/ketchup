@@ -448,7 +448,7 @@ describe('kup-input-panel', () => {
         expect(updateRadioButtonChecked).toHaveClass('radio--checked');
     });
 
-    xit('renders table', async () => {
+    it('renders table', async () => {
         const page = await newE2EPage();
 
         await page.setContent('<kup-input-panel></kup-input-panel>');
@@ -1292,5 +1292,125 @@ describe('kup-input-panel', () => {
 
         expect(label1).toBe('Personal Info');
         expect(label2).toBe('Professional Info');
+    });
+
+    it('render inputpanel with error data attribute', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
+        );
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'NAME',
+                    title: 'Name*',
+                    visible: true,
+                    isEditable: false,
+                },
+                {
+                    name: 'EMAIL',
+                    title: 'Email*',
+                    visible: true,
+                    isEditable: false,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        EMAIL: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {
+                                inputType: 'email',
+                            },
+                        },
+                        NAME: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {
+                                error: 'Name required',
+                            },
+                        },
+                    },
+                    layout: {
+                        type: 'SmeupDataLayout',
+                        horizontal: false,
+                        absolute: false,
+                        sections: [
+                            {
+                                id: 'TAB1',
+                                content: [
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'NAME',
+                                        colSpan: 1,
+                                        rowStart: 1,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'EMAIL',
+                                        colSpan: 1,
+                                        rowStart: 2,
+                                    },
+                                ],
+                                sections: [],
+                                horizontal: false,
+                                gridCols: 3,
+                                gridRows: 2,
+                                gap: 2,
+                                title: 'Personal Info',
+                            },
+                            {
+                                id: 'TAB2',
+                                content: [
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'NAME',
+                                        colSpan: 1,
+                                        rowStart: 1,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'EMAIL',
+                                        colSpan: 1,
+                                        rowStart: 2,
+                                    },
+                                ],
+                                sections: [],
+                                horizontal: false,
+                                gridCols: 3,
+                                gridRows: 2,
+                                gap: 2,
+                                title: 'Professional Info',
+                            },
+                        ],
+                        sectionsType: 'tab',
+                    },
+                },
+            ],
+        };
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputName = await page.find(
+            'kup-input-panel >>> #NAME > div > .mdc-text-field--error'
+        );
     });
 });
