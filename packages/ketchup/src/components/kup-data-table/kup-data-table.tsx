@@ -2818,22 +2818,19 @@ export class KupDataTable {
                         );
                         break;
                     case 'kup-list-click':
-                        const selectedElObj =
-                            e.detail.event.detail.selected.obj;
-                        const cell = e.detail.event.detail.selected.cell;
-                        const index = e.detail.event.detail.selected.index;
-                        const type = e.detail.event.detail.selected.type;
-                        const column = e.detail.event.detail.selected.column;
+                        const selectedObjectIndex = e.detail.event.detail.index;
+                        const selectedObject =
+                            dropDownActions[selectedObjectIndex];
 
                         this.kupRowActionItemClick.emit({
                             comp: this,
                             id: this.rootElement.id,
                             row: row,
-                            obj: selectedElObj,
-                            cell: cell,
-                            type: type,
-                            index: index,
-                            column: column,
+                            obj: selectedObject.obj,
+                            cell: selectedObject.cell,
+                            type: selectedObject.type,
+                            index: selectedObject.index,
+                            column: selectedObject.column,
                         });
                         setTimeout(() => {
                             this.#closeRowActionsCard();
