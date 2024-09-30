@@ -1160,4 +1160,139 @@ describe('kup-input-panel', () => {
         expect(updatedChips).not.toBeNull();
         expect(updatedChips.length).toBe(2);
     });
+
+    it('render inputpanel with tab when specified in sectionType property', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
+        );
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'NAME',
+                    title: 'Name*',
+                    visible: true,
+                    isEditable: false,
+                },
+                {
+                    name: 'EMAIL',
+                    title: 'Email*',
+                    visible: true,
+                    isEditable: false,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        EMAIL: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {
+                                inputType: 'email',
+                            },
+                        },
+                        NAME: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {},
+                        },
+                    },
+                    layout: {
+                        type: 'SmeupDataLayout',
+                        horizontal: false,
+                        absolute: false,
+                        sections: [
+                            {
+                                id: 'TAB1',
+                                content: [
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'NAME',
+                                        colSpan: 1,
+                                        rowStart: 1,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'EMAIL',
+                                        colSpan: 1,
+                                        rowStart: 2,
+                                    },
+                                ],
+                                sections: [],
+                                horizontal: false,
+                                gridCols: 3,
+                                gridRows: 2,
+                                gap: 2,
+                                title: 'Personal Info',
+                            },
+                            {
+                                id: 'TAB2',
+                                content: [
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'NAME',
+                                        colSpan: 1,
+                                        rowStart: 1,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'EMAIL',
+                                        colSpan: 1,
+                                        rowStart: 2,
+                                    },
+                                ],
+                                sections: [],
+                                horizontal: false,
+                                gridCols: 3,
+                                gridRows: 2,
+                                gap: 2,
+                                title: 'Professional Info',
+                            },
+                        ],
+                        sectionsType: 'tab',
+                    },
+                },
+            ],
+        };
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const tabContent = await inputPanelContent.find('kup-tab-bar');
+        expect(tabContent).not.toBeNull();
+
+        const tabs = await tabContent.findAll('>>> f-button');
+
+        expect(tabs.length).toBe(2);
+
+        //  const label1 = (await tabs[0].find('span .tab__text-label'))
+        //      .innerHTML;
+        //  const label2 = (await tabs[1].find('span .tab__text-label'))
+        //      .innerHTML;
+        // console.log("LABEL",label1, label2)
+
+        //  expect(label1).toBe('Personal Info');
+        //  expect(label2).toBe('ProfessionalInfo');
+    });
 });
