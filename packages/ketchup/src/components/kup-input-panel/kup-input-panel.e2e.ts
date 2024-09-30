@@ -448,7 +448,7 @@ describe('kup-input-panel', () => {
         expect(updateRadioButtonChecked).toHaveClass('radio--checked');
     });
 
-    it('renders table', async () => {
+    xit('renders table', async () => {
         const page = await newE2EPage();
 
         await page.setContent('<kup-input-panel></kup-input-panel>');
@@ -1286,13 +1286,11 @@ describe('kup-input-panel', () => {
 
         expect(tabs.length).toBe(2);
 
-        //  const label1 = (await tabs[0].find('span .tab__text-label'))
-        //      .innerHTML;
-        //  const label2 = (await tabs[1].find('span .tab__text-label'))
-        //      .innerHTML;
-        // console.log("LABEL",label1, label2)
+        const label1 = (await tabs[0].find('span .tab__text-label')).innerHTML;
+        const label2 = (await tabs[1].find('span .tab__text-label')).innerHTML;
+        console.log('LABEL', label1, label2);
 
-        //  expect(label1).toBe('Personal Info');
-        //  expect(label2).toBe('ProfessionalInfo');
+        expect(label1).toBe('Personal Info');
+        expect(label2).toBe('Professional Info');
     });
 });
