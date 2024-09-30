@@ -304,7 +304,7 @@ export class KupDates {
      * @returns {dayjs.Dayjs} Dayjs object of the normalized date.
      */
     normalize(input: string, type?: KupDatesNormalize): dayjs.Dayjs {
-        const l = dayjs.Ls[this.getLocale()].formats.L;
+        const l = dayjs.Ls[this.locale].formats.L;
 
         input = this.cleanInputDateString(input);
         switch (type) {
