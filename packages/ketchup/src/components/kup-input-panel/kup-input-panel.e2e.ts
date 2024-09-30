@@ -1288,7 +1288,6 @@ describe('kup-input-panel', () => {
 
         const label1 = (await tabs[0].find('span .tab__text-label')).innerHTML;
         const label2 = (await tabs[1].find('span .tab__text-label')).innerHTML;
-        console.log('LABEL', label1, label2);
 
         expect(label1).toBe('Personal Info');
         expect(label2).toBe('Professional Info');
@@ -1413,15 +1412,104 @@ describe('kup-input-panel', () => {
             'kup-input-panel >>> #NAME > div > .mdc-text-field--error'
         );
 
-        expect(inputName).not.toBeNull()
+        expect(inputName).not.toBeNull();
 
         const inputErrorHelper = await page.find(
             'kup-input-panel >>> #NAME > .mdc-text-field-helper-line > .mdc-error-message'
-        )
-        const textInputErrorHelper = inputErrorHelper.innerHTML
-        expect(inputErrorHelper).not.toBeNull()
-        expect(textInputErrorHelper).toBe("Name required")
+        );
+        const textInputErrorHelper = inputErrorHelper.innerHTML;
+        expect(inputErrorHelper).not.toBeNull();
+        expect(textInputErrorHelper).toBe('Name required');
+    });
 
+    it('render inputpanel with absolute position', async () => {
+        const page = await newE2EPage();
 
+        await page.setContent(
+            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
+        );
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'NAME',
+                    title: 'Name*',
+                    visible: true,
+                    isEditable: false,
+                },
+                {
+                    name: 'EMAIL',
+                    title: 'Email*',
+                    visible: true,
+                    isEditable: false,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        EMAIL: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {
+                                inputType: 'email',
+                            },
+                        },
+                        NAME: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {
+                                error: 'Name required',
+                            },
+                        },
+                    },
+                    layout: {
+                        type: 'SmeupDataLayout',
+                        horizontal: false,
+                        absolute: true,
+                        sections: [
+                            {
+                                content: [
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'NAME',
+                                        absoluteColumn: 2,
+                                        absoluteRow: 2,
+                                        absoluteLength: 16,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'EMAIL',
+                                        absoluteColumn: 12,
+                                        absoluteRow: 2,
+                                        absoluteLength: 16,
+                                    },
+                                ],
+                                sections: [],
+                                horizontal: false,
+                                absoluteColumn: 1,
+                                absoluteWidth: 40,
+                                absoluteRow: 1,
+                                absoluteHeight: 15,
+                            },
+                        ],
+                    },
+                },
+            ],
+        };
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        expect(inputPanel).not.toBeNull();
     });
 });
