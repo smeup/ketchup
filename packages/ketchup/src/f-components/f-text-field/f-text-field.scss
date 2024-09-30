@@ -177,6 +177,10 @@
         text-align: var(--kup_textfield_text_align);
       }
 
+      input::placeholder {
+        color: var(--kup-gray-color-40);
+      }
+
       .#{$kup-icon} {
         background-color: var(--kup_textfield_icon_color);
         cursor: pointer;
@@ -362,11 +366,14 @@
       &:not(.mdc-text-field--disabled) {
         & .mdc-text-field__input,
         & .mdc-floating-label,
-        & .mdc-text-field__input::placeholder,
         & .mdc-text-field-character-counter,
         & + .mdc-text-field-helper-line .mdc-text-field-character-counter,
         & + .mdc-text-field-helper-line .mdc-text-field-helper-text {
           color: var(--kup_textfield_color);
+        }
+
+        & .mdc-text-field__input::placeholder {
+          color: var(--kup-text-placeholder);
         }
 
         & .mdc-floating-label,
@@ -593,6 +600,15 @@
     }
     .mdc-text-field__input::placeholder {
       opacity: 1;
+    }
+  }
+
+  @media screen and (min-width: 678px) {
+    .f-text-field.kup-fit-content-size {
+      max-width: fit-content;
+    }
+    .f-text-field.kup-fit-content-size:has(.mdc-text-field--extra-small) {
+      max-width: 100%;
     }
   }
 }

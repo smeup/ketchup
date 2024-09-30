@@ -1823,6 +1823,11 @@ export namespace Components {
          */
         "showIcon": boolean;
         /**
+          * Sets show previous/next month days in calendar
+          * @default true
+         */
+        "showPreviousNextMonthDays": boolean;
+        /**
           * Sets the sizing of the textfield of the datepicker
           * @default KupComponentSizing.MEDIUM
          */
@@ -2695,7 +2700,7 @@ export namespace Components {
           * Number of columns to display in the grid layout.
           * @default null
          */
-        "columns": KupDataNode[];
+        "columns": number[];
         /**
           * Custom style of the component.
           * @default ""
@@ -7241,6 +7246,11 @@ declare namespace LocalJSX {
          */
         "showIcon"?: boolean;
         /**
+          * Sets show previous/next month days in calendar
+          * @default true
+         */
+        "showPreviousNextMonthDays"?: boolean;
+        /**
           * Sets the sizing of the textfield of the datepicker
           * @default KupComponentSizing.MEDIUM
          */
@@ -7939,7 +7949,7 @@ declare namespace LocalJSX {
           * Number of columns to display in the grid layout.
           * @default null
          */
-        "columns"?: KupDataNode[];
+        "columns"?: number[];
         /**
           * Custom style of the component.
           * @default ""

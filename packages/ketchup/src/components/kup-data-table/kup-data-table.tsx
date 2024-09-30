@@ -1368,7 +1368,8 @@ export class KupDataTable {
             const group = row.group;
 
             if (row.hasOwnProperty('group')) {
-                const shouldExpand = depth <= maxDepth ? true : false;
+                const shouldExpand = depth < maxDepth;
+
                 group.expanded = shouldExpand;
                 this.groupState[group.id] = { expanded: shouldExpand };
                 const paginated = paginatedStream?.find(
@@ -1398,16 +1399,12 @@ export class KupDataTable {
                 currentDepth: number
             ): void => {
                 const group = row.group;
-                for (
-                    let index = 0;
-                    group && index < group.children.length;
-                    index++
-                ) {
-                    maxDepth = Math.max(maxDepth, currentDepth);
-                    const child = group.children[index];
-                    if (child.group?.children && child.group?.expanded) {
-                        traverseGroup(child, currentDepth + 1);
+                if (row.hasOwnProperty('group')) {
+                    if (group.expanded) {
+                        maxDepth = Math.max(maxDepth, currentDepth);
+                        maxDepth += 1;
                     }
+                    traverseGroup(group.children[0], currentDepth + 1);
                 }
             };
 

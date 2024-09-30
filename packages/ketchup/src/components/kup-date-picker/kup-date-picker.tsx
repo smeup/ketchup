@@ -58,7 +58,8 @@ export class KupDatePicker {
     /*-------------------------------------------------*/
 
     @State() stateSwitcher: boolean = false;
-    @State() value: string = '';
+    @State() ISOvalue: string = '';
+    @State() notISOvalue: string = '';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -106,6 +107,11 @@ export class KupDatePicker {
      * @default true
      */
     @Prop() showIcon: boolean = true;
+    /**
+     * Sets show previous/next month days in calendar
+     * @default true
+     */
+    @Prop() showPreviousNextMonthDays: boolean = true;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -199,31 +205,31 @@ export class KupDatePicker {
     })
     kupClearIconClick: EventEmitter<KupEventPayload>;
 
-    onKupDatePickerItemClick(value: string) {
+    async onKupDatePickerItemClick(value: string) {
         this.setPickerValueSelected(value);
 
         this.kupChange.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: await this.getValue(),
         });
 
         this.kupItemClick.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: await this.getValue(),
         });
 
         this.setFocus();
     }
 
-    onKupClearIconClick() {
+    async onKupClearIconClick() {
         this.setPickerValueSelected('');
 
         this.kupChange.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: await this.getValue(),
         });
 
         this.kupClearIconClick.emit({
@@ -232,10 +238,10 @@ export class KupDatePicker {
         });
     }
 
-    onKupBlur() {
+    async onKupBlur() {
         this.kupBlur.emit({
             id: this.rootElement.id,
-            value: this.value,
+            value: await this.getValue(),
             comp: this,
         });
     }
@@ -247,19 +253,19 @@ export class KupDatePicker {
         );
     }
 
-    onKupClick() {
+    async onKupClick() {
         this.kupClick.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: await this.getValue(),
         });
     }
 
-    onKupFocus() {
+    async onKupFocus() {
         this.kupFocus.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: await this.getValue(),
         });
     }
 
@@ -271,7 +277,7 @@ export class KupDatePicker {
         );
     }
 
-    onkupTextFieldSubmit(e: KeyboardEvent) {
+    onKupTextFieldSubmit(e: KeyboardEvent) {
         if (e.key === 'Enter') {
             this.refreshPickerValue(
                 (e.target as HTMLInputElement).value,
@@ -280,7 +286,7 @@ export class KupDatePicker {
         }
     }
 
-    onKupIconClick() {
+    async onKupIconClick() {
         if (this.isPickerOpened()) {
             this.closePicker();
         } else {
@@ -289,7 +295,7 @@ export class KupDatePicker {
         this.kupIconClick.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: await this.getValue(),
         });
     }
 
@@ -337,7 +343,10 @@ export class KupDatePicker {
      */
     @Method()
     async getValue(): Promise<string> {
-        return this.value;
+        if (this.ISOvalue) {
+            return this.ISOvalue;
+        }
+        return this.notISOvalue;
     }
     /**
      * Used to retrieve component's props values.
@@ -370,7 +379,7 @@ export class KupDatePicker {
      */
     @Method()
     async setValue(value: string) {
-        this.value = value;
+        this.refreshPickerValue(value, undefined);
     }
 
     /*-------------------------------------------------*/
@@ -383,113 +392,40 @@ export class KupDatePicker {
         isOnInputEvent?: boolean
     ) {
         let newValue = eventDetailValue;
+        this.ISOvalue = '';
+        this.notISOvalue = newValue;
         // check if input contains special codes
-        if (this.isAlphanumeric(newValue)) {
-            this.setValue(newValue);
-        } else {
-            const dateFormat = this.kupManager.dates.getDateFormat();
-
-            const parsedDate =
-                dateFormat === 'DD/MM/YYYY'
-                    ? this.kupManager.dates.parseAndValidateDate(newValue)
-                    : this.kupManager.dates.parseAndValidateDateEn(newValue);
-            if (this.kupManager.dates.isValid(eventDetailValue) && parsedDate) {
-                newValue = this.kupManager.dates.format(
-                    this.kupManager.dates.normalize(
-                        eventDetailValue,
-                        KupDatesNormalize.DATE
-                    ),
-                    KupDatesFormats.ISO_DATE
-                );
-                this.refreshPickerComponentValue(newValue);
-                if (isOnInputEvent != true) {
-                    this.setValue(newValue);
-                }
-            } else if (isOnInputEvent != true) {
-                this.setValue('');
-                console.error('Invalid date');
+        if (!eventDetailValue) {
+            /** donothing */
+        } else if (this.kupManager.dates.isIsoDate(eventDetailValue)) {
+            if (isOnInputEvent != true) {
+                this.ISOvalue = eventDetailValue;
+                this.notISOvalue = '';
+            }
+        } else if (this.isAlphanumeric(eventDetailValue)) {
+            /** donothing */
+        } else if (this.kupManager.dates.isValid(eventDetailValue)) {
+            newValue = this.kupManager.dates.format(
+                this.kupManager.dates.normalize(
+                    eventDetailValue,
+                    KupDatesNormalize.DATE
+                ),
+                KupDatesFormats.ISO_DATE
+            );
+            this.refreshPickerComponentValue(newValue);
+            if (isOnInputEvent != true) {
+                this.ISOvalue = newValue;
+                this.notISOvalue = '';
             }
         }
-        if (newValue != null) {
-            if (eventToRaise != null) {
-                eventToRaise.emit({
-                    id: this.rootElement.id,
-                    value: newValue,
-                });
-            }
+
+        if (newValue != null && eventToRaise) {
+            eventToRaise.emit({
+                id: this.rootElement.id,
+                value: newValue,
+            });
         }
     }
-
-    // parseAndValidateDateEn(input: string) {
-    //     const cleanedInput = input.replace(/[^0-9]/g, '');
-    //     let day: string, month: string, year: string;
-    //     let dateFormat:
-    //         | 'MMDDYYYY'
-    //         | 'MMDDYY'
-    //         | 'MM/DD/YYYY'
-    //         | 'MM/DD/YY'
-    //         | 'MM-DD-YYYY'
-    //         | 'MM-DD-YY'
-    //         | null = null;
-
-    //     if (cleanedInput.length === 8) {
-    //         month = cleanedInput.slice(0, 2);
-    //         day = cleanedInput.slice(2, 4);
-    //         year = cleanedInput.slice(4, 8);
-    //         dateFormat = 'MMDDYYYY';
-    //     } else if (cleanedInput.length === 6) {
-    //         month = cleanedInput.slice(0, 2);
-    //         day = cleanedInput.slice(2, 4);
-    //         year = cleanedInput.slice(4, 6);
-    //         year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
-    //         dateFormat = 'MMDDYY';
-    //     } else if (input.includes('/')) {
-    //         const parts = input.split('/');
-    //         if (parts.length !== 3) return null;
-
-    //         month = parts[0];
-    //         day = parts[1];
-    //         year = parts[2];
-    //         if (year && year.length === 2) {
-    //             year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
-    //             dateFormat = 'MM/DD/YY';
-    //         } else if (year && year.length === 4) {
-    //             dateFormat = 'MM/DD/YYYY';
-    //         } else {
-    //             return null;
-    //         }
-    //     } else if (input.includes('-')) {
-    //         const parts = input.split('-');
-    //         if (parts.length !== 3) return null;
-
-    //         month = parts[0];
-    //         day = parts[1];
-    //         year = parts[2];
-    //         if (year && year.length === 2) {
-    //             year = (parseInt(year, 10) >= 50 ? '19' : '20') + year;
-    //             dateFormat = 'MM-DD-YY';
-    //         } else if (year && year.length === 4) {
-    //             dateFormat = 'MM-DD-YYYY';
-    //         } else {
-    //             return null;
-    //         }
-    //     } else {
-    //         return null;
-    //     }
-
-    //     const dayNumber = parseInt(day, 10);
-    //     const monthNumber = parseInt(month, 10);
-    //     if (
-    //         dayNumber < 1 ||
-    //         dayNumber > 31 ||
-    //         monthNumber < 1 ||
-    //         monthNumber > 12
-    //     ) {
-    //         return null;
-    //     }
-
-    //     return { day, month, year, dateFormat };
-    // }
 
     refreshPickerComponentValue(value: string) {
         if (!this.isPickerOpened()) {
@@ -525,7 +461,7 @@ export class KupDatePicker {
     }
 
     getValueForPickerComponent() {
-        return this.value;
+        return this.ISOvalue;
     }
 
     openPicker() {
@@ -580,7 +516,7 @@ export class KupDatePicker {
     }
 
     isPickerOpened(): boolean {
-        return this.pickerContainerEl.menuVisible == true;
+        return this.pickerContainerEl?.menuVisible == true;
     }
 
     getTextFieldId(): string {
@@ -618,7 +554,7 @@ export class KupDatePicker {
                 onClick={() => this.onKupClick()}
                 onFocus={() => this.onKupFocus()}
                 onIconClick={() => this.onKupIconClick()}
-                onKeyDown={(e: KeyboardEvent) => this.onkupTextFieldSubmit(e)}
+                onKeyDown={(e: KeyboardEvent) => this.onKupTextFieldSubmit(e)}
                 onInput={(e: InputEvent) => this.onKupInput(e)}
             >
                 {this.prepDatePicker()}
@@ -653,9 +589,10 @@ export class KupDatePicker {
     prepDatePicker() {
         const data: KupCardData = {
             options: {
-                initialValue: this.value,
+                initialValue: this.ISOvalue,
                 firstDayIndex: this.firstDayIndex,
                 resetStatus: true,
+                showPreviousNextMonthDays: this.showPreviousNextMonthDays,
             },
         };
 
@@ -676,15 +613,13 @@ export class KupDatePicker {
     }
 
     getDateForOutput(): string {
-        if (this.value == null || this.value.trim() == '') {
-            return '';
+        if (this.notISOvalue) {
+            return this.notISOvalue;
         }
-        // check for special code input
-        if (this.isAlphanumeric(this.value)) {
-            return this.value;
+        if (this.ISOvalue) {
+            return this.kupManager.dates.format(this.ISOvalue);
         }
-        let v1 = this.kupManager.dates.format(this.value);
-        return v1;
+        return '';
     }
 
     isAlphanumeric(value: string): boolean {
@@ -700,7 +635,7 @@ export class KupDatePicker {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
         this.watchFirstDayIndex();
-        this.value = this.initialValue;
+        this.setValue(this.initialValue);
         if (!this.data) {
             this.data = {
                 'kup-text-field': {},

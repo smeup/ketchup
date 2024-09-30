@@ -44,13 +44,21 @@
                 initial-value="2021-11-01"
             ></kup-date-picker
         ></div>
+        <h4>init on Monday, not show previous/next month days</h4>
+        <div style="width: 250px">
+            <kup-date-picker
+                id="date-picker1"
+                initial-value="2021-11-01"
+                show-previous-next-month-days="false"
+            ></kup-date-picker
+        ></div>
 
         <h4>init on Sunday</h4>
         <kup-date-picker
             id="date-picker2"
             first-day-index="0"
         ></kup-date-picker>
-        <h4>Sizing</h4>
+        <h4>Sizing (first day Tuesday)</h4>
 
         <kup-date-picker
             id="date-picker3"

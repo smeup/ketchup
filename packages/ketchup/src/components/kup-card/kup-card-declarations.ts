@@ -32,6 +32,7 @@ export interface KupCardBuiltInCalendarOptions {
     initialValue?: string | KupObj;
     firstDayIndex?: number;
     resetStatus: boolean;
+    showPreviousNextMonthDays?: boolean;
 }
 /**
  * Data of the built-in calendar.
@@ -43,6 +44,7 @@ export interface KupCardBuiltInCalendarData {
     day?: number;
     month?: number;
     year?: number;
+    showPreviousNextMonthDays?: boolean;
 }
 /**
  * Html element of the built-in calendar.

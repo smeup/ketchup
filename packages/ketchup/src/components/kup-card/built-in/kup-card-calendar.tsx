@@ -8,7 +8,10 @@ import {
     KupDateTimeFormatOptionsMonth,
     KupDatesFormats,
 } from '../../../managers/kup-dates/kup-dates-declarations';
-import { KupDom, KupManager } from '../../../managers/kup-manager/kup-manager-declarations';
+import {
+    KupDom,
+    KupManager,
+} from '../../../managers/kup-manager/kup-manager-declarations';
 import { KupObj } from '../../../managers/kup-objects/kup-objects-declarations';
 import { SourceEvent } from '../../kup-date-picker/kup-date-picker-declarations';
 import { KupCard } from '../kup-card';
@@ -39,8 +42,19 @@ export function prepareCalendar(component: KupCard) {
                     setValue(component, new Date(opts.initialValue as string));
                 }
             }
-            if (opts.firstDayIndex !== null && opts.firstDayIndex !== undefined)
+            if (
+                opts.firstDayIndex !== null &&
+                opts.firstDayIndex !== undefined
+            ) {
                 el.kupData.firstDayIndex = opts.firstDayIndex;
+            }
+            if (
+                opts.showPreviousNextMonthDays != null &&
+                opts.showPreviousNextMonthDays !== undefined
+            ) {
+                el.kupData.showPreviousNextMonthDays =
+                    opts.showPreviousNextMonthDays;
+            }
             opts.resetStatus = false;
         }
     }
@@ -94,13 +108,11 @@ export function prepareCalendar(component: KupCard) {
         id: 'change-view-button',
     };
     const goToTodayDateButton: FButtonProps = {
-        icon:"calendar",
+        icon: 'calendar',
         wrapperClass: 'today-navigation-button kup-neutral',
         styling: FButtonStyling.FLAT,
         // label: 'Oggi',
-        title: kupManager.language.translate(
-            KupLanguageGeneric.TODAY
-        ),
+        title: kupManager.language.translate(KupLanguageGeneric.TODAY),
         onClick: () => setDateToday(component),
     };
     //text-transform:capitalize
@@ -179,6 +191,16 @@ function getFirstDayIndex(component: KupCard): number {
     return 1;
 }
 
+function isShowPreviousNextMonthDays(component: KupCard): boolean {
+    const el = component.rootElement as KupCardBuiltInCalendar;
+    if (
+        el.kupData.showPreviousNextMonthDays !== null &&
+        el.kupData.showPreviousNextMonthDays !== undefined
+    )
+        return el.kupData.showPreviousNextMonthDays;
+    return true;
+}
+
 function getView(component: KupCard): SourceEvent {
     const el = component.rootElement as KupCardBuiltInCalendar;
     if (el.kupData.calendarView) return el.kupData.calendarView;
@@ -226,17 +248,30 @@ function createDaysCalendar(component: KupCard) {
 
     const firstMonthDay = new Date(selectedYear, selectedMonth, 1);
     const lastMonthDay = new Date(selectedYear, selectedMonth + 1, 0);
+    const today = new Date();
+
+    const lastPreviousMonthDate = new Date(selectedYear, selectedMonth, 0);
 
     const finish: boolean = false;
     let currentDayIndex = getFirstDayIndex(component);
     const firstMonthDayIndex = firstMonthDay.getDay();
     let row = [];
     let daysForRowAdded = 0;
+    const showPreviousNextMonthDays = isShowPreviousNextMonthDays(component);
+    let substractDays = 0;
     while (!finish) {
         if (currentDayIndex == firstMonthDayIndex) {
             break;
         }
-        row.push(<td class="item empty"></td>);
+        row.unshift(
+            <td class="item-disabled">
+                <span class="item-number">
+                    {showPreviousNextMonthDays
+                        ? lastPreviousMonthDate.getDate() - substractDays++
+                        : ''}
+                </span>
+            </td>
+        );
         currentDayIndex++;
         daysForRowAdded++;
         if (currentDayIndex > 6) {
@@ -245,6 +280,7 @@ function createDaysCalendar(component: KupCard) {
     }
     let dayCount = 1;
     while (dayCount <= lastMonthDay.getDate()) {
+        let currentRowLastItem = daysForRowAdded;
         for (let i = daysForRowAdded; i < 7; i++) {
             let dayClass = 'item';
             let dataIndex = {
@@ -263,11 +299,19 @@ function createDaysCalendar(component: KupCard) {
             ) {
                 dayClass += ' selected';
             }
+            let itemClass = 'item-number';
+            if (
+                today.getFullYear() == selectedYear &&
+                today.getMonth() == selectedMonth &&
+                today.getDate() == dayCount
+            ) {
+                itemClass += ' today';
+            }
             row.push(
                 <td class={dayClass}>
                     <span
                         {...dataIndex}
-                        class="item-number"
+                        class={itemClass}
                         onClick={() => {
                             onCalendarItemClick(
                                 component,
@@ -280,9 +324,20 @@ function createDaysCalendar(component: KupCard) {
                 </td>
             );
             dayCount++;
+            currentRowLastItem = i;
             if (dayCount > lastMonthDay.getDate()) {
                 break;
             }
+        }
+        let nextMonthDay = 1;
+        for (let i = currentRowLastItem + 1; i < 7; i++) {
+            row.push(
+                <td class="item-disabled">
+                    <span class="item-number">
+                        {showPreviousNextMonthDays ? nextMonthDay++ : ''}
+                    </span>
+                </td>
+            );
         }
         if (row.length > 0) {
             tbody.push(<tr>{row}</tr>);
@@ -536,7 +591,7 @@ function onCalendarItemClick(component: KupCard, value: string) {
     refresh(component);
 }
 function setDateToday(component: KupCard): void {
-    setValue(component, new Date())
+    setValue(component, new Date());
     component.onKupClick(component.rootElement.id, new Date().toISOString());
     refresh(component);
 }
