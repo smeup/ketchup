@@ -1511,5 +1511,10 @@ describe('kup-input-panel', () => {
         await page.waitForChanges();
 
         expect(inputPanel).not.toBeNull();
+
+        const absoluteElements = await page.findAll(
+            'kup-input-panel >>> form.input-panel > div'
+        );
+        console.log('ABSOLUTE', absoluteElements);
     });
 });
