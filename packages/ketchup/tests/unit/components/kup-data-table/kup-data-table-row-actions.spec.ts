@@ -94,7 +94,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 icon: 'view-quilt',
                 text: 'Scheda',
                 obj: { k: '000050', p: 'COD_VER', t: 'VO' },
-                type: DropDownAction.CODVERWITHCOMMANDS,
+                type: DropDownAction.COMMANDS,
                 index: 0,
                 cell: firstCell,
                 column: currentColumn,
@@ -103,7 +103,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 icon: 'delete',
                 text: 'Elimina',
                 obj: { k: '000050', p: 'COD_VER', t: 'VO' },
-                type: DropDownAction.CODVERWITHCOMMANDS,
+                type: DropDownAction.COMMANDS,
                 index: 1,
                 cell: firstCell,
                 column: currentColumn,
@@ -112,7 +112,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 icon: 'edit',
                 text: 'Modifica',
                 obj: { k: '000051', p: 'COD_VER', t: 'VO' },
-                type: DropDownAction.CODVERWITHCOMMANDS,
+                type: DropDownAction.COMMANDS,
                 index: 2,
                 cell: secondCell,
                 column: currentColumn,
@@ -301,29 +301,5 @@ describe('kup data getCodVerRows', () => {
         );
 
         expect(result).toEqual([]);
-    });
-});
-
-describe('kup data createCommandsEmptyObj', () => {
-    it('should handle empty obj commands actions', () => {
-        let result: KupDataRowAction[] = [];
-        const commands =
-            sampleKupDataCommandsWithEmptyObj.commands as unknown as KupCommand[];
-        const expectedResult: KupDataRowAction[] = [
-            {
-                icon: 'magnify',
-                text: 'Dettaglio',
-                obj: { k: '', p: '', t: '' },
-                type: DropDownAction.CODVERWITHCOMMANDS,
-                index: 0,
-            },
-        ];
-
-        const kupDataRowAction =
-            dom.ketchup.data.action.createCommandsWithEmptyObj(commands);
-
-        result.push(...kupDataRowAction);
-
-        expect(result).toEqual(expectedResult);
     });
 });

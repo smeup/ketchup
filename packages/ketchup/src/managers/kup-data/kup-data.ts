@@ -482,24 +482,6 @@ export class KupData {
 
             return actions;
         },
-        createCommandsWithEmptyObj: (
-            commands: KupCommand[]
-        ): KupDataRowAction[] => {
-            return commands.length
-                ? commands
-                      .filter((c) => !c.obj.k && !c.obj.t && !c.obj.p)
-                      .map(
-                          (c, index) =>
-                              ({
-                                  text: c.text || '',
-                                  icon: c.icon || '',
-                                  obj: c.obj,
-                                  index: index,
-                                  type: DropDownAction.COMMANDS,
-                              } as KupDataRowAction)
-                      )
-                : [];
-        },
         /**
          * Check whenever commands got blank uiPopup obj
          * @param { commands } commands[] on which control is made
