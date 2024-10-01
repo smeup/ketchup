@@ -1107,7 +1107,7 @@ export function getDiffData(
     originalData: KupDataDataset,
     modifiedData: KupDataDataset,
     includesAlsoEmptyRows: boolean = false
-) {
+): KupDataDataset {
     const diffDataTable = {
         columns: modifiedData.columns,
         rows: [],
