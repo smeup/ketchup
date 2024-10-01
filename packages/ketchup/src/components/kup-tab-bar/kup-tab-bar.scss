@@ -111,6 +111,7 @@
         &:hover {
           .tab__iconToolbar:hover {
             opacity: 1;
+            background-color: var(--kup-gray-color-20-hover);
           }
         }
         .tab__content {

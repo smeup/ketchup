@@ -438,7 +438,7 @@ export class KupTabBar {
                     </span>
                     {this.toolbar && (
                         <FImage
-                            resource="app"
+                            resource="more_vert"
                             sizeX="16px"
                             sizeY="16px"
                             onClick={(event: MouseEvent) => {
