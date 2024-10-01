@@ -102,6 +102,9 @@
     <template v-slot:33>
       <datatable-formula></datatable-formula>
     </template>
+    <template v-slot:34>
+      <datatable-updatable></datatable-updatable>
+    </template>
   </comp>
 </template>
 ß
@@ -147,6 +150,7 @@ import DatatableReportLike from '@/views/components/advanced/datatable/examples/
 import DatatableDocumentLike from '@/views/components/advanced/datatable/examples/DatatableDocumentLike';
 import DatatableMerge from '@/views/components/advanced/datatable/examples/DatatableMerge';
 import DatatableFormula from '@/views/components/advanced/datatable/examples/DatatableFormula';
+import DatatableUpdatable from '@/views/components/advanced/datatable/examples/DatatableUpdatable';
 
 import Comp from '@/views/templates/Comp';
 
@@ -186,6 +190,7 @@ export default {
     DatatableDocumentLike,
     DatatableMerge,
     DatatableFormula,
+    DatatableUpdatable,
     Comp,
   },
   data() {
@@ -228,6 +233,7 @@ export default {
         'Document-like',
         'Merge columns',
         'Formulas on Columns',
+        'Datatable updatable',
       ],
     };
   },
