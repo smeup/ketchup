@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
@@ -14,7 +14,6 @@ import {
     KupDateTimeFormatOptionsMonth,
     KupDatesFormats,
     KupDatesLocales,
-    KupDatesNormalize,
     KupDatesOrder,
 } from './kup-dates-declarations';
 
@@ -193,10 +192,24 @@ export class KupDates {
 
     isIsoDate(dateString: string): boolean {
         const isoDate = dayjs(dateString, [
-            'YYYY-MM-DD',
+            KupDatesFormats.ISO_DATE,
+            KupDatesFormats.ISO_DATE_TIME,
             'YYYY-MM-DDTHH:mm:ss.SSSZ',
         ]);
-        return isoDate.isValid();
+        if (!isoDate.isValid()) {
+            return false;
+        }
+
+        if (Number(dateString.substring(0, 4)) != isoDate.year()) {
+            return false;
+        }
+        if (Number(dateString.substring(5, 7)) != isoDate.month() + 1) {
+            return false;
+        }
+        if (Number(dateString.substring(8, 10)) != isoDate.date()) {
+            return false;
+        }
+        return true;
     }
     /**
      * Validates the given date.
@@ -205,19 +218,70 @@ export class KupDates {
      * @param {boolean} strict - Strict parsing requires that the format and input match exactly, including delimiters.
      * @returns {boolean} Returns whether the argument is a valid date or not.
      */
-    isValid(
-        date: dayjs.ConfigType,
+    isValidFormattedStringDate(
+        date: string,
         format?: string,
-        strict?: boolean
+        strict?: boolean,
+        isJustTime: boolean = false,
+        manageSeconds: boolean = false
     ): boolean {
-        if (format && format != null) {
-            return dayjs(date, format, strict).isValid();
-        } else {
-            if (typeof date == 'string') {
-                date = this.cleanInputDateString(date);
+        let isValidDate = false;
+        const cleanedDate = this.cleanInputDateString(date);
+        let parsedDate = null;
+        if (format) {
+            const nDate = strict ? date : this.normalize(date, format);
+            parsedDate = dayjs(nDate, format, strict);
+            isValidDate = parsedDate.isValid();
+            if (!isValidDate && isJustTime && !strict) {
+                const formatNotStrict = format.replace(/:/g, '');
+                parsedDate = dayjs(nDate, formatNotStrict, strict);
+                isValidDate = parsedDate.isValid();
             }
-            return dayjs(date, undefined, strict).isValid();
+        } else {
+            parsedDate = this.normalize(cleanedDate);
+            isValidDate = parsedDate.isValid();
         }
+        if (!isValidDate) {
+            return false;
+        }
+        let formattedDate = null;
+
+        if (format) {
+            formattedDate = dayjs(parsedDate).format(format);
+        } else {
+            const options: Intl.DateTimeFormatOptions = {};
+
+            if (
+                format == KupDatesFormats.ISO_TIME ||
+                format == KupDatesFormats.ISO_TIME_WITHOUT_SECONDS ||
+                format == KupDatesFormats.ISO_DATE_TIME
+            ) {
+                options.hour = '2-digit';
+                options.minute = '2-digit';
+                options.hour12 = false;
+                if (manageSeconds == true) {
+                    options.second = '2-digit';
+                }
+            }
+            if (
+                format != KupDatesFormats.ISO_TIME &&
+                format != KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
+            ) {
+                options.year = cleanedDate.length < 8 ? '2-digit' : 'numeric';
+                options.month = '2-digit';
+                options.day = '2-digit';
+            }
+
+            const formatObj = new Intl.DateTimeFormat(
+                this.getLocale() + '-u-hc-h23',
+                options
+            );
+
+            formattedDate = formatObj.format(parsedDate.toDate());
+        }
+        const cleanedDateNew = this.cleanInputDateString(formattedDate);
+        isValidDate = cleanedDateNew == cleanedDate;
+        return isValidDate;
     }
 
     /**
@@ -226,9 +290,19 @@ export class KupDates {
      * @param {boolean} manageSeconds if manage seconds
      * @returns {boolean} true if time string in input is a valid time
      */
-    isValidFormattedStringTime(value: string, manageSeconds: boolean): boolean {
+    isValidFormattedStringTime(
+        value: string,
+        manageSeconds: boolean,
+        strict: boolean = true
+    ): boolean {
         let format = this.getTimeFormat(manageSeconds);
-        return this.isValid(value, format, true);
+        return this.isValidFormattedStringDate(
+            value,
+            format,
+            strict,
+            true,
+            manageSeconds
+        );
     }
 
     /**
@@ -264,46 +338,29 @@ export class KupDates {
      * @returns
      */
     cleanInputDateString(input: string): string {
-        // array e for-each con contains
-        const allowedChars: Array<string> = [
-            '0',
-            '1',
-            '2',
-            '3',
-            '4',
-            '5',
-            '6',
-            '7',
-            '8',
-            '9',
-        ];
-        let inputCleaned = '';
-        for (let i = 0; i < input.length; i++) {
-            let ch: string = input.charAt(i);
-            if (allowedChars.includes(ch)) {
-                inputCleaned += ch;
-            }
+        if (!input) {
+            return '';
         }
-        return inputCleaned;
+        return input.replace(/[^0-9]/g, '').trim();
     }
 
     /**
      * Returns a computed ISO date/time from a partial string.
      * @param {string} input - Input string containing a partial date/time (i.e.: 011221).
-     * @param {KupDatesNormalize} type - Type of the input string.
+     * @param {KupDatesFormats} type - Type of the input string.
      * @returns {dayjs.Dayjs} Dayjs object of the normalized date.
      */
-    normalize(input: string, type?: KupDatesNormalize): dayjs.Dayjs {
-        const l = dayjs.Ls[this.locale].formats.L;
-
+    normalize(input: string, type?: KupDatesFormats | string): dayjs.Dayjs {
+        const l = type ?? dayjs.Ls[this.locale].formats.L;
         input = this.cleanInputDateString(input);
         switch (type) {
-            case KupDatesNormalize.TIME:
+            case KupDatesFormats.ISO_TIME:
+            case KupDatesFormats.ISO_TIME_WITHOUT_SECONDS:
                 const time = normalizeTime();
                 return dayjs(time);
-            case KupDatesNormalize.TIMESTAMP:
+            case KupDatesFormats.ISO_DATE_TIME:
                 return dayjs(input);
-            case KupDatesNormalize.DATE:
+            case KupDatesFormats.ISO_DATE:
             default:
                 const date = normalizeDate();
                 return dayjs(date);
@@ -340,8 +397,11 @@ export class KupDates {
                 case 6:
                     sub1 = parseInt(input.substring(0, 2));
                     sub2 = parseInt(input.substring(2, 4));
-                    year = today.getFullYear().toString();
-                    year = year.substring(0, 2) + input.substring(4);
+                    if (Number(input.substring(4)) > 50) {
+                        year = '19' + input.substring(4);
+                    } else {
+                        year = '20' + input.substring(4);
+                    }
                     if (mIndex === 0) {
                         today.setFullYear(parseInt(year), sub1 - 1, sub2);
                     } else if (dIndex === 0) {
@@ -596,7 +656,7 @@ export class KupDates {
             hour12: false,
         };
         let date = this.toDate(
-            this.normalize(value, KupDatesNormalize.TIMESTAMP)
+            this.normalize(value, KupDatesFormats.ISO_DATE_TIME)
         );
         return date.toLocaleString(this.getLocale() + '-u-hc-h23', options);
     }
@@ -626,10 +686,9 @@ export class KupDates {
         outputFormat: string,
         manageSeconds: boolean
     ): string {
-        let inputFormat: string = this.getTimeFormat(manageSeconds);
-        if (this.isValid(value, inputFormat)) {
+        if (this.isValidFormattedStringTime(value, manageSeconds, false)) {
             return this.format(
-                this.normalize(value, KupDatesNormalize.TIME),
+                this.normalize(value, KupDatesFormats.ISO_TIME),
                 outputFormat
             );
         } else {
@@ -657,7 +716,7 @@ export class KupDates {
         if (manageSeconds == true) {
             options.second = '2-digit';
         }
-        let date = this.toDate(this.normalize(value, KupDatesNormalize.TIME));
+        let date = this.toDate(this.normalize(value, KupDatesFormats.ISO_TIME));
 
         return formatByCustomedOutputTimeFormat(
             value,

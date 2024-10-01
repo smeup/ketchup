@@ -3,7 +3,7 @@ import { ChartSerie } from './kup-chart-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import { KupObjects } from '../../managers/kup-objects/kup-objects';
 import { KupDates } from '../../managers/kup-dates/kup-dates';
-import { KupDatesNormalize } from '../../managers/kup-dates/kup-dates-declarations';
+import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import {
     KupDataColumn,
     KupDataDataset,
@@ -95,7 +95,7 @@ export const convertRows = (
                     } else if (kupObjects.isTime(cell.obj)) {
                         const datetime = kupDates.normalize(
                             cell.obj.k,
-                            KupDatesNormalize.TIME
+                            KupDatesFormats.ISO_TIME
                         );
                         currentRow.push(datetime.toDate());
                         if (addMark) {
@@ -104,7 +104,7 @@ export const convertRows = (
                     } else if (kupObjects.isTimestamp(cell.obj)) {
                         const datetime = kupDates.normalize(
                             cell.obj.k,
-                            KupDatesNormalize.TIMESTAMP
+                            KupDatesFormats.ISO_DATE_TIME
                         );
                         currentRow.push(datetime.toDate());
                         if (addMark) {
