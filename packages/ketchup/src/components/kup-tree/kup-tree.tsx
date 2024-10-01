@@ -653,7 +653,6 @@ export class KupTree {
             }
         };
         const getNodeDepth = (): number => {
-            const firstNode = this.data[0];
             let maxDepth = 0;
 
             const traverseNode = (
@@ -662,8 +661,7 @@ export class KupTree {
             ): void => {
                 if (node.children?.length) {
                     if (node.isExpanded) {
-                        maxDepth = Math.max(maxDepth, currentDepth);
-                        maxDepth += 1;
+                        maxDepth = Math.max(maxDepth, currentDepth + 1);
                     }
                     for (let index = 0; index < node.children.length; index++) {
                         const child = node.children[index];
@@ -672,10 +670,10 @@ export class KupTree {
                 }
             };
 
-            if (firstNode) {
-                traverseNode(firstNode, 0);
+            for (let index = 0; index < this.data.length; index++) {
+                const node = this.data[index];
+                traverseNode(node, 0);
             }
-
             return maxDepth;
         };
 
