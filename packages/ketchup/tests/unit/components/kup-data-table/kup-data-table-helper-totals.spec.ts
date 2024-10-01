@@ -2,12 +2,12 @@ import { calcTotals } from '../../../../src/components/kup-data-table/kup-data-t
 import { TotalMode } from '../../../../src/components/kup-data-table/kup-data-table-declarations';
 import { KupDom } from '../../../../src/managers/kup-manager/kup-manager-declarations';
 import { KupManager } from '../../../../src/managers/kup-manager/kup-manager';
-const dom: KupDom = document.documentElement as KupDom;
-if (!dom.ketchup) {
-    dom.ketchup = new KupManager();
-}
-
 import sampleKupDataDataset from '../../../resources/mock/kup-data-dataset-with-people-nrs-dates.json';
+import { KupDatesLocales } from '../../../../src/managers/kup-dates/kup-dates-declarations';
+
+const locale = 'it' as KupDatesLocales;
+const dom: KupDom = document.documentElement as KupDom;
+dom.ketchup = new KupManager({ dates: { locale } });
 
 const mockedRows = sampleKupDataDataset.rows;
 

@@ -29,10 +29,7 @@ import {
 } from './kup-date-picker-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import {
-    KupDatesFormats,
-    KupDatesNormalize,
-} from '../../managers/kup-dates/kup-dates-declarations';
+import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
@@ -404,12 +401,11 @@ export class KupDatePicker {
             }
         } else if (this.isAlphanumeric(eventDetailValue)) {
             /** donothing */
-        } else if (this.kupManager.dates.isValid(eventDetailValue)) {
+        } else if (
+            this.kupManager.dates.isValidFormattedStringDate(eventDetailValue)
+        ) {
             newValue = this.kupManager.dates.format(
-                this.kupManager.dates.normalize(
-                    eventDetailValue,
-                    KupDatesNormalize.DATE
-                ),
+                this.kupManager.dates.normalize(eventDetailValue),
                 KupDatesFormats.ISO_DATE
             );
             this.refreshPickerComponentValue(newValue);
@@ -417,6 +413,8 @@ export class KupDatePicker {
                 this.ISOvalue = newValue;
                 this.notISOvalue = '';
             }
+        } else {
+            /** donothing */
         }
 
         if (newValue != null && eventToRaise) {
@@ -432,7 +430,7 @@ export class KupDatePicker {
             return;
         }
         let d: Date;
-        if (this.kupManager.dates.isValid(value, KupDatesFormats.ISO_DATE)) {
+        if (this.kupManager.dates.isIsoDate(value)) {
             d = new Date(value);
         } else {
             d = new Date();

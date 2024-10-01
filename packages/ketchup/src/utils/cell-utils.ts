@@ -81,10 +81,7 @@ export function getValueForDisplay(value, obj, decimals: number): string {
             obj ? obj.p : ''
         );
     }
-    if (
-        dom.ketchup.objects.isDate(obj) &&
-        dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE)
-    ) {
+    if (dom.ketchup.objects.isDate(obj) && dom.ketchup.dates.isIsoDate(value)) {
         return dom.ketchup.dates.format(value);
     }
     if (dom.ketchup.objects.isTime(obj)) {

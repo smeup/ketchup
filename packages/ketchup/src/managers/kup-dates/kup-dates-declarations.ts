@@ -1,13 +1,4 @@
 /**
- * Normalization types.
- */
-export enum KupDatesNormalize {
-    DATE = 'date',
-    TIME = 'time',
-    TIMESTAMP = 'timestamp',
-}
-
-/**
  * Supported locales.
  */
 export enum KupDatesLocales {
