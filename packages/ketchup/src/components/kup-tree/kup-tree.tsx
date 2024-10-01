@@ -635,6 +635,23 @@ export class KupTree {
      */
     @Method()
     async setExpansionByDepth(modifier: number) {
+        const handleChildren = (
+            node: KupTreeNode,
+            expand: boolean,
+            maxDepth?: number,
+            depth?: number
+        ) => {
+            const shouldExpand = depth < maxDepth;
+            node.isExpanded = shouldExpand;
+            for (
+                let index = 0;
+                node.children && index < node.children.length;
+                index++
+            ) {
+                const child = node.children[index];
+                handleChildren(child, expand, maxDepth, depth + 1);
+            }
+        };
         const getNodeDepth = (): number => {
             const firstNode = this.data[0];
             let maxDepth = 0;
@@ -643,12 +660,14 @@ export class KupTree {
                 node: KupTreeNode,
                 currentDepth: number
             ): void => {
-                if (node.isExpanded) {
-                    maxDepth = Math.max(maxDepth, currentDepth);
-                    if (node.children && node.children.length > 0) {
-                        node.children.forEach((child) => {
-                            traverseNode(child, currentDepth + 1);
-                        });
+                if (node.children?.length) {
+                    if (node.isExpanded) {
+                        maxDepth = Math.max(maxDepth, currentDepth);
+                        maxDepth += 1;
+                    }
+                    for (let index = 0; index < node.children.length; index++) {
+                        const child = node.children[index];
+                        traverseNode(child, currentDepth + 1);
                     }
                 }
             };
@@ -661,14 +680,11 @@ export class KupTree {
         };
 
         let maxDepth = getNodeDepth() + modifier;
-        if (maxDepth < 0) {
-            maxDepth = 0;
-        }
 
         if (!this.useDynamicExpansion) {
             for (let index = 0; index < this.data.length; index++) {
-                this.data[index].isExpanded = maxDepth ? true : false;
-                this.handleChildren(this.data[index], false, maxDepth, 0);
+                const node = this.data[index];
+                handleChildren(node, false, maxDepth, 0);
             }
         } else {
             this.kupTreeDynamicMassExpansion.emit({
@@ -1215,27 +1231,13 @@ export class KupTree {
         return this.totals && Object.keys(this.totals).length > 0;
     }
 
-    private handleChildren(
-        treeNode: KupTreeNode,
-        expand: boolean,
-        maxDepth?: number,
-        depth?: number
-    ) {
+    private handleChildren(treeNode: KupTreeNode, expand: boolean) {
         for (let index = 0; index < treeNode.children.length; index++) {
             let node = treeNode.children[index];
-            if (
-                maxDepth === undefined &&
-                depth === undefined &&
-                !node.disabled
-            ) {
+            if (!node.disabled) {
                 node.isExpanded = expand;
                 if (node.children) {
                     this.handleChildren(node, expand);
-                }
-            } else {
-                node.isExpanded = depth <= maxDepth ? true : false;
-                if (node.children) {
-                    this.handleChildren(node, expand, maxDepth, depth++);
                 }
             }
         }
