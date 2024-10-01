@@ -5988,8 +5988,7 @@ export class KupDataTable {
                 this.tableHeight === undefined &&
                 this.tableWidth === undefined,
 
-            'custom-size':
-                this.tableHeight !== undefined || this.tableWidth !== undefined,
+            'custom-size': !!this.tableHeight || !!this.tableWidth,
 
             'border-top': !this.showHeader,
         };
@@ -5999,14 +5998,15 @@ export class KupDataTable {
         tableClass[`density-${this.density}`] = true;
         tableClass[`fontsize-${this.fontsize}`] = true;
 
-        if (this.tableHeight && this.tableHeight !== '100%') {
+        if (this.tableHeight) {
             elStyle = {
+                ...elStyle,
                 height: this.tableHeight,
                 overflow: 'auto',
             };
         }
 
-        if (this.tableWidth && this.tableWidth !== '100%') {
+        if (this.tableWidth) {
             elStyle = {
                 ...elStyle,
                 width: this.tableWidth,
@@ -6041,7 +6041,7 @@ export class KupDataTable {
         }
 
         let belowClass = 'below-wrapper';
-        if (this.tableHeight !== undefined || this.tableWidth !== undefined) {
+        if (!!this.tableHeight || !!this.tableWidth) {
             belowClass += ' custom-size';
         }
 
