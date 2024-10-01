@@ -132,6 +132,23 @@ export function createFakeDepartmentData(dataSuffix: string) {
   };
 }
 
+export function getDefaultDataTable(
+  editable: boolean = true,
+  fieldsEditable: string[] = ['FLD2', 'FLD3']
+) {
+  const dataTable = { ...defaultDataTable };
+  if (editable) {
+    dataTable.rows.forEach((row) => {
+      fieldsEditable.forEach((field) => {
+        if (row.cells[field]) {
+          row.cells[field].isEditable = true;
+        }
+      });
+    });
+  }
+  return dataTable;
+}
+
 export const defaultDataTable = {
   columns: [
     {

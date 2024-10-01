@@ -105,7 +105,6 @@ Type: `Promise<void>`
 
  - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
- - [kup-editable-table](../kup-editable-table)
  - [kup-iframe](../kup-iframe)
  - [kup-magic-box](../kup-magic-box)
 
@@ -225,7 +224,6 @@ graph TD;
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
-  kup-editable-table --> kup-button
   kup-iframe --> kup-button
   kup-magic-box --> kup-button
   style kup-button fill:#f9f,stroke:#333,stroke-width:4px

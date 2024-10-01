@@ -33,7 +33,6 @@ export const KupDialog = /*@__PURE__*/createReactComponent<JSX.KupDialog, HTMLKu
 export const KupDrawer = /*@__PURE__*/createReactComponent<JSX.KupDrawer, HTMLKupDrawerElement>('kup-drawer');
 export const KupDropdownButton = /*@__PURE__*/createReactComponent<JSX.KupDropdownButton, HTMLKupDropdownButtonElement>('kup-dropdown-button');
 export const KupEchart = /*@__PURE__*/createReactComponent<JSX.KupEchart, HTMLKupEchartElement>('kup-echart');
-export const KupEditableTable = /*@__PURE__*/createReactComponent<JSX.KupEditableTable, HTMLKupEditableTableElement>('kup-editable-table');
 export const KupEditor = /*@__PURE__*/createReactComponent<JSX.KupEditor, HTMLKupEditorElement>('kup-editor');
 export const KupFamilyTree = /*@__PURE__*/createReactComponent<JSX.KupFamilyTree, HTMLKupFamilyTreeElement>('kup-family-tree');
 export const KupForm = /*@__PURE__*/createReactComponent<JSX.KupForm, HTMLKupFormElement>('kup-form');

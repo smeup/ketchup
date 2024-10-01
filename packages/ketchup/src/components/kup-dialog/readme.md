@@ -123,7 +123,6 @@ Type: `Promise<void>`
  - [kup-drawer](../kup-drawer)
  - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-echart](../kup-echart)
- - [kup-editable-table](../kup-editable-table)
  - [kup-editor](../kup-editor)
  - [kup-family-tree](../kup-family-tree)
  - [kup-form](../kup-form)
@@ -201,7 +200,6 @@ graph TD;
   kup-dashboard --> kup-dialog
   kup-drawer --> kup-dialog
   kup-echart --> kup-dialog
-  kup-editable-table --> kup-dialog
   kup-editor --> kup-dialog
   kup-family-tree --> kup-dialog
   kup-grid --> kup-dialog

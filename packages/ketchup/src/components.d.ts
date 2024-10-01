@@ -8,7 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 import { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
-import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionItemClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionItemClickEventPayload, KupDatatableRowSelectedEventPayload, KupDatatableUpdatePayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { KupActivityTimelineClickEventPayload } from "./components/kup-activity-timeline/kup-activity-timeline-declarations";
 import { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
@@ -37,7 +37,6 @@ import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/
 import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 import { GeoJSON } from "geojson";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
-import { KupEditableTableUpdatePayload } from "./components/kup-editable-table/kup-editable-table-declarations";
 import { KupEditorEventPayload, KupEditorPreview, KupEditorSelectedTab, KupEditorType } from "./components/kup-editor/kup-editor-declarations";
 import { KupFamilyTreeData, KupFamilyTreeEventPayload, KupFamilyTreeLayout, KupFamilyTreeNode } from "./components/kup-family-tree/kup-family-tree-declarations";
 import { KupFormData, KupFormLabelPlacement, KupFormLayout } from "./components/kup-form/kup-form-declarations";
@@ -66,7 +65,7 @@ import { KupTypographyListClickEventPayload, KupTypographyListIconClickEventPayl
 export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 export { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 export { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
-export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionItemClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionItemClickEventPayload, KupDatatableRowSelectedEventPayload, KupDatatableUpdatePayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 export { KupActivityTimelineClickEventPayload } from "./components/kup-activity-timeline/kup-activity-timeline-declarations";
 export { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 export { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
@@ -95,7 +94,6 @@ export { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/
 export { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 export { GeoJSON } from "geojson";
 export { XAXisComponentOption, YAXisComponentOption } from "echarts";
-export { KupEditableTableUpdatePayload } from "./components/kup-editable-table/kup-editable-table-declarations";
 export { KupEditorEventPayload, KupEditorPreview, KupEditorSelectedTab, KupEditorType } from "./components/kup-editor/kup-editor-declarations";
 export { KupFamilyTreeData, KupFamilyTreeEventPayload, KupFamilyTreeLayout, KupFamilyTreeNode } from "./components/kup-family-tree/kup-family-tree-declarations";
 export { KupFormData, KupFormLabelPlacement, KupFormLayout } from "./components/kup-form/kup-form-declarations";
@@ -1762,6 +1760,11 @@ export namespace Components {
           * Transposes the data of the data table
          */
         "transpose": boolean;
+        /**
+          * When set to true, editable cells will be rendered using input components, and update button will appair below the matrix
+          * @default false
+         */
+        "updatableData": boolean;
     }
     interface KupDatePicker {
         /**
@@ -2128,9 +2131,6 @@ export namespace Components {
           * @default null
          */
         "yAxis": YAXisComponentOption;
-    }
-    interface KupEditableTable {
-        "data": KupDataTableDataset;
     }
     interface KupEditor {
         /**
@@ -4549,10 +4549,6 @@ export interface KupEchartCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupEchartElement;
 }
-export interface KupEditableTableCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLKupEditableTableElement;
-}
 export interface KupEditorCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupEditorElement;
@@ -4997,6 +4993,7 @@ declare global {
         "kup-datatable-insert-row": KupDatatableInsertRowEventPayload;
         "kup-datatable-history": KupDatatableHistoryEventPayload;
         "kup-datatable-rowaction-item-click": KupDatatableRowActionItemClickEventPayload;
+        "kup-datatable-update": KupDatatableUpdatePayload;
     }
     interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupDataTableElementEventMap>(type: K, listener: (this: HTMLKupDataTableElement, ev: KupDataTableCustomEvent<HTMLKupDataTableElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5111,24 +5108,6 @@ declare global {
     var HTMLKupEchartElement: {
         prototype: HTMLKupEchartElement;
         new (): HTMLKupEchartElement;
-    };
-    interface HTMLKupEditableTableElementEventMap {
-        "kupGenericEvent": any;
-        "kup-editable-table-update": KupEditableTableUpdatePayload;
-    }
-    interface HTMLKupEditableTableElement extends Components.KupEditableTable, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLKupEditableTableElementEventMap>(type: K, listener: (this: HTMLKupEditableTableElement, ev: KupEditableTableCustomEvent<HTMLKupEditableTableElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLKupEditableTableElementEventMap>(type: K, listener: (this: HTMLKupEditableTableElement, ev: KupEditableTableCustomEvent<HTMLKupEditableTableElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLKupEditableTableElement: {
-        prototype: HTMLKupEditableTableElement;
-        new (): HTMLKupEditableTableElement;
     };
     interface HTMLKupEditorElementEventMap {
         "kup-editor-autosave": KupEditorEventPayload;
@@ -5760,7 +5739,6 @@ declare global {
         "kup-drawer": HTMLKupDrawerElement;
         "kup-dropdown-button": HTMLKupDropdownButtonElement;
         "kup-echart": HTMLKupEchartElement;
-        "kup-editable-table": HTMLKupEditableTableElement;
         "kup-editor": HTMLKupEditorElement;
         "kup-family-tree": HTMLKupFamilyTreeElement;
         "kup-form": HTMLKupFormElement;
@@ -7123,6 +7101,10 @@ declare namespace LocalJSX {
          */
         "onKup-datatable-save"?: (event: KupDataTableCustomEvent<KupDatatableInsertRowEventPayload>) => void;
         /**
+          * Event fired when the user click on update button, update button is visible when the props updatableData is true
+         */
+        "onKup-datatable-update"?: (event: KupDataTableCustomEvent<KupDatatableUpdatePayload>) => void;
+        /**
           * Current selected page set on component load
          */
         "pageSelected"?: number;
@@ -7221,6 +7203,11 @@ declare namespace LocalJSX {
           * Transposes the data of the data table
          */
         "transpose"?: boolean;
+        /**
+          * When set to true, editable cells will be rendered using input components, and update button will appair below the matrix
+          * @default false
+         */
+        "updatableData"?: boolean;
     }
     interface KupDatePicker {
         /**
@@ -7510,14 +7497,6 @@ declare namespace LocalJSX {
           * @default null
          */
         "yAxis"?: YAXisComponentOption;
-    }
-    interface KupEditableTable {
-        "data"?: KupDataTableDataset;
-        /**
-          * When the user clicks on Update button
-         */
-        "onKup-editable-table-update"?: (event: KupEditableTableCustomEvent<KupEditableTableUpdatePayload>) => void;
-        "onKupGenericEvent"?: (event: KupEditableTableCustomEvent<any>) => void;
     }
     interface KupEditor {
         /**
@@ -9504,7 +9483,6 @@ declare namespace LocalJSX {
         "kup-drawer": KupDrawer;
         "kup-dropdown-button": KupDropdownButton;
         "kup-echart": KupEchart;
-        "kup-editable-table": KupEditableTable;
         "kup-editor": KupEditor;
         "kup-family-tree": KupFamilyTree;
         "kup-form": KupForm;
@@ -9580,7 +9558,6 @@ declare module "@stencil/core" {
             "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
             "kup-dropdown-button": LocalJSX.KupDropdownButton & JSXBase.HTMLAttributes<HTMLKupDropdownButtonElement>;
             "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
-            "kup-editable-table": LocalJSX.KupEditableTable & JSXBase.HTMLAttributes<HTMLKupEditableTableElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-family-tree": LocalJSX.KupFamilyTree & JSXBase.HTMLAttributes<HTMLKupFamilyTreeElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;

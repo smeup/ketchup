@@ -246,7 +246,8 @@
             "totalsMaximum": "Maximum",
             "totalsMinimum": "Minimum",
             "totalsProduct": "Product",
-            "totalsSum": "Sum"
+            "totalsSum": "Sum",
+            "genericUpdate": "Update"
         }
     },
     "french": {
@@ -496,7 +497,8 @@
             "totalsMinimum": "Minimo",
             "totalsMaximum": "Massimo",
             "totalsProduct": "Prodotto",
-            "totalsSum": "Somma"
+            "totalsSum": "Somma",
+            "genericUpdate": "Aggiorna"
         },
         "variants": {
             "smeup": {

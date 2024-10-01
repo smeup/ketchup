@@ -174,6 +174,7 @@ export enum KupLanguageGeneric {
     VIEW_AS = 'genericViewAs',
     WEEK = 'genericWeek',
     YES = 'genericYes',
+    UPDATE = 'genericUpdate',
 }
 /**
  * Grid decodes (data table customization settings).
