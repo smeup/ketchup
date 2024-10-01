@@ -16,9 +16,7 @@ import sampleKupDataDataset from '../../../resources/mock/kup-data-dataset-with-
 import sampleKupDataCommandsWithEmptyObj from '../../../resources/mock/kup-data-dataset-commands-with-empty-obj.json';
 import {
     DropDownAction,
-    KupDataCell,
     KupDataColumn,
-    KupDataRow,
 } from '../../../../src/managers/kup-data/kup-data-declarations';
 import { KupDataTableCell } from '../../../../src/components/kup-data-table/kup-data-table-declarations';
 

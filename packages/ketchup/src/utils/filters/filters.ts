@@ -1,10 +1,7 @@
 import { KupTagNames } from '../../types/GenericTypes';
 import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import { KupTree } from '../../components/kup-tree/kup-tree';
-import {
-    KupDatesFormats,
-    KupDatesNormalize,
-} from '../../managers/kup-dates/kup-dates-declarations';
+import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import {
     FilterInterval,
@@ -51,27 +48,17 @@ export class Filters {
             return newValue;
         }
         if (dom.ketchup.objects.isDate(smeupObj)) {
-            if (dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE)) {
+            if (dom.ketchup.dates.isIsoDate(value)) {
                 return newValue;
             }
-            if (dom.ketchup.dates.isValid(value)) {
+            if (dom.ketchup.dates.isValidFormattedStringDate(value)) {
                 return dom.ketchup.dates.format(
-                    dom.ketchup.dates.normalize(value, KupDatesNormalize.DATE),
+                    dom.ketchup.dates.normalize(value),
                     KupDatesFormats.ISO_DATE
                 );
             }
         } else if (dom.ketchup.objects.isTime(smeupObj)) {
             let manageSeconds = dom.ketchup.objects.isTimeWithSeconds(smeupObj);
-            if (
-                dom.ketchup.dates.isValid(
-                    value,
-                    manageSeconds
-                        ? KupDatesFormats.ISO_TIME
-                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
-                )
-            ) {
-                return newValue;
-            }
             if (
                 dom.ketchup.dates.isValidFormattedStringTime(
                     value,
@@ -87,9 +74,7 @@ export class Filters {
                 );
             }
         } else if (dom.ketchup.objects.isTimestamp(smeupObj)) {
-            if (
-                dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE_TIME)
-            ) {
+            if (dom.ketchup.dates.isIsoDate(value)) {
                 return newValue;
             }
             if (dom.ketchup.dates.isValidFormattedStringTime(value, true)) {
@@ -291,21 +276,28 @@ export class Filters {
             if (dom.ketchup.objects.isDate(obj)) {
                 defaultFormat = KupDatesFormats.ISO_DATE;
             } else if (dom.ketchup.objects.isTime(obj)) {
-                defaultFormat = dom.ketchup.objects.isTimeWithSeconds(obj)
+                const manageSeconds =
+                    dom.ketchup.objects.isTimeWithSeconds(obj);
+                defaultFormat = manageSeconds
                     ? KupDatesFormats.ISO_TIME
                     : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS;
             } else if (dom.ketchup.objects.isTimestamp(obj)) {
                 defaultFormat = KupDatesFormats.ISO_DATE_TIME;
             }
 
-            if (dom.ketchup.dates.isValid(value, defaultFormat, true)) {
+            const normValue = this.normalizeValue(value, obj);
+            if (normValue != null) {
                 valueDate = dom.ketchup.dates.toDate(value, defaultFormat);
             }
 
             if (from != '') {
                 if (
                     valueDate != null &&
-                    dom.ketchup.dates.isValid(from, defaultFormat, true)
+                    dom.ketchup.dates.isValidFormattedStringDate(
+                        from,
+                        defaultFormat,
+                        true
+                    )
                 ) {
                     checkByRegularExpression = false;
                     let fromDate: Date = dom.ketchup.dates.toDate(
@@ -322,7 +314,11 @@ export class Filters {
             if (to != '') {
                 if (
                     valueDate != null &&
-                    dom.ketchup.dates.isValid(to, defaultFormat, true)
+                    dom.ketchup.dates.isValidFormattedStringDate(
+                        to,
+                        defaultFormat,
+                        true
+                    )
                 ) {
                     checkByRegularExpression = false;
                     let toDate: Date = dom.ketchup.dates.toDate(
@@ -337,8 +333,11 @@ export class Filters {
                 }
             }
             if (
-                !dom.ketchup.dates.isValid(filterValue, defaultFormat) &&
-                !dom.ketchup.dates.isValid(filterValue)
+                !dom.ketchup.dates.isValidFormattedStringDate(
+                    filterValue,
+                    defaultFormat
+                ) &&
+                !dom.ketchup.dates.isValidFormattedStringDate(filterValue)
             ) {
                 value = dom.ketchup.dates.format(value);
             }
