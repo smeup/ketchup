@@ -107,6 +107,11 @@ export class KupDatePicker {
      * @default true
      */
     @Prop() showIcon: boolean = true;
+    /**
+     * Sets show previous/next month days in calendar
+     * @default true
+     */
+    @Prop() showPreviousNextMonthDays: boolean = true;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -390,36 +395,35 @@ export class KupDatePicker {
         this.ISOvalue = '';
         this.notISOvalue = newValue;
         // check if input contains special codes
-        if (!newValue || this.isAlphanumeric(newValue)) {
+        if (!eventDetailValue) {
             /** donothing */
-        } else {
-            if (this.kupManager.dates.isIsoDate(eventDetailValue)) {
-                if (isOnInputEvent != true) {
-                    this.ISOvalue = eventDetailValue;
-                    this.notISOvalue = '';
-                }
-            } else if (this.kupManager.dates.isValid(eventDetailValue)) {
-                newValue = this.kupManager.dates.format(
-                    this.kupManager.dates.normalize(
-                        eventDetailValue,
-                        KupDatesNormalize.DATE
-                    ),
-                    KupDatesFormats.ISO_DATE
-                );
-                this.refreshPickerComponentValue(newValue);
-                if (isOnInputEvent != true) {
-                    this.ISOvalue = newValue;
-                    this.notISOvalue = '';
-                }
+        } else if (this.kupManager.dates.isIsoDate(eventDetailValue)) {
+            if (isOnInputEvent != true) {
+                this.ISOvalue = eventDetailValue;
+                this.notISOvalue = '';
+            }
+        } else if (this.isAlphanumeric(eventDetailValue)) {
+            /** donothing */
+        } else if (this.kupManager.dates.isValid(eventDetailValue)) {
+            newValue = this.kupManager.dates.format(
+                this.kupManager.dates.normalize(
+                    eventDetailValue,
+                    KupDatesNormalize.DATE
+                ),
+                KupDatesFormats.ISO_DATE
+            );
+            this.refreshPickerComponentValue(newValue);
+            if (isOnInputEvent != true) {
+                this.ISOvalue = newValue;
+                this.notISOvalue = '';
             }
         }
-        if (newValue != null) {
-            if (eventToRaise != null) {
-                eventToRaise.emit({
-                    id: this.rootElement.id,
-                    value: newValue,
-                });
-            }
+
+        if (newValue != null && eventToRaise) {
+            eventToRaise.emit({
+                id: this.rootElement.id,
+                value: newValue,
+            });
         }
     }
 
@@ -588,6 +592,7 @@ export class KupDatePicker {
                 initialValue: this.ISOvalue,
                 firstDayIndex: this.firstDayIndex,
                 resetStatus: true,
+                showPreviousNextMonthDays: this.showPreviousNextMonthDays,
             },
         };
 

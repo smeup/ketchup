@@ -1825,6 +1825,11 @@ export namespace Components {
          */
         "showIcon": boolean;
         /**
+          * Sets show previous/next month days in calendar
+          * @default true
+         */
+        "showPreviousNextMonthDays": boolean;
+        /**
           * Sets the sizing of the textfield of the datepicker
           * @default KupComponentSizing.MEDIUM
          */
@@ -7263,6 +7268,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "showIcon"?: boolean;
+        /**
+          * Sets show previous/next month days in calendar
+          * @default true
+         */
+        "showPreviousNextMonthDays"?: boolean;
         /**
           * Sets the sizing of the textfield of the datepicker
           * @default KupComponentSizing.MEDIUM
