@@ -211,21 +211,24 @@ export class KupData {
                     (command) => command.obj.k === currentCell.obj.k
                 );
 
-                commandsFiltered.forEach((commandFilter) => {
+                commandsFiltered.forEach((command) => {
                     const index = commands.findIndex(
-                        (command) =>
-                            command.icon === commandFilter.icon &&
-                            command.text === commandFilter.text &&
-                            command.obj.k === commandFilter.obj.k
+                        (findedCommand) =>
+                            findedCommand.icon === command.icon &&
+                            findedCommand.text === command.text &&
+                            findedCommand.obj.k === command.obj.k
                     );
 
                     cellActions.push({
-                        icon: commandFilter.icon,
-                        text: commandFilter.text,
-                        obj: commandFilter.obj,
+                        icon: command.icon,
+                        text: command.text,
+                        obj: command.obj,
                         cell: currentCell,
                         index: index,
-                        type: DropDownAction.CELLACTION,
+                        type:
+                            !command.obj.k && !command.obj.t && !command.obj.p
+                                ? DropDownAction.COMMAND_NO_OBJ
+                                : DropDownAction.CODVERWITHCOMMANDS,
                         column: column,
                     });
                 });
