@@ -448,7 +448,7 @@ describe('kup-input-panel', () => {
         expect(updateRadioButtonChecked).toHaveClass('radio--checked');
     });
 
-    xit('renders table', async () => {
+    it('renders table', async () => {
         const page = await newE2EPage();
 
         await page.setContent('<kup-input-panel></kup-input-panel>');
@@ -1512,8 +1512,24 @@ describe('kup-input-panel', () => {
 
         expect(inputPanel).not.toBeNull();
 
+        // get all divs but not the submit div that is the last one
         const absoluteElements = await page.findAll(
-            'kup-input-panel >>> form.input-panel > div'
+            'kup-input-panel >>> form.input-panel > div:not(:last-child)'
         );
+        expect(absoluteElements.length).toBe(1);
+
+        const positionStyle = (await absoluteElements[0].getComputedStyle())
+            .position;
+
+        expect(positionStyle).toBe('absolute');
+
+        const absoluteSections = await absoluteElements[0].findAll(
+            ':scope > div'
+        );
+
+        absoluteSections.forEach(async (s) => {
+            const positionStyle = (await s.getComputedStyle()).position;
+            expect(positionStyle).toBe('absolute');
+        });
     });
 });
