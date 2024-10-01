@@ -235,7 +235,7 @@ export class KupData {
                         type:
                             !command.obj.k && !command.obj.t && !command.obj.p
                                 ? DropDownAction.COMMAND_NO_OBJ
-                                : DropDownAction.CODVERWITHCOMMANDS,
+                                : DropDownAction.COMMANDS,
                         column: column,
                     });
                 });
@@ -452,7 +452,7 @@ export class KupData {
                                 obj: commandFilter.obj,
                                 cell: codVer.value,
                                 index: index,
-                                type: DropDownAction.CODVERWITHCOMMANDS,
+                                type: DropDownAction.COMMANDS,
                                 column: currentColumn,
                             });
                         }
@@ -495,7 +495,7 @@ export class KupData {
                                   icon: c.icon || '',
                                   obj: c.obj,
                                   index: index,
-                                  type: DropDownAction.CODVERWITHCOMMANDS,
+                                  type: DropDownAction.COMMANDS,
                               } as KupDataRowAction)
                       )
                 : [];
