@@ -220,10 +220,10 @@ export class KupData {
 
                 commandsFiltered.forEach((command) => {
                     const index = commands.findIndex(
-                        (findedCommand) =>
-                            findedCommand.icon === command.icon &&
-                            findedCommand.text === command.text &&
-                            findedCommand.obj.k === command.obj.k
+                        (currentCommand) =>
+                            currentCommand.icon === command.icon &&
+                            currentCommand.text === command.text &&
+                            currentCommand.obj.k === command.obj.k
                     );
 
                     cellActions.push({
