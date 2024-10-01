@@ -198,6 +198,13 @@ export class KupData {
                     cell.value.obj.t === VoCodVerRowEnum.T
             );
         },
+        /**
+         * Build cell actions, that are showed when cell in datatable is hovered/clicked
+         * @param {KupDataRow} row which is hovered/clicked
+         * @param {KupDataColumn} column of the cell
+         * @param {KupCommand[]} commands array of actions
+         * @returns { KupDataRowAction[]} actions showed on f-cell
+         */
         buildCellActions: (
             row: KupDataRow,
             column: KupDataColumn,
