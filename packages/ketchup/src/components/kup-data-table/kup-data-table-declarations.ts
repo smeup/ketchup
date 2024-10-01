@@ -302,7 +302,7 @@ export interface KupDatatableRowActionItemClickEventPayload
         | DropDownAction.CODVER
         | DropDownAction.ROWACTION
         | DropDownAction.CODVERWITHCOMMANDS
-        | DropDownAction.CELLACTION;
+        | DropDownAction.COMMAND_NO_OBJ;
     obj?: KupObj;
     column?: KupDataColumn;
     cell?: KupDataCell;
