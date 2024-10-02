@@ -550,5 +550,4 @@ describe('kup data buildCellActions', () => {
 
             expect(cellActions).toEqual(expectedResult);
         });
-    it('should create cell actions with mixed empty obj and codver', () => {});
 });
