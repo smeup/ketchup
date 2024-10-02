@@ -1824,6 +1824,11 @@ export namespace Components {
         "showIcon": boolean;
         /**
           * Sets the sizing of the textfield of the datepicker
+          * @default 10
+         */
+        "size": number;
+        /**
+          * Sets the sizing of the textfield of the datepicker
           * @default KupComponentSizing.MEDIUM
          */
         "sizing": KupComponentSizing;
@@ -7235,6 +7240,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "showIcon"?: boolean;
+        /**
+          * Sets the sizing of the textfield of the datepicker
+          * @default 10
+         */
+        "size"?: number;
         /**
           * Sets the sizing of the textfield of the datepicker
           * @default KupComponentSizing.MEDIUM

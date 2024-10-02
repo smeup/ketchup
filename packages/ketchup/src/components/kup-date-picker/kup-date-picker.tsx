@@ -104,6 +104,11 @@ export class KupDatePicker {
     @Prop() sizing: KupComponentSizing = KupComponentSizing.MEDIUM;
     /**
      * Sets the sizing of the textfield of the datepicker
+     * @default 10
+     */
+    @Prop() size: number = 10;
+    /**
+     * Sets the sizing of the textfield of the datepicker
      * @default true
      */
     @Prop() showIcon: boolean = true;
@@ -542,6 +547,7 @@ export class KupDatePicker {
                 fullHeight={fullHeight}
                 fullWidth={fullWidth}
                 maxLength={10}
+                size={this.size}
                 id={this.rootElement.id + '_text-field'}
                 value={initialValue}
                 onBlur={() => this.onKupBlur()}
