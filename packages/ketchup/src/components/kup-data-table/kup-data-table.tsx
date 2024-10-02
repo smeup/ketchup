@@ -16,6 +16,7 @@ import type {
     DropEvent,
     InteractEvent,
     PointerEvent,
+    PointerEventType,
 } from '@interactjs/types/index';
 import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
 import type { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
@@ -5226,6 +5227,15 @@ export class KupDataTable {
                     renderKup: this.lazyLoadCells,
                     row: row,
                     setSizes: true,
+                    cellActionIconProps: {
+                        onClick: (e: PointerEvent) => {
+                            this.kupDataTableContextMenu.emit({
+                                comp: this,
+                                id: this.rootElement.id,
+                                details: this.#contextMenuHandler(e),
+                            });
+                        },
+                    },
                 };
                 const jsxCell = <FCell {...cellProps}></FCell>;
 
