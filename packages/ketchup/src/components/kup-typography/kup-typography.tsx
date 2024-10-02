@@ -258,7 +258,7 @@ export class KupTypography {
 
         const propsFImage: FImageProps = {
             color: 'var(--kup-gray-color-70)',
-            resource: 'app',
+            resource: 'more_vert',
             sizeX: '16px',
             sizeY: '16px',
             wrapperClass: 'image__iconToolbar',

@@ -74,6 +74,7 @@ export enum KupDataTableProps {
     tableWidth = 'Sets the width of the table.',
     totals = 'Defines the current totals options.',
     transpose = 'Transposes the data of the data table.',
+    updatableData = 'When set to true, editable cells will be rendered using input components and update button will appair below the matrix',
 }
 export interface KupDataTableDataset {
     columns?: KupDataColumn[];
@@ -327,4 +328,9 @@ export interface KupDatatableInsertRowEventPayload extends KupEventPayload {
 
 export interface KupDatatableHistoryEventPayload extends KupEventPayload {
     selectedRows: KupDataTableRow[];
+}
+
+export interface KupDatatableUpdatePayload extends KupEventPayload {
+    originalData: KupDataTableDataset;
+    updatedData: KupDataTableDataset;
 }

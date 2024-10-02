@@ -1160,4 +1160,376 @@ describe('kup-input-panel', () => {
         expect(updatedChips).not.toBeNull();
         expect(updatedChips.length).toBe(2);
     });
+
+    it('render inputpanel with tab when specified in sectionType property', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
+        );
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'NAME',
+                    title: 'Name*',
+                    visible: true,
+                    isEditable: false,
+                },
+                {
+                    name: 'EMAIL',
+                    title: 'Email*',
+                    visible: true,
+                    isEditable: false,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        EMAIL: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {
+                                inputType: 'email',
+                            },
+                        },
+                        NAME: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {},
+                        },
+                    },
+                    layout: {
+                        type: 'SmeupDataLayout',
+                        horizontal: false,
+                        absolute: false,
+                        sections: [
+                            {
+                                id: 'TAB1',
+                                content: [
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'NAME',
+                                        colSpan: 1,
+                                        rowStart: 1,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'EMAIL',
+                                        colSpan: 1,
+                                        rowStart: 2,
+                                    },
+                                ],
+                                sections: [],
+                                horizontal: false,
+                                gridCols: 3,
+                                gridRows: 2,
+                                gap: 2,
+                                title: 'Personal Info',
+                            },
+                            {
+                                id: 'TAB2',
+                                content: [
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'NAME',
+                                        colSpan: 1,
+                                        rowStart: 1,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'EMAIL',
+                                        colSpan: 1,
+                                        rowStart: 2,
+                                    },
+                                ],
+                                sections: [],
+                                horizontal: false,
+                                gridCols: 3,
+                                gridRows: 2,
+                                gap: 2,
+                                title: 'Professional Info',
+                            },
+                        ],
+                        sectionsType: 'tab',
+                    },
+                },
+            ],
+        };
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const tabContent = await inputPanelContent.find('kup-tab-bar');
+        expect(tabContent).not.toBeNull();
+
+        const tabs = await tabContent.findAll('>>> f-button');
+
+        expect(tabs.length).toBe(2);
+
+        const label1 = (await tabs[0].find('span .tab__text-label')).innerHTML;
+        const label2 = (await tabs[1].find('span .tab__text-label')).innerHTML;
+
+        expect(label1).toBe('Personal Info');
+        expect(label2).toBe('Professional Info');
+    });
+
+    it('render inputpanel with error data attribute', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
+        );
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'NAME',
+                    title: 'Name*',
+                    visible: true,
+                    isEditable: false,
+                },
+                {
+                    name: 'EMAIL',
+                    title: 'Email*',
+                    visible: true,
+                    isEditable: false,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        EMAIL: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {
+                                inputType: 'email',
+                            },
+                        },
+                        NAME: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {
+                                error: 'Name required',
+                            },
+                        },
+                    },
+                    layout: {
+                        type: 'SmeupDataLayout',
+                        horizontal: false,
+                        absolute: false,
+                        sections: [
+                            {
+                                id: 'TAB1',
+                                content: [
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'NAME',
+                                        colSpan: 1,
+                                        rowStart: 1,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'EMAIL',
+                                        colSpan: 1,
+                                        rowStart: 2,
+                                    },
+                                ],
+                                sections: [],
+                                horizontal: false,
+                                gridCols: 3,
+                                gridRows: 2,
+                                gap: 2,
+                                title: 'Personal Info',
+                            },
+                            {
+                                id: 'TAB2',
+                                content: [
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'NAME',
+                                        colSpan: 1,
+                                        rowStart: 1,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'EMAIL',
+                                        colSpan: 1,
+                                        rowStart: 2,
+                                    },
+                                ],
+                                sections: [],
+                                horizontal: false,
+                                gridCols: 3,
+                                gridRows: 2,
+                                gap: 2,
+                                title: 'Professional Info',
+                            },
+                        ],
+                        sectionsType: 'tab',
+                    },
+                },
+            ],
+        };
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputName = await page.find(
+            'kup-input-panel >>> #NAME > div > .mdc-text-field--error'
+        );
+
+        expect(inputName).not.toBeNull();
+
+        const inputErrorHelper = await page.find(
+            'kup-input-panel >>> #NAME > .mdc-text-field-helper-line > .mdc-error-message'
+        );
+        const textInputErrorHelper = inputErrorHelper.innerHTML;
+        expect(inputErrorHelper).not.toBeNull();
+        expect(textInputErrorHelper).toBe('Name required');
+    });
+
+    it('render inputpanel with absolute position', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
+        );
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'NAME',
+                    title: 'Name*',
+                    visible: true,
+                    isEditable: false,
+                },
+                {
+                    name: 'EMAIL',
+                    title: 'Email*',
+                    visible: true,
+                    isEditable: false,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        EMAIL: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {
+                                inputType: 'email',
+                            },
+                        },
+                        NAME: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {
+                                error: 'Name required',
+                            },
+                        },
+                    },
+                    layout: {
+                        type: 'SmeupDataLayout',
+                        horizontal: false,
+                        absolute: true,
+                        sections: [
+                            {
+                                content: [
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'NAME',
+                                        absoluteColumn: 2,
+                                        absoluteRow: 2,
+                                        absoluteLength: 16,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'EMAIL',
+                                        absoluteColumn: 12,
+                                        absoluteRow: 2,
+                                        absoluteLength: 16,
+                                    },
+                                ],
+                                sections: [],
+                                horizontal: false,
+                                absoluteColumn: 1,
+                                absoluteWidth: 40,
+                                absoluteRow: 1,
+                                absoluteHeight: 15,
+                            },
+                        ],
+                    },
+                },
+            ],
+        };
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        expect(inputPanel).not.toBeNull();
+
+        // get all divs but not the submit div that is the last one
+        const absoluteElements = await page.findAll(
+            'kup-input-panel >>> form.input-panel > div:not(:last-child)'
+        );
+        expect(absoluteElements.length).toBe(1);
+
+        const positionStyle = (await absoluteElements[0].getComputedStyle())
+            .position;
+
+        expect(positionStyle).toBe('absolute');
+
+        const absoluteSections = await absoluteElements[0].findAll(
+            ':scope > div'
+        );
+
+        absoluteSections.forEach(async (s) => {
+            const positionStyle = (await s.getComputedStyle()).position;
+            expect(positionStyle).toBe('absolute');
+        });
+    });
 });

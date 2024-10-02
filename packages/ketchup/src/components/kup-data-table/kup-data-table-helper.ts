@@ -17,7 +17,10 @@ import {
 } from '../../utils/cell-utils';
 import { FiltersRows } from '../../utils/filters/filters-rows';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
-import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataColumn,
+    KupDataDataset,
+} from '../../managers/kup-data/kup-data-declarations';
 import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -1098,4 +1101,53 @@ function cloneRowGroup(group: KupDataTableRowGroup): KupDataTableRowGroup {
     };
 
     return cloned;
+}
+
+/**
+ * Returns a KupDataDataset obtained as the difference between originalData and modifiedData
+ * The checked data are cell.value and cell.obj.k with the same column and row
+ * @param originalData
+ * @param modifiedData
+ * @param includesAlsoEmptyRows
+ * @returns
+ */
+export function getDiffData(
+    originalData: KupDataDataset,
+    modifiedData: KupDataDataset,
+    includesAlsoEmptyRows: boolean = false
+): KupDataDataset {
+    const diffDataTable = {
+        columns: modifiedData.columns,
+        rows: [],
+    };
+
+    for (const modifiedRow of modifiedData.rows) {
+        const newRow = { cells: {}, id: modifiedRow.id };
+
+        for (const column of modifiedData.columns) {
+            const cellKey = column.name;
+            const modifiedCell = modifiedRow.cells[cellKey];
+
+            const originalRow = originalData.rows.find(
+                (row) => row.id === modifiedRow.id
+            );
+            const originalCell = originalRow
+                ? originalRow.cells[cellKey]
+                : null;
+
+            if (
+                !originalCell ||
+                modifiedCell.value !== originalCell.value ||
+                modifiedCell.obj.k !== originalCell.obj.k
+            ) {
+                newRow.cells[cellKey] = modifiedCell;
+            }
+        }
+
+        if (Object.keys(newRow.cells).length > 0 || includesAlsoEmptyRows) {
+            diffDataTable.rows.push(newRow);
+        }
+    }
+
+    return diffDataTable;
 }

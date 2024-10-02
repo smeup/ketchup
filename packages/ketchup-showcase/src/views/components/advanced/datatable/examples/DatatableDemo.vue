@@ -107,6 +107,10 @@ export default {
           name: 'kup-datatable-rowaction-item-click',
           type: 'click',
         },
+        {
+          name: 'kup-datatable-update',
+          type: 'CustomEvent',
+        },
       ],
       demoMethods: [
         {
@@ -588,6 +592,14 @@ export default {
         {
           prop: 'transpose',
           description: 'Transposes the data of the data table.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'updatableData',
+          description:
+            'When set to true, editable cells will be rendered using input components and update button will appair below the matrix.',
           type: 'boolean',
           default: 'false',
           try: 'switch',

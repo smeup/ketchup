@@ -55,6 +55,7 @@ import {
     KupDatatableHistoryEventPayload,
     KupDatatableRowActionItemClickEventPayload,
     KupDataTableRowGroup,
+    KupDatatableUpdatePayload,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -64,6 +65,7 @@ import {
     groupRows,
     paginateRows,
     sortRows,
+    getDiffData,
 } from './kup-data-table-helper';
 import {
     GenericObject,
@@ -766,6 +768,13 @@ export class KupDataTable {
      */
     @Prop({ mutable: true }) transpose: boolean = false;
 
+    /**
+     * When set to true, editable cells will be rendered using input components,
+     * and update button will appair below the matrix
+     * @default false
+     */
+    @Prop({ mutable: true }) updatableData: boolean = false;
+
     //-------- State --------
 
     @State()
@@ -913,6 +922,12 @@ export class KupDataTable {
      * contains the original data, used in transposed function
      */
     #originalData: KupDataDataset = undefined;
+
+    /**
+     * contains the original data when the component is
+     * loaded the first time
+     */
+    #originalDataLoaded: KupDataDataset = undefined;
 
     /**
      * Reference to the working area of the table. This is the below-wrapper reference.
@@ -1145,6 +1160,18 @@ export class KupDataTable {
         bubbles: true,
     })
     kupRowActionItemClick: EventEmitter<KupDatatableRowActionItemClickEventPayload>;
+
+    /**
+     * Event fired when the user click on update button,
+     * update button is visible when the props updatableData is true
+     */
+    @Event({
+        eventName: 'kup-datatable-update',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupUpdate: EventEmitter<KupDatatableUpdatePayload>;
 
     /**
      * Closes any opened column menu.
@@ -2475,6 +2502,8 @@ export class KupDataTable {
 
         this.#calculateData();
         this.#initialized = true;
+
+        this.#originalDataLoaded = JSON.parse(JSON.stringify(this.data));
     }
 
     componentWillRender() {
@@ -4096,6 +4125,15 @@ export class KupDataTable {
         this.refresh();
     }
 
+    #handleUpdateClick = () => {
+        this.kupUpdate.emit({
+            comp: this,
+            id: this.rootElement.id,
+            originalData: this.#originalDataLoaded,
+            updatedData: getDiffData(this.#originalDataLoaded, this.data),
+        });
+    };
+
     @Method() async defaultSortingFunction(
         columns: KupDataColumn[],
         receivingColumnIndex: number,
@@ -5179,7 +5217,7 @@ export class KupDataTable {
                     column: currentColumn,
                     component: this,
                     density: this.density,
-                    editable: this.editableData,
+                    editable: this.editableData || this.updatableData,
                     indents: indend,
                     previousValue:
                         hideValuesRepetitions && previousRow
@@ -5877,6 +5915,17 @@ export class KupDataTable {
         );
     }
 
+    #renderUpdateButtons() {
+        return (
+            <kup-button
+                onKup-button-click={this.#handleUpdateClick}
+                label={this.#kupManager.language.translate(
+                    KupLanguageGeneric.UPDATE
+                )}
+            ></kup-button>
+        );
+    }
+
     render() {
         this.#thRefs = [];
         this.#rowsRefs = [];
@@ -5996,8 +6045,7 @@ export class KupDataTable {
                 this.tableHeight === undefined &&
                 this.tableWidth === undefined,
 
-            'custom-size':
-                this.tableHeight !== undefined || this.tableWidth !== undefined,
+            'custom-size': !!this.tableHeight || !!this.tableWidth,
 
             'border-top': !this.showHeader,
         };
@@ -6007,14 +6055,15 @@ export class KupDataTable {
         tableClass[`density-${this.density}`] = true;
         tableClass[`fontsize-${this.fontsize}`] = true;
 
-        if (this.tableHeight && this.tableHeight !== '100%') {
+        if (this.tableHeight) {
             elStyle = {
+                ...elStyle,
                 height: this.tableHeight,
                 overflow: 'auto',
             };
         }
 
-        if (this.tableWidth && this.tableWidth !== '100%') {
+        if (this.tableWidth) {
             elStyle = {
                 ...elStyle,
                 width: this.tableWidth,
@@ -6049,7 +6098,7 @@ export class KupDataTable {
         }
 
         let belowClass = 'below-wrapper';
-        if (this.tableHeight !== undefined || this.tableWidth !== undefined) {
+        if (!!this.tableHeight || !!this.tableWidth) {
             belowClass += ' custom-size';
         }
 
@@ -6302,6 +6351,7 @@ export class KupDataTable {
                     </div>
                     {paginatorBottom}
                 </div>
+                {this.updatableData ? this.#renderUpdateButtons() : null}
             </Host>
         );
         return compCreated;

@@ -8,7 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 import { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
-import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionItemClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionItemClickEventPayload, KupDatatableRowSelectedEventPayload, KupDatatableUpdatePayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { KupActivityTimelineClickEventPayload } from "./components/kup-activity-timeline/kup-activity-timeline-declarations";
 import { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
@@ -65,7 +65,7 @@ import { KupTypographyListClickEventPayload, KupTypographyListIconClickEventPayl
 export { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 export { GenericObject, KupComponentSizing, KupEventPayload } from "./types/GenericTypes";
 export { KupCommand, KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
-export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionItemClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+export { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableDeleteRowEventPayload, KupDatatableHistoryEventPayload, KupDataTableInsertMode, KupDatatableInsertRowEventPayload, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionItemClickEventPayload, KupDatatableRowSelectedEventPayload, KupDatatableUpdatePayload, LoadMoreMode as LoadMoreMode1, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 export { KupActivityTimelineClickEventPayload } from "./components/kup-activity-timeline/kup-activity-timeline-declarations";
 export { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 export { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
@@ -1760,6 +1760,11 @@ export namespace Components {
           * Transposes the data of the data table
          */
         "transpose": boolean;
+        /**
+          * When set to true, editable cells will be rendered using input components, and update button will appair below the matrix
+          * @default false
+         */
+        "updatableData": boolean;
     }
     interface KupDatePicker {
         /**
@@ -4989,6 +4994,7 @@ declare global {
         "kup-datatable-insert-row": KupDatatableInsertRowEventPayload;
         "kup-datatable-history": KupDatatableHistoryEventPayload;
         "kup-datatable-rowaction-item-click": KupDatatableRowActionItemClickEventPayload;
+        "kup-datatable-update": KupDatatableUpdatePayload;
     }
     interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupDataTableElementEventMap>(type: K, listener: (this: HTMLKupDataTableElement, ev: KupDataTableCustomEvent<HTMLKupDataTableElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -7100,6 +7106,10 @@ declare namespace LocalJSX {
          */
         "onKup-datatable-save"?: (event: KupDataTableCustomEvent<KupDatatableInsertRowEventPayload>) => void;
         /**
+          * Event fired when the user click on update button, update button is visible when the props updatableData is true
+         */
+        "onKup-datatable-update"?: (event: KupDataTableCustomEvent<KupDatatableUpdatePayload>) => void;
+        /**
           * Current selected page set on component load
          */
         "pageSelected"?: number;
@@ -7198,6 +7208,11 @@ declare namespace LocalJSX {
           * Transposes the data of the data table
          */
         "transpose"?: boolean;
+        /**
+          * When set to true, editable cells will be rendered using input components, and update button will appair below the matrix
+          * @default false
+         */
+        "updatableData"?: boolean;
     }
     interface KupDatePicker {
         /**
