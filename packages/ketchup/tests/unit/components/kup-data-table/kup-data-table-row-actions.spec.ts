@@ -429,6 +429,126 @@ describe('kup data buildCellActions', () => {
 
         expect(cellActions).toEqual(expectedResult);
     }),
-        it('should create cell actions with only codver', () => {});
+        it('should create cell actions with only codver', () => {
+            const commands: KupCommand[] = [
+                {
+                    obj: {
+                        k: '000086',
+                        p: 'CN',
+                        t: 'CLI',
+                    },
+                    text: 'CN;CLI delete',
+                    icon: 'delete',
+                    showIcon: true,
+                },
+                {
+                    obj: {
+                        k: '000086',
+                        p: 'CN',
+                        t: 'CLI',
+                    },
+                    text: 'CN;CLI scheda',
+                    icon: 'view-quilt',
+                    showIcon: true,
+                },
+            ];
+
+            const expectedResult: KupDataRowAction[] = [
+                {
+                    type: DropDownAction.COMMAND,
+                    obj: {
+                        k: '000086',
+                        p: 'CN',
+                        t: 'CLI',
+                    },
+                    text: 'CN;CLI delete',
+                    icon: 'delete',
+                    cell: {
+                        data: {
+                            size: 15,
+                            helperEnabled: false,
+                            maxLength: 15,
+                            integers: 15,
+                        },
+                        isEditable: false,
+                        obj: {
+                            k: '000086',
+                            p: 'CN',
+                            t: 'CLI',
+                        },
+                        value: '2',
+                        displayedValue: '2',
+                        element: {
+                            's-hn': 'KUP-DATA-TABLE',
+                        },
+                    } as unknown as KupDataTableCell,
+                    column: {
+                        isEditable: false,
+                        isKey: false,
+                        name: 'X$TEST',
+                        obj: {
+                            k: 'CN',
+                            p: '',
+                            t: 'CLI',
+                        },
+                        size: '70px',
+                        title: 'CODVER',
+                        tooltip: false,
+                    },
+                    index: 0,
+                },
+                {
+                    type: DropDownAction.COMMAND,
+                    obj: {
+                        k: '000086',
+                        p: 'CN',
+                        t: 'CLI',
+                    },
+                    text: 'CN;CLI scheda',
+                    icon: 'view-quilt',
+                    cell: {
+                        data: {
+                            size: 15,
+                            helperEnabled: false,
+                            maxLength: 15,
+                            integers: 15,
+                        },
+                        isEditable: false,
+                        obj: {
+                            k: '000086',
+                            p: 'CN',
+                            t: 'CLI',
+                        },
+                        value: '2',
+                        displayedValue: '2',
+                        element: {
+                            's-hn': 'KUP-DATA-TABLE',
+                        },
+                    } as unknown as KupDataTableCell,
+                    column: {
+                        isEditable: false,
+                        isKey: false,
+                        name: 'X$TEST',
+                        obj: {
+                            k: 'CN',
+                            p: '',
+                            t: 'CLI',
+                        },
+                        size: '70px',
+                        title: 'CODVER',
+                        tooltip: false,
+                    },
+                    index: 1,
+                },
+            ];
+
+            const cellActions = dom.ketchup.data.cell.buildCellActions(
+                mockedRowsCellActions[1],
+                mockedColumnsCellActions[4],
+                commands
+            );
+
+            expect(cellActions).toEqual(expectedResult);
+        });
     it('should create cell actions with mixed empty obj and codver', () => {});
 });
