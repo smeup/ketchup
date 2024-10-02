@@ -235,7 +235,7 @@ export class KupData {
                         type:
                             !command.obj.k && !command.obj.t && !command.obj.p
                                 ? DropDownAction.COMMAND_NO_OBJ
-                                : DropDownAction.COMMANDS,
+                                : DropDownAction.COMMAND,
                         column: column,
                     });
                 });
@@ -452,7 +452,7 @@ export class KupData {
                                 obj: commandFilter.obj,
                                 cell: codVer.value,
                                 index: index,
-                                type: DropDownAction.COMMANDS,
+                                type: DropDownAction.COMMAND,
                                 column: currentColumn,
                             });
                         }
