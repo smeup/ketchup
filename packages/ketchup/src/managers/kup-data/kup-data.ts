@@ -243,6 +243,32 @@ export class KupData {
 
             return cellActions;
         },
+        /**
+         * Check if row has action cells.
+         * @param {KupDataCell} cell to check.
+         * @param {KupCommand[]} commands array of actions
+         * @returns {boolean} if cell contain action showed on f-cell
+         */
+        hasActionCell: (cell: KupDataCell, commands: KupCommand[]): boolean => {
+            if (
+                commands.some(
+                    (command) =>
+                        !command.obj.k && !command.obj.t && !command.obj.p
+                )
+            ) {
+                return true;
+            }
+
+            const isMatchFound = commands.some((command) => {
+                return (
+                    command.obj.k === cell.obj.k &&
+                    command.obj.t === cell.obj.t &&
+                    command.obj.p === cell.obj.p
+                );
+            });
+
+            return isMatchFound;
+        },
     };
     column = {
         find(

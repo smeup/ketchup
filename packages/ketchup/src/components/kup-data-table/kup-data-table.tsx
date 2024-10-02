@@ -5213,7 +5213,7 @@ export class KupDataTable {
                     }
                 }
 
-                const cellProps: FCellProps = {
+                let cellProps: FCellProps = {
                     cell: cell,
                     column: currentColumn,
                     component: this,
@@ -5227,16 +5227,28 @@ export class KupDataTable {
                     renderKup: this.lazyLoadCells,
                     row: row,
                     setSizes: true,
-                    cellActionIcon: {
-                        onClick: (e: PointerEvent) => {
-                            this.kupDataTableContextMenu.emit({
-                                comp: this,
-                                id: this.rootElement.id,
-                                details: this.#contextMenuHandler(e),
-                            });
-                        },
-                    },
                 };
+
+                if (
+                    this.#kupManager.data.cell.hasActionCell(
+                        cell,
+                        this.commands ?? []
+                    )
+                ) {
+                    cellProps = {
+                        ...cellProps,
+                        cellActionIcon: {
+                            onClick: (e: PointerEvent) => {
+                                this.kupDataTableContextMenu.emit({
+                                    comp: this,
+                                    id: this.rootElement.id,
+                                    details: this.#contextMenuHandler(e),
+                                });
+                            },
+                        },
+                    };
+                }
+
                 const jsxCell = <FCell {...cellProps}></FCell>;
 
                 // Classes which will be set onto the single data-table cell;
@@ -5314,7 +5326,6 @@ export class KupDataTable {
                     </td>
                 );
             });
-
             // adding row to rendered rows
             this.#renderedRows.push(row);
 
