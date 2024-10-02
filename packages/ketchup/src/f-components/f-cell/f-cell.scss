@@ -39,6 +39,14 @@
     align-items: center;
     display: flex;
     width: 100%;
+    position: relative;
+
+    .f-image.f-cell__iconfunction {
+      display: block;
+      opacity: 0;
+      position: absolute;
+      right: 0;
+    }
 
     img,
     .f-image {
@@ -51,6 +59,14 @@
 
     .obj-icon {
       padding: 0 0.5em 0 0;
+    }
+  }
+
+  &:hover {
+    .f-image.f-cell__iconfunction {
+      opacity: 1;
+      background-color: var(--kup-gray-color-10-hover);
+      z-index: 2;
     }
   }
 
