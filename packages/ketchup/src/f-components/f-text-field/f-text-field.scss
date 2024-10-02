@@ -71,7 +71,7 @@
       var(--kup-text-main)
     );
     --kup_textfield_text_align: var(--kup-textfield-text-align, start);
-    --kup_textfield_width: var(--kup-textfield-width, 100%);
+    --kup_textfield_width: var(--kup-textfield-width, fit-content);
     --mdc-theme-primary: var(--kup_textfield_primary_color);
     --mdc-shape-small: 0px;
     --kup_textfield_border_radius: var(--kup-textfield-border-radius, unset);
@@ -175,6 +175,7 @@
       input {
         @include kup-body-compact-01;
         text-align: var(--kup_textfield_text_align);
+        min-width: max-content;
       }
 
       input::placeholder {
@@ -600,15 +601,6 @@
     }
     .mdc-text-field__input::placeholder {
       opacity: 1;
-    }
-  }
-
-  @media screen and (min-width: 678px) {
-    .f-text-field.kup-fit-content-size {
-      max-width: fit-content;
-    }
-    .f-text-field.kup-fit-content-size:has(.mdc-text-field--extra-small) {
-      max-width: 100%;
     }
   }
 }
