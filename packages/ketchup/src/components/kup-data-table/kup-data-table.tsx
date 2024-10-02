@@ -5227,7 +5227,7 @@ export class KupDataTable {
                     renderKup: this.lazyLoadCells,
                     row: row,
                     setSizes: true,
-                    cellActionIconProps: {
+                    cellActionIcon: {
                         onClick: (e: PointerEvent) => {
                             this.kupDataTableContextMenu.emit({
                                 comp: this,

@@ -199,13 +199,13 @@ export const FCell: FunctionalComponent<FCellProps> = (
                 style={cell.styleContent}
                 title={cellTitle}
             >
-                {props.cellActionIconProps && (
+                {props.cellActionIcon && (
                     <FImage
                         resource="app"
                         sizeX="16px"
                         sizeY="16px"
                         wrapperClass="f-cell__iconfunction"
-                        onClick={props.cellActionIconProps.onClick}
+                        onClick={props.cellActionIcon.onClick}
                     />
                 )}
                 {children && children.length > 0

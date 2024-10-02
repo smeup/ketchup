@@ -28,7 +28,7 @@ export interface FCellProps extends FComponent {
     row?: KupDataRow;
     setSizes?: boolean;
     shape?: FCellShapes;
-    cellActionIconProps?: CellActionProps;
+    cellActionIcon?: CellActionProps;
 }
 /**
  * Information about the cell, displayed before the content.
