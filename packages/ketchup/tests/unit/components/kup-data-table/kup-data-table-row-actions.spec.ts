@@ -24,6 +24,10 @@ const mockedData = sampleKupDataDataset.data;
 const mockedColumns = mockedData.columns as KupDataColumn[];
 const mockedRows = mockedData.rows as unknown as KupDataTableRow[];
 const mockedCommands = sampleKupDataDataset.commands as unknown as KupCommand[];
+const mockedRowsCellActions = sampleKupDataCommandsWithEmptyObj.data
+    .rows as unknown as KupDataTableRow[];
+const mockedColumnsCellActions = sampleKupDataCommandsWithEmptyObj.data
+    .columns as unknown as KupDataColumn[];
 
 let result: KupDataRowAction[] = [];
 const currentColumn = {
@@ -302,4 +306,129 @@ describe('kup data getCodVerRows', () => {
 
         expect(result).toEqual([]);
     });
+});
+
+describe('kup data buildCellActions', () => {
+    it('should create cell actions with only empty obj', () => {
+        const commands: KupCommand[] = [
+            {
+                obj: {
+                    k: '',
+                    p: '',
+                    t: '',
+                },
+                text: 'EMPTY delete',
+                icon: 'delete',
+                showIcon: true,
+            },
+            {
+                obj: {
+                    k: '',
+                    p: '',
+                    t: '',
+                },
+                text: 'EMPTY edit',
+                icon: 'edit',
+                showIcon: true,
+            },
+        ];
+        const expectedResult: KupDataRowAction[] = [
+            {
+                text: 'EMPTY delete',
+                icon: 'delete',
+                type: DropDownAction.COMMAND_NO_OBJ,
+                index: 0,
+                obj: {
+                    k: '',
+                    p: '',
+                    t: '',
+                },
+                cell: {
+                    data: {
+                        size: 15,
+                        helperEnabled: false,
+                        maxLength: 15,
+                        integers: 15,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    value: '2',
+                    displayedValue: '2',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                } as unknown as KupDataTableCell,
+                column: {
+                    isEditable: false,
+                    isKey: false,
+                    name: 'X$EMPTY',
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    size: '70px',
+                    title: 'EMP',
+                    tooltip: false,
+                },
+            },
+            {
+                icon: 'edit',
+                text: 'EMPTY edit',
+                obj: {
+                    k: '',
+                    p: '',
+                    t: '',
+                },
+                cell: {
+                    data: {
+                        size: 15,
+                        helperEnabled: false,
+                        maxLength: 15,
+                        integers: 15,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    value: '2',
+                    displayedValue: '2',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                } as unknown as KupDataTableCell,
+                index: 1,
+                type: DropDownAction.COMMAND_NO_OBJ,
+                column: {
+                    isEditable: false,
+                    isKey: false,
+                    name: 'X$EMPTY',
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    size: '70px',
+                    title: 'EMP',
+                    tooltip: false,
+                },
+            },
+        ];
+
+        const cellActions = dom.ketchup.data.cell.buildCellActions(
+            mockedRowsCellActions[1],
+            mockedColumnsCellActions[5],
+            commands
+        );
+
+        expect(cellActions).toEqual(expectedResult);
+    }),
+        it('should create cell actions with only codver', () => {});
+    it('should create cell actions with mixed empty obj and codver', () => {});
 });
