@@ -1,5 +1,6 @@
 import type { VNode } from '@stencil/core';
 import {
+    CellActionProps,
     KupDataCell,
     KupDataColumn,
     KupDataRow,
@@ -27,6 +28,7 @@ export interface FCellProps extends FComponent {
     row?: KupDataRow;
     setSizes?: boolean;
     shape?: FCellShapes;
+    cellActionIconProps?: CellActionProps;
 }
 /**
  * Information about the cell, displayed before the content.
