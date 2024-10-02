@@ -6039,7 +6039,7 @@ export class KupDataTable {
         tableClass[`density-${this.density}`] = true;
         tableClass[`fontsize-${this.fontsize}`] = true;
 
-        if (this.tableHeight) {
+        if (this.tableHeight && this.tableHeight !== '100%') {
             elStyle = {
                 ...elStyle,
                 height: this.tableHeight,
@@ -6047,7 +6047,7 @@ export class KupDataTable {
             };
         }
 
-        if (this.tableWidth) {
+        if (this.tableWidth && this.tableHeight !== '100%') {
             elStyle = {
                 ...elStyle,
                 width: this.tableWidth,
