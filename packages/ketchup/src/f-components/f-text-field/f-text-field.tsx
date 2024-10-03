@@ -383,11 +383,11 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                     <span class="mdc-line-ripple"></span>
                 )} */}
 
-                {props.error ? (
+                {props.helperIcon && props.error ? (
                     <div class="mdc-error-icon">
                         <FImage {...propsFImage} />
                     </div>
-                ) : props.alert ? (
+                ) : props.helperIcon && props.alert ? (
                     <div class="mdc-alert-icon">
                         <FImage {...propsFImage} />
                     </div>
