@@ -204,7 +204,9 @@ export const FCell: FunctionalComponent<FCellProps> = (
                         resource="app"
                         sizeX="16px"
                         sizeY="16px"
-                        wrapperClass="f-cell__iconfunction"
+                        wrapperClass={`f-cell__iconfunction ${
+                            cellType === FCellTypes.NUMBER ? 'left' : 'right'
+                        }`}
                         onClick={props.cellActionIcon.onClick}
                     />
                 )}
