@@ -202,7 +202,9 @@ export class KupData {
         },
         /**
          * Build f-cell with its properties
-         *
+         * @param { KupDatatablecell} cell
+         * @param { KupDataColumn} column
+         * @param { KupDataRow } row
          * @returns { FCellProps } f-cell with mapped properties
          */
         buildFCell: (
