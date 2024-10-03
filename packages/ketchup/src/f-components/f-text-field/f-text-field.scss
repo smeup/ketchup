@@ -39,8 +39,8 @@
       --kup-textfield-fullwidth-height,
       40px
     );
-    --kup_textfield_extra_small_height: var(
-      --kup-textfield-extra-small-height,
+    --kup_textfield_extrasmall_height: var(
+      --kup-textfield-extrasmall-height,
       20px
     );
     --kup_textfield_small_height: var(--kup-textfield-small-height, 32px);
@@ -54,8 +54,8 @@
       --kup-textfield-extrasmall-padding,
       0 4px 0 8px
     );
-    --kup_textfield_extrasmall_fontsize: var(
-      --kup-textfield-extrasmall-fontsize,
+    --kup_textfield_extrasmall_font_size: var(
+      --kup-textfield-extrasmall-font-size,
       12px
     );
     --kup_textfield_fullwidth_padding: var(
@@ -187,7 +187,7 @@
         cursor: pointer;
         height: 16px;
         width: 16px;
-        padding: 0 8px;
+        padding: 0 0 0 8px;
         outline: none;
         pointer-events: all;
 
@@ -214,10 +214,10 @@
       }
 
       &.mdc-text-field--extra-small {
-        height: var(--kup_textfield_extra_small_height) !important;
+        height: var(--kup_textfield_extrasmall_height) !important;
         padding: var(--kup_textfield_extrasmall_padding);
         input {
-          font-size: var(--kup_textfield_extrasmall_fontsize);
+          font-size: var(--kup_textfield_extrasmall_font_size);
         }
       }
 
