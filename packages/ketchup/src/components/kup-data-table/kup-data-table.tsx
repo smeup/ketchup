@@ -5212,10 +5212,12 @@ export class KupDataTable {
                         return null;
                     }
                 }
-
-                let cellProps: FCellProps = {
-                    cell: cell,
-                    column: currentColumn,
+                const fcell = {
+                    ...this.#kupManager.data.cell.buildFCell(
+                        cell,
+                        currentColumn,
+                        row
+                    ),
                     component: this,
                     density: this.density,
                     editable: this.editableData || this.updatableData,
@@ -5225,31 +5227,23 @@ export class KupDataTable {
                             ? previousRow.cells[name].value
                             : undefined,
                     renderKup: this.lazyLoadCells,
-                    row: row,
-                    setSizes: true,
-                };
-
-                if (
-                    this.#kupManager.data.cell.hasActionCell(
+                    cellActionIcon: this.#kupManager.data.cell.hasActionCell(
                         cell,
                         this.commands ?? []
                     )
-                ) {
-                    cellProps = {
-                        ...cellProps,
-                        cellActionIcon: {
-                            onClick: (e: PointerEvent) => {
-                                this.kupDataTableContextMenu.emit({
-                                    comp: this,
-                                    id: this.rootElement.id,
-                                    details: this.#contextMenuHandler(e),
-                                });
-                            },
-                        },
-                    };
-                }
+                        ? {
+                              onClick: (e: PointerEvent) => {
+                                  this.kupDataTableContextMenu.emit({
+                                      comp: this,
+                                      id: this.rootElement.id,
+                                      details: this.#contextMenuHandler(e),
+                                  });
+                              },
+                          }
+                        : null,
+                };
 
-                const jsxCell = <FCell {...cellProps}></FCell>;
+                const jsxCell = <FCell {...fcell}></FCell>;
 
                 // Classes which will be set onto the single data-table cell;
 

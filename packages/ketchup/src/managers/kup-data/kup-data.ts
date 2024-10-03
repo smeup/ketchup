@@ -36,6 +36,7 @@ import {
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
+    FCellProps,
     FCellShapes,
     FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -43,6 +44,7 @@ import { TreeNodePath } from '../../components/kup-tree/kup-tree-declarations';
 import { ValueDisplayedValue } from '../../utils/filters/filters-declarations';
 import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 import { KupThemeColorValues } from '../kup-theme/kup-theme-declarations';
+import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -197,6 +199,23 @@ export class KupData {
                     cell.value.obj.p === VoCodVerRowEnum.P &&
                     cell.value.obj.t === VoCodVerRowEnum.T
             );
+        },
+        /**
+         * Build f-cell with its properties
+         *
+         * @returns { FCellProps } f-cell with mapped properties
+         */
+        buildFCell: (
+            cell: KupDataTableCell,
+            column: KupDataColumn,
+            row: KupDataRow
+        ): FCellProps => {
+            return {
+                cell,
+                column,
+                row,
+                setSizes: true,
+            };
         },
         /**
          * Build cell actions, that are showed when cell in datatable is clicked through button
