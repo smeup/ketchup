@@ -3273,6 +3273,7 @@ export class KupDataTable {
     }
 
     #cellActionsMenuHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
+        console.log('clicl', e);
         const details: KupDatatableEventHandlerDetails = this.#getEventDetails(
             this.#kupManager.getEventPath(e.target, this.rootElement),
             e
@@ -3289,6 +3290,8 @@ export class KupDataTable {
     }
 
     #contextMenuHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
+        console.log('riht clicl', e);
+
         const details: KupDatatableEventHandlerDetails = this.#getEventDetails(
             this.#kupManager.getEventPath(e.target, this.rootElement),
             e
@@ -3297,15 +3300,6 @@ export class KupDataTable {
             if (details.th && details.column) {
                 this.openColumnMenu(details.column.name);
                 return details;
-            }
-        } else if (details.area === DataTableAreasEnum.BODY) {
-            if (details.cell && !details.column.tooltip) {
-                const cellActions = this.#kupManager.data.cell.buildCellActions(
-                    details.row,
-                    details.column,
-                    this.commands ?? []
-                );
-                this.#onRowActionExpanderClick(e, details.row, cellActions);
             }
         } else if (details.area === DataTableAreasEnum.FOOTER) {
             if (details.td && details.column) {
