@@ -44,7 +44,7 @@ import { TreeNodePath } from '../../components/kup-tree/kup-tree-declarations';
 import { ValueDisplayedValue } from '../../utils/filters/filters-declarations';
 import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 import { KupThemeColorValues } from '../kup-theme/kup-theme-declarations';
-import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
+import { KupObj } from '../kup-objects/kup-objects-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -237,10 +237,10 @@ export class KupData {
             if (commands) {
                 const commandsFiltered = commands.filter(
                     (command) =>
-                        (command.obj.k === currentCell.obj.k &&
-                            command.obj.p === currentCell.obj.p &&
-                            command.obj.t === currentCell.obj.t) ||
-                        (!command.obj.k && !command.obj.t && !command.obj.p)
+                        this.object.compareObjects(
+                            command.obj,
+                            currentCell.obj
+                        ) || this.object.isObjectTPKEmpty(command.obj)
                 );
 
                 commandsFiltered.forEach((command) => {
@@ -257,10 +257,9 @@ export class KupData {
                         obj: command.obj,
                         cell: currentCell,
                         index: index,
-                        type:
-                            !command.obj.k && !command.obj.t && !command.obj.p
-                                ? DropDownAction.COMMAND_NO_OBJ
-                                : DropDownAction.COMMAND,
+                        type: this.object.isObjectTPKEmpty(command.obj)
+                            ? DropDownAction.COMMAND_NO_OBJ
+                            : DropDownAction.COMMAND,
                         column: column,
                     });
                 });
@@ -276,20 +275,15 @@ export class KupData {
          */
         hasActionCell: (cell: KupDataCell, commands: KupCommand[]): boolean => {
             if (
-                commands.some(
-                    (command) =>
-                        !command.obj.k && !command.obj.t && !command.obj.p
+                commands.some((command) =>
+                    this.object.isObjectTPKEmpty(command.obj)
                 )
             ) {
                 return true;
             }
 
             const isMatchFound = commands.some((command) => {
-                return (
-                    command.obj.k === cell.obj.k &&
-                    command.obj.t === cell.obj.t &&
-                    command.obj.p === cell.obj.p
-                );
+                return this.object.compareObjects(command.obj, cell.obj);
             });
 
             return isMatchFound;
@@ -559,6 +553,27 @@ export class KupData {
                     rowAction.column?.title ||
                     rowAction.column?.name,
             }));
+        },
+    };
+    object = {
+        /** compare t p k of two objects
+         * @param {KupObj} firsObj
+         * @param {KupObj} secondObj
+         * @returns {boolean} result
+         */
+        compareObjects: (firstObj: KupObj, secondObj: KupObj): boolean => {
+            return (
+                firstObj.k === secondObj.k &&
+                firstObj.t === secondObj.t &&
+                firstObj.p === secondObj.p
+            );
+        },
+        /** check if obj t p k proprieties are empty
+         * @param {KupObj} obj
+         * @returns {boolean} result
+         */
+        isObjectTPKEmpty: (obj: KupObj): boolean => {
+            return !obj.k && !obj.t && !obj.p;
         },
     };
     /**
