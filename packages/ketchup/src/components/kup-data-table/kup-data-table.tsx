@@ -57,6 +57,7 @@ import {
     KupDatatableRowActionItemClickEventPayload,
     KupDataTableRowGroup,
     KupDatatableUpdatePayload,
+    DataTableAreasEnum,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -3276,12 +3277,12 @@ export class KupDataTable {
             this.#kupManager.getEventPath(e.target, this.rootElement),
             e
         );
-        if (details.area === 'header') {
+        if (details.area === DataTableAreasEnum.HEADER) {
             if (details.th && details.column) {
                 this.openColumnMenu(details.column.name);
                 return details;
             }
-        } else if (details.area === 'body') {
+        } else if (details.area === DataTableAreasEnum.BODY) {
             if (details.cell && !details.column.tooltip) {
                 const cellActions = this.#kupManager.data.cell.buildCellActions(
                     details.row,
@@ -3290,7 +3291,7 @@ export class KupDataTable {
                 );
                 this.#onRowActionExpanderClick(e, details.row, cellActions);
             }
-        } else if (details.area === 'footer') {
+        } else if (details.area === DataTableAreasEnum.FOOTER) {
             if (details.td && details.column) {
                 this.#totalMenuCoords = { x: e.clientX, y: e.clientY };
                 this.#onTotalMenuOpen(details.column);

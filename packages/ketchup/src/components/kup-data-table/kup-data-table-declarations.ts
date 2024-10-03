@@ -123,6 +123,12 @@ export enum VoCodVerRowEnum {
     T = 'VO',
 }
 
+export enum DataTableAreasEnum {
+    HEADER = 'header',
+    BODY = 'body',
+    FOOTER = 'footer',
+}
+
 export type KupDataTableInsertMode = 'form' | 'row' | '';
 
 export interface TotalsMap {
