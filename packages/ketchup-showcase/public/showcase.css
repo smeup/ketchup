@@ -280,6 +280,10 @@ table#customstyle-tab kup-text-field {
   right: 50px;
 }
 
+#setup-upload {
+  padding-bottom: 8px;
+}
+
 #json-setter.visible,
 #json-setter-opener.visible,
 #css-setter.visible,
