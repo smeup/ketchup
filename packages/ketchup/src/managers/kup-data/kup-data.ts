@@ -199,8 +199,8 @@ export class KupData {
             );
         },
         /**
-         * Build cell actions, that are showed when cell in datatable is hovered/clicked
-         * @param {KupDataRow} row which is hovered/clicked
+         * Build cell actions, that are showed when cell in datatable is clicked through button
+         * @param {KupDataRow} row which is being clicked
          * @param {KupDataColumn} column of the cell
          * @param {KupCommand[]} commands array of actions
          * @returns { KupDataRowAction[]} actions showed on f-cell
@@ -215,7 +215,11 @@ export class KupData {
 
             if (commands) {
                 const commandsFiltered = commands.filter(
-                    (command) => command.obj.k === currentCell.obj.k
+                    (command) =>
+                        (command.obj.k === currentCell.obj.k &&
+                            command.obj.p === currentCell.obj.p &&
+                            command.obj.t === currentCell.obj.t) ||
+                        (!command.obj.k && !command.obj.t && !command.obj.p)
                 );
 
                 commandsFiltered.forEach((command) => {
