@@ -140,6 +140,7 @@
           </tbody>
         </table>
         <div id="setup-tab" class="sample-section padded">
+          <input type="file" @change="uploadJson" id="setup-upload" />
           <textarea id="setup-textarea" style="display: none"></textarea>
           <kup-button
             id="setup-warning"
@@ -1284,6 +1285,55 @@ export default {
         cm.save();
         demoComponent['customStyle'] = cssTextarea.value;
       });
+    },
+    uploadJson(e: Event) {
+      const target = e.target as HTMLInputElement;
+      if (target.files && target.files.length > 0) {
+        const file = target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = (event: ProgressEvent<FileReader>) => {
+          if (event.target && event.target.result) {
+            try {
+              const jsonContent = JSON.parse(event.target.result as string);
+              setupTextarea.value = JSON.stringify(jsonContent, null, 2);
+
+              const codemirrorTextarea = document.querySelector(
+                '#setup-tab .CodeMirror'
+              );
+              if (codemirrorTextarea) {
+                codemirrorTextarea.remove();
+              }
+              //@ts-ignore
+              CodeMirror.fromTextArea(setupTextarea, {
+                mode: { name: 'javascript', json: true },
+                lineNumbers: true,
+                lineWrapping: true,
+                foldGutter: true,
+                gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+              }).on('change', function (cm: any) {
+                cm.save();
+                try {
+                  const parsed = JSON.parse(setupTextarea.value);
+                  for (const key in parsed) {
+                    if (Object.prototype.hasOwnProperty.call(parsed, key)) {
+                      const p = parsed[key];
+                      demoComponent[key] = p;
+                    }
+                  }
+                  setupWarning.classList.remove(visibleClass);
+                } catch (error) {
+                  setupWarning.classList.add(visibleClass);
+                }
+              });
+            } catch (error) {
+              console.error('Invalid JSON file:', error);
+            }
+          }
+        };
+
+        reader.readAsText(file);
+      }
     },
     prepareSetupView() {
       (demoComponent as Partial<KupComponent>).getProps().then((r) => {

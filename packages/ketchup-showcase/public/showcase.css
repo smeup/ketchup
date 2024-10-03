@@ -280,6 +280,13 @@ table#customstyle-tab kup-text-field {
   right: 50px;
 }
 
+#setup-upload {
+  left: 12px;
+  padding-bottom: 8px;
+  position: absolute;
+  top: 28px;
+}
+
 #json-setter.visible,
 #json-setter-opener.visible,
 #css-setter.visible,
@@ -408,6 +415,7 @@ table#customstyle-tab kup-text-field {
   display: table;
 }
 
+#setup-tab.padded,
 #json-tab.padded,
 #css-tab.padded {
   padding-top: 75px;
