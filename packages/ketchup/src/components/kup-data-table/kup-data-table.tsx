@@ -3272,6 +3272,22 @@ export class KupDataTable {
         return details;
     }
 
+    #cellActionsMenuHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
+        const details: KupDatatableEventHandlerDetails = this.#getEventDetails(
+            this.#kupManager.getEventPath(e.target, this.rootElement),
+            e
+        );
+        if (details.cell && !details.column.tooltip) {
+            const cellActions = this.#kupManager.data.cell.buildCellActions(
+                details.row,
+                details.column,
+                this.commands ?? []
+            );
+            this.#onRowActionExpanderClick(e, details.row, cellActions);
+        }
+        return details;
+    }
+
     #contextMenuHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.#getEventDetails(
             this.#kupManager.getEventPath(e.target, this.rootElement),
@@ -5234,10 +5250,10 @@ export class KupDataTable {
                     )
                         ? {
                               onClick: (e: PointerEvent) => {
-                                  this.kupDataTableContextMenu.emit({
+                                  this.kupDataTableClick.emit({
                                       comp: this,
                                       id: this.rootElement.id,
-                                      details: this.#contextMenuHandler(e),
+                                      details: this.#cellActionsMenuHandler(e),
                                   });
                               },
                           }
