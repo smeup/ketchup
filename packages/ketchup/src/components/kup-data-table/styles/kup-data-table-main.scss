@@ -251,6 +251,9 @@ table {
 
   &.custom-size {
     overflow: unset;
+    table {
+      overflow: auto;
+    }
   }
   &:not(.custom-size) {
     overflow-x: auto;
