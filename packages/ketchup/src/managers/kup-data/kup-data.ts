@@ -257,9 +257,7 @@ export class KupData {
                         obj: command.obj,
                         cell: currentCell,
                         index: index,
-                        type: this.object.isObjectTPKEmpty(command.obj)
-                            ? DropDownAction.COMMAND_NO_OBJ
-                            : DropDownAction.COMMAND,
+                        type: DropDownAction.COMMAND,
                         column: column,
                     });
                 });

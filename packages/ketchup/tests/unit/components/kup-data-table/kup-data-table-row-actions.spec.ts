@@ -336,7 +336,7 @@ describe('kup data buildCellActions', () => {
             {
                 text: 'EMPTY delete',
                 icon: 'delete',
-                type: DropDownAction.COMMAND_NO_OBJ,
+                type: DropDownAction.COMMAND,
                 index: 0,
                 obj: {
                     k: '',
@@ -404,7 +404,7 @@ describe('kup data buildCellActions', () => {
                     },
                 } as unknown as KupDataTableCell,
                 index: 1,
-                type: DropDownAction.COMMAND_NO_OBJ,
+                type: DropDownAction.COMMAND,
                 column: {
                     isEditable: false,
                     isKey: false,
