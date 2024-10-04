@@ -235,18 +235,18 @@ function localCompareAsInJava(t1: string, t2: string): number {
 }
 
 // -------------
-// ADAPTERS from SmeupDataTable to Kup components data
+// ADAPTERS from SmeupDataTable to FCell data attribute
 // -------------
 
 export const CMBandACPAdapter = (
-    label: string,
     value: string,
+    label: string,
     options: GenericObject
 ) => ({
     data: {
         'kup-text-field': {
             trailingIcon: true,
-            label: label,
+            label,
         },
         'kup-list': {
             showIcons: true,
@@ -260,5 +260,33 @@ export const CMBandACPAdapter = (
         },
     },
     initialValue: value,
-    label: label,
+    label,
+});
+
+export const SWTAdapter = (value: string, label: string) => ({
+    checked: !!value,
+    label,
+    leadingLabel: true,
+});
+
+export const RADAdapter = (value: string, options: GenericObject) => ({
+    data: options.map((option) => ({
+        value: option.id,
+        label: option.label,
+        checked: option.id === value,
+    })),
+});
+
+export const CHKAdapter = (value: string, label: string) => ({
+    checked: value === 'on' || value === '1',
+    label,
+});
+
+export const CHIAdapter = (value: string) => ({
+    data: value?.length
+        ? value
+              .split(';')
+              .map((v) => ({ id: v, value: v }))
+              .filter((value) => !!value)
+        : null,
 });
