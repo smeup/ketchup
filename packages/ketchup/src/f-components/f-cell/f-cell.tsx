@@ -201,7 +201,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
             >
                 {props.cellActionIcon && (
                     <FImage
-                        resource="app"
+                        resource="more_vert"
                         sizeX="16px"
                         sizeY="16px"
                         wrapperClass={`f-cell__iconfunction ${
