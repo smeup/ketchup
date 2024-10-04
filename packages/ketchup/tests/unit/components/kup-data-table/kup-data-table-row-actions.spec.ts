@@ -24,6 +24,10 @@ const mockedData = sampleKupDataDataset.data;
 const mockedColumns = mockedData.columns as KupDataColumn[];
 const mockedRows = mockedData.rows as unknown as KupDataTableRow[];
 const mockedCommands = sampleKupDataDataset.commands as unknown as KupCommand[];
+const mockedRowsCellActions = sampleKupDataCommandsWithEmptyObj.data
+    .rows as unknown as KupDataTableRow[];
+const mockedColumnsCellActions = sampleKupDataCommandsWithEmptyObj.data
+    .columns as unknown as KupDataColumn[];
 
 let result: KupDataRowAction[] = [];
 const currentColumn = {
@@ -94,7 +98,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 icon: 'view-quilt',
                 text: 'Scheda',
                 obj: { k: '000050', p: 'COD_VER', t: 'VO' },
-                type: DropDownAction.CODVERWITHCOMMANDS,
+                type: DropDownAction.COMMAND,
                 index: 0,
                 cell: firstCell,
                 column: currentColumn,
@@ -103,7 +107,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 icon: 'delete',
                 text: 'Elimina',
                 obj: { k: '000050', p: 'COD_VER', t: 'VO' },
-                type: DropDownAction.CODVERWITHCOMMANDS,
+                type: DropDownAction.COMMAND,
                 index: 1,
                 cell: firstCell,
                 column: currentColumn,
@@ -112,7 +116,7 @@ describe('kup datatable dataset with commands and VO;CODVER rows', () => {
                 icon: 'edit',
                 text: 'Modifica',
                 obj: { k: '000051', p: 'COD_VER', t: 'VO' },
-                type: DropDownAction.CODVERWITHCOMMANDS,
+                type: DropDownAction.COMMAND,
                 index: 2,
                 cell: secondCell,
                 column: currentColumn,
@@ -304,26 +308,246 @@ describe('kup data getCodVerRows', () => {
     });
 });
 
-describe('kup data createCommandsEmptyObj', () => {
-    it('should handle empty obj commands actions', () => {
-        let result: KupDataRowAction[] = [];
-        const commands =
-            sampleKupDataCommandsWithEmptyObj.commands as unknown as KupCommand[];
+describe('kup data buildCellActions', () => {
+    it('should create cell actions with only empty obj', () => {
+        const commands: KupCommand[] = [
+            {
+                obj: {
+                    k: '',
+                    p: '',
+                    t: '',
+                },
+                text: 'EMPTY delete',
+                icon: 'delete',
+                showIcon: true,
+            },
+            {
+                obj: {
+                    k: '',
+                    p: '',
+                    t: '',
+                },
+                text: 'EMPTY edit',
+                icon: 'edit',
+                showIcon: true,
+            },
+        ];
         const expectedResult: KupDataRowAction[] = [
             {
-                icon: 'magnify',
-                text: 'Dettaglio',
-                obj: { k: '', p: '', t: '' },
-                type: DropDownAction.COMMANDWITHEMPTYOBJ,
+                text: 'EMPTY delete',
+                icon: 'delete',
+                type: DropDownAction.COMMAND,
                 index: 0,
+                obj: {
+                    k: '',
+                    p: '',
+                    t: '',
+                },
+                cell: {
+                    data: {
+                        size: 15,
+                        helperEnabled: false,
+                        maxLength: 15,
+                        integers: 15,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    value: '2',
+                    displayedValue: '2',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                } as unknown as KupDataTableCell,
+                column: {
+                    isEditable: false,
+                    isKey: false,
+                    name: 'X$EMPTY',
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    size: '70px',
+                    title: 'EMP',
+                    tooltip: false,
+                },
+            },
+            {
+                icon: 'edit',
+                text: 'EMPTY edit',
+                obj: {
+                    k: '',
+                    p: '',
+                    t: '',
+                },
+                cell: {
+                    data: {
+                        size: 15,
+                        helperEnabled: false,
+                        maxLength: 15,
+                        integers: 15,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    value: '2',
+                    displayedValue: '2',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                } as unknown as KupDataTableCell,
+                index: 1,
+                type: DropDownAction.COMMAND,
+                column: {
+                    isEditable: false,
+                    isKey: false,
+                    name: 'X$EMPTY',
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    size: '70px',
+                    title: 'EMP',
+                    tooltip: false,
+                },
             },
         ];
 
-        const kupDataRowAction =
-            dom.ketchup.data.action.createCommandsWithEmptyObj(commands);
+        const cellActions = dom.ketchup.data.cell.buildCellActions(
+            mockedRowsCellActions[1],
+            mockedColumnsCellActions[5],
+            commands
+        );
 
-        result.push(...kupDataRowAction);
+        expect(cellActions).toEqual(expectedResult);
+    });
+    it('should create cell actions with only codver', () => {
+        const commands: KupCommand[] = [
+            {
+                obj: {
+                    k: '000086',
+                    p: 'CN',
+                    t: 'CLI',
+                },
+                text: 'CN;CLI delete',
+                icon: 'delete',
+                showIcon: true,
+            },
+            {
+                obj: {
+                    k: '000086',
+                    p: 'CN',
+                    t: 'CLI',
+                },
+                text: 'CN;CLI scheda',
+                icon: 'view-quilt',
+                showIcon: true,
+            },
+        ];
 
-        expect(result).toEqual(expectedResult);
+        const expectedResult: KupDataRowAction[] = [
+            {
+                type: DropDownAction.COMMAND,
+                obj: {
+                    k: '000086',
+                    p: 'CN',
+                    t: 'CLI',
+                },
+                text: 'CN;CLI delete',
+                icon: 'delete',
+                cell: {
+                    data: {
+                        size: 15,
+                        helperEnabled: false,
+                        maxLength: 15,
+                        integers: 15,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '000086',
+                        p: 'CN',
+                        t: 'CLI',
+                    },
+                    value: '2',
+                    displayedValue: '2',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                } as unknown as KupDataTableCell,
+                column: {
+                    isEditable: false,
+                    isKey: false,
+                    name: 'X$TEST',
+                    obj: {
+                        k: 'CN',
+                        p: '',
+                        t: 'CLI',
+                    },
+                    size: '70px',
+                    title: 'CODVER',
+                    tooltip: false,
+                },
+                index: 0,
+            },
+            {
+                type: DropDownAction.COMMAND,
+                obj: {
+                    k: '000086',
+                    p: 'CN',
+                    t: 'CLI',
+                },
+                text: 'CN;CLI scheda',
+                icon: 'view-quilt',
+                cell: {
+                    data: {
+                        size: 15,
+                        helperEnabled: false,
+                        maxLength: 15,
+                        integers: 15,
+                    },
+                    isEditable: false,
+                    obj: {
+                        k: '000086',
+                        p: 'CN',
+                        t: 'CLI',
+                    },
+                    value: '2',
+                    displayedValue: '2',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                } as unknown as KupDataTableCell,
+                column: {
+                    isEditable: false,
+                    isKey: false,
+                    name: 'X$TEST',
+                    obj: {
+                        k: 'CN',
+                        p: '',
+                        t: 'CLI',
+                    },
+                    size: '70px',
+                    title: 'CODVER',
+                    tooltip: false,
+                },
+                index: 1,
+            },
+        ];
+
+        const cellActions = dom.ketchup.data.cell.buildCellActions(
+            mockedRowsCellActions[1],
+            mockedColumnsCellActions[4],
+            commands
+        );
+
+        expect(cellActions).toEqual(expectedResult);
     });
 });

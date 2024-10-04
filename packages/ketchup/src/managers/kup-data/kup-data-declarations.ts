@@ -4,7 +4,7 @@ import {
 } from '../../f-components/f-cell/f-cell-declarations';
 import { GenericMap, GenericObject } from '../../types/GenericTypes';
 import { KupObj } from '../kup-objects/kup-objects-declarations';
-
+import type { PointerEventType } from '@interactjs/types/index';
 /**
  * Generic dataset interface.
  */
@@ -38,6 +38,7 @@ export interface KupDataColumn {
     style?: GenericMap;
     cellData?: GenericObject;
     cellSlotData?: GenericObject;
+    tooltip?: boolean;
 }
 export interface KupDataColumnChild {
     name: string;
@@ -64,8 +65,8 @@ export interface KupDataRowAction {
     type:
         | DropDownAction.CODVER
         | DropDownAction.ROWACTION
-        | DropDownAction.CODVERWITHCOMMANDS
-        | DropDownAction.COMMANDWITHEMPTYOBJ;
+        | DropDownAction.COMMAND;
+
     index?: number;
     obj?: KupObj;
     cell?: KupDataCell;
@@ -103,6 +104,13 @@ export interface KupDataCell {
     styleContent?: GenericMap;
     title?: string;
 }
+/**
+ *
+ */
+export interface CellActionProps {
+    onClick: (e: PointerEventType) => void;
+}
+
 /**
  * Generic tree node interface.
  */
@@ -231,6 +239,5 @@ export enum KupDataNewColumnTypes {
 export enum DropDownAction {
     ROWACTION = 'row-action',
     CODVER = 'cod_ver',
-    CODVERWITHCOMMANDS = 'cod_ver-with-commands',
-    COMMANDWITHEMPTYOBJ = 'command-with-empty-obj',
+    COMMAND = 'command',
 }

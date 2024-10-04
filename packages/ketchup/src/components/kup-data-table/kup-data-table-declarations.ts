@@ -123,6 +123,12 @@ export enum VoCodVerRowEnum {
     T = 'VO',
 }
 
+export enum DataTableAreasEnum {
+    HEADER = 'header',
+    BODY = 'body',
+    FOOTER = 'footer',
+}
+
 export type KupDataTableInsertMode = 'form' | 'row' | '';
 
 export interface TotalsMap {
@@ -302,8 +308,7 @@ export interface KupDatatableRowActionItemClickEventPayload
     type:
         | DropDownAction.CODVER
         | DropDownAction.ROWACTION
-        | DropDownAction.CODVERWITHCOMMANDS
-        | DropDownAction.COMMANDWITHEMPTYOBJ;
+        | DropDownAction.COMMAND;
     obj?: KupObj;
     column?: KupDataColumn;
     cell?: KupDataCell;

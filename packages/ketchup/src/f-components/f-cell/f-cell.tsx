@@ -199,6 +199,17 @@ export const FCell: FunctionalComponent<FCellProps> = (
                 style={cell.styleContent}
                 title={cellTitle}
             >
+                {props.cellActionIcon && (
+                    <FImage
+                        resource="more_vert"
+                        sizeX="16px"
+                        sizeY="16px"
+                        wrapperClass={`f-cell__iconfunction ${
+                            cellType === FCellTypes.NUMBER ? 'left' : 'right'
+                        }`}
+                        onClick={props.cellActionIcon.onClick}
+                    />
+                )}
                 {children && children.length > 0
                     ? children
                     : [props.indents, infoEl, icon, content]}
