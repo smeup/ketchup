@@ -12,6 +12,7 @@ export interface FTextFieldProps extends FComponent {
     fullWidth?: boolean;
     group?: boolean;
     helper?: string;
+    helperIcon?: boolean;
     helperEnabled?: boolean;
     helperWhenFocused?: boolean;
     hiddenCounter?: boolean;
