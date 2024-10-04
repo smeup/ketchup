@@ -108,6 +108,11 @@ export class KupTextField {
      */
     @Prop() helper: string = null;
     /**
+     * When set, its content will be shown as a help icon inside the field.
+     * @default false
+     */
+    @Prop() helperIcon: boolean = false;
+    /**
      * When true, the helper will be displayed.
      * @default true
      */
@@ -609,6 +614,7 @@ export class KupTextField {
             fullWidth: this.fullWidth,
             group: this.group,
             helper: this.helper,
+            helperIcon: this.helperIcon,
             helperEnabled: this.helperEnabled,
             helperWhenFocused: this.helperWhenFocused,
             hiddenCounter: this.hiddenCounter,

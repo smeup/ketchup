@@ -3972,6 +3972,11 @@ export namespace Components {
          */
         "helperEnabled": boolean;
         /**
+          * When set, its content will be shown as a help icon inside the field.
+          * @default false
+         */
+        "helperIcon": boolean;
+        /**
           * When set, the helper will be shown only when the field is focused.
           * @default false
          */
@@ -9016,6 +9021,11 @@ declare namespace LocalJSX {
           * @default true
          */
         "helperEnabled"?: boolean;
+        /**
+          * When set, its content will be shown as a help icon inside the field.
+          * @default false
+         */
+        "helperIcon"?: boolean;
         /**
           * When set, the helper will be shown only when the field is focused.
           * @default false
