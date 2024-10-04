@@ -68,6 +68,7 @@ import {
     getAbsoluteTop,
     getAbsoluteWidth,
 } from './kup-input-panel-utils';
+import { CMBandACPAdapter } from '../../utils/cell-utils';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -992,20 +993,7 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        const configCMandACP: GenericObject = {
-            data: {
-                'kup-text-field': {
-                    trailingIcon: true,
-                    label: fieldLabel,
-                },
-                'kup-list': {
-                    showIcons: true,
-                    data: [],
-                },
-            },
-            initialValue: currentValue,
-            label: fieldLabel,
-        };
+        const configCMandACP = CMBandACPAdapter(fieldLabel, currentValue, []);
 
         if (cell.fun) {
             const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);

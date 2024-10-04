@@ -6,6 +6,7 @@ import {
     KupDataColumn,
 } from '../managers/kup-data/kup-data-declarations';
 import { KupDatesFormats } from '../managers/kup-dates/kup-dates-declarations';
+import { GenericObject } from '../components';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -232,3 +233,32 @@ function localCompareAsInJava(t1: string, t2: string): number {
     }
     return t1Length - t2Length;
 }
+
+// -------------
+// ADAPTERS from SmeupDataTable to Kup components data
+// -------------
+
+export const CMBandACPAdapter = (
+    label: string,
+    value: string,
+    options: GenericObject
+) => ({
+    data: {
+        'kup-text-field': {
+            trailingIcon: true,
+            label: label,
+        },
+        'kup-list': {
+            showIcons: true,
+            data: options.length
+                ? options.map((option) => ({
+                      value: option.label,
+                      id: option.id,
+                      selected: value === option.id,
+                  }))
+                : [],
+        },
+    },
+    initialValue: value,
+    label: label,
+});
