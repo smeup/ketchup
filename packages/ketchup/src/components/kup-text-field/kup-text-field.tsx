@@ -108,7 +108,7 @@ export class KupTextField {
      */
     @Prop() helper: string = null;
     /**
-     * When set, its content will be shown as a help text below the field.
+     * When set, its content will be shown as a help icon inside the field.
      * @default false
      */
     @Prop() helperIcon: boolean = false;

@@ -3972,7 +3972,7 @@ export namespace Components {
          */
         "helperEnabled": boolean;
         /**
-          * When set, its content will be shown as a help text below the field.
+          * When set, its content will be shown as a help icon inside the field.
           * @default false
          */
         "helperIcon": boolean;
@@ -9012,7 +9012,7 @@ declare namespace LocalJSX {
          */
         "helperEnabled"?: boolean;
         /**
-          * When set, its content will be shown as a help text below the field.
+          * When set, its content will be shown as a help icon inside the field.
           * @default false
          */
         "helperIcon"?: boolean;
