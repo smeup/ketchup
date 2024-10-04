@@ -3273,7 +3273,6 @@ export class KupDataTable {
     }
 
     #cellActionsMenuHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
-        console.log('clicl', e);
         const details: KupDatatableEventHandlerDetails = this.#getEventDetails(
             this.#kupManager.getEventPath(e.target, this.rootElement),
             e
@@ -3290,8 +3289,6 @@ export class KupDataTable {
     }
 
     #contextMenuHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
-        console.log('riht clicl', e);
-
         const details: KupDatatableEventHandlerDetails = this.#getEventDetails(
             this.#kupManager.getEventPath(e.target, this.rootElement),
             e
