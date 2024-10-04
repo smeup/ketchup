@@ -76,6 +76,7 @@
     --mdc-shape-small: 0px;
     --kup_textfield_border_radius: var(--kup-textfield-border-radius, unset);
 
+    width: var(--kup_textfield_width);
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -163,7 +164,8 @@
     }
 
     .mdc-text-field {
-      width: var(--kup_textfield_width);
+      display: flex;
+      gap: var(--kup-space-03);
       border-radius: var(--kup_textfield_border_radius);
       outline: 2px solid transparent;
       outline-offset: -2px;
@@ -187,7 +189,6 @@
         cursor: pointer;
         height: 16px;
         width: 16px;
-        padding: 0 0 0 8px;
         outline: none;
         pointer-events: all;
 
