@@ -3277,7 +3277,7 @@ export class KupDataTable {
             this.#kupManager.getEventPath(e.target, this.rootElement),
             e
         );
-        if (details.cell && !details.column.tooltip) {
+        if (details.cell) {
             const cellActions = this.#kupManager.data.cell.buildCellActions(
                 details.row,
                 details.column,
