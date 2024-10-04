@@ -42,7 +42,6 @@ import {
     KupDatatableRowSelectedEventPayload,
     KupDatatableClickEventPayload,
     KupDatatableColumnMenuEventPayload,
-    KupDatatableRowActionClickEventPayload,
     KupDatatableLoadMoreClickEventPayload,
     KupDatatableColumnRemoveEventPayload,
     KupDatatableColumnMoveEventPayload,
@@ -55,7 +54,6 @@ import {
     KupDataTableInsertMode,
     KupDatatableHistoryEventPayload,
     KupDatatableRowActionItemClickEventPayload,
-    KupDataTableRowGroup,
     KupDatatableUpdatePayload,
     DataTableAreasEnum,
 } from './kup-data-table-declarations';
@@ -161,13 +159,11 @@ import {
     rowsPerPageChange,
 } from '../../f-components/f-paginator/f-paginator-utils';
 import {
-    DropDownAction,
     KupCommand,
     KupDataColumn,
     KupDataDataset,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
-    KupDataNode,
     KupDataRow,
     KupDataRowAction,
     KupDataRowCells,
@@ -175,7 +171,6 @@ import {
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupFormRow } from '../kup-form/kup-form-declarations';
-import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupList } from '../kup-list/kup-list';
 @Component({
@@ -1164,6 +1159,17 @@ export class KupDataTable {
     kupRowActionItemClick: EventEmitter<KupDatatableRowActionItemClickEventPayload>;
 
     /**
+     * Event fired when the cell action icon is pressed
+     */
+    @Event({
+        eventName: 'kup-datatable-cell-action-icon-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupCellActionIconClick: EventEmitter<KupDatatableClickEventPayload>;
+
+    /**
      * Event fired when the user click on update button,
      * update button is visible when the props updatableData is true
      */
@@ -2014,6 +2020,14 @@ export class KupDataTable {
             switch (e.button) {
                 // left click
                 case 0:
+                    // in case cell action icon is clicked
+                    if (
+                        (e.target as HTMLElement).classList.contains(
+                            'f-image__icon'
+                        )
+                    ) {
+                        break;
+                    }
                     // Note: event must be cloned
                     // otherwise inside setTimeout will be exiting the Shadow DOM scope(causing loss of information, including target).
                     const clone: GenericObject = {};
@@ -3273,6 +3287,7 @@ export class KupDataTable {
     }
 
     #cellActionsMenuHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
+        e.stopPropagation();
         const details: KupDatatableEventHandlerDetails = this.#getEventDetails(
             this.#kupManager.getEventPath(e.target, this.rootElement),
             e
@@ -5241,8 +5256,7 @@ export class KupDataTable {
                     )
                         ? {
                               onClick: (e: PointerEvent) => {
-                                  e.stopPropagation();
-                                  this.kupDataTableClick.emit({
+                                  this.kupCellActionIconClick.emit({
                                       comp: this,
                                       id: this.rootElement.id,
                                       details: this.#cellActionsMenuHandler(e),

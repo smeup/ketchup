@@ -4994,6 +4994,7 @@ declare global {
         "kup-datatable-insert-row": KupDatatableInsertRowEventPayload;
         "kup-datatable-history": KupDatatableHistoryEventPayload;
         "kup-datatable-rowaction-item-click": KupDatatableRowActionItemClickEventPayload;
+        "kup-datatable-cell-action-icon-click": KupDatatableClickEventPayload;
         "kup-datatable-update": KupDatatableUpdatePayload;
     }
     interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {
@@ -7040,6 +7041,10 @@ declare namespace LocalJSX {
           * @see loadMoreLimit
          */
         "loadMoreStep"?: number;
+        /**
+          * Event fired when the cell action icon is pressed
+         */
+        "onKup-datatable-cell-action-icon-click"?: (event: KupDataTableCustomEvent<KupDatatableClickEventPayload>) => void;
         /**
           * Generic right click event on a cell in data table.
          */
