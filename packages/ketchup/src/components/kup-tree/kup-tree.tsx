@@ -92,6 +92,7 @@ import {
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FImage } from '../../f-components/f-image/f-image';
+import { isExpandable } from './kup-tree-helper';
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
@@ -1092,7 +1093,7 @@ export class KupTree {
             this.expansionMode.toLowerCase() ===
                 KupTreeExpansionMode.DROPDOWN ||
             (this.expansionMode.toLowerCase() === KupTreeExpansionMode.NODE &&
-                !treeNodeData.expandable)
+                !isExpandable(treeNodeData))
         ) {
             const td = e
                 ? this.#kupManager
@@ -1134,7 +1135,7 @@ export class KupTree {
         ctrlKey: boolean
     ) {
         // If the node is expandable
-        if (treeNodeData.expandable) {
+        if (isExpandable(treeNodeData)) {
             // Always composes the tree node path as an array
             const arrayTreeNodePath: TreeNodePath = treeNodePath
                 .split(',')
@@ -1520,7 +1521,7 @@ export class KupTree {
         // If expandable, also add the callback on the click action.
         // If it is not expandable, we simply add a placeholder with no icons.
         const hasExpandIcon: boolean = !!(
-            treeNodeData.expandable &&
+            isExpandable(treeNodeData) &&
             ((treeNodeData.children && treeNodeData.children.length) ||
                 this.useDynamicExpansion)
         );
@@ -2033,12 +2034,7 @@ export class KupTree {
             );
 
             // Checks if the current node can be expanded, has children object, has children and is expanded
-            if (
-                treeNodeData.expandable &&
-                treeNodeData.children &&
-                treeNodeData.children.length &&
-                treeNodeData.isExpanded
-            ) {
+            if (isExpandable(treeNodeData) && treeNodeData.isExpanded) {
                 for (let i = 0; i < treeNodeData.children.length; i++) {
                     treeNodes = treeNodes.concat(
                         this.renderTree(
