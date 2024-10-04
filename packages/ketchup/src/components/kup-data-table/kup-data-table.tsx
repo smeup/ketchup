@@ -5241,6 +5241,7 @@ export class KupDataTable {
                     )
                         ? {
                               onClick: (e: PointerEvent) => {
+                                  e.stopPropagation();
                                   this.kupDataTableClick.emit({
                                       comp: this,
                                       id: this.rootElement.id,
