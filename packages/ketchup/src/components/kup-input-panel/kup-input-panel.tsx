@@ -992,7 +992,7 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        const configCMandACP = CMBandACPAdapter(fieldLabel, currentValue, []);
+        const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
 
         if (cell.fun) {
             const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
