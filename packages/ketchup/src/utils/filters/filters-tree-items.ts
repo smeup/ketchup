@@ -13,6 +13,7 @@ import {
     KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
 import { addColumnValueFromRow } from '../../managers/kup-data/kup-data-cell-helper';
+import { isExpandable } from '../../components/kup-tree/kup-tree-helper';
 
 /**
  * Filtering algorithms related to tree items rows.
@@ -181,7 +182,7 @@ export class FiltersTreeItems extends FiltersRows {
 
     expandCollapseNode(treeNode: KupTreeNode, expandNode: boolean = false) {
         // The node is expandable, which means there are sub trees
-        if (treeNode.expandable) {
+        if (isExpandable(treeNode)) {
             // If the node does not already have the property to toggle expansion we add it
             // Notice how, if the property is already set, its first value will be the same value that was provided by the object itself
             // and only if the node must be expanded automatically then [treeExpandedPropName] is set to true forcibly.
@@ -194,7 +195,7 @@ export class FiltersTreeItems extends FiltersRows {
 
     expandCollapseAllNodes(treeNode: KupTreeNode, expandNode: boolean = false) {
         // The node is expandable, which means there are sub trees
-        if (treeNode.expandable && !treeNode.disabled) {
+        if (isExpandable(treeNode) && !treeNode.disabled) {
             this.expandCollapseNode(treeNode, expandNode);
             // Enriches also direct subtrees recursively (if it has children)
             if (treeNode.children && treeNode.children.length) {

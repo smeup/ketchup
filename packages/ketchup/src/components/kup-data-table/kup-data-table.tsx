@@ -2020,20 +2020,36 @@ export class KupDataTable {
             switch (e.button) {
                 // left click
                 case 0:
-                    // in case cell action icon is clicked
-                    if (
-                        (e.target as HTMLElement).classList.contains(
-                            'f-image__icon'
-                        )
-                    ) {
-                        break;
-                    }
                     // Note: event must be cloned
                     // otherwise inside setTimeout will be exiting the Shadow DOM scope(causing loss of information, including target).
                     const clone: GenericObject = {};
                     for (const key in e) {
                         clone[key] = e[key];
                     }
+
+                    // in case an icon is clicked
+                    if (
+                        (e.target as HTMLElement).classList.contains(
+                            'f-image__icon'
+                        )
+                    ) {
+                        const details = this.#getEventDetails(
+                            this.#kupManager.getEventPath(
+                                e.target,
+                                this.rootElement
+                            ),
+                            e
+                        );
+
+                        // in case a cell action icon is clicked
+                        if (
+                            details.cell.obj.t !== 'J4' &&
+                            details.cell.obj.p !== 'ICO'
+                        ) {
+                            break;
+                        }
+                    }
+
                     this.#clickTimeout.push(
                         setTimeout(() => {
                             this.kupDataTableClick.emit({
