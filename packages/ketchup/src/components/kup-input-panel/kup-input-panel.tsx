@@ -68,6 +68,13 @@ import {
     getAbsoluteTop,
     getAbsoluteWidth,
 } from './kup-input-panel-utils';
+import {
+    CHIAdapter,
+    CHKAdapter,
+    CMBandACPAdapter,
+    RADAdapter,
+    SWTAdapter,
+} from '../../utils/cell-utils';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -920,14 +927,7 @@ export class KupInputPanel {
         _fieldLabel: string,
         currentValue: string
     ) {
-        return {
-            data: currentValue?.length
-                ? currentValue
-                      .split(';')
-                      .map((v) => ({ id: v, value: v }))
-                      .filter((value) => !!value)
-                : null,
-        };
+        return CHIAdapter(currentValue);
     }
 
     #GRAAdapter() {
@@ -992,20 +992,7 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        const configCMandACP: GenericObject = {
-            data: {
-                'kup-text-field': {
-                    trailingIcon: true,
-                    label: fieldLabel,
-                },
-                'kup-list': {
-                    showIcons: true,
-                    data: [],
-                },
-            },
-            initialValue: currentValue,
-            label: fieldLabel,
-        };
+        const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
 
         if (cell.fun) {
             const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
@@ -1047,10 +1034,7 @@ export class KupInputPanel {
         fieldLabel: string,
         currentValue: string
     ) {
-        return {
-            checked: currentValue === 'on' || currentValue === '1',
-            label: fieldLabel,
-        };
+        return CHKAdapter(currentValue, fieldLabel);
     }
 
     #CLPAdapter(
@@ -1090,13 +1074,7 @@ export class KupInputPanel {
         _fieldLabel: string,
         currentValue: string
     ) {
-        return {
-            data: options.map((option) => ({
-                value: option.id,
-                label: option.label,
-                checked: option.id === currentValue,
-            })),
-        };
+        return RADAdapter(currentValue, options);
     }
 
     #SWTAdapter(
@@ -1104,11 +1082,7 @@ export class KupInputPanel {
         fieldLabel: string,
         currentValue: string
     ) {
-        return {
-            checked: !!currentValue,
-            label: fieldLabel,
-            leadingLabel: true,
-        };
+        return SWTAdapter(currentValue, fieldLabel);
     }
 
     #DateAdapter(
