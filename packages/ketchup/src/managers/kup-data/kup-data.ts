@@ -36,6 +36,7 @@ import {
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
+    FCellProps,
     FCellShapes,
     FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -43,6 +44,7 @@ import { TreeNodePath } from '../../components/kup-tree/kup-tree-declarations';
 import { ValueDisplayedValue } from '../../utils/filters/filters-declarations';
 import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 import { KupThemeColorValues } from '../kup-theme/kup-theme-declarations';
+import { KupObj } from '../kup-objects/kup-objects-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -198,6 +200,92 @@ export class KupData {
                     cell.value.obj.t === VoCodVerRowEnum.T
             );
         },
+        /**
+         * Build f-cell with its properties
+         * @param { KupDatatablecell} cell
+         * @param { KupDataColumn} column
+         * @param { KupDataRow } row
+         * @returns { FCellProps } f-cell with mapped properties
+         */
+        buildFCell: (
+            cell: KupDataTableCell,
+            column: KupDataColumn,
+            row: KupDataRow
+        ): FCellProps => {
+            return {
+                cell,
+                column,
+                row,
+                setSizes: true,
+            };
+        },
+        /**
+         * Build cell actions, that are showed when cell in datatable is clicked through button
+         * @param {KupDataRow} row which is being clicked
+         * @param {KupDataColumn} column of the cell
+         * @param {KupCommand[]} commands array of actions
+         * @returns { KupDataRowAction[]} actions showed on f-cell
+         */
+        buildCellActions: (
+            row: KupDataRow,
+            column: KupDataColumn,
+            commands: KupCommand[]
+        ): KupDataRowAction[] => {
+            const cellActions: KupDataRowAction[] = [];
+            const currentCell = row.cells[column.name];
+
+            if (commands) {
+                const commandsFiltered = commands.filter(
+                    (command) =>
+                        this.object.compareObjects(
+                            command.obj,
+                            currentCell.obj
+                        ) || this.object.isObjectTPKEmpty(command.obj)
+                );
+
+                commandsFiltered.forEach((command) => {
+                    const index = commands.findIndex(
+                        (currentCommand) =>
+                            currentCommand.icon === command.icon &&
+                            currentCommand.text === command.text &&
+                            currentCommand.obj.k === command.obj.k
+                    );
+
+                    cellActions.push({
+                        icon: command.icon,
+                        text: command.text,
+                        obj: command.obj,
+                        cell: currentCell,
+                        index: index,
+                        type: DropDownAction.COMMAND,
+                        column: column,
+                    });
+                });
+            }
+
+            return cellActions;
+        },
+        /**
+         * Check if row has action cells.
+         * @param {KupDataCell} cell to check.
+         * @param {KupCommand[]} commands array of actions
+         * @returns {boolean} if cell contain action showed on f-cell
+         */
+        hasActionCell: (cell: KupDataCell, commands: KupCommand[]): boolean => {
+            if (
+                commands.some((command) =>
+                    this.object.isObjectTPKEmpty(command.obj)
+                )
+            ) {
+                return true;
+            }
+
+            const isMatchFound = commands.some((command) => {
+                return this.object.compareObjects(command.obj, cell.obj);
+            });
+
+            return isMatchFound;
+        },
     };
     column = {
         find(
@@ -320,17 +408,10 @@ export class KupData {
                 commands
             );
 
-            const commandsWithEmptyObj =
-                this.action.createCommandsWithEmptyObj(commands);
-
             const rowActionsWithCodVer =
                 actions && actions.length
-                    ? [
-                          ...this.row.rowActionsAdapter(actions),
-                          ...codVerActions,
-                          ...commandsWithEmptyObj,
-                      ]
-                    : [...codVerActions, ...commandsWithEmptyObj];
+                    ? [...this.row.rowActionsAdapter(actions), ...codVerActions]
+                    : [...codVerActions];
 
             return rowActionsWithCodVer;
         },
@@ -414,7 +495,7 @@ export class KupData {
                                 obj: commandFilter.obj,
                                 cell: codVer.value,
                                 index: index,
-                                type: DropDownAction.CODVERWITHCOMMANDS,
+                                type: DropDownAction.COMMAND,
                                 column: currentColumn,
                             });
                         }
@@ -444,24 +525,6 @@ export class KupData {
 
             return actions;
         },
-        createCommandsWithEmptyObj: (
-            commands: KupCommand[]
-        ): KupDataRowAction[] => {
-            return commands.length
-                ? commands
-                      .filter((c) => !c.obj.k && !c.obj.t && !c.obj.p)
-                      .map(
-                          (c, index) =>
-                              ({
-                                  text: c.text || '',
-                                  icon: c.icon || '',
-                                  obj: c.obj,
-                                  index: index,
-                                  type: DropDownAction.COMMANDWITHEMPTYOBJ,
-                              } as KupDataRowAction)
-                      )
-                : [];
-        },
         /**
          * Check whenever commands got blank uiPopup obj
          * @param { commands } commands[] on which control is made
@@ -488,6 +551,27 @@ export class KupData {
                     rowAction.column?.title ||
                     rowAction.column?.name,
             }));
+        },
+    };
+    object = {
+        /** compare t p k of two objects
+         * @param {KupObj} firsObj
+         * @param {KupObj} secondObj
+         * @returns {boolean} result
+         */
+        compareObjects: (firstObj: KupObj, secondObj: KupObj): boolean => {
+            return (
+                firstObj.k === secondObj.k &&
+                firstObj.t === secondObj.t &&
+                firstObj.p === secondObj.p
+            );
+        },
+        /** check if obj t p k proprieties are empty
+         * @param {KupObj} obj
+         * @returns {boolean} result
+         */
+        isObjectTPKEmpty: (obj: KupObj): boolean => {
+            return !obj.k && !obj.t && !obj.p;
         },
     };
     /**

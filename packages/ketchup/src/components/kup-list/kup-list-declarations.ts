@@ -48,4 +48,5 @@ export enum ItemsDisplayMode {
 }
 export interface KupListEventPayload extends KupEventPayload {
     selected: KupListNode;
+    index?: number;
 }

@@ -16,6 +16,7 @@ import type {
     DropEvent,
     InteractEvent,
     PointerEvent,
+    PointerEventType,
 } from '@interactjs/types/index';
 import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
 import type { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
@@ -41,7 +42,6 @@ import {
     KupDatatableRowSelectedEventPayload,
     KupDatatableClickEventPayload,
     KupDatatableColumnMenuEventPayload,
-    KupDatatableRowActionClickEventPayload,
     KupDatatableLoadMoreClickEventPayload,
     KupDatatableColumnRemoveEventPayload,
     KupDatatableColumnMoveEventPayload,
@@ -54,8 +54,8 @@ import {
     KupDataTableInsertMode,
     KupDatatableHistoryEventPayload,
     KupDatatableRowActionItemClickEventPayload,
-    KupDataTableRowGroup,
     KupDatatableUpdatePayload,
+    DataTableAreasEnum,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -159,13 +159,11 @@ import {
     rowsPerPageChange,
 } from '../../f-components/f-paginator/f-paginator-utils';
 import {
-    DropDownAction,
     KupCommand,
     KupDataColumn,
     KupDataDataset,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
-    KupDataNode,
     KupDataRow,
     KupDataRowAction,
     KupDataRowCells,
@@ -173,7 +171,6 @@ import {
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupFormRow } from '../kup-form/kup-form-declarations';
-import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupList } from '../kup-list/kup-list';
 @Component({
@@ -1051,6 +1048,16 @@ export class KupDataTable {
     })
     kupDataTableContextMenu: EventEmitter<KupDatatableClickEventPayload>;
     /**
+     * Generic right click event on a cell in data table.
+     */
+    @Event({
+        eventName: 'kup-datatable-cell-actions-menu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableCellActionsMenu: EventEmitter<KupDatatableClickEventPayload>;
+    /**
      * Generic double click event on data table.
      */
     @Event({
@@ -1150,6 +1157,17 @@ export class KupDataTable {
         bubbles: true,
     })
     kupRowActionItemClick: EventEmitter<KupDatatableRowActionItemClickEventPayload>;
+
+    /**
+     * Event fired when the cell action icon is pressed
+     */
+    @Event({
+        eventName: 'kup-datatable-cell-action-icon-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupCellActionIconClick: EventEmitter<KupDatatableClickEventPayload>;
 
     /**
      * Event fired when the user click on update button,
@@ -2002,6 +2020,14 @@ export class KupDataTable {
             switch (e.button) {
                 // left click
                 case 0:
+                    // in case cell action icon is clicked
+                    if (
+                        (e.target as HTMLElement).classList.contains(
+                            'f-image__icon'
+                        )
+                    ) {
+                        break;
+                    }
                     // Note: event must be cloned
                     // otherwise inside setTimeout will be exiting the Shadow DOM scope(causing loss of information, including target).
                     const clone: GenericObject = {};
@@ -2829,22 +2855,19 @@ export class KupDataTable {
                         );
                         break;
                     case 'kup-list-click':
-                        const selectedElObj =
-                            e.detail.event.detail.selected.obj;
-                        const cell = e.detail.event.detail.selected.cell;
-                        const index = e.detail.event.detail.selected.index;
-                        const type = e.detail.event.detail.selected.type;
-                        const column = e.detail.event.detail.selected.column;
+                        const selectedObjectIndex = e.detail.event.detail.index;
+                        const selectedObject =
+                            dropDownActions[selectedObjectIndex];
 
                         this.kupRowActionItemClick.emit({
                             comp: this,
                             id: this.rootElement.id,
                             row: row,
-                            obj: selectedElObj,
-                            cell: cell,
-                            type: type,
-                            index: index,
-                            column: column,
+                            obj: selectedObject.obj,
+                            cell: selectedObject.cell,
+                            type: selectedObject.type,
+                            index: selectedObject.index,
+                            column: selectedObject.column,
                         });
                         setTimeout(() => {
                             this.#closeRowActionsCard();
@@ -3263,17 +3286,34 @@ export class KupDataTable {
         return details;
     }
 
+    #cellActionsMenuHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
+        e.stopPropagation();
+        const details: KupDatatableEventHandlerDetails = this.#getEventDetails(
+            this.#kupManager.getEventPath(e.target, this.rootElement),
+            e
+        );
+        if (details.cell) {
+            const cellActions = this.#kupManager.data.cell.buildCellActions(
+                details.row,
+                details.column,
+                this.commands ?? []
+            );
+            this.#onRowActionExpanderClick(e, details.row, cellActions);
+        }
+        return details;
+    }
+
     #contextMenuHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.#getEventDetails(
             this.#kupManager.getEventPath(e.target, this.rootElement),
             e
         );
-        if (details.area === 'header') {
+        if (details.area === DataTableAreasEnum.HEADER) {
             if (details.th && details.column) {
                 this.openColumnMenu(details.column.name);
                 return details;
             }
-        } else if (details.area === 'footer') {
+        } else if (details.area === DataTableAreasEnum.FOOTER) {
             if (details.td && details.column) {
                 this.#totalMenuCoords = { x: e.clientX, y: e.clientY };
                 this.#onTotalMenuOpen(details.column);
@@ -3825,7 +3865,7 @@ export class KupDataTable {
     }
 
     #onRowActionExpanderClick(
-        e: MouseEvent,
+        e: MouseEvent | PointerEvent,
         row: KupDataTableRow,
         dropDownActions: KupDataRowAction[]
     ) {
@@ -5195,10 +5235,12 @@ export class KupDataTable {
                         return null;
                     }
                 }
-
-                const cellProps: FCellProps = {
-                    cell: cell,
-                    column: currentColumn,
+                const fcell = {
+                    ...this.#kupManager.data.cell.buildFCell(
+                        cell,
+                        currentColumn,
+                        row
+                    ),
                     component: this,
                     density: this.density,
                     editable: this.editableData || this.updatableData,
@@ -5208,10 +5250,23 @@ export class KupDataTable {
                             ? previousRow.cells[name].value
                             : undefined,
                     renderKup: this.lazyLoadCells,
-                    row: row,
-                    setSizes: true,
+                    cellActionIcon: this.#kupManager.data.cell.hasActionCell(
+                        cell,
+                        this.commands ?? []
+                    )
+                        ? {
+                              onClick: (e: PointerEvent) => {
+                                  this.kupCellActionIconClick.emit({
+                                      comp: this,
+                                      id: this.rootElement.id,
+                                      details: this.#cellActionsMenuHandler(e),
+                                  });
+                              },
+                          }
+                        : null,
                 };
-                const jsxCell = <FCell {...cellProps}></FCell>;
+
+                const jsxCell = <FCell {...fcell}></FCell>;
 
                 // Classes which will be set onto the single data-table cell;
 
@@ -5288,7 +5343,6 @@ export class KupDataTable {
                     </td>
                 );
             });
-
             // adding row to rendered rows
             this.#renderedRows.push(row);
 

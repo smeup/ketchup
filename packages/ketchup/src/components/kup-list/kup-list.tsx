@@ -349,10 +349,12 @@ export class KupList {
                 const item = this.data[index];
                 item.selected = this.selected.includes(item.id);
             }
+
             this.kupClick.emit({
                 comp: this,
                 id: this.rootElement.id,
                 selected: dataEl,
+                index,
             });
         }
     }
