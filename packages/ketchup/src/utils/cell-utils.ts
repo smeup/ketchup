@@ -250,7 +250,7 @@ export const CMBandACPAdapter = (
         },
         'kup-list': {
             showIcons: true,
-            data: options.length
+            data: options?.length
                 ? options.map((option) => ({
                       value: option.label,
                       id: option.id,
@@ -270,11 +270,13 @@ export const SWTAdapter = (value: string, label: string) => ({
 });
 
 export const RADAdapter = (value: string, options: GenericObject) => ({
-    data: options.map((option) => ({
-        value: option.id,
-        label: option.label,
-        checked: option.id === value,
-    })),
+    data: options?.length
+        ? options?.map((option) => ({
+              value: option.id,
+              label: option.label,
+              checked: option.id === value,
+          }))
+        : [],
 });
 
 export const CHKAdapter = (value: string, label: string) => ({
