@@ -208,6 +208,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
                             cellType === FCellTypes.NUMBER ? 'left' : 'right'
                         }`}
                         onClick={props.cellActionIcon.onClick}
+                        tabIndex={0}
                     />
                 )}
                 {children && children.length > 0

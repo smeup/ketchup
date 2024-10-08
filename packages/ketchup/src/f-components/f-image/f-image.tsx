@@ -59,7 +59,7 @@ export const FImage: FunctionalComponent<FImageProps> = (
             style={style}
             title={props.title}
             onClick={props.onClick}
-            tabindex="0"
+            tabindex={props.tabIndex}
         >
             {props.placeholderResource
                 ? createIcon(
