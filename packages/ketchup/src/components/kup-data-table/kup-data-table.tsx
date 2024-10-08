@@ -2043,8 +2043,8 @@ export class KupDataTable {
 
                         // in case a cell action icon is clicked
                         if (
-                            details.cell.obj.t !== 'J4' &&
-                            details.cell.obj.p !== 'ICO'
+                            details?.cell?.obj?.t !== 'J4' &&
+                            details?.cell?.obj?.p !== 'ICO'
                         ) {
                             break;
                         }
