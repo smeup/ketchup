@@ -6,7 +6,6 @@ import {
     forceUpdate,
     h,
     Host,
-    JSX,
     Method,
     Prop,
     State,
@@ -16,7 +15,6 @@ import type {
     DropEvent,
     InteractEvent,
     PointerEvent,
-    PointerEventType,
 } from '@interactjs/types/index';
 import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
 import type { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
@@ -66,6 +64,7 @@ import {
     paginateRows,
     sortRows,
     getDiffData,
+    decorateDataTable,
 } from './kup-data-table-helper';
 import {
     GenericObject,
@@ -150,7 +149,6 @@ import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declar
 import {
     FCellEventPayload,
     FCellPadding,
-    FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { FPaginator } from '../../f-components/f-paginator/f-paginator';
@@ -850,6 +848,14 @@ export class KupDataTable {
         this.#resetSelectedRows();
     }
 
+    @Watch('data')
+    backupOriginalDataAndAdapting() {
+        this.#originalDataLoaded = JSON.parse(JSON.stringify(this.data));
+        if (this.data['type'] === 'SmeupDataTable') {
+            decorateDataTable(this.data);
+        }
+    }
+
     @Watch('groups')
     recalculateRowsAndUndoSelections() {
         if (!this.#isRestoringState) {
@@ -918,7 +924,7 @@ export class KupDataTable {
     /**
      * contains the original data, used in transposed function
      */
-    #originalData: KupDataDataset = undefined;
+    #originalData: KupDataTableDataset = undefined;
 
     /**
      * contains the original data when the component is
@@ -2535,7 +2541,7 @@ export class KupDataTable {
         this.#calculateData();
         this.#initialized = true;
 
-        this.#originalDataLoaded = JSON.parse(JSON.stringify(this.data));
+        this.backupOriginalDataAndAdapting();
     }
 
     componentWillRender() {
