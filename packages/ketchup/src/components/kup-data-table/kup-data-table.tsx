@@ -851,7 +851,6 @@ export class KupDataTable {
     @Watch('data')
     backupOriginalDataAndAdapting() {
         this.#originalDataLoaded = JSON.parse(JSON.stringify(this.data));
-        console.log('kup-data-tale.tsx', '#backupOriginalDataAndAdapting');
         if (this.data['type'] === 'SmeupDataTable') {
             decorateDataTable(this.data);
         }
