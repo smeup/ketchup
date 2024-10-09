@@ -7,6 +7,7 @@ import {
     KupDataTableRow,
     KupDataTableRowGroup,
     KupDataTableCell,
+    KupDataTableDataset,
 } from './kup-data-table-declarations';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
@@ -14,6 +15,10 @@ import {
     getCellValueForDisplay,
     getColumnByName,
     compareCell,
+    CMBandACPAdapter,
+    RADAdapter,
+    CHKAdapter,
+    CHIAdapter,
 } from '../../utils/cell-utils';
 import { FiltersRows } from '../../utils/filters/filters-rows';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
@@ -22,6 +27,8 @@ import {
     KupDataDataset,
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
+import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -1135,11 +1142,7 @@ export function getDiffData(
                 ? originalRow.cells[cellKey]
                 : null;
 
-            if (
-                !originalCell ||
-                modifiedCell.value !== originalCell.value ||
-                modifiedCell.obj.k !== originalCell.obj.k
-            ) {
+            if (!originalCell || modifiedCell.value !== originalCell.value) {
                 newRow.cells[cellKey] = modifiedCell;
             }
         }
@@ -1150,4 +1153,44 @@ export function getDiffData(
     }
 
     return diffDataTable;
+}
+
+export function decorateDataTable(data: KupDataTableDataset) {
+    data.rows?.forEach((row) => {
+        Object.keys(row.cells).forEach((cellKey) => {
+            let cell: KupDataTableCell = row.cells[cellKey];
+
+            const value = cell.value;
+            const options = cell['options'];
+            cell.isEditable = cell.isEditable ?? cell['editable'];
+
+            if (options) {
+                const shapeAdapters = {
+                    [FCellShapes.AUTOCOMPLETE]: () =>
+                        CMBandACPAdapter(value, '', options),
+                    [FCellShapes.COMBOBOX]: () =>
+                        CMBandACPAdapter(value, '', options),
+                    [FCellShapes.RADIO]: () => RADAdapter(value, options),
+                    [FCellShapes.CHECKBOX]: () => CHKAdapter(value, options),
+                    [FCellShapes.CHIP]: () => CHIAdapter(value),
+                };
+
+                const adapterFunction = shapeAdapters[cell.shape];
+
+                if (adapterFunction) {
+                    cell.data = adapterFunction();
+                } else {
+                    if (cell.shape) {
+                        dom.ketchup.debug.logMessage(
+                            'kup-data',
+                            `Shape specified ${
+                                cell.shape
+                            } in cell ${JSON.stringify(cell)} unsupported`,
+                            KupDebugCategory.WARNING
+                        );
+                    }
+                }
+            }
+        });
+    });
 }
