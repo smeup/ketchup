@@ -54,6 +54,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        @include kup-heading-02;
 
         &:hover {
           text-decoration: underline;
@@ -71,17 +72,19 @@
         margin-right: 0.75em;
         min-width: max-content;
         width: auto;
+        @include kup-body-compact-01;
       }
 
       .value {
         font-weight: 600;
         width: 100%;
+        @include kup-heading-compact-01;
       }
     }
   }
 
   .section-2 {
-    border-top: 1px solid var(--kup-border-color);
+    border-top: 1px solid var(--kup-border-subtle);
     box-sizing: border-box;
     height: 180px;
     opacity: 1;
@@ -112,6 +115,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        @include kup-body-compact-01;
       }
 
       &__value {
@@ -122,6 +126,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        @include kup-heading-compact-01;
       }
     }
 
@@ -131,7 +136,7 @@
   }
 
   .section-3 {
-    border-top: 1px solid var(--kup-border-color);
+    border-top: 1px solid var(--kup-border-subtle);
     display: flex;
     justify-content: flex-end;
     padding: 6px {

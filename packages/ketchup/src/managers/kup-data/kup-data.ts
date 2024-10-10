@@ -1,4 +1,6 @@
 import {
+    DropDownAction,
+    KupCommand,
     KupDataCell,
     KupDataColumn,
     KupDataDataset,
@@ -10,6 +12,7 @@ import {
     KupDataNode,
     KupDataNodeDrilldownInfo,
     KupDataRow,
+    KupDataRowAction,
     KupDataRowCells,
 } from './kup-data-declarations';
 import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
@@ -23,15 +26,25 @@ import {
     setPropertiesNode,
     toStreamNode,
 } from './kup-data-node-helper';
-import { fieldColumn } from '../../components/kup-data-table/kup-data-table-declarations';
+import {
+    fieldColumn,
+    KupDataTableCell,
+    KupDataTableRow,
+    KupDataTableRowCells,
+    VoCodVerRowEnum,
+} from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
+    FCellProps,
     FCellShapes,
     FCellTypes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { TreeNodePath } from '../../components/kup-tree/kup-tree-declarations';
 import { ValueDisplayedValue } from '../../utils/filters/filters-declarations';
+import { FImageProps } from '../../f-components/f-image/f-image-declarations';
+import { KupThemeColorValues } from '../kup-theme/kup-theme-declarations';
+import { KupObj } from '../kup-objects/kup-objects-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -86,6 +99,8 @@ export class KupData {
                         return FCellTypes.COLOR_PICKER;
                     case FCellShapes.COMBOBOX:
                         return FCellTypes.COMBOBOX;
+                    case FCellShapes.DATE:
+                        return FCellTypes.DATE;
                     case FCellShapes.EDITOR:
                         return FCellTypes.EDITOR;
                     case FCellShapes.GAUGE:
@@ -108,8 +123,12 @@ export class KupData {
                         return FCellTypes.RATING;
                     case FCellShapes.SWITCH:
                         return FCellTypes.SWITCH;
+                    case FCellShapes.TABLE:
+                        return FCellTypes.TABLE;
                     case FCellShapes.TEXT_FIELD:
                         return FCellTypes.STRING;
+                    case FCellShapes.TIME:
+                        return FCellTypes.TIME;
                 }
             }
 
@@ -151,6 +170,122 @@ export class KupData {
                 return FCellTypes.STRING;
             }
         },
+        /**
+         * Given some cells, it creates an object with name of column
+         * and value
+         * @param {KupDataTableRowCells} cells  group of cells .
+         * @returns { { name: string; value: KupDataTableCell }[]} object with name of the column and cell.
+         */
+        formatCells(
+            cells: KupDataTableRowCells
+        ): { name: string; value: KupDataTableCell }[] {
+            return Object.entries(cells).map(([key, value]) => ({
+                name: key,
+                value: value,
+            }));
+        },
+        /**
+         * Get COD_VER cells
+         * @param {KupDataTableRow} row single row.
+         * @returns { { name: string; value: KupDataTableCell }[]} cells founded
+         */
+        getCodVer: (
+            row: KupDataTableRow
+        ): { name: string; value: KupDataTableCell }[] => {
+            const formattedCells = this.cell.formatCells(row.cells);
+
+            return formattedCells.filter(
+                (cell) =>
+                    cell.value.obj.p === VoCodVerRowEnum.P &&
+                    cell.value.obj.t === VoCodVerRowEnum.T
+            );
+        },
+        /**
+         * Build f-cell with its properties
+         * @param { KupDatatablecell} cell
+         * @param { KupDataColumn} column
+         * @param { KupDataRow } row
+         * @returns { FCellProps } f-cell with mapped properties
+         */
+        buildFCell: (
+            cell: KupDataTableCell,
+            column: KupDataColumn,
+            row: KupDataRow
+        ): FCellProps => {
+            return {
+                cell,
+                column,
+                row,
+                setSizes: true,
+            };
+        },
+        /**
+         * Build cell actions, that are showed when cell in datatable is clicked through button
+         * @param {KupDataRow} row which is being clicked
+         * @param {KupDataColumn} column of the cell
+         * @param {KupCommand[]} commands array of actions
+         * @returns { KupDataRowAction[]} actions showed on f-cell
+         */
+        buildCellActions: (
+            row: KupDataRow,
+            column: KupDataColumn,
+            commands: KupCommand[]
+        ): KupDataRowAction[] => {
+            const cellActions: KupDataRowAction[] = [];
+            const currentCell = row.cells[column.name];
+
+            if (commands) {
+                const commandsFiltered = commands.filter(
+                    (command) =>
+                        this.object.compareObjects(
+                            command.obj,
+                            currentCell.obj
+                        ) || this.object.isObjectTPKEmpty(command.obj)
+                );
+
+                commandsFiltered.forEach((command) => {
+                    const index = commands.findIndex(
+                        (currentCommand) =>
+                            currentCommand.icon === command.icon &&
+                            currentCommand.text === command.text &&
+                            currentCommand.obj.k === command.obj.k
+                    );
+
+                    cellActions.push({
+                        icon: command.icon,
+                        text: command.text,
+                        obj: command.obj,
+                        cell: currentCell,
+                        index: index,
+                        type: DropDownAction.COMMAND,
+                        column: column,
+                    });
+                });
+            }
+
+            return cellActions;
+        },
+        /**
+         * Check if row has action cells.
+         * @param {KupDataCell} cell to check.
+         * @param {KupCommand[]} commands array of actions
+         * @returns {boolean} if cell contain action showed on f-cell
+         */
+        hasActionCell: (cell: KupDataCell, commands: KupCommand[]): boolean => {
+            if (
+                commands.some((command) =>
+                    this.object.isObjectTPKEmpty(command.obj)
+                )
+            ) {
+                return true;
+            }
+
+            const isMatchFound = commands.some((command) => {
+                return this.object.compareObjects(command.obj, cell.obj);
+            });
+
+            return isMatchFound;
+        },
     };
     column = {
         find(
@@ -171,6 +306,28 @@ export class KupData {
             options: KupDataNewColumnOptions
         ): string | KupDataColumn {
             return newColumn(dataset, type, options);
+        },
+        /**
+         * Check if column is COD_VER
+         * @param {KupDataColumn } column single column.
+         * @returns { boolean } if COD_VER founded or not.
+         */
+        isCodVer(column: KupDataColumn): boolean {
+            if (column && column.obj) {
+                const hasCodVerCol =
+                    column.obj.p === VoCodVerRowEnum.P &&
+                    column.obj.t === VoCodVerRowEnum.T;
+                return hasCodVerCol;
+            }
+            return false;
+        },
+        /**
+         *  Check if almost one column has COD_VER
+         * @param { KupDataColumn[] } columns single column.
+         * @returns { boolean } if COD_VER founded or not.
+         */
+        hasCodVer: (columns: KupDataColumn[]) => {
+            return columns.some((col) => this.column.isCodVer(col));
         },
     };
     node = {
@@ -218,6 +375,203 @@ export class KupData {
         },
         toNode(dataset: KupDataDataset): KupDataNode[] {
             return toNode(dataset);
+        },
+        /**
+         * Adapts row actions to corresponding type
+         * @param { KupDataRowAction[] } rowActions that must be adapted
+         * @returns { KupDataRowAction[] } formatted row actions array
+         */
+        rowActionsAdapter(rowActions: KupDataRowAction[]): KupDataRowAction[] {
+            return rowActions.map((rowAction, index) => ({
+                ...rowAction,
+                type: DropDownAction.ROWACTION,
+                index: index,
+            }));
+        },
+        /**
+         * Build actions that must be showed in data table
+         * @param { KupDataRow } row current row
+         * @param { KupDataColumn[] } columns columns of datatable
+         * @param { KupDataRowAction[] } actions actions in component prop
+         * @param { KupCommand[] } commands commands in component prop
+         * @returns { KupDataRowAction[] } action that must be show on row
+         */
+        buildRowActions: (
+            row: KupDataRow,
+            columns: KupDataColumn[],
+            actions: KupDataRowAction[],
+            commands: KupCommand[]
+        ): KupDataRowAction[] => {
+            const codVerActions = this.action.createActionsFromVoCodRow(
+                row,
+                columns,
+                commands
+            );
+
+            const rowActionsWithCodVer =
+                actions && actions.length
+                    ? [...this.row.rowActionsAdapter(actions), ...codVerActions]
+                    : [...codVerActions];
+
+            return rowActionsWithCodVer;
+        },
+    };
+    action = {
+        /**
+         * Build image to show as action in row
+         * @param { resource } icon that must be shown
+         * @param { title } title of the ation
+         * @param { wrapperClass }  type of wrapper class
+         * @param { onClick } event that must be fired
+         * @returns { FImageProps } single action
+         */
+        buildImageProp: (
+            resource: string,
+            title: string,
+            wrapperClass: 'action' | 'expander',
+            onClick: (e?: MouseEvent) => void
+        ): FImageProps => {
+            return {
+                color: `var(${KupThemeColorValues.PRIMARY})`,
+                sizeX: '1.5em',
+                sizeY: '1.5em',
+                resource,
+                title,
+                wrapperClass,
+                onClick,
+            } as FImageProps;
+        },
+        /**
+         * Check if given actions have only icons without text
+         * @param { actions } actions on which control is made
+         * @returns { boolean } result of check
+         */
+        checkEveryActionHasOnlyIcon: (actions: KupDataRowAction[]): boolean => {
+            return actions.every((action) => action.icon && !action.text);
+        },
+        /**
+         * Creates actions from row with VO COD_VER obj.
+         * @param {KupDataTableRow} row single row.
+         * @param {KupCommand[]} commands group of commands.
+         * @returns { KupDataRowAction[]} Actions founded.
+         */
+        createActionsFromVoCodRow: (
+            row: KupDataTableRow,
+            columns: KupDataColumn[],
+            commands: KupCommand[]
+        ): KupDataRowAction[] => {
+            const actions: KupDataRowAction[] = [];
+
+            const cellsCodVer = this.cell.getCodVer(row);
+
+            cellsCodVer.forEach((codVer) => {
+                let hasCommands = false;
+
+                const currentColumn = this.column
+                    .find(columns, {
+                        name: codVer.name,
+                    })
+                    .pop();
+
+                if (commands) {
+                    const commandsFiltered = commands.filter(
+                        (command) => command.obj.k === codVer.value.obj.k
+                    );
+                    hasCommands = commandsFiltered.length > 0;
+                    commandsFiltered.forEach((commandFilter) => {
+                        const index = commands.findIndex(
+                            (command) =>
+                                command.icon === commandFilter.icon &&
+                                command.text === commandFilter.text &&
+                                command.obj.k === commandFilter.obj.k
+                        );
+                        if (
+                            !('visible' in currentColumn) ||
+                            currentColumn.visible
+                        ) {
+                            actions.push({
+                                icon: commandFilter.icon,
+                                text: commandFilter.text,
+                                obj: commandFilter.obj,
+                                cell: codVer.value,
+                                index: index,
+                                type: DropDownAction.COMMAND,
+                                column: currentColumn,
+                            });
+                        }
+                    });
+                }
+
+                if (!hasCommands) {
+                    if (
+                        !('visible' in currentColumn) ||
+                        currentColumn.visible
+                    ) {
+                        actions.push({
+                            icon:
+                                codVer.value.icon ||
+                                codVer.value.data?.resource ||
+                                codVer.value.data?.icon ||
+                                '',
+                            text: '',
+                            obj: codVer.value.obj,
+                            cell: codVer.value,
+                            type: DropDownAction.CODVER,
+                            column: currentColumn,
+                        });
+                    }
+                }
+            });
+
+            return actions;
+        },
+        /**
+         * Check whenever commands got blank uiPopup obj
+         * @param { commands } commands[] on which control is made
+         * @returns { boolean } result of check
+         */
+        hasCommandsWithBlankObj: (commands: KupCommand[]): boolean => {
+            return commands
+                ? commands.some((c) => !c.obj.k && !c.obj.t && !c.obj.p)
+                : false;
+        },
+        /**
+         * When actions must be placed in dropdown, this function maps
+         * actions with text
+         * @param { rowActions }  rowActions[] that must be mapped
+         * @returns { KupDataRowAction[] } correctly mapped
+         */
+        createActionsWithText: (
+            rowActions: KupDataRowAction[]
+        ): KupDataRowAction[] => {
+            return rowActions.map((rowAction) => ({
+                ...rowAction,
+                text:
+                    rowAction.text ||
+                    rowAction.column?.title ||
+                    rowAction.column?.name,
+            }));
+        },
+    };
+    object = {
+        /** compare t p k of two objects
+         * @param {KupObj} firsObj
+         * @param {KupObj} secondObj
+         * @returns {boolean} result
+         */
+        compareObjects: (firstObj: KupObj, secondObj: KupObj): boolean => {
+            return (
+                firstObj.k === secondObj.k &&
+                firstObj.t === secondObj.t &&
+                firstObj.p === secondObj.p
+            );
+        },
+        /** check if obj t p k proprieties are empty
+         * @param {KupObj} obj
+         * @returns {boolean} result
+         */
+        isObjectTPKEmpty: (obj: KupObj): boolean => {
+            return !obj.k && !obj.t && !obj.p;
         },
     };
     /**

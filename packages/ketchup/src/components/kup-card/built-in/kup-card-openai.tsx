@@ -15,6 +15,8 @@ const dom: KupDom = document.documentElement as KupDom;
 let inputArea: HTMLKupTextFieldElement = null;
 let clearButton: HTMLKupButtonElement = null;
 let submitButton: HTMLKupButtonElement = null;
+let sttButton: HTMLKupButtonElement = null;
+let passwordField: HTMLKupTextFieldElement = null;
 
 export function prepareOpenAIInterface(component: KupCard): VNode[] {
     const options = component.data.options as KupCardBuiltInOpenAIOptions;
@@ -35,6 +37,12 @@ export function prepareOpenAIInterface(component: KupCard): VNode[] {
         }
     };
 
+    const eventHandler = () => {
+        if (passwordField) {
+            options.authCb(passwordField);
+        }
+    };
+
     const authJsx: () => VNode[] = () => {
         return [
             <div class="title">Authentication</div>,
@@ -44,9 +52,15 @@ export function prepareOpenAIInterface(component: KupCard): VNode[] {
                 icon="key-variant"
                 inputType="password"
                 helperEnabled={true}
-                onKup-textfield-iconclick={options.authCb}
-                onKup-textfield-submit={options.authCb}
+                onKup-textfield-iconclick={eventHandler}
+                onKup-textfield-submit={eventHandler}
+                ref={(el) => (passwordField = el)}
             ></kup-text-field>,
+            <kup-button
+                class="login-button"
+                label="Login"
+                onKup-button-click={eventHandler}
+            ></kup-button>,
         ];
     };
 
@@ -139,6 +153,16 @@ export function prepareOpenAIInterface(component: KupCard): VNode[] {
 
             return nodes;
         };
+
+        const sttCb = (
+            inputArea: HTMLKupTextFieldElement,
+            button: HTMLKupButtonElement
+        ) => {
+            if (options.sttCb) {
+                options.sttCb(inputArea, button);
+            }
+        };
+
         return [
             <div class="query-area">
                 <kup-text-field
@@ -155,7 +179,21 @@ export function prepareOpenAIInterface(component: KupCard): VNode[] {
                         ref={(el) => (clearButton = el)}
                     ></kup-button>
                     <kup-button
-                        icon="open-ai"
+                        class="stt"
+                        icon="keyboard_voice"
+                        onKup-button-click={() => sttCb(inputArea, sttButton)}
+                        ref={(el) => (sttButton = el)}
+                        styling={FButtonStyling.ICON}
+                    >
+                        <kup-spinner
+                            active={true}
+                            dimensions="0.6em"
+                            layout={6}
+                            slot="spinner"
+                        ></kup-spinner>
+                    </kup-button>
+                    <kup-button
+                        icon="smeup-ai"
                         label="Submit"
                         onKup-button-click={() => submitCb()}
                         ref={(el) => (submitButton = el)}

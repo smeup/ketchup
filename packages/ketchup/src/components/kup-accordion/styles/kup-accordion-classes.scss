@@ -15,14 +15,14 @@
 }
 
 :host(.#{$kup-class-danger}) {
-  --kup-accordion-primary-color: var(--kup-danger-color);
-  --kup-accordion-primary-color-rgb: var(--kup-danger-color-rgb);
+  --kup-accordion-primary-color: var(--kup-danger-color-60);
+  --kup-accordion-primary-color-rgb: var(--kup-danger-color-60-rgb);
   --kup-accordion-text-on-primary-color: white;
 }
 
 :host(.#{$kup-class-info}) {
-  --kup-accordion-primary-color: var(--kup-info-color);
-  --kup-accordion-primary-color-rgb: var(--kup-info-color-rgb);
+  --kup-accordion-primary-color: var(--kup-info-50-color);
+  --kup-accordion-primary-color-rgb: var(--kup-info-color-50-rgb);
   --kup-accordion-text-on-primary-color: white;
 }
 
@@ -33,13 +33,13 @@
 }
 
 :host(.#{$kup-class-success}) {
-  --kup-accordion-primary-color: var(--kup-success-color);
-  --kup-accordion-primary-color-rgb: var(--kup-success-color-rgb);
+  --kup-accordion-primary-color: var(--kup-success-color-40);
+  --kup-accordion-primary-color-rgb: var(--kup-success-color-40-rgb);
   --kup-accordion-text-on-primary-color: white;
 }
 
 :host(.#{$kup-class-warning}) {
-  --kup-accordion-primary-color: var(--kup-warning-color);
-  --kup-accordion-primary-color-rgb: var(--kup-warning-color-rgb);
+--kup-accordion-primary-color: var(--kup-warning-color-50);
+  --kup-accordion-primary-color-rgb: var(--kup-warning-color-50-rgb);
   --kup-accordion-text-on-primary-color: white;
 }

@@ -92,6 +92,7 @@ import {
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FImage } from '../../f-components/f-image/f-image';
+import { isExpandable } from './kup-tree-helper';
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
@@ -631,6 +632,69 @@ export class KupTree {
         this.refresh();
     }
     /**
+     * Adds/subtracts the input number from the first node's depth level.
+     */
+    @Method()
+    async setExpansionByDepth(modifier: number) {
+        const handleChildren = (
+            node: KupTreeNode,
+            expand: boolean,
+            maxDepth?: number,
+            depth?: number
+        ) => {
+            const shouldExpand = depth < maxDepth;
+            node.isExpanded = shouldExpand;
+            for (
+                let index = 0;
+                node.children && index < node.children.length;
+                index++
+            ) {
+                const child = node.children[index];
+                handleChildren(child, expand, maxDepth, depth + 1);
+            }
+        };
+        const getNodeDepth = (): number => {
+            let maxDepth = 0;
+
+            const traverseNode = (
+                node: KupTreeNode,
+                currentDepth: number
+            ): void => {
+                if (node.children?.length) {
+                    if (node.isExpanded) {
+                        maxDepth = Math.max(maxDepth, currentDepth + 1);
+                    }
+                    for (let index = 0; index < node.children.length; index++) {
+                        const child = node.children[index];
+                        traverseNode(child, currentDepth + 1);
+                    }
+                }
+            };
+
+            for (let index = 0; index < this.data.length; index++) {
+                const node = this.data[index];
+                traverseNode(node, 0);
+            }
+            return maxDepth;
+        };
+
+        let maxDepth = getNodeDepth() + modifier;
+
+        if (!this.useDynamicExpansion) {
+            for (let index = 0; index < this.data.length; index++) {
+                const node = this.data[index];
+                handleChildren(node, false, maxDepth, 0);
+            }
+        } else {
+            this.kupTreeDynamicMassExpansion.emit({
+                comp: this,
+                id: this.rootElement.id,
+                expandAll: false,
+            });
+        }
+        this.refresh();
+    }
+    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -1029,7 +1093,7 @@ export class KupTree {
             this.expansionMode.toLowerCase() ===
                 KupTreeExpansionMode.DROPDOWN ||
             (this.expansionMode.toLowerCase() === KupTreeExpansionMode.NODE &&
-                !treeNodeData.expandable)
+                !isExpandable(treeNodeData))
         ) {
             const td = e
                 ? this.#kupManager
@@ -1071,7 +1135,7 @@ export class KupTree {
         ctrlKey: boolean
     ) {
         // If the node is expandable
-        if (treeNodeData.expandable) {
+        if (isExpandable(treeNodeData)) {
             // Always composes the tree node path as an array
             const arrayTreeNodePath: TreeNodePath = treeNodePath
                 .split(',')
@@ -1457,7 +1521,7 @@ export class KupTree {
         // If expandable, also add the callback on the click action.
         // If it is not expandable, we simply add a placeholder with no icons.
         const hasExpandIcon: boolean = !!(
-            treeNodeData.expandable &&
+            isExpandable(treeNodeData) &&
             ((treeNodeData.children && treeNodeData.children.length) ||
                 this.useDynamicExpansion)
         );
@@ -1970,12 +2034,7 @@ export class KupTree {
             );
 
             // Checks if the current node can be expanded, has children object, has children and is expanded
-            if (
-                treeNodeData.expandable &&
-                treeNodeData.children &&
-                treeNodeData.children.length &&
-                treeNodeData.isExpanded
-            ) {
+            if (isExpandable(treeNodeData) && treeNodeData.isExpanded) {
                 for (let i = 0; i < treeNodeData.children.length; i++) {
                     treeNodes = treeNodes.concat(
                         this.renderTree(

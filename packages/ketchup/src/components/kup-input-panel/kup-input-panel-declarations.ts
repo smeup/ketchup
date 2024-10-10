@@ -5,6 +5,10 @@ import {
 } from '../../managers/kup-data/kup-data-declarations';
 
 export interface KupInputPanelSubmit {
+    value: KupInputPanelSubmitValue;
+    cell?: string;
+}
+export interface KupInputPanelSubmitValue {
     after: KupInputPanelData;
     before: KupInputPanelData;
 }
@@ -12,6 +16,12 @@ export interface KupInputPanelSubmit {
 export interface KupInputPanelData {
     columns?: KupDataColumn[];
     rows?: KupInputPanelRow[];
+    actions?: KupInputPanelAction[];
+}
+
+export interface KupInputPanelAction {
+    type?: string;
+    fun?: string;
 }
 
 export interface KupInputPanelColumn {
@@ -43,11 +53,19 @@ export interface KupInputPanelCellOptions {
 
 export interface KupInputPanelLayout {
     horizontal?: boolean;
+    absolute?: boolean;
     sections?: KupInputPanelLayoutSection[];
+    sectionsType?: KupInputPanelLayoutSectionType;
+}
+
+export enum KupInputPanelLayoutSectionType {
+    TAB = 'tab',
 }
 
 export interface KupInputPanelLayoutSection {
     id?: string;
+    title?: string;
+    icon?: string;
     content?: KupInputPanelLayoutField[];
     sections?: KupInputPanelLayoutSection[];
     dim?: string;
@@ -56,6 +74,12 @@ export interface KupInputPanelLayoutSection {
     gridRows?: number;
     // Gap is in rem
     gap?: number;
+    sectionsType?: KupInputPanelLayoutSectionType;
+    // absolute Attributes
+    absoluteColumn?: number;
+    absoluteWidth?: number;
+    absoluteRow?: number;
+    absoluteHeight?: number;
 }
 
 export interface KupInputPanelLayoutField {
@@ -68,6 +92,10 @@ export interface KupInputPanelLayoutField {
     rowSpan?: number;
     rowStart?: number;
     rowEnd?: number;
+    // absolute Attributes
+    absoluteColumn?: number;
+    absoluteRow?: number;
+    absoluteLength?: number;
 }
 
 export type DataAdapterFn = (
@@ -94,8 +122,15 @@ export type InputPanelEvent = {
 export type InputPanelOptionsHandler = (
     fun: string,
     inputValue: string,
-    currentState: KupInputPanelData
+    currentState: KupInputPanelData,
+    cellId: string
 ) => Promise<GenericObject>;
+
+export type InputPanelButtonClickHandler = (event: {
+    fun: string;
+    cellId: string;
+    currentState: KupInputPanelData;
+}) => void;
 
 export enum KupInputPanelProps {
     customStyle = 'Custom style of the component.',

@@ -16,9 +16,16 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import { ItemsDisplayMode } from '../kup-list/kup-list-declarations';
+import {
+    ItemsDisplayMode,
+    KupListEventPayload,
+} from '../kup-list/kup-list-declarations';
 import { consistencyCheck } from '../kup-list/kup-list-helper';
-import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupComponentSizing,
+} from '../../types/GenericTypes';
 import {
     KupDropdownButtonEventPayload,
     KupDropdownButtonProps,
@@ -105,6 +112,11 @@ export class KupDropdownButton {
      * @default ItemsDisplayMode.CODE
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
+    /**
+     * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
+     * @default KupComponentSizing.SMALL
+     */
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
     /**
      * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
      * @default FButtonStyling.RAISED
@@ -275,7 +287,7 @@ export class KupDropdownButton {
         }
     }
 
-    onKupItemClick(e: CustomEvent) {
+    onKupItemClick(e: CustomEvent<KupListEventPayload>) {
         this.consistencyCheck(e);
         this.closeList();
 
@@ -283,12 +295,14 @@ export class KupDropdownButton {
             comp: this,
             id: this.rootElement.id,
             value: this.id,
+            node: e.detail.selected,
         });
 
         this.kupItemClick.emit({
             comp: this,
             id: this.rootElement.id,
             value: this.id,
+            node: e.detail.selected,
         });
     }
 
@@ -462,6 +476,7 @@ export class KupDropdownButton {
             slim: this.rootElement.classList.contains('kup-slim')
                 ? true
                 : false,
+            sizing: this.sizing,
             styling: this.styling ? this.styling : FButtonStyling.RAISED,
             title: this.rootElement.title,
         };
@@ -518,7 +533,9 @@ export class KupDropdownButton {
                         {...this.data['kup-list']}
                         displayMode={this.displayMode}
                         isMenu={true}
-                        onkup-list-click={(e) => this.onKupItemClick(e)}
+                        onKup-list-click={(
+                            e: CustomEvent<KupListEventPayload>
+                        ) => this.onKupItemClick(e)}
                         id={this.rootElement.id + '_list'}
                         ref={(el) => (this.listEl = el)}
                     ></kup-list>

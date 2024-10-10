@@ -7,11 +7,20 @@
 @import 'kup-card-scalable-7.scss';
 @import 'kup-card-scalable-8.scss';
 @import 'kup-card-scalable-9.scss';
+@import 'kup-card-scalable-10.scss';
 
 .scalable-card {
+  --kup_card_text_color: var(--kup-card-text-color, var(--kup-text-secondary));
+  --kup_card_background_color: var(
+    --kup-card-background-color,
+    var(--kup-layer-1)
+  );
+
+  background-color: var(--kup_card_background_color);
+  color: var(--kup_card_text_color);
+
   align-items: center;
-  box-shadow: var(--kup_card_scalable_box_shadow);
-  border-radius: 4px;
+  border-radius: var(--kup-space-00);
   display: flex;
   font-size: var(
     --kup_card_scalable_static_font_size,
@@ -26,4 +35,6 @@
   text-align: center;
   word-break: normal;
   width: 100%;
+  box-sizing: border-box;
+  padding: var(--kup-space-03);
 }

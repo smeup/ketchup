@@ -5,13 +5,17 @@
 
 ## Properties
 
-| Property        | Attribute         | Description                                                                                   | Type      | Default |
-| --------------- | ----------------- | --------------------------------------------------------------------------------------------- | --------- | ------- |
-| `customStyle`   | `custom-style`    | Custom style of the component.                                                                | `string`  | `''`    |
-| `data`          | --                | Props of the sub-components.                                                                  | `Object`  | `null`  |
-| `disabled`      | `disabled`        | Defaults at false. When set to true, the component is disabled.                               | `boolean` | `false` |
-| `firstDayIndex` | `first-day-index` | First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop | `number`  | `1`     |
-| `initialValue`  | `initial-value`   | Sets the initial value of the component                                                       | `string`  | `''`    |
+| Property                    | Attribute                       | Description                                                                                   | Type                                                                                                                                                    | Default                     |
+| --------------------------- | ------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| `customStyle`               | `custom-style`                  | Custom style of the component.                                                                | `string`                                                                                                                                                | `''`                        |
+| `data`                      | --                              | Props of the sub-components.                                                                  | `Object`                                                                                                                                                | `null`                      |
+| `disabled`                  | `disabled`                      | Defaults at false. When set to true, the component is disabled.                               | `boolean`                                                                                                                                               | `false`                     |
+| `firstDayIndex`             | `first-day-index`               | First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop | `number`                                                                                                                                                | `1`                         |
+| `initialValue`              | `initial-value`                 | Sets the initial value of the component                                                       | `string`                                                                                                                                                | `''`                        |
+| `outlined`                  | `outlined`                      | When set to true, the component will be rendered as an outlined field.                        | `boolean`                                                                                                                                               | `false`                     |
+| `showIcon`                  | `show-icon`                     | Sets the sizing of the textfield of the datepicker                                            | `boolean`                                                                                                                                               | `true`                      |
+| `showPreviousNextMonthDays` | `show-previous-next-month-days` | Sets show previous/next month days in calendar                                                | `boolean`                                                                                                                                               | `true`                      |
+| `sizing`                    | `sizing`                        | Sets the sizing of the textfield of the datepicker                                            | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.MEDIUM` |
 
 
 ## Events
@@ -111,16 +115,19 @@ Type: `Promise<void>`
 
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
+  kup-date-picker --> kup-badge
   kup-card --> kup-date-picker
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
+  kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-card
@@ -139,16 +146,20 @@ graph TD;
   kup-chip --> kup-badge
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
+  kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
   kup-combobox --> kup-dialog
+  kup-combobox --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
+  kup-time-picker --> kup-badge
   kup-image --> kup-card
   kup-image --> kup-image
   kup-image --> kup-dialog
@@ -175,10 +186,12 @@ graph TD;
   kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
+  kup-checkbox --> kup-badge
   kup-data-table --> kup-date-picker
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-date-picker
+  kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge

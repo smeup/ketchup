@@ -16,17 +16,41 @@
 */
 
 :host {
-  --kup_list_background: var(
-    --kup-list-background,
-    var(--kup-background-color)
+  --kup_list_background_color: var(
+    --kup-list-background-color,
+    var(--kup-layer-1)
   );
-  --kup_list_color: var(--kup-list-color, var(--kup-text-color));
+  --kup_list_background_color_hover: var(
+    --kup-list-background-color-hover,
+    var(--kup-layer-1-hover)
+  );
+
+  --kup_list_focus_color: var(--kup-list-focus-color, var(--kup-border-subtle));
+  --kup_list_text_color: var(--kup-list-text-color, var(--kup-text-secondary));
+  --kup_list_item_text_color: var(
+    --kup-list-item-text-color,
+    var(--kup-text-secondary)
+  );
+  --kup_list_text_color_hover: var(
+    --kup-list-text-color-hover,
+    var(--kup-text-primary)
+  );
   --kup_list_font_family: var(--kup-list-font-family, var(--kup-font-family));
   --kup_list_font_size: var(--kup-list-font-size, var(--kup-font-size));
   --kup_list_font_weight: var(--kup-list-font-weight, 400);
   --kup_list_group_item_height: var(--kup-list-group-item-height, 3em);
-  --kup_list_item_height: var(--kup-list-item-height, 2.5em);
-  --kup_list_item_padding_left: var(--kup-list-item-padding, 0.75em);
+  --kup_list_item_height: var(--kup_list_item_height_medium, 2.5em);
+  --kup_list_item_height_small: var(--kup-list-item-height-small, 32px);
+  --kup_list_item_height_medium: var(--kup-list-item-height-medium, 40px);
+  --kup_list_item_height_large: var(--kup-list-item-height-large, 48px);
+  --kup_list_item_padding_left: var(
+    --kup-list-item-padding,
+    var(--kup-space-05)
+  );
+  --kup_list_box_shadow: var(
+    --kup-box-shadow,
+    0px 3px 6px 0 rgba(0, 0, 0, 0.3)
+  );
   --kup_list_item_padding_right: var(--kup-list-item-padding, 0.75em);
   --kup_list_max_height_as_menu: var(--kup-list-max-height-as-menu, 33vh);
   --kup_list_primary_color: var(
@@ -50,14 +74,14 @@
 }
 
 .list {
-  background: var(--kup_list_background);
-  color: var(--kup_list_color);
+  background: var(--kup_list_background_color);
+  color: var(--kup_list_text_color);
   font-weight: var(--kup_list_font_weight);
   letter-spacing: 0.009375em;
   line-height: 1.5em;
   list-style-type: none;
   margin: 0;
-  padding: 0.5em 0;
+  padding: 0;
   text-decoration: inherit;
   text-transform: inherit;
 
@@ -89,12 +113,17 @@
       height: var(--kup_list_group_item_height);
     }
 
+    &:focus {
+      outline: 2px solid var(--kup-border-interactive);
+      outline-offset: -2px;
+    }
+
     &.list-item--activated,
     &.list-item--activated .list-item__graphic,
     &.list-item--selected,
     &.list-item--selected .list-item__graphic {
-      background-color: rgba(var(--kup_list_primary_color_rgb), 0.175);
-      color: var(--kup_list_primary_color);
+      background-color: var(--kup_list_background_color_hover);
+      color: var(--kup_list_text_color_hover);
     }
 
     .list-item__text {
@@ -102,6 +131,8 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+      color: var(--kup_list_item_text_color);
+      @include kup-body-compact-01;
     }
 
     .list-item__primary-text {
@@ -147,13 +178,13 @@
       overflow: hidden;
       margin-top: 0;
       line-height: normal;
-      color: var(--kup_list_color);
+      color: var(--kup_list_text_color);
       opacity: 0.75;
     }
 
     .#{$kup-icon} {
       margin: 0;
-      margin-right: 0.75em;
+      margin-right: 8px;
     }
 
     kup-checkbox {
@@ -192,8 +223,8 @@
       &:not(.list-item--selected) {
         &:hover,
         &.list-item--focused {
-          background-color: var(--kup-hover-background-color);
-          color: var(--kup-hover-color);
+          background-color: var(--kup_list_background_color_hover);
+          color: var(--kup_list_text_color_hover);
         }
       }
     }
@@ -208,8 +239,9 @@
 
 .kup-menu {
   animation: fade-in 0.25s ease-out;
-  background-color: var(--kup-background-color);
-  box-shadow: var(--kup-box-shadow);
+  background-color: var(--kup_list_background_color);
+  box-shadow: var(--kup_list_box_shadow);
+  border: 1px solid var(--kup_list_focus_color);
   color: var(--kup-text-color);
   display: none;
   max-height: var(--kup_list_max_height_as_menu);
@@ -227,6 +259,7 @@
 
   .list-item__text {
     user-select: none;
+    @include kup-body-compact-01;
   }
 }
 

@@ -1,25 +1,70 @@
 .f-paginator {
-  margin: 0.5em 0;
+  background-color: var(--kup-layer-1);
   display: flex;
   flex-wrap: wrap;
-  align-items: start;
+  align-items: center;
+  justify-content: space-between;
 
-  .prev-page,
-  .next-page {
-    margin: 0 0.25em;
+  .load-more-button {
+    padding: 0;
+    border-right: 1px solid var(--kup-border-subtle);
+    flex: 2;
+    button {
+      width: 100%;
+    }
+  }
+
+  .arrow-wrapper {
+    display: flex;
   }
 
   kup-combobox {
     display: inline-block;
-    margin: 0 0.25em;
     z-index: 0;
 
     &.page-selector {
-      width: 100px;
+      padding: 0 var(--kup-space-05);
+      border-right: 1px solid var(--kup-border-subtle);
+      flex: 2;
     }
 
     &.rows-selector {
-      width: 150px;
+      padding: 0 var(--kup-space-05);
+      border-right: 1px solid var(--kup-border-subtle);
+      flex: 2;
     }
+  }
+}
+
+@media (max-width: 678px) {
+  .f-paginator {
+    & kup-combobox.rows-selector,
+    & kup-combobox.page-selector {
+      padding: 0 var(--kup-space-03);
+    }
+
+    .load-more-button {
+      order: 4;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      border-right: none;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .f-paginator kup-combobox.rows-selector {
+    order: 1;
+    border-right: none;
+  }
+  .arrow-wrapper {
+    order: 2;
+  }
+  .load-more-button {
+    border-left: 1px solid var(--kup-border-subtle);
+  }
+  .f-paginator kup-combobox.page-selector {
+    display: none;
   }
 }

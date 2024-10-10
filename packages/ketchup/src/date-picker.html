@@ -15,11 +15,6 @@
             type="text/css"
         />
 
-        <link
-            href="https://fonts.googleapis.com/css?family=Lato"
-            rel="stylesheet"
-        />
-
         <script
             type="text/javascript"
             src="https://www.gstatic.com/charts/loader.js"
@@ -43,20 +38,62 @@
         </script>
         <h1>Date picker</h1>
         <h4>init on Monday</h4>
-        <kup-date-picker
-            id="date-picker1"
-            initial-value="2021-11-01"
-        ></kup-date-picker>
+        <div style="width: 250px">
+            <kup-date-picker
+                id="date-picker1"
+                initial-value="2021-11-01"
+            ></kup-date-picker
+        ></div>
+        <h4>init on Monday, not show previous/next month days</h4>
+        <div style="width: 250px">
+            <kup-date-picker
+                id="date-picker1"
+                initial-value="2021-11-01"
+                show-previous-next-month-days="false"
+            ></kup-date-picker
+        ></div>
+
         <h4>init on Sunday</h4>
         <kup-date-picker
             id="date-picker2"
             first-day-index="0"
         ></kup-date-picker>
-        <h4>init on Tuesday</h4>
+        <h4>Sizing (first day Tuesday)</h4>
+
         <kup-date-picker
             id="date-picker3"
             first-day-index="2"
+            sizing="extra-small"
         ></kup-date-picker>
+        <kup-date-picker
+            id="date-picker4"
+            first-day-index="2"
+            sizing="small"
+        ></kup-date-picker>
+        <kup-date-picker
+            id="date-picker5"
+            first-day-index="2"
+        ></kup-date-picker>
+        <kup-date-picker
+            id="date-picker6"
+            first-day-index="2"
+            sizing="large"
+        ></kup-date-picker>
+        <kup-date-picker
+            id="date-picker7"
+            first-day-index="2"
+            sizing="extra-large"
+        ></kup-date-picker>
+
+        <h4>INPUT LEGACY</h4>
+        <div style="width: 100px">
+            <kup-date-picker
+                id="date-picker7"
+                first-day-index="2"
+                sizing="extra-small"
+                outlined
+            ></kup-date-picker>
+        </div>
 
         <script>
             let datePicker1 =

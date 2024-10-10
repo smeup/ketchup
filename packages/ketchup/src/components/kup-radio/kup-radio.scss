@@ -11,3 +11,8 @@
 :host {
   display: block;
 }
+
+.kup-radio-wrapper {
+  display: grid;
+  gap: var(--kup-space-03);
+}

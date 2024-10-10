@@ -79,6 +79,11 @@ export class KupColorPicker {
      */
     @Prop() initialValue: string = '';
     /**
+     * Sets the component to read only state, making it not editable, but interactable.
+     * @default false
+     */
+    @Prop() readOnly: boolean = false;
+    /**
      * When true, the component's text field will be replaced by a swatch.
      * @default false
      */
@@ -257,6 +262,7 @@ export class KupColorPicker {
     private prepTextField(): VNode {
         let value: string = null;
         let textfieldProps: FTextFieldProps = {
+            readOnly: this.readOnly,
             ...this.data['kup-text-field'],
         };
         if (!textfieldProps.icon) {
@@ -297,7 +303,6 @@ export class KupColorPicker {
                         ? true
                         : false
                 }
-                readOnly={true}
                 value={value}
                 wrapperClass={
                     textfieldProps.icon === 'brightness-1' ? 'thumb-icon' : ''

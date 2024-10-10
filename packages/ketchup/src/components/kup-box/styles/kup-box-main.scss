@@ -10,43 +10,37 @@
 */
 
 :host {
-  --kup_box_background_color: var(
-    --kup-box-background-color,
-    var(--kup-background-color)
+  --kup_box_background_color: var(--kup-box-background-color, var(--kup-layer-1));
+  --kup_box_background_color_hover: var(
+    --kup-box-background-color-hover,
+    var(--kup-layer-1-hover)
   );
-  --kup_box_color: var(--kup-box-color, var(--kup-text-color));
-  --kup_box_font_family: var(--kup-box-font-family, var(--kup-font-family));
-  --kup_box_font_size: var(--kup-box-font-size, var(--kup-font-size));
-  --kup_box_grid_gap: var(--kup-box-grid-gap, 1em);
-  --kup_box_hover_box_shadow: var(
-    --kup-box-hover-box-shadow,
-    0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
+  --kup_box_background_color_selected: var(
+    --kup-box-background-color-selected,
+    var(--kup-layer-1-selected)
   );
-  --kup_box_primary_color_rgb: var(
-    --kup-box-primary-color-rgb,
-    var(--kup-primary-color-rgb)
-  );
+  --kup_box_text_color: var(--kup-box-text-color, var(--kup-text-secondary));
+  --kup_box_grid_gap: var(--kup-box-grid-gap, var(--kup-space-03));
   --kup_box_transition: var(--kup-box-transition, 0.25s);
-
+  --kup_box_border_color_drag:var(--kup-box-border-color-drag, var(--kup-border-interactive))
   display: block;
-  font-family: var(--kup_box_font_family);
-  font-size: var(--kup_box_font_size);
+
+  --kup_box_padding: var(--kup-box-padding, var(--kup-space-05));
 }
 
 .box-component {
-  background: var(--kup_box_background_color);
   transition: border var(--kup_box_transition) ease;
 
   &[#{$kup-dd-drag-over}] {
     position: relative;
-    border: 3px dashed var(--kup-border-color);
+    border: 3px dashed var(--kup_box_border_color_drag);
   }
 }
 
 #box-container {
   display: grid;
   grid-gap: var(--kup_box_grid_gap);
-  color: var(--kup_box_color);
+  color: var(--kup_box_text_color);
   overflow: auto;
 
   &.is-kanban {
@@ -68,12 +62,27 @@
   .box-wrapper {
     display: flex;
     align-items: center;
+    background-color: var(--kup_box_background_color);
+    border-radius: var(--kup-radius-00);
+    &:hover {
+      background-color: var(--kup_box_background_color_hover);
+    }
+
+    &.selected {
+      background-color: var(--kup_box_background_color_selected);
+
+      & .box-section.titled > h3 {
+        background-color: transparent;
+      }
+    }
+
 
     .box {
       flex-grow: 1;
       cursor: pointer;
       position: relative;
       display: flex;
+      padding: var(--kup_box_padding);
       transition: background-color var(--kup_box_transition) ease,
         box-shadow var(--kup_box_transition) ease,
         border var(--kup_box_transition) ease;
@@ -87,24 +96,13 @@
         flex-direction: column;
       }
 
-      &:hover {
-        box-shadow: var(--kup_box_hover_box_shadow);
-      }
-
-      &.selected {
-        background-color: rgba(var(--kup_box_primary_color_rgb), 0.175);
-
-        & .box-section.titled > h3 {
-          background-color: transparent;
-        }
-      }
 
       &[#{$kup-dd-draggable}] {
         opacity: 0.5;
       }
 
       &[#{$kup-dd-drag-over}] {
-        border: 3px dashed var(--kup-border-color);
+        border: 3px dashed var(--kup_box_border_color_drag);
         position: relative;
         z-index: 2;
       }
@@ -140,8 +138,8 @@
         // collapsible sections
         &.collapse-section {
           .header {
-            border-top: 1px solid var(--kup-border-color);
-            color: rgba(var(--kup-text-color-rgb), 0.75);
+            border-top: 1px solid var(--kup-border-subtle);
+            color: rgba(var(--kup-text-secondary-rgb), 0.75);
             display: flex;
             justify-content: space-around;
             width: 100%;
@@ -180,7 +178,7 @@
         }
 
         &.titled {
-          border: 1px solid var(--kup-border-color);
+          border: 1px solid var(--kup-border-subtle);
           padding-top: 5px;
           position: relative;
           margin: 10px;
@@ -217,12 +215,12 @@
           cursor: pointer;
           opacity: 0;
           fill: var(--kup-text-color);
-          transition: opacity 500ms ease-out;
+          transition: opacity 300ms ease-out;
         }
 
         .row-action-menu {
           background: var(--kup-background-color);
-          border: 1px solid var(--kup-border-color);
+          border: 1px solid var(--kup-border-subtle);
           box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
           position: absolute;
           top: 0;
@@ -244,7 +242,7 @@
               line-height: 30px;
 
               &:not(:last-child) {
-                border-bottom: 1px solid var(--kup-border-color);
+                border-bottom: 1px solid var(--kup-border-subtle);
               }
             }
           }

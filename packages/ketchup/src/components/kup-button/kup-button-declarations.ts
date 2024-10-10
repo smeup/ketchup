@@ -8,6 +8,7 @@ export enum KupButtonProps {
     buttonType = 'Sets the type of the button.',
     checked = 'When set to true, the icon button state will be on.',
     customStyle = 'Custom style of the component.',
+    contentAlign = 'Manage the align contents of the button. It could be right, left, center, around, evenly, between. Center is the default',
     disabled = 'Defaults at false. When set to true, the component is disabled.',
     icon = 'When set, the button will show this icon.',
     iconOff = 'When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.',

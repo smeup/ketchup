@@ -10,13 +10,20 @@
 */
 
 :host {
+  --kup_navbar_item_color: var(
+    --kup-navbar-item-color,
+    var(--kup-primary-color-0)
+  );
+  --kup_navbar_background_color: var(
+    --kup-navbar-background-color,
+    var(--kup-layer-1-inverted)
+  );
   --kup_navbar_box_shadow: var(
     --kup-navbar-box-shadow,
     0 2px 4px -1px rgba(128, 128, 128, 0.2),
     0 4px 5px 0 rgba(128, 128, 128, 0.14),
     0 1px 10px 0 rgba(128, 128, 128, 0.12)
   );
-  --kup_navbar_padding: var(--kup-navbar-padding, 8px 12px);
   --kup_navbar_position: var(--kup-navbar-position, fixed);
   --kup_navbar_short_border_radius: var(
     --kup-navbar-short-border-radius,
@@ -47,14 +54,14 @@
 }
 
 .nav-bar {
-  background-color: var(--kup-navbar-background-color);
-  box-shadow: var(--kup_navbar_box_shadow);
+  background-color: var(--kup_navbar_background_color);
   box-sizing: border-box;
-  color: var(--kup-navbar-color);
+  color: var(--kup_navbar_item_color);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: var(--kup_navbar_width);
+  padding: 0 var(--kup-space-05);
 
   &--short {
     border-radius: var(--kup_navbar_short_border_radius);
@@ -71,21 +78,21 @@
   }
 
   ::slotted(*) {
-    --kup-button-primary-color: var(--kup-navbar-color);
-    --kup-button-primary-color-rgb: var(--kup-navbar-color-rgb);
-    --kup-button-primary-color-h: var(--kup-navbar-color-h);
-    --kup-button-primary-color-s: var(--kup-navbar-color-s);
-    --kup-button-primary-color-l: var(--kup-navbar-color-l);
-    --kup-switch-label-color: var(--kup-navbar-color);
-    --kup-switch-primary-color: var(--kup-navbar-color);
-    --kup-switch-primary-color-rgb: var(--kup-navbar-color-rgb);
-    --kup-textfield-color: var(--kup-navbar-color);
-    --kup-textfield-color-rgb: var(--kup-navbar-color-rgb);
-    --kup-tree-color: var(--kup-navbar-color);
-    --kup-tree-color-rgb: var(--kup-navbar-color-rgb);
-
-    color: var(--kup-navbar-color);
-    fill: var(--kup-navbar-color);
+    --kup-button-primary-color: var(--kup_navbar_item_color);
+    --kup-button-primary-color-rgb: var(--kup_navbar_item_color-rgb);
+    --kup-button-primary-color-h: var(--kup_navbar_item_color-h);
+    --kup-button-primary-color-s: var(--kup_navbar_item_color-s);
+    --kup-button-primary-color-l: var(--kup_navbar_item_color-l);
+    --kup-switch-label-color: var(--kup_navbar_item_color);
+    --kup-switch-primary-color: var(--kup_navbar_item_color);
+    --kup-switch-primary-color-rgb: var(--kup_navbar_item_color);
+    --kup-textfield-color: var(--kup_navbar_item_color);
+    --kup-textfield-color-rgb: var(--kup_navbar_item_color-rgb);
+    --kup-tree-color: var(--kup_navbar_item_color);
+    --kup-tree-color-rgb: var(--kup_navbar_item_color-rgb);
+    --kup-button-text-color: var(--kup-primary-color-0);
+    color: var(--kup_navbar_item_color);
+    fill: var(--kup_navbar_item_color);
     margin: 0;
   }
 }
@@ -118,23 +125,27 @@
   }
 }
 
-::slotted(*) {
-  --kup-button-primary-color: var(--kup-navbar-color);
-  --kup-button-primary-color-rgb: var(--kup-navbar-color-rgb);
-  --kup-button-primary-color-h: var(--kup-navbar-color-h);
-  --kup-button-primary-color-s: var(--kup-navbar-color-s);
-  --kup-button-primary-color-l: var(--kup-navbar-color-l);
-  --kup-switch-label-color: var(--kup-navbar-color);
-  --kup-switch-primary-color: var(--kup-navbar-color);
-  --kup-switch-primary-color-rgb: var(--kup-navbar-color-rgb);
-  --kup-textfield-color: var(--kup-navbar-color);
-  --kup-textfield-color-rgb: var(--kup-navbar-color-rgb);
-  --kup-textfield-primary-color: var(--kup-navbar-color);
-  --kup-textfield-primary-color-rgb: var(--kup-navbar-color-rgb);
-  --kup-tree-color: var(--kup-navbar-color);
-  --kup-tree-color-rgb: var(--kup-navbar-color-rgb);
+@media screen and (max-width: 678px) {
+  .nav-bar {
+    padding: 0 var(--kup-space-03);
+  }
+}
 
-  color: var(--kup-navbar-color);
-  fill: var(--kup-navbar-color);
+::slotted(*) {
+  --kup-button-primary-color: var(--kup_navbar_item_color);
+  --kup-button-primary-color-rgb: var(--kup_navbar_item_color-rgb);
+  --kup-button-primary-color-h: var(--kup_navbar_item_color-h);
+  --kup-button-primary-color-s: var(--kup_navbar_item_color-s);
+  --kup-button-primary-color-l: var(--kup_navbar_item_color-l);
+  --kup-switch-label-color: var(--kup_navbar_item_color);
+  --kup-switch-primary-color: var(--kup_navbar_item_color);
+  --kup-switch-primary-color-rgb: var(--kup_navbar_item_color);
+  --kup-textfield-color: var(--kup_navbar_item_color);
+  --kup-textfield-color-rgb: var(--kup_navbar_item_color-rgb);
+  --kup-tree-color: var(--kup_navbar_item_color);
+  --kup-tree-color-rgb: var(--kup_navbar_item_color-rgb);
+  --kup-button-text-color: var(--kup-primary-color-0);
+  color: var(--kup_navbar_item_color);
+  fill: var(--kup_navbar_item_color);
   margin: 0;
 }

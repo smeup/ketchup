@@ -23,8 +23,16 @@ components.data = [
         id: 'accordion.html',
     },
     {
+        value: 'Activity Timeline',
+        id: 'activity-timeline.html',
+    },
+    {
         value: 'Autocomplete',
         id: 'autocomplete.html',
+    },
+    {
+        value: 'Badge',
+        id: 'badge.html',
     },
     {
         value: 'Box',
@@ -229,6 +237,14 @@ components.data = [
     {
         value: 'Time picker',
         id: 'time-picker.html',
+    },
+    {
+        value: 'Typography',
+        id: 'typography.html',
+    },
+    {
+        value: 'Typography List',
+        id: 'typography-list.html',
     },
     {
         value: 'Text field',

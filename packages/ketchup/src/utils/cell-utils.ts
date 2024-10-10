@@ -6,6 +6,7 @@ import {
     KupDataColumn,
 } from '../managers/kup-data/kup-data-declarations';
 import { KupDatesFormats } from '../managers/kup-dates/kup-dates-declarations';
+import { GenericObject } from '../components';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -81,10 +82,7 @@ export function getValueForDisplay(value, obj, decimals: number): string {
             obj ? obj.p : ''
         );
     }
-    if (
-        dom.ketchup.objects.isDate(obj) &&
-        dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE)
-    ) {
+    if (dom.ketchup.objects.isDate(obj) && dom.ketchup.dates.isIsoDate(value)) {
         return dom.ketchup.dates.format(value);
     }
     if (dom.ketchup.objects.isTime(obj)) {
@@ -235,3 +233,62 @@ function localCompareAsInJava(t1: string, t2: string): number {
     }
     return t1Length - t2Length;
 }
+
+// -------------
+// ADAPTERS from SmeupDataTable to FCell data attribute
+// -------------
+
+export const CMBandACPAdapter = (
+    value: string,
+    label: string,
+    options: GenericObject
+) => ({
+    data: {
+        'kup-text-field': {
+            trailingIcon: true,
+            label,
+        },
+        'kup-list': {
+            showIcons: true,
+            data: options?.length
+                ? options.map((option) => ({
+                      value: option.label,
+                      id: option.id,
+                      selected: value === option.id,
+                  }))
+                : [],
+        },
+    },
+    initialValue: value,
+    label,
+});
+
+export const SWTAdapter = (value: string, label: string) => ({
+    checked: !!value,
+    label,
+    leadingLabel: true,
+});
+
+export const RADAdapter = (value: string, options: GenericObject) => ({
+    data: options?.length
+        ? options?.map((option) => ({
+              value: option.id,
+              label: option.label,
+              checked: option.id === value,
+          }))
+        : [],
+});
+
+export const CHKAdapter = (value: string, label: string) => ({
+    checked: value === 'on' || value === '1',
+    label,
+});
+
+export const CHIAdapter = (value: string) => ({
+    data: value?.length
+        ? value
+              .split(';')
+              .map((v) => ({ id: v, value: v }))
+              .filter((value) => !!value)
+        : null,
+});

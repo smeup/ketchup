@@ -28,7 +28,7 @@ export class KupCustomTaskListHeader {
             <div
                 class="custom-task-list-wrapper"
                 style={{
-                    height: '50px',
+                    height: '25px',
                     fontFamily: this.fontFamily,
                     fontSize: this.fontSize,
                 }}

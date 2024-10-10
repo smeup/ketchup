@@ -4,7 +4,7 @@ import {
 } from '../../f-components/f-cell/f-cell-declarations';
 import { GenericMap, GenericObject } from '../../types/GenericTypes';
 import { KupObj } from '../kup-objects/kup-objects-declarations';
-
+import type { PointerEventType } from '@interactjs/types/index';
 /**
  * Generic dataset interface.
  */
@@ -38,6 +38,7 @@ export interface KupDataColumn {
     style?: GenericMap;
     cellData?: GenericObject;
     cellSlotData?: GenericObject;
+    tooltip?: boolean;
 }
 export interface KupDataColumnChild {
     name: string;
@@ -61,7 +62,27 @@ export interface KupDataRowCells {
 export interface KupDataRowAction {
     text: string;
     icon: string;
+    type:
+        | DropDownAction.CODVER
+        | DropDownAction.ROWACTION
+        | DropDownAction.COMMAND;
+
+    index?: number;
+    obj?: KupObj;
+    cell?: KupDataCell;
+    column?: KupDataColumn;
 }
+
+/**
+ * Commands for actions
+ */
+export interface KupCommand {
+    obj: KupObj;
+    icon: string;
+    text: string;
+    showIcon: boolean;
+}
+
 /**
  * Generic cell interface.
  */
@@ -84,6 +105,13 @@ export interface KupDataCell {
     title?: string;
 }
 /**
+ *
+ */
+export interface CellActionProps {
+    onClick: (e: PointerEventType) => void;
+}
+
+/**
  * Generic tree node interface.
  */
 export interface KupDataNode extends KupDataRow {
@@ -96,6 +124,7 @@ export interface KupDataNode extends KupDataRow {
     placeholderIcon?: string;
     isExpanded?: boolean;
     title?: string;
+    data?: GenericObject;
 }
 /**
  * Interface related to cells operations.
@@ -205,4 +234,10 @@ export enum KupDataNewColumnTypes {
     DUPLICATE = 'duplicate',
     MATH = 'math',
     MERGE = 'merge',
+}
+
+export enum DropDownAction {
+    ROWACTION = 'row-action',
+    CODVER = 'cod_ver',
+    COMMAND = 'command',
 }

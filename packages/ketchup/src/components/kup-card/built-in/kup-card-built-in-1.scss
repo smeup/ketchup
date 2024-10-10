@@ -1,6 +1,23 @@
 .built-in-layout-1 {
-  background-color: var(--kup-background-color);
-  border-radius: 4px;
+  --kup_card_text_color: var(--kup-card-text-color, var(--kup-text-primary));
+  --kup_card_background_color: var(
+    --kup-card-background-color,
+    var(--kup-layer-1)
+  );
+  --kup_card_selected_color: var(
+    --kup-card-selected-color,
+    var(--kup-primary-color-60)
+  );
+  --kup_card_selected_color_hover: var(
+    --kup-card-selected-color-hover,
+    var(--kup-layer-1-hover)
+  );
+  --kup_card_box_shadow: var(
+    --kup-box-shadow,
+    0px 3px 6px 0 rgba(0, 0, 0, 0.3)
+  );
+  background-color: var(--kup_card_background_color);
+  border-radius: var(--kup-radius-00);
   box-sizing: border-box;
   box-shadow: 0 2px 1px -1px rgba(128, 128, 128, 0.1),
     0 1px 1px 0 rgba(128, 128, 128, 0.1), 0 1px 3px 0 rgba(128, 128, 128, 0.6);
@@ -9,6 +26,7 @@
   height: 100%;
   position: relative;
   width: 100%;
+  max-width: 300px;
   overflow: auto;
   padding: 0.5em;
 
@@ -32,22 +50,27 @@
     width: 100%;
   }
 
-  .prev-page {
-    margin-left: auto;
-  }
-
   .change-view-button {
     margin: auto;
     width: 12em;
     text-align: center;
+    button {
+      color: var(-kup_card_text_color);
+
+      span {
+        @include kup-heading-compact-01;
+        color: var(-kup_card_text_color);
+      }
+    }
   }
 
   #change-view-button button {
     text-transform: capitalize;
   }
 
-  .next-page {
-    margin-right: auto;
+  .next-page .icon-button .f-image .f-image__icon,
+  .prev-page .icon-button .f-image .f-image__icon {
+    background-color: var(--kup_card_text_color) !important;
   }
 
   .calendar {
@@ -55,35 +78,58 @@
     width: 100%;
   }
 
-  thead {
-    border-bottom: 1px solid var(--kup-border-color);
+  tbody:before {
+    content: '@';
+    display: block;
+    line-height: var(--kup-space-05);
+    text-indent: -99999px;
   }
 
   .item-text {
-    color: rgba(var(--kup-text-color-rgb), 0.5);
+    color: var(--kup_card_text_color);
+    @include kup-body-compact-01;
   }
 
   .item {
     text-align: center;
 
+    .item-number {
+      cursor: pointer;
+      color: var(--kup_card_text_color);
+    }
+
     &:not(.selected) .item-number:hover {
-      background-color: var(--kup-hover-background-color);
+      background-color: var(--kup_card_selected_color_hover);
     }
     &.selected .item-number,
     &.selected .item-number:hover {
-      background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+      background-color: var(--kup_card_selected_color);
+      color: var(--kup-gray-color-0);
+    }
+  }
+
+  .item-disabled {
+    .item-number {
+      color: var(--kup-text-disabled);
     }
   }
 
   .item-number {
-    border-radius: 50%;
-    cursor: pointer;
     display: flex;
     justify-content: center;
-    line-height: 2.5em;
     margin: auto;
     width: 2.5em;
     transition: background-color 0.25s;
     text-transform: capitalize;
+    @include kup-body-compact-01;
+    line-height: 2.5em;
+    &.today {
+      text-decoration: underline;
+    }
+  }
+
+  .today-navigation-button {
+    display: flex;
+    align-items: center;
   }
 }

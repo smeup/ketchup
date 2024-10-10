@@ -36,8 +36,16 @@
         </style>
     </head>
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true },
+            };
+        </script>
         <h4>Events testing</h4>
         <kup-tab-bar id="event-tabbar"></kup-tab-bar>
+        <kup-tab-bar></kup-tab-bar>
+        <kup-tab-bar></kup-tab-bar>
+        <kup-tab-bar></kup-tab-bar>
 
         <script>
             let tabBar = document.getElementsByTagName('kup-tab-bar')[0];
@@ -63,7 +71,66 @@
                 {
                     id: '4',
                     value: 'Iconless',
-                    icon: '',
+                    icon: 'alarm',
+                    active: false,
+                },
+            ];
+            let tabBar2 = document.getElementsByTagName('kup-tab-bar')[1];
+            tabBar2.data = [
+                {
+                    id: '1',
+                    icon: 'favorite',
+                    active: true,
+                },
+                {
+                    id: '2',
+                    icon: 'alarm_on',
+                    active: false,
+                },
+                {
+                    id: '3',
+                    icon: 'build',
+                    active: false,
+                },
+                {
+                    id: '4',
+                    icon: 'alarm',
+                    active: false,
+                },
+            ];
+            let tabBar3 = document.getElementsByTagName('kup-tab-bar')[2];
+            tabBar3.data = [
+                {
+                    id: '1',
+                    value: 'Favorites',
+                    active: true,
+                },
+                {
+                    id: '2',
+                    value: 'Alarm clock',
+                    active: false,
+                },
+                {
+                    id: '3',
+                    value: 'Superlongtext',
+                    active: false,
+                },
+                {
+                    id: '4',
+                    value: 'Settings',
+                    active: false,
+                },
+            ];
+            let tabBar4 = document.getElementsByTagName('kup-tab-bar')[3];
+            tabBar4.data = [
+                {
+                    id: '1',
+                    value: 'Favorites',
+                    active: true,
+                },
+                {
+                    id: '2',
+                    value: 'Alarm clock',
                     active: false,
                 },
             ];

@@ -40,8 +40,8 @@ dropdownEl.addEventListener('kup-dropdownbutton-itemclick', (e) => {
 switchEl.addEventListener('kup-switch-change', (e) => {
     console.log(e.type, e);
     if (e.detail.value === 'on') {
-        document.documentElement.ketchup.theme.set('dark');
+        document.documentElement.ketchup.theme.set('octane');
     } else {
-        document.documentElement.ketchup.theme.set('ketchup');
+        document.documentElement.ketchup.theme.set('darkGreyOctane');
     }
 });

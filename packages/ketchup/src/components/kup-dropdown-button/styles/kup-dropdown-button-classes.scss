@@ -5,15 +5,15 @@
 :host(.#{$kup-class-shaped}) {
   .dropdown-button__primary-action {
     .button {
-      border-top-left-radius: 18px;
-      border-bottom-left-radius: 18px;
+      border-top-left-radius: var(--kup-radius-00);
+      border-bottom-left-radius: var(--kup-radius-00);
     }
   }
 
   .dropdown-button__dropdown-action {
     .button {
-      border-top-right-radius: 18px;
-      border-bottom-right-radius: 18px;
+      border-top-right-radius: var(--kup-radius-00);
+      border-bottom-right-radius: var(--kup-radius-00);
     }
   }
 }
@@ -31,7 +31,7 @@
 }
 
 :host(.#{$kup-class-danger}) {
-  --kup-button-primary-color: var(--kup-danger-color);
+  --kup-button-primary-color: var(--kup-danger-color-60);
   --kup-button-primary-color-h: var(--kup-danger-color-h);
   --kup-button-primary-color-s: var(--kup-danger-color-s);
   --kup-button-primary-color-l: var(--kup-danger-color-l);
@@ -67,7 +67,7 @@
 }
 
 :host(.#{$kup-class-warning}) {
-  --kup-button-primary-color: var(--kup-warning-color);
+  --kup-button-primary-color: var(--kup-warning-color-50);
   --kup-button-primary-color-h: var(--kup-warning-color-h);
   --kup-button-primary-color-s: var(--kup-warning-color-s);
   --kup-button-primary-color-l: var(--kup-warning-color-l);

@@ -151,8 +151,10 @@ Type: `Promise<void>`
  - [kup-data-table](../kup-data-table)
  - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-list](.)
+ - [kup-tab-bar](../kup-tab-bar)
  - [kup-time-picker](../kup-time-picker)
  - [kup-tree](../kup-tree)
+ - [kup-typography](../kup-typography)
 
 ### Depends on
 
@@ -181,11 +183,14 @@ graph TD;
   kup-chip --> kup-badge
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
+  kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
+  kup-date-picker --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-list
@@ -212,6 +217,7 @@ graph TD;
   kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
+  kup-checkbox --> kup-badge
   kup-data-table --> kup-list
   kup-switch --> kup-card
   kup-switch --> kup-dialog
@@ -231,10 +237,9 @@ graph TD;
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
-  kup-tab-bar --> kup-card
-  kup-tab-bar --> kup-dialog
-  kup-tab-bar --> kup-badge
+  kup-tab-bar --> kup-list
   kup-tree --> kup-list
+  kup-typography --> kup-list
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -209,7 +209,7 @@ export default {
         themeWrapper.classList.add('theme-wrapper');
         themeWrapper.style.backgroundColor =
           variables['--kup-background-color'];
-        themeWrapper.style.borderColor = variables['--kup-border-color'];
+        themeWrapper.style.borderColor = variables['--kup-border-subtle'];
         themeWrapper.id = theme;
         themeWrapper.title = 'Toggle ' + theme + ' theme';
         themeWrapper.onclick = () => setTheme(theme);
@@ -296,7 +296,7 @@ export default {
               label: 'Color',
             },
             isEditable: true,
-            style: { borderRight: '1px solid var(--kup-border-color)' },
+            style: { borderRight: '1px solid var(--kup-border-subtle)' },
             value: colorCheck.hexColor,
           },
         },
@@ -357,7 +357,7 @@ export default {
 
 <style scoped lang="scss">
 #random-area {
-  border: 1px solid var(--kup-border-color);
+  border: 1px solid var(--kup-border-subtle);
   margin: 0.25em auto 5em auto;
   padding: 1em;
   width: 18em;

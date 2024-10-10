@@ -35,10 +35,7 @@ export function sanitizeAllDates(
     let sanitizedHourValues = [];
     if (startHourCell && endHourCell) {
         if (isAtLeastOneHourValid(startHourCell, endHourCell)) {
-            sanitizedHourValues = sanitizeHours(
-                startHourCell,
-                endHourCell
-            );
+            sanitizedHourValues = sanitizeHours(startHourCell, endHourCell);
         } else {
             sanitizedSecDateValues = [...sanitizedDateValues];
         }
@@ -58,7 +55,7 @@ export function sanitizeAllDates(
         dateValues: sanitizedDateValues,
         secDateValues: sanitizedSecDateValues,
         hourValues: sanitizedHourValues,
-        secHourValues: sanitizedSecHourValues
+        secHourValues: sanitizedSecHourValues,
     };
 }
 
@@ -97,13 +94,14 @@ function sanitizeHours(
 function isDateValid(dateCell: KupDataCell) {
     return (
         kupManager.objects.isDate(dateCell.obj) &&
-        kupManager.dates.isValid(dateCell.value, KupDatesFormats.ISO_DATE)
+        kupManager.dates.isIsoDate(dateCell.value)
     );
 }
 
 function isHourValid(dateCell: KupDataCell) {
     return (
-        kupManager.objects.isTime(dateCell.obj) || kupManager.objects.isTimeWithSeconds(dateCell.obj)
+        kupManager.objects.isTime(dateCell.obj) ||
+        kupManager.objects.isTimeWithSeconds(dateCell.obj)
     );
 }
 

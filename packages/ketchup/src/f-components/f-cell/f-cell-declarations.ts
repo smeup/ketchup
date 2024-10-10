@@ -1,5 +1,6 @@
 import type { VNode } from '@stencil/core';
 import {
+    CellActionProps,
     KupDataCell,
     KupDataColumn,
     KupDataRow,
@@ -27,6 +28,7 @@ export interface FCellProps extends FComponent {
     row?: KupDataRow;
     setSizes?: boolean;
     shape?: FCellShapes;
+    cellActionIcon?: CellActionProps;
 }
 /**
  * Information about the cell, displayed before the content.
@@ -115,19 +117,23 @@ export enum FCellShapes {
     CHIP = 'CHI',
     COLOR_PICKER = 'CLP',
     COMBOBOX = 'CMB',
+    DATE = 'DAT',
     EDITOR = 'EDT',
     GAUGE = 'GAU',
     IMAGE = 'IMG',
     INPUT_CHECKBOX = 'INC',
     INPUT_FIELD = 'INF',
     KNOB = 'KNB',
+    LABEL = 'LBL',
     MULTI_AUTOCOMPLETE = 'AML',
     MULTI_COMBOBOX = 'CML',
     PROGRESS_BAR = 'PGB',
     RADIO = 'RAD',
     RATING = 'RTG',
     SWITCH = 'SWT',
+    TABLE = 'TBL',
     TEXT_FIELD = 'ITX',
+    TIME = 'TIM',
 }
 /**
  * Supported cell types.
@@ -158,6 +164,7 @@ export enum FCellTypes {
     RATING = 'rating',
     STRING = 'string',
     SWITCH = 'switch',
+    TABLE = 'table',
     TIME = 'time',
 }
 export const editableTypes = [

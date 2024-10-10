@@ -7,6 +7,18 @@
   );
   --kup_cell_font_size: var(--kup-cell-font-size);
   --kup_cell_text_color: var(--kup-cell-text-color);
+  --kup_fcell_padding_dense: var(
+    --kup-fcell-padding-dense,
+    var(--kup-space-01) var(--kup-space-03)
+  );
+  --kup_fcell_padding_medium: var(
+    --kup-fcell-padding-medium,
+    var(--kup-space-02) var(--kup-space-03)
+  );
+  --kup_fcell_padding_wide: var(
+    --kup-fcell-padding-wide,
+    var(--kup-space-04) var(--kup-space-03)
+  );
 
   background: var(--kup_cell_background);
   box-sizing: border-box;
@@ -18,13 +30,43 @@
   width: 100%;
   word-break: break-all;
   word-wrap: break-word;
-  max-height: 100%;
 
+  &:has(.f-cell__content .f-image .iconWrapper .f-image__icon) {
+    max-height: 100%;
+  }
+
+  &:hover {
+    .f-image.f-cell__iconfunction.right,
+    .f-image.f-cell__iconfunction.left {
+      opacity: 1;
+      background-color: var(--kup-gray-color-10-hover);
+      z-index: 2;
+    }
+  }
   .f-cell__content {
     align-items: center;
     display: flex;
     width: 100%;
+    position: relative;
 
+    .f-image.f-cell__iconfunction {
+      display: block;
+      opacity: 0;
+      position: absolute;
+      transition: opacity 0.3s ease;
+
+      &.right {
+        right: 0;
+      }
+
+      &.left {
+        left: 0;
+      }
+
+      &:focus-within {
+        opacity: 1;
+      }
+    }
     img,
     .f-image {
       margin: 0;
@@ -94,6 +136,7 @@
   }
 
   &.image-cell {
+    max-height: 100%;
     .f-cell__content .imageWrapIcon {
       position: relative;
       width: 100%;
@@ -159,10 +202,10 @@
   .input-field {
     background: none;
     border: none;
-    border-bottom: 1px solid var(--kup-border-color);
+    border-bottom: 1px solid var(--kup-border-strong);
     height: var(--kup_textfield_fullwidth_height) !important;
     outline: none;
-    padding: 4px;
+    padding: var(--kup-fcell-inputfield-padding, 4px);
     transition: border 125ms ease;
     width: 100%;
 
@@ -234,8 +277,8 @@
   }
 
   &.primary-text {
-    --kup-textfield-color: var(--kup-primary-color) !important;
-    color: var(--kup-primary-color) !important;
+    --kup-textfield-color: var(--kup-primary-color-60) !important;
+    color: var(--kup-primary-color-60) !important;
   }
 
   &.secondary-text {
@@ -244,18 +287,18 @@
   }
 
   &.success-text {
-    --kup-textfield-color: var(--kup-success-color) !important;
-    color: var(--kup-success-color) !important;
+    --kup-textfield-color: var(--kup-success-color-40) !important;
+    color: var(--kup-success-color-40) !important;
   }
 
   &.warning-text {
-    --kup-textfield-color: var(--kup-warning-color) !important;
-    color: var(--kup-warning-color) !important;
+    --kup-textfield-color: var(--kup-warning-color-50) !important;
+    color: var(--kup-warning-color-50) !important;
   }
 
   &.danger-text {
-    --kup-textfield-color: var(--kup-danger-color) !important;
-    color: var(--kup-danger-color) !important;
+    --kup-textfield-color: var(--kup-danger-color-60) !important;
+    color: var(--kup-danger-color-60) !important;
   }
 
   &.purple-text {
@@ -264,16 +307,17 @@
   }
 
   &.success-bg {
-    background: var(--kup-success-color) !important;
+    background: var(--kup-success-color-40) !important;
     color: white !important;
   }
 
   &.warning-bg {
-    background: var(--kup-warning-color) !important;
+    background: var(--kup-warning-color-50) !important;
+    color: var(--kup-gray-color-0) !important;
   }
 
   &.danger-bg {
-    background: var(--kup-danger-color) !important;
+    background: var(--kup-danger-color-60) !important;
     color: white !important;
   }
 
@@ -357,6 +401,9 @@
   &.c-pre {
     .f-cell__content {
       white-space: pre;
+      .f-cell__text {
+        font-size: 11px;
+      }
     }
   }
 
@@ -416,20 +463,20 @@
 
   &.c-success-bg {
     .f-cell__content {
-      background: var(--kup-success-color) !important;
+      background: var(--kup-success-color-40) !important;
       color: white !important;
     }
   }
 
   &.c-warning-bg {
     .f-cell__content {
-      background: var(--kup-warning-color) !important;
+      background: var(--kup-warning-color-50) !important;
     }
   }
 
   &.c-danger-bg {
     .f-cell__content {
-      background: var(--kup-danger-color) !important;
+      background: var(--kup-danger-color-60) !important;
       color: white !important;
     }
   }
@@ -474,19 +521,19 @@
     --kup-textfield-fullwidth-padding: 0px;
     --kup-checkbox-padding: 0px;
     --kup-chip-margin: 0 4px;
-    padding: 0.2em 0.3125em;
+    padding: var(--kup_fcell_padding_dense);
   }
 
   &.medium {
     --kup-textfield-fullwidth-height: 36px;
     --kup-textfield-fullwidth-padding: 0px;
-    padding: 0.5em 0.3125em;
+    padding: var(--kup_fcell_padding_medium);
   }
 
   &.wide {
     --kup-textfield-fullwidth-height: 50px;
     --kup-textfield-fullwidth-padding: 0px;
-    padding: 1em 0.3125em;
+    padding: var(--kup_fcell_padding_wide);
   }
 }
 

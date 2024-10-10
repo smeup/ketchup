@@ -5,20 +5,24 @@
 
 ## Properties
 
-| Property          | Attribute          | Description                                                                                                                 | Type                                                                                                                        | Default                 |
-| ----------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
-| `buttonType`      | `button-type`      | Sets the type of the button.                                                                                                | `string`                                                                                                                    | `null`                  |
-| `checked`         | `checked`          | When set to true, the icon button state will be on.                                                                         | `boolean`                                                                                                                   | `false`                 |
-| `customStyle`     | `custom-style`     | Custom style of the component.                                                                                              | `string`                                                                                                                    | `''`                    |
-| `disabled`        | `disabled`         | Defaults at false. When set to true, the component is disabled.                                                             | `boolean`                                                                                                                   | `false`                 |
-| `icon`            | `icon`             | When set, the button will show this icon.                                                                                   | `string`                                                                                                                    | `null`                  |
-| `iconOff`         | `icon-off`         | When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed. | `string`                                                                                                                    | `null`                  |
-| `label`           | `label`            | When set, the button will show this text.                                                                                   | `string`                                                                                                                    | `null`                  |
-| `placeholderIcon` | `placeholder-icon` | When set, the button will show this icon, if icon/image not found.                                                          | `string`                                                                                                                    | `null`                  |
-| `showSpinner`     | `show-spinner`     | When set to true, the button show a spinner received in slot.                                                               | `boolean`                                                                                                                   | `false`                 |
-| `styling`         | `styling`          | Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.               | `FButtonStyling.FLAT \| FButtonStyling.FLOATING \| FButtonStyling.ICON \| FButtonStyling.OUTLINED \| FButtonStyling.RAISED` | `FButtonStyling.RAISED` |
-| `toggable`        | `toggable`         | When set to true, the icon button will be toggable on/off.                                                                  | `boolean`                                                                                                                   | `false`                 |
-| `trailingIcon`    | `trailing-icon`    | When set, the icon will be shown after the text.                                                                            | `boolean`                                                                                                                   | `false`                 |
+| Property          | Attribute          | Description                                                                                                                 | Type                                                                                                                                                    | Default                     |
+| ----------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| `blackMode`       | `black-mode`       | When set to true, the label will be on the left of the component.                                                           | `boolean`                                                                                                                                               | `false`                     |
+| `buttonType`      | `button-type`      | Sets the type of the button.                                                                                                | `string`                                                                                                                                                | `null`                      |
+| `checked`         | `checked`          | When set to true, the icon button state will be on.                                                                         | `boolean`                                                                                                                                               | `false`                     |
+| `contentAlign`    | `content-align`    | Sets the type of the button.                                                                                                | `FButtonAlign.AROUND \| FButtonAlign.BETWEEN \| FButtonAlign.CENTER \| FButtonAlign.EVENLY \| FButtonAlign.LEFT \| FButtonAlign.RIGHT`                  | `FButtonAlign.CENTER`       |
+| `customStyle`     | `custom-style`     | Custom style of the component.                                                                                              | `string`                                                                                                                                                | `''`                        |
+| `disabled`        | `disabled`         | Defaults at false. When set to true, the component is disabled.                                                             | `boolean`                                                                                                                                               | `false`                     |
+| `icon`            | `icon`             | When set, the button will show this icon.                                                                                   | `string`                                                                                                                                                | `null`                      |
+| `iconOff`         | `icon-off`         | When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed. | `string`                                                                                                                                                | `null`                      |
+| `keyShortcut`     | `key-shortcut`     |                                                                                                                             | `string`                                                                                                                                                | `undefined`                 |
+| `label`           | `label`            | When set, the button will show this text.                                                                                   | `string`                                                                                                                                                | `null`                      |
+| `placeholderIcon` | `placeholder-icon` | When set, the button will show this icon, if icon/image not found.                                                          | `string`                                                                                                                                                | `null`                      |
+| `showSpinner`     | `show-spinner`     | When set to true, the button show a spinner received in slot.                                                               | `boolean`                                                                                                                                               | `false`                     |
+| `sizing`          | `sizing`           | Sets the type of the button                                                                                                 | `KupComponentSizing.EXTRA_LARGE \| KupComponentSizing.EXTRA_SMALL \| KupComponentSizing.LARGE \| KupComponentSizing.MEDIUM \| KupComponentSizing.SMALL` | `KupComponentSizing.MEDIUM` |
+| `styling`         | `styling`          | Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.               | `FButtonStyling.FLAT \| FButtonStyling.FLOATING \| FButtonStyling.ICON \| FButtonStyling.OUTLINED \| FButtonStyling.RAISED`                             | `FButtonStyling.RAISED`     |
+| `toggable`        | `toggable`         | When set to true, the icon button will be toggable on/off.                                                                  | `boolean`                                                                                                                                               | `false`                     |
+| `trailingIcon`    | `trailing-icon`    | When set, the icon will be shown after the text.                                                                            | `boolean`                                                                                                                                               | `false`                     |
 
 
 ## Events
@@ -120,6 +124,7 @@ graph TD;
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
+  kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-card
@@ -138,18 +143,23 @@ graph TD;
   kup-chip --> kup-badge
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
+  kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
   kup-combobox --> kup-dialog
+  kup-combobox --> kup-badge
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
+  kup-date-picker --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
+  kup-time-picker --> kup-badge
   kup-image --> kup-card
   kup-image --> kup-image
   kup-image --> kup-dialog
@@ -173,6 +183,7 @@ graph TD;
   kup-progress-bar --> kup-dialog
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
+  kup-checkbox --> kup-badge
   kup-data-table --> kup-button
   kup-switch --> kup-card
   kup-switch --> kup-dialog
@@ -192,6 +203,7 @@ graph TD;
   kup-form --> kup-gauge
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
+  kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge

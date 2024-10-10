@@ -5,7 +5,7 @@
 :host {
   --kup_spinner_border_color: var(
     --kup-spinner-border-color,
-    var(--kup-border-color)
+    var(--kup-border-subtle)
   );
 
   display: block;

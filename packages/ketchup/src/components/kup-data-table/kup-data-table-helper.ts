@@ -7,6 +7,7 @@ import {
     KupDataTableRow,
     KupDataTableRowGroup,
     KupDataTableCell,
+    KupDataTableDataset,
 } from './kup-data-table-declarations';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
@@ -14,14 +15,20 @@ import {
     getCellValueForDisplay,
     getColumnByName,
     compareCell,
+    CMBandACPAdapter,
+    RADAdapter,
+    CHKAdapter,
+    CHIAdapter,
 } from '../../utils/cell-utils';
 import { FiltersRows } from '../../utils/filters/filters-rows';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
-import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 import {
-    KupDatesFormats,
-    KupDatesNormalize,
-} from '../../managers/kup-dates/kup-dates-declarations';
+    KupDataColumn,
+    KupDataDataset,
+} from '../../managers/kup-data/kup-data-declarations';
+import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
+import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -470,8 +477,11 @@ function updateGroupTotal(
                         cell.value &&
                         dom.ketchup.objects.isDate(cell.obj)
                     ) {
-                        const cellValue = dom.ketchup.dates.toDayjs(cell.value);
-                        if (dom.ketchup.dates.isValid(cellValue)) {
+                        if (
+                            dom.ketchup.dates.isValidFormattedStringDate(
+                                cell.value
+                            )
+                        ) {
                             const currentMinValue = groupRow.group.totals[key];
                             if (currentMinValue) {
                                 let moments = [];
@@ -557,8 +567,11 @@ function updateGroupTotal(
                         cell.value &&
                         dom.ketchup.objects.isDate(cell.obj)
                     ) {
-                        const cellValue = dom.ketchup.dates.toDayjs(cell.value);
-                        if (dom.ketchup.dates.isValid(cellValue)) {
+                        if (
+                            dom.ketchup.dates.isValidFormattedStringDate(
+                                cell.value
+                            )
+                        ) {
                             const currentMaxValue = groupRow.group.totals[key];
                             if (currentMaxValue) {
                                 let moments = [];
@@ -785,7 +798,7 @@ export function normalizeRows(
 
 export function calcTotals(
     rows: Array<KupDataTableRow> = [],
-    totals: { [index: string]: TotalMode } = {}
+    totals: TotalsMap = {}
 ): { [index: string]: number } {
     if (
         dom.ketchup.objects.isEmptyJsObject(rows) ||
@@ -873,12 +886,14 @@ export function calcTotals(
                         if (dateColumns.indexOf(key) == -1) {
                             dateColumns.push(key);
                         }
-                        const momentValue = dom.ketchup.dates.toDayjs(
-                            cell.value
-                        );
-                        if (dom.ketchup.dates.isValid(momentValue)) {
-                            const cellValue =
-                                dom.ketchup.dates.toDate(momentValue);
+                        if (
+                            dom.ketchup.dates.isValidFormattedStringDate(
+                                cell.value
+                            )
+                        ) {
+                            const cellValue = dom.ketchup.dates.toDate(
+                                dom.ketchup.dates.toDayjs(cell.value)
+                            );
                             const currentFooterValue = footerRow[key]
                                 ? dom.ketchup.dates.toDate(
                                       dom.ketchup.dates.toDayjs(footerRow[key])
@@ -1093,4 +1108,89 @@ function cloneRowGroup(group: KupDataTableRowGroup): KupDataTableRowGroup {
     };
 
     return cloned;
+}
+
+/**
+ * Returns a KupDataDataset obtained as the difference between originalData and modifiedData
+ * The checked data are cell.value and cell.obj.k with the same column and row
+ * @param originalData
+ * @param modifiedData
+ * @param includesAlsoEmptyRows
+ * @returns
+ */
+export function getDiffData(
+    originalData: KupDataDataset,
+    modifiedData: KupDataDataset,
+    includesAlsoEmptyRows: boolean = false
+): KupDataDataset {
+    const diffDataTable = {
+        columns: modifiedData.columns,
+        rows: [],
+    };
+
+    for (const modifiedRow of modifiedData.rows) {
+        const newRow = { cells: {}, id: modifiedRow.id };
+
+        for (const column of modifiedData.columns) {
+            const cellKey = column.name;
+            const modifiedCell = modifiedRow.cells[cellKey];
+
+            const originalRow = originalData.rows.find(
+                (row) => row.id === modifiedRow.id
+            );
+            const originalCell = originalRow
+                ? originalRow.cells[cellKey]
+                : null;
+
+            if (!originalCell || modifiedCell.value !== originalCell.value) {
+                newRow.cells[cellKey] = modifiedCell;
+            }
+        }
+
+        if (Object.keys(newRow.cells).length > 0 || includesAlsoEmptyRows) {
+            diffDataTable.rows.push(newRow);
+        }
+    }
+
+    return diffDataTable;
+}
+
+export function decorateDataTable(data: KupDataTableDataset) {
+    data.rows?.forEach((row) => {
+        Object.keys(row.cells).forEach((cellKey) => {
+            let cell: KupDataTableCell = row.cells[cellKey];
+
+            const value = cell.value;
+            const options = cell['options'];
+            cell.isEditable = cell.isEditable ?? cell['editable'];
+
+            if (options) {
+                const shapeAdapters = {
+                    [FCellShapes.AUTOCOMPLETE]: () =>
+                        CMBandACPAdapter(value, '', options),
+                    [FCellShapes.COMBOBOX]: () =>
+                        CMBandACPAdapter(value, '', options),
+                    [FCellShapes.RADIO]: () => RADAdapter(value, options),
+                    [FCellShapes.CHECKBOX]: () => CHKAdapter(value, options),
+                    [FCellShapes.CHIP]: () => CHIAdapter(value),
+                };
+
+                const adapterFunction = shapeAdapters[cell.shape];
+
+                if (adapterFunction) {
+                    cell.data = adapterFunction();
+                } else {
+                    if (cell.shape) {
+                        dom.ketchup.debug.logMessage(
+                            'kup-data',
+                            `Shape specified ${
+                                cell.shape
+                            } in cell ${JSON.stringify(cell)} unsupported`,
+                            KupDebugCategory.WARNING
+                        );
+                    }
+                }
+            }
+        });
+    });
 }

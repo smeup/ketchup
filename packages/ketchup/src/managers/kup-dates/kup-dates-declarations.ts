@@ -1,13 +1,4 @@
 /**
- * Normalization types.
- */
-export enum KupDatesNormalize {
-    DATE = 'date',
-    TIME = 'time',
-    TIMESTAMP = 'timestamp',
-}
-
-/**
  * Supported locales.
  */
 export enum KupDatesLocales {
@@ -39,4 +30,13 @@ export enum KupDatesFormats {
     ISO_DATE_TIME = 'YYYY-MM-DD HH:mm:ss',
     ISO_TIME = 'HH:mm:ss',
     ISO_TIME_WITHOUT_SECONDS = 'HH:mm',
+}
+
+/**
+ * SortOrder
+ */
+
+export enum KupDatesOrder {
+    ASC = 'asc',
+    DESC = 'desc',
 }

@@ -194,9 +194,9 @@ function createComp() {
   comp.id = 'demo-component';
   comp.arcThickness = 30;
   comp.colors = [
-    'var(--kup-success-color)',
-    'var(--kup-warning-color)',
-    'var(--kup-danger-color)',
+    'var(--kup-success-color-50)',
+    'var(--kup-warning-color-50)',
+    'var(--kup-danger-color-50)',
   ];
   comp.firstThreshold = 33.3;
   comp.labelDistance = 20;

@@ -11,9 +11,12 @@ export enum KupComboboxProps {
     disabled = 'Defaults at false. When set to true, the component is disabled.',
     displayMode = 'Sets how to show the selected item value. Suported values: "code", "description", "both".',
     initialValue = 'Sets the initial value of the component',
+    isClearable = 'Enables a clear trailing icon.',
     isSelect = 'Lets the combobox behave as a select element.',
     selectMode = 'Sets how to return the selected item value. Suported values: "code", "description", "both".',
     showDropDownIcon = 'When true shows the drop-down icon, for open list.',
+    label = 'When set, its content will be shown as a label.',
+    leadingLabel = 'When set to true, the label will be on the left of the component.',
 }
 
 export interface KupComboboxEventPayload extends KupEventPayload {

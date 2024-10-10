@@ -3,7 +3,7 @@ import { sass } from '@stencil/sass';
 import { reactOutputTarget } from '@stencil/react-output-target';
 
 export const config: Config = {
-    sourceMap: false,
+    sourceMap: true,
     namespace: 'ketchup',
     testing: {
         reporters: [
@@ -46,7 +46,9 @@ export const config: Config = {
             type: 'www',
             copy: [
                 { src: 'accordion.html' },
+                { src: 'activity-timeline.html' },
                 { src: 'autocomplete.html' },
+                { src: 'badge.html' },
                 { src: 'box.html' },
                 { src: 'box-performance.html' },
                 { src: 'button.html' },
@@ -67,6 +69,7 @@ export const config: Config = {
                 { src: 'data-table-performance.html' },
                 { src: 'date-picker.html' },
                 { src: 'debug.html' },
+                { src: 'design-system.html' },
                 { src: 'dialog.html' },
                 { src: 'drawer.html' },
                 { src: 'dropdown-button.html' },
@@ -104,6 +107,8 @@ export const config: Config = {
                 { src: 'snackbar.html' },
                 { src: 'tab-bar.html' },
                 { src: 'time-picker.html' },
+                { src: 'typography.html' },
+                { src: 'typography-list.html' },
                 { src: 'text-field.html' },
                 { src: 'tree-performance.html' },
                 { src: 'tree.html' },
@@ -123,6 +128,9 @@ export const config: Config = {
             type: 'dist-custom-elements',
         },
     ],
+    extras: {
+        enableImportInjection: true,
+    },
     plugins: [
         sass({
             includePaths: ['./node_modules', './src/f-components'],

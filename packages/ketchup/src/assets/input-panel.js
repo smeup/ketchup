@@ -1,3 +1,2033 @@
+// Tables
+const datatable = {
+    type: 'SmeupDataTable',
+    columns: [
+        {
+            editable: true,
+            name: 'COL1',
+            title: 'Column 1',
+            visible: true,
+            isEditable: true,
+        },
+        {
+            editable: false,
+            name: 'COL2',
+            title: 'Column 2',
+            visible: true,
+            isEditable: false,
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                COL1: {
+                    value: 'Override value',
+                    options: [],
+                    icon: 'home',
+                    editable: false,
+                    mandatory: false,
+                    fun: 'EXEC',
+                },
+                COL2: {
+                    value: 'Row 1 column 2',
+                    options: [],
+                    editable: false,
+                    mandatory: false,
+                },
+            },
+            layout: {
+                type: 'SmeupDataLayout',
+                horizontal: false,
+                sections: [],
+            },
+        },
+        {
+            cells: {
+                COL1: {
+                    value: 'Row 2 column 1',
+                    options: [],
+                    editable: false,
+                    mandatory: false,
+                },
+                COL2: {
+                    value: 'Row 2 column 2',
+                    options: [],
+                    editable: false,
+                    mandatory: false,
+                },
+            },
+            layout: {
+                type: 'SmeupDataLayout',
+                horizontal: false,
+                sections: [],
+            },
+        },
+    ],
+};
+
+const dataTableGroupsTest = {
+    type: 'SmeupDataTable',
+    columns: [
+        {
+            name: 'STR001',
+            obj: {
+                k: '',
+                p: '',
+                t: '',
+            },
+            title: 'Regione',
+        },
+        {
+            name: 'STR002',
+            obj: {
+                k: '',
+                p: '',
+                t: '',
+            },
+            title: 'Provincia',
+        },
+        {
+            name: 'STR003',
+            obj: {
+                k: '',
+                p: '',
+                t: '',
+            },
+            title: 'Comune',
+        },
+        {
+            decimals: 0,
+            name: 'STR004',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'Popolazione',
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '1',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '1',
+                    data: {},
+                    displayedValue: '1',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR003: {
+                    obj: {
+                        k: 'Asti',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Asti',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR002: {
+                    obj: {
+                        k: 'Asti',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Asti',
+                    displayedValue: 'Asti',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR001: {
+                    obj: {
+                        k: 'Piemonte',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Piemonte',
+                    displayedValue: 'Piemonte',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '0',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '2',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '2',
+                },
+                STR003: {
+                    obj: {
+                        k: 'San Damiano',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'San Damiano',
+                },
+                STR002: {
+                    obj: {
+                        k: 'Asti',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Asti',
+                    displayedValue: 'Asti',
+                },
+                STR001: {
+                    obj: {
+                        k: 'Piemonte',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Piemonte',
+                    displayedValue: 'Piemonte',
+                },
+            },
+            id: '1',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '3',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '3',
+                },
+                STR003: {
+                    obj: {
+                        k: 'Canelli',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Canelli',
+                },
+                STR002: {
+                    obj: {
+                        k: 'Asti',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Asti',
+                    displayedValue: 'Asti',
+                },
+                STR001: {
+                    obj: {
+                        k: 'Piemonte',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Piemonte',
+                    displayedValue: 'Piemonte',
+                },
+            },
+            id: '2',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '4',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '4',
+                },
+                STR003: {
+                    obj: {
+                        k: 'Cuneo',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Cuneo',
+                },
+                STR002: {
+                    obj: {
+                        k: 'Cuneo',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Cuneo',
+                    displayedValue: 'Cuneo',
+                },
+                STR001: {
+                    obj: {
+                        k: 'Piemonte',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Piemonte',
+                    displayedValue: 'Piemonte',
+                },
+            },
+            id: '3',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '5',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '5',
+                },
+                STR003: {
+                    obj: {
+                        k: 'Alba',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Alba',
+                },
+                STR002: {
+                    obj: {
+                        k: 'Cuneo',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Cuneo',
+                    displayedValue: 'Cuneo',
+                },
+                STR001: {
+                    obj: {
+                        k: 'Piemonte',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Piemonte',
+                    displayedValue: 'Piemonte',
+                },
+            },
+            id: '4',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '6',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '6',
+                },
+                STR003: {
+                    obj: {
+                        k: 'Bra',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Bra',
+                },
+                STR002: {
+                    obj: {
+                        k: 'Cuneo',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Cuneo',
+                    displayedValue: 'Cuneo',
+                },
+                STR001: {
+                    obj: {
+                        k: 'Piemonte',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Piemonte',
+                    displayedValue: 'Piemonte',
+                },
+            },
+            id: '5',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '7',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '7',
+                },
+                STR003: {
+                    obj: {
+                        k: 'Torino',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Torino',
+                },
+                STR002: {
+                    obj: {
+                        k: 'Torino',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Torino',
+                    displayedValue: 'Torino',
+                },
+                STR001: {
+                    obj: {
+                        k: 'Piemonte',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Piemonte',
+                    displayedValue: 'Piemonte',
+                },
+            },
+            id: '6',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '8',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '8',
+                },
+                STR003: {
+                    obj: {
+                        k: 'Moncalieri',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Moncalieri',
+                },
+                STR002: {
+                    obj: {
+                        k: 'Torino',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Torino',
+                    displayedValue: 'Torino',
+                },
+                STR001: {
+                    obj: {
+                        k: 'Piemonte',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Piemonte',
+                    displayedValue: 'Piemonte',
+                },
+            },
+            id: '7',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '9',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '9',
+                },
+                STR003: {
+                    obj: {
+                        k: 'Collegno',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Collegno',
+                },
+                STR002: {
+                    obj: {
+                        k: 'Torino',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Torino',
+                    displayedValue: 'Torino',
+                },
+                STR001: {
+                    obj: {
+                        k: 'Piemonte',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Piemonte',
+                    displayedValue: 'Piemonte',
+                },
+            },
+            id: '8',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '10',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '10',
+                    data: {},
+                    displayedValue: '10',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR003: {
+                    obj: {
+                        k: 'Milano',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Milano',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR002: {
+                    obj: {
+                        k: 'Milano',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Milano',
+                    displayedValue: 'Milano',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR001: {
+                    obj: {
+                        k: 'Lombardia',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Lombardia',
+                    displayedValue: 'Lombardia',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '9',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '11',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '11',
+                    data: {},
+                    displayedValue: '11',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR003: {
+                    obj: {
+                        k: 'Sesto San Giovanni',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Sesto San Giovanni',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR002: {
+                    obj: {
+                        k: 'Milano',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Milano',
+                    displayedValue: 'Milano',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR001: {
+                    obj: {
+                        k: 'Lombardia',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Lombardia',
+                    displayedValue: 'Lombardia',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '10',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '12',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '12',
+                    data: {},
+                    displayedValue: '12',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR003: {
+                    obj: {
+                        k: 'Cinisello Balsamo',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Cinisello Balsamo',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR002: {
+                    obj: {
+                        k: 'Milano',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Milano',
+                    displayedValue: 'Milano',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR001: {
+                    obj: {
+                        k: 'Lombardia',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Lombardia',
+                    displayedValue: 'Lombardia',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '11',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '13',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '13',
+                    data: {},
+                    displayedValue: '13',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR003: {
+                    obj: {
+                        k: 'Brescia',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Brescia',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR002: {
+                    obj: {
+                        k: 'Brescia',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Brescia',
+                    displayedValue: 'Brescia',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR001: {
+                    obj: {
+                        k: 'Lombardia',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Lombardia',
+                    displayedValue: 'Lombardia',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '12',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '14',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '14',
+                    data: {},
+                    displayedValue: '14',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR003: {
+                    obj: {
+                        k: 'Desenzano del Garda',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Desenzano del Garda',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR002: {
+                    obj: {
+                        k: 'Brescia',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Brescia',
+                    displayedValue: 'Brescia',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR001: {
+                    obj: {
+                        k: 'Lombardia',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Lombardia',
+                    displayedValue: 'Lombardia',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '13',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '15',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '15',
+                    data: {},
+                    displayedValue: '15',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR003: {
+                    obj: {
+                        k: 'Montichiari',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Montichiari',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR002: {
+                    obj: {
+                        k: 'Brescia',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Brescia',
+                    displayedValue: 'Brescia',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR001: {
+                    obj: {
+                        k: 'Lombardia',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Lombardia',
+                    displayedValue: 'Lombardia',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '14',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '16',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '16',
+                    data: {},
+                    displayedValue: '16',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR003: {
+                    obj: {
+                        k: 'Como',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Como',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR002: {
+                    obj: {
+                        k: 'Como',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Como',
+                    displayedValue: 'Como',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR001: {
+                    obj: {
+                        k: 'Lombardia',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Lombardia',
+                    displayedValue: 'Lombardia',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '15',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '17',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '17',
+                    data: {},
+                    displayedValue: '17',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR003: {
+                    obj: {
+                        k: 'Cantù',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Cantù',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR002: {
+                    obj: {
+                        k: 'Como',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Como',
+                    displayedValue: 'Como',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR001: {
+                    obj: {
+                        k: 'Lombardia',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Lombardia',
+                    displayedValue: 'Lombardia',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '16',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                STR004: {
+                    obj: {
+                        k: '18',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '18',
+                    data: {},
+                    displayedValue: '18',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR003: {
+                    obj: {
+                        k: 'Mariano Comense',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Mariano Comense',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR002: {
+                    obj: {
+                        k: 'Como',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Como',
+                    displayedValue: 'Como',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                STR001: {
+                    obj: {
+                        k: 'Lombardia',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'Lombardia',
+                    displayedValue: 'Lombardia',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '17',
+            object: '',
+            readOnly: true,
+        },
+    ],
+};
+
+const dataTableFiltersTest = {
+    type: 'SmeupDataTable',
+    columns: [
+        {
+            name: 'FLD1',
+            title: 'Column A',
+            size: '',
+            isEditable: true,
+        },
+        {
+            name: 'FLD2',
+            title: 'Column B',
+            size: 10,
+            obj: {
+                t: 'NR',
+                p: '',
+                k: '',
+            },
+            children: [
+                {
+                    icon: 'widgets',
+                    name: 'FLD3',
+                    obj: {
+                        t: 'OA',
+                        p: 'SOMETHING',
+                        k: 'SOMETHINGELSE',
+                    },
+                },
+                {
+                    icon: 'widgets',
+                    name: 'FLD3',
+                    obj: {
+                        t: 'OA',
+                        p: 'SOMETHING',
+                        k: 'SOMETHINGELSE',
+                    },
+                },
+                {
+                    icon: 'widgets',
+                    name: 'FLD3',
+                    obj: {
+                        t: 'OA',
+                        p: 'SOMETHING',
+                        k: 'SOMETHINGELSE',
+                    },
+                },
+            ],
+            isEditable: true,
+        },
+        {
+            name: 'FLD3',
+            title: 'Column C',
+            size: 10,
+            obj: {
+                t: 'NR',
+                p: '',
+                k: '',
+            },
+            isEditable: true,
+        },
+        {
+            name: 'FLD4',
+            title: 'Column D',
+            size: 10,
+            obj: {
+                t: 'D8',
+                p: '*YYMD',
+                k: '',
+            },
+            icon: 'calendar',
+            isKey: true,
+            isEditable: true,
+        },
+        {
+            name: 'FLD5',
+            title: 'Column Percentuale',
+            size: 10,
+            obj: {
+                t: 'NR',
+                p: 'P',
+                k: '',
+            },
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    info: {
+                        color: 'var(--kup-warning-color-50)',
+                        icon: 'warning',
+                        message: 'Warning message, thread carefully!',
+                    },
+                    value: 'CASFRA',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD2: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '10',
+                    },
+                    value: '10',
+                    data: {},
+                    displayedValue: '10',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '100000.60',
+                    },
+                    value: '100,000.60',
+                    info: {
+                        message: 'Info message, hello!',
+                    },
+                    data: {},
+                    displayedValue: '100,000.6',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20181101',
+                    },
+                    value: '2018-11-01',
+                    info: {
+                        color: 'var(--kup-danger-color)',
+                        icon: 'cancel',
+                        message: 'Error message, whoops!',
+                    },
+                    data: {},
+                    displayedValue: '01/11/2018',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD5: {
+                    obj: {
+                        t: 'NR',
+                        p: 'P',
+                        k: '10.60',
+                    },
+                    value: '10.60',
+                    info: {
+                        color: 'var(--kup-success-color-40)',
+                        icon: 'check_circle',
+                        message: 'Success message, yaas!',
+                    },
+                    data: {},
+                    displayedValue: '10.6 %',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '0',
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD2: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '10',
+                    },
+                    value: '10',
+                    data: {},
+                    displayedValue: '10',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '100000.60',
+                    },
+                    value: '100,000.60',
+                    data: {},
+                    displayedValue: '100,000.6',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20181101',
+                    },
+                    value: '2018-11-01',
+                    data: {},
+                    displayedValue: '01/11/2018',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD5: {
+                    obj: {
+                        t: 'NR',
+                        p: 'P',
+                        k: '0',
+                    },
+                    value: '0.00',
+                    data: {},
+                    displayedValue: '0 %',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '1',
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'DELGIO',
+                    },
+                    value: 'DELGIO',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD2: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '6',
+                    },
+                    value: '6',
+                    data: {},
+                    displayedValue: '6',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '67.8',
+                    },
+                    value: '67.8',
+                    data: {},
+                    displayedValue: '67.8',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180102',
+                    },
+                    value: '2018-01-02',
+                    data: {},
+                    displayedValue: '02/01/2018',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD5: {
+                    obj: {
+                        t: 'NR',
+                        p: 'P',
+                        k: '20.60',
+                    },
+                    value: '20.60',
+                    data: {},
+                    displayedValue: '20.6 %',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '2',
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'PARFRA',
+                    },
+                    value: 'PARFRA',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD2: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '5',
+                    },
+                    value: '5',
+                    data: {},
+                    displayedValue: '5',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '120.06',
+                    },
+                    value: '120.06',
+                    data: {},
+                    displayedValue: '120.06',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180103',
+                    },
+                    value: '2018-01-03',
+                    data: {},
+                    displayedValue: '03/01/2018',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD5: {
+                    obj: {
+                        t: 'NR',
+                        p: 'P',
+                        k: '30.60',
+                    },
+                    value: '30.60',
+                    data: {},
+                    displayedValue: '30.6 %',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '3',
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'DELGIO',
+                    },
+                    value: 'DELGIO',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD2: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '6',
+                    },
+                    value: '6',
+                    data: {},
+                    displayedValue: '6',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '67.8',
+                    },
+                    value: '67.8',
+                    data: {},
+                    displayedValue: '67.8',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180102',
+                    },
+                    value: '2018-01-02',
+                    data: {},
+                    displayedValue: '02/01/2018',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD5: {
+                    obj: {
+                        t: 'NR',
+                        p: 'P',
+                        k: '40.60',
+                    },
+                    value: '40.60',
+                    data: {},
+                    displayedValue: '40.6 %',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '4',
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'DELGIO',
+                    },
+                    value: 'DELGIO',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD2: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '6',
+                    },
+                    value: '6',
+                    data: {},
+                    displayedValue: '6',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '67.8',
+                    },
+                    value: '67.8',
+                    data: {},
+                    displayedValue: '67.8',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180102',
+                    },
+                    value: '2018-01-02',
+                    data: {},
+                    displayedValue: '02/01/2018',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD5: {
+                    obj: {
+                        t: 'NR',
+                        p: 'P',
+                        k: '50.60',
+                    },
+                    value: '50.60',
+                    data: {},
+                    displayedValue: '50.6 %',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '5',
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'DELGIO',
+                    },
+                    value: 'DELGIO',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD2: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '6',
+                    },
+                    value: '6',
+                    data: {},
+                    displayedValue: '6',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '67.8',
+                    },
+                    value: '67.8',
+                    data: {},
+                    displayedValue: '67.8',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180102',
+                    },
+                    value: '2018-01-02',
+                    data: {},
+                    displayedValue: '02/01/2018',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD5: {
+                    obj: {
+                        t: 'NR',
+                        p: 'P',
+                        k: '60.60',
+                    },
+                    value: '60.60',
+                    data: {},
+                    displayedValue: '60.6 %',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '6',
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'DELGIO',
+                    },
+                    value: 'DELGIO',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD2: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '6',
+                    },
+                    value: '6',
+                    data: {},
+                    displayedValue: '6',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '67.8',
+                    },
+                    value: '67.8',
+                    data: {},
+                    displayedValue: '67.8',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180102',
+                    },
+                    value: '2018-01-02',
+                    data: {},
+                    displayedValue: '02/01/2018',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD5: {
+                    obj: {
+                        t: 'NR',
+                        p: 'P',
+                        k: '70.60',
+                    },
+                    value: '70.60',
+                    data: {},
+                    displayedValue: '70.6 %',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '7',
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'DELGIO',
+                    },
+                    value: 'DELGIO',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD2: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '6',
+                    },
+                    value: '6',
+                    data: {},
+                    displayedValue: '6',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '67.8',
+                    },
+                    value: '67.8',
+                    data: {},
+                    displayedValue: '67.8',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180102',
+                    },
+                    value: '2018-01-02',
+                    data: {},
+                    displayedValue: '02/01/2018',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD5: {
+                    obj: {
+                        t: 'NR',
+                        p: 'P',
+                        k: '80.60',
+                    },
+                    value: '80.60',
+                    data: {},
+                    displayedValue: '80.6 %',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '8',
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'DELGIO',
+                    },
+                    value: 'DELGIO',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD2: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '6',
+                    },
+                    value: '6',
+                    data: {},
+                    displayedValue: '6',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '67.8',
+                    },
+                    value: '67.8',
+                    data: {},
+                    displayedValue: '67.8',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180102',
+                    },
+                    value: '2018-01-02',
+                    data: {},
+                    displayedValue: '02/01/2018',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD5: {
+                    obj: {
+                        t: 'NR',
+                        p: 'P',
+                        k: '90.60',
+                    },
+                    value: '90.60',
+                    data: {},
+                    displayedValue: '90.6 %',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '9',
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'DELGIO',
+                    },
+                    value: 'DELGIO',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD2: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '6',
+                    },
+                    value: '6',
+                    data: {},
+                    displayedValue: '6',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '67.8',
+                    },
+                    value: '67.8',
+                    data: {},
+                    displayedValue: '67.8',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180102',
+                    },
+                    value: '2018-01-02',
+                    data: {},
+                    displayedValue: '02/01/2018',
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+                FLD5: {
+                    obj: {
+                        t: 'NR',
+                        p: 'P',
+                        k: '0',
+                    },
+                    value: '',
+                    data: {},
+                    element: {
+                        's-hn': 'KUP-DATA-TABLE',
+                    },
+                },
+            },
+            id: '10',
+        },
+    ],
+};
+
+// Autocomplete
+
+const autocompleteTest = {
+    options: [
+        {
+            label: 'Value 1',
+
+            id: 'value1',
+        },
+        {
+            label: 'Value 2',
+            id: 'value2',
+        },
+        {
+            label: 'Value 3',
+            id: 'value3',
+        },
+        {
+            label: 'Value 4',
+            id: 'value4',
+        },
+        {
+            label: 'Value 5',
+            id: 'value5',
+        },
+    ],
+    data: {
+        'kup-text-field': {
+            trailingIcon: true,
+            icon: 'arrow_drop_down',
+        },
+        'kup-list': {
+            showIcons: true,
+        },
+    },
+};
+
+const comboboxTest = {
+    options: [
+        {
+            label: 'Text 1',
+            id: 'txt1',
+        },
+        {
+            label: 'Text 2',
+            id: 'txt2',
+        },
+        {
+            label: 'Text 3',
+            id: 'txt3',
+        },
+        {
+            label: 'Text 4',
+            id: 'txt4',
+        },
+        {
+            label: 'Text 5',
+            id: 'txt5',
+        },
+    ],
+    data: {
+        'text-field': {
+            trailingIcon: true,
+            icon: 'arrow_drop_down',
+        },
+        'kup-list': {
+            showIcons: true,
+            selectable: true,
+        },
+    },
+};
+
+// Data input panel
+
 const data = {
     columns: [
         {
@@ -6,255 +2036,58 @@ const data = {
             visible: true,
         },
         {
-            name: 'SUR',
-            title: 'Surname',
+            editable: false,
+            name: 'INP1',
+            title: 'Field1',
             visible: true,
+            isEditable: false,
         },
         {
-            name: 'NAT',
-            title: 'Nation',
+            editable: false,
+            name: 'INP2',
+            title: 'Field2',
             visible: true,
+            isEditable: false,
         },
-        {
-            name: 'CIT',
-            title: 'Tree Options',
-            visible: true,
-        },
-        {
-            name: 'LIS',
-            title: 'Table Options',
-            visible: true,
-        },
-        {
-            name: 'CHK',
-            title: 'Checkbox',
-            visible: true,
-        },
-        {
-            name: 'RAD',
-            title: 'Radio Buttons',
-            visible: true,
-        },
-    ],
-    rows: [
-        {
-            cells: {
-                NAM: {
-                    value: '',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
-                    },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'ITX',
-                },
-                SUR: {
-                    value: '',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
-                    },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'ITX',
-                },
-                NAT: {
-                    value: '',
-                    fun: 'combo',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
-                    },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'CMB',
-                },
-                CIT: {
-                    value: '',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
-                    },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'ACP',
-                    fun: 'ddas',
-                },
-                LIS: {
-                    value: '',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
-                    },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'ACP',
-                    fun: 'fff',
-                },
-                CHK: {
-                    value: 'on',
-                    editable: true,
-                    mandatory: true,
-                    shape: 'CHK',
-                },
-                RAD: {
-                    value: '3',
-                    options: [
-                        {
-                            id: '1',
-                            label: 'One',
-                        },
-                        {
-                            id: '2',
-                            label: 'Two',
-                        },
-                        {
-                            id: '3',
-                            label: 'Three',
-                        },
-                        {
-                            id: '4',
-                            label: 'Four',
-                        },
-                    ],
-                    editable: true,
-                    mandatory: true,
-                    shape: 'RAD',
-                },
-            },
-            layout: {
-                sections: [
-                    {
-                        content: [
-                            {
-                                id: 'NAM',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 1,
-                                rowEnd: 1,
-                            },
-                            {
-                                id: 'SUR',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 1,
-                                rowEnd: 1,
-                            },
-                            {
-                                id: 'NAT',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 2,
-                                rowEnd: 2,
-                            },
-                            {
-                                id: 'CIT',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 2,
-                                rowEnd: 2,
-                            },
-                            {
-                                id: 'CHK',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 3,
-                                rowEnd: 3,
-                            },
-                            {
-                                id: 'RAD',
-                                colSpan: 2,
-                                rowStart: 3,
-                                rowEnd: 3,
-                            },
-                            {
-                                id: 'LIS',
-                                colStart: 3,
-                                colEnd: 3,
-                                rowStart: 2,
-                                rowEnd: 2,
-                            },
-                        ],
-                        dim: '50%',
-                        gridCols: 3,
-                        gridRows: 3,
-                        gap: 2,
-                    },
-                ],
-                horizontal: true,
-            },
-        },
-    ],
-};
-
-const data1 = {
-    columns: [
-        {
-            name: 'NAM',
-            title: 'Name',
-            visible: true,
-        },
-        {
-            name: 'SUR',
-            title: 'Surname',
-            visible: true,
-        },
-        {
-            name: 'NAT',
-            title: 'Nation',
-            visible: true,
-        },
-        {
-            name: 'CIT',
-            title: 'Tree Options',
-            visible: true,
-        },
-        {
-            name: 'LIS',
-            title: 'Table Options',
-            visible: true,
-        },
-        {
-            name: 'CHK',
-            title: 'Checkbox',
-            visible: true,
-        },
-        {
-            name: 'RAD',
-            title: 'Radio Buttons',
-            visible: true,
-        },
+        { editable: false, name: 'BTN1', visible: true, isEditable: false },
+        { editable: false, name: 'BTN2', visible: true, isEditable: false },
+        { name: 'NAT', title: 'Combo', visible: true },
     ],
     rows: [
         {
             cells: {
                 NAM: {
                     value: 'Giovanni',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
-                    },
+                    obj: { t: '', p: '', k: '' },
                     editable: true,
                     mandatory: true,
                     shape: 'ITX',
                 },
-                SUR: {
-                    value: 'serio',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
-                    },
+                INP1: {
+                    value: '',
+                    obj: { t: 'D8', p: '', k: '' },
                     editable: true,
                     mandatory: true,
-                    shape: 'ITX',
+                },
+                INP2: {
+                    value: '',
+                    obj: { t: 'NR', p: '' },
+                    editable: true,
+                    mandatory: true,
+                },
+                BTN1: {
+                    value: 'Load data',
+                    obj: { t: 'J4', p: 'BTN' },
+                    options: [],
+                    editable: true,
+                    mandatory: true,
+                },
+                BTN2: {
+                    value: 'Avanti',
+                    obj: { t: 'J4', p: 'BTN' },
+                    options: [],
+                    editable: true,
+                    mandatory: true,
                 },
                 NAT: {
                     value: 'ITA',
@@ -268,210 +2101,1089 @@ const data1 = {
                     mandatory: true,
                     shape: 'CMB',
                 },
-                CIT: {
-                    value: 'E1',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
+            },
+            layout: {
+                type: 'SmeupDataLayout',
+                horizontal: false,
+                sections: [
+                    {
+                        content: [
+                            {
+                                options: [],
+                                editable: false,
+                                mandatory: false,
+                                id: 'NAM',
+                                colSpan: 1,
+                                rowSpan: 1,
+                            },
+                        ],
+                        sections: [],
+                        horizontal: false,
+                        gridCols: 4,
+                        gridRows: 2,
+                        gap: 2,
                     },
+                ],
+            },
+        },
+    ],
+    debugInfo: {
+        executionTime_ms: 51,
+        initialTimestamp: '2024-06-11T15:02:17.854994131Z',
+        finalTimestamp: '2024-06-11T15:02:17.906443131Z',
+        runtime: 'Java 21',
+    },
+};
+
+const data1 = {
+    columns: [
+        {
+            name: 'NAM',
+            title: 'Name',
+            visible: true,
+        },
+        {
+            editable: false,
+            name: 'INP1',
+            title: 'Field1',
+            visible: true,
+            isEditable: false,
+        },
+        {
+            editable: false,
+            name: 'INP2',
+            title: 'Field2',
+            visible: true,
+            isEditable: false,
+        },
+        {
+            name: 'DATA',
+            title: '',
+            visible: true,
+        },
+        { editable: false, name: 'BTN1', visible: true, isEditable: false },
+        { editable: false, name: 'BTN2', visible: true, isEditable: false },
+    ],
+    rows: [
+        {
+            cells: {
+                NAM: {
+                    value: '',
                     editable: true,
                     mandatory: true,
-                    shape: 'ACP',
-                    fun: 'ddas',
+
+                    obj: { t: '', p: '', k: '' },
+                    shape: 'ITX',
                 },
-                LIS: {
-                    value: 'E2',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
-                    },
+                INP1: {
+                    value: '',
+                    obj: { t: 'D8' },
                     editable: true,
                     mandatory: true,
-                    shape: 'ACP',
-                    fun: 'fff',
                 },
-                CHK: {
-                    value: 'on',
+                INP2: {
+                    value: '',
+                    obj: { t: 'NR', p: '' },
                     editable: true,
                     mandatory: true,
-                    shape: 'CHK',
                 },
-                RAD: {
-                    value: '1',
-                    options: [
-                        {
-                            id: '1',
-                            label: 'One',
-                        },
-                        {
-                            id: '2',
-                            label: 'Two',
-                        },
-                        {
-                            id: '3',
-                            label: 'Three',
-                        },
-                        {
-                            id: '4',
-                            label: 'Four',
-                        },
-                    ],
+                BTN1: {
+                    value: 'Load data',
+                    obj: { t: 'J4', p: 'BTN' },
+                    options: [],
                     editable: true,
                     mandatory: true,
-                    shape: 'RAD',
+                },
+                BTN2: {
+                    value: 'Avanti',
+                    obj: { t: 'J4', p: 'BTN' },
+                    options: [],
+                    editable: true,
+                    mandatory: true,
+                },
+                DATA: {
+                    value: datatable,
+                    obj: { t: 'TABLE' },
+                    // options: datatable,
+                    editable: true,
+                    mandatory: true,
                 },
             },
             layout: {
+                type: 'SmeupDataLayout',
+                horizontal: false,
                 sections: [
                     {
                         content: [
                             {
                                 id: 'NAM',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 1,
-                                rowEnd: 1,
                             },
                             {
-                                id: 'SUR',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 1,
-                                rowEnd: 1,
+                                id: 'INP1',
                             },
                             {
-                                id: 'NAT',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 2,
-                                rowEnd: 2,
-                            },
-                            {
-                                id: 'CIT',
-                                colStart: 2,
-                                colEnd: 2,
-                                rowStart: 2,
-                                rowEnd: 2,
-                            },
-                            {
-                                id: 'CHK',
-                                colStart: 1,
-                                colEnd: 1,
-                                rowStart: 3,
-                                rowEnd: 3,
-                            },
-                            {
-                                id: 'RAD',
-                                colSpan: 2,
-                                rowStart: 3,
-                                rowEnd: 3,
-                            },
-                            {
-                                id: 'LIS',
-                                colStart: 3,
-                                colEnd: 3,
-                                rowStart: 2,
-                                rowEnd: 2,
+                                id: 'INP2',
                             },
                         ],
-                        dim: '50%',
-                        gridCols: 3,
-                        gridRows: 3,
+                        sections: [],
+                        horizontal: false,
+                        gridCols: 4,
+                        gridRows: 2,
                         gap: 2,
+                        title: 'Anagrafica',
                     },
+                    // {
+                    //     content: [
+                    //         {
+                    //             id: 'DATA',
+                    //             colSpan: 1,
+                    //             rowSpan: 1
+                    //         },
+                    //     ],
+                    //     horizontal: false,
+                    //     gridCols: 1,
+                    //     gridRows: 1,
+                    //     title: 'Table',
+                    // },
+                    // {
+                    //     content: [
+                    //         {
+                    //             options: [],
+                    //             editable: false,
+                    //             mandatory: false,
+                    //             id: 'BTN1',
+                    //             colSpan: 1,
+                    //             rowSpan: 1,
+                    //         },
+                    //         {
+                    //             options: [],
+                    //             editable: false,
+                    //             mandatory: false,
+                    //             id: 'BTN2',
+                    //             colSpan: 1,
+                    //             rowSpan: 1,
+                    //         },
+                    //     ],
+                    //     sections: [],
+                    //     horizontal: false,
+                    //     gridCols: 4,
+                    //     gridRows: 2,
+                    //     gap: 2,
+                    //     title: 'Actions',
+                    // },
                 ],
-                horizontal: true,
             },
         },
     ],
 };
+const dataAttributeTest = {
+    columns: [
+        {
+            name: 'ITX',
+            title: 'Text Field',
+            visible: true,
+        },
+        {
+            name: 'ACP',
+            title: 'Autocomplete',
+            visible: true,
+        },
+        { editable: false, name: 'BTN', visible: true, isEditable: false },
+        {
+            name: 'CHI',
+            title: 'Chip',
+            visible: true,
+        },
+        {
+            name: 'CHK',
+            title: 'Checkbox',
+            visible: true,
+        },
+        {
+            name: 'CMB',
+            title: 'Combobox',
+            visible: true,
+        },
+        {
+            name: 'EDT',
+            title: 'Editor',
+            visible: true,
+        },
+        {
+            name: 'AML',
+            title: 'Multi Autocomplete',
+            visible: true,
+        },
+        {
+            name: 'CML',
+            title: 'Multi Combobox',
+            visible: true,
+        },
+        {
+            name: 'NMB',
+            title: 'Number',
+            visible: true,
+        },
+        {
+            name: 'CLP',
+            title: 'Color Picker',
+            visible: true,
+        },
+        {
+            name: 'CLP',
+            title: 'Color Picker',
+            visible: true,
+        },
+        {
+            name: 'DAT',
+            title: 'Date Picker',
+            visible: true,
+        },
+        {
+            name: 'RAD',
+            title: 'Radio',
+            visible: true,
+        },
+        {
+            name: 'SWT',
+            title: 'Switch',
+            visible: true,
+        },
+        {
+            name: 'TIM',
+            title: 'Time Picker',
+            visible: true,
+        },
+        {
+            name: 'TBLGRP',
+            title: 'Table Groups',
+            visible: true,
+        },
+        {
+            name: 'TBLFLT',
+            title: 'Table Filters',
+            visible: true,
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                ITX: {
+                    value: 'Giovanni',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'ITX',
+                    data: {
+                        helper: 'helper',
+                        readOnly: true,
+                    },
+                },
+                ACP: {
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'ACP',
+                    options: autocompleteTest.options,
+                    data: {
+                        // Full data
+                        // data: autocompleteTest,
+                        // Check no override default properties
+                        data: {
+                            'kup-list': {
+                                showIcons: false,
+                            },
+                        },
+                    },
+                },
+                BTN: {
+                    value: 'Avanti',
+                    obj: { t: '', p: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'BTN',
+                    data: {
+                        disabled: false,
+                        styling: 'flat',
+                    },
+                },
+                CHI: {
+                    value: 'chip1;chip2;chip3',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'CHI',
+                    data: {
+                        FChipType: 'input',
+                        displayId: true,
+                    },
+                },
+                CHK: {
+                    value: '',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'CHK',
+                    data: {
+                        leadingLabel: true,
+                        label: 'Checkbox',
+                        checked: true,
+                    },
+                },
+                CMB: {
+                    value: '',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'CMB',
+                    options: comboboxTest.options,
+                    data: {
+                        showDropDownIcon: true,
+                        data: comboboxTest.data,
+                    },
+                },
+                EDT: {
+                    value: '',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'EDT',
+                    data: {
+                        showSaveButton: false,
+                    },
+                },
+                AML: {
+                    value: 'chip1;chip2;chip3',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'AML',
+                    options: autocompleteTest.options,
+                    data: {
+                        displayId: false,
+                        data: autocompleteTest.data,
+                    },
+                },
+                CML: {
+                    value: 'chip1;chip2;chip3',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'CML',
+                    options: comboboxTest.options,
+                    data: {
+                        displayId: true,
+                        showDropDownIcon: false,
+                        data: comboboxTest.data,
+                    },
+                },
+                NMB: {
+                    value: '',
+                    obj: { t: 'NR', p: '' },
+                    editable: true,
+                    mandatory: true,
+                    data: {
+                        disabled: true,
+                    },
+                },
+                CLP: {
+                    value: '',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'CLP',
+                    data: {
+                        initialValue: '#000000',
+                    },
+                },
+                DAT: {
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'DAT',
+                    data: {
+                        firstDayIndex: 4,
+                    },
+                },
+                RAD: {
+                    value: 'rad1',
+                    options: [
+                        {
+                            id: 'rad1',
+                            label: 'value1',
+                        },
+                        {
+                            id: 'rad2',
+                            label: 'value2',
+                        },
+                    ],
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'RAD',
+                    data: {
+                        leadingLabel: true,
+                    },
+                },
+                SWT: {
+                    value: true,
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'SWT',
+                    data: {
+                        label: 'Off/On',
+                    },
+                },
+                TIM: {
+                    value: '',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'TIM',
+                    data: {
+                        clockVariant: false,
+                        timeMinutesStep: 15,
+                    },
+                },
+                TBLGRP: {
+                    value: JSON.stringify(dataTableGroupsTest),
+                    shape: 'TBL',
+                    editable: true,
+                    mandatory: true,
+                    data: {
+                        showFooter: true,
+                        showHistoryButton: true,
+                        density: 'dense',
+                        enableColumnsFormula: true,
+                        enableMergeColumns: true,
+                        enableExtraColumns: true,
+                        enableSortableColumns: true,
+                        expandGroups: true,
+                        groupLabelDisplay: 'Both',
+                        groups: [
+                            {
+                                column: 'STR001',
+                                visible: true,
+                            },
+                            {
+                                column: 'STR002',
+                                visible: true,
+                            },
+                        ],
+                        totals: {
+                            STR004: 'Average',
+                            STR001: 'Count',
+                        },
+                    },
+                },
+                TBLFLT: {
+                    value: JSON.stringify(dataTableFiltersTest),
+                    shape: 'TBL',
+                    editable: false,
+                    mandatory: true,
+                    data: {
+                        showHistoryButton: true,
+                        density: 'dense',
+                        enableColumnsFormula: true,
+                        enableMergeColumns: true,
+                        enableExtraColumns: true,
+                        enableSortableColumns: true,
+                        filters: {
+                            FLD1: {
+                                textField: 'fra',
+                                checkBoxes: [],
+                            },
+                        },
+                        globalFilter: false,
+                        globalFilterValue: '',
+                        rowsPerPage: 10,
+                        showFilters: true,
+                        showFooter: false,
+                        sortableColumnsMutateData: true,
+                        sortEnabled: true,
+                    },
+                },
+            },
+            layout: {
+                type: 'SmeupDataLayout',
+                horizontal: false,
+                sections: [
+                    {
+                        content: [
+                            {
+                                id: 'ITX',
+                            },
+                            {
+                                id: 'ACP',
+                            },
+                            {
+                                id: 'BTN',
+                            },
+                            {
+                                id: 'CHI',
+                            },
+                            {
+                                id: 'CHK',
+                            },
+                            {
+                                id: 'CMB',
+                            },
+                            {
+                                id: 'EDT',
+                            },
+                            {
+                                id: 'AML',
+                            },
+                            {
+                                id: 'CML',
+                            },
+                            {
+                                id: 'NMB',
+                            },
+                            {
+                                id: 'CLP',
+                            },
+                            {
+                                id: 'DAT',
+                            },
+                            {
+                                id: 'RAD',
+                            },
+                            {
+                                id: 'SWT',
+                            },
+                            {
+                                id: 'TIM',
+                            },
+                            {
+                                id: 'TBLGRP',
+                            },
+                            {
+                                id: 'TBLFLT',
+                            },
+                        ],
+                        sections: [],
+                        horizontal: false,
+                        gridCols: 1,
+                        gridRows: 1,
+                        gap: 2,
+                        title: 'Test data attribute of components',
+                    },
+                ],
+            },
+        },
+    ],
+    debugInfo: {
+        executionTime_ms: 51,
+        initialTimestamp: '2024-06-11T15:02:17.854994131Z',
+        finalTimestamp: '2024-06-11T15:02:17.906443131Z',
+        runtime: 'Java 21',
+    },
+};
+
+const keysShortcut = ['f5', 'F6', 'control+s'];
+const keyButtonClickTest = {
+    columns: [
+        {
+            name: 'BUTTON1',
+            title: 'Button1',
+            visible: true,
+        },
+        {
+            name: 'BUTTON2',
+            title: 'Button2',
+            visible: true,
+        },
+        {
+            name: 'BUTTON3',
+            title: 'Button2',
+            visible: true,
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                BUTTON1: {
+                    value: `Click or press '${keysShortcut[0]}'`,
+                    obj: { t: '', p: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'BTN',
+                    data: {
+                        disabled: false,
+                        styling: 'outlined',
+                        keyShortcut: keysShortcut[0],
+                    },
+                },
+                BUTTON2: {
+                    value: `Click or press '${keysShortcut[1]}'`,
+                    obj: { t: '', p: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'BTN',
+                    data: {
+                        disabled: true,
+                        styling: 'flat',
+                        keyShortcut: keysShortcut[1],
+                    },
+                },
+                BUTTON3: {
+                    value: `Click or press 'Ctrl+S'`,
+                    obj: { t: '', p: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'BTN',
+                    data: {
+                        disabled: false,
+                        styling: 'outlined',
+                        keyShortcut: keysShortcut[2],
+                    },
+                },
+            },
+            layout: {
+                type: 'SmeupDataLayout',
+                horizontal: false,
+                sections: [
+                    {
+                        content: [
+                            // {
+                            //     id: 'BUTTON1',
+                            // },
+                            {
+                                id: 'BUTTON2',
+                            },
+                            {
+                                id: 'BUTTON3',
+                            },
+                        ],
+                        sections: [],
+                        horizontal: false,
+                        gridCols: 1,
+                        gridRows: 1,
+                        gap: 2,
+                        title: 'Test keys bindings with button clicks',
+                    },
+                ],
+            },
+        },
+    ],
+    debugInfo: {
+        executionTime_ms: 51,
+        initialTimestamp: '2024-06-11T15:02:17.854994131Z',
+        finalTimestamp: '2024-06-11T15:02:17.906443131Z',
+        runtime: 'Java 21',
+    },
+};
+
+// Example of rerender configuration
+// const data1 = {
+//     columns: [
+//         {
+//             name: 'NAM',
+//             title: 'Name',
+//             visible: true,
+//         },
+//         {
+//             name: 'SUR',
+//             title: 'Surname',
+//             visible: true,
+//         },
+//         {
+//             name: 'NAT',
+//             title: 'Nation',
+//             visible: true,
+//         },
+//         {
+//             name: 'CIT',
+//             title: 'Tree Options',
+//             visible: true,
+//         },
+//         {
+//             name: 'LIS',
+//             title: 'Table Options',
+//             visible: true,
+//         },
+//         {
+//             name: 'CHK',
+//             title: 'Checkbox',
+//             visible: true,
+//         },
+//         {
+//             name: 'RAD',
+//             title: 'Radio Buttons',
+//             visible: true,
+//         },
+//     ],
+//     rows: [
+//         {
+//             cells: {
+//                 NAM: {
+//                     value: 'Giovanni',
+//                     obj: {
+//                         t: '',
+//                         p: '',
+//                         k: '',
+//                     },
+//                     editable: true,
+//                     mandatory: true,
+//                     shape: 'ITX',
+//                 },
+//                 SUR: {
+//                     value: 'serio',
+//                     obj: {
+//                         t: '',
+//                         p: '',
+//                         k: '',
+//                     },
+//                     editable: true,
+//                     mandatory: true,
+//                     shape: 'ITX',
+//                 },
+//                 NAT: {
+//                     value: 'ITA',
+//                     fun: 'combo',
+//                     obj: {
+//                         t: '',
+//                         p: '',
+//                         k: '',
+//                     },
+//                     editable: true,
+//                     mandatory: true,
+//                     shape: 'CMB',
+//                 },
+//                 CIT: {
+//                     value: 'E1',
+//                     obj: {
+//                         t: '',
+//                         p: '',
+//                         k: '',
+//                     },
+//                     editable: true,
+//                     mandatory: true,
+//                     shape: 'ACP',
+//                     fun: 'ddas',
+//                 },
+//                 LIS: {
+//                     value: 'E2',
+//                     obj: {
+//                         t: '',
+//                         p: '',
+//                         k: '',
+//                     },
+//                     editable: true,
+//                     mandatory: true,
+//                     shape: 'ACP',
+//                     fun: 'fff',
+//                 },
+//                 CHK: {
+//                     value: 'on',
+//                     editable: true,
+//                     mandatory: true,
+//                     shape: 'CHK',
+//                 },
+//                 RAD: {
+//                     value: '1',
+//                     options: [
+//                         {
+//                             id: '1',
+//                             label: 'One',
+//                         },
+//                         {
+//                             id: '2',
+//                             label: 'Two',
+//                         },
+//                         {
+//                             id: '3',
+//                             label: 'Three',
+//                         },
+//                         {
+//                             id: '4',
+//                             label: 'Four',
+//                         },
+//                     ],
+//                     editable: true,
+//                     mandatory: true,
+//                     shape: 'RAD',
+//                 },
+//             },
+//             layout: {
+//                 sections: [
+//                     {
+//                         content: [
+//                             {
+//                                 id: 'NAM',
+//                                 colStart: 1,
+//                                 colEnd: 1,
+//                                 rowStart: 1,
+//                                 rowEnd: 1,
+//                             },
+//                             {
+//                                 id: 'SUR',
+//                                 colStart: 2,
+//                                 colEnd: 2,
+//                                 rowStart: 1,
+//                                 rowEnd: 1,
+//                             },
+//                             {
+//                                 id: 'NAT',
+//                                 colStart: 1,
+//                                 colEnd: 1,
+//                                 rowStart: 2,
+//                                 rowEnd: 2,
+//                             },
+//                             {
+//                                 id: 'CIT',
+//                                 colStart: 2,
+//                                 colEnd: 2,
+//                                 rowStart: 2,
+//                                 rowEnd: 2,
+//                             },
+//                             {
+//                                 id: 'CHK',
+//                                 colStart: 1,
+//                                 colEnd: 1,
+//                                 rowStart: 3,
+//                                 rowEnd: 3,
+//                             },
+//                             {
+//                                 id: 'RAD',
+//                                 colSpan: 2,
+//                                 rowStart: 3,
+//                                 rowEnd: 3,
+//                             },
+//                             {
+//                                 id: 'LIS',
+//                                 colStart: 3,
+//                                 colEnd: 3,
+//                                 rowStart: 2,
+//                                 rowEnd: 2,
+//                             },
+//                         ],
+//                         dim: '50%',
+//                         gridCols: 3,
+//                         gridRows: 3,
+//                         gap: 2,
+//                     },
+//                 ],
+//                 horizontal: true,
+//             },
+//         },
+//     ],
+// };
 
 const inputPanel = document.getElementById('input-panel');
-inputPanel.data = data;
+inputPanel.data = keyButtonClickTest;
 inputPanel.optionsHandler = (fun, inputValue, currentState) => {
     console.log('optionsHandler event', { fun, inputValue, currentState });
 
+    // return Promise.resolve({
+    //     type: 'SmeupTable',
+    //     messages: [],
+    //     rows: [
+    //         {
+    //             fields: {
+    //                 E1: {
+    //                     smeupObject: {
+    //                         codice: 'E1',
+    //                         testo: 'Element 1',
+    //                     },
+    //                 },
+    //                 E2: {
+    //                     smeupObject: {
+    //                         codice: 'E2',
+    //                         testo: 'Element 2',
+    //                     },
+    //                 },
+    //                 E3: {
+    //                     smeupObject: {
+    //                         codice: 'E3',
+    //                         testo: 'Element 3',
+    //                     },
+    //                 },
+    //             },
+    //         },
+    //         {
+    //             fields: {
+    //                 E4: {
+    //                     smeupObject: {
+    //                         codice: 'E4',
+    //                         testo: 'Element 4',
+    //                     },
+    //                 },
+    //                 E5: {
+    //                     smeupObject: {
+    //                         codice: 'E5',
+    //                         testo: 'Element 5',
+    //                     },
+    //                 },
+    //                 E6: {
+    //                     smeupObject: {
+    //                         codice: 'E6',
+    //                         testo: 'Element 6',
+    //                     },
+    //                 },
+    //             },
+    //         },
+    //         {
+    //             fields: {
+    //                 E14: {
+    //                     smeupObject: {
+    //                         codice: 'E14',
+    //                         testo: 'Element 14',
+    //                     },
+    //                 },
+    //                 E15: {
+    //                     smeupObject: {
+    //                         codice: 'E15',
+    //                         testo: 'Element 15',
+    //                     },
+    //                 },
+    //                 E16: {
+    //                     smeupObject: {
+    //                         codice: 'E16',
+    //                         testo: 'Element 16',
+    //                     },
+    //                 },
+    //             },
+    //         },
+    //     ],
+    // });
+
     return Promise.resolve({
         type: 'SmeupTable',
-        messages: [],
+        columns: [
+            {
+                IO: 'I',
+                code: 'COL1',
+                ogg: '',
+                sortMode: 'A',
+                text: 'Column 1',
+                tooltip: false,
+            },
+            {
+                IO: 'O',
+                code: 'COL2',
+                ogg: '',
+                sortMode: 'A',
+                text: 'Column 2',
+                tooltip: false,
+            },
+        ],
         rows: [
             {
                 fields: {
-                    E1: {
+                    RowId: {
+                        name: 'RowId',
                         smeupObject: {
-                            codice: 'E1',
-                            testo: 'Element 1',
+                            codice: '0',
+                            parametro: '',
+                            tipo: 'NR',
                         },
+                        tooltip: false,
                     },
-                    E2: {
+                    ID: {
+                        name: 'ID',
                         smeupObject: {
-                            codice: 'E2',
-                            testo: 'Element 2',
+                            codice: '1',
+                            parametro: '',
+                            tipo: 'NR',
                         },
+                        tooltip: false,
                     },
-                    E3: {
+                    COL2: {
+                        name: 'COL2',
                         smeupObject: {
-                            codice: 'E3',
-                            testo: 'Element 3',
+                            codice: 'Row 1 column 2',
+                            parametro: '',
+                            testo: 'Row 1 column 2',
+                            tipo: '',
                         },
+                        tooltip: false,
+                    },
+                    COL1: {
+                        name: 'COL1',
+                        smeupObject: {
+                            codice: 'Row 1 column 1',
+                            exec: 'EXEC',
+                            i: 'home',
+                            parametro: '',
+                            testo: 'Override value',
+                            tipo: '',
+                        },
+                        tooltip: false,
                     },
                 },
             },
             {
                 fields: {
-                    E4: {
+                    RowId: {
+                        name: 'RowId',
                         smeupObject: {
-                            codice: 'E4',
-                            testo: 'Element 4',
+                            codice: '1',
+                            parametro: '',
+                            tipo: 'NR',
                         },
+                        tooltip: false,
                     },
-                    E5: {
+                    ID: {
+                        name: 'ID',
                         smeupObject: {
-                            codice: 'E5',
-                            testo: 'Element 5',
+                            codice: '2',
+                            parametro: '',
+                            tipo: 'NR',
                         },
+                        tooltip: false,
                     },
-                    E6: {
+                    COL2: {
+                        name: 'COL2',
                         smeupObject: {
-                            codice: 'E6',
-                            testo: 'Element 6',
+                            codice: 'Row 2 column 2',
+                            parametro: '',
+                            testo: 'Row 2 column 2',
+                            tipo: '',
                         },
+                        tooltip: false,
                     },
-                },
-            },
-            {
-                fields: {
-                    E14: {
+                    COL1: {
+                        name: 'COL1',
                         smeupObject: {
-                            codice: 'E14',
-                            testo: 'Element 14',
+                            codice: 'Row 2 column 1',
+                            parametro: '',
+                            testo: 'Row 2 column 1',
+                            tipo: '',
                         },
-                    },
-                    E15: {
-                        smeupObject: {
-                            codice: 'E15',
-                            testo: 'Element 15',
-                        },
-                    },
-                    E16: {
-                        smeupObject: {
-                            codice: 'E16',
-                            testo: 'Element 16',
-                        },
+                        tooltip: false,
                     },
                 },
             },
         ],
     });
 };
+
 inputPanel.submitCb = (e) => {
-    console.log(e);
+    console.log('submit', e);
+
+    // Example of rerender event
     const inputPanel = document.getElementById('input-panel');
-    inputPanel.data = data1;
+    let updated;
+    if (e.cell === 'BTN2') {
+        updated = structuredClone(data1);
+    } else if (e.cell === 'BTN1') {
+        updated = structuredClone(data);
+        updated.rows[0].cells.DATA.value = datatable;
+        updated.rows[0].layout.sections[1].content[0].id = 'BTN2';
+    } else {
+        updated = structuredClone(data);
+    }
+    inputPanel.data = updated;
 };
 
+inputPanel.customButtonClickHandler = (fun, cellId, currentState) => {
+    console.log('customButtonClick event', { fun, cell: cellId, currentState });
+};
+
+// Example of Ergon Form configuration
 // const ergonForm = {
 //     columns: [
 //         {

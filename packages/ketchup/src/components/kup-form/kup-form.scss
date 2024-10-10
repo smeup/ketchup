@@ -11,9 +11,9 @@
 :host {
   --kup_form_background_color: var(
     --kup-form-background-color,
-    var(--kup-background-color)
+    var(--kup-layer-0)
   );
-  --kup_form_color: var(--kup-form-color, var(--kup-text-color));
+  --kup_form_color: var(--kup-form-color, var(--kup-text-secondary));
   --kup_form_font_family: var(--kup-form-font-family, var(--kup-font-family));
   --kup_form_font_size: var(--kup-form-font-size, var(--kup-font-size));
   --kup_form_label_alignment: var(--kup-form-label-alignment);
@@ -58,7 +58,7 @@
     }
 
     &--titled {
-      border: 1px solid var(--kup-border-color);
+      border: 1px solid var(--kup-border-subtle);
       padding-top: 5px;
       position: relative;
       margin: 10px;

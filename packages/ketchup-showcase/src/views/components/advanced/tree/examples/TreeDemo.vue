@@ -107,7 +107,7 @@ export default {
         },
         {
           name: 'hideColumn',
-          description: ' Hides the given column.',
+          description: 'Hides the given column.',
         },
         {
           name: 'openColumnMenu',
@@ -122,6 +122,11 @@ export default {
           name: 'resizeCallback',
           description:
             'This method is invoked by KupManager whenever the component changes size.',
+        },
+        {
+          name: 'setExpansionByDepth',
+          description:
+            "Adds/subtracts the input number from the first node's depth level.",
         },
         {
           name: 'setProps',

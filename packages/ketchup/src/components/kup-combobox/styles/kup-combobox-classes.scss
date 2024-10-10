@@ -19,7 +19,7 @@
 }
 
 :host(.#{$kup-class-danger}) {
-  --kup-textfield-primary-color: var(--kup-danger-color);
+  --kup-textfield-primary-color: var(--kup-danger-color-60);
   --kup-textfield-primary-color-rgb: var(--kup-danger-color-rgb);
 }
 
@@ -39,6 +39,26 @@
 }
 
 :host(.#{$kup-class-warning}) {
-  --kup-textfield-primary-color: var(--kup-warning-color);
+  --kup-textfield-primary-color: var(--kup-warning-color-50);
   --kup-textfield-primary-color-rgb: var(--kup-warning-color-rgb);
+}
+
+:host(.page-selector),
+:host(.rows-selector) {
+  .f-text-field {
+    .mdc-text-field {
+      border-bottom: none !important;
+      width: max-content !important;
+    }
+    .mdc-text-field-container {
+      flex-direction: row !important;
+      .mdc-text-field__label-container {
+        white-space: nowrap;
+        @include kup-body-compact-01;
+      }
+    }
+    .mdc-text-field-helper-line {
+      display: none;
+    }
+  }
 }

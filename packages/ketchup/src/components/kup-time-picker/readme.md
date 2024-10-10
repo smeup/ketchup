@@ -130,6 +130,7 @@ Type: `Promise<void>`
 - [kup-card](../kup-card)
 - [kup-list](../kup-list)
 - [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
@@ -137,10 +138,12 @@ graph TD;
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
+  kup-time-picker --> kup-badge
   kup-card --> kup-time-picker
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
+  kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-card
@@ -159,13 +162,17 @@ graph TD;
   kup-chip --> kup-badge
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
+  kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
   kup-combobox --> kup-dialog
+  kup-combobox --> kup-badge
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
+  kup-date-picker --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-image --> kup-card
@@ -194,10 +201,12 @@ graph TD;
   kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
+  kup-checkbox --> kup-badge
   kup-data-table --> kup-time-picker
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-time-picker
+  kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge

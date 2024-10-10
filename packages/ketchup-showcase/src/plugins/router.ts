@@ -19,6 +19,12 @@ const basicRoutes = [
     component: () => import(`@/views/components/basic/accordion/Accordion.vue`),
   },
   {
+    path: `/activitytimeline`,
+    name: 'activitytimeline',
+    component: () =>
+      import(`@/views/components/basic/activitytimeline/ActivityTimeline.vue`),
+  },
+  {
     path: `/autocomplete`,
     name: 'autocomplete',
     component: () =>
@@ -322,6 +328,12 @@ const frameworkRoutes = [
     component: () => import(`@/views/framework/kup-manager/KupManager.vue`),
   },
   {
+    path: `/kup-keys-binding`,
+    name: 'kup-keys-binding',
+    component: () =>
+      import(`@/views/framework/kup-keys-binding/KupKeysBinding.vue`),
+  },
+  {
     path: `/kup-math`,
     name: 'kup-math',
     component: () => import(`@/views/framework/kup-math/KupMath.vue`),
@@ -346,6 +358,11 @@ const frameworkRoutes = [
     path: `/kup-theme`,
     name: 'kup-theme',
     component: () => import(`@/views/framework/kup-theme/KupTheme.vue`),
+  },
+  {
+    path: `/kup-token`,
+    name: 'kup-token',
+    component: () => import(`@/views/framework/kup-token/KupToken.vue`),
   },
   {
     path: `/kup-toolbar`,
