@@ -65,11 +65,11 @@
   }
 }
 
-:host(:not(.#{$kup-class-borderless})) {
-  .box {
-    border: 1px solid var(--kup-border-color);
-  }
-}
+// :host(:not(.#{$kup-class-borderless})) {
+//   .box {
+//     border: 1px solid var(--kup-border-subtle);
+//   }
+// }
 
 :host(.#{$kup-class-flat-on-hover}) {
   #box-container .box-wrapper .box:hover {
@@ -98,15 +98,13 @@
 :host(:not(.#{$kup-class-paddingless})) {
   #box-container {
     .box {
-      padding: 3px;
-
       .box-section {
         .box-object {
           padding: 1px 4px;
         }
 
         &.last-child {
-          margin: 3px 4px;
+          padding: 3px 4px;
         }
       }
     }

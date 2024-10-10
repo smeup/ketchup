@@ -55,8 +55,8 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup/releases/tag/v9.6.10"
-            >v9.6.10</a
+          ><a href="https://github.com/smeup/ketchup/releases/tag/v10.0.0"
+            >v10.0.0</a
           ></div
         ></div
       >
@@ -132,7 +132,7 @@ export default {
     ) {
       dom.ketchupInit = {
         ...dom.ketchupInit,
-        theme: { name: 'dark' },
+        theme: { name: 'octane' },
       };
     }
     document.addEventListener('kup-theme-change', () => {
@@ -163,9 +163,9 @@ export default {
   methods: {
     changeTheme(e: CustomEvent<KupSwitchEventPayload>): void {
       if (e.detail.value === 'on') {
-        dom.ketchup.theme.set('dark');
+        dom.ketchup.theme.set('darkOctaneGray');
       } else {
-        dom.ketchup.theme.set('ketchup');
+        dom.ketchup.theme.set('octane');
       }
     },
     drawerReady(): void {
@@ -199,7 +199,7 @@ export default {
     },
     removeSpinner(): void {
       setTimeout(() => {
-        if (dom.ketchup.theme.name === 'dark') {
+        if (dom.ketchup.theme.name === 'darkOctaneGray') {
           theme.checked = true;
         }
         spinnerLabel.innerHTML = 'Ready!';
@@ -452,6 +452,16 @@ export default {
                 },
                 icon: 'view-sequential',
                 value: 'Accordion',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'activitytimeline',
+                  },
+                },
+                icon: 'calendar',
+                value: 'Activity Timeline',
                 visible: true,
               },
               {
@@ -842,6 +852,16 @@ export default {
           {
             cells: {
               ROUTE: {
+                value: 'kup-keys-binding',
+              },
+            },
+            icon: 'wrench',
+            value: 'KupKeysBinding',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
                 value: 'kup-language',
               },
             },
@@ -897,6 +917,16 @@ export default {
             },
             icon: 'style',
             value: 'KupTheme',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-token',
+              },
+            },
+            icon: 'dns',
+            value: 'KupToken',
             visible: true,
           },
           {
@@ -1107,7 +1137,7 @@ label {
 }
 
 .version {
-  border-top: 1px solid var(--kup-border-color);
+  border-top: 1px solid var(--kup-border-subtle);
   box-sizing: border-box;
   font-weight: 600;
   margin-top: auto;
@@ -1207,7 +1237,7 @@ a.footer__icon--trailing {
 #rasterize-viewer {
   background: var(--kup-background-color);
   bottom: 0;
-  border: 1px solid var(--kup-border-color);
+  border: 1px solid var(--kup-border-subtle);
   height: 30vh;
   overflow: auto;
   position: fixed;

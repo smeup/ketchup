@@ -1,14 +1,9 @@
-import {
-    KupDataTableDataset,
-    KupTextFieldCustomEvent,
-    KupTextFieldEventPayload,
-} from '../../components';
+import { KupDataTableDataset } from '../../components';
 import { KupCardFamily } from '../../components/kup-card/kup-card-declarations';
 import {
     KupCardBuiltInOpenAIMessages,
     KupCardBuiltInOpenAIOptions,
 } from '../../components/kup-card/kup-card-declarations';
-import { KupTextField } from '../../components/kup-text-field/kup-text-field';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
@@ -57,10 +52,9 @@ export class KupOpenAI {
         _this.card.refresh();
     }
 
-    #invalidPassword(event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) {
-        const field = event.detail.comp as KupTextField;
+    #invalidPassword(field: HTMLKupTextFieldElement) {
         field.helper = 'Invalid password.';
-        field.rootElement.classList.add('kup-danger');
+        field.classList.add('kup-danger');
         field.refresh();
     }
 
@@ -87,7 +81,7 @@ export class KupOpenAI {
         if (!this.url) {
             this.getCardOptions().state = 'error';
         } else {
-            this.getCardOptions().state = 'authentication';
+            this.mockAuth();
         }
     }
 
@@ -99,6 +93,7 @@ export class KupOpenAI {
             this.card.data.options = {
                 submitCb: this.chat,
                 authCb: this.auth,
+                sttCb: this.stt,
             } as KupCardBuiltInOpenAIOptions;
         }
         return this.card.data.options as KupCardBuiltInOpenAIOptions;
@@ -190,6 +185,57 @@ export class KupOpenAI {
         this.#create();
     }
 
+    async stt(
+        inputArea: HTMLKupTextFieldElement,
+        button: HTMLKupButtonElement
+    ) {
+        const speechConstructor =
+            window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!speechConstructor) {
+            alert('Speech recognition is not supported in this browser.');
+            return;
+        }
+        const recognition = new speechConstructor();
+        recognition.lang = dom.ketchup.language.getBCP47();
+        recognition.interimResults = true;
+        recognition.maxAlternatives = 1;
+
+        recognition.addEventListener(
+            'result',
+            (event: SpeechRecognitionEvent) => {
+                const transcript = Array.from(event.results)
+                    .map((result) => result[0])
+                    .map((result) => result.transcript)
+                    .join('');
+                dom.ketchup.debug.logMessage(
+                    'KupOpenAi',
+                    'STT response: ' + transcript
+                );
+                inputArea.setValue(transcript, true);
+                const isFinal = event.results[event.results.length - 1].isFinal;
+                if (isFinal) {
+                    recognition.stop();
+                }
+            }
+        );
+
+        recognition.addEventListener('end', () => {
+            recognition.stop();
+            button.showSpinner = false;
+        });
+
+        recognition.addEventListener('start', () => {
+            inputArea.setFocus();
+            button.showSpinner = true;
+        });
+
+        try {
+            recognition.start();
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     async hide() {
         if (this.card) {
             this.card.remove();
@@ -200,12 +246,46 @@ export class KupOpenAI {
         }
     }
 
-    async auth(event: KupTextFieldCustomEvent<KupTextFieldEventPayload>) {
+    async mockAuth() {
         const openAI = dom.ketchup.openAI;
         if (!openAI.url) {
             return;
         }
-        const pwd = await event.detail.comp.getValue();
+        let response = null;
+        try {
+            response = await fetch(openAI.url + '/api/auth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ data: 'mockup' }),
+            });
+        } catch (e) {
+            openAI.setError(e.message, openAI);
+            return;
+        }
+
+        if (response) {
+            if (response.status === 200) {
+                const responseJson = await response.json();
+                if (responseJson.status == 'ok') {
+                    openAI.getCardOptions().state = 'connecting';
+                    openAI.card.refresh();
+                    openAI.#connect();
+                    return;
+                }
+            }
+        }
+        openAI.getCardOptions().state = 'error';
+        openAI.card.refresh();
+    }
+
+    async auth(field: HTMLKupTextFieldElement) {
+        const openAI = dom.ketchup.openAI;
+        if (!openAI.url) {
+            return;
+        }
+        const pwd = await field.getValue();
         let response = null;
         try {
             response = await fetch(openAI.url + '/api/auth', {
@@ -222,8 +302,7 @@ export class KupOpenAI {
 
         if (response) {
             if (response.status != 200) {
-                openAI.#invalidPassword(event);
-                //this.setError(await response.text());
+                openAI.#invalidPassword(field);
                 return;
             }
             const responseJson = await response.json();

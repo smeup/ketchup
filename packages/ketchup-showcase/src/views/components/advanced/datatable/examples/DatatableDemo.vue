@@ -96,15 +96,19 @@ export default {
           type: 'click',
         },
         {
-          name: 'kup-datatable-rowactionclick',
-          type: 'click',
-        },
-        {
           name: 'kup-datatable-loadmoreclick',
           type: 'click',
         },
         {
           name: 'kup-datatable-save',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-datatable-rowaction-item-click',
+          type: 'click',
+        },
+        {
+          name: 'kup-datatable-update',
           type: 'CustomEvent',
         },
       ],
@@ -160,6 +164,11 @@ export default {
         {
           name: 'setFocus',
           description: 'Sets the focus on an editable table cell.',
+        },
+        {
+          name: 'setGroupExpansionByDepth',
+          description:
+            "Adds/subtracts the input number from the first group's depth level.",
         },
         {
           name: 'setProps',
@@ -280,6 +289,13 @@ export default {
         {
           prop: 'fixedColumns',
           description: 'Amount of frozen columns.',
+          type: 'number',
+          default: '0',
+          try: 'field',
+        },
+        {
+          prop: 'fixedColumnsR',
+          description: 'Amount of frozen columns to the right.',
           type: 'number',
           default: '0',
           try: 'field',
@@ -576,6 +592,14 @@ export default {
         {
           prop: 'transpose',
           description: 'Transposes the data of the data table.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'updatableData',
+          description:
+            'When set to true, editable cells will be rendered using input components and update button will appair below the matrix.',
           type: 'boolean',
           default: 'false',
           try: 'switch',

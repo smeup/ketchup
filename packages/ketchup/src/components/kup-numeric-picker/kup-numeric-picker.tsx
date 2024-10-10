@@ -36,6 +36,7 @@ import {
     KupCardData,
     KupCardFamily,
 } from '../kup-card/kup-card-declarations';
+import { getProps } from '../../utils/utils';
 @Component({
     tag: 'kup-numeric-picker',
     styleUrl: 'kup-numeric-picker.scss',
@@ -323,22 +324,7 @@ export class KupNumericPicker {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupNumericPickerProps;
-        } else {
-            for (const key in KupNumericPickerProps) {
-                if (
-                    Object.prototype.hasOwnProperty.call(
-                        KupNumericPickerProps,
-                        key
-                    )
-                ) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupNumericPickerProps, descriptions);
     }
     /**
      * This method is used to trigger a new render of the component.

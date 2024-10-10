@@ -1,7 +1,5 @@
 # kup-color-picker
 
-
-
 <!-- Auto Generated Below -->
 
 
@@ -13,6 +11,7 @@
 | `data`         | --              | Props of the text field.                                                                                                              | `Object`  | `null`  |
 | `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                                                       | `boolean` | `false` |
 | `initialValue` | `initial-value` | Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ). | `string`  | `''`    |
+| `readOnly`     | `read-only`     | Sets the component to read only state, making it not editable, but interactable.                                                      | `boolean` | `false` |
 | `swatchOnly`   | `swatch-only`   | When true, the component's text field will be replaced by a swatch.                                                                   | `boolean` | `false` |
 
 
@@ -121,16 +120,19 @@ Type: `Promise<void>`
 
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
+  kup-color-picker --> kup-badge
   kup-card --> kup-color-picker
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
+  kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-card
@@ -149,16 +151,20 @@ graph TD;
   kup-chip --> kup-badge
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
   kup-combobox --> kup-dialog
+  kup-combobox --> kup-badge
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
+  kup-date-picker --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
+  kup-time-picker --> kup-badge
   kup-image --> kup-card
   kup-image --> kup-image
   kup-image --> kup-dialog
@@ -185,10 +191,12 @@ graph TD;
   kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
+  kup-checkbox --> kup-badge
   kup-data-table --> kup-color-picker
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-color-picker
+  kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge

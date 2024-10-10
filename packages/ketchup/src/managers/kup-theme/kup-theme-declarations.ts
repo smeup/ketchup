@@ -66,6 +66,7 @@ export const fChipUsers = [
  */
 export const fImageUsers = [
     KupTagNames.ACCORDION,
+    KupTagNames.ACTIVITY_TIMELINE,
     KupTagNames.BADGE,
     KupTagNames.BOX,
     KupTagNames.BUTTON,
@@ -74,6 +75,7 @@ export const fImageUsers = [
     KupTagNames.CARD,
     KupTagNames.CELL,
     KupTagNames.CHIP,
+    KupTagNames.CHECKBOX,
     KupTagNames.DASHBOARD,
     KupTagNames.DATA_TABLE,
     KupTagNames.DIALOG,
@@ -82,10 +84,14 @@ export const fImageUsers = [
     KupTagNames.FORM,
     KupTagNames.IMAGE,
     KupTagNames.IMAGE_LIST,
+    KupTagNames.INPUT_PANEL,
     KupTagNames.LIST,
     KupTagNames.MAGIC_BOX,
     KupTagNames.SNACKBAR,
     KupTagNames.TAB_BAR,
+    KupTagNames.TEXT_FIELD,
+    KupTagNames.TYPOGRAPHY,
+    KupTagNames.TYPOGRAPHY_LIST,
     KupTagNames.TREE,
 ];
 /**
@@ -138,6 +144,14 @@ export const fSwitchUsers = [
     KupTagNames.SWITCH,
     KupTagNames.TREE,
 ];
+
+/**
+ * Components using the FSwitch functional component.
+ */
+export const fTypographyUsers = [
+    KupTagNames.TYPOGRAPHY,
+    KupTagNames.TYPOGRAPHY_LIST,
+];
 /**
  * Components using the FTextField functional component.
  */
@@ -168,6 +182,10 @@ export const rippleUsers = [
     KupTagNames.TAB_BAR,
     KupTagNames.TREE,
 ];
+/**
+ * Components using the Editor component.
+ */
+export const editorUsers = [KupTagNames.INPUT_PANEL];
 /**
  * Interface of the themes JSON.
  */
@@ -286,12 +304,12 @@ export enum KupThemeColorValues {
     HOVER = '--kup-hover-color',
     TITLE_BACKGROUND = '--kup-title-background-color',
     TITLE = '--kup-title-color',
-    ICON = '--kup-icon-color',
-    BORDER = '--kup-border-color',
-    INFO = '--kup-info-color',
-    SUCCESS = '--kup-success-color',
-    WARNING = '--kup-warning-color',
-    DANGER = '--kup-danger-color',
+    ICON = '--kup-text-secondary',
+    BORDER = '--kup-border-subtle',
+    INFO = '--kup-info-color-50',
+    SUCCESS = '--kup-success-color-50',
+    WARNING = '--kup-warning-color-50',
+    DANGER = '--kup-danger-color-50',
     SPINNER = '--kup-spinner-color',
     CHART_1 = '--kup-chart-color-1',
     CHART_2 = '--kup-chart-color-2',

@@ -15,6 +15,10 @@
 */
 
 :host {
+  --kup_imagelist_columns_mobile: var(--kup-imagelist-columns-mobile, 4);
+  --kup_imagelist_columns_tablet: var(--kup-imagelist-columns-tablet, 6);
+  --kup_imagelist_columns_desktop: var(--kup-imagelist-columns-desktop, 8);
+
   --kup_imagelist_background_color: var(
     --kup-imagelist-background-color,
     transparent
@@ -51,11 +55,15 @@
   );
   --kup_imagelist_text_color: var(
     --kup-imagelist-text-color,
-    var(--kup-gray-color-70)
+    var(--kup-text-secondary)
   );
   --kup_imagelist_item_background_color: var(
     --kup-imagelist-item-background-color,
-    var(--kup-gray-color-10)
+    var(--kup-layer-1)
+  );
+  --kup_imagelist_item_background_color_hover: var(
+    --kup-imagelist-item-background-color-hover,
+    var(--kup-layer-1-hover)
   );
 
   display: block;
@@ -118,7 +126,7 @@
   display: grid;
   grid-gap: var(--kup_imagelist_grid_gap);
   grid-template-columns: repeat(
-    var(--kup_imagelist_columns, 4),
+    var(--kup-imagelist-columns-mobile, var(--kup_imagelist_columns_mobile)),
     minmax(0px, 1fr)
   );
   margin-top: 1em;
@@ -128,7 +136,7 @@
   .f-cell {
     height: 100%;
     width: 100%;
-    .f-cell__content{
+    .f-cell__content {
       height: 100%;
     }
     .f-cell__content .image-list__wrapper {
@@ -139,11 +147,11 @@
       position: relative;
       height: 100%;
     }
-    .f-cell__content .image-list__wrapper.images{
+    .f-cell__content .image-list__wrapper.images {
       height: 100%;
       justify-content: flex-end;
 
-      .f-image{
+      .f-image {
         position: unset;
         overflow: auto;
         height: 100%;
@@ -160,7 +168,7 @@
     padding: var(--kup_imagelist_item_padding);
     width: var(--kup_imagelist_item_width);
     &:hover {
-      background-color: var(--kup-gray-color-20);
+      background-color: var(--kup_imagelist_item_background_color_hover);
     }
   }
 
@@ -170,12 +178,11 @@
     padding-bottom: 0px;
     box-sizing: border-box;
     width: 100%;
-    height: calc(100% - 16px - var(--kup-space-03)*2);
+    height: calc(100% - 16px - var(--kup-space-03) * 2);
     overflow: hidden;
 
-
     .f-image__icon {
-      mask-size: 100%!important;
+      mask-size: 100% !important;
     }
   }
 
@@ -189,15 +196,23 @@
   }
 }
 
-
 @media screen and (min-width: 678px) {
-  :host {
-    --kup_imagelist_columns: var(--kup-imagelist-columns, 8);
-  }
-
   .image-list {
     grid-template-columns: repeat(
-      var(--kup_imagelist_columns, 8),
+      var(--kup-imagelist-columns-tablet, var(--kup_imagelist_columns_tablet)),
+      minmax(0px, 1fr)
+    );
+    grid-gap: var(--kup-space-05);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .image-list {
+    grid-template-columns: repeat(
+      var(
+        --kup-imagelist-columns-desktop,
+        var(--kup_imagelist_columns_desktop)
+      ),
       minmax(0px, 1fr)
     );
     grid-gap: var(--kup-space-05);

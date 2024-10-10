@@ -1,23 +1,22 @@
 .box-layout-2 {
-  background-color: var(--kup-background-color);
-  color: var(--kup-text-color);
-  font-size: var(--kup-font-size);
-  padding: 0.5em;
+  @include kup-body-compact-01;
 
   table {
     width: 100%;
+    display: grid;
+    gap: var(--kup-space-05);
+    tr {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 
   .label {
     max-width: 50%;
-    overflow: hidden;
-    padding: 0.5em;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   .value {
-    padding: 0.5em;
     font-weight: bold;
+    @include kup-heading-compact-01;
   }
 }

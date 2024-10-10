@@ -6,7 +6,6 @@ import {
     forceUpdate,
     h,
     Host,
-    JSX,
     Method,
     Prop,
     State,
@@ -41,7 +40,6 @@ import {
     KupDatatableRowSelectedEventPayload,
     KupDatatableClickEventPayload,
     KupDatatableColumnMenuEventPayload,
-    KupDatatableRowActionClickEventPayload,
     KupDatatableLoadMoreClickEventPayload,
     KupDatatableColumnRemoveEventPayload,
     KupDatatableColumnMoveEventPayload,
@@ -53,6 +51,9 @@ import {
     KupDatatableInsertRowEventPayload,
     KupDataTableInsertMode,
     KupDatatableHistoryEventPayload,
+    KupDatatableRowActionItemClickEventPayload,
+    KupDatatableUpdatePayload,
+    DataTableAreasEnum,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -62,10 +63,13 @@ import {
     groupRows,
     paginateRows,
     sortRows,
+    getDiffData,
+    decorateDataTable,
 } from './kup-data-table-helper';
 import {
     GenericObject,
     KupComponent,
+    KupComponentSizing,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import { identify, getProps, setProps } from '../../utils/utils';
@@ -145,7 +149,6 @@ import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declar
 import {
     FCellEventPayload,
     FCellPadding,
-    FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { FPaginator } from '../../f-components/f-paginator/f-paginator';
@@ -154,6 +157,7 @@ import {
     rowsPerPageChange,
 } from '../../f-components/f-paginator/f-paginator-utils';
 import {
+    KupCommand,
     KupDataColumn,
     KupDataDataset,
     KupDataNewColumnOptions,
@@ -165,7 +169,8 @@ import {
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupFormRow } from '../kup-form/kup-form-declarations';
-import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
+import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
+import { KupList } from '../kup-list/kup-list';
 @Component({
     tag: 'kup-data-table',
     styleUrl: 'kup-data-table.scss',
@@ -573,6 +578,13 @@ export class KupDataTable {
      */
     @Prop() fixedColumns: number = 0;
     /**
+     * Fixes the given number of columns to the right so that they stay visible when horizontally scrolling the data-table.
+     * If grouping is active or the value of the prop is <= 0, this prop will have no effect.
+     * Can be combined with fixedRows.
+     * @see fixedRows
+     */
+    @Prop() fixedColumnsR: number = 0;
+    /**
      * Fixes the given number of rows so that they stay visible when vertically scrolling the data-table.
      * If grouping is active or the value of the prop is <= 0, this prop will have no effect.
      * Can be combined with fixedColumns.
@@ -669,6 +681,10 @@ export class KupDataTable {
      */
     @Prop() rowActions: Array<KupDataRowAction>;
     /**
+     * Sets the commands for the rows
+     */
+    @Prop() commands: Array<KupCommand>;
+    /**
      * Sets the number of rows per page to display.
      */
     @Prop() rowsPerPage = 10;
@@ -747,6 +763,13 @@ export class KupDataTable {
      */
     @Prop({ mutable: true }) transpose: boolean = false;
 
+    /**
+     * When set to true, editable cells will be rendered using input components,
+     * and update button will appair below the matrix
+     * @default false
+     */
+    @Prop({ mutable: true }) updatableData: boolean = false;
+
     //-------- State --------
 
     @State()
@@ -756,7 +779,7 @@ export class KupDataTable {
     private currentPage = 1;
 
     @State()
-    private currentRowsPerPage = 10;
+    private currentRowsPerPage = 50;
 
     @State()
     private selectedRows: Array<KupDataTableRow> = [];
@@ -825,6 +848,14 @@ export class KupDataTable {
         this.#resetSelectedRows();
     }
 
+    @Watch('data')
+    backupOriginalDataAndAdapting() {
+        this.#originalDataLoaded = JSON.parse(JSON.stringify(this.data));
+        if (this.data['type'] === 'SmeupDataTable') {
+            decorateDataTable(this.data);
+        }
+    }
+
     @Watch('groups')
     recalculateRowsAndUndoSelections() {
         if (!this.#isRestoringState) {
@@ -837,12 +868,17 @@ export class KupDataTable {
     }
 
     @Watch('fixedColumns')
+    @Watch('fixedColumnsR')
     @Watch('fixedRows')
     controlFixedRowsColumns() {
         let warnMessage = '';
 
         if (isNaN(this.fixedColumns) || this.fixedColumns < 0) {
             warnMessage += `The value ${this.fixedColumns} set on fixedColumns property is not valid.`;
+        }
+
+        if (isNaN(this.fixedColumnsR) || this.fixedColumnsR < 0) {
+            warnMessage += `The value ${this.fixedColumnsR} set on fixedColumnsR property is not valid.`;
         }
 
         if (isNaN(this.fixedRows) || this.fixedRows < 0) {
@@ -888,13 +924,20 @@ export class KupDataTable {
     /**
      * contains the original data, used in transposed function
      */
-    #originalData: KupDataDataset = undefined;
+    #originalData: KupDataTableDataset = undefined;
+
+    /**
+     * contains the original data when the component is
+     * loaded the first time
+     */
+    #originalDataLoaded: KupDataDataset = undefined;
 
     /**
      * Reference to the working area of the table. This is the below-wrapper reference.
      */
     #tableAreaRef: KupScrollOnHoverElement;
     #stickyTheadRef: any;
+    #lastPointerDetails: KupDatatableEventHandlerDetails;
     #customizeTopButtonRef: any;
     #customizeTopPanelRef: HTMLKupCardElement;
     #sizedColumns: KupDataColumn[] = undefined;
@@ -931,11 +974,13 @@ export class KupDataTable {
     #filtersRowsInstance: FiltersRows;
     #detailCard: HTMLKupCardElement = null;
     #insertCard: HTMLKupCardElement = null;
+    #actionsCard: HTMLKupCardElement = null;
     #confirmDeleteCard: HTMLKupCardElement = null;
     #confirmDeleteDialog: HTMLKupDialogElement = null;
     #columnMenuCard: HTMLKupCardElement = null;
     #columnDropCard: HTMLKupCardElement = null;
     #columnDropCardAnchor: HTMLElement = null;
+    #dropDownActionCardAnchor: HTMLElement = null;
     #insertCount = 0;
 
     #BUTTON_CANCEL_ID: string = 'cancel';
@@ -1009,6 +1054,16 @@ export class KupDataTable {
     })
     kupDataTableContextMenu: EventEmitter<KupDatatableClickEventPayload>;
     /**
+     * Generic right click event on a cell in data table.
+     */
+    @Event({
+        eventName: 'kup-datatable-cell-actions-menu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableCellActionsMenu: EventEmitter<KupDatatableClickEventPayload>;
+    /**
      * Generic double click event on data table.
      */
     @Event({
@@ -1028,16 +1083,6 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableColumnMenu: EventEmitter<KupDatatableColumnMenuEventPayload>;
-    /**
-     * When a row action is clicked
-     */
-    @Event({
-        eventName: 'kup-datatable-rowactionclick',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupRowActionClick: EventEmitter<KupDatatableRowActionClickEventPayload>;
 
     @Event({
         eventName: 'kup-datatable-loadmoreclick',
@@ -1107,6 +1152,40 @@ export class KupDataTable {
         bubbles: true,
     })
     kupHistory: EventEmitter<KupDatatableHistoryEventPayload>;
+
+    /**
+     * Event fired when the history confirm button is pressed.
+     */
+    @Event({
+        eventName: 'kup-datatable-rowaction-item-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupRowActionItemClick: EventEmitter<KupDatatableRowActionItemClickEventPayload>;
+
+    /**
+     * Event fired when the cell action icon is pressed
+     */
+    @Event({
+        eventName: 'kup-datatable-cell-action-icon-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupCellActionIconClick: EventEmitter<KupDatatableClickEventPayload>;
+
+    /**
+     * Event fired when the user click on update button,
+     * update button is visible when the props updatableData is true
+     */
+    @Event({
+        eventName: 'kup-datatable-update',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupUpdate: EventEmitter<KupDatatableUpdatePayload>;
 
     /**
      * Closes any opened column menu.
@@ -1292,6 +1371,106 @@ export class KupDataTable {
         });
         this.refresh();
     }
+    /**
+     * Adds/subtracts the input number from the first group's depth level.
+     */
+
+    @Method()
+    async setGroupExpansionByDepth(modifier: number) {
+        const toStream = () => {
+            const streamlined: KupDataTableRow[] = [];
+            for (let index = 0; index < this.#paginatedRows.length; index++) {
+                const row = this.#paginatedRows[index];
+                const group = row.group;
+                if (group) {
+                    recursive(row);
+                }
+
+                function recursive(row: KupDataTableRow) {
+                    const group = row.group;
+                    streamlined.push(row);
+                    for (
+                        let index = 0;
+                        group?.children && index < group.children.length;
+                        index++
+                    ) {
+                        recursive(group.children[index]);
+                    }
+                }
+            }
+            return streamlined;
+        };
+        const handleChildren = (
+            row: KupDataTableRow,
+            expand: boolean,
+            maxDepth?: number,
+            depth?: number
+        ) => {
+            const group = row.group;
+
+            if (row.hasOwnProperty('group')) {
+                const shouldExpand = depth < maxDepth;
+
+                group.expanded = shouldExpand;
+                this.groupState[group.id] = { expanded: shouldExpand };
+                const paginated = paginatedStream?.find(
+                    (r) => r.group?.id === group.id
+                )?.group;
+                if (paginated) {
+                    paginated.expanded = shouldExpand;
+                }
+                if (group.children) {
+                    for (
+                        let index = 0;
+                        index < group.children.length;
+                        index++
+                    ) {
+                        const child = group.children[index];
+                        handleChildren(child, expand, maxDepth, depth + 1);
+                    }
+                }
+            }
+        };
+        const getGroupDepth = (): number => {
+            const firstGroup = this.#rows[0];
+            let maxDepth = 0;
+
+            const traverseGroup = (
+                row: KupDataTableRow,
+                currentDepth: number
+            ): void => {
+                const group = row.group;
+                if (row.hasOwnProperty('group')) {
+                    if (group.expanded) {
+                        maxDepth = Math.max(maxDepth, currentDepth);
+                        maxDepth += 1;
+                    }
+                    traverseGroup(group.children[0], currentDepth + 1);
+                }
+            };
+
+            if (firstGroup) {
+                traverseGroup(firstGroup, 0);
+            }
+
+            return maxDepth;
+        };
+        const paginatedStream = toStream();
+
+        let maxDepth = getGroupDepth() + modifier;
+
+        for (let index = 0; index < this.#rows.length; index++) {
+            const row = this.#rows[index];
+            const group = row.group;
+            if (group) {
+                handleChildren(row, false, maxDepth, 0);
+            }
+        }
+
+        this.#adjustGroupState();
+        this.refresh();
+    }
+
     /**
      * Invokes the KupData API for column creation, then refreshes the component in case no errors were catched.
      * @param {KupDataNewColumnTypes} type - Type of the column creation.
@@ -1668,12 +1847,7 @@ export class KupDataTable {
                 if (!totalValue) {
                     totalValue = row.group.id;
                 }
-                if (
-                    this.#kupManager.dates.isValid(
-                        totalValue,
-                        KupDatesFormats.ISO_DATE
-                    )
-                ) {
+                if (this.#kupManager.dates.isIsoDate(totalValue)) {
                     totalValue = this.#kupManager.dates.format(totalValue);
                 }
                 cells[id] = {
@@ -1858,6 +2032,30 @@ export class KupDataTable {
                     for (const key in e) {
                         clone[key] = e[key];
                     }
+
+                    // in case an icon is clicked
+                    if (
+                        (e.target as HTMLElement).classList.contains(
+                            'f-image__icon'
+                        )
+                    ) {
+                        const details = this.#getEventDetails(
+                            this.#kupManager.getEventPath(
+                                e.target,
+                                this.rootElement
+                            ),
+                            e
+                        );
+
+                        // in case a cell action icon is clicked
+                        if (
+                            details?.cell?.obj?.t !== 'J4' &&
+                            details?.cell?.obj?.p !== 'ICO'
+                        ) {
+                            break;
+                        }
+                    }
+
                     this.#clickTimeout.push(
                         setTimeout(() => {
                             this.kupDataTableClick.emit({
@@ -2014,13 +2212,16 @@ export class KupDataTable {
                     !this.enableMergeColumns
                 );
                 const draggable = e.relatedTarget as KupDraggableElement;
+                const isSameComponent = !!(
+                    this.rootElement.id === draggable.kupDragDrop.id
+                );
                 const starter = draggable.kupDragDrop.column;
                 const receiving = getColumnByName(
                     this.getColumns(),
                     e.target.dataset.column
                 );
                 this.#columnDropCardAnchor = e.target as HTMLElement;
-                if (receiving && starter) {
+                if (isSameComponent && receiving && starter) {
                     if (onlySort) {
                         this.#handleColumnSort(receiving, starter);
                     } else if (onlyMerge) {
@@ -2113,21 +2314,26 @@ export class KupDataTable {
             for (let index = 0; index < this.#rowsRefs.length; index++) {
                 const row = this.#rowsRefs[index];
                 const dataCb: KupDragDataTransferCallback = () => {
-                    const cellEl = this.rootElement.shadowRoot.querySelector(
-                        'td:hover'
-                    ) as HTMLElement;
+                    const cell = this.#lastPointerDetails?.cell;
+                    const column = this.#lastPointerDetails?.column;
+                    const row = this.#lastPointerDetails?.row;
+                    if (!cell) {
+                        this.#kupManager.debug.logMessage(
+                            this,
+                            "Couldn't find cell to retrieve drag informations!",
+                            KupDebugCategory.WARNING
+                        );
+                        return;
+                    }
                     return {
-                        cell: cellEl['data-cell'],
-                        column: getColumnByName(
-                            this.getVisibleColumns(),
-                            cellEl.dataset.column
-                        ),
+                        cell,
+                        column,
                         id: this.rootElement.id,
                         multiple: !!(
                             this.selection === SelectionMode.MULTIPLE ||
                             this.selection === SelectionMode.MULTIPLE_CHECKBOX
                         ),
-                        row: cellEl['data-row'],
+                        row,
                         selectedRows: this.selectedRows,
                     };
                 };
@@ -2151,26 +2357,22 @@ export class KupDataTable {
         }
         if (this.dropEnabled) {
             const dataCb: KupDropDataTransferCallback = () => {
-                const cell =
-                    this.rootElement.shadowRoot.querySelector('td:hover');
+                const cell = this.#lastPointerDetails?.cell;
+                const column = this.#lastPointerDetails?.column;
+                const row = this.#lastPointerDetails?.row;
                 if (!cell) {
                     this.#kupManager.debug.logMessage(
                         this,
-                        "Couldn't find cell hovered to retrieve dropzone informations!",
+                        "Couldn't find cell to retrieve dropzone informations!",
                         KupDebugCategory.WARNING
                     );
                     return;
                 }
-                const path = this.#kupManager.getEventPath(
-                    cell,
-                    this.rootElement
-                );
-                const receivingDetails = this.#getEventDetails(path);
                 return {
-                    cell: receivingDetails.cell,
-                    column: receivingDetails.column,
+                    cell,
+                    column,
                     id: this.rootElement.id,
-                    row: receivingDetails.row,
+                    row,
                 };
             };
             for (let index = 0; index < this.#rowsRefs.length; index++) {
@@ -2338,6 +2540,8 @@ export class KupDataTable {
 
         this.#calculateData();
         this.#initialized = true;
+
+        this.backupOriginalDataAndAdapting();
     }
 
     componentWillRender() {
@@ -2603,7 +2807,175 @@ export class KupDataTable {
         this.#detailCard.style.transform = 'translate(' + x + 'px,' + y + 'px)';
         this.rootElement.shadowRoot.append(this.#detailCard);
     }
+    /**
+     * Opens a card containing the actions of the given row.
+     * @param {KupDataRowAction[]} dropDownActions - Actions for the row.
+     * @private
+     * @memberof KupDataTable
+     */
+    #dropDownActions(
+        dropDownActions: KupDataRowAction[],
+        row: KupDataTableRow
+    ) {
+        this.#createDropDownActionsCard(dropDownActions, row);
+    }
 
+    #createDropDownActionsCard(
+        dropDownActions: KupDataRowAction[],
+        row: KupDataTableRow
+    ) {
+        if (this.#actionsCard) {
+            this.#closeRowActionsCard();
+        }
+        this.#actionsCard = document.createElement('kup-card');
+        this.#actionsCard.layoutFamily = KupCardFamily.STANDARD;
+        this.#actionsCard.layoutNumber = 17;
+        this.#actionsCard.menuVisible = true;
+        this.#actionsCard.sizeX = 'auto';
+        this.#actionsCard.sizeY = 'auto';
+        this.#actionsCard.data =
+            this.#prepareDataForActionsCard(dropDownActions);
+        this.#clickCbDropCard = {
+            cb: () => {
+                this.#closeRowActionsCard();
+            },
+            el: this.#actionsCard,
+        };
+        this.#kupManager.addClickCallback(this.#clickCbDropCard, true);
+        this.#actionsCard.style.position = 'absolute';
+        this.#actionsCard.style.left = '0';
+        this.#actionsCard.style.top = '0';
+        this.#actionsCard.isMenu = true;
+        this.rootElement.shadowRoot.append(this.#actionsCard);
+        this.#kupManager.dynamicPosition.register(
+            this.#actionsCard,
+            this.#dropDownActionCardAnchor as KupDynamicPositionAnchor,
+            0,
+            KupDynamicPositionPlacement.AUTO,
+            true
+        );
+        this.#kupManager.dynamicPosition.start(
+            this.#actionsCard as unknown as KupDynamicPositionElement
+        );
+        this.#actionsCard.addEventListener(
+            'kup-card-event',
+            (e: CustomEvent<KupCardEventPayload>) => {
+                switch (e.detail.event.type) {
+                    case 'kup-textfield-input':
+                        const input = e.detail.event.detail.value;
+
+                        this.#filterRowActionsCard(
+                            this.#actionsCard,
+                            dropDownActions,
+                            input
+                        );
+                        break;
+                    case 'kup-textfield-cleariconclick':
+                        this.#clearSearchActionsCard(
+                            this.#actionsCard,
+                            dropDownActions
+                        );
+                        break;
+                    case 'kup-list-click':
+                        const selectedObjectIndex = e.detail.event.detail.index;
+                        const selectedObject =
+                            dropDownActions[selectedObjectIndex];
+
+                        this.kupRowActionItemClick.emit({
+                            comp: this,
+                            id: this.rootElement.id,
+                            row: row,
+                            obj: selectedObject.obj,
+                            cell: selectedObject.cell,
+                            type: selectedObject.type,
+                            index: selectedObject.index,
+                            column: selectedObject.column,
+                        });
+                        setTimeout(() => {
+                            this.#closeRowActionsCard();
+                        }, 0);
+                }
+            }
+        );
+    }
+
+    #clearSearchActionsCard(
+        card: HTMLKupCardElement,
+        dropDownActions: KupDataRowAction[]
+    ) {
+        const rowActionsList: Pick<KupList, 'showIcons' | 'data'> = {
+            showIcons: true,
+            data: dropDownActions.map((r) => ({
+                value: r.text,
+                ...r,
+            })),
+        };
+        card.data.list[0].data = rowActionsList.data;
+        card.refresh();
+    }
+
+    #filterRowActionsCard(
+        card: HTMLKupCardElement,
+        dropDownActions: KupDataRowAction[],
+        input: string
+    ) {
+        const rowActionsList: Pick<KupList, 'showIcons' | 'data'> = {
+            showIcons: true,
+            data: dropDownActions.map((r) => ({
+                value: r.text,
+                ...r,
+            })),
+        };
+        const filteredList: KupListNode[] = rowActionsList.data.filter(
+            (action: KupListNode) =>
+                action.value.toLowerCase().includes(input.toLowerCase())
+        );
+        card.data.list[0].data = filteredList;
+        card.refresh();
+    }
+
+    #closeRowActionsCard() {
+        this.#kupManager.dynamicPosition.stop(
+            this.#actionsCard as KupDynamicPositionElement
+        );
+        this.#kupManager.removeClickCallback(this.#clickCbDropCard);
+        this.#actionsCard.remove();
+        this.#actionsCard = null;
+    }
+
+    #prepareDataForActionsCard(
+        dropDownActions: KupDataRowAction[]
+    ): KupCardData {
+        const hasAlmostTenElements = dropDownActions.length >= 10;
+
+        const textfield = hasAlmostTenElements
+            ? [
+                  {
+                      fullWidth: true,
+                      icon: 'magnify',
+                      isClearable: true,
+                      label: 'Search...',
+                      key: KupColumnMenuIds.TEXTFIELD_FILTER,
+                      id: KupColumnMenuIds.TEXTFIELD_FILTER,
+                  },
+              ]
+            : [];
+
+        const data: KupCardData = {
+            list: [
+                {
+                    showIcons: true,
+                    data: dropDownActions.map((r) => ({
+                        value: r.text,
+                        ...r,
+                    })),
+                },
+            ],
+            textfield,
+        };
+
+        return data;
+    }
     #rowInsertForm() {
         const CARD_WIDTH = 400;
         const CARD_HEIGHT = 400;
@@ -2618,8 +2990,8 @@ export class KupDataTable {
             'kup-form { max-height: 40vh; overflow: auto; } .page-wrapper { display: grid; } ' +
             '.button-wrapper { padding-top: 20px; display: flex; justify-content: space-around; z-index: var(--kup-card-zindex); } ' +
             '.message-wrapper { display: none; justify-content: start; padding-top: 5px; padding-bottom: 5px; } ' +
-            '.errorIcon { --kup-icon-color: var(--kup-danger-color); } ' +
-            '.message { background-color: var(--kup-danger-color); color: white; padding: 3px; } ';
+            '.errorIcon { --kup-icon-color: var(--kup-danger-color-60); } ' +
+            '.message { background-color: var(--kup-danger-color-60); color: white; padding: 3px; } ';
         this.#insertCard.append(style);
 
         const pageWrapper = document.createElement('div');
@@ -2936,17 +3308,34 @@ export class KupDataTable {
         return details;
     }
 
+    #cellActionsMenuHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
+        e.stopPropagation();
+        const details: KupDatatableEventHandlerDetails = this.#getEventDetails(
+            this.#kupManager.getEventPath(e.target, this.rootElement),
+            e
+        );
+        if (details.cell) {
+            const cellActions = this.#kupManager.data.cell.buildCellActions(
+                details.row,
+                details.column,
+                this.commands ?? []
+            );
+            this.#onRowActionExpanderClick(e, details.row, cellActions);
+        }
+        return details;
+    }
+
     #contextMenuHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.#getEventDetails(
             this.#kupManager.getEventPath(e.target, this.rootElement),
             e
         );
-        if (details.area === 'header') {
+        if (details.area === DataTableAreasEnum.HEADER) {
             if (details.th && details.column) {
                 this.openColumnMenu(details.column.name);
                 return details;
             }
-        } else if (details.area === 'footer') {
+        } else if (details.area === DataTableAreasEnum.FOOTER) {
             if (details.td && details.column) {
                 this.#totalMenuCoords = { x: e.clientX, y: e.clientY };
                 this.#onTotalMenuOpen(details.column);
@@ -2976,9 +3365,10 @@ export class KupDataTable {
     }
 
     getVisibleColumns(): Array<KupDataColumn> {
-        // TODO: change into `visible ?? true` when TS dependency has been updated
-        const visibleColumns = this.getColumns().filter(({ visible }) =>
-            visible !== undefined ? visible : true
+        const visibleColumns = this.getColumns().filter(
+            (col) =>
+                !this.#kupManager.data.column.isCodVer(col) &&
+                (!('visible' in col) || col.visible)
         );
 
         // check grouping
@@ -3005,7 +3395,6 @@ export class KupDataTable {
                 return true;
             });
         }
-
         return visibleColumns;
     }
 
@@ -3168,6 +3557,7 @@ export class KupDataTable {
     //==== Fixed columns and rows methods ====
     #composeFixedCellStyleAndClass(
         columnCssIndex: number,
+        columnCssIndexR: number,
         rowCssIndex: number,
         extraCellsCount: number = 0
     ):
@@ -3184,13 +3574,18 @@ export class KupDataTable {
         const validFixedColumn: boolean =
             Number.isInteger(this.fixedColumns) &&
             columnCssIndex <= this.fixedColumns + extraCellsCount;
+        const validFixedColumnR: boolean =
+            this.fixedColumnsR &&
+            Number.isInteger(this.fixedColumnsR) &&
+            columnCssIndexR >
+                this.getVisibleColumns().length - this.fixedColumnsR;
         const validFixedRowIndex =
             Number.isInteger(this.fixedRows) &&
             rowCssIndex > 0 &&
             rowCssIndex <= this.fixedRows;
 
         // When the cell is not valid to be either into a fixed column or into a fixed row, returns null.
-        if (!validFixedRowIndex && !validFixedColumn) {
+        if (!validFixedRowIndex && !validFixedColumn && !validFixedColumnR) {
             return undefined;
         }
 
@@ -3204,6 +3599,19 @@ export class KupDataTable {
                 ShowGrid.COL === this.showGrid;
             fixedCellStyle['left'] =
                 'var(' + FixedCellsCSSVarsBase.columns + columnCssIndex + ')';
+        }
+
+        if (validFixedColumnR) {
+            const prog =
+                columnCssIndexR - (this.getVisibleColumns().length - 1);
+            const progIdx = prog - this.fixedColumnsR;
+            const absIdx = Math.abs(progIdx);
+            fixedCellClasses[FixedCellsClasses.columnsR] = validFixedColumnR;
+            fixedCellClasses['show-column-separator'] =
+                ShowGrid.COMPLETE === this.showGrid ||
+                ShowGrid.COL === this.showGrid;
+            fixedCellStyle['right'] =
+                'var(' + (FixedCellsCSSVarsBase.columnsR + absIdx) + ')'; // right value assignment must be reversed
         }
 
         if (validFixedRowIndex) {
@@ -3266,7 +3674,13 @@ export class KupDataTable {
             let previousWidth: number = 0;
             const totalFixedColumns =
                 this.fixedColumns +
-                (this.#hasRowActions() ? 1 : 0) +
+                (this.#hasRowActions() ||
+                this.#kupManager.data.column.hasCodVer(this.data.columns) ||
+                this.#kupManager.data.action.hasCommandsWithBlankObj(
+                    this.commands
+                )
+                    ? 1
+                    : 0) +
                 (this.selection === SelectionMode.MULTIPLE_CHECKBOX ? 1 : 0);
 
             // @See [CSSCount]
@@ -3278,6 +3692,25 @@ export class KupDataTable {
                 previousWidth += currentCell.getBoundingClientRect().width; // [ffbf]
                 currentCell =
                     currentCell.nextElementSibling as HTMLTableCellElement;
+            }
+            toRet = true;
+        }
+
+        if (this.fixedColumnsR >= 1) {
+            let currentCell: HTMLTableCellElement =
+                this.#tableRef.querySelector(
+                    'tbody > tr:first-of-type > td:last-of-type'
+                );
+            let previousWidth = 0;
+
+            for (let i = 1; i <= this.fixedColumnsR && currentCell; i++) {
+                this.#tableAreaRef.style.setProperty(
+                    FixedCellsCSSVarsBase.columnsR + i,
+                    previousWidth + 'px'
+                );
+                previousWidth += currentCell.getBoundingClientRect().width;
+                currentCell =
+                    currentCell.previousElementSibling as HTMLTableCellElement;
             }
             toRet = true;
         }
@@ -3453,26 +3886,14 @@ export class KupDataTable {
         }
     }
 
-    #onDefaultRowActionClick({ action, row, type, index }) {
-        this.kupRowActionClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            action,
-            index,
-            row,
-            type,
-        });
-    }
-
-    #onRowActionExpanderClick(e: MouseEvent, row: KupDataTableRow) {
+    #onRowActionExpanderClick(
+        e: MouseEvent | PointerEvent,
+        row: KupDataTableRow,
+        dropDownActions: KupDataRowAction[]
+    ) {
         e.stopPropagation();
-
-        this.kupRowActionClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            row,
-            type: 'expander',
-        });
+        this.#dropDownActionCardAnchor = e.target as HTMLElement;
+        this.#dropDownActions(dropDownActions, row);
     }
 
     #handleRowSelect(row: KupDataTableRow) {
@@ -3608,7 +4029,6 @@ export class KupDataTable {
             // no grouping
             return;
         }
-
         this.#rows.forEach((r) => this.#adjustGroupStateFromRow(r));
     }
 
@@ -3677,7 +4097,11 @@ export class KupDataTable {
             colSpan += 1;
         }
 
-        if (this.#hasRowActions()) {
+        if (
+            this.#hasRowActions() ||
+            this.#kupManager.data.column.hasCodVer(this.data.columns) ||
+            this.#kupManager.data.action.hasCommandsWithBlankObj(this.commands)
+        ) {
             colSpan += 1;
         }
 
@@ -3747,6 +4171,15 @@ export class KupDataTable {
         this.refresh();
     }
 
+    #handleUpdateClick = () => {
+        this.kupUpdate.emit({
+            comp: this,
+            id: this.rootElement.id,
+            originalData: this.#originalDataLoaded,
+            updatedData: getDiffData(this.#originalDataLoaded, this.data),
+        });
+    };
+
     @Method() async defaultSortingFunction(
         columns: KupDataColumn[],
         receivingColumnIndex: number,
@@ -3813,6 +4246,7 @@ export class KupDataTable {
         // For fixed cells styles and classes
         const fixedCellStyle = this.#composeFixedCellStyleAndClass(
             columnIndex + 1 + extraCells,
+            columnIndex + 1,
             0,
             extraCells
         );
@@ -3842,6 +4276,7 @@ export class KupDataTable {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
                 specialExtraCellsCount,
+                0,
                 0,
                 specialExtraCellsCount - 1
             );
@@ -3887,10 +4322,15 @@ export class KupDataTable {
 
         // Renders action column
         let actionsColumn = null;
-        if (this.#hasRowActions()) {
+        if (
+            this.#hasRowActions() ||
+            this.#kupManager.data.column.hasCodVer(this.data.columns) ||
+            this.#kupManager.data.action.hasCommandsWithBlankObj(this.commands)
+        ) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
                 specialExtraCellsCount,
+                0,
                 0,
                 specialExtraCellsCount - 1
             );
@@ -4030,6 +4470,7 @@ export class KupDataTable {
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
                 specialExtraCellsCount,
                 0,
+                0,
                 specialExtraCellsCount - 1
             );
 
@@ -4073,10 +4514,15 @@ export class KupDataTable {
 
         // Empty cell for the actions
         let actionsColumn = null;
-        if (this.#hasRowActions()) {
+        if (
+            this.#hasRowActions() ||
+            this.#kupManager.data.column.hasCodVer(this.data.columns) ||
+            this.#kupManager.data.action.hasCommandsWithBlankObj(this.commands)
+        ) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
                 specialExtraCellsCount,
+                0,
                 0,
                 specialExtraCellsCount - 1
             );
@@ -4152,7 +4598,10 @@ export class KupDataTable {
             if (menu) {
                 this.#kupManager.dynamicPosition.register(
                     menu as unknown as KupDynamicPositionElement,
-                    this.#totalMenuCoords
+                    this.#totalMenuCoords,
+                    0,
+                    undefined,
+                    true
                 );
                 this.#clickCb = {
                     cb: () => {
@@ -4184,6 +4633,7 @@ export class KupDataTable {
             const fixedCellStyle = this.#composeFixedCellStyleAndClass(
                 extraCells,
                 0,
+                0,
                 extraCells
             );
 
@@ -4201,10 +4651,15 @@ export class KupDataTable {
 
         // Action cell
         let actionsCell = null;
-        if (this.#hasRowActions()) {
+        if (
+            this.#hasRowActions() ||
+            this.#kupManager.data.column.hasCodVer(this.data.columns) ||
+            this.#kupManager.data.action.hasCommandsWithBlankObj(this.commands)
+        ) {
             extraCells++;
             const selectionStyleAndClass = this.#composeFixedCellStyleAndClass(
                 extraCells,
+                0,
                 0,
                 extraCells
             );
@@ -4228,6 +4683,7 @@ export class KupDataTable {
             (column: KupDataColumn, columnIndex) => {
                 const fixedCellStyle = this.#composeFixedCellStyleAndClass(
                     columnIndex + 1 + extraCells,
+                    columnIndex + 1,
                     0,
                     extraCells
                 );
@@ -4478,7 +4934,13 @@ export class KupDataTable {
             if (this.#hasTotals()) {
                 //const colSpan = this.multiSelection ? 2 : 1;
                 const cells = [];
-                if (this.#hasRowActions()) {
+                if (
+                    this.#hasRowActions() ||
+                    this.#kupManager.data.column.hasCodVer(this.data.columns) ||
+                    this.#kupManager.data.action.hasCommandsWithBlankObj(
+                        this.commands
+                    )
+                ) {
                     cells.push(<td></td>);
                 }
                 if (this.selection === SelectionMode.MULTIPLE_CHECKBOX) {
@@ -4513,10 +4975,7 @@ export class KupDataTable {
                         if (this.#kupManager.objects.isDate(column.obj)) {
                             if (totalValue) {
                                 if (
-                                    this.#kupManager.dates.isValid(
-                                        totalValue,
-                                        KupDatesFormats.ISO_DATE
-                                    )
+                                    this.#kupManager.dates.isIsoDate(totalValue)
                                 ) {
                                     value =
                                         this.#kupManager.dates.format(
@@ -4548,6 +5007,31 @@ export class KupDataTable {
                     </tr>
                 );
 
+                // if group is expanded, add children
+
+                if (this.#isGroupExpanded(row)) {
+                    row.group.children
+                        // We must pass the previous element of the array to check if we must hide or display the value of the cell
+                        // When the column has specified the parameter hideValuesRepetitions
+                        .map((row, groupRowIndex, currentArray) =>
+                            this.#renderRow(
+                                row,
+                                level + 1,
+                                groupRowIndex,
+                                groupRowIndex > 0
+                                    ? currentArray[groupRowIndex - 1]
+                                    : undefined
+                            )
+                        )
+                        .forEach((jsxRow) => {
+                            if (Array.isArray(jsxRow)) {
+                                jsxRow.forEach((jr) => jsxRows.push(jr));
+                            } else {
+                                jsxRows.push(jsxRow);
+                            }
+                        });
+                }
+
                 jsxRows.push(
                     <tr
                         ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
@@ -4573,30 +5057,28 @@ export class KupDataTable {
                         </td>
                     </tr>
                 );
-            }
-
-            // if group is expanded, add children
-            if (this.#isGroupExpanded(row)) {
-                row.group.children
-                    // We must pass the previous element of the array to check if we must hide or display the value of the cell
-                    // When the column has specified the parameter hideValuesRepetitions
-                    .map((row, groupRowIndex, currentArray) =>
-                        this.#renderRow(
-                            row,
-                            level + 1,
-                            groupRowIndex,
-                            groupRowIndex > 0
-                                ? currentArray[groupRowIndex - 1]
-                                : undefined
+                if (this.#isGroupExpanded(row)) {
+                    row.group.children
+                        // We must pass the previous element of the array to check if we must hide or display the value of the cell
+                        // When the column has specified the parameter hideValuesRepetitions
+                        .map((row, groupRowIndex, currentArray) =>
+                            this.#renderRow(
+                                row,
+                                level + 1,
+                                groupRowIndex,
+                                groupRowIndex > 0
+                                    ? currentArray[groupRowIndex - 1]
+                                    : undefined
+                            )
                         )
-                    )
-                    .forEach((jsxRow) => {
-                        if (Array.isArray(jsxRow)) {
-                            jsxRow.forEach((jr) => jsxRows.push(jr));
-                        } else {
-                            jsxRows.push(jsxRow);
-                        }
-                    });
+                        .forEach((jsxRow) => {
+                            if (Array.isArray(jsxRow)) {
+                                jsxRow.forEach((jr) => jsxRows.push(jr));
+                            } else {
+                                jsxRows.push(jsxRow);
+                            }
+                        });
+                }
             }
 
             // grouping row
@@ -4649,7 +5131,13 @@ export class KupDataTable {
             // Renders action cell
             // If active, this can be either the first or second cell
             let rowActionsCell = null;
-            if (this.#hasRowActions()) {
+            if (
+                this.#hasRowActions() ||
+                this.#kupManager.data.column.hasCodVer(this.data.columns) ||
+                this.#kupManager.data.action.hasCommandsWithBlankObj(
+                    this.commands
+                )
+            ) {
                 // Increments
                 specialExtraCellsCount++;
                 const actionsStyleAndClass =
@@ -4659,40 +5147,72 @@ export class KupDataTable {
                         specialExtraCellsCount - 1
                     );
 
-                rowActionsCount += this.rowActions.length;
-                const defaultRowActions = this.#renderActions(
-                    this.rowActions,
-                    row,
-                    'default'
-                );
+                rowActionsCount += this.rowActions?.length || 0;
 
-                let rowActionExpander = null;
-                let variableActions = null;
+                const actionsOnRow: FImageProps[] = [];
                 if (row.actions) {
                     rowActionsCount += row.actions.length;
-                    // adding variable actions
-                    variableActions = this.#renderActions(
-                        row.actions,
-                        row,
-                        'variable'
-                    );
                 } else {
-                    // adding expander
-                    const props: FImageProps = {
-                        color: `var(${KupThemeColorValues.PRIMARY})`,
-                        resource: 'chevron-right',
-                        sizeX: '1.5em',
-                        sizeY: '1.5em',
-                        title: this.#kupManager.language.translate(
-                            KupLanguageGeneric.EXPAND
-                        ),
-                        wrapperClass: 'expander',
-                        onClick: (e: MouseEvent) => {
-                            this.#onRowActionExpanderClick(e, row);
-                        },
-                    };
+                    const rowActions =
+                        this.#kupManager.data.row.buildRowActions(
+                            row,
+                            this.data.columns,
+                            this.rowActions,
+                            this.commands ?? []
+                        );
+
+                    if (
+                        this.#kupManager.data.action.checkEveryActionHasOnlyIcon(
+                            rowActions
+                        ) ||
+                        (rowActions.length === 1 && rowActions[0].icon)
+                    ) {
+                        rowActions.forEach((action, index) => {
+                            const imageProp: FImageProps =
+                                this.#kupManager.data.action.buildImageProp(
+                                    action.icon,
+                                    action.text || action.column?.title || '',
+                                    'action',
+                                    () => {
+                                        this.kupRowActionItemClick.emit({
+                                            comp: this,
+                                            id: this.rootElement.id,
+                                            row: row,
+                                            obj: action.obj,
+                                            cell: action.cell,
+                                            type: action.type,
+                                            index: index,
+                                            column: action.column,
+                                        });
+                                    }
+                                );
+                            actionsOnRow.push(imageProp);
+                        });
+                    } else {
+                        const textPopulatedRowActions =
+                            this.#kupManager.data.action.createActionsWithText(
+                                rowActions
+                            );
+
+                        const imageProp: FImageProps =
+                            this.#kupManager.data.action.buildImageProp(
+                                'chevron-down',
+                                this.#kupManager.language.translate(
+                                    KupLanguageGeneric.EXPAND
+                                ),
+                                'expander',
+                                (e) => {
+                                    this.#onRowActionExpanderClick(
+                                        e,
+                                        row,
+                                        textPopulatedRowActions
+                                    );
+                                }
+                            );
+
+                        actionsOnRow.push(imageProp);
+                    }
                     rowActionsCount++;
-                    rowActionExpander = <FImage {...props} />;
                 }
 
                 rowActionsCell = (
@@ -4709,9 +5229,12 @@ export class KupDataTable {
                                 : null
                         }
                     >
-                        {defaultRowActions}
-                        {rowActionExpander}
-                        {variableActions}
+                        {actionsOnRow.map((action) => (
+                            <FImage
+                                {...action}
+                                color="var(--kup-text-secondary)"
+                            ></FImage>
+                        ))}
                     </td>
                 );
             }
@@ -4734,23 +5257,38 @@ export class KupDataTable {
                         return null;
                     }
                 }
-
-                const cellProps: FCellProps = {
-                    cell: cell,
-                    column: currentColumn,
+                const fcell = {
+                    ...this.#kupManager.data.cell.buildFCell(
+                        cell,
+                        currentColumn,
+                        row
+                    ),
                     component: this,
                     density: this.density,
-                    editable: this.editableData,
+                    editable: this.editableData || this.updatableData,
                     indents: indend,
                     previousValue:
                         hideValuesRepetitions && previousRow
                             ? previousRow.cells[name].value
                             : undefined,
                     renderKup: this.lazyLoadCells,
-                    row: row,
-                    setSizes: true,
+                    cellActionIcon: this.#kupManager.data.cell.hasActionCell(
+                        cell,
+                        this.commands ?? []
+                    )
+                        ? {
+                              onClick: (e: PointerEvent) => {
+                                  this.kupCellActionIconClick.emit({
+                                      comp: this,
+                                      id: this.rootElement.id,
+                                      details: this.#cellActionsMenuHandler(e),
+                                  });
+                              },
+                          }
+                        : null,
                 };
-                const jsxCell = <FCell {...cellProps}></FCell>;
+
+                const jsxCell = <FCell {...fcell}></FCell>;
 
                 // Classes which will be set onto the single data-table cell;
 
@@ -4760,6 +5298,7 @@ export class KupDataTable {
                 //-- For fixed cells --
                 const fixedStyles = this.#composeFixedCellStyleAndClass(
                     cellIndex + 1 + specialExtraCellsCount,
+                    cellIndex + 1,
                     rowCssIndex,
                     specialExtraCellsCount
                 );
@@ -4826,7 +5365,6 @@ export class KupDataTable {
                     </td>
                 );
             });
-
             // adding row to rendered rows
             this.#renderedRows.push(row);
 
@@ -4838,16 +5376,11 @@ export class KupDataTable {
                 rowClass[row.cssClass] = true;
             }
 
-            const style: GenericObject = {
-                '--kup_datatable_row_actions': rowActionsCount,
-            };
-
             return (
                 <tr
                     ref={(el: HTMLElement) => this.#rowsRefs.push(el)}
                     data-row={row}
                     class={rowClass}
-                    style={style}
                 >
                     {selectRowCell}
                     {rowActionsCell}
@@ -4855,31 +5388,6 @@ export class KupDataTable {
                 </tr>
             );
         }
-    }
-
-    #renderActions(
-        actions: Array<KupDataRowAction>,
-        row: KupDataTableRow,
-        type: string
-    ): JSX.Element[] {
-        return actions.map((action, index) => {
-            const props: FImageProps = {
-                color: `var(${KupThemeColorValues.PRIMARY})`,
-                resource: action.icon,
-                sizeX: '1.5em',
-                sizeY: '1.5em',
-                title: action.text,
-                wrapperClass: 'action',
-                onClick: () =>
-                    this.#onDefaultRowActionClick({
-                        action,
-                        row,
-                        index,
-                        type,
-                    }),
-            };
-            return <FImage {...props} />;
-        });
     }
 
     #onCustomSettingsClick() {
@@ -5045,20 +5553,24 @@ export class KupDataTable {
                                 this.#kupManager.language.translate(
                                     KupLanguageGeneric.TOGGLE
                                 ) +
-                                ' Open AI ' +
-                                '(' +
+                                ' ' +
+                                this.#kupManager.language.translate(
+                                    KupLanguageGeneric.AI_ASSISTANT
+                                ) +
+                                ' (' +
                                 this.#kupManager.language.translate(
                                     KupLanguageGeneric.EXPERIMENTAL_FEAT
                                 ) +
                                 ')'
                             }
-                            icon="open-ai"
-                            onkup-button-click={() =>
+                            icon="smeup-ai"
+                            onkup-button-click={() => {
                                 this.#kupManager.openAI.show({
                                     context: this.rootElement.tagName,
                                     dataset: this.data,
-                                })
-                            }
+                                });
+                                this.#closeCustomSettings();
+                            }}
                         />
                     ) : null}
                 </div>
@@ -5463,11 +5975,23 @@ export class KupDataTable {
         );
     }
 
+    #renderUpdateButtons() {
+        return (
+            <kup-button
+                onKup-button-click={this.#handleUpdateClick}
+                label={this.#kupManager.language.translate(
+                    KupLanguageGeneric.UPDATE
+                )}
+            ></kup-button>
+        );
+    }
+
     render() {
         this.#thRefs = [];
         this.#rowsRefs = [];
         this.#renderedRows = [];
         let elStyle = undefined;
+        let actionWrapperWidth = undefined;
         this.#sizedColumns = this.#getSizedColumns();
 
         let rows = null;
@@ -5563,6 +6087,7 @@ export class KupDataTable {
                 groupChips = <FChip {...props}></FChip>;
             }
         }
+
         const tableClass = {
             // Class to specify whether the table should have width: auto or not.
             // Mandatory to check with custom column size.
@@ -5580,25 +6105,32 @@ export class KupDataTable {
                 this.tableHeight === undefined &&
                 this.tableWidth === undefined,
 
-            'custom-size':
-                this.tableHeight !== undefined || this.tableWidth !== undefined,
+            'custom-size': !!this.tableHeight || !!this.tableWidth,
 
             'border-top': !this.showHeader,
         };
 
+        const wrapClass = tableClass['auto-width'] ? 'auto-width' : '';
+
         tableClass[`density-${this.density}`] = true;
         tableClass[`fontsize-${this.fontsize}`] = true;
 
-        if (this.tableHeight) {
+        if (this.tableHeight && this.tableHeight !== '100%') {
             elStyle = {
+                ...elStyle,
                 height: this.tableHeight,
                 overflow: 'auto',
             };
         }
 
-        if (this.tableWidth) {
+        if (this.tableWidth && this.tableHeight !== '100%') {
             elStyle = {
                 ...elStyle,
+                width: this.tableWidth,
+                overflow: 'auto',
+            };
+            actionWrapperWidth = {
+                ...actionWrapperWidth,
                 width: this.tableWidth,
                 overflow: 'auto',
             };
@@ -5626,7 +6158,7 @@ export class KupDataTable {
         }
 
         let belowClass = 'below-wrapper';
-        if (this.tableHeight !== undefined || this.tableWidth !== undefined) {
+        if (!!this.tableHeight || !!this.tableWidth) {
             belowClass += ' custom-size';
         }
 
@@ -5659,8 +6191,9 @@ export class KupDataTable {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}>
-                    <div class="above-wrapper">
+                <div id={componentWrapperId} class={wrapClass}>
+                    <div class="group-wrapper">{groupChips}</div>
+                    <div class="actions-wrapper" style={actionWrapperWidth}>
                         {this.globalFilter ? (
                             <div id="global-filter">
                                 <FTextField
@@ -5688,13 +6221,59 @@ export class KupDataTable {
                                 />
                             </div>
                         ) : null}
-                        {paginatorTop}
-                    </div>
-                    <div class="group-wrapper">{groupChips}</div>
-                    <div class="actions-wrapper">
+                        <div class="above-wrapper paginator-top">
+                            {paginatorTop}
+                        </div>
+                        {this.insertMode !== '' &&
+                        this.selectedRows.length > 0 ? (
+                            <FButton
+                                icon="save"
+                                onClick={() => {
+                                    this.kupSave.emit({
+                                        comp: this,
+                                        id: this.rootElement.id,
+                                        selectedRows: this.selectedRows,
+                                    });
+                                }}
+                                styling={FButtonStyling.FLAT}
+                                sizing={KupComponentSizing.MEDIUM}
+                                title="Save"
+                                wrapperClass="save-button"
+                            ></FButton>
+                        ) : null}
+                        {this.showDeleteButton &&
+                        this.selectedRows.length > 0 ? (
+                            <FButton
+                                icon="delete"
+                                onClick={() => {
+                                    this.#rowsDelete();
+                                }}
+                                styling={FButtonStyling.FLAT}
+                                sizing={KupComponentSizing.MEDIUM}
+                                title="Delete selected rows"
+                                wrapperClass="delete-button"
+                            ></FButton>
+                        ) : null}
+                        {this.showHistoryButton ? (
+                            <FButton
+                                icon="history"
+                                onClick={() => {
+                                    this.kupHistory.emit({
+                                        comp: this,
+                                        id: this.rootElement.id,
+                                        selectedRows: this.selectedRows,
+                                    });
+                                }}
+                                styling={FButtonStyling.FLAT}
+                                sizing={KupComponentSizing.MEDIUM}
+                                title="History"
+                                wrapperClass="history-button"
+                            ></FButton>
+                        ) : null}
                         {this.insertMode !== '' ? (
                             <FButton
-                                icon="plus"
+                                label="Crea nuovo"
+                                // icon="plus"
                                 onClick={async () => {
                                     if (this.insertMode === 'form') {
                                         this.#rowInsertForm();
@@ -5741,52 +6320,10 @@ export class KupDataTable {
                                         await this.refresh(true);
                                     }
                                 }}
-                                styling={FButtonStyling.OUTLINED}
+                                sizing={KupComponentSizing.MEDIUM}
+                                styling={FButtonStyling.RAISED}
                                 title="Insert row"
                                 wrapperClass="insert-button"
-                            ></FButton>
-                        ) : null}
-                        {this.insertMode !== '' &&
-                        this.selectedRows.length > 0 ? (
-                            <FButton
-                                icon="save"
-                                onClick={() => {
-                                    this.kupSave.emit({
-                                        comp: this,
-                                        id: this.rootElement.id,
-                                        selectedRows: this.selectedRows,
-                                    });
-                                }}
-                                styling={FButtonStyling.OUTLINED}
-                                title="Save"
-                                wrapperClass="save-button"
-                            ></FButton>
-                        ) : null}
-                        {this.showDeleteButton &&
-                        this.selectedRows.length > 0 ? (
-                            <FButton
-                                icon="delete"
-                                onClick={() => {
-                                    this.#rowsDelete();
-                                }}
-                                styling={FButtonStyling.OUTLINED}
-                                title="Delete selected rows"
-                                wrapperClass="delete-button"
-                            ></FButton>
-                        ) : null}
-                        {this.showHistoryButton ? (
-                            <FButton
-                                icon="history"
-                                onClick={() => {
-                                    this.kupHistory.emit({
-                                        comp: this,
-                                        id: this.rootElement.id,
-                                        selectedRows: this.selectedRows,
-                                    });
-                                }}
-                                styling={FButtonStyling.OUTLINED}
-                                title="History"
-                                wrapperClass="history-button"
                             ></FButton>
                         ) : null}
                     </div>
@@ -5835,6 +6372,26 @@ export class KupDataTable {
                             onMouseLeave={(ev) => {
                                 ev.stopPropagation();
                             }}
+                            onPointerDown={(e) => {
+                                this.#lastPointerDetails =
+                                    this.#getEventDetails(
+                                        this.#kupManager.getEventPath(
+                                            e.target,
+                                            this.rootElement
+                                        ),
+                                        e as unknown as Interact.PointerEvent
+                                    );
+                            }}
+                            onPointerUp={(e) => {
+                                this.#lastPointerDetails =
+                                    this.#getEventDetails(
+                                        this.#kupManager.getEventPath(
+                                            e.target,
+                                            this.rootElement
+                                        ),
+                                        e as unknown as Interact.PointerEvent
+                                    );
+                            }}
                             onContextMenu={(e: MouseEvent) => {
                                 e.preventDefault();
                             }}
@@ -5854,6 +6411,7 @@ export class KupDataTable {
                     </div>
                     {paginatorBottom}
                 </div>
+                {this.updatableData ? this.#renderUpdateButtons() : null}
             </Host>
         );
         return compCreated;

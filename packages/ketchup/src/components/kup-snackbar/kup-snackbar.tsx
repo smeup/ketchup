@@ -69,6 +69,11 @@ export class KupSnackbar {
      */
     @Prop() text: string = '';
     /**
+     * Sets the textual content of the snackbar.
+     * @default ''
+     */
+    @Prop() header: string = '';
+    /**
      * Defaults at null, when set the snackbar will automatically disappear after the specified amount of milliseconds.
      * @default null
      */
@@ -203,7 +208,14 @@ export class KupSnackbar {
                 </style>
                 <div id={componentWrapperId}>
                     <div class={snackbarClass}>
-                        <div class={`${snackbarClass}__text`}>{this.text}</div>
+                        <div class="snackbar__text__block">
+                            <div class={`${snackbarClass}__header`}>
+                                {this.header}
+                            </div>
+                            <div class={`${snackbarClass}__text`}>
+                                {this.text}
+                            </div>
+                        </div>
                         {this.actionButton || this.closeButton ? (
                             <div class={`${snackbarClass}__buttons`}>
                                 {this.actionButton ? (

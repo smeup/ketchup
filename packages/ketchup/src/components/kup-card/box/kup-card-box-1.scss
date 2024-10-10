@@ -1,8 +1,5 @@
 .box-layout-1 {
-  background-color: var(--kup-background-color);
-  color: var(--kup-text-color);
-  font-size: var(--kup-font-size);
-  padding: 0.5em;
+  @include kup-body-compact-01;
 
   table {
     width: 100%;
@@ -18,5 +15,6 @@
   .value {
     font-weight: bold;
     padding: 0.5em;
+    @include kup-heading-compact-01;
   }
 }

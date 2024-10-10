@@ -204,12 +204,9 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
                 '#' + KupCardIds.COLUMNS_LIST
             );
             const node: KupDataNode = e.detail.treeNode;
-            const obj: KupObj = e.detail.treeNode.obj;
-            if (
-                obj &&
-                obj.t !== '' &&
-                (obj.t !== '**' || (obj.t === '**' && !obj.k))
-            ) {
+            const obj: KupObj = node.obj;
+            const objKey = obj ? obj.t + obj.p + obj.k : '';
+            if (objKey && objKey.trim() != '**' && node.expandable != true) {
                 const chipData: KupChipNode[] =
                     chip && chip.data ? chip.data : null;
                 // This should be handled server-side, data should arrive correctly.

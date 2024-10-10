@@ -53,7 +53,10 @@ import {
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
-import { KupDatesLocales } from '../../managers/kup-dates/kup-dates-declarations';
+import {
+    KupDatesFormats,
+    KupDatesLocales,
+} from '../../managers/kup-dates/kup-dates-declarations';
 import {
     KupDataColumn,
     KupDataRow,
@@ -298,6 +301,7 @@ export class KupCalendar {
             },
             events: this.getEvents(),
             headerToolbar: false,
+            //initialDate: this.currentDate ? this.currentDate : new Date().toISOString().substring(0, 10),
             initialDate: this.currentDate,
             initialView: this.viewType,
             locale: this.getLocale(),
@@ -444,11 +448,11 @@ export class KupCalendar {
                 if (startCell && endCell) {
                     const dayjsStart = this.kupManager.dates.toDayjs(
                         startCell.value,
-                        'HH:mm:ss'
+                        KupDatesFormats.ISO_TIME
                     );
                     const dayjsEnd = this.kupManager.dates.toDayjs(
                         endCell.value,
-                        'HH:mm:ss'
+                        KupDatesFormats.ISO_TIME
                     );
 
                     startDate = startDate.hour(dayjsStart.hour());

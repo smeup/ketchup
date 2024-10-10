@@ -36,6 +36,11 @@
         </style>
     </head>
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true },
+            };
+        </script>
         <h1>Dropdown button</h1>
         <kup-dropdown-button
             id="ddb1"
@@ -71,6 +76,11 @@
         <kup-dropdown-button
             id="ddb8"
             styling="outlined"
+            icon="document"
+        ></kup-dropdown-button>
+        <kup-dropdown-button
+            id="ddb9"
+            styling="flat"
             icon="document"
         ></kup-dropdown-button>
         <kup-dropdown-button

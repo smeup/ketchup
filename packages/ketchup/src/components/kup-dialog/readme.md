@@ -1,7 +1,5 @@
 # kup-dialog
 
-
-
 <!-- Auto Generated Below -->
 
 
@@ -103,6 +101,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-accordion](../kup-accordion)
+ - [kup-activity-timeline](../kup-activity-timeline)
  - [kup-autocomplete](../kup-autocomplete)
  - [kup-badge](../kup-badge)
  - [kup-box](../kup-box)
@@ -153,6 +152,8 @@ Type: `Promise<void>`
  - [kup-text-field](../kup-text-field)
  - [kup-time-picker](../kup-time-picker)
  - [kup-tree](../kup-tree)
+ - [kup-typography](../kup-typography)
+ - [kup-typography-list](../kup-typography-list)
 
 ### Depends on
 
@@ -191,6 +192,7 @@ graph TD;
   kup-tab-bar --> kup-dialog
   kup-tree --> kup-dialog
   kup-accordion --> kup-dialog
+  kup-activity-timeline --> kup-dialog
   kup-box --> kup-dialog
   kup-calendar --> kup-dialog
   kup-card-list --> kup-dialog
@@ -214,6 +216,8 @@ graph TD;
   kup-probe --> kup-dialog
   kup-qlik --> kup-dialog
   kup-snackbar --> kup-dialog
+  kup-typography --> kup-dialog
+  kup-typography-list --> kup-dialog
   style kup-dialog fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

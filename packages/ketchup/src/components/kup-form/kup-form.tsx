@@ -78,9 +78,9 @@ export class KupForm {
 
     /**
      * Sets the label placement for 'all' fields in form
-     * @default KupFormLabelPlacement.LEFT
+     * @default KupFormLabelPlacement.TOP
      */
-    @Prop() labelPlacement: KupFormLabelPlacement = KupFormLabelPlacement.LEFT;
+    @Prop() labelPlacement: KupFormLabelPlacement = KupFormLabelPlacement.TOP;
     /**
      * How the form will arrange its content.
      * @default null

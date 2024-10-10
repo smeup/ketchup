@@ -457,7 +457,7 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
-                  <span class="code-word">--kup-border-color</span>
+                  <span class="code-word">--kup-border-subtle</span>
                 </td>
                 <td>Sets the color of borders, such as checkboxes borders.</td>
                 <td class="prevent-cr">
@@ -1842,7 +1842,7 @@ export default {
       if (variables) {
         themeWrapper.style.backgroundColor =
           variables['--kup-background-color'];
-        themeWrapper.style.borderColor = variables['--kup-border-color'];
+        themeWrapper.style.borderColor = variables['--kup-border-subtle'];
         themeImage.color = variables['--kup-primary-color'];
         themeText.style.color = variables['--kup-text-color'];
         themeText.style.fontFamily = variables['--kup-font-family'];

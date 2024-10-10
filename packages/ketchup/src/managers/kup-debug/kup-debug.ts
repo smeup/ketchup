@@ -107,7 +107,7 @@ export class KupDebug {
                     icon: 'power_settings_new',
                     id: 'kup-debug-off',
                     customStyle:
-                        ':host {--kup-font-size: 0.875em; border-left: 1px solid var(--kup-border-color); border-right: 1px solid var(--kup-border-color);}',
+                        ':host {--kup-font-size: 0.875em; border-left: 1px solid var(--kup-border-subtle); border-right: 1px solid var(--kup-border-subtle);}',
                     title: dom.ketchup.language.translate(KupLanguageDebug.OFF),
                 },
                 {
@@ -121,7 +121,7 @@ export class KupDebug {
                 {
                     checked: this.autoPrint,
                     customStyle:
-                        ':host {--kup-font-size: 0.875em; border-right: 1px solid var(--kup-border-color);}',
+                        ':host {--kup-font-size: 0.875em; border-right: 1px solid var(--kup-border-subtle);}',
                     icon: 'speaker_notes',
                     iconOff: 'speaker_notes_off',
                     id: 'kup-debug-autoprint',
@@ -149,7 +149,7 @@ export class KupDebug {
                 {
                     className: 'kup-full-height',
                     customStyle:
-                        ':host {border-left: 1px solid var(--kup-border-color);}',
+                        ':host {border-left: 1px solid var(--kup-border-subtle);}',
                     icon: 'download',
                     id: 'kup-debug-dl-props',
                     label: 'Props',
@@ -161,7 +161,7 @@ export class KupDebug {
                 {
                     className: 'kup-full-height',
                     customStyle:
-                        ':host {border-right: 1px solid var(--kup-border-color);}',
+                        ':host {border-right: 1px solid var(--kup-border-subtle);}',
                     icon: 'download',
                     id: 'kup-debug-dl-all',
                     label: dom.ketchup.language.translate(
@@ -378,17 +378,19 @@ export class KupDebug {
                 case KupDebugCategory.ERROR:
                     slot.style.backgroundColor =
                         'rgba(var(--kup-danger-color-rgb), 0.15)';
-                    slot.style.borderLeft = '5px solid var(--kup-danger-color)';
+                    slot.style.borderLeft =
+                        '5px solid var(--kup-danger-color-60)';
                     break;
                 case KupDebugCategory.WARNING:
                     slot.style.backgroundColor =
                         'rgba(var(--kup-warning-color-rgb), 0.15)';
                     slot.style.borderLeft =
-                        '5px solid var(--kup-warning-color)';
+                        '5px solid var(--kup-warning-color-50)';
                     break;
                 case KupDebugCategory.INFO:
                 default:
-                    slot.style.borderLeft = '5px solid var(--kup-info-color)';
+                    slot.style.borderLeft =
+                        '5px solid var(--kup-info-color-50)';
                     break;
             }
             // If the log is tied to a KupComponent, on click its props will be downloaded.

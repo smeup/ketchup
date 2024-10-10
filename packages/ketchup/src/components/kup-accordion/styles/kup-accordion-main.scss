@@ -16,51 +16,41 @@
 */
 
 :host {
-  --kup_accordion_background_color: var(
-    --kup-accordion-background-color,
-    var(--kup-background-color)
+  --kup_accordion_border_top_color: var(
+    --kup-accordion-border-top-color,
+    var(--kup-border-subtle)
   );
-  --kup_accordion_border: var(
-    --kup-accordion-border,
-    1px solid var(--kup-border-color)
+  --kup_accordion_item_small_height: var(
+    --kup-accordion-item-small-height,
+    32px
   );
-  --kup_accordion_border_radius: var(--kup-accordion-border-radius, 4px);
-  --kup-accordion_dropdown_icon_color: var(
-    --kup-accordion-dropdown-icon-color,
-    var(--kup-icon-color)
+  --kup_accordion_item_medium_height: var(
+    --kup-accordion-item-medium-height,
+    40px
   );
-  --kup_accordion_font_family: var(
-    --kup-accordion-font-family,
-    var(--kup-font-family)
+  --kup_accordion_item_outline_color_active: var(
+    --kup-accordion-item-outline-color-focus,
+    var(--kup-border-interactive)
   );
-  --kup_accordion_font_size: var(
-    --kup-accordion-font-size,
-    var(--kup-font-size)
+  --kup_accordion_item_large_height: var(
+    --kup-accordion-item-medium-height,
+    48px
   );
-  --kup_accordion_hover_background_color: var(
-    --kup-accordion-hover-background-color,
-    var(--kup-hover-background-color)
+  --kup_accordion_header_background_color: var(
+    --kup-accordion-header-background-color,
+    var(--kup-layer-0)
   );
-  --kup_accordion_hover_color: var(
-    --kup-accordion-hover-color,
-    var(--kup-hover-color)
+  --kup_accordion_header_background_color_hover: var(
+    --kup-accordion-header-background-color-hover,
+    var(--kup-layer-0-hover)
   );
-  --kup_accordion_padding: var(--kup-accordion-padding, 1em 1.5em);
-  --kup_accordion_primary_color: var(
-    --kup-accordion-primary-color,
-    var(--kup-primary-color)
+  --kup_accordion_header_padding: var(
+    --kup-accordion-header-padding,
+    var(--kup-space-05)
   );
-  --kup_accordion_primary_color_rgb: var(
-    --kup-accordion-primary-color-rgb,
-    var(--kup-primary-color-rgb)
-  );
-  --kup_accordion_text_color: var(
-    --kup-accordion-text-color,
-    var(--kup-text-color)
-  );
-  --kup_accordion_text_on_primary_color: var(
-    --kup-accordion-text-on-primary-color,
-    var(--kup-text-on-primary-color)
+  --kup_accordion_dropdown_icon_color: var(
+    --kup-accordio-dropdown-icon-color,
+    var(--kup-text-primary)
   );
   --kup_accordion_transition: var(--kup-accordion-transition, 80ms);
 
@@ -70,10 +60,7 @@
 }
 
 .accordion {
-  background-color: var(--kup_accordion_background_color);
-  border-bottom: var(--kup_accordion_border);
   border-radius: var(--kup_accordion_border_radius);
-  border-top: var(--kup_accordion_border);
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -81,8 +68,7 @@
 }
 
 .accordion-item {
-  border-left: var(--kup_accordion_border);
-  border-right: var(--kup_accordion_border);
+  border-top: 1px solid var(--kup_accordion_border_top_color);
   box-sizing: border-box;
   width: 100%;
 
@@ -90,11 +76,12 @@
     display: block;
   }
 
-  &:not(:first-of-type) {
-    border-top: var(--kup_accordion_border);
+  &:is(:last-of-type) {
+    border-bottom: 1px solid var(--kup_accordion_border_top_color);
   }
 
   &__header {
+    height: var(--kup_accordion_item_medium_height);
     align-items: center;
     border: none;
     box-sizing: border-box;
@@ -108,23 +95,35 @@
     transition: background-color var(--kup_accordion_transition),
       color var(--kup_accordion_transition);
     width: 100%;
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+    padding-left: 16px;
+    padding-right: 16px;
+
+    &:focus {
+      outline: 2px solid var(--kup_accordion_item_outline_color_active);
+    }
+
+    &.accordion-item--small {
+      height: var(--kup_accordion_item_small_height);
+    }
+    &.accordion-item--large {
+      height: var(--kup_accordion_item_large_height);
+    }
 
     &:hover:not(.accordion-item__header--selected) {
-      color: var(--kup_accordion_hover_color);
-      background-color: var(--kup_accordion_hover_background_color);
+      background-color: var(--kup_accordion_header_background_color_hover);
+    }
+    &:focus(.accordion-item__header--selected) {
+      outline: 2px solid var(--kup_accordion_item_outline_color_active);
     }
 
     &--expanded {
-      color: var(--kup_accordion_hover_color);
-      background-color: var(--kup_accordion_hover_background_color);
+      background-color: var(--kup_accordion_background_color);
 
       .accordion-item__dropdown {
         transform: rotate(-180deg);
       }
-    }
-
-    &--selected {
-      background-color: rgba(var(--kup_accordion_primary_color_rgb), 0.175);
     }
   }
 
@@ -146,7 +145,7 @@
   }
 
   &__dropdown {
-    background-color: var(--kup-accordion_dropdown_icon_color);
+    background-color: var(--kup_accordion_dropdown_icon_color);
     height: 1.5em;
     margin-left: auto;
     margin-right: 0;
@@ -156,8 +155,13 @@
   }
 
   &__content {
+    padding-left: 16px;
+    padding-top: 8px;
+    padding-bottom: 24px;
+    padding-right: 80px;
     animation: fade-in 0.25s ease-out;
     display: none;
+    @include kup-body-compact-01;
 
     &--selected {
       display: block;

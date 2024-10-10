@@ -5,13 +5,15 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                                            | Type                                                                            | Default              |
-| ------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | -------------------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                                                                                         | `string`                                                                        | `''`                 |
-| `data`        | --             | List of elements.                                                                                                                      | `KupChipNode[]`                                                                 | `[]`                 |
-| `displayId`   | `display-id`   | When enabled, the chip's text will display both the id and the value.                                                                  | `boolean`                                                                       | `false`              |
-| `enableInput` | `enable-input` | When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field). | `boolean`                                                                       | `false`              |
-| `type`        | `type`         | The type of chip. Available types: input, filter, choice or empty for default.                                                         | `FChipType.CHOICE \| FChipType.FILTER \| FChipType.INPUT \| FChipType.STANDARD` | `FChipType.STANDARD` |
+| Property      | Attribute      | Description                                                                                                                            | Type                                                                            | Default               |
+| ------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | --------------------- |
+| `customStyle` | `custom-style` | Custom style of the component.                                                                                                         | `string`                                                                        | `''`                  |
+| `data`        | --             | List of elements.                                                                                                                      | `KupChipNode[]`                                                                 | `[]`                  |
+| `displayId`   | `display-id`   | When enabled, the chip's text will display both the id and the value.                                                                  | `boolean`                                                                       | `false`               |
+| `enableInput` | `enable-input` | When enabled, it's possible to add items to the chip's dataset through an input slot (kup-autocomplete, kup-combobox, kup-text-field). | `boolean`                                                                       | `false`               |
+| `sizing`      | `sizing`       | Sets the size of the chip                                                                                                              | `FChipSize.MEDIUM \| FChipSize.SMALL`                                           | `FChipSize.MEDIUM`    |
+| `styling`     | `styling`      | Sets the style of the chip                                                                                                             | `FChipStyling.OUTLINED \| FChipStyling.RAISED`                                  | `FChipStyling.RAISED` |
+| `type`        | `type`         | The type of chip. Available types: input, filter, choice or empty for default.                                                         | `FChipType.CHOICE \| FChipType.FILTER \| FChipType.INPUT \| FChipType.STANDARD` | `FChipType.STANDARD`  |
 
 
 ## Events
@@ -119,6 +121,7 @@ graph TD;
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
+  kup-autocomplete --> kup-badge
   kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-card
@@ -134,18 +137,23 @@ graph TD;
   kup-badge --> kup-dialog
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
+  kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
   kup-combobox --> kup-dialog
+  kup-combobox --> kup-badge
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
+  kup-date-picker --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
+  kup-time-picker --> kup-badge
   kup-image --> kup-card
   kup-image --> kup-image
   kup-image --> kup-dialog
@@ -172,10 +180,12 @@ graph TD;
   kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
+  kup-checkbox --> kup-badge
   kup-data-table --> kup-chip
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-chip
+  kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge

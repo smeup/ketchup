@@ -1,5 +1,5 @@
 .gridRow {
-  fill: #fff;
+  fill: var(--kup-layer-1);
 }
 
 .gridRowLine {
@@ -7,7 +7,7 @@
 }
 
 .gridTick {
-  stroke: #e6e4e4;
+  stroke: var(--kup-border-subtle);
 }
 
 .barHandle {
@@ -37,7 +37,7 @@
 }
 
 .barLabel {
-  fill: #fff;
+  fill: var(--kup-layer-0);
   text-anchor: middle;
   font-weight: lighter;
   -webkit-touch-callout: none;
@@ -49,7 +49,7 @@
 }
 
 .barLabelOutside {
-  fill: #555;
+  fill: var(--kup-text-secondary);
   text-anchor: start;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -60,5 +60,5 @@
 }
 
 .ghost-preview {
-    opacity: 0.5;
+  opacity: 0.5;
 }

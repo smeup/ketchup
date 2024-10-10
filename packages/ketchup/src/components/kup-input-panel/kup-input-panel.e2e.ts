@@ -62,7 +62,7 @@ describe('kup-input-panel', () => {
         for (const [i, textField] of textFields.entries()) {
             const label = await textField.find('label');
             expect(label).not.toBeNull();
-            expect(label).toHaveClass('mdc-floating-label');
+            expect(label).toHaveClass('mdc-label');
             expect(label).toEqualText(data.columns[i].title);
 
             const input = await textField.find('input');
@@ -156,8 +156,11 @@ describe('kup-input-panel', () => {
         );
         expect(autocompleteCell).not.toBeNull();
 
-        const autocompleteTextfield = await autocompleteCell.find(
-            'kup-autocomplete >>> div.f-text-field'
+        const autocompleteShadow = await autocompleteCell.find(
+            'kup-autocomplete'
+        );
+        const autocompleteTextfield = await autocompleteShadow.find(
+            '>>> div.f-text-field'
         );
         expect(autocompleteTextfield).not.toBeNull();
 
@@ -258,9 +261,9 @@ describe('kup-input-panel', () => {
         const comboCell = await inputPanelContent.find('.f-cell.combobox-cell');
         expect(comboCell).not.toBeNull();
 
-        const comboTextfield = await comboCell.find(
-            'kup-combobox >>> div.f-text-field'
-        );
+        const comboShadow = await comboCell.find('kup-combobox');
+        const comboTextfield = await comboShadow.find('>>> div.f-text-field');
+
         expect(comboTextfield).not.toBeNull();
 
         const label = await comboTextfield.find('label');
@@ -443,5 +446,1090 @@ describe('kup-input-panel', () => {
             'div.radio '
         );
         expect(updateRadioButtonChecked).toHaveClass('radio--checked');
+    });
+
+    it('renders table', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'DAT',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        DAT: {
+                            value: null,
+                            editable: true,
+                            shape: 'TBL',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+        const tableShadow = await inputPanelContent.find('kup-data-table');
+
+        const tableComponent = await tableShadow.find('>>> table');
+        expect(tableComponent).not.toBeNull();
+
+        const emptyRow = await tableComponent.find(
+            'tbody tr:first-child td:first-child'
+        );
+        expect(emptyRow.textContent).toBe('Empty data.');
+    });
+
+    it('renders table 2 col 1 row', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+        const col1Title = 'Column 1';
+        const col1Name = 'COL1';
+        const col1Value = 'Row 1 column 1';
+        const col2Title = 'Column 2';
+        const col2Name = 'COL2';
+        const col2Value = 'Row 1 column 2';
+        const tableData = {
+            type: 'SmeupDataTable',
+            columns: [
+                {
+                    name: col1Name,
+                    title: col1Title,
+                },
+                {
+                    editable: false,
+                    name: col2Name,
+                    title: col2Title,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        COL1: {
+                            value: col1Value,
+                        },
+                        COL2: {
+                            value: col2Value,
+                        },
+                    },
+                },
+            ],
+        };
+        const data = {
+            columns: [
+                {
+                    name: 'DAT1',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        DAT1: {
+                            value: JSON.stringify(tableData),
+                            editable: true,
+                            shape: 'TBL',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+        const tableShadow = await inputPanelContent.find('kup-data-table');
+
+        const tableComponent = await tableShadow.find('>>> table');
+        expect(tableComponent).not.toBeNull();
+
+        const thead1Col = await tableComponent.find(
+            'thead tr:first-child th:first-child'
+        );
+        expect(thead1Col).toEqualAttribute('data-column', col1Name);
+
+        const thead1stColCell = await thead1Col.find(
+            'div.header-cell__content span.header-cell__title'
+        );
+        expect(thead1stColCell.textContent).toBe(col1Title);
+
+        const thead2Col = await tableComponent.find(
+            'thead tr:first-child th:nth-of-type(2)'
+        );
+        expect(thead2Col).toEqualAttribute('data-column', col2Name);
+
+        const thead2ndColcell = await thead2Col.find(
+            'div.header-cell__content span.header-cell__title'
+        );
+        expect(thead2ndColcell.textContent).toBe(col2Title);
+
+        const tbodyRows = await tableComponent.findAll('tbody tr');
+        expect(tbodyRows.length).toBe(1);
+
+        const tbody1Col = await tbodyRows[0].find('td:first-child');
+        expect(tbody1Col).toEqualAttribute('data-column', col1Name);
+        expect(tbody1Col.textContent).toBe(col1Value);
+
+        const tbody2Col = await tbodyRows[0].find('td:nth-of-type(2)');
+        expect(tbody2Col).toEqualAttribute('data-column', col2Name);
+        expect(tbody2Col.textContent).toBe(col2Value);
+    });
+
+    it('renders table with first column editable', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+        const col1Title = 'Column 1';
+        const col1Name = 'COL1';
+        const col1Value = 'Row 1 column 1';
+        const col1Row2Value = 'Row 2 column 1';
+        const col2Title = 'Column 2';
+        const col2Name = 'COL2';
+        const col2Value = 'Row 1 column 2';
+        const col2Row2Value = 'Row 2 column 2';
+        const col1Values = [col1Value, col1Row2Value];
+
+        const tableData = {
+            type: 'SmeupDataTable',
+            columns: [
+                {
+                    name: col1Name,
+                    title: col1Title,
+                    isEditable: true,
+                },
+                {
+                    name: col2Name,
+                    title: col2Title,
+                    isEditable: false,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        COL1: {
+                            value: col1Value,
+                        },
+                        COL2: {
+                            value: col2Value,
+                        },
+                    },
+                },
+                {
+                    cells: {
+                        COL1: {
+                            value: col1Row2Value,
+                        },
+                        COL2: {
+                            value: col2Row2Value,
+                        },
+                    },
+                },
+            ],
+        };
+
+        const data = {
+            columns: [
+                {
+                    name: 'DAT2',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        DAT2: {
+                            value: JSON.stringify(tableData),
+                            editable: true,
+                            shape: 'TBL',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+        const tableShadow = await inputPanelContent.find('kup-data-table');
+
+        const tableComponent = await tableShadow.find('>>> table');
+        expect(tableComponent).not.toBeNull();
+
+        const tbodyRows = await tableComponent.findAll('tbody tr');
+        expect(tbodyRows.length).toBe(2);
+
+        await Promise.all(
+            tbodyRows.map(async (row, i) => {
+                const col1 = await row.find('td:first-child');
+                expect(col1).toEqualAttribute('data-column', col1Name);
+
+                const colTextField = await col1.find(
+                    '.f-cell.string-cell .f-text-field'
+                );
+                expect(colTextField).not.toBeNull();
+
+                const input = await colTextField.find('input');
+                expect(input).not.toBeNull();
+
+                const value = await input.getProperty('value');
+                expect(value).toBe(col1Values[i]);
+            })
+        );
+    });
+
+    it('render inputpanel with label shape', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+
+        const data = {
+            columns: [
+                {
+                    name: 'LBL',
+                    title: 'Label',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        LBL: {
+                            value: 'Test',
+                            editable: true,
+                            shape: 'LBL',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const labelCell = await inputPanelContent.find('#LBL');
+        expect(labelCell).not.toBeNull();
+    });
+
+    it('render inputpanel with edit shape', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+
+        const data = {
+            columns: [
+                {
+                    name: 'DAT1',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        DAT1: {
+                            value: '',
+                            editable: true,
+                            shape: 'EDT',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const editCell = await inputPanelContent.find('kup-editor');
+        expect(editCell).not.toBeNull();
+    });
+
+    it('render inputpanel with chip shape', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+
+        const data = {
+            columns: [
+                {
+                    name: 'DAT1',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        DAT1: {
+                            value: 'Test1;Test2',
+                            editable: true,
+                            shape: 'CHI',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> kup-chip >>> #kup-component'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const chips = await inputPanelContent.findAll('.chip-set__item');
+        expect(chips).not.toBeNull();
+        expect(chips.length).toBe(2);
+
+        const chip1 = await chips[0].find('.chip__text');
+        expect(chip1).not.toBeNull();
+        expect(chip1).toEqualText('Test1');
+
+        const chip2 = await chips[1].find('.chip__text');
+        expect(chip2).not.toBeNull();
+        expect(chip2).toEqualText('Test2');
+
+        const input = await page.find(
+            'kup-input-panel >>> kup-text-field >>> input'
+        );
+        expect(input).not.toBeNull();
+
+        await input.press('KeyS');
+        await input.press('KeyT');
+        await input.press('KeyR');
+        await input.press('KeyI');
+        await input.press('KeyN');
+        await input.press('KeyG');
+
+        const updatedValue = await input.getProperty('value');
+        expect(updatedValue).toBe('string');
+
+        await input.press('Enter');
+        const updatedChips = await inputPanelContent.findAll('.chip-set__item');
+
+        expect(updatedChips.length).toBe(3);
+    });
+
+    it('render inputpanel with switch shape', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-input-panel></kup-input-panel>');
+        const inputPanel = await page.find('kup-input-panel');
+
+        const data = {
+            columns: [
+                {
+                    name: 'DAT1',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        DAT1: {
+                            value: '',
+                            editable: true,
+                            shape: 'SWT',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> input[type="checkbox"]'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        inputPanelContent.click();
+
+        await page.waitForChanges();
+        const value = await inputPanelContent.getProperty('value');
+        expect(value).toBe('on');
+    });
+
+    it('render inputpanel with multiple autocomplete shape', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
+        );
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'CIT',
+                    title: 'City',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        CIT: {
+                            value: '',
+                            obj: {
+                                t: '',
+                                p: '',
+                                k: '',
+                            },
+                            editable: true,
+                            mandatory: true,
+                            options: [
+                                {
+                                    id: 'FLO',
+                                    label: 'Florence',
+                                },
+                                {
+                                    id: 'VEN',
+                                    label: 'Venice',
+                                },
+                                {
+                                    id: 'ROM',
+                                    label: 'Rome',
+                                },
+                                {
+                                    id: 'MAD',
+                                    label: 'Madrid',
+                                },
+                                {
+                                    id: 'BAR',
+                                    label: 'Barcelona',
+                                },
+                                {
+                                    id: 'SEV',
+                                    label: 'Seville',
+                                },
+                            ],
+                            shape: 'AML',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const multiAutocompleteCell = await inputPanelContent.find(
+            '.f-cell.multi-autocomplete-cell'
+        );
+        expect(multiAutocompleteCell).not.toBeNull();
+
+        const input = await multiAutocompleteCell.find(
+            '>>> kup-autocomplete >>> input.mdc-text-field__input'
+        );
+        expect(input).not.toBeNull();
+
+        const chips = await inputPanelContent.findAll('>>> .chip-set__item');
+
+        if (chips.length) {
+            const closeButton = await chips[0].find('.kup-clear-icon');
+            expect(closeButton).not.toBeNull();
+
+            closeButton.click();
+            await page.waitForChanges();
+            const afterClosingChips = await inputPanelContent.findAll(
+                '>>> .chip-set__item'
+            );
+            expect(afterClosingChips.length).toBe(0);
+        }
+
+        await input.focus();
+        await input.press('KeyR');
+        await input.press('KeyO');
+
+        await page.waitForChanges();
+
+        const list = await page.find('div[kup-dynamic-position] kup-list');
+        expect(list).not.toBeNull();
+
+        const listOptions = await page.findAll('kup-list >>> ul.list li');
+        expect(listOptions).not.toBeNull();
+        expect(listOptions).toHaveLength(1);
+
+        const firstOptionValue = await listOptions[0].find('span');
+        expect(firstOptionValue).toEqualText('ROM - Rome');
+        await firstOptionValue.click();
+
+        await page.waitForChanges();
+
+        await input.focus();
+        await input.press('KeyF');
+        await input.press('KeyL');
+
+        await page.waitForChanges();
+
+        const updatedListOptions = await page.findAll(
+            'kup-list >>> ul.list li'
+        );
+        const secondOptionValue = await updatedListOptions[0].find('span');
+        expect(secondOptionValue).toEqualText('FLO - Florence');
+        await secondOptionValue.click();
+
+        await page.waitForChanges();
+
+        const updatedChips = await inputPanelContent.findAll(
+            '>>> .chip-set__item'
+        );
+
+        expect(updatedChips).not.toBeNull();
+        expect(updatedChips.length).toBe(2);
+    });
+
+    it('render inputpanel with multiple combo shape', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
+        );
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'CIT',
+                    title: 'City',
+                    visible: true,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        CIT: {
+                            value: '',
+                            obj: {
+                                t: '',
+                                p: '',
+                                k: '',
+                            },
+                            editable: true,
+                            mandatory: true,
+                            options: [
+                                {
+                                    id: 'FLO',
+                                    label: 'Florence',
+                                },
+                                {
+                                    id: 'VEN',
+                                    label: 'Venice',
+                                },
+                                {
+                                    id: 'ROM',
+                                    label: 'Rome',
+                                },
+                                {
+                                    id: 'MAD',
+                                    label: 'Madrid',
+                                },
+                                {
+                                    id: 'BAR',
+                                    label: 'Barcelona',
+                                },
+                                {
+                                    id: 'SEV',
+                                    label: 'Seville',
+                                },
+                            ],
+                            shape: 'CML',
+                        },
+                    },
+                },
+            ],
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const multiComboboxCell = await inputPanelContent.find(
+            '.f-cell.multi-combobox-cell'
+        );
+        expect(multiComboboxCell).not.toBeNull();
+
+        const input = await multiComboboxCell.find(
+            '>>> kup-combobox >>> input.mdc-text-field__input'
+        );
+        expect(input).not.toBeNull();
+
+        const chips = await inputPanelContent.findAll('>>> .chip-set__item');
+
+        if (chips.length) {
+            const closeButton = await chips[0].find('.kup-clear-icon');
+            expect(closeButton).not.toBeNull();
+
+            closeButton.click();
+            await page.waitForChanges();
+            const afterClosingChips = await inputPanelContent.findAll(
+                '>>> .chip-set__item'
+            );
+            expect(afterClosingChips.length).toBe(0);
+        }
+
+        await input.focus();
+        await input.press('KeyR');
+        await input.press('KeyO');
+
+        await page.waitForChanges();
+
+        const list = await page.find('div[kup-dynamic-position] kup-list');
+        expect(list).not.toBeNull();
+
+        const listOptions = await page.findAll('kup-list >>> ul.list li');
+        expect(listOptions).not.toBeNull();
+        expect(listOptions).toHaveLength(1);
+
+        const firstOptionValue = await listOptions[0].find('span');
+        expect(firstOptionValue).toEqualText('ROM - Rome');
+        await firstOptionValue.click();
+
+        await page.waitForChanges();
+
+        await input.focus();
+        await input.press('KeyF');
+        await input.press('KeyL');
+
+        await page.waitForChanges();
+
+        const updatedListOptions = await page.findAll(
+            'kup-list >>> ul.list li'
+        );
+        const secondOptionValue = await updatedListOptions[0].find('span');
+        expect(secondOptionValue).toEqualText('FLO - Florence');
+        await secondOptionValue.click();
+
+        await page.waitForChanges();
+
+        const updatedChips = await inputPanelContent.findAll(
+            '>>> .chip-set__item'
+        );
+
+        expect(updatedChips).not.toBeNull();
+        expect(updatedChips.length).toBe(2);
+    });
+
+    it('render inputpanel with tab when specified in sectionType property', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
+        );
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'NAME',
+                    title: 'Name*',
+                    visible: true,
+                    isEditable: false,
+                },
+                {
+                    name: 'EMAIL',
+                    title: 'Email*',
+                    visible: true,
+                    isEditable: false,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        EMAIL: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {
+                                inputType: 'email',
+                            },
+                        },
+                        NAME: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {},
+                        },
+                    },
+                    layout: {
+                        type: 'SmeupDataLayout',
+                        horizontal: false,
+                        absolute: false,
+                        sections: [
+                            {
+                                id: 'TAB1',
+                                content: [
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'NAME',
+                                        colSpan: 1,
+                                        rowStart: 1,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'EMAIL',
+                                        colSpan: 1,
+                                        rowStart: 2,
+                                    },
+                                ],
+                                sections: [],
+                                horizontal: false,
+                                gridCols: 3,
+                                gridRows: 2,
+                                gap: 2,
+                                title: 'Personal Info',
+                            },
+                            {
+                                id: 'TAB2',
+                                content: [
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'NAME',
+                                        colSpan: 1,
+                                        rowStart: 1,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'EMAIL',
+                                        colSpan: 1,
+                                        rowStart: 2,
+                                    },
+                                ],
+                                sections: [],
+                                horizontal: false,
+                                gridCols: 3,
+                                gridRows: 2,
+                                gap: 2,
+                                title: 'Professional Info',
+                            },
+                        ],
+                        sectionsType: 'tab',
+                    },
+                },
+            ],
+        };
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputPanelContent = await page.find(
+            'kup-input-panel >>> form.input-panel'
+        );
+        expect(inputPanelContent).not.toBeNull();
+
+        const tabContent = await inputPanelContent.find('kup-tab-bar');
+        expect(tabContent).not.toBeNull();
+
+        const tabs = await tabContent.findAll('>>> f-button');
+
+        expect(tabs.length).toBe(2);
+
+        const label1 = (await tabs[0].find('span .tab__text-label')).innerHTML;
+        const label2 = (await tabs[1].find('span .tab__text-label')).innerHTML;
+
+        expect(label1).toBe('Personal Info');
+        expect(label2).toBe('Professional Info');
+    });
+
+    it('render inputpanel with error data attribute', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
+        );
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'NAME',
+                    title: 'Name*',
+                    visible: true,
+                    isEditable: false,
+                },
+                {
+                    name: 'EMAIL',
+                    title: 'Email*',
+                    visible: true,
+                    isEditable: false,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        EMAIL: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {
+                                inputType: 'email',
+                            },
+                        },
+                        NAME: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {
+                                error: 'Name required',
+                            },
+                        },
+                    },
+                    layout: {
+                        type: 'SmeupDataLayout',
+                        horizontal: false,
+                        absolute: false,
+                        sections: [
+                            {
+                                id: 'TAB1',
+                                content: [
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'NAME',
+                                        colSpan: 1,
+                                        rowStart: 1,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'EMAIL',
+                                        colSpan: 1,
+                                        rowStart: 2,
+                                    },
+                                ],
+                                sections: [],
+                                horizontal: false,
+                                gridCols: 3,
+                                gridRows: 2,
+                                gap: 2,
+                                title: 'Personal Info',
+                            },
+                            {
+                                id: 'TAB2',
+                                content: [
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'NAME',
+                                        colSpan: 1,
+                                        rowStart: 1,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'EMAIL',
+                                        colSpan: 1,
+                                        rowStart: 2,
+                                    },
+                                ],
+                                sections: [],
+                                horizontal: false,
+                                gridCols: 3,
+                                gridRows: 2,
+                                gap: 2,
+                                title: 'Professional Info',
+                            },
+                        ],
+                        sectionsType: 'tab',
+                    },
+                },
+            ],
+        };
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const inputName = await page.find(
+            'kup-input-panel >>> #NAME > div > .mdc-text-field--error'
+        );
+
+        expect(inputName).not.toBeNull();
+
+        const inputErrorHelper = await page.find(
+            'kup-input-panel >>> #NAME > .mdc-text-field-helper-line > .mdc-error-message'
+        );
+        const textInputErrorHelper = inputErrorHelper.innerHTML;
+        expect(inputErrorHelper).not.toBeNull();
+        expect(textInputErrorHelper).toBe('Name required');
+    });
+
+    it('render inputpanel with absolute position', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
+        );
+        const inputPanel = await page.find('kup-input-panel');
+        const data = {
+            columns: [
+                {
+                    name: 'NAME',
+                    title: 'Name*',
+                    visible: true,
+                    isEditable: false,
+                },
+                {
+                    name: 'EMAIL',
+                    title: 'Email*',
+                    visible: true,
+                    isEditable: false,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        EMAIL: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {
+                                inputType: 'email',
+                            },
+                        },
+                        NAME: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {
+                                error: 'Name required',
+                            },
+                        },
+                    },
+                    layout: {
+                        type: 'SmeupDataLayout',
+                        horizontal: false,
+                        absolute: true,
+                        sections: [
+                            {
+                                content: [
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'NAME',
+                                        absoluteColumn: 2,
+                                        absoluteRow: 2,
+                                        absoluteLength: 16,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'EMAIL',
+                                        absoluteColumn: 12,
+                                        absoluteRow: 2,
+                                        absoluteLength: 16,
+                                    },
+                                ],
+                                sections: [],
+                                horizontal: false,
+                                absoluteColumn: 1,
+                                absoluteWidth: 40,
+                                absoluteRow: 1,
+                                absoluteHeight: 15,
+                            },
+                        ],
+                    },
+                },
+            ],
+        };
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        expect(inputPanel).not.toBeNull();
+
+        // get all divs but not the submit div that is the last one
+        const absoluteElements = await page.findAll(
+            'kup-input-panel >>> form.input-panel > div:not(:last-child)'
+        );
+        expect(absoluteElements.length).toBe(1);
+
+        const positionStyle = (await absoluteElements[0].getComputedStyle())
+            .position;
+
+        expect(positionStyle).toBe('absolute');
+
+        const absoluteSections = await absoluteElements[0].findAll(
+            ':scope > div'
+        );
+
+        absoluteSections.forEach(async (s) => {
+            const positionStyle = (await s.getComputedStyle()).position;
+            expect(positionStyle).toBe('absolute');
+        });
     });
 });

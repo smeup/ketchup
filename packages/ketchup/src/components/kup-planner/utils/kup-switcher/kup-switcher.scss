@@ -16,9 +16,9 @@
   cursor: pointer;
   padding: var(--kup-space-03) var(--kup-space-05);
   &:hover {
-    background-color: var(--kup-gray-color-90);
+    background-color: var(--kup-text-primary);
   }
-  &:focus{
+  &:focus {
     background-color: var(--kup-primary-color-60);
   }
 }

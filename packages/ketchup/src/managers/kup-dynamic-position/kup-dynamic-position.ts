@@ -169,7 +169,7 @@ export class KupDynamicPosition {
         // When anchor doesn't have the tagName property, anchor is considered as a set of coordinates.
         if (!this.anchorIsHTMLElement(el.kupDynamicPosition.anchor)) {
             const x: number = el.kupDynamicPosition.anchor.x;
-            const y: number = el.kupDynamicPosition.anchor.y;
+            const y: number = el.kupDynamicPosition.anchor.y - 1;
             if (
                 el.offsetWidth >
                 window.innerWidth - el.kupDynamicPosition.anchor.x
@@ -224,7 +224,7 @@ export class KupDynamicPosition {
             el.kupDynamicPosition.placement ===
                 KupDynamicPositionPlacement.BOTTOM_RIGHT
         ) {
-            el.style.top = `${bottom + el.kupDynamicPosition.margin}px`;
+            el.style.top = `${bottom - 1 + el.kupDynamicPosition.margin}px`;
         } else {
             if (
                 offsetH < rect.top &&
@@ -234,7 +234,7 @@ export class KupDynamicPosition {
                     window.innerHeight - top + el.kupDynamicPosition.margin
                 }px`;
             } else {
-                el.style.top = `${bottom + el.kupDynamicPosition.margin}px`;
+                el.style.top = `${bottom - 1 + el.kupDynamicPosition.margin}px`;
             }
         }
         // Horizontal position
@@ -278,14 +278,9 @@ export class KupDynamicPosition {
                 el.style.left = `${left}px`;
             }
         }
-        // Recursive
-        if (!el.kupDynamicPosition.detach) {
-            el.kupDynamicPosition.rAF = requestAnimationFrame(function () {
-                dom.ketchup.dynamicPosition.run(el);
-            });
-        } else {
-            cancelAnimationFrame(el.kupDynamicPosition.rAF);
-            return;
-        }
+        // Testing behavior: always anchored - 2024-09-25
+        el.kupDynamicPosition.rAF = requestAnimationFrame(function () {
+            dom.ketchup.dynamicPosition.run(el);
+        });
     }
 }

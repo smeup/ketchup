@@ -53,6 +53,14 @@
   display: block;
 }
 
+@media screen and (max-width: 600px) {
+  :host(#kup-tooltip) {
+    z-index: 1000 !important;
+    width: 100%;
+    inset: auto 0px 0px !important;
+  }
+}
+
 #kup-component {
   height: 100%;
   width: 100%;

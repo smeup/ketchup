@@ -5,20 +5,25 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                     | Type              | Default |
-| ------------- | -------------- | --------------------------------------------------------------- | ----------------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`          | `''`    |
-| `data`        | --             | List of elements.                                               | `KupTabBarNode[]` | `null`  |
-| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`         | `true`  |
+| Property      | Attribute      | Description                                                     | Type              | Default     |
+| ------------- | -------------- | --------------------------------------------------------------- | ----------------- | ----------- |
+| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`          | `''`        |
+| `data`        | --             | List of elements.                                               | `KupTabBarNode[]` | `null`      |
+| `dense`       | `dense`        | Defaults at false. When set to true, the component is dense.    | `boolean`         | `false`     |
+| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`         | `false`     |
+| `toolbar`     | `toolbar`      | When enabled displays toolbar item inside each single tab.      | `boolean`         | `true`      |
+| `toolbarData` | --             | Display DataNode Toolbar.                                       | `KupDataNode[]`   | `undefined` |
 
 
 ## Events
 
-| Event              | Description                         | Type                                 |
-| ------------------ | ----------------------------------- | ------------------------------------ |
-| `kup-tabbar-blur`  | Triggered when the tab loses focus. | `CustomEvent<KupTabBarEventPayload>` |
-| `kup-tabbar-click` | Triggered when the tab is clicked.  | `CustomEvent<KupTabBarEventPayload>` |
-| `kup-tabbar-focus` | Triggered when the tab is focused.  | `CustomEvent<KupTabBarEventPayload>` |
+| Event                  | Description                                    | Type                                           |
+| ---------------------- | ---------------------------------------------- | ---------------------------------------------- |
+| `kup-tabbar-blur`      | Triggered when the tab loses focus.            | `CustomEvent<KupTabBarEventPayload>`           |
+| `kup-tabbar-click`     | Triggered when the tab is clicked.             | `CustomEvent<KupTabBarEventPayload>`           |
+| `kup-tabbar-focus`     | Triggered when the tab is focused.             | `CustomEvent<KupTabBarEventPayload>`           |
+| `kup-tabbar-iconclick` | Triggered when the icon inside tab is clicked. | `CustomEvent<KupTabBarEventPayload>`           |
+| `kup-tabbar-itemclick` | Triggered when a list item is clicked.         | `CustomEvent<KupToolbarItemClickEventPayload>` |
 
 
 ## Methods
@@ -94,9 +99,11 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-card](../kup-card)
+ - [kup-input-panel](../kup-input-panel)
 
 ### Depends on
 
+- [kup-list](../kup-list)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
 - [kup-badge](../kup-badge)
@@ -104,13 +111,10 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
+  kup-tab-bar --> kup-list
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-card --> kup-tab-bar
-  kup-autocomplete --> kup-list
-  kup-autocomplete --> kup-card
-  kup-autocomplete --> kup-dialog
   kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-card
@@ -118,6 +122,11 @@ graph TD;
   kup-list --> kup-badge
   kup-radio --> kup-card
   kup-radio --> kup-dialog
+  kup-card --> kup-tab-bar
+  kup-autocomplete --> kup-list
+  kup-autocomplete --> kup-card
+  kup-autocomplete --> kup-dialog
+  kup-autocomplete --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
@@ -129,18 +138,23 @@ graph TD;
   kup-chip --> kup-badge
   kup-text-field --> kup-card
   kup-text-field --> kup-dialog
+  kup-text-field --> kup-badge
   kup-color-picker --> kup-card
   kup-color-picker --> kup-dialog
+  kup-color-picker --> kup-badge
   kup-combobox --> kup-list
   kup-combobox --> kup-card
   kup-combobox --> kup-dialog
+  kup-combobox --> kup-badge
   kup-date-picker --> kup-card
   kup-date-picker --> kup-dialog
+  kup-date-picker --> kup-badge
   kup-rating --> kup-card
   kup-rating --> kup-dialog
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-time-picker --> kup-dialog
+  kup-time-picker --> kup-badge
   kup-image --> kup-card
   kup-image --> kup-image
   kup-image --> kup-dialog
@@ -167,6 +181,7 @@ graph TD;
   kup-button --> kup-badge
   kup-checkbox --> kup-card
   kup-checkbox --> kup-dialog
+  kup-checkbox --> kup-badge
   kup-data-table --> kup-card
   kup-data-table --> kup-list
   kup-data-table --> kup-switch
@@ -224,6 +239,7 @@ graph TD;
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
+  kup-input-panel --> kup-tab-bar
   style kup-tab-bar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -29,6 +29,14 @@ import { KupScrollOnHoverElement } from '../../managers/kup-scroll-on-hover/kup-
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import {
+    KupDynamicPositionAnchor,
+    KupDynamicPositionElement,
+    KupDynamicPositionPlacement,
+} from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
+import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
+import { KupToolbarItemClickEventPayload } from '../../managers/kup-toolbar/kup-toolbar-declarations';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -63,10 +71,25 @@ export class KupTabBar {
      */
     @Prop() data: KupTabBarNode[] = null;
     /**
+     * Defaults at false. When set to true, the component is dense.
+     * @default false
+     */
+    @Prop() dense: boolean = false;
+    /**
      * When enabled displays Material's ripple effect on item headers.
      * @default true
      */
-    @Prop() ripple: boolean = true;
+    @Prop() ripple: boolean = false;
+    /**
+     * When enabled displays toolbar item inside each single tab.
+     * @default true
+     */
+    @Prop() toolbar: boolean = true;
+    /**
+     * Display DataNode Toolbar.
+     * @default null
+     */
+    @Prop() toolbarData: KupDataNode[];
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -76,10 +99,15 @@ export class KupTabBar {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
+    #clickCbDropCard: KupManagerClickCb = null;
     /**
      * Element scrollable on mouse hover.
      */
     private scrollArea: KupScrollOnHoverElement = null;
+    /**
+     * Toolbar List.
+     */
+    private toolbarList: KupDynamicPositionElement;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -107,6 +135,17 @@ export class KupTabBar {
     kupClick: EventEmitter<KupTabBarEventPayload>;
 
     /**
+     * Triggered when the icon inside tab is clicked.
+     */
+    @Event({
+        eventName: 'kup-tabbar-iconclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupIconClick: EventEmitter<KupTabBarEventPayload>;
+
+    /**
      * Triggered when the tab is focused.
      */
     @Event({
@@ -116,6 +155,19 @@ export class KupTabBar {
         bubbles: true,
     })
     kupFocus: EventEmitter<KupTabBarEventPayload>;
+
+    /**
+     * Triggered when a list item is clicked.
+     */
+    @Event({
+        eventName: 'kup-tabbar-itemclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupItemClick: EventEmitter<KupToolbarItemClickEventPayload>;
+
+    #dropDownActionCardAnchor: HTMLElement = null;
 
     onKupBlur(i: number, node: KupTabBarNode) {
         this.kupBlur.emit({
@@ -141,12 +193,32 @@ export class KupTabBar {
         });
     }
 
+    onKupIconClick(i: number, node: KupTabBarNode, el: HTMLElement) {
+        this.#dropDownActionCardAnchor = el;
+        this.kupIconClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            index: i,
+            node: node,
+        });
+        this.createDropDownToolbarList();
+    }
+
     onKupFocus(i: number, node: KupTabBarNode) {
         this.kupFocus.emit({
             comp: this,
             id: this.rootElement.id,
             index: i,
             node: node,
+        });
+    }
+
+    onKupToolbarItemClick(e: CustomEvent) {
+        this.kupItemClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: this.value,
+            node: e.detail.selected,
         });
     }
 
@@ -215,6 +287,53 @@ export class KupTabBar {
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
+
+    closeRowToolbarList() {
+        this.kupManager.dynamicPosition.stop(
+            this.toolbarList as KupDynamicPositionElement
+        );
+        this.kupManager.removeClickCallback(this.#clickCbDropCard);
+        this.toolbarList.remove();
+        this.toolbarList = null;
+    }
+
+    createDropDownToolbarList() {
+        if (this.toolbarList) {
+            this.closeRowToolbarList();
+        }
+        const listEl = document.createElement('kup-list');
+        listEl.data = this.toolbarData;
+        listEl.isMenu = true;
+        listEl.menuVisible = true;
+        listEl.addEventListener('kup-list-click', (e: CustomEvent) => {
+            this.onKupToolbarItemClick(e);
+            setTimeout(() => {
+                this.closeRowToolbarList();
+            }, 0);
+        });
+        this.toolbarList = listEl;
+        this.#clickCbDropCard = {
+            cb: () => {
+                this.closeRowToolbarList();
+            },
+            el: this.toolbarList,
+        };
+
+        this.kupManager.addClickCallback(this.#clickCbDropCard, true);
+        this.rootElement.shadowRoot.appendChild(this.toolbarList);
+        requestAnimationFrame(() => {
+            this.kupManager.dynamicPosition.register(
+                this.toolbarList as unknown as KupDynamicPositionElement,
+                this.#dropDownActionCardAnchor as KupDynamicPositionAnchor,
+                0,
+                KupDynamicPositionPlacement.AUTO,
+                true
+            );
+            this.kupManager.dynamicPosition.start(
+                this.toolbarList as unknown as KupDynamicPositionElement
+            );
+        });
+    }
 
     private consistencyCheck() {
         let activeTabs: number = 0;
@@ -286,10 +405,11 @@ export class KupTabBar {
                 tab: true,
                 'tab--active': node.active ? true : false,
                 'mdc-ripple-surface': this.ripple ? true : false,
+                'kup-dense': this.dense,
             };
 
             const tabEl: VNode = (
-                <button
+                <f-button
                     class={tabClass}
                     role="tab"
                     aria-selected={this.data[i].active ? true : false}
@@ -316,6 +436,22 @@ export class KupTabBar {
                             </span>
                         ) : null}
                     </span>
+                    {this.toolbar && (
+                        <FImage
+                            resource="more_vert"
+                            sizeX="16px"
+                            sizeY="16px"
+                            onClick={(event: MouseEvent) => {
+                                event.stopPropagation();
+                                this.onKupIconClick(
+                                    i,
+                                    node,
+                                    event.currentTarget as HTMLElement
+                                );
+                            }}
+                            wrapperClass="tab__iconToolbar"
+                        ></FImage>
+                    )}
                     <span
                         class={`tab-indicator ${
                             node.active ? ' tab-indicator--active' : ''
@@ -323,7 +459,7 @@ export class KupTabBar {
                     >
                         <span class="tab-indicator__content tab-indicator__content--underline"></span>
                     </span>
-                </button>
+                </f-button>
             );
             tabBar.push(tabEl);
         }

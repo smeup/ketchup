@@ -1,0 +1,39 @@
+.scalable-layout-10 {
+  --kup_card_text_color: var(--kup-card-text-color, var(--kup-text-secondary));
+  --kup_card_background_color: var(
+    --kup-card-background-color,
+    var(--kup-layer-1)
+  );
+
+  background-color: var(--kup_card_background_color);
+  color: var(--kup_card_text_color);
+  height: 100%;
+  display: flex;
+  justify-content: unset;
+  overflow: auto;
+  width: 100%;
+
+  .text {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .number {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .title {
+    font-size: 120%;
+  }
+
+  .buttons {
+    height: max-content;
+    margin-bottom: 2%;
+  }
+
+  .f-button {
+    float: right;
+  }
+}

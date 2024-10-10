@@ -12,13 +12,18 @@ import {
     VNode,
     Watch,
 } from '@stencil/core';
-import type { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    KupComponentSizing,
+    type GenericObject,
+    type KupComponent,
+} from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
 import {
+    FButtonAlign,
     FButtonProps,
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
@@ -30,7 +35,7 @@ import {
 import { KupListNode } from '../kup-list/kup-list-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { setProps } from '../../utils/utils';
+import { getProps, setProps } from '../../utils/utils';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
@@ -60,6 +65,16 @@ export class KupButtonList {
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
     /**
+     * Sets the type of the button.
+     * @default false
+     */
+    @Prop() blackMode: boolean = false;
+    /**
+     * Sets the type of the button.
+     * @default null
+     */
+    @Prop() contentAlign: FButtonAlign = FButtonAlign.CENTER;
+    /**
      * Number of columns.
      * @default 0
      */
@@ -86,7 +101,12 @@ export class KupButtonList {
      */
     @Prop() showSelection: boolean = true;
     /**
-     * Defines the style of the buttons. Available styles are "flat", "outlined" and "raised" (which is the default).
+     * Defines the size of the buttons. Available styles are from "extra-small" to "extra-large". Small will be the default
+     * @default KupComponentSizing.SMALL
+     */
+    @Prop() sizing: KupComponentSizing = KupComponentSizing.SMALL;
+    /**
+     * Defines the style of the buttons. Available styles are "outlined" of "flat" (which is the default).
      * @default FButtonStyling.RAISED
      */
     @Prop({ reflect: true }) styling: FButtonStyling = FButtonStyling.RAISED;
@@ -159,22 +179,7 @@ export class KupButtonList {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupButtonListProps;
-        } else {
-            for (const key in KupButtonListProps) {
-                if (
-                    Object.prototype.hasOwnProperty.call(
-                        KupButtonListProps,
-                        key
-                    )
-                ) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupButtonListProps, descriptions);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -214,7 +219,10 @@ export class KupButtonList {
             );
             return null;
         }
+
         const props: FButtonProps = {
+            blackMode: data.blackMode,
+            contentAlign: data.contentAlign,
             checked: data.checked,
             disabled: data.disabled,
             fullHeight: data.fullHeight,
@@ -225,14 +233,19 @@ export class KupButtonList {
             id: data.id,
             label: data.label,
             large: data.large,
+            neutral: this.rootElement.classList.contains('kup-neutral')
+                ? true
+                : false,
             shaped: data.shaped,
-            styling: data.styling,
+            sizing: data.sizing,
+            styling: data.id === this.selected ? 'raised' : data.styling,
             toggable: data.toggable,
             trailingIcon: data.trailingIcon,
             title: data.title,
             wrapperClass: this.rootElement.className + ' ' + data.wrapperClass,
             onClick: () => this.onKupClick(data.id, '-1'),
         };
+
         return <FButton {...props} />;
     }
 
@@ -263,6 +276,8 @@ export class KupButtonList {
                 showIcons: true,
             },
         };
+        data.styling = data.id === this.selected ? 'raised' : data.styling;
+        data.contentalign = data.contentalign;
         return (
             <kup-dropdown-button
                 class={this.rootElement.className + ' ' + data.wrapperClass}
@@ -286,11 +301,20 @@ export class KupButtonList {
         if (this.customStyle != null && this.customStyle.trim() != '') {
             data.customStyle = this.customStyle;
         }
+        if (this.blackMode == true) {
+            data.blackMode = true;
+        }
         if (this.disabled == true || node.disabled == true) {
             data.disabled = true;
         }
         if (this.styling != null && this.styling.trim() != '') {
             data.styling = this.styling;
+        }
+        if (this.sizing != null) {
+            data.sizing = this.sizing;
+        }
+        if (this.contentAlign) {
+            data.contentAlign = this.contentAlign;
         }
         if (data.icon == null) {
             data.icon = node.icon;
@@ -365,6 +389,32 @@ export class KupButtonList {
         if (this.data == null || this.data.length < 1) {
             return null;
         }
+        // if (this.styling === 'raised') {
+        //     this.kupManager.debug.logMessage(
+        //         this,
+        //         'styling="raised" is not allowed, please use "flat" or "outlined" instead.',
+        //         KupDebugCategory.WARNING
+        //     );
+        //     return null;
+        // }
+
+        // 08/07/24 --> Removed check all icons for redUP Problem
+
+        // const haveIcons: boolean = this.data.some((button) => button.icon);
+        // if (haveIcons) {
+        //     const allButtonsHaveIconsOrDropdown: boolean = this.data.every(
+        //         (button) => button.icon || button.data.dropdownOnly
+        //     );
+        //     // if (!allButtonsHaveIconsOrDropdown) {
+        //     //     this.kupManager.debug.logMessage(
+        //     //         this,
+        //     //         'Not all buttons have icons, please add icons to all buttons or remove them from all buttons.',
+        //     //         KupDebugCategory.WARNING
+        //     //     );
+        //     //     return null;
+        //     // }
+        // }
+
         const columns: VNode[] = [];
         for (let i = 0; i < this.data.length; i++) {
             const node: KupButtonListNode = this.data[i];

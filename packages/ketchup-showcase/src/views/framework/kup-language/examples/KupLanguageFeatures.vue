@@ -185,7 +185,7 @@ export default {
         const row: KupDataRow = {
           cells: {
             KEYS: {
-              style: { borderRight: '1px solid var(--kup-border-color)' },
+              style: { borderRight: '1px solid var(--kup-border-subtle)' },
               value: key,
             },
           },

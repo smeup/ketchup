@@ -1,6 +1,6 @@
 .f-rating {
-  --kup_rating_color: var(--kup-rating-color, orange);
-  --kup_rating_font_size: var(--kup-rating-font-size, 30px);
+  --kup_rating_color: var(--kup-rating-color, #ffa000);
+  --kup_rating_font_size: var(--kup-rating-font-size, 20px);
 
   .rating {
     color: var(--kup_rating_color);
@@ -10,6 +10,7 @@
 
   &.disabled {
     .rating {
+      opacity: 0.5;
       cursor: auto;
     }
   }

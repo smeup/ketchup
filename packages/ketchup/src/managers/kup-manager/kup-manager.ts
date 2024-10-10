@@ -38,6 +38,7 @@ import { setAssetPath } from '@stencil/core';
 import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
 import html2canvas, { Options } from 'html2canvas';
 import { KupOpenAI } from '../kup-openai/kup-openai';
+import { KupKeysBinding } from '../kup-keys-binding/kup-keys-binding';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -64,6 +65,7 @@ export class KupManager {
     utilities: KupManagerUtilities;
     theme: KupTheme;
     toolbar: KupToolbar;
+    keysBinding: KupKeysBinding;
     tooltip: KupTooltip;
     /**
      * Initializes KupManager.
@@ -85,7 +87,8 @@ export class KupManager {
             themeList: KupThemeJSON = null,
             themeName: string = null,
             tooltipDelay: number = null,
-            tooltipFCellCallbacks: KupTooltipCallbacks = null;
+            tooltipFCellCallbacks: KupTooltipCallbacks = null,
+            tooltipModal: boolean = null;
 
         this.enableExperimentalFeatures = false;
         /** POI VIA */
@@ -150,6 +153,7 @@ export class KupManager {
                 tooltipFCellCallbacks = tooltip.fCellCallbacks
                     ? tooltip.fCellCallbacks
                     : null;
+                tooltipModal = tooltip.modal ? tooltip.modal : null;
             }
         }
         this.data = new KupData();
@@ -193,7 +197,12 @@ export class KupManager {
         };
         this.theme = new KupTheme(themeList, themeName);
         this.toolbar = new KupToolbar();
-        this.tooltip = new KupTooltip(tooltipDelay, tooltipFCellCallbacks);
+        this.keysBinding = new KupKeysBinding();
+        this.tooltip = new KupTooltip(
+            tooltipDelay,
+            tooltipFCellCallbacks,
+            tooltipModal
+        );
         document.addEventListener('pointerdown', (e) => {
             const paths = e.composedPath() as HTMLElement[];
             const lastString =

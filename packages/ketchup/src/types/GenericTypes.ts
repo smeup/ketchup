@@ -60,6 +60,7 @@ export interface KupEventPayload {
  */
 export enum KupTagNames {
     ACCORDION = 'KUP-ACCORDION',
+    ACTIVITY_TIMELINE = 'KUP-ACTIVITY-TIMELINE',
     AUTOCOMPLETE = 'KUP-AUTOCOMPLETE',
     BADGE = 'KUP-BADGE',
     BOX = 'KUP-BOX',
@@ -104,7 +105,26 @@ export enum KupTagNames {
     SWITCH = 'KUP-SWITCH',
     TAB_BAR = 'KUP-TAB-BAR',
     TEXT_FIELD = 'KUP-TEXT-FIELD',
+    TYPOGRAPHY = 'KUP-TYPOGRAPHY',
+    TYPOGRAPHY_LIST = 'KUP-TYPOGRAPHY-LIST',
     TIME_PICKER = 'KUP-TIME-PICKER',
     TOOLTIP = 'KUP-TOOLTIP',
     TREE = 'KUP-TREE',
+}
+
+/**
+ * Sizing options for the button/text-field components.
+ * @enum {string}
+ * @property {string} EXTRA_SMALL - Small size: height = 20px
+ * @property {string} SMALL - Small size: height = 32px
+ * @property {string} MEDIUM - Medium size: height = 40px (default)
+ * @property {string} LARGE - Large size: height = 48px
+ * @property {string} EXTRA_LARGE - Max large size: height = 64px
+ */
+export enum KupComponentSizing {
+    EXTRA_SMALL = 'extra-small',
+    SMALL = 'small',
+    MEDIUM = 'medium',
+    LARGE = 'large',
+    EXTRA_LARGE = 'extra-large',
 }

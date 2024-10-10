@@ -9,6 +9,7 @@ import { defineCustomElements } from '@sme.up/ketchup/dist/loader';
 
 defineCustomElements();
 export const KupAccordion = /*@__PURE__*/createReactComponent<JSX.KupAccordion, HTMLKupAccordionElement>('kup-accordion');
+export const KupActivityTimeline = /*@__PURE__*/createReactComponent<JSX.KupActivityTimeline, HTMLKupActivityTimelineElement>('kup-activity-timeline');
 export const KupAutocomplete = /*@__PURE__*/createReactComponent<JSX.KupAutocomplete, HTMLKupAutocompleteElement>('kup-autocomplete');
 export const KupBadge = /*@__PURE__*/createReactComponent<JSX.KupBadge, HTMLKupBadgeElement>('kup-badge');
 export const KupBox = /*@__PURE__*/createReactComponent<JSX.KupBox, HTMLKupBoxElement>('kup-box');
@@ -73,4 +74,6 @@ export const KupTextField = /*@__PURE__*/createReactComponent<JSX.KupTextField, 
 export const KupTimePicker = /*@__PURE__*/createReactComponent<JSX.KupTimePicker, HTMLKupTimePickerElement>('kup-time-picker');
 export const KupTooltip = /*@__PURE__*/createReactComponent<JSX.KupTooltip, HTMLKupTooltipElement>('kup-tooltip');
 export const KupTree = /*@__PURE__*/createReactComponent<JSX.KupTree, HTMLKupTreeElement>('kup-tree');
+export const KupTypography = /*@__PURE__*/createReactComponent<JSX.KupTypography, HTMLKupTypographyElement>('kup-typography');
+export const KupTypographyList = /*@__PURE__*/createReactComponent<JSX.KupTypographyList, HTMLKupTypographyListElement>('kup-typography-list');
 export const KupVerticalScroll = /*@__PURE__*/createReactComponent<JSX.KupVerticalScroll, HTMLKupVerticalScrollElement>('kup-vertical-scroll');

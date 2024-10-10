@@ -1,4 +1,4 @@
-import type { FSwitchProps } from './f-switch-declarations';
+import { FSwitchSizing, type FSwitchProps } from './f-switch-declarations';
 import { FunctionalComponent, h } from '@stencil/core';
 
 /*-------------------------------------------------*/
@@ -8,10 +8,15 @@ import { FunctionalComponent, h } from '@stencil/core';
 export const FSwitch: FunctionalComponent<FSwitchProps> = (
     props: FSwitchProps
 ) => {
+    if (!props.sizing) {
+        props.sizing = FSwitchSizing.MEDIUM;
+    }
+    const isSmall: boolean = props.sizing.toLowerCase() === FSwitchSizing.SMALL;
     const classObj: Record<string, boolean> = {
         switch: true,
         'switch--checked': props.checked,
         'switch--disabled': props.disabled,
+        [`switch--${props.sizing}`]: props.sizing ? true : false,
     };
 
     return (
@@ -32,11 +37,7 @@ export const FSwitch: FunctionalComponent<FSwitchProps> = (
                     props.leadingLabel ? 'form-field--align-end' : ''
                 }`}
             >
-                <div
-                    class={`switch ${props.checked ? 'switch--checked' : ''} ${
-                        props.disabled ? 'switch--disabled' : ''
-                    }`}
-                >
+                <div class={classObj}>
                     <div class="switch__track"></div>
                     <div class="switch__thumb-underlay">
                         <div class="switch__thumb">

@@ -14,16 +14,24 @@
     0 16px 24px 2px rgba(0, 0, 0, 0.14),
     0 6px 30px 5px rgba(0, 0, 0, 0.12)
   );
+
+  --kup_drawer_slotted_color: var(
+    --kup-drawer-slotted-color,
+    var(--kup-text-secondary)
+  );
+  --kup_drawer_background_color: var(
+    --kup-drawer-background-color,
+    var(--kup-layer-1)
+  );
   --kup_drawer_permanent_border: var(
     --kup-drawer-permanent-border,
-    1px solid var(--kup-border-color)
+    1px solid var(--kup-border-subtle)
   );
-  --kup_drawer_slide_transition: var(--kup-drawer-slide-transition, 750ms);
+  --kup_drawer_slide_transition: var(--kup-drawer-slide-transition, 300ms);
   --kup_drawer_transition: var(--kup-drawer-transition, 250ms);
 
   box-shadow: var(--kup_drawer_box_shadow);
   display: block;
-  font-size: var(--kup-font-size);
   height: 100vh;
   left: calc(var(--kup-drawer-width) * -1);
   position: fixed;
@@ -58,7 +66,7 @@
   z-index: calc(var(--kup-drawer-zindex) + 1);
 
   &__content {
-    background-color: var(--kup-drawer-background-color);
+    background-color: var(--kup_drawer_background_color);
     box-sizing: border-box;
     height: 100%;
     overflow-y: auto;
@@ -66,25 +74,25 @@
   }
 
   ::slotted(*) {
-    --kup-button-primary-color: var(--kup-drawer-color);
-    --kup-button-primary-color-rgb: var(--kup-drawer-color-rgb);
-    --kup-button-primary-color-h: var(--kup-drawer-color-h);
-    --kup-button-primary-color-s: var(--kup-drawer-color-s);
-    --kup-button-primary-color-l: var(--kup-drawer-color-l);
-    --kup-switch-label-color: var(--kup-drawer-color);
-    --kup-switch-primary-color: var(--kup-drawer-color);
-    --kup-switch-primary-color-rgb: var(--kup-drawer-color-rgb);
-    --kup-textfield-color: var(--kup-drawer-color);
-    --kup-textfield-color-rgb: var(--kup-drawer-color-rgb);
-    --kup-textfield-primary-color: var(--kup-drawer-color);
-    --kup-textfield-primary-color-rgb: var(--kup-drawer-color-rgb);
-    --kup-tree-color: var(--kup-drawer-color);
-    --kup-tree-color-rgb: var(--kup-drawer-color-rgb);
+    --kup-button-primary-color: var(--kup_drawer_slotted_color);
+    --kup-button-primary-color-rgb: var(--kup_drawer_slotted_color-rgb);
+    --kup-button-primary-color-h: var(--kup_drawer_slotted_color-h);
+    --kup-button-primary-color-s: var(--kup_drawer_slotted_color-s);
+    --kup-button-primary-color-l: var(--kup_drawer_slotted_color-l);
+    --kup-switch-label-color: var(--kup_drawer_slotted_color);
+    --kup-switch-primary-color: var(--kup_drawer_slotted_color);
+    --kup-switch-primary-color-rgb: var(--kup_drawer_slotted_color-rgb);
+    --kup-textfield-color: var(--kup_drawer_slotted_color);
+    --kup-textfield-color-rgb: var(--kup_drawer_slotted_color-rgb);
+    --kup-textfield-primary-color: var(--kup_drawer_slotted_color);
+    --kup-textfield-primary-color-rgb: var(--kup_drawer_slotted_color-rgb);
+    --kup-tree-color: var(--kup_drawer_slotted_color);
+    --kup-tree-color-rgb: var(--kup_drawer_slotted_color-rgb);
     --kup-tree-filter-background-color: var(--kup-drawer-background-color);
-    --kup-tree-icon-color: var(--kup-drawer-color);
+    --kup-tree-icon-color: var(--kup_drawer_slotted_color);
 
-    color: var(--kup-drawer-color);
-    fill: var(--kup-drawer-color);
+    color: var(--kup_drawer_slotted_color);
+    fill: var(--kup_drawer_slotted_color);
   }
 }
 
