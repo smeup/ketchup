@@ -19,6 +19,7 @@ import {
     RADAdapter,
     CHKAdapter,
     CHIAdapter,
+    SWTAdapter,
 } from '../../utils/cell-utils';
 import { FiltersRows } from '../../utils/filters/filters-rows';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
@@ -1173,6 +1174,7 @@ export function decorateDataTable(data: KupDataTableDataset) {
                     [FCellShapes.RADIO]: () => RADAdapter(value, options),
                     [FCellShapes.CHECKBOX]: () => CHKAdapter(value, options),
                     [FCellShapes.CHIP]: () => CHIAdapter(value),
+                    [FCellShapes.SWITCH]: () => SWTAdapter(value, ''),
                 };
 
                 const adapterFunction = shapeAdapters[cell.shape];
