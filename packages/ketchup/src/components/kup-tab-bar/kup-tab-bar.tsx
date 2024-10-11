@@ -289,18 +289,18 @@ export class KupTabBar {
     /*-------------------------------------------------*/
 
     closeRowToolbarList() {
-        this.kupManager.dynamicPosition.stop(
-            this.toolbarList as KupDynamicPositionElement
-        );
-        this.kupManager.removeClickCallback(this.#clickCbDropCard);
-        this.toolbarList.remove();
-        this.toolbarList = null;
+        if (this.toolbarList) {
+            this.kupManager.dynamicPosition.stop(
+                this.toolbarList as KupDynamicPositionElement
+            );
+            this.kupManager.removeClickCallback(this.#clickCbDropCard);
+            this.toolbarList.remove();
+            this.toolbarList = null;
+        }
     }
 
     createDropDownToolbarList() {
-        if (this.toolbarList) {
-            this.closeRowToolbarList();
-        }
+        this.closeRowToolbarList();
         const listEl = document.createElement('kup-list');
         listEl.data = this.toolbarData;
         listEl.isMenu = true;
