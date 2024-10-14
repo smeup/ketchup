@@ -87,6 +87,7 @@ function renderButton(props: FButtonProps): VNode {
         button: true,
         'button--disabled': props.disabled ? true : false,
         'button--floating': isFloating ? true : false,
+        'button--flat': isFlat ? true : false,
         'button--outlined': isOutlined ? true : false,
         'button--raised': isRaised ? true : false,
         'button--no-label': !props.label || props.label === ' ' ? true : false,

@@ -3,8 +3,8 @@
         "cssVariables": {
             "--kup-primary-color": "#068a9c",
             "--kup-primary-color-0": "#ffffff",
-            "--kup-primary-color-10": "#A5E6F0",
-            "--kup-primary-color-20": "#83CBD8",
+            "--kup-primary-color-10": "#def8fb",
+            "--kup-primary-color-20": "#caebf1",
             "--kup-primary-color-30": "#5CB0C0",
             "--kup-primary-color-40": "#3E9EAF",
             "--kup-primary-color-50": "#068A9C",
@@ -118,8 +118,8 @@
         "cssVariables": {
             "--kup-primary-color": "#068a9c",
             "--kup-primary-color-0": "#ffffff",
-            "--kup-primary-color-10": "#A5E6F0",
-            "--kup-primary-color-20": "#83CBD8",
+            "--kup-primary-color-10": "#def8fb",
+            "--kup-primary-color-20": "#caebf1",
             "--kup-primary-color-30": "#5CB0C0",
             "--kup-primary-color-40": "#3E9EAF",
             "--kup-primary-color-50": "#068A9C",
@@ -362,8 +362,8 @@
         "cssVariables": {
             "--kup-primary-color": "#068a9c",
             "--kup-primary-color-0": "#ffffff",
-            "--kup-primary-color-10": "#A5E6F0",
-            "--kup-primary-color-20": "#83CBD8",
+            "--kup-primary-color-10": "#def8fb",
+            "--kup-primary-color-20": "#caebf1",
             "--kup-primary-color-30": "#5CB0C0",
             "--kup-primary-color-40": "#3E9EAF",
             "--kup-primary-color-50": "#068A9C",
