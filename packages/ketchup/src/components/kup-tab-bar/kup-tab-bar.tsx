@@ -218,7 +218,7 @@ export class KupTabBar {
             comp: this,
             id: this.rootElement.id,
             value: this.value,
-            node: e.detail.selected,
+            node: e.detail.index,
         });
     }
 
@@ -301,12 +301,29 @@ export class KupTabBar {
         if (this.toolbarList) {
             this.closeRowToolbarList();
         }
-        const listEl = document.createElement('kup-list');
+        const listEl = document.createElement('kup-toolbar');
         listEl.data = this.toolbarData;
-        listEl.isMenu = true;
-        listEl.menuVisible = true;
-        listEl.addEventListener('kup-list-click', (e: CustomEvent) => {
+        // listEl.data = [
+        //     {
+        //         obj: { t: '', p: '', k: '' },
+        //         value: 'Refresh',
+        //         children: [],
+        //     },
+        //     {
+        //         obj: { t: '', p: '', k: '' },
+        //         value: 'Maximize/Minimize',
+        //         children: [
+        //             {
+        //                 obj: { t: '', p: '', k: '' },
+        //                 value: 'Maximize/Minimize',
+        //                 children: [],
+        //             },
+        //         ],
+        //     },
+        // ];
+        listEl.addEventListener('kup-toolbar-click', (e: CustomEvent) => {
             this.onKupToolbarItemClick(e);
+            console.log(e);
             setTimeout(() => {
                 this.closeRowToolbarList();
             }, 0);

@@ -1,0 +1,28 @@
+.parent-class {
+  position: relative; // Necessario per il posizionamento assoluto degli elementi figli
+  cursor: pointer; // Cambia il cursore per indicare che è interattivo
+  margin-bottom: 1rem; // Aggiungi un margine per separare i nodi
+  width: 200px;
+  background-color: var(--kup-gray-color-10);
+
+  // Nascondi le nested-class di default
+  > .nested-class {
+    position: absolute; // Posizionamento assoluto
+    top: 0; // Posiziona in alto rispetto al nodo padre
+    left: 100%; // Posiziona a destra del nodo padre
+    display: none; // Nascondi per default
+    z-index: 10; // Assicurati che si sovrapponga agli altri contenuti
+    background-color: white; // Background per migliorare la leggibilità
+    border: 1px solid #ccc; // Aggiungi un bordo se necessario
+
+    // Puoi anche aggiungere una transizione per una migliore esperienza visiva
+    transition: display 0.2s ease;
+  }
+
+  // Mostra la nested-class solo quando il nodo padre è in hover
+  &:hover {
+    > .nested-class {
+      display: block; // Mostra la classe nested
+    }
+  }
+}

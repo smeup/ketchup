@@ -1,48 +1,28 @@
 import {
     Component,
     Element,
+    Event,
     EventEmitter,
+    forceUpdate,
     h,
     Host,
+    Method,
     Prop,
     State,
     VNode,
-    Watch,
-    Event,
 } from '@stencil/core';
+import { KupRadio } from '../kup-radio/kup-radio';
 import {
-    GenericObject,
-    KupComponent,
-    KupEventPayload,
-} from '../../types/GenericTypes';
-import {
-    KupDom,
     KupManager,
-} from '../../managers/kup-manager/kup-manager-declarations';
-import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
-import {
-    KupDataCell,
-    KupDataNode,
-} from '../../managers/kup-data/kup-data-declarations';
-import { componentWrapperId } from '../../variables/GenericVariables';
-import { FCell } from '../../f-components/f-cell/f-cell';
-import {
-    DataAdapterFn,
-    InputPanelCells,
-    KupInputPanelCell,
-    KupInputPanelColumn,
-    KupInputPanelData,
-    KupInputPanelLayoutField,
-    KupInputPanelLayoutSection,
-    KupInputPanelRow,
-} from '../kup-input-panel/kup-input-panel-declarations';
-import {
-    FCellProps,
-    FCellTypes,
-} from '../../f-components/f-cell/f-cell-declarations';
-import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+    kupManagerInstance,
+} from '../../managers/kup-manager/kup-manager';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import { getProps, setProps } from '../../utils/utils';
+import { KupTreeNode } from '../kup-tree/kup-tree-declarations';
+import { KupListProps } from '../kup-list/kup-list-declarations';
+import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
+import { KupToolbarItemClickEventPayload } from './kup-toolbar-declarations';
 
-const dom: KupDom = document.documentElement as KupDom;
 @Component({
     tag: 'kup-toolbar',
     styleUrl: 'kup-toolbar.scss',
@@ -55,6 +35,21 @@ export class KupToolbar {
     @Element() rootElement: HTMLElement;
 
     /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
+
+    /**
+     * The focused list item.
+     * @default null
+     */
+    @State() focused: number = null;
+    /**
+     * The selected list items.
+     * @default []
+     */
+    @State() selected: string[] = [];
+
+    /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
 
@@ -65,30 +60,11 @@ export class KupToolbar {
      */
     @Prop() customStyle: string = '';
     /**
-     * Actual data of the form.
-     * @default null
-     */
-    @Prop() data: KupInputPanelData = null;
-    /**
-     * This is the content of the text
-     * @default null
-     */
-    @Prop() value: string = null;
-    //#endregion
-
-    //#region STATES
-    /*-------------------------------------------------*/
-    /*                   S t a t e s                   */
-    /*-------------------------------------------------*/
-
-    /**
-     * Values to send as props to FCell
+     * The data of the list.
      * @default []
      */
-    @State() private inputPanelCells: InputPanelCells[] = [];
+    @Prop({ mutable: true }) data: KupTreeNode[] = [];
 
-    //#endregion
-    //#region INT.VARIABLES
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -98,298 +74,126 @@ export class KupToolbar {
      */
     #kupManager: KupManager = kupManagerInstance();
 
-    #originalData: KupInputPanelData = null;
-    #listeners: { event: string; handler: (e) => void }[] = [];
-
-    #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([
-        [FCellTypes.DATE, 'kup-date-picker'],
-        [FCellTypes.TIME, 'kup-time-picker'],
-    ]);
-
-    #keysShortcut: string[] = [];
-
-    //#endregion
-
-    //#region WATCHERS
-
-    /*-------------------------------------------------*/
-    /*               W a t c h e r s                   */
-    /*-------------------------------------------------*/
-
-    @Watch('data')
-    onDataChanged() {
-        this.#originalData = structuredClone(this.data);
-        if (this.#listeners.length) {
-            this.#listeners.map(({ event, handler }) => {
-                this.rootElement.removeEventListener(event, handler);
-            });
-            this.#listeners = [];
-        }
-
-        if (this.#keysShortcut.length) {
-            this.#keysShortcut.map((key) => {
-                this.#kupManager.keysBinding.unregister(key);
-            });
-            this.#keysShortcut = [];
-        }
-
-        this.#mapCells(this.data);
-    }
+    #radios: KupRadio[] = [];
+    #listItems: HTMLElement[] = [];
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
 
-    /**
-     * When component load is complete
-     */
     @Event({
-        eventName: 'kup-input-panel-ready',
+        eventName: 'kup-toolbar-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupReady: EventEmitter<KupEventPayload>;
+    kupClick: EventEmitter<KupToolbarItemClickEventPayload>;
 
-    //#endregion
+    onKupClick(index: number) {
+        console.log('CLICK', index);
+    }
 
-    //#region PRIVATE METHODS
     /*-------------------------------------------------*/
-    /*           P r i v a t e   M e t h o d s         */
+    /*                L i s t e n e r s                */
     /*-------------------------------------------------*/
-
-    #renderRow(inputPanelCell: InputPanelCells) {
-        let rowContent: VNode[];
-
-        rowContent = inputPanelCell.cells.map((cell) =>
-            this.#renderCell(cell.cell, inputPanelCell.row, cell.column)
-        );
-
-        // We create a form for each row in data
-        return <div>{rowContent}</div>;
-    }
-
-    #renderCell(
-        cell: KupDataCell,
-        row: KupInputPanelRow,
-        column: KupInputPanelColumn
-    ) {
-        console.log('RENDERCELL');
-        if (!cell) {
-            return;
-        }
-
-        const cellProps: FCellProps = {
-            cell,
-            column,
-            row,
-            component: this,
-            editable: true,
-            renderKup: true,
-            setSizes: true,
-        };
-
-        return <FCell {...cellProps} />;
-    }
-
-    #renderSection(
-        cells: InputPanelCells,
-        section: KupInputPanelLayoutSection,
-        customLabelRender: boolean = false,
-        styleObj: GenericObject = {}
-    ) {
-        let content = [];
-
-        if (section.sections?.length) {
-            content = section.sections.map((innerSection) =>
-                this.#renderSection(cells, innerSection)
-            );
-        } else if (section.content?.length) {
-            content = section.content.map((field) =>
-                this.#renderField(cells, field)
-            );
-        }
-
-        const classObj = {
-            'input-panel__section': !section.horizontal,
-            'input-panel__horizontal-section': section.horizontal,
-        };
-
-        const sectionStyle = {
-            ...styleObj,
-            gap: +section.gap > 0 ? `${section.gap}rem` : '',
-            'grid-template-columns':
-                +section.gridCols > 0 ? `repeat(${section.gridCols}, 1fr)` : '',
-            'grid-template-rows':
-                +section.gridRows > 0 ? `repeat(${section.gridRows}, 1fr)` : '',
-        };
-
-        if (cells.row?.layout?.horizontal) {
-            styleObj.maxWidth = section.dim;
-        } else {
-            styleObj.maxHeight = section.dim;
-        }
-
-        const sectionContent = (
-            <div class={classObj} style={sectionStyle}>
-                {content}
-            </div>
-        );
-
-        return section.title && !customLabelRender ? (
-            <div class={{ 'input-panel__section_label_container': true }}>
-                <h3>{section.title}</h3>
-                {sectionContent}
-            </div>
-        ) : (
-            sectionContent
-        );
-    }
-
-    #renderField(cells: InputPanelCells, field: KupInputPanelLayoutField) {
-        const fieldCell = cells.cells.find(
-            (cell) => cell.column.name === field.id
-        );
-
-        const colSpan =
-            +field.colSpan > 0
-                ? field.colSpan
-                : !(+field.colSpan > 0) && !(+field.colStart > 0)
-                ? 1
-                : null;
-
-        const colStart = colSpan ? `span ${colSpan}` : `${field.colStart}`;
-
-        const colEnd = +field.colEnd > 0 ? `${field.colEnd}` : '';
-
-        const rowSpan =
-            +field.rowSpan > 0
-                ? field.rowSpan
-                : !(+field.rowSpan > 0) && !(+field.rowStart > 0)
-                ? 1
-                : null;
-
-        const rowStart = rowSpan ? `span ${rowSpan}` : `${field.rowStart}`;
-
-        const rowEnd = +field.rowEnd > 0 ? `${field.rowEnd}` : '';
-
-        const styleObj = {
-            'grid-column-start': colStart,
-            'grid-column-end': colEnd,
-            'grid-row-start': rowStart,
-            'grid-row-end': rowEnd,
-        };
-
-        if (!fieldCell || !fieldCell.cell) {
-            return;
-        }
-
-        return (
-            <div style={styleObj}>
-                {this.#renderCell(fieldCell.cell, cells.row, fieldCell.column)}
-            </div>
-        );
-    }
-
-    #mapCells(data: KupInputPanelData) {
-        const inpuPanelCells = data?.rows?.length
-            ? data.rows.reduce((inpuPanelCells, row) => {
-                  const cells = data.columns
-                      .filter((column) => column.visible)
-                      .map((column) => {
-                          const cell = structuredClone(row.cells[column.name]);
-                          const mappedCell = cell
-                              ? {
-                                    ...cell,
-                                    data: this.#setProps(cell, column),
-                                    isEditable: true,
-                                }
-                              : null;
-                          return { column, cell: mappedCell };
-                      });
-                  return [...inpuPanelCells, { cells, row }];
-              }, [])
-            : [];
-
-        inpuPanelCells.map(({ cells }: InputPanelCells) =>
-            cells.map(({ cell, column }) => {
-                const cellType = dom.ketchup.data.cell.getType(
-                    cell,
-                    cell.shape
-                );
-                const componentQuery = this.#cellTypeComponents.get(cellType);
-                if (!componentQuery) {
-                    return;
-                }
-
-                const el: any = this.rootElement.shadowRoot.querySelector(
-                    `${componentQuery}[id=${column.name}]`
-                );
-                el?.setValue(cell.value);
-            })
-        );
-
-        this.inputPanelCells = inpuPanelCells;
-    }
-
-    #setProps(cell: KupInputPanelCell, column: KupInputPanelColumn) {
-        const defaultProps = {
-            ...this.#mapData(cell, column),
-            disabled: !cell.editable,
-            id: column.name,
-        };
-        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
-        const { data, ...noDataProps } = cell.data || {};
-
-        return cellType !== FCellTypes.MULTI_AUTOCOMPLETE &&
-            cellType !== FCellTypes.MULTI_COMBOBOX
-            ? this.#deepObjectsMerge(defaultProps, {
-                  ...cell.data,
-              })
-            : // Add and ovverride defaultProps of Chip host component except data
-              {
-                  ...defaultProps,
-                  ...noDataProps,
-              };
-    }
-
-    #deepObjectsMerge(target: GenericObject, source: GenericObject) {
-        for (const key in source) {
-            if (
-                source[key] instanceof Object &&
-                !Array.isArray(source[key]) &&
-                key in target
-            ) {
-                target[key] = this.#deepObjectsMerge(target[key], source[key]);
-            } else {
-                target[key] = source[key];
-            }
-        }
-        return target;
-    }
-
-    #mapData(cell: KupInputPanelCell, col: KupInputPanelColumn) {
-        if (!cell) {
-            return null;
-        }
-
-        const options = cell.options;
-        const fieldLabel = col.title;
-        const currentValue = cell.value;
-        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
-
-        const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([]);
-
-        const adapter = dataAdapterMap.get(cellType);
-
-        return adapter
-            ? adapter(options, fieldLabel, currentValue, cell, col.name)
-            : null;
-    }
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
+
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        return getProps(this, KupListProps, descriptions);
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * Calls handleSelection internal method to select the given item.
+     * @param {number} index - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element.
+     */
+    // @Method()
+    // async select(index?: number): Promise<void> {
+    //     if (index === undefined) {
+    //         index = this.focused;
+    //     }
+    //     this.#handleSelection(index);
+    // }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupListProps, props);
+    }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    #renderTreeNode(node: KupTreeNode, index: number): VNode {
+        const hasChildren = node.children && node.children.length > 0;
+
+        const handleClick = () => {
+            console.log('Nodo cliccato:', node.value); // Stampa il valore del nodo
+            this.onKupClick(index);
+            this.kupClick.emit({
+                comp: this,
+                id: this.rootElement.id,
+                node: node,
+                value: node.value, // Emetti anche il valore del nodo
+            });
+        };
+
+        if (!hasChildren) {
+            // If there are no children, render the specific component based on shape
+            return (
+                <div id={node.value} class="parent-class">
+                    {node.shape === FCellShapes.RADIO ? (
+                        <kup-radio
+                            onKup-radio-change={() => handleClick}
+                            data={node.options.map((opt: GenericObject) => ({
+                                value: opt.id,
+                                label: opt.label,
+                                checked: opt.id === opt.value,
+                            }))}
+                        />
+                    ) : (
+                        <span onClick={handleClick}>{node.value}</span> // Render just the value if no shape is provided
+                    )}
+                </div>
+            );
+        } else {
+            // If there are children, render the node and apply nested-class to the container of children
+            return (
+                <div class="parent-class">
+                    <span>{node.value}</span>
+                    <div class="nested-class">
+                        {this.#renderNestedChildren(node.children, index)}
+                    </div>
+                </div>
+            );
+        }
+    }
+
+    #renderNestedChildren(
+        children: KupTreeNode[],
+        parentIndex: number
+    ): VNode[] {
+        return children.map((child, index) =>
+            this.#renderTreeNode(child, parentIndex + index)
+        );
+    }
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
@@ -397,12 +201,10 @@ export class KupToolbar {
 
     componentWillLoad() {
         this.#kupManager.debug.logLoad(this, false);
-        this.#kupManager.language.register(this);
         this.#kupManager.theme.register(this);
-        this.onDataChanged();
     }
+
     componentDidLoad() {
-        this.kupReady.emit({ comp: this, id: this.rootElement.id });
         this.#kupManager.debug.logLoad(this, true);
     }
 
@@ -411,23 +213,18 @@ export class KupToolbar {
     }
 
     componentDidRender() {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-        if (root) {
-            const fs: NodeListOf<HTMLElement> =
-                root.querySelectorAll('.f-text-field');
-            for (let index = 0; index < fs.length; index++) {
-                FTextFieldMDC(fs[index]);
-            }
-        }
         this.#kupManager.debug.logRender(this, true);
     }
 
     render() {
-        const toolbarContent: VNode[] = this.inputPanelCells.map(
-            (inputPanelCell) => this.#renderRow(inputPanelCell)
-        );
-        console.log(toolbarContent);
-        console.log('INPUTPANELCELL', this.inputPanelCells);
+        this.#listItems = [];
+        let componentClass: string = 'list';
+
+        if (!this.data || this.data.length === 0) {
+            componentClass += ' list--empty';
+        }
+
+        this.#radios = [];
 
         return (
             <Host>
@@ -436,12 +233,18 @@ export class KupToolbar {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}>{toolbarContent}</div>
+                <div id="kup-component">
+                    <ul>
+                        {this.data.map((item, index) =>
+                            this.#renderTreeNode(item, index)
+                        )}
+                    </ul>
+                </div>
             </Host>
         );
     }
+
     disconnectedCallback() {
-        this.#kupManager.language.unregister(this);
         this.#kupManager.theme.unregister(this);
     }
 }

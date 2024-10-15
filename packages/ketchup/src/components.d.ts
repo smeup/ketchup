@@ -59,6 +59,7 @@ import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/k
 import { KupToolbarItemClickEventPayload } from "./managers/kup-toolbar/kup-toolbar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
+import { KupToolbarItemClickEventPayload as KupToolbarItemClickEventPayload1 } from "./components/kup-toolbar/kup-toolbar-declarations";
 import { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
 import { KupTypographyClickEventPayload, KupTypographyIconClickEventPayload } from "./components/kup-typography/kup-typography-declarations";
 import { KupTypographyListClickEventPayload, KupTypographyListIconClickEventPayload } from "./components/kup-typography-list/kup-typography-list-declarations";
@@ -116,6 +117,7 @@ export { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/k
 export { KupToolbarItemClickEventPayload } from "./managers/kup-toolbar/kup-toolbar-declarations";
 export { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 export { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
+export { KupToolbarItemClickEventPayload as KupToolbarItemClickEventPayload1 } from "./components/kup-toolbar/kup-toolbar-declarations";
 export { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
 export { KupTypographyClickEventPayload, KupTypographyIconClickEventPayload } from "./components/kup-typography/kup-typography-declarations";
 export { KupTypographyListClickEventPayload, KupTypographyListIconClickEventPayload } from "./components/kup-typography-list/kup-typography-list-declarations";
@@ -4192,15 +4194,25 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * Actual data of the form.
-          * @default null
+          * The data of the list.
+          * @default []
          */
-        "data": KupInputPanelData;
+        "data": KupTreeNode[];
         /**
-          * This is the content of the text
-          * @default null
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
          */
-        "value": string;
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupTooltip {
         "TooltipContent": any;
@@ -5667,7 +5679,7 @@ declare global {
         new (): HTMLKupTimePickerElement;
     };
     interface HTMLKupToolbarElementEventMap {
-        "kup-input-panel-ready": KupEventPayload;
+        "kup-toolbar-click": KupToolbarItemClickEventPayload1;
     }
     interface HTMLKupToolbarElement extends Components.KupToolbar, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupToolbarElementEventMap>(type: K, listener: (this: HTMLKupToolbarElement, ev: KupToolbarCustomEvent<HTMLKupToolbarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -9287,19 +9299,11 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Actual data of the form.
-          * @default null
+          * The data of the list.
+          * @default []
          */
-        "data"?: KupInputPanelData;
-        /**
-          * When component load is complete
-         */
-        "onKup-input-panel-ready"?: (event: KupToolbarCustomEvent<KupEventPayload>) => void;
-        /**
-          * This is the content of the text
-          * @default null
-         */
-        "value"?: string;
+        "data"?: KupTreeNode[];
+        "onKup-toolbar-click"?: (event: KupToolbarCustomEvent<KupToolbarItemClickEventPayload1>) => void;
     }
     interface KupTooltip {
         "TooltipContent"?: any;
