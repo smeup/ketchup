@@ -697,19 +697,16 @@ export class KupInputPanel {
             overflow: 'auto',
         };
 
-        const cell = {
-            ...fieldCell.cell,
-            data: {
-                ...fieldCell.cell.data,
-                customStyle:
-                    (fieldCell.cell.data.customStyle || '') +
-                    '.mdc-text-field {height: unset !important;}',
-            },
+        fieldCell.cell.data = {
+            ...fieldCell.cell.data,
+            customStyle:
+                (fieldCell.cell.data.customStyle || '') +
+                '.mdc-text-field {height: unset !important;}',
         };
 
         return (
             <div style={styleObj}>
-                {this.#renderCell(cell, cells.row, fieldCell.column)}
+                {this.#renderCell(fieldCell.cell, cells.row, fieldCell.column)}
             </div>
         );
     }
