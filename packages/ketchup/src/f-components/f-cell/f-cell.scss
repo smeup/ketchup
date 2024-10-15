@@ -516,6 +516,20 @@
     }
   }
 
+  &.c-uppercase .f-cell__content {
+    .f-cell__text,
+    .input-field {
+      text-transform: uppercase;
+    }
+  }
+
+  &.c-lowercase .f-cell__content {
+    .f-cell__text,
+    .input-field {
+      text-transform: lowercase;
+    }
+  }
+
   &.dense {
     --kup-textfield-fullwidth-height: 28px;
     --kup-textfield-fullwidth-padding: 0px;
