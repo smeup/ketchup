@@ -65,7 +65,7 @@ const tableOptionsAdapter = (
 
 const optionsTreeComboAdapter = (options: any, currentValue: string) => {
     return options.map((option) => ({
-        label: option.label,
+        value: option.label,
         id: option.id,
         selected: currentValue === option.id,
     }));
@@ -136,6 +136,7 @@ const slotData = (cell: KupDataCellOptions, col: KupDataColumn) => {
 const setProps = (cell: KupDataCellOptions, column: KupDataColumn) => {
     const defaultProps = {
         ...mapData(cell, column),
+        disabled: false,
         id: column.name,
     };
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
