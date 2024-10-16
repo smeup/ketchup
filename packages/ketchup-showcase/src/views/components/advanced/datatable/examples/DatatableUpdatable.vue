@@ -40,7 +40,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 pre {
   height: 200px;
   overflow-y: auto;
