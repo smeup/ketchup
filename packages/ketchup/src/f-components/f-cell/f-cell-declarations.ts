@@ -7,6 +7,7 @@ import {
 } from '../../managers/kup-data/kup-data-declarations';
 import {
     FComponent,
+    GenericObject,
     KupEventPayload,
     KupTagNames,
 } from '../../types/GenericTypes';
@@ -29,6 +30,7 @@ export interface FCellProps extends FComponent {
     setSizes?: boolean;
     shape?: FCellShapes;
     cellActionIcon?: CellActionProps;
+    options?: GenericObject[];
 }
 /**
  * Information about the cell, displayed before the content.
