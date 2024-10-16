@@ -64,16 +64,11 @@ const tableOptionsAdapter = (
 };
 
 const optionsTreeComboAdapter = (options: any, currentValue: string) => {
-    const adapter = optionsAdapterMap.get(options.type);
-    if (adapter) {
-        return adapter(options, currentValue);
-    } else {
-        return options.map((option) => ({
-            value: option.label,
-            id: option.id,
-            selected: currentValue === option.id,
-        }));
-    }
+    return options.map((option) => ({
+        label: option.label,
+        id: option.id,
+        selected: currentValue === option.id,
+    }));
 };
 
 const optionsAdapterMap = new Map<
@@ -151,9 +146,9 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
         [FCellTypes.BUTTON_LIST, MainBTNAdapter.bind(this)],
         [FCellTypes.STRING, MainITXAdapter.bind(this)],
+        [FCellTypes.RADIO, MainRADAdapter.bind(this)],
         [FCellTypes.AUTOCOMPLETE, MainCMBandACPAdapter.bind(this)],
         [FCellTypes.COMBOBOX, MainCMBandACPAdapter.bind(this)],
-        [FCellTypes.RADIO, MainRADAdapter.bind(this)],
     ]);
 
     const adapter = dataAdapterMap.get(cellType);
