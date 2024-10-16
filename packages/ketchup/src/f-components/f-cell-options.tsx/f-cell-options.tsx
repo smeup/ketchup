@@ -71,16 +71,6 @@ const optionsTreeComboAdapter = (options: any, currentValue: string) => {
     }));
 };
 
-const optionsAdapterMap = new Map<
-    string,
-    (options: any, currentValue: string) => GenericObject[]
->([
-    ['SmeupTreeNode', treeOptionsNodeAdapter.bind(this)],
-    ['SmeupDataTree', dataTreeOptionsChildrenAdapter.bind(this)],
-    ['SmeupTable', tableOptionsAdapter.bind(this)],
-    ['SmeupDataTable', tableOptionsAdapter.bind(this)],
-]);
-
 export const FCellOptions: FunctionalComponent<FCellOptionsProps> = (
     props: FCellOptionsProps
 ) => {
@@ -98,8 +88,6 @@ export const FCellOptions: FunctionalComponent<FCellOptionsProps> = (
         editable: true,
         cell: mappedCell as KupDataCell,
     };
-
-    console.log('mapped', mappedProps);
 
     return <FCell {...mappedProps}></FCell>;
 };
