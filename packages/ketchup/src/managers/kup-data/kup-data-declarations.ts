@@ -104,6 +104,26 @@ export interface KupDataCell {
     styleContent?: GenericMap;
     title?: string;
 }
+
+export interface KupDataCellOptions {
+    value: string;
+    cardID?: number;
+    cssClass?: string;
+    data?: GenericObject;
+    displayedValue?: string;
+    element?: HTMLElement;
+    icon?: string;
+    placeholderIcon?: string;
+    info?: FCellInfo;
+    isEditable?: boolean;
+    obj?: KupObj;
+    shape?: FCellShapes;
+    slotData?: GenericObject;
+    style?: GenericMap;
+    styleContent?: GenericMap;
+    title?: string;
+    options?: GenericObject;
+}
 /**
  *
  */
