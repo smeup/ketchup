@@ -112,7 +112,6 @@ const setProps = (cell: KupDataCellOptions, column: KupDataColumn) => {
     };
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
     const { data, ...noDataProps } = cell.data || {};
-    console.log('type', cellType);
     return cellType !== FCellTypes.MULTI_AUTOCOMPLETE &&
         cellType !== FCellTypes.MULTI_COMBOBOX
         ? deepObjectsMerge(defaultProps, {
@@ -150,10 +149,10 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     const currentValue = cell.value;
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
     const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
-        [FCellTypes.AUTOCOMPLETE, MainCMBandACPAdapter.bind(this)],
-        [FCellTypes.COMBOBOX, MainCMBandACPAdapter.bind(this)],
         [FCellTypes.BUTTON_LIST, MainBTNAdapter.bind(this)],
         [FCellTypes.STRING, MainITXAdapter.bind(this)],
+        [FCellTypes.AUTOCOMPLETE, MainCMBandACPAdapter.bind(this)],
+        [FCellTypes.COMBOBOX, MainCMBandACPAdapter.bind(this)],
         [FCellTypes.RADIO, MainRADAdapter.bind(this)],
     ]);
 
@@ -173,11 +172,12 @@ const MainRADAdapter = (
 };
 
 const MainITXAdapter = (
-    _options: GenericObject,
-    fieldLabel: string,
-    _currentValue: string
+    options: GenericObject,
+    _fieldLabel: string,
+    _currentValue: string,
+    cell: KupDataCellOptions
 ) => {
-    return { label: fieldLabel };
+    return { ...cell, value: options[0].label };
 };
 
 const MainBTNAdapter = (
