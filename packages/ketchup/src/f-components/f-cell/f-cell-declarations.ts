@@ -2,6 +2,7 @@ import type { VNode } from '@stencil/core';
 import {
     CellActionProps,
     KupDataCell,
+    KupDataCellOptions,
     KupDataColumn,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -30,7 +31,21 @@ export interface FCellProps extends FComponent {
     setSizes?: boolean;
     shape?: FCellShapes;
     cellActionIcon?: CellActionProps;
-    options?: GenericObject[];
+}
+
+export interface FCellOptionsProps extends FComponent {
+    cell?: KupDataCellOptions;
+    column?: KupDataColumn;
+    component?: unknown;
+    density?: FCellPadding;
+    editable?: boolean;
+    indents?: VNode[];
+    previousValue?: string;
+    renderKup?: boolean;
+    row?: KupDataRow;
+    setSizes?: boolean;
+    shape?: FCellShapes;
+    cellActionIcon?: CellActionProps;
 }
 /**
  * Information about the cell, displayed before the content.
