@@ -95,6 +95,7 @@ export const FCellOptions: FunctionalComponent<FCellOptionsProps> = (
 
     const mappedProps: FCellProps = {
         ...props,
+        editable: true,
         cell: mappedCell as KupDataCell,
     };
 
@@ -136,7 +137,6 @@ const slotData = (cell: KupDataCellOptions, col: KupDataColumn) => {
 const setProps = (cell: KupDataCellOptions, column: KupDataColumn) => {
     const defaultProps = {
         ...mapData(cell, column),
-        disabled: false,
         id: column.name,
     };
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
