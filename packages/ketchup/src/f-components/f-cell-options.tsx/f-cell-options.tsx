@@ -88,6 +88,8 @@ export const FCellOptions: FunctionalComponent<FCellOptionsProps> = (
         ? {
               ...props.cell,
               data: setProps(props.cell, props.column),
+              slotData: slotData(props.cell, props.column),
+              isEditable: true,
           }
         : null;
 
@@ -101,9 +103,40 @@ export const FCellOptions: FunctionalComponent<FCellOptionsProps> = (
     return <FCell {...mappedProps}></FCell>;
 };
 
+const slotData = (cell: KupDataCellOptions, col: KupDataColumn) => {
+    const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+
+    // if (!cell.editable) {
+    //     return null;
+    // }
+
+    if (
+        cellType === FCellTypes.MULTI_AUTOCOMPLETE ||
+        cellType === FCellTypes.MULTI_COMBOBOX
+    ) {
+        return {
+            ...CMBandACPAdapter(
+                null,
+                col.title,
+                cell.options
+                // cell,
+                // col.name
+            ),
+            showDropDownIcon: true,
+            class: '',
+            style: { width: '100%' },
+            // disabled: !cell.editable,
+            id: col.name,
+        };
+    }
+
+    return null;
+};
+
 const setProps = (cell: KupDataCellOptions, column: KupDataColumn) => {
     const defaultProps = {
         ...mapData(cell, column),
+        id: column.name,
     };
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
     const { data, ...noDataProps } = cell.data || {};
