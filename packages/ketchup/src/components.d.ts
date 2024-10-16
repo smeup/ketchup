@@ -56,10 +56,9 @@ import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-d
 import { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 import { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
-import { KupToolbarItemClickEventPayload } from "./managers/kup-toolbar/kup-toolbar-declarations";
+import { KupToolbarClickEventPayload, KupToolbarItemClickEventPayload } from "./components/kup-toolbar/kup-toolbar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
-import { KupToolbarItemClickEventPayload as KupToolbarItemClickEventPayload1 } from "./components/kup-toolbar/kup-toolbar-declarations";
 import { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
 import { KupTypographyClickEventPayload, KupTypographyIconClickEventPayload } from "./components/kup-typography/kup-typography-declarations";
 import { KupTypographyListClickEventPayload, KupTypographyListIconClickEventPayload } from "./components/kup-typography-list/kup-typography-list-declarations";
@@ -114,10 +113,9 @@ export { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-d
 export { FSwitchSizing } from "./f-components/f-switch/f-switch-declarations";
 export { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 export { KupTabBarEventPayload, KupTabBarNode } from "./components/kup-tab-bar/kup-tab-bar-declarations";
-export { KupToolbarItemClickEventPayload } from "./managers/kup-toolbar/kup-toolbar-declarations";
+export { KupToolbarClickEventPayload, KupToolbarItemClickEventPayload } from "./components/kup-toolbar/kup-toolbar-declarations";
 export { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 export { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
-export { KupToolbarItemClickEventPayload as KupToolbarItemClickEventPayload1 } from "./components/kup-toolbar/kup-toolbar-declarations";
 export { FTypographyType } from "./f-components/f-typography/f-typography-declarations";
 export { KupTypographyClickEventPayload, KupTypographyIconClickEventPayload } from "./components/kup-typography/kup-typography-declarations";
 export { KupTypographyListClickEventPayload, KupTypographyListIconClickEventPayload } from "./components/kup-typography-list/kup-typography-list-declarations";
@@ -5679,7 +5677,7 @@ declare global {
         new (): HTMLKupTimePickerElement;
     };
     interface HTMLKupToolbarElementEventMap {
-        "kup-toolbar-click": KupToolbarItemClickEventPayload1;
+        "kup-toolbar-click": KupToolbarClickEventPayload;
     }
     interface HTMLKupToolbarElement extends Components.KupToolbar, HTMLStencilElement {
         addEventListener<K extends keyof HTMLKupToolbarElementEventMap>(type: K, listener: (this: HTMLKupToolbarElement, ev: KupToolbarCustomEvent<HTMLKupToolbarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -9303,7 +9301,7 @@ declare namespace LocalJSX {
           * @default []
          */
         "data"?: KupTreeNode[];
-        "onKup-toolbar-click"?: (event: KupToolbarCustomEvent<KupToolbarItemClickEventPayload1>) => void;
+        "onKup-toolbar-click"?: (event: KupToolbarCustomEvent<KupToolbarClickEventPayload>) => void;
     }
     interface KupTooltip {
         "TooltipContent"?: any;

@@ -45,6 +45,7 @@ export interface KupTreeNode extends KupDataNode {
     iconColor?: string;
     style?: GenericMap;
     visible?: boolean;
+    selected?: boolean;
 }
 
 export type TreeNodePath = number[];

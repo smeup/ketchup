@@ -5,3 +5,8 @@ export interface KupToolbarItemClickEventPayload extends KupEventPayload {
     node?: KupTreeNode;
     index?: number;
 }
+
+export interface KupToolbarClickEventPayload extends KupEventPayload {
+    selected: KupTreeNode;
+    index?: number;
+}

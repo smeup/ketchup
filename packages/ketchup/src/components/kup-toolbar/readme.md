@@ -1,4 +1,4 @@
-# kup-pdf
+# kup-toolbar
 
 
 
@@ -7,17 +7,17 @@
 
 ## Properties
 
-| Property          | Attribute          | Description                            | Type      | Default     |
-| ----------------- | ------------------ | -------------------------------------- | --------- | ----------- |
-| `pdfPath`         | `pdf-path`         | Path of the pdf document               | `string`  | `undefined` |
-| `sendCredentials` | `send-credentials` | Credentials sending along with request | `boolean` | `undefined` |
+| Property      | Attribute      | Description                    | Type            | Default |
+| ------------- | -------------- | ------------------------------ | --------------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component. | `string`        | `''`    |
+| `data`        | --             | The data of the list.          | `KupTreeNode[]` | `[]`    |
 
 
 ## Events
 
-| Event           | Description                            | Type                           |
-| --------------- | -------------------------------------- | ------------------------------ |
-| `kup-pdf-ready` | Triggered when the component is ready. | `CustomEvent<KupEventPayload>` |
+| Event               | Description | Type                                       |
+| ------------------- | ----------- | ------------------------------------------ |
+| `kup-toolbar-click` |             | `CustomEvent<KupToolbarClickEventPayload>` |
 
 
 ## Methods
@@ -65,26 +65,26 @@ Type: `Promise<void>`
 
 
 
-## CSS Custom Properties
-
-| Name               | Description                             |
-| ------------------ | --------------------------------------- |
-| `--kup-pdf-height` | Sets a custom height for the component. |
-| `--kup-pdf-width`  | Sets a custom width for the component.  |
-
-
 ## Dependencies
+
+### Used by
+
+ - [kup-tab-bar](../kup-tab-bar)
 
 ### Depends on
 
+- [kup-radio](../kup-radio)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-pdf --> kup-card
-  kup-pdf --> kup-dialog
+  kup-toolbar --> kup-radio
+  kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
+  kup-radio --> kup-card
+  kup-radio --> kup-dialog
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -119,8 +119,6 @@ graph TD;
   kup-list --> kup-card
   kup-list --> kup-dialog
   kup-list --> kup-badge
-  kup-radio --> kup-card
-  kup-radio --> kup-dialog
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
@@ -217,12 +215,6 @@ graph TD;
   kup-form --> kup-progress-bar
   kup-form --> kup-badge
   kup-tab-bar --> kup-toolbar
-  kup-tab-bar --> kup-card
-  kup-tab-bar --> kup-dialog
-  kup-tab-bar --> kup-badge
-  kup-toolbar --> kup-radio
-  kup-toolbar --> kup-card
-  kup-toolbar --> kup-dialog
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field
@@ -240,7 +232,7 @@ graph TD;
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
-  style kup-pdf fill:#f9f,stroke:#333,stroke-width:4px
+  style kup-toolbar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

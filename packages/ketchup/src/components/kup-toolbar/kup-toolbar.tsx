@@ -21,7 +21,15 @@ import { getProps, setProps } from '../../utils/utils';
 import { KupTreeNode } from '../kup-tree/kup-tree-declarations';
 import { KupListProps } from '../kup-list/kup-list-declarations';
 import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
-import { KupToolbarItemClickEventPayload } from './kup-toolbar-declarations';
+import {
+    KupToolbarClickEventPayload,
+    KupToolbarItemClickEventPayload,
+} from './kup-toolbar-declarations';
+import {
+    KupRadioChangeEventPayload,
+    KupRadioCustomEvent,
+} from '../../components';
+import { FRadio } from '../../f-components/f-radio/f-radio';
 
 @Component({
     tag: 'kup-toolbar',
@@ -87,10 +95,16 @@ export class KupToolbar {
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<KupToolbarItemClickEventPayload>;
+    kupClick: EventEmitter<KupToolbarClickEventPayload>;
 
-    onKupClick(index: number) {
-        console.log('CLICK', index);
+    onKupClick(
+        index: number,
+        node: KupTreeNode,
+        event: MouseEvent | KupRadioCustomEvent<KupRadioChangeEventPayload>
+    ) {
+        event.preventDefault();
+        this.#handleClick(index, node);
+        console.log(index, node);
     }
 
     /*-------------------------------------------------*/
@@ -117,17 +131,7 @@ export class KupToolbar {
     async refresh(): Promise<void> {
         forceUpdate(this);
     }
-    /**
-     * Calls handleSelection internal method to select the given item.
-     * @param {number} index - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element.
-     */
-    // @Method()
-    // async select(index?: number): Promise<void> {
-    //     if (index === undefined) {
-    //         index = this.focused;
-    //     }
-    //     this.#handleSelection(index);
-    // }
+
     /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
@@ -144,24 +148,14 @@ export class KupToolbar {
     #renderTreeNode(node: KupTreeNode, index: number): VNode {
         const hasChildren = node.children && node.children.length > 0;
 
-        const handleClick = () => {
-            console.log('Nodo cliccato:', node.value); // Stampa il valore del nodo
-            this.onKupClick(index);
-            this.kupClick.emit({
-                comp: this,
-                id: this.rootElement.id,
-                node: node,
-                value: node.value, // Emetti anche il valore del nodo
-            });
-        };
-
         if (!hasChildren) {
-            // If there are no children, render the specific component based on shape
             return (
                 <div id={node.value} class="parent-class">
                     {node.shape === FCellShapes.RADIO ? (
-                        <kup-radio
-                            onKup-radio-change={() => handleClick}
+                        <FRadio
+                            // onKup-radio-change={(
+                            //     event: KupRadioCustomEvent<KupRadioChangeEventPayload>
+                            // ) => this.onKupClick(index, node, event)}
                             data={node.options.map((opt: GenericObject) => ({
                                 value: opt.id,
                                 label: opt.label,
@@ -169,21 +163,41 @@ export class KupToolbar {
                             }))}
                         />
                     ) : (
-                        <span onClick={handleClick}>{node.value}</span> // Render just the value if no shape is provided
+                        <span
+                            onClick={(event: MouseEvent) =>
+                                this.onKupClick(index, node, event)
+                            }
+                        >
+                            {node.value}
+                        </span>
                     )}
                 </div>
             );
         } else {
-            // If there are children, render the node and apply nested-class to the container of children
             return (
                 <div class="parent-class">
-                    <span>{node.value}</span>
+                    <span
+                        onClick={(event: MouseEvent) =>
+                            this.onKupClick(index, node, event)
+                        }
+                    >
+                        {node.value}
+                    </span>
                     <div class="nested-class">
                         {this.#renderNestedChildren(node.children, index)}
                     </div>
                 </div>
             );
         }
+    }
+
+    #handleClick(index: number, node: KupTreeNode): void {
+        this.kupClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            selected: node,
+            index,
+        });
     }
 
     #renderNestedChildren(

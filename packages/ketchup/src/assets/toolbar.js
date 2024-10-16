@@ -83,7 +83,7 @@ const toolbarData = [
         children: [],
         disabled: false,
         expandable: false,
-        icon: 'view-dashboard',
+        icon: '',
         id: '',
         isExpanded: false,
         obj: {
@@ -91,7 +91,7 @@ const toolbarData = [
             p: '',
             t: '**',
         },
-        value: 'Parent[0]',
+        value: 'Element 1 Parent',
         visible: true,
     },
     {
@@ -130,7 +130,7 @@ const toolbarData = [
                 style: {
                     'background-color': 'rgb(255, 204, 204)',
                 },
-                value: 'Children[0][0]',
+                value: 'Element 1 child 1',
                 visible: true,
             },
             {
@@ -167,7 +167,7 @@ const toolbarData = [
                 style: {
                     'background-color': 'rgb(255, 204, 204)',
                 },
-                value: 'Children[1][0]',
+                value: 'Element 1 child 2',
                 visible: true,
             },
         ],
@@ -183,7 +183,7 @@ const toolbarData = [
         },
         options: false,
         style: {},
-        value: 'Parent with 1 child',
+        value: 'element 2 parent',
         visible: true,
     },
     {
@@ -202,7 +202,7 @@ const toolbarData = [
                             p: '',
                             t: '**',
                         },
-                        value: 'Parent[0]',
+                        value: 'element 3 child 1 child 1',
                         visible: true,
                     },
                     {
@@ -217,7 +217,7 @@ const toolbarData = [
                             p: '',
                             t: '**',
                         },
-                        value: 'Parent[1]',
+                        value: 'element 3 child 1 child 2',
                         visible: true,
                     },
                 ],
@@ -231,7 +231,7 @@ const toolbarData = [
                     p: '',
                     t: '**',
                 },
-                value: 'Parent[0]',
+                value: 'element 3 child 1',
                 visible: true,
             },
         ],
@@ -245,7 +245,7 @@ const toolbarData = [
             p: '',
             t: '**',
         },
-        value: 'Parent[0]',
+        value: 'element 3',
         visible: true,
     },
 ];

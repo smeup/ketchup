@@ -147,6 +147,7 @@ Type: `Promise<void>`
  - [kup-tab-bar](../kup-tab-bar)
  - [kup-text-field](../kup-text-field)
  - [kup-time-picker](../kup-time-picker)
+ - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
  - [kup-typography](../kup-typography)
  - [kup-typography-list](../kup-typography-list)
@@ -208,6 +209,7 @@ graph TD;
   kup-switch --> kup-card
   kup-form --> kup-card
   kup-tab-bar --> kup-card
+  kup-toolbar --> kup-card
   kup-tree --> kup-card
   kup-accordion --> kup-card
   kup-activity-timeline --> kup-card

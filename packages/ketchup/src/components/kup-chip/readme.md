@@ -185,10 +185,13 @@ graph TD;
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-chip
-  kup-tab-bar --> kup-list
+  kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
+  kup-toolbar --> kup-radio
+  kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
   kup-tree --> kup-chip
   kup-box --> kup-chip
   kup-cell --> kup-chip
