@@ -184,12 +184,15 @@ const MainBTNAdapter = (
     _options: GenericObject,
     _fieldLabel: string,
     _currentValue: string,
-    cell: KupInputPanelCell
+    cell: KupDataCellOptions
 ) => {
     return {
-        label: cell.value,
-        fun: cell.fun,
-        ...cell.data,
+        data: cell.options?.length
+            ? cell.options?.map((option) => ({
+                  icon: option.icon,
+                  value: option.value,
+              }))
+            : [],
     };
 };
 
