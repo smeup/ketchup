@@ -15,6 +15,7 @@ import {
 import {
     KupDataCell,
     KupDataCellOptions,
+    KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 import { FCell } from '../f-cell/f-cell';
 
@@ -104,12 +105,37 @@ export const FCellOptions: FunctionalComponent<FCellOptionsProps> = (
         ...props,
         editable: true,
         cell: mappedCell as KupDataCell,
+        column: generateColumn(mappedCell.data),
+        row: generateRow(mappedCell.data),
     };
 
     if (props.cell.shape === FCellShapes.TEXT_FIELD) {
         mappedProps.cell.value = mappedProps.cell.data.value;
     }
+    console.log('props', mappedProps);
     return <FCell {...mappedProps}></FCell>;
+};
+
+const generateColumn = (data: GenericObject): KupDataColumn => {
+    const colname: string =
+        data && data.obj && data.obj.t
+            ? data.obj.t + ';' + data.obj.p
+            : 'KUPCELL';
+    const coltitle: string =
+        data && data.obj && data.obj.t
+            ? data.obj.t + ';' + data.obj.p
+            : 'genericEmptyObject';
+    return {
+        name: colname,
+        title: coltitle,
+    };
+};
+
+const generateRow = (data: GenericObject): KupDataRow => {
+    const col: KupDataColumn = generateColumn(data);
+    const row: KupDataRow = { cells: {} };
+    row.cells[col.name] = data.cell;
+    return row;
 };
 
 const slotData = (cell: KupDataCellOptions, col: KupDataColumn) => {
