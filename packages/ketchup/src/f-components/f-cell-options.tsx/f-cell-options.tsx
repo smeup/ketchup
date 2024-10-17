@@ -64,12 +64,28 @@ const tableOptionsAdapter = (
 };
 
 const optionsTreeComboAdapter = (options: any, currentValue: string) => {
-    return options.map((option) => ({
-        value: option.label,
-        id: option.id,
-        selected: currentValue === option.id,
-    }));
+    const adapter = optionsAdapterMap.get(options.type);
+
+    if (adapter) {
+        return adapter(options, currentValue);
+    } else {
+        return options.map((option) => ({
+            value: option.label,
+            id: option.id,
+            selected: currentValue === option.id,
+        }));
+    }
 };
+
+const optionsAdapterMap = new Map<
+    string,
+    (options: any, currentValue: string) => GenericObject[]
+>([
+    ['SmeupTreeNode', treeOptionsNodeAdapter.bind(this)],
+    ['SmeupDataTree', dataTreeOptionsChildrenAdapter.bind(this)],
+    ['SmeupTable', tableOptionsAdapter.bind(this)],
+    ['SmeupDataTable', tableOptionsAdapter.bind(this)],
+]);
 
 export const FCellOptions: FunctionalComponent<FCellOptionsProps> = (
     props: FCellOptionsProps
@@ -89,17 +105,15 @@ export const FCellOptions: FunctionalComponent<FCellOptionsProps> = (
         cell: mappedCell as KupDataCell,
     };
 
-    console.log(mappedProps);
-
     return <FCell {...mappedProps}></FCell>;
 };
 
 const slotData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
 
-    // if (!cell.editable) {
-    //     return null;
-    // }
+    if (!cell.isEditable) {
+        return null;
+    }
 
     if (
         cellType === FCellTypes.MULTI_AUTOCOMPLETE ||
@@ -116,7 +130,7 @@ const slotData = (cell: KupDataCellOptions, col: KupDataColumn) => {
             showDropDownIcon: true,
             class: '',
             style: { width: '100%' },
-            // disabled: !cell.editable,
+            disabled: !cell.isEditable,
             id: col.name,
         };
     }
@@ -127,6 +141,7 @@ const slotData = (cell: KupDataCellOptions, col: KupDataColumn) => {
 const setProps = (cell: KupDataCellOptions, column: KupDataColumn) => {
     const defaultProps = {
         ...mapData(cell, column),
+        disabled: !cell.isEditable,
         id: column.name,
     };
 
