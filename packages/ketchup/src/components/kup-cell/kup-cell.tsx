@@ -17,6 +17,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupCellProps } from './kup-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import {
+    FCellOptionsProps,
     FCellPadding,
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -27,9 +28,11 @@ import {
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import {
     KupDataCell,
+    KupDataCellOptions,
     KupDataColumn,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
+import { FCellOptions } from '../../f-components/f-cell-options.tsx/f-cell-options';
 
 @Component({
     tag: 'kup-cell',
@@ -228,8 +231,8 @@ export class KupCell {
     }
 
     render() {
-        const props: FCellProps = {
-            cell: this.data,
+        const props: FCellOptionsProps = {
+            cell: this.data as KupDataCellOptions,
             column: this.generateColumn(),
             component: this,
             density: this.density,
@@ -245,7 +248,7 @@ export class KupCell {
                     )}
                 </style>
                 <div id={componentWrapperId}>
-                    <FCell {...props}></FCell>
+                    <FCellOptions {...props}></FCellOptions>
                 </div>
             </Host>
         );
