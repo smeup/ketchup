@@ -20,7 +20,10 @@ import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { KupTreeNode } from '../kup-tree/kup-tree-declarations';
 import { KupListProps } from '../kup-list/kup-list-declarations';
-import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
+import {
+    FCellProps,
+    FCellShapes,
+} from '../../f-components/f-cell/f-cell-declarations';
 import {
     KupToolbarClickEventPayload,
     KupToolbarItemClickEventPayload,
@@ -30,6 +33,8 @@ import {
     KupRadioCustomEvent,
 } from '../../components';
 import { FRadio } from '../../f-components/f-radio/f-radio';
+import { FCell } from '../../f-components/f-cell/f-cell';
+import { FImage } from '../../f-components/f-image/f-image';
 
 @Component({
     tag: 'kup-toolbar',
@@ -147,21 +152,31 @@ export class KupToolbar {
 
     #renderTreeNode(node: KupTreeNode, index: number): VNode {
         const hasChildren = node.children && node.children.length > 0;
+        console.log(node);
 
         if (!hasChildren) {
+            const cellProps: FCellProps = {
+                cell: node,
+            };
+            console.log(cellProps);
             return (
-                <div id={node.value} class="parent-class">
-                    {node.shape === FCellShapes.RADIO ? (
+                <div id={node.value} class="parent-class" tabindex="0">
+                    {node.shape ? (
+                        // (
+                        //     <FCell
+                        //         {...cellProps}
+                        //         // onKup-radio-change={(
+                        //         //     event: KupRadioCustomEvent<KupRadioChangeEventPayload>
+                        //         // ) => this.onKupClick(index, node, event)}
+                        //     />
+                        // )
                         <FRadio
-                            // onKup-radio-change={(
-                            //     event: KupRadioCustomEvent<KupRadioChangeEventPayload>
-                            // ) => this.onKupClick(index, node, event)}
-                            data={node.options.map((opt: GenericObject) => ({
+                            data={node.data.map((opt: GenericObject) => ({
                                 value: opt.id,
                                 label: opt.label,
                                 checked: opt.id === opt.value,
                             }))}
-                        />
+                        ></FRadio>
                     ) : (
                         <span
                             onClick={(event: MouseEvent) =>
@@ -175,7 +190,7 @@ export class KupToolbar {
             );
         } else {
             return (
-                <div class="parent-class">
+                <div class="parent-class" tabindex="0">
                     <span
                         onClick={(event: MouseEvent) =>
                             this.onKupClick(index, node, event)
@@ -183,6 +198,13 @@ export class KupToolbar {
                     >
                         {node.value}
                     </span>
+                    <FImage
+                        resource="chevron-right"
+                        sizeX="14px"
+                        sizeY="14px"
+                        color="var(--kup-text-secondary)"
+                        wrapperClass="chevron-right"
+                    ></FImage>
                     <div class="nested-class">
                         {this.#renderNestedChildren(node.children, index)}
                     </div>

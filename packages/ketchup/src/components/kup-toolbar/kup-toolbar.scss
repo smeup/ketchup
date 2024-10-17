@@ -1,9 +1,25 @@
 .parent-class {
   position: relative; // Necessario per il posizionamento assoluto degli elementi figli
   cursor: pointer; // Cambia il cursore per indicare che è interattivo
-  margin-bottom: 1rem; // Aggiungi un margine per separare i nodi
   width: 200px;
   background-color: var(--kup-gray-color-10);
+  display: flex;
+  justify-content: space-between;
+  padding: var(--kup-space-03);
+  border-left: 1px solid transparent;
+
+  &:hover {
+    background-color: var(--kup-gray-color-10-hover);
+  }
+
+  &:focus {
+    outline: 2px solid var(--kup-border-interactive);
+    outline-offset: -2px;
+  }
+
+  &:active {
+    border-left: 1px solid var(--kup-border-interactive);
+  }
 
   // Nascondi le nested-class di default
   > .nested-class {
@@ -12,11 +28,16 @@
     left: 100%; // Posiziona a destra del nodo padre
     display: none; // Nascondi per default
     z-index: 10; // Assicurati che si sovrapponga agli altri contenuti
-    background-color: white; // Background per migliorare la leggibilità
-    border: 1px solid #ccc; // Aggiungi un bordo se necessario
-
     // Puoi anche aggiungere una transizione per una migliore esperienza visiva
     transition: display 0.2s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .chevron-right {
+    float: right;
+    font-size: 14px;
+    margin: 0;
+    margin-left: 10px;
   }
 
   // Mostra la nested-class solo quando il nodo padre è in hover
