@@ -134,6 +134,7 @@ graph TD;
   kup-list --> kup-badge
   kup-radio --> kup-card
   kup-radio --> kup-dialog
+  kup-radio --> kup-badge
   kup-card --> kup-dropdown-button
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card

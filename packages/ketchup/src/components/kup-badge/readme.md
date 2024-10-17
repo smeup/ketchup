@@ -113,6 +113,7 @@ Type: `Promise<void>`
  - [kup-magic-box](../kup-magic-box)
  - [kup-numeric-picker](../kup-numeric-picker)
  - [kup-planner](../kup-planner)
+ - [kup-radio](../kup-radio)
  - [kup-snackbar](../kup-snackbar)
  - [kup-tab-bar](../kup-tab-bar)
  - [kup-text-field](../kup-text-field)
@@ -133,8 +134,7 @@ graph TD;
   kup-card --> kup-badge
   kup-autocomplete --> kup-badge
   kup-list --> kup-badge
-  kup-radio --> kup-card
-  kup-radio --> kup-dialog
+  kup-radio --> kup-badge
   kup-dialog --> kup-badge
   kup-chip --> kup-badge
   kup-text-field --> kup-badge

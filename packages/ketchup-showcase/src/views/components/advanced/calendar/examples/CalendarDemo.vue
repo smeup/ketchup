@@ -61,6 +61,14 @@ export default {
       ],
       demoProps: [
         {
+          prop: 'calendarColumns',
+          description:
+            'Sets the data to be used to render each event in the calendar.',
+          type: 'KupCalendarColumnsProp',
+          default: '{ KupCalendarOptions: false }',
+          try: 'json',
+        },
+        {
           prop: 'currentDate',
           description:
             'Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).',
@@ -117,22 +125,18 @@ function createComp() {
       {
         name: 'date',
         title: 'Date',
-        calendarOption: 'date',
       },
       {
         name: 'descr',
         title: 'Description',
-        calendarOption: 'descr',
       },
       {
         name: 'start',
         title: 'Start',
-        calendarOption: 'start',
       },
       {
         name: 'end',
         title: 'End',
-        calendarOption: 'end',
       },
       {
         name: 'icon',
@@ -279,6 +283,12 @@ function createComp() {
         },
       },
     ],
+  };
+  comp.calendarColumns = {
+    date: true,
+    descr: true,
+    start: true,
+    end: true,
   };
   comp.id = 'demo-component';
   comp.currentDate = '2021-09-17';

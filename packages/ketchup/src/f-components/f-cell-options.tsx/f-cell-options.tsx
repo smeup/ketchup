@@ -5,6 +5,7 @@ import { CMBandACPAdapter, RADAdapter } from '../../utils/cell-utils';
 import {
     FCellOptionsProps,
     FCellProps,
+    FCellShapes,
     FCellTypes,
 } from '../f-cell/f-cell-declarations';
 import {
@@ -14,6 +15,7 @@ import {
 import {
     KupDataCell,
     KupDataCellOptions,
+    KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 import { FCell } from '../f-cell/f-cell';
 
@@ -103,9 +105,62 @@ export const FCellOptions: FunctionalComponent<FCellOptionsProps> = (
         ...props,
         editable: true,
         cell: mappedCell as KupDataCell,
+        column: generateColumn(mappedCell.data),
+        row: generateRow(mappedCell.data),
     };
 
+    if (props.cell.shape === FCellShapes.TEXT_FIELD) {
+        mappedProps.cell.value = mappedProps.cell.data.value;
+    }
+
+    const label = getLabelComponent(mappedProps.cell, mappedProps.column.title);
+
+    if (label) {
+        return (
+            <div class={{ 'input-panel__label_container': true }}>
+                {label}
+                <FCell {...mappedProps} />
+            </div>
+        );
+    }
+    console.log('props', mappedProps);
     return <FCell {...mappedProps}></FCell>;
+};
+
+const getLabelComponent = (cell: KupDataCell, label: string) => {
+    if (!label) {
+        return null;
+    }
+
+    const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+
+    if (cellType === FCellTypes.RADIO) {
+        return <span>{label}</span>;
+    }
+
+    return null;
+};
+
+const generateColumn = (data: GenericObject): KupDataColumn => {
+    const colname: string =
+        data && data.obj && data.obj.t
+            ? data.obj.t + ';' + data.obj.p
+            : 'KUPCELL';
+    const coltitle: string =
+        data && data.obj && data.obj.t
+            ? data.obj.t + ';' + data.obj.p
+            : 'genericEmptyObject';
+    return {
+        name: colname,
+        title: coltitle,
+    };
+};
+
+const generateRow = (data: GenericObject): KupDataRow => {
+    const col: KupDataColumn = generateColumn(data);
+    const row: KupDataRow = { cells: {} };
+    row.cells[col.name] = data.cell;
+    return row;
 };
 
 const slotData = (cell: KupDataCellOptions, col: KupDataColumn) => {
@@ -209,10 +264,13 @@ const MainRADAdapter = (
 const MainITXAdapter = (
     options: GenericObject,
     _fieldLabel: string,
-    _currentValue: string
+    _currentValue: string,
+    _cell: KupDataCellOptions
 ) => {
     if (options?.[0]) {
-        return { label: options[0].label };
+        return {
+            value: options[0].label,
+        };
     }
 };
 

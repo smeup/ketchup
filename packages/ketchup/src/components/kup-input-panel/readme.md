@@ -166,6 +166,7 @@ graph TD;
   kup-list --> kup-badge
   kup-radio --> kup-card
   kup-radio --> kup-dialog
+  kup-radio --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog

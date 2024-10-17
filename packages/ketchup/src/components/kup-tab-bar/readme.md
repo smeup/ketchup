@@ -120,6 +120,7 @@ graph TD;
   kup-toolbar --> kup-dialog
   kup-radio --> kup-card
   kup-radio --> kup-dialog
+  kup-radio --> kup-badge
   kup-card --> kup-tab-bar
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
