@@ -4,7 +4,6 @@ import {
     Event,
     EventEmitter,
     forceUpdate,
-    getAssetPath,
     h,
     Host,
     JSX,
@@ -1023,7 +1022,7 @@ export class KupTree {
         }
         let cell: KupDataCell = null,
             column: KupDataColumn = null,
-            row: KupDataRow = null;
+            row: KupTreeNode = null;
         if (isBody) {
             if (td) {
                 cell = td['data-cell'];
