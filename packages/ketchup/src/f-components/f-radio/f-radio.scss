@@ -165,8 +165,10 @@
         }
       }
     }
+    &.radio--chevron .radio:hover {
+      border: 1px solid transparent;
+    }
   }
-
   &.#{$kup-class-horizontal} {
     display: flex;
     gap: var(--kup-space-05);
