@@ -33,19 +33,8 @@ export interface FCellProps extends FComponent {
     cellActionIcon?: CellActionProps;
 }
 
-export interface FCellOptionsProps extends FComponent {
+export interface FCellOptionsProps extends FCellProps {
     cell?: KupDataCellOptions;
-    column?: KupDataColumn;
-    component?: unknown;
-    density?: FCellPadding;
-    editable?: boolean;
-    indents?: VNode[];
-    previousValue?: string;
-    renderKup?: boolean;
-    row?: KupDataRow;
-    setSizes?: boolean;
-    shape?: FCellShapes;
-    cellActionIcon?: CellActionProps;
 }
 /**
  * Information about the cell, displayed before the content.
