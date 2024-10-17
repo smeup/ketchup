@@ -499,6 +499,12 @@ export class KupInputPanel {
             'input-panel__horizontal-section': section.horizontal,
         };
 
+        if (cells.row?.layout?.horizontal) {
+            styleObj.maxWidth = section.dim;
+        } else {
+            styleObj.maxHeight = section.dim;
+        }
+
         const sectionStyle = {
             ...styleObj,
             gap: +section.gap > 0 ? `${section.gap}rem` : '',
@@ -507,12 +513,6 @@ export class KupInputPanel {
             'grid-template-rows':
                 +section.gridRows > 0 ? `repeat(${section.gridRows}, 1fr)` : '',
         };
-
-        if (cells.row?.layout?.horizontal) {
-            styleObj.maxWidth = section.dim;
-        } else {
-            styleObj.maxHeight = section.dim;
-        }
 
         const sectionContent = (
             <div class={classObj} style={sectionStyle}>
@@ -697,19 +697,16 @@ export class KupInputPanel {
             overflow: 'auto',
         };
 
-        const cell = {
-            ...fieldCell.cell,
-            data: {
-                ...fieldCell.cell.data,
-                customStyle:
-                    (fieldCell.cell.data.customStyle || '') +
-                    '.mdc-text-field {height: unset !important;}',
-            },
+        fieldCell.cell.data = {
+            ...fieldCell.cell.data,
+            customStyle:
+                (fieldCell.cell.data.customStyle || '') +
+                '.mdc-text-field {height: unset !important;}',
         };
 
         return (
             <div style={styleObj}>
-                {this.#renderCell(cell, cells.row, fieldCell.column)}
+                {this.#renderCell(fieldCell.cell, cells.row, fieldCell.column)}
             </div>
         );
     }

@@ -3,6 +3,7 @@ import type { FComponent } from '../../types/GenericTypes';
  * Props of the f-radio component.
  */
 export interface FRadioProps extends FComponent {
+    type?: FRadioType;
     columns?: number;
     data?: FRadioData[];
     disabled?: boolean;
@@ -20,4 +21,9 @@ export interface FRadioData {
     checked: boolean;
     label: string;
     value: string;
+}
+
+export enum FRadioType {
+    RADIO = 'radio',
+    CHEVRON = 'chevron',
 }

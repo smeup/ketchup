@@ -153,12 +153,14 @@ export class KupTypography {
     /*-------------------------------------------------*/
 
     closeRowToolbarList() {
-        this.kupManager.dynamicPosition.stop(
-            this.toolbarList as KupDynamicPositionElement
-        );
-        this.kupManager.removeClickCallback(this.#clickCbDropCard);
-        this.toolbarList.remove();
-        this.toolbarList = null;
+        if (this.toolbarList) {
+            this.kupManager.dynamicPosition.stop(
+                this.toolbarList as KupDynamicPositionElement
+            );
+            this.kupManager.removeClickCallback(this.#clickCbDropCard);
+            this.toolbarList.remove();
+            this.toolbarList = null;
+        }
     }
 
     createDropDownToolbarList() {

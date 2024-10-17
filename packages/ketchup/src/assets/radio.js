@@ -28,3 +28,23 @@ radioEls[0].data = [
         checked: false,
     },
 ];
+
+radioEls.type = 'radio';
+
+radioEls[2].data = [
+    {
+        value: 'Favorites',
+        label: 'label 1',
+        checked: false,
+    },
+    {
+        value: 'Set alarm clock',
+        label: 'label 2',
+        checked: true,
+    },
+    {
+        value: 'Settings',
+        label: 'label 3',
+        checked: false,
+    },
+];
