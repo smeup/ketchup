@@ -112,8 +112,33 @@ export const FCellOptions: FunctionalComponent<FCellOptionsProps> = (
     if (props.cell.shape === FCellShapes.TEXT_FIELD) {
         mappedProps.cell.value = mappedProps.cell.data.value;
     }
+
+    const label = getLabelComponent(mappedProps.cell, mappedProps.column.title);
+
+    if (label) {
+        return (
+            <div class={{ 'input-panel__label_container': true }}>
+                {label}
+                <FCell {...mappedProps} />
+            </div>
+        );
+    }
     console.log('props', mappedProps);
     return <FCell {...mappedProps}></FCell>;
+};
+
+const getLabelComponent = (cell: KupDataCell, label: string) => {
+    if (!label) {
+        return null;
+    }
+
+    const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+
+    if (cellType === FCellTypes.RADIO) {
+        return <span>{label}</span>;
+    }
+
+    return null;
 };
 
 const generateColumn = (data: GenericObject): KupDataColumn => {
