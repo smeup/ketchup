@@ -211,7 +211,9 @@ const MainITXAdapter = (
     _fieldLabel: string,
     _currentValue: string
 ) => {
-    return { label: options[0].label };
+    if (options?.[0]) {
+        return { label: options[0].label };
+    }
 };
 
 const MainBTNAdapter = (
