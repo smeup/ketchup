@@ -104,6 +104,10 @@ export interface KupDataCell {
     styleContent?: GenericMap;
     title?: string;
 }
+
+export interface KupDataCellOptions extends KupDataCell {
+    options?: GenericObject;
+}
 /**
  *
  */
