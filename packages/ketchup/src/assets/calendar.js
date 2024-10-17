@@ -166,6 +166,7 @@ const callback = (e) => {
 };
 
 const calendars = document.querySelectorAll('kup-calendar');
+
 for (let index = 0; index < calendars.length; index++) {
     const calendar = calendars[index];
     calendar.data = { columns: [...data.columns], rows: data.rows };
@@ -176,42 +177,42 @@ for (let index = 0; index < calendars.length; index++) {
     const imageCol = calendar.data.columns.find((col) => col.name === 'image');
     const startCol = calendar.data.columns.find((col) => col.name === 'start');
     const styleCol = calendar.data.columns.find((col) => col.name === 'style');
-    calendar.data.columns[calendar.data.columns.indexOf(dateCol)] = {
-        ...dateCol,
-        calendarOption: 'date',
-    };
-    calendar.data.columns[calendar.data.columns.indexOf(descrCol)] = {
-        ...descrCol,
-        calendarOption: 'descr',
-    };
+    calendar.calendarColumns = {
+        date: true,
+        descr: true
+    }
+    calendar.data.columns[calendar.data.columns.indexOf(dateCol)] = dateCol
+    calendar.data.columns[calendar.data.columns.indexOf(descrCol)] = descrCol
     switch (calendar.id) {
         case 'week-view':
-            calendar.data.columns[calendar.data.columns.indexOf(endCol)] = {
-                ...endCol,
-                calendarOption: 'end',
-            };
-            calendar.data.columns[calendar.data.columns.indexOf(startCol)] = {
-                ...startCol,
-                calendarOption: 'start',
-            };
+            calendar.data.columns[calendar.data.columns.indexOf(endCol)] = endCol
+            calendar.data.columns[calendar.data.columns.indexOf(startCol)] = startCol
+            calendar.calendarColumns = {
+                ...calendar.calendarColumns,
+                end: true,
+                start: true
+            }
             break;
         case 'with-icon':
-            calendar.data.columns[calendar.data.columns.indexOf(iconCol)] = {
-                ...iconCol,
-                calendarOption: 'icon',
-            };
+            calendar.data.columns[calendar.data.columns.indexOf(iconCol)] = iconCol
+            calendar.calendarColumns = {
+                ...calendar.calendarColumns,
+                icon: true
+            }
             break;
         case 'with-images':
-            calendar.data.columns[calendar.data.columns.indexOf(imageCol)] = {
-                ...imageCol,
-                calendarOption: 'image',
-            };
+            calendar.data.columns[calendar.data.columns.indexOf(imageCol)] = imageCol
+            calendar.calendarColumns = {
+                ...calendar.calendarColumns,
+                image: true
+            }
             break;
         case 'with-style':
-            calendar.data.columns[calendar.data.columns.indexOf(styleCol)] = {
-                ...styleCol,
-                calendarOption: 'style',
-            };
+            calendar.data.columns[calendar.data.columns.indexOf(styleCol)] = styleCol
+            calendar.calendarColumns = {
+                ...calendar.calendarColumns,
+                style: true
+            }
             break;
     }
     calendar.addEventListener('kup-calendar-dateclick', callback);

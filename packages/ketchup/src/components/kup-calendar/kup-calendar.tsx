@@ -38,6 +38,7 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { getProps, setProps } from '../../utils/utils';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
+    KupCalendarColumnsProp,
     KupCalendarData,
     KupCalendarDateClickEventPayload,
     KupCalendarEventClickEventPayload,
@@ -94,6 +95,19 @@ export class KupCalendar {
      * @default null
      */
     @Prop() data: KupCalendarData = null;
+    /**
+     * Sets the data to be used to render each event in the calendar
+     * @default {KupCalendarOptions:false}
+     */
+    @Prop() calendarColumns: KupCalendarColumnsProp = {
+        [KupCalendarOptions.DATE]: false,
+        [KupCalendarOptions.DESCR]: false,
+        [KupCalendarOptions.END]: false,
+        [KupCalendarOptions.ICON]: false,
+        [KupCalendarOptions.IMAGE]: false,
+        [KupCalendarOptions.START]: false,
+        [KupCalendarOptions.STYLE]: false,
+    };
     /**
      * When disabled, the navigation toolbar won't be displayed.
      * @default false
@@ -192,30 +206,24 @@ export class KupCalendar {
             index++
         ) {
             const column = this.data.columns[index];
-            switch (column.calendarOption) {
-                case KupCalendarOptions.DATE:
-                    this.dateCol = column.name;
-                    break;
-                case KupCalendarOptions.DESCR:
-                    this.descrCol = column.name;
-                    break;
-                case KupCalendarOptions.END:
-                    this.endCol = column.name;
-                    break;
-                case KupCalendarOptions.ICON:
-                    this.iconCol = column.name;
-                    break;
-                case KupCalendarOptions.IMAGE:
-                    this.imageCol = column.name;
-                    break;
-                case KupCalendarOptions.START:
-                    this.startCol = column.name;
-                    break;
-                case KupCalendarOptions.STYLE:
-                    this.styleCol = column.name;
-                    break;
-            }
+            const columnOptionsMap = {
+                date: { option: KupCalendarOptions.DATE, prop: 'dateCol' },
+                descr: { option: KupCalendarOptions.DESCR, prop: 'descrCol' },
+                end: { option: KupCalendarOptions.END, prop: 'endCol' },
+                icon: { option: KupCalendarOptions.ICON, prop: 'iconCol' },
+                image: { option: KupCalendarOptions.IMAGE, prop: 'imageCol' },
+                start: { option: KupCalendarOptions.START, prop: 'startCol' },
+                style: { option: KupCalendarOptions.STYLE, prop: 'styleCol' }
+            };
+
+            Object.entries(this.calendarColumns).forEach(([key, value]) => {
+                const optionConfig = columnOptionsMap[key];
+                if (value && column.name === optionConfig.option) {
+                    this[optionConfig.prop] = column.name;
+                }
+            });
         }
+
         this.calendar = new Calendar(this.calendarContainer, {
             dateClick: ({ date }) => {
                 this.kupCalendarDateClick.emit({
