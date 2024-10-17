@@ -5,6 +5,7 @@ import { CMBandACPAdapter, RADAdapter } from '../../utils/cell-utils';
 import {
     FCellOptionsProps,
     FCellProps,
+    FCellShapes,
     FCellTypes,
 } from '../f-cell/f-cell-declarations';
 import {
@@ -105,6 +106,9 @@ export const FCellOptions: FunctionalComponent<FCellOptionsProps> = (
         cell: mappedCell as KupDataCell,
     };
 
+    if (props.cell.shape === FCellShapes.TEXT_FIELD) {
+        mappedProps.cell.value = mappedProps.cell.data.value;
+    }
     return <FCell {...mappedProps}></FCell>;
 };
 
@@ -209,10 +213,13 @@ const MainRADAdapter = (
 const MainITXAdapter = (
     options: GenericObject,
     _fieldLabel: string,
-    _currentValue: string
+    _currentValue: string,
+    _cell: KupDataCellOptions
 ) => {
     if (options?.[0]) {
-        return { label: options[0].label };
+        return {
+            value: options[0].label,
+        };
     }
 };
 
