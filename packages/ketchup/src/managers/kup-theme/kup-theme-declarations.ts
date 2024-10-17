@@ -88,6 +88,7 @@ export const fImageUsers = [
     KupTagNames.INPUT_PANEL,
     KupTagNames.LIST,
     KupTagNames.MAGIC_BOX,
+    KupTagNames.RADIO,
     KupTagNames.SNACKBAR,
     KupTagNames.TAB_BAR,
     KupTagNames.TEXT_FIELD,
