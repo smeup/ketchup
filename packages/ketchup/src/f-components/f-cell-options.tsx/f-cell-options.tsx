@@ -89,6 +89,8 @@ export const FCellOptions: FunctionalComponent<FCellOptionsProps> = (
         cell: mappedCell as KupDataCell,
     };
 
+    console.log(mappedProps);
+
     return <FCell {...mappedProps}></FCell>;
 };
 
@@ -127,6 +129,7 @@ const setProps = (cell: KupDataCellOptions, column: KupDataColumn) => {
         ...mapData(cell, column),
         id: column.name,
     };
+
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
     const { data, ...noDataProps } = cell.data || {};
     return cellType !== FCellTypes.MULTI_AUTOCOMPLETE &&
@@ -191,10 +194,9 @@ const MainRADAdapter = (
 const MainITXAdapter = (
     options: GenericObject,
     _fieldLabel: string,
-    _currentValue: string,
-    cell: KupDataCellOptions
+    _currentValue: string
 ) => {
-    return { ...cell, value: options[0].label };
+    return { label: options[0].label };
 };
 
 const MainBTNAdapter = (
