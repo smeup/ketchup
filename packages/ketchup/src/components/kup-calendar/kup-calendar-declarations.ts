@@ -38,16 +38,16 @@ export enum KupCalendarOptions {
     STYLE = 'style',
 }
 /**
- * Calendar column.
+ * Calendar columns prop
  */
-export interface KupCalendarColumn extends KupDataColumn {
-    calendarOption: KupCalendarOptions;
+export type KupCalendarColumnsProp = {
+    [key in KupCalendarOptions]: boolean;
 }
 /**
  * Dataset of the calendar.
  */
 export interface KupCalendarData {
-    columns: KupCalendarColumn[];
+    columns: KupDataColumn[];
     rows: KupDataRow[];
 }
 /**
