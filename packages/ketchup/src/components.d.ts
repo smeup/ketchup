@@ -22,6 +22,7 @@ import { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClic
 import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
+import { KupCellSubmitButtonPosition } from "./components/kup-cell/kup-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
@@ -79,6 +80,7 @@ export { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClic
 export { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 export { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 export { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
+export { KupCellSubmitButtonPosition } from "./components/kup-cell/kup-cell-declarations";
 export { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 export { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 export { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
@@ -961,6 +963,10 @@ export namespace Components {
           * Show submit button
          */
         "showSubmit": boolean;
+        /**
+          * Submit button position, default is right
+         */
+        "submitPosition": KupCellSubmitButtonPosition;
     }
     interface KupChart {
         /**
@@ -6527,6 +6533,10 @@ declare namespace LocalJSX {
           * Show submit button
          */
         "showSubmit"?: boolean;
+        /**
+          * Submit button position, default is right
+         */
+        "submitPosition"?: KupCellSubmitButtonPosition;
     }
     interface KupChart {
         /**

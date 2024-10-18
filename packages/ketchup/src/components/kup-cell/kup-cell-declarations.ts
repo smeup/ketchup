@@ -8,3 +8,10 @@ export enum KupCellProps {
     density = "The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'.",
     dragEnabled = 'When set to true, the component is draggable.',
 }
+
+export enum KupCellSubmitButtonPosition {
+    top = 'column-reverse',
+    bottom = 'column',
+    left = 'row-reverse',
+    right = 'row',
+}

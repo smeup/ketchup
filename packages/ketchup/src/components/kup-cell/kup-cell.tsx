@@ -14,7 +14,10 @@ import {
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupCellProps } from './kup-cell-declarations';
+import {
+    KupCellProps,
+    KupCellSubmitButtonPosition,
+} from './kup-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import {
     FCellOptionsProps,
@@ -75,6 +78,12 @@ export class KupCell {
      * Show submit button
      */
     @Prop() showSubmit: boolean = false;
+
+    /**
+     * Submit button position, default is right
+     */
+    @Prop() submitPosition: KupCellSubmitButtonPosition =
+        KupCellSubmitButtonPosition.right;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -249,6 +258,7 @@ export class KupCell {
 
         const sectionStyle = {
             display: this.showSubmit ? 'flex' : 'block',
+            'flex-direction': this.showSubmit ? this.submitPosition : '',
         };
 
         return (
