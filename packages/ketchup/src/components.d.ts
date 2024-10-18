@@ -7116,7 +7116,7 @@ declare namespace LocalJSX {
          */
         "onKup-datatable-save"?: (event: KupDataTableCustomEvent<KupDatatableInsertRowEventPayload>) => void;
         /**
-          * Event fired when the user click on update button, update button is visible when the props updatableData is true
+          * Event fired when the user click on update button or on one of the command buttons. Update button and commands are visible when the props updatableData is true
          */
         "onKup-datatable-update"?: (event: KupDataTableCustomEvent<KupDatatableUpdatePayload>) => void;
         /**

@@ -48,6 +48,7 @@ export class KupKeysBinding {
         this.#pressedKeys.add(keyPressed);
         const keyEvent = this.#keysEvents.get(this.#getKeysCombination());
         if (keyEvent && !keyEvent.isLunched) {
+            keyboardEvent.preventDefault();
             keyEvent.event();
             keyEvent.isLunched = true;
         }
