@@ -97,16 +97,16 @@ export class KupCalendar {
     @Prop() data: KupCalendarData = null;
     /**
      * Sets the data to be used to render each event in the calendar
-     * @default {KupCalendarOptions:false}
+     * @default {KupCalendarOptions: ""}
      */
     @Prop() calendarColumns: KupCalendarColumnsProp = {
-        [KupCalendarOptions.DATE]: false,
-        [KupCalendarOptions.DESCR]: false,
-        [KupCalendarOptions.END]: false,
-        [KupCalendarOptions.ICON]: false,
-        [KupCalendarOptions.IMAGE]: false,
-        [KupCalendarOptions.START]: false,
-        [KupCalendarOptions.STYLE]: false,
+        [KupCalendarOptions.DATE]: '',
+        [KupCalendarOptions.DESCR]: '',
+        [KupCalendarOptions.END]: '',
+        [KupCalendarOptions.ICON]: '',
+        [KupCalendarOptions.IMAGE]: '',
+        [KupCalendarOptions.START]: '',
+        [KupCalendarOptions.STYLE]: '',
     };
     /**
      * When disabled, the navigation toolbar won't be displayed.
@@ -200,26 +200,14 @@ export class KupCalendar {
         if (this.calendar) {
             this.calendar.destroy();
         }
-        for (
-            let index = 0;
-            this.data && this.data.columns && index < this.data.columns.length;
-            index++
-        ) {
-            const column = this.data.columns[index];
-            const columnOptionsMap = {
-                date: { option: KupCalendarOptions.DATE, prop: 'dateCol' },
-                descr: { option: KupCalendarOptions.DESCR, prop: 'descrCol' },
-                end: { option: KupCalendarOptions.END, prop: 'endCol' },
-                icon: { option: KupCalendarOptions.ICON, prop: 'iconCol' },
-                image: { option: KupCalendarOptions.IMAGE, prop: 'imageCol' },
-                start: { option: KupCalendarOptions.START, prop: 'startCol' },
-                style: { option: KupCalendarOptions.STYLE, prop: 'styleCol' }
-            };
 
-            Object.entries(this.calendarColumns).forEach(([key, value]) => {
-                const optionConfig = columnOptionsMap[key];
-                if (value && column.name === optionConfig.option) {
-                    this[optionConfig.prop] = column.name;
+        if (this.data?.columns) {
+            this.data.columns.forEach((column) => {
+                for (const key in this.calendarColumns) {
+                    if (this.calendarColumns[key] === column.name) {
+                        this[`${key}Col`] = column.name;
+                        break;
+                    }
                 }
             });
         }

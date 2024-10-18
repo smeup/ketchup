@@ -702,7 +702,7 @@ export namespace Components {
     interface KupCalendar {
         /**
           * Sets the data to be used to render each event in the calendar
-          * @default {KupCalendarOptions:false}
+          * @default {KupCalendarOptions: ""}
          */
         "calendarColumns": KupCalendarColumnsProp;
         /**
@@ -6314,7 +6314,7 @@ declare namespace LocalJSX {
     interface KupCalendar {
         /**
           * Sets the data to be used to render each event in the calendar
-          * @default {KupCalendarOptions:false}
+          * @default {KupCalendarOptions: ""}
          */
         "calendarColumns"?: KupCalendarColumnsProp;
         /**

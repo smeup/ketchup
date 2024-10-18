@@ -41,7 +41,7 @@ export enum KupCalendarOptions {
  * Calendar columns prop
  */
 export type KupCalendarColumnsProp = {
-    [key in KupCalendarOptions]: boolean;
+    [key in KupCalendarOptions]: string;
 }
 /**
  * Dataset of the calendar.
