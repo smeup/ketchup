@@ -172,8 +172,6 @@ import { FButtonStyling } from '../../f-components/f-button/f-button-declaration
 import { KupFormRow } from '../kup-form/kup-form-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupList } from '../kup-list/kup-list';
-import { C } from '@fullcalendar/core/internal-common';
-import { display } from 'html2canvas/dist/types/css/property-descriptors/display';
 @Component({
     tag: 'kup-data-table',
     styleUrl: 'kup-data-table.scss',
