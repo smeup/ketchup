@@ -957,6 +957,10 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Show submit button
+         */
+        "showSubmit": boolean;
     }
     interface KupChart {
         /**
@@ -6519,6 +6523,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "dragEnabled"?: boolean;
+        /**
+          * Show submit button
+         */
+        "showSubmit"?: boolean;
     }
     interface KupChart {
         /**
