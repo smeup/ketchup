@@ -12,7 +12,6 @@
         <div class="kup-container">
           <kup-calendar
             :data.prop="basicData"
-            :calendar-columns.prop="calendarColumns"
             date-col="date"
             descr-col="descr"
           ></kup-calendar>
@@ -30,7 +29,6 @@
         <div class="kup-container">
           <kup-calendar
             :data.prop="basicData"
-            :calendar-columns.prop="calendarColumns"
             date-col="date"
             descr-col="descr"
             view-type="timeGridWeek"
@@ -48,7 +46,6 @@
         <div class="kup-container">
           <kup-calendar
             :data.prop="basicData"
-            :calendar-columns.prop="calendarColumns"
             date-col="date"
             descr-col="descr"
             view-type="timeGridDay"
@@ -66,7 +63,6 @@
         <div class="kup-container">
           <kup-calendar
             :data.prop="basicData"
-            :calendar-columns.prop="calendarColumns"
             date-col="date"
             descr-col="descr"
             view-type="listMonth"
@@ -89,18 +85,22 @@ export default {
           {
             name: 'date',
             title: 'Date',
+            calendarOption: 'date',
           },
           {
             name: 'descr',
             title: 'Description',
+            calendarOption: 'descr',
           },
           {
             name: 'start',
             title: 'Start',
+            calendarOption: 'start',
           },
           {
             name: 'end',
             title: 'End',
+            calendarOption: 'end',
           },
           {
             name: 'icon',
@@ -247,12 +247,6 @@ export default {
             },
           },
         ],
-      },
-      calendarColumns: {
-        date: true,
-        descr: true,
-        end: true,
-        start: true,
       },
       markupMonth: '<kup-calendar view-type="dayGridMonth"></kup-calendar>',
       markupWeek: '<kup-calendar view-type="timeGridWeek"></kup-calendar>',

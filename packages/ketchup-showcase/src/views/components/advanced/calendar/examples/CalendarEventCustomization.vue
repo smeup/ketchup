@@ -2,15 +2,9 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        In order to customize the calendar's events, you need to configure some
-        specific columns in the
-        <span class="code-word">calendarColumns</span> prop.<br />
-
-        The calendarColumns property receives an object where the keys are the
-        names of each column, and to enable them you must give the boolean value
-        of true<br />
+        In order to customize the calendar's events, you need to set up some
+        specific columns in the <span class="code-word">data</span> prop.<br />
         The most common columns are:<br /><br />
-
         - <span class="code-word">date</span>, which is the date of the
         event;<br />
         - <span class="code-word">descr</span>, which is the description of the
@@ -19,18 +13,10 @@
         the event;<br />
         - <span class="code-word">end</span>, which is the ending time of the
         event.<br /><br />
-
+        This keyword must be set in the property
+        <span class="code-word">calendarOption</span> of the column itself.<br /><br />
         There are also some extra columns, mainly to customize the look of the
         event.<br />
-        The other columns are:<br /><br />
-
-        - <span class="code-word">icon</span>, which is the icon of the
-        event;<br />
-        - <span class="code-word">image</span>, which is the image of the
-        event;<br />
-        - <span class="code-word">style</span>, which is the custom style of the
-        event;<br /><br />
-
         <strong
           >In the following example were set icons images and custom
           style</strong
@@ -41,10 +27,7 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <kup-calendar
-            :data.prop="basicData"
-            :calendar-columns.prop="calendarColumns"
-          ></kup-calendar>
+          <kup-calendar :data.prop="basicData"></kup-calendar>
         </div>
       </div>
     </div>
@@ -61,10 +44,12 @@ export default {
           {
             name: 'date',
             title: 'Date',
+            calendarOption: 'date',
           },
           {
             name: 'descr',
             title: 'Description',
+            calendarOption: 'descr',
           },
           {
             name: 'start',
@@ -77,14 +62,17 @@ export default {
           {
             name: 'icon',
             title: 'Icon',
+            calendarOption: 'icon',
           },
           {
             name: 'image',
             title: 'Image',
+            calendarOption: 'image',
           },
           {
             name: 'style',
             title: 'Style',
+            calendarOption: 'style',
           },
         ],
         rows: [
@@ -219,13 +207,6 @@ export default {
             },
           },
         ],
-      },
-      calendarColumns: {
-        date: true,
-        descr: true,
-        icon: true,
-        image: true,
-        style: true,
       },
     };
   },
