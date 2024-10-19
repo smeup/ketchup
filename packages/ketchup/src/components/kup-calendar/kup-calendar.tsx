@@ -38,7 +38,6 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { getProps, setProps } from '../../utils/utils';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
-    KupCalendarColumnsProp,
     KupCalendarData,
     KupCalendarDateClickEventPayload,
     KupCalendarEventClickEventPayload,
@@ -212,7 +211,6 @@ export class KupCalendar {
                 }
             });
         }
-
         this.calendar = new Calendar(this.calendarContainer, {
             dateClick: ({ date }) => {
                 this.kupCalendarDateClick.emit({

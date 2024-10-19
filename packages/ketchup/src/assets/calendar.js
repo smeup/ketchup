@@ -329,7 +329,6 @@ const callback = (e) => {
 };
 
 const calendars = document.querySelectorAll('kup-calendar');
-
 for (let index = 0; index < calendars.length; index++) {
     const calendar = calendars[index];
     if(calendar.id === 'with-custom-columns') {
