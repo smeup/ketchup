@@ -701,7 +701,7 @@ export namespace Components {
     }
     interface KupCalendar {
         /**
-          * Sets the data to be used to render each event in the calendar
+          * Sets which columns of the data property will be used to render each characteristic of an event in the calendar.
           * @default {KupCalendarOptions: ""}
          */
         "calendarColumns": KupCalendarColumnsProp;
@@ -6313,7 +6313,7 @@ declare namespace LocalJSX {
     }
     interface KupCalendar {
         /**
-          * Sets the data to be used to render each event in the calendar
+          * Sets which columns of the data property will be used to render each characteristic of an event in the calendar.
           * @default {KupCalendarOptions: ""}
          */
         "calendarColumns"?: KupCalendarColumnsProp;
