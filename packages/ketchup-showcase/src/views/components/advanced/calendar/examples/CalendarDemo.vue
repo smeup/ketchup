@@ -63,9 +63,9 @@ export default {
         {
           prop: 'calendarColumns',
           description:
-            'Sets the data to be used to render each event in the calendar.',
+            'Sets which columns of the data property will be used to render each characteristic of an event in the calendar.',
           type: 'KupCalendarColumnsProp',
-          default: '{ KupCalendarOptions: false }',
+          default: '{ KupCalendarOptions: "" }',
           try: 'json',
         },
         {
@@ -285,10 +285,10 @@ function createComp() {
     ],
   };
   comp.calendarColumns = {
-    date: true,
-    descr: true,
-    start: true,
-    end: true,
+    date: 'date',
+    descr: 'descr',
+    start: 'start',
+    end: 'end',
   };
   comp.id = 'demo-component';
   comp.currentDate = '2021-09-17';

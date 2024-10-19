@@ -2,13 +2,15 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        In order to customize the calendar's events, you need to configure some
-        specific columns in the
+        In order to customize the calendar's events, you need to define which
+        columns of the <span class="code-word">data</span> prop are going to be
+        used to customize each of the event characteristics.<br />
+        This is done using the
         <span class="code-word">calendarColumns</span> prop.<br />
 
-        The calendarColumns property receives an object where the keys are the
-        names of each column, and to enable them you must give the boolean value
-        of true<br />
+        The calendarColumns prop receives an object where the keys are the names
+        of each characteristic of an event and the values are the names of the
+        columns that will be used from the data prop for that characteristic.<br />
         The most common columns are:<br /><br />
 
         - <span class="code-word">date</span>, which is the date of the
@@ -221,11 +223,11 @@ export default {
         ],
       },
       calendarColumns: {
-        date: true,
-        descr: true,
-        icon: true,
-        image: true,
-        style: true,
+        date: 'date',
+        descr: 'descr',
+        icon: 'icon',
+        image: 'image',
+        style: 'style',
       },
     };
   },
