@@ -47,7 +47,7 @@ export type KupCalendarColumnsProp = {
  * Dataset of the calendar.
  */
 export interface KupCalendarData {
-    columns: KupCalendarColumn[];
+    columns: KupDataColumn[];
     rows: KupDataRow[];
 }
 /**
