@@ -276,10 +276,6 @@ export class KupCell {
             row: this.generateRow(),
         };
 
-        const sectionStyle = {
-            display: this.showSubmit ? 'flex' : 'block',
-            'flex-direction': this.showSubmit ? this.submitPosition : '',
-        };
         return (
             <Host>
                 <style>
@@ -287,7 +283,19 @@ export class KupCell {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId} style={sectionStyle}>
+                <div
+                    id={componentWrapperId}
+                    style={
+                        this.showSubmit
+                            ? {
+                                  display: 'flex',
+                                  'flex-direction': this.submitPosition,
+                                  'align-items': 'center',
+                                  gap: '0.5rem',
+                              }
+                            : {}
+                    }
+                >
                     <FCellOptions {...props}></FCellOptions>
                     {this.showSubmit ? (
                         <FButton
