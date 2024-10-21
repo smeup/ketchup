@@ -123,7 +123,6 @@ export const FCellOptions: FunctionalComponent<FCellOptionsProps> = (
             </div>
         );
     }
-    console.log('props', mappedProps);
     return <FCell {...mappedProps}></FCell>;
 };
 

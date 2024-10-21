@@ -4,6 +4,8 @@ import {
     forceUpdate,
     h,
     Host,
+    Event,
+    EventEmitter,
     Method,
     Prop,
 } from '@stencil/core';
@@ -14,7 +16,11 @@ import {
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupCellProps } from './kup-cell-declarations';
+import {
+    KupCellProps,
+    KupCellSubmitButtonPosition,
+    KupCellSubmitClickEventPayload,
+} from './kup-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import {
     FCellOptionsProps,
@@ -33,6 +39,7 @@ import {
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 import { FCellOptions } from '../../f-components/f-cell-options.tsx/f-cell-options';
+import { FButton } from '../../f-components/f-button/f-button';
 
 @Component({
     tag: 'kup-cell',
@@ -70,6 +77,17 @@ export class KupCell {
      */
     @Prop() dragEnabled: boolean = false;
 
+    /**
+     * Show submit button
+     */
+    @Prop() showSubmit: boolean = false;
+
+    /**
+     * Submit button position, default is right
+     */
+    @Prop() submitPosition: KupCellSubmitButtonPosition =
+        KupCellSubmitButtonPosition.right;
+
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -77,11 +95,19 @@ export class KupCell {
     /**
      * Instance of the KupManager class.
      */
-    private kupManager: KupManager = kupManagerInstance();
+    #kupManager: KupManager = kupManagerInstance();
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
+
+    @Event({
+        eventName: 'kup-cell-submit-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupCellSubmitClick: EventEmitter<KupCellSubmitClickEventPayload>;
 
     /**
      * Adds the given CSS classes to the cell's data.
@@ -165,7 +191,7 @@ export class KupCell {
                 };
             };
 
-            this.kupManager.interact.draggable(
+            this.#kupManager.interact.draggable(
                 this.rootElement.shadowRoot.querySelector(
                     '#' + componentWrapperId
                 ),
@@ -190,7 +216,7 @@ export class KupCell {
         const coltitle: string =
             this.data && this.data.obj && this.data.obj.t
                 ? this.data.obj.t + ';' + this.data.obj.p
-                : this.kupManager.language.translate(
+                : this.#kupManager.language.translate(
                       KupLanguageGeneric.EMPTY_OBJECT
                   );
         return {
@@ -206,28 +232,37 @@ export class KupCell {
         return row;
     }
 
+    private submitClick(e: MouseEvent): void {
+        e.stopPropagation();
+        this.kupCellSubmitClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            cell: this.data as KupDataCellOptions,
+        });
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        this.kupManager.dates.register(this);
-        this.kupManager.debug.logLoad(this, false);
-        this.kupManager.language.register(this);
-        this.kupManager.theme.register(this);
+        this.#kupManager.dates.register(this);
+        this.#kupManager.debug.logLoad(this, false);
+        this.#kupManager.language.register(this);
+        this.#kupManager.theme.register(this);
     }
 
     componentDidLoad() {
-        this.kupManager.debug.logLoad(this, true);
+        this.#kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupManager.debug.logRender(this, false);
+        this.#kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
         this.didRenderInteractables();
-        this.kupManager.debug.logRender(this, true);
+        this.#kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -240,23 +275,40 @@ export class KupCell {
             renderKup: true,
             row: this.generateRow(),
         };
+
+        const sectionStyle = {
+            display: this.showSubmit ? 'flex' : 'block',
+            'flex-direction': this.showSubmit ? this.submitPosition : '',
+        };
         return (
             <Host>
                 <style>
-                    {this.kupManager.theme.setKupStyle(
+                    {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}>
+                <div id={componentWrapperId} style={sectionStyle}>
                     <FCellOptions {...props}></FCellOptions>
+                    {this.showSubmit ? (
+                        <FButton
+                            buttonType="submit"
+                            label={this.#kupManager.language.translate(
+                                KupLanguageGeneric.CONFIRM
+                            )}
+                            wrapperClass="form__submit"
+                            onClick={(e) => {
+                                this.submitClick(e);
+                            }}
+                        ></FButton>
+                    ) : null}
                 </div>
             </Host>
         );
     }
 
     disconnectedCallback() {
-        this.kupManager.dates.unregister(this);
-        this.kupManager.language.unregister(this);
-        this.kupManager.theme.unregister(this);
+        this.#kupManager.dates.unregister(this);
+        this.#kupManager.language.unregister(this);
+        this.#kupManager.theme.unregister(this);
     }
 }
