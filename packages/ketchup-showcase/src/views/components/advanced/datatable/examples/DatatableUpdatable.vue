@@ -10,6 +10,9 @@
       <pre>{{ this.originalData }}</pre>
       Updated data rows (event.detail.updatedData.rows)
       <pre>{{ this.updatedData }}</pre>
+      Command required (event.detail.updatedData.command) - Emtpy when the
+      button pressed is Update
+      <pre>{{ this.command }}</pre>
     </div>
   </div>
 </template>
@@ -17,13 +20,37 @@
 <script>
 import { getDefaultDataTable } from '@/mock/dataTable';
 
+const tableWithCommands = {
+  ...getDefaultDataTable(),
+  setup: {
+    commands: [
+      {
+        cells: {
+          CLEAR: {
+            value: 'Clear (F5)',
+            obj: {
+              t: 'J1',
+              p: 'KEY',
+              k: 'CLEAR',
+            },
+            icon: 'clear',
+            data: {
+              keyShortcut: 'F5',
+            },
+          },
+        },
+      },
+    ],
+  },
+};
+
 export default {
   name: 'dataTableUpdatable',
 
   data() {
     return {
       defaultData: {
-        data: getDefaultDataTable(true),
+        data: tableWithCommands,
         updatableData: true,
       },
       originalData: '',
@@ -35,6 +62,7 @@ export default {
     onKupDatatableUpdate(event) {
       this.originalData = event.detail.originalData.rows;
       this.updatedData = event.detail.updatedData.rows;
+      this.command = event.detail.command;
     },
   },
 };

@@ -158,6 +158,7 @@ import {
 } from '../../f-components/f-paginator/f-paginator-utils';
 import {
     KupCommand,
+    KupDataCell,
     KupDataColumn,
     KupDataDataset,
     KupDataNewColumnOptions,
@@ -1176,8 +1177,9 @@ export class KupDataTable {
     kupCellActionIconClick: EventEmitter<KupDatatableClickEventPayload>;
 
     /**
-     * Event fired when the user click on update button,
-     * update button is visible when the props updatableData is true
+     * Event fired when the user click on update button or on one
+     * of the command buttons.
+     * Update button and commands are visible when the props updatableData is true
      */
     @Event({
         eventName: 'kup-datatable-update',
@@ -4171,12 +4173,13 @@ export class KupDataTable {
         this.refresh();
     }
 
-    #handleUpdateClick = () => {
+    #handleUpdateClick = (command?: KupDataCell) => {
         this.kupUpdate.emit({
             comp: this,
             id: this.rootElement.id,
             originalData: this.#originalDataLoaded,
             updatedData: getDiffData(this.#originalDataLoaded, this.data),
+            command: command,
         });
     };
 
@@ -5976,14 +5979,32 @@ export class KupDataTable {
     }
 
     #renderUpdateButtons() {
-        return (
+        let commandButtons = [];
+
+        commandButtons.push(
             <kup-button
-                onKup-button-click={this.#handleUpdateClick}
+                onKup-button-click={() => this.#handleUpdateClick()}
                 label={this.#kupManager.language.translate(
                     KupLanguageGeneric.UPDATE
                 )}
             ></kup-button>
         );
+
+        this.data?.setup?.commands?.forEach((commandObj) => {
+            Object.entries(commandObj?.cells).forEach(([, cell]) => {
+                const newButton = (
+                    <kup-button
+                        onKup-button-click={() => this.#handleUpdateClick(cell)}
+                        keyShortcut={cell.data?.keyShortcut}
+                        icon={cell.icon}
+                        label={cell.value}
+                    ></kup-button>
+                );
+                commandButtons.push(newButton);
+            });
+        });
+
+        return <div class="commands">{commandButtons}</div>;
     }
 
     render() {
@@ -6191,6 +6212,7 @@ export class KupDataTable {
                         this.rootElement as KupComponent
                     )}
                 </style>
+                {this.updatableData ? this.#renderUpdateButtons() : null}
                 <div id={componentWrapperId} class={wrapClass}>
                     <div class="group-wrapper">{groupChips}</div>
                     <div class="actions-wrapper" style={actionWrapperWidth}>
@@ -6411,7 +6433,6 @@ export class KupDataTable {
                     </div>
                     {paginatorBottom}
                 </div>
-                {this.updatableData ? this.#renderUpdateButtons() : null}
             </Host>
         );
         return compCreated;
