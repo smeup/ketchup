@@ -4,6 +4,8 @@ import {
     forceUpdate,
     h,
     Host,
+    Event,
+    EventEmitter,
     Method,
     Prop,
 } from '@stencil/core';
@@ -17,6 +19,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import {
     KupCellProps,
     KupCellSubmitButtonPosition,
+    KupCellSubmitClickEventPayload,
 } from './kup-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import {
@@ -97,6 +100,14 @@ export class KupCell {
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
+
+    @Event({
+        eventName: 'kup-cell-submit-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupCellSubmitClick: EventEmitter<KupCellSubmitClickEventPayload>;
 
     /**
      * Adds the given CSS classes to the cell's data.
@@ -221,6 +232,15 @@ export class KupCell {
         return row;
     }
 
+    private submitClick(e: MouseEvent): void {
+        e.stopPropagation();
+        this.kupCellSubmitClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            cell: this.data as KupDataCellOptions,
+        });
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -260,7 +280,6 @@ export class KupCell {
             display: this.showSubmit ? 'flex' : 'block',
             'flex-direction': this.showSubmit ? this.submitPosition : '',
         };
-
         return (
             <Host>
                 <style>
@@ -277,6 +296,9 @@ export class KupCell {
                                 KupLanguageGeneric.CONFIRM
                             )}
                             wrapperClass="form__submit"
+                            onClick={(e) => {
+                                this.submitClick(e);
+                            }}
                         ></FButton>
                     ) : null}
                 </div>

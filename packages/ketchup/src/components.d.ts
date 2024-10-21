@@ -22,7 +22,7 @@ import { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClic
 import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
-import { KupCellSubmitButtonPosition } from "./components/kup-cell/kup-cell-declarations";
+import { KupCellSubmitButtonPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
@@ -80,7 +80,7 @@ export { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClic
 export { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 export { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 export { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
-export { KupCellSubmitButtonPosition } from "./components/kup-cell/kup-cell-declarations";
+export { KupCellSubmitButtonPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
 export { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 export { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 export { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
@@ -4516,6 +4516,10 @@ export interface KupCardListCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupCardListElement;
 }
+export interface KupCellCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupCellElement;
+}
 export interface KupChartCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupChartElement;
@@ -4859,7 +4863,18 @@ declare global {
         prototype: HTMLKupCardListElement;
         new (): HTMLKupCardListElement;
     };
+    interface HTMLKupCellElementEventMap {
+        "kup-cell-submit-click": KupCellSubmitClickEventPayload;
+    }
     interface HTMLKupCellElement extends Components.KupCell, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupCellElementEventMap>(type: K, listener: (this: HTMLKupCellElement, ev: KupCellCustomEvent<HTMLKupCellElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupCellElementEventMap>(type: K, listener: (this: HTMLKupCellElement, ev: KupCellCustomEvent<HTMLKupCellElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKupCellElement: {
         prototype: HTMLKupCellElement;
@@ -6529,6 +6544,7 @@ declare namespace LocalJSX {
           * @default false
          */
         "dragEnabled"?: boolean;
+        "onKup-cell-submit-click"?: (event: KupCellCustomEvent<KupCellSubmitClickEventPayload>) => void;
         /**
           * Show submit button
          */
