@@ -5,6 +5,11 @@ import { KupChipNode } from '../../components/kup-chip/kup-chip-declarations';
  */
 export interface FChipsProps extends FComponent {
     data?: KupChipNode[];
+    options?: {
+        id: string;
+        label: string;
+        checked: boolean;
+    }[];
     displayId?: boolean;
     onBlur?: ((chip: KupChipNode, e: FocusEvent) => void)[];
     onClick?: ((chip: KupChipNode, e: PointerEvent) => void)[];

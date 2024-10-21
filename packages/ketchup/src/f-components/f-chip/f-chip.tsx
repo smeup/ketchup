@@ -21,6 +21,14 @@ const dom: KupDom = document.documentElement as KupDom;
 /*-------------------------------------------------*/
 
 export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
+    if (props.options) {
+        props.data = props.options.map((e) => {
+            return {
+                value: e.label,
+                checked: e.checked,
+            };
+        });
+    }
     if (!props.styling) {
         props.styling = FChipStyling.RAISED;
     }
