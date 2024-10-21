@@ -482,40 +482,46 @@ export class KupInputPanel {
         customLabelRender: boolean = false,
         styleObj: GenericObject = {}
     ) {
+        const classObj = {
+            'input-panel__section': !section.horizontal,
+            'input-panel__horizontal-section': section.horizontal,
+        };
+
+        styleObj.gap = +section.gap > 0 ? `${section.gap}rem` : '1rem';
+
         let content = [];
 
         if (section.sections?.length) {
             content = section.sections.map((innerSection) =>
                 this.#renderSection(cells, innerSection)
             );
+
+            const hasDim = section.sections.some((sec) => sec.dim);
+
+            if (!section.gridCols && section.horizontal) {
+                styleObj.gridTemplateColumns = hasDim
+                    ? section.sections.map((sec) => sec.dim || 'auto').join(' ')
+                    : `repeat(${section.sections.length}, 1fr)`;
+            }
+
+            if (!section.gridRows && !section.horizontal) {
+                styleObj.gridTemplateRows = hasDim
+                    ? section.sections.map((sec) => sec.dim || 'auto').join(' ')
+                    : `repeat(${section.sections.length}, 1fr)`;
+            }
         } else if (section.content?.length) {
             content = section.content.map((field) =>
                 this.#renderField(cells, field)
             );
+            styleObj.gridTemplateColumns =
+                +section.gridCols > 0 ? `repeat(${section.gridCols}, 1fr)` : '';
+
+            styleObj.gridTemplateRows =
+                +section.gridRows > 0 ? `repeat(${section.gridRows}, 1fr)` : '';
         }
-
-        const classObj = {
-            'input-panel__section': !section.horizontal,
-            'input-panel__horizontal-section': section.horizontal,
-        };
-
-        if (cells.row?.layout?.horizontal) {
-            styleObj.maxWidth = section.dim;
-        } else {
-            styleObj.maxHeight = section.dim;
-        }
-
-        const sectionStyle = {
-            ...styleObj,
-            gap: +section.gap > 0 ? `${section.gap}rem` : '',
-            'grid-template-columns':
-                +section.gridCols > 0 ? `repeat(${section.gridCols}, 1fr)` : '',
-            'grid-template-rows':
-                +section.gridRows > 0 ? `repeat(${section.gridRows}, 1fr)` : '',
-        };
 
         const sectionContent = (
-            <div class={classObj} style={sectionStyle}>
+            <div class={classObj} style={styleObj}>
                 {content}
             </div>
         );
