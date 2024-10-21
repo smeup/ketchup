@@ -87,11 +87,6 @@ const toolbarData = [
         id: '',
         legacyLook: false,
         isExpanded: false,
-        obj: {
-            k: '',
-            p: '',
-            t: '**',
-        },
         value: 'Element 1 Parent',
         visible: true,
         fun: 'FUN',
@@ -106,37 +101,34 @@ const toolbarData = [
                 id: '',
                 isExpanded: false,
                 legacyLook: false,
-                isEditable: false,
+                isEditable: true,
                 cssClass: [],
-
-                obj: {
-                    k: '',
-                    p: '',
-                    t: '**',
-                },
-                shape: 'RAD',
+                shape: 'Rad',
+                // data: {
+                //     type: 'chevron',
+                // },
                 data: [
                     {
-                        value: 1,
-                        label: 'One',
-                        checked: false,
+                        id: 1,
+                        label: 'uno',
                     },
                     {
-                        value: 2,
-                        label: 'Two',
-                        checked: false,
+                        id: 2,
+                        label: 'due',
                     },
                     {
-                        value: 3,
-                        label: 'Three',
-                        checked: true,
+                        id: 3,
+                        label: 'tre',
                     },
                 ],
-                style: {
-                    'background-color': 'rgb(255, 204, 204)',
+                obj: {
+                    k: '10;20',
+                    p: 'B£WAR',
+                    t: 'TA',
                 },
-                value: 'Element 2 child 1',
                 visible: true,
+                value: '10;20',
+
                 fun: 'FUN',
             },
             {
@@ -147,36 +139,31 @@ const toolbarData = [
                 isExpanded: false,
                 cssClass: [],
                 legacyLook: false,
-                isEditable: false,
-                obj: {
-                    k: '',
-                    p: '',
-                    t: '**',
-                },
+                isEditable: true,
                 shape: 'RAD',
-                data: [
+                options: [
                     {
-                        value: 1,
+                        id: 1,
                         label: 'One',
-                        checked: false,
+                        checked: true,
+                        value: 1,
                     },
                     {
-                        value: 2,
+                        id: 2,
                         label: 'Two',
                         checked: false,
+                        value: 2,
                     },
                     {
-                        value: 3,
+                        id: 3,
                         label: 'Three',
-                        checked: true,
+                        checked: false,
+                        value: 3,
                     },
                 ],
-                style: {
-                    'background-color': 'rgb(255, 204, 204)',
-                },
-                value: 'Element 2 child 2',
                 visible: true,
                 fun: 'FUN',
+                value: 1,
             },
         ],
         disabled: false,
@@ -185,13 +172,7 @@ const toolbarData = [
         cssClass: [],
         isExpanded: false,
         legacyLook: false,
-        isEditable: false,
-
-        obj: {
-            k: '',
-            p: '',
-            t: '**',
-        },
+        isEditable: true,
         data: false,
         style: {},
         value: 'element 2 parent',
@@ -211,12 +192,6 @@ const toolbarData = [
                         id: '',
                         isExpanded: false,
                         isEditable: false,
-
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: '**',
-                        },
                         value: 'element 3 child 1 child 1',
                         visible: true,
                         fun: 'FUN',
@@ -228,11 +203,6 @@ const toolbarData = [
                         legacyLook: false,
                         id: '',
                         isExpanded: false,
-                        obj: {
-                            k: '',
-                            p: '',
-                            t: '**',
-                        },
                         value: 'element 3 child 1 child 2',
                         visible: true,
                         fun: 'FUN',
@@ -246,11 +216,6 @@ const toolbarData = [
 
                 id: '',
                 isExpanded: false,
-                obj: {
-                    k: '',
-                    p: '',
-                    t: '**',
-                },
                 value: 'element 3 child 1',
                 visible: true,
                 fun: 'FUN',
@@ -263,11 +228,6 @@ const toolbarData = [
         isExpanded: false,
         isEditable: false,
         legacyLook: false,
-        obj: {
-            k: '',
-            p: '',
-            t: '**',
-        },
         value: 'element 3',
         visible: true,
         fun: 'FUN',
@@ -276,5 +236,3 @@ const toolbarData = [
 
 const esempio = document.getElementById('esempio');
 esempio.data = toolbarData;
-
-console.log(toolbarData);

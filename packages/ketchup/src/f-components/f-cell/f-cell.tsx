@@ -49,7 +49,7 @@ import { FProgressBar } from '../f-progress-bar/f-progress-bar';
 import { FRadio } from '../f-radio/f-radio';
 import { FRating } from '../f-rating/f-rating';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
-import { FRadioProps } from '../f-radio/f-radio-declarations';
+import { FRadioData, FRadioProps } from '../f-radio/f-radio-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -1038,11 +1038,13 @@ function cellEvent(
     cellEventName: FCellEvents
 ): void {
     const cell = props.cell;
+    console.log('props', props);
     const column = props.column;
     const comp = props.component;
     const row = props.row;
     if (cellEventName === FCellEvents.UPDATE) {
         let value = getValueFromEventTaget(e, cellType);
+        console.log('value', value);
         switch (cellType) {
             case FCellTypes.AUTOCOMPLETE:
             case FCellTypes.COMBOBOX:
@@ -1061,7 +1063,18 @@ function cellEvent(
                 }
                 break;
             case FCellTypes.RADIO:
-                // data change handled outside this switchcase to avoid passing the index
+                console.log('PRE CELL', cell);
+                if (cell.data.data) {
+                    console.log('RADIO EVENT CELL DATA', cell.data.data);
+                    const radioData = cell.data.data as FRadioData[];
+                    const checkedItem = radioData.find((item) => item.checked);
+
+                    if (checkedItem) {
+                        console.log(checkedItem);
+                        value = checkedItem.value;
+                    }
+                    console.log('POST CELL', value);
+                }
                 break;
             case FCellTypes.CHIP:
             case FCellTypes.MULTI_AUTOCOMPLETE:
@@ -1076,9 +1089,9 @@ function cellEvent(
                 break;
         }
         if (cell.obj) {
-            cell.obj.k = value.toString();
+            cell.obj.k = value?.toString();
         }
-        cell.value = value.toString();
+        cell.value = value?.toString();
         cell.displayedValue = null;
         cell.displayedValue = getCellValueForDisplay(column, cell);
     }
@@ -1097,10 +1110,12 @@ function cellEvent(
                 type: cellType,
             },
         });
+        console.log('EVENTO', cellEvent);
         (comp as KupComponent).rootElement.dispatchEvent(cellEvent);
         if (cellEventName === FCellEvents.UPDATE) {
             try {
                 (comp as KupComponent).refresh();
+                console.log('REFRESH component');
             } catch (error) {
                 dom.ketchup.debug.logMessage(
                     comp,
@@ -1116,6 +1131,7 @@ function getValueFromEventTaget(
     e: InputEvent | CustomEvent | MouseEvent | KeyboardEvent,
     cellType: FCellTypes
 ): string {
+    console.log('E', e);
     const isInputEvent = !!((e.target as HTMLElement).tagName === 'INPUT');
     let value = isInputEvent
         ? (e.target as HTMLInputElement).value
@@ -1128,6 +1144,7 @@ function getValueFromEventTaget(
     if (cellType === FCellTypes.NUMBER && isInputEvent) {
         value = dom.ketchup.math.formattedStringToNumberString(value, '');
     }
+
     return value;
 }
 

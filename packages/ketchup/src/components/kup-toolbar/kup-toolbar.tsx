@@ -10,6 +10,7 @@ import {
     Prop,
     State,
     VNode,
+    Fragment,
 } from '@stencil/core';
 import { KupRadio } from '../kup-radio/kup-radio';
 import {
@@ -20,21 +21,14 @@ import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { KupTreeNode } from '../kup-tree/kup-tree-declarations';
 import { KupListProps } from '../kup-list/kup-list-declarations';
-import {
-    FCellProps,
-    FCellShapes,
-} from '../../f-components/f-cell/f-cell-declarations';
-import {
-    KupToolbarClickEventPayload,
-    KupToolbarItemClickEventPayload,
-} from './kup-toolbar-declarations';
+import { KupToolbarClickEventPayload } from './kup-toolbar-declarations';
 import {
     KupRadioChangeEventPayload,
     KupRadioCustomEvent,
 } from '../../components';
-import { FRadio } from '../../f-components/f-radio/f-radio';
-import { FCell } from '../../f-components/f-cell/f-cell';
 import { FImage } from '../../f-components/f-image/f-image';
+import { FCellOptions } from '../../f-components/f-cell-options.tsx/f-cell-options';
+import { FCellOptionsProps } from '../../f-components/f-cell-options.tsx/f-cell-options.declarations';
 
 @Component({
     tag: 'kup-toolbar',
@@ -109,7 +103,11 @@ export class KupToolbar {
     ) {
         event.preventDefault();
         this.#handleClick(index, node);
-        console.log(index, node);
+        console.log(index, node, event);
+    }
+
+    onKupChange() {
+        console.log('kup change');
     }
 
     /*-------------------------------------------------*/
@@ -152,52 +150,58 @@ export class KupToolbar {
 
     #renderTreeNode(node: KupTreeNode, index: number): VNode {
         const hasChildren = node.children && node.children.length > 0;
-        console.log(node);
 
         if (!hasChildren) {
-            const cellProps: FCellProps = {
+            const cellProps: FCellOptionsProps = {
+                shape: node.shape,
+                component: this,
                 cell: node,
+                editable: true,
             };
-            console.log(cellProps);
             return (
-                <div id={node.value} class="parent-class" tabindex="0">
-                    {node.shape ? (
-                        // (
-                        //     <FCell
-                        //         {...cellProps}
-                        //         // onKup-radio-change={(
-                        //         //     event: KupRadioCustomEvent<KupRadioChangeEventPayload>
-                        //         // ) => this.onKupClick(index, node, event)}
-                        //     />
-                        // )
-                        <FRadio
-                            data={node.data.map((opt: GenericObject) => ({
-                                value: opt.id,
-                                label: opt.label,
-                                checked: opt.id === opt.value,
-                            }))}
-                        ></FRadio>
+                <>
+                    {cellProps.shape ? (
+                        <>
+                            <div
+                                onKup-cell-update={(event: MouseEvent) => {
+                                    this.onKupClick(index, node, event);
+                                    console.log(node);
+                                }}
+                            >
+                                <FCellOptions {...cellProps} />
+                            </div>
+                        </>
                     ) : (
-                        <span
-                            onClick={(event: MouseEvent) =>
-                                this.onKupClick(index, node, event)
+                        <div
+                            id={node.value}
+                            class="parent-class"
+                            tabindex="0"
+                            onClick={
+                                !cellProps.shape || cellProps.cell.data
+                                    ? (event: MouseEvent) => {
+                                          event.stopPropagation();
+                                          this.onKupClick(index, node, event);
+                                          console.log('EVENTO LANCIATO QUA');
+                                      }
+                                    : undefined
                             }
                         >
-                            {node.value}
-                        </span>
+                            <span>{node.value}</span>
+                        </div>
                     )}
-                </div>
+                </>
             );
         } else {
             return (
-                <div class="parent-class" tabindex="0">
-                    <span
-                        onClick={(event: MouseEvent) =>
-                            this.onKupClick(index, node, event)
-                        }
-                    >
-                        {node.value}
-                    </span>
+                <div
+                    class="parent-class"
+                    tabindex="0"
+                    onClick={(event: MouseEvent) => {
+                        this.onKupClick(index, node, event);
+                        console.log('EVENTO LANCIATO QUA');
+                    }}
+                >
+                    <span>{node.value}</span>
                     <FImage
                         resource="chevron-right"
                         sizeX="14px"
@@ -270,11 +274,11 @@ export class KupToolbar {
                     )}
                 </style>
                 <div id="kup-component">
-                    <ul>
+                    <div class="toolbar-container">
                         {this.data.map((item, index) =>
                             this.#renderTreeNode(item, index)
                         )}
-                    </ul>
+                    </div>
                 </div>
             </Host>
         );

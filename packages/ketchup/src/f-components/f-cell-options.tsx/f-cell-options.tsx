@@ -194,6 +194,9 @@ const slotData = (cell: KupDataCellOptions, col: KupDataColumn) => {
 };
 
 const setProps = (cell: KupDataCellOptions, column: KupDataColumn) => {
+    if (!column) {
+        column = generateColumn(cell);
+    }
     const defaultProps = {
         ...mapData(cell, column),
         disabled: !cell.isEditable,
@@ -234,6 +237,10 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
         return null;
     }
 
+    if (!col) {
+        col = generateColumn(cell);
+    }
+
     const options = cell.options;
     const fieldLabel = col.title;
     const currentValue = cell.value;
@@ -258,6 +265,7 @@ const MainRADAdapter = (
     _fieldLabel: string,
     currentValue: string
 ) => {
+    console.log('current', currentValue, 'options', options);
     return RADAdapter(currentValue, options);
 };
 
