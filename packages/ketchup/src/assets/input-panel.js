@@ -2716,59 +2716,6 @@ const keyButtonClickTest = {
                         keyShortcut: keysShortcut[0],
                     },
                 },
-            },
-            layout: {
-                type: 'SmeupDataLayout',
-                horizontal: false,
-                sections: [
-                    {
-                        content: [
-                            {
-                                id: 'BUTTON1',
-                            },
-                            {
-                                id: 'BUTTON2',
-                            },
-                            {
-                                id: 'BUTTON3',
-                            },
-                        ],
-                        sections: [],
-                        horizontal: false,
-                        gridCols: 1,
-                        gridRows: 1,
-                        gap: 2,
-                        title: 'Test keys bindings with button clicks',
-                    },
-                ],
-            },
-        },
-        {
-            cells: {
-                BUTTON1: {
-                    value: `Click or press '${keysShortcut[0]}'`,
-                    obj: { t: '', p: '' },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'BTN',
-                    data: {
-                        disabled: false,
-                        styling: 'outlined',
-                        keyShortcut: keysShortcut[0],
-                    },
-                },
-                BUTTON2: {
-                    value: `Click or press 2 '${keysShortcut[1]}'`,
-                    obj: { t: '', p: '' },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'BTN',
-                    data: {
-                        disabled: true,
-                        styling: 'flat',
-                        keyShortcut: keysShortcut[1],
-                    },
-                },
                 BUTTON2: {
                     value: `Click or press '${keysShortcut[1]}'`,
                     obj: { t: '', p: '' },
