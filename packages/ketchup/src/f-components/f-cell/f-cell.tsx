@@ -590,6 +590,17 @@ function setEditableCell(
                     ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
                 />
             );
+        case FCellTypes.OBJECT:
+            return (
+                <FTextField
+                    icon={'table'}
+                    {...cell.data}
+                    disabled={false}
+                    onIconClick={(e) =>
+                        cellEvent(e, props, cellType, FCellEvents.ICON_CLICK)
+                    }
+                ></FTextField>
+            );
         case FCellTypes.NUMBER:
             classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
         case FCellTypes.LINK:
@@ -840,6 +851,14 @@ function setKupCell(
             return <FRadio {...subcomponentProps}></FRadio>;
         case FCellTypes.RATING:
             return <FRating {...subcomponentProps} disabled={true}></FRating>;
+        case FCellTypes.OBJECT:
+            return (
+                <FTextField
+                    icon={'table'}
+                    {...subcomponentProps}
+                    disabled={true}
+                ></FTextField>
+            );
     }
 }
 
