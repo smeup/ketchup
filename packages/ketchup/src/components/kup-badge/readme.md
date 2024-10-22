@@ -118,6 +118,7 @@ Type: `Promise<void>`
  - [kup-tab-bar](../kup-tab-bar)
  - [kup-text-field](../kup-text-field)
  - [kup-time-picker](../kup-time-picker)
+ - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
  - [kup-typography](../kup-typography)
 
@@ -162,9 +163,7 @@ graph TD;
   kup-switch --> kup-dialog
   kup-form --> kup-badge
   kup-tab-bar --> kup-badge
-  kup-toolbar --> kup-radio
-  kup-toolbar --> kup-card
-  kup-toolbar --> kup-dialog
+  kup-toolbar --> kup-badge
   kup-tree --> kup-badge
   kup-accordion --> kup-badge
   kup-activity-timeline --> kup-badge

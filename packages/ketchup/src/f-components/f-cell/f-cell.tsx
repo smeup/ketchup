@@ -87,9 +87,10 @@ export const FCell: FunctionalComponent<FCellProps> = (
     const subcomponentProps: unknown = { ...cell.data };
     let cssClasses = cell.cssClass
         ? cell.cssClass
-        : column.cssClass
-        ? column.cssClass
+        : column?.cssClass
+        ? column?.cssClass
         : '';
+
     if ((props.component as KupDataTable).legacyLook) {
         cssClasses += ' monospace c-pre';
     }
@@ -1038,13 +1039,11 @@ function cellEvent(
     cellEventName: FCellEvents
 ): void {
     const cell = props.cell;
-    console.log('props', props);
     const column = props.column;
     const comp = props.component;
     const row = props.row;
     if (cellEventName === FCellEvents.UPDATE) {
-        let value = getValueFromEventTaget(e, cellType);
-        console.log('value', value);
+        let value = getValueFromEventTarget(e, cellType);
         switch (cellType) {
             case FCellTypes.AUTOCOMPLETE:
             case FCellTypes.COMBOBOX:
@@ -1063,18 +1062,6 @@ function cellEvent(
                 }
                 break;
             case FCellTypes.RADIO:
-                console.log('PRE CELL', cell);
-                if (cell.data.data) {
-                    console.log('RADIO EVENT CELL DATA', cell.data.data);
-                    const radioData = cell.data.data as FRadioData[];
-                    const checkedItem = radioData.find((item) => item.checked);
-
-                    if (checkedItem) {
-                        console.log(checkedItem);
-                        value = checkedItem.value;
-                    }
-                    console.log('POST CELL', value);
-                }
                 break;
             case FCellTypes.CHIP:
             case FCellTypes.MULTI_AUTOCOMPLETE:
@@ -1110,12 +1097,10 @@ function cellEvent(
                 type: cellType,
             },
         });
-        console.log('EVENTO', cellEvent);
         (comp as KupComponent).rootElement.dispatchEvent(cellEvent);
         if (cellEventName === FCellEvents.UPDATE) {
             try {
                 (comp as KupComponent).refresh();
-                console.log('REFRESH component');
             } catch (error) {
                 dom.ketchup.debug.logMessage(
                     comp,
@@ -1127,11 +1112,10 @@ function cellEvent(
     }
 }
 
-function getValueFromEventTaget(
+function getValueFromEventTarget(
     e: InputEvent | CustomEvent | MouseEvent | KeyboardEvent,
     cellType: FCellTypes
 ): string {
-    console.log('E', e);
     const isInputEvent = !!((e.target as HTMLElement).tagName === 'INPUT');
     let value = isInputEvent
         ? (e.target as HTMLInputElement).value

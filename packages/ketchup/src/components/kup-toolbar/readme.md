@@ -70,21 +70,20 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-tab-bar](../kup-tab-bar)
+ - [kup-typography](../kup-typography)
 
 ### Depends on
 
-- [kup-radio](../kup-radio)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-toolbar --> kup-radio
   kup-toolbar --> kup-card
   kup-toolbar --> kup-dialog
-  kup-radio --> kup-card
-  kup-radio --> kup-dialog
+  kup-toolbar --> kup-badge
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -119,6 +118,9 @@ graph TD;
   kup-list --> kup-card
   kup-list --> kup-dialog
   kup-list --> kup-badge
+  kup-radio --> kup-card
+  kup-radio --> kup-dialog
+  kup-radio --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
@@ -232,6 +234,7 @@ graph TD;
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-badge
+  kup-typography --> kup-toolbar
   style kup-toolbar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

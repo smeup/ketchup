@@ -103,11 +103,6 @@ export class KupToolbar {
     ) {
         event.preventDefault();
         this.#handleClick(index, node);
-        console.log(index, node, event);
-    }
-
-    onKupChange() {
-        console.log('kup change');
     }
 
     /*-------------------------------------------------*/
@@ -157,18 +152,29 @@ export class KupToolbar {
                 component: this,
                 cell: node,
                 editable: true,
+                renderKup: true,
             };
             return (
                 <>
                     {cellProps.shape ? (
                         <>
                             <div
-                                onKup-cell-update={(event: MouseEvent) => {
-                                    this.onKupClick(index, node, event);
-                                    console.log(node);
-                                }}
+                                id={node.value}
+                                class="parent-class"
+                                tabindex="0"
+                                onClick={
+                                    !cellProps.shape || cellProps.cell.data
+                                        ? (event: MouseEvent) => {
+                                              this.onKupClick(
+                                                  index,
+                                                  node,
+                                                  event
+                                              );
+                                          }
+                                        : undefined
+                                }
                             >
-                                <FCellOptions {...cellProps} />
+                                <span>{node.value}</span>
                             </div>
                         </>
                     ) : (
@@ -179,9 +185,7 @@ export class KupToolbar {
                             onClick={
                                 !cellProps.shape || cellProps.cell.data
                                     ? (event: MouseEvent) => {
-                                          event.stopPropagation();
                                           this.onKupClick(index, node, event);
-                                          console.log('EVENTO LANCIATO QUA');
                                       }
                                     : undefined
                             }
@@ -193,14 +197,7 @@ export class KupToolbar {
             );
         } else {
             return (
-                <div
-                    class="parent-class"
-                    tabindex="0"
-                    onClick={(event: MouseEvent) => {
-                        this.onKupClick(index, node, event);
-                        console.log('EVENTO LANCIATO QUA');
-                    }}
-                >
+                <div class="parent-class" tabindex="0">
                     <span>{node.value}</span>
                     <FImage
                         resource="chevron-right"

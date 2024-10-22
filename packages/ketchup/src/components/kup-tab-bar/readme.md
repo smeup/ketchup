@@ -115,12 +115,9 @@ graph TD;
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-toolbar --> kup-radio
   kup-toolbar --> kup-card
   kup-toolbar --> kup-dialog
-  kup-radio --> kup-card
-  kup-radio --> kup-dialog
-  kup-radio --> kup-badge
+  kup-toolbar --> kup-badge
   kup-card --> kup-tab-bar
   kup-autocomplete --> kup-list
   kup-autocomplete --> kup-card
@@ -131,6 +128,9 @@ graph TD;
   kup-list --> kup-card
   kup-list --> kup-dialog
   kup-list --> kup-badge
+  kup-radio --> kup-card
+  kup-radio --> kup-dialog
+  kup-radio --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog

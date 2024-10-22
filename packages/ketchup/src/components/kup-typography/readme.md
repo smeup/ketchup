@@ -74,7 +74,7 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kup-list](../kup-list)
+- [kup-toolbar](../kup-toolbar)
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
 - [kup-badge](../kup-badge)
@@ -82,18 +82,13 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
-  kup-typography --> kup-list
+  kup-typography --> kup-toolbar
   kup-typography --> kup-card
   kup-typography --> kup-dialog
   kup-typography --> kup-badge
-  kup-list --> kup-list
-  kup-list --> kup-radio
-  kup-list --> kup-card
-  kup-list --> kup-dialog
-  kup-list --> kup-badge
-  kup-radio --> kup-card
-  kup-radio --> kup-dialog
-  kup-radio --> kup-badge
+  kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
+  kup-toolbar --> kup-badge
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field
@@ -123,6 +118,14 @@ graph TD;
   kup-autocomplete --> kup-card
   kup-autocomplete --> kup-dialog
   kup-autocomplete --> kup-badge
+  kup-list --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-card
+  kup-list --> kup-dialog
+  kup-list --> kup-badge
+  kup-radio --> kup-card
+  kup-radio --> kup-dialog
+  kup-radio --> kup-badge
   kup-dialog --> kup-badge
   kup-dialog --> kup-card
   kup-dialog --> kup-dialog
@@ -222,9 +225,6 @@ graph TD;
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-toolbar --> kup-radio
-  kup-toolbar --> kup-card
-  kup-toolbar --> kup-dialog
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field

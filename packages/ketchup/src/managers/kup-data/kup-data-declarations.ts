@@ -131,6 +131,7 @@ export interface KupDataNode extends KupDataRow {
     data?: GenericObject;
     shape?: FCellShapes;
     options?: GenericObject | GenericObject[];
+    isEditable?: boolean;
 }
 /**
  * Interface related to cells operations.

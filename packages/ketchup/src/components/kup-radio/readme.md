@@ -88,7 +88,6 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-list](../kup-list)
- - [kup-toolbar](../kup-toolbar)
 
 ### Depends on
 
@@ -231,7 +230,9 @@ graph TD;
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-toolbar --> kup-radio
+  kup-toolbar --> kup-card
+  kup-toolbar --> kup-dialog
+  kup-toolbar --> kup-badge
   kup-tree --> kup-card
   kup-tree --> kup-list
   kup-tree --> kup-text-field

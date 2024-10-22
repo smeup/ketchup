@@ -264,7 +264,6 @@ const MainRADAdapter = (
     _fieldLabel: string,
     currentValue: string
 ) => {
-    console.log('current', currentValue, 'options', options);
     return RADAdapter(currentValue, options);
 };
 

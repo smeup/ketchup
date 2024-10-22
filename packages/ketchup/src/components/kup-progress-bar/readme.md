@@ -174,9 +174,9 @@ graph TD;
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
-  kup-toolbar --> kup-radio
   kup-toolbar --> kup-card
   kup-toolbar --> kup-dialog
+  kup-toolbar --> kup-badge
   kup-tree --> kup-progress-bar
   kup-box --> kup-progress-bar
   kup-cell --> kup-progress-bar
