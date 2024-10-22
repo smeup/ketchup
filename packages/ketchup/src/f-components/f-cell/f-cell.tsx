@@ -28,7 +28,7 @@ import {
     kupTypes,
 } from './f-cell-declarations';
 import { FunctionalComponent, h, VNode } from '@stencil/core';
-import { getCellValueForDisplay } from '../../utils/cell-utils';
+import { getCellValueForDisplay, RADAdapter } from '../../utils/cell-utils';
 import { FCheckbox } from '../f-checkbox/f-checkbox';
 import { FTextField } from '../f-text-field/f-text-field';
 import { FImage } from '../f-image/f-image';
@@ -36,6 +36,7 @@ import { FChip } from '../f-chip/f-chip';
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import {
     KupDataCell,
+    KupDataCellOptions,
     KupDataColumn,
     KupDataNode,
     KupDataRow,
@@ -51,6 +52,7 @@ import { FRating } from '../f-rating/f-rating';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import { FRadioProps } from '../f-radio/f-radio-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { DataAdapterFn } from '../../components/kup-input-panel/kup-input-panel-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -81,6 +83,10 @@ export const FCell: FunctionalComponent<FCellProps> = (
         isEditable = column.isEditable;
     }
     isEditable = isEditable && props.editable;
+
+    if (cell.options) {
+        cell.data = mapData(cell, column) ?? cell.data;
+    }
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
     const cellType = dom.ketchup.data.cell.getType(cell, shape);
@@ -217,6 +223,34 @@ export const FCell: FunctionalComponent<FCellProps> = (
             </div>
         </div>
     );
+};
+
+const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
+    if (!cell) {
+        return null;
+    }
+
+    const options = cell.options;
+    const fieldLabel = col.title;
+    const currentValue = cell.value;
+    const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+    const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
+        [FCellTypes.RADIO, MainRADAdapter.bind(this)],
+    ]);
+
+    const adapter = dataAdapterMap.get(cellType);
+
+    return adapter
+        ? adapter(options, fieldLabel, currentValue, cell, col.name)
+        : null;
+};
+
+const MainRADAdapter = (
+    options: GenericObject,
+    _fieldLabel: string,
+    currentValue: string
+) => {
+    return RADAdapter(currentValue, options);
 };
 
 function setCellSize(
