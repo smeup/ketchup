@@ -8,7 +8,6 @@ import {
 } from '../../managers/kup-data/kup-data-declarations';
 import {
     FComponent,
-    GenericObject,
     KupEventPayload,
     KupTagNames,
 } from '../../types/GenericTypes';
@@ -133,6 +132,7 @@ export enum FCellShapes {
     LABEL = 'LBL',
     MULTI_AUTOCOMPLETE = 'AML',
     MULTI_COMBOBOX = 'CML',
+    OBJECT = 'OBJ',
     PROGRESS_BAR = 'PGB',
     RADIO = 'RAD',
     RATING = 'RTG',
@@ -165,6 +165,7 @@ export enum FCellTypes {
     MULTI_AUTOCOMPLETE = 'multi-autocomplete',
     MULTI_COMBOBOX = 'multi-combobox',
     NUMBER = 'number',
+    OBJECT = 'object',
     PROGRESS_BAR = 'progress-bar',
     RADIO = 'radio',
     RATING = 'rating',
@@ -184,6 +185,7 @@ export const editableTypes = [
     FCellTypes.MULTI_AUTOCOMPLETE,
     FCellTypes.MULTI_COMBOBOX,
     FCellTypes.NUMBER,
+    FCellTypes.OBJECT,
     FCellTypes.RADIO,
     FCellTypes.RATING,
     FCellTypes.STRING,
@@ -201,6 +203,7 @@ export const kupTypes = [
     FCellTypes.KNOB,
     FCellTypes.MULTI_AUTOCOMPLETE,
     FCellTypes.MULTI_COMBOBOX,
+    FCellTypes.OBJECT,
     FCellTypes.PROGRESS_BAR,
     FCellTypes.RADIO,
     FCellTypes.RATING,

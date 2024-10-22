@@ -25,8 +25,6 @@ import {
 import { FButton } from '../../f-components/f-button/f-button';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import {
-    FCellEventPayload,
-    FCellEvents,
     FCellProps,
     FCellShapes,
     FCellTypes,
@@ -871,6 +869,7 @@ export class KupInputPanel {
             [FCellTypes.MULTI_COMBOBOX, this.#CHIAdapter.bind(this)],
             [FCellTypes.NUMBER, this.#NumberAdapter.bind(this)],
             [FCellTypes.DATE, this.#DateAdapter.bind(this)],
+            [FCellTypes.OBJECT, this.#ObjectAdapter.bind(this)],
             [FCellTypes.RADIO, this.#RADAdapter.bind(this)],
             [FCellTypes.STRING, this.#ITXAdapter.bind(this)],
             [FCellTypes.SWITCH, this.#SWTAdapter.bind(this)],
@@ -1100,6 +1099,20 @@ export class KupInputPanel {
                 },
             },
             initialValue: currentValue,
+        };
+    }
+
+    #ObjectAdapter(
+        _options: GenericObject,
+        fieldLabel: string,
+        currentValue: string,
+        _cell: KupInputPanelCell,
+        _id: string
+    ) {
+        return {
+            initialValue: currentValue || '',
+            label: fieldLabel || ' ',
+            value: currentValue || '',
         };
     }
 
