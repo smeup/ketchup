@@ -1109,7 +1109,6 @@ export class KupInputPanel {
         _cell: KupInputPanelCell,
         _id: string
     ) {
-        console.log(_options, fieldLabel, currentValue, _cell, _id);
         return {
             initialValue: currentValue || '',
             label: fieldLabel || ' ',
