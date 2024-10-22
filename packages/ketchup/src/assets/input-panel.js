@@ -2716,66 +2716,6 @@ const keyButtonClickTest = {
                         keyShortcut: keysShortcut[0],
                     },
                 },
-                BUTTON2: {
-                    value: `Click or press 2 '${keysShortcut[1]}'`,
-                    obj: { t: '', p: '' },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'BTN',
-                    data: {
-                        disabled: true,
-                        styling: 'flat',
-                        keyShortcut: keysShortcut[1],
-                    },
-                },
-                BUTTON2: {
-                    value: `Click or press '${keysShortcut[1]}'`,
-                    obj: { t: '', p: '' },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'BTN',
-                    data: {
-                        disabled: true,
-                        styling: 'flat',
-                        keyShortcut: keysShortcut[1],
-                    },
-                },
-                BUTTON3: {
-                    value: `Click or press 'Ctrl+S'`,
-                    obj: { t: '', p: '' },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'BTN',
-                    data: {
-                        disabled: false,
-                        styling: 'outlined',
-                        keyShortcut: keysShortcut[2],
-                    },
-                },
-                BUTTON1: {
-                    value: `Click or press 2 '${keysShortcut[0]}'`,
-                    obj: { t: '', p: '' },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'BTN',
-                    data: {
-                        disabled: false,
-                        styling: 'outlined',
-                        keyShortcut: keysShortcut[0],
-                    },
-                },
-                BUTTON3: {
-                    value: `Click or press 2 'Ctrl+S'`,
-                    obj: { t: '', p: '' },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'BTN',
-                    data: {
-                        disabled: false,
-                        styling: 'outlined',
-                        keyShortcut: keysShortcut[2],
-                    },
-                },
             },
             layout: {
                 type: 'SmeupDataLayout',
@@ -2853,30 +2793,6 @@ const keyButtonClickTest = {
                         keyShortcut: keysShortcut[2],
                     },
                 },
-                BUTTON1: {
-                    value: `Click or press 2 '${keysShortcut[0]}'`,
-                    obj: { t: '', p: '' },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'BTN',
-                    data: {
-                        disabled: false,
-                        styling: 'outlined',
-                        keyShortcut: keysShortcut[0],
-                    },
-                },
-                BUTTON3: {
-                    value: `Click or press 2 'Ctrl+S'`,
-                    obj: { t: '', p: '' },
-                    editable: true,
-                    mandatory: true,
-                    shape: 'BTN',
-                    data: {
-                        disabled: false,
-                        styling: 'outlined',
-                        keyShortcut: keysShortcut[2],
-                    },
-                },
             },
             layout: {
                 type: 'SmeupDataLayout',
@@ -2884,9 +2800,9 @@ const keyButtonClickTest = {
                 sections: [
                     {
                         content: [
-                            {
-                                id: 'BUTTON1',
-                            },
+                            // {
+                            //     id: 'BUTTON1',
+                            // },
                             {
                                 id: 'BUTTON2',
                             },

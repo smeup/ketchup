@@ -193,9 +193,6 @@ const slotData = (cell: KupDataCellOptions, col: KupDataColumn) => {
 };
 
 const setProps = (cell: KupDataCellOptions, column: KupDataColumn) => {
-    if (!column) {
-        column = generateColumn(cell);
-    }
     const defaultProps = {
         ...mapData(cell, column),
         disabled: !cell.isEditable,
@@ -234,10 +231,6 @@ const deepObjectsMerge = (target: GenericObject, source: GenericObject) => {
 const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     if (!cell) {
         return null;
-    }
-
-    if (!col) {
-        col = generateColumn(cell);
     }
 
     const options = cell.options;
