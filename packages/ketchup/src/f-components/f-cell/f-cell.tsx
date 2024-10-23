@@ -28,7 +28,11 @@ import {
     kupTypes,
 } from './f-cell-declarations';
 import { FunctionalComponent, h, VNode } from '@stencil/core';
-import { getCellValueForDisplay, RADAdapter } from '../../utils/cell-utils';
+import {
+    CMBandACPAdapter,
+    getCellValueForDisplay,
+    RADAdapter,
+} from '../../utils/cell-utils';
 import { FCheckbox } from '../f-checkbox/f-checkbox';
 import { FTextField } from '../f-text-field/f-text-field';
 import { FImage } from '../f-image/f-image';
@@ -236,6 +240,7 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
     const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
         [FCellTypes.RADIO, MainRADAdapter.bind(this)],
+        [FCellTypes.AUTOCOMPLETE, MainCMBandACPAdapter.bind(this)],
     ]);
 
     const adapter = dataAdapterMap.get(cellType);
@@ -252,6 +257,88 @@ const MainRADAdapter = (
 ) => {
     return RADAdapter(currentValue, options);
 };
+
+const MainCMBandACPAdapter = (
+    rawOptions: GenericObject,
+    fieldLabel: string,
+    currentValue: string
+) => {
+    const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
+
+    configCMandACP.data['kup-list'].data = optionsTreeComboAdapter(
+        rawOptions,
+        currentValue
+    );
+    return configCMandACP;
+};
+
+const optionsTreeComboAdapter = (options: any, currentValue: string) => {
+    const adapter = optionsAdapterMap.get(options.type);
+
+    if (adapter) {
+        return adapter(options, currentValue);
+    } else {
+        return options.map((option) => ({
+            value: option.label,
+            id: option.id,
+            selected: currentValue === option.id,
+        }));
+    }
+};
+
+const treeOptionsNodeAdapter = (
+    options: any,
+    currentValue: string
+): GenericObject[] => {
+    return options.children.map((child) => ({
+        id: child.content.codice,
+        value: child.content.testo,
+        selected: currentValue === child.content.codice,
+        children: child.children?.length
+            ? treeOptionsNodeAdapter(child, currentValue)
+            : [],
+    }));
+};
+
+const dataTreeOptionsChildrenAdapter = (
+    options: any,
+    currentValue: string
+): GenericObject[] => {
+    return options.children.map((child) => ({
+        id: child.obj.k,
+        value: child.value,
+        selected: currentValue === child.obj.k,
+        children: child.children?.length
+            ? dataTreeOptionsChildrenAdapter(child, currentValue)
+            : [],
+    }));
+};
+
+const tableOptionsAdapter = (
+    options: any,
+    currentValue: string
+): GenericObject[] => {
+    return options.rows.map((row) => {
+        const cells = row.fields || row.cells;
+        const [id, value] = Object.keys(cells);
+
+        return {
+            id: cells[id].value,
+            value: cells[value]?.value || cells[id].value,
+            selected: currentValue === cells[id].value,
+        };
+    });
+};
+
+const optionsAdapterMap = new Map<
+    string,
+    (options: any, currentValue: string) => GenericObject[]
+>([
+    ['SmeupTreeNode', treeOptionsNodeAdapter.bind(this)],
+    ['SmeupDataTree', dataTreeOptionsChildrenAdapter.bind(this)],
+    ['SmeupTable', tableOptionsAdapter.bind(this)],
+    ['SmeupDataTable', tableOptionsAdapter.bind(this)],
+]);
 
 function setCellSize(
     cellType: string,
