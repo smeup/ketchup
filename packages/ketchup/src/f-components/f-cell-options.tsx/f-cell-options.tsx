@@ -170,26 +170,11 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     const fieldLabel = col.title;
     const currentValue = cell.value;
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
-    const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
-        [FCellTypes.STRING, MainITXAdapter.bind(this)],
-    ]);
+    const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([]);
 
     const adapter = dataAdapterMap.get(cellType);
 
     return adapter
         ? adapter(options, fieldLabel, currentValue, cell, col.name)
         : null;
-};
-
-const MainITXAdapter = (
-    options: GenericObject,
-    _fieldLabel: string,
-    _currentValue: string,
-    _cell: KupDataCellOptions
-) => {
-    if (options?.[0]) {
-        return {
-            value: options[0].label,
-        };
-    }
 };
