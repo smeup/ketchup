@@ -113,31 +113,7 @@ export const FCellOptions: FunctionalComponent<FCellOptionsProps> = (
         mappedProps.cell.value = mappedProps.cell.data.value;
     }
 
-    const label = getLabelComponent(mappedProps.cell, mappedProps.column.title);
-
-    if (label) {
-        return (
-            <div class={{ 'input-panel__label_container': true }}>
-                {label}
-                <FCell {...mappedProps} />
-            </div>
-        );
-    }
     return <FCell {...mappedProps}></FCell>;
-};
-
-const getLabelComponent = (cell: KupDataCell, label: string) => {
-    if (!label) {
-        return null;
-    }
-
-    const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
-
-    if (cellType === FCellTypes.RADIO) {
-        return <span>{label}</span>;
-    }
-
-    return null;
 };
 
 const generateColumn = (data: GenericObject): KupDataColumn => {
@@ -240,7 +216,6 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
         [FCellTypes.BUTTON_LIST, MainBTNAdapter.bind(this)],
         [FCellTypes.STRING, MainITXAdapter.bind(this)],
-        [FCellTypes.RADIO, MainRADAdapter.bind(this)],
         [FCellTypes.AUTOCOMPLETE, MainCMBandACPAdapter.bind(this)],
         [FCellTypes.COMBOBOX, MainCMBandACPAdapter.bind(this)],
     ]);
@@ -250,14 +225,6 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     return adapter
         ? adapter(options, fieldLabel, currentValue, cell, col.name)
         : null;
-};
-
-const MainRADAdapter = (
-    options: GenericObject,
-    _fieldLabel: string,
-    currentValue: string
-) => {
-    return RADAdapter(currentValue, options);
 };
 
 const MainITXAdapter = (

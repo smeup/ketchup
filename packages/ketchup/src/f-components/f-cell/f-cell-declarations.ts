@@ -18,7 +18,7 @@ export const fullWidthFieldsComps = [KupTagNames.DATA_TABLE, KupTagNames.TREE];
  * Props of the f-cell component.
  */
 export interface FCellProps extends FComponent {
-    cell?: KupDataCell;
+    cell?: KupDataCellOptions;
     column?: KupDataColumn;
     component?: unknown;
     density?: FCellPadding;

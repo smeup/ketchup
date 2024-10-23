@@ -21,11 +21,10 @@ import {
     KupCellSubmitButtonPosition,
     KupCellSubmitClickEventPayload,
 } from './kup-cell-declarations';
-import { FCell } from '../../f-components/f-cell/f-cell';
 import {
     FCellOptionsProps,
     FCellPadding,
-    FCellProps,
+    FCellShapes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import {
     KupDragDataTransferCallback,
@@ -276,6 +275,8 @@ export class KupCell {
             row: this.generateRow(),
         };
 
+        const label = this.getLabelComponent(props.cell, props.column.title);
+
         return (
             <Host>
                 <style>
@@ -296,23 +297,44 @@ export class KupCell {
                             : {}
                     }
                 >
-                    <FCellOptions {...props}></FCellOptions>
-                    {this.showSubmit ? (
-                        <FButton
-                            buttonType="submit"
-                            label={this.#kupManager.language.translate(
-                                KupLanguageGeneric.CONFIRM
-                            )}
-                            wrapperClass="form__submit"
-                            onClick={(e) => {
-                                this.submitClick(e);
-                            }}
-                        ></FButton>
-                    ) : null}
+                    <div
+                        class={{
+                            'input-panel__label_container': label
+                                ? true
+                                : false,
+                        }}
+                    >
+                        {label}
+                        <FCellOptions {...props} />
+                        {this.showSubmit ? (
+                            <FButton
+                                buttonType="submit"
+                                label={this.#kupManager.language.translate(
+                                    KupLanguageGeneric.CONFIRM
+                                )}
+                                wrapperClass="form__submit"
+                                onClick={(e) => {
+                                    this.submitClick(e);
+                                }}
+                            ></FButton>
+                        ) : null}
+                    </div>
                 </div>
             </Host>
         );
     }
+
+    getLabelComponent = (cell: KupDataCell, label: string) => {
+        if (!label) {
+            return null;
+        }
+
+        if (cell.shape === FCellShapes.RADIO) {
+            return <span>{label}</span>;
+        }
+
+        return null;
+    };
 
     disconnectedCallback() {
         this.#kupManager.dates.unregister(this);
