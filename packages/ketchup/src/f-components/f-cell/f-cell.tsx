@@ -56,7 +56,10 @@ import { FRating } from '../f-rating/f-rating';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import { FRadioProps } from '../f-radio/f-radio-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
-import { DataAdapterFn } from '../../components/kup-input-panel/kup-input-panel-declarations';
+import {
+    DataAdapterFn,
+    KupInputPanelCell,
+} from '../../components/kup-input-panel/kup-input-panel-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -243,6 +246,8 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
         [FCellTypes.AUTOCOMPLETE, MainCMBandACPAdapter.bind(this)],
         [FCellTypes.COMBOBOX, MainCMBandACPAdapter.bind(this)],
         [FCellTypes.CHECKBOX, MainCHKAdapter.bind(this)],
+        [FCellTypes.DATE, MainDateAdapter.bind(this)],
+        [FCellTypes.OBJECT, MainObjectAdapter.bind(this)],
     ]);
 
     const adapter = dataAdapterMap.get(cellType);
@@ -250,6 +255,35 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     return adapter
         ? adapter(options, fieldLabel, currentValue, cell, col.name)
         : null;
+};
+
+const MainObjectAdapter = (
+    _options: GenericObject,
+    fieldLabel: string,
+    currentValue: string,
+    _cell: KupInputPanelCell,
+    _id: string
+) => {
+    return {
+        initialValue: currentValue || '',
+        label: fieldLabel || ' ',
+        value: currentValue || '',
+    };
+};
+
+const MainDateAdapter = (
+    _options: GenericObject,
+    fieldLabel: string,
+    currentValue: string
+) => {
+    return {
+        data: {
+            'kup-text-field': {
+                label: fieldLabel,
+            },
+        },
+        initialValue: currentValue,
+    };
 };
 
 const MainCHKAdapter = (
