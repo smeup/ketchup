@@ -242,6 +242,7 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
         [FCellTypes.RADIO, MainRADAdapter.bind(this)],
         [FCellTypes.AUTOCOMPLETE, MainCMBandACPAdapter.bind(this)],
         [FCellTypes.COMBOBOX, MainCMBandACPAdapter.bind(this)],
+        [FCellTypes.CHECKBOX, MainCHKAdapter.bind(this)],
     ]);
 
     const adapter = dataAdapterMap.get(cellType);
@@ -250,6 +251,19 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
         ? adapter(options, fieldLabel, currentValue, cell, col.name)
         : null;
 };
+
+const MainCHKAdapter = (
+    _options: GenericObject,
+    fieldLabel: string,
+    currentValue: string
+) => {
+    return CHKAdapter(currentValue, fieldLabel);
+};
+
+const CHKAdapter = (value: string, label: string) => ({
+    checked: value === 'on' || value === '1',
+    label,
+});
 
 const MainRADAdapter = (
     options: GenericObject,
