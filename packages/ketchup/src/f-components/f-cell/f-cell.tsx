@@ -262,7 +262,6 @@ const MainITXAdapter = (
     _currentValue: string,
     _cell: KupDataCellOptions
 ) => {
-    console.log(options);
     if (options?.[0]) {
         return {
             value: options[0].label,
