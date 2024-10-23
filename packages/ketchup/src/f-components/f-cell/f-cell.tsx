@@ -93,7 +93,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     if (cell.options) {
         cell.data = mapData(cell, column) ?? cell.data;
-
+        console.log(cell.data);
         if (props.cell.shape === FCellShapes.TEXT_FIELD) {
             cell.value = cell.data.value;
         }
@@ -394,18 +394,18 @@ const optionsAdapterMap = new Map<
 ]);
 
 const MainBTNAdapter = (
-    _options: GenericObject,
+    _options: GenericObject[],
     _fieldLabel: string,
-    _currentValue: string,
+    currentValue: string,
     cell: KupDataCellOptions
 ) => {
     return {
-        data: cell.options?.length
-            ? cell.options?.map((option) => ({
-                  icon: option.icon,
-                  value: option.value,
-              }))
-            : [],
+        data: [
+            {
+                icon: cell.icon,
+                value: currentValue,
+            },
+        ],
     };
 };
 
