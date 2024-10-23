@@ -93,7 +93,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     if (cell.options) {
         cell.data = mapData(cell, column) ?? cell.data;
-        console.log(cell.data);
         if (props.cell.shape === FCellShapes.TEXT_FIELD) {
             cell.value = cell.data.value;
         }
