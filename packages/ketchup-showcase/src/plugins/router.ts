@@ -94,6 +94,11 @@ const basicRoutes = [
     component: () => import(`@/views/components/basic/grid/Grid.vue`),
   },
   {
+    path: `/htm`,
+    name: 'htm',
+    component: () => import(`@/views/components/basic/htm/Htm.vue`),
+  },
+  {
     path: `/iframe`,
     name: 'iframe',
     component: () => import(`@/views/components/basic/iframe/Iframe.vue`),

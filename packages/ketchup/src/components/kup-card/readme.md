@@ -124,6 +124,7 @@ Type: `Promise<void>`
  - [kup-form](../kup-form)
  - [kup-gauge](../kup-gauge)
  - [kup-grid](../kup-grid)
+ - [kup-htm](../kup-htm)
  - [kup-iframe](../kup-iframe)
  - [kup-image](../kup-image)
  - [kup-image-list](../kup-image-list)
@@ -221,6 +222,7 @@ graph TD;
   kup-editor --> kup-card
   kup-family-tree --> kup-card
   kup-grid --> kup-card
+  kup-htm --> kup-card
   kup-iframe --> kup-card
   kup-image-list --> kup-card
   kup-input-panel --> kup-card

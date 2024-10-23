@@ -128,6 +128,7 @@ Type: `Promise<void>`
  - [kup-form](../kup-form)
  - [kup-gauge](../kup-gauge)
  - [kup-grid](../kup-grid)
+ - [kup-htm](../kup-htm)
  - [kup-iframe](../kup-iframe)
  - [kup-image](../kup-image)
  - [kup-image-list](../kup-image-list)
@@ -203,6 +204,7 @@ graph TD;
   kup-editor --> kup-dialog
   kup-family-tree --> kup-dialog
   kup-grid --> kup-dialog
+  kup-htm --> kup-dialog
   kup-iframe --> kup-dialog
   kup-image-list --> kup-dialog
   kup-input-panel --> kup-dialog

@@ -1,17 +1,12 @@
 import { FunctionalComponent, h, VNode } from '@stencil/core';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { GenericObject, KupDataColumn } from '../../components';
-import { CMBandACPAdapter, RADAdapter } from '../../utils/cell-utils';
+import { CMBandACPAdapter } from '../../utils/cell-utils';
 import {
     FCellOptionsProps,
     FCellProps,
-    FCellShapes,
     FCellTypes,
 } from '../f-cell/f-cell-declarations';
-import {
-    DataAdapterFn,
-    KupInputPanelCell,
-} from '../../components/kup-input-panel/kup-input-panel-declarations';
 import {
     KupDataCell,
     KupDataCellOptions,
@@ -49,46 +44,6 @@ const dataTreeOptionsChildrenAdapter = (
     }));
 };
 
-const tableOptionsAdapter = (
-    options: any,
-    currentValue: string
-): GenericObject[] => {
-    return options.rows.map((row) => {
-        const cells = row.fields || row.cells;
-        const [id, value] = Object.keys(cells);
-
-        return {
-            id: cells[id].value,
-            value: cells[value]?.value || cells[id].value,
-            selected: currentValue === cells[id].value,
-        };
-    });
-};
-
-const optionsTreeComboAdapter = (options: any, currentValue: string) => {
-    const adapter = optionsAdapterMap.get(options.type);
-
-    if (adapter) {
-        return adapter(options, currentValue);
-    } else {
-        return options.map((option) => ({
-            value: option.label,
-            id: option.id,
-            selected: currentValue === option.id,
-        }));
-    }
-};
-
-const optionsAdapterMap = new Map<
-    string,
-    (options: any, currentValue: string) => GenericObject[]
->([
-    ['SmeupTreeNode', treeOptionsNodeAdapter.bind(this)],
-    ['SmeupDataTree', dataTreeOptionsChildrenAdapter.bind(this)],
-    ['SmeupTable', tableOptionsAdapter.bind(this)],
-    ['SmeupDataTable', tableOptionsAdapter.bind(this)],
-]);
-
 export const FCellOptions: FunctionalComponent<FCellOptionsProps> = (
     props: FCellOptionsProps
 ) => {
@@ -109,36 +64,7 @@ export const FCellOptions: FunctionalComponent<FCellOptionsProps> = (
         row: generateRow(mappedCell.data),
     };
 
-    if (props.cell.shape === FCellShapes.TEXT_FIELD) {
-        mappedProps.cell.value = mappedProps.cell.data.value;
-    }
-
-    const label = getLabelComponent(mappedProps.cell, mappedProps.column.title);
-
-    if (label) {
-        return (
-            <div class={{ 'input-panel__label_container': true }}>
-                {label}
-                <FCell {...mappedProps} />
-            </div>
-        );
-    }
-    console.log('props', mappedProps);
     return <FCell {...mappedProps}></FCell>;
-};
-
-const getLabelComponent = (cell: KupDataCell, label: string) => {
-    if (!label) {
-        return null;
-    }
-
-    const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
-
-    if (cellType === FCellTypes.RADIO) {
-        return <span>{label}</span>;
-    }
-
-    return null;
 };
 
 const generateColumn = (data: GenericObject): KupDataColumn => {
@@ -175,13 +101,7 @@ const slotData = (cell: KupDataCellOptions, col: KupDataColumn) => {
         cellType === FCellTypes.MULTI_COMBOBOX
     ) {
         return {
-            ...CMBandACPAdapter(
-                null,
-                col.title,
-                cell.options
-                // cell,
-                // col.name
-            ),
+            ...CMBandACPAdapter(null, col.title, cell.options),
             showDropDownIcon: true,
             class: '',
             style: { width: '100%' },
@@ -195,7 +115,6 @@ const slotData = (cell: KupDataCellOptions, col: KupDataColumn) => {
 
 const setProps = (cell: KupDataCellOptions, column: KupDataColumn) => {
     const defaultProps = {
-        ...mapData(cell, column),
         disabled: !cell.isEditable,
         id: column.name,
     };
@@ -227,79 +146,4 @@ const deepObjectsMerge = (target: GenericObject, source: GenericObject) => {
         }
     }
     return target;
-};
-
-const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
-    if (!cell) {
-        return null;
-    }
-
-    const options = cell.options;
-    const fieldLabel = col.title;
-    const currentValue = cell.value;
-    const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
-    const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
-        [FCellTypes.BUTTON_LIST, MainBTNAdapter.bind(this)],
-        [FCellTypes.STRING, MainITXAdapter.bind(this)],
-        [FCellTypes.RADIO, MainRADAdapter.bind(this)],
-        [FCellTypes.AUTOCOMPLETE, MainCMBandACPAdapter.bind(this)],
-        [FCellTypes.COMBOBOX, MainCMBandACPAdapter.bind(this)],
-    ]);
-
-    const adapter = dataAdapterMap.get(cellType);
-
-    return adapter
-        ? adapter(options, fieldLabel, currentValue, cell, col.name)
-        : null;
-};
-
-const MainRADAdapter = (
-    options: GenericObject,
-    _fieldLabel: string,
-    currentValue: string
-) => {
-    return RADAdapter(currentValue, options);
-};
-
-const MainITXAdapter = (
-    options: GenericObject,
-    _fieldLabel: string,
-    _currentValue: string,
-    _cell: KupDataCellOptions
-) => {
-    if (options?.[0]) {
-        return {
-            value: options[0].label,
-        };
-    }
-};
-
-const MainBTNAdapter = (
-    _options: GenericObject,
-    _fieldLabel: string,
-    _currentValue: string,
-    cell: KupDataCellOptions
-) => {
-    return {
-        data: cell.options?.length
-            ? cell.options?.map((option) => ({
-                  icon: option.icon,
-                  value: option.value,
-              }))
-            : [],
-    };
-};
-
-const MainCMBandACPAdapter = (
-    rawOptions: GenericObject,
-    fieldLabel: string,
-    currentValue: string
-) => {
-    const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
-
-    configCMandACP.data['kup-list'].data = optionsTreeComboAdapter(
-        rawOptions,
-        currentValue
-    );
-    return configCMandACP;
 };

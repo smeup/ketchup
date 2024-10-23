@@ -595,6 +595,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'htm',
+                  },
+                },
+                icon: 'HTM',
+                value: 'HTM',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'iframe',
                   },
                 },

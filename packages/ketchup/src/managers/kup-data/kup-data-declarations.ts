@@ -106,7 +106,7 @@ export interface KupDataCell {
 }
 
 export interface KupDataCellOptions extends KupDataCell {
-    options?: GenericObject;
+    options?: GenericObject[];
 }
 /**
  *
