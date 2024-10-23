@@ -90,6 +90,10 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     if (cell.options) {
         cell.data = mapData(cell, column) ?? cell.data;
+
+        if (props.cell.shape === FCellShapes.TEXT_FIELD) {
+            cell.value = cell.data.value;
+        }
     }
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
@@ -247,7 +251,6 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     ]);
 
     const adapter = dataAdapterMap.get(cellType);
-
     return adapter
         ? adapter(options, fieldLabel, currentValue, cell, col.name)
         : null;
@@ -259,6 +262,7 @@ const MainITXAdapter = (
     _currentValue: string,
     _cell: KupDataCellOptions
 ) => {
+    console.log(options);
     if (options?.[0]) {
         return {
             value: options[0].label,
