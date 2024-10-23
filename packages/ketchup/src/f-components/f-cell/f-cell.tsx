@@ -241,6 +241,7 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
         [FCellTypes.RADIO, MainRADAdapter.bind(this)],
         [FCellTypes.AUTOCOMPLETE, MainCMBandACPAdapter.bind(this)],
+        [FCellTypes.COMBOBOX, MainCMBandACPAdapter.bind(this)],
     ]);
 
     const adapter = dataAdapterMap.get(cellType);
