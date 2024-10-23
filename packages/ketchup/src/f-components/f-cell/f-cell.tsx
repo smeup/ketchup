@@ -93,6 +93,10 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     if (cell.options) {
         cell.data = mapData(cell, column) ?? cell.data;
+
+        if (props.cell.shape === FCellShapes.TEXT_FIELD) {
+            cell.value = cell.data.value;
+        }
     }
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
@@ -243,6 +247,7 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
     const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
         [FCellTypes.BUTTON_LIST, MainBTNAdapter.bind(this)],
+        [FCellTypes.STRING, MainITXAdapter.bind(this)],
         [FCellTypes.RADIO, MainRADAdapter.bind(this)],
         [FCellTypes.AUTOCOMPLETE, MainCMBandACPAdapter.bind(this)],
         [FCellTypes.COMBOBOX, MainCMBandACPAdapter.bind(this)],
@@ -251,7 +256,6 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     ]);
 
     const adapter = dataAdapterMap.get(cellType);
-
     return adapter
         ? adapter(options, fieldLabel, currentValue, cell, col.name)
         : null;
@@ -280,6 +284,19 @@ const MainCHKAdapter = (
         checked: options[0].checked,
         label: options[0].label,
     };
+};
+
+const MainITXAdapter = (
+    options: GenericObject,
+    _fieldLabel: string,
+    _currentValue: string,
+    _cell: KupDataCellOptions
+) => {
+    if (options?.[0]) {
+        return {
+            value: options[0].label,
+        };
+    }
 };
 
 const MainRADAdapter = (
