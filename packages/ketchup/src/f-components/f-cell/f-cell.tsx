@@ -243,12 +243,10 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
     const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
         [FCellTypes.BUTTON_LIST, MainBTNAdapter.bind(this)],
-
         [FCellTypes.RADIO, MainRADAdapter.bind(this)],
         [FCellTypes.AUTOCOMPLETE, MainCMBandACPAdapter.bind(this)],
         [FCellTypes.COMBOBOX, MainCMBandACPAdapter.bind(this)],
         [FCellTypes.CHECKBOX, MainCHKAdapter.bind(this)],
-        [FCellTypes.DATE, MainDateAdapter.bind(this)],
         [FCellTypes.OBJECT, MainObjectAdapter.bind(this)],
     ]);
 
@@ -273,33 +271,16 @@ const MainObjectAdapter = (
     };
 };
 
-const MainDateAdapter = (
-    _options: GenericObject,
-    fieldLabel: string,
-    currentValue: string
+const MainCHKAdapter = (
+    options: GenericObject,
+    _fieldLabel: string,
+    _currentValue: string
 ) => {
     return {
-        data: {
-            'kup-text-field': {
-                label: fieldLabel,
-            },
-        },
-        initialValue: currentValue,
+        checked: options[0].checked,
+        label: options[0].label,
     };
 };
-
-const MainCHKAdapter = (
-    _options: GenericObject,
-    fieldLabel: string,
-    currentValue: string
-) => {
-    return CHKAdapter(currentValue, fieldLabel);
-};
-
-const CHKAdapter = (value: string, label: string) => ({
-    checked: value === 'on' || value === '1',
-    label,
-});
 
 const MainRADAdapter = (
     options: GenericObject,
