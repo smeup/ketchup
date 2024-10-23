@@ -289,17 +289,31 @@ const MainCHKAdapter = (
     }
 };
 
-const MainITXAdapter = (
-    options: GenericObject,
+const MainBTNAdapter = (
+    _options: GenericObject[],
     _fieldLabel: string,
+    currentValue: string,
+    cell: KupDataCellOptions
+) => {
+    return {
+        data: [
+            {
+                icon: cell.icon,
+                value: currentValue,
+            },
+        ],
+    };
+};
+
+const MainITXAdapter = (
+    _options: GenericObject[],
+    fieldLabel: string,
     _currentValue: string,
     _cell: KupDataCellOptions
 ) => {
-    if (options?.[0]) {
-        return {
-            value: options[0].label,
-        };
-    }
+    return {
+        label: fieldLabel,
+    };
 };
 
 const MainRADAdapter = (
@@ -391,22 +405,6 @@ const optionsAdapterMap = new Map<
     ['SmeupTable', tableOptionsAdapter.bind(this)],
     ['SmeupDataTable', tableOptionsAdapter.bind(this)],
 ]);
-
-const MainBTNAdapter = (
-    _options: GenericObject[],
-    _fieldLabel: string,
-    currentValue: string,
-    cell: KupDataCellOptions
-) => {
-    return {
-        data: [
-            {
-                icon: cell.icon,
-                value: currentValue,
-            },
-        ],
-    };
-};
 
 function setCellSize(
     cellType: string,
