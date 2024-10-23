@@ -1,17 +1,14 @@
 import { FunctionalComponent, h, VNode } from '@stencil/core';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { GenericObject, KupDataColumn } from '../../components';
-import { CMBandACPAdapter, RADAdapter } from '../../utils/cell-utils';
+import { CMBandACPAdapter } from '../../utils/cell-utils';
 import {
     FCellOptionsProps,
     FCellProps,
     FCellShapes,
     FCellTypes,
 } from '../f-cell/f-cell-declarations';
-import {
-    DataAdapterFn,
-    KupInputPanelCell,
-} from '../../components/kup-input-panel/kup-input-panel-declarations';
+import { DataAdapterFn } from '../../components/kup-input-panel/kup-input-panel-declarations';
 import {
     KupDataCell,
     KupDataCellOptions,
@@ -216,7 +213,6 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
         [FCellTypes.BUTTON_LIST, MainBTNAdapter.bind(this)],
         [FCellTypes.STRING, MainITXAdapter.bind(this)],
-        [FCellTypes.AUTOCOMPLETE, MainCMBandACPAdapter.bind(this)],
         [FCellTypes.COMBOBOX, MainCMBandACPAdapter.bind(this)],
     ]);
 
