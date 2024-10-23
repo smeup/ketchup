@@ -149,6 +149,7 @@ import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declar
 import {
     FCellEventPayload,
     FCellPadding,
+    FCellShapes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { FPaginator } from '../../f-components/f-paginator/f-paginator';
@@ -859,6 +860,14 @@ export class KupDataTable {
             if (this.data.setup?.operations?.delete) {
                 this.selection = SelectionMode.MULTIPLE_CHECKBOX;
             }
+            this.#originalDataLoadedMaxId =
+                this.#originalDataLoaded.rows?.length > 0
+                    ? Math.max(
+                          ...this.#originalDataLoaded.rows.map((r) =>
+                              parseInt(r.id)
+                          )
+                      )
+                    : -1;
         }
     }
 
@@ -937,6 +946,11 @@ export class KupDataTable {
      * loaded the first time
      */
     #originalDataLoaded: KupDataDataset = undefined;
+
+    /**
+     * contains the id greater value in #originalDataLoaded
+     */
+    #originalDataLoadedMaxId: number;
 
     /**
      * Reference to the working area of the table. This is the below-wrapper reference.
@@ -4187,7 +4201,7 @@ export class KupDataTable {
             comp: this,
             id: this.rootElement.id,
             originalData: this.#originalDataLoaded,
-            updatedData: getDiffData(this.#originalDataLoaded, this.data),
+            updatedData: getDiffData(this.#originalDataLoaded, this.data, true),
             command: command,
         });
     };
@@ -5990,6 +6004,18 @@ export class KupDataTable {
     #renderUpdateButtons() {
         const styling: FButtonStyling = FButtonStyling.FLAT;
 
+        const createRowWithInputFields = (): KupDataRow => {
+            let row: KupDataRow = { cells: {} };
+            this.#originalDataLoaded?.columns.forEach((c) => {
+                (row.cells[c.name] as Omit<KupDataCell, 'value'>) = {
+                    shape: FCellShapes.INPUT_FIELD,
+                    obj: { ...c.obj },
+                    isEditable: true,
+                };
+            });
+            return row;
+        };
+
         const addRowHandler = () => {
             let newRow: KupDataRow;
             if (this.#originalDataLoaded?.rows?.length > 0) {
@@ -5997,10 +6023,14 @@ export class KupDataTable {
                     JSON.stringify(this.#originalDataLoaded.rows[0])
                 );
             } else {
-                throw new Error('Datatable is empty');
+                newRow = createRowWithInputFields();
             }
-            newRow.id = this.#INSERT_PREFIX + ++this.#insertCount;
-
+            Object.values(newRow.cells).forEach((cell) => {
+                cell.value = '';
+            });
+            newRow.id = (
+                this.#originalDataLoadedMaxId + ++this.#insertCount
+            ).toString();
             this.insertNewRow(newRow, true);
         };
         const deleteRowHandler = async () => {
