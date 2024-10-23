@@ -262,17 +262,19 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
 };
 
 const MainObjectAdapter = (
-    _options: GenericObject,
-    fieldLabel: string,
+    options: GenericObject,
+    _fieldLabel: string,
     currentValue: string,
     _cell: KupInputPanelCell,
     _id: string
 ) => {
-    return {
-        initialValue: currentValue || '',
-        label: fieldLabel || ' ',
-        value: currentValue || '',
-    };
+    if (options[0]) {
+        return {
+            initialValue: currentValue,
+            label: options[0].label,
+            value: options[0].value,
+        };
+    }
 };
 
 const MainCHKAdapter = (
@@ -280,10 +282,12 @@ const MainCHKAdapter = (
     _fieldLabel: string,
     _currentValue: string
 ) => {
-    return {
-        checked: options[0].checked,
-        label: options[0].label,
-    };
+    if (options?.[0]) {
+        return {
+            checked: options[0].checked,
+            label: options[0].label,
+        };
+    }
 };
 
 const MainITXAdapter = (
