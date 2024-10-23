@@ -247,7 +247,9 @@
             "totalsMinimum": "Minimum",
             "totalsProduct": "Product",
             "totalsSum": "Sum",
-            "genericUpdate": "Update"
+            "genericUpdate": "Update",
+            "genericRowDelete": "Delete row",
+            "genericRowAdd": "Add row"
         }
     },
     "french": {
@@ -498,7 +500,9 @@
             "totalsMaximum": "Massimo",
             "totalsProduct": "Prodotto",
             "totalsSum": "Somma",
-            "genericUpdate": "Aggiorna"
+            "genericUpdate": "Aggiorna",
+            "genericRowDelete": "Elimina riga",
+            "genericRowAdd": "Aggiungi riga"
         },
         "variants": {
             "smeup": {

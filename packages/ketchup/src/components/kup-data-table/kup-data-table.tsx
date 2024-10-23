@@ -851,9 +851,14 @@ export class KupDataTable {
 
     @Watch('data')
     backupOriginalDataAndAdapting() {
-        this.#originalDataLoaded = JSON.parse(JSON.stringify(this.data));
         if (this.data['type'] === 'SmeupDataTable') {
             decorateDataTable(this.data);
+        }
+        if (this.updatableData) {
+            this.#originalDataLoaded = JSON.parse(JSON.stringify(this.data));
+            if (this.data.setup?.operations?.delete) {
+                this.selection = SelectionMode.MULTIPLE_CHECKBOX;
+            }
         }
     }
 
@@ -1321,9 +1326,13 @@ export class KupDataTable {
      * @param row new row
      */
     @Method()
-    async insertNewRow(row: KupDataTableRow) {
+    async insertNewRow(row: KupDataTableRow, unshift: boolean = false) {
         if (row) {
-            this.data.rows.push(row);
+            if (unshift) {
+                this.data.rows.unshift(row);
+            } else {
+                this.data.rows.push(row);
+            }
             await this.refresh(true);
         }
     }
@@ -5979,30 +5988,100 @@ export class KupDataTable {
     }
 
     #renderUpdateButtons() {
+        const styling: FButtonStyling = FButtonStyling.FLAT;
+
+        const addRowHandler = () => {
+            let newRow: KupDataRow;
+            if (this.#originalDataLoaded?.rows?.length > 0) {
+                newRow = JSON.parse(
+                    JSON.stringify(this.#originalDataLoaded.rows[0])
+                );
+            } else {
+                throw new Error('Datatable is empty');
+            }
+            newRow.id = this.#INSERT_PREFIX + ++this.#insertCount;
+
+            this.insertNewRow(newRow, true);
+        };
+        const deleteRowHandler = async () => {
+            const ids: string[] = (await this.getSelectedRows()).map(
+                (row) => row.id
+            );
+            this.deleteRows(ids);
+        };
+
+        const addConfirmButton = () => {
+            commandButtons.push(
+                <kup-button
+                    styling={styling}
+                    icon="check"
+                    onKup-button-click={() => this.#handleUpdateClick()}
+                    label={this.#kupManager.language.translate(
+                        KupLanguageGeneric.CONFIRM
+                    )}
+                />
+            );
+        };
+
+        const addCommands = () => {
+            this.data?.setup?.commands?.forEach((commandObj) => {
+                Object.entries(commandObj?.cells).forEach(([, cell]) => {
+                    const newButton = (
+                        <kup-button
+                            styling={styling}
+                            onKup-button-click={() =>
+                                this.#handleUpdateClick(cell)
+                            }
+                            keyShortcut={cell.data?.keyShortcut}
+                            icon={cell.icon}
+                            label={cell.value}
+                        />
+                    );
+                    commandButtons.push(newButton);
+                });
+            });
+        };
+
+        const addOperations = () => {
+            const operationList = this.data?.setup?.operations;
+            const operations = {
+                insert: {
+                    enabled: operationList?.insert,
+                    icon: 'add',
+                    title: this.#kupManager.language.translate(
+                        KupLanguageGeneric.ROW_ADD
+                    ),
+                    onClickHandler: () => addRowHandler(),
+                },
+                delete: {
+                    enabled: operationList?.delete,
+                    icon: 'minus',
+                    title: this.#kupManager.language.translate(
+                        KupLanguageGeneric.ROW_DELETE
+                    ),
+                    onClickHandler: () => deleteRowHandler(),
+                },
+            };
+
+            Object.values(operations)
+                .filter((op) => op.enabled)
+                .forEach((op) => {
+                    commandButtons.push(
+                        <kup-button
+                            styling={styling}
+                            icon={op.icon}
+                            title={op.title}
+                            onKup-button-click={op.onClickHandler}
+                        />
+                    );
+                });
+        };
+
         let commandButtons = [];
 
-        commandButtons.push(
-            <kup-button
-                onKup-button-click={() => this.#handleUpdateClick()}
-                label={this.#kupManager.language.translate(
-                    KupLanguageGeneric.UPDATE
-                )}
-            ></kup-button>
-        );
-
-        this.data?.setup?.commands?.forEach((commandObj) => {
-            Object.entries(commandObj?.cells).forEach(([, cell]) => {
-                const newButton = (
-                    <kup-button
-                        onKup-button-click={() => this.#handleUpdateClick(cell)}
-                        keyShortcut={cell.data?.keyShortcut}
-                        icon={cell.icon}
-                        label={cell.value}
-                    ></kup-button>
-                );
-                commandButtons.push(newButton);
-            });
-        });
+        addConfirmButton();
+        addCommands();
+        addOperations();
 
         return <div class="commands">{commandButtons}</div>;
     }
@@ -6184,20 +6263,23 @@ export class KupDataTable {
         }
 
         const autoselectOnAction = (e: CustomEvent<FCellEventPayload>) => {
-            if (e && e.detail && e.detail.row) {
-                const row = e.detail.row;
-                if (!this.selectedRows.includes(row)) {
-                    if (
-                        this.selection === SelectionMode.MULTIPLE_CHECKBOX ||
-                        this.selection === SelectionMode.MULTIPLE
-                    ) {
-                        this.selectedRows.push(row);
-                    } else {
-                        this.selectedRows = [row];
+            if (!this.updatableData) {
+                if (e && e.detail && e.detail.row) {
+                    const row = e.detail.row;
+                    if (!this.selectedRows.includes(row)) {
+                        if (
+                            this.selection ===
+                                SelectionMode.MULTIPLE_CHECKBOX ||
+                            this.selection === SelectionMode.MULTIPLE
+                        ) {
+                            this.selectedRows.push(row);
+                        } else {
+                            this.selectedRows = [row];
+                        }
                     }
-                }
-                if (e.type === 'kup-cell-input') {
-                    this.refresh();
+                    if (e.type === 'kup-cell-input') {
+                        this.refresh();
+                    }
                 }
             }
         };

@@ -1589,7 +1589,7 @@ export namespace Components {
           * Adds a new row to the list data
           * @param row new row
          */
-        "insertNewRow": (row: KupDataTableRow) => Promise<void>;
+        "insertNewRow": (row: KupDataTableRow, unshift?: boolean) => Promise<void>;
         /**
           * When set to true, clicked-on rows will have a visual feedback.
           * @default false
