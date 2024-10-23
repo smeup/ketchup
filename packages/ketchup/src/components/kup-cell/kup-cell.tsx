@@ -275,8 +275,6 @@ export class KupCell {
             row: this.generateRow(),
         };
 
-        // const label = this.getLabelComponent(props.cell, props.column.title);
-
         return (
             <Host>
                 <style>
