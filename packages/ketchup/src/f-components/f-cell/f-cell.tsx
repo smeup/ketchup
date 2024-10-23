@@ -39,6 +39,7 @@ import { FImage } from '../f-image/f-image';
 import { FChip } from '../f-chip/f-chip';
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import {
+    CellOptions,
     KupDataCell,
     KupDataCellOptions,
     KupDataColumn,
@@ -93,9 +94,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     if (cell.options) {
         cell.data = mapData(cell, column) ?? cell.data;
-        if (props.cell.shape === FCellShapes.TEXT_FIELD) {
-            cell.value = cell.data.value;
-        }
     }
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
@@ -261,63 +259,51 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
 };
 
 const MainObjectAdapter = (
-    options: GenericObject,
-    _fieldLabel: string,
+    _options: CellOptions[],
+    fieldLabel: string,
     currentValue: string,
     _cell: KupInputPanelCell,
     _id: string
-) => {
-    if (options[0]) {
-        return {
-            initialValue: currentValue,
-            label: options[0].label,
-            value: options[0].value,
-        };
-    }
-};
+) => ({
+    initialValue: currentValue || '',
+    label: fieldLabel || '',
+    value: currentValue || '',
+});
 
 const MainCHKAdapter = (
-    options: GenericObject,
-    _fieldLabel: string,
-    _currentValue: string
-) => {
-    if (options?.[0]) {
-        return {
-            checked: options[0].checked,
-            label: options[0].label,
-        };
-    }
-};
+    _options: CellOptions[],
+    fieldLabel: string,
+    currentValue: string
+) => ({
+    checked: currentValue,
+    label: fieldLabel,
+});
 
 const MainBTNAdapter = (
-    _options: GenericObject[],
+    _options: CellOptions[],
     _fieldLabel: string,
     currentValue: string,
     cell: KupDataCellOptions
-) => {
-    return {
-        data: [
-            {
-                icon: cell.icon,
-                value: currentValue,
-            },
-        ],
-    };
-};
+) => ({
+    data: [
+        {
+            icon: cell.icon,
+            value: currentValue,
+        },
+    ],
+});
 
 const MainITXAdapter = (
-    _options: GenericObject[],
+    _options: CellOptions[],
     fieldLabel: string,
     _currentValue: string,
     _cell: KupDataCellOptions
-) => {
-    return {
-        label: fieldLabel,
-    };
-};
+) => ({
+    label: fieldLabel,
+});
 
 const MainRADAdapter = (
-    options: GenericObject,
+    options: CellOptions[],
     _fieldLabel: string,
     currentValue: string
 ) => {
@@ -325,14 +311,14 @@ const MainRADAdapter = (
 };
 
 const MainCMBandACPAdapter = (
-    rawOptions: GenericObject,
+    options: CellOptions[],
     fieldLabel: string,
     currentValue: string
 ) => {
     const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
 
     configCMandACP.data['kup-list'].data = optionsTreeComboAdapter(
-        rawOptions,
+        options,
         currentValue
     );
     return configCMandACP;
