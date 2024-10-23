@@ -81,6 +81,7 @@ export const config: Config = {
                 { src: 'gantt.html' },
                 { src: 'gauge.html' },
                 { src: 'grid.html' },
+                { src: 'htm.html' },
                 { src: 'image.html' },
                 { src: 'image-list.html' },
                 { src: 'input-panel.html' },

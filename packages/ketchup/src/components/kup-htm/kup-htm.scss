@@ -1,0 +1,19 @@
+:host {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+#kup-component {
+  height: 100%;
+  .kup-htm.is-link {
+    height: 100%;
+    a {
+      float: left;
+    }
+    iframe {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
