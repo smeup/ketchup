@@ -242,6 +242,8 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     const currentValue = cell.value;
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
     const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
+        [FCellTypes.BUTTON_LIST, MainBTNAdapter.bind(this)],
+
         [FCellTypes.RADIO, MainRADAdapter.bind(this)],
         [FCellTypes.AUTOCOMPLETE, MainCMBandACPAdapter.bind(this)],
         [FCellTypes.COMBOBOX, MainCMBandACPAdapter.bind(this)],
@@ -388,6 +390,22 @@ const optionsAdapterMap = new Map<
     ['SmeupTable', tableOptionsAdapter.bind(this)],
     ['SmeupDataTable', tableOptionsAdapter.bind(this)],
 ]);
+
+const MainBTNAdapter = (
+    _options: GenericObject,
+    _fieldLabel: string,
+    _currentValue: string,
+    cell: KupDataCellOptions
+) => {
+    return {
+        data: cell.options?.length
+            ? cell.options?.map((option) => ({
+                  icon: option.icon,
+                  value: option.value,
+              }))
+            : [],
+    };
+};
 
 function setCellSize(
     cellType: string,
