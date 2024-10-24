@@ -13,10 +13,10 @@ export enum KupCellProps {
 }
 
 export enum KupCellSubmitButtonPosition {
-    top = 'column-reverse',
-    bottom = 'column',
-    left = 'row-reverse',
-    right = 'row',
+    top = 'top',
+    bottom = 'bottom',
+    left = 'left',
+    right = 'right',
 }
 
 export interface KupCellSubmitClickEventPayload extends KupEventPayload {

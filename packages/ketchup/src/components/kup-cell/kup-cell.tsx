@@ -275,6 +275,16 @@ export class KupCell {
             row: this.generateRow(),
         };
 
+        const submitPositionAdapterMap = new Map<
+            KupCellSubmitButtonPosition,
+            string
+        >([
+            [KupCellSubmitButtonPosition.top, 'column-reverse'],
+            [KupCellSubmitButtonPosition.bottom, 'column'],
+            [KupCellSubmitButtonPosition.left, 'row-reverse'],
+            [KupCellSubmitButtonPosition.right, 'row'],
+        ]);
+
         return (
             <Host>
                 <style>
@@ -288,7 +298,10 @@ export class KupCell {
                         this.showSubmit
                             ? {
                                   display: 'flex',
-                                  'flex-direction': this.submitPosition,
+                                  'flex-direction':
+                                      submitPositionAdapterMap.get(
+                                          this.submitPosition
+                                      ) ?? 'row',
                                   'align-items': 'center',
                                   gap: '0.5rem',
                               }
