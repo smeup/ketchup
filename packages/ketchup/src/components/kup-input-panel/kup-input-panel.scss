@@ -102,7 +102,8 @@
     }
 
     &--absolute {
-      height: 87ch;
+      // TODO: calc the height dynamically
+      height: 40ch;
       justify-content: flex-end;
 
       .input-panel-label {
