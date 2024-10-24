@@ -22,6 +22,7 @@ export const fButtonUsers = [
     KupTagNames.INPUT_PANEL,
     KupTagNames.IMAGE_LIST,
     KupTagNames.SNACKBAR,
+    KupTagNames.TOOLBAR,
 ];
 /**
  * Components using the FCell functional component.
@@ -34,6 +35,7 @@ export const fCellUsers = [
     KupTagNames.FORM,
     KupTagNames.INPUT_PANEL,
     KupTagNames.TREE,
+    KupTagNames.TOOLBAR,
 ];
 /**
  * Components using the FCheckbox functional component.
@@ -48,6 +50,7 @@ export const fCheckboxUsers = [
     KupTagNames.INPUT_PANEL,
     KupTagNames.LIST,
     KupTagNames.TREE,
+    KupTagNames.TOOLBAR,
 ];
 /**
  * Components using the FChip functional component.
@@ -61,6 +64,7 @@ export const fChipUsers = [
     KupTagNames.FORM,
     KupTagNames.INPUT_PANEL,
     KupTagNames.TREE,
+    KupTagNames.TOOLBAR,
 ];
 /**
  * Components using the FImage functional component.
@@ -92,6 +96,7 @@ export const fImageUsers = [
     KupTagNames.SNACKBAR,
     KupTagNames.TAB_BAR,
     KupTagNames.TEXT_FIELD,
+    KupTagNames.TOOLBAR,
     KupTagNames.TYPOGRAPHY,
     KupTagNames.TYPOGRAPHY_LIST,
     KupTagNames.TREE,
@@ -110,6 +115,7 @@ export const fProgressBarUsers = [
     KupTagNames.FORM,
     KupTagNames.PROGRESS_BAR,
     KupTagNames.TREE,
+    KupTagNames.TOOLBAR,
 ];
 /**
  * Components using the FRadio functional component.
@@ -122,6 +128,7 @@ export const fRadioUsers = [
     KupTagNames.INPUT_PANEL,
     KupTagNames.RADIO,
     KupTagNames.TREE,
+    KupTagNames.TOOLBAR,
 ];
 /**
  * Components using the FRating functional component.
@@ -133,6 +140,7 @@ export const fRatingUsers = [
     KupTagNames.FORM,
     KupTagNames.RATING,
     KupTagNames.TREE,
+    KupTagNames.TOOLBAR,
 ];
 /**
  * Components using the FSwitch functional component.
@@ -145,6 +153,7 @@ export const fSwitchUsers = [
     KupTagNames.INPUT_PANEL,
     KupTagNames.SWITCH,
     KupTagNames.TREE,
+    KupTagNames.TOOLBAR,
 ];
 
 /**
@@ -173,6 +182,7 @@ export const fTextFieldUsers = [
     KupTagNames.TEXT_FIELD,
     KupTagNames.TIME_PICKER,
     KupTagNames.TREE,
+    KupTagNames.TOOLBAR,
 ];
 /**
  * Components using the MDC ripple effect.

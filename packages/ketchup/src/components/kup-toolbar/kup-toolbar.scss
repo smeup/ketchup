@@ -1,0 +1,80 @@
+.toolbar-container {
+  width: fit-content;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.05);
+}
+
+.parent-class {
+  position: relative;
+  cursor: pointer;
+  width: 200px;
+  background-color: var(--kup-gray-color-10);
+  display: flex;
+  justify-content: space-between;
+  padding: var(--kup-space-03);
+  border-left: 1px solid transparent;
+
+  &:hover:not(:has(> .f-cell)) {
+    background-color: var(--kup-gray-color-10-hover);
+  }
+
+  &:focus:not(:has(> .f-cell)) {
+    outline: 2px solid var(--kup-border-interactive);
+    outline-offset: -2px;
+  }
+
+  &:active:not(:has(> .f-cell)) {
+    border-left: 1px solid var(--kup-border-interactive);
+  }
+
+  > .nested-class {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    display: none;
+    z-index: 10;
+    transition: display 0.2s ease;
+    background-color: var(--kup-gray-color-10);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.05);
+    width: inherit;
+    max-width: 200px;
+  }
+
+  .chevron-right {
+    float: right;
+    font-size: 14px;
+    margin: 0;
+    margin-left: 10px;
+  }
+
+  &:hover {
+    > .nested-class {
+      display: block;
+    }
+  }
+}
+
+.nested-class .f-cell .f-cell__content {
+  display: block;
+  .f-radio {
+    gap: 0;
+    .form-field {
+      cursor: pointer;
+      &:active,
+      &:focus {
+        outline: 2px solid var(--kup-border-interactive);
+        outline-offset: -2px;
+      }
+      &:hover {
+        background-color: var(--kup-gray-color-10-hover);
+      }
+      .radio {
+        padding: var(--kup-space-03) 0 var(--kup-space-03) var(--kup-space-03);
+      }
+      label {
+        width: 100%;
+        cursor: pointer;
+        padding: var(--kup-space-03);
+      }
+    }
+  }
+}

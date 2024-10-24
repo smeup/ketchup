@@ -1309,6 +1309,18 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">KUP-TOOLBAR</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    id="kup-time-picker"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">KUP-TREE</span>
                 </td>
                 <td class="text-cell">

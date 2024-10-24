@@ -36,7 +36,7 @@ import {
 } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
-import { KupToolbarItemClickEventPayload } from '../../managers/kup-toolbar/kup-toolbar-declarations';
+import { KupToolbarItemClickEventPayload } from '../../components/kup-toolbar/kup-toolbar-declarations';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -300,12 +300,12 @@ export class KupTabBar {
     }
 
     createDropDownToolbarList() {
-        this.closeRowToolbarList();
-        const listEl = document.createElement('kup-list');
+        if (this.toolbarList) {
+            this.closeRowToolbarList();
+        }
+        const listEl = document.createElement('kup-toolbar');
         listEl.data = this.toolbarData;
-        listEl.isMenu = true;
-        listEl.menuVisible = true;
-        listEl.addEventListener('kup-list-click', (e: CustomEvent) => {
+        listEl.addEventListener('kup-toolbar-click', (e: CustomEvent) => {
             this.onKupToolbarItemClick(e);
             setTimeout(() => {
                 this.closeRowToolbarList();

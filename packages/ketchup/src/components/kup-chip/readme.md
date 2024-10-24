@@ -103,6 +103,7 @@ Type: `Promise<void>`
  - [kup-image-list](../kup-image-list)
  - [kup-input-panel](../kup-input-panel)
  - [kup-magic-box](../kup-magic-box)
+ - [kup-toolbar](../kup-toolbar)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -186,10 +187,11 @@ graph TD;
   kup-switch --> kup-card
   kup-switch --> kup-dialog
   kup-form --> kup-chip
-  kup-tab-bar --> kup-list
+  kup-tab-bar --> kup-toolbar
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-dialog
   kup-tab-bar --> kup-badge
+  kup-toolbar --> kup-chip
   kup-tree --> kup-chip
   kup-box --> kup-chip
   kup-cell --> kup-chip

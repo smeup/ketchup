@@ -263,6 +263,11 @@ const advancedRoutes = [
       import(`@/views/components/advanced/inputpanel/InputPanel.vue`),
   },
   {
+    path: `/toolbar`,
+    name: 'Toolbar',
+    component: () => import(`@/views/components/advanced/toolbar/Toolbar.vue`),
+  },
+  {
     path: `/tree`,
     name: 'tree',
     component: () => import(`@/views/components/advanced/tree/Tree.vue`),
