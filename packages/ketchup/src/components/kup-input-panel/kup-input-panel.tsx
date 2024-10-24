@@ -581,12 +581,28 @@ export class KupInputPanel {
             this.tabSelected = sections[0].id || '0';
         }
 
-        const tabNodes: KupTabBarNode[] = sections.map((section, i) => ({
-            active: (section.id || `${i}`) === this.tabSelected,
-            value: section.title,
-            icon: section.icon,
-            id: section.id || `${i}`,
-        }));
+        const tabNodes: KupTabBarNode[] = sections.map((section, i) => {
+            const cellIdsInSection = section.content.map(
+                (contentItem) => contentItem.id
+            );
+
+            const hasError = cells.cells.some((cellData) => {
+                console.log(cells);
+                const cell = cellData.cell;
+                const column = cellData.column;
+                return (
+                    cellIdsInSection.includes(column.name) && !!cell.data?.error
+                );
+            });
+
+            return {
+                active: (section.id || `${i}`) === this.tabSelected,
+                value: section.title,
+                icon: hasError ? 'error' : section.icon,
+                id: section.id || `${i}`,
+                danger: hasError,
+            };
+        });
 
         const sectionContent = sections.map((section, i) => {
             const sectionId = section.id || `${i}`;
