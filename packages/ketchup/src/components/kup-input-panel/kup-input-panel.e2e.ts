@@ -1851,7 +1851,7 @@ describe('kup-input-panel', () => {
         await page.waitForChanges();
 
         const classKupDanger = await page.find(
-            'kup-input-panel >>> form.input-panel >>> #kup-component > f-button.kup-danger'
+            'kup-input-panel >>> form.input-panel >>> #kup-component f-button.kup-danger'
         );
         expect(classKupDanger).not.toBeNull();
     });
