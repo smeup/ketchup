@@ -37,8 +37,8 @@ import {
     KupDataColumn,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
-import { FCellOptions } from '../../f-components/f-cell-options.tsx/f-cell-options';
 import { FButton } from '../../f-components/f-button/f-button';
+import { FCell } from '../../f-components/f-cell/f-cell';
 
 @Component({
     tag: 'kup-cell',
@@ -295,7 +295,7 @@ export class KupCell {
                             : {}
                     }
                 >
-                    <FCellOptions {...props} />
+                    <FCell {...props} />
                     {this.showSubmit ? (
                         <FButton
                             buttonType="submit"
