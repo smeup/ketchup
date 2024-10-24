@@ -851,15 +851,16 @@ export class KupDataTable {
     }
 
     @Watch('data')
-    backupOriginalDataAndAdapting() {
+    decorateAndInitForUpdTable() {
         if (this.data['type'] === 'SmeupDataTable') {
             decorateDataTable(this.data);
         }
         if (this.updatableData) {
             this.#originalDataLoaded = JSON.parse(JSON.stringify(this.data));
-            if (this.data.setup?.operations?.delete) {
-                this.selection = SelectionMode.MULTIPLE_CHECKBOX;
-            }
+            this.selection = this.data.setup?.operations?.delete
+                ? SelectionMode.MULTIPLE_CHECKBOX
+                : this.selection;
+
             this.#originalDataLoadedMaxId =
                 this.#originalDataLoaded.rows?.length > 0
                     ? Math.max(
@@ -2566,7 +2567,7 @@ export class KupDataTable {
         this.#calculateData();
         this.#initialized = true;
 
-        this.backupOriginalDataAndAdapting();
+        this.decorateAndInitForUpdTable();
     }
 
     componentWillRender() {
@@ -6016,9 +6017,12 @@ export class KupDataTable {
             return row;
         };
 
-        const addRowHandler = () => {
+        const addRowHandler = async () => {
             let newRow: KupDataRow;
-            if (this.#originalDataLoaded?.rows?.length > 0) {
+            const selectedRows = await this.getSelectedRows();
+            if (selectedRows.length > 0) {
+                newRow = JSON.parse(JSON.stringify(selectedRows[0]));
+            } else if (this.#originalDataLoaded?.rows?.length > 0) {
                 newRow = JSON.parse(
                     JSON.stringify(this.#originalDataLoaded.rows[0])
                 );
@@ -6026,13 +6030,16 @@ export class KupDataTable {
                 newRow = createRowWithInputFields();
             }
             Object.values(newRow.cells).forEach((cell) => {
-                cell.value = '';
+                if (selectedRows.length == 0) {
+                    cell.value = '';
+                }
             });
             newRow.id = (
                 this.#originalDataLoadedMaxId + ++this.#insertCount
             ).toString();
             this.insertNewRow(newRow, true);
         };
+
         const deleteRowHandler = async () => {
             const ids: string[] = (await this.getSelectedRows()).map(
                 (row) => row.id
