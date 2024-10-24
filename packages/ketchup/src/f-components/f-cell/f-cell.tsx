@@ -83,7 +83,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
         ? column.shape
         : null;
     const hasObj = !dom.ketchup.objects.isEmptyKupObj(cell.obj);
-
     let isEditable = false;
     if (cell.hasOwnProperty('isEditable')) {
         isEditable = cell.isEditable;
@@ -94,6 +93,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     if (cell.options) {
         cell.data = mapData(cell, column) ?? cell.data;
+        // todo: remove
         console.log(cell);
     }
 
@@ -280,7 +280,7 @@ const MainCHKAdapter = (
     cell: KupDataCellOptions
 ) => ({
     ...cell.data,
-    checked: currentValue,
+    checked: currentValue === 'on' || currentValue === '1',
     label: fieldLabel,
 });
 
@@ -321,18 +321,17 @@ const MainCMBandACPAdapter = (
     options: CellOptions[],
     fieldLabel: string,
     currentValue: string,
-    _cell: KupDataCellOptions,
+    cell: KupDataCellOptions,
     _id: string
 ) => {
-    const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
-
-    if (options) {
+    if (!cell.data?.data && options) {
+        const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
         configCMandACP.data['kup-list'].data = optionsTreeComboAdapter(
             options,
             currentValue
         );
+        return configCMandACP;
     }
-    return configCMandACP;
 };
 
 const optionsTreeComboAdapter = (options: any, currentValue: string) => {
