@@ -98,6 +98,18 @@
         background: var(--kup_tabbar_text_color) !important;
       }
 
+      &.kup-danger {
+        --kup_tabbar_text_color: var(--kup-danger-color-60);
+        --kup_tabindicator_border_bottom_color: var(--kup-danger-color-60);
+        --kup_tabindicator_border_bottom_color: var(--kup-danger-color-60);
+        --kup_tabindicator_border_bottom_color_active: var(
+          --kup-danger-color-60
+        );
+        &:focus {
+          outline: 2px solid var(--kup-danger-color-60);
+        }
+      }
+
       &:hover {
         background-color: rgba(var(--kup_tabbar_primary_color_rgb), 0.075);
         .tab-indicator .tab-indicator__content--underline {

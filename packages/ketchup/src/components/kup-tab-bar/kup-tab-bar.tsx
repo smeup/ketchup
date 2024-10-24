@@ -406,6 +406,7 @@ export class KupTabBar {
                 'tab--active': node.active ? true : false,
                 'mdc-ripple-surface': this.ripple ? true : false,
                 'kup-dense': this.dense,
+                'kup-danger': node.danger,
             };
 
             const tabEl: VNode = (

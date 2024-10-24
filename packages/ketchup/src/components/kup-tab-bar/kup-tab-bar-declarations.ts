@@ -18,6 +18,7 @@ export enum KupTabBarProps {
  */
 export interface KupTabBarNode extends KupDataNode {
     active?: boolean;
+    danger?: boolean;
 }
 
 export interface KupTabBarEventPayload extends KupEventPayload {
