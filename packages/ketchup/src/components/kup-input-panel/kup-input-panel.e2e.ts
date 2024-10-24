@@ -1532,4 +1532,327 @@ describe('kup-input-panel', () => {
             expect(positionStyle).toBe('absolute');
         });
     });
+
+    it('render inputpanel with tab error data attribute', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-input-panel></kup-input-panel> <div kup-dynamic-position></div>'
+        );
+        const inputPanel = await page.find('kup-input-panel');
+
+        const data = {
+            type: 'SmeupDataTable',
+            serviceInfo: {
+                fun: 'F(FOR;MU_250_16F;*INIT) SS(CONAP() Context() CGr(FOR) ID({i214}) DV(W))',
+                serviceName: 'MU_250_16F',
+            },
+            columns: [
+                {
+                    name: 'NAME',
+                    title: 'Name*',
+                    visible: true,
+                    isEditable: false,
+                },
+                {
+                    name: 'EMAIL',
+                    title: 'Email*',
+                    visible: true,
+                    isEditable: false,
+                },
+                {
+                    name: 'NUMBER',
+                    title: 'Phone Number',
+                    visible: true,
+                    isEditable: false,
+                },
+                {
+                    name: 'BIRTH_DATE',
+                    title: 'Date of Birth',
+                    visible: true,
+                    isEditable: false,
+                },
+                {
+                    name: 'ROLE',
+                    title: 'Role*',
+                    visible: true,
+                    isEditable: false,
+                },
+                {
+                    name: 'STATUS',
+                    title: 'Current Employment Status*',
+                    visible: true,
+                    isEditable: false,
+                },
+                {
+                    name: 'SKILL',
+                    title: 'Skills',
+                    visible: true,
+                    isEditable: false,
+                },
+                { name: 'FULL_REMOTE', visible: true, isEditable: false },
+                { name: 'CLEAR', visible: true, isEditable: false },
+            ],
+            rows: [
+                {
+                    cells: {
+                        FULL_REMOTE: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'SWT',
+                            data: {
+                                label: 'Full Remote',
+                                leadingLabel: true,
+                                checked: true,
+                            },
+                        },
+                        NAME: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: {
+                                error: 'Generic error',
+                            },
+                        },
+                        CLEAR: {
+                            value: 'Clear (F5)',
+                            obj: { k: 'CLEAR' },
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'BTN',
+                            data: { keyShortcut: 'f5', styling: 'outlined' },
+                        },
+                        EMAIL: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: { inputType: 'email' },
+                        },
+                        ROLE: {
+                            value: '',
+                            options: [
+                                { id: 'FED', label: 'Front-End Developer' },
+                                { id: 'BED', label: 'Back-End Developer' },
+                                { id: 'FSD', label: 'Full-Stack Developer' },
+                                { id: 'MOD', label: 'Mobile Developer' },
+                                { id: 'SWE', label: 'Software Engineer' },
+                                { id: 'DOE', label: 'DevOps Engineer' },
+                                { id: 'DBA', label: 'Database Administrator' },
+                                { id: 'DTS', label: 'Data Scientist' },
+                                { id: 'DTE', label: 'Data Engineer' },
+                                { id: 'DAN', label: 'Data Analyst' },
+                                { id: 'CSA', label: 'Cybersecurity Analyst' },
+                                { id: 'SEN', label: 'Security Engineer' },
+                                {
+                                    id: 'EHT',
+                                    label: 'Ethical Hacker / Penetration Tester',
+                                },
+                                {
+                                    id: 'CIS',
+                                    label: 'Chief Information Security Officer',
+                                },
+                                { id: 'CLA', label: 'Cloud Architect' },
+                                { id: 'CLE', label: 'Cloud Engineer' },
+                                { id: 'SYA', label: 'System Administrator' },
+                                { id: 'NWE', label: 'Network Engineer' },
+                                { id: 'PMI', label: 'Project Manager IT' },
+                                { id: 'PRM', label: 'Product Manager' },
+                                {
+                                    id: 'SCM',
+                                    label: 'Scrum Master / Agile Coach',
+                                },
+                                {
+                                    id: 'MLE',
+                                    label: 'Machine Learning Engineer',
+                                },
+                                { id: 'AIS', label: 'AI Research Scientist' },
+                                {
+                                    id: 'DIA',
+                                    label: 'Data Scientist specializzato in AI',
+                                },
+                                { id: 'OTH', label: 'Other...' },
+                            ],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'CMB',
+                            data: {
+                                displayMode: 'description',
+                                showDropDownIcon: true,
+                            },
+                        },
+                        STATUS: {
+                            value: '',
+                            options: [
+                                { id: 'FUL', label: 'Full-time' },
+                                { id: 'PAT', label: 'Part-time' },
+                                { id: 'FRL', label: 'Freelance' },
+                                { id: 'UNP', label: 'Unemployed' },
+                            ],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'CMB',
+                            data: { showDropDownIcon: false },
+                        },
+                        BIRTH_DATE: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'DAT',
+                            data: { outlined: true },
+                        },
+                        SKILL: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'CHI',
+                            data: { displayId: false, styling: 'outlined' },
+                        },
+                        NUMBER: {
+                            value: '',
+                            options: [],
+                            editable: true,
+                            mandatory: true,
+                            shape: 'ITX',
+                            data: { inputType: 'number', outlined: true },
+                        },
+                    },
+                    layout: {
+                        horizontal: false,
+                        absolute: false,
+                        sections: [
+                            {
+                                id: 'TAB1',
+                                icon: 'edit',
+                                content: [
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'NAME',
+                                        colSpan: 1,
+                                        rowStart: 1,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'EMAIL',
+                                        colSpan: 1,
+                                        rowStart: 2,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'NUMBER',
+                                        colSpan: 1,
+                                        rowStart: 3,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'BIRTH_DATE',
+                                        colSpan: 1,
+                                        rowStart: 4,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'CLEAR',
+                                        colStart: 1,
+                                        rowStart: 5,
+                                    },
+                                ],
+                                sections: [],
+                                horizontal: false,
+                                gridCols: 3,
+                                gridRows: 2,
+                                gap: 2,
+                                title: 'Personal Info',
+                            },
+                            {
+                                id: 'TAB2',
+                                icon: 'edit',
+                                content: [
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'ROLE',
+                                        colSpan: 1,
+                                        rowStart: 1,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'STATUS',
+                                        colSpan: 1,
+                                        rowStart: 2,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'SKILL',
+                                        colSpan: 1,
+                                        rowStart: 3,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'FULL_REMOTE',
+                                        colSpan: 1,
+                                        rowStart: 4,
+                                    },
+                                    {
+                                        options: [],
+                                        editable: false,
+                                        mandatory: false,
+                                        id: 'CLEAR',
+                                        colSpan: 1,
+                                        rowStart: 6,
+                                    },
+                                ],
+                                sections: [],
+                                horizontal: false,
+                                gridCols: 3,
+                                gridRows: 2,
+                                gap: 2,
+                                title: 'Professional Info',
+                            },
+                        ],
+                        sectionsType: 'tab',
+                    },
+                },
+            ],
+            debugInfo: {
+                executionTime_ms: 4,
+                initialTimestamp: '2024-10-22T08:28:24.216644293Z',
+                finalTimestamp: '2024-10-22T08:28:24.221455255Z',
+                runtime: 'Java 21',
+            },
+        };
+
+        inputPanel.setProperty('data', data);
+
+        await page.waitForChanges();
+
+        const classKupDanger = await page.find(
+            'kup-input-panel >>> form.input-panel >>> #kup-component f-button.kup-danger'
+        );
+        expect(classKupDanger).not.toBeNull();
+    });
 });

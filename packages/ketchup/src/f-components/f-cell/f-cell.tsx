@@ -94,7 +94,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
     isEditable = isEditable && props.editable;
 
     if (cell.options) {
-        cell.data = mapData(cell, column) ?? cell.data;
+        cell.data = mapData(cell) ?? cell.data;
     }
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
@@ -234,13 +234,13 @@ export const FCell: FunctionalComponent<FCellProps> = (
     );
 };
 
-const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
+const mapData = (cell: KupDataCellOptions) => {
     if (!cell) {
         return null;
     }
 
     const options = cell.options;
-    const fieldLabel = col.title;
+    const fieldLabel = cell.title;
     const currentValue = cell.value;
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
     const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
@@ -255,9 +255,7 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     ]);
 
     const adapter = dataAdapterMap.get(cellType);
-    return adapter
-        ? adapter(options, fieldLabel, currentValue, cell, col.name)
-        : null;
+    return adapter ? adapter(options, fieldLabel, currentValue, cell) : null;
 };
 
 const MainCHIAdapter = (
