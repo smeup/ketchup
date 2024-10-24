@@ -85,7 +85,7 @@
       z-index: 1;
       height: var(--kup_tabbar_height);
       &:focus {
-        outline: 2px solid var(--kup_tabindicator_border_bottom_color_active);
+        outline: 2px solid var(--kup-danger-color-60);
       }
 
       .tab__icon + .tab__text-label {
@@ -101,6 +101,13 @@
       &.kup-danger {
         --kup_tabbar_text_color: var(--kup-danger-color-60);
         --kup_tabindicator_border_bottom_color: var(--kup-danger-color-60);
+        &:focus {
+          --kup_tabindicator_border_bottom_color: var(--kup-danger-color-60);
+          --kup_tabindicator_border_bottom_color_active: var(
+            --kup-danger-color-60
+          );
+          outline: 2px solid var(--kup-danger-color-60);
+        }
       }
 
       &:hover {
