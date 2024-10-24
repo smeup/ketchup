@@ -29,6 +29,8 @@ import {
 } from './f-cell-declarations';
 import { FunctionalComponent, h, VNode } from '@stencil/core';
 import {
+    CHIAdapter,
+    CHKAdapter,
     CMBandACPAdapter,
     getCellValueForDisplay,
     RADAdapter,
@@ -251,12 +253,21 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
         [FCellTypes.COMBOBOX, MainCMBandACPAdapter.bind(this)],
         [FCellTypes.CHECKBOX, MainCHKAdapter.bind(this)],
         [FCellTypes.OBJECT, MainObjectAdapter.bind(this)],
+        [FCellTypes.CHIP, MainCHIAdapter.bind(this)],
     ]);
 
     const adapter = dataAdapterMap.get(cellType);
     return adapter
         ? adapter(options, fieldLabel, currentValue, cell, col.name)
         : null;
+};
+
+const MainCHIAdapter = (
+    _options: CellOptions[],
+    _fieldLabel: string,
+    currentValue: string
+) => {
+    return CHIAdapter(currentValue);
 };
 
 const MainObjectAdapter = (
