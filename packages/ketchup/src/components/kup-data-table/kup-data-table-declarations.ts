@@ -80,6 +80,10 @@ export interface KupDataTableDataset {
     columns?: KupDataColumn[];
     rows?: KupDataTableRow[];
     setup?: {
+        operations?: {
+            insert: boolean;
+            delete: boolean;
+        };
         commands?: [
             {
                 cells: {
