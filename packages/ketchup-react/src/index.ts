@@ -42,6 +42,7 @@ export const KupGauge = /*@__PURE__*/createReactComponent<JSX.KupGauge, HTMLKupG
 export const KupGrid = /*@__PURE__*/createReactComponent<JSX.KupGrid, HTMLKupGridElement>('kup-grid');
 export const KupGridRenderer = /*@__PURE__*/createReactComponent<JSX.KupGridRenderer, HTMLKupGridRendererElement>('kup-grid-renderer');
 export const KupHorizontalScroll = /*@__PURE__*/createReactComponent<JSX.KupHorizontalScroll, HTMLKupHorizontalScrollElement>('kup-horizontal-scroll');
+export const KupHtm = /*@__PURE__*/createReactComponent<JSX.KupHtm, HTMLKupHtmElement>('kup-htm');
 export const KupIframe = /*@__PURE__*/createReactComponent<JSX.KupIframe, HTMLKupIframeElement>('kup-iframe');
 export const KupImage = /*@__PURE__*/createReactComponent<JSX.KupImage, HTMLKupImageElement>('kup-image');
 export const KupImageList = /*@__PURE__*/createReactComponent<JSX.KupImageList, HTMLKupImageListElement>('kup-image-list');

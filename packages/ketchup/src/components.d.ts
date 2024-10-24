@@ -18,7 +18,7 @@ import { KupStore } from "./components/kup-state/kup-store";
 import { FButtonAlign, FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
-import { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
+import { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
@@ -76,7 +76,7 @@ export { KupStore } from "./components/kup-state/kup-store";
 export { FButtonAlign, FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 export { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 export { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
-export { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
+export { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 export { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 export { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 export { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
@@ -702,6 +702,11 @@ export namespace Components {
         "styling": FButtonStyling;
     }
     interface KupCalendar {
+        /**
+          * Sets which columns of the data property will be used to render each characteristic of an event in the calendar.
+          * @default {KupCalendarOptions: ""}
+         */
+        "calendarColumns": KupCalendarColumnsProp;
         /**
           * Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).
           * @default null
@@ -2607,6 +2612,28 @@ export namespace Components {
         "taskListScrollWidth": number;
         "taskListTrueRef": HTMLKupTaskListElement;
         "taskListWidth": number;
+    }
+    interface KupHtm {
+        /**
+          * Data containing the url or html.
+          * @default null
+         */
+        "data": KupDataCell;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupIframe {
         /**
@@ -4608,6 +4635,10 @@ export interface KupFormCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupFormElement;
 }
+export interface KupHtmCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKupHtmElement;
+}
 export interface KupIframeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLKupIframeElement;
@@ -5264,6 +5295,23 @@ declare global {
         prototype: HTMLKupHorizontalScrollElement;
         new (): HTMLKupHorizontalScrollElement;
     };
+    interface HTMLKupHtmElementEventMap {
+        "kup-htm-ready": KupEventPayload;
+    }
+    interface HTMLKupHtmElement extends Components.KupHtm, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKupHtmElementEventMap>(type: K, listener: (this: HTMLKupHtmElement, ev: KupHtmCustomEvent<HTMLKupHtmElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKupHtmElementEventMap>(type: K, listener: (this: HTMLKupHtmElement, ev: KupHtmCustomEvent<HTMLKupHtmElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLKupHtmElement: {
+        prototype: HTMLKupHtmElement;
+        new (): HTMLKupHtmElement;
+    };
     interface HTMLKupIframeElementEventMap {
         "kup-iframe-error": KupEventPayload;
         "kup-iframe-load": KupEventPayload;
@@ -5829,6 +5877,7 @@ declare global {
         "kup-grid": HTMLKupGridElement;
         "kup-grid-renderer": HTMLKupGridRendererElement;
         "kup-horizontal-scroll": HTMLKupHorizontalScrollElement;
+        "kup-htm": HTMLKupHtmElement;
         "kup-iframe": HTMLKupIframeElement;
         "kup-image": HTMLKupImageElement;
         "kup-image-list": HTMLKupImageListElement;
@@ -6382,6 +6431,11 @@ declare namespace LocalJSX {
         "styling"?: FButtonStyling;
     }
     interface KupCalendar {
+        /**
+          * Sets which columns of the data property will be used to render each characteristic of an event in the calendar.
+          * @default {KupCalendarOptions: ""}
+         */
+        "calendarColumns"?: KupCalendarColumnsProp;
         /**
           * Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).
           * @default null
@@ -7976,6 +8030,17 @@ declare namespace LocalJSX {
         "taskListScrollWidth"?: number;
         "taskListTrueRef"?: HTMLKupTaskListElement;
         "taskListWidth"?: number;
+    }
+    interface KupHtm {
+        /**
+          * Data containing the url or html.
+          * @default null
+         */
+        "data"?: KupDataCell;
+        /**
+          * Triggered when the component is ready.
+         */
+        "onKup-htm-ready"?: (event: KupHtmCustomEvent<KupEventPayload>) => void;
     }
     interface KupIframe {
         /**
@@ -9610,6 +9675,7 @@ declare namespace LocalJSX {
         "kup-grid": KupGrid;
         "kup-grid-renderer": KupGridRenderer;
         "kup-horizontal-scroll": KupHorizontalScroll;
+        "kup-htm": KupHtm;
         "kup-iframe": KupIframe;
         "kup-image": KupImage;
         "kup-image-list": KupImageList;
@@ -9686,6 +9752,7 @@ declare module "@stencil/core" {
             "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;
             "kup-grid-renderer": LocalJSX.KupGridRenderer & JSXBase.HTMLAttributes<HTMLKupGridRendererElement>;
             "kup-horizontal-scroll": LocalJSX.KupHorizontalScroll & JSXBase.HTMLAttributes<HTMLKupHorizontalScrollElement>;
+            "kup-htm": LocalJSX.KupHtm & JSXBase.HTMLAttributes<HTMLKupHtmElement>;
             "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
             "kup-image-list": LocalJSX.KupImageList & JSXBase.HTMLAttributes<HTMLKupImageListElement>;

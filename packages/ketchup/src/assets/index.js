@@ -139,6 +139,10 @@ components.data = [
         id: 'grid.html',
     },
     {
+        value: 'HTM',
+        id: 'htm.html',
+    },
+    {
         value: 'Image',
         id: 'image.html',
     },
