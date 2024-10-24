@@ -101,11 +101,11 @@
       &.kup-danger {
         --kup_tabbar_text_color: var(--kup-danger-color-60);
         --kup_tabindicator_border_bottom_color: var(--kup-danger-color-60);
+        --kup_tabindicator_border_bottom_color: var(--kup-danger-color-60);
+        --kup_tabindicator_border_bottom_color_active: var(
+          --kup-danger-color-60
+        );
         &:focus {
-          --kup_tabindicator_border_bottom_color: var(--kup-danger-color-60);
-          --kup_tabindicator_border_bottom_color_active: var(
-            --kup-danger-color-60
-          );
           outline: 2px solid var(--kup-danger-color-60);
         }
       }
