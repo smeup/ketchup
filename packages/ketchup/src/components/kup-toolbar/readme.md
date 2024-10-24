@@ -77,6 +77,19 @@ Type: `Promise<void>`
 - [kup-card](../kup-card)
 - [kup-dialog](../kup-dialog)
 - [kup-badge](../kup-badge)
+- [kup-autocomplete](../kup-autocomplete)
+- [kup-chip](../kup-chip)
+- [kup-text-field](../kup-text-field)
+- [kup-color-picker](../kup-color-picker)
+- [kup-combobox](../kup-combobox)
+- [kup-date-picker](../kup-date-picker)
+- [kup-rating](../kup-rating)
+- [kup-time-picker](../kup-time-picker)
+- [kup-image](../kup-image)
+- [kup-button-list](../kup-button-list)
+- [kup-chart](../kup-chart)
+- [kup-gauge](../kup-gauge)
+- [kup-progress-bar](../kup-progress-bar)
 
 ### Graph
 ```mermaid
@@ -84,6 +97,19 @@ graph TD;
   kup-toolbar --> kup-card
   kup-toolbar --> kup-dialog
   kup-toolbar --> kup-badge
+  kup-toolbar --> kup-autocomplete
+  kup-toolbar --> kup-chip
+  kup-toolbar --> kup-text-field
+  kup-toolbar --> kup-color-picker
+  kup-toolbar --> kup-combobox
+  kup-toolbar --> kup-date-picker
+  kup-toolbar --> kup-rating
+  kup-toolbar --> kup-time-picker
+  kup-toolbar --> kup-image
+  kup-toolbar --> kup-button-list
+  kup-toolbar --> kup-chart
+  kup-toolbar --> kup-gauge
+  kup-toolbar --> kup-progress-bar
   kup-card --> kup-autocomplete
   kup-card --> kup-chip
   kup-card --> kup-text-field

@@ -12,7 +12,6 @@ import {
     VNode,
     Fragment,
 } from '@stencil/core';
-import { KupRadio } from '../kup-radio/kup-radio';
 import {
     KupManager,
     kupManagerInstance,
@@ -22,13 +21,19 @@ import { getProps, setProps } from '../../utils/utils';
 import { KupTreeNode } from '../kup-tree/kup-tree-declarations';
 import { KupListProps } from '../kup-list/kup-list-declarations';
 import { KupToolbarClickEventPayload } from './kup-toolbar-declarations';
-import {
-    KupRadioChangeEventPayload,
-    KupRadioCustomEvent,
-} from '../../components';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FCellOptions } from '../../f-components/f-cell-options.tsx/f-cell-options';
 import { FCellOptionsProps } from '../../f-components/f-cell-options.tsx/f-cell-options.declarations';
+import {
+    KupDataCellOptions,
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
+import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
+import { FCell } from '../../f-components/f-cell/f-cell';
+import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
+import { KupCellProps } from '../kup-cell/kup-cell-declarations';
 
 @Component({
     tag: 'kup-toolbar',
@@ -81,9 +86,6 @@ export class KupToolbar {
      */
     #kupManager: KupManager = kupManagerInstance();
 
-    #radios: KupRadio[] = [];
-    #listItems: HTMLElement[] = [];
-
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
@@ -96,18 +98,9 @@ export class KupToolbar {
     })
     kupClick: EventEmitter<KupToolbarClickEventPayload>;
 
-    onKupClick(
-        index: number,
-        node: KupTreeNode,
-        event: MouseEvent | KupRadioCustomEvent<KupRadioChangeEventPayload>
-    ) {
-        event.preventDefault();
+    onKupClick(index: number, node: KupTreeNode) {
         this.#handleClick(index, node);
     }
-
-    /*-------------------------------------------------*/
-    /*                L i s t e n e r s                */
-    /*-------------------------------------------------*/
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -143,40 +136,52 @@ export class KupToolbar {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
+    private generateRowForNode(treeNode: KupTreeNode): KupDataRow {
+        const col: KupDataColumn = this.generateColumnForNode(treeNode);
+        const row: KupDataRow = { cells: {} };
+        row.cells[col.name] = treeNode;
+        return row;
+    }
+
+    private generateColumnForNode(treeNode: KupTreeNode): KupDataColumn {
+        const colname: string =
+            treeNode.obj && treeNode.obj.t
+                ? treeNode.obj.t + ';' + treeNode.obj.p
+                : 'KUPCELL';
+        const coltitle: string =
+            treeNode.obj && treeNode.obj.t
+                ? treeNode.obj.t + ';' + treeNode.obj.p
+                : this.#kupManager.language.translate(
+                      KupLanguageGeneric.EMPTY_OBJECT
+                  );
+
+        return {
+            name: colname,
+            title: coltitle,
+        };
+    }
+
     #renderTreeNode(node: KupTreeNode, index: number): VNode {
         const hasChildren = node.children && node.children.length > 0;
 
         if (!hasChildren) {
-            const cellProps: FCellOptionsProps = {
-                shape: node.shape,
+            const column = this.generateColumnForNode(node);
+            const row = this.generateRowForNode(node);
+
+            const cellProps: FCellProps = {
+                cell: node as KupDataCellOptions,
+                column: column,
                 component: this,
-                cell: node,
-                editable: true,
+                editable: node.isEditable,
                 renderKup: true,
+                row: row,
             };
+            console.log('cellprops', cellProps);
+
             return (
                 <>
-                    {cellProps.shape ? (
-                        <>
-                            <div
-                                id={node.value}
-                                class="parent-class"
-                                tabindex="0"
-                                onClick={
-                                    !cellProps.shape || cellProps.cell.data
-                                        ? (event: MouseEvent) => {
-                                              this.onKupClick(
-                                                  index,
-                                                  node,
-                                                  event
-                                              );
-                                          }
-                                        : undefined
-                                }
-                            >
-                                <span>{node.value}</span>
-                            </div>
-                        </>
+                    {cellProps.cell.shape ? (
+                        <FCell {...cellProps} />
                     ) : (
                         <div
                             id={node.value}
@@ -184,8 +189,8 @@ export class KupToolbar {
                             tabindex="0"
                             onClick={
                                 !cellProps.shape || cellProps.cell.data
-                                    ? (event: MouseEvent) => {
-                                          this.onKupClick(index, node, event);
+                                    ? () => {
+                                          this.onKupClick(index, node);
                                       }
                                     : undefined
                             }
@@ -243,6 +248,15 @@ export class KupToolbar {
 
     componentDidLoad() {
         this.#kupManager.debug.logLoad(this, true);
+        this.rootElement.addEventListener(
+            'kup-cell-update',
+            (event: CustomEvent) => {
+                const index = event.detail.cell.value;
+                const node = event.detail.cell;
+                // this.#handleClick(index, node);
+                this.onKupClick(index, node);
+            }
+        );
     }
 
     componentWillRender() {
@@ -254,14 +268,9 @@ export class KupToolbar {
     }
 
     render() {
-        this.#listItems = [];
-        let componentClass: string = 'list';
-
         if (!this.data || this.data.length === 0) {
-            componentClass += ' list--empty';
+            return;
         }
-
-        this.#radios = [];
 
         return (
             <Host>
@@ -270,7 +279,7 @@ export class KupToolbar {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     <div class="toolbar-container">
                         {this.data.map((item, index) =>
                             this.#renderTreeNode(item, index)

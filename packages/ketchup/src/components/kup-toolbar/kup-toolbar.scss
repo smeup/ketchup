@@ -4,8 +4,8 @@
 }
 
 .parent-class {
-  position: relative; // Necessario per il posizionamento assoluto degli elementi figli
-  cursor: pointer; // Cambia il cursore per indicare che è interattivo
+  position: relative;
+  cursor: pointer;
   width: 200px;
   background-color: var(--kup-gray-color-10);
   display: flex;
@@ -26,17 +26,17 @@
     border-left: 1px solid var(--kup-border-interactive);
   }
 
-  // Nascondi le nested-class di default
   > .nested-class {
-    position: absolute; // Posizionamento assoluto
-    top: 0; // Posiziona in alto rispetto al nodo padre
-    left: 100%; // Posiziona a destra del nodo padre
-    display: none; // Nascondi per default
-    z-index: 10; // Assicurati che si sovrapponga agli altri contenuti
-    // Puoi anche aggiungere una transizione per una migliore esperienza visiva
+    position: absolute;
+    top: 0;
+    left: 100%;
+    display: none;
+    z-index: 10;
     transition: display 0.2s ease;
     background-color: var(--kup-gray-color-10);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.05);
+    width: inherit;
+    max-width: 200px;
   }
 
   .chevron-right {
@@ -46,10 +46,25 @@
     margin-left: 10px;
   }
 
-  // Mostra la nested-class solo quando il nodo padre è in hover
   &:hover {
     > .nested-class {
-      display: block; // Mostra la classe nested
+      display: block;
+    }
+  }
+}
+
+.nested-class .f-cell__content {
+  display: block;
+  .f-radio {
+    gap: 0;
+    .form-field {
+      padding: var(--kup-space-03);
+      &:hover {
+        background-color: var(--kup-gray-color-10-hover);
+      }
+      label {
+        width: 100%;
+      }
     }
   }
 }

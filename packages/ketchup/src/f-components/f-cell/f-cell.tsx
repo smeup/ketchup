@@ -54,7 +54,7 @@ import { FProgressBar } from '../f-progress-bar/f-progress-bar';
 import { FRadio } from '../f-radio/f-radio';
 import { FRating } from '../f-rating/f-rating';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
-import { FRadioProps } from '../f-radio/f-radio-declarations';
+import { FRadioData, FRadioProps } from '../f-radio/f-radio-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import {
     DataAdapterFn,
@@ -732,6 +732,7 @@ function setEditableCell(
                     {...cell.data}
                     disabled={false}
                     onChange={(i: number, e: InputEvent) => {
+                        console.log('event fired', cell.data);
                         const radioData = (cell.data as FRadioProps).data;
                         for (let index = 0; index < radioData.length; index++) {
                             const radioEl = radioData[index];
@@ -1271,6 +1272,14 @@ function cellEvent(
                 }
                 break;
             case FCellTypes.RADIO:
+                if (cell.data.data) {
+                    const radioData = cell.data.data as FRadioData[];
+                    const checkedItem = radioData.find((item) => item.checked);
+                    if (checkedItem) {
+                        console.log(checkedItem);
+                        value = checkedItem.value;
+                    }
+                }
                 break;
             case FCellTypes.CHIP:
             case FCellTypes.MULTI_AUTOCOMPLETE:
