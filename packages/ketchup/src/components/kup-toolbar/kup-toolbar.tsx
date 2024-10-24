@@ -166,7 +166,7 @@ export class KupToolbar {
             const row = this.generateRowForNode(node);
 
             const cellProps: FCellProps = {
-                cell: node as KupDataCellOptions,
+                cell: node,
                 column: column,
                 component: this,
                 editable: node.isEditable,

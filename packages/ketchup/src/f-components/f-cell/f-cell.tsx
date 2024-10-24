@@ -75,6 +75,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
     children?: VNode[]
 ) => {
     const cell = props.cell;
+    console.log(cell);
     const column = props.column;
     const row = props.row;
     const shape = props.shape
@@ -239,7 +240,6 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
     if (!cell) {
         return null;
     }
-
     const options = cell.options;
     const fieldLabel = col.title;
     const currentValue = cell.value;
@@ -322,9 +322,11 @@ const MainITXAdapter = (
 const MainRADAdapter = (
     options: CellOptions[],
     _fieldLabel: string,
-    currentValue: string
+    currentValue: string,
+    cell?: KupDataCellOptions
 ) => {
-    return RADAdapter(currentValue, options);
+    const newData = RADAdapter(currentValue, options);
+    cell.data = { ...cell.data, ...newData };
 };
 
 const MainCMBandACPAdapter = (
@@ -1278,7 +1280,6 @@ function cellEvent(
                     const radioData = cell.data.data as FRadioData[];
                     const checkedItem = radioData.find((item) => item.checked);
                     if (checkedItem) {
-                        console.log(checkedItem);
                         value = checkedItem.value;
                     }
                 }

@@ -21,6 +21,9 @@ const toolbarData = [
                     p: '',
                     k: '',
                 },
+                data: {
+                    type: 'chevron',
+                },
                 options: [
                     {
                         id: 0,
