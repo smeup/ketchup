@@ -40,14 +40,14 @@ export enum KupCalendarOptions {
 /**
  * Calendar column.
  */
-export interface KupCalendarColumn extends KupDataColumn {
-    calendarOption: KupCalendarOptions;
+export type KupCalendarColumnsProp = {
+    [key in KupCalendarOptions]: string;
 }
 /**
  * Dataset of the calendar.
  */
 export interface KupCalendarData {
-    columns: KupCalendarColumn[];
+    columns: KupDataColumn[];
     rows: KupDataRow[];
 }
 /**

@@ -21,11 +21,10 @@ import {
     KupCellSubmitButtonPosition,
     KupCellSubmitClickEventPayload,
 } from './kup-cell-declarations';
-import { FCell } from '../../f-components/f-cell/f-cell';
 import {
     FCellOptionsProps,
     FCellPadding,
-    FCellProps,
+    FCellShapes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import {
     KupDragDataTransferCallback,
@@ -276,10 +275,6 @@ export class KupCell {
             row: this.generateRow(),
         };
 
-        const sectionStyle = {
-            display: this.showSubmit ? 'flex' : 'block',
-            'flex-direction': this.showSubmit ? this.submitPosition : '',
-        };
         return (
             <Host>
                 <style>
@@ -287,8 +282,20 @@ export class KupCell {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId} style={sectionStyle}>
-                    <FCellOptions {...props}></FCellOptions>
+                <div
+                    id={componentWrapperId}
+                    style={
+                        this.showSubmit
+                            ? {
+                                  display: 'flex',
+                                  'flex-direction': this.submitPosition,
+                                  'align-items': 'center',
+                                  gap: '0.5rem',
+                              }
+                            : {}
+                    }
+                >
+                    <FCellOptions {...props} />
                     {this.showSubmit ? (
                         <FButton
                             buttonType="submit"
