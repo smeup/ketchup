@@ -85,7 +85,7 @@
       z-index: 1;
       height: var(--kup_tabbar_height);
       &:focus {
-        outline: 2px solid var(--kup-danger-color-60);
+        outline: 2px solid var(--kup_tabindicator_border_bottom_color_active);
       }
 
       .tab__icon + .tab__text-label {
