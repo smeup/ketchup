@@ -18,7 +18,7 @@ import { KupStore } from "./components/kup-state/kup-store";
 import { FButtonAlign, FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
-import { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
+import { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
@@ -76,7 +76,7 @@ export { KupStore } from "./components/kup-state/kup-store";
 export { FButtonAlign, FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 export { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 export { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
-export { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
+export { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 export { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 export { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 export { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
@@ -702,6 +702,11 @@ export namespace Components {
         "styling": FButtonStyling;
     }
     interface KupCalendar {
+        /**
+          * Sets which columns of the data property will be used to render each characteristic of an event in the calendar.
+          * @default {KupCalendarOptions: ""}
+         */
+        "calendarColumns": KupCalendarColumnsProp;
         /**
           * Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).
           * @default null
@@ -6376,6 +6381,11 @@ declare namespace LocalJSX {
         "styling"?: FButtonStyling;
     }
     interface KupCalendar {
+        /**
+          * Sets which columns of the data property will be used to render each characteristic of an event in the calendar.
+          * @default {KupCalendarOptions: ""}
+         */
+        "calendarColumns"?: KupCalendarColumnsProp;
         /**
           * Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).
           * @default null

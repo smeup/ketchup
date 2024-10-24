@@ -471,6 +471,18 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  KupCalendarColumnsProp: {
+    keys: {
+      DATE: 'string',
+      DESCR: 'string',
+      END: 'string',
+      ICON: 'string',
+      IMAGE: 'string',
+      START: 'string',
+      STYLE: 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   KupCalendarViewTypes: {
     keys: {
       DAY: 'timeGridDay',

@@ -38,6 +38,7 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { getProps, setProps } from '../../utils/utils';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
+    KupCalendarColumnsProp,
     KupCalendarData,
     KupCalendarDateClickEventPayload,
     KupCalendarEventClickEventPayload,
@@ -94,6 +95,20 @@ export class KupCalendar {
      * @default null
      */
     @Prop() data: KupCalendarData = null;
+    /**
+     * Sets which columns of the data property will be used to render each
+     * characteristic of an event in the calendar.
+     * @default {KupCalendarOptions: ""}
+     */
+    @Prop() calendarColumns: KupCalendarColumnsProp = {
+        [KupCalendarOptions.DATE]: '',
+        [KupCalendarOptions.DESCR]: '',
+        [KupCalendarOptions.END]: '',
+        [KupCalendarOptions.ICON]: '',
+        [KupCalendarOptions.IMAGE]: '',
+        [KupCalendarOptions.START]: '',
+        [KupCalendarOptions.STYLE]: '',
+    };
     /**
      * When disabled, the navigation toolbar won't be displayed.
      * @default false
@@ -186,35 +201,16 @@ export class KupCalendar {
         if (this.calendar) {
             this.calendar.destroy();
         }
-        for (
-            let index = 0;
-            this.data && this.data.columns && index < this.data.columns.length;
-            index++
-        ) {
-            const column = this.data.columns[index];
-            switch (column.calendarOption) {
-                case KupCalendarOptions.DATE:
-                    this.dateCol = column.name;
-                    break;
-                case KupCalendarOptions.DESCR:
-                    this.descrCol = column.name;
-                    break;
-                case KupCalendarOptions.END:
-                    this.endCol = column.name;
-                    break;
-                case KupCalendarOptions.ICON:
-                    this.iconCol = column.name;
-                    break;
-                case KupCalendarOptions.IMAGE:
-                    this.imageCol = column.name;
-                    break;
-                case KupCalendarOptions.START:
-                    this.startCol = column.name;
-                    break;
-                case KupCalendarOptions.STYLE:
-                    this.styleCol = column.name;
-                    break;
-            }
+
+        if (this.data?.columns) {
+            this.data.columns.forEach((column) => {
+                for (const key in this.calendarColumns) {
+                    if (this.calendarColumns[key] === column.name) {
+                        this[`${key}Col`] = column.name;
+                        break;
+                    }
+                }
+            });
         }
         this.calendar = new Calendar(this.calendarContainer, {
             dateClick: ({ date }) => {
