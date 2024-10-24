@@ -22,8 +22,6 @@ import { KupTreeNode } from '../kup-tree/kup-tree-declarations';
 import { KupListProps } from '../kup-list/kup-list-declarations';
 import { KupToolbarClickEventPayload } from './kup-toolbar-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
-import { FCellOptions } from '../../f-components/f-cell-options.tsx/f-cell-options';
-import { FCellOptionsProps } from '../../f-components/f-cell-options.tsx/f-cell-options.declarations';
 import {
     KupDataCellOptions,
     KupDataColumn,
@@ -33,7 +31,6 @@ import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-dec
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
-import { KupCellProps } from '../kup-cell/kup-cell-declarations';
 
 @Component({
     tag: 'kup-toolbar',
@@ -253,7 +250,6 @@ export class KupToolbar {
             (event: CustomEvent) => {
                 const index = event.detail.cell.value;
                 const node = event.detail.cell;
-                // this.#handleClick(index, node);
                 this.onKupClick(index, node);
             }
         );
