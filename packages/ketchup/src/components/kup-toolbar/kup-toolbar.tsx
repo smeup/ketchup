@@ -173,7 +173,6 @@ export class KupToolbar {
                 renderKup: true,
                 row: row,
             };
-            console.log('cellprops', cellProps);
 
             return (
                 <>

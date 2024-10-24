@@ -75,7 +75,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
     children?: VNode[]
 ) => {
     const cell = props.cell;
-    console.log(cell);
     const column = props.column;
     const row = props.row;
     const shape = props.shape
@@ -736,7 +735,6 @@ function setEditableCell(
                     {...cell.data}
                     disabled={false}
                     onChange={(i: number, e: InputEvent) => {
-                        console.log('event fired', cell.data);
                         const radioData = (cell.data as FRadioProps).data;
                         for (let index = 0; index < radioData.length; index++) {
                             const radioEl = radioData[index];
