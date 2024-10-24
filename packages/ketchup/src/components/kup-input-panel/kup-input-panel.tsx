@@ -47,6 +47,7 @@ import {
     DataAdapterFn,
     InputPanelButtonClickHandler,
     InputPanelCells,
+    InputPanelCheckObjCallback,
     InputPanelOptionsHandler,
     KupInputPanelCell,
     KupInputPanelColumn,
@@ -73,6 +74,7 @@ import {
     RADAdapter,
     SWTAdapter,
 } from '../../utils/cell-utils';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 @Component({
@@ -127,7 +129,15 @@ export class KupInputPanel {
      * @default null
      */
     @Prop() customButtonClickHandler?: InputPanelButtonClickHandler = null;
+
+    /**
+     * Sets the callback function on blur input when checkObject is true
+     * @default null
+     */
+    @Prop() checkObjCallback?: InputPanelCheckObjCallback  = null;
     //#endregion
+
+    //AGGIUNGI PROP INPUTPANELCHECKOBJECT PARAMETRI OBJ E FUN, RITORNA OGGETTO BOOLEAN
 
     //#region STATES
     /*-------------------------------------------------*/
@@ -166,6 +176,7 @@ export class KupInputPanel {
 
     #originalData: KupInputPanelData = null;
 
+    //mappa stile questa, mappa blurnom ora, solo per i kup cpmponent
     #eventNames = new Map<FCellTypes, string[]>([
         [
             FCellTypes.AUTOCOMPLETE,
@@ -178,6 +189,7 @@ export class KupInputPanel {
         [FCellTypes.COMBOBOX, ['kup-combobox-iconclick']],
         [FCellTypes.MULTI_COMBOBOX, ['kup-combobox-iconclick']],
     ]);
+    //add listn, nom ora, solo per i kup cpmponent
     #listeners: { event: string; handler: (e) => void }[] = [];
     #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([
         [FCellTypes.DATE, 'kup-date-picker'],
@@ -585,7 +597,6 @@ export class KupInputPanel {
             );
 
             const hasError = cells.cells.some((cellData) => {
-                console.log(cells);
                 const cell = cellData.cell;
                 const column = cellData.column;
                 return (
@@ -1082,8 +1093,17 @@ export class KupInputPanel {
     #ITXAdapter(
         _options: GenericObject,
         fieldLabel: string,
-        _currentValue: string
+        _currentValue: string,
+        //input, passa la cella
+        _cell: KupInputPanelCell
     ) {
+        //qui check do obj, d.onblur , USA IL METODO CHECKOBJECT
+        if (_cell.inputSetting.checkObject) {
+            return {
+                label: fieldLabel,
+                onBlur: () => this.#checkObjOnBlur(_cell.obj, _cell?.fun)
+            };
+        }
         return { label: fieldLabel };
     }
 
@@ -1363,6 +1383,16 @@ export class KupInputPanel {
         });
     }
 
+    #checkObjOnBlur(obj: KupObj, fun?:string){
+        this.checkObjCallback(obj, fun).then((options) => {
+            if(!options.valid){
+                
+
+            }
+            // this.refresh();
+        })
+    }
+    
     //#endregion
 
     //#region LIFECYCLE HOOKS

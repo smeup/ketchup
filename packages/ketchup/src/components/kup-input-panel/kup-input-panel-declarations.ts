@@ -3,6 +3,7 @@ import {
     KupDataCell,
     KupDataColumn,
 } from '../../managers/kup-data/kup-data-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
 export interface KupInputPanelSubmit {
     value: KupInputPanelSubmitValue;
@@ -43,6 +44,7 @@ export interface KupInputPanelCell extends KupDataCell {
     options?: GenericObject | GenericObject[];
     editable?: boolean;
     mandatory?: boolean;
+    inputSetting?: GenericObject;
     fun?: string;
 }
 
@@ -124,6 +126,11 @@ export type InputPanelOptionsHandler = (
     inputValue: string,
     currentState: KupInputPanelData,
     cellId: string
+) => Promise<GenericObject>;
+
+export type InputPanelCheckObjCallback = (
+    obj: KupObj,
+    fun?: string,
 ) => Promise<GenericObject>;
 
 export type InputPanelButtonClickHandler = (event: {
