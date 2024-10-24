@@ -94,6 +94,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     if (cell.options) {
         cell.data = mapData(cell, column) ?? cell.data;
+        console.log(cell);
     }
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
@@ -265,16 +266,20 @@ const MainObjectAdapter = (
     _cell: KupInputPanelCell,
     _id: string
 ) => ({
-    initialValue: currentValue || '',
-    label: fieldLabel || '',
-    value: currentValue || '',
+    data: {
+        initialValue: currentValue || '',
+        label: fieldLabel || '',
+        value: currentValue || '',
+    },
 });
 
 const MainCHKAdapter = (
     _options: CellOptions[],
     fieldLabel: string,
-    currentValue: string
+    currentValue: string,
+    cell: KupDataCellOptions
 ) => ({
+    ...cell.data,
     checked: currentValue,
     label: fieldLabel,
 });
@@ -287,6 +292,7 @@ const MainBTNAdapter = (
 ) => ({
     data: [
         {
+            ...cell.data,
             icon: cell.icon,
             value: currentValue,
         },
@@ -297,8 +303,9 @@ const MainITXAdapter = (
     _options: CellOptions[],
     fieldLabel: string,
     _currentValue: string,
-    _cell: KupDataCellOptions
+    cell: KupDataCellOptions
 ) => ({
+    ...cell.data,
     label: fieldLabel,
 });
 
@@ -313,14 +320,18 @@ const MainRADAdapter = (
 const MainCMBandACPAdapter = (
     options: CellOptions[],
     fieldLabel: string,
-    currentValue: string
+    currentValue: string,
+    _cell: KupDataCellOptions,
+    _id: string
 ) => {
     const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
 
-    configCMandACP.data['kup-list'].data = optionsTreeComboAdapter(
-        options,
-        currentValue
-    );
+    if (options) {
+        configCMandACP.data['kup-list'].data = optionsTreeComboAdapter(
+            options,
+            currentValue
+        );
+    }
     return configCMandACP;
 };
 
