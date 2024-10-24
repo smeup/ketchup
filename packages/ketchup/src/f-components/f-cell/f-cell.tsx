@@ -95,8 +95,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     if (cell.options) {
         cell.data = mapData(cell, column) ?? cell.data;
-        // todo: remove
-        console.log(cell);
     }
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
