@@ -29,6 +29,8 @@ import {
 } from './f-cell-declarations';
 import { FunctionalComponent, h, VNode } from '@stencil/core';
 import {
+    CHIAdapter,
+    CHKAdapter,
     CMBandACPAdapter,
     getCellValueForDisplay,
     RADAdapter,
@@ -39,6 +41,7 @@ import { FImage } from '../f-image/f-image';
 import { FChip } from '../f-chip/f-chip';
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import {
+    CellOptions,
     KupDataCell,
     KupDataCellOptions,
     KupDataColumn,
@@ -82,7 +85,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
         ? column.shape
         : null;
     const hasObj = !dom.ketchup.objects.isEmptyKupObj(cell.obj);
-
     let isEditable = false;
     if (cell.hasOwnProperty('isEditable')) {
         isEditable = cell.isEditable;
@@ -93,10 +95,6 @@ export const FCell: FunctionalComponent<FCellProps> = (
 
     if (cell.options) {
         cell.data = mapData(cell, column) ?? cell.data;
-
-        if (props.cell.shape === FCellShapes.TEXT_FIELD) {
-            cell.value = cell.data.value;
-        }
     }
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
@@ -254,6 +252,7 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
         [FCellTypes.COMBOBOX, MainCMBandACPAdapter.bind(this)],
         [FCellTypes.CHECKBOX, MainCHKAdapter.bind(this)],
         [FCellTypes.OBJECT, MainObjectAdapter.bind(this)],
+        [FCellTypes.CHIP, MainCHIAdapter.bind(this)],
     ]);
 
     const adapter = dataAdapterMap.get(cellType);
@@ -262,50 +261,66 @@ const mapData = (cell: KupDataCellOptions, col: KupDataColumn) => {
         : null;
 };
 
-const MainObjectAdapter = (
-    options: GenericObject,
+const MainCHIAdapter = (
+    _options: CellOptions[],
     _fieldLabel: string,
+    currentValue: string
+) => {
+    return CHIAdapter(currentValue);
+};
+
+const MainObjectAdapter = (
+    _options: CellOptions[],
+    fieldLabel: string,
     currentValue: string,
     _cell: KupInputPanelCell,
     _id: string
-) => {
-    if (options[0]) {
-        return {
-            initialValue: currentValue,
-            label: options[0].label,
-            value: options[0].value,
-        };
-    }
-};
+) => ({
+    data: {
+        initialValue: currentValue || '',
+        label: fieldLabel || '',
+        value: currentValue || '',
+    },
+});
 
 const MainCHKAdapter = (
-    options: GenericObject,
+    _options: CellOptions[],
+    fieldLabel: string,
+    currentValue: string,
+    cell: KupDataCellOptions
+) => ({
+    ...cell.data,
+    checked: currentValue === 'on' || currentValue === '1',
+    label: fieldLabel,
+});
+
+const MainBTNAdapter = (
+    _options: CellOptions[],
     _fieldLabel: string,
-    _currentValue: string
-) => {
-    if (options?.[0]) {
-        return {
-            checked: options[0].checked,
-            label: options[0].label,
-        };
-    }
-};
+    currentValue: string,
+    cell: KupDataCellOptions
+) => ({
+    data: [
+        {
+            ...cell.data,
+            icon: cell.icon,
+            value: currentValue,
+        },
+    ],
+});
 
 const MainITXAdapter = (
-    options: GenericObject,
-    _fieldLabel: string,
+    _options: CellOptions[],
+    fieldLabel: string,
     _currentValue: string,
-    _cell: KupDataCellOptions
-) => {
-    if (options?.[0]) {
-        return {
-            value: options[0].label,
-        };
-    }
-};
+    cell: KupDataCellOptions
+) => ({
+    ...cell.data,
+    label: fieldLabel,
+});
 
 const MainRADAdapter = (
-    options: GenericObject,
+    options: CellOptions[],
     _fieldLabel: string,
     currentValue: string
 ) => {
@@ -313,17 +328,20 @@ const MainRADAdapter = (
 };
 
 const MainCMBandACPAdapter = (
-    rawOptions: GenericObject,
+    options: CellOptions[],
     fieldLabel: string,
-    currentValue: string
+    currentValue: string,
+    cell: KupDataCellOptions,
+    _id: string
 ) => {
-    const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
-
-    configCMandACP.data['kup-list'].data = optionsTreeComboAdapter(
-        rawOptions,
-        currentValue
-    );
-    return configCMandACP;
+    if (!cell.data?.data && options) {
+        const configCMandACP = CMBandACPAdapter(currentValue, fieldLabel, []);
+        configCMandACP.data['kup-list'].data = optionsTreeComboAdapter(
+            options,
+            currentValue
+        );
+        return configCMandACP;
+    }
 };
 
 const optionsTreeComboAdapter = (options: any, currentValue: string) => {
@@ -393,22 +411,6 @@ const optionsAdapterMap = new Map<
     ['SmeupTable', tableOptionsAdapter.bind(this)],
     ['SmeupDataTable', tableOptionsAdapter.bind(this)],
 ]);
-
-const MainBTNAdapter = (
-    _options: GenericObject,
-    _fieldLabel: string,
-    _currentValue: string,
-    cell: KupDataCellOptions
-) => {
-    return {
-        data: cell.options?.length
-            ? cell.options?.map((option) => ({
-                  icon: option.icon,
-                  value: option.value,
-              }))
-            : [],
-    };
-};
 
 function setCellSize(
     cellType: string,

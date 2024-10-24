@@ -270,15 +270,16 @@ Type: `Promise<void>`
 
 
 
-### `insertNewRow(row: KupDataTableRow) => Promise<void>`
+### `insertNewRow(row: KupDataTableRow, unshift?: boolean) => Promise<void>`
 
 Adds a new row to the list data
 
 #### Parameters
 
-| Name  | Type              | Description |
-| ----- | ----------------- | ----------- |
-| `row` | `KupDataTableRow` | new row     |
+| Name      | Type              | Description |
+| --------- | ----------------- | ----------- |
+| `row`     | `KupDataTableRow` | new row     |
+| `unshift` | `boolean`         |             |
 
 #### Returns
 

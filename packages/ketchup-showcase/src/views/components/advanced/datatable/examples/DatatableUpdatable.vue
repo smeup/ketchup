@@ -41,6 +41,10 @@ const tableWithCommands = {
         },
       },
     ],
+    operations: {
+      insert: true,
+      delete: true,
+    },
   },
 };
 
