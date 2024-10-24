@@ -248,6 +248,12 @@ export default {
           },
         ],
       },
+      calendarColumns: {
+        date: 'date',
+        descr: 'descr',
+        end: 'end',
+        start: 'start',
+      },
       markupMonth: '<kup-calendar view-type="dayGridMonth"></kup-calendar>',
       markupWeek: '<kup-calendar view-type="timeGridWeek"></kup-calendar>',
       markupDay: '<kup-calendar view-type="timeGridDay"></kup-calendar>',
