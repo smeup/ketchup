@@ -97,6 +97,11 @@ export class KupTimePicker {
      * @default 10
      */
     @Prop() timeMinutesStep: number = 10;
+    /**
+     * Set error message
+     * @default '''
+     */
+    @Prop() error: string = '';
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -513,6 +518,7 @@ export class KupTimePicker {
             this.rootElement.classList.contains('kup-full-height');
         const fullWidth = this.rootElement.classList.contains('kup-full-width');
         const textfieldData: FTextFieldProps = {
+            error: this.error,
             ...this.data['kup-text-field'],
         };
         if (!textfieldData.icon) {
