@@ -30,7 +30,6 @@ import {
 import { FunctionalComponent, h, VNode } from '@stencil/core';
 import {
     CHIAdapter,
-    CHKAdapter,
     CMBandACPAdapter,
     getCellValueForDisplay,
     RADAdapter,
