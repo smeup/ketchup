@@ -286,7 +286,7 @@ export class KupCell {
                 <div
                     id={componentWrapperId}
                     style={
-                        !this.showSubmit
+                        this.showSubmit
                             ? {
                                   display: 'flex',
                                   'flex-direction': submitPositionAdapterMap(
@@ -299,7 +299,7 @@ export class KupCell {
                     }
                 >
                     <FCell {...props} />
-                    {!this.showSubmit ? (
+                    {this.showSubmit ? (
                         <FButton
                             buttonType="submit"
                             label={this.#kupManager.language.translate(
