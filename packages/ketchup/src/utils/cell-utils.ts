@@ -294,7 +294,7 @@ export const CHIAdapter = (value: string) => ({
         : null,
 });
 
-export const submitPositionAdapterMap = (position: KupCellElementsPosition) => {
+export const submitPositionAdapter = (position: KupCellElementsPosition) => {
     const positionAdapterMap = new Map<KupCellElementsPosition, string>([
         [KupCellElementsPosition.top, 'column'],
         [KupCellElementsPosition.bottom, 'column-reverse'],

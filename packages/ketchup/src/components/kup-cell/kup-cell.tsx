@@ -39,7 +39,7 @@ import {
 } from '../../managers/kup-data/kup-data-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FCell } from '../../f-components/f-cell/f-cell';
-import { submitPositionAdapterMap } from '../../utils/cell-utils';
+import { submitPositionAdapter } from '../../utils/cell-utils';
 
 @Component({
     tag: 'kup-cell',
@@ -289,7 +289,7 @@ export class KupCell {
                         this.showSubmit
                             ? {
                                   display: 'flex',
-                                  'flex-direction': submitPositionAdapterMap(
+                                  'flex-direction': submitPositionAdapter(
                                       this.submitPosition
                                   ),
                                   'align-items': 'center',
