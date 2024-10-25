@@ -741,7 +741,7 @@ export class KupInputPanel {
                           const mappedCell = cell
                               ? {
                                     ...cell,
-                                    data: this.#setProps(cell, column),
+                                    data: this.#setData(cell, column),
                                     slotData: this.#slotData(cell, column),
                                     isEditable: true,
                                 }
@@ -773,7 +773,7 @@ export class KupInputPanel {
         this.inputPanelCells = inpuPanelCells;
     }
 
-    #setProps(cell: KupInputPanelCell, column: KupInputPanelColumn) {
+    #setData(cell: KupInputPanelCell, column: KupInputPanelColumn) {
         const defaultProps = {
             ...this.#mapData(cell, column),
             disabled: !cell.editable,
@@ -782,16 +782,19 @@ export class KupInputPanel {
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
         const { data, ...noDataProps } = cell.data || {};
 
-        return cellType !== FCellTypes.MULTI_AUTOCOMPLETE &&
+        const ret =
+            cellType !== FCellTypes.MULTI_AUTOCOMPLETE &&
             cellType !== FCellTypes.MULTI_COMBOBOX
-            ? this.#deepObjectsMerge(defaultProps, {
-                  ...cell.data,
-              })
-            : // Add and ovverride defaultProps of Chip host component except data
-              {
-                  ...defaultProps,
-                  ...noDataProps,
-              };
+                ? this.#deepObjectsMerge(defaultProps, {
+                      ...cell.data,
+                  })
+                : // Add and ovverride defaultProps of Chip host component except data
+                  {
+                      ...defaultProps,
+                      ...noDataProps,
+                  };
+        console.log('ret setData', ret);
+        return ret;
     }
 
     #deepObjectsMerge(target: GenericObject, source: GenericObject) {
