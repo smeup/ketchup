@@ -130,8 +130,12 @@ export type InputPanelOptionsHandler = (
 
 export type InputPanelCheckObjCallback = (
     obj: KupObj,
-    fun?: string,
-) => Promise<GenericObject>;
+    fun?: string
+) => Promise<ValidCheckObjResponse>;
+
+export type ValidCheckObjResponse = {
+    valid: boolean;
+};
 
 export type InputPanelButtonClickHandler = (event: {
     fun: string;

@@ -134,7 +134,7 @@ export class KupInputPanel {
      * Sets the callback function on blur input when checkObject is true
      * @default null
      */
-    @Prop() checkObjCallback?: InputPanelCheckObjCallback  = null;
+    @Prop() checkObjCallback?: InputPanelCheckObjCallback = null;
     //#endregion
 
     //AGGIUNGI PROP INPUTPANELCHECKOBJECT PARAMETRI OBJ E FUN, RITORNA OGGETTO BOOLEAN
@@ -176,7 +176,6 @@ export class KupInputPanel {
 
     #originalData: KupInputPanelData = null;
 
-    //mappa stile questa, mappa blurnom ora, solo per i kup cpmponent
     #eventNames = new Map<FCellTypes, string[]>([
         [
             FCellTypes.AUTOCOMPLETE,
@@ -186,10 +185,10 @@ export class KupInputPanel {
             FCellTypes.MULTI_AUTOCOMPLETE,
             ['kup-autocomplete-input', 'kup-autocomplete-iconclick'],
         ],
-        [FCellTypes.COMBOBOX, ['kup-combobox-iconclick']],
+        // TODO : servira per la combobox, questo e il blur
+        [FCellTypes.COMBOBOX, ['kup-combobox-iconclick', 'kup-combobox-blur']],
         [FCellTypes.MULTI_COMBOBOX, ['kup-combobox-iconclick']],
     ]);
-    //add listn, nom ora, solo per i kup cpmponent
     #listeners: { event: string; handler: (e) => void }[] = [];
     #cellTypeComponents: Map<FCellTypes, string> = new Map<FCellTypes, string>([
         [FCellTypes.DATE, 'kup-date-picker'],
@@ -239,6 +238,28 @@ export class KupInputPanel {
         }
 
         this.#mapCells(this.data);
+    }
+
+    @Watch('inputPanelCells')
+    onTestChanged() {
+        console.log('siamo dentro di watch');
+        forceUpdate(this.data);
+        // this.#originalData = structuredClone(this.data);
+        // if (this.#listeners.length) {
+        //     this.#listeners.map(({ event, handler }) => {
+        //         this.rootElement.removeEventListener(event, handler);
+        //     });
+        //     this.#listeners = [];
+        // }
+
+        // if (this.#keysShortcut.length) {
+        //     this.#keysShortcut.map((key) => {
+        //         this.#kupManager.keysBinding.unregister(key);
+        //     });
+        //     this.#keysShortcut = [];
+        // }
+
+        // this.#mapCells(this.data);
     }
     //#endregion
 
@@ -1053,6 +1074,31 @@ export class KupInputPanel {
         } else if (rawOptions) {
             configCMandACP.data['kup-list'].data =
                 this.#optionsTreeComboAdapter(rawOptions, currentValue);
+            // TODO : da portare fuori dall'esle dopo aver sistemato la checkObjOnBlur
+            // const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+
+            // const evNames = this.#eventNames.get(cellType);
+
+            // evNames.map((evName) => {
+            //     let handler: (
+            //         e: CustomEvent<KupAutocompleteEventPayload>
+            //     ) => void;
+            //     console.log('LOG evNAME:', evName, cell);
+            //     if (
+            //         evName === 'kup-combobox-blur' &&
+            //         cell.inputSetting.checkObject
+            //     ) {
+            //         console.log('IF EN BLUR');
+
+            //         handler = () => this.#checkObjOnBlur(cell, id);
+
+            //         this.rootElement.addEventListener(evName, handler);
+            //         this.#listeners.push({
+            //             event: evName,
+            //             handler,
+            //         });
+            //     }
+            // });
         }
 
         return configCMandACP;
@@ -1095,13 +1141,17 @@ export class KupInputPanel {
         fieldLabel: string,
         _currentValue: string,
         //input, passa la cella
-        _cell: KupInputPanelCell
+        cell: KupInputPanelCell,
+        id: string
     ) {
-        //qui check do obj, d.onblur , USA IL METODO CHECKOBJECT
-        if (_cell.inputSetting.checkObject) {
+        if (cell.inputSetting.checkObject) {
+            console.log(name);
             return {
                 label: fieldLabel,
-                onBlur: () => this.#checkObjOnBlur(_cell.obj, _cell?.fun)
+                onBlur: (e) => {
+                    console.log('LOG DELL EVENTO :::', e);
+                    this.#checkObjOnBlur(cell, id);
+                },
             };
         }
         return { label: fieldLabel };
@@ -1383,16 +1433,61 @@ export class KupInputPanel {
         });
     }
 
-    #checkObjOnBlur(obj: KupObj, fun?:string){
-        this.checkObjCallback(obj, fun).then((options) => {
-            if(!options.valid){
-                
+    #checkObjOnBlur(cell: KupInputPanelCell, id: string) {
+        // TODO: rename to checkValidObj
+        this.checkObjCallback(cell.obj, cell.fun).then((options) => {
+            console.log('CELLA :');
 
+            if (!options.valid) {
+                this.inputPanelCells = this.inputPanelCells.map((cell) => {
+                    const updatedCell = {
+                        ...cell,
+                        row: {
+                            ...cell.row,
+                            cells: {
+                                ...cell.row.cells,
+                                [id]: {
+                                    ...cell.row.cells[id],
+                                    data: { error: 'invalid' },
+                                },
+                            },
+                        },
+                    };
+                    return updatedCell;
+                });
+
+                this.data.rows = this.data.rows.map((value) => {
+                    value.cells[id] = {
+                        ...value.cells[id],
+                        data: { error: 'invalid' },
+                    };
+                    return value;
+                });
+
+                // map((cell) => {
+
+                //     cell.row.cells[id] = {
+                //         ...cell.row.cells.[id],
+                //         data: { error: 'invalid' },
+                //     };
+                //     return cell;
+                // });
+
+                // this.inputPanelCells.map((cell) => {
+                //     cell.row.cells[id] = {
+                //         ...cell.row.cells[id],
+                //         data: { error: 'invalid' },
+                //     };
+                //     return cell;
+                // });
+                console.log(this.inputPanelCells);
+                console.log('data log ::::');
+                console.log(this.data);
             }
             // this.refresh();
-        })
+        });
     }
-    
+
     //#endregion
 
     //#region LIFECYCLE HOOKS

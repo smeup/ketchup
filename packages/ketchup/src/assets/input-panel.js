@@ -2036,22 +2036,15 @@ const data = {
             visible: true,
         },
         {
-            editable: false,
-            name: 'INP1',
-            title: 'Field1',
+            name: 'SUR',
+            title: 'SurName',
             visible: true,
-            isEditable: false,
         },
         {
-            editable: false,
-            name: 'INP2',
-            title: 'Field2',
+            name: 'CMB',
+            title: 'CMBox',
             visible: true,
-            isEditable: false,
         },
-        { editable: false, name: 'BTN1', visible: true, isEditable: false },
-        { editable: false, name: 'BTN2', visible: true, isEditable: false },
-        { name: 'NAT', title: 'Combo', visible: true },
     ],
     rows: [
         {
@@ -2062,69 +2055,59 @@ const data = {
                     editable: true,
                     mandatory: true,
                     shape: 'ITX',
-                },
-                INP1: {
-                    value: '',
-                    obj: { t: 'D8', p: '', k: '' },
-                    editable: true,
-                    mandatory: true,
-                },
-                INP2: {
-                    value: '',
-                    obj: { t: 'NR', p: '' },
-                    editable: true,
-                    mandatory: true,
-                },
-                BTN1: {
-                    value: 'Load data',
-                    obj: { t: 'J4', p: 'BTN' },
-                    options: [],
-                    editable: true,
-                    mandatory: true,
-                },
-                BTN2: {
-                    value: 'Avanti',
-                    obj: { t: 'J4', p: 'BTN' },
-                    options: [],
-                    editable: true,
-                    mandatory: true,
-                },
-                NAT: {
-                    value: 'ITA',
-                    fun: 'combo',
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: '',
+                    inputSetting: {
+                        checkObject: false,
                     },
+                },
+                SUR: {
+                    value: '',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'ITX',
+                    inputSetting: {
+                        checkObject: true,
+                    },
+                },
+                CMB: {
+                    value: '',
+                    obj: { t: '', p: '', k: '' },
                     editable: true,
                     mandatory: true,
                     shape: 'CMB',
+                    options: comboboxTest.options,
+                    data: {
+                        showDropDownIcon: true,
+                        data: comboboxTest.data,
+                    },
+                    inputSetting: {
+                        checkObject: true,
+                    },
                 },
             },
-            layout: {
-                type: 'SmeupDataLayout',
-                horizontal: false,
-                sections: [
-                    {
-                        content: [
-                            {
-                                options: [],
-                                editable: false,
-                                mandatory: false,
-                                id: 'NAM',
-                                colSpan: 1,
-                                rowSpan: 1,
-                            },
-                        ],
-                        sections: [],
-                        horizontal: false,
-                        gridCols: 4,
-                        gridRows: 2,
-                        gap: 2,
-                    },
-                ],
-            },
+            // layout: {
+            //     type: 'SmeupDataLayout',
+            //     horizontal: false,
+            //     sections: [
+            //         {
+            //             content: [
+            //                 {
+            //                     options: [],
+            //                     editable: false,
+            //                     mandatory: false,
+            //                     id: 'NAM',
+            //                     colSpan: 1,
+            //                     rowSpan: 1,
+            //                 },
+            //             ],
+            //             sections: [],
+            //             horizontal: false,
+            //             gridCols: 4,
+            //             gridRows: 2,
+            //             gap: 2,
+            //         },
+            //     ],
+            // },
         },
     ],
     debugInfo: {
@@ -2700,6 +2683,11 @@ const keyButtonClickTest = {
             title: 'Button2',
             visible: true,
         },
+        {
+            name: 'TEXT',
+            title: 'text',
+            visible: true,
+        },
     ],
     rows: [
         {
@@ -2740,6 +2728,26 @@ const keyButtonClickTest = {
                         keyShortcut: keysShortcut[2],
                     },
                 },
+                TEXT: {
+                    // value: ``,
+                    // obj: { t: '', p: '' },
+                    // editable: true,
+                    // mandatory: true,
+                    // shape: 'TXT',
+                    // data: {
+                    //   maxLenght: "10"
+                    // },
+                    options: [],
+                    value: '',
+                    editable: true,
+                    mandatory: true,
+                    shape: 'ITX',
+                    tooltip: false,
+                    data: {
+                        outlined: true,
+                        maxLength: '10',
+                    },
+                },
             },
             layout: {
                 type: 'SmeupDataLayout',
@@ -2755,6 +2763,9 @@ const keyButtonClickTest = {
                             },
                             {
                                 id: 'BUTTON3',
+                            },
+                            {
+                                id: 'TEXT',
                             },
                         ],
                         sections: [],
@@ -2973,7 +2984,7 @@ const keyButtonClickTest = {
 // };
 
 const inputPanel = document.getElementById('input-panel');
-inputPanel.data = keyButtonClickTest;
+inputPanel.data = data;
 inputPanel.optionsHandler = (fun, inputValue, currentState) => {
     console.log('optionsHandler event', { fun, inputValue, currentState });
 
@@ -3161,22 +3172,28 @@ inputPanel.optionsHandler = (fun, inputValue, currentState) => {
     });
 };
 
+inputPanel.checkObjCallback = (obj, fun) => {
+    // console.log('check on blur event', { obj, fun });
+
+    return Promise.resolve({ valid: false });
+};
+
 inputPanel.submitCb = (e) => {
     console.log('submit', e);
 
     // Example of rerender event
     const inputPanel = document.getElementById('input-panel');
-    let updated;
-    if (e.cell === 'BTN2') {
-        updated = structuredClone(data1);
-    } else if (e.cell === 'BTN1') {
-        updated = structuredClone(data);
-        updated.rows[0].cells.DATA.value = datatable;
-        updated.rows[0].layout.sections[1].content[0].id = 'BTN2';
-    } else {
-        updated = structuredClone(data);
-    }
-    inputPanel.data = updated;
+    // let updated;
+    // if (e.cell === 'BTN2') {
+    //     updated = structuredClone(data1);
+    // } else if (e.cell === 'BTN1') {
+    //     updated = structuredClone(data);
+    //     updated.rows[0].cells.DATA.value = datatable;
+    //     updated.rows[0].layout.sections[1].content[0].id = 'BTN2';
+    // } else {
+    //     updated = structuredClone(data);
+    // }
+    inputPanel.data = structuredClone(data);
 };
 
 inputPanel.customButtonClickHandler = (fun, cellId, currentState) => {
