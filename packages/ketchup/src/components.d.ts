@@ -22,7 +22,7 @@ import { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPaylo
 import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
-import { KupCellSubmitButtonPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
+import { KupCellElementsPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
@@ -80,7 +80,7 @@ export { KupCalendarColumnsProp, KupCalendarData, KupCalendarDateClickEventPaylo
 export { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 export { KupCardListClickEventPayload, KupCardListData } from "./components/kup-card-list/kup-card-list-declarations";
 export { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
-export { KupCellSubmitButtonPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
+export { KupCellElementsPosition, KupCellSubmitClickEventPayload } from "./components/kup-cell/kup-cell-declarations";
 export { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 export { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 export { KupChipChangeEventPayload, KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
@@ -971,7 +971,7 @@ export namespace Components {
         /**
           * Submit button position, default is right
          */
-        "submitPosition": KupCellSubmitButtonPosition;
+        "submitPosition": KupCellElementsPosition;
     }
     interface KupChart {
         /**
@@ -6606,7 +6606,7 @@ declare namespace LocalJSX {
         /**
           * Submit button position, default is right
          */
-        "submitPosition"?: KupCellSubmitButtonPosition;
+        "submitPosition"?: KupCellElementsPosition;
     }
     interface KupChart {
         /**

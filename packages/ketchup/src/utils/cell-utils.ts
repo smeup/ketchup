@@ -6,7 +6,8 @@ import {
     KupDataColumn,
 } from '../managers/kup-data/kup-data-declarations';
 import { KupDatesFormats } from '../managers/kup-dates/kup-dates-declarations';
-import { GenericObject, KupCellElementsPosition } from '../components';
+import { GenericObject } from '../components';
+import { KupCellElementsPosition } from '../components/kup-cell/kup-cell-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
