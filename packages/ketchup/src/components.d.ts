@@ -1799,6 +1799,11 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Set error message
+          * @default '''
+         */
+        "error": string;
+        /**
           * First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop
           * @default 1
          */
@@ -7379,6 +7384,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "disabled"?: boolean;
+        /**
+          * Set error message
+          * @default '''
+         */
+        "error"?: string;
         /**
           * First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop
           * @default 1
