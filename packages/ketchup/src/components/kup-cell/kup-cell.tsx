@@ -18,7 +18,7 @@ import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
     KupCellProps,
-    KupCellSubmitButtonPosition,
+    KupCellElementsPosition,
     KupCellSubmitClickEventPayload,
 } from './kup-cell-declarations';
 import {
@@ -39,6 +39,7 @@ import {
 } from '../../managers/kup-data/kup-data-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FCell } from '../../f-components/f-cell/f-cell';
+import { submitPositionAdapterMap } from '../../utils/cell-utils';
 
 @Component({
     tag: 'kup-cell',
@@ -84,8 +85,8 @@ export class KupCell {
     /**
      * Submit button position, default is right
      */
-    @Prop() submitPosition: KupCellSubmitButtonPosition =
-        KupCellSubmitButtonPosition.right;
+    @Prop() submitPosition: KupCellElementsPosition =
+        KupCellElementsPosition.right;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -275,16 +276,6 @@ export class KupCell {
             row: this.generateRow(),
         };
 
-        const submitPositionAdapterMap = new Map<
-            KupCellSubmitButtonPosition,
-            string
-        >([
-            [KupCellSubmitButtonPosition.top, 'column-reverse'],
-            [KupCellSubmitButtonPosition.bottom, 'column'],
-            [KupCellSubmitButtonPosition.left, 'row-reverse'],
-            [KupCellSubmitButtonPosition.right, 'row'],
-        ]);
-
         return (
             <Host>
                 <style>
@@ -295,13 +286,12 @@ export class KupCell {
                 <div
                     id={componentWrapperId}
                     style={
-                        this.showSubmit
+                        !this.showSubmit
                             ? {
                                   display: 'flex',
-                                  'flex-direction':
-                                      submitPositionAdapterMap.get(
-                                          this.submitPosition
-                                      ) ?? 'row',
+                                  'flex-direction': submitPositionAdapterMap(
+                                      this.submitPosition
+                                  ),
                                   'align-items': 'center',
                                   gap: '0.5rem',
                               }
@@ -309,7 +299,7 @@ export class KupCell {
                     }
                 >
                     <FCell {...props} />
-                    {this.showSubmit ? (
+                    {!this.showSubmit ? (
                         <FButton
                             buttonType="submit"
                             label={this.#kupManager.language.translate(

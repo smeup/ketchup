@@ -12,7 +12,7 @@ export enum KupCellProps {
     dragEnabled = 'When set to true, the component is draggable.',
 }
 
-export enum KupCellSubmitButtonPosition {
+export enum KupCellElementsPosition {
     top = 'top',
     bottom = 'bottom',
     left = 'left',
