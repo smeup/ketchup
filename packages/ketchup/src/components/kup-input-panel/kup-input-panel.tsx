@@ -782,19 +782,16 @@ export class KupInputPanel {
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
         const { data, ...noDataProps } = cell.data || {};
 
-        const ret =
-            cellType !== FCellTypes.MULTI_AUTOCOMPLETE &&
+        return cellType !== FCellTypes.MULTI_AUTOCOMPLETE &&
             cellType !== FCellTypes.MULTI_COMBOBOX
-                ? this.#deepObjectsMerge(defaultProps, {
-                      ...cell.data,
-                  })
-                : // Add and ovverride defaultProps of Chip host component except data
-                  {
-                      ...defaultProps,
-                      ...noDataProps,
-                  };
-        console.log('ret setData', ret);
-        return ret;
+            ? this.#deepObjectsMerge(defaultProps, {
+                  ...cell.data,
+              })
+            : // Add and ovverride defaultProps of Chip host component except data
+              {
+                  ...defaultProps,
+                  ...noDataProps,
+              };
     }
 
     #deepObjectsMerge(target: GenericObject, source: GenericObject) {
