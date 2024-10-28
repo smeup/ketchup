@@ -47,7 +47,7 @@ import {
     DataAdapterFn,
     InputPanelButtonClickHandler,
     InputPanelCells,
-    InputPanelCheckObjCallback,
+    InputPanelCheckValidObjCallback,
     InputPanelOptionsHandler,
     KupInputPanelCell,
     KupInputPanelColumn,
@@ -134,7 +134,7 @@ export class KupInputPanel {
      * Sets the callback function on blur input when checkObject is true
      * @default null
      */
-    @Prop() checkObjCallback?: InputPanelCheckObjCallback = null;
+    @Prop() checkValidObjCallback?: InputPanelCheckValidObjCallback = null;
     //#endregion
 
     //AGGIUNGI PROP INPUTPANELCHECKOBJECT PARAMETRI OBJ E FUN, RITORNA OGGETTO BOOLEAN
@@ -238,28 +238,6 @@ export class KupInputPanel {
         }
 
         this.#mapCells(this.data);
-    }
-
-    @Watch('inputPanelCells')
-    onTestChanged() {
-        console.log('siamo dentro di watch');
-        forceUpdate(this.data);
-        // this.#originalData = structuredClone(this.data);
-        // if (this.#listeners.length) {
-        //     this.#listeners.map(({ event, handler }) => {
-        //         this.rootElement.removeEventListener(event, handler);
-        //     });
-        //     this.#listeners = [];
-        // }
-
-        // if (this.#keysShortcut.length) {
-        //     this.#keysShortcut.map((key) => {
-        //         this.#kupManager.keysBinding.unregister(key);
-        //     });
-        //     this.#keysShortcut = [];
-        // }
-
-        // this.#mapCells(this.data);
     }
     //#endregion
 
@@ -1140,17 +1118,14 @@ export class KupInputPanel {
         _options: GenericObject,
         fieldLabel: string,
         _currentValue: string,
-        //input, passa la cella
         cell: KupInputPanelCell,
         id: string
     ) {
         if (cell.inputSetting.checkObject) {
-            console.log(name);
             return {
                 label: fieldLabel,
-                onBlur: (e) => {
-                    console.log('LOG DELL EVENTO :::', e);
-                    this.#checkObjOnBlur(cell, id);
+                onBlur: () => {
+                    this.#checkITXObjOnBlur(cell, id);
                 },
             };
         }
@@ -1433,58 +1408,38 @@ export class KupInputPanel {
         });
     }
 
-    #checkObjOnBlur(cell: KupInputPanelCell, id: string) {
-        // TODO: rename to checkValidObj
-        this.checkObjCallback(cell.obj, cell.fun).then((options) => {
-            console.log('CELLA :');
+    #checkITXObjOnBlur(cell: KupInputPanelCell, id: string) {
+        this.checkValidObjCallback({
+            obj: cell.obj,
+            currentState: this.#reverseMapCells(),
+            fun: cell.fun,
+        }).then(({ valid }) => {
+            // If it's not a valid object set the error message
+            if (!valid) {
+                this.inputPanelCells = this.inputPanelCells.map((cell) => ({
+                    ...cell,
+                    cells: cell.cells.map(({ cell, column }) => {
+                        // Setting the error on cell
+                        const data =
+                            column.name === id
+                                ? {
+                                      ...cell.data,
+                                      error: this.#kupManager.language.translate(
+                                          KupLanguageGeneric.INVALID_VALUE
+                                      ),
+                                  }
+                                : cell.data;
 
-            if (!options.valid) {
-                this.inputPanelCells = this.inputPanelCells.map((cell) => {
-                    const updatedCell = {
-                        ...cell,
-                        row: {
-                            ...cell.row,
-                            cells: {
-                                ...cell.row.cells,
-                                [id]: {
-                                    ...cell.row.cells[id],
-                                    data: { error: 'invalid' },
-                                },
+                        return {
+                            column,
+                            cell: {
+                                ...cell,
+                                data,
                             },
-                        },
-                    };
-                    return updatedCell;
-                });
-
-                this.data.rows = this.data.rows.map((value) => {
-                    value.cells[id] = {
-                        ...value.cells[id],
-                        data: { error: 'invalid' },
-                    };
-                    return value;
-                });
-
-                // map((cell) => {
-
-                //     cell.row.cells[id] = {
-                //         ...cell.row.cells.[id],
-                //         data: { error: 'invalid' },
-                //     };
-                //     return cell;
-                // });
-
-                // this.inputPanelCells.map((cell) => {
-                //     cell.row.cells[id] = {
-                //         ...cell.row.cells[id],
-                //         data: { error: 'invalid' },
-                //     };
-                //     return cell;
-                // });
-                console.log(this.inputPanelCells);
-                console.log('data log ::::');
-                console.log(this.data);
+                        };
+                    }),
+                }));
             }
-            // this.refresh();
         });
     }
 

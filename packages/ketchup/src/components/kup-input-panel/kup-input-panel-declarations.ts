@@ -128,14 +128,15 @@ export type InputPanelOptionsHandler = (
     cellId: string
 ) => Promise<GenericObject>;
 
-export type InputPanelCheckObjCallback = (
-    obj: KupObj,
-    fun?: string
-) => Promise<ValidCheckObjResponse>;
+export type InputPanelCheckValidObjCallback = (event: {
+    obj: KupObj;
+    currentState: KupInputPanelData;
+    fun?: string;
+}) => Promise<ValidCheckObjResponse>;
 
-export type ValidCheckObjResponse = {
+export interface ValidCheckObjResponse {
     valid: boolean;
-};
+}
 
 export type InputPanelButtonClickHandler = (event: {
     fun: string;
