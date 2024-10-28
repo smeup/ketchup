@@ -93,13 +93,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
     isEditable = isEditable && props.editable;
 
     if (cell.options) {
-        const cellData = mapData(cell);
-        cell.data = cellData
-            ? {
-                  ...cellData,
-                  ...cell.data,
-              }
-            : cell.data;
+        cell.data = mapData(cell, column) ?? cell.data;
     }
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
@@ -240,12 +234,12 @@ export const FCell: FunctionalComponent<FCellProps> = (
     );
 };
 
-const mapData = (cell: KupDataCellOptions) => {
+const mapData = (cell: KupDataCellOptions, column: KupDataColumn) => {
     if (!cell) {
         return null;
     }
     const options = cell.options;
-    const fieldLabel = cell.title;
+    const fieldLabel = column.title;
     const currentValue = cell.value;
     const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
     const dataAdapterMap = new Map<FCellTypes, DataAdapterFn>([
@@ -264,11 +258,20 @@ const mapData = (cell: KupDataCellOptions) => {
 };
 
 const MainCHIAdapter = (
-    _options: CellOptions[],
+    options: CellOptions[],
     _fieldLabel: string,
-    currentValue: string
+    _currentValue: string,
+    cell: KupInputPanelCell
 ) => {
-    return CHIAdapter(currentValue);
+    const newData = {
+        data: options?.length
+            ? options?.map((option) => ({
+                  id: option.id,
+                  value: option.value,
+              }))
+            : [],
+    };
+    cell.data = { ...cell.data, ...newData };
 };
 
 const MainObjectAdapter = (
