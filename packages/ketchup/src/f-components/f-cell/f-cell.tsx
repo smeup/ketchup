@@ -93,13 +93,7 @@ export const FCell: FunctionalComponent<FCellProps> = (
     isEditable = isEditable && props.editable;
 
     if (cell.options) {
-        const cellData = mapData(cell, column);
-        cell.data = cellData
-            ? {
-                  ...cellData,
-                  ...cell.data,
-              }
-            : cell.data;
+        cell.data = mapData(cell, column) ?? cell.data;
     }
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
@@ -264,11 +258,20 @@ const mapData = (cell: KupDataCellOptions, column: KupDataColumn) => {
 };
 
 const MainCHIAdapter = (
-    _options: CellOptions[],
+    options: CellOptions[],
     _fieldLabel: string,
-    currentValue: string
+    _currentValue: string,
+    cell: KupInputPanelCell
 ) => {
-    return CHIAdapter(currentValue);
+    const newData = {
+        data: options?.length
+            ? options?.map((option) => ({
+                  id: option.id,
+                  value: option.value,
+              }))
+            : [],
+    };
+    cell.data = { ...cell.data, ...newData };
 };
 
 const MainObjectAdapter = (
