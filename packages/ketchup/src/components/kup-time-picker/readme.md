@@ -11,6 +11,7 @@
 | `customStyle`     | `custom-style`      | Custom style of the component.                                  | `string`  | `''`    |
 | `data`            | --                  | Props of the sub-components (time input text field)             | `Object`  | `{}`    |
 | `disabled`        | `disabled`          | Defaults at false. When set to true, the component is disabled. | `boolean` | `false` |
+| `error`           | `error`             | Set error message                                               | `string`  | `''`    |
 | `initialValue`    | `initial-value`     | Sets the initial value of the component.                        | `string`  | `''`    |
 | `manageSeconds`   | `manage-seconds`    | Manage seconds.                                                 | `boolean` | `false` |
 | `timeMinutesStep` | `time-minutes-step` | Minutes step.                                                   | `number`  | `10`    |
