@@ -296,10 +296,10 @@ export const CHIAdapter = (value: string) => ({
 
 export const submitPositionAdapter = (position: KupCellElementsPosition) => {
     const positionAdapterMap = new Map<KupCellElementsPosition, string>([
-        [KupCellElementsPosition.top, 'column'],
-        [KupCellElementsPosition.bottom, 'column-reverse'],
-        [KupCellElementsPosition.left, 'row'],
-        [KupCellElementsPosition.right, 'row-reverse'],
+        [KupCellElementsPosition.top, 'column-reverse'],
+        [KupCellElementsPosition.bottom, 'column'],
+        [KupCellElementsPosition.left, 'row-reverse'],
+        [KupCellElementsPosition.right, 'row'],
     ]);
 
     const buttonPosition = positionAdapterMap.get(position);
