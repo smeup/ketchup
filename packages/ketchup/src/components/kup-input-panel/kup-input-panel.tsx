@@ -137,8 +137,6 @@ export class KupInputPanel {
     @Prop() checkValidObjCallback?: InputPanelCheckValidObjCallback = null;
     //#endregion
 
-    //AGGIUNGI PROP INPUTPANELCHECKOBJECT PARAMETRI OBJ E FUN, RITORNA OGGETTO BOOLEAN
-
     //#region STATES
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -185,7 +183,6 @@ export class KupInputPanel {
             FCellTypes.MULTI_AUTOCOMPLETE,
             ['kup-autocomplete-input', 'kup-autocomplete-iconclick'],
         ],
-        // TODO : servira per la combobox, questo e il blur
         [FCellTypes.COMBOBOX, ['kup-combobox-iconclick', 'kup-combobox-blur']],
         [FCellTypes.MULTI_COMBOBOX, ['kup-combobox-iconclick']],
     ]);
@@ -1052,31 +1049,6 @@ export class KupInputPanel {
         } else if (rawOptions) {
             configCMandACP.data['kup-list'].data =
                 this.#optionsTreeComboAdapter(rawOptions, currentValue);
-            // TODO : da portare fuori dall'esle dopo aver sistemato la checkObjOnBlur
-            // const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
-
-            // const evNames = this.#eventNames.get(cellType);
-
-            // evNames.map((evName) => {
-            //     let handler: (
-            //         e: CustomEvent<KupAutocompleteEventPayload>
-            //     ) => void;
-            //     console.log('LOG evNAME:', evName, cell);
-            //     if (
-            //         evName === 'kup-combobox-blur' &&
-            //         cell.inputSetting.checkObject
-            //     ) {
-            //         console.log('IF EN BLUR');
-
-            //         handler = () => this.#checkObjOnBlur(cell, id);
-
-            //         this.rootElement.addEventListener(evName, handler);
-            //         this.#listeners.push({
-            //             event: evName,
-            //             handler,
-            //         });
-            //     }
-            // });
         }
 
         return configCMandACP;
