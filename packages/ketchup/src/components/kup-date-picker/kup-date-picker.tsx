@@ -109,6 +109,11 @@ export class KupDatePicker {
      * @default true
      */
     @Prop() showPreviousNextMonthDays: boolean = true;
+    /**
+     * Set error message
+     * @default '''
+     */
+    @Prop() error: string = '';
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -530,6 +535,7 @@ export class KupDatePicker {
             sizing: this.sizing,
             outlined: this.outlined,
             showIcon: this.showIcon,
+            error: this.error,
         };
         if (!textfieldData.icon && this.showIcon) {
             textfieldData.icon = 'calendar';

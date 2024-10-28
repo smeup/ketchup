@@ -1799,6 +1799,11 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Set error message
+          * @default '''
+         */
+        "error": string;
+        /**
           * First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop
           * @default 1
          */
@@ -4178,6 +4183,11 @@ export namespace Components {
           * @default false
          */
         "disabled": boolean;
+        /**
+          * Set error message
+          * @default '''
+         */
+        "error": string;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -7380,6 +7390,11 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Set error message
+          * @default '''
+         */
+        "error"?: string;
+        /**
           * First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop
           * @default 1
          */
@@ -9363,6 +9378,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "disabled"?: boolean;
+        /**
+          * Set error message
+          * @default '''
+         */
+        "error"?: string;
         /**
           * Sets the initial value of the component.
           * @default ""

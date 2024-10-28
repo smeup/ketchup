@@ -93,7 +93,13 @@ export const FCell: FunctionalComponent<FCellProps> = (
     isEditable = isEditable && props.editable;
 
     if (cell.options) {
-        cell.data = mapData(cell) ?? cell.data;
+        const cellData = mapData(cell);
+        cell.data = cellData
+            ? {
+                  ...cellData,
+                  ...cell.data,
+              }
+            : cell.data;
     }
 
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
@@ -610,6 +616,7 @@ function setEditableCell(
                         fullWidth={true}
                         slot="field"
                         {...cell.slotData}
+                        error={cell.data.error}
                     ></kup-text-field>
                 </kup-chip>
             );
@@ -690,6 +697,7 @@ function setEditableCell(
                         }
                         showDropDownIcon={false}
                         {...cell.slotData}
+                        error={cell.data.error}
                     ></kup-autocomplete>
                 </kup-chip>
             );
@@ -723,6 +731,7 @@ function setEditableCell(
                             )
                         }
                         {...cell.slotData}
+                        error={cell.data.error}
                     ></kup-combobox>
                 </kup-chip>
             );
