@@ -1059,8 +1059,8 @@ export class KupInputPanel {
                 this.#optionsTreeComboAdapter(rawOptions, currentValue);
         }
 
-        if (cell.inputSetting.checkObject) {
-            this.#checkCMBandACPObj(cell.shape, cell.obj, cell.fun);
+        if (cell.inputSettings?.checkObject) {
+            this.#checkObjOnEvent(cell.shape, cell.obj, cell.fun);
         }
 
         return configCMandACP;
@@ -1105,7 +1105,7 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        if (cell.inputSetting.checkObject) {
+        if (cell.inputSettings?.checkObject) {
             return {
                 label: fieldLabel,
                 onBlur: () => {
@@ -1427,7 +1427,7 @@ export class KupInputPanel {
         });
     }
 
-    #checkCMBandACPObj(shape: FCellShapes, obj: KupObj, fun: string) {
+    #checkObjOnEvent(shape: FCellShapes, obj: KupObj, fun: string) {
         const evName = this.#eventBlurNames.get(shape);
 
         if (!evName) {

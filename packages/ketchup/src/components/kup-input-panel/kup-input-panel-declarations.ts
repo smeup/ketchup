@@ -44,7 +44,7 @@ export interface KupInputPanelCell extends KupDataCell {
     options?: GenericObject | GenericObject[];
     editable?: boolean;
     mandatory?: boolean;
-    inputSetting?: GenericObject;
+    inputSettings?: GenericObject;
     fun?: string;
 }
 
